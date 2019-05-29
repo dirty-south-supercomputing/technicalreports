@@ -19,7 +19,7 @@ bibencoding=utf8,
 \rhead{DSSCAW Technical Report \#002}
 
 \title{$\mu$nandfs:\\
-A NAND Filesystem for Embedded Platforms\thanks{
+A NAND Blobstore for Memory-Starved Platforms\thanks{
  \href{https://www.dsscaw.com/}{Dirty South Supercomputing} on behalf
  of \href{https://www.vakaros.com/}{Vakaros} of Atlanta, GA.
 }\\
@@ -35,13 +35,13 @@ A NAND Filesystem for Embedded Platforms\thanks{
 \thispagestyle{fancy}
 \date{}
 \begin{abstract}
-\setlength{\parindent}{0pt}
-mapping names to arbitrary data---i.e. a single-directory filesystem, often called a
-\textit{blobstore}---using the Nordic Semiconductor nRF52840 and two Winbond
-W25N01GV gigabit SLC NAND chips, along with necessary drivers. The requirements permitted 4KB of RAM,
-permitted 4KB of RAM, allowed no use of other persistent storage, and mandated
-a fully asynchronous API running on ``bare metal'' (no OS, realtime or
-otherwise). I detail my
+I was tasked with designing and implementing a persistent associative array
+mapping names to arbitrary data---i.e. a single-directory filesystem, often
+called a \textit{blobstore}---using the Nordic Semiconductor nRF52840 and two
+Winbond W25N01GV gigabit SLC NAND chips. The contract also required necessary
+QSPI drivers. The requirements permitted 4KB of RAM, permitted 4KB of RAM,
+allowed no use of other persistent storage, and mandated a fully asynchronous
+API running on ``bare metal'' (no OS, realtime or otherwise). I detail my
 resulting deliverable, $\mu$nandfs, and demonstrate its generally performant
 and robust fulfillment of these specs. I also describe its pathological worst
 case behaviors.
