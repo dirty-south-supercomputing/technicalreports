@@ -3,7 +3,7 @@
 .DEFAULT_GOAL:=preview
 
 UNANDFS:=μnandfs
-LATEX:=pdflatex
+LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
@@ -19,6 +19,7 @@ RESOURCES:=
 $(UNANDFS).pdf: $(UNANDFS).tex $(UNANDFS).bib $(RESOURCES)
 	$(LATEX) $<
 	$(BIBTEX) $(basename $@)
+	$(LATEX) $<
 	$(LATEX) $<
 
 clean:

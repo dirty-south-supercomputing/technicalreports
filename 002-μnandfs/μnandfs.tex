@@ -4,10 +4,14 @@
 \usepackage{graphicx}
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{xeCJK}
 \usepackage[backend=biber,
 date=iso,
 seconds=true,
 style=numeric,
+bibencoding=utf8,
 ]{biblatex}
 \addbibresource{\jobname.bib}
 
@@ -32,18 +36,29 @@ A NAND Filesystem for Embedded Platforms\thanks{
 \date{}
 \begin{abstract}
 \setlength{\parindent}{0pt}
-I was tasked with designing and implementing a persistent associative array
-mapping names to arbitrary data\footnote{I.e. a single-directory filesystem, often called a \textit{blobstore}.}
-using the Nordic Semiconductor nRF52840 and two Winbond W25N01GV gigabit SLC
-NAND chips, along with necessary drivers. The requirements permitted 4KB of RAM,
-allowed no use of other persistent storage, and mandated a fully asynchronous
-API running on ``bare metal'' (no OS, realtime or otherwise). I detail my
-resulting design, and demonstrate its generally performant and robust
-fulfillment of these specs. I also describe its pathological worst case
-behaviors.
+mapping names to arbitrary data---i.e. a single-directory filesystem, often called a
+\textit{blobstore}---using the Nordic Semiconductor nRF52840 and two Winbond
+W25N01GV gigabit SLC NAND chips, along with necessary drivers. The requirements permitted 4KB of RAM,
+permitted 4KB of RAM, allowed no use of other persistent storage, and mandated
+a fully asynchronous API running on ``bare metal'' (no OS, realtime or
+otherwise). I detail my
+resulting deliverable, $\mu$nandfs, and demonstrate its generally performant
+and robust fulfillment of these specs. I also describe its pathological worst
+case behaviors.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
+NOR flash and 256KB of RAM, along with a wealth of interconnection
+capabilities. This storage is shared with the ``S140
+SoftDevice''\parencite{s140}, a closed-source BlueTooth stack, which consumes
+slightly more than 100KB of RAM and significant flash. One QSPI and three SPI
+masters are available, and can be clocked up to 32MHz. Two Winbond W25N01GV\parencite{winbond}
+128MB NAND flashes were added to the PCB, each capable of QSPI at up to 104MHz.
+Nordic's nRF5 SDK\parencite{nrf52sdk} version 15.3.0 was linked into our binary,
+and the DUT was probed via 10-pin J-Link\parencite{segger} connection from
+an nRF52-DK\parencite{nrf52dk}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
 \end{document}
