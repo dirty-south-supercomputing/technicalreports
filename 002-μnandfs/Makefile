@@ -3,7 +3,7 @@
 .DEFAULT_GOAL:=preview
 
 UNANDFS:=μnandfs
-LATEX:=pdflatex
+LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
