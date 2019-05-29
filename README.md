@@ -1,9 +1,9 @@
 # Dirty South Supercomputing Technical Reports
 
-Imagining ourselves to be some kinds of academic or who knows what, we at DSSCAW
-endeavor to produce quality writeups of various projects with which we are involved.
-Papers are only released if permission is given by our clients, but they are not
-allowed editorial control.
+Imagining ourselves to be some kinds of academic or who knows what, DSSCAW
+endeavors to produce quality writeups of various projects with which we are
+involved. Papers are only released if permission is given by our clients, but
+they are not allowed editorial control.
 
 The Makefile generates one PDF per paper. I'm most recently using
 [XƎTEX](https://tug.org/xetex/) 3.14159265 and
