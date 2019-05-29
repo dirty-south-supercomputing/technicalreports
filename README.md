@@ -2,7 +2,7 @@
 
 Imagining myself to be some kind of academic or who knows what, I try to
 produce quality writeups of various projects with which I am involved. I only
-write if permission is given by the client, and do not allow the client
+write if permission is given by my client, though I do not allow the client
 editorial control.
 
 | № | Paper | Topic | Client | Release |
