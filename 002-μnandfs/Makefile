@@ -20,6 +20,7 @@ $(UNANDFS).pdf: $(UNANDFS).tex $(UNANDFS).bib $(RESOURCES)
 	$(LATEX) $<
 	$(BIBTEX) $(basename $@)
 	$(LATEX) $<
+	$(LATEX) $<
 
 clean:
 	rm -rf $(wildcard *.aux) $(wildcard *.bbl) $(wildcard *.bcf) $(wildcard *.blg)
