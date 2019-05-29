@@ -8,6 +8,7 @@
 date=iso,
 seconds=true,
 style=numeric,
+bibencoding=utf8,
 ]{biblatex}
 \addbibresource{\jobname.bib}
 
@@ -32,9 +33,24 @@ A NAND Filesystem for Embedded Platforms\thanks{
 \date{}
 \begin{abstract}
 \setlength{\parindent}{0pt}
+I was tasked with designing and implementing a persistent associative array
+mapping names to arbitrary data\footnote{I.e. a single-directory filesystem, often called a \textit{blobstore}.}
+using the Nordic Semiconductor nRF52840 and two Winbond W25N01GV gigabit SLC
+NAND chips, along with necessary drivers. The requirements permitted 4KB of RAM,
+allowed no use of other persistent storage, and mandated a fully asynchronous
+API running on ``bare metal'' (no OS, realtime or otherwise). I detail my
+resulting design, and demonstrate its generally performant and robust
+fulfillment of these specs. I also describe its pathological worst case
+behaviors.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
+NOR flash and 256KB of RAM, along with a wealth of interconnection
+capabilities. This storage is shared with the ``S140
+SoftDevice''\parencite{s140}, a closed-source BlueTooth stack, which consumes
+a bit more than 100KB.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
 \end{document}
