@@ -6,9 +6,9 @@ Papers are only released if permission is given by our clients, but they are not
 allowed editorial control.
 
 The Makefile generates one PDF per paper. I'm most recently using
-[pdfTeX](https://www.tug.org/applications/pdftex/) 3.14159265 and
+[XƎTEX](https://tug.org/xetex/) 3.14159265 and
 [Biber](http://biblatex-biber.sourceforge.net/) 2.12. Most images
-have had some degree of processing through the [GIMP](https://www.gimp.org/).
+have had some degree of processing through the [GIMP](https://www.gimp.org/) 2.x.
 
 | № | Paper | Topic | Client | Release |
 |---|-------|-------|--------|---------|
