@@ -1,0 +1,40 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[justification=centering,font=small,labelfont=bf]{caption}
+\usepackage{fancyhdr}
+\usepackage[backend=biber,
+date=iso,
+seconds=true,
+style=numeric,
+]{biblatex}
+\addbibresource{\jobname.bib}
+
+\pagestyle{fancy}
+\rhead{DSSCAW Technical Report \#002}
+
+\title{$\mu$nandfs:\\
+A NAND Filesystem for Embedded Platforms\thanks{
+ \href{https://www.dsscaw.com/}{Dirty South Supercomputing} on behalf
+ of \href{https://www.vakaros.com/}{Vakaros} of Atlanta, GA.
+}\\
+}
+\author{Nick Black, Consulting Scientist\\
+\texttt{nickblack@linux.com}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\thispagestyle{fancy}
+\date{}
+\begin{abstract}
+\setlength{\parindent}{0pt}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+\end{document}
