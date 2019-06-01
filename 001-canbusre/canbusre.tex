@@ -1,0 +1,42 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[justification=centering,font=small,labelfont=bf]{caption}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage[backend=biber,
+date=iso,
+seconds=true,
+style=numeric,
+bibencoding=utf8,
+]{biblatex}
+\addbibresource{\jobname.bib}
+
+\pagestyle{fancy}
+\rhead{DSSCAW Technical Report \#NUMBER}
+
+\title{CATCHYTITLE\\
+TECHYTITLE\thanks{
+ \href{https://www.dsscaw.com/}{Dirty South Supercomputing} on behalf
+ of \href{WEBSITE}{CLIENT} of CLIENTLOCATION.
+}\\
+}
+\author{Nick Black, Consulting Scientist\\
+\texttt{nickblack@linux.com}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\thispagestyle{fancy}
+\date{}
+\begin{abstract}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+\end{document}
