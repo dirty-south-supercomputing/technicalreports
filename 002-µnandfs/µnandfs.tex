@@ -227,7 +227,9 @@ filesystem (by virtue of having previously been fed together to
 If {\texttt{Init}} is able to recognize the devices, it calls back with
 success, and the object can be used until a call to {\texttt{Reset}}.
 
-The primary handle provided to callers is the {\texttt{blob\_t}}. This 32-bit
+The primary handle provided to callers is the {\texttt{blob\_t}}\footnote{We encode
+all handle state in the \texttt{blob\_t}, held by the client. ``File descriptors''
+imply indices into space proportional to the number of open handles, a luxury we're not afforded.}. This 32-bit
 word is opaque to callers except through the following two functions:
 
 \begin{listing}[ht]
@@ -345,15 +347,54 @@ metadata pages; in the worst case, where a blob has grown fat off partial
 writes, this could again require reading every metadata page (see
 Section \ref{futurework} for plans on improving this linear behavior on reads).
 
+\texttt{BLOB\_NAME\_MAXLEN} is derived from filesystem internals, as we shall
+now see.
+
 \section{Filesystem design}
-%I knew I wanted to
-%march purely forward writing within a chip---i.e., in addition to the mandatory
-%in-order programming of pages, I hoped to erase blocks in order, with no special
-%meaning for any given block. Any such scheme is guaranteed perfectly uniform
-%wear leveling, and should require minimal state. I knew I needed to
-%provide at least a few dozen bytes' worth of name per blob. I considered
-%compression, and rejected it. I knew that any frequently-changing state
-%couldn't be persisted without either redundancy or special-purpose blocks.
+I knew I wanted to provide at least a few dozen bytes' worth of name per blob.
+I knew 16 bits of blob length were too little, and 32 bits too much.
+I considered metadata compression, and said ``no'' to madness.
+
+I knew I wanted to march purely forward writing within a chip---i.e., in
+addition to the mandatory in-order programming of pages, I hoped to erase
+blocks in order, with no special meaning for any given block. Any such scheme
+is guaranteed perfectly uniform wear leveling, and should require minimal state
+(I knew that any frequently-changing state couldn't be persisted without either
+redundancy or special-purpose blocks). I considered bundling metadata with
+data. Such a scheme would be very flexible; I could write the metadata length
+and true length into the Spare Area, grow the data up from the bottom and the
+metadata down from the top, and have type-tagged metadata tuned to the particular
+blob. I could even pack multiple small blobs into a single page. Unless I
+wanted to buffer data across calls there was no way for a caller to know how
+much data to optimally pass with variable-length, in-page metadata. Buffering
+would require RAM linear with the number of incomplete writes, though, so it
+was out. Metadata and data would live on different pages, and I'd burn my
+allotted 2KB building up the next metadata page in memory.
+
+A problem presented itself, however: how would I determine state on
+initialization? As noted above, if I persisted my state
+to a known location, those locations would see significant wear. Under the
+mixed pages plan, every page had identifiable metadata, and that metadata could
+carry a decreasing nonce. Find the discontinuity in nonces, and you've found
+your active page (more on this momentarily). By placing metadata pages at the
+32nd and 64th page of each block, nonces can be recorded in these pages only, and
+the same O(lgN) algorithm performed (on 1/32 as many pages). I call these
+32-page regions \textit{zones}. This yielded up a natural 64-byte fixed inode
+size for each of the 31 previous pages, plus 64 bytes for zone metadata. Three
+bytes were dedicated to ``blob length through this inode'', two bytes to
+``previous data page'' (the data page governed by an inode can be derived in
+O(1)\footnote{Metadata page index - 32 + inode index within page.}, as can the
+inode corresponding to a data
+page\footnote{Page index and ~0x1fu + 32, inode number page index mod 32.}),
+and one byte to a status bitfield. The remaining 58 bytes became
+\texttt{BLOB\_NAME\_MAXLEN}\footnote{Metadata placed flexibly, only when
+  appropriate for recent I/O, could be more efficient than periodic metadata
+  with a fixed inode size (fewer pages used for metadata, fewer pages needing
+  reading to describe a given file). Metadata and arbitrary data pages can be
+  differentiated via a single bit in the Spare Area. Finding the metadata page
+  describing a given data page becomes O(lgN) as opposed to O(1).}.
+
+\subsection{Initialization algorithm}
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
