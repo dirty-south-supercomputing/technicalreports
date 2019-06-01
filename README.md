@@ -7,8 +7,8 @@ they are not allowed editorial control.
 
 The Makefile generates one PDF per paper. I'm most recently using
 [XƎTEX](https://tug.org/xetex/) 3.14159265 and
-[Biber](http://biblatex-biber.sourceforge.net/) 2.12. Most images
-have had some degree of processing through the [GIMP](https://www.gimp.org/) 2.x.
+[Biber](http://biblatex-biber.sourceforge.net/) 2.12. Diagrams are usually [Graphviz](https://www.graphviz.org/) 2.40.1.
+Most images have had some degree of processing through the [GIMP](https://www.gimp.org/) 2.x.
 
 | № | Paper | Topic | Client | Release |
 |---|-------|-------|--------|---------|
