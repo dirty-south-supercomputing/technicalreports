@@ -1,0 +1,17 @@
+digraph FindBlob {
+    rankdir=LR;
+    label="All states can call back with error.";
+    node [shape = doublecircle]; FindBlobFinal;
+    node [shape = point ]; qi
+
+    node [shape = circle];
+    qi -> FindBlob;
+    FindBlob -> FindBlobFinal [ label = "found in metadata" ];
+    FindBlob -> FindBlobBottom [ label = "readPage(m)" ];
+    FindBlobBottom -> FindBlobFinal [ label = "found in metadata" ];
+    FindBlobBottom -> FindBlobFinal [ label = "exhausted metadata" ];
+    FindBlobBottom -> FindBlobBottom [ label = "readPage(m)" ];
+    FindBlobFinal -> FlushZone  [ label = "metadata full" ] ;
+    FlushZone -> FindBlobFinal [ label = "asymptotic copy branch" ] ;
+    
+}

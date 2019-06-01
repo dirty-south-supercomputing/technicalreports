@@ -6,7 +6,7 @@ CANBUSBASE:=canbusre
 CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSBASE:=µnandfs
 µNANDFSDIR:=002-$(µNANDFSBASE)
-µNANDFSRESOURCES:=combined.png metadata.png metapage.png inode.png
+µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob FSM Initialize FindBlob)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
