@@ -59,15 +59,19 @@ two W25N01GV NANDs, plus any necessary drivers, plus an entirely asynchronous
 C++ API, in as little RAM as possible''. Refinement of these requirements
 determined that:
 \begin{denseitemize}
-\item Most files would be quite small (on the order of 1KB), and a few files
-       would be large (on the order of multiple megabytes).
-\item It was not thought necessary to have directories, nor symlinks.
-\item It must be possible to remove files, reclaiming their space.
+\item Most files would be on the order of 1KB, with a few files
+       on the order of tens of megabytes. These larger files would grow
+       over time, via substantial (page-sized) appends.
+\item It was not thought necessary to have directories, nor sym- or hardlinks,
+       but it must be possible to remove files, reclaiming both their space and
+       name.
 \item It must be possible to have multiple files open at once, but it is not
        necessary that a single file support multiple open handles.
 \item No more than 4KB of RAM was to be consumed, and ideally persistent use
        would be not more than 2KB. Callers, however, could be required to supply
        an additional 2KB for the duration of their call.
+\item Wear-leveling must be as close to uniform as possible. Ideally, no block
+       would be erased two times more than any other block.
 \end{denseitemize}
 
 The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
