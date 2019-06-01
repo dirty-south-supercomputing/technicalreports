@@ -400,8 +400,9 @@ We define a few useful functions before proceeding:
 constexpr size_t INODE_SIZE = 64;
 static_assert(NAND_PAGE_DATABYTES % INODE_SIZE == 0);
 constexpr auto PAGES_PER_ZONE = NAND_PAGE_DATABYTES / INODE_SIZE;
-static_assert(PAGES_PER_ZONE > 1);
+static_assert(PAGES_PER_ZONE > 1 && ((PAGES_PER_ZONE & (PAGES_PER_ZONE - 1)) == 0);
 constexpr auto DATA_PAGES_PER_ZONE = PAGES_PER_ZONE - 1;
+constexpr auto LAST_METADATA_PAGE = NAND_BLOCK_COUNT - 1;
 
 static inline unsigned // Given a raw page, return its associated metadata page and zidx
 MetadataForPage(unsigned pidx, unsigned* zidx) {
@@ -413,19 +414,19 @@ MetadataForPage(unsigned pidx, unsigned* zidx) {
 
 static inline unsigned // Given a metadata page and inode number, return described page
 PageMetadataOwns(unsigned pidx, unsigned zidx) {
-  reutrn pidx - DATA_PAGES_PER_ZONE + zidx;
+  return (pidx & ~DATA_PAGES_PER_ZONE) + zidx;
 }
 
 static inline unsigned // Return metadata page of next zone
 NextMetadataPage(unsigned pidx) {
   pidx = MetadataForPage(pidx, nullptr);
-  return (pidx == 0xffffu) ? DATA_PAGES_PER_ZONE : pidx + PAGES_PER_ZONE;
+  return (pidx == LAST_METADATA_PAGE) ? DATA_PAGES_PER_ZONE : pidx + PAGES_PER_ZONE;
 }
 
 static inline unsigned // Return metatdata page of previous zone
 PrevMetadataPage(unsigned pidx) {
   pidx = MetadataForPage(pidx, nullptr);
-  return (pidx == DATA_PAGES_PER_ZONE) ? 0xffffu : pidx - PAGES_PER_ZONE;
+  return (pidx == DATA_PAGES_PER_ZONE) ? LAST_METADATA_PAGE : pidx - PAGES_PER_ZONE;
 }
 \end{minted}
 \end{listing}
