@@ -458,7 +458,9 @@ each \texttt{blob\_t} are thus used to encode its origin epoch, i.e. the epoch
 at the time of \texttt{OpenBlob}. If a \texttt{blob\_t} is handed to us with
 our epoch, there's no way it's been moved. Otherwise, it has been moved zero or
 more times; this can be computed in O(1), and applied to the incoming physical
-location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}.
+location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}. This
+method also effects perfect \textit{data scrubbing}\parencite{management},
+the most effective solution for retention errors.
 
 \subsection{Initialization algorithm}
 Knowing that freshly-formatted or otherwise erased blocks are all 1s, and
