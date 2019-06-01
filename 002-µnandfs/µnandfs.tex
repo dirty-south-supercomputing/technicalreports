@@ -223,9 +223,15 @@ filesystem (by virtue of having previously been fed together to
 If {\texttt{Init}} is able to recognize the devices, it calls back with
 success, and the object can be used until a call to {\texttt{Reset}}.
 
-The primary handle provided to callers is the {\texttt{blob\_t}}\footnote{We encode
-all handle state in the \texttt{blob\_t}, held by the client. ``File descriptors''
-imply indices into space proportional to the number of open handles, a luxury we're not afforded.}.
+Functions will generally return {\texttt{BLOBD\_EINPROGRESS}}, and call back
+asynchronously with the true handle. Callers must be prepared for an immediate
+return, however, in which case no callback will be invoked. The proper idiom
+is thus typically to invoke the function, check if the result is
+{\texttt{BLOBD\_EINPROGRESS}}, and if not, directly invoke the callback
+from the original callsite. The primary handle provided to callers is the
+{\texttt{blob\_t}}\footnote{We encode all handle state in the \texttt{blob\_t},
+  held by the client. ``File descriptors'' imply indices into space
+  proportional to the number of open handles, a luxury we're not afforded.}.
 This 64-bit value is opaque to callers except through the following two
 functions:
 
@@ -268,13 +274,6 @@ static inline const char* BlobStrerror(blob_t res) {
 }
 \end{minted}
 \end{listing}
-
-Functions will generally return {\texttt{BLOBD\_EINPROGRESS}}, and call back
-asynchronously with the true handle. Callers must be prepared for an immediate
-return, however, in which case no callback will be invoked. The proper idiom
-is thus typically to invoke the function, check if the result is
-{\texttt{BLOBD\_EINPROGRESS}}, and if not, directly invoke the callback
-from the original callsite.
 
 {\texttt{OpenBlob}} searches for the specified name, and then functions according
 to the provided flags. If {\texttt{BLOB\_CREAT}} is provided, the blob will be
