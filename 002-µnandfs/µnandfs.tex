@@ -515,6 +515,11 @@ of the three were current, one of three cases is true:
 \item \textit{Anything else.} Oh no look no, bad metadata, abandon ship.
 \end{denseitemize}
 
+\begin{center}
+\includegraphics[width=1\linewidth]{Initialize.png}
+\captionof{figure}{\texttt{Initialize} state machine}
+\end{center}
+
 \subsection{Name lookup and fast name operations}
 \textbf{-------------DETAIL NAME LOOKUP STATE MACHINE------------}
 
@@ -528,11 +533,6 @@ provoking a block rescue. \texttt{ReplaceNamedBlob} invokes \texttt{ExtendBlob}
 with the result.
 
 \subsection{Reading and extending blobs}
-\begin{center}
-\includegraphics[width=1\linewidth]{ReadBlob.png}
-\captionof{figure}{\texttt{ReadBlob} state machine}
-\end{center}
-
 \textbf{-------------DETAIL THESE STATE MACHINES------------}
 
 \begin{center}
@@ -540,13 +540,14 @@ with the result.
 \captionof{figure}{\texttt{ExtendBlob} state machine}
 \end{center}
 
+\begin{center}
+\includegraphics[width=.5\linewidth]{ReadBlob.png}
+\includegraphics[width=.4\linewidth]{FSM.png}
+\captionof{figure}{\texttt{ReadBlob}, \texttt{Format}, \texttt{Fsck}, and \texttt{Sync} state machines}
+\end{center}
+
 \subsection{Irregular operations}
 \textbf{-------------DETAIL THESE STATE MACHINES------------}
-
-\begin{center}
-\includegraphics[width=1\linewidth]{FSM.png}
-\captionof{figure}{\texttt{Format}, \texttt{Fsck}, and \texttt{Sync} state machines}
-\end{center}
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
