@@ -62,16 +62,18 @@ determined that:
 \item Most files would be on the order of 1KB, with a few files
        on the order of tens of megabytes. These larger files would grow
        over time, via substantial (page-sized) appends.
-\item It was not thought necessary to have directories, nor sym- or hardlinks,
-       but it must be possible to remove files, reclaiming both their space and
+\item It was not thought necessary to have directories, nor links either hard
+       or symbolic, but it must be possible to remove files, reclaiming both their space and
        name.
 \item It must be possible to have multiple files open at once, but it is not
-       necessary that a single file support multiple open handles.
-\item No more than 4KB of RAM was to be consumed, and ideally persistent use
-       would be not more than 2KB. Callers, however, could be required to supply
-       an additional 2KB for the duration of their call.
+       necessary that a single file support multiple open handles. Writing
+       to a file need not be visible to an existing reader.
+\item No more than 4KB of RAM was to be consumed, and ideally not more than 2KB
+       would be persistently consumed. Callers could be required to supply
+       an additional 2KB for the duration of their operation.
 \item Wear-leveling must be as close to uniform as possible. Ideally, no block
-       would be erased two times more than any other block.
+       would be erased two times more than any other block. Robustness in
+       general is at a premium.
 \end{denseitemize}
 
 The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
@@ -82,7 +84,7 @@ slightly more than 100KB of RAM and significant flash.
 Two Winbond W25N01GV\parencite{winbond}
 128MB NANDs, each capable of QSPI at up to 104MHz, were added to the PCB.
 One QSPI and three SPI masters are available, each clocked at 32MHz (ignoring
-overhead, 32MHz QSPI moves 16MB/s, and SPI 4MB/s). Nordic's nRF5 SDK\parencite{nrf52sdk}
+overhead, 32MHz QSPI moves an ideal 16MB/s, SPI a respectable 4MB/s). Nordic's nRF5 SDK\parencite{nrf52sdk}
 version 15.3.0 was linked into our binary, and the DUT was probed via 10-pin
 J-Link\parencite{segger} connection from an nRF52-DK\parencite{nrf52dk}.
 
@@ -91,29 +93,53 @@ J-Link\parencite{segger} connection from an nRF52-DK\parencite{nrf52dk}.
 NAND flash---typically packaged as a collection of chips, and often managed via
 an on-board controller---makes up the majority of modern solid state drives,
 flash drives, and memory cards. It is cheaper and denser than NOR flash\footnote{This goes double for EEPROMs.},
-and faster than spinning disk\footnote{NAND is denser than some hard disk
-technologies, but not all.}, but typically less reliable than either, and there
-are severe constraints on how it can be used. A chip of NAND flash is divided
+and faster than spinning disk, but typically less reliable than either. There
+are severe constraints on how it can be used: a chip of NAND flash is divided
 into some number of blocks, which are themselves divided into pages. Erasing
 a block changes all bits within to 1s\footnote{Nothing about the NAND memory
 cell itself---floating-gate MOSFETs connected in series---requires large-scale
 operations. Larger blocks mean faster operations (per bit), cheaper chips, and
 less power draw. They also intensify errors, and of course reduce flexibility.}.
 Data can be written a page at a time within a block, but usually only in
-ascending page order. Data can be read a page at a time from anywhere within
-the block, but reading a page too many times can upset data in an adjacent
-page (a ``read disturb'').
-
-SLC NAND flash stores one bit per
-cell, and blocks can be erased on the order of $100\,000$ times. MLC and TLC
-variants encode more bits per cell, and can be reliably erased far fewer times. They
-also tend to be slower, and to require more ECC bits per data bit.
+ascending page order---out-of-order page programming can upset data in adjacent
+wordlines (a ``program interference``)\parencite{interference}. Data can be read a page at a time from
+anywhere within the block, but reading a page too many times can upset data in
+an adjacent page (a ``read disturb''). SLC NAND flash stores one bit per
+cell, and blocks can be erased on the order of $10^5$ times. MLC and TLC
+variants encode more bits per cell, and can be reliably erased far fewer times
+(they also tend to be slower, and to require more ECC bits per data bit). As a block
+wears out, programming time will decrease, while erase latency increases\parencite{needtoknow}.
+Finally, it is common for MLC and TLC NAND to exhibit ``fast pages'' and ``slow
+pages'', but this arises from the distribution of bits within a multilevel cell
+to different pages, and thus does not affect SLC NAND\parencite{anomalies} such
+as our Winbond.
 
 \subsection{Details of the Winbond W25N01GV}
+The W25N01GVxxIG/IT\footnote{The ``xx'' is a package code, one of ZE (WSON), SF (SOIC),
+or TB/TC (TFBGA). IG/IT differentiates between devices which reset into ``continuous mode''
+or ``buffered mode''. We always use the (default) buffered mode on our IGs.} is
+organized as $2^{10}$ blocks of $2^6$ 2KB pages each ($2^{17}$ bytes per block), for
+a total of $2^{16}$ pages and $2^{27}$ data bytes (128MB). Blocks must be
+erased before their pages can be programmed with 0s, and pages must be
+programmed in ascending order. A page may be read from any block at any time.
+In addition to the 2KB of data, each page has a 64 byte ``Spare Area'',
+primarily used for hardware-managed ECC\footnote{Those who long to live
+  dangerously can disable hardware ECC.}, but offering 16 ECC-protected bytes
+(in 4 discontiguous 4-byte chunks) for our use. A bad block mapper (BBM) of 20
+LUTs is at our disposal, providing transparent remapping of block addresses.
+Finally, there are 10 ``One-Time Program'' pages, which can be written to only
+once.
+
+Block erasure operations can fail, setting the FAIL-E bit; likewise page
+programming and FAIL-P. Both of these bits are reset when the next operation
+is started. Page read operations that fail their ECC check result in one or
+more ECC error bits being set. These error bits remain high until the chip is
+reset. Most operations set the BUSY bit, and it is only safe to assume they have
+completed when this bit goes low.
 
 \section{Future work}
 It is desirable to encode large files more efficiently. Currently, a file of
-the maximum $2^{24}-1$ bytes requires 8192 inodes, requiring (in the best case)
+the maximum $2^{24}-1$ bytes requires 8192 inodes, and thus (in the best case)
 530 pages of metadata, and attendant reads. When all of a zone is a single
 blob, some different scheme ought be employed to encode this fact.
 Unfortunately, it's unlikely that such a write could ever be performed as a
@@ -130,7 +156,7 @@ maximum performance, requiring only a single SPI master.
 An ECC failure reading a metadata page currently results in the blobstore being
 brought offline. Given that ECC failures can often be recognized immediately
 after programming, metapages should probably be read back following write,
-remapped using the BBM LUT, and written anew. In any case, a more graceful
+remapped using the BBM LUTs, and written anew. In any case, a more graceful
 recovery seems desirable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
