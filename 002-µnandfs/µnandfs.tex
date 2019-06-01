@@ -188,26 +188,22 @@ using blob_t = uint64_t;
 using NANDPage = std::array<uint8_t, NAND_PAGE_SIZE>;
 using Handler = void(*)(void *, int);
 using FSCallback = void(*)(void*, blob_t, size_t);
+using FSCtx = std::pair<FSCallback, void*>;
 
 class VK_FS {
  static int Format(Handler fxn, void* vctx, NANDDev* nand);
  template<class It> int Init(Handler fxn, void* vctx, It b, It e, bool mirror);
  int Fsck(Handler fxn, void* vctx, bool checkdata);
  // flags include BLOB_CREAT, BLOB_EXCL, and BLOB_KILL
- blob_t OpenBlob(const std::string& name, unsigned flags,
-                 FSCallback cb, void* vctx);
- blob_t ExtendBlob(blob_t blob, const void* buf, size_t len,
-                   FSCallback cb, void* vctx, NANDPage& scratch);
- blob_t ReadBlob(blob_t blob, void* buf, size_t len, unsigned offset,
-                 FSCallback cb, void* vctx, NANDPage& scratch);
- blob_t Bloblen(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
- blob_t CloseBlob(blob_t blob, FSCallback cb, void* vctx);
- blob_t ReplaceNamedBlob(const std::string& name, const void* buf, size_t len,
-                         FSCallback cb, void* vctx);
- blob_t RemoveNamedBlob(const std::string& name, const void* buf, size_t len,
-                        FSCallback cb, void* vctx);
- blob_t ListBlobs(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
- blob_t Sync(FSCallback cb, void* vctx);
+ blob_t OpenBlob(const std::string& name, unsigned flags, const FSCtx& ctx);
+ blob_t ExtendBlob(blob_t blob, const void* buf, size_t len, const FSCtx& ctx, NANDPage& scratch);
+ blob_t ReadBlob(blob_t blob, void* buf, size_t len, unsigned offset, const FSCtx& ctx, NANDPage& scratch);
+ blob_t Bloblen(blob_t blob, const FSCtx& ctx, NANDPage& scratch);
+ blob_t CloseBlob(blob_t blob, const FSCtx& ctx);
+ blob_t ReplaceNamedBlob(const std::string& name, const void* buf, size_t len, const FSCtx& ctx);
+ blob_t RemoveNamedBlob(const std::string& name, const void* buf, size_t len, const FSCtx& ctx);
+ blob_t ListBlobs(blob_t blob, const FSCtx& ctx, NANDPage& scratch);
+ blob_t Sync(const FSCtx& ctx);
  int Reset();
 }
 \end{minted}
