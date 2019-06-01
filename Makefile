@@ -21,16 +21,10 @@ all: reports
 reports: $(REPORTS)
 
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(µNANDFSDIR)/$(µNANDFSBASE).tex $(µNANDFSDIR)/$(µNANDFSBASE).bib
-	$(LATEX) -output-directory $(@D) $<
-	$(BIBTEX) $(basename $@)
-	$(LATEX) -output-directory $(@D)  $<
-	$(LATEX) -output-directory $(@D)  $<
+	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib
-	$(LATEX) -output-directory $(@D) $<
-	$(BIBTEX) $(basename $@)
-	$(LATEX) -output-directory $(@D)  $<
-	$(LATEX) -output-directory $(@D)  $<
+	cd $(@D) && arara -v $(<F)
 
 clean:
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.aux) $(wildcard $(dir)/*.bbl))
