@@ -14,6 +14,12 @@ style=numeric,
 bibencoding=utf8,
 ]{biblatex}
 \addbibresource{\jobname.bib}
+\newenvironment{denseitemize}{
+  \begin{itemize}
+      \setlength{\itemsep}{0pt}
+}{
+  \end{itemize}
+}
 
 \pagestyle{fancy}
 \rhead{DSSCAW Technical Report \#002}
@@ -48,6 +54,22 @@ case behaviors.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+The client's initial request was simply ``a filesystem on the nRF52840 using
+two W25N01GV NANDs, plus any necessary drivers, plus an entirely asynchronous
+C++ API, in as little RAM as possible''. Refinement of these requirements
+determined that:
+\begin{denseitemize}
+\item Most files would be quite small (on the order of 1KB), and a few files
+       would be large (on the order of multiple megabytes).
+\item It was not thought necessary to have directories, nor symlinks.
+\item It must be possible to remove files, reclaiming their space.
+\item It must be possible to have multiple files open at once, but it is not
+       necessary that a single file support multiple open handles.
+\item No more than 4KB of RAM was to be consumed, and ideally persistent use
+       would be not more than 2KB. Callers, however, could be required to supply
+       an additional 2KB for the duration of their call.
+\end{denseitemize}
+
 The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
 NOR flash and 256KB of RAM, along with a wealth of interconnection
 capabilities. This storage is shared with the ``S140
@@ -58,6 +80,20 @@ masters are available, and can be clocked up to 32MHz. Two Winbond W25N01GV\pare
 Nordic's nRF5 SDK\parencite{nrf52sdk} version 15.3.0 was linked into our binary,
 and the DUT was probed via 10-pin J-Link\parencite{segger} connection from
 an nRF52-DK\parencite{nrf52dk}.
+
+\section{Future work}
+It is desirable to encode large files more efficiently. Currently, a file of
+the maximum $2^{24}-1$ bytes requires 8192 inodes, requiring (in the best case)
+530 pages of metadata, and attendant reads. When all of a zone is a single
+blob, some different scheme ought be employed to encode this fact.
+Unfortunately, it's unlikely that such a write could ever be performed as a
+single ExtendBlob() operation, due to the RAM requirements of such a buffer.
+
+It is not currently possible to use the two chips in parallel as a single,
+unified blobstore. If placed on distinct SPI masters, they can be used in
+parallel as two blobstores, or as a mirrored set. In any configuration---even
+a single SPI master---they can be combined as a linear device. A unified
+2Gbit namespace accessible at 2x34MHz, however, is not yet possible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
