@@ -103,17 +103,17 @@ an on-board controller---makes up the majority of modern solid state drives,
 flash drives, and memory cards. It is cheaper and denser than NOR flash,
 faster than spinning disk, \textit{much} faster than EEPROMs, but typically
 less reliable than all three. There are severe constraints on how it can be
-used: a chip of NAND flash is divided into some number of blocks, which are
-themselves divided into pages. Erasing a block changes all bits within to
+used: a chip of NAND flash is divided into some number of \textit{blocks}, which are
+themselves divided into \textit{pages}. Erasing a block changes all bits within to
 1s\footnote{Nothing about the NAND memory cell itself---floating-gate MOSFETs
 connected in series---requires large-scale operations. Larger blocks mean
 faster operations (per bit), cheaper chips, and less power draw\ldots plus
 amplified errors, and reduced flexibility.}. Data can be written a page at a
 time within a block, but usually only in ascending page order---out-of-order
 page programming can upset data in adjacent wordlines (a ``program
-interference``)\parencite{interference}. Data can be read a page at a time from
+interference``\parencite{interference}). Data can be read a page at a time from
 anywhere within the block, but reading a page too many times can upset data in
-an adjacent page (a ``read disturb''). SLC NAND flash stores one bit per cell,
+an adjacent page (a ``read disturb''\parencite{readdisturb}). SLC NAND flash stores one bit per cell,
 and blocks can be erased on the order of $10^5$ times. MLC and TLC variants
 encode more bits per cell, and can be reliably erased far fewer times (they
 also tend to be slower, and to require more ECC bits per data bit). As a block
@@ -149,7 +149,7 @@ safe to consider an operation completed.
 \subsection{Interactions with the nRF52840}
 The Winbond's command set bears no resemblance to the ONFI
 standard\parencite{onfi}, so there's no need to learn the latter. Unfortunately,
-it also differs extensively from that supported by the nRF52840's QSPI
+it also differs wildly from that supported by the nRF52840's QSPI
 interface. Extensive use of the {\texttt{CINSTR}} ``custom instruction''
 facility was needed, but eventually full-speed communication was had over
 QSPI with the two NANDs. Alas, the Nordic unit can only deal with pages of
@@ -157,18 +157,18 @@ either 256 or 512 bytes. Using the maximum 512 byte setting, the last 512 bytes
 written anywhere in the page would be returned for subsequent reads from the
 page of any length. Eventually, it was confirmed with Nordic support that their
 QSPI controller simply can't drive a 2KB page for more than 25\% of its
-capacity. A bit-banging approach, even were it possible to do robustly,
+capacity. A bit-banging approach, were it even possible to do robustly,
 would consume far too many CPU cycles (remember, all interfaces were to be
 asynchronous). Faced with either a 75\% reduction in speed or a 75\% reduction
-in capacity, the clients chose capacity, and we moved to the SPI interfaces.
+in capacity, the clients chose to retain capacity, and we moved to the SPI interfaces.
 Note that hanging both chips off the QSPI interface meant that only one would
 be used at a time (aside from a mirrored configuration employing
 ``superblocks''\parencite{superblocks}), but placing the two on distinct SPI
-interfaces allows for parallelism. Full utilization of both SPIs would represent
+interfaces allows for parallelism. Full, concurrent utilization of both SPIs would represent
 50\% of the original QSPI capacity.
 
 \section{Blobstore API}
-I had some ideas regarding the filesystem design, taking inspiration from
+I had some ideas regarding the internal design, taking inspiration from
 classic work on log-structured filesystems\parencite{sprite}, particularly
 as implemented in NAND-focused projects such as F2FS\parencite{f2fs},
 JFFS2\parencite{jffs}, and YAFFS\parencite{yaffs}. At the same time, I wanted
@@ -217,7 +217,7 @@ A {\texttt{NANDDev}} is a small structure, often {\texttt{constexpr}}, tying
 together a SPI master identifier and a Chip Select line (numerous slaves can be
 connected to a single SPI master, and selected via this line). The same {\texttt{NANDDev}}
 must not be provided to two {\texttt{VK\_FS}} objects. To {\texttt{Format}} a
-NANDDev is simply to erase all its blocks, restoring all bits to their default
+NANDDev is simply to erase all of its blocks, restoring all bits to their default
 1. {\texttt{Init}} is handed one or more {\texttt{NANDDev}}s, and the boolean
 {\texttt{mirror}} (if false, the NANDs are put in linear combination). All
 specified devices must be freshly formatted, or they must make up an existing
@@ -383,14 +383,14 @@ the same O(lgN) algorithm performed (on 1/32 as many pages). I call these
 size for each of the 31 previous pages, plus 64 bytes for zone metadata. Three
 bytes were dedicated to ``blob length through this inode'', two bytes to
 ``previous data page'' (the data page governed by an inode can be derived in
-O(1)\footnote{Metadata page index - 32 + inode index within page.}, as can the
+O(1)\footnote{Data page: Metadata page index - 31 + inode number within page.}, as can the
 inode corresponding to a data
-page\footnote{Page index and ~0x1fu + 32, inode number page index mod 32.}),
+page\footnote{Inode page: Page index OR 0x1fu. Inode number: Page index MOD 32.}),
 and one byte to a status bitfield. The remaining 58 bytes became
 \texttt{BLOB\_NAME\_MAXLEN}\footnote{Metadata placed flexibly, only when
   appropriate for recent I/O, could be more efficient than periodic metadata
   with a fixed inode size (fewer pages used for metadata, fewer pages needing
-  reading to describe a given file). Metadata and arbitrary data pages can be
+  reading to describe a given file). Metadata and arbitrary data pages could be
   differentiated via a single bit in the Spare Area. Finding the metadata page
   describing a given data page becomes O(lgN) as opposed to O(1).}.
 
