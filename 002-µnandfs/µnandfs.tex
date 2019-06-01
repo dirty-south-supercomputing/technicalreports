@@ -179,9 +179,9 @@ ended up pretty well-suited to the final implementation.
 \begin{listing}[ht]
 \caption{{\texttt{VK\_FS}} class public API ({\texttt{NANDDev}} defines CS pin and SPI device)}
 \begin{minted}{C++}
-constexpr auto BLOB_NAME_MAXLEN = 58; // Including mandatory NUL byte!
-constexpr auto NAND_PAGE_DATABYTES = 2048;
-constexpr auto NAND_PAGE_SPAREBYTES = 64;
+constexpr size_t BLOB_NAME_MAXLEN = 58; // Including mandatory NUL byte!
+constexpr auto NAND_PAGE_DATABYTES = 2048u;
+constexpr auto NAND_PAGE_SPAREBYTES = 64u;
 constexpr auto NAND_PAGE_SIZE = NAND_PAGE_DATABYTES + NAND_PAGE_SPAREBYTES;
 
 using blob_t = uint32_t;
@@ -383,16 +383,52 @@ the same O(lgN) algorithm performed (on 1/32 as many pages). I call these
 size for each of the 31 previous pages, plus 64 bytes for zone metadata. Three
 bytes were dedicated to ``blob length through this inode'', two bytes to
 ``previous data page'' (the data page governed by an inode can be derived in
-O(1)\footnote{Data page: Metadata page index - 31 + inode number within page.}, as can the
-inode corresponding to a data
-page\footnote{Inode page: Page index OR 0x1fu. Inode number: Page index MOD 32.}),
-and one byte to a status bitfield. The remaining 58 bytes became
+O(1), as can the inode corresponding to a data
+page), and one byte to a status bitfield. The remaining 58 bytes became
 \texttt{BLOB\_NAME\_MAXLEN}\footnote{Metadata placed flexibly, only when
   appropriate for recent I/O, could be more efficient than periodic metadata
   with a fixed inode size (fewer pages used for metadata, fewer pages needing
   reading to describe a given file). Metadata and arbitrary data pages could be
   differentiated via a single bit in the Spare Area. Finding the metadata page
   describing a given data page becomes O(lgN) as opposed to O(1).}.
+
+We define a few useful functions before proceeding:
+
+\begin{listing}[ht]
+\caption{Functions for navigating data and metadata pages, all O(1)}
+\begin{minted}{C++}
+constexpr size_t INODE_SIZE = 64;
+static_assert(NAND_PAGE_DATABYTES % INODE_SIZE == 0);
+constexpr auto PAGES_PER_ZONE = NAND_PAGE_DATABYTES / INODE_SIZE;
+static_assert(PAGES_PER_ZONE > 1);
+constexpr auto DATA_PAGES_PER_ZONE = PAGES_PER_ZONE - 1;
+
+static inline unsigned // Given a raw page, return its associated metadata page and zidx
+MetadataForPage(unsigned pidx, unsigned* zidx) {
+  if(zidx){
+    *zidx = pidx % PAGES_PER_ZONE;
+  }
+  return pidx | DATA_PAGES_PER_ZONE;
+}
+
+static inline unsigned // Given a metadata page and inode number, return described page
+PageMetadataOwns(unsigned pidx, unsigned zidx) {
+  reutrn pidx - DATA_PAGES_PER_ZONE + zidx;
+}
+
+static inline unsigned // Return metadata page of next zone
+NextMetadataPage(unsigned pidx) {
+  pidx = MetadataForPage(pidx, nullptr);
+  return (pidx == 0xffffu) ? DATA_PAGES_PER_ZONE : pidx + PAGES_PER_ZONE;
+}
+
+static inline unsigned // Return metatdata page of previous zone
+PrevMetadataPage(unsigned pidx) {
+  pidx = MetadataForPage(pidx, nullptr);
+  return (pidx == DATA_PAGES_PER_ZONE) ? 0xffffu : pidx - PAGES_PER_ZONE;
+}
+\end{minted}
+\end{listing}
 
 \subsection{Initialization algorithm}
 
