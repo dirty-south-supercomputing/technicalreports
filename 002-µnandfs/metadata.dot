@@ -1,0 +1,133 @@
+digraph G {
+	nodesep="0.1"
+	rankdir=RL;
+	subgraph clusterPrime {
+		label="W25N01GV layout (1,024 blocks, 128MB)";
+		labelloc="b";
+		compound="true"
+		subgraph clusterKernel {
+			color=darkgoldenrod;
+			style=filled;
+			label="bl0";
+			b0 [style=filled,width=4.5,shape=record,label=
+<<table bgcolor="white">
+<tr>
+<td rowspan="4">Zone 0<br/>32 pages<br/>64KB</td>
+<td>P0x0000</td>
+<td>...6 pages...</td>
+<td>P0x0007</td>
+</tr>
+
+<tr>
+<td>P0x0008</td>
+<td>...6 pages...</td>
+<td>P0x000f</td>
+</tr>
+
+<tr>
+<td>P0x0010</td>
+<td>...6 pages...</td>
+<td>P0x0017</td>
+</tr>
+
+<tr>
+<td>P0x0018</td>
+<td>...6 pages...</td>
+<td bgcolor="turquoise">P0x001f</td>
+</tr>
+</table>>
+];
+			b1 [style=filled,width=4.5,shape=record,label=
+<<table bgcolor="white">
+<tr>
+<td rowspan="4">Zone 1<br/>32 pages<br/>64KB</td>
+<td>P0x0020</td>
+<td>...6 pages...</td>
+<td>P0x0027</td>
+</tr>
+
+<tr>
+<td>P0x0028</td>
+<td>...6 pages...</td>
+<td>P0x002f</td>
+</tr>
+
+<tr>
+<td>P0x0030</td>
+<td>...6 pages...</td>
+<td>P0x0037</td>
+</tr>
+
+<tr>
+<td>P0x0038</td>
+<td>...6 pages...</td>
+<td bgcolor="turquoise">P0x003f</td>
+</tr>
+</table>>
+];
+			label="Block 0 (64\ pages,\ 128KB)";
+		}
+		subgraph clusterUser {
+			color=darkkhaki;
+			style=filled;
+			label="bl0";
+			b2 [style=filled,width=4.5,shape=record,label=
+<<table bgcolor="white">
+<tr>
+<td rowspan="4">Zone 0<br/>32 pages<br/>64KB</td>
+<td>P0xffc0</td>
+<td>...6 pages...</td>
+<td>P0xffc7</td>
+</tr>
+
+<tr>
+<td>P0xffc8</td>
+<td>...6 pages...</td>
+<td>P0xffcf</td>
+</tr>
+
+<tr>
+<td>P0xffd0</td>
+<td>...6 pages...</td>
+<td>P0xffd7</td>
+</tr>
+
+<tr>
+<td>P0xffd8</td>
+<td>...6 pages...</td>
+<td bgcolor="turquoise">P0xffdf</td>
+</tr>
+</table>>
+];
+			b3 [style=filled,width=4.5,shape=record,label=
+<<table bgcolor="white">
+<tr>
+<td rowspan="4">Zone 1<br/>32 pages<br/>64KB</td>
+<td>P0xffe0</td>
+<td>...6 pages...</td>
+<td>P0xffe7</td>
+</tr>
+
+<tr>
+<td>P0xffe8</td>
+<td>...6 pages...</td>
+<td>P0xffef</td>
+</tr>
+
+<tr>
+<td>P0xfff0</td>
+<td>...6 pages...</td>
+<td>P0xfff7</td>
+</tr>
+
+<tr>
+<td>P0xfff8</td>
+<td>...6 pages...</td>
+<td bgcolor="turquoise">P0xffff</td>
+</tr>
+</table>>
+];
+			label="Block 1,023 (64\ pages,\ 128KB)";
+		}
+	}
+} 
