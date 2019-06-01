@@ -1,0 +1,21 @@
+digraph ExtendBlob {
+    rankdir=LR;
+    fontsize=24;
+    label="All states can call back with error. The asymptotic copy branch has been elided.";
+    node [shape = doublecircle]; ExtendBlobBottom;
+    node [shape = point ]; qi
+
+    node [shape = circle];
+    qi -> ExtendBlob;
+    ExtendBlob -> ExtendBlob2 [ label = "in current metadata?" ];
+    ExtendBlob2 -> ExtendBlobBottom  [ label = "writePage(d)" ];
+    ExtendBlob -> FlushZone  [ label = "metadata full" ];
+    ExtendBlob -> ExtendBlobCarved [ label = "metadata accepts" ];
+    FlushZone -> FlushBottom [ label = "writePage(m)" ];
+    FlushBottom -> ExtendBlobFlush [ label = "next zone" ];
+    FlushBottom -> GotNextErase [ label = "erase block" ];
+    GotNextErase -> ExtendBlobFlush [ label = "next zone" ];
+    ExtendBlobFlush -> ExtendBlobCarved [ label = "metadata accepts" ];
+    ExtendBlobFlush -> FlushZone [ label = "metadata full" ];
+    ExtendBlobCarved -> ExtendBlobBottom [ label = "writePage(d)" ];
+}

@@ -1,0 +1,24 @@
+digraph Initialize {
+    rankdir=LR;
+    label="All states can call back with error.";
+    node [shape = doublecircle]; GotCurrentErase;
+    node [shape = point ]; qi
+
+    node [shape = circle];
+    qi -> Initialize;
+    Initialize -> FindCurrentPage [ label = "prep devs" ];
+    FindCurrentPage -> GotFirstNonce [ label = "readPage(m)" ];
+    GotFirstNonce -> GotMidNonce [ label = "readPage(m)" ];
+    GotMidNonce -> GotLastNonce [ label = "readPage(m)" ];
+    GotLastNonce -> GotFPNonce [ label = "last = prev(first)" ];
+    GotLastNonce -> GotFPNonce [ label = "readPage(m)" ];
+    GotFPNonce -> GotCurrentPage [ label = "found" ] ;
+    GotFPNonce -> GotMPNonce [ label = "first = prev(mid)" ] ;
+    GotFPNonce -> GotMPNonce [ label = "readPage(m)" ] ;
+    GotMPNonce -> GotCurrentPage [ label = "found" ] ;
+    GotMPNonce -> GotLPNonce [ label = "mid = prev(last)" ] ;
+    GotMPNonce -> GotLPNonce [ label = "readPage(m)" ] ;
+    GotLPNonce -> GotCurrentPage [ label = "found" ] ;
+    GotLPNonce -> FindCurrentPage [ label = "mid = prev(last)" ] ;
+    GotCurrentPage -> GotCurrentErase [ label = "eraseBlock(b)" ] ;
+}

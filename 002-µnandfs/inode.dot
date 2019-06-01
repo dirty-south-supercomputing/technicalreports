@@ -1,0 +1,32 @@
+digraph G {
+	nodesep="0.1"
+	rankdir=RL;
+		subgraph clusterZoneA {
+			color=plum1;
+			style=filled;
+			label="bl0";
+			b0 [style=filled,shape=record,label=
+<<table bgcolor="white">
+<tr width="100%">
+<td colspan="4" bgcolor="salmon2">name... (58 bytes total)</td>
+</tr>
+
+<tr>
+<td colspan="4" bgcolor="salmon2">...name...</td>
+</tr>
+
+<tr>
+<td colspan="4" bgcolor="salmon2">...name...</td>
+</tr>
+
+<tr>
+<td width="63%" bgcolor="salmon2">...name (10B)</td>
+<td width="6%">BF (1B)</td>
+<td width="12%">Prev (2B)</td>
+<td width="19%">TotLen (3B)</td>
+</tr>
+</table>>
+];
+			label="Inode (64 bytes)";
+		}
+}
