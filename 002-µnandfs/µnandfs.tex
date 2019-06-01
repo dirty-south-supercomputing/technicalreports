@@ -124,7 +124,7 @@ erased before their pages can be programmed with 0s, and pages must be
 programmed in ascending order. A page may be read from any block at any time.
 In addition to the 2KB of data, each page has a 64 byte ``Spare Area'',
 primarily used for hardware-managed ECC\footnote{Those who long to live
-  dangerously can disable hardware ECC.}, but offering 16 ECC-protected bytes
+dangerously can disable hardware ECC. We don't.}, but offering 16 ECC-protected bytes
 (in 4 discontiguous 4-byte chunks) for our use. A bad block mapper (BBM) of 20
 LUTs is at our disposal, providing transparent remapping of block addresses.
 Finally, there are 10 ``One-Time Program'' pages, which can be written to only
@@ -136,6 +136,29 @@ is started. Page read operations that fail their ECC check result in one or
 more ECC error bits being set. These error bits remain high until the chip is
 reset. Most operations set the BUSY bit, and it is only safe to assume they have
 completed when this bit goes low.
+
+\subsection{Interactions with the nRF52840}
+The Winbond's command set bears no resemblance to the ONFI
+standard\parencite{onfi}, so there's no need to learn the latter. Unfortunately,
+it also differs extensively from that supported by the nRF52840's QSPI
+interface. Extensive use of the {\texttt{CINSTR}} ``custom instruction''
+facility was needed, but eventually full-speed communication was had over
+QSPI with the two NANDs. Alas, the Nordic unit can only deal with pages of
+either 256 or 512 bytes. Using the maximum 512 byte setting, the last 512 bytes
+written anywhere in the page would be returned for subsequent reads from the
+page of any length. Eventually, it was confirmed with Nordic support that their
+QSPI controller simply can't drive a 2KB page for more than 25\% of its
+capacity. A bit-banging approach, even were it possible to do robustly,
+would consume far too many CPU cycles (remember, all interfaces were to be
+asynchronous). Faced with either a 75\% reduction in speed or a 75\% reduction
+in capacity, the clients chose capacity, and we moved to the SPI interfaces.
+Note that hanging both chips off the QSPI interface meant that only one would
+be used at a time (aside from a mirrored configuration employing
+``superblocks''\parencite{superblocks}), but placing the two on distinct SPI
+interfaces allows for parallelism. Full utilization of both SPIs would represent
+50\% of the original QSPI capacity.
+
+
 
 \section{Future work}
 It is desirable to encode large files more efficiently. Currently, a file of
@@ -150,8 +173,9 @@ unified blobstore. If placed on distinct SPI masters, they can be used in
 parallel as two blobstores, or as a mirrored set. In any configuration---even
 a single SPI master---they can be combined as a linear device. A unified
 2Gbit namespace accessible at 2x34MHz, however, is not yet possible. Mirrored
-sets could be implemented via ``superblocks''\parencite{superblocks} for
-maximum performance, requiring only a single SPI master.
+sets could be implemented via superblocks for
+maximum performance, requiring only a single SPI master. This would be especially
+advantageous if the QSPI interface had been capable of driving the Winbonds.
 
 An ECC failure reading a metadata page currently results in the blobstore being
 brought offline. Given that ECC failures can often be recognized immediately
