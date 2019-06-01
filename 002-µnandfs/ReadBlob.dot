@@ -1,0 +1,14 @@
+digraph ReadBlob {
+    rankdir=LR;
+    ratio = 0.3;
+    label="All states can call back with error.";
+    node [shape = doublecircle]; ReadBlobDBottom;
+    node [shape = point ]; qi
+
+    node [shape = circle];
+    qi -> ReadBlob;
+    ReadBlob -> ReadBlobMDBottom [ label = "in current metadata" ];
+    ReadBlob -> ReadBlobMDBottom  [ label = "readPage(m)" ];
+    ReadBlobMDBottom -> ReadBlobDBottom [ label = "readPage(d)" ];
+    ReadBlobDBottom -> ReadBlobMDBottom [ label = "readPage(m)" ];
+}

@@ -528,20 +528,25 @@ provoking a block rescue. \texttt{ReplaceNamedBlob} invokes \texttt{ExtendBlob}
 with the result.
 
 \subsection{Reading and extending blobs}
-\textbf{-------------DETAIL READ STATE MACHINE------------}
+\begin{center}
+\includegraphics[width=1\linewidth]{ReadBlob.png}
+\captionof{figure}{\texttt{ReadBlob} state machine}
+\end{center}
+
+\textbf{-------------DETAIL THESE STATE MACHINES------------}
 
 \begin{center}
 \includegraphics[width=1\linewidth]{ExtendBlob.png}
 \captionof{figure}{\texttt{ExtendBlob} state machine}
 \end{center}
 
-
 \subsection{Irregular operations}
-\textbf{-------------DETAIL FSCK STATE MACHINE------------}
+\textbf{-------------DETAIL THESE STATE MACHINES------------}
 
-\textbf{-------------DETAIL FORMAT STATE MACHINE------------}
-
-\textbf{-------------DETAIL SYNC STATE MACHINE------------}
+\begin{center}
+\includegraphics[width=1\linewidth]{FSM.png}
+\captionof{figure}{\texttt{Format}, \texttt{Fsck}, and \texttt{Sync} state machines}
+\end{center}
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of

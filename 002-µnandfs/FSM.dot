@@ -1,0 +1,30 @@
+digraph FSM {
+  label="All states can call back with error.";
+  subgraph Format {
+    node [shape = doublecircle]; FormatBottom;
+    node [shape = point ]; qiFormat
+
+    node [shape = circle];
+    qiFormat -> Format;
+    Format -> FormatBottom [ label = "eraseBlock(b)" ];
+    FormatBottom -> FormatBottom [ label = "eraseBlock(b)" ];
+  }
+  subgraph Fsck {
+    node [shape = doublecircle]; FsckBottom;
+    node [shape = point ]; qiFsck
+
+    node [shape = circle];
+    qiFsck -> Fsck;
+    Fsck -> FsckBottom [ label = "readPage(m)" ];
+    FsckBottom -> FsckBottom [ label = "readPage(m)" ];
+  }
+  subgraph Sync {
+    node [shape = doublecircle]; FlushZone;
+    node [shape = point ]; qiSync
+
+    node [shape = circle];
+    qiSync -> Sync;
+    Sync -> FlushZone [ label = "writePage(m)" ];
+    FlushZone -> FlushZone [ label = "asymptotic copy branch" ];
+  }
+}
