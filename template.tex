@@ -13,6 +13,13 @@ style=numeric,
 bibencoding=utf8,
 ]{biblatex}
 \addbibresource{\jobname.bib}
+\newenvironment{denseitemize}{
+  \begin{itemize}
+      \setlength{\itemsep}{0pt}
+}{
+  \end{itemize}
+}
+
 
 \pagestyle{fancy}
 \rhead{DSSCAW Technical Report \#NUMBER}
