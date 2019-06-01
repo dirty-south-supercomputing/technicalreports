@@ -78,12 +78,38 @@ The nRF52840\parencite{nrf52840} SoC pairs an ARM Cortex-M4F with 1MB of
 NOR flash and 256KB of RAM, along with a wealth of interconnection
 capabilities. This storage is shared with the ``S140
 SoftDevice''\parencite{s140}, a closed-source BlueTooth stack, which consumes
-slightly more than 100KB of RAM and significant flash. One QSPI and three SPI
-masters are available, and can be clocked up to 32MHz. Two Winbond W25N01GV\parencite{winbond}
-128MB NAND flashes were added to the PCB, each capable of QSPI at up to 104MHz.
-Nordic's nRF5 SDK\parencite{nrf52sdk} version 15.3.0 was linked into our binary,
-and the DUT was probed via 10-pin J-Link\parencite{segger} connection from
-an nRF52-DK\parencite{nrf52dk}.
+slightly more than 100KB of RAM and significant flash.
+Two Winbond W25N01GV\parencite{winbond}
+128MB NANDs, each capable of QSPI at up to 104MHz, were added to the PCB.
+One QSPI and three SPI masters are available, each clocked at 32MHz (ignoring
+overhead, 32MHz QSPI moves 16MB/s, and SPI 4MB/s). Nordic's nRF5 SDK\parencite{nrf52sdk}
+version 15.3.0 was linked into our binary, and the DUT was probed via 10-pin
+J-Link\parencite{segger} connection from an nRF52-DK\parencite{nrf52dk}.
+
+\section{Details of NAND flash}
+
+NAND flash---typically packaged as a collection of chips, and often managed via
+an on-board controller---makes up the majority of modern solid state drives,
+flash drives, and memory cards. It is cheaper and denser than NOR flash\footnote{This goes double for EEPROMs.},
+and faster than spinning disk\footnote{NAND is denser than some hard disk
+technologies, but not all.}, but typically less reliable than either, and there
+are severe constraints on how it can be used. A chip of NAND flash is divided
+into some number of blocks, which are themselves divided into pages. Erasing
+a block changes all bits within to 1s\footnote{Nothing about the NAND memory
+cell itself---floating-gate MOSFETs connected in series---requires large-scale
+operations. Larger blocks mean faster operations (per bit), cheaper chips, and
+less power draw. They also intensify errors, and of course reduce flexibility.}.
+Data can be written a page at a time within a block, but usually only in
+ascending page order. Data can be read a page at a time from anywhere within
+the block, but reading a page too many times can upset data in an adjacent
+page (a ``read disturb'').
+
+SLC NAND flash stores one bit per
+cell, and blocks can be erased on the order of $100\,000$ times. MLC and TLC
+variants encode more bits per cell, and can be reliably erased far fewer times. They
+also tend to be slower, and to require more ECC bits per data bit.
+
+\subsection{Details of the Winbond W25N01GV}
 
 \section{Future work}
 It is desirable to encode large files more efficiently. Currently, a file of
@@ -97,7 +123,15 @@ It is not currently possible to use the two chips in parallel as a single,
 unified blobstore. If placed on distinct SPI masters, they can be used in
 parallel as two blobstores, or as a mirrored set. In any configuration---even
 a single SPI master---they can be combined as a linear device. A unified
-2Gbit namespace accessible at 2x34MHz, however, is not yet possible.
+2Gbit namespace accessible at 2x34MHz, however, is not yet possible. Mirrored
+sets could be implemented via ``superblocks''\parencite{superblocks} for
+maximum performance, requiring only a single SPI master.
+
+An ECC failure reading a metadata page currently results in the blobstore being
+brought offline. Given that ECC failures can often be recognized immediately
+after programming, metapages should probably be read back following write,
+remapped using the BBM LUT, and written anew. In any case, a more graceful
+recovery seems desirable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
