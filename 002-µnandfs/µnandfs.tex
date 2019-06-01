@@ -1,3 +1,7 @@
+% arara: xelatex: {shell: true}
+% arara: biber
+% arara: xelatex: {shell: true}
+% arara: xelatex: {shell: true}
 \documentclass[letterpaper,10pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
@@ -5,15 +9,19 @@
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{fontspec}
+\setmonofont{Inconsolata}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xeCJK}
+\usepackage{minted}
 \usepackage[backend=biber,
 date=iso,
 seconds=true,
 style=numeric,
 bibencoding=utf8,
 ]{biblatex}
+
 \addbibresource{\jobname.bib}
+\usemintedstyle{colorful}
 \newenvironment{denseitemize}{
   \begin{itemize}
       \setlength{\itemsep}{0pt}
@@ -134,8 +142,8 @@ Block erasure operations can fail, setting the FAIL-E bit; likewise page
 programming and FAIL-P. Both of these bits are reset when the next operation
 is started. Page read operations that fail their ECC check result in one or
 more ECC error bits being set. These error bits remain high until the chip is
-reset. Most operations set the BUSY bit, and it is only safe to assume they have
-completed when this bit goes low.
+reset. Most operations set the BUSY bit, and only when this bit goes low is it
+safe to consider an operation completed.
 
 \subsection{Interactions with the nRF52840}
 The Winbond's command set bears no resemblance to the ONFI
@@ -158,7 +166,70 @@ be used at a time (aside from a mirrored configuration employing
 interfaces allows for parallelism. Full utilization of both SPIs would represent
 50\% of the original QSPI capacity.
 
+\section{Blobstore API}
+I had some ideas regarding the filesystem design, taking inspiration from
+classic work on log-structured filesystems\parencite{sprite}, particularly
+as implemented in NAND-focused projects such as F2FS\parencite{f2fs},
+JFFS2\parencite{jffs}, and YAFFS\parencite{yaffs}. At the same time, I wanted
+a simpler scheme, one implementable in 2KB of RAM, by one engineer, in four
+weeks of part-time work. These ideas informed the proposed API, which happily
+ended up pretty well-suited to the final implementation.
 
+\begin{listing}[ht]
+\caption{{\texttt{VK\_FS}} class public API ({\texttt{NANDDev}} defines CS pin and SPI device)}
+\begin{minted}{C++}
+constexpr auto BLOB_NAME_MAXLEN = 58; // Including mandatory NUL byte!
+constexpr auto NAND_PAGE_DATABYTES = 2048;
+constexpr auto NAND_PAGE_SPAREBYTES = 64;
+constexpr auto NAND_PAGE_SIZE = NAND_PAGE_DATABYTES + NAND_PAGE_SPAREBYTES;
+
+using blob_t = uint32_t;
+using NANDPage = std::array<uint8_t, NAND_PAGE_SIZE>;
+using Handler = void(*)(void *, int);
+using FSCallback = void(*)(void*, blob_t, size_t);
+
+class VK_FS {
+ static int Format(Handler fxn, void* vctx, NANDDev* nand);
+ template<class It> int Init(Handler fxn, void* vctx, It b, It e, bool mirror);
+ int Fsck(Handler fxn, void* vctx, NANDDev* nand);
+ blob_t OpenBlob(const std::string& name, unsigned flags,
+                 FSCallback cb, void* vctx);
+ blob_t ExtendBlob(blob_t blob, const void* buf, size_t len,
+                   FSCallback cb, void* vctx, NANDPage& scratch);
+ blob_t ReplaceNamedBlob(const std::string& name, const void* buf, size_t len,
+                         FSCallback cb, void* vctx);
+ blob_t RemoveNamedBlob(const std::string& name, const void* buf, size_t len,
+                        FSCallback cb, void* vctx);
+ blob_t ReadBlob(blob_t blob, void* buf, size_t len, unsigned offset,
+                 FSCallback cb, void* vctx, NANDPage& scratch);
+ blob_t Bloblen(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
+ blob_t CloseBlob(blob_t blob, FSCallback cb, void* vctx);
+ blob_t ListBlobs(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
+ blob_t Sync(FSCallback cb, void* vctx);
+}
+\end{minted}
+\end{listing}
+
+A {\texttt{NANDDev}} is a small structure, often {\texttt{constexpr}}, tying
+together a SPI master identifier and a Chip Select line (numerous slaves can be
+connected to a single SPI master, and selected via this line). The same {\texttt{NANDDev}}
+must not be provided to two {\texttt{VK\_FS}} objects. To {\texttt{Format}} a
+NANDDev is simply to erase all its blocks, restoring all bits to their default
+1. {\texttt{Init}} is handed one or more {\texttt{NANDDev}}s, and the boolean
+{\texttt{mirror}}. All specified devices must be freshly formatted, or they must
+make up an existing filesystem (by virtue of having previously been fed together
+to {\texttt{Init}})\footnote{In most mirrors, we'd want to be able to add a
+replacement device, but that won't be happening with our PCB in the field.}.
+
+\section{Filesystem design}
+%I knew I wanted to
+%march purely forward writing within a chip---i.e., in addition to the mandatory
+%in-order programming of pages, I hoped to erase blocks in order, with no special
+%meaning for any given block. Any such scheme is guaranteed perfectly uniform
+%wear leveling, and should require minimal state. I knew I needed to
+%provide at least a few dozen bytes' worth of name per blob. I considered
+%compression, and rejected it. I knew that any frequently-changing state
+%couldn't be persisted without either redundancy or special-purpose blocks.
 
 \section{Future work}
 It is desirable to encode large files more efficiently. Currently, a file of
