@@ -102,7 +102,7 @@ NAND flash---typically packaged as a collection of chips, and often managed via
 an on-board controller---makes up the majority of modern solid state drives,
 flash drives, and memory cards. It is cheaper and denser than NOR flash,
 faster than spinning disk, \textit{much} faster than EEPROMs, but typically
-less reliable than all three. There are severe constraints on how it can be
+less reliable than any of the three. There are severe constraints on how it can be
 used: a chip of NAND flash is divided into some number of \textit{blocks}, which are
 themselves divided into \textit{pages}. Erasing a block changes all bits within to
 1s\footnote{Nothing about the NAND memory cell itself---floating-gate MOSFETs
@@ -192,7 +192,7 @@ using FSCtx = std::pair<FSCallback, void*>;
 
 class VK_FS {
  static int Format(Handler fxn, void* vctx, NANDDev* nand);
- template<class It> int Init(Handler fxn, void* vctx, It b, It e, bool mirror);
+ template<class It> int Init(Handler fxn, void* vctx, It begin, It end, bool mirror);
  int Fsck(Handler fxn, void* vctx, bool checkdata);
  // flags include BLOB_CREAT, BLOB_EXCL, and BLOB_KILL
  blob_t OpenBlob(const std::string& name, unsigned flags, const FSCtx& ctx);
@@ -283,8 +283,8 @@ without {\texttt{BLOB\_CREAT}} results in {\texttt{BLOBD\_EINVAL}}), the
 blob \textit{must not} exist, or \texttt{BLOBD\_EEXIST} will be returned. If
 \texttt{BLOB\_KILL} is provided (providing \texttt{BLOB\_KILL} with \texttt{BLOB\_CREAT}
 results in \texttt{BLOBD\_EINVAL}), the blob will be removed if it exists (otherwise,
-\texttt{BLOBD\_ENOENT} is returned). All other errors can also occur with this
-function. The handle can now be used in calls to \texttt{ReadBlob}, \texttt{ExtendBlob},
+\texttt{BLOBD\_ENOENT} is returned). All other errors can also occur with these
+functions. The handle can now be used in calls to \texttt{ReadBlob}, \texttt{ExtendBlob},
 \texttt{Bloblen}, and \texttt{CloseBlob}. Behavior is undefined if the blob
 is modified through another handle or function. Failure to call \texttt{CloseBlob}
 does \textit{not} cause a resource leak, but timely use of \texttt{CloseBlob}
@@ -347,6 +347,7 @@ Section \ref{futurework} for plans on improving this linear behavior on reads).
 now see.
 
 \section{Filesystem design}
+
 I knew I wanted to provide at least a few dozen bytes' worth of name per blob.
 I knew 16 bits of blob length were too little, and 32 bits too much.
 I considered metadata compression, and said ``no'' to madness.
@@ -432,12 +433,17 @@ EpochForNonce(uin32_t nonce) {
 \end{minted}
 \end{listing}
 
+\begin{center}
+\includegraphics[width=.8\linewidth]{combined.png}
+\captionof{figure}{Structure of chip, block, metadata page, and inode}
+\end{center}
+
 \subsection{Phased algorithm for block movement}
 That's all well and good, but what becomes of our ineluctable march when we
 wrap around to the front of the NAND, and can't blow away live data? We
 sacrifice one block worth of capacity, designating it the \textit{victim
   block}. On first initialization, this is the last block. We keep a counter,
-initialized to 0 and increased by 1 each time we erase the first bloc,
+initialized to 0 and increased by 1 each time we erase the first block,
 designating it the \textit{epoch}. Note that we can derive the epoch from a
 nonce in O(1), and that epochs partition the nonce space.
 
@@ -561,9 +567,4 @@ for pages which actually wrote out data \textbf{-------------DETAILS...}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
-
-\begin{center}
-\includegraphics[width=1\linewidth]{logo.png}
-\end{center}
-
 \end{document}

@@ -1,0 +1,42 @@
+digraph G {
+	nodesep="0.1"
+	rankdir=RL;
+  subgraph clusterMetadata {
+		label="Metadata page layout";
+    color=turquoise;
+		labelloc="b";
+		subgraph clusterZoneA {
+			color=turquoise;
+			style=filled;
+			label="bl0";
+			b0 [style=filled,width=4,shape=record,label=
+<<table bgcolor="white">
+<tr>
+<td>P0x0020 (I00)</td>
+<td>...6 inodes...</td>
+<td>P0x0027 (I08)</td>
+</tr>
+
+<tr>
+<td>P0x0028 (I09)</td>
+<td>...6 inodes...</td>
+<td>P0x002f (I15)</td>
+</tr>
+
+<tr>
+<td>P0x0030 (I16)</td>
+<td>...6 inodes...</td>
+<td>P0x0037 (I23)</td>
+</tr>
+
+<tr>
+<td>P0x0038 (I24)</td>
+<td>...6 inodes...</td>
+<td>Zone map</td>
+</tr>
+</table>>
+];
+			label="Page 0x003f (2,048\ bytes, 31 inodes)";
+		}
+  }
+}

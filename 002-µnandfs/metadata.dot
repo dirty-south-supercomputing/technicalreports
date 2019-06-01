@@ -1,11 +1,11 @@
 digraph G {
 	nodesep="0.1"
 	rankdir=RL;
-	subgraph clusterPrime {
+	subgraph clusterNAND {
 		label="W25N01GV layout (1,024 blocks, 128MB)";
 		labelloc="b";
 		compound="true"
-		subgraph clusterKernel {
+		subgraph clusterZoneA {
 			color=darkgoldenrod;
 			style=filled;
 			label="bl0";
@@ -67,7 +67,7 @@ digraph G {
 ];
 			label="Block 0 (64\ pages,\ 128KB)";
 		}
-		subgraph clusterUser {
+		subgraph clusterZoneB {
 			color=darkkhaki;
 			style=filled;
 			label="bl0";
