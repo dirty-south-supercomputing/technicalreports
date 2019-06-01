@@ -297,7 +297,7 @@ specifies a new handle which should be used for further extensions (extending
 again on the same blob will replace the extended data). No matter the extension's
 length, a full page will be consumed for the data, plus an inode (1/32 of a page)
 to describe the data page; it is thus desirable for callers to buffer a full page
-worth of output. A blob can grow as large as 16MB (this is the sum of actual
+worth of output. A blob can grow as large as 16MB-1 (this is the sum of actual
 data, not consumed pages). Note that other handles will not be updated; it is
 not possible for a reader to notice the new data save by calling \texttt{OpenBlob}
 anew. The amount written is returned as the third argument to the callback.
