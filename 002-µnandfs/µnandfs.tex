@@ -100,27 +100,28 @@ J-Link\parencite{segger} connection from an nRF52-DK\parencite{nrf52dk}.
 
 NAND flash---typically packaged as a collection of chips, and often managed via
 an on-board controller---makes up the majority of modern solid state drives,
-flash drives, and memory cards. It is cheaper and denser than NOR flash\footnote{This goes double for EEPROMs.},
-and faster than spinning disk, but typically less reliable than either. There
-are severe constraints on how it can be used: a chip of NAND flash is divided
-into some number of blocks, which are themselves divided into pages. Erasing
-a block changes all bits within to 1s\footnote{Nothing about the NAND memory
-cell itself---floating-gate MOSFETs connected in series---requires large-scale
-operations. Larger blocks mean faster operations (per bit), cheaper chips, and
-less power draw. They also intensify errors, and of course reduce flexibility.}.
-Data can be written a page at a time within a block, but usually only in
-ascending page order---out-of-order page programming can upset data in adjacent
-wordlines (a ``program interference``)\parencite{interference}. Data can be read a page at a time from
+flash drives, and memory cards. It is cheaper and denser than NOR flash,
+faster than spinning disk, \textit{much} faster than EEPROMs, but typically
+less reliable than all three. There are severe constraints on how it can be
+used: a chip of NAND flash is divided into some number of blocks, which are
+themselves divided into pages. Erasing a block changes all bits within to
+1s\footnote{Nothing about the NAND memory cell itself---floating-gate MOSFETs
+connected in series---requires large-scale operations. Larger blocks mean
+faster operations (per bit), cheaper chips, and less power draw\ldots plus
+amplified errors, and reduced flexibility.}. Data can be written a page at a
+time within a block, but usually only in ascending page order---out-of-order
+page programming can upset data in adjacent wordlines (a ``program
+interference``)\parencite{interference}. Data can be read a page at a time from
 anywhere within the block, but reading a page too many times can upset data in
-an adjacent page (a ``read disturb''). SLC NAND flash stores one bit per
-cell, and blocks can be erased on the order of $10^5$ times. MLC and TLC
-variants encode more bits per cell, and can be reliably erased far fewer times
-(they also tend to be slower, and to require more ECC bits per data bit). As a block
-wears out, programming time will decrease, while erase latency increases\parencite{needtoknow}.
-Finally, it is common for MLC and TLC NAND to exhibit ``fast pages'' and ``slow
-pages'', but this arises from the distribution of bits within a multilevel cell
-to different pages, and thus does not affect SLC NAND\parencite{anomalies} such
-as our Winbond.
+an adjacent page (a ``read disturb''). SLC NAND flash stores one bit per cell,
+and blocks can be erased on the order of $10^5$ times. MLC and TLC variants
+encode more bits per cell, and can be reliably erased far fewer times (they
+also tend to be slower, and to require more ECC bits per data bit). As a block
+wears out, programming time will decrease, while erase latency
+increases\parencite{needtoknow}. Finally, it is common for MLC and TLC NAND to
+exhibit ``fast pages'' and ``slow pages'', but this arises from the
+distribution of bits within a multilevel cell to different pages, and thus does
+not affect SLC NAND\parencite{anomalies} such as our Winbond.
 
 \subsection{Details of the Winbond W25N01GV}
 The W25N01GVxxIG/IT\footnote{The ``xx'' is a package code, one of ZE (WSON), SF (SOIC),
@@ -192,6 +193,7 @@ class VK_FS {
  static int Format(Handler fxn, void* vctx, NANDDev* nand);
  template<class It> int Init(Handler fxn, void* vctx, It b, It e, bool mirror);
  int Fsck(Handler fxn, void* vctx, NANDDev* nand);
+ // flags include BLOB_CREAT, BLOB_EXCL, and BLOB_KILL
  blob_t OpenBlob(const std::string& name, unsigned flags,
                  FSCallback cb, void* vctx);
  blob_t ExtendBlob(blob_t blob, const void* buf, size_t len,
@@ -216,10 +218,11 @@ connected to a single SPI master, and selected via this line). The same {\texttt
 must not be provided to two {\texttt{VK\_FS}} objects. To {\texttt{Format}} a
 NANDDev is simply to erase all its blocks, restoring all bits to their default
 1. {\texttt{Init}} is handed one or more {\texttt{NANDDev}}s, and the boolean
-{\texttt{mirror}}. All specified devices must be freshly formatted, or they must
-make up an existing filesystem (by virtue of having previously been fed together
-to {\texttt{Init}})\footnote{In most mirrors, we'd want to be able to add a
-replacement device, but that won't be happening with our PCB in the field.}.
+{\texttt{mirror}} (if false, the NANDs are put in linear combination). All
+specified devices must be freshly formatted, or they must make up an existing
+filesystem (by virtue of having previously been fed together to
+{\texttt{Init}})\footnote{In most mirrors, we'd want to be able to add a
+  replacement device, but that won't be happening with our PCB in the field.}.
 
 \section{Filesystem design}
 %I knew I wanted to
