@@ -51,14 +51,14 @@ A NAND Blobstore for Memory-Starved Platforms\thanks{
 \begin{abstract}
 I was tasked with designing and implementing a persistent associative array
 mapping names to arbitrary data---i.e. a single-directory filesystem, often
-called a \textit{blobstore}---using the Nordic Semiconductor nRF52840 and two
-Winbond W25N01GV gigabit SLC NAND chips. The contract also required necessary
-QSPI drivers. The requirements permitted 4KB of RAM,
-allowed no use of other persistent storage, and mandated a fully asynchronous
-API running on ``bare metal'' (no OS, realtime or otherwise). I detail my
-resulting deliverable, µnandfs, and demonstrate its generally performant
-and robust fulfillment of these specs. I also describe its pathological worst
-case behaviors.
+called a \textit{blobstore}---using the Nordic Semiconductor nRF52840 SoC and
+two Winbond W25N01GV gigabit SLC NAND chips. The contract also required
+necessary QSPI drivers. The requirements permitted 4KB of RAM, allowed no use
+of other persistent storage, and mandated a fully asynchronous API running on
+``bare metal'' (no OS, realtime or otherwise). I detail my resulting
+deliverable, µnandfs, and demonstrate its generally performant and robust
+fulfillment of these specs. I also describe its pathological worst case
+behaviors.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -238,7 +238,7 @@ functions:
 \begin{minted}{C++}
 // Returns true iff the blob_t is an error code
 static inline bool BlobErrorP(blob_t code) {
-  return code != (code & ~0x3ul);
+  return code & 0x3ul;
 }
 
 // Errors can be any arbitrary distinct blob_t with a 1 in the LSB. Each of
@@ -454,12 +454,12 @@ see if it's dead. If so, it doesn't need rescuing; use its slot in the victim
 to write the next data page. If it is live, copy it into the victim block to
 fight another day. Copy pages in bursts when appropriate, and when the zone is
 complete, write metadata to the victim block. Repeat this with the second zone.
-Designate the survivor block the victim block, and start over.
+Designate the Dunkirk block the victim block, and start over.
 
 This maintains perfect wear leveling, and ought even perform reasonably well
 when there are plenty of deletions. But what about outstanding handles to the
 Dunkirk block? Their data just moved out from underneath them! Twenty bits in
-each \texttt{blob\_t} are thus used to encode their origin epoch, i.e. the epoch
+each \texttt{blob\_t} are thus used to encode its origin epoch, i.e. the epoch
 at the time of \texttt{OpenBlob}. If a \texttt{blob\_t} is handed to us with
 our epoch, there's no way it's been moved. Otherwise, it has been moved zero or
 more times; this can be computed in O(1), and applied to the incoming physical
