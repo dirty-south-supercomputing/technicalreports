@@ -165,7 +165,7 @@ Note that hanging both chips off the QSPI interface meant that only one would
 be used at a time (aside from a mirrored configuration employing
 ``superblocks''\parencite{superblocks}), but placing the two on distinct SPI
 interfaces allows for parallelism. Full, concurrent utilization of both SPIs would represent
-50\% of the original QSPI capacity.
+50\% of the original QSPI throughput.
 
 \section{Blobstore API}
 I had some ideas regarding the internal design, taking inspiration from
@@ -511,8 +511,30 @@ of the three were current, one of three cases is true:
   loop.
 \item \textit{Anything else.} Oh no look no, bad metadata, abandon ship.
 \end{denseitemize}
-Eventually, we either find a valid candidate for the current zone, or
-suffer the inevitable fate of traitors.
+
+\subsection{Name lookup and fast name operations}
+\textbf{-------------DETAIL NAME LOOKUP STATE MACHINE------------}
+
+\texttt{RemoveNamedBlob} and \texttt{ReplaceNamedBlob} are both extremely
+simple once we have this model. They simply call \texttt{FindBlobFinal} with
+\texttt{BLOB\_KILL} and \texttt{BLOB\_CREAT}, respectively. A new inode is
+created with the name, pointing to its own data page as the previous page.
+This inode will be found before any previous inodes of the same name. If
+necessary, creating this inode will flush the active page to disk, possibly
+provoking a block rescue. \texttt{ReplaceNamedBlob} invokes \texttt{ExtendBlob}
+with the result.
+
+\subsection{Reading and extending blobs}
+\textbf{-------------DETAIL READ STATE MACHINE------------}
+
+\textbf{-------------DETAIL EXTEND STATE MACHINE------------}
+
+\subsection{Irregular operations}
+\textbf{-------------DETAIL FSCK STATE MACHINE------------}
+
+\textbf{-------------DETAIL FORMAT STATE MACHINE------------}
+
+\textbf{-------------DETAIL SYNC STATE MACHINE------------}
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
@@ -538,7 +560,7 @@ remapped using the BBM LUTs, and written anew. In any case, a more graceful
 recovery seems desirable.
 
 We ought be able to handle shutdown without a call to \texttt{Sync}, at least
-for pages which actually wrote out data \textbf{DETAILS...}.
+for pages which actually wrote out data \textbf{-------------DETAILS...}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
