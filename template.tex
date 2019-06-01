@@ -1,3 +1,7 @@
+% arara: xelatex: {shell: true}
+% arara: biber
+% arara: xelatex: {shell: true}
+% arara: xelatex: {shell: true}
 \documentclass[letterpaper,10pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
@@ -5,21 +9,24 @@
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{fontspec}
+\setmonofont{Inconsolata}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
+\usepackage{minted}
 \usepackage[backend=biber,
 date=iso,
 seconds=true,
 style=numeric,
 bibencoding=utf8,
 ]{biblatex}
+
 \addbibresource{\jobname.bib}
+\usemintedstyle{colorful}
 \newenvironment{denseitemize}{
   \begin{itemize}
       \setlength{\itemsep}{0pt}
 }{
   \end{itemize}
 }
-
 
 \pagestyle{fancy}
 \rhead{DSSCAW Technical Report \#NUMBER}
