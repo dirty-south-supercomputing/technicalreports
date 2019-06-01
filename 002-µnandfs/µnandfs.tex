@@ -192,22 +192,23 @@ using FSCallback = void(*)(void*, blob_t, size_t);
 class VK_FS {
  static int Format(Handler fxn, void* vctx, NANDDev* nand);
  template<class It> int Init(Handler fxn, void* vctx, It b, It e, bool mirror);
- int Fsck(Handler fxn, void* vctx, NANDDev* nand);
+ int Fsck(Handler fxn, void* vctx, bool checkdata);
  // flags include BLOB_CREAT, BLOB_EXCL, and BLOB_KILL
  blob_t OpenBlob(const std::string& name, unsigned flags,
                  FSCallback cb, void* vctx);
  blob_t ExtendBlob(blob_t blob, const void* buf, size_t len,
                    FSCallback cb, void* vctx, NANDPage& scratch);
- blob_t ReplaceNamedBlob(const std::string& name, const void* buf, size_t len,
-                         FSCallback cb, void* vctx);
- blob_t RemoveNamedBlob(const std::string& name, const void* buf, size_t len,
-                        FSCallback cb, void* vctx);
  blob_t ReadBlob(blob_t blob, void* buf, size_t len, unsigned offset,
                  FSCallback cb, void* vctx, NANDPage& scratch);
  blob_t Bloblen(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
  blob_t CloseBlob(blob_t blob, FSCallback cb, void* vctx);
+ blob_t ReplaceNamedBlob(const std::string& name, const void* buf, size_t len,
+                         FSCallback cb, void* vctx);
+ blob_t RemoveNamedBlob(const std::string& name, const void* buf, size_t len,
+                        FSCallback cb, void* vctx);
  blob_t ListBlobs(blob_t blob, FSCallback cb, void* vctx, NANDPage& scratch);
  blob_t Sync(FSCallback cb, void* vctx);
+ int Reset();
 }
 \end{minted}
 \end{listing}
@@ -223,6 +224,113 @@ specified devices must be freshly formatted, or they must make up an existing
 filesystem (by virtue of having previously been fed together to
 {\texttt{Init}})\footnote{In most mirrors, we'd want to be able to add a
   replacement device, but that won't be happening with our PCB in the field.}.
+If {\texttt{Init}} is able to recognize the devices, it calls back with
+success, and the object can be used until a call to {\texttt{Reset}}.
+
+The primary handle provided to callers is the {\texttt{blob\_t}}. This 32-bit
+word is opaque to callers except through the following two functions:
+
+\begin{listing}[ht]
+\caption{{\texttt{VK\_FS}} functionality for inspecting {\texttt{blob\_t}}}
+\begin{minted}{C++}
+// Returns true iff the blob_t is an error code
+static inline bool BlobErrorP(blob_t code) {
+  return code != (code & ~0x3ul);
+}
+
+// Errors can be any arbitrary distinct blob_t with a 1 in the LSB. Each of
+// these is all 1s, except for one low bit (for differentiation).
+constexpr blob_t BLOBD_EINPROGRESS = ~(0x1u << 22); // request not yet complete
+constexpr blob_t BLOBD_EIO = ~(0x1u << 23); // error talking to device
+constexpr blob_t BLOBD_ENOSPC = ~(0x1u << 24); // no room to write
+constexpr blob_t BLOBD_ENOENT = ~(0x1u << 25); // no BLOB_CREAT, but blob did no
+constexpr blob_t BLOBD_ENAMETOOLONG = ~(0x1u << 26); // no NUL in 58 bytes of na
+constexpr blob_t BLOBD_EINVAL = ~(0x1u << 27); // bad flags or invalid blobd or
+constexpr blob_t BLOBD_EEXIST = ~(0x1u << 28); // blob existed with BLOB_EXCL
+constexpr blob_t BLOBD_INVALID = ~0ul; // generic error
+
+static inline const char* BlobStrerror(blob_t res) {
+  switch(res){
+    case BLOBD_EINPROGRESS: return strerror(EINPROGRESS);
+    case BLOBD_EIO: return strerror(EIO);
+    case BLOBD_ENOSPC: return strerror(ENOSPC);
+    case BLOBD_ENOENT: return strerror(ENOENT);
+    case BLOBD_ENAMETOOLONG: return strerror(ENAMETOOLONG);
+    case BLOBD_EINVAL: return strerror(EINVAL);
+    case BLOBD_EEXIST: return strerror(EEXIST);
+    case BLOBD_INVALID: [[fallthrough]];
+    default:
+      if(BlobErrorP(res)){
+        return "Unknown unandfs error";
+      }else{
+        return strerror(0);
+      }
+  }
+}
+\end{minted}
+\end{listing}
+
+Functions will generally return {\texttt{BLOBD\_EINPROGRESS}}, and call back
+asynchronously with the true handle. Callers must be prepared for an immediate
+return, however, in which case no callback will be invoked. The proper idiom
+is thus typically to invoke the function, check if the result is
+{\texttt{BLOBD\_EINPROGRESS}}, and if not, directly invoke the callback
+from the original callsite.
+
+{\texttt{OpenBlob}} searches for the specified name, and then functions according
+to the provided flags. If {\texttt{BLOB\_CREAT}} is provided, the blob will be
+created if it does not yet exist (without \texttt{BLOB\_CREAT}, {\texttt{BLOBD\_ENOENT}} would
+be returned). If {\texttt{BLOB\_EXCL}} is provided (providing {\texttt{BLOB\_EXCL}}
+without {\texttt{BLOB\_CREAT}} results in {\texttt{BLOBD\_EINVAL}}), the
+blob \textit{must not} exist, or \texttt{BLOBD\_EEXIST} will be returned. If
+\texttt{BLOB\_KILL} is provided (providing \texttt{BLOB\_KILL} with \texttt{BLOB\_CREAT}
+results in \texttt{BLOBD\_EINVAL}), the blob will be removed if it exists (otherwise,
+\texttt{BLOBD\_ENOENT} is returned). All other errors can also occur with this
+function. The handle can now be used in calls to \texttt{ReadBlob}, \texttt{ExtendBlob},
+\texttt{Bloblen}, and \texttt{CloseBlob}. Behavior is undefined if the blob
+is modified through another handle or function. Failure to call \texttt{CloseBlob}
+does \textit{not} cause a resource leak, but timely use of \texttt{CloseBlob}
+can result in fewer wasted NAND pages.
+
+\texttt{ExtendBlob} adds up to a page worth of data to the blob. The callback
+specifies a new handle which should be used for further extensions (extending
+again on the same blob will replace the extended data). No matter the extension's
+length, a full page will be consumed for the data, plus an inode (1/32 of a page)
+to describe the data page; it is thus desirable for callers to buffer a full page
+worth of output. A blob can grow as large as 16MB (this is the sum of actual
+data, not consumed pages). Note that other handles will not be updated; it is
+not possible for a reader to notice the new data save by calling \texttt{OpenBlob}
+anew. The amount written is returned as the third argument to the callback.
+
+\texttt{ReadBlob} allows up to a page worth of data to be read from the blob,
+at the specified offset. If the requested amount of data is not available, a
+short read will be returned as the third argument to the callback. \texttt{Bloblen}
+gets the length of the blob through this handle (again, concurrent extensions
+will not be visible). \texttt{CloseBlob} hints that no more extensions will
+be performed through this handle.
+
+\texttt{RemoveNamedBlob} and \texttt{ReplaceNamedBlob} skip the name lookup
+procedure, forcefully seizing the name and either marking it dead, or
+initializing it with up to one page of data. Extending a handle which has been
+\texttt{Remove}d or \texttt{Replace}d leads to frightful shenanigans (typically,
+the old blob will ``return from the grave'').
+
+\texttt{ListBlobs} ought first be called with \texttt{BLOBD\_INVALID}. It will
+populate \texttt{scratch} with between 1 and 31 blob names and lengths, and
+return a nonce \texttt{blob\_t}. This can be used in a subsequent call, which
+will return a new nonce, and a new set of blob names and lengths. Eventually,
+\texttt{BLOBD\_ENOENT} will be returned, and all blobs will have been
+enumerated. I have not bothered to include the functions for extracting these
+data.
+
+\texttt{Sync} ought be called prior to \texttt{Reset} or process exit. Any
+metadata not yet written to NAND will be flushed. Calling \texttt{Sync} can
+waste up to 62 pages, so do it only when necessary. Failure to call \texttt{Sync}
+can currently result in up to 61 pages being lost. \texttt{Fsck} can be used to
+perform an intensive validation of the filesystem, requiring a read of every
+metadata page (1/32 of the pages). If \texttt{checkdata} is true, \texttt{Fsck}
+will read every page of the NAND, looking for ECC errors. In the absence of
+any other load, this requires roughly 42s per NAND.
 
 \section{Filesystem design}
 %I knew I wanted to
@@ -256,6 +364,9 @@ brought offline. Given that ECC failures can often be recognized immediately
 after programming, metapages should probably be read back following write,
 remapped using the BBM LUTs, and written anew. In any case, a more graceful
 recovery seems desirable.
+
+We ought be able to handle shutdown without a call to \texttt{Sync}, at least
+for pages which actually wrote out data \textbf{DETAILS...}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
