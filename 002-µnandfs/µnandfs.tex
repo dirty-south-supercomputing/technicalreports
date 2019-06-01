@@ -246,9 +246,9 @@ static inline bool BlobErrorP(blob_t code) {
 constexpr blob_t BLOBD_EINPROGRESS = ~(0x1u << 22); // request not yet complete
 constexpr blob_t BLOBD_EIO = ~(0x1u << 23); // error talking to device
 constexpr blob_t BLOBD_ENOSPC = ~(0x1u << 24); // no room to write
-constexpr blob_t BLOBD_ENOENT = ~(0x1u << 25); // no BLOB_CREAT, but blob did no
-constexpr blob_t BLOBD_ENAMETOOLONG = ~(0x1u << 26); // no NUL in 58 bytes of na
-constexpr blob_t BLOBD_EINVAL = ~(0x1u << 27); // bad flags or invalid blobd or
+constexpr blob_t BLOBD_ENOENT = ~(0x1u << 25); // no BLOB_CREAT, but blob did not exist
+constexpr blob_t BLOBD_ENAMETOOLONG = ~(0x1u << 26); // no NUL in 58 bytes of name
+constexpr blob_t BLOBD_EINVAL = ~(0x1u << 27); // bad flags or invalid blobd or invalid read length
 constexpr blob_t BLOBD_EEXIST = ~(0x1u << 28); // blob existed with BLOB_EXCL
 constexpr blob_t BLOBD_INVALID = ~0ul; // generic error
 
@@ -501,7 +501,7 @@ It is not currently possible to use the two chips in parallel as a single,
 unified blobstore. If placed on distinct SPI masters, they can be used in
 parallel as two blobstores, or as a mirrored set. In any configuration---even
 a single SPI master---they can be combined as a linear device. A unified
-2Gbit namespace accessible at 2x34MHz, however, is not yet possible. Mirrored
+2Gbit namespace accessible at 2x32MHz, however, is not yet possible. Mirrored
 sets could be implemented via superblocks for
 maximum performance, requiring only a single SPI master. This would be especially
 advantageous if the QSPI interface had been capable of driving the Winbonds.
