@@ -53,7 +53,7 @@ I was tasked with designing and implementing a persistent associative array
 mapping names to arbitrary data---i.e. a single-directory filesystem, often
 called a \textit{blobstore}---using the Nordic Semiconductor nRF52840 and two
 Winbond W25N01GV gigabit SLC NAND chips. The contract also required necessary
-QSPI drivers. The requirements permitted 4KB of RAM, permitted 4KB of RAM,
+QSPI drivers. The requirements permitted 4KB of RAM,
 allowed no use of other persistent storage, and mandated a fully asynchronous
 API running on ``bare metal'' (no OS, realtime or otherwise). I detail my
 resulting deliverable, µnandfs, and demonstrate its generally performant
@@ -70,9 +70,9 @@ determined that:
 \item Most files would be on the order of 1KB, with a few files
        on the order of tens of megabytes. These larger files would grow
        over time, via substantial (page-sized) appends.
-\item It was not thought necessary to have directories, nor links either hard
-       or symbolic, but it must be possible to remove files, reclaiming both their space and
-       name.
+\item It was not thought necessary to have directories, nor links (either hard
+       or symbolic), but it must be possible to remove files, reclaiming both
+       their space and name.
 \item It must be possible to have multiple files open at once, but it is not
        necessary that a single file support multiple open handles. Writing
        to a file need not be visible to an existing reader.
@@ -332,6 +332,19 @@ metadata page (1/32 of the pages). If \texttt{checkdata} is true, \texttt{Fsck}
 will read every page of the NAND, looking for ECC errors. In the absence of
 any other load, this requires roughly 42s per NAND.
 
+All of these functions can involve some asynchronous I/O. In the best case,
+necessary information is readily available in the active metadata, and the
+return is immediate. Extending a blob can result in up to two pages being
+written out in the active block, and a full block copy if space needed to be
+found in a used block (but will usually result in one page being written).
+In the worst case, where the named blob does not exist on a full NAND, a name
+lookup requires reading every metadata page. Creating (or removing) a file
+usually leads to no I/O, but in the worst case leads to a page being written
+out followed by a block copy. Reading a blob requires traversing some number of
+metadata pages; in the worst case, where a blob has grown fat off partial
+writes, this could again require reading every metadata page (see
+Section \ref{futurework} for plans on improving this linear behavior on reads).
+
 \section{Filesystem design}
 %I knew I wanted to
 %march purely forward writing within a chip---i.e., in addition to the mandatory
@@ -342,7 +355,7 @@ any other load, this requires roughly 42s per NAND.
 %compression, and rejected it. I knew that any frequently-changing state
 %couldn't be persisted without either redundancy or special-purpose blocks.
 
-\section{Future work}
+\section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
 the maximum $2^{24}-1$ bytes requires 8192 inodes, and thus (in the best case)
 530 pages of metadata, and attendant reads. When all of a zone is a single
