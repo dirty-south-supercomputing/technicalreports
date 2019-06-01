@@ -184,7 +184,7 @@ constexpr auto NAND_PAGE_DATABYTES = 2048u;
 constexpr auto NAND_PAGE_SPAREBYTES = 64u;
 constexpr auto NAND_PAGE_SIZE = NAND_PAGE_DATABYTES + NAND_PAGE_SPAREBYTES;
 
-using blob_t = uint32_t;
+using blob_t = uint64_t;
 using NANDPage = std::array<uint8_t, NAND_PAGE_SIZE>;
 using Handler = void(*)(void *, int);
 using FSCallback = void(*)(void*, blob_t, size_t);
@@ -229,8 +229,9 @@ success, and the object can be used until a call to {\texttt{Reset}}.
 
 The primary handle provided to callers is the {\texttt{blob\_t}}\footnote{We encode
 all handle state in the \texttt{blob\_t}, held by the client. ``File descriptors''
-imply indices into space proportional to the number of open handles, a luxury we're not afforded.}. This 32-bit
-word is opaque to callers except through the following two functions:
+imply indices into space proportional to the number of open handles, a luxury we're not afforded.}.
+This 64-bit value is opaque to callers except through the following two
+functions:
 
 \begin{listing}[ht]
 \caption{{\texttt{VK\_FS}} functionality for inspecting {\texttt{blob\_t}}}
@@ -428,10 +429,65 @@ PrevMetadataPage(unsigned pidx) {
   pidx = MetadataForPage(pidx, nullptr);
   return (pidx == DATA_PAGES_PER_ZONE) ? LAST_METADATA_PAGE : pidx - PAGES_PER_ZONE;
 }
+
+static inline unsigned // Return epoch corresponding to nonce
+EpochForNonce(uin32_t nonce) {
+  return ((uint64_t)0xffffffffull - nonce + NAND_BLOCK_COUNT - 1) / NAND_BLOCK_COUNT;
+}
 \end{minted}
 \end{listing}
 
+\subsection{Phased algorithm for block movement}
+That's all well and good, but what becomes of our ineluctable march when we
+wrap around to the front of the NAND, and can't blow away live data? We
+sacrifice one block worth of capacity, designating it the \textit{victim
+  block}. On first initialization, this is the last block. We keep a counter,
+initialized to 0 and increased by 1 each time we erase the first bloc,
+designating it the \textit{epoch}. Note that we can derive the epoch from a
+nonce in O(1), and that epochs partition the nonce space.
+
+Whenever our current block becomes the victim block (this won't happen until the
+last block, but it will happen every other zone afterwards), designate the subsequent
+block to be the \textit{Dunkirk block}. Load the Dunkirk block's first zone's
+metadata page as the working page. Beginning with the first inode, check to
+see if it's dead. If so, it doesn't need rescuing; use its slot in the victim
+to write the next data page. If it is live, copy it into the victim block to
+fight another day. Copy pages in bursts when appropriate, and when the zone is
+complete, write metadata to the victim block. Repeat this with the second zone.
+Designate the survivor block the victim block, and start over.
+
+This maintains perfect wear leveling, and ought even perform reasonably well
+when there are plenty of deletions. But what about outstanding handles to the
+Dunkirk block? Their data just moved out from underneath them! Twenty bits in
+each \texttt{blob\_t} are thus used to encode their origin epoch, i.e. the epoch
+at the time of \texttt{OpenBlob}. If a \texttt{blob\_t} is handed to us with
+our epoch, there's no way it's been moved. Otherwise, it has been moved zero or
+more times; this can be computed in O(1), and applied to the incoming physical
+location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}.
+
 \subsection{Initialization algorithm}
+Knowing that freshly-formatted or otherwise erased blocks are all 1s, and
+knowing that we write a decreasing nonce to each zone we write out, and knowing
+that we write zones in order, a valid µnandfs can take one of three forms:
+\begin{denseitemize}
+\item \textit{More than one zone has a nonce of all 1s, these zones are
+    contiguous, and they include the last zone. All other zones form a
+    decreasing procession.} This is a µnandfs which was interrupted before
+    filling its NAND the first time. The current zone is the first zone with an
+    all-1s nonce.
+\item \textit{Exactly one or two zones, within the same block, have a nonce of
+    all 1s. All other zones form a decreasing procession.} The µnandfs was interrupted
+  either before writing to the last zone its first time through the NAND, or after
+  erasing the current block.  The current zone is the first zone with an all-1s
+  nonce.
+\item \textit{All zones form a decreasing procession, save for a single discontinuity,
+    when the nonce increases by the number of zones.} The µnandfs, on at least
+    its second trip through, was interrupted before erasing the current block.
+    The current zone is the zone with the greatest nonce.
+\end{denseitemize}
+If we're not concerned with verifying these properties in full (that's left to
+the optional \texttt{Fsck}), we can recover the current zone with a single
+O(lgN) algorithm, one very much like binary search.
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
