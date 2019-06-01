@@ -468,26 +468,51 @@ location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}.
 \subsection{Initialization algorithm}
 Knowing that freshly-formatted or otherwise erased blocks are all 1s, and
 knowing that we write a decreasing nonce to each zone we write out, and knowing
-that we write zones in order, a valid µnandfs can take one of three forms:
+that we write zones in order, lower to higher numbers, a valid µnandfs can take
+one of three forms:
 \begin{denseitemize}
-\item \textit{More than one zone has a nonce of all 1s, these zones are
+\item \textit{More than two zones have a nonce of all 1s, these zones are
     contiguous, and they include the last zone. All other zones form a
-    decreasing procession.} This is a µnandfs which was interrupted before
-    filling its NAND the first time. The current zone is the first zone with an
+    decreasing procession.} The µnandfs is freshly initialized, or was interrupted
+    in its first epoch. The current zone is the first zone with an
     all-1s nonce.
 \item \textit{Exactly one or two zones, within the same block, have a nonce of
-    all 1s. All other zones form a decreasing procession.} The µnandfs was interrupted
-  either before writing to the last zone its first time through the NAND, or after
-  erasing the current block.  The current zone is the first zone with an all-1s
-  nonce.
+    all 1s. All other zones form a decreasing procession.} The µnandfs was
+  interrupted near the ends of its first epoch, or after erasing the current
+  block.  The current zone is the first zone with an all-1s nonce.
 \item \textit{All zones form a decreasing procession, save for a single discontinuity,
-    when the nonce increases by the number of zones.} The µnandfs, on at least
-    its second trip through, was interrupted before erasing the current block.
+    when the nonce increases by the number of zones.} The µnandfs, in at least
+    its second epoch, was interrupted before erasing the current block.
     The current zone is the zone with the greatest nonce.
 \end{denseitemize}
 If we're not concerned with verifying these properties in full (that's left to
 the optional \texttt{Fsck}), we can recover the current zone with a single
-O(lgN) algorithm, one very much like binary search.
+O(lgN) algorithm, one very much like binary search. First, note that if we
+assume the remainder of the nonces to be in order, we can determine in O(1)
+whether a given zone is the current zone: if its nonce is greater than the
+nonce of the previous zone, or if its nonce is all 1s and it is the first zone,
+it can be considered the current zone (otherwise, if the previous nonce is not the
+zone's nonce plus 1, and either nonce is anything but all 1s, there is
+invalid metadata).
+
+Read the nonces of the first, last, and (first + ((last - first) / 2)) zones.
+If last is first's previous zone (as it will be on the first iteration),
+determine if the first zone is current (as it will be on the first iteration).
+Otherwise, read first's previous zone's nonce, and perform the same
+decision. If not, get the middle zone's previous zone (which might be first),
+and determine if the middle zone is current. If not, get the last zone's previous
+zone (which might be mid), and determine if the last zone is current. If none
+of the three were current, one of three cases is true:
+\begin{denseitemize}
+\item \textit{Middle nonce was less than first nonce and last nonce.} Set first zone
+  equal to middle's successor, and last equal to last's predecessor, and loop.
+\item \textit{Middle nonce was greater than first nonce and last nonce.} Set
+  first equal to first's successor, and last equal to middle's predecessor, and
+  loop.
+\item \textit{Anything else.} Oh no look no, bad metadata, abandon ship.
+\end{denseitemize}
+Eventually, we either find a valid candidate for the current zone, or
+suffer the inevitable fate of traitors.
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
@@ -517,4 +542,9 @@ for pages which actually wrote out data \textbf{DETAILS...}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
+
+\begin{center}
+\includegraphics[width=1\linewidth]{logo.png}
+\end{center}
+
 \end{document}

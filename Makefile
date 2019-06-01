@@ -20,7 +20,7 @@ all: reports
 
 reports: $(REPORTS)
 
-$(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(µNANDFSDIR)/$(µNANDFSBASE).tex $(µNANDFSDIR)/$(µNANDFSBASE).bib
+$(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib logo.png)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib
