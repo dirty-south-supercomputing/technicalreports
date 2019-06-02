@@ -13,6 +13,10 @@
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xeCJK}
 \usepackage{minted}
+\usepackage{xcolor}
+\definecolor{dsscawpurp}{HTML}{bc78bc}
+\definecolor{dsscawpurpcap}{HTML}{6c286c}
+\usepackage[font={color=dsscawpurpcap},labelfont={sc}]{caption}
 \usepackage[backend=biber,
 date=iso,
 seconds=true,
@@ -30,7 +34,7 @@ bibencoding=utf8,
 }
 
 \pagestyle{fancy}
-\rhead{DSSCAW Technical Report \#002}
+\rhead{\textcolor{dsscawpurp}{DSSCAW Technical Report \#002}}
 
 \title{µnandfs:\\
 A NAND Blobstore for Memory-Starved Platforms\thanks{
@@ -177,7 +181,7 @@ weeks of part-time work. These ideas informed the proposed API, which happily
 ended up pretty well-suited to the final implementation.
 
 \begin{listing}[ht]
-\caption{{\texttt{VK\_FS}} class public API ({\texttt{NANDDev}} defines CS pin and SPI device)}
+\caption{Public API ({\texttt{NANDDev}} defines CS pin and SPI device)}
 \begin{minted}{C++}
 constexpr size_t BLOB_NAME_MAXLEN = 58; // Including mandatory NUL byte!
 constexpr auto NAND_PAGE_DATABYTES = 2048u;
@@ -236,7 +240,7 @@ This 64-bit value is opaque to callers except through the following two
 functions:
 
 \begin{listing}[ht]
-\caption{{\texttt{VK\_FS}} functionality for inspecting {\texttt{blob\_t}}}
+\caption{Functionality for inspecting {\texttt{blob\_t}}}
 \begin{minted}{C++}
 // Returns true iff the blob_t is an error code
 static inline bool BlobErrorP(blob_t code) {
@@ -394,7 +398,7 @@ page), and one byte to a status bitfield. The remaining 58 bytes became
 We define a few useful functions before proceeding:
 
 \begin{listing}[ht]
-\caption{Functions for navigating data and metadata pages, all $\mathcal{O}(1)$}
+\caption{Functionality for navigating data and metadata pages, all $\mathcal{O}(1)$}
 \begin{minted}{C++}
 constexpr size_t INODE_SIZE = 64;
 static_assert(NAND_PAGE_DATABYTES % INODE_SIZE == 0);
@@ -703,7 +707,7 @@ Coupland's \textit{Microserfs}\parencite{microserfs}) remarked plaintively to
 my wife, ``I'm 38. I've done everything you can do on a computer. Well, I've
 never designed a filesystem.'' I appreciate the opportunity to correct that
 deficiency. Hack on!
-\vspace{2cm}
+\vspace{1cm}
 
 \begin{minipage}{\textwidth}
 \begin{center}
@@ -712,8 +716,15 @@ deficiency. Hack on!
   \textbf{\href{https://www.dsscaw.com/}{Dirty South Supercomputing}. Soak more cycles. Burn fewer dinosaurs.}}
 \end{center}
 \end{minipage}
-\vspace{2cm}
+\vspace{1cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
+
+\begin{minipage}{\textwidth}
+\begin{center}
+\includegraphics[width=.4\linewidth]{../dsscaw-purp-scaled.png}
+\end{center}
+\end{minipage}
+
 \end{document}
