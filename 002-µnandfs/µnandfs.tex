@@ -471,7 +471,7 @@ method also effects perfect \textit{data scrubbing}\parencite{management},
 the most effective solution for retention errors. In honor of minimalist
 composer Stephen Reich, I refer to this movement of data as ``phase music''.
 
-\subsection{Initialization algorithm}
+\subsection{Initialization algorithm} \label{callzones}
 Knowing that freshly-formatted or otherwise erased blocks are all 1s, and
 knowing that we write a decreasing nonce to each zone we write out, and knowing
 that we write zones in order, lower to higher numbers, a valid µnandfs can take
@@ -569,10 +569,10 @@ created with the name, pointing to its own data page as the previous page.
 This inode will be found before any previous inodes of the same name. If
 necessary, creating this inode will flush the active page to disk, possibly
 provoking a block rescue. \texttt{ReplaceNamedBlob} invokes \texttt{ExtendBlob}
-with the result. These are definitely the fastest ways to modify the blobstore.
+with the result. These are definitely the fastest ways to modify the blobstore,
+as they waste no time absorbing the past.
 
 \subsection{Reading and extending blobs}
-\textbf{-------------DETAIL THESE STATE MACHINES------------}
 
 \begin{center}
 \includegraphics[width=1\linewidth]{ExtendBlob.png}
@@ -586,7 +586,20 @@ with the result. These are definitely the fastest ways to modify the blobstore.
 \end{center}
 
 \subsection{Irregular operations}
-\textbf{-------------DETAIL THESE STATE MACHINES------------}
+\texttt{Fsck} reads each metadata page in order. Its goal is to verify that the
+progression of nonces conforms to the rules outlined in Section \ref{callzones}.
+There ought be zero, one, or two orderly processions downwards. One discontinuity
+is allowed. The only other permitted progression is a series of uninitialized blocks
+at the top of the NAND. It also ensures that all metadata pages can be read at
+least once without ECC errors. It could obviously do more.
+
+\texttt{Format} erases each block in order. Its goal is to restore the NAND to
+a fresh state.
+
+\texttt{Sync} flushes out metadata for the current block if any entries are
+present, advancing the current zone to the first zone of the next block. This
+is currently necessary to avoid data loss on shutdown, though I have ideas on
+how to eliminate it.
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
@@ -614,7 +627,8 @@ recovery seems desirable.
 We ought be able to handle shutdown without a call to \texttt{Sync}, at least
 for pages which actually wrote out data \textbf{-------------DETAILS...}.
 
-There are surely forty thousand ways in which this design could be improved.
+There are surely forty thousand ways in which this design could be improved. The
+implementation seems pretty solid, for whatever that's worth.
 
 \begin{center}
 \includegraphics[width=.5\linewidth]{south.png}
