@@ -6,8 +6,12 @@ CANBUSBASE:=canbusre
 CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSBASE:=µnandfs
 µNANDFSDIR:=002-$(µNANDFSBASE)
-µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob FSM \
-	Initialize FindBlob south)
+
+# Common resources
+RESOURCES:=../dsscaw-purp-scaled.png
+
+µNANDFSRESOURCES:=$(RESOURCES) $(addsuffix .png,combined ExtendBlob ReadBlob \
+  FSM Initialize FindBlob south)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
