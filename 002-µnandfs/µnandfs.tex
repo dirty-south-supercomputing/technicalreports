@@ -568,7 +568,7 @@ created with the name, pointing to its own data page as the previous page.
 This inode will be found before any previous inodes of the same name. If
 necessary, creating this inode will flush the active page to disk, possibly
 provoking a block rescue. \texttt{ReplaceNamedBlob} invokes \texttt{ExtendBlob}
-with the result.
+with the result. These are definitely the fastest ways to modify the blobstore.
 
 \subsection{Reading and extending blobs}
 \textbf{-------------DETAIL THESE STATE MACHINES------------}
@@ -614,6 +614,12 @@ We ought be able to handle shutdown without a call to \texttt{Sync}, at least
 for pages which actually wrote out data \textbf{-------------DETAILS...}.
 
 There are surely forty thousand ways in which this design could be improved.
+
+\begin{center}
+\includegraphics[width=.5\linewidth]{south.png}
+\captionof{figure}{I hope this writeup was informative!\\
+  \textbf{\href{https://www.dsscaw.com/}{Dirty South Supercomputing}. Soak more cycles. Burn fewer dinosaurs.}}
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
