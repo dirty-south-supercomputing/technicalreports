@@ -6,3 +6,4 @@
 */*.out
 */*.blg
 */*.pdf
+*/_minted-*

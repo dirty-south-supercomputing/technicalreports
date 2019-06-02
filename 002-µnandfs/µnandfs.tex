@@ -293,12 +293,13 @@ can result in fewer wasted NAND pages.
 \texttt{ExtendBlob} adds up to a page worth of data to the blob. The callback
 specifies a new handle which should be used for further extensions (extending
 again on the same blob will replace the extended data). No matter the extension's
-length, a full page will be consumed for the data, plus an inode (1/32 of a page)
-to describe the data page; it is thus desirable for callers to buffer a full page
-worth of output. A blob can grow as large as 16MB-1 (this is the sum of actual
-data, not consumed pages). Note that other handles will not be updated; it is
-not possible for a reader to notice the new data save by calling \texttt{OpenBlob}
-anew. The amount written is returned as the third argument to the callback.
+length, a full page will be consumed for the data, plus an inode ($\frac{1}{32}$
+of a page) to describe the data page; it is thus desirable for callers to
+buffer a full page worth of output. A blob can grow as large as $2^{24}-1$
+bytes (16MB; this is the sum of actual data, not consumed pages). Note that
+other handles will not be updated; it is not possible for a reader to notice
+the new data save by calling \texttt{OpenBlob} anew. The amount written is
+returned as the third argument to the callback.
 
 \texttt{ReadBlob} allows up to a page worth of data to be read from the blob,
 at the specified offset. If the requested amount of data is not available, a
@@ -326,7 +327,7 @@ metadata not yet written to NAND will be flushed. Calling \texttt{Sync} can
 waste up to 62 pages, so do it only when necessary. Failure to call \texttt{Sync}
 can currently result in up to 61 pages being lost. \texttt{Fsck} can be used to
 perform an intensive validation of the filesystem, requiring a read of every
-metadata page (1/32 of the pages). If \texttt{checkdata} is true, \texttt{Fsck}
+metadata page ($\frac{1}{32}$ of the pages). If \texttt{checkdata} is true, \texttt{Fsck}
 will read every page of the NAND, looking for ECC errors. In the absence of
 any other load, this requires roughly 42s per NAND.
 
@@ -375,24 +376,25 @@ mixed pages plan, every page had identifiable metadata, and that metadata could
 carry a decreasing nonce. Find the discontinuity in nonces, and you've found
 your active page (more on this momentarily). By placing metadata pages at the
 32nd and 64th page of each block, nonces can be recorded in these pages only, and
-the same O(lgN) algorithm performed (on 1/32 as many pages). I call these
+the same $\mathcal{O}(\log{}n)$ algorithm performed (on $\frac{1}{32}$ as many pages). I call these
 32-page regions \textit{zones}. This yielded up a natural 64-byte fixed inode
 size for each of the 31 previous pages, plus 64 bytes for zone metadata. Three
 bytes were dedicated to ``blob length through this inode'', two bytes to
 ``previous data page'' (the data page governed by an inode can be derived in
-O(1), as can the inode corresponding to a data
+$\mathcal{O}(1)$, as can the inode corresponding to a data
 page), and one byte to a status bitfield. The remaining 58 bytes became
 \texttt{BLOB\_NAME\_MAXLEN}\footnote{Metadata placed flexibly, only when
   appropriate for recent I/O, could be more efficient than periodic metadata
   with a fixed inode size (fewer pages used for metadata, fewer pages needing
   reading to describe a given file). Metadata and arbitrary data pages could be
   differentiated via a single bit in the Spare Area. Finding the metadata page
-  describing a given data page becomes O(lgN) as opposed to O(1).}.
+  describing a given data page becomes $\mathcal{O}(\log{}n)$ as opposed to
+  $\mathcal{O}(1)$.}.
 
 We define a few useful functions before proceeding:
 
 \begin{listing}[ht]
-\caption{Functions for navigating data and metadata pages, all O(1)}
+\caption{Functions for navigating data and metadata pages, all $\mathcal{O}(1)$}
 \begin{minted}{C++}
 constexpr size_t INODE_SIZE = 64;
 static_assert(NAND_PAGE_DATABYTES % INODE_SIZE == 0);
@@ -447,7 +449,7 @@ sacrifice one block worth of capacity, designating it the \textit{victim
   block}. On first initialization, this is the last block. We keep a counter,
 initialized to 0 and increased by 1 each time we erase the first block,
 designating it the \textit{epoch}. Note that we can derive the epoch from a
-nonce in O(1), and that epochs partition the nonce space.
+nonce in $\mathcal{O}(1)$, and that epochs partition the nonce space.
 
 Whenever our current block becomes the victim block (this won't happen until the
 last block, but it will happen every other zone afterwards), designate the subsequent
@@ -467,8 +469,8 @@ go shifting the world around \textit{ourselves}.}! Twenty bits in
 each \texttt{blob\_t} are thus used to encode its origin epoch, i.e. the epoch
 at the time of \texttt{OpenBlob}. If a \texttt{blob\_t} is handed to us with
 our epoch, there's no way it's been moved. Otherwise, it has been moved zero or
-more times; this can be computed in O(1), and applied to the incoming physical
-location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}. This
+more times; this can be computed in $\mathcal{O}(1)$, and applied to the incoming physical
+location as an $\mathcal{O}(1)$ displacement modulo \texttt{NAND\_BLOCK\_COUNT}. This
 method also effects perfect \textit{data scrubbing}\parencite{management},
 the most effective solution for retention errors. In honor of minimalist
 composer Stephen Reich, I refer to this movement of data as ``phase music''.
@@ -495,8 +497,8 @@ one of three forms:
 \end{denseitemize}
 If we're not concerned with verifying these properties in full (that's left to
 the optional \texttt{Fsck}), we can recover the current zone with a single
-O(lgN) algorithm, one very much like binary search. First, note that if we
-assume the remainder of the nonces to be in order, we can determine in O(1)
+$\mathcal{O}(\log{}n)$ algorithm, one very much like binary search. First, note that if we
+assume the remainder of the nonces to be in order, we can determine in $\mathcal{O}(1)$ 
 whether a given zone is the current zone: if its nonce is greater than the
 nonce of the previous zone, or if its nonce is all 1s and it is the first zone,
 it can be considered the current zone (otherwise, if the previous nonce is not the
@@ -615,7 +617,7 @@ IncomingLen less than or equal to the requested offset. The referenced data
 page is the earliest we need to read for the request.
 
 We would need keep a list of page indices to ``come back through'', reading
-data pages of the blob in order. This would require O(N) space on N inodes.
+data pages of the blob in order. This would require $\mathcal{O}(n)$ space on $n$ inodes.
 For the worst case of a 2KB read made up of $2^{11}$ 1-byte writes, this
 requires 4KB. Instead, we populate the read buffer in reverse. While moving
 % CHECK THIS feels off-by-one %
@@ -683,12 +685,25 @@ after programming, metapages should probably be read back following write,
 remapped using the BBM LUTs, and written anew. In any case, a more graceful
 recovery seems desirable.
 
-We ought be able to handle shutdown without a call to \texttt{Sync}, at least
-for pages which actually wrote out data \textbf{-------------DETAILS...}.
+We might be able to handle shutdown without a call to \texttt{Sync}, at least
+for pages which actually wrote out data. The difficulty is twofold: we must
+be able to recover the name for newly-created blobs (where would this be kept?),
+and we must be able to absolutely distinguish written pages from random garbage.
+This last requirement would be impossible, except that the user doesn't control
+the Spare Area. By writing the epoch into the Spare Area, we can be pretty
+well assured that we actually wrote the page.
 
 There are surely forty thousand ways in which this design could be improved.
 
 The implementation seems pretty solid, for whatever that's worth.
+
+\section{Closing words}
+A few weeks before receiving this contract, I (in a shameless rip-off of Douglas
+Coupland's \textit{Microserfs}\parencite{microserfs}) remarked plaintively to
+my wife, ``I'm 38. I've done everything you can do on a computer. Well, I've
+never designed a filesystem.'' I appreciate the opportunity to correct that
+deficiency. Hack on!
+\vspace{2cm}
 
 \begin{minipage}{\textwidth}
 \begin{center}
@@ -697,6 +712,7 @@ The implementation seems pretty solid, for whatever that's worth.
   \textbf{\href{https://www.dsscaw.com/}{Dirty South Supercomputing}. Soak more cycles. Burn fewer dinosaurs.}}
 \end{center}
 \end{minipage}
+\vspace{2cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
