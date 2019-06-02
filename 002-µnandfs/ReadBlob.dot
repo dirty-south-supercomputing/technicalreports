@@ -9,6 +9,7 @@ digraph ReadBlob {
     qi -> ReadBlob;
     ReadBlob -> ReadBlobMDBottom [ label = "in current metadata" ];
     ReadBlob -> ReadBlobMDBottom  [ label = "readPage(m)" ];
+    ReadBlobMDBottom -> ReadBlobMDBottom [ label = "non-partial, non-first page" ];
     ReadBlobMDBottom -> ReadBlobDBottom [ label = "readPage(d)" ];
     ReadBlobDBottom -> ReadBlobMDBottom [ label = "readPage(m)" ];
 }
