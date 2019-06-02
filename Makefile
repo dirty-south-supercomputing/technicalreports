@@ -6,7 +6,8 @@ CANBUSBASE:=canbusre
 CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSBASE:=µnandfs
 µNANDFSDIR:=002-$(µNANDFSBASE)
-µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob FSM Initialize FindBlob)
+µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob FSM \
+	Initialize FindBlob south)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
@@ -32,3 +33,4 @@ clean:
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.bcf) $(wildcard $(dir)/*.blg))
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.log) $(wildcard $(dir)/*.out))
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.pdf) $(wildcard $(dir)/*.xml))
+	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/_minted-*))

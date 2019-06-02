@@ -2,7 +2,7 @@ digraph G {
 	nodesep="0.1"
 	rankdir=RL;
   subgraph clusterMetadata {
-		label="Metadata page layout";
+		label="Metadata page layout (2,048 MD pages total)\nPage 31 and 63 of each block";
     color=turquoise;
 		labelloc="b";
 		subgraph clusterZoneA {
@@ -30,7 +30,7 @@ digraph G {
 </tr>
 
 <tr>
-<td>P0x0038 (I24)</td>
+<td bgcolor="plum1">P0x0038 (I24)</td>
 <td>...6 inodes...</td>
 <td>Zone map</td>
 </tr>
