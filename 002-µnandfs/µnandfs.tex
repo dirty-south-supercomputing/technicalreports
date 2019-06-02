@@ -438,7 +438,7 @@ EpochForNonce(uin32_t nonce) {
 \captionof{figure}{Structure of chip, block, metadata page, and inode}
 \end{center}
 
-\subsection{Phased algorithm for block movement}
+\subsection{Phased algorithm for block movement} \label{shuffle}
 That's all well and good, but what becomes of our ineluctable march when we
 wrap around to the front of the NAND, and can't blow away live data? We
 sacrifice one block worth of capacity, designating it the \textit{victim
@@ -459,14 +459,17 @@ Designate the Dunkirk block the victim block, and start over.
 
 This maintains perfect wear leveling, and ought even perform reasonably well
 when there are plenty of deletions. But what about outstanding handles to the
-Dunkirk block? Their data just moved out from underneath them! Twenty bits in
+Dunkirk block? Their data just moved out from underneath them\footnote{We don't
+guarantee other writers to be reflected in readers, but we can't very well
+go shifting the world around \textit{ourselves}.}! Twenty bits in
 each \texttt{blob\_t} are thus used to encode its origin epoch, i.e. the epoch
 at the time of \texttt{OpenBlob}. If a \texttt{blob\_t} is handed to us with
 our epoch, there's no way it's been moved. Otherwise, it has been moved zero or
 more times; this can be computed in O(1), and applied to the incoming physical
 location as an O(1) displacement modulo \texttt{NAND\_BLOCK\_COUNT}. This
 method also effects perfect \textit{data scrubbing}\parencite{management},
-the most effective solution for retention errors.
+the most effective solution for retention errors. In honor of minimalist
+composer Stephen Reich, I refer to this movement of data as ``phase music''.
 
 \subsection{Initialization algorithm}
 Knowing that freshly-formatted or otherwise erased blocks are all 1s, and
@@ -519,14 +522,44 @@ of the three were current, one of three cases is true:
 \includegraphics[width=1\linewidth]{Initialize.png}
 \captionof{figure}{\texttt{Initialize} state machine}
 \end{center}
+In honor of Atlanta rappers the Ying-Yang Twins, I refer to this process as
+``Calling all Zones''.
 
 \subsection{Name resolution and fast name operations}
+The chip might have any number of instances of a particular name on it, with
+pages in any order. Since we're always moving forwards through the chip, though,
+we can order events. Start by searching through any active metadata, and then move
+backwards through metadata pages until hitting an all 1s nonce, coming back to
+the starting point, or finding an inode with the name. The most recent inode
+of this epoch, if any exist, must be the most recent inode, and the lookup is
+complete. If an inode is found which is not from this epoch, it is possible that
+inodes ahead of us on the NAND have a newer, authoritative entry. Remember that
+when shuffling pages from the Dunkirk block to the victim block, we must determine
+whether they're live, which requires determining the authoritative end of the
+blob. At that time, we write said end into the first two bytes of the Spare Area.
+Since any inodes of a previous epoch behind us on the NAND must have been copied,
+the most recently copied must have up-to-date information regarding the last
+inode of the blob (this would not be true only if the blob had been extended
+since the copy, and any such inode would have been found before the copied
+inode). Extensions always write their own page address, since they are by
+definition the authoritative, newest chunk of the blob.
+
+If the authoritative inode is marked with the killed bit (MSB of the status
+byte), the blob must be considered not present. It is not included in
+\texttt{ListBlobs}, can be opened with \texttt{BLOB\_EXCL}, and cannot be
+opened unless \texttt{BLOB\_CREAT} is provided, and a new inode provisioned.
+In the case of a new blob, an entry must go into the active metadata. If the
+active page is full, this implies the flush and shuffle described in
+Section \ref{shuffle} (referred to as the ``asymptotic copy branch'' in state
+machine diagrams\footnote{I'm unsure how the Hertzsprung–Russell diagram got
+caught up in this, but ``asymptotic copy branch'' it is.}). \texttt{OpenBlob}
+does not return success without having successfully provisioned an inode.
+
+% FIXME FindBlob.png needs to show moving forward based off SpareArea
 \begin{center}
 \includegraphics[width=1\linewidth]{FindBlob.png}
 \captionof{figure}{\texttt{FindBlob} state machine}
 \end{center}
-
-\textbf{-------------DETAIL NAME LOOKUP STATE MACHINE------------}
 
 \texttt{RemoveNamedBlob} and \texttt{ReplaceNamedBlob} are both extremely
 simple once we have this model. They simply call \texttt{FindBlobFinal} with
@@ -579,6 +612,8 @@ recovery seems desirable.
 
 We ought be able to handle shutdown without a call to \texttt{Sync}, at least
 for pages which actually wrote out data \textbf{-------------DETAILS...}.
+
+There are surely forty thousand ways in which this design could be improved.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
