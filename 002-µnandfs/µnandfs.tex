@@ -9,6 +9,7 @@
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{fontspec}
+\usepackage{relsize}
 \setmonofont{Inconsolata}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xeCJK}
@@ -32,6 +33,7 @@ bibencoding=utf8,
 }{
   \end{itemize}
 }
+\newcommand\CC{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\hspace{.2em}}
 
 \pagestyle{fancy}
 \rhead{
@@ -71,7 +73,7 @@ behaviors.
 \section{Introduction}
 The client's initial request was simply ``a filesystem on the nRF52840 using
 two W25N01GV NANDs, plus any necessary drivers, plus an entirely asynchronous
-C++ API, in as little RAM as possible''. Refinement of these requirements
+\CC API, in as little RAM as possible''. Refinement of these requirements
 determined that:
 \begin{denseitemize}
 \item Most files would be on the order of 1KB, with a few files
