@@ -14,7 +14,7 @@
 \usepackage{xeCJK}
 \usepackage{minted}
 \usepackage{xcolor}
-\definecolor{dsscawpurp}{HTML}{bc78bc}
+\definecolor{dsscawpurp}{HTML}{b079b0}
 \definecolor{dsscawpurpcap}{HTML}{6c286c}
 \usepackage[font={color=dsscawpurpcap},labelfont={sc}]{caption}
 \usepackage[backend=biber,
@@ -34,7 +34,10 @@ bibencoding=utf8,
 }
 
 \pagestyle{fancy}
-\rhead{\textcolor{dsscawpurp}{DSSCAW Technical Report \#002}}
+\rhead{
+  \includegraphics[height=\fontcharht\font`\D,keepaspectratio=true]{../dsscaw-hdr.pdf}
+  \textcolor{dsscawpurp}{DSSCAW Technical Report \#002}
+}
 
 \title{µnandfs:\\
 A NAND Blobstore for Memory-Starved Platforms\thanks{
@@ -706,16 +709,11 @@ A few weeks before receiving this contract, I (in a shameless rip-off of Douglas
 Coupland's \textit{Microserfs}\parencite{microserfs}) remarked plaintively to
 my wife, ``I'm 38. I've done everything you can do on a computer. Well, I've
 never designed a filesystem.'' I appreciate the opportunity to correct that
-deficiency. Hack on!
-\vspace{1cm}
+deficiency.
 
-\begin{minipage}{\textwidth}
-\begin{center}
-\includegraphics[width=.5\linewidth]{south.png}
-\captionof{figure}{I hope this writeup was informative!\\
-  \textbf{\href{https://www.dsscaw.com/}{Dirty South Supercomputing}. Soak more cycles. Burn fewer dinosaurs.}}
-\end{center}
-\end{minipage}
+I hope this writeup was informative! Hack on!\\
+
+\textbf{\href{https://www.dsscaw.com/}{Dirty South Supercomputing}. Soak more cycles. Burn fewer dinosaurs.}
 \vspace{1cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -724,7 +722,7 @@ deficiency. Hack on!
 \begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=.4\linewidth]{../dsscaw-purp-scaled.png}
+\includegraphics[width=.5\linewidth]{south.png}
 \end{center}
 \end{minipage}
-
 \end{document}

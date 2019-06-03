@@ -14,7 +14,7 @@
 \usepackage{xeCJK}
 \usepackage{minted}
 \usepackage{xcolor}
-\definecolor{dsscawpurp}{HTML}{bc78bc}
+\definecolor{dsscawpurp}{HTML}{b079b0}
 \definecolor{dsscawpurpcap}{HTML}{6c286c}
 \usepackage[font={color=dsscawpurpcap},labelfont={sc}]{caption}
 \usepackage[backend=biber,
@@ -34,7 +34,10 @@ bibencoding=utf8,
 }
 
 \pagestyle{fancy}
-\rhead{DSSCAW Technical Report \#NUMBER}
+\rhead{
+  \includegraphics[height=\fontcharht\font`\D,keepaspectratio=true]{../dsscaw-hdr.pdf}
+  \textcolor{dsscawpurp}{DSSCAW Technical Report \#NUMBER}
+}
 
 \title{CATCHYTITLE\\
 TECHYTITLE\thanks{

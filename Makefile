@@ -8,7 +8,7 @@ CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSDIR:=002-$(µNANDFSBASE)
 
 # Common resources
-RESOURCES:=../dsscaw-purp-scaled.png
+RESOURCES:=../dsscaw-purp-scaled.png ../dsscaw-hdr.pdf
 
 µNANDFSRESOURCES:=$(RESOURCES) $(addsuffix .png,combined ExtendBlob ReadBlob \
   FSM Initialize FindBlob south)
