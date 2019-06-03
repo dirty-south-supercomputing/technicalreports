@@ -503,8 +503,8 @@ one of three forms:
     The current zone is the zone with the greatest nonce.
 \end{denseitemize}
 If we're not concerned with verifying these properties in full (that's left to
-the optional \texttt{Fsck}), we can recover the current zone with a single
-$\mathcal{O}(\log{}n)$ algorithm, one very much like binary search. First, note that if we
+the optional \texttt{Fsck}), we can recover the current zone in all three cases
+with a single $\mathcal{O}(\log{}n)$ algorithm, one very much like binary search. First, note that if we
 assume the remainder of the nonces to be in order, we can determine in $\mathcal{O}(1)$ 
 whether a given zone is the current zone: if its nonce is greater than the
 nonce of the previous zone, or if its nonce is all 1s and it is the first zone,
@@ -602,12 +602,12 @@ of large files.
 \end{center}
 \end{minipage}
 
-The extension case is simple; we acquire a fresh inode from the
+The extension case is simple. We acquire a fresh inode from the
 active page, and write its data page (locking in the inode) immediately. The
 only exception is if our \texttt{blob\_t} is of the present epoch, in the
 active zone, and its data page has not yet been written. In this case, no new
-inode is necessary, and we write out the page. If a blob is created after this
-one created, but before the extension, that blob will be ``locked in'' with an
+inode is necessary, and we write out the page. If a blob was created after this
+one was created, but before this extension, that other blob will be ``locked in'' with an
 empty first page. This wastes a page, which we'd like to recover in the next
 epoch. For that reason, when we extend a blob using a reference to its locked-in
 first page, the new inode is written as if it's the first inode of the blob---its
