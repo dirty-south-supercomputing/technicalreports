@@ -220,7 +220,7 @@ A {\texttt{NANDDev}} is a small structure, often {\texttt{constexpr}}, tying
 together a SPI master identifier and a Chip Select line (numerous slaves can be
 connected to a single SPI master, and selected via this line). The same {\texttt{NANDDev}}
 must not be provided to two {\texttt{VK\_FS}} objects. To {\texttt{Format}} a
-NANDDev is simply to erase all of its blocks, restoring all bits to their default
+\texttt{NANDDev} is simply to erase all of its blocks, restoring all bits to their default
 1. {\texttt{Init}} is handed one or more {\texttt{NANDDev}}s, and the boolean
 {\texttt{mirror}} (if false, the NANDs are put in linear combination). All
 specified devices must be freshly formatted, or they must make up an existing
