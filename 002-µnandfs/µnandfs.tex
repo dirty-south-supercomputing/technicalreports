@@ -148,11 +148,11 @@ LUTs is at our disposal, providing transparent remapping of block addresses.
 Finally, there are 10 ``One-Time Program'' pages, which can be written to only
 once.
 
-Block erasure operations can fail, setting the FAIL-E bit; likewise page
-programming and FAIL-P. Both of these bits are reset when the next operation
+Block erasure operations can fail, setting the \texttt{FAIL-E} bit; likewise page
+programming and \texttt{FAIL-P}. Both of these bits are reset when the next operation
 is started. Page read operations that fail their ECC check result in one or
-more ECC error bits being set. These error bits remain high until the chip is
-reset. Most operations set the BUSY bit, and only when this bit goes low is it
+more \texttt{ECC-CE} error bits being set. These error bits remain high until the chip is
+reset. Most operations set the \texttt{BUSY} bit, and only when this bit goes low is it
 safe to consider an operation completed.
 
 \subsection{Interactions with the nRF52840}
@@ -531,16 +531,16 @@ of the three were current, one of three cases is true:
 \item \textit{Anything else.} Oh no look no, bad metadata, abandon ship.
 \end{denseitemize}
 
+In honor of Atlanta rappers the Ying-Yang Twins, I refer to this process as
+``Calling all Zones\footnote{In truth, of course, we call only logarithmically
+  many zones.}''.
+
 \begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=1\linewidth]{Initialize.png}
 \captionof{figure}{\texttt{Initialize} state machine}
 \end{center}
 \end{minipage}
-
-In honor of Atlanta rappers the Ying-Yang Twins, I refer to this process as
-``Calling all Zones\footnote{In truth, of course, we call only logarithmically
-  many zones.}''.
 
 \subsection{Name resolution and fast name operations}
 The chip might have any number of instances of a particular name on it, with
