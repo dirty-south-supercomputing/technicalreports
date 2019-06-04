@@ -239,7 +239,7 @@ is thus typically to invoke the function, check if the result is
 {\texttt{BLOBD\_EINPROGRESS}}, and if not, directly invoke the callback
 from the original callsite. The primary handle provided to callers is the
 {\texttt{blob\_t}}\footnote{We encode all handle state in the \texttt{blob\_t},
-  held by the client. ``File descriptors'' imply indices into space
+  held by the client. ``File descriptors'' imply space
   proportional to the number of open handles, a luxury we're not afforded.}.
 This 64-bit value is opaque to callers except through the following two
 functions:
@@ -304,7 +304,7 @@ specifies a new handle which should be used for further extensions (extending
 again on the same blob will replace the extended data). No matter the extension's
 length, a full page will be consumed for the data, plus an inode ($\frac{1}{32}$
 of a page) to describe the data page; it is thus desirable for callers to
-buffer a full page worth of output. A blob can grow as large as $2^{24}-1$
+buffer a full page worth of output. A blob can grow as large as $2^{24} - 1$
 bytes (16MB; this is the sum of actual data, not consumed pages). Note that
 other handles will not be updated; it is not possible for a reader to notice
 the new data save by calling \texttt{OpenBlob} anew. The amount written is
@@ -365,9 +365,9 @@ I considered metadata compression, and said ``no'' to madness.
 I knew I wanted to march purely forward writing within a chip---i.e., in
 addition to the mandatory in-order programming of pages, I hoped to erase
 blocks in order, with no special meaning for any given block. Any such scheme
-is guaranteed perfectly uniform wear leveling, and should require minimal state
-(I knew that any frequently-changing state couldn't be persisted without either
-redundancy or special-purpose blocks). I considered bundling metadata with
+is guaranteed perfectly uniform wear leveling, and should require minimal
+state\footnote{I knew that any frequently-changing state couldn't be persisted without either
+redundancy or special-purpose blocks.}. I considered bundling metadata with
 data. Such a scheme would be very flexible; I could write the metadata length
 and true length into the Spare Area, grow the data up from the bottom and the
 metadata down from the top, and have type-tagged metadata tuned to the particular
@@ -492,8 +492,8 @@ one of three forms:
 \begin{denseitemize}
 \item \textit{More than two zones have a nonce of all 1s, these zones are
     contiguous, and they include the last zone. All other zones form a
-    decreasing procession.} The µnandfs is freshly initialized, or was interrupted
-    in its first epoch. The current zone is the first zone with an
+    decreasing procession.} The µnandfs is either freshly initialized, or was
+    interrupted in its first epoch. The current zone is the first zone with an
     all-1s nonce.
 \item \textit{Exactly one or two zones, within the same block, have a nonce of
     all 1s. All other zones form a decreasing procession.} The µnandfs was
@@ -673,7 +673,7 @@ how to eliminate it.
 
 \section{Future work} \label{futurework}
 It is desirable to encode large files more efficiently. Currently, a file of
-the maximum $2^{24}-1$ bytes requires 8192 inodes, and thus (in the best case)
+the maximum $2^{24} - 1$ bytes requires 8192 inodes, and thus (in the best case)
 530 pages of metadata, and attendant reads. When all of a zone is a single
 blob, some different scheme ought be employed to encode this fact.
 Unfortunately, it's unlikely that such a write could ever be performed as a
