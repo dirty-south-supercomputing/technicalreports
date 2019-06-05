@@ -33,6 +33,7 @@ bibencoding=utf8,
 }{
   \end{itemize}
 }
+% An attractive 'C++'
 \newcommand\CC{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\hspace{.2em}}
 
 \pagestyle{fancy}
@@ -58,7 +59,7 @@ A NAND Blobstore for Memory-Starved Platforms\thanks{
 \thispagestyle{fancy}
 \date{}
 \begin{abstract}
-I was tasked with designing and implementing a persistent associative array
+\noindent I was tasked with designing and implementing a persistent associative array
 mapping names to arbitrary data---i.e. a single-directory filesystem, often
 called a \textit{blobstore}---using the Nordic Semiconductor nRF52840 SoC and
 two Winbond W25N01GV gigabit SLC NAND chips. The contract also required
@@ -385,7 +386,7 @@ mixed pages plan, every page had identifiable metadata, and that metadata could
 carry a decreasing nonce. Find the discontinuity in nonces, and you've found
 your active page (more on this momentarily). By placing metadata pages at the
 32nd and 64th page of each block, nonces can be recorded in these pages only, and
-the same $\mathcal{O}(\log{}n)$ algorithm performed (on $\frac{1}{32}$ as many pages). I call these
+the same $\mathcal{O}(\log n)$ algorithm performed (on $\frac{1}{32}$ as many pages). I call these
 32-page regions \textit{zones}. This yielded up a natural 64-byte fixed inode
 size for each of the 31 previous pages, plus 64 bytes for zone metadata. Three
 bytes were dedicated to ``blob length through this inode'', two bytes to
@@ -397,7 +398,7 @@ page), and one byte to a status bitfield. The remaining 58 bytes became
   with a fixed inode size (fewer pages used for metadata, fewer pages needing
   reading to describe a given file). Metadata and arbitrary data pages could be
   differentiated via a single bit in the Spare Area. Finding the metadata page
-  describing a given data page becomes $\mathcal{O}(\log{}n)$ as opposed to
+  describing a given data page becomes $\mathcal{O}(\log n)$ as opposed to
   $\mathcal{O}(1)$.}.
 
 We define a few useful functions before proceeding:
@@ -444,12 +445,10 @@ EpochForNonce(uin32_t nonce) {
 \end{minted}
 \end{listing}
 
-\begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=.8\linewidth]{combined.png}
 \captionof{figure}{Structure of chip, block, metadata page, and inode}
 \end{center}
-\end{minipage}
 
 \subsection{Phased algorithm for block movement} \label{shuffle}
 That's all well and good, but what becomes of our ineluctable march when we
@@ -506,7 +505,7 @@ one of three forms:
 \end{denseitemize}
 If we're not concerned with verifying these properties in full (that's left to
 the optional \texttt{Fsck}), we can recover the current zone in all three cases
-with a single $\mathcal{O}(\log{}n)$ algorithm, one very much like binary search. First, note that if we
+with a single $\mathcal{O}(\log n)$ algorithm, one very much like binary search. First, note that if we
 assume the remainder of the nonces to be in order, we can determine in $\mathcal{O}(1)$ 
 whether a given zone is the current zone: if its nonce is greater than the
 nonce of the previous zone, or if its nonce is all 1s and it is the first zone,
@@ -535,12 +534,10 @@ In honor of Atlanta rappers the Ying-Yang Twins, I refer to this process as
 ``Calling all Zones\footnote{In truth, of course, we call only logarithmically
   many zones.}''.
 
-\begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=1\linewidth]{Initialize.png}
 \captionof{figure}{\texttt{Initialize} state machine}
 \end{center}
-\end{minipage}
 
 \subsection{Name resolution and fast name operations}
 The chip might have any number of instances of a particular name on it, with
@@ -573,12 +570,10 @@ caught up in this, but ``asymptotic copy branch'' it is.}). \texttt{OpenBlob}
 does not return success without having successfully provisioned an inode.
 
 % FIXME FindBlob.png needs to show moving forward based off SpareArea
-\begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=1\linewidth]{FindBlob.png}
 \captionof{figure}{\texttt{FindBlob} state machine}
 \end{center}
-\end{minipage}
 
 \texttt{RemoveNamedBlob} and \texttt{ReplaceNamedBlob} are both extremely
 simple once we have this model. They simply call \texttt{FindBlobFinal} with
@@ -597,12 +592,10 @@ great place to be for appending, a great place for reading from small files
 (since they are only one page), and a bad place for reading from the beginning
 of large files.
 
-\begin{minipage}{\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{ExtendBlob.png}
+\makebox[\textwidth][c]{\includegraphics[width=1\linewidth]{ExtendBlob.png}}
 \captionof{figure}{\texttt{ExtendBlob} state machine}
 \end{center}
-\end{minipage}
 
 The extension case is simple. We acquire a fresh inode from the
 active page, and write its data page (locking in the inode) immediately. The
@@ -647,13 +640,11 @@ to be 2KB, and can do a zero-copy read. Since multipage files are strongly
 encouraged to write full pages, this optimization can be significant for such
 reads.
 
-\begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=.5\linewidth]{ReadBlob.png}
 \includegraphics[width=.4\linewidth]{FSM.png}
 \captionof{figure}{\texttt{ReadBlob}, \texttt{Format}, \texttt{Fsck}, and \texttt{Sync} state machines}
 \end{center}
-\end{minipage}
 
 \subsection{Irregular operations}
 \texttt{Format} erases each block in order. Its goal is to restore a NAND to
@@ -721,10 +712,8 @@ I hope this writeup was informative! Hack on!\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography
 \vfill
-\begin{minipage}{\textwidth}
 \begin{center}
 \includegraphics[width=.4\linewidth]{../dsscaw-purp-scaled.png}
 \includegraphics[width=.5\linewidth]{south.png}
 \end{center}
-\end{minipage}
 \end{document}
