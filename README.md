@@ -1,5 +1,7 @@
 # Dirty South Supercomputing Technical Reports
 
+Published reports can be found [here](https://www.dsscaw.com/techreports).
+
 Imagining ourselves to be some kinds of academic or who knows what, DSSCAW
 endeavors to produce quality writeups of various projects with which we are
 involved. Papers are only released if permission is given by our clients, but
