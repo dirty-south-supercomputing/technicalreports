@@ -1,4 +1,3 @@
-//#include <stdio.h>
 #include <stdlib.h>
 #include <notcurses.h>
 
@@ -16,17 +15,17 @@ int main(void){
           if(!*b){
             ret |= ncdirect_fg(n, 0x0339dc);
           }
-          ret |= (printf("%.*s", (int)(b - blue), blue) < 0 ? -1 : 0);
+          ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
             ret |= ncdirect_fg_default(n);
           }
           b = blue;
         }
-        ret |= (putchar(c) == EOF) ? -1 : 0;
+        ret |= (putchar(c) == EOF);
       }
     }
     if(b > blue){
-      ret = (printf("%.*s", (int)(b - blue), blue) < 0) ? -1 : 0;
+      ret = (printf("%.*s", (int)(b - blue), blue) < 0);
     }
   }
   return (!n || ncdirect_stop(n) || !feof(stdin) || ret) ?

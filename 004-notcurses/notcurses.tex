@@ -59,7 +59,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \newglossaryentry{ascii}
 {
   name={ANSI X3.4-1968},
-  description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of UTF-8 (but \textit{not} UTF-16, nor UTF-32).}
+  description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of UTF-8 (but \textit{not} UTF-16, nor UTF-32)}
 }
 
 \newglossaryentry{canonical mode}
@@ -71,11 +71,11 @@ A Guide to TUIs and Character Graphics\thanks{
 \newglossaryentry{cooked mode}
 {
   name={Cooked mode},
-description={The default terminal mode under SUSv4 (see \gls{raw mode}).
+description={The default terminal mode under SUSv4 (see \Gls{raw mode}).
   The terminal driver buffers input until a newline is entered, while echoing
   it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\ is mapped to
   \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}, and buffered input is flushed
-  when these signals are sent. Also known as \gls{canonical mode}.}
+  when these signals are sent. Also known as \gls{canonical mode}}
 }
 
 \newglossaryentry{cdk}
@@ -83,7 +83,7 @@ description={The default terminal mode under SUSv4 (see \gls{raw mode}).
   name={CDK},
 description={The Curses Development Kit, a widget library developed against the
   Curses specification. It is not distributed as part of NCURSES, though
-  both are maintained by Thomas E. Dickey.}
+  both are maintained by Thomas E. Dickey}
 }
 
 \newglossaryentry{cell}
@@ -94,7 +94,7 @@ description={The rectilinear area corresponding to a given text-mode coordinate.
   pixels along its height than its width. 12 lines of 6 pixels each is not
   unreasonable. A cell can usually represent a grapheme cluster, a foreground
   color, a background color, and some number of attributes, independently
-  from surrounding cells.}
+  from surrounding cells}
 }
 
 \longnewglossaryentry{character}
@@ -116,7 +116,7 @@ description={One of the most imprecise terms in computer science. The C and \CC
 
   When I use the word ``character'', I mean either an element of some code set, or
   such an element as encoded by some character encoding. The context ought make
-  obvious which meaning is intended.}
+  obvious which meaning is intended}
 }
 
 \newglossaryentry{characterencoding}
@@ -130,7 +130,7 @@ description={FIXME}
   name={Code point},
 description={A numerical value within a code space. In and of itself,
   it has neither an associated sequence of bits nor any particular glyph.
-  Indeed, a code point might correspond to some non-printable control.}
+  Indeed, a code point might correspond to some non-printable control}
 }
 
 \newglossaryentry{codeset}
@@ -139,7 +139,7 @@ description={A numerical value within a code space. In and of itself,
 description={A set of abstract characters, each having a name and a code
   point. ISO/IEC 10646 specifies over 100,000 abstract characters as the
   Universal Coded Character Set (UCS). This is smaller than its corresponding
-  code space by about two orders of magnitude. Also known as a \textbf{coded character set}.}
+  code space by about two orders of magnitude. Also known as a \textbf{coded character set}}
 }
 
 \newglossaryentry{codespace}
@@ -147,7 +147,7 @@ description={A set of abstract characters, each having a name and a code
   name={Code space},
 description={A numerical range spanning all the code points of a code set.
   The Unicode code space (as of Unicode 13) is made up of 17 contiguous
-  planes of 65,536 contiguous code points each, for a size of $17*2^{16}$.}
+  planes of 65,536 contiguous code points each, for a size of $17*2^{16}$}
 }
 
 \newglossaryentry{console}
@@ -158,7 +158,7 @@ description={Though sometimes used synonymously with ``terminal'', console almos
   x86 machines, this could mean a serial terminal, an AT keyboard and a VGA
   in 80x25 text mode, a USB keyboard with a UEFI framebuffer, or any number
   of other things. When I use ``console'', I mean terminals outside of a GUI
-  context.}
+  context}
 }
 
 \newglossaryentry{curses}
@@ -167,26 +167,44 @@ description={Though sometimes used synonymously with ``terminal'', console almos
 description={The X/OSI specification of an API for optimized cursor routines. It
   was most recently ratified as part of the January 2018 Single UNIX
   Specification version 4 administrative rollup, aka ``susv4-2018''. NCURSES is
-  an implementation of Curses (plus extensions). Notcurses is not.}
+  an implementation of Curses (plus extensions). Notcurses is not}
 }
 
 \newglossaryentry{cursor}
 {
   name={Cursor},
 description={Both the location where output will next be written, and possibly
-  a visual indication of that location.}
+  a visual indication of that location}
 }
 
 \newglossaryentry{dialog}
 {
   name={dialog},
-description={An NCURSES-based application for TUI modal dialogs.}
+description={An NCURSES-based application for TUI modal dialogs}
+}
+
+\newglossaryentry{directcolor}
+{
+  name={DirectColor},
+  description={FIXME},
 }
 
 \newglossaryentry{egc}
 {
   name={Extended Grapheme Cluster},
 description={FIXME }
+}
+
+\newglossaryentry{gamma correction}
+{
+  name={Gamma correction},
+  description={FIXME }
+}
+
+\newglossaryentry{hsv}
+{
+  name={HSV},
+  description={Hue/Saturation/Value FIXME}
 }
 
 \newglossaryentry{isoiec2022}
@@ -198,7 +216,7 @@ description={FIXME }
 \newglossaryentry{isoiec10646}
 {
   name={ISO/IEC 10646},
-description={``Information technology — Universal Coded Character Set (UCS)''.}
+description={``Information technology — Universal Coded Character Set (UCS)''}
 }
 
 \newglossaryentry{keyboard}
@@ -206,7 +224,7 @@ description={``Information technology — Universal Coded Character Set (UCS)''.
   name={Keyboard},
 description={An input device primarily used to select from a set of
   characters. These characters might or might not correspond to elements in
-  the active encoding. Unlike pointers, keyboards do not indicate position.}
+  the active encoding. Unlike pointers, keyboards do not indicate position}
 }
 
 \newglossaryentry{ncurses}
@@ -215,26 +233,26 @@ description={An input device primarily used to select from a set of
 description={An implementation of X/OSI Curses (plus extensions) maintained by
   Thomas E. Dickey under the auspices of the Free Software Foundation.
   Installed on just about every currently-running UNIX system, it is a
-  venerable, proven library, and the foundation of a great many applications.}
+  venerable, proven library, and the foundation of a great many applications}
 }
 
 \newglossaryentry{newt}
 {
   name={Newt},
 description={A minimal TUI library written atop slang, providing the foundation
-  for \texttt{whiptail}. It is not a Curses implementation.}
+  for \texttt{whiptail}. It is not a Curses implementation}
 }
 
 \newglossaryentry{noncanonical}
 {
   name={Non-canonical mode},
-description={A synonym for \gls{raw mode}.}
+description={A synonym for \gls{raw mode}}
 }
 
 \newglossaryentry{notcurses}
 {
   name={Notcurses},
-description={The baddest character graphics/TUI library in town.}
+description={The baddest character graphics/TUI library in town}
 }
 
 \newglossaryentry{pointer}
@@ -243,7 +261,7 @@ description={The baddest character graphics/TUI library in town.}
 description={An input device primarily used to indicate position. It
   corresponds with one cell at any given time, which might or might not be
   independent of the cursor. There can be more than one pointer. Like a
-  keyboard, pointers typically have (usually far fewer) distinct buttons.}
+  keyboard, pointers typically have (usually far fewer) distinct buttons}
 }
 
 \newglossaryentry{pgroup}
@@ -254,7 +272,7 @@ description={A set of processes sharing the same PGID. When the terminal
   sends the signal to all processes in that process group. Of the process
   groups making up a session, only one is the foreground process group.
   Attempts to perform terminal I/O by session processes outside the foreground
-  process group will result in \texttt{SIGTTIN} or \texttt{SIGTTOU}.}
+  process group will result in \texttt{SIGTTIN} or \texttt{SIGTTOU}}
 }
 
 \longnewglossaryentry{pseudoterminal}
@@ -273,14 +291,14 @@ description={``A pair of virtual character devices that provide a
  Pseudoterminals are used by terminal emulators and interactive SSH
   connections. They are essentially buffers with some basic transformation
   capabilities. Ctrl-C is turned into \texttt{SIGINT} by the pseudoterminal device,
-  and it handles relevant \texttt{ioctl()}s.}
+  and it handles relevant \texttt{ioctl()}s}
 }
 
 \newglossaryentry{raw mode}
 {
   name={Raw mode},
 description={A collection of behaviors differing from \gls{cooked mode}. Noticeably,
-  the terminal driver no longer buffers input or generates signals.}
+  the terminal driver no longer buffers input or generates signals}
 }
 
 \longnewglossaryentry{terminal}
@@ -297,7 +315,7 @@ description={In the abstract, a means for entering data into a computer
   \item I press Meta+F1 and \textit{bring up a terminal}.
   \end{denseitemize}
 
- Only the mad might refer to a physical device as a terminal emulator.}
+ Only the mad might refer to a physical device as a terminal emulator}
 }
 
 \longnewglossaryentry{terminalemulator}
@@ -312,13 +330,13 @@ description={A program in a GUI environment providing a
  The pure character graphics environment of e.g. Linux or FreeBSD outside
   of X11 or Wayland is technically a terminal emulator, but almost always
   referred to as a ``console''. When I say ``terminal emulator'' in this book,
-  I do not mean to include consoles.}
+  I do not mean to include consoles}
 }
 
 \newglossaryentry{termcap}
 {
   name={termcap},
-description={A deprecated terminal capability database, superseded by \gls{terminfo}.}
+description={A deprecated terminal capability database, superseded by \gls{terminfo}}
 }
 
 \newglossaryentry{terminfo}
@@ -329,14 +347,14 @@ description={A database describing terminals and their capabilities. It is
   hundred capabilities. These capabilities are then indexed by name. A
   terminal environment is responsible for setting the \texttt{TERM} environment
   variable to the correct primary terminfo index. termcap has been
-  deprecated by the introduction of terminfo, which is superior in every way.}
+  deprecated by the introduction of terminfo, which is superior in every way}
 }
 
 \newglossaryentry{termios}
 {
   name={termios},
 description={A POSIX API and data structure for working with arbitrary terminals.
-  These functions all start with \texttt{tc} or \texttt{cf}, and control low-level behavior.}
+  These functions all start with \texttt{tc} or \texttt{cf}, and control low-level behavior}
 }
 
 \newglossaryentry{ucs2}
@@ -345,14 +363,14 @@ description={A POSIX API and data structure for working with arbitrary terminals
 description={A fixed-length encoding of the Basic Multilingual Plane. Each
   character is encoded to a single 16-bit code unit, for a total of 2 bytes
   per encoded character. UCS-2 cannot encode all of UCS, and is infrequently
-  used. An amendment to ISO/IEC 10646 extended UCS-2 to UTF-16.}
+  used. An amendment to ISO/IEC 10646 extended UCS-2 to UTF-16}
 }
 
 \newglossaryentry{ucs4}
 {
   name={UCS-4},
 description={A fixed-length encoding of UCS to 32-bit code units. RFC 3629
-  restricted UCS-4 to UTF-32.}
+  restricted UCS-4 to UTF-32}
 }
 
 \newglossaryentry{unicode}
@@ -360,7 +378,7 @@ description={A fixed-length encoding of UCS to 32-bit code units. RFC 3629
   name={Unicode},
 description={UCS as defined by ISO/IEC 10646 (which Unicode inducts), plus
   rules on how to use that code set. Unicode is defined by the Unicode
-  Consortium.}
+  Consortium}
 }
 
 \newglossaryentry{utf1}
@@ -368,7 +386,7 @@ description={UCS as defined by ISO/IEC 10646 (which Unicode inducts), plus
   name={UTF-1},
 description={An early garbage form of UTF-8. ISO 10646 Annex G, since deprecated.
   Unfortunately, the page might not yet have been ripped out at your local
-  library. Don't use UTF-1.},
+  library. Don't use UTF-1},
 }
 
 \newglossaryentry{utf8}
@@ -384,14 +402,14 @@ description={A variable-length encoding of UCS. Each character is encoded to
   either one or two 16-bit code units, for a total of 2 or 4 bytes per
   encoded character. There's very little good about UTF-16, and it ought
   neither be purchased, nor accepted as a gift. Perhaps not coincidentally,
-  it is the internal encoding of both Microsoft Windows and Java.}
+  it is the internal encoding of both Microsoft Windows and Java}
 }
 
 \newglossaryentry{utf32}
 {
   name={UTF-32},
 description={A fixed-length encoding of UCS. Each character is encoded to a
-  single 32-bit code unit, for a total of 4 bytes per encoded character.}
+  single 32-bit code unit, for a total of 4 bytes per encoded character}
 }
 
 \newglossaryentry{virtualterm}
@@ -400,13 +418,13 @@ description={A fixed-length encoding of UCS. Each character is encoded to a
 description={Some consoles multiplex multiple instances. Each is
   typically referred to as a virtual terminal. I have never heard anyone
   refer to the multiple tabs of a terminal emulator as ``virtual terminals'',
-  and would look at them strangely if I did.}
+  and would look at them strangely if I did}
 }
 
 \newglossaryentry{whiptail}
 {
   name={whiptail},
-description={An application for providing TUI modal dialogs, similar to \texttt{dialog}. It is written using Newt.}
+description={An application for providing TUI modal dialogs, similar to \texttt{dialog}. It is written using Newt}
 }
 
 \newglossaryentry{widechar}
@@ -608,9 +626,10 @@ This works as expected:
 \end{center}
 
 There are a few things worth noting about the code above. First, observe how
-much of the logic is devoted to checking and propagating errors! It is, perhaps
-contrary to common expectations, necessary to check the results of e.g.
-\texttt{print()} in a reliable program (what happens if we're redirect to a file, and
+much of the logic is devoted to checking and propagating errors! Perhaps
+contrary to common expectation, reliable code--especially when that code's
+primary effect is to write to stdout--generally needs to check the results of
+e.g. \texttt{print()} (what happens if we're redirect to a file, and
 the disk is full?). A language making use of exceptions would reduce if not
 eliminate this nonsense.
 
@@ -638,13 +657,26 @@ guess the number in no more than $N$. Let's color the output to indicate how
 bad of a guess was offered. We'll use blue for low guesses, red for high
 guesses, and break the 256 shades of each (assuming the other two components
 to be fixed) uniformly across the $N$ levels of logarithmic
-distance\footnote{Gamma correction?}. If we wanted to do this without direct
-use of RGB color, we'd either need accept fewer shades, or be forced to
-reprogram the palette.
+distance\footnote{This would be a good place to employ gamma correction.}. If
+we wanted to do this without direct use of RGB color, we'd either need accept
+fewer shades, or be forced to reprogram the palette.
 
 Stepping through the orders of magnitude, we get the expected gradient. Were
 we to actually play, the response would converge to a balanced, strong green
 as we approached the correct answer.
+
+\begin{listing}[ht]
+\begin{minted}{C}
+    if(!(r |= (ncdirect_fg_default(n)))){
+          ...
+          int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
+          if(guess > secret){
+            r |= ncdirect_fg_rgb8(n, 0x40, 0x80, offoom * 6);
+          }else if(guess < secret){
+            r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
+          ...
+\end{minted}
+\end{listing}
 
 \begin{center}
 \includegraphics[width=.75\linewidth]{media/hilodirect.png}
@@ -654,37 +686,39 @@ as we approached the correct answer.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A simple notcurses render\/event loop}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Styling with colors and attributes}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Collecting and dispatching input}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Unicode, UTF-8, and multicolumn glyphs}
-\newpage
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
-\newpage
+\subsection{Selectors and multiselectors}
+\subsection{Menus}
+\subsection{Reels}
 
-\newpage
+%\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \glsaddallunused
 \printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
