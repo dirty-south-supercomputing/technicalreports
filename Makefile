@@ -7,19 +7,19 @@ CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSBASE:=µnandfs
 µNANDFSDIR:=002-$(µNANDFSBASE)
 NOTCURSESBASE:=notcurses
-NOTCURSESDIR:=003-$(NOTCURSESBASE)
+NOTCURSESDIR:=004-$(NOTCURSESBASE)
 
 # Common resources
-RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf
+RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf common/south.png
 
-µNANDFSRESOURCES:=$(RESOURCES) $(addsuffix .png,combined ExtendBlob ReadBlob \
-  FSM Initialize FindBlob south)
-NOTCURSESRESOURCES:=$(RESOURCES) $(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg)
+µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob \
+  FSM Initialize FindBlob)
+NOTCURSESRESOURCES:=$(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
 REPORTS+=$(µNANDFSDIR)/$(µNANDFSBASE)
-REPORTS:=$(NOTCURSESDIR)/$(NOTCURSESBASE)
+REPORTS+=$(NOTCURSESDIR)/$(NOTCURSESBASE)
 REPORTS:=$(addsuffix .pdf,$(REPORTS))
 
 LATEX:=xelatex
@@ -30,13 +30,13 @@ all: reports
 
 reports: $(REPORTS)
 
-$(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES))
+$(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib) $(NOTCURSESRESOURCES)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib) $(NOTCURSESRESOURCES) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib
+$(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
 clean:
