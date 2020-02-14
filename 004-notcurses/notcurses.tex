@@ -469,7 +469,7 @@ major goals:
 
 \begin{denseitemize}
 \item  to provide NCURSES-like functionality with 24-bit color, safety in the
-    prescence of multithreading, and full Unicode support,
+    presence of multithreading, and full Unicode support,
 \item to reduce the amount of boilerplate code necessary for the UIs of my
     TUI applications, including \textit{growlight} and \textit{omphalos}, and
 \item to portably facilitate the most vivid character graphics possible.
@@ -606,7 +606,7 @@ int ncdirect_dim_y(const struct ncdirect* nc);
 
 \subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
 
-Mark Z. Danielewski's experimental 2000 novel \textit{House of Leaves} prints each
+Mark Z. Danielewski's experimental 2000 novel \textit{\textcolor{blue}{House} of Leaves} prints each
 instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 
 \begin{center}
@@ -653,7 +653,7 @@ Imagine we've written the following guessing game:
 \end{listing}
 
 The correct approach is binary search, and for an $N$-bit long, we expect to
-guess the number in no more than $N$. Let's color the output to indicate how
+guess the number in no more than $N$ tries. Let's color the output to indicate how
 bad of a guess was offered. We'll use blue for low guesses, red for high
 guesses, and break the 256 shades of each (assuming the other two components
 to be fixed) uniformly across the $N$ levels of logarithmic

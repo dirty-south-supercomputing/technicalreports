@@ -28,6 +28,5 @@ int main(void){
       ret = (printf("%.*s", (int)(b - blue), blue) < 0);
     }
   }
-  return (!n || ncdirect_stop(n) || !feof(stdin) || ret) ?
-          EXIT_FAILURE : EXIT_SUCCESS;
+  return (!n || ncdirect_stop(n) || !feof(stdin) || ret) ? EXIT_FAILURE : EXIT_SUCCESS;
 }
