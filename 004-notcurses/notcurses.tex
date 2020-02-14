@@ -598,7 +598,7 @@ instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 We can easily write code to reproduce this effect for standard input and output:
 
 \begin{listing}[ht]
-\inputminted{C}{code/hol-formatter.c}
+\inputminted[fontsize=\scriptsize]{C}{code/hol-formatter.c}
 \end{listing}
 
 This works as expected:
@@ -630,31 +630,50 @@ knowing that people with chromatic backgrounds deserve whatever happens to them.
 Imagine we've written the following guessing game:
 
 \begin{listing}[ht]
-\inputminted{C}{code/hilostdio.c}
+\inputminted[fontsize=\scriptsize]{C}{code/hilostdio.c}
 \end{listing}
+
+The correct approach is binary search, and for an $N$-bit long, we expect to
+guess the number in no more than $N$. Let's color the output to indicate how
+bad of a guess was offered. We'll use blue for low guesses, red for high
+guesses, and break the 256 shades of each (assuming the other two components
+to be fixed) uniformly across the $N$ levels of logarithmic
+distance\footnote{Gamma correction?}. If we wanted to do this without direct
+use of RGB color, we'd either need accept fewer shades, or be forced to
+reprogram the palette.
+
 \newpage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A simple notcurses render\/event loop}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Styling with colors and attributes}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Collecting and dispatching input}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Unicode, UTF-8, and multicolumn glyphs}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
 \newpage
 

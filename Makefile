@@ -14,7 +14,8 @@ RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf common/south.png
 
 µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob \
   FSM Initialize FindBlob)
-NOTCURSESRESOURCES:=$(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg)
+NOTCURSESRESOURCES:=$(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg) \
+	$(wildcard $(NOTCURSESDIR)/code/*.c)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
