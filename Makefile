@@ -6,6 +6,8 @@ CANBUSBASE:=canbusre
 CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSBASE:=µnandfs
 µNANDFSDIR:=002-$(µNANDFSBASE)
+NOTCURSESBASE:=notcurses
+NOTCURSESDIR:=003-$(NOTCURSESBASE)
 
 # Common resources
 RESOURCES:=../dsscaw-purp-scaled.png ../dsscaw-hdr.pdf
@@ -16,6 +18,7 @@ DIRS:=$(CANBUSDIR) $(µNANDFSDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
 REPORTS+=$(µNANDFSDIR)/$(µNANDFSBASE)
+REPORTS:=$(NOTCURSESDIR)/$(NOTCURSESBASE)
 REPORTS:=$(addsuffix .pdf,$(REPORTS))
 
 LATEX:=xelatex
@@ -27,6 +30,9 @@ all: reports
 reports: $(REPORTS)
 
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES))
+	cd $(@D) && arara -v $(<F)
+
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(NOTCURSESDIR)/$(NOTCURSESBASE).tex $(NOTCURSESDIR)/$(NOTCURSESBASE).bib
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib
