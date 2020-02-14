@@ -11,7 +11,7 @@ int main(void){
   int r = 0;
   do{
     if(!(r |= (ncdirect_fg_default(n)))){
-      if(!(r |= printf("Guess the long: ", LONG_MAX) < 0)){
+      if(!(r |= printf("Guess the long: ") < 0)){
         if(!fflush(stdout)){
           int rargs = scanf("%ld", &guess); // super shitty to the max
           if(rargs != 1){
