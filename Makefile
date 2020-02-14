@@ -10,11 +10,12 @@ NOTCURSESBASE:=notcurses
 NOTCURSESDIR:=003-$(NOTCURSESBASE)
 
 # Common resources
-RESOURCES:=../dsscaw-purp-scaled.png ../dsscaw-hdr.pdf
+RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf
 
 µNANDFSRESOURCES:=$(RESOURCES) $(addsuffix .png,combined ExtendBlob ReadBlob \
   FSM Initialize FindBlob south)
-DIRS:=$(CANBUSDIR) $(µNANDFSDIR)
+NOTCURSESRESOURCES:=$(RESOURCES) $(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg)
+DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
 REPORTS+=$(µNANDFSDIR)/$(µNANDFSBASE)
@@ -32,7 +33,7 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES))
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(NOTCURSESDIR)/$(NOTCURSESBASE).tex $(NOTCURSESDIR)/$(NOTCURSESBASE).bib
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib) $(NOTCURSESRESOURCES)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib
