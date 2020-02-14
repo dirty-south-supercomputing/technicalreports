@@ -437,6 +437,8 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 
 \tableofcontents
 
+\clearpage
+
 \section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
@@ -484,9 +486,17 @@ implementation for modern TUI applications.
 
 The console ain't dead! Hack on, hax0rs.
 
+\vspace{.5in}
+
 \begin{flushright}
   \textit{---February 2020, Atlanta}
 \end{flushright}
+
+\vspace{1in}
+
+\begin{center}
+\includegraphics[width=1\linewidth]{media/widechars.png}
+\end{center}
 
 \newpage
 
@@ -552,15 +562,16 @@ the following API:
 
 \begin{listing}[ht]
 \begin{minted}{C}
-int ncdirect_bg_rgb8(struct ncdirect* nc, unsigned r, unsigned g, unsigned b);
-int ncdirect_fg_rgb8(struct ncdirect* nc, unsigned r, unsigned g, unsigned b);
-int ncdirect_fg(struct ncdirect* nc, unsigned rgb);
-int ncdirect_bg(struct ncdirect* nc, unsigned rgb);
-int ncdirect_fg_default(struct ncdirect* nc);
-int ncdirect_bg_default(struct ncdirect* nc);
+int ncdirect_bg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
+int ncdirect_fg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
+int ncdirect_fg(struct ncdirect* n, unsigned rgb);
+int ncdirect_bg(struct ncdirect* n, unsigned rgb);
+int ncdirect_fg_default(struct ncdirect* n);
+int ncdirect_bg_default(struct ncdirect* n);
 int ncdirect_styles_set(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_on(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_off(struct ncdirect* n, unsigned stylebits);
+int ncdirect_clear(struct ncdirect* n);
 \end{minted}
 \end{listing}
 
@@ -575,7 +586,7 @@ int ncdirect_dim_y(const struct ncdirect* nc);
 \end{minted}
 %\end{listing}
 
-\subsection{Example: presenting \textit{House of Leaves}}
+\subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
 
 Mark Z. Danielewski's 2000 experimental novel \textit{House of Leaves} prints each 
 instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
@@ -605,9 +616,9 @@ eliminate this nonsense.
 
 We don't switch from blue to some random color, because we don't know the
 background color of the terminal. Hard to believe as it is, some people don't
-favor a dark terminal background. If the terminal background was white, and
-we had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following ``house'' would
-be invisible.
+favor a dark terminal background. If the terminal background was white, and we
+had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
+``\textcolor{blue}{house}'' would be invisible.
 
 One might observe that a user with a blue background will have invisible ``house'' text.
 This is true, and there's no great solution to it. It is not generally possible to
