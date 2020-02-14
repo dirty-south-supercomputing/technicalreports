@@ -1,5 +1,6 @@
 % arara: xelatex: {shell: true}
 % arara: biber
+% arara: makeglossaries
 % arara: xelatex: {shell: true}
 % arara: xelatex: {shell: true}
 \documentclass[letterpaper,10pt]{article}
@@ -10,7 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{parskip}
 \usepackage{fontspec}
-\usepackage[toc]{glossaries}
+\usepackage[toc,nonumberlist]{glossaries}
 \usepackage{relsize}
 \setmonofont{Inconsolata}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
@@ -54,28 +55,27 @@ A Guide to TUIs and Character Graphics\thanks{
 }
 
 
-\makenoidxglossaries
-
+\makeglossaries
 \newglossaryentry{ascii}
 {
   name={ANSI X3.4-1968},
   description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of UTF-8 (but \textit{not} UTF-16, nor UTF-32).}
 }
 
-\newglossaryentry{canonical}
+\newglossaryentry{canonical mode}
 {
   name={Canonical mode},
-  description={ A synonym for \Gls{cooked mode}},
+  description={ A synonym for \gls{cooked mode}},
 }
 
-\newglossaryentry{cooked}
+\newglossaryentry{cooked mode}
 {
   name={Cooked mode},
-description={ The default terminal mode under SUSv4 (see \textbf{raw mode}).
+description={ The default terminal mode under SUSv4 (see \gls{raw mode}).
   The terminal driver buffers input until a newline is entered, while echoing
   it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\ is mapped to
   \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}, and buffered input is flushed
-  when these signals are sent. Also known as \Gls{canonical mode}.}
+  when these signals are sent. Also known as \gls{canonical mode}.}
 }
 
 \newglossaryentry{cdk}
@@ -228,7 +228,7 @@ description={ A minimal TUI library written atop slang, providing the foundation
 \newglossaryentry{noncanonical}
 {
   name={Non-canonical mode},
-description={ A synonym for \textbf{raw mode}.}
+description={ A synonym for \gls{raw mode}.}
 }
 
 \newglossaryentry{notcurses}
@@ -276,10 +276,10 @@ description={ "A pair of virtual character devices that provide a
   and it handles relevant \texttt{ioctl()}s.}
 }
 
-\newglossaryentry{raw}
+\newglossaryentry{raw mode}
 {
   name={Raw mode},
-description={ A collection of behaviors differing from \textbf{cooked mode}. Noticeably,
+description={ A collection of behaviors differing from \gls{cooked mode}. Noticeably,
   the terminal driver no longer buffers input or generates signals.}
 }
 
@@ -318,7 +318,7 @@ description={ A program in a GUI environment providing a
 \newglossaryentry{termcap}
 {
   name={termcap},
-description={ A deprecated terminal capability database, superseded by terminfo.}
+description={ A deprecated terminal capability database, superseded by \gls{terminfo}.}
 }
 
 \newglossaryentry{terminfo}
@@ -435,6 +435,8 @@ description={ An application for providing TUI modal dialogs, similar to \texttt
 
 \clearpage
 
+\tableofcontents
+
 \section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
@@ -486,9 +488,9 @@ The console ain't dead! Hack on, hax0rs.
 
 \newpage
 
-\section{Glossary of terms \textit{as used in this manuscript}}
+\glsaddallunused
 
-\printnoidxglossaries
+\printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
 
 \newpage
 
