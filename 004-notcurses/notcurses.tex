@@ -11,7 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{parskip}
 \usepackage{fontspec}
-\usepackage[toc,nonumberlist]{glossaries}
+\usepackage[toc,nonumberlist,xindy]{glossaries}
 \usepackage{relsize}
 \setmonofont{Inconsolata}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
@@ -56,6 +56,8 @@ A Guide to TUIs and Character Graphics\thanks{
 
 
 \makeglossaries
+\setglossarypreamble{When possible, I have followed the definitions of
+  RFC 2978\cite{rfc2978} and the Glossary of Unicode Terms\cite{unicodeglossary}.}
 
 \newglossaryentry{smcup}
 {
@@ -85,7 +87,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \newglossaryentry{cooked mode}
 {
   name={cooked mode},
-description={The default terminal mode under SUSv4 (see \Gls{raw mode}).
+description={The default terminal mode under SUSv4 (see \gls{raw mode}).
   The terminal driver buffers input until a newline is entered, while echoing
   it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
   mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
@@ -137,7 +139,8 @@ description={One of the most imprecise terms in computer science. The C and \CC
 \newglossaryentry{characterencoding}
 {
   name={character encoding},
-description={FIXME}
+  description={A mapping from one or more \glspl{codeset} to a set of octet
+  sequences. Also known as a \textbf{character encoding scheme}\cite{rfc2978}}
 }
 
 \newglossaryentry{codepoint}
@@ -155,7 +158,7 @@ description={A set of abstract characters, each having a name and a code
   point. \Gls{isoiec10646} specifies almost 150,000 abstract characters as the
   Universal Coded Character Set (UCS). This is smaller than its corresponding
   code space by about two orders of magnitude. Also known as a
-  \textbf{coded character set}}
+  \textbf{coded character set}\cite{rfc2978}}
 }
 
 \newglossaryentry{codespace}
@@ -214,7 +217,8 @@ description={An NCURSES-based application for TUI modal dialogs}
     because EBCDIC has properties including a discontiguous Latin alphabet.
     EBCDIC is thankfully rare in modern practice, living on primarily as
     a boogieman with which the owners of standard library factories frighten
-    students learning C}
+    students learning C. Exhaustive information regarding EBCDIC can be found
+    in \cite{codedcharactersets}}
 }
 
 \newglossaryentry{egc}
@@ -238,7 +242,7 @@ description={FIXME }
 \newglossaryentry{ecma48}
 {
   name={ECMA-48},
-  description={}
+  description={FIXME}
 }
 
 \newglossaryentry{ecma94}
@@ -262,7 +266,7 @@ description={FIXME }
 \newglossaryentry{isoiec646}
 {
   name={ISO/IEC 646},
-  description={``Information technology — ISO 7-bit coded character set for
+  description={``Information technology—ISO 7-bit coded character set for
     information interchange''. A seven-bit encoding developed in conjunction
     with ASCII. Of its 128 codes, 116 are \texttt{invariant characters}, and
     the remaining 12 are defined by national ISO 646 variants. All variants
@@ -270,8 +274,8 @@ description={FIXME }
     characters (these definitions give rise to ANSI C's \texttt{ctype}
     definitions). The only full 128-character encoding defined in the document
     is the International Reference Version; as of the most recent (1991)
-    edition, the IRV is explicitly identical to ASCII. Twinned with
-    \Gls{itut50}. Ratified as \Gls{ecma6}.}
+    edition, the IRV is explicitly identical to ASCII. ISO/IEC 646:1991 is
+    twinned with \Gls{itut50}, and ratified as \Gls{ecma6}}
 }
 
 \newglossaryentry{isoiec2022}
@@ -279,7 +283,7 @@ description={FIXME }
   name={ISO/IEC 2022},
   description={``Information technology—Character code structure and extension techniques''.
    An absolute mess of a standard.
-   Ratified as \Gls{ecma35}.}
+   Ratified as \Gls{ecma35}}
 }
 
 \newglossaryentry{isoiec8859}
@@ -291,7 +295,8 @@ description={FIXME }
 \newglossaryentry{isoiec10646}
 {
   name={ISO/IEC 10646},
-  description={``Information technology — Universal Coded Character Set (UCS)''}
+  description={``Information technology—Universal Coded Character Set (UCS)''.
+    }
 }
 
 \newglossaryentry{itut50}
@@ -607,8 +612,9 @@ The console ain't dead! Hack on, hax0rs.
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Unicode, UTF-8, and multicolumn glyphs}
-
+\section{Character encodings and glyphs}
+\subsection{The Universal Character Set}
+\subsection{UTF-8}
 \newpage
 
 \section{Using direct mode with standard I\/O}
@@ -909,6 +915,7 @@ The fields therein include:
 \glsaddallunused
 \printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{section}{References}
 \printbibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vfill
