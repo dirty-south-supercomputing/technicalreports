@@ -56,21 +56,35 @@ A Guide to TUIs and Character Graphics\thanks{
 
 
 \makeglossaries
+
+\newglossaryentry{smcup}
+{
+  name={alternate screen},
+  description={A capability of some terminals (described by the \texttt{smcup}
+    termcap capability and \texttt{enter\_ca\_mode} terminfo capability). 
+    Entering the alternate screen sees the screen cleared, and output will not
+    be added to the scrollback buffer. Output to the alternate screen is no
+    longer visible upon leaving it. Whether or not the original screen contents
+    are restored is terminal dependent; if the \texttt{non\_rev\_rmcup}
+    terminfo capability is defined, the original screen contents will \textit{not}
+    be restored.}
+}
+
 \newglossaryentry{ascii}
 {
   name={ANSI X3.4-1968},
-  description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of UTF-8 (but \textit{not} UTF-16, nor UTF-32)}
+  description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32})}
 }
 
 \newglossaryentry{canonical mode}
 {
-  name={Canonical mode},
-  description={A synonym for \gls{cooked mode}},
+  name={canonical mode},
+  description={See \gls{cooked mode}}
 }
 
 \newglossaryentry{cooked mode}
 {
-  name={Cooked mode},
+  name={cooked mode},
 description={The default terminal mode under SUSv4 (see \Gls{raw mode}).
   The terminal driver buffers input until a newline is entered, while echoing
   it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\ is mapped to
@@ -83,12 +97,12 @@ description={The default terminal mode under SUSv4 (see \Gls{raw mode}).
   name={CDK},
 description={The Curses Development Kit, a widget library developed against the
   Curses specification. It is not distributed as part of NCURSES, though
-  both are maintained by Thomas E. Dickey}
+  both are maintained by Thomas E.\ Dickey}
 }
 
 \newglossaryentry{cell}
 {
-  name={Cell},
+  name={cell},
 description={The rectilinear area corresponding to a given text-mode coordinate.
   The analogue of pixels in graphics mode, a cell typically contains more
   pixels along its height than its width. 12 lines of 6 pixels each is not
@@ -99,7 +113,7 @@ description={The rectilinear area corresponding to a given text-mode coordinate.
 
 \longnewglossaryentry{character}
 {
-  name={Character},
+  name={character},
 description={One of the most imprecise terms in computer science. The C and \CC
   languages have a data type \texttt{char}, which cannot necessarily hold the
   world's characters. A character is not necessarily a unique concept within
@@ -107,12 +121,12 @@ description={One of the most imprecise terms in computer science. The C and \CC
   character does not necessarily correspond to a single column on a display,
   even when using a fixed-width font. A character does not necessarily have a
   visual representation. In a given encoding, all characters are not
-  necessarily the same size in a given encoding. A character does not necessarily
+  necessarily the same size. A character does not necessarily
   capture the state of the keyboard at some given input.
 
   In the absence of a coded character set or character encoding for context, a
-  character is really nothing more than an identifier with loose syntax:
-  \texttt{LATIN CAPITAL LETTER I}. Isn't that a recursive definition? You betcha.
+  character is really nothing more than an identifier, e.g. \texttt{LATIN
+    CAPITAL LETTER I}. Isn't that a recursive definition? You betcha.
 
   When I use the word ``character'', I mean either an element of some code set, or
   such an element as encoded by some character encoding. The context ought make
@@ -121,13 +135,13 @@ description={One of the most imprecise terms in computer science. The C and \CC
 
 \newglossaryentry{characterencoding}
 {
-  name={Character encoding},
+  name={character encoding},
 description={FIXME}
 }
 
 \newglossaryentry{codepoint}
 {
-  name={Code point},
+  name={code point},
 description={A numerical value within a code space. In and of itself,
   it has neither an associated sequence of bits nor any particular glyph.
   Indeed, a code point might correspond to some non-printable control}
@@ -135,16 +149,16 @@ description={A numerical value within a code space. In and of itself,
 
 \newglossaryentry{codeset}
 {
-  name={Code set},
+  name={code set},
 description={A set of abstract characters, each having a name and a code
-  point. ISO/IEC 10646 specifies over 100,000 abstract characters as the
+  point. \Gls{isoiec10646} specifies almost 150,000 abstract characters as the
   Universal Coded Character Set (UCS). This is smaller than its corresponding
   code space by about two orders of magnitude. Also known as a \textbf{coded character set}}
 }
 
 \newglossaryentry{codespace}
 {
-  name={Code space},
+  name={code space},
 description={A numerical range spanning all the code points of a code set.
   The Unicode code space (as of Unicode 13) is made up of 17 contiguous
   planes of 65,536 contiguous code points each, for a size of $17*2^{16}$}
@@ -152,7 +166,7 @@ description={A numerical range spanning all the code points of a code set.
 
 \newglossaryentry{console}
 {
-  name={Console},
+  name={console},
 description={Though sometimes used synonymously with ``terminal'', console almost
   always refers to text-based environments on personal computers. On Linux
   x86 machines, this could mean a serial terminal, an AT keyboard and a VGA
@@ -172,7 +186,7 @@ description={The X/OSI specification of an API for optimized cursor routines. It
 
 \newglossaryentry{cursor}
 {
-  name={Cursor},
+  name={cursor},
 description={Both the location where output will next be written, and possibly
   a visual indication of that location}
 }
@@ -191,13 +205,37 @@ description={An NCURSES-based application for TUI modal dialogs}
 
 \newglossaryentry{egc}
 {
-  name={Extended Grapheme Cluster},
+  name={extended grapheme cluster},
 description={FIXME }
+}
+
+\newglossaryentry{ecma6}
+{
+  name={ECMA-6},
+  description={See \Gls{isoiec646}.}
+}
+
+\newglossaryentry{ecma35}
+{
+  name={ECMA-35},
+  description={See \Gls{isoiec2022}.}
+}
+
+\newglossaryentry{ecma48}
+{
+  name={ECMA-48},
+  description={}
+}
+
+\newglossaryentry{ecma94}
+{
+  name={ECMA-94},
+  description={\Gls{isoiec8859} parts 1, 2, 3, and 4.}
 }
 
 \newglossaryentry{gamma correction}
 {
-  name={Gamma correction},
+  name={gamma correction},
   description={FIXME }
 }
 
@@ -207,22 +245,54 @@ description={FIXME }
   description={Hue/Saturation/Value FIXME}
 }
 
+\newglossaryentry{isoiec646}
+{
+  name={ISO/IEC 646},
+  description={``Information technology — ISO 7-bit coded character set for
+    information interchange''. A seven-bit encoding developed in conjunction
+    with ASCII. Of its 128 codes, 116 are \texttt{invariant characters}, and
+    the remaining 12 are defined by national ISO 646 variants. All variants
+    have 95 graphic characters (space and 94 printables), and 33 control
+    characters (these definitions give rise to ANSI C's \texttt{ctype}
+    definitions). The only full 128-character encoding defined in the document
+    is the International Reference Version; as of the most recent (1991)
+    edition, the IRV is explicitly identical to ASCII. Twinned with
+    \Gls{itut50}. Ratified as \Gls{ecma6}.}
+}
+
 \newglossaryentry{isoiec2022}
 {
   name={ISO/IEC 2022},
-description={FIXME }
+  description={``Information technology—Character code structure and extension techniques''.
+   An absolute mess of a standard.
+   Ratified as \Gls{ecma35}.}
+}
+
+\newglossaryentry{isoiec8859}
+{
+  name={ISO/IEC 8859},
+  description={FIXME }
 }
 
 \newglossaryentry{isoiec10646}
 {
   name={ISO/IEC 10646},
-description={``Information technology — Universal Coded Character Set (UCS)''}
+  description={``Information technology — Universal Coded Character Set (UCS)''}
+}
+
+\newglossaryentry{itut50}
+{
+  name={ITU T.50},
+  description={The International Reference Alphabet (IRA), formerly known as
+   International Alphabet \textnumero\ 5. Its most recent (1992)
+   edition is twinned to \Gls{isoiec646}:1991, and thus (despite is name)
+   leaves 12 positions open for national variants.}
 }
 
 \newglossaryentry{keyboard}
 {
-  name={Keyboard},
-description={An input device primarily used to select from a set of
+  name={keyboard},
+  description={An input device primarily used to select from a set of
   characters. These characters might or might not correspond to elements in
   the active encoding. Unlike pointers, keyboards do not indicate position}
 }
@@ -231,22 +301,22 @@ description={An input device primarily used to select from a set of
 {
   name={NCURSES},
 description={An implementation of X/OSI Curses (plus extensions) maintained by
-  Thomas E. Dickey under the auspices of the Free Software Foundation.
+  Thomas E.\ Dickey under the auspices of the Free Software Foundation.
   Installed on just about every currently-running UNIX system, it is a
   venerable, proven library, and the foundation of a great many applications}
 }
 
 \newglossaryentry{newt}
 {
-  name={Newt},
+  name={newt},
 description={A minimal TUI library written atop slang, providing the foundation
   for \texttt{whiptail}. It is not a Curses implementation}
 }
 
 \newglossaryentry{noncanonical}
 {
-  name={Non-canonical mode},
-description={A synonym for \gls{raw mode}}
+  name={non-canonical mode},
+description={See \gls{raw mode}}
 }
 
 \newglossaryentry{notcurses}
@@ -257,7 +327,7 @@ description={The baddest character graphics/TUI library in town}
 
 \newglossaryentry{pointer}
 {
-  name={Pointer},
+  name={pointer},
 description={An input device primarily used to indicate position. It
   corresponds with one cell at any given time, which might or might not be
   independent of the cursor. There can be more than one pointer. Like a
@@ -266,7 +336,7 @@ description={An input device primarily used to indicate position. It
 
 \newglossaryentry{pgroup}
 {
-  name={Process group},
+  name={process group},
 description={A set of processes sharing the same PGID. When the terminal
   generates a signal for a process (e.g. \texttt{SIGINT} in response to Ctrl+C), it
   sends the signal to all processes in that process group. Of the process
@@ -277,7 +347,7 @@ description={A set of processes sharing the same PGID. When the terminal
 
 \longnewglossaryentry{pseudoterminal}
 {
-  name={Pseudoterminal},
+  name={pseudoterminal},
 description={``A pair of virtual character devices that provide a
   bidirectional communication channel. One end of the channel is called the
   master; the other end is called the slave. The slave end of the
@@ -286,7 +356,7 @@ description={``A pair of virtual character devices that provide a
   the slave end of a pseudoterminal and then be driven by a program that has
   opened the master end. Anything that is written on the master end is
   provided to the process on the slave end as though it was input typed on a
-  terminal.'' (\texttt{pty(7)} Linux Programmer's Manual page)
+  terminal.'' (\texttt{pty(7)}, \textit{Linux Programmer's Manual})
 
  Pseudoterminals are used by terminal emulators and interactive SSH
   connections. They are essentially buffers with some basic transformation
@@ -296,14 +366,14 @@ description={``A pair of virtual character devices that provide a
 
 \newglossaryentry{raw mode}
 {
-  name={Raw mode},
-description={A collection of behaviors differing from \gls{cooked mode}. Noticeably,
+  name={raw mode},
+description={A collection of behaviors differing from \gls{cooked mode}. Notably,
   the terminal driver no longer buffers input or generates signals}
 }
 
 \longnewglossaryentry{terminal}
 {
-  name={Terminal},
+  name={terminal},
 description={In the abstract, a means for entering data into a computer
   (typically involving a keyboard, and often a pointing device), and a means
   for displaying that conmputer's output. In the concrete, electromechanical
@@ -320,7 +390,7 @@ description={In the abstract, a means for entering data into a computer
 
 \longnewglossaryentry{terminalemulator}
 {
-  name={Terminal emulator},
+  name={terminal emulator},
 description={A program in a GUI environment providing a
   two-dimensional array of cells. A terminal emulator differs from a
   framebuffer/canvas in that each of these cells contains rendered (and
@@ -363,7 +433,7 @@ description={A POSIX API and data structure for working with arbitrary terminals
 description={A fixed-length encoding of the Basic Multilingual Plane. Each
   character is encoded to a single 16-bit code unit, for a total of 2 bytes
   per encoded character. UCS-2 cannot encode all of UCS, and is infrequently
-  used. An amendment to ISO/IEC 10646 extended UCS-2 to UTF-16}
+  used. An amendment to \Gls{isoiec10646} extended UCS-2 to UTF-16}
 }
 
 \newglossaryentry{ucs4}
@@ -376,7 +446,7 @@ description={A fixed-length encoding of UCS to 32-bit code units. RFC 3629
 \newglossaryentry{unicode}
 {
   name={Unicode},
-description={UCS as defined by ISO/IEC 10646 (which Unicode inducts), plus
+description={UCS as defined by \Gls{isoiec10646} (which Unicode inducts), plus
   rules on how to use that code set. Unicode is defined by the Unicode
   Consortium}
 }
@@ -384,7 +454,7 @@ description={UCS as defined by ISO/IEC 10646 (which Unicode inducts), plus
 \newglossaryentry{utf1}
 {
   name={UTF-1},
-description={An early garbage form of UTF-8. ISO 10646 Annex G, since deprecated.
+description={An early garbage form of UTF-8. \Gls{isoiec10646} Annex G, since deprecated.
   Unfortunately, the page might not yet have been ripped out at your local
   library. Don't use UTF-1},
 }
@@ -414,7 +484,7 @@ description={A fixed-length encoding of UCS. Each character is encoded to a
 
 \newglossaryentry{virtualterm}
 {
-  name={Virtual terminal},
+  name={virtual terminal},
 description={Some consoles multiplex multiple instances. Each is
   typically referred to as a virtual terminal. I have never heard anyone
   refer to the multiple tabs of a terminal emulator as ``virtual terminals'',
@@ -429,7 +499,7 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 
 \newglossaryentry{widechar}
 {
-  name={Wide character},
+  name={wide character},
   description={This has at least two distinct meanings:
 \begin{denseitemize}
 \item \texttt{wchar\_t}: A data type in C and \CC. FIXME
@@ -460,22 +530,22 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 \section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
-rejected from NCURSES (the first commit was pushed 2019-11-16, and I started
-writing this manuscript 2020-02-12, following the 1.1.8 release). It proved to
+rejected from NCURSES. The first commit was pushed 2019-11-16, and I started
+writing this manuscript 2020-02-12, following the 1.1.8 release. It proved to
 be seductive as hell, and it was only with difficulty that I tore myself away
 following three months of hard work. By that time, Notcurses subsumed most
 functionality of NCURSES, adding a great deal more. The project had three
 major goals:
 
 \begin{denseitemize}
-\item  to provide NCURSES-like functionality with 24-bit color, safety in the
+\item to provide NCURSES-like functionality with 24-bit color, safety in the
     presence of multithreading, and full Unicode support,
 \item to reduce the amount of boilerplate code necessary for the UIs of my
     TUI applications, including \textit{growlight} and \textit{omphalos}, and
 \item to portably facilitate the most vivid character graphics possible.
 \end{denseitemize}
 
-Many people asked why such a thing was useful. My usual response was that
+Many people asked how such a thing was useful. My usual response was that
 numerous devices don't present a bitmap interface, that X11 GUIs run remotely
 over SSH are effectively unusable, that plenty of machines don't have a GUI
 environment installed, and that Sixel isn't well-supported across different
@@ -520,10 +590,14 @@ The console ain't dead! Hack on, hax0rs.
 
 \section{A brief history of character graphics}
 \subsection{The Curses API}
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Unicode, UTF-8, and multicolumn glyphs}
 
 \newpage
 
-\section{Using Direct mode with standard I\/O}
+\section{Using direct mode with standard I\/O}
 
 Many tools don't intend to be full-screen TUI applications, but instead
 implement that purest of UNIX interfaces: newline-delimited text, oblivious
@@ -629,7 +703,7 @@ There are a few things worth noting about the code above. First, observe how
 much of the logic is devoted to checking and propagating errors! Perhaps
 contrary to common expectation, reliable code--especially when that code's
 primary effect is to write to stdout--generally needs to check the results of
-e.g. \texttt{print()} (what happens if we're redirect to a file, and
+e.g. \texttt{print()} (what happens if we're redirected to a file, and
 the disk is full?). A language making use of exceptions would reduce if not
 eliminate this nonsense.
 
@@ -642,7 +716,7 @@ had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
 One might observe that a user with a blue background will have invisible ``house'' text.
 This is true, and there's no great solution to it. It is not generally possible to
 discover the RGB values of the default colors. I suppose all one can do is rest easy,
-knowing that people with chromatic backgrounds deserve whatever happens to them.
+confident that people with chromatic backgrounds deserve whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
 
@@ -652,14 +726,14 @@ Imagine we've written the following guessing game:
 \inputminted[fontsize=\scriptsize]{C}{code/hilostdio.c}
 \end{listing}
 
-The correct approach is binary search, and for an $N$-bit long, we expect to
+The correct approach is binary search, and for an $N$-bit \texttt{long}, we expect to
 guess the number in no more than $N$ tries. Let's color the output to indicate how
-bad of a guess was offered. We'll use blue for low guesses, red for high
+bad of a guess was offered. We'll use red for low guesses, blue for high
 guesses, and break the 256 shades of each (assuming the other two components
 to be fixed) uniformly across the $N$ levels of logarithmic
-distance\footnote{This would be a good place to employ gamma correction.}. If
-we wanted to do this without direct use of RGB color, we'd either need accept
-fewer shades, or be forced to reprogram the palette.
+distance\footnote{This would be a good place to employ \gls{gamma correction}.}.
+If we wanted to do this without direct use of RGB color, we'd either need
+accept fewer shades, or be forced to reprogram the palette.
 
 Stepping through the orders of magnitude, we get the expected gradient. Were
 we to actually play, the response would converge to a balanced, strong green
@@ -683,10 +757,111 @@ as we approached the correct answer.
 \end{center}
 \newpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Using fullscreen mode}
+From this chapter forward, we will be using the fullscreen mode of Notcurses,
+opening up all of its capabilities. This comes at a cost: while fullscreen mode
+is being used, it is not safe to use standard I/O in conjunction with the
+terminal controlled by Notcurses. Doing so is likely to (at a minimum) corrupt
+the screen. If \texttt{stdout} and \texttt{stderr} are attached to the same
+terminal (as they usually are in an interactive session), and \texttt{stdout}
+is provided to Notcurses, output to \texttt{stderr} will corrupt the display
+just as thoroughly as output to \texttt{stdout}. If your fullscreen Notcurses
+program intends to log to \texttt{stderr}, you should first ensure that that
+it has been redirected or is otherwise going somewhere different than
+\texttt{stdout}. Note that simply rerendering the output will \textit{not}
+necessarily clean up corruption, even following \texttt{ncplane\_erase()}
+operations, since Notcurses optimizes its rendering based on its concept of the
+screen. A call to \texttt{notcurses\_refresh()} will be necessary to sync the
+the physical screen to Notcurses's concept thereof.
+
+It is possible for the screen to be corrupted by external agents. For this
+reason, Ctrl+L is by tradition bound to screen redrawing. You should hook this
+input up to \texttt{notcurses\_refresh()} unless you have good reasons not to
+do so (this is not default behavior of Notcurses only because Notcurses does
+not itself read input). It is sadly not possible for such corruption to be
+efficiently and generally detected.
+
+It is possible for the attached terminal to be resized, especially (but not
+only) for terminal emulators in GUI windowing environments\footnote{This could
+also happen when reattaching to e.g. a \texttt{screen} or \texttt{tmux} session.
+Even on the Linux or FreeBSD console, this can happen due to a change in video
+resolution.}. Notcurses can detect such events, and synthesizes
+\texttt{NCKEY\_RESIZE} inputs in response to them. If the screen shrinks, the
+excess data relative to the constant origin will no longer be displayed (i.e.
+the material in the upper left will be retained). If the screen is enlarged,
+any data uncovered will be displayed, and the new area will otherwise be empty.
+Some widgets can intelligently resize themselves in the face of screen
+geometry changes (see Chapter~\ref{section:uiwidgets}, \textit{UI Widgets}).
+
+Notcurses prepares a given terminal for fullscreen mode in the
+\texttt{notcurses\_init} function:
+
+\begin{listing}[ht]
+\begin{minted}{C}
+// Initialize a notcurses context on the connected terminal at 'fp'. 'fp' must
+// be a tty. You'll usually want stdout. Returns NULL on error, including any
+// failure initializing terminfo.
+struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
+\end{minted}
+\end{listing}
+
+By default (assuming the \texttt{smcup} terminfo capability is expressed),
+Notcurses attempts to enter the "\gls{smcup}". Using the alternate screen
+implies:
+\begin{denseitemize}
+\item{The screen will be cleared upon entry,}
+\item{Output will not be appended to the scrollback buffer, and}
+\item{On exit, output will be cleared.}
+\end{denseitemize}
+Whether or not the original screen contents are restored is terminal-dependent
+(if the \texttt{non\_rev\_rmcup} terminfo capability is defined, the original
+contents will \textit{not} be restored). This can be useful, but some users
+don't like it, so it's wise to expose this via a configuration option.
+Disabling use of the alternate screen can be done via the
+\texttt{notcurses\_options} field \texttt{inhibit\_alternate\_screen}.
+
+\subsection{The \texttt{notcurses\_options} structure}
+The first parameter to \texttt{notcurses\_init} is a (possibly \texttt{NULL})
+\texttt{notcurses\_options}. This structure has been defined such that the
+default options are equivalent to a zero-initialized structure. Passing \texttt{NULL}
+is this equivalent to passing a zero-initialized \texttt{notcurses\_options}.
+The fields therein include:
+\begin{denseitemize}
+\item{\texttt{const char* termtype}: The name of the terminfo database entry to
+    use. If \texttt{NULL}, the value of the environment variable \texttt{TERM}
+    is used. Failure to initialize the terminfo database will result in a
+    \texttt{notcurses\_init} failure.}
+\item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
+    Notcurses from making use of the alternate screen, even if the \texttt{enter\_ca\_mode}
+    terminfo capability is defined.}
+\item{\texttt{bool retain\_cursor}: Notcurses hides the cursor by default.
+    Set this to keep the cursor visible (the cursor can be turned on and off
+    at runtime with \texttt{notcurses\_cursor\_enable} and \texttt{notcurses\_cursor\_disable}).
+\item{\texttt{bool suppress\_banner}: At startup, Notcurses emits some
+    diagnostics and/or warnings, including version information and details
+    about the current terminal. At shutdown, it prints performance statistics.
+    These outputs \textit{do not} go to the alternate screen. Set this
+    field to disable these outputs.}
+\item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}}:
+    By default, Notcurses registers signal actions for the normally fatal
+    \texttt{SIGABRT}, \texttt{SIGINT}, \texttt{SIGQUIT}, and \texttt{SIGSEGV}.
+    These handlers will call \texttt{notcurses\_stop} before propagating the
+    signal to the original actions. This is usually desirable, as the screen
+    will not otherwise be restored to its previous state. In addition, \texttt{SIGWINCH}
+    is caught in order to generate \texttt{NCKEY\_RESIZE} inputs. If you
+    disable these handlers, you'll almost certainly want to replace them with
+    similar functionality.}
+\item{\texttt{FILE* renderfp}: If not \texttt{NULL}, this designates a file
+    handle open for writing. In addition to the terminal, each rendered scene
+    will be written to this file. This is intended for debugging.}
+\end{denseitemize}
+
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A simple notcurses render\/event loop}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
@@ -709,11 +884,8 @@ as we approached the correct answer.
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Unicode, UTF-8, and multicolumn glyphs}
-%\newpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
+\label{section:uiwidgets}
 \subsection{Selectors and multiselectors}
 \subsection{Menus}
 \subsection{Reels}
