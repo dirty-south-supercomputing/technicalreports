@@ -897,6 +897,16 @@ don't like it, so it's wise to expose this via a configuration option.
 Disabling use of the alternate screen can be done via the
 \texttt{notcurses\_options} field \texttt{inhibit\_alternate\_screen}.
 
+Once you're done using a \texttt{struct notcurses}, it's important to destroy
+it with \texttt{notcurses\_stop}, even if your process exits abnormally:
+
+\begin{listing}[ht]
+\begin{minted}{C}
+// Destroy a notcurses instance, restoring the terminal to its original state.
+int notcurses_stop(struct notcurses* nc);
+\end{minted}
+\end{listing}
+
 \subsection{The \texttt{notcurses\_options} structure}
 The first parameter to \texttt{notcurses\_init} is a (possibly \texttt{NULL})
 \texttt{notcurses\_options}. This structure has been defined such that the
@@ -910,7 +920,14 @@ The fields therein include:
     \texttt{notcurses\_init} failure.}
 \item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
     Notcurses from making use of the alternate screen, even if the \texttt{enter\_ca\_mode}
-    terminfo capability is defined.}
+    terminfo capability is defined. It's best to wire this up to a user-managed
+    option. Here's what happens on exit when you don't use the alternate
+    screen:
+
+    \begin{center}
+      \includegraphics[width=.7\linewidth]{media/no-alternate-screen.png}
+    \end{center}
+  }
 \item{\texttt{bool retain\_cursor}: Notcurses hides the cursor by default.
     Set this to keep the cursor visible (the cursor can be turned on and off
     at runtime with \texttt{notcurses\_cursor\_enable} and \texttt{notcurses\_cursor\_disable}).
