@@ -75,7 +75,17 @@ A Guide to TUIs and Character Graphics\thanks{
 \newglossaryentry{ascii}
 {
   name={ANSI X3.4-1968},
-  description={A 7-bit character encoding also known as ASCII. Its code set is a proper set of UCS, and its encoding is a proper subset of \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32})}
+  description={``Coded character set---7-bit American National Standard Code
+    for Information Interchange''. A 128-element codeset and a 7-bit character
+    encoding perhaps better known as ASCII\cite{ascii}. Its code set is a
+    proper subset of \Gls{ucs}, and its encoding is a proper subset of
+    \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32})}
+}
+
+\newglossaryentry{ASCII}
+{
+  name={ASCII},
+  description={See \Gls{ascii}}
 }
 
 \newglossaryentry{canonical mode}
@@ -282,7 +292,7 @@ description={FIXME }
 {
   name={ISO/IEC 2022},
   description={``Information technology—Character code structure and extension techniques''.
-   An absolute mess of a standard.
+   An absolute mess of a standard. FIXME
    Ratified as \Gls{ecma35}}
 }
 
@@ -296,6 +306,7 @@ description={FIXME }
 {
   name={ISO/IEC 10646},
   description={``Information technology—Universal Coded Character Set (UCS)''.
+    FIXME
     }
 }
 
@@ -446,20 +457,26 @@ description={A POSIX API and data structure for working with arbitrary terminals
   These functions all start with \texttt{tc} or \texttt{cf}, and control low-level behavior}
 }
 
+\newglossaryentry{ucs}
+{
+  name={UCS},
+  description={See \Gls{isoiec10646}}
+}
+
 \newglossaryentry{ucs2}
 {
   name={UCS-2},
 description={A fixed-length encoding of the Basic Multilingual Plane. Each
   character is encoded to a single 16-bit code unit, for a total of 2 bytes
   per encoded character. UCS-2 cannot encode all of UCS, and is infrequently
-  used. An amendment to \Gls{isoiec10646} extended UCS-2 to UTF-16}
+  used. An amendment to \Gls{isoiec10646} extended UCS-2 to \Gls{utf16}}
 }
 
 \newglossaryentry{ucs4}
 {
   name={UCS-4},
-description={A fixed-length encoding of UCS to 32-bit code units. RFC 3629
-  restricted UCS-4 to UTF-32}
+description={A fixed-length encoding of \Gls{ucs} to 32-bit code units.
+  \Gls{utf32} is a proper subset of UCS-4\cite{rfc3629}}
 }
 
 \newglossaryentry{unicode}
@@ -489,16 +506,18 @@ description={FIXME}
   name={UTF-16},
 description={A variable-length encoding of UCS. Each character is encoded to
   either one or two 16-bit code units, for a total of 2 or 4 bytes per
-  encoded character. There's very little good about UTF-16, and it ought
-  neither be purchased, nor accepted as a gift. Perhaps not coincidentally,
-  it is the internal encoding of both Microsoft Windows and Java}
+  encoded character. For fun, it comes in two endiannesses. There's very little
+  good about UTF-16, and it ought neither be purchased, nor accepted as a gift.
+  Perhaps not coincidentally, it is the internal encoding of both Microsoft
+  Windows and Java}
 }
 
 \newglossaryentry{utf32}
 {
   name={UTF-32},
 description={A fixed-length encoding of UCS. Each character is encoded to a
-  single 32-bit code unit, for a total of 4 bytes per encoded character}
+  single 32-bit code unit, for a total of 4 bytes per encoded character. UTF-32
+  is a restricted subset of \Gls{ucs4}\cite{rfc3629}}
 }
 
 \newglossaryentry{virtualterm}
