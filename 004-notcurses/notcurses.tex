@@ -76,6 +76,13 @@ A Guide to TUIs and Character Graphics\thanks{
     be restored.}
 }
 
+\newglossaryentry{ansix364}
+{
+  name={ANSI X3.64-1979},
+  description={``Control Sequences for Video Terminals and Peripherals''.
+    Ratified \Gls{ecma48}}
+}
+
 \newglossaryentry{ascii}
 {
   name={ANSI X3.4-1968},
@@ -265,7 +272,9 @@ description={FIXME }
 {
   name={ECMA-48:1991},
   description={``Control Functions for Coded Character Sets'', 5th edition.
-   Ratified \Gls{isoiec6429}}
+    Control functions and their coded representations for use with ECMA-35-compliant
+    7-bit and 8-bit codes.
+   Ratified as \Gls{isoiec6429}}
 }
 
 \newglossaryentry{ecma94}
@@ -292,7 +301,7 @@ description={FIXME }
 
 \newglossaryentry{isoiec646}
 {
-  name={ISO/IEC 646},
+  name={ISO/IEC 646:1991},
   description={``Information technology—ISO 7-bit coded character set for
     information interchange''. A seven-bit encoding developed in conjunction
     with ASCII. Of its 128 codes, 116 are \texttt{invariant characters}, and
@@ -307,7 +316,7 @@ description={FIXME }
 
 \newglossaryentry{isoiec2022}
 {
-  name={ISO/IEC 2022},
+  name={ISO/IEC 2022:1994},
   description={``Information technology—Character code structure and extension techniques''.
    An absolute mess of a standard. FIXME
    Ratified as \Gls{ecma35}}
@@ -315,19 +324,27 @@ description={FIXME }
 
 \newglossaryentry{isoiec6429}
 {
-  name={ISO/IEC 8859},
-  description={FIXME }
+  name={ISO/IEC 6429:1992},
+  description={``Information technology — Control functions for coded character sets''.
+   Ratified \Gls{ecma48}}
 }
 
 \newglossaryentry{isoiec8859}
 {
-  name={ISO/IEC 8859},
-  description={FIXME }
+  name={ISO/IEC 8859:1998},
+  description={``Information technology---8-bit single-byte coded graphic character sets''.
+    A set of 15 standards, emerging from 1987 to 2001, of which ISO 8859-1:1987 (Part 1: Latin alphabet \textnumero\ 1) is
+    probably the best-known. 8859 covers only graphic characters, not control
+    characters. In 1992, ISO-8859-1 (note the extra hyphen compared to ISO 8859-1; egads),
+    was registered, mating ISO 8859-1 with \Gls{isoiec646}'s C0 and
+    \Gls{isoiec6429}'s C1 for a complete 256-code encoding. This result is a
+    proper subset of UTF-8, and a proper superset of ASCII. The first four were
+    ratified as \Gls{ecma94}}
 }
 
 \newglossaryentry{isoiec10646}
 {
-  name={ISO/IEC 10646},
+  name={ISO/IEC 10646:2017},
   description={``Information technology—Universal Coded Character Set (UCS)''.
     FIXME
     }
@@ -752,6 +769,7 @@ four decades.
   Ranger and his Electric Hazeltine 1500 Band. JFC, the 70s were \textit{unseemly}.}
 \end{figure}
 
+\subsection{The VT100, the VT220, and ANSI X3.64-1979}
 
 \subsection{The Curses API}
 %\newpage
