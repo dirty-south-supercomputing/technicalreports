@@ -87,9 +87,10 @@ A Guide to TUIs and Character Graphics\thanks{
   name={cooked mode},
 description={The default terminal mode under SUSv4 (see \Gls{raw mode}).
   The terminal driver buffers input until a newline is entered, while echoing
-  it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\ is mapped to
-  \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}, and buffered input is flushed
-  when these signals are sent. Also known as \gls{canonical mode}}
+  it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
+  mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
+  Buffered input is flushed when these signals are sent. Also known as
+  \gls{canonical mode}}
 }
 
 \newglossaryentry{cdk}
@@ -153,7 +154,8 @@ description={A numerical value within a code space. In and of itself,
 description={A set of abstract characters, each having a name and a code
   point. \Gls{isoiec10646} specifies almost 150,000 abstract characters as the
   Universal Coded Character Set (UCS). This is smaller than its corresponding
-  code space by about two orders of magnitude. Also known as a \textbf{coded character set}}
+  code space by about two orders of magnitude. Also known as a
+  \textbf{coded character set}}
 }
 
 \newglossaryentry{codespace}
@@ -201,6 +203,18 @@ description={An NCURSES-based application for TUI modal dialogs}
 {
   name={DirectColor},
   description={FIXME},
+}
+
+\newglossaryentry{ebcdic}
+{
+  name={EBCDIC},
+  description={IBM's Extended Binary Coded Decimal Interchange Codes, announced
+    alongside the legendary System/360, extended the BCDICs into a collection
+    of 8-bit codes. Not a single code matches its ASCII equivalent, in part
+    because EBCDIC has properties including a discontiguous Latin alphabet.
+    EBCDIC is thankfully rare in modern practice, living on primarily as
+    a boogieman with which the owners of standard library factories frighten
+    students learning C}
 }
 
 \newglossaryentry{egc}
