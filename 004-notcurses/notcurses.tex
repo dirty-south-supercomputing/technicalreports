@@ -239,38 +239,51 @@ description={FIXME }
 
 \newglossaryentry{ecma6}
 {
-  name={ECMA-6},
-  description={See \Gls{isoiec646}.}
+  name={ECMA-6:1991},
+  description={``7-bit Coded Character Set'', 6th edition. Ratified
+    \Gls{isoiec646}}
 }
 
 \newglossaryentry{ecma35}
 {
-  name={ECMA-35},
-  description={See \Gls{isoiec2022}.}
+  name={ECMA-35:1994},
+  description={``Character Code Structure and Extension Techniques'', 6th
+    edition. Ratified \Gls{isoiec2022}}
+}
+
+\newglossaryentry{ecma43}
+{
+  name={ECMA-43},
+  description={``8-bit Coded Character Set Structure and Rules'', 3rd edition}
 }
 
 \newglossaryentry{ecma48}
 {
   name={ECMA-48},
-  description={FIXME}
+  description={``Control Functions for Coded Character Sets'', 5th edition.
+   Ratified \Gls{isoiec6429}}
 }
 
 \newglossaryentry{ecma94}
 {
   name={ECMA-94},
-  description={\Gls{isoiec8859} parts 1, 2, 3, and 4.}
+  description={``8-bit Single Byte Coded Graphic Character Sets---Latin
+    Alphabets \textnumero\ 1 to \textnumero\ 4. \Gls{isoiec8859} parts 1, 2, 3, and 4.}
 }
 
 \newglossaryentry{gamma correction}
 {
   name={gamma correction},
-  description={FIXME }
+  description={Compression and decompression based around the nonlinear nature
+   of human color perception. The eye has more sensitivity to differences between
+   darker shades than lighter ones.}
 }
 
 \newglossaryentry{hsv}
 {
   name={HSV},
-  description={Hue/Saturation/Value FIXME}
+  description={The Hue, Saturation, and Value color model. A transformation of
+    \Gls{rgb}.}
 }
 
 \newglossaryentry{isoiec646}
@@ -294,6 +307,12 @@ description={FIXME }
   description={``Information technology—Character code structure and extension techniques''.
    An absolute mess of a standard. FIXME
    Ratified as \Gls{ecma35}}
+}
+
+\newglossaryentry{isoiec6429}
+{
+  name={ISO/IEC 8859},
+  description={FIXME }
 }
 
 \newglossaryentry{isoiec8859}
@@ -399,6 +418,15 @@ description={``A pair of virtual character devices that provide a
   name={raw mode},
 description={A collection of behaviors differing from \gls{cooked mode}. Notably,
   the terminal driver no longer buffers input or generates signals}
+}
+
+\newglossaryentry{rgb}
+{
+  name={RGB},
+  description={The Red, Green, Blue color model. In the context of Notcurses,
+    this almost always means a 24-bit value, with 8 bits per component (some
+    contexts accept a 32-bit value, where the least significant 8 bits are
+    ignored)}
 }
 
 \longnewglossaryentry{terminal}
@@ -632,6 +660,7 @@ The console ain't dead! Hack on, hax0rs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Character encodings and glyphs}
+\label{section:unicode}
 \subsection{The Universal Character Set}
 \subsection{UTF-8}
 \newpage
@@ -831,7 +860,7 @@ excess data relative to the constant origin will no longer be displayed (i.e.
 the material in the upper left will be retained). If the screen is enlarged,
 any data uncovered will be displayed, and the new area will otherwise be empty.
 Some widgets can intelligently resize themselves in the face of screen
-geometry changes (see Chapter~\ref{section:uiwidgets}, \textit{UI Widgets}).
+geometry changes (see Chapter~\ref{section:uiwidgets}).
 
 Notcurses prepares a given terminal for fullscreen mode in the
 \texttt{notcurses\_init} function:
@@ -844,6 +873,14 @@ Notcurses prepares a given terminal for fullscreen mode in the
 struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
 \end{minted}
 \end{listing}
+
+Before calling \texttt{notcurses\_init} (and usually as one of the first lines
+of the program) it is necessary to set the current locale via the standard
+library function \texttt{setlocale}. A coverage of ANSI/ISO C locales is beyond
+the scope of this text, but it is usually sufficient to call
+\texttt{setlocale(LC\_ALL, "")}. Notcurses only supports those locales using
+US-ASCII or UTF-8 encodings (see Chapter~\ref{section:unicode} for more
+information on character encodings).
 
 By default (assuming the \texttt{smcup} terminfo capability is expressed),
 Notcurses attempts to enter the "\gls{smcup}". Using the alternate screen
@@ -881,7 +918,13 @@ The fields therein include:
     diagnostics and/or warnings, including version information and details
     about the current terminal. At shutdown, it prints performance statistics.
     These outputs \textit{do not} go to the alternate screen. Set this
-    field to disable these outputs.}
+    field to disable these outputs, but be aware that doing so might hide
+    important warnings:
+
+    \begin{center}
+      \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
+    \end{center}
+}
 \item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}}:
     By default, Notcurses registers signal actions for the normally fatal
     \texttt{SIGABRT}, \texttt{SIGINT}, \texttt{SIGQUIT}, and \texttt{SIGSEGV}.
