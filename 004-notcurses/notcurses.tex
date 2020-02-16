@@ -601,7 +601,7 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 \section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
-rejected from NCURSES. The first commit was pushed 2019-11-16, and I started
+rejected from NCURSES. The first commit was pushed 2019-11-16. I started
 writing this manuscript 2020-02-12, following the 1.1.8 release. It proved to
 be seductive as hell, and it was only with difficulty that I tore myself away
 following three months of hard work. By that time, Notcurses subsumed most
@@ -667,10 +667,11 @@ Burroughs typewriters of its era\cite{zuse}.} printed them to paper, and are of
 interest to us only so far as our modern term ``tty'' (of which much will be
 said later) is rather dubiously derived from ``TeleTYpewriter'', as these
 cantankerous contraptions were known\footnote{Though we do hear of their Snoopy
-calendars in the song of legend\cite{quiche}.}.
+calendars in the song of legend\cite{quiche}.}. They didn't know much about
+abbreviating in those days.
 
 These devices most typically printed 72 characters per line (CPL), a limit that
-has persisted in strange places to this very day\cite{pandoc}. Another constant
+has persisted in strange places\cite{pandoc} through the modern era. Another constant
 you'll see from time to time is 132 CPL, derived from line printers such as the
 IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most often,
 however, is the 80 columns line originating in 1928's 7¾x3¼, 0.007in-thick IBM
@@ -865,7 +866,7 @@ We can easily write code to reproduce this effect for standard input and output:
 \inputminted[fontsize=\scriptsize]{C}{code/hol-formatter.c}
 \end{listing}
 
-This works as expected:
+This works as expected (we use \texttt{tesseract} for OCR, with solid results):
 
 \begin{center}
 \includegraphics[width=.75\linewidth]{hol-formatted.png}
@@ -978,9 +979,9 @@ struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
 \end{minted}
 \end{listing}
 
-Before calling \texttt{notcurses\_init} (and usually as one of the first lines
+Before calling \texttt{notcurses\_init()} (and usually as one of the first lines
 of the program) it is necessary to set the current locale via the standard
-library function \texttt{setlocale}. A coverage of ANSI/ISO C locales is beyond
+library function \texttt{setlocale()}. A coverage of ANSI/ISO C locales is beyond
 the scope of this text, but it is usually sufficient to call
 \texttt{setlocale(LC\_ALL, "")}. Notcurses only supports those locales using
 US-ASCII or UTF-8 encodings (see Chapter~\ref{section:unicode} for more
@@ -1016,8 +1017,8 @@ int notcurses_stop(struct notcurses* nc);
 \end{listing}
 
 By default, Notcurses registers signal handlers for most fatal signals. These
-handlers will call \texttt{notcurses\_stop} and then pass the signal to the
-orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers},
+handlers will call \texttt{notcurses\_stop()} and then pass the signal to the
+orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers}
 field of \texttt{notcurses\_options}, but
 there aren't very many good reasons to do so.
 
@@ -1031,7 +1032,7 @@ The fields therein include:
 \item{\texttt{const char* termtype}: The name of the terminfo database entry to
     use. If \texttt{NULL}, the value of the environment variable \texttt{TERM}
     is used. Failure to initialize the terminfo database will result in a
-    \texttt{notcurses\_init} failure.} A defined but invalid or suboptimal
+    \texttt{notcurses\_init()} failure.} A defined but invalid or suboptimal
     entry will result in garbage, missing output, poor performance, reduced
     colors, and unsightly weight gain.
 \item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
@@ -1046,8 +1047,8 @@ The fields therein include:
   }
 \item{\texttt{bool retain\_cursor}: Notcurses hides the cursor by default.
     Set this to keep the cursor visible (the cursor can be turned on and off
-    at runtime with \texttt{notcurses\_cursor\_enable} and
-    \texttt{notcurses\_cursor\_disable}).}
+    at runtime with \texttt{notcurses\_cursor\_enable()} and
+    \texttt{notcurses\_cursor\_disable()}).}
 \item{\texttt{bool suppress\_banner}: At startup, Notcurses emits some
     diagnostics and/or warnings, including version information and details
     about the current terminal. At shutdown, it prints performance statistics.
