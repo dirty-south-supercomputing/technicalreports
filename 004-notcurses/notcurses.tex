@@ -51,7 +51,7 @@ bibencoding=utf8,
 
 \title{Hacking the Planet! with Notcurses:\\
 A Guide to TUIs and Character Graphics\thanks{
- \href{https://www.dsscaw.com/}{Dirty South Supercomputing of Atlanta, GA.}
+ \href{https://www.dsscaw.com/}{Dirty South Supercomputing of Atlanta, GA. Free documentation under the Apache 2.0 License.}
 }\\
 }
 \author{Nick Black, Consulting Scientist\\
@@ -730,10 +730,10 @@ counts of both NTSC and PAL at 480 and 576, respectively. 24 rows of
 80 columns at a byte per column utilize 93.75\% of a 2KiB memory, leaving exactly
 128 bytes left over, and everyone loves a good power of 2.
 
-The priestly descendents of Moses's brother Aaron, the first
+The Aaronites, Levite descendents of Moses's brother Aaron, the first
 \texthebrew{כהן גדול}
 (High Priest),
-form the \texthebrew{כֹּהֲנִים} (priestly caste), and were divided into 24 courses. The Buddha's Dhamma Chakra (Wheel of Dhamma)
+form the priestly \texthebrew{כֹּהֲנִים}; they were divided into 24 courses. The Buddha's Dhamma Chakra (Wheel of Dhamma)
 in its Ashoka form extends 24 spokes. But perhaps I grow esoteric, even
 speculative\ldots\ in truth, 80x24 almost certainly owes its questionable
 existence to IBM's punched cards, IBM 2260 and 3270 wanting compatibility with
@@ -875,7 +875,7 @@ There are a few things worth noting about the code above. First, observe how
 much of the logic is devoted to checking and propagating errors! Perhaps
 contrary to common expectation, reliable code--especially when that code's
 primary effect is to write to stdout--generally needs to check the results of
-e.g. \texttt{print()} (what happens if we're redirected to a file, and
+e.g. \texttt{printf()} (what happens if we're redirected to a file, and
 the disk is full?). A language making use of exceptions would reduce if not
 eliminate this nonsense.
 
@@ -986,6 +986,10 @@ the scope of this text, but it is usually sufficient to call
 US-ASCII or UTF-8 encodings (see Chapter~\ref{section:unicode} for more
 information on character encodings).
 
+    \begin{center}
+      \includegraphics[width=.7\linewidth]{media/notcurses-init-fails.png}
+    \end{center}
+
 By default (assuming the \texttt{smcup} terminfo capability is expressed),
 Notcurses attempts to enter the "\gls{smcup}". Using the alternate screen
 implies:
@@ -1011,6 +1015,12 @@ int notcurses_stop(struct notcurses* nc);
 \end{minted}
 \end{listing}
 
+By default, Notcurses registers signal handlers for most fatal signals. These
+handlers will call \texttt{notcurses\_stop} and then pass the signal to the
+orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers},
+field of \texttt{notcurses\_options}, but
+there aren't very many good reasons to do so.
+
 \subsection{The \texttt{notcurses\_options} structure}
 The first parameter to \texttt{notcurses\_init} is a (possibly \texttt{NULL})
 \texttt{notcurses\_options}. This structure has been defined such that the
@@ -1021,7 +1031,9 @@ The fields therein include:
 \item{\texttt{const char* termtype}: The name of the terminfo database entry to
     use. If \texttt{NULL}, the value of the environment variable \texttt{TERM}
     is used. Failure to initialize the terminfo database will result in a
-    \texttt{notcurses\_init} failure.}
+    \texttt{notcurses\_init} failure.} A defined but invalid or suboptimal
+    entry will result in garbage, missing output, poor performance, reduced
+    colors, and unsightly weight gain.
 \item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
     Notcurses from making use of the alternate screen, even if the \texttt{enter\_ca\_mode}
     terminfo capability is defined. It's best to wire this up to a user-managed
@@ -1034,7 +1046,8 @@ The fields therein include:
   }
 \item{\texttt{bool retain\_cursor}: Notcurses hides the cursor by default.
     Set this to keep the cursor visible (the cursor can be turned on and off
-    at runtime with \texttt{notcurses\_cursor\_enable} and \texttt{notcurses\_cursor\_disable}).
+    at runtime with \texttt{notcurses\_cursor\_enable} and
+    \texttt{notcurses\_cursor\_disable}).}
 \item{\texttt{bool suppress\_banner}: At startup, Notcurses emits some
     diagnostics and/or warnings, including version information and details
     about the current terminal. At shutdown, it prints performance statistics.
@@ -1046,8 +1059,8 @@ The fields therein include:
       \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
     \end{center}
 }
-\item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}}:
-    By default, Notcurses registers signal actions for the normally fatal
+\item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}:
+    As noted above, Notcurses by default registers signal actions for the normally fatal
     \texttt{SIGABRT}, \texttt{SIGINT}, \texttt{SIGQUIT}, and \texttt{SIGSEGV}.
     These handlers will call \texttt{notcurses\_stop} before propagating the
     signal to the original actions. This is usually desirable, as the screen
@@ -1063,19 +1076,27 @@ The fields therein include:
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{A simple notcurses render\/event loop}
+\section{A simple notcurses render\slash event loop}
+\subsection{Example: moving a tetrimino with keyboard+mouse}
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
+\subsection{Moving and resizing planes}
+\subsection{Cells, strings, and formatted output}
+\subsection{Alpha blending and plane transparency}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Styling with colors and attributes}
+\subsection{The 32-bit \texttt{attribute} value}
+\subsection{The 64-bit \texttt{channels} value}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
+\subsection{Linear interpolation and gradients}
+\subsection{Blitting}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1084,6 +1105,8 @@ The fields therein include:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
+\subsection{Scaling images and video}
+\subsection{Sprites}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1092,6 +1115,10 @@ The fields therein include:
 \subsection{Selectors and multiselectors}
 \subsection{Menus}
 \subsection{Reels}
+\subsection{Example: let's rip off \texttt{whiptail}}
+
+\section{A simple notcurses game}
+\subsection{Example: let's rip off Tetris}
 
 %\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
