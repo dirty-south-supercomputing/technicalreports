@@ -27,6 +27,8 @@ LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
+NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech)
+
 all: reports
 
 reports: $(REPORTS)
@@ -34,11 +36,14 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib) $(NOTCURSESRESOURCES) $(RESOURCES)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
+
+$(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c
+	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
 
 clean:
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.aux) $(wildcard $(dir)/*.bbl))
@@ -48,3 +53,4 @@ clean:
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.pdf) $(wildcard $(dir)/*.xml))
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.toc))
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/_minted-*))
+	@rm -vrf $(NCBINS)
