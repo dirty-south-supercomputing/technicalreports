@@ -17,6 +17,7 @@
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xeCJK}
 \usepackage{xcolor}
+\usepackage{wrapfig}
 \usepackage{minted}
 \usepackage{polyglossia}
 \setmainlanguage{english}
@@ -620,8 +621,8 @@ I implemented Notcurses in the winter of 2019 after having a few patches
 rejected from NCURSES. The first commit was pushed 2019-11-16. I started
 writing this manuscript 2020-02-12, following the 1.1.8 release. It proved to
 be seductive as hell, and it was only with difficulty that I tore myself away
-following three months of hard work. By that time, Notcurses subsumed most
-functionality of NCURSES, adding a great deal more. The project had three
+following three months of hard work. By that time, Notcurses subsumed large
+chunks of NCURSES, adding a great deal more. The project had three
 major goals:
 
 \begin{denseitemize}
@@ -759,8 +760,18 @@ VT52 and legendary VT100, and the VT100 subsequently becoming a \textit{de facto
 four decades.
 
 \begin{figure}
-\centering \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
-\caption{The Digital Equipment Corporation terminals of the 1970s and 1980s.}
+  \centering
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
+    \caption{The Digital Equipment Corporation terminals of the 1970s and 1980s.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.4\textwidth}
+    \centering
+    \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
+    \caption{The VT220's glyphs from a ROM dump. VT100 implemented most of the
+      first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
+  \end{minipage}
 \end{figure}
 
 \begin{figure}
@@ -769,14 +780,35 @@ four decades.
   Dream Machine'', supposedly). That poor woman with the Sororc IQs looks stoned out
   of her gourd. Grizzly Adams rocks a Datapoint 3300, but really his mind is on
   seeing Skynyrd shred it this weekend. Finally, we have Frank the Cocaine
-  Ranger and his Electric Hazeltine 1500 Band. JFC, the 70s were \textit{unseemly}.}
+  Ranger and his Electric Hazeltine 1500 Band. \textit{Gott im Himmel}, the 70s were \textit{unseemly}.}
 \end{figure}
 
-\subsection{The VT100, the VT220, and ANSI X3.64-1979}
+\subsection{The DEC VTxxx terminals and ANSI X3.64-1979}
 
+Introduced in August 1978, the VT100 ushered in a new era of smart terminals
+using commodity (Intel) microprocessors, implementing portions of the upcoming
+ANSI X3.64 standard (itself based on 1976's first edition of ECMA-48) along
+with DEC extensions\footnote{The VT100 \textit{did not} implement all of X3.64,
+nor was X3.64 derived from the VT100. The VT100 didn't do color, nor did it
+insert or delete lines. It furthermore implemented several features outside
+the scope of ECMA-48's first edition.} This series would go on to sell over
+six million units, and it was a rare vendor that didn't include some degree
+of DEC VT compatibility. Each major iteration of the series was designed to
+encompass all functionality of prior iterations, beginning with the VT100's
+faithful emulation of the earlier era's VT52. The VT102 cut down on the cost
+and size of the VT100, and included the 132-CPL mode by default; they were
+otherwise essentially the same device\cite{vt100}.
+
+The original \texttt{xterm} was written as an emulator of the VAXStation 100
+(VS100), and slowly acquired scattered features from the VT100, ANSI, and other
+sources\cite{xtermfaq}. Thomas E.\ Dickey (the current maintainer of \Gls{ncurses}
+and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
+\texttt{decTerminalID} resource following the addition of much VT220 compatibility.
+
+\textbf{FIXME keep goin'\ldots}
 
 \subsection{The Curses API}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Character encodings and glyphs}
