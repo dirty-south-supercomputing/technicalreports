@@ -1,0 +1,532 @@
+\newglossaryentry{smcup}
+{
+  name={alternate screen},
+  description={A capability of some terminals (described by the \texttt{smcup}
+    termcap capability and \texttt{enter\_ca\_mode} terminfo capability). 
+    Entering the alternate screen sees the screen cleared, and output will not
+    be added to the scrollback buffer. Output to the alternate screen is no
+    longer visible upon leaving it. Whether or not the original screen contents
+    are restored is terminal dependent; if the \texttt{non\_rev\_rmcup}
+    terminfo capability is defined, the original screen contents will \textit{not}
+    be restored.}
+}
+
+\newglossaryentry{ansix364}
+{
+  name={ANSI X3.64-1979},
+  description={``Control Sequences for Video Terminals and Peripherals''.
+    Ratified \Gls{ecma48}}
+}
+
+\newglossaryentry{ascii}
+{
+  name={ANSI X3.4-1968},
+  description={``Coded character set---7-bit American National Standard Code
+    for Information Interchange''. A 128-element codeset and a 7-bit character
+    encoding perhaps better known as ASCII\cite{ascii}. Its code set is a
+    proper subset of \Gls{ucs}, and its encoding is a proper subset of
+    \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32})}
+}
+
+\newglossaryentry{ASCII}
+{
+  name={ASCII},
+  description={See \Gls{ascii}}
+}
+
+\newglossaryentry{canonical mode}
+{
+  name={canonical mode},
+  description={See \gls{cooked mode}}
+}
+
+\newglossaryentry{cooked mode}
+{
+  name={cooked mode},
+description={The default terminal mode under SUSv4 (see \gls{raw mode}).
+  The terminal driver buffers input until a newline is entered, while echoing
+  it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
+  mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
+  Buffered input is flushed when these signals are sent. Also known as
+  \gls{canonical mode}}
+}
+
+\newglossaryentry{cdk}
+{
+  name={CDK},
+description={The Curses Development Kit, a widget library developed against the
+  Curses specification. It is not distributed as part of NCURSES, though
+  both are maintained by Thomas E.\ Dickey}
+}
+
+\newglossaryentry{cell}
+{
+  name={cell},
+description={The rectilinear area corresponding to a given text-mode coordinate.
+  The analogue of pixels in graphics mode, a cell typically contains more
+  pixels along its height than its width. 12 lines of 6 pixels each is not
+  unreasonable. A cell can usually represent a grapheme cluster, a foreground
+  color, a background color, and some number of attributes, independently
+  from surrounding cells}
+}
+
+\longnewglossaryentry{character}
+{
+  name={character},
+description={One of the most imprecise terms in computer science. The C and \CC
+  languages have a data type \texttt{char}, which cannot necessarily hold the
+  world's characters. A character is not necessarily a unique concept within
+  a character set (see diacritic forms vs. precomposed characters). A
+  character does not necessarily correspond to a single column on a display,
+  even when using a fixed-width font. A character does not necessarily have a
+  visual representation. In a given encoding, all characters are not
+  necessarily the same size. A character does not necessarily
+  capture the state of the keyboard at some given input.
+
+  In the absence of a coded character set or character encoding for context, a
+  character is really nothing more than an identifier, e.g. \texttt{LATIN
+    CAPITAL LETTER I}. Isn't that a recursive definition? You betcha.
+
+  When I use the word ``character'', I mean either an element of some code set, or
+  such an element as encoded by some character encoding. The context ought make
+  obvious which meaning is intended}
+}
+
+\newglossaryentry{characterencoding}
+{
+  name={character encoding},
+  description={A mapping from one or more \glspl{codeset} to a set of octet
+  sequences. Also known as a \textbf{character encoding scheme}\cite{rfc2978}}
+}
+
+\newglossaryentry{codepoint}
+{
+  name={code point},
+description={A numerical value within a code space. In and of itself,
+  it has neither an associated sequence of bits nor any particular glyph.
+  Indeed, a code point might correspond to some non-printable control}
+}
+
+\newglossaryentry{codeset}
+{
+  name={code set},
+description={A set of abstract characters, each having a name and a code
+  point. \Gls{isoiec10646} specifies almost 150,000 abstract characters as the
+  Universal Coded Character Set (UCS). This is smaller than its corresponding
+  code space by about two orders of magnitude. Also known as a
+  \textbf{coded character set}\cite{rfc2978}}
+}
+
+\newglossaryentry{codespace}
+{
+  name={code space},
+description={A numerical range spanning all the code points of a code set.
+  The Unicode code space (as of Unicode 13) is made up of 17 contiguous
+  planes of 65,536 contiguous code points each, for a size of $17*2^{16}$}
+}
+
+\newglossaryentry{console}
+{
+  name={console},
+description={Though sometimes used synonymously with ``terminal'', console almost
+  always refers to text-based environments on personal computers. On Linux
+  x86 machines, this could mean a serial terminal, an AT keyboard and a VGA
+  in 80x25 text mode, a USB keyboard with a UEFI framebuffer, or any number
+  of other things. When I use ``console'', I mean terminals outside of a GUI
+  context}
+}
+
+\newglossaryentry{curses}
+{
+  name={Curses},
+description={The X/OSI specification of an API for optimized cursor routines. It
+  was most recently ratified as part of the January 2018 Single UNIX
+  Specification version 4 administrative rollup, aka ``susv4-2018''. NCURSES is
+  an implementation of Curses (plus extensions). Notcurses is not}
+}
+
+\newglossaryentry{cursor}
+{
+  name={cursor},
+description={Both the location where output will next be written, and possibly
+  a visual indication of that location}
+}
+
+\newglossaryentry{dialog}
+{
+  name={dialog},
+description={An NCURSES-based application for TUI modal dialogs}
+}
+
+\newglossaryentry{directcolor}
+{
+  name={DirectColor},
+  description={FIXME},
+}
+
+\newglossaryentry{ebcdic}
+{
+  name={EBCDIC},
+  description={IBM's Extended Binary Coded Decimal Interchange Codes, announced
+    alongside the legendary System/360, extended the BCDICs into a collection
+    of 8-bit codes. Not a single code matches its ASCII equivalent, in part
+    because EBCDIC has properties including a discontiguous Latin alphabet.
+    EBCDIC is thankfully rare in modern practice, living on primarily as
+    a boogieman with which the owners of standard library factories frighten
+    students learning C. Exhaustive information regarding EBCDIC can be found
+    in \cite{codedcharactersets}}
+}
+
+\newglossaryentry{egc}
+{
+  name={extended grapheme cluster},
+description={FIXME }
+}
+
+\newglossaryentry{ecma6}
+{
+  name={ECMA-6:1991},
+  description={``7-bit Coded Character Set'', 6th edition. Ratified
+    \Gls{isoiec646}}
+}
+
+\newglossaryentry{ecma35}
+{
+  name={ECMA-35:1994},
+  description={``Character Code Structure and Extension Techniques'', 6th
+    edition. Ratified \Gls{isoiec2022}}
+}
+
+\newglossaryentry{ecma43}
+{
+  name={ECMA-43:1991},
+  description={``8-bit Coded Character Set Structure and Rules'', 3rd edition}
+}
+
+\newglossaryentry{ecma48}
+{
+  name={ECMA-48:1991},
+  description={``Control Functions for Coded Character Sets'', 5th edition.
+    Control functions and their coded representations for use with ECMA-35-compliant
+    7-bit and 8-bit codes.
+   Ratified as \Gls{isoiec6429}}
+}
+
+\newglossaryentry{ecma94}
+{
+  name={ECMA-94:1986},
+  description={``8-bit Single Byte Coded Graphic Character Sets---Latin
+    Alphabets \textnumero\ 1 to \textnumero\ 4.'', 2nd edition. Ratified
+    \Gls{isoiec8859}-1, -2, -3, and -4}
+}
+
+\newglossaryentry{gamma correction}
+{
+  name={gamma correction},
+  description={Compression and decompression based around the nonlinear nature
+   of human color perception. The eye has more sensitivity to differences between
+   darker shades than lighter ones.}
+}
+
+\newglossaryentry{hsv}
+{
+  name={HSV},
+  description={The Hue, Saturation, and Value color model. A transformation of \Gls{rgb}}
+}
+
+\newglossaryentry{isoiec646}
+{
+  name={ISO/IEC 646:1991},
+  description={``Information technology—ISO 7-bit coded character set for
+    information interchange''. A seven-bit encoding developed in conjunction
+    with ASCII. Of its 128 codes, 116 are \texttt{invariant characters}, and
+    the remaining 12 are defined by national ISO 646 variants. All variants
+    have 95 graphic characters (space and 94 printables), and 33 control
+    characters (these definitions give rise to ANSI C's \texttt{ctype}
+    definitions). The only full 128-character encoding defined in the document
+    is the International Reference Version; as of the most recent (1991)
+    edition, the IRV is explicitly identical to ASCII. ISO/IEC 646:1991 is
+    twinned with \Gls{itut50}, and ratified as \Gls{ecma6}}
+}
+
+\newglossaryentry{isoiec2022}
+{
+  name={ISO/IEC 2022:1994},
+  description={``Information technology—Character code structure and extension techniques''.
+   An absolute mess of a standard. FIXME
+   Ratified as \Gls{ecma35}}
+}
+
+\newglossaryentry{isoiec6429}
+{
+  name={ISO/IEC 6429:1992},
+  description={``Information technology — Control functions for coded character sets''.
+   Ratified \Gls{ecma48}}
+}
+
+\newglossaryentry{isoiec8859}
+{
+  name={ISO/IEC 8859:1998},
+  description={``Information technology---8-bit single-byte coded graphic character sets''.
+    A set of 15 standards, emerging from 1987 to 2001, of which ISO 8859-1:1987 (Part 1: Latin alphabet \textnumero\ 1) is
+    probably the best-known. 8859 covers only graphic characters, not control
+    characters. In 1992, ISO-8859-1 (note the extra hyphen compared to ISO 8859-1; egads),
+    was registered, mating ISO 8859-1 with \Gls{isoiec646}'s C0 and
+    \Gls{isoiec6429}'s C1 for a complete 256-code encoding. This result is a
+    proper subset of UTF-8, and a proper superset of ASCII. The first four were
+    ratified as \Gls{ecma94}}
+}
+
+\newglossaryentry{isoiec10646}
+{
+  name={ISO/IEC 10646:2017},
+  description={``Information technology—Universal Coded Character Set (UCS)''.
+    FIXME
+    }
+}
+
+\newglossaryentry{itut50}
+{
+  name={ITU T.50},
+  description={The International Reference Alphabet (IRA), formerly known as
+   International Alphabet \textnumero\ 5. Its most recent (1992)
+   edition is twinned to \Gls{isoiec646}:1991, and thus (despite is name)
+   leaves 12 positions open for national variants}
+}
+
+\newglossaryentry{keyboard}
+{
+  name={keyboard},
+  description={An input device primarily used to select from a set of
+  characters. These characters might or might not correspond to elements in
+  the active encoding. Unlike pointers, keyboards do not indicate position}
+}
+
+\newglossaryentry{ncurses}
+{
+  name={NCURSES},
+description={An implementation of X/OSI Curses (plus extensions) maintained by
+  Thomas E.\ Dickey under the auspices of the Free Software Foundation.
+  Installed on just about every currently-running UNIX system, it is a
+  venerable, proven library, and the foundation of a great many applications}
+}
+
+\newglossaryentry{newt}
+{
+  name={newt},
+description={A minimal TUI library written atop slang, providing the foundation
+  for \texttt{whiptail}. It is not a Curses implementation}
+}
+
+\newglossaryentry{noncanonical}
+{
+  name={non-canonical mode},
+description={See \gls{raw mode}}
+}
+
+\newglossaryentry{notcurses}
+{
+  name={Notcurses},
+description={The baddest character graphics/TUI library in town}
+}
+
+\newglossaryentry{pointer}
+{
+  name={pointer},
+description={An input device primarily used to indicate position. It
+  corresponds with one cell at any given time, which might or might not be
+  independent of the cursor. There can be more than one pointer. Like a
+  keyboard, pointers typically have (usually far fewer) distinct buttons}
+}
+
+\newglossaryentry{pgroup}
+{
+  name={process group},
+description={A set of processes sharing the same PGID. When the terminal
+  generates a signal for a process (e.g. \texttt{SIGINT} in response to Ctrl+C), it
+  sends the signal to all processes in that process group. Of the process
+  groups making up a session, only one is the foreground process group.
+  Attempts to perform terminal I/O by session processes outside the foreground
+  process group will result in \texttt{SIGTTIN} or \texttt{SIGTTOU}}
+}
+
+\longnewglossaryentry{pseudoterminal}
+{
+  name={pseudoterminal},
+description={``A pair of virtual character devices that provide a
+  bidirectional communication channel. One end of the channel is called the
+  master; the other end is called the slave. The slave end of the
+  pseudoterminal provides an interface that behaves exactly like a classical
+  terminal. A process that expects to be connected to a terminal, can open
+  the slave end of a pseudoterminal and then be driven by a program that has
+  opened the master end. Anything that is written on the master end is
+  provided to the process on the slave end as though it was input typed on a
+  terminal.'' (\texttt{pty(7)}, \textit{Linux Programmer's Manual})
+
+ Pseudoterminals are used by terminal emulators and interactive SSH
+  connections. They are essentially buffers with some basic transformation
+  capabilities. Ctrl-C is turned into \texttt{SIGINT} by the pseudoterminal device,
+  and it handles relevant \texttt{ioctl()}s}
+}
+
+\newglossaryentry{raw mode}
+{
+  name={raw mode},
+description={A collection of behaviors differing from \gls{cooked mode}. Notably,
+  the terminal driver no longer buffers input or generates signals}
+}
+
+\newglossaryentry{rgb}
+{
+  name={RGB},
+  description={The Red, Green, Blue color model. In the context of Notcurses,
+    this almost always means a 24-bit value, with 8 bits per component (some
+    contexts accept a 32-bit value, where the least significant 8 bits are
+    ignored)}
+}
+
+\longnewglossaryentry{terminal}
+{
+  name={terminal},
+description={In the abstract, a means for entering data into a computer
+  (typically involving a keyboard, and often a pointing device), and a means
+  for displaying that conmputer's output. In the concrete, electromechanical
+  devices for doing the same. I use ``terminal'' in the abstract sense
+  throughout this book, but both meanings are in common use:
+
+  \begin{denseitemize}
+  \item I pull my chair up to my desk and \textit{engage my terminal}.
+  \item I press Meta+F1 and \textit{bring up a terminal}.
+  \end{denseitemize}
+
+ Only the mad might refer to a physical device as a terminal emulator}
+}
+
+\longnewglossaryentry{terminalemulator}
+{
+  name={terminal emulator},
+description={A program in a GUI environment providing a
+  two-dimensional array of cells. A terminal emulator differs from a
+  framebuffer/canvas in that each of these cells contains rendered (and
+  possibly stylized) font glyphs, as opposed to a single pixel. Terminal
+  emulator processes are connected to the slave ends of pseudoterminals.
+
+ The pure character graphics environment of e.g. Linux or FreeBSD outside
+  of X11 or Wayland is technically a terminal emulator, but almost always
+  referred to as a ``console''. When I say ``terminal emulator'' in this book,
+  I do not mean to include consoles}
+}
+
+\newglossaryentry{termcap}
+{
+  name={termcap},
+description={A deprecated terminal capability database, superseded by \gls{terminfo}}
+}
+
+\newglossaryentry{terminfo}
+{
+  name={terminfo},
+description={A database describing terminals and their capabilities. It is
+  primarily indexed by terminal name, yielding an entry covering several
+  hundred capabilities. These capabilities are then indexed by name. A
+  terminal environment is responsible for setting the \texttt{TERM} environment
+  variable to the correct primary terminfo index. termcap has been
+  deprecated by the introduction of terminfo, which is superior in every way}
+}
+
+\newglossaryentry{termios}
+{
+  name={termios},
+description={A POSIX API and data structure for working with arbitrary terminals.
+  These functions all start with \texttt{tc} or \texttt{cf}, and control low-level behavior}
+}
+
+\newglossaryentry{ucs}
+{
+  name={UCS},
+  description={See \Gls{isoiec10646}}
+}
+
+\newglossaryentry{ucs2}
+{
+  name={UCS-2},
+description={A fixed-length encoding of the Basic Multilingual Plane. Each
+  character is encoded to a single 16-bit code unit, for a total of 2 bytes
+  per encoded character. UCS-2 cannot encode all of UCS, and is infrequently
+  used. An amendment to \Gls{isoiec10646} extended UCS-2 to \Gls{utf16}}
+}
+
+\newglossaryentry{ucs4}
+{
+  name={UCS-4},
+description={A fixed-length encoding of \Gls{ucs} to 32-bit code units.
+  \Gls{utf32} is a proper subset of UCS-4\cite{rfc3629}}
+}
+
+\newglossaryentry{unicode}
+{
+  name={Unicode},
+description={UCS as defined by \Gls{isoiec10646} (which Unicode inducts), plus
+  rules on how to use that code set. Unicode is defined by the Unicode
+  Consortium}
+}
+
+\newglossaryentry{utf1}
+{
+  name={UTF-1},
+description={An early garbage form of UTF-8. \Gls{isoiec10646} Annex G, since deprecated.
+  Unfortunately, the page might not yet have been ripped out at your local
+  library. Don't use UTF-1},
+}
+
+\newglossaryentry{utf8}
+{
+  name={UTF-8},
+description={FIXME}
+}
+
+\newglossaryentry{utf16}
+{
+  name={UTF-16},
+description={A variable-length encoding of UCS. Each character is encoded to
+  either one or two 16-bit code units, for a total of 2 or 4 bytes per
+  encoded character. For fun, it comes in two endiannesses. There's very little
+  good about UTF-16, and it ought neither be purchased, nor accepted as a gift.
+  Perhaps not coincidentally, it is the internal encoding of both Microsoft
+  Windows and Java}
+}
+
+\newglossaryentry{utf32}
+{
+  name={UTF-32},
+description={A fixed-length encoding of UCS. Each character is encoded to a
+  single 32-bit code unit, for a total of 4 bytes per encoded character. UTF-32
+  is a restricted subset of \Gls{ucs4}\cite{rfc3629}}
+}
+
+\newglossaryentry{virtualterm}
+{
+  name={virtual terminal},
+description={Some consoles multiplex multiple instances. Each is
+  typically referred to as a virtual terminal. I have never heard anyone
+  refer to the multiple tabs of a terminal emulator as ``virtual terminals'',
+  and would look at them strangely if I did}
+}
+
+\newglossaryentry{whiptail}
+{
+  name={whiptail},
+description={An application for providing TUI modal dialogs, similar to \texttt{dialog}. It is written using Newt}
+}
+
+\newglossaryentry{widechar}
+{
+  name={wide character},
+  description={This has at least two distinct meanings:
+\begin{denseitemize}
+\item \texttt{wchar\_t}: A data type in C and \CC. FIXME
+\item \textbf{Wide East Asian characters}: FIXME
+\end{denseitemize}
+}
+}
+
