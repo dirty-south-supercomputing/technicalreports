@@ -356,12 +356,15 @@ geometry changes (see Chapter~\ref{section:uiwidgets}).
 Notcurses prepares a given terminal for fullscreen mode in the
 \texttt{notcurses\_init} function:
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // Initialize a notcurses context on the connected terminal at 'fp'. 'fp' must
 // be a tty. You'll usually want stdout. Returns NULL on error, including any
 // failure initializing terminfo.
 struct notcurses* notcurses_init(const notcurses_options* opts, FILE* fp);
+
+// Destroy a notcurses instance, restoring the terminal to its original state.
+int notcurses_stop(struct notcurses* nc);
 \end{minted}
 \end{listing}
 
@@ -369,13 +372,18 @@ Before calling \texttt{notcurses\_init()} (and usually as one of the first lines
 of the program) it is necessary to set the current locale via the standard
 library function \texttt{setlocale()}. A coverage of ANSI/ISO C locales is beyond
 the scope of this text, but it is usually sufficient to call
-\texttt{setlocale(LC\_ALL, "")}. Notcurses only supports those locales using
+\texttt{setlocale(LC\_ALL, "")}, relying on the user's configured \texttt{LANG}
+environment variable. Notcurses only supports those locales using
 US-ASCII or UTF-8 encodings (see Chapter~\ref{section:unicode} for more
-information on character encodings).
+information on character encodings), and its capabilities on US-ASCII
+are \textit{severely} constrained. \texttt{notcurses\_init()} will return an
+error for any other encoding (see Figure~\ref{fig:encodingfail}).
 
-    \begin{center}
-      \includegraphics[width=.7\linewidth]{media/notcurses-init-fails.png}
-    \end{center}
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.7\linewidth]{media/notcurses-init-fails.png}
+\caption{Notcurses refusing to start due to an unsupported character encoding.}
+\label{fig:encodingfail}
+\end{figure}
 
 By default (assuming the \texttt{enter\_ca\_mode} terminfo capability is expressed),
 Notcurses attempts to enter the ``\gls{smcup}''. Using the alternate screen
@@ -393,20 +401,12 @@ Disabling use of the alternate screen can be done via the
 \texttt{notcurses\_options} field \texttt{inhibit\_alternate\_screen}.
 
 Once you're done using a \texttt{struct notcurses}, it's important to destroy
-it with \texttt{notcurses\_stop}, even if your process exits abnormally:
-
-\begin{listing}[ht]
-\begin{minted}{C}
-// Destroy a notcurses instance, restoring the terminal to its original state.
-int notcurses_stop(struct notcurses* nc);
-\end{minted}
-\end{listing}
-
-By default, Notcurses registers signal handlers for most fatal signals. These
+it with \texttt{notcurses\_stop}, even if your process exits abnormally. By
+default, Notcurses registers signal handlers for most fatal signals. These
 handlers will call \texttt{notcurses\_stop()} and then pass the signal to the
 orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers}
-field of \texttt{notcurses\_options}, but
-there aren't very many good reasons to do so.
+field of \texttt{notcurses\_options}, but there aren't very many good reasons
+to do so.
 
 \subsection{The \texttt{notcurses\_options} structure}
 The first parameter to \texttt{notcurses\_init} is a (possibly \texttt{NULL})
@@ -424,12 +424,16 @@ The fields therein include:
 \item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
     Notcurses from making use of the alternate screen, even if the \texttt{enter\_ca\_mode}
     terminfo capability is defined. It's best to wire this up to a user-managed
-    option. Here's what happens on exit when you don't use the alternate
-    screen:
+    option. Not using the alternate screen can look weird upon return to the
+    shell (see Figure~\ref{fig:altscreen}).
 
-    \begin{center}
-      \includegraphics[width=.7\linewidth]{media/no-alternate-screen.png}
-    \end{center}
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.7\linewidth]{media/no-alternate-screen.png}
+\caption{\texttt{notcurses-demo} can be invoked with \texttt{-k} to avoid
+  using the alternate screen. Here, we see its output left on the screen as
+  we return to our shell.}
+\label{fig:altscreen}
+\end{figure}
   }
 \item{\texttt{bool retain\_cursor}: Notcurses hides the cursor by default.
     Set this to keep the cursor visible (the cursor can be turned on and off
@@ -440,11 +444,14 @@ The fields therein include:
     about the current terminal. At shutdown, it prints performance statistics.
     These outputs \textit{do not} go to the alternate screen. Set this
     field to disable these outputs, but be aware that doing so might hide
-    important warnings:
+    important warnings (see Figure~\ref{fig:banner}).
 
-    \begin{center}
-      \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
-    \end{center}
+    \begin{figure}[!htbp]
+      \centering \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
+      \caption{Initializing Notcurses without 24-bit color support will
+        generate a warning, hopefully provoking your users to set it up.}
+      \label{fig:banner}
+    \end{figure}
 }
 \item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}:
     As noted above, Notcurses by default registers signal actions for the normally fatal
@@ -672,6 +679,7 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \glsaddallunused
 \printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}
 \printbibliography
