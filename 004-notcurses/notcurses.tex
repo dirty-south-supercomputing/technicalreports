@@ -5,6 +5,7 @@
 % arara: xelatex: {shell: true}
 \documentclass[letterpaper,10pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{newfloat}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
@@ -35,7 +36,7 @@ bibencoding=utf8,
 ]{biblatex}
 
 \addbibresource{\jobname.bib}
-\usemintedstyle{colorful}
+\usemintedstyle{friendly}
 \newenvironment{denseitemize}{
   \begin{itemize}
       \setlength{\itemsep}{0pt}
@@ -230,24 +231,22 @@ int ncdirect_dim_y(const struct ncdirect* nc);
 
 \subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
 
-Mark Z. Danielewski's experimental 2000 novel \textit{\textcolor{blue}{House} of Leaves} prints each
+Mark Z. Danielewski's experimental 2000 novel \textit{\textcolor{blue}{House} of Leaves}\cite{danielewski2000house} prints each
 instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 
-\begin{center}
-\includegraphics[width=.5\linewidth]{house-blue.png}
-\end{center}
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.5\linewidth]{house-blue.png}
+\caption{An excerpt from page 123 of \textit{\textcolor{blue}{House} of Leaves}.}
+\label{fig:houseofleaves}
+\end{figure}
 
-We can easily write code to reproduce this effect for standard input and output:
+We can easily write code to reproduce this effect for standard input and output.
+The following works as expected (see Figure~\ref{fig:houseout}):
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \inputminted[fontsize=\scriptsize]{C}{code/hol-formatter.c}
+\caption{\texttt{hol-formatter.c}}
 \end{listing}
-
-This works as expected (we use \texttt{tesseract} for OCR, with solid results):
-
-\begin{center}
-\includegraphics[width=.75\linewidth]{hol-formatted.png}
-\end{center}
 
 There are a few things worth noting about the code above. First, observe how
 much of the logic is devoted to checking and propagating errors! Perhaps
@@ -257,23 +256,31 @@ e.g. \texttt{printf()} (what happens if we're redirected to a file, and
 the disk is full?). A language making use of exceptions would reduce if not
 eliminate this nonsense.
 
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
+\caption{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with pleasantly solid results.}
+\label{fig:houseout}
+\end{figure}
+
 We don't switch from blue to some random color, because we don't know the
 background color of the terminal. Hard to believe as it is, some people don't
 favor a dark terminal background. If the terminal background was white, and we
 had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
 ``\textcolor{blue}{house}'' would be invisible.
 
-One might observe that a user with a blue background will have invisible ``house'' text.
-This is true, and there's no great solution to it. It is not generally possible to
-discover the RGB values of the default colors. I suppose all one can do is rest easy,
-serene in the belief that people with chromatic backgrounds deserve whatever happens to them.
+One might observe that a user with a blue background will have invisible
+``\textcolor{blue}{house}'' text. This is true, and there's no great solution
+to it. It is not generally possible to discover the RGB values of the default
+colors. I suppose all one can do is rest easy, serene in the belief that people
+with chromatic backgrounds deserve whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
 
 Imagine we've written the following guessing game:
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \inputminted[fontsize=\scriptsize]{C}{code/hilostdio.c}
+\caption{\texttt{hilostdio.c}}
 \end{listing}
 
 The correct approach is binary search, and for an $N$-bit \texttt{long}, we expect to
@@ -285,12 +292,8 @@ distance\footnote{This would be a good place to employ \gls{gamma correction}.}.
 If we wanted to do this without direct use of RGB color, we'd either need
 accept fewer shades, or be forced to reprogram the palette.
 
-Stepping through the orders of magnitude, we get the expected gradient. Were
-we to actually play, the response would converge to a balanced, strong green
-as we approached the correct answer.
-
-\begin{listing}[ht]
-\begin{minted}{C}
+\begin{listing}[!htbp]
+\begin{minted}[fontsize=\scriptsize]{C}
     if(!(r |= (ncdirect_fg_default(n)))){
           ...
           int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
@@ -300,11 +303,17 @@ as we approached the correct answer.
             r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
           ...
 \end{minted}
+\caption{Insertions into \texttt{hilostdio.c} yielding \texttt{hilodirect.c}.}
 \end{listing}
 
-\begin{center}
-\includegraphics[width=.75\linewidth]{media/hilodirect.png}
-\end{center}
+Stepping through the orders of magnitude, we get the expected gradient. Were
+we to actually play, the response would converge to a balanced, strong green
+as we approached the correct answer.
+
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.75\linewidth]{media/hilodirect.png}
+\caption{Colorized output from \texttt{hilodirect.c}.}
+\end{figure}
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -468,9 +477,9 @@ to shrink the character cell to a single pixel, we'd still need write one or
 another character into it, and emit a control code to stylize it\footnote{I've
 seen this idea bandied about as if it's a serious suggestion. Besides the fact
 that it won't work in a console, escapes are \textit{far} less efficient than
-canvases or OpenGL display lists; if your plan involves driving 1920x1080
-character cells using ANSI escape sequences, you're not going to space today,
-or maybe ever\cite{upgoerfive}.}.
+canvases or OpenGL display lists; if your plan involves using ANSI escape
+sequences to drive a 1920x1080 display via roughly two million 1x1 character
+cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \subsection{The Universal Character Set}
 \subsection{UTF-8}
 
