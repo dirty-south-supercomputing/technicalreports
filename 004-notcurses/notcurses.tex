@@ -21,6 +21,7 @@
 \usepackage[titletoc,title]{appendix}
 \usepackage{wrapfig}
 \usepackage{minted}
+\usepackage{csquotes}
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguage{hebrew}
@@ -525,25 +526,25 @@ int notcurses_render(struct notcurses* nc);
 // be NULL. Returns 0 on a timeout. If an event is processed, the return value
 // is the 'id' field from that event. 'ni' may be NULL.
 char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts,
-                            sigset_t* sigmask, ncinput* ni);
+                        sigset_t* sigmask, ncinput* ni);
 
 // 'ni' may be NULL if the caller is uninterested in event details. If no event
 // is ready, returns 0.
 static inline char32_t
 notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
-sigset_t sigmask;
-sigfillset(&sigmask);
-struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
-return notcurses_getc(n, &ts, &sigmask, ni);
+  sigset_t sigmask;
+  sigfillset(&sigmask);
+  struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
+  return notcurses_getc(n, &ts, &sigmask, ni);
 }
 
 // 'ni' may be NULL if the caller is uninterested in event details. Blocks
 // until an event is processed or a signal is received.
 static inline char32_t
 notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
-sigset_t sigmask;
-sigemptyset(&sigmask);
-return notcurses_getc(n, NULL, &sigmask, ni);
+  sigset_t sigmask;
+  sigemptyset(&sigmask);
+  return notcurses_getc(n, NULL, &sigmask, ni);
 }
 
 // Enable the mouse in "button-event tracking" mode with focus detection and
@@ -779,6 +780,14 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 
 \subsection{The Curses API}
 \end{appendices}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The \texttt{notcurses.h} header}
+\bgroup
+\inputminted[linenos,fontsize=\scriptsize,breaklines=true]{C}{code/notcurses.h}
+\egroup
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
