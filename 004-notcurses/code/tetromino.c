@@ -1,12 +1,12 @@
 #include <locale.h>
-#include <notcurses.h>
+#include <notcurses/notcurses.h>
 
-static const int TETRIMINO_WIDTH = 4;
-static const int TETRIMINO_HEIGHT = 4;
+static const int TETROMINO_WIDTH = 4;
+static const int TETROMINO_HEIGHT = 4;
 
 static struct ncplane*
 tetrimino_plane(struct notcurses* nc){
-  struct ncplane* n = ncplane_new(nc, TETRIMINO_HEIGHT, TETRIMINO_WIDTH, 0, 0, NULL);
+  struct ncplane* n = ncplane_new(nc, TETROMINO_HEIGHT, TETROMINO_WIDTH, 0, 0, NULL);
   return n;
 }
 

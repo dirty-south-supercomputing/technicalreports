@@ -1,5 +1,5 @@
 #include <limits.h>
-#include <notcurses.h>
+#include <notcurses/notcurses.h>
 
 int main(void){
   srand(time(NULL)); // gross

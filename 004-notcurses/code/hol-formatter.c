@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <notcurses.h>
+#include <notcurses/notcurses.h>
 
 int main(void){
   const char blue[] = "house";
