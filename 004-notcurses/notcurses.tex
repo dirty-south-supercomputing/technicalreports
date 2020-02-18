@@ -400,6 +400,17 @@ don't like it, so it's wise to expose this via a configuration option.
 Disabling use of the alternate screen can be done via the
 \texttt{notcurses\_options} field \texttt{inhibit\_alternate\_screen}.
 
+Successful creation of a \texttt{struct notcurses} implies the existence of
+a \texttt{struct ncplane}, the ``standard plane''\footnote{\texttt{ncplane}s,
+discussed in depth in Section~\ref{ncplane}, are the fundamental drawing surfaces of Notcurses.}.
+This standard plane cannot be destroyed without destroying the containing
+Notcurses context, nor can it be moved or resized by the user. Its size always
+matches Notcurses's conception of the terminal's screen size, and its origin
+always corresponds precisely to the terminal's origin. Aside from these
+restrictions, the standard plane is a drawable surface like any other
+\texttt{ncplane}---it can be moved along the z-axis, written to with arbitrary
+glyphs and styles, made transparent, etc.
+
 Once you're done using a \texttt{struct notcurses}, it's important to destroy
 it with \texttt{notcurses\_stop}, even if your process exits abnormally. By
 default, Notcurses registers signal handlers for most fatal signals. These
@@ -467,6 +478,99 @@ The fields therein include:
     will be written to this file. This is intended for debugging.}
 \end{denseitemize}
 
+\subsection{Functions on \texttt{notcurses} objects}
+
+Output is not written to this top-level \texttt{struct notcurses}---that's
+done with \texttt{ncplane}s---but there are a number of functions
+available for these objects.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Get a reference to the standard plane (one matching our current idea of the
+// terminal size) for this terminal. The standard plane always exists, and its
+// origin is always at the uppermost, leftmost cell of the terminal.
+struct ncplane* notcurses_stdplane(struct notcurses* nc);
+
+// Create a new ncplane at the specified offset (relative to the standard plane)
+// and the specified size. The number of rows and columns must both be positive.
+// This plane is initially at the top of the z-buffer, as if ncplane_move_top()
+// had been called on it. The void* 'opaque' can be retrieved (and reset) later.
+struct ncplane* ncplane_new(struct notcurses* nc, int rows, int cols,
+                            int yoff, int xoff, void* opaque);
+
+// Return the topmost ncplane, of which there is always at least one.
+struct ncplane* notcurses_top(struct notcurses* n);
+
+// Destroy any ncplanes other than the stdplane.
+void notcurses_drop_planes(struct notcurses* nc);
+\end{minted}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Make the physical screen match the virtual screen. Changes made to the
+// virtual screen (i.e. most other calls) will not be visible until after a
+// successful call to notcurses_render().
+int notcurses_render(struct notcurses* nc);
+\end{minted}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
+// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
+// Signals in sigmask (less several we handle internally) will be atomically
+// masked and unmasked per ppoll(2). It should generally contain all signals.
+// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
+// be NULL. Returns 0 on a timeout. If an event is processed, the return value
+// is the 'id' field from that event. 'ni' may be NULL.
+char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts,
+                            sigset_t* sigmask, ncinput* ni);
+
+// 'ni' may be NULL if the caller is uninterested in event details. If no event
+// is ready, returns 0.
+static inline char32_t
+notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
+sigset_t sigmask;
+sigfillset(&sigmask);
+struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
+return notcurses_getc(n, &ts, &sigmask, ni);
+}
+
+// 'ni' may be NULL if the caller is uninterested in event details. Blocks
+// until an event is processed or a signal is received.
+static inline char32_t
+notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
+sigset_t sigmask;
+sigemptyset(&sigmask);
+return notcurses_getc(n, NULL, &sigmask, ni);
+}
+
+// Enable the mouse in "button-event tracking" mode with focus detection and
+// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
+// is returned, and mouse events will be published to notcurses_getc().
+int notcurses_mouse_enable(struct notcurses* n);
+
+// Disable mouse events. Any events in the input queue can still be delivered.
+int notcurses_mouse_disable(struct notcurses* n);
+\end{minted}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+int notcurses_resize(struct notcurses* n, int* restrict y, int* restrict x);
+
+// Refresh the physical screen to match what was last rendered (i.e., without
+// reflecting any changes since the last call to notcurses_render()). This is
+// primarily useful if the screen is externally corrupted.
+int notcurses_refresh(struct notcurses* n);
+\end{minted}
+\end{listing}
+
+Finally, before ever creating a \texttt{notcurses}, we can call
+\texttt{notcurses\_version} to get a human-readable string describing the
+loaded library's version.
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -498,6 +602,7 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
+\label{ncplane}
 \subsection{Moving and resizing planes}
 \subsection{Cells, strings, and formatted output}
 \subsection{Alpha blending and plane transparency}
