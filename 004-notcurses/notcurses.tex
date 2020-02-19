@@ -284,7 +284,7 @@ We can easily write code to reproduce this effect for standard input and output.
 The following works as expected (see Figure~\ref{fig:houseout}):
 
 \begin{listing}[!htbp]
-\inputminted[fontsize=\scriptsize]{C}{code/hol-formatter.c}
+\inputminted[]{C}{code/hol-formatter.c}
 \caption{\texttt{hol-formatter.c}}
 \end{listing}
 
@@ -319,7 +319,7 @@ with chromatic backgrounds deserve whatever happens to them.
 Imagine we've written the following guessing game:
 
 \begin{listing}[!htbp]
-\inputminted[fontsize=\scriptsize]{C}{code/hilostdio.c}
+\inputminted[]{C}{code/hilostdio.c}
 \caption{\texttt{hilostdio.c}}
 \end{listing}
 
@@ -333,26 +333,33 @@ If we wanted to do this without direct use of RGB color, we'd either need
 accept fewer shades, or be forced to reprogram the palette.
 
 \begin{listing}[!htbp]
-\begin{minted}[fontsize=\scriptsize]{C}
-    if(!(r |= (ncdirect_fg_default(n)))){
-          ...
-          int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
-          if(guess > secret){
-            r |= ncdirect_fg_rgb8(n, 0x40, 0x80, offoom * 6);
-          }else if(guess < secret){
-            r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
-          ...
-\end{minted}
-\caption{Insertions into \texttt{hilostdio.c} yielding \texttt{hilodirect.c}.}
+%\begin{minted}[]{C}
+%    if(!(r |= (ncdirect_fg_default(n)))){
+%          ...
+%          int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
+%          if(guess > secret){
+%            r |= ncdirect_fg_rgb8(n, 0x40, 0x80, offoom * 6);
+%          }else if(guess < secret){
+%            r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
+%          ...
+%\end{minted}
+%\caption{Insertions into \texttt{hilostdio.c} yielding \texttt{hilodirect.c}.}
+\inputminted[]{C}{code/hilodirect.c}
+\caption{\texttt{hilodirect.c}}
 \end{listing}
 
-Stepping through the orders of magnitude, we get the expected gradient. Were
-we to actually play, the response would converge to a balanced, strong green
-as we approached the correct answer.
+Stepping through the orders of magnitude\footnote{\texttt{\_\_builtin\_clzl()}
+is a compiler intrinsic for \textit{count leading zeroes}. Exhaustive methods
+for fast clzl can be found in \cite{hackerdelight}. Demonstrating that
+absolute value of the difference of leading zeroes is a $lg_{2}$ difference
+is left as an exercise for the reader.}, we get the expected gradient
+(Figure~\ref{fig:colorguess}). Were we to actually play, the response would
+converge to a balanced, strong green as we approached the correct answer.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{media/hilodirect.png}
 \caption{Colorized output from \texttt{hilodirect.c}.}
+\label{fig:colorguess}
 \end{figure}
 \newpage
 
@@ -618,19 +625,19 @@ loaded library's version.
 I'm not typically a fan of example-based instruction, preferring to build things
 up from formal axioms. Following chapters will effect such an approach. First,
 however, let's work a semi-substantial example covering a varied set of
-notcurses routines. We're going to create seven planes, one for each time
+Notcurses routines. We're going to create seven planes, one for each kind
 of tetromino, and map an image file to the background. We'll add mouse and
 keyboard support for switching between the pieces, rotating them, and sliding
 them around the screen. Finally, we'll implement collision detection, and
 fluid handling of screen resizings. In the course of doing so, you'll learn
-several important notcurses techniques:
+several important Notcurses techniques:
 
 \begin{denseitemize}
 \item{Drawing and rotating these tetrominos will involve colors, gradients, and
       transparencies. The former are fundamental drawing tools. The latter is
       all one needs for sprites.}
 \item{Mapping the background will involve image decoding, scaling, and blitting.}
-\item{We'll cover most of what's to be known regarding input.}
+\item{We'll cover most of what's worth knowing regarding input.}
 \end{denseitemize}
 
 This example will be picked up and further developed in the Tetris case study
@@ -855,12 +862,12 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 \section{Notcurses header files}
 \subsection{The \texttt{notcurses.h} header}
 \bgroup
-\inputminted[linenos,fontsize=\scriptsize,breaklines=true]{C}{code/notcurses.h}
+\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
 \egroup
 
 \subsection{The \texttt{nckeys.h} header}
 \bgroup
-\inputminted[linenos,fontsize=\scriptsize,breaklines=true]{C}{code/nckeys.h}
+\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
 \egroup
 
 \end{appendices}

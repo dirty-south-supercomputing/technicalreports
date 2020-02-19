@@ -1,13 +1,11 @@
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
-#include <notcurses/notcurses.h>
 
 int main(void){
   srand(time(NULL)); // gross
   long guess, secret = random();
-  struct ncdirect* n = notcurses_directmode(NULL, stdout);
-  if(n == NULL){
-    return EXIT_FAILURE;
-  }
   int r = 0;
   do{
     if(!(r |= printf("Guess the long: ") < 0)){
