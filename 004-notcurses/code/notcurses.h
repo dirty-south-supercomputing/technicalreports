@@ -12,8 +12,8 @@
 #include <string.h>
 #include <signal.h>
 #include <limits.h>
-#include <nckeys.h>
 #include <stdbool.h>
+#include <notcurses/nckeys.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -416,23 +416,24 @@ typedef struct ncstats {
 } ncstats;
 
 // Acquire an atomic snapshot of the notcurses object's stats.
-API void notcurses_stats(struct notcurses* nc, ncstats* stats);
+API void notcurses_stats(const struct notcurses* nc, ncstats* stats);
 
 // Reset all cumulative stats (immediate ones, such as fbbytes, are not reset).
 API void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 
 // Return the dimensions of this ncplane.
-API void ncplane_dim_yx(struct ncplane* n, int* RESTRICT rows, int* RESTRICT cols);
+API void ncplane_dim_yx(const struct ncplane* n, int* RESTRICT rows,
+                        int* RESTRICT cols);
 
 static inline int
-ncplane_dim_y(struct ncplane* n){
+ncplane_dim_y(const struct ncplane* n){
   int dimy;
   ncplane_dim_yx(n, &dimy, NULL);
   return dimy;
 }
 
 static inline int
-ncplane_dim_x(struct ncplane* n){
+ncplane_dim_x(const struct ncplane* n){
   int dimx;
   ncplane_dim_yx(n, NULL, &dimx);
   return dimx;
@@ -550,7 +551,7 @@ API void* ncplane_userptr(struct ncplane* n);
 // according to 'align' within ncplane 'n'. Returns INT_MAX on invalid 'align'.
 // Undefined behavior on negative 'c'.
 static inline int
-ncplane_align(struct ncplane* n, ncalign_e align, int c){
+ncplane_align(const struct ncplane* n, ncalign_e align, int c){
   if(align == NCALIGN_LEFT){
     return 0;
   }
@@ -907,7 +908,7 @@ channel_b(unsigned channel){
 // Extract the three 8-bit R/G/B components from a 32-bit channel.
 static inline unsigned
 channel_rgb(unsigned channel, unsigned* RESTRICT r, unsigned* RESTRICT g,
-                unsigned* RESTRICT b){
+            unsigned* RESTRICT b){
   *r = channel_r(channel);
   *g = channel_g(channel);
   *b = channel_b(channel);
@@ -1495,7 +1496,7 @@ API void ncplane_styles_on(struct ncplane* n, unsigned stylebits);
 API void ncplane_styles_off(struct ncplane* n, unsigned stylebits);
 
 // Return the current styling for this ncplane.
-API unsigned ncplane_styles(struct ncplane* n);
+API unsigned ncplane_styles(const struct ncplane* n);
 
 // Called for each delta performed in a fade on ncp. If anything but 0 is returned,
 // the fading operation ceases immediately, and that value is propagated out. If provided
@@ -1783,7 +1784,7 @@ typedef enum {
 // suitable for its display at 'y','x'. If there is sufficient room to display
 // the visual in its native size, or if NCSCALE_NONE is passed for 'style', the
 // new plane will be exactly that large. Otherwise, the plane will be as large
-// as possble (given the visible screen), either maintaining aspect ratio
+// as possible (given the visible screen), either maintaining aspect ratio
 // (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
 API struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
                                          int* averr, int y, int x,
@@ -1821,7 +1822,7 @@ API char* ncvisual_subtitle(const struct ncvisual* ncv);
 typedef int (*streamcb)(struct notcurses* nc, struct ncvisual* ncv, void*);
 
 // Shut up and display my frames! Provide as an argument to ncvisual_stream().
-// If you'd like subtitles to be decoded, provide a ncplane as the curry. If the
+// If you'd like subtitles to be decoded, provide an ncplane as the curry. If the
 // curry is NULL, subtitles will not be displayed.
 static inline int
 ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry){
@@ -1872,7 +1873,7 @@ API int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize,
                     const unsigned char* data, int begy, int begx,
                     int leny, int lenx);
 
-// An ncreel is an notcurses region devoted to displaying zero or more
+// An ncreel is a notcurses region devoted to displaying zero or more
 // line-oriented, contained panels between which the user may navigate. If at
 // least one panel exists, there is an active panel. As much of the active
 // panel as is possible is always displayed. If there is space left over, other
@@ -1959,7 +1960,7 @@ typedef int (*tabletcb)(struct nctablet* t, int begx, int begy, int maxx,
 // opaque. Neither, either, or both of after and before may be specified. If
 // neither is specified, the new tablet can be added anywhere on the reel. If
 // one or the other is specified, the tablet will be added before or after the
-// specified tablet. If both are specifid, the tablet will be added to the
+// specified tablet. If both are specified, the tablet will be added to the
 // resulting location, assuming it is valid (after->next == before->prev); if
 // it is not valid, or there is any other error, NULL will be returned.
 API struct nctablet* ncreel_add(struct ncreel* pr, struct nctablet* after,
@@ -2002,7 +2003,7 @@ API struct nctablet* ncreel_prev(struct ncreel* pr);
 // underlying WINDOW. Returns non-zero on failure.
 API int ncreel_destroy(struct ncreel* pr);
 
-// Returns a pointer to an user pointer associated with this nctablet.
+// Returns a pointer to a user pointer associated with this nctablet.
 API void* nctablet_userptr(struct nctablet* t);
 
 // Access the ncplane associated with this nctablet, if one exists.
@@ -2030,7 +2031,7 @@ API struct ncplane* nctablet_ncplane(struct nctablet* t);
 // represent integers through 2^53-1.
 //
 // 2^64-1 is 18446744073709551615, 18.45E(xa). KMGTPEZY thus suffice to handle
-// a 89-bit uintmax_t. Beyond Z(etta) and Y(otta) lie lands unspecified by SI.
+// an 89-bit uintmax_t. Beyond Z(etta) and Y(otta) lie lands unspecified by SI.
 //
 // val: value to print
 // decimal: scaling. '1' if none has taken place.

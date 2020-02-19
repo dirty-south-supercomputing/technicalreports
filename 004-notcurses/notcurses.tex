@@ -62,7 +62,6 @@ A Guide to TUIs and Character Graphics\thanks{
 \texttt{nickblack@linux.com}
 }
 
-
 \makeglossaries
 \setglossarypreamble{When possible, I have followed the definitions of
   RFC 2978\cite{rfc2978} and the Glossary of Unicode Terms\cite{unicodeglossary}.}
@@ -73,19 +72,59 @@ A Guide to TUIs and Character Graphics\thanks{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \date{Feb 14, 2020}
 \maketitle
-\thispagestyle{fancy}
+%\thispagestyle{fancy}
 \date{}
 \vspace{1in}
 \begin{center}
 \includegraphics[width=.75\linewidth]{htp-with-notcurses.png}
 \end{center}
+\thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
+\pagenumbering{roman}
+
 
 \tableofcontents
 
+\vspace*{1in}
+\section{Foreward}
+Copyright 2020 Nick Black.
+
+\small{This edition of \textit{HTPwNotcurses} corresponds to version 1.2.0 of the Notcurses
+library, released 2020-02-17.
+
+Notcurses can be downloaded from
+\url{https://github.com/dankamongmen/notcurses}.
+
+This document can be downloaded
+from \url{https://nick-black.com/htp-notcurses.pdf}.
+
+The programs written for this book attempt to minimize use of vertical space
+without eliding error checking (or crossing into the realms of the grotesque).
+Error handling is a fundamental slog of C programming that
+complicates reliable codes. These examples cannot be considered examples
+of good general style; they \textit{do} get the job done.
+
+Licensed under the Apache License, Version 2.0 (the ``License''); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at \url{http://www.apache.org/licenses/LICENSE-2.0}.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an ``AS IS'' BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Tetris is property of The Tetris Company, LLC.
+
+\textit{House of Leaves} is property of Penguin Random House.
+}
+
+
 \clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
 
 \section{Introduction}
 
@@ -175,7 +214,7 @@ ASCII or UTF-8 locale).
 Enter direct mode via a call to \texttt{notcurses\_directmode()} with a successful
 return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // Initialize a direct-mode notcurses context on the connected terminal at 'fp'.
 // 'fp' must be a tty. You'll usually want stdout. Direct mode supportes a
@@ -194,7 +233,7 @@ blocking status of \texttt{fp} will not be changed. \texttt{NULL} is returned fo
 of possible errors. Otherwise, the \texttt{struct ncdirect} is ready to go, and should
 be cleaned up with \texttt{ncdirect\_stop()}:
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // Release 'nc' and any associated resources. 0 on success, non-0 on failure.
 int ncdirect_stop(struct ncdirect* nc);
@@ -204,7 +243,7 @@ int ncdirect_stop(struct ncdirect* nc);
 Between these two calls, inject stylizing control codes into the \texttt{FILE*} with
 the following API:
 
-\begin{listing}[ht]
+\begin{listing}[!htbp]
 \begin{minted}{C}
 int ncdirect_bg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
 int ncdirect_fg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
@@ -223,12 +262,12 @@ While direct mode does not offer any means for moving the cursor in
 two-dimensional space, it does provide helpers for determining the terminal
 geometry:
 
-%\begin{listing}[ht]
+\begin{listing}[!htbp]
 \begin{minted}{C}
 int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
 \end{minted}
-%\end{listing}
+\end{listing}
 
 \subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
 
@@ -809,17 +848,23 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 \textbf{FIXME keep goin'\ldots}
 
 \subsection{The Curses API}
-\end{appendices}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The \texttt{notcurses.h} header}
+\section{Notcurses header files}
+\subsection{The \texttt{notcurses.h} header}
 \bgroup
 \inputminted[linenos,fontsize=\scriptsize,breaklines=true]{C}{code/notcurses.h}
 \egroup
-\newpage
 
+\subsection{The \texttt{nckeys.h} header}
+\bgroup
+\inputminted[linenos,fontsize=\scriptsize,breaklines=true]{C}{code/nckeys.h}
+\egroup
+
+\end{appendices}
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \glsaddallunused
 \printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
