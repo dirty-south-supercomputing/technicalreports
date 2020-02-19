@@ -400,8 +400,7 @@ any data uncovered will be displayed, and the new area will otherwise be empty.
 Some widgets can intelligently resize themselves in the face of screen
 geometry changes (see Chapter~\ref{section:uiwidgets}).
 
-Notcurses prepares a given terminal for fullscreen mode in the
-\texttt{notcurses\_init} function:
+Notcurses prepares a given terminal for fullscreen mode in \texttt{notcurses\_init()}
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -459,7 +458,7 @@ restrictions, the standard plane is a drawable surface like any other
 glyphs and styles, made transparent, etc.
 
 Once you're done using a \texttt{struct notcurses}, it's important to destroy
-it with \texttt{notcurses\_stop}, even if your process exits abnormally. By
+it with \texttt{notcurses\_stop()}, even if your process exits abnormally. By
 default, Notcurses registers signal handlers for most fatal signals. These
 handlers will call \texttt{notcurses\_stop()} and then pass the signal to the
 orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers}
@@ -467,7 +466,7 @@ field of \texttt{notcurses\_options}, but there aren't very many good reasons
 to do so.
 
 \subsection{The \texttt{notcurses\_options} structure}
-The first parameter to \texttt{notcurses\_init} is a (possibly \texttt{NULL})
+The first parameter to \texttt{notcurses\_init()} is a (possibly \texttt{NULL})
 \texttt{notcurses\_options}. This structure has been defined such that the
 default options are equivalent to a zero-initialized structure. Passing \texttt{NULL}
 is thus equivalent to passing a zero-initialized \texttt{notcurses\_options}.
@@ -514,7 +513,7 @@ The fields therein include:
 \item{\texttt{bool no\_quit\_sighandlers}, \texttt{bool no\_winch\_sighandler}:
     As noted above, Notcurses by default registers signal actions for the normally fatal
     \texttt{SIGABRT}, \texttt{SIGINT}, \texttt{SIGQUIT}, and \texttt{SIGSEGV}.
-    These handlers will call \texttt{notcurses\_stop} before propagating the
+    These handlers will call \texttt{notcurses\_stop()} before propagating the
     signal to the original actions. This is usually desirable, as the screen
     will not otherwise be restored to its previous state. In addition, \texttt{SIGWINCH}
     is caught in order to generate \texttt{NCKEY\_RESIZE} inputs. If you
@@ -650,6 +649,20 @@ of §~\ref{section:casestudy}.
 \caption{Piping hot tetrominos, fresh from \textit{Spiritus Mundi}.}
 \label{fig:tetrominos}
 \end{figure}
+
+Almost every Notcurses program will take the same general form, an \textit{event+render loop}:
+
+\begin{denseitemize}
+\item{Essential screen elements are laid down.}
+\item{Initial state is discovered and added to the display.}
+\item{\textbf{begin loop} Some thread, perhaps the only thread in the process, watches
+    for user input. Other threads might be collecting system events that will
+    change the state. Either way, an event occurs.}
+\item{Thread(s) receiving events perform any necessary mutual exclusion.}
+\item{Thread(s) manipulate the Notcurses virtual state via \texttt{ncplane} manipulations.}
+\item{\texttt{notcurses\_render()} is called by a single thread \textbf{end loop}.}
+\item{The process terminates.}
+\end{denseitemize}
 
 \subsection{Example: moving a tetromino with keyboard+mouse}
 \textbf{FIXME FIXME FIXME}
