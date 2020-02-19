@@ -103,7 +103,7 @@ from \url{https://nick-black.com/htp-notcurses.pdf}.
 The programs written for this book attempt to minimize use of vertical space
 without eliding error checking (or crossing into the realms of the grotesque).
 Error handling is a fundamental slog of C programming that
-complicates reliable codes. These examples cannot be considered examples
+complicates reliable codes. These listings cannot be considered examples
 of good general style; they \textit{do} get the job done.
 
 Licensed under the Apache License, Version 2.0 (the ``License''); you may not use
@@ -613,6 +613,8 @@ int notcurses_resize(struct notcurses* n, int* restrict y, int* restrict x);
 int notcurses_refresh(struct notcurses* n);
 \end{minted}
 \end{listing}
+
+\textbf{FIXME FIXME FIXME}
 
 Finally, before ever creating a \texttt{notcurses}, we can call
 \texttt{notcurses\_version} to get a human-readable string describing the
