@@ -403,7 +403,7 @@ Disabling use of the alternate screen can be done via the
 
 Successful creation of a \texttt{struct notcurses} implies the existence of
 a \texttt{struct ncplane}, the ``standard plane''\footnote{\texttt{ncplane}s,
-discussed in depth in Section~\ref{ncplane}, are the fundamental drawing surfaces of Notcurses.}.
+discussed in depth in Chapter~\ref{ncplane}, are the fundamental drawing surfaces of Notcurses.}.
 This standard plane cannot be destroyed without destroying the containing
 Notcurses context, nor can it be moved or resized by the user. Its size always
 matches Notcurses's conception of the terminal's screen size, and its origin
@@ -576,7 +576,36 @@ loaded library's version.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{A simple notcurses render\slash event loop}
+I'm not typically a fan of example-based instruction, preferring to build things
+up from formal axioms. Following chapters will effect such an approach. First,
+however, let's work a semi-substantial example covering a varied set of
+notcurses routines. We're going to create seven planes, one for each time
+of tetromino, and map an image file to the background. We'll add mouse and
+keyboard support for switching between the pieces, rotating them, and sliding
+them around the screen. Finally, we'll implement collision detection, and
+fluid handling of screen resizings. In the course of doing so, you'll learn
+several important notcurses techniques:
+
+\begin{denseitemize}
+\item{Drawing and rotating these tetrominos will involve colors, gradients, and
+      transparencies. The former are fundamental drawing tools. The latter is
+      all one needs for sprites.}
+\item{Mapping the background will involve image decoding, scaling, and blitting.}
+\item{We'll cover most of what's to be known regarding input.}
+\end{denseitemize}
+
+This example will be picked up and further developed in the Tetris case study
+of §~\ref{section:casestudy}.
+
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.5\linewidth]{media/tetrominos.png}
+\caption{Piping hot tetrominos, fresh from \textit{Spiritus Mundi}.}
+\label{fig:tetrominos}
+\end{figure}
+
 \subsection{Example: moving a tetromino with keyboard+mouse}
+\textbf{FIXME FIXME FIXME}
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -641,6 +670,7 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 
 \section{Hack the Planet!}
 \subsection{Example: let's rip off tetris}
+\label{section:casestudy}
 \subsection{Example: walking through \texttt{notcurses-demo}}
 
 \newpage
