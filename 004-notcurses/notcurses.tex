@@ -628,14 +628,14 @@ I'm not typically a fan of example-based instruction, preferring to build things
 up from formal axioms. Following chapters will effect such an approach. First,
 however, let's work a semi-substantial example covering a varied set of
 Notcurses routines. We're going to create seven planes, one for each kind
-of tetromino, and map an image file to the background. We'll add mouse and
+of tetrimino, and map an image file to the background. We'll add mouse and
 keyboard support for switching between the pieces, rotating them, and sliding
 them around the screen. Finally, we'll implement collision detection, and
 fluid handling of screen resizings. In the course of doing so, you'll learn
 several important Notcurses techniques:
 
 \begin{denseitemize}
-\item{Drawing and rotating these tetrominos will involve colors, gradients, and
+\item{Drawing and rotating these tetriminos will involve colors, gradients, and
       transparencies. The former are fundamental drawing tools. The latter is
       all one needs for sprites.}
 \item{Mapping the background will involve image decoding, scaling, and blitting.}
@@ -643,12 +643,13 @@ several important Notcurses techniques:
 \end{denseitemize}
 
 This example will be picked up and further developed in the Tetris case study
-of §~\ref{section:casestudy}.
+of §~\ref{section:casestudy}\footnote{Were you aware that there is a standard
+for Tetris clones? There is indeed\cite{tetris}.}.
 
 \begin{figure}[!htbp]
-\centering \includegraphics[width=.5\linewidth]{media/tetrominos.png}
-\caption{Piping hot tetrominos, fresh from \textit{Spiritus Mundi}.}
-\label{fig:tetrominos}
+\centering \includegraphics[width=.5\linewidth]{media/tetriminos.png}
+\caption{Piping hot tetriminos, fresh from \textit{Spiritus Mundi}.}
+\label{fig:tetriminos}
 \end{figure}
 
 Almost every Notcurses program will take the same general form, an \textit{event+render loop}:
@@ -665,7 +666,7 @@ Almost every Notcurses program will take the same general form, an \textit{event
 \item{The process terminates.}
 \end{denseitemize}
 
-\subsection{Example: moving a tetromino with keyboard+mouse}
+\subsection{Example: moving a tetrimino with keyboard+mouse}
 \textbf{FIXME FIXME FIXME}
 
 \newpage

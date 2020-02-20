@@ -4,8 +4,9 @@
 static const int TETROMINO_WIDTH = 4;
 static const int TETROMINO_HEIGHT = 4;
 
+// J is 4x1 -> 16x4
 static struct ncplane*
-tetrimino_plane(struct notcurses* nc){
+jmino_plane(struct notcurses* nc){
   struct ncplane* n = ncplane_new(nc, TETROMINO_HEIGHT, TETROMINO_WIDTH, 0, 0, NULL);
   return n;
 }
