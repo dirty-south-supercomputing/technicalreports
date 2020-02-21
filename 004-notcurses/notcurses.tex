@@ -25,6 +25,7 @@
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguage{hebrew}
+\setotherlanguage{french}
 \newfontfamily\hebrewfont[Scale=0.8,Script=Hebrew]{Frank Ruehl CLM}
 \definecolor{dsscawpurp}{HTML}{b079b0}
 \definecolor{dsscawpurpcap}{HTML}{6c286c}
@@ -681,10 +682,10 @@ the cursor to the region, and then positioning the cursor at the end of each
 line of the region.}. These savings are multiplicative:
 
 \begin{denseitemize}
-\item{Notcurses doesn't have to \texttt{write()} the data (memory copy)\ldots}
-\item{The terminal doesn't have to \texttt{read()} the data (memory copy)\ldots}
-\item{The terminal doesn't need to process the data (assorted work)\ldots}
-\item{The terminal doesn't need to write to the display (memory copy)\ldots}
+\item{Notcurses doesn't have to \texttt{write()} the data (memory copy).}
+\item{The terminal doesn't have to \texttt{read()} the data (memory copy).}
+\item{The terminal doesn't need to process the data (assorted work).}
+\item{The terminal doesn't need to write to the display (memory copy).}
 \end{denseitemize}
 
 Whether a cell has been updated is decided at rasterization time. Writing to
@@ -776,8 +777,92 @@ Almost every Notcurses program will take the same general form, an \textit{event
 \item{The process terminates.}
 \end{denseitemize}
 
-\subsection{Example: moving a tetrimino with keyboard+mouse}
+\subsection{Example: moving tetriminos with keyboard+mouse}
+
+We could load the pieces as images from files, but given the simplicity of the
+sprites, it feels simpler to just hardcode them in our source. I don't want to
+leave my text editor\footnote{Vim.} to muck with images when we can do everything
+in fewer than ten lines, even in a naïve and wasteful encoding (Listing~\ref{list:tetrimino-data}).
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-data.h}
+\caption{The seven canonical tetriminos (from \texttt{tetrimino.c}).}
+\label{list:tetrimino-data}
+\end{listing}
+
+To warm up and get limber, let's create 7 \texttt{ncplane}s, one for each type
+of tetrimino. We'll lay them out in a 2-3-2 formation. This layout will be
+sloppy, for now: our function
+\texttt{tetrimio\_plane()} accepts a piece ID and a coordinate.
+The plane it creates has its origin at this coordinate.
+We're not yet adjusting for the size of the planes themselves when coming
+up with these coordinates---this shifts everything down and to the right from
+symmetric divisions of the screen, as you'll see.
+
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.5\linewidth]{media/screenruler.png}
+\caption{Font aspect ratios center around 0.5.}
+\label{fig:aspectratio}
+\end{figure}
+
+We use two display rows per game row but four display columns per game column.
+This reflects what are, at least on my display and font, pretty much a 0.5
+aspect ratio (Figure~\ref{fig:aspectratio}).
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-display.h}
+\caption{Drawing a single tetrimino (from \texttt{tetrimino.c}).}
+\label{list:tetrimino-display}
+\end{listing}
+
+There are a few essential things to
+take away from Listing~\ref{list:tetrimino-display}:
+
+\begin{denseitemize}
+\item{Each time we call \texttt{ncplane\_putsimple()}, the cursor is advanced
+      the expected amount. If we were calling \texttt{ncplane\_putegc()} with
+      a multicolumn grapheme cluster, the cursor would be advanced multiple
+      columns.}
+\item{Between rows, we need move the cursor ourselves, since we're skipping over
+      part of the plane (this isn't true for several of the pieces, but the
+      cursor update is a trivial operation, not worth avoiding).}
+\item{The cursor is always initialized to the origin of a new plane, and coordinates
+      supplied to \texttt{ncplane\_} functions are relative to the plane,
+      \textit{not} the terminal. Coordinates can be translated among planes
+      using \texttt{ncplane\_translate()}.}
+\item{You're encouraged to \texttt{assert()} on the return value of
+      \texttt{ncplane\_cursor\_move\_yx()}. This function can fail, but
+      only due to coder blunder\footnote{The last such call \textit{will} fail
+        here, but who cares? We're not actually drawing any further.}.}
+\item{We only have ASCII characters in the textures right now. Were we to
+      introduce any multibyte UTF-8---and we may well do so, for e.\ g.\ the
+      Box Drawing Characters---the \texttt{strlen()} we size our rows by here
+      would no longer fly. We'd need use \texttt{mbstowcs()}, or redefine the
+      textures as \texttt{wchar\_t} arrays and use \texttt{wcslen()},
+      or change up our encoding. \textfrench{\textit{Rien n'est simple, mais tout est facile\ldots}}}
+\end{denseitemize}
+
+Our \texttt{main()} sets the locale, initializes the terminal, and draws the
+seven pieces. Each piece has a one-letter name; for now, we draw with those
+glyphs. The pieces are monochromatic. This renders familiar shapes in the correct colors
+(Figure~\ref{fig:tetriminos-1}), but other than that, it's (like most
+classic Curses programs) pretty ugly. I wouldn't want to play with these
+pieces.
+
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-main.h}
+\caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
+\end{listing}
+
+\begin{figure}[!htbp]
+\centering \includegraphics[width=.5\linewidth]{media/tetriminos-1.png}
+\caption{Well\ldots\ it's output, I guess.}
+\label{fig:tetriminos-1}
+\end{figure}
+
 \textbf{FIXME FIXME FIXME}
+
 
 \newpage
 
@@ -990,15 +1075,15 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notcurses header files}
-\subsection{The \texttt{notcurses.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-\egroup
-
-\subsection{The \texttt{nckeys.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-\egroup
+%\subsection{The \texttt{notcurses.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+%\egroup
+%
+%\subsection{The \texttt{nckeys.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+%\egroup
 
 \end{appendices}
 \newpage

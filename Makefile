@@ -27,7 +27,7 @@ LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
-NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech tetromino)
+NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech tetrimino)
 
 all: reports
 
