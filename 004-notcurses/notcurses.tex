@@ -842,6 +842,11 @@ take away from Listing~\ref{list:tetrimino-display}:
       or change up our encoding. \textfrench{\textit{Rien n'est simple, mais tout est facile\ldots}}}
 \end{denseitemize}
 
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-main.h}
+\caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
+\end{listing}
+
 Our \texttt{main()} sets the locale, initializes the terminal, and draws the
 seven pieces. Each piece has a one-letter name; for now, we draw with those
 glyphs. The pieces are monochromatic. This renders familiar shapes in the correct colors
@@ -849,17 +854,20 @@ glyphs. The pieces are monochromatic. This renders familiar shapes in the correc
 classic Curses programs) pretty ugly. I wouldn't want to play with these
 pieces.
 
-
-\begin{listing}[!htbp]
-\inputminted[]{C}{code/tetrimino-main.h}
-\caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
-\end{listing}
-
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.5\linewidth]{media/tetriminos-1.png}
 \caption{Well\ldots\ it's output, I guess.}
 \label{fig:tetriminos-1}
 \end{figure}
+
+This is hardly a render+event loop; in fact it's not a loop at all. If we were
+using the alternate screen, we wouldn't see our output before flashing back to
+the normal screen. Let's go ahead and hook up input. We'll be controlling one
+of the tetriminos at a time---the selected piece will use boldface. The space
+bar will advance among the pieces in one direction, and Tab in the other. The
+arrow keys and vi keys will translate the selected piece in four directions.
+The parentheses will rotate the piece half a radian clockwise and
+counterclockwise.
 
 \textbf{FIXME FIXME FIXME}
 
@@ -870,11 +878,11 @@ pieces.
 
 \section{Character encodings and glyphs}
 \label{section:unicode}
-Before continuing any further, it would behoove us to become familiar with our
-core building blocks---character sets and their rasterization. Even if we were
-to shrink the character cell to a single pixel, we'd still need write one or
-another character into it, and emit a control code to stylize it\footnote{I've
-seen this idea bandied about as if it's a serious suggestion. Besides the fact
+We'll be well-served by becoming familiar with our core building
+blocks---character sets and their rasterized forms. Even if we were to shrink
+the character cell to a single pixel, we'd still need write one or another
+character into it, and emit a control code to stylize it\footnote{I've seen
+this idea bandied about as if it's a serious suggestion. Besides the fact
 that it won't work in a console, escapes are \textit{far} less efficient than
 canvases or OpenGL display lists; if your plan involves using ANSI escape
 sequences to drive a 1920x1080 display via roughly two million 1x1 character
