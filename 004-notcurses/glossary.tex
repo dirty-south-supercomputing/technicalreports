@@ -74,14 +74,19 @@ description={The rectilinear area corresponding to a given text-mode coordinate.
 {
   name={character},
 description={One of the most imprecise terms in computer science. The C and \CC
-  languages have a data type \texttt{char}, which cannot necessarily hold the
-  world's characters. A character is not necessarily a unique concept within
-  a character set (see diacritic forms vs. precomposed characters). A
-  character does not necessarily correspond to a single column on a display,
-  even when using a fixed-width font. A character does not necessarily have a
-  visual representation. In a given encoding, all characters are not
-  necessarily the same size. A character does not necessarily
-  capture the state of the keyboard at some given input.
+  languages have a data type \texttt{char}, which usually cannot hold the
+  world's characters. Whether it is signed or unsigned is implementation-defined.
+  Should I speak of them, I'll write \texttt{char}. A character is an evanescence;
+  it is easier to say what it is \text{not}:
+  \begin{denseitemize}
+  \item{A character is not necessarily unique within a character set (see diacritic vs.\ precomposed forms).}
+  \item{A character needn't limit itself to a single column, even when using a fixed-width font.}
+  \item{A character does not necessarily have a visual representation.}
+  \item{A character does not necessarily have a single meaning among different languages.}
+  \item{In a given encoding, all characters are not necessarily the same size.}
+  \item{A character cannot necessarily capture the state of the keyboard at some time.}
+  \item{A character cannot necessarily describe a cell of a display at some time.}
+  \end{denseitemize}
 
   In the absence of a coded character set or character encoding for context, a
   character is really nothing more than an identifier, e.g. \texttt{LATIN

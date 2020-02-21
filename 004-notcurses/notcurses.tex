@@ -118,7 +118,9 @@ limitations under the License.
 
 Tetris is property of The Tetris Company, LLC.
 
-\textit{House of Leaves} is property of Penguin Random House.
+\textit{Hackers (1995)} is property of United Artists Pictures.
+
+\textit{House of Leaves (2000)} is property of Penguin Random House.
 }
 
 
@@ -553,6 +555,8 @@ void notcurses_drop_planes(struct notcurses* nc);
 \end{minted}
 \end{listing}
 
+\textbf{FIXME FIXME FIXME}
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
@@ -594,8 +598,15 @@ int notcurses_mouse_disable(struct notcurses* n);
 \end{minted}
 \end{listing}
 
+\textbf{FIXME FIXME FIXME}
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
+// Refresh our idea of the terminal's dimensions, reshaping the standard plane
+// if necessary. Without a call to this function following a terminal resize
+// (as signaled via SIGWINCH), notcurses_render() might not function properly.
+// References to ncplanes (and the egcpools underlying cells) remain valid
+// following a resize operation, but the cursor might have changed position.
 int notcurses_resize(struct notcurses* n, int* restrict y, int* restrict x);
 
 // Refresh the physical screen to match what was last rendered (i.e., without
@@ -605,10 +616,15 @@ int notcurses_refresh(struct notcurses* n);
 \end{minted}
 \end{listing}
 
-\textbf{FIXME FIXME FIXME}
-
 \texttt{notcurses\_version} returns a read-only human-readable string
 describing the loaded library's version.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Get a human-readable string describing the running notcurses version.
+const char* notcurses_version(void);
+\end{minted}
+\end{listing}
 
 Finally, \texttt{notcurses\_render()} synthesizes a terminal's worth of current
 state out of all your virtual objects, schedules an optimized list of escape
@@ -622,9 +638,6 @@ the screen. When you've got your stack how you want it, and only then, invoke
 \texttt{notcurses\_render()}. It is an exclusive function---invoking any other
 function on the same \texttt{struct notcurses} is undefined.
 
-\subsection{Reading, rendering, rasterizing, and writing}
-\textbf{FIXME FIXME FIXME}
-
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Make the physical screen match the virtual screen. Changes made to the
@@ -633,6 +646,89 @@ function on the same \texttt{struct notcurses} is undefined.
 int notcurses_render(struct notcurses* nc);
 \end{minted}
 \end{listing}
+
+\subsection{Reading, rendering, rasterizing, and writing}
+
+Understanding how Notcurses translates its data structures into a terminal
+display is critical for reasoning about your program in general, and particularly
+relevant for maximizing performance.
+
+During initialization of a terminal, unless \texttt{suppress\_banner} is supplied
+in the \texttt{notcurses\_options}, \texttt{notcurses\_init()} will print some
+diagnostics to stdout, and flush the output buffer. Notcurses maintains an
+internal virtual framebuffer, containing the state of the terminal as believed
+to exist\footnote{Do not confuse this with the standard plane. This framebuffer
+reflects rendering and rasterizing, not the output API.}. It is initialized in
+\texttt{notcurses\_init()} to an empty matrix of cells, each cell having the
+default foreground and background.
+
+What happens next depends on whether the ``alternate screen'' (as described
+earlier) is employed. If so, the terminal will be immediately cleared.
+Otherwise, the terminal will not be altered until the first call to
+\texttt{notcurses\_render()}. That first call, however, will write to every
+cell of the terminal, effectively clearing any existing output. The upshot is
+that it is not possible to integrate preexisting data into your TUI, regardless
+of whether the alternate screen is used. This reflects the impossibility of
+portably discovering the state of the terminal.
+
+Subsequent to the first call, Notcurses---having written them---has a concept
+of the display's contents. From that point on, screen updates will write only
+to changed (``damaged'') cells. When only parts of the screen have changed,
+this saves a tremendous amount of work. On an 80x45 terminal, if only a 10x10
+region of cells have changed, we reduce our bandwidth by about
+95\%\footnote{10x10 is only 2.7\% of 80x45, but there is overhead due to moving
+the cursor to the region, and then positioning the cursor at the end of each
+line of the region.}. These savings are multiplicative:
+
+\begin{denseitemize}
+\item{Notcurses doesn't have to \texttt{write()} the data (memory copy)\ldots}
+\item{The terminal doesn't have to \texttt{read()} the data (memory copy)\ldots}
+\item{The terminal doesn't need to process the data (assorted work)\ldots}
+\item{The terminal doesn't need to write to the display (memory copy)\ldots}
+\end{denseitemize}
+
+Whether a cell has been updated is decided at rasterization time. Writing to
+that cell between calls to \texttt{notcurses\_render()} does not necessarily
+mean the cell will be considered damaged when it comes time to write. If the
+cell has been damaged, it will be emitted, and the virtual framebuffer internal
+to Notcurses will be updated.
+
+Solving for the desired state of the screen is \textit{rendering}, and this is
+the first step of \texttt{notcurses\_render()}.
+
+\textbf{FIXME FIXME FIXME}
+
+Having rendered the scene, \textit{rasterization} serializes a buffer to write
+to the terminal, minimizing the amount of data by moving the cursor over undamaged
+regions. This is the second step of \texttt{notcurses\_render()}. Writing this
+data to the terminal as it's generated is a bad idea for several reasons: it can
+provoke unnecessary context switches, it results in partially-updated displays,
+and it definitely involves more system calls. Notcurses instead collects it in
+one or more large allocations.
+
+\textbf{FIXME FIXME FIXME}
+
+With these buffers in hand, \texttt{notcurses\_render()} completes its task by
+writing them to the terminal. In truth, this almost certainly means ``copying
+them into a kernel buffer'', from which the terminal will read. Writing does not,
+then, necessarily mean that the display has actually been updated, or even
+that the terminal has read the data. If the terminal doesn't empty the buffer
+quickly enough, however, you'll eventually run out of room and block. It is
+thus critical to understand that \textbf{\texttt{notcurses\_rende()} can block
+for arbitrary amounts of time}\footnote{But see
+\url{https://github.com/dankamongmen/notcurses/issues/214}.}. Furthermore,
+if the terminal reads two renderings' worth of output at the same time, it is
+likely to immediately enter the final state---you must not assume that a successful
+\texttt{notcurses\_render()} is necessarily displayed within any arbitrary time,
+or indeed that it corresponds with any displayed frame.
+
+With those unhappy truths said, modern workstations ought have no problem pushing
+notcurses onto commodity hardware at maximum framerates, with the terminal
+faithfully reproducing each rendered scene. Even small microcontrollers ought
+be able to render notcurses without user-perceptible latency. On a powerful
+desktop with non-pathological output, it's easy to render in excess of
+ten thousand frames per second, far beyond the refresh capabilities of any
+existing monitor.
 
 \newpage
 
@@ -887,6 +983,9 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 
 \subsection{The Curses API}
 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Wherein I throw shade at current terminal emulators}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
