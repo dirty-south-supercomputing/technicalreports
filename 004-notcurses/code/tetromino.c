@@ -8,6 +8,7 @@
 // strlen(texture) / COLS_PER_GCOL -> columns per (g)row for the tetrimino.
 static const int COLS_PER_GCOL = 4;
 static const int ROWS_PER_GROW = 2;
+static const int TETRIMINO_COUNT = 7;
 
 static const struct tetrimino {
   char name;
@@ -31,13 +32,13 @@ static const struct tetrimino {
 };
 
 static struct ncplane*
-tetrimino_plane(struct notcurses* nc, int tidx){
+tetrimino_plane(struct notcurses* nc, int tidx, int yoff, int xoff){
   if(tidx < 0 || tidx >= sizeof(tetriminos) / sizeof(*tetriminos)){
     return NULL;
   }
   const struct tetrimino* t = &tetriminos[tidx];
   const size_t cols = strlen(t->texture) / (2 * ROWS_PER_GROW);
-  struct ncplane* n = ncplane_new(nc, 2 * ROWS_PER_GROW, cols, 0, 0, NULL);
+  struct ncplane* n = ncplane_new(nc, 2 * ROWS_PER_GROW, cols, yoff, xoff, NULL);
   if(n){
     ncplane_set_fg(n, t->color);
     int y = 0;
@@ -72,18 +73,23 @@ int main(void){
   if((nc = notcurses_init(&nopts, stdout)) == NULL){
     return EXIT_FAILURE;
   }
-  bool failed = true;
-  while(true){
-    struct ncplane* n = tetrimino_plane(nc, random() % 7);
-    if(!n){
-      break;
-    }
-    if(notcurses_render(nc)){
-      ncplane_destroy(n);
-      break;
-    }
-    sleep(1);
-    ncplane_destroy(n);
+  int dimy, dimx;
+  struct ncplane* n = notcurses_stddim_yx(nc, &dimy, &dimx); // can't fail
+  struct ncplane* minos[TETRIMINO_COUNT]; // we'll do a 2-3-2 formation
+  bool failed = false;
+  failed = !(minos[0] = tetrimino_plane(nc, 0, dimy / 3, dimx / 3));
+  failed = !(minos[1] = tetrimino_plane(nc, 1, dimy / 3, dimx * 2 / 3));
+  failed = !(minos[2] = tetrimino_plane(nc, 2, dimy / 2, dimx / 4));
+  failed = !(minos[3] = tetrimino_plane(nc, 3, dimy / 2, dimx / 2));
+  failed = !(minos[4] = tetrimino_plane(nc, 4, dimy / 2, dimx * 3 / 4));
+  failed = !(minos[5] = tetrimino_plane(nc, 5, dimy * 2 / 3, dimx / 3));
+  failed = !(minos[6] = tetrimino_plane(nc, 6, dimy * 2 / 3, dimx * 2 / 3));
+  failed = !!notcurses_render(nc);
+  if(failed){
+    goto err;
   }
+  sleep(5);
+
+err:
   return (notcurses_stop(nc) || failed) ? EXIT_FAILURE : EXIT_SUCCESS;
 }
