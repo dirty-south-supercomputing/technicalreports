@@ -843,6 +843,7 @@ take away from Listing~\ref{list:tetrimino-display}:
 \end{denseitemize}
 
 \begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-draw.h}
 \inputminted[]{C}{code/tetrimino-main.h}
 \caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
 \end{listing}
@@ -863,11 +864,25 @@ pieces.
 This is hardly a render+event loop; in fact it's not a loop at all. If we were
 using the alternate screen, we wouldn't see our output before flashing back to
 the normal screen. Let's go ahead and hook up input. We'll be controlling one
-of the tetriminos at a time---the selected piece will use boldface. The space
-bar will advance among the pieces in one direction, and Tab in the other. The
-arrow keys and vi keys will translate the selected piece in four directions.
-The parentheses will rotate the piece half a radian clockwise and
-counterclockwise.
+of the tetriminos at a time---the selected piece will use boldface, and have its
+color brightened\footnote{Note how we use two distinct indicators. On a monochromatic
+display, we need the bold, and on a display which can't do bold, maybe we
+  get a color difference. Also, we want bold even if we have color, because
+  until we see the base color, there's no reason to think of the initial selection
+  as ``bright''.}. The space bar will advance among the pieces in one direction,
+and Tab in the other. The arrow keys and vi keys will translate the selected
+piece in four directions. The parentheses will rotate the piece half a radian
+clockwise and counterclockwise.
+
+Since there's nothing else going on, it's trivial to process \texttt{stdin} in
+a blocking fashion from our main thread. Let's add the code to track a selected
+piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-input}).
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-inputmain.h}
+\caption{Handling input and highlighting a selection (from \texttt{tetrimino.c}).}
+\label{list:tetrimino-input}
+\end{listing}
 
 \textbf{FIXME FIXME FIXME}
 
