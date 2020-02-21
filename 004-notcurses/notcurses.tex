@@ -842,7 +842,7 @@ aspect ratio (Figure~\ref{fig:aspectratio}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-display.h}
-\caption{Drawing a single tetrimino (from \texttt{tetrimino.c}).}
+\caption{Creating a single tetrimino (from \texttt{tetrimino.c}).}
 \label{list:tetrimino-display}
 \end{listing}
 
@@ -875,19 +875,22 @@ take away from Listing~\ref{list:tetrimino-display}:
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-draw.h}
-\begin{minted}{C}
+\caption{Distributing the tetriminos (from \texttt{tetrimino.c}) with ``flying-v'' technique.}
+\label{list:tetrimino-draw}
+\end{listing}
 
-\end{minted}
+\begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-main.h}
-\caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
+\caption{A one-shot, display-only \texttt{main()} (from \texttt{tetrimino.c}).}
+\label{list:tetrimino-main}
 \end{listing}
 
 Our \texttt{main()} sets the locale, initializes the terminal, and draws the
-seven pieces. Each piece has a one-letter name; for now, we draw with those
-glyphs. The pieces are monochromatic. This renders familiar shapes in the correct colors
-(Figure~\ref{fig:tetriminos-1}), but other than that, it's (like most
-classic Curses programs) pretty ugly. I wouldn't want to play with these
-pieces.
+seven pieces (Listings~\ref{list:tetrimino-draw} and~\ref{list:tetrimino-main}.
+Each piece has a one-letter name; for now, we draw with those glyphs. The
+pieces are monochromatic. This renders familiar shapes in the correct colors
+(Figure~\ref{fig:tetriminos-1}), but other than that, it's (like most classic
+Curses programs) pretty ugly. I wouldn't want to play with these pieces.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.5\linewidth]{media/tetriminos-1.png}
@@ -908,13 +911,19 @@ and Tab in the other. The arrow keys and vi keys will translate the selected
 piece in four directions. The parentheses will rotate the piece half a radian
 clockwise and counterclockwise.
 
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-switch.h}
+\caption{Switching between pieces (from \texttt{tetrimino-input.c}).}
+\label{list:tetrimino-switch}
+\end{listing}
+
 Since there's nothing else going on, it's trivial to process \texttt{stdin} in
 a blocking fashion from our main thread. Let's add the code to track a selected
 piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-input}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-inputmain.h}
-\caption{Handling input and highlighting a selection (from \texttt{tetrimino.c}).}
+\caption{Handling input and highlighting a selection (from \texttt{tetrimino-input.c}).}
 \label{list:tetrimino-input}
 \end{listing}
 

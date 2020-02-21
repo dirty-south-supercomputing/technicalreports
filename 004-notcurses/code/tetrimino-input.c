@@ -6,4 +6,5 @@
 #include "tetrimino-display.h"
 #include "tetrimino-mouse.h"
 #include "tetrimino-draw.h"
+#include "tetrimino-switch.h"
 #include "tetrimino-inputmain.h"
