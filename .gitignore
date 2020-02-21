@@ -18,4 +18,5 @@
 004-notcurses/hilostdio
 004-notcurses/hol-formatter
 004-notcurses/speech
-004-notcurses/tetromino
+004-notcurses/tetrimino
+004-notcurses/tetrimino-input

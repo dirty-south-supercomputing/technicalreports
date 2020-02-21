@@ -30,7 +30,7 @@ int main(void){
       }
     }
   }while(guess != secret && !r);
-  if(r || printf("You enjoy 20/20 vision into the minds of men!\n") < 0){
+  if(r || printf("You enjoy 20/20 vision into the minds of antimen!\n") < 0){
     return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;

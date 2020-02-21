@@ -2,11 +2,8 @@ int main(void){
   if(!setlocale(LC_ALL, "")){
     return EXIT_FAILURE;
   }
-  notcurses_options nopts;
-  memset(&nopts, 0, sizeof(nopts));
-  nopts.inhibit_alternate_screen = true;
   struct notcurses* nc;
-  if((nc = notcurses_init(&nopts, stdout)) == NULL){
+  if((nc = notcurses_init(NULL, stdout)) == NULL){
     return EXIT_FAILURE;
   }
   int dimy, dimx;

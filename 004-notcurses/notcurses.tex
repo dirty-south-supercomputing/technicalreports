@@ -245,7 +245,7 @@ int ncdirect_stop(struct ncdirect* nc);
 \end{listing}
 
 Between these two calls, inject stylizing control codes into the \texttt{FILE*} with
-the following API:
+the following API (the \texttt{stylebits} values are detailed in Chapter~\ref{sec:attribute}):
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -253,12 +253,20 @@ int ncdirect_bg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
 int ncdirect_fg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
 int ncdirect_fg(struct ncdirect* n, unsigned rgb);
 int ncdirect_bg(struct ncdirect* n, unsigned rgb);
-int ncdirect_fg_default(struct ncdirect* n);
-int ncdirect_bg_default(struct ncdirect* n);
 int ncdirect_styles_set(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_on(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_off(struct ncdirect* n, unsigned stylebits);
 int ncdirect_clear(struct ncdirect* n);
+\end{minted}
+\end{listing}
+
+As detailed in Chapter~\ref{sec:channels}, the terminal has a ``default foreground color''
+and ``default background color''. Use these functions to return to them.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+int ncdirect_fg_default(struct ncdirect* n);
+int ncdirect_bg_default(struct ncdirect* n);
 \end{minted}
 \end{listing}
 
@@ -320,36 +328,27 @@ with chromatic backgrounds deserve whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
 
-Imagine we've written the following guessing game:
+Imagine we've written the simple guessing game in Listing~\ref{list:guessgame}.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hilostdio.c}
 \caption{\texttt{hilostdio.c}}
+\label{list:guessgame}
 \end{listing}
 
-The correct approach is binary search, and for an $N$-bit \texttt{long}, we expect to
-guess the number in no more than $N$ tries. Let's color the output to indicate how
-bad of a guess was offered. We'll use red for low guesses, blue for high
-guesses, and break the 256 shades of each (assuming the other two components
-to be fixed) uniformly across the $N$ levels of logarithmic
-distance\footnote{This would be a good place to employ \gls{gamma correction}.}.
-If we wanted to do this without direct use of RGB color, we'd either need
-accept fewer shades, or be forced to reprogram the palette.
+The correct approach for a player is binary search, and for an $N$-bit
+\texttt{long}, we expect to guess the number in no more than $N$ tries. Let's
+color the output to indicate how bad of a guess was offered. We'll use red for
+low guesses, blue for high guesses, and break the 256 shades of each (assuming
+the other two components to be fixed) uniformly across the $N$ levels of
+logarithmic distance\footnote{This would be a good place to employ \gls{gamma correction}.}.
+If we wanted to do this (see Listing~\ref{list:hilodirect}) without direct use of RGB color,
+we'd either need accept fewer shades, or be forced to reprogram the palette.
 
 \begin{listing}[!htbp]
-%\begin{minted}[]{C}
-%    if(!(r |= (ncdirect_fg_default(n)))){
-%          ...
-%          int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
-%          if(guess > secret){
-%            r |= ncdirect_fg_rgb8(n, 0x40, 0x80, offoom * 6);
-%          }else if(guess < secret){
-%            r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
-%          ...
-%\end{minted}
-%\caption{Insertions into \texttt{hilostdio.c} yielding \texttt{hilodirect.c}.}
 \inputminted[]{C}{code/hilodirect.c}
 \caption{\texttt{hilodirect.c}}
+\label{list:hilodirect}
 \end{listing}
 
 Stepping through the orders of magnitude\footnote{\texttt{\_\_builtin\_clzl()}
@@ -768,12 +767,14 @@ Almost every Notcurses program will take the same general form, an \textit{event
 \begin{denseitemize}
 \item{Essential screen elements are laid down.}
 \item{Initial state is discovered and added to the display.}
-\item{\textbf{begin loop} Some thread, perhaps the only thread in the process, watches
+\textbf{begin loop} 
+\item{Some thread, perhaps the only thread in the process, watches
     for user input. Other threads might be collecting system events that will
     change the state. Either way, an event occurs.}
 \item{Thread(s) receiving events perform any necessary mutual exclusion.}
 \item{Thread(s) manipulate the Notcurses virtual state via \texttt{ncplane} manipulations.}
-\item{\texttt{notcurses\_render()} is called by a single thread \textbf{end loop}.}
+\item{\texttt{notcurses\_render()} is called by a single thread.}
+\textbf{end loop}
 \item{The process terminates.}
 \end{denseitemize}
 
@@ -844,6 +845,9 @@ take away from Listing~\ref{list:tetrimino-display}:
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-draw.h}
+\begin{minted}{C}
+
+\end{minted}
 \inputminted[]{C}{code/tetrimino-main.h}
 \caption{Displaying the tetriminos (from \texttt{tetrimino.c}).}
 \end{listing}
@@ -922,7 +926,9 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Styling with colors and attributes}
 \subsection{The 32-bit \texttt{attribute} value}
+\label{sec:attribute}
 \subsection{The 64-bit \texttt{channels} value}
+\label{sec:channels}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
