@@ -88,7 +88,7 @@ A Guide to TUIs and Character Graphics\thanks{
 
 \tableofcontents
 
-\vspace*{.5in}
+\vspace*{.25in}
 \section{Foreward}
 Copyright 2020 Nick Black.
 
@@ -101,11 +101,12 @@ Notcurses can be downloaded from
 This document can be downloaded
 from \url{https://nick-black.com/htp-notcurses.pdf}.
 
-The programs written for this book attempt to minimize use of vertical space
+\textbf{The code written for this book attempts to minimize use of vertical space
 without eliding error checking (or crossing into the realms of the grotesque).
 Error handling is a fundamental slog of C programming that
-complicates reliable codes. These listings cannot be considered examples
-of good general style; they \textit{do} get the job done.
+complicates reliable programs.}
+
+\textbf{These listings cannot be considered examples of good general style\ldots\ but they \textit{do} get the job done.}
 
 Licensed under the Apache License, Version 2.0 (the ``License''); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -531,7 +532,12 @@ The fields therein include:
 
 Output is not written to this top-level \texttt{struct notcurses}---that's
 done with \texttt{ncplane}s---but there are a number of functions
-available for these objects.
+available for these objects. Acquiring an \texttt{ncplane} for output can be
+done by grabbing a reference to the standard plane, or creating a new plane.
+New planes are always inserted into the top of the z-axis. All user-created
+planes can be destroyed in one call with \texttt{notcurses\_drop\_planes()} (note
+that it is not necessary to call this prior to \texttt{notcurses\_stop()}; the
+latter cleans up all resources associated with the context).
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -555,50 +561,16 @@ void notcurses_drop_planes(struct notcurses* nc);
 \end{minted}
 \end{listing}
 
-\textbf{FIXME FIXME FIXME}
-
-\begin{listing}[!htbp]
-\begin{minted}{C}
-// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
-// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
-// Signals in sigmask (less several we handle internally) will be atomically
-// masked and unmasked per ppoll(2). It should generally contain all signals.
-// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
-// be NULL. Returns 0 on a timeout. If an event is processed, the return value
-// is the 'id' field from that event. 'ni' may be NULL.
-char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts,
-                        sigset_t* sigmask, ncinput* ni);
-
-// 'ni' may be NULL if the caller is uninterested in event details. If no event
-// is ready, returns 0.
-static inline char32_t
-notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
-  sigset_t sigmask;
-  sigfillset(&sigmask);
-  struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
-  return notcurses_getc(n, &ts, &sigmask, ni);
-}
-
-// 'ni' may be NULL if the caller is uninterested in event details. Blocks
-// until an event is processed or a signal is received.
-static inline char32_t
-notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
-  sigset_t sigmask;
-  sigemptyset(&sigmask);
-  return notcurses_getc(n, NULL, &sigmask, ni);
-}
-
-// Enable the mouse in "button-event tracking" mode with focus detection and
-// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
-// is returned, and mouse events will be published to notcurses_getc().
-int notcurses_mouse_enable(struct notcurses* n);
-
-// Disable mouse events. Any events in the input queue can still be delivered.
-int notcurses_mouse_disable(struct notcurses* n);
-\end{minted}
-\end{listing}
-
-\textbf{FIXME FIXME FIXME}
+Reading input is a per-context operation, performed with \texttt{notcurses}
+objects. It is discussed in detail in Chapter~\ref{sec:input}. When reading
+input, we might get the synthesized event \texttt{NCKEY\_RESIZE}\footnote{This
+event is generated upon receipt of a \texttt{SIGWINCH} signal, SIGnifying WINdow
+CHange.}. This indicates that the terminal has been resized, and we ought call
+\texttt{notcurses\_resize()}\footnote{Really? \textbf{FIXME} \url{https://github.com/dankamongmen/notcurses/issues/367}.}.
+As discussed earlier, sometimes the display is externally corrupted. It's thus
+a good idea to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()},
+which redraws every cell on the display according to the internal Notcurses
+framebuffer.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -616,9 +588,6 @@ int notcurses_refresh(struct notcurses* n);
 \end{minted}
 \end{listing}
 
-\texttt{notcurses\_version} returns a read-only human-readable string
-describing the loaded library's version.
-
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Get a human-readable string describing the running notcurses version.
@@ -635,8 +604,8 @@ has any bearing on what the user sees. Between calls, you are free to do whateve
 you want in terms of moving, reordering, creating, writing upon, and destroying
 planes. There will be no flicker or tearing; what you last rendered remains on
 the screen. When you've got your stack how you want it, and only then, invoke
-\texttt{notcurses\_render()}. It is an exclusive function---invoking any other
-function on the same \texttt{struct notcurses} is undefined.
+\texttt{notcurses\_render()}. It is an exclusive function---any concurrent use
+of the same \texttt{struct notcurses} is undefined.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -935,11 +904,56 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \section{Lines, boxes, and fills}
 \subsection{Linear interpolation and gradients}
 \subsection{Blitting}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Collecting and dispatching input}
-%\newpage
+\label{sec:input}
+
+\textbf{FIXME FIXME FIXME}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
+// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
+// Signals in sigmask (less several we handle internally) will be atomically
+// masked and unmasked per ppoll(2). It should generally contain all signals.
+// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
+// be NULL. Returns 0 on a timeout. If an event is processed, the return value
+// is the 'id' field from that event. 'ni' may be NULL.
+char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts,
+                        sigset_t* sigmask, ncinput* ni);
+
+// 'ni' may be NULL if the caller is uninterested in event details. If no event
+// is ready, returns 0.
+static inline char32_t
+notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
+  sigset_t sigmask;
+  sigfillset(&sigmask);
+  struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
+  return notcurses_getc(n, &ts, &sigmask, ni);
+}
+
+// 'ni' may be NULL if the caller is uninterested in event details. Blocks
+// until an event is processed or a signal is received.
+static inline char32_t
+notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
+  sigset_t sigmask;
+  sigemptyset(&sigmask);
+  return notcurses_getc(n, NULL, &sigmask, ni);
+}
+
+// Enable the mouse in "button-event tracking" mode with focus detection and
+// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
+// is returned, and mouse events will be published to notcurses_getc().
+int notcurses_mouse_enable(struct notcurses* n);
+
+// Disable mouse events. Any events in the input queue can still be delivered.
+int notcurses_mouse_disable(struct notcurses* n);
+\end{minted}
+\end{listing}
+
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
