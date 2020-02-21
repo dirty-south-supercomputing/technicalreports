@@ -88,7 +88,6 @@ A Guide to TUIs and Character Graphics\thanks{
 
 \tableofcontents
 
-\vspace*{.25in}
 \section{Foreward}
 Copyright 2020 Nick Black.
 
@@ -1176,19 +1175,28 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wherein I throw shade at current terminal emulators}
 \label{sec:termshade}
+\textbf{FIXME FIXME FIXME}
+graphs i want:
+\begin{denseitemize}
+\item{emulator performance as a function of size}
+\item{emulator performance as a function of bandwidth--same color everywhere, but turn off elision}
+\item{emulator performance as a function of color change--difference with color restored relative to previous}
+\item{emulator performance as a function of glyph variation}
+\item{some basic perf flame graphs}
+\end{denseitemize}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notcurses header files}
-%\subsection{The \texttt{notcurses.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-%\egroup
-%
-%\subsection{The \texttt{nckeys.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-%\egroup
+\subsection{The \texttt{notcurses.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+\egroup
+
+\subsection{The \texttt{nckeys.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+\egroup
 
 \end{appendices}
 \newpage

@@ -336,10 +336,41 @@ API int notcurses_resize(struct notcurses* n, int* RESTRICT y, int* RESTRICT x);
 // primarily useful if the screen is externally corrupted.
 API int notcurses_refresh(struct notcurses* n);
 
+// Return the dimensions of this ncplane.
+API void ncplane_dim_yx(const struct ncplane* n, int* RESTRICT y, int* RESTRICT x);
+
 // Get a reference to the standard plane (one matching our current idea of the
 // terminal size) for this terminal. The standard plane always exists, and its
 // origin is always at the uppermost, leftmost cell of the terminal.
 API struct ncplane* notcurses_stdplane(struct notcurses* nc);
+
+// notcurses_stdplane(), plus free bonus dimensions written to non-NULL y/x!
+static inline struct ncplane*
+notcurses_stddim_yx(struct notcurses* nc, int* RESTRICT y, int* RESTRICT x){
+  struct ncplane* s = notcurses_stdplane(nc); // can't fail
+  ncplane_dim_yx(s, y, x); // accepts NULL
+  return s;
+}
+
+static inline int
+ncplane_dim_y(const struct ncplane* n){
+  int dimy;
+  ncplane_dim_yx(n, &dimy, NULL);
+  return dimy;
+}
+
+static inline int
+ncplane_dim_x(const struct ncplane* n){
+  int dimx;
+  ncplane_dim_yx(n, NULL, &dimx);
+  return dimx;
+}
+
+// Return our current idea of the terminal dimensions in rows and cols.
+static inline void
+notcurses_term_dim_yx(struct notcurses* n, int* RESTRICT rows, int* RESTRICT cols){
+  ncplane_dim_yx(notcurses_stdplane(n), rows, cols);
+}
 
 // Retrieve the contents of the specified cell as last rendered. The EGC is
 // returned, or NULL on error. This EGC must be free()d by the caller. The cell
@@ -368,6 +399,12 @@ API struct ncplane* ncplane_aligned(struct ncplane* n, int rows, int cols,
 // will duplicate all content, and will start with the same rendering state.
 // The new plane will be immediately above the old one on the z axis.
 API struct ncplane* ncplane_dup(struct ncplane* n, void* opaque);
+
+// provided a coordinate relative to the origin of 'src', map it to the same
+// absolute coordinate relative to thte origin of 'dst'. either or both of 'y'
+// and 'x' may be NULL.
+API void ncplane_translate(const struct ncplane* src, const struct ncplane* dst,
+                           int* RESTRICT y, int* RESTRICT x);
 
 // Returns a 16-bit bitmask of supported curses-style attributes
 // (NCSTYLE_UNDERLINE, NCSTYLE_BOLD, etc.) The attribute is only
@@ -420,30 +457,6 @@ API void notcurses_stats(const struct notcurses* nc, ncstats* stats);
 
 // Reset all cumulative stats (immediate ones, such as fbbytes, are not reset).
 API void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
-
-// Return the dimensions of this ncplane.
-API void ncplane_dim_yx(const struct ncplane* n, int* RESTRICT rows,
-                        int* RESTRICT cols);
-
-static inline int
-ncplane_dim_y(const struct ncplane* n){
-  int dimy;
-  ncplane_dim_yx(n, &dimy, NULL);
-  return dimy;
-}
-
-static inline int
-ncplane_dim_x(const struct ncplane* n){
-  int dimx;
-  ncplane_dim_yx(n, NULL, &dimx);
-  return dimx;
-}
-
-// Return our current idea of the terminal dimensions in rows and cols.
-static inline void
-notcurses_term_dim_yx(struct notcurses* n, int* RESTRICT rows, int* RESTRICT cols){
-  ncplane_dim_yx(notcurses_stdplane(n), rows, cols);
-}
 
 // Resize the specified ncplane. The four parameters 'keepy', 'keepx',
 // 'keepleny', and 'keeplenx' define a subset of the ncplane to keep,
@@ -584,6 +597,9 @@ ncplane_putc(struct ncplane* n, const cell* c){
   return ncplane_putc_yx(n, -1, -1, c);
 }
 
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+//
 // Replace the cell at the specified coordinates with the provided 7-bit char
 // 'c'. Advance the cursor by 1. On success, returns 1. On failure, returns -1.
 // This works whether the underlying char is signed or unsigned.
@@ -594,6 +610,10 @@ static inline int
 ncplane_putsimple(struct ncplane* n, char c){
   return ncplane_putsimple_yx(n, -1, -1, c);
 }
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+API int ncplane_putsimple_stainable(struct ncplane* n, char c);
 
 // Replace the cell at the specified coordinates with the provided EGC, and
 // advance the cursor by the width of the cluster (but not past the end of the
@@ -607,6 +627,10 @@ static inline int
 ncplane_putegc(struct ncplane* n, const char* gclust, int* sbytes){
   return ncplane_putegc_yx(n, -1, -1, gclust, sbytes);
 }
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+API int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes);
 
 #define WCHAR_MAX_UTF8BYTES 6
 
@@ -638,6 +662,10 @@ ncplane_putwegc_yx(struct ncplane* n, int y, int x, const wchar_t* gclust,
   }
   return ncplane_putwegc(n, gclust, sbytes);
 }
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+API int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
 
 // Write a series of EGCs to the current location, using the current style.
 // They will be interpreted as a series of columns (according to the definition
@@ -862,6 +890,15 @@ ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
   ncplane_cursor_yx(n, &y, &x);
   return ncplane_gradient(n, egc, attrword, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
 }
+
+// Set the given style throughout the specified region, keepying content and
+// channels otherwise unchanged.
+API int ncplane_format(struct ncplane* n, int ystop, int xstop, uint32_t attrword);
+
+// Set the given channels throughout the specified region, keepying content and
+// attributes otherwise unchanged.
+API int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul,
+                      uint64_t ur, uint64_t ll, uint64_t lr);
 
 // Erase every cell in the ncplane, resetting all attributes to normal, all
 // colors to the default color, and all cells to undrawn. All cells associated
