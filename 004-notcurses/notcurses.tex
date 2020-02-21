@@ -663,9 +663,43 @@ cell has been damaged, it will be emitted, and the virtual framebuffer internal
 to Notcurses will be updated.
 
 Solving for the desired state of the screen is \textit{rendering}, and this is
-the first step of \texttt{notcurses\_render()}.
+the first step of \texttt{notcurses\_render()}. Solving for the screen means
+solving for the current state of every cell, given our ordered set of
+\texttt{ncplane}s. Solving for a cell means determining the extended grapheme
+cluster to be rendered, determining the attributes to be applied to that EGC,
+and determining the colors in which it ought be displayed. The higher a plane
+is on the z-axis, the more it can impact these solutions:
 
-\textbf{FIXME FIXME FIXME}
+\begin{denseitemize}
+\item{The EGC and attribute are determined by the first plane intersecting with
+      the cell having a non-null EGC at the intersecting coordinate. If there is
+    no such intersecting EGC, the EGC is null, and the attribute is
+    \texttt{NCSTYLE\_NORMAL}.} Null EGCs are rendered as spaces (i.\ e.\ entirely
+    background color).
+\item{The foreground color is determined by the first instance of a
+    \texttt{CELL\_ALPHA\_OPAQUE} foreground color, or an instance of the
+    default foreground color, or an instance of a palette-indexed foreground
+    color, as well as any \texttt{CELL\_ALPHA\_HIGHCONTRAST} or \texttt{CELL\_ALPHA\_BLEND}
+    foreground colors encountered along the way. If there is no such intersecting
+    terminator, the foreground color is the color as calculated thus far. It is
+    not possible to exhaust all intersecting planes without encountering some
+    influence on the foreground color, since the standard plane intersects with
+    all display cells. If \texttt{CELL\_ALPHA\_HIGHCONTRAST} was in play, the
+    calculated color is then blended to stand out against the calculated background
+    color.}
+\item{The background color is determined in the same way as the foreground color,
+    except without the complicating possibility of \texttt{CELL\_ALPHA\_HIGHCONTRAST}.}
+\end{denseitemize}
+
+Once a cell is solved, Notcurses needn't continue inspecting lower planes at
+that coordinate. Once all cells are solved, rendering is complete, and any
+planes left over can be skipped entirely. Until then, Notcurses steps down from
+one plane to the next, starting at the topmost plane, and updates its solution
+for any intersecting unsolved cells. It is thus generally more performant to
+``hide'' planes at the bottom of the stack, ideally behind a large opaque plane,
+rather than moving them beyond the boundaries of the visible window. Likewise,
+planes ought be no larger than necessary, so that they intersect with the
+minimum number of cells.
 
 Having rendered the scene, \textit{rasterization} serializes a buffer to write
 to the terminal, minimizing the amount of data by moving the cursor over undamaged
@@ -675,7 +709,32 @@ provoke unnecessary context switches, it results in partially-updated displays,
 and it definitely involves more system calls. Notcurses instead collects it in
 one or more large allocations.
 
-\textbf{FIXME FIXME FIXME}
+Proceeding cell-by-cell from the upper left to the lower right, Notcurses
+compares the rendering solution set to its internal framebuffer. If a given row
+is entirely undamaged, it can be skipped. Upon discovering the leftmost damage
+on a row, an absolute cursor update is performed to the damaged cell. At each
+damaged cell, the EGC will be emitted, along with any necessary styling
+information. It is only necessary to emit styling escapes when they change, i.\ e.\ we
+can emit multiple EGCs having the same style after only issuing the appropriate
+escapes once. An RGB change takes about 14 bytes, a palette index change
+takes about 6, and reverting to the default 2. For single-byte simple (ASCII)
+EGCs, an RGB foreground and background represent 2800\% overhead per cell!
+Eliding styling escapes is thus an important secondary optimization (it's of
+course most desirable to not update the cell at all).
+
+The upshot is that holding styling constant across a horizontal stretch is
+very desirable if that range's content is going to be changing. The most
+pathological input to Notcurses is text that changes its foreground and background
+on a cell-to-cell basis, especially when specified as RGB, that change from
+render to render. Certain terminal emulators in particular respond to the
+resulting deluge of RGB escapes very poorly (see Appendix~\ref{sec:termshade}).
+As examples, see the \texttt{highcontrast} and \texttt{grid} demos of
+\texttt{notcurses-demo}---a large \texttt{xterm} can be brought to its knees
+by these routines.
+
+Each subsequent range of undamaged cells on a line can be skipped over with
+cursor movements, but as the skip length approaches 1, it becomes less and
+less advantageous to do so.
 
 With these buffers in hand, \texttt{notcurses\_render()} completes its task by
 writing them to the terminal. In truth, this almost certainly means ``copying
@@ -898,6 +957,8 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \label{sec:attribute}
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
+\subsection{Escape codes ANSI and otherwise}
+\label{sec:escapes}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1114,6 +1175,7 @@ and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wherein I throw shade at current terminal emulators}
+\label{sec:termshade}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
