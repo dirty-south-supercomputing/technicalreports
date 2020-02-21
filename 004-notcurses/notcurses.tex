@@ -555,15 +555,6 @@ void notcurses_drop_planes(struct notcurses* nc);
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
-// Make the physical screen match the virtual screen. Changes made to the
-// virtual screen (i.e. most other calls) will not be visible until after a
-// successful call to notcurses_render().
-int notcurses_render(struct notcurses* nc);
-\end{minted}
-\end{listing}
-
-\begin{listing}[!htbp]
-\begin{minted}{C}
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
 // of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
 // Signals in sigmask (less several we handle internally) will be atomically
@@ -616,9 +607,32 @@ int notcurses_refresh(struct notcurses* n);
 
 \textbf{FIXME FIXME FIXME}
 
-Finally, before ever creating a \texttt{notcurses}, we can call
-\texttt{notcurses\_version} to get a human-readable string describing the
-loaded library's version.
+\texttt{notcurses\_version} returns a read-only human-readable string
+describing the loaded library's version.
+
+Finally, \texttt{notcurses\_render()} synthesizes a terminal's worth of current
+state out of all your virtual objects, schedules an optimized list of escape
+sequences and encoded characters, and blits the result to the terminal. Only
+through \texttt{notcurses\_render()} (and transitively through its callers) ought
+your program write to the actual terminal, and only \texttt{notcurses\_render()}
+has any bearing on what the user sees. Between calls, you are free to do whatever
+you want in terms of moving, reordering, creating, writing upon, and destroying
+planes. There will be no flicker or tearing; what you last rendered remains on
+the screen. When you've got your stack how you want it, and only then, invoke
+\texttt{notcurses\_render()}. It is an exclusive function---invoking any other
+function on the same \texttt{struct notcurses} is undefined.
+
+\subsection{Reading, rendering, rasterizing, and writing}
+\textbf{FIXME FIXME FIXME}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Make the physical screen match the virtual screen. Changes made to the
+// virtual screen (i.e. most other calls) will not be visible until after a
+// successful call to notcurses_render().
+int notcurses_render(struct notcurses* nc);
+\end{minted}
+\end{listing}
 
 \newpage
 
