@@ -744,7 +744,7 @@ them into a kernel buffer'', from which the terminal will read. Writing does not
 then, necessarily mean that the display has actually been updated, or even
 that the terminal has read the data. If the terminal doesn't empty the buffer
 quickly enough, however, you'll eventually run out of room and block. It is
-thus critical to understand that \textbf{\texttt{notcurses\_rende()} can block
+thus critical to understand that \textbf{\texttt{notcurses\_render()} can block
 for arbitrary amounts of time}\footnote{But see
 \url{https://github.com/dankamongmen/notcurses/issues/214}.}. Furthermore,
 if the terminal reads two renderings' worth of output at the same time, it is
@@ -821,7 +821,7 @@ in fewer than ten lines, even in a naïve and wasteful encoding (Listing~\ref{li
 \label{list:tetrimino-data}
 \end{listing}
 
-To warm up and get limber, let's create 7 \texttt{ncplane}s, one for each type
+To warm up and get limber, let's create seven \texttt{ncplane}s, one for each type
 of tetrimino. We'll lay them out in a 2-3-2 formation. This layout will be
 sloppy, for now: our function
 \texttt{tetrimio\_plane()} accepts a piece ID and a coordinate.
