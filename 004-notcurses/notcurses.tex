@@ -380,7 +380,7 @@ For programs that need to write to the terminal, but want to ``overlay'' some
 Notcurses, fullscreen mode won't work (though the program could be run in an
 \texttt{ncprocess} widget; see Chapter~\ref{widgets}). Direct mode, however, is
 a possibility. I've not yet written the example\footnote{Send me patches! Or
-I'll do it\ldots\ eventually \textbf{FIXME FIXME}.}, but it is possible to, for
+I'll do it\ldots\ eventually \url{https://github.com/dankamongmen/notcurses/issues/382}.}, but it is possible to, for
 instance, periodically acquire the current cursor position, move elsewhere on
 the screen, update a HUD, and return to the departure position. Scrolling could
 be addressed by retaining a copy of any obliterated output. This would suffer
@@ -924,13 +924,15 @@ using the alternate screen, we wouldn't see our output before flashing back to
 the normal screen. Let's go ahead and hook up input. We'll be controlling one
 of the tetriminos at a time---the selected piece will use boldface, and have its
 color brightened\footnote{Note how we use two distinct indicators. On a monochromatic
-display, we need the bold, and on a display which can't do bold, maybe we
-  get a color difference. Also, we want bold even if we have color, because
-  until we see the base color, there's no reason to think of the initial selection
-  as ``bright''.}. The space bar will advance among the pieces in one direction,
-and Tab in the other. The arrow keys and vi keys will translate the selected
-piece in four directions. The parentheses will rotate the piece half a radian
-clockwise and counterclockwise.
+display, we need the bold, and on a display which can't do bold, maybe we get a
+color difference. Also, we want bold even if we have color, because until we
+see the base color, there's no reason to think of the initial selection as
+``bright''.}. We do so with a pair of helpers---\texttt{reduce()} and \texttt{highlight()}---
+which drive the common \texttt{blast()}. \texttt{blast()} makes use of two new functions,
+\texttt{ncplane\_format()} and \texttt{ncplane\_stain()}. They allow the
+attributes and channels, respectively, of a rectangular region to be changed
+without altering other components. The corresponding glyph-only output routines
+are likewise described in Listing~\ref{list:stain} (Chapter~\ref{sec:staining}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-switch.h}
@@ -941,12 +943,18 @@ clockwise and counterclockwise.
 Since there's nothing else going on, it's trivial to process \texttt{stdin} in
 a blocking fashion from our main thread. Let's add the code to track a selected
 piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-input}).
+The space bar will advance among the pieces in one direction,
+and Tab in the other. The arrow keys and vi keys will translate the selected
+piece in four directions. The parentheses will rotate the piece half a radian
+clockwise and counterclockwise.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-inputmain.h}
 \caption{Handling input and highlighting a selection (from \texttt{tetrimino-input.c}).}
 \label{list:tetrimino-input}
 \end{listing}
+
+
 
 \textbf{FIXME FIXME FIXME}
 
@@ -997,6 +1005,36 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \section{Lines, boxes, and fills}
 \subsection{Linear interpolation (``lerping'') and gradients}
 \subsection{Blitting}
+\subsection{Staining}
+\label{sec:staining}
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Set the given style throughout the specified region, keepying content and
+// channels otherwise unchanged.
+int ncplane_format(struct ncplane* n, int ystop, int xstop, uint32_t attrword);
+
+// Set the given channels throughout the specified region, keepying content and
+// attributes otherwise unchanged.
+int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul,
+                  uint64_t ur, uint64_t ll, uint64_t lr);
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+int ncplane_putsimple_stainable(struct ncplane* n, char c);
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes);
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
+\end{minted}
+\caption{Staining allows one cellular plane to be changed over a region,
+         holding the remainder constant.}
+\label{list:stain}
+\end{listing}
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
