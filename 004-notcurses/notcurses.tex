@@ -366,6 +366,28 @@ converge to a balanced, strong green as we approached the correct answer.
 \caption{Colorized output from \texttt{hilodirect.c}.}
 \label{fig:colorguess}
 \end{figure}
+
+\subsection{Advanced coëxistence with stdio}
+It is most common to initialize Notcurses with \texttt{stdout}, whether in
+direct mode or fullscreen mode. This isn't the only way to operate, though.
+By opening the tty directly using \texttt{/dev/tty}\cite{tty4}, and providing
+this \texttt{FILE*} to Notcurses, a program passing its standard output to
+another process can make concurrent use of Notcurses on the display, in either
+direct or fullscreen mode. This is how the \texttt{notcurses-pipe} program
+works\footnote{See \url{https://github.com/dankamongmen/notcurses/issues/381}.}.
+
+For programs that need to write to the terminal, but want to ``overlay'' some
+Notcurses, fullscreen mode won't work (though the program could be run in an
+\texttt{ncprocess} widget; see Chapter~\ref{widgets}). Direct mode, however, is
+a possibility. I've not yet written the example\footnote{Send me patches! Or
+I'll do it\ldots\ eventually \textbf{FIXME FIXME}.}, but it is possible to, for
+instance, periodically acquire the current cursor position, move elsewhere on
+the screen, update a HUD, and return to the departure position. Scrolling could
+be addressed by retaining a copy of any obliterated output. This would suffer
+a startup period of one screen, during which the area scrolled above the HUD
+would be cleared. This could be avoided by aligning the HUD with the top of
+the terminal.
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1195,6 +1217,54 @@ graphs i want:
 \item{emulator performance as a function of glyph variation}
 \item{some basic perf flame graphs}
 \end{denseitemize}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{The Linux console}
+The Linux console\footnote{The FreeBSD console is its own bag of wonders.} is
+substantially different from the X and Wayland terminal emulators to which one
+might be more accustomed\footnote{Muddying the issue is the fact that video
+backends are sometimes described as consoles. The ``Linux console'' is a terminal
+emulator running atop some video backend---on the x86, typically either VGA
+Text Mode, or some trivial renderer atop a graphics-mode framebuffer
+(e.\ g.\ EFIfb or vesafb.}. Modern terminal emulators are generally more capable
+than the Linux console in several ways:
+
+\begin{denseitemize}
+\item{While the Linux console accepts RGB specifiers, it downsamples them to
+    far fewer colors.}
+\item{Console font capabilities are extremely limited.}
+\end{denseitemize}
+
+Like any interface to a termios\cite{termios} implementation, the \texttt{IUTF8}
+flag should be set (consult \texttt{stty}). This can be accomplished with the
+\texttt{IUTF8} termios flag (or \texttt{stty iutf8} on the command line). This
+is necessary for the terminal to interpret your output as multibyte UTF-8. The
+keyboard driver ought be placed into UTF-8 mode using the \texttt{KDSKBMODE}
+ioctl; the \texttt{kbd-mode} tool does this when invoked with \texttt{-u}.
+This is necessary for character erase to function properly in cooked mode. Some
+keyboards generate scancodes beyond the essential 128 characters, and these
+should be mapped to their UTF-8 equivalents. This can be accomplished with
+\texttt{dumpkeys | loadkeys --unicode}\footnote{If you've ever seen the script
+\texttt{unicode\_start}, this is exactly what it does.}. This functionality has
+been supported since Linux 2.6.4, released 2004-03-11, and is almost certainly
+already being done in your environment.
+
+Ensure, as always, that \texttt{LANG} is properly set, that your program
+initializes the locale with \texttt{setlocale(3)}, and that \texttt{TERM} is
+properly set (in this case, to one of the ``linux*'' variants).
+
+\textbf{FIXME FIXME FIXME talk about console font}
+
+Consult the \textit{The Linux Programmer's Manual} for more information,
+particularly
+\texttt{ioctl\_console(2)}\cite{ioctlconsole},
+\texttt{ioctl\_tty(2)}\cite{ioctltty},
+\texttt{termios(3)}\cite{termios},
+\texttt{console\_codes(4)}\cite{consolecodes},
+and
+\texttt{charsets(7)}\cite{charsets7}.
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
