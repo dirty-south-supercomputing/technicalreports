@@ -43,6 +43,8 @@ $(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBA
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
+$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-inputmain.h $(NOTCURSESDIR)/code/tetrimino-switch.h
+
 $(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
 
