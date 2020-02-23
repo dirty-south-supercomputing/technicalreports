@@ -199,7 +199,10 @@ description={FIXME }
 {
   name={ECMA-35:1994},
   description={``Character Code Structure and Extension Techniques'', 6th
-    edition. Ratified \Gls{isoiec2022}}
+    edition. In the words of Tobias Hammer, it ``covers some fundamentals
+    related to character sets, the notions of C0, C1, G0 (but not their
+    contents), and how escape sequences work (but not what they mean)\cite{hterm}.''
+    Ratified \Gls{isoiec2022}}
 }
 
 \newglossaryentry{ecma43}
@@ -242,7 +245,7 @@ description={FIXME }
 \newglossaryentry{isoiec646}
 {
   name={ISO/IEC 646:1991},
-  description={``Information technology—ISO 7-bit coded character set for
+  description={``Information technology---ISO 7-bit coded character set for
     information interchange''. A seven-bit encoding developed in conjunction
     with ASCII. Of its 128 codes, 116 are \texttt{invariant characters}, and
     the remaining 12 are defined by national ISO 646 variants. All variants
@@ -257,7 +260,7 @@ description={FIXME }
 \newglossaryentry{isoiec2022}
 {
   name={ISO/IEC 2022:1994},
-  description={``Information technology—Character code structure and extension techniques''.
+  description={``Information technology---Character code structure and extension techniques''.
    An absolute mess of a standard. FIXME
    Ratified as \Gls{ecma35}}
 }
@@ -265,8 +268,17 @@ description={FIXME }
 \newglossaryentry{isoiec6429}
 {
   name={ISO/IEC 6429:1992},
-  description={``Information technology — Control functions for coded character sets''.
+  description={``Information technology---Control functions for coded character sets''.
    Ratified \Gls{ecma48}}
+}
+
+\newglossaryentry{isoiec8613}
+{
+  name={ISO/IEC 8613-6:1994},
+  description={``Information technology---Open Document Architecture (ODA) and Interchange Format: Character content architectures''.
+    Defines many graphic renditions in terms of \Gls{sgr}. Referenced by \Gls{ecma48} in terms
+    of future standardization (for \Gls{sgr} attributes 38 and 48, sometimes
+    mistakenly called ``ANSI color''). Twinned to \Gls{itut416}}
 }
 
 \newglossaryentry{isoiec8859}
@@ -285,9 +297,15 @@ description={FIXME }
 \newglossaryentry{isoiec10646}
 {
   name={ISO/IEC 10646:2017},
-  description={``Information technology—Universal Coded Character Set (UCS)''.
+  description={``Information technology---Universal Coded Character Set (UCS)''.
     FIXME
     }
+}
+
+\newglossaryentry{itut416}
+{
+  name={ITU T.416},
+  description={Twinned to \Gls{isoiec8613}}
 }
 
 \newglossaryentry{itut50}
@@ -535,3 +553,26 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 }
 }
 
+\newglossaryentry{sgr}
+{
+  name={SGR},
+    description={Select Graphic Rendition. An ANSI escape (defined in
+      \Gls{ecma48}) and implemented (to one degree or another) by the
+      VT100\cite{vt100} (and most terminals since)\footnote{Support is quite varied
+      among terminals. VT100 didn't even do color.}. 64 different
+      attributes are defined by ECMA-48, including e.\ g.\ underline and
+      eight colors (plus a default color). Sometimes the ``bold'' (1) and
+      ``faint'' (2) attributes of SGR cause a different color to be selected;
+      sometimes they change the glyph}
+}
+
+\newglossaryentry{cielab}
+{
+  name={CIELAB},
+  description={A 1976 color space (also known as ``CIE L*a*b'' or ``Lab'') defined such that
+  numerical changes correspond to roughly the same perceptible change. It is
+  a more perceptually uniform derivative of 1931's CIEXYZ, influenced by the
+  Munsell color system. CIELAB colors are not absolute, but defined relative
+  to a CIEXYZ white point. The International Commission on Illumination further
+  developed CIEXYZ and CIELAB into the 2002 CIECAM02 color appearance model}
+}
