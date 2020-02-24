@@ -70,7 +70,7 @@ A Guide to TUIs and Character Graphics\thanks{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Feb 14, 2020}
+%\date{Feb 14, 2020}
 \maketitle
 %\thispagestyle{fancy}
 \date{}
@@ -1001,14 +1001,16 @@ inputs against a set of periodic requirements; let's refresh ourselves:
 You might ask, ``Sounds dank, but what about on this shiny operating system I
 purchased from Apple or Microsoft? Look I can talk to it.'' I could give two
 shits about your closed-source operating system. I presume you can purchase
-``cloud''-based Timers as a Service (TaaS) or something. Here's a nickel, kid:
-get yourself a real computer.
+``cloud''-based Timers as a Service (TaaS) or something.
 
 \textbf{FIXME FIXME FIXME}
 
 
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+The mechanics of a tty
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Character encodings and glyphs}
@@ -1248,11 +1250,10 @@ The earliest terminals making use of glyphs\footnote{Konrad Zuse's Z3, generally
  considered the first programmable digital computer, communicated with its
 operator through a matrix of blinkenlights and a not unsteampunkish keyboard that resembled the
 Burroughs typewriters of its era\cite{zuse}.} printed them to paper, and are of
-interest to us only so far as our modern term ``tty'' (of which much will be
-said later) is rather dubiously derived from ``TeleTYpewriter'', as these
-cantankerous contraptions were known\footnote{Though we do hear of their Snoopy
-calendars in the songs of legend\cite{quiche}.} (people had less experience
-abbreviating in those days).
+interest to us only so far as our modern term ``tty'' is rather dubiously
+derived from ``TeleTYpewriter'', as these cantankerous contraptions were
+known\footnote{Though we do hear of their Snoopy calendars in the songs of
+legend\cite{quiche}.} (people had less experience abbreviating in those days).
 
 These devices most typically printed 72 characters per line (CPL), a limit that
 has persisted in strange places\cite{pandoc} through the modern era. Another constant
@@ -1269,8 +1270,8 @@ technology of the time, on their feeder paper (8.5in and 14in in the case of
 printers).
 
 On, then, to the ``Glass TTYs'' (ugh) and Visual Display Units of the 1970s.
-Pictured on the next page are the Computer Terminal Corporation Datapoint 3300, the
-Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the Soroc IQ-120.
+Pictured are the Computer Terminal Corporation Datapoint 3300, the
+Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the Soroc IQ-120~\ref{fig:terminals}.
 Lacking microcontrollers, and generally implementing no independent control
 sequences, such devices are today often known as ``dumb terminals'' (this term
 was originally a registered trademark of Lear Sigler, see below). Already the
@@ -1348,6 +1349,7 @@ four decades.
   of her gourd. Grizzly Adams rocks a Datapoint 3300, but really his mind is on
   seeing Skynyrd shred it this weekend. Finally, we have Frank the Cocaine
   Ranger and his Electric Hazeltine 1500 Band. \textit{Gott im Himmel}, the 70s were \textit{unseemly}.}
+\label{fig:terminals}
 \end{figure}
 
 \subsection{The DEC VTxxx terminals and ANSI X3.64-1979}
