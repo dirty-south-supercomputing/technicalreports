@@ -190,7 +190,7 @@ The console ain't dead! Hack on, hax0rs.
   \textit{---February 2020, Atlanta}
 \end{flushright}
 
-\vspace{1in}
+\vfill
 
 \begin{center}
 \includegraphics[width=1\linewidth]{media/widechars.png}
@@ -277,14 +277,15 @@ int ncdirect_bg_default(struct ncdirect* n);
 \end{minted}
 \end{listing}
 
-While direct mode does not offer any means for moving the cursor in
-two-dimensional space, it does provide helpers for determining the terminal
-geometry:
+Direct mode allows the cursor to be moved in two-dimensional space, and
+provides helpers for determining the terminal geometry. Either \texttt{y} or
+\texttt{x} may be specified as -1 to maintain location on the associated axis.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
 int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
+int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
 \end{minted}
 \end{listing}
 
