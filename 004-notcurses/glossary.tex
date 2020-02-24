@@ -395,8 +395,10 @@ description={``A pair of virtual character devices that provide a
 \newglossaryentry{raw mode}
 {
   name={raw mode},
-description={A collection of behaviors differing from \gls{cooked mode}. Notably,
-  the terminal driver no longer buffers input or generates signals}
+  description={A collection of behaviors differing from \gls{cooked mode},
+   originating in the Version 7 terminal driver. Notably, the terminal driver no
+   longer buffers input or generates signals. Raw mode can be entered with the
+   \texttt{cfmakeraw()} termios call, where available}
 }
 
 \newglossaryentry{rgb}
