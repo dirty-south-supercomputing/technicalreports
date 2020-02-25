@@ -6,37 +6,33 @@ int main(void){
   if((nc = notcurses_init(NULL, stdout)) == NULL){
     return EXIT_FAILURE;
   }
-  int dimy, dimx, y, x;
+  const size_t pcount = sizeof(tetriminos) / sizeof(*tetriminos);
+  int dimy, dimx, y, x, p = 0;
   notcurses_term_dim_yx(nc, &dimy, &dimx);
-  struct ncplane* minos[sizeof(tetriminos) / sizeof(*tetriminos)];
+  struct ncplane* minos[pcount];
   int failed = draw_tetriminos(nc, minos, dimy, dimx) || notcurses_render(nc);
-  int tidx = 0;
-  ncplane_yx(minos[tidx], &y, &x);
-  while((failed |= (highlight(minos, tidx) || notcurses_render(nc))) == 0){
+  ncplane_yx(minos[p], &y, &x);
+  while((failed |= (highlight(minos, p) || notcurses_render(nc))) == 0){
     ncinput ni; // necessary for mouse
     char32_t key = notcurses_getc_blocking(nc, &ni);
     if(key == (char32_t)-1){
       failed = true;
     }else if(key == 'q'){
       break;
-    }else if(key == ' '){ // select previous
-      reduce(minos, tidx);
-      tidx = (tidx + 6) % (sizeof(tetriminos) / sizeof(*tetriminos));
-      ncplane_yx(minos[tidx], &y, &x);
-    }else if(key == '\t'){ // select next
-      reduce(minos, tidx);
-      tidx = (tidx + 1) % (sizeof(tetriminos) / sizeof(*tetriminos));
-      ncplane_yx(minos[tidx], &y, &x);
+    }else if(key == ' ' || key == '\t'){ // select previous/next
+      reduce(minos, p);
+      p += ((key == ' ' ? (pcount - 1) : 1) % pcount);
+      ncplane_yx(minos[p], &y, &x);
     }else if(key == '('){ // rotate counterclockwise
     }else if(key == ')'){ // rotate clockwise
     }else if(key == NCKEY_LEFT || key == 'h'){
-      ncplane_move_yx(minos[tidx], y, --x < 0 ? x = 0 : x);
+      ncplane_move_yx(minos[p], y, --x < 0 ? x = 0 : x);
     }else if(key == NCKEY_RIGHT || key == 'l'){
-      ncplane_move_yx(minos[tidx], y, (++x + ncplane_dim_x(minos[tidx]) > dimx) ? x = dimx - ncplane_dim_x(minos[tidx]) : x);
+      ncplane_move_yx(minos[p], y, ++x + ncplane_dim_x(minos[p]) > dimx ? x = dimx - ncplane_dim_x(minos[p]) : x);
     }else if(key == NCKEY_UP || key == 'k'){
-      ncplane_move_yx(minos[tidx], --y < 0 ? y = 0 : y, x);
+      ncplane_move_yx(minos[p], --y < 0 ? y = 0 : y, x);
     }else if(key == NCKEY_DOWN || key == 'j'){
-      ncplane_move_yx(minos[tidx], (++y + 2 > dimy ) ? y = dimy - 2 : y, x);
+      ncplane_move_yx(minos[p], ++y + 2 > dimy ? y = dimy - 2 : y, x);
     }else if(nckey_mouse_p(key)){
       failed = handle_mouse_event(nc, &ni);
     }
