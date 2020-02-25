@@ -247,10 +247,10 @@ on the screen. Grab one and move it towards another piece. Experimentation will
 reveal that each piece has a~\gls{boundingbox}, that there is a total ordering
 among the seven pieces, and that a piece below another piece's bounding box is
 robbed of its color (Figure~\ref{fig:tetrimino-badplane}). Recall from
-Chapter~\ref{sec:rendering} how we cell for each coordinate of the display
+Chapter~\ref{sec:rendering} how we solve for each coordinate of the display
 grid: the EGC is a dimension distinct from the coloring channels. Each of the
 planes we create is rectilinear, with the piece drawn using Unicode
-\textsc{U+2588 FULL BLOCK}, and the other cells left unwritten. The foreground
+\texttt{U+2588 FULL BLOCK}, and the other cells left unwritten. The foreground
 for our pieces is a RGB color, and for the other cells is the default terminal
 color. Upon intersecting with a lower plane, the lower plane's EGC is chosen for
 rendering, but the foreground color is default terminal color (white in my
