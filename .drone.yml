@@ -9,6 +9,6 @@ steps:
   commands:
     - apt-get update
     - apt-get -y dist-upgrade
-    - apt-get -y install textlive-extra
+    - apt-get -y install texlive-xetex texlive-lang-all
     - export LANG=en_US.UTF-8
     - make
