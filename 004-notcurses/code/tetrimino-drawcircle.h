@@ -7,7 +7,7 @@ static int draw_tetriminos(struct notcurses* nc, struct ncplane** minos, int dim
   const size_t piececount = sizeof(tetriminos) / sizeof(*tetriminos);
   const float sector = M_PI * 2 / piececount;
   for(int i = 0 ; i < piececount ; ++i){
-    bool lift = strspn(tetriminos[i].texture, " ") == strlen(tetriminos[i].texture) / 2;
+    const bool lift = strspn(tetriminos[i].texture, " ") == strlen(tetriminos[i].texture) / 2;
     if(!(minos[i] = tetrimino_plane(nc, i, centy + radius * sin(sector * i) - (ROWS_PER_GROW + lift * 2),
         centx + aspect * radius * cos(sector * i) - strlen(tetriminos[i].texture) / (2 * COLS_PER_GCOL)))){
       while(--i){
