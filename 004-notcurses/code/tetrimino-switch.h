@@ -15,8 +15,6 @@ static int highlight(struct ncplane** minos, int tidx){
   b = channel_b(tetriminos[tidx].color);
   channels_set_fg(&corig, tetriminos[tidx].color);
   channels_set_fg_rgb_clipped(&c, r + 64, g + 64, b + 64);
-  channels_set_bg(&corig, 0);
-  channels_set_bg(&c, 0);
   return blast(minos[tidx], NCSTYLE_BOLD, corig, c, c, corig);
 }
 
@@ -25,6 +23,5 @@ static int reduce(struct ncplane** minos, int tidx){
   int r, g, b;
   uint64_t c = 0;
   channels_set_fg(&c, tetriminos[tidx].color);
-  channels_set_bg(&c, 0);
   return blast(minos[tidx], 0, c, c, c, c);
 }
