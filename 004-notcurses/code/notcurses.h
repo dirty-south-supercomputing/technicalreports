@@ -74,6 +74,9 @@ API int ncdirect_styles_set(struct ncdirect* n, unsigned stylebits);
 API int ncdirect_styles_on(struct ncdirect* n, unsigned stylebits);
 API int ncdirect_styles_off(struct ncdirect* n, unsigned stylebits);
 
+// Move the cursor in direct mode. -1 to retain current location on that axis.
+API int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
+
 // Clear the screen.
 API int ncdirect_clear(struct ncdirect* nc);
 
@@ -285,6 +288,7 @@ typedef struct ncinput {
   bool alt;        // was alt held?
   bool shift;      // was shift held?
   bool ctrl;       // was ctrl held?
+  uint64_t seqnum; // input event number
 } ncinput;
 
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
@@ -886,7 +890,7 @@ API int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
 //
 // Preconditions for gradient operations (error otherwise):
 //
-//  all: only RGB colors (no defaults, no palette-indexed)
+//  all: only RGB colors, unless all four channels match
 //  all: all alpha values must be the same
 //  1x1: all four colors must be the same
 //  1xN: both top and both bottom colors must be the same (vertical gradient)
@@ -1035,7 +1039,7 @@ channel_set_alpha(unsigned* channel, int alpha){
     return -1;
   }
   *channel = (alpha << CELL_ALPHA_SHIFT) | (*channel & ~CELL_ALPHA_MASK);
-  if(alpha == CELL_ALPHA_HIGHCONTRAST){
+  if(alpha != CELL_ALPHA_OPAQUE){
     *channel |= CELL_BGDEFAULT_MASK;
   }
   return 0;

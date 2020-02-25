@@ -87,12 +87,17 @@ A Guide to TUIs and Character Graphics\thanks{
 
 \tableofcontents
 
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Foreward}
 Copyright © 2020 Nick Black.
 
-\small{This edition of \textit{HTPwNotcurses} corresponds to version 1.2.2 of the Notcurses
+\small{This edition corresponds to version 1.2.2 of the Notcurses
 library, released 2020-02-24.
 
 Notcurses can be downloaded from
@@ -119,6 +124,7 @@ Tetris © The Tetris Company, LLC.
 ``Super Mario Bros.'' © Nintendo of America.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
+``Cortana'' © Microsoft Corp.
 
 \subsection{¡Peligro!}
 
@@ -318,7 +324,7 @@ eliminate this nonsense.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
-\caption{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with pleasantly solid results.}
+\caption[\texttt{hol-formatter} as run on OCRd input.]{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with pleasantly solid results.}
 \label{fig:houseout}
 \end{figure}
 
@@ -519,7 +525,7 @@ The fields therein include:
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.7\linewidth]{media/no-alternate-screen.png}
-\caption{\texttt{notcurses-demo} can be invoked with \texttt{-k} to avoid
+\caption[Inhibiting use of the alternate screen.]{\texttt{notcurses-demo} can be invoked with \texttt{-k} to avoid
   using the alternate screen. Here, we see its output left on the screen as
   we return to our shell.}
 \label{fig:altscreen}
@@ -538,7 +544,7 @@ The fields therein include:
 
     \begin{figure}[!htbp]
       \centering \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
-      \caption{Initializing Notcurses without 24-bit color support will
+      \caption[Notcurses initialization warnings.]{Initializing Notcurses without 24-bit color support will
         generate a warning, hopefully provoking your users to set it up.}
       \label{fig:banner}
     \end{figure}
@@ -1001,9 +1007,10 @@ inputs against a set of periodic requirements; let's refresh ourselves:
 \end{denseitemize}
 
 You might ask, ``Sounds dank, but what about on this shiny operating system I
-purchased from Apple or Microsoft? Look I can talk to it.'' I could give two
-shits about your closed-source operating system. I presume you can purchase
-``cloud''-based Timers as a Service (TaaS) or something.
+purchased from Apple or Microsoft? Look, I can speak to it! Cortana, diminish my
+freedoms and spy on me!'' I could give two shits about your closed-source
+operating system. I presume you can purchase cloud-based Timers as a Service
+(TaaS) or something.
 
 \begin{figure}
   \centering
@@ -1031,11 +1038,16 @@ shits about your closed-source operating system. I presume you can purchase
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
   internals of kernel tty/pty devices, session groups, signal distribution,
   \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
-\textbf{FIXME FIXME escapes, other stuff}
+
+\textbf{FIXME FIXME other stuff}
+\subsection{Escape codes ANSI and otherwise}
+\label{sec:escapes}
 
 In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
 non-destructive backspace to produce composed characters from spacing ones.
 This had been eliminated by ISO 4873, ECMA-43, and ISO 8859.
+
+\textbf{FIXME FIXME other stuff}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1077,8 +1089,6 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \label{sec:attribute}
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
-\subsection{Escape codes ANSI and otherwise}
-\label{sec:escapes}
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1219,7 +1229,7 @@ int notcurses_mouse_disable(struct notcurses* n);
 \begin{figure}
     \centering
     \includegraphics[width=.75\linewidth]{media/menuwarmech.png}
-    \caption{The \texttt{notcurses-demo} menu, unrolled \textit{in media res}. Luigi, pursued
+    \caption[WarMECH and a translucent menu.]{The \texttt{notcurses-demo} menu, unrolled \textit{in media res}. Luigi, pursued
       by WarMECH, is leaping through the ``Help'' menu. In the upper left is the HUD,
       and at the bottom the About text, both implemented as translucent planes.}
 \end{figure}
@@ -1241,13 +1251,13 @@ range of Notcurses capabilities, and its source code is most instructive.
   \centering
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demo-intro.png}
-    \caption{``Intro''. Lerps on the perimeters. Inverse radial
+    \caption[``Intro''.]{``Intro''. Lerps on the perimeters. Inverse radial
             gradient plus vertical gradient. Full-screen fade.
             Cyclic glyphs. Italics.}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demo-xray.png}
-    \caption{``X-Ray''. Streaming video.
+    \caption[``X-Ray''. Very large planes.]{``X-Ray''. Streaming video.
        Very large planes (the scrolling plane at the bottom is much larger than the visible screen).}
   \end{minipage}
 \end{figure}
@@ -1268,7 +1278,7 @@ range of Notcurses capabilities, and its source code is most instructive.
 
 \begin{figure}
   \centering \includegraphics[width=1\linewidth]{media/demojungle.png}
-  \caption{``Jungle''. Palette-indexed image. Very low-bandwidth animation via palette cycling.\\
+  \caption[``Jungle''. Palette-indexed image.]{``Jungle''. Palette-indexed image. Very low-bandwidth animation via palette cycling.\\
     ``Ruins in Rain'' © Mark Ferrari/Living Worlds. Texelized with permission.}
 \end{figure}
 
@@ -1360,28 +1370,28 @@ VT52 and legendary VT100, and the VT100 subsequently becoming a \textit{de facto
 four decades.
 
 \begin{figure}
-  \centering
-  \begin{minipage}{0.5\textwidth}
-    \centering
-    \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
-    \caption{The Digital Equipment Corporation terminals of the 1970s and 1980s.}
-  \end{minipage}\hfill
-  \begin{minipage}{0.4\textwidth}
-    \centering
-    \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
-    \caption{The VT220's glyphs from a ROM dump. VT100 implemented most of the
-      first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
-  \end{minipage}
-\end{figure}
-
-\begin{figure}
   \centering \includegraphics[width=.9\linewidth]{media/dumbterminals.jpg}
-\caption{Clockwise starting from upper left: a dork and his LSI ADM (``American
+\caption[Dumb terminals of the 1970s.]{Clockwise starting from upper left: a dork and his LSI ADM (``American
   Dream Machine'', supposedly). That poor woman with the Sororc IQs looks stoned out
   of her gourd. Grizzly Adams rocks a Datapoint 3300, but really his mind is on
   seeing Skynyrd shred it this weekend. Finally, we have Frank the Cocaine
   Ranger and his Electric Hazeltine 1500 Band. \textit{Gott im Himmel}, the 70s were \textit{unseemly}.}
 \label{fig:terminals}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
+    \caption{Digital Equipment Corporation terminals of the 1970s and 1980s.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.4\textwidth}
+    \centering
+    \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
+    \caption[VT220 glyph dump.]{The VT220's glyphs from a ROM dump. VT100 implemented most of the
+      first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
+  \end{minipage}
 \end{figure}
 
 \subsection{The DEC VTxxx terminals and ANSI X3.64-1979}
@@ -1475,29 +1485,29 @@ and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notcurses header files}
-%\subsection{The \texttt{notcurses.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-%\egroup
+\subsection{The \texttt{notcurses.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+\egroup
 
 \subsection{The \texttt{nckeys.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-%\egroup
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+\egroup
 
 \end{appendices}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \glsaddallunused
-\printglossary[title={Glossary of terms \textit{as used in this manuscript}}]
+\printglossary[title={Glossary of terms}]
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}
 \printbibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vfill
-\begin{center}
-\includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
-\includegraphics[width=.5\linewidth]{../common/south.png}
-\end{center}
+%\vfill
+%\begin{center}
+%\includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
+%\includegraphics[width=.5\linewidth]{../common/south.png}
+%\end{center}
 \end{document}
