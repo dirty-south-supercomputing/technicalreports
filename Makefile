@@ -43,7 +43,7 @@ $(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBA
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, drawcircle inputmain switch))
+$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, databox displayutf8 drawcircle inputmain switch))
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses -lm
 
 $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, draw main mouse switch))

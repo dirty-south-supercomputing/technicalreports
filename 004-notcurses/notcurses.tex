@@ -124,7 +124,6 @@ Tetris © The Tetris Company, LLC.
 ``Super Mario Bros.'' © Nintendo of America.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
-``Cortana'' © Microsoft Corp.
 
 \subsection{¡Peligro!}
 
@@ -919,7 +918,7 @@ take away from Listing~\ref{list:tetrimino-display}:
 \end{listing}
 
 Our \texttt{main()} sets the locale, initializes the terminal, and draws the
-seven pieces (Listings~\ref{list:tetrimino-draw} and~\ref{list:tetrimino-main}.
+seven pieces (Listings~\ref{list:tetrimino-draw} and~\ref{list:tetrimino-main}).
 Each piece has a one-letter name; for now, we draw with those glyphs. The
 pieces are monochromatic. This renders familiar shapes in the correct colors
 (Figure~\ref{fig:tetriminos-1}), but other than that, it's (like most classic
@@ -931,7 +930,7 @@ Curses programs) pretty ugly. I wouldn't want to play with these pieces.
 \label{fig:tetriminos-1}
 \end{figure}
 
-This is hardly a render+event loop; in fact it's not a loop at all. If we were
+This is hardly a render/event loop; in fact it's not a loop at all. If we were
 using the alternate screen, we wouldn't see our output before flashing back to
 the normal screen. Let's go ahead and hook up input. We'll be controlling one
 of the tetriminos at a time---the selected piece will use boldface, and have its
@@ -939,17 +938,34 @@ color brightened\footnote{Note how we use two distinct indicators. On a monochro
 display, we need the bold, and on a display which can't do bold, maybe we get a
 color difference. Also, we want bold even if we have color, because until we
 see the base color, there's no reason to think of the initial selection as
-``bright''.}. We do so with a pair of helpers---\texttt{reduce()} and \texttt{highlight()}---
-which drive the common \texttt{blast()}. \texttt{blast()} makes use of two new functions,
+``bright''.}. We do so (Listing~\ref{list:tetrimino-switch}) with a pair of
+helpers---\texttt{reduce()} and \texttt{highlight()}--- which drive the common
+\texttt{blast()}. \texttt{blast()} makes use of two new functions,
 \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}. They allow the
 attributes and channels, respectively, of a rectangular region to be changed
 without altering other components. The corresponding glyph-only output routines
-are likewise described in Listing~\ref{list:stain} (Chapter~\ref{sec:staining}).
+are likewise described in Listing~\ref{list:stain}
+(Chapter~\ref{sec:staining}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-switch.h}
 \caption{Switching between pieces (from~\texttt{tetrimino-input.c}).}
 \label{list:tetrimino-switch}
+\end{listing}
+
+While we're making things prettier, let's replace
+those letters with some classy box-drawing characters, and improve on this
+layout. We can do some simple algebraic extensions and get some linear spacing,
+but it's just as easy to use trigonometric functions and get an approximation
+to a circle. This is especially value as the terminal geometry changes; our
+fixed linear scalings would break down as the display aspect changes, but a
+good ol' circle will work on any sufficient radius
+(Listing~\ref{list:tetrimino-drawcircle}).
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-drawcircle.h}
+\caption{Trigonometric layout: simpler, yet more accurate (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-drawcircle}
 \end{listing}
 
 Since there's nothing else going on, it's trivial to process \texttt{stdin} in
@@ -1007,7 +1023,7 @@ inputs against a set of periodic requirements; let's refresh ourselves:
 \end{denseitemize}
 
 You might ask, ``Sounds dank, but what about on this shiny operating system I
-purchased from Apple or Microsoft? Look, I can speak to it! Cortana, diminish my
+purchased from Apple or Microsoft? Look, I can speak to it! Sirana, diminish my
 freedoms and spy on me!'' I could give two shits about your closed-source
 operating system. I presume you can purchase cloud-based Timers as a Service
 (TaaS) or something.
@@ -1028,11 +1044,21 @@ operating system. I presume you can purchase cloud-based Timers as a Service
   \end{minipage}\hfill
 \end{figure}
 
-\begin{listing}[!htbp]
-\inputminted[]{C}{code/tetrimino-drawcircle.h}
-\caption{Trigonometric layout: simpler, yet more accurate (from~\texttt{tetrimino-input.c}).}
-\label{list:tetrimino-drawcircle}
-\end{listing}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient4.png}
+    \caption{Box-drawing characters.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient5.png}
+    \caption{Better box-drawing characters.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient6.png}
+    \caption{Accounting for aspect ratio. Not so bad\ldots.}
+  \end{minipage}\hfill
+\end{figure}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
