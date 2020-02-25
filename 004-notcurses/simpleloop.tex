@@ -132,6 +132,7 @@ Curses programs) pretty ugly. I wouldn't want to play with these pieces.
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetriminos-1.png}
     \caption{It's output\ldots\ I guess.}
+    \label{fig:tetriminos-1}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
@@ -141,7 +142,6 @@ Curses programs) pretty ugly. I wouldn't want to play with these pieces.
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
     \caption{Linear expansion.}
   \end{minipage}\hfill
-  \label{fig:tetriminos-1}
 \end{figure}
 
 This is hardly a render/event loop; in fact it's not a loop at all. If we were
@@ -258,7 +258,7 @@ example). So the piece underneath flipping to white while another piece is
 nearby makes perfect sense. The solution is simple: we set the foreground
 transparent for the base character of each plane. Foreground calculation will
 now bypass the plane where we haven't drawn, and the distorted plane regains
-its expected colors (Figure\~ref{fig:tetrimino-trans}).
+its expected colors (Figure~\ref{fig:tetrimino-trans}).
 
 \begin{figure}[!htbp]
   \centering
