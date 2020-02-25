@@ -11,6 +11,7 @@
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{parskip}
+\usepackage{epigraph}
 \usepackage{sourcecodepro}
 \usepackage{fontspec}
 \usepackage[toc,nonumberlist,xindy]{glossaries}
@@ -107,8 +108,6 @@ A Guide to TUIs and Character Graphics\thanks{
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 \tableofcontents
 
 \cleardoublepage
@@ -177,6 +176,12 @@ complicates reliable applications.
 \pagenumbering{arabic}
 
 \section{Introduction}
+\epigraph{Our fine arts were developed, their types and uses were established, in times
+very different from the present, by men whose power of action upon things was
+insignificant in comparison with ours. But the amazing growth of our
+techniques, the adaptability and precision they have attained, the ideas and
+habits they are creating, make it a certainty that profound changes are
+impending in the ancient craft of the Beautiful.}{Paul Valéry}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
 rejected from NCURSES. The first commit was pushed 2019-11-16. I started
@@ -238,7 +243,7 @@ The console ain't dead! Hack on, hax0rs.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{So what's all this, then?}
+\section{Right, what's all this, then?}
 \textbf{FIXME define character graphics, terminal, that good stuff}
 
 \newpage
@@ -1343,15 +1348,15 @@ and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notcurses header files}
-%\subsection{The \texttt{notcurses.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-%\egroup
-%
-%\subsection{The \texttt{nckeys.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-%\egroup
+\subsection{The \texttt{notcurses.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+\egroup
+
+\subsection{The \texttt{nckeys.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+\egroup
 
 \end{appendices}
 \newpage
