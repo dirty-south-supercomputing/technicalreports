@@ -90,9 +90,9 @@ A Guide to TUIs and Character Graphics\thanks{
 \begin{center}
   \textit{For T.\ S.\ Eliot, il miglior fabbro.} \\
   \vspace{.25in}
-  \textit{For Coach Jeanette Martin, for exhortations to go H.A.M.} \\
+  \textit{For Jim Greenlee, for speaking rigor to my programming.\\
   \vspace{.25in}
-  \textit{For Jim Greenlee, for introducing rigor to my programming.\\
+  For Coach Jeanette Martin, for exhortations to go H.A.M. \\
   \vspace{.25in}
     For Professor Hyesoon Kim, for introducing me to the glorious world
     inside the die.\\
@@ -166,7 +166,7 @@ without eliding error checking (or crossing into the realms of the grotesque).
 Error handling is a fundamental slog of C programming that
 complicates reliable applications.
 
-\textbf{These listings cannot be considered examples of good general style\ldots\ but they \textit{do} get the job done.}
+\textbf{These listings cannot be considered examples of good general style\ldots but they \textit{do} get the job done.}
 
 }
 
@@ -213,7 +213,7 @@ In truth, the main reasons were that it was fun, and I wanted to see how far
 I could push it.
 
 As I write this, Notcurses is present in Arch's AUR, and is awaiting promotion
-into the Debian Incoming queue. Written as a C core, it enjoys \CC, Python, and
+from the Debian Incoming queue. Written as a C core, it enjoys \CC, Python, and
 Rust wrappers. I have submitted it as a backend to NEStopia and RetroArch, and
 intend to integrate it into Mesa as an OpenGL backend. So long as one can live
 with the limited resolution available when a screen is divided into rectangular
@@ -434,9 +434,9 @@ works\footnote{See \url{https://github.com/dankamongmen/notcurses/issues/381}.}.
 
 For programs that need to write to the terminal, but want to ``overlay'' some
 Notcurses, fullscreen mode won't work (though the program could be run in an
-\texttt{ncprocess} widget; see Chapter~\ref{widgets}). Direct mode, however, is
+\texttt{ncprocess} widget; see Chapter~\ref{sec:uiwidgets}). Direct mode, however, is
 a possibility. I've not yet written the example\footnote{Send me patches! Or
-I'll do it\ldots\ eventually \url{https://github.com/dankamongmen/notcurses/issues/382}.}, but it is possible to, for
+I'll do it\ldots eventually \url{https://github.com/dankamongmen/notcurses/issues/382}.}, but it is possible to, for
 instance, periodically acquire the current cursor position, move elsewhere on
 the screen, update a HUD, and return to the departure position. Scrolling could
 be addressed by retaining a copy of any obliterated output. This would suffer
@@ -481,7 +481,7 @@ excess data relative to the constant origin will no longer be displayed (i.e.
 the material in the upper left will be retained). If the screen is enlarged,
 any data uncovered will be displayed, and the new area will otherwise be empty.
 Some widgets can intelligently resize themselves in the face of screen
-geometry changes (see Chapter~\ref{section:uiwidgets}).
+geometry changes (see Chapter~\ref{sec:uiwidgets}).
 
 Notcurses prepares a given terminal for fullscreen mode in \texttt{notcurses\_init()}
 
@@ -998,7 +998,7 @@ int notcurses_mouse_disable(struct notcurses* n);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
-\label{section:uiwidgets}
+\label{sec:uiwidgets}
 \subsection{Selectors and multiselectors}
 \begin{figure}
     \centering
@@ -1168,7 +1168,7 @@ you'll see from time to time is 132 CPL, derived from line printers such as the
 IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most often,
 however, is the 80 column line originating in 1928's 7¾x3¼x0.007in IBM
 Computer Card (as designed by Clair D.\ Lake, deriving from the 1890 U.\ S.\
-Census cards of Herman Hollerith\ldots\ themselves borrowing from Joseph
+Census cards of Herman Hollerith\ldots themselves borrowing from Joseph
 Jacquard's automation in 1804 of punched card loom control technology pioneered
 by Basile Bouchon in 1725\cite{cards}). To this day, so long as your wacky
 output device can do 80 columns, eh, that's good enough. In all these cases,
@@ -1228,7 +1228,7 @@ The Aaronites, Levite descendents of Moses's brother Aaron, the first
 (High Priest),
 form the priestly \texthebrew{כֹּהֲנִים}; they were divided into 24 courses. The Buddha's Dharma Chakra (Wheel of Dhamma)
 in its Ashoka form extends 24 spokes. But perhaps I grow esoteric, and even
-speculative\ldots\ in truth, 80x24 almost certainly owes its questionable
+speculative\ldots in truth, 80x24 almost certainly owes its questionable
 existence to IBM's punched cards, IBM 2260 and 3270 wanting compatibility with
 IBM printers, the upstart DEC wanting compatibility with IBM software for their
 VT52 and legendary VT100, and the VT100 subsequently becoming a \textit{de facto} standard for
