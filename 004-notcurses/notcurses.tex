@@ -991,8 +991,8 @@ inputs against a set of periodic requirements; let's refresh ourselves:
   CPU\ldots\ which probably isn't a problem here, but isn't exactly a great foundation
   on which to build our cathedral, \textfrench{\textit{n'est-ce pas?}}.}
 \item{Two threads enter, one thread \texttt{exit()}s (hehehehe). We block on
-    input in our main thread. Another thread runs a ``timer wheel''---in truth,
-    for this, a loop around a \texttt{clock\_nanosleep()} will suffice. They
+    input in our main thread. Another thread runs a ``timer wheel''---for this,
+    a loop around a \texttt{clock\_nanosleep()} will suffice. They
     lock against one another to avoid corrupting the screen or otherwise
     embarassing ourselves. The solution reeks of Java, but will work well
     enough, and any programmer---maybe even a Java programmer---ought be able
@@ -1021,19 +1021,18 @@ operating system. I presume you can purchase cloud-based Timers as a Service
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
     \caption{Linear addition of space.}
-  \end{minipage}
-  \begin{minipage}{0.30\textwidth}
-    \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
   \end{minipage}\hfill
-  \caption{Trigonometric layout.}
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient3.png}
+    \caption{Trigonometric layout.}
+  \end{minipage}\hfill
 \end{figure}
 
-% this basically just repeats -draw.h
-%\begin{listing}[!htbp]
-%\inputminted[]{C}{code/tetrimino-drawnice.h}
-%\caption{A little algebra unpacks the pieces (from~\texttt{tetrimino-input.c}).}
-%\label{list:tetrimino-drawnice}
-%\end{listing}
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-drawnice.h}
+\caption{Trigonometric layout: simpler, yet more accurate (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-drawnice}
+\end{listing}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1490,15 +1489,15 @@ and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Notcurses header files}
-\subsection{The \texttt{notcurses.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-\egroup
-
-\subsection{The \texttt{nckeys.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-\egroup
+%\subsection{The \texttt{notcurses.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+%\egroup
+%
+%\subsection{The \texttt{nckeys.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+%\egroup
 
 \end{appendices}
 \newpage
