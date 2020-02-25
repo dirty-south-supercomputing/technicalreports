@@ -771,8 +771,9 @@ cursor movements, but as the skip length approaches 1, it becomes less and
 less advantageous to do so.
 
 With these buffers in hand, \texttt{notcurses\_render()} completes its task by
-writing them to the terminal. In truth, this almost certainly means ``copying
-them into a kernel buffer'', from which the terminal will read. Writing does not,
+writing them to the terminal. This almost certainly means copying
+them into a kernel buffer from which the terminal will then (following at
+least one context switch and two system calls) read. Writing does not,
 then, necessarily mean that the display has actually been updated, or even
 that the terminal has read the data. If the terminal doesn't empty the buffer
 quickly enough, however, you'll eventually run out of room and block. It is
@@ -1099,6 +1100,8 @@ canvases or OpenGL display lists; if your plan involves using ANSI escape
 sequences to drive a 1920x1080 display via roughly two million 1x1 character
 cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \subsection{The Universal Character Set}
+\footnote{Once upon a time, these other sixteen planes were known as the
+  Astral Planes\cite{astralplanes}.}
 \subsection{UTF-8}
 \subsection{Stupid Unicode tricks}
 \textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/}
