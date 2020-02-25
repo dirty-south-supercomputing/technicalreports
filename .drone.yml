@@ -1,0 +1,14 @@
+---
+kind: pipeline
+type: docker
+name: debian-unstable
+
+steps:
+- name: debian-build
+  image: dankamongmen/unstable_builder:2020-02-17a
+  commands:
+    - apt-get update
+    - apt-get -y dist-upgrade
+    - apt-get -y install textlive-extra
+    - export LANG=en_US.UTF-8
+    - make
