@@ -99,7 +99,7 @@ Notcurses can be downloaded from
 \url{https://github.com/dankamongmen/notcurses}.
 
 This document can be downloaded
-from \url{https://nick-black.com/htp-notcurses.pdf}.
+from~\url{https://nick-black.com/htp-notcurses.pdf}.
 
 Licensed under the Apache License, Version 2.0 (the ``License''); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -369,7 +369,7 @@ converge to a balanced, strong green as we approached the correct answer.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{media/hilodirect.png}
-\caption{Colorized output from \texttt{hilodirect.c}.}
+\caption{Colorized output from~\texttt{hilodirect.c}.}
 \label{fig:colorguess}
 \end{figure}
 
@@ -815,7 +815,7 @@ for Tetris clones? There is indeed\cite{tetris}.}.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.5\linewidth]{media/tetriminos.png}
-\caption{Piping hot tetriminos, fresh from \textit{Spiritus Mundi}.}
+\caption{Piping hot tetriminos, fresh from~\textit{Spiritus Mundi}.}
 \label{fig:tetriminos}
 \end{figure}
 
@@ -844,7 +844,7 @@ in fewer than ten lines, even in a naïve and wasteful encoding (Listing~\ref{li
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-data.h}
-\caption{The seven canonical tetriminos (from \texttt{tetrimino.c}).}
+\caption{The seven canonical tetriminos (from~\texttt{tetrimino.c}).}
 \label{list:tetrimino-data}
 \end{listing}
 
@@ -869,7 +869,7 @@ aspect ratio (Figure~\ref{fig:aspectratio}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-display.h}
-\caption{Creating a single tetrimino (from \texttt{tetrimino.c}).}
+\caption{Creating a single tetrimino (from~\texttt{tetrimino.c}).}
 \label{list:tetrimino-display}
 \end{listing}
 
@@ -902,13 +902,13 @@ take away from Listing~\ref{list:tetrimino-display}:
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-draw.h}
-\caption{Distributing the tetriminos (from \texttt{tetrimino.c}) with ``flying-v'' technique.}
+\caption{Distributing the tetriminos (from~\texttt{tetrimino.c}) with ``flying-v'' technique.}
 \label{list:tetrimino-draw}
 \end{listing}
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-main.h}
-\caption{A one-shot, display-only \texttt{main()} (from \texttt{tetrimino.c}).}
+\caption{A one-shot, display-only \texttt{main()} (from~\texttt{tetrimino.c}).}
 \label{list:tetrimino-main}
 \end{listing}
 
@@ -942,7 +942,7 @@ are likewise described in Listing~\ref{list:stain} (Chapter~\ref{sec:staining}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-switch.h}
-\caption{Switching between pieces (from \texttt{tetrimino-input.c}).}
+\caption{Switching between pieces (from~\texttt{tetrimino-input.c}).}
 \label{list:tetrimino-switch}
 \end{listing}
 
@@ -956,7 +956,7 @@ clockwise and counterclockwise.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-inputmain.h}
-\caption{Handling input and highlighting a selection (from \texttt{tetrimino-input.c}).}
+\caption{Handling input and highlighting a selection (from~\texttt{tetrimino-input.c}).}
 \label{list:tetrimino-input}
 \end{listing}
 
@@ -1005,8 +1005,23 @@ purchased from Apple or Microsoft? Look I can talk to it.'' I could give two
 shits about your closed-source operating system. I presume you can purchase
 ``cloud''-based Timers as a Service (TaaS) or something.
 
-\textbf{FIXME FIXME FIXME}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
+  \end{minipage}
+  \caption{A bit of space and color go a long way.}
+\end{figure}
 
+% this basically just repeats -draw.h
+%\begin{listing}[!htbp]
+%\inputminted[]{C}{code/tetrimino-drawnice.h}
+%\caption{A little algebra unpacks the pieces (from~\texttt{tetrimino-input.c}).}
+%\label{list:tetrimino-drawnice}
+%\end{listing}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -6,6 +6,7 @@
 */*.glo
 */*.gls
 */*.ist
+*/*.lof
 */*.log
 */*.out
 */*.pdf
