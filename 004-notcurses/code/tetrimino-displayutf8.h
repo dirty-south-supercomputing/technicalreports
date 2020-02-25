@@ -1,5 +1,5 @@
 // tidx is an index into tetriminos. yoff and xoff are relative to the
-// terminals's origin. returns colored north-facing tetrimino on a plane.
+// terminal's origin. returns colored north-facing tetrimino on a plane.
 static struct ncplane*
 tetrimino_plane(struct notcurses* nc, int tidx, int yoff, int xoff){
   const struct tetrimino* t = &tetriminos[tidx];
