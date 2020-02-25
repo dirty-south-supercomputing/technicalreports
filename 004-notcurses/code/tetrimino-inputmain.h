@@ -28,7 +28,7 @@ int main(void){
     }else if(key == NCKEY_LEFT || key == 'h'){
       ncplane_move_yx(minos[p], y, --x < 0 ? x = 0 : x);
     }else if(key == NCKEY_RIGHT || key == 'l'){
-      ncplane_move_yx(minos[p], y, ++x + ncplane_dim_x(minos[p]) > dimx ? x = dimx - ncplane_dim_x(minos[p]) : x);
+      ncplane_move_yx(minos[p], y, x = (x + ncplane_dim_x(minos[p]) > dimx ? x : x + 1));
     }else if(key == NCKEY_UP || key == 'k'){
       ncplane_move_yx(minos[p], --y < 0 ? y = 0 : y, x);
     }else if(key == NCKEY_DOWN || key == 'j'){
