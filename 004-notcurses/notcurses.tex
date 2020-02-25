@@ -1032,33 +1032,38 @@ operating system. I presume you can purchase cloud-based Timers as a Service
   \centering
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
-    \caption{First, a gradient on the selected piece.}
+    \caption{First, a gradient.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
-    \caption{Linear addition of space.}
+    \caption{Linear expansion.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient3.png}
-    \caption{Trigonometric layout.}
+    \caption{Trigonometry!}
   \end{minipage}\hfill
 \end{figure}
-
 \begin{figure}
-  \centering
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient4.png}
-    \caption{Box-drawing characters.}
+    \caption{Unicode Blocks.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient5.png}
-    \caption{Better box-drawing characters.}
+    \caption{Better blocks.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient6.png}
-    \caption{Accounting for aspect ratio. Not so bad\ldots.}
+    \caption{Better aspect.}
   \end{minipage}\hfill
 \end{figure}
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-displayutf8.h}
+\caption{Improving appearance with Unicode Block Elements (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-displayutf8}
+\end{listing}
+
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

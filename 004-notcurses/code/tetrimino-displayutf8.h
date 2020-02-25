@@ -10,7 +10,6 @@ tetrimino_plane(struct notcurses* nc, int tidx, int yoff, int xoff){
     size_t y = 0, x = 0;
     for(size_t i = 0 ; i < strlen(t->texture) ; ++i){
       if(t->texture[i] == '*'){
-        //const bool full = '*' == t->texture[(i + strlen(t->texture) / 2) % strlen(t->texture)];
         ncplane_cursor_move_yx(n, y, x);
         if(ncplane_putstr(n, "██") < 0){
           ncplane_destroy(n);
