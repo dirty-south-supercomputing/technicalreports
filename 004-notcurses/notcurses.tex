@@ -222,7 +222,7 @@ NCURSES as the go-to character graphics library for new applications (there is
 little value in porting existing applications to Notcurses, since an unchanged
 application wouldn't take advantage of its advanced features).
 
-While the X/OSI Curses specification is unlikely to ever go away (nor should
+While the X/Open Curses specification is unlikely to ever go away (nor should
 it, as a lowest-common-denominator interface to devices Notcurses is unlikely
 to ever support), I believe Notcurses to present a superior API and
 implementation for modern TUI applications.
@@ -244,6 +244,49 @@ The console ain't dead! Hack on, hax0rs.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Right, what's all this, then?}
+Character graphics, aka text mode, aka the display side of a terminal, is
+visualization that works with fonts rather than a pixel framebuffer\footnote{``Contones'', as raster graphics are known to printers.}
+or a vector canvas\footnote{Nothing keeps you from implementing character graphics
+with pixels or vectors, of course.}. There is furthermore an expectation that
+this font is a fixed-width one---that all rendered glyphs are integer multiples
+of some narrowest non-trivial glyph.
+
+Given the same display hardware,
+
+\begin{denseitemize}
+\item{Character graphics are usually strictly less powerful than pure raster graphics, and}
+\item{their lower effective resolution typically implies bandwidth requirements.}
+\end{denseitemize}
+
+A TUI (text user interface) is a holistic model, view, and controller implemented
+using character graphics. TUIs, like WIMP\footnote{Windows, icons, menus, pointers, a paradigm so pervasive that
+ Xerox PARC is remembered as perfect engineers defeated not by flesh and blood,
+but by evil rulers and spiritual powers. In too often goes unmentioned that the
+Alto and Star were as unusable as they were visionary\cite{lightningdealers}.
+This is of course still superior to Java, which isn't even visionary.} GUIs,
+are typically rectilinear applications, as opposed to line-oriented CLIs.
+
+Given the same interactive task\footnote{None of these relations are
+  fundamental, but arise from the reality of GUI toolkits. You can write ass
+  code in any interface.},
+
+\begin{denseitemize}
+\item{A TUI implementation is almost certainly a smaller memory and disk footprint than a GUI,}
+\item{a good TUI implementation might introduce less latency,}
+\item{a properly-done TUI implementation can often be significantly more portable.}
+\end{denseitemize}
+
+Of course, it can also be a big pile of character graphics shit.
+
+For over two decades, NCURSES (a free software implementation of the X/Open Curses
+specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for implementing
+TUIs.
+
+\begin{wrapfigure}{r}{0.5\linewidth}
+  \includegraphics[]{media/emacs-xerox.jpg}
+  \caption{Put not your trust in hackers singing idle hagiographies of Xerox PARC.}
+\end{wrapfigure} 
+
 \textbf{FIXME define character graphics, terminal, that good stuff}
 
 \newpage
