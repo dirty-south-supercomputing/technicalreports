@@ -20,9 +20,7 @@ tetrimino_plane(struct notcurses* nc, int tidx, int yoff, int xoff){
           return NULL;
         }
       }
-      if((x = ((x + 2) % cols)) == 0){
-        ++y;
-      }
+      y += ((x = ((x + 2) % cols)) == 0);
     }
   }
   return n;
