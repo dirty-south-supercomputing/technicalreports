@@ -719,7 +719,7 @@ is on the z-axis, the more it can impact these solutions:
     terminator, the foreground color is the color as calculated thus far. It is
     not possible to exhaust all intersecting planes without encountering some
     influence on the foreground color, since the standard plane intersects with
-    all display cells. If \texttt{CELL\_ALPHA\_HIGHCONTRAST} was in play, the
+    all display cells. If \texttt{CELL\_ALPHA\_HIGHCONTRAST} is in play, the
     calculated color is then blended to stand out against the calculated background
     color.}
 \item{The background color is determined in the same way as the foreground color,
@@ -1014,13 +1014,18 @@ operating system. I presume you can purchase cloud-based Timers as a Service
 
 \begin{figure}
   \centering
-  \begin{minipage}{0.45\textwidth}
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
+    \caption{First, a gradient on the selected piece.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.30\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
+    \caption{Linear addition of space.}
+  \end{minipage}
+  \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient1.png}
   \end{minipage}\hfill
-  \begin{minipage}{0.45\textwidth}
-    \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
-  \end{minipage}
-  \caption{A bit of space and color go a long way.}
+  \caption{Trigonometric layout.}
 \end{figure}
 
 % this basically just repeats -draw.h
