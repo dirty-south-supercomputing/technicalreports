@@ -21,7 +21,7 @@ int main(void){
       break;
     }else if(key == ' ' || key == '\t'){ // select previous/next
       reduce(minos, p);
-      p += ((key == ' ' ? (pcount - 1) : 1) % pcount);
+      p = (p + (key == ' ' ? (pcount - 1) : 1)) % pcount;
       ncplane_yx(minos[p], &y, &x);
     }else if(key == '('){ // rotate counterclockwise
     }else if(key == ')'){ // rotate clockwise

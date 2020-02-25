@@ -14,7 +14,7 @@
 \usepackage{fontspec}
 \usepackage[toc,nonumberlist,xindy]{glossaries}
 \usepackage{relsize}
-\setmonofont{Inconsolata}[Scale=MatchLowercase]
+\setmonofont{FreeMono}[Scale=MatchLowercase]
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
@@ -1060,6 +1060,10 @@ operating system. I presume you can purchase cloud-based Timers as a Service
 \end{figure}
 
 \begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-databox.h}
+\begin{minted}{C}
+
+\end{minted}
 \inputminted[]{C}{code/tetrimino-displayutf8.h}
 \caption{Improving appearance with Unicode Block Elements (from~\texttt{tetrimino-input.c}).}
 \label{list:tetrimino-displayutf8}
@@ -1074,7 +1078,6 @@ operating system. I presume you can purchase cloud-based Timers as a Service
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
   internals of kernel tty/pty devices, session groups, signal distribution,
   \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
-
 \textbf{FIXME FIXME other stuff}
 \subsection{Escape codes ANSI and otherwise}
 \label{sec:escapes}
