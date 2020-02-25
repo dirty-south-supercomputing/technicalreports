@@ -47,8 +47,9 @@ Almost every Notcurses program will take the same general form, an \textit{event
 
 We could load the pieces as images from files, but given the simplicity of the
 sprites, it feels simpler to just hardcode them in our source. I don't want to
-leave my text editor\footnote{Vim.} to muck with images when we can do everything
-in fewer than ten lines, even in a naïve and wasteful encoding (Listing~\ref{list:tetrimino-data}).
+leave my text editor\footnote{Vim. See Figure~\ref{fig:xeroxemacs}.} to muck
+with images when we can do everything in fewer than ten lines, even in a naïve
+and wasteful encoding (Listing~\ref{list:tetrimino-data}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-data.h}
@@ -275,7 +276,7 @@ its expected colors (Figure~\ref{fig:tetrimino-trans}).
 \begin{figure}[!htbp]
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient6.png}
-    \caption{Better aspect.}
+    \caption{Adjusting for cell aspect ratio.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient7.png}

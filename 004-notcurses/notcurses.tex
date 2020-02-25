@@ -20,7 +20,6 @@
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
-\usepackage{wrapfig}
 \usepackage{minted}
 \usepackage{csquotes}
 \usepackage{polyglossia}
@@ -98,12 +97,9 @@ A Guide to TUIs and Character Graphics\thanks{
     inside the die.\\
   \vspace{.25in}
     For Professor Richard Vuduc, who
-    demonstrates serenity in brilliance, and kindness in dominance.\\
-  \vspace{.25in}
-    For David Foster Wallace, who urged us with nothing but smiles on to great and greater demonstrations of effort, so that after we'd got our third and final wind and had to vomit, there was little inside to vomit and the spasms passed quickly and an east breeze blew cooler past us and we felt clean and could breathe\ldots\\
-    and who taught us that talent is sort of a dark gift, that talent is its own expectation: it is there from the start and either lived up to or lost. Who taught us How to Win, Later.}\\
+    demonstrates serenity in brilliance, and kindness in dominance.\\}
 
-  \vspace{1in}\ldots but mostly for Emily, a better version of me.
+  \vspace{1in}\ldots but mostly for Emily.
 \end{center}
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,10 +257,11 @@ Given the same display hardware,
 A TUI (text user interface) is a holistic model, view, and controller implemented
 using character graphics. TUIs, like WIMP\footnote{Windows, icons, menus, pointers, a paradigm so pervasive that
  Xerox PARC is remembered as perfect engineers defeated not by flesh and blood,
-but by evil rulers and spiritual powers. In too often goes unmentioned that the
+but by evil rulers and spiritual powers. It too often goes unmentioned that the
 Alto and Star were as unusable as they were visionary\cite{lightningdealers}.
 This is of course still superior to Java, which isn't even visionary.} GUIs,
-are typically rectilinear applications, as opposed to line-oriented CLIs.
+freely move the cursor around their rectilinear display, as opposed to
+line-oriented CLIs and their ineluctable marches through the scrolling region.
 
 Given the same interactive task\footnote{None of these relations are
   fundamental, but arise from the reality of GUI toolkits. You can write ass
@@ -280,14 +277,64 @@ Of course, it can also be a big pile of character graphics shit.
 
 For over two decades, NCURSES (a free software implementation of the X/Open Curses\cite{cursesosi}
 specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for implementing
-TUIs.
+TUIs. Its maintainter (and author, in large part), Thomas E.\ Dickey,
+exemplifies conservative and fastidious stewardship. Perfectly lovely TUIs can
+be built using NCURSES, as seen in Figure~\ref{fig:ncurses-tuis}.
+
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[width=.4\linewidth]{media/tui-mapscii.png}
+    \hfill
+    \includegraphics[width=.4\linewidth]{media/tui-growlight.png}
+    \caption[Non-NCURSES TUIs: Mapscii and Growlight.]{\texttt{mapscii}, a
+    node.js application, blew my mind when I first saw it. The high resolution
+    is achieved by using Braille characters, trading away some color control.
+    \texttt{growlight} began life as an NCURSES C program, but was ported to
+    Notcurses in 2019.}
+  \label{fig:notncurses-tuis}
+\end{figure}
+
+\begin{figure}[!htbp]
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[width=.4\linewidth]{media/tui-ncmpcpp.png}
+    \hfill
+    \includegraphics[width=.4\linewidth]{media/tui-omphalos.png}
+    \caption[NCURSES TUIs: Ncmpcpp and Omphalos.]
+    {\texttt{ncmpcpp}, a \CC application
+      that has driven my Music Player Daemon since 2008 or so.
+      \texttt{omphalos}, a C application
+      written using NCURSES in its extended mode.}
+  \label{fig:ncurses-tuis}
+\end{figure}
+
+Implementing a TUI will usually require, at a minimum\footnote{And, perhaps
+  most terrifyingly, design.}:
+\begin{denseitemize}
+\item{Receiving input from user devices, including keyboards and mice,}
+\item{some manner of user configuration widgets (menus, etc.),}
+\item{watching for some other event(s) from the system, and},
+\item{juggling these various components without wastefully polling, nor
+       introducing undue latency, and enforcing safe synchronized access to
+       the graphics interface.}
+\end{denseitemize}
+
+This text has two goals:
+\begin{denseitemize}
+\item{To provide a firm footing for design and implementation of character
+    graphics and TUIs, elucidating the dimensions of design, and difficulties
+    to avoid, and}
+\item{to serve as ``narrative reference'' for my Notcurses library, and as
+    a starting place for newcomers.}
+\end{denseitemize}
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.5\linewidth]{media/emacs-xerox.jpg}
   \caption{Put not your trust in hackers singing idle hagiographies of Xerox PARC.}
+  \label{fig:xeroxemacs}
 \end{figure}
-
-\textbf{FIXME define character graphics, terminal, that good stuff}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1157,16 +1204,16 @@ range of Notcurses capabilities, and its source code is most instructive.
     \caption{``Highcon''. High-contrast text.}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
-    \includegraphics[width=1\linewidth]{media/demo-box.png}
-    \caption{``Box''. Lerped perimeters. Precise Unicode. Color sweeps.}
+    \includegraphics[width=1\linewidth]{media/demo-grid.png}
+    \caption{``Grid''. Max RGB density.}
   \end{minipage}\hfill
 \end{figure}
 
 \begin{figure}
   \centering
   \begin{minipage}{0.45\textwidth}
-    \includegraphics[width=1\linewidth]{media/demo-grid.png}
-    \caption{``Grid''. Max RGB density.}
+    \includegraphics[width=1\linewidth]{media/demo-box.png}
+    \caption{``Box''. Lerped perimeters. Precise Unicode. Color sweeps.}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demo-sliders.png}
@@ -1288,12 +1335,13 @@ four decades.
 \end{figure}
 
 \begin{figure}
-  \centering
   \begin{minipage}{0.5\textwidth}
+  \centering
     \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
     \caption{Digital Equipment Corporation terminals of the 1970s and 1980s.}
   \end{minipage}\hfill
   \begin{minipage}{0.4\textwidth}
+  \centering
     \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
     \caption[VT220 glyph dump.]{The VT220's glyphs from a ROM dump. VT100 implemented most of the
       first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
