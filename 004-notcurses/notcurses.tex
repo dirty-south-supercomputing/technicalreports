@@ -90,10 +90,10 @@ A Guide to TUIs and Character Graphics\thanks{
 \listoffigures
 
 \section{Foreward}
-Copyright 2020 Nick Black.
+Copyright © 2020 Nick Black.
 
-\small{This edition of \textit{HTPwNotcurses} corresponds to version 1.2.0 of the Notcurses
-library, released 2020-02-17.
+\small{This edition of \textit{HTPwNotcurses} corresponds to version 1.2.2 of the Notcurses
+library, released 2020-02-24.
 
 Notcurses can be downloaded from
 \url{https://github.com/dankamongmen/notcurses}.
@@ -111,13 +111,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-Tetris is property of The Tetris Company, LLC.
-
-\textit{Hackers (1995)} is property of United Artists Pictures.
-\textit{House of Leaves (2000)} is property of Penguin Random House.
-``Ruins with Rain'' is property of Mark Ferrari/Living Worlds.
-``WarMECH'' is property of Square Enix Co Ltd.
-``Luigi'' is property of Nintendo of America.
+Tetris © The Tetris Company, LLC.
+\textit{Hackers (1995)} © United Artists Pictures.
+\textit{House of Leaves (2000)} © Penguin Random House.
+``Ruins with Rain'' © Mark Ferrari/Living Worlds.
+``Final Fantasy'' © Square Enix Co Ltd.
+``Super Mario Bros.'' © Nintendo of America.
+``Ninja Gaiden'' © Koei Tecmo America.
+``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
 
 \subsection{¡Peligro!}
 
@@ -189,7 +190,7 @@ The console ain't dead! Hack on, hax0rs.
   \textit{---February 2020, Atlanta}
 \end{flushright}
 
-\vspace{1in}
+\vfill
 
 \begin{center}
 \includegraphics[width=1\linewidth]{media/widechars.png}
@@ -276,14 +277,15 @@ int ncdirect_bg_default(struct ncdirect* n);
 \end{minted}
 \end{listing}
 
-While direct mode does not offer any means for moving the cursor in
-two-dimensional space, it does provide helpers for determining the terminal
-geometry:
+Direct mode allows the cursor to be moved in two-dimensional space, and
+provides helpers for determining the terminal geometry. Either \texttt{y} or
+\texttt{x} may be specified as -1 to maintain location on the associated axis.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
 int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
+int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
 \end{minted}
 \end{listing}
 
@@ -1227,7 +1229,7 @@ range of Notcurses capabilities, and its source code is most instructive.
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demo-xray.png}
-    \caption{``X-Ray''. Streaming of video.
+    \caption{``X-Ray''. Streaming video.
        Very large planes (the scrolling plane at the bottom is much larger than the visible screen).}
   \end{minipage}
 \end{figure}
@@ -1236,11 +1238,13 @@ range of Notcurses capabilities, and its source code is most instructive.
   \centering
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demoeagle2.png}
-    \caption{``Eagle'', early. Parallax scrolling on large image.}
+    \caption{``Eagle'', first phase.\\
+      Parallax scrolling on large image.}
   \end{minipage}\hfill
   \begin{minipage}{0.45\textwidth}
     \includegraphics[width=1\linewidth]{media/demoeagle1.png}
-    \caption{``Eagle'', late. Sprites. Zoomed image.}
+    \caption{``Eagle'', second phase.\\
+      Sprites. Zoomed image.}
   \end{minipage}
 \end{figure}
 
