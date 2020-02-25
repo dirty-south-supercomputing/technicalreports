@@ -46,7 +46,7 @@ $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CA
 $(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, databox displayutf8 drawcircle inputmain switch))
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses -lm
 
-$(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, draw main mouse switch))
+$(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, display draw main mouse switch))
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
 
 $(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c

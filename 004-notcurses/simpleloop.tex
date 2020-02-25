@@ -96,16 +96,12 @@ take away from Listing~\ref{list:tetrimino-display}:
       supplied to \texttt{ncplane\_} functions are relative to the plane,
       \textit{not} the terminal. Coordinates can be translated among planes
       using \texttt{ncplane\_translate()}.}
-\item{You're encouraged to \texttt{assert()} on the return value of
-      \texttt{ncplane\_cursor\_move\_yx()}. This function can fail, but
-      only due to coder blunder\footnote{The last such call \textit{will} fail
-        here, but who cares? We're not actually drawing any further.}.}
 \item{We only have ASCII characters in the textures right now. Were we to
       introduce any multibyte UTF-8---and we may well do so, for e.\ g.\ the
       Box Drawing Characters---the \texttt{strlen()} we size our rows by here
       would no longer fly. We'd need use \texttt{mbstowcs()}, or redefine the
       textures as \texttt{wchar\_t} arrays and use \texttt{wcslen()},
-      or change up our encoding. \textfrench{\textit{Rien n'est simple, mais tout est facile\ldots}}}
+      or change up our encoding\footnote{We go with the third option, as you'll see.}. \textfrench{\textit{Rien n'est simple, mais tout est facile\ldots}}}
 \end{denseitemize}
 
 \begin{listing}[!htbp]
@@ -221,7 +217,7 @@ inputs against a set of periodic requirements; let's refresh ourselves:
   CPU\ldots\ which probably isn't a problem here, but isn't exactly a great foundation
   on which to build our cathedral, \textfrench{\textit{n'est-ce pas?}}.}
 \item{Two threads enter, one thread \texttt{exit()}s (hehehehe). We block on
-    input in our main thread. Another thread runs a ``timer wheel''---for this,
+    async I/O in our main thread. Another thread runs a timer wheel---for this,
     a loop around a \texttt{clock\_nanosleep()} will suffice. They
     lock against one another to avoid corrupting the screen or otherwise
     embarassing ourselves. The solution reeks of Java, but will work well

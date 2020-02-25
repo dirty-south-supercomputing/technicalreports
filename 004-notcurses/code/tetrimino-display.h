@@ -9,14 +9,11 @@ tetrimino_plane(struct notcurses* nc, int tidx, int yoff, int xoff){
     ncplane_set_fg(n, t->color);
     size_t y = 0, x = 0;
     for(size_t i = 0 ; i < strlen(t->texture) ; ++i){
-      if(ncplane_putsimple(n, t->texture[i]) < 0){
+      if(ncplane_putsimple_yx(n, y, x, t->texture[i]) < 0){
         ncplane_destroy(n);
         return NULL;
       }
-      if((x = (x + 1) % cols) == 0){
-        ++y;
-        ncplane_cursor_move_yx(n, y, x);
-      }
+      y += ((x = (x + 1) % cols) == 0);
     }
   }
   return n;
