@@ -159,8 +159,8 @@ Tetris © The Tetris Company, LLC.
 
 The code written for this book attempts to minimize use of vertical space
 without eliding error checking (or crossing into the realms of the grotesque).
-Error handling is a fundamental slog of C programming that
-complicates reliable applications.
+Error handling is a fundamental slog of C programming, one that
+inevitably complicates reliable applications.
 
 \textbf{These listings cannot be considered examples of good general style\ldots but they \textit{do} get the job done.}
 
@@ -251,7 +251,7 @@ Given the same display hardware,
 
 \begin{denseitemize}
 \item{Character graphics are usually strictly less powerful than pure raster graphics, and}
-\item{their lower effective resolution typically implies bandwidth requirements.}
+\item{their lower effective resolution typically implies lower bandwidth requirements.}
 \end{denseitemize}
 
 A TUI (text user interface) is a holistic model, view, and controller implemented
@@ -263,13 +263,14 @@ This is of course still superior to Java, which isn't even visionary.} GUIs,
 freely move the cursor around their rectilinear display, as opposed to
 line-oriented CLIs and their ineluctable marches through the scrolling region.
 
-Given the same interactive task\footnote{None of these relations are
-  fundamental, but arise from the reality of GUI toolkits. You can write ass
-  code in any interface.},
+Given the same interactive task\footnote{These relations are not
+fundamental, but emerge from the grim meathook realities of GUI toolkits.
+
+You can write ass code in any interface.},
 
 \begin{denseitemize}
 \item{A TUI implementation is almost certainly a smaller memory and disk footprint than a GUI,}
-\item{a good TUI implementation might introduce less latency,}
+\item{a good TUI implementation might introduce less latency, and}
 \item{a properly-done TUI implementation can often be significantly more portable.}
 \end{denseitemize}
 
@@ -334,6 +335,52 @@ This text has two goals:
 \centering \includegraphics[width=.5\linewidth]{media/emacs-xerox.jpg}
   \caption{Put not your trust in hackers making a fetish of Xerox PARC.}
   \label{fig:xeroxemacs}
+\end{figure}
+
+Cell graphics are primarily the realm of \textit{terminals}, which for the
+purposes of this book encompass any means by which input devices act to provide
+input to a some process generating glyph-based output to a display. This
+includes hardware terminals (inputs integrated with displays, connected to a
+computer as a unit), operating system consoles (text-mode interfaces operating
+with the graphics engine directly connected to the terminal driver), terminal
+multiplexers (tools like \texttt{screen}, \texttt{tmux}, and \texttt{mosh},
+providing a memory-persistent virtual terminal with which other terminals can
+interact), and terminal emulators (applications which present a virtual
+terminal atop the shard input and raster output methods of a graphical user
+environment). There's some vagueness and variety involved with these terms.
+
+At its heart, a terminal is two buffers: an input buffer to collect
+user-generated events (possibly from multiple devices), and an output buffer to
+be processed and displayed. The buffers can be modeled as byte streams, mutating
+the output at the time of their display (in contrast to e.g.\ a framebuffer,
+where the entirety of the screen is present at any given time). The earliest
+terminals were electromechanical teletypes, reproducing their input as
+line-based print on paper. These gave rise to ``dumb terminals'' (cathode-ray
+displays with a scrolling rectilinear output area). ``Smart terminals'' followed,
+with the ability to move freely within their display area, and also to extract
+and act upon ``control codes'' embedded in the output stream. The text modes
+of the first video cards were designed around the capabilities of these smart
+terminals. This brings us to the present, wherein high-powered LED
+displays have their pixels summoned up and ordered into formations suitable
+for the reconstruction of 1970s technology (a history of terminals is presented
+in Appendix~\ref{sec:terminals}).
+
+The machine on which I'm typing this contains a
+TU104 GPU consisting of over thirteen billion 12nm-process transistors,
+rendering its output to a 3440x1440 (almost five megapixel) display. Deep
+within its silicon heart remains a VGA 80x25 text mode engine, inherited
+largely unchanged from the EGA, the CGA, the IBM Monochrome Display Adapter,
+and before that dumb terminals\footnote{As early as 1971, the block-oriented
+IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
+
+
+I primarily use this modern marvel to drive terminal emulators of 80 columns.
+
+\vfill
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=.6\linewidth]{media/ibm3270.jpg}
+\caption{A programmer at her IBM 3270.}
 \end{figure}
 
 \newpage
@@ -1243,6 +1290,7 @@ range of Notcurses capabilities, and its source code is most instructive.
 
 \begin{appendices}
 \section{A brief history of character graphics}
+\label{sec:terminals}
 The earliest terminals making use of glyphs\footnote{Konrad Zuse's Z3, generally
  considered the first programmable digital computer, communicated with its
 operator through a matrix of blinkenlights and a not unsteampunkish keyboard that resembled the
