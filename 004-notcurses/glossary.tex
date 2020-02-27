@@ -551,10 +551,35 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
   name={wide character},
   description={This has at least two distinct meanings:
 \begin{denseitemize}
-\item \texttt{wchar\_t}: A data type in C and \CC. FIXME
-\item \textbf{Wide East Asian characters}: FIXME
-\end{denseitemize}
+\item \texttt{wchar\_t}: A data type in C (where it is an alias of an integral
+  type) and \CC (where it is a fundamental type). \texttt{wchar\_t} by the
+  Standard ought be ``large enough to represent any supported character code
+  point''. The Redmond brain trust turned around and helpfully defined
+  \texttt{wchar\_t} to be 16 bits on the UTF-16-blighted Microsoft Windows,
+  where it cannot represent code points beyond the Basic Multilingual Plane.
+  Use \texttt{char32\_t} if you need a type that can represent any Unicode
+  point. Unfortunately, standard C interfaces such as \texttt{wcwidth(3)} want
+  \texttt{wchar\_t}. A ``wide character'' in the C/\CC context means ``a character
+  from a set which cannot be represented using the \texttt{char} type.'' Nothing is implied
+  about the column width or the encoded byte length of a given character.
+\item \textbf{Wide East Asian characters}: Defined in Unicode Standard Annex \#11.
+    Every Unicode character has as its \textit{default width} property one of
+    six values: \textit{Ambiguous}, \textit{Fullwidth} (zenkaku),
+    \textit{Halfwidth} (hankaku), \textit{Narrow}, \textit{Wide}, and \textit{Neutral}
+    aka ``Not East Asian''. All six resolve to either ``narrow'' or ``wide'', with
+    the resolution depending on context. All fullwidth characters are wide, and
+    all halfwidth characters are narrow. Traditionally, ``narrow'' characters
+    occupy half an \gls{em} in East Asian writing, but it is more frequent on
+    international displays that ``wide'' ones occupy two ems.
+\end{denseitemize}}
 }
+
+\newglossaryentry{em}
+{
+  name={em},
+  description={A typographic term referring to the width of a glyph. It is
+    equal to the current point size. It derives its name from the width of a
+    capital M, which was often the widest glyph in a typeface.}
 }
 
 \newglossaryentry{sgr}
