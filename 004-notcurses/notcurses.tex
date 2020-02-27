@@ -117,7 +117,7 @@ A Guide to TUIs and Character Graphics\thanks{
 
 \newpage
 
-\vfill
+\vspace*{1.25in}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=1\linewidth]{media/ibm3270.jpg}
@@ -125,7 +125,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \end{figure}
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\vspace*{1in}
 \section{Foreward}
 Copyright © 2020 Nick Black.
 
@@ -157,6 +157,7 @@ Tetris © The Tetris Company, LLC.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
 
+\vspace*{1in}
 \subsection{¡Peligro!}
 
 The code written for this book attempts to minimize use of vertical space
@@ -179,13 +180,13 @@ inevitably complicates reliable applications.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagenumbering{arabic}
 
-\section{Introduction}
 \epigraph{Our fine arts were developed, their types and uses were established, in times
 very different from the present, by men whose power of action upon things was
 insignificant in comparison with ours. But the amazing growth of our
 techniques, the adaptability and precision they have attained, the ideas and
 habits they are creating, make it a certainty that profound changes are
 impending in the ancient craft of the Beautiful.}{Paul Valéry}
+\section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
 rejected from NCURSES. The first commit was pushed 2019-11-16. I started
@@ -508,7 +509,7 @@ eliminate this nonsense.
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
-\caption[\texttt{hol-formatter} as run on OCRd input.]{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with pleasantly solid results.}
+\caption[\texttt{hol-formatter} as run on OCRd input.]{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with solid results.}
 \label{fig:houseout}
 \end{figure}
 
@@ -983,6 +984,7 @@ existing monitor.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{simpleloop.tex}
+\pagebreak
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -994,6 +996,8 @@ existing monitor.
 \textbf{FIXME FIXME other stuff}
 \subsection{Escape codes ANSI and otherwise}
 \label{sec:escapes}
+My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
+\textbf{FIXME diagrams!}
 
 In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
 non-destructive backspace to produce composed characters from spacing ones.

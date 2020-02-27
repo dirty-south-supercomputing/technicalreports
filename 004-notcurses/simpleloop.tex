@@ -3,11 +3,11 @@ I'm not typically a fan of example-based instruction, preferring to build things
 up from formal axioms. Following chapters will effect such an approach. First,
 however, let's work a semi-substantial example covering a varied set of
 Notcurses routines. We're going to create seven planes, one for each kind
-of tetrimino, and map an image file to the background. We'll add mouse and
-keyboard support for switching between the pieces, rotating them, and sliding
-them around the screen. Finally, we'll implement collision detection, and
-fluid handling of screen resizings. In the course of doing so, you'll learn
-several important Notcurses techniques:
+of tetrimino, and map an image file to the background. We'll add support for
+switching between the pieces, rotating them, and sliding them around the
+screen. Finally, we'll deal with collisions, and fluid handling of
+screen resizings. In the course of doing so, you'll learn several important
+Notcurses techniques:
 
 \begin{denseitemize}
 \item{Drawing and rotating these tetriminos will involve colors, gradients, and
@@ -43,7 +43,7 @@ Almost every Notcurses program will take the same general form, an \textit{event
 \item{The process terminates.}
 \end{denseitemize}
 
-\subsection{Example: moving tetriminos with keyboard+mouse}
+\subsection{Example: moving tetriminos with a keyboard}
 
 We could load the pieces as images from files, but given the simplicity of the
 sprites, it feels simpler to just hardcode them in our source. I don't want to
@@ -73,7 +73,7 @@ symmetric divisions of the screen, as you'll see.
 \end{figure}
 
 We use two display rows per game row but four display columns per game column.
-This reflects what are, at least on my display and font, pretty much a 0.5
+This reflects what is, at least on my display and font, pretty much a 0.5
 aspect ratio (Figure~\ref{fig:aspectratio}).
 
 \begin{listing}[!htbp]
@@ -184,7 +184,7 @@ a blocking fashion from our main thread. Let's add the code to track a selected
 piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-input}).
 The space bar will advance among the pieces in one direction,
 and Tab in the other. The arrow keys and vi keys will translate the selected
-piece in four directions. The parentheses will rotate the piece half a radian
+piece in four directions. The parentheses will rotate the piece $\frac{\pi}{2}$ radians
 clockwise and counterclockwise.
 
 \begin{listing}[!htbp]
@@ -248,7 +248,7 @@ Chapter~\ref{sec:rendering} how we solve for each coordinate of the display
 grid: the EGC is a dimension distinct from the coloring channels. Each of the
 planes we create is rectilinear, with the piece drawn using Unicode
 \texttt{U+2588 FULL BLOCK}, and the other cells left unwritten. The foreground
-for our pieces is a RGB color, and for the other cells is the default terminal
+for our pieces is an RGB color, and for the other cells is the default terminal
 color. Upon intersecting with a lower plane, the lower plane's EGC is chosen for
 rendering, but the foreground color is default terminal color (white in my
 example). So the piece underneath flipping to white while another piece is
@@ -314,20 +314,41 @@ of multimedia in Notcurses.
 \label{list:tetrimino-background}
 \end{listing}
 
+To rotate the unselected pieces, we'll go ahead and spawn a POSIX thread. We'll
+thus need lock against piece selection.
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-thread.h}
+\caption{Spin them doggies (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-thread}
+\end{listing}
+
+As a final touch, let's slide a dark, translucent plane underneath the
+selected piece, making it more visible. We create this plane prior to the
+pieces, ensuring it's below all of them (but above the background). We set it
+black, and its alpha to \texttt{CELL\_ALPHA\_BLEND}. This way it won't entirely
+block out the background underneath the selected piece, but it will dim it,
+its black blending into the grey tones underneath. The piece is unaffected.
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-box.h}
+\caption{Set the selection off with a coaster (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-box}
+\end{listing}
+
 \begin{figure}[!htbp]
   \centering
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-bg.png}
-    \caption{Background image.}
+    \caption{Background image, greyscaled.}
     \label{fig:tetrimino-bg}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-bg.png}
-    \caption{....}
+    \caption{Opaque highlight box.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-bg.png}
-    \caption{....}
+    \caption{Rotation thread.}
   \end{minipage}\hfill
 \end{figure}
-
