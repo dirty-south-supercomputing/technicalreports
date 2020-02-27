@@ -16,4 +16,5 @@ static const int COLS_PER_GCOL = 4;
 #include "tetrimino-switch.h"
 #include "tetrimino-background.h"
 #include "tetrimino-box.h"
+#include "tetrimino-inputcore.h"
 #include "tetrimino-inputmain.h"

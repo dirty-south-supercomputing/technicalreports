@@ -6,10 +6,9 @@ int main(void){
   if((nc = notcurses_init(NULL, stdout)) == NULL){
     return EXIT_FAILURE;
   }
-  const size_t pcount = sizeof(tetriminos) / sizeof(*tetriminos);
   int dimy, dimx, y, x, p = 0;
   notcurses_term_dim_yx(nc, &dimy, &dimx);
-  struct ncplane* minos[pcount], *coaster;
+  struct ncplane* minos[TETRIMINO_COUNT], *coaster;
   if(!(coaster = makebox(nc)) || draw_tetriminos(nc, minos, dimy, dimx)){
     notcurses_stop(nc);
     return EXIT_FAILURE;
@@ -21,28 +20,9 @@ int main(void){
 void* marsh = NULL; // FIXME
   if(!failed && (failed = pthread_create(&tid, NULL, rotator_thread, marsh)) == 0){
     while((failed |= (highlight(minos, p) || notcurses_render(nc))) == 0){
-      ncinput ni; // necessary for mouse
-      char32_t key = notcurses_getc_blocking(nc, &ni);
-      if(key == (char32_t)-1){
-        failed = true;
-      }else if(key == 'q'){
+      failed |= handle_input(nc, minos, dimy, dimx, &y, &x, &p);
+      if(p < 0){
         break;
-      }else if(key == ' ' || key == '\t'){ // select previous/next
-        reduce(minos, p);
-        p = (p + (key == ' ' ? (pcount - 1) : 1)) % pcount;
-        ncplane_yx(minos[p], &y, &x);
-      }else if(key == '('){ // rotate counterclockwise
-      }else if(key == ')'){ // rotate clockwise
-      }else if(key == NCKEY_LEFT || key == 'h'){
-        ncplane_move_yx(minos[p], y, --x < 0 ? x = 0 : x);
-      }else if(key == NCKEY_RIGHT || key == 'l'){
-        ncplane_move_yx(minos[p], y, x = (x + ncplane_dim_x(minos[p]) > dimx ? x : x + 1));
-      }else if(key == NCKEY_UP || key == 'k'){
-        ncplane_move_yx(minos[p], --y < 0 ? y = 0 : y, x);
-      }else if(key == NCKEY_DOWN || key == 'j'){
-        ncplane_move_yx(minos[p], ++y + 2 > dimy ? y = dimy - 2 : y, x);
-      }else if(nckey_mouse_p(key)){
-        failed = handle_mouse_event(nc, &ni);
       }
     }
     void* result;

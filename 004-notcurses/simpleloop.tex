@@ -181,16 +181,16 @@ good ol' circle will work on any sufficient radius
 
 Since there's nothing else going on, it's trivial to process \texttt{stdin} in
 a blocking fashion from our main thread. Let's add the code to track a selected
-piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-input}).
+piece, visually highlight it, and process input (Listing~\ref{list:tetrimino-inputcore}).
 The space bar will advance among the pieces in one direction,
 and Tab in the other. The arrow keys and vi keys will translate the selected
 piece in four directions. The parentheses will rotate the piece $\frac{\pi}{2}$ radians
 clockwise and counterclockwise.
 
 \begin{listing}[!htbp]
-\inputminted[]{C}{code/tetrimino-inputmain.h}
-\caption{Handling input and highlighting a selection (from~\texttt{tetrimino-input.c}).}
-\label{list:tetrimino-input}
+\inputminted[]{C}{code/tetrimino-inputcore.h}
+\caption{Putting it all together (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-inputcore}
 \end{listing}
 
 Of course, when there's no other activity, things are easy. Quite often, we'll
@@ -352,3 +352,9 @@ its black blending into the grey tones underneath. The piece is unaffected.
     \caption{Rotation thread.}
   \end{minipage}\hfill
 \end{figure}
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-inputmain.h}
+\caption{Putting it all together (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-inputmain}
+\end{listing}
