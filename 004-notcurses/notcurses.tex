@@ -112,7 +112,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \phantomsection
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
-%\listoflistings
+\listoflistings
 \listoftables
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1078,8 +1078,7 @@ int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes)
 // of the plane will not be changed.
 int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
 \end{minted}
-\caption{Staining allows one cellular plane to be changed over a region,
-         holding the remainder constant.}
+\caption{Staining allows one cellular dimension to be changed over a region.}
 \label{list:stain}
 \end{listing}
 
@@ -1241,6 +1240,7 @@ properties of various components are described at length therein.
   \centering
   \includegraphics[width=.75\linewidth]{media/terminfocmp.png}
   \caption{Inspecting the terminfo database.}
+  \label{fig:terminfocmp}
 \end{figure}
 
 Screenshots were taken using \texttt{scrot} 1.2 and a 80x45
