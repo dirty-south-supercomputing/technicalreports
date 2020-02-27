@@ -360,28 +360,28 @@ interact), and terminal emulators (applications which present a virtual
 terminal atop the shard input and raster output methods of a graphical user
 environment). There's some vagueness and variety involved with these terms.
 
-At its heart, a terminal is two buffers: an input buffer to collect
-user-generated events (possibly from multiple devices), and an output buffer to
-be processed and displayed. The buffers can be modeled as byte streams, mutating
-the output at the time of their display (in contrast to e.g.\ a framebuffer,
-where the entirety of the screen is present at any given time). The earliest
-terminals were electromechanical teletypes, reproducing their input as
-line-based print on paper. These gave rise to ``dumb terminals'' (cathode-ray
-displays with a scrolling rectilinear output area). ``Smart terminals'' followed,
-with the ability to move freely within their display area, and also to extract
-and act upon ``control codes'' embedded in the output stream. The text modes
-of the first video cards were designed around the capabilities of these smart
-terminals. This brings us to the present, wherein high-powered LED
-displays have their pixels summoned up and ordered into formations suitable
-for the reconstruction of 1970s technology (a history of terminals is presented
-in Appendix~\ref{sec:terminals}).
+At its heart, a terminal is a line discipline plus two buffers: an input buffer
+to collect user-generated events (possibly from multiple devices), and an
+output buffer to be processed and displayed. The buffers can be modeled as byte
+streams, mutating the output at the time of their display (in contrast to e.g.\
+a framebuffer, where the entirety of the screen is present at any given time).
+The earliest terminals were electromechanical teletypes, reproducing their
+input as line-based print on paper. These gave rise to ``dumb terminals''
+(cathode-ray displays with a scrolling rectilinear output area). ``Smart
+terminals'' followed, with the ability to move freely within their display
+area, and also to extract and act upon ``control codes'' embedded in the output
+stream. The text modes of the first video cards were designed around the
+capabilities of these smart terminals. This brings us to the present, wherein
+high-powered LED displays have their pixels summoned up and ordered into
+formations suitable for the reconstruction of 1970s technology (a history of
+terminals is presented in Appendix~\ref{sec:terminals}).
 
 The machine on which I'm typing this contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
 within its silicon heart remains a VGA 80x25 text mode engine, inherited
 largely unchanged from the EGA, the CGA, the IBM Monochrome Display Adapter,
-and before that dumb terminals\footnote{As early as 1971, the block-oriented
+and before that smart terminals\footnote{As early as 1971, the block-oriented
 IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
 
