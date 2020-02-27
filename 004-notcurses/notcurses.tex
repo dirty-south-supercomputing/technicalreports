@@ -12,7 +12,7 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{parskip}
-%\usepackage[section]{placeins}
+\usepackage[section]{placeins}
 \usepackage{epigraph}
 \usepackage{sourcecodepro}
 \usepackage{fontspec}
@@ -955,7 +955,15 @@ by these routines.
 
 Each subsequent range of undamaged cells on a line can be skipped over with
 cursor movements, but as the skip length approaches 1, it becomes less and
-less advantageous to do so.
+less advantageous to do so. Rendering performance can be very roughly
+categorized as inversely proportional to the product of:
+
+\begin{denseitemize}
+\item{color changes across the rendered screen,}
+\item{planar depth before an opaque glyph and background are locked in,}
+\item{number of UTF-8 bytes composing the rendered glyphs, and}
+\item{screen geometry.}
+\end{denseitemize}
 
 With these buffers in hand, \texttt{notcurses\_render()} completes its task by
 writing them to the terminal. This almost certainly means copying
@@ -979,6 +987,78 @@ be able to render notcurses without user-perceptible latency. On a powerful
 desktop with non-pathological output, it's easy to render in excess of
 ten thousand frames per second, far beyond the refresh capabilities of any
 existing monitor.
+
+\subsection{Statistics}
+
+notcurses tracks statistics across its operation, and a snapshot can be
+acquired using the \texttt{notcurses\_stats()} function. This function cannot
+fail.
+
+\begin{listing}
+\begin{minted}{C}
+typedef struct ncstats {
+  // purely increasing stats
+  uint64_t renders;          // number of successful notcurses_render() runs
+  uint64_t failed_renders;   // number of aborted renders, should be 0
+  uint64_t render_bytes;     // bytes emitted to ttyfp
+  int64_t render_max_bytes;  // max bytes emitted for a frame
+  int64_t render_min_bytes;  // min bytes emitted for a frame
+  uint64_t render_ns;        // nanoseconds spent in notcurses_render()
+  int64_t render_max_ns;     // max ns spent in notcurses_render()
+  int64_t render_min_ns;     // min ns spent in successful notcurses_render()
+  uint64_t cellelisions;     // cells we elided entirely thanks to damage maps
+  uint64_t cellemissions;    // cells we emitted due to inferred damage
+  uint64_t fgelisions;       // RGB fg elision count
+  uint64_t fgemissions;      // RGB fg emissions
+  uint64_t bgelisions;       // RGB bg elision count
+  uint64_t bgemissions;      // RGB bg emissions
+  uint64_t defaultelisions;  // default color was emitted
+  uint64_t defaultemissions; // default color was elided
+
+  // current state -- these can decrease
+  uint64_t fbbytes;          // total bytes devoted to all active framebuffers
+  unsigned planes;           // number of planes currently in existence
+} ncstats;
+
+// Acquire an atomic snapshot of the notcurses object's stats.
+void notcurses_stats(struct notcurses* nc, ncstats* stats);
+
+// Reset all cumulative stats (immediate ones, such as fbbytes, are not reset).
+void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
+\end{minted}
+\caption{Notcurses exports a comprehensive set of statistics.}
+\end{listing}
+
+Timings for renderings are across the breadth of \texttt{notcurses\_render()}:
+they include all per-render preprocessing, output generation, and dumping of
+the output (including any sleeping while waiting on the terminal).
+
+The notcurses drawing algorithm logically starts by zeroing out a
+\textit{solutions array} of booleans. When this array is all true, we've solved
+for each cell of the output, and can stop. It then walks down the z-axis. For
+each plane encountered, any unsolved cells with which that plane interacts are
+adjusted, and the solution array updated if appropriate. Note that there will
+always be at least one plane interacting with each visible coordinate, due
+to the default plane. The process of filling a solutions matrix is referred to
+as rendering.
+
+The next step is \textit{rasterization}. Rather than moving down the z-axis, we now
+move to the right and down on the screen, starting from the upper left corner.
+At each cell, we examine the solutions matrix and the previous contents of the
+cell. If they are the same, no output is emitted. If they are different, the
+new glyph is written to the output, following any necessary cursor movements
+and styling codes. notcurses attempts to minimize the total amount of data
+written by eliding unnecessary color and style specifications, and moving the
+cursor over large unchanged areas.
+
+Using the ``default color'' as only one of the foreground or background requires
+emitting the \texttt{op} escape followed by the appropriate escape for changing the
+fore- or background (since \texttt{op} changes both at once).
+
+Certain EGCs are understood to be all-foreground or all-background.
+\texttt{U+2588 FULL BLOCK} is all foreground. \texttt{U+0020 SPACE} is all
+background. When such a character is used, notcurses will emit whichever
+character can take advantage of the current color.
 
 \newpage
 
@@ -1020,16 +1100,48 @@ canvases or OpenGL display lists; if your plan involves using ANSI escape
 sequences to drive a 1920x1080 display via roughly two million 1x1 character
 cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \subsection{The Universal Character Set}
+\begin{center}
+\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
+\end{center}
+
 \footnote{Once upon a time, these other sixteen planes were known as the
   Astral Planes\cite{astralplanes}.}
 \subsection{UTF-8}
 \subsection{Stupid Unicode tricks}
 \textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/}
 
+\subsection{Fixed-width fonts ain't so fixed}
 
-\begin{center}
-\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
-\end{center}
+Notcurses assumes that all glyphs occupy widths which are an integral multiple
+of the smallest possible glyph's cell width (aka a ``fixed-width font'').
+Unicode introduces characters which generally occupy two such cells, known as
+wide characters (though in the end, width of a glyph is a property of the
+font). It is not possible to print half of such a glyph, nor is it generally
+possible to print a wide glyph on the last column of a terminal.
+
+Notcurses does not consider it an error to place a wide character on the last
+column of a line. It will obliterate any content which was in that cell, but
+will not itself be rendered. The default content will not be reproduced in such
+a cell, either. When any character is placed atop a wide character's left or
+right half, the wide character is obliterated in its entirety. When a wide
+character is placed, any character under its left or right side is annihilated,
+including wide characters. It is thus possible for two wide characters to sit
+at columns 0 and 2, and for both to be obliterated by a single wide character
+placed at column 1.
+
+Likewise, when rendering, a plane which would partially obstruct a wide glyph
+prevents it from being rendered entirely. A pathological case would be that of
+a terminal $n$ columns in width, containing $n-1$ planes, each 2 columns wide.
+The planes are placed at offsets $[0n\ldots2]$. Each plane is above the plane to
+its left, and each plane contains a single wide character. Were this to be
+rendered, only the rightmost plane (and its single glyph) would be rendered!
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Calculate the size in columns of the provided UTF8 multibyte string.
+int mbswidth(const char* mbs);
+\end{minted}
+\end{listing}
 
 
 \newpage
@@ -1136,9 +1248,105 @@ int notcurses_mouse_disable(struct notcurses* n);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
 \label{sec:libav}
+
+Media decoding and scaling is handled by libAV from FFmpeg, resulting in a
+\texttt{notcurses\_visual} object. This object generates frames, each one
+corresponding to a renderable scene on the associated plane. If Notcurses
+is built without FFMpeg support, these functions will all return error.
+
+\begin{listing}
+\begin{minted}{C}
+// Open a visual (image or video), associating it with the specified ncplane.
+// Returns NULL on any error, writing the AVError to 'averr'.
+struct ncvisual* ncplane_visual_open(struct ncplane* nc, const char* file,
+                                     int* averr);
+
+// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
+// plane tailored to the visual's exact needs, which is probably larger than the
+// visible screen (but might be smaller). NCSCALE_SCALE scales a visual larger
+// than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH
+// stretches and scales the image in an attempt to fill the visible screen.
+typedef enum {
+  NCSCALE_NONE,
+  NCSCALE_SCALE,
+  NCSCALE_STRETCH,
+} ncscale_e;
+
+// Open a visual, extract a codec and parameters, and create a new plane
+// suitable for its display at 'y','x'. If there is sufficient room to display
+// the visual in its native size, or if NCSCALE_NONE is passed for 'style', the
+// new plane will be exactly that large. Otherwise, the plane will be as large
+// as possible (given the visible screen), either maintaining aspect ratio
+// (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
+struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
+                                     int* averr, int y, int x, ncscale_e style);
+
+// Destroy an ncvisual. Rendered elements will not be disrupted, but the visual
+// can be neither decoded nor rendered any further.
+void ncvisual_destroy(struct ncvisual* ncv);
+
+// Render the decoded frame to the associated ncplane. The frame will be scaled
+// to the size of the ncplane per the ncscale_e style. A subregion of the
+// frame can be specified using 'begx', 'begy', 'lenx', and 'leny'. To render
+// the rectangle formed by begy x begx and the lower-right corner, zero can be
+// supplied to 'leny' and 'lenx'. Zero for all four values will thus render the
+// entire visual. Negative values for any of the four parameters are an error.
+// It is an error to specify any region beyond the boundaries of the frame.
+int ncvisual_render(const struct ncvisual* ncv, int begy, int begx, int leny, int lenx);
+
+// Return the plane to which this ncvisual is bound.
+struct ncplane* ncvisual_plane(struct ncvisual* ncv);
+
+// If a subtitle ought be displayed at this time, return a heap-allocated copy
+// of the UTF8 text.
+char* ncvisual_subtitle(const struct ncvisual* ncv);
+
+// Called for each frame rendered from 'ncv'. If anything but 0 is returned,
+// the streaming operation ceases immediately, and that value is propagated out.
+typedef int (*streamcb)(struct notcurses* nc, struct ncvisual* ncv, void*);
+
+// Shut up and display my frames! Provide as an argument to ncvisual_stream().
+// If you'd like subtitles to be decoded, provide an ncplane as the curry. If the
+// curry is NULL, subtitles will not be displayed.
+static inline int
+ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry){
+  if(notcurses_render(nc)){
+    return -1;
+  }
+  int ret = 0;
+  if(curry){
+    // need a cast for C++ callers
+    struct ncplane* subncp = (struct ncplane*)curry;
+    char* subtitle = ncvisual_subtitle(ncv);
+    if(subtitle){
+      if(ncplane_putstr_yx(subncp, 0, 0, subtitle) < 0){
+        ret = -1;
+      }
+      free(subtitle);
+    }
+  }
+  return ret;
+}
+
+// Stream the entirety of the media, according to its own timing. Blocking,
+// obviously. streamer may be NULL; it is otherwise called for each frame, and
+// its return value handled as outlined for stream cb. Pretty raw; beware.
+// If streamer() returns non-zero, the stream is aborted, and that value is
+// returned. By convention, return a positive number to indicate intentional
+// abort from within streamer(). 'timescale' allows the frame duration time to
+// be scaled. For a visual naturally running at 30FPS, a 'timescale' of 0.1
+// will result in 300FPS, and a 'timescale' of 10 will result in 3FPS. It is an
+// error to supply 'timescale' less than or equal to 0.
+int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
+                    float timescale, streamcb streamer, void* curry);
+``
+\end{minted}
+\caption{The multimedia API.}
+\end{listing}
+
 \subsection{Scaling images and video}
 \subsection{Sprites}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
