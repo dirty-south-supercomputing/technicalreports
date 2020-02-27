@@ -11,6 +11,7 @@
 \usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{parskip}
+\usepackage[section]{placeins}
 \usepackage{epigraph}
 \usepackage{sourcecodepro}
 \usepackage{fontspec}
@@ -1323,8 +1324,7 @@ was originally a registered trademark of Lear Sigler, see below). Already the
 80x24 ``standard'' (it is not a standard) was emerging (the DEC contemporaries
 listed were already pretty ``smart'', using proprietary control codes):
 
-\vspace{.25in}
-
+\begin{table}
 \begin{center}
   \begin{tabular}{ |c|c|c| }
     \hline
@@ -1347,7 +1347,9 @@ listed were already pretty ``smart'', using proprietary control codes):
     Sororc IQ-120 & 1977 & 80x24 \\
     \hline
   \end{tabular}
+\caption{Some historical terminals and their resolutions.}
 \end{center}
+\end{table}
 
 \vspace{.25in}
 
@@ -1482,6 +1484,70 @@ particularly
 \texttt{console\_codes(4)}\cite{consolecodes},
 and
 \texttt{charsets(7)}\cite{charsets7}.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Unicode 13}
+The Unicode Consortium has scheduled Unicode 13.0 for a March 2020 release.
+Chapters 3 and most of Chapter 4 of the Core Specification are normative. The
+remainder is informative. The Unicode Standard consists of the Core
+Specification\cite{unicode13}, the \href{https://www.unicode.org/charts/}{code charts},
+the \href{https://unicode.org/versions/Unicode13.0.0/#Unicode_Standard_Annexes_nb}{Unicode Standard Annexes}
+, and the \href{http://www.unicode.org/Public/13.0.0/}{Unicode Character Database (UCD)}.
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    UAX \#9 & Unicode Bidirectional Algorithm \\
+    \hline
+    UAX \#11 & East Asian Width \\
+    \hline
+    UAX \#14 & Unicode Line Breaking Algorithm \\
+    \hline
+    UAX \#15 & Unicode Normalization Forms \\
+    \hline
+    UAX \#24 & Unicode Script Property \\
+    \hline
+    UAX \#29 & Unicode Text Segmentation \\
+    \hline
+    UAX \#31 & Unicode Identifier and Pattern Syntax \\
+    \hline
+    UAX \#34 & Unicode Named Character Sequences \\
+    \hline
+    UAX \#38 & Unicode Han Database (Unihan) \\
+    \hline
+    UAX \#41 & Common References for Unicode Standard Annexes \\
+    \hline
+    UAX \#42 & Unicode Character Database in XML \\
+    \hline
+    UAX \#44 & Unicode Character Database \\
+    \hline
+    UAX \#45 & U-Source Ideographs \\
+    \hline
+    UAX \#50 & Unicode Vertical Text Layout \\
+    \hline
+  \end{tabular}
+\caption{Unicode 13.0.0 Standard Annexes.}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    UTS \#10 & Unicode Collation Algorithm \\
+    \hline
+    UTS \#39 & Unicode Security Mechanisms \\
+    \hline
+    UTS \#46 & Unicode IDNA Compatibility Processing \\
+    \hline
+    UTS \#51 & Unicode Emoji \\
+    \hline
+  \end{tabular}
+\caption{Unicode 13.0.0 Synchronized Technical Standards.}
+\end{center}
+\end{table}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
