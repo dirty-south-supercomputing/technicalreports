@@ -381,7 +381,7 @@ I generally use this modern marvel to drive terminal emulators of 80 columns.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=.6\linewidth]{media/ibm3270.jpg}
-\caption{A programmer at her IBM 3270.}
+\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A. \textit{Source: Jonathan Schilling}.}
 \end{figure}
 
 \newpage
@@ -1351,17 +1351,16 @@ listed were already pretty ``smart'', using proprietary control codes):
 \end{center}
 \end{table}
 
-\vspace{.25in}
-
-The 80 almost certainly arises from the desire to display an entire punched card
-(this \textit{is} a standard---see ANSI X3.21-1967/FIPS PUB 13, ``Rectangular
-Holes in Twelve-Row Punched Cards'')\cite{sonicdelay}. The origin of 24 is less
-clear. 24 is highly composite (it has more divisors than any smaller number),
-and it is the largest integer divisible by all natural numbers not larger than its
-square root. There are of course 24 hours in a day. 24 divides the scanline
-counts of both NTSC and PAL at 480 and 576, respectively. 24 rows of
-80 columns at a byte per column utilize 93.75\% of a 2KiB memory, leaving exactly
-128 bytes left over, and everyone loves a good power of 2.
+Why 80x24 (or 80x25, as you'll also see)\cite{infoworld80}? The 80 almost certainly arises from
+the desire to display an entire punched card (this \textit{is} a standard---see
+ANSI X3.21-1967/FIPS PUB 13, ``Rectangular Holes in Twelve-Row Punched
+Cards'')\cite{sonicdelay}. The origin of 24 is less clear. 24 is highly
+composite (it has more divisors than any smaller number), and it is the largest
+integer divisible by all natural numbers not larger than its square root. There
+are of course 24 hours in a day. 24 divides the scanline counts of both NTSC
+and PAL at 480 and 576, respectively. 24 rows of 80 columns at a byte per
+column utilize 93.75\% of a 2KiB memory, leaving exactly 128 bytes left over,
+and everyone loves a good power of 2.
 
 The Aaronites, Levite descendents of Moses's brother Aaron, the first
 \texthebrew{כהן גדול}
