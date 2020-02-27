@@ -8,6 +8,7 @@
 */*.ist
 */*.lof
 */*.log
+*/*.lot
 */*.out
 */*.pdf
 */*.pyg

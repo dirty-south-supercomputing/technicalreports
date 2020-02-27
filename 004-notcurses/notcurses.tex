@@ -3,7 +3,7 @@
 % arara: makeglossaries
 % arara: xelatex: {shell: true}
 % arara: xelatex: {shell: true}
-\documentclass[letterpaper,10pt]{article}
+\documentclass[letterpaper,11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{newfloat}
 \usepackage{hyperref}
@@ -17,7 +17,7 @@
 \usepackage{fontspec}
 \usepackage[toc,nonumberlist,xindy]{glossaries}
 \usepackage{relsize}
-\setmonofont[Scale=0.8]{Source Code Pro}
+\setmonofont[Scale=0.7]{Source Code Pro}
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
@@ -78,7 +78,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \date{}
 \vspace{1in}
 \begin{center}
-\includegraphics[width=.8\linewidth]{htp-with-notcurses.png}
+\includegraphics[width=.75\linewidth]{htp-with-notcurses.png}
 \end{center}
 \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,13 +116,13 @@ A Guide to TUIs and Character Graphics\thanks{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
+
 \vfill
-\begin{center}
-%\includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
-%\includegraphics[width=.5\linewidth]{../common/south.png}
-\includegraphics[width=.75\linewidth]{media/chunli-box-front.png}
-\end{center}
-\vfill
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=1\linewidth]{media/ibm3270.jpg}
+\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A. \textit{Source: Jonathan Schilling}.}
+\end{figure}
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -168,6 +168,12 @@ inevitably complicates reliable applications.
 
 }
 
+
+\vfill
+
+\begin{center}
+\includegraphics[width=1\linewidth]{media/widechars.png}
+\end{center}
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,20 +233,22 @@ implementation for modern TUI applications.
 
 The console ain't dead! Hack on, hax0rs.
 
-\vspace{.5in}
+\vfill
 
 \begin{flushright}
   \textit{---February 2020, Atlanta}
 \end{flushright}
 
-\vfill
-
-\begin{center}
-\includegraphics[width=1\linewidth]{media/widechars.png}
-\end{center}
-
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vfill
+\begin{center}
+%\includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
+%\includegraphics[width=.5\linewidth]{../common/south.png}
+\includegraphics[width=.75\linewidth]{media/chunli-box-front.png}
+\end{center}
+\vfill
 \section{Right, what's all this, then?}
 Character graphics, aka text mode, aka the display side of a terminal, is
 visualization that works with fonts rather than a pixel framebuffer\footnote{``Contones'', as raster graphics are known to printers.}
@@ -377,13 +385,6 @@ IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
 
 I generally use this modern marvel to drive terminal emulators of 80 columns.
-
-\vfill
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=.6\linewidth]{media/ibm3270.jpg}
-\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A. \textit{Source: Jonathan Schilling}.}
-\end{figure}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1131,6 +1132,7 @@ int notcurses_mouse_disable(struct notcurses* n);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
+\label{sec:libav}
 \subsection{Scaling images and video}
 \subsection{Sprites}
 %\newpage
@@ -1205,11 +1207,7 @@ though anything 80x24 or larger will more or less work (some content will be
 clipped). It is also desirable to have 24-bit color enabled, assuming your
 terminal supports it. Determine the number of colors advertised by your
 terminal type using~\texttt{infocmp} (see Figure~\ref{fig:terminfocmp}).
-
-Each demo makes use of a few different Notcurses capabilities. In addition,
-a menu is present throughout. From this menu (or using keyboard shortcuts),
-you can activate a HUD (H) and an informational help display (Ctrl+u). In
-addition, you can restart the demo with Ctrl+R, or quit at any time (q).
+Some relevant terminfo capabilities are described in Table~\ref{table:terminfo}.
 
 \begin{table}[h]
   \begin{center}
@@ -1227,7 +1225,13 @@ addition, you can restart the demo with Ctrl+R, or quit at any time (q).
   \label{table:terminfo}
 \end{table}
 
-Some Relevant terminfo capabilities are described in Table~\ref{table:terminfo}.
+Each demo makes use of a few different Notcurses capabilities. In addition,
+a menu is present throughout. From this menu (or using keyboard shortcuts),
+you can activate a HUD (H) and an informational help display (Ctrl+u). In
+addition, you can restart the demo with Ctrl+R, or quit at any time (q). This
+application serves admirably for benchmarking certain terminal behaviors, and
+we'll do exactly that in Appendix~\ref{sec:termshade}. The performance
+properties of various components are described at length therein.
 
 \begin{figure}[h]
   \centering
@@ -1235,9 +1239,12 @@ Some Relevant terminfo capabilities are described in Table~\ref{table:terminfo}.
   \caption{Inspecting the terminfo database.}
 \end{figure}
 
-The following images were taken using a 80x45 \texttt{xfce4-terminal} 0.8.9.1
-from Xfce 4.14 using Xorg 1.20.7. The terminal type is \texttt{xterm-256color},
-and \texttt{COLORTERM} is defined to be \texttt{24bit}.
+Screenshots were taken using \texttt{scrot} 1.2 and a 80x45
+\texttt{xfce4-terminal} 0.8.9.1 from Xfce 4.14+Compiz 0.8.16.1 atop Xorg
+1.20.7 on NVIDIA 440.59. All of these are the unmodified Debian Unstable
+x86\_64 binaries. My kernel is a custom 5.5.6 build. The terminal type is
+\texttt{xterm-256color}, and \texttt{COLORTERM} is defined to be
+\texttt{24bit}.
 
 \newpage
 
@@ -1438,7 +1445,7 @@ was originally a registered trademark of Lear Sigler, see below). Already the
 80x24 ``standard'' (it is not a standard) was emerging (the DEC contemporaries
 listed were already pretty ``smart'', using proprietary control codes):
 
-\begin{table}
+\begin{table}[h]
 \begin{center}
   \begin{tabular}{ |c|c|c| }
     \hline
