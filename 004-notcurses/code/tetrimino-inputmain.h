@@ -11,6 +11,7 @@ int main(void){
   notcurses_term_dim_yx(nc, &dimy, &dimx);
   struct ncplane* minos[pcount];
   int failed = draw_tetriminos(nc, minos, dimy, dimx) || notcurses_render(nc);
+  struct ncvisual* ncv = background(nc, "media/Tetris_NES_cover_art.jpg");
   ncplane_yx(minos[p], &y, &x);
   while((failed |= (highlight(minos, p) || notcurses_render(nc))) == 0){
     ncinput ni; // necessary for mouse

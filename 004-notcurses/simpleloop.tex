@@ -300,4 +300,11 @@ its expected colors (Figure~\ref{fig:tetrimino-trans}).
 \label{list:tetrimino-displayutf8}
 \end{listing}
 
-
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-background.h}
+\caption{Throwing in a background. Despite this being called \textit{after}
+  creation of the pieces, it does not hide them, because the loaded image
+  is being rendered to the standard plane, which is underneath the pieces
+  (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-background}
+\end{listing}
