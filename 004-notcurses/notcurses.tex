@@ -111,6 +111,7 @@ A Guide to TUIs and Character Graphics\thanks{
 \phantomsection
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
+%\listoflistings
 \listoftables
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -275,9 +276,7 @@ freely move the cursor around their rectilinear display, as opposed to
 line-oriented CLIs and their ineluctable marches through the scrolling region.
 
 Given the same interactive task\footnote{These relations are not
-fundamental, but emerge from the grim meathook realities of GUI toolkits.
-
-You can write ass code in any interface.},
+fundamental, but emerge from the grim meathook realities of GUI toolkits.}
 
 \begin{denseitemize}
 \item{A TUI implementation is almost certainly a smaller memory and disk footprint than a GUI,}
@@ -322,8 +321,7 @@ be built using NCURSES, as seen in Figure~\ref{fig:ncurses-tuis}.
   \label{fig:ncurses-tuis}
 \end{figure}
 
-Implementing a TUI will usually require, at a minimum\footnote{And, perhaps
-  most terrifyingly, design.}:
+Implementing a TUI will usually require, at a minimum:
 \begin{denseitemize}
 \item{Receiving input from user devices, including keyboards and mice,}
 \item{some manner of user configuration widgets (menus, etc.),}
@@ -332,6 +330,9 @@ Implementing a TUI will usually require, at a minimum\footnote{And, perhaps
        introducing undue latency, and enforcing safe synchronized access to
        the graphics interface.}
 \end{denseitemize}
+
+Perhaps most terrifyingly, it will require user interface design. Notcurses
+attempts to assist with this by providing numerous ready-made widgets.
 
 This text has two goals:
 \begin{denseitemize}
