@@ -1206,14 +1206,12 @@ clipped). It is also desirable to have 24-bit color enabled, assuming your
 terminal supports it. Determine the number of colors advertised by your
 terminal type using~\texttt{infocmp} (see Figure~\ref{fig:terminfocmp}).
 
-\begin{figure}
-  \centering
-  \includegraphics[width=1\linewidth]{media/terminfocmp.png}
-  \caption{Inspecting the terminfo database.}
-\end{figure}
+Each demo makes use of a few different Notcurses capabilities. In addition,
+a menu is present throughout. From this menu (or using keyboard shortcuts),
+you can activate a HUD (H) and an informational help display (Ctrl+u). In
+addition, you can restart the demo with Ctrl+R, or quit at any time (q).
 
-Relevant terminfo capabilities include:
-\begin{table}
+\begin{table}[h]
   \begin{center}
     \begin{tabular}{ |c|c|c| }
       \hline
@@ -1226,7 +1224,20 @@ Relevant terminfo capabilities include:
     \end{tabular}
   \end{center}
   \caption{Relevant terminfo properties.}
+  \label{table:terminfo}
 \end{table}
+
+Some Relevant terminfo capabilities are described in~\ref{table:terminfo}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.75\linewidth]{media/terminfocmp.png}
+  \caption{Inspecting the terminfo database.}
+\end{figure}
+
+The following images were taken using a 80x45 \texttt{xfce4-terminal} 0.8.9.1
+from Xfce 4.14 using Xorg 1.20.7. The terminal type is \texttt{xterm-256color},
+and \texttt{COLORTERM} is defined to be \texttt{24bit}.
 
 \newpage
 
