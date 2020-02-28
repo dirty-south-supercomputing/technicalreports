@@ -357,7 +357,7 @@ with the graphics engine directly connected to the terminal driver), terminal
 multiplexers (tools like \texttt{screen}, \texttt{tmux}, and \texttt{mosh},
 providing a memory-persistent virtual terminal with which other terminals can
 interact), and terminal emulators (applications which present a virtual
-terminal atop the shard input and raster output methods of a graphical user
+terminal atop the shared input and raster output methods of a graphical user
 environment). There's some vagueness and variety involved with these terms.
 
 At its heart, a terminal is a line discipline plus two buffers: an input buffer
@@ -492,20 +492,19 @@ instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 \end{figure}
 
 We can easily write code to reproduce this effect for standard input and output.
-The following works as expected (see Figure~\ref{fig:houseout}):
-
-\begin{listing}[!htbp]
-\inputminted[]{C}{code/hol-formatter.c}
-\caption{\texttt{hol-formatter.c}}
-\end{listing}
-
-There are a few things worth noting about the code above. First, observe how
+Figure~\ref{fig:houseout} works as expected, but there are a few things worth noting about its code. First, observe how
 much of the logic is devoted to checking and propagating errors! Perhaps
 contrary to common expectation, reliable code--especially when that code's
 primary effect is to write to stdout--generally needs to check the results of
 e.g. \texttt{printf()} (what happens if we're redirected to a file, and
 the disk is full?). A language making use of exceptions would reduce if not
 eliminate this nonsense.
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/hol-formatter.c}
+\caption{\texttt{hol-formatter.c}}
+\end{listing}
+
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
@@ -515,7 +514,7 @@ eliminate this nonsense.
 
 We don't switch from blue to some random color, because we don't know the
 background color of the terminal. Hard to believe as it is, some people don't
-favor a dark terminal background. If the terminal background was white, and we
+favor a dark terminal background. If the terminal background were white, and we
 had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
 ``\textcolor{blue}{house}'' would be invisible.
 
@@ -675,7 +674,7 @@ a \texttt{struct ncplane}, the ``standard plane''\footnote{\texttt{ncplane}s,
 discussed in depth in Chapter~\ref{ncplane}, are the fundamental drawing surfaces of Notcurses.}.
 This standard plane cannot be destroyed without destroying the containing
 Notcurses context, nor can it be moved or resized by the user. Its size always
-matches Notcurses's conception of the terminal's screen size, and its origin
+matches Notcurses's concept of the terminal's screen size, and its origin
 always corresponds precisely to the terminal's origin. Aside from these
 restrictions, the standard plane is a drawable surface like any other
 \texttt{ncplane}---it can be moved along the z-axis, written to with arbitrary
@@ -1026,7 +1025,6 @@ void notcurses_stats(struct notcurses* nc, ncstats* stats);
 // Reset all cumulative stats (immediate ones, such as fbbytes, are not reset).
 void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 \end{minted}
-\caption{Notcurses exports a comprehensive set of statistics.}
 \end{listing}
 
 Timings for renderings are across the breadth of \texttt{notcurses\_render()}:
@@ -1190,7 +1188,6 @@ int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes)
 // of the plane will not be changed.
 int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
 \end{minted}
-\caption{Staining allows one cellular dimension to be changed over a region.}
 \label{list:stain}
 \end{listing}
 
@@ -1261,26 +1258,6 @@ is built without FFMpeg support, these functions will all return error.
 struct ncvisual* ncplane_visual_open(struct ncplane* nc, const char* file,
                                      int* averr);
 
-// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
-// plane tailored to the visual's exact needs, which is probably larger than the
-// visible screen (but might be smaller). NCSCALE_SCALE scales a visual larger
-// than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH
-// stretches and scales the image in an attempt to fill the visible screen.
-typedef enum {
-  NCSCALE_NONE,
-  NCSCALE_SCALE,
-  NCSCALE_STRETCH,
-} ncscale_e;
-
-// Open a visual, extract a codec and parameters, and create a new plane
-// suitable for its display at 'y','x'. If there is sufficient room to display
-// the visual in its native size, or if NCSCALE_NONE is passed for 'style', the
-// new plane will be exactly that large. Otherwise, the plane will be as large
-// as possible (given the visible screen), either maintaining aspect ratio
-// (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
-struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
-                                     int* averr, int y, int x, ncscale_e style);
-
 // Destroy an ncvisual. Rendered elements will not be disrupted, but the visual
 // can be neither decoded nor rendered any further.
 void ncvisual_destroy(struct ncvisual* ncv);
@@ -1300,7 +1277,12 @@ struct ncplane* ncvisual_plane(struct ncvisual* ncv);
 // If a subtitle ought be displayed at this time, return a heap-allocated copy
 // of the UTF8 text.
 char* ncvisual_subtitle(const struct ncvisual* ncv);
+\end{minted}
+\end{listing}
 
+\subsection{Streaming video/animated GIFs.}
+\begin{listing}
+\begin{minted}{C}
 // Called for each frame rendered from 'ncv'. If anything but 0 is returned,
 // the streaming operation ceases immediately, and that value is propagated out.
 typedef int (*streamcb)(struct notcurses* nc, struct ncvisual* ncv, void*);
@@ -1339,12 +1321,34 @@ ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry
 // error to supply 'timescale' less than or equal to 0.
 int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
                     float timescale, streamcb streamer, void* curry);
-``
 \end{minted}
-\caption{The multimedia API.}
 \end{listing}
 
 \subsection{Scaling images and video}
+\begin{listing}
+\begin{minted}{C}
+// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
+// plane tailored to the visual's exact needs, which is probably larger than the
+// visible screen (but might be smaller). NCSCALE_SCALE scales a visual larger
+// than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH
+// stretches and scales the image in an attempt to fill the visible screen.
+typedef enum {
+  NCSCALE_NONE,
+  NCSCALE_SCALE,
+  NCSCALE_STRETCH,
+} ncscale_e;
+
+// Open a visual, extract a codec and parameters, and create a new plane
+// suitable for its display at 'y','x'. If there is sufficient room to display
+// the visual in its native size, or if NCSCALE_NONE is passed for 'style', the
+// new plane will be exactly that large. Otherwise, the plane will be as large
+// as possible (given the visible screen), either maintaining aspect ratio
+// (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
+struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
+                                     int* averr, int y, int x, ncscale_e style);
+\end{minted}
+\end{listing}
+
 \subsection{Sprites}
 \newpage
 
