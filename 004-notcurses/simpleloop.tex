@@ -204,8 +204,8 @@ solutions to the problem of interleaving a set of asynchronous file descriptor-b
 inputs against a set of periodic requirements; let's refresh ourselves:
 
 \begin{denseitemize}
-\item{No holds barred, take no prisoners state machine. No quarter asked and
-    none given. Certainly the most \textit{enjoyable} choice of the four, the
+\item{No holds barred, take no prisoners state machine. No quarter asked.
+    None given. Certainly the most \textit{enjoyable} choice of the four, the
     one closest to the nature of the machine, and the option with the most
     built-in job security. Casting off the crutch of the process scheduler, we
     execute in a single thread, carefully programming our
@@ -254,7 +254,8 @@ example). So the piece underneath flipping to white while another piece is
 nearby makes perfect sense. The solution is simple: we set the foreground
 transparent for the base character of each plane. Foreground calculation will
 now bypass the plane where we haven't drawn, and the distorted plane regains
-its expected colors (Figure~\ref{fig:tetrimino-trans}).
+its expected colors (Figure~\ref{fig:tetrimino-trans}). Takeaway: by default, planes
+obstruct only color, not glyphs.
 
 \begin{figure}[!htbp]
   \centering
@@ -303,7 +304,7 @@ Adding a background image is simple. We'll render it to the standard plane, our
 ``background'' for now (remember, newly created planes are placed at the top of
 the z axis). Despite decoding the image \textit{after} creation of the pieces,
 the pieces are thus not hidden. There is no need to inform Notcurses of the
-image's format, or parameters thereof; just provide the file name and target
+image's format, nor parameters thereof. Simply provide the file name and target
 rendering plane, and we're off. See Chapter~\ref{sec:libav} for a full treatment
 of multimedia in Notcurses.
 
