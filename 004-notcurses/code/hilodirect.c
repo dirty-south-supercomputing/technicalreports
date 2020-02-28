@@ -11,7 +11,7 @@ int main(void){
   int r = 0;
   do{
     if(!(r |= (ncdirect_fg_default(n)))){
-      if(!(r |= printf("Guess the long: ") < 0)){
+      if(!(r |= (printf("Guess the long: ") < 0))){
         if(!fflush(stdout)){
           int rargs = scanf("%ld", &guess); // super shitty to the max
           if(rargs != 1){
@@ -21,10 +21,10 @@ int main(void){
           int offoom = labs(__builtin_clzl(guess) - __builtin_clzl(secret));
           if(guess > secret){
             r |= ncdirect_fg_rgb8(n, 0x40, 0x80, offoom * 6);
-            r |= printf("\tLOL jabronies guess %ld. Too high!\n", guess) < 0;
+            r |= (printf("\tLOL jabronies guess %ld. Too high!\n", guess) < 0);
           }else if(guess < secret){
             r |= ncdirect_fg_rgb8(n, offoom * 6, 0x80, 0x40);
-            r |= printf("\tSpineless worm! %ld? Too low!\n", guess) < 0;
+            r |= (printf("\tSpineless worm! %ld? Too low!\n", guess) < 0);
           }
         }
       }
