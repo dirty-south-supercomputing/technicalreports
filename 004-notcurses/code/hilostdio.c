@@ -15,8 +15,8 @@ int main(void){
           fprintf(stderr, "Die, infidel!\n");
           return EXIT_FAILURE;
         }
-        r |= printf(g > secret ? "\tLOL jabronies guess %ld. Too high!\n" : g < secret
-                 ? "\tSpineless worm! %ld? Too low!\n" : "%ld is right! ", g) < 0;
+        r |= (printf(g > secret ? "\tLOL jabronies guess %ld. Too high!\n" : g < secret
+                 ? "\tSpineless worm! %ld? Too low!\n" : "%ld is right! ", g) < 0);
       }
     }
   }while(g != secret && !r);
