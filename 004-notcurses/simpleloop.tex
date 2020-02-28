@@ -155,8 +155,7 @@ helpers---\texttt{reduce()} and \texttt{highlight()}--- which drive the common
 \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}. They allow the
 attributes and channels, respectively, of a rectangular region to be changed
 without altering other components. The corresponding glyph-only output routines
-are likewise described in Listing~\ref{list:stain}
-(Chapter~\ref{sec:staining}).
+are likewise described in (Chapter~\ref{sec:staining}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-switch.h}
@@ -168,7 +167,7 @@ While we're making things prettier, let's replace
 those letters with some classy box-drawing characters, and improve on this
 layout. We can do some simple algebraic extensions and get some linear spacing,
 but it's just as easy to use trigonometric functions and get an approximation
-to a circle. This is especially value as the terminal geometry changes; our
+to a circle. This is especially valuable as the terminal geometry changes; our
 fixed linear scalings would break down as the display aspect changes, but a
 good ol' circle will work on any sufficient radius
 (Listing~\ref{list:tetrimino-drawcircle}).
