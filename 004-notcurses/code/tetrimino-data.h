@@ -17,3 +17,4 @@ static const struct tetrimino {
 },{ 0x69be28, "    SSSSSSSS    SSSSSSSSSSSSSSSS    SSSSSSSS    "
 },{ 0xed2939, "ZZZZZZZZ    ZZZZZZZZ        ZZZZZZZZ    ZZZZZZZZ" } };
 
+static const size_t TETRIMINO_COUNT = sizeof(tetriminos) / sizeof(*tetriminos);

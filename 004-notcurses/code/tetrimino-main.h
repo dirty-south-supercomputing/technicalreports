@@ -11,7 +11,7 @@ int main(void){
   }
   int dimy, dimx;
   notcurses_term_dim_yx(nc, &dimy, &dimx);
-  struct ncplane* minos[sizeof(tetriminos) / sizeof(*tetriminos)]; // 2-3-2 
+  struct ncplane* minos[TETRIMINO_COUNT]; // 2-3-2
   int failed = draw_tetriminos(nc, minos, dimy, dimx) || notcurses_render(nc);
   return (notcurses_stop(nc) || failed) ? EXIT_FAILURE : EXIT_SUCCESS;
 }

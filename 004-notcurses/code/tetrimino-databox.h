@@ -9,5 +9,3 @@ static const struct tetrimino {
   { 0xcbc900, "****"},   { 0x009caa, "    ****"}, { 0x952d98, " * ***"},
   { 0xcf7900, "  ****"}, { 0x0065bd, "*  ***"},   { 0x69be28, " **** "},
   { 0xbd2939, "**  **"} };
-
-static const size_t TETRIMINO_COUNT = sizeof(tetriminos) / sizeof(*tetriminos);
