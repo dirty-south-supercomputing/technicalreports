@@ -22,11 +22,14 @@
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
 \usepackage{minted}
+\usepackage{xeCJK}
+\usepackage{tipa}
 \usepackage{csquotes}
 \usepackage{polyglossia}
+\usepackage{arabxetex}
 \setmainlanguage{english}
-\setotherlanguage{hebrew}
-\setotherlanguage{french}
+\setotherlanguages{hebrew,french,bulgarian,russian}
+\newfontfamily\cyrillicfont[Script=Cyrillic]{Noto Sans}
 \newfontfamily\hebrewfont[Scale=0.8,Script=Hebrew]{Frank Ruehl CLM}
 \definecolor{dsscawpurp}{HTML}{b079b0}
 \definecolor{dsscawpurpcap}{HTML}{6c286c}
@@ -37,6 +40,8 @@ seconds=true,
 style=numeric,
 bibencoding=utf8,
 ]{biblatex}
+
+\tracinglostchars=2
 
 \addbibresource{\jobname.bib}
 \usemintedstyle{friendly}
@@ -287,9 +292,9 @@ Of course, it can also be a big pile of character graphics shit.
 
 For over two decades, NCURSES (a free software implementation of the X/Open Curses\cite{cursesosi}
 specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for implementing
-TUIs. Its maintainter (and author, in large part), Thomas E.\ Dickey,
+TUIs. Maintainter (and author, in large part) Thomas E.\ Dickey,
 exemplifies conservative and fastidious stewardship. Perfectly lovely TUIs can
-be built using NCURSES, as seen in Figure~\ref{fig:ncurses-tuis}, but it \textit{does}
+be built using NCURSES (as seen in Figure~\ref{fig:ncurses-tuis}), but it \textit{does}
 have its origins in the 8-bit era, and is showing its age.
 
 \begin{figure}[!hbtp]
@@ -333,7 +338,7 @@ attempts to assist with this by providing numerous ready-made widgets.
 This text has two goals:
 \begin{denseitemize}
 \item{To provide a firm footing for design and implementation of character
-    graphics and TUIs, elucidating the dimensions of design, and difficulties
+    graphics and TUIs, elucidating the dimensions of design, along with difficulties
     to avoid, and}
 \item{to serve as ``narrative reference'' for my Notcurses library, and as
     a starting place for newcomers.}

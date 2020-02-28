@@ -1,3 +1,15 @@
+\newglossaryentry{mojibake}
+{
+  name={文字化け (``mojibake [{\fontspec{DejaVu Serif}mod͡ʑibake}]'')},
+  description={The garbled result of mismatched
+    character encoding and decoding. Japanese, from 文字 (``moji (character)'')
+    化ける (``bakeru (take a different form)''). Russians know it as \textrussian{кракозя́бры}
+    (``krakozyabry [{\fontspec{DejaVu Serif}krɐkɐˈzʲæbrɪ̈}]'') or sometimes
+    \textrussian{бНОПНЯ} (``bnopnjá {\fontspec{DejaVu Serif}bnɐpˈnʲa}''), while Bulgarians speak of \textbulgarian{маймуница}
+    (``majmunica (monkey alphabet)''). Serbs cut to a characteristically
+    Balkan chase with \textrussian{ђубре} (``đubre (trash)''). I {\fontspec{DejaVu Serif}�} Unicode}
+}
+
 \newglossaryentry{smcup}
 {
   name={alternate screen},
@@ -25,7 +37,9 @@
     for Information Interchange''. A 128-element codeset and a 7-bit character
     encoding perhaps better known as ASCII\cite{ascii}. Its code set is a
     proper subset of \Gls{ucs}, and its encoding is a proper subset of
-    \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32})}
+    \gls{utf8} (but \textit{not} \gls{utf16}, nor \gls{utf32}). In terms of
+    \gls{standardsets}, ASCII is the union of \Gls{isoiec646}'s
+    dotriaconta-character \Gls{C0} control set and }
 }
 
 \newglossaryentry{ASCII}
@@ -200,7 +214,7 @@ description={FIXME }
   name={ECMA-35:1994},
   description={``Character Code Structure and Extension Techniques'', 6th
     edition. In the words of Mike Frysinger, it ``covers some fundamentals
-    related to character sets, the notions of C0, C1, G0 (but not their
+    related to character sets, the notions of \Gls{C0}, C1, G0 (but not their
     contents), and how escape sequences work (but not what they mean)\cite{hterm}.''
     Ratified \Gls{isoiec2022}}
 }
@@ -208,7 +222,8 @@ description={FIXME }
 \newglossaryentry{ecma43}
 {
   name={ECMA-43:1991},
-  description={``8-bit Coded Character Set Structure and Rules'', 3rd edition}
+    description={``8-bit Coded Character Set Structure and Rules'', 3rd edition. Extends
+      \Gls{ecma6}, conforms to \Gls{ecma35}. Also published as \Gls{isoiec4873}}
 }
 
 \newglossaryentry{ecma48}
@@ -288,10 +303,69 @@ description={FIXME }
     A set of 15 standards, emerging from 1987 to 2001, of which ISO 8859-1:1987 (Part 1: Latin alphabet \textnumero\ 1) is
     probably the best-known. 8859 covers only graphic characters, not control
     characters. In 1992, ISO-8859-1 (note the extra hyphen compared to ISO 8859-1; egads),
-    was registered, mating ISO 8859-1 with \Gls{isoiec646}'s C0 and
+    was registered, mating ISO 8859-1 with \Gls{isoiec646}'s \Gls{C0} and
     \Gls{isoiec6429}'s C1 for a complete 256-code encoding. This result is a
     proper subset of UTF-8, and a proper superset of ASCII. The first four were
     ratified as \Gls{ecma94}}
+}
+
+\newglossaryentry{isoiec4873}
+{
+  name={ISO/IEC 4873:1991},
+  description={``Information technology---ISO 8-bit code for information interchange---Structure and rules for implementation''.
+    Extends \Gls{isoiec646}. Defines three ``levels'' of 8-bit encodings, which
+    you can read about if you want to (I don't recommend it). Level 1 is
+    realized by \Gls{isoiec8859}. Levels 2 and 3 are realized by \Gls{isoiec10367}.
+    Also published as \Gls{ecma43}}
+}
+
+\newglossaryentry{isoiec10367}
+{
+  name={ISO/IEC 10367:1991},
+  description={``Information technology---Standardized coded graphic character sets for use in 8-bit codes''.
+    Realizes Layers 2 and 3 of the \Gls{isoiec4873} specification by defining
+    G0, G1, G2, and G3 sets}
+}
+
+\newglossaryentry{isoiec2375}
+{
+  name={ISO/IEC 2375:2003},
+  description={``Information technology---Procedure for registration of escape sequences and coded character sets''.
+   Policies governing registration for \Gls{isoiec646} and \Gls{isoiec2022}}
+}
+
+\newglossaryentry{standardsets}
+{
+  name={standard character sets},
+  description={Any character set registered in the \textit{ISO Register of Coded
+               Characters to be Used With Escape Sequences} (ISO-IR) via the
+             provisions of \Gls{isoiec2375}. ISO standard character sets are
+             either ``control sets'' or ``graphic sets'' per \Gls{isoiec2022}}
+}
+
+\newglossaryentry{C0}
+{
+  name={C0},
+  description={The first 32 values of the 7-bit \Gls{isoiec646}, including
+    \texttt{NUL}, \texttt{BEL}, \texttt{BS}, \texttt{HT}, \texttt{LF},
+    \texttt{VT}, \texttt{FF}, and \texttt{CR}. ISO registration number 001}
+}
+
+\newglossaryentry{iso88591}
+{
+  name={ISO-8859-1},
+  description={IANA preferred name for ``Latin alphabet~\textnumero\ 1'' from ISO/IEC 8859-1,
+    with \Gls{C0} and C1 from \Gls{isoiec6429}. Quoth Frank da Cruz:
+    ``Similarly, ISO 8859-1 Latin Alphabet 1, which most of us think of as a
+    coherent 8-bit character set is, in truth, composed of the \Gls{isoiec646}
+    control set (registration 001), the ISO 646 USA graphics set (006), the
+    characters Space and Delete, a second 32-character control set (normally,
+    but not necessarily, \Gls{isoiec6429}, registration 077), and a 96-character set
+    known as ``The Right-hand Part of Latin Alphabet 1'' (registration 100). Each of
+    these pieces except Space and Delete has its own unique registration number
+    and designating escape sequence. There is no single, unique identifier for
+    the 8-bit Latin-1 character set in its entirety\cite{interchange}.''
+  }
 }
 
 \newglossaryentry{isoiec10646}
@@ -549,9 +623,9 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
 \newglossaryentry{widechar}
 {
   name={wide character},
-  description={This has at least two distinct meanings:
+  description={This has at least three distinct meanings:
 \begin{denseitemize}
-\item \texttt{wchar\_t}: A data type in C (where it is an alias of an integral
+\item \textbf{\texttt{wchar\_t}}: A data type in C (where it is an alias of an integral
   type) and \CC (where it is a fundamental type). \texttt{wchar\_t} by the
   Standard ought be ``large enough to represent any supported character code
   point''. The Redmond brain trust turned around and helpfully defined
@@ -564,13 +638,19 @@ description={An application for providing TUI modal dialogs, similar to \texttt{
   about the column width or the encoded byte length of a given character.
 \item \textbf{Wide East Asian characters}: Defined in Unicode Standard Annex \#11.
     Every Unicode character has as its \textit{default width} property one of
-    six values: \textit{Ambiguous}, \textit{Fullwidth} (zenkaku),
-    \textit{Halfwidth} (hankaku), \textit{Narrow}, \textit{Wide}, and \textit{Neutral}
+    six values: \textit{Ambiguous}, \textit{Fullwidth} (全形/ 全角),
+    \textit{Halfwidth} (半形/半角), \textit{Narrow}, \textit{Wide}, and \textit{Neutral}
     aka ``Not East Asian''. All six resolve to either ``narrow'' or ``wide'', with
     the resolution depending on context. All fullwidth characters are wide, and
     all halfwidth characters are narrow. Traditionally, ``narrow'' characters
-    occupy half an \gls{em} in East Asian writing, but it is more frequent on
-    international displays that ``wide'' ones occupy two ems.
+    occupy half an \gls{em} in East Asian writing, but today it is more common
+    for ``wide'' characters to occupy two ems.
+\item \textbf{Multicolumn EGCs}: Depending on the font, an EGC might occupuy
+  more than one column. The ANSI/ISO C function \texttt{wcwidth(3)} supposely
+  returns the number of columns a \texttt{wchar\_t} will occupy, but it can't
+  be trusted---this is ultimately a property of the font. Perhaps most
+  spectacular is \texttt{U+FDFD ARABIC LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM}
+  aka \begin{arab}[utf]﷽\end{arab}
 \end{denseitemize}}
 }
 
