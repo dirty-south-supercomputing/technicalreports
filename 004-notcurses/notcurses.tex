@@ -378,8 +378,12 @@ terminals is presented in Appendix~\ref{sec:terminals}).
 The machine on which I'm typing this contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
-within its silicon heart remains a VGA 80x25 text mode engine, inherited
-largely unchanged from the EGA, the CGA, the IBM Monochrome Display Adapter,
+within its silicon heart remains a VGA 80x25 text mode engine\cite{vga}, inherited
+largely unchanged from the EGA, the CGA, the IBM Monochrome Display Adapter\footnote{The
+history of video display standards since 1981's MDA is a story of imprecision,
+dashed hopes, and idle dreams. Good luck finding authoritative references
+for anything beyond \texttt{int 10h} real mode operation prior to version 1.0
+of the SuperVGA VESA BIOS Extension\cite{videostandards}, released 1989-10-01\cite{vesa}.},
 and before that smart terminals\footnote{As early as 1971, the block-oriented
 IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
@@ -1787,7 +1791,7 @@ legend\cite{quiche}.} (people had less experience abbreviating in those days).
 These devices most typically printed 72 characters per line (CPL), a limit that
 has persisted in strange places\cite{pandoc} through the modern era. Another constant
 you'll see from time to time is 132 CPL, derived from line printers such as the
-IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most often,
+IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most common,
 however, is the 80 column line originating in 1928's 7¾x3¼x0.007in IBM
 Computer Card (as designed by Clair D.\ Lake, deriving from the 1890 U.\ S.\
 Census cards of Herman Hollerith\ldots themselves borrowing from Joseph
@@ -1799,13 +1803,14 @@ technology of the time, on their feeder paper (8.5in and 14in in the case of
 printers).
 
 On, then, to the ``Glass TTYs'' (ugh) and Visual Display Units of the 1970s.
-Pictured are the Computer Terminal Corporation Datapoint 3300, the
-Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the Soroc IQ-120~\ref{fig:terminals}.
-Lacking microcontrollers, and generally implementing no independent control
-sequences, such devices are today often known as ``dumb terminals'' (this term
-was originally a registered trademark of Lear Sigler, see below). Already the
-80x24 ``standard'' (it is not a standard) was emerging (the DEC contemporaries
-listed were already pretty ``smart'', using proprietary control codes):
+Pictured in Figure~\ref{fig:terminals} are the Computer Terminal Corporation
+Datapoint 3300, the Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the
+Soroc IQ-120. Lacking microcontrollers, and generally implementing no
+independent control sequences, such devices are today often known as ``dumb
+terminals'' (this term was originally a registered trademark of Lear Sigler,
+see below). Already the 80x24 ``standard'' (it is not a standard) was emerging
+(the DEC contemporaries listed were already pretty ``smart'', using proprietary
+control codes):
 
 \begin{table}[h]
 \begin{center}
@@ -1849,7 +1854,7 @@ The Aaronites, Levite descendents of Moses's brother Aaron, the first
 \texthebrew{כהן גדול}
 (High Priest),
 form the priestly \texthebrew{כֹּהֲנִים}; they were divided into 24 courses. The Buddha's Dharma Chakra (Wheel of Dhamma)
-in its Ashoka form extends 24 spokes. But perhaps I grow esoteric, and even
+in its Ashoka form sends forth 24 spokes. But perhaps I grow esoteric, and even
 speculative\ldots in truth, 80x24 almost certainly owes its questionable
 existence to IBM's punched cards, IBM 2260 and 3270 wanting compatibility with
 IBM printers, the upstart DEC wanting compatibility with IBM software for their
@@ -1974,14 +1979,16 @@ The Unicode Consortium has scheduled Unicode 13.0 for a March 2020 release.
 Chapters 3 and most of Chapter 4 of the Core Specification are normative. The
 remainder is informative. The Unicode Standard consists of the Core
 Specification\cite{unicode13}, the \href{https://www.unicode.org/charts/}{code charts},
-the \href{https://unicode.org/versions/Unicode13.0.0/#Unicode_Standard_Annexes_nb}{Unicode Standard Annexes}
-, and the \href{http://www.unicode.org/Public/13.0.0/}{Unicode Character Database (UCD)}.
+the \href{https://unicode.org/versions/Unicode13.0.0/#Unicode_Standard_Annexes_nb}{Unicode Standard Annexes},
+and the \href{http://www.unicode.org/Public/13.0.0/}{Unicode Character Database (UCD)}.
 
 \begin{table}[h]
 \begin{center}
   \begin{tabular}{ |c|c| }
     \hline
     UAX \#9 & Unicode Bidirectional Algorithm \\
+    \hline
+    UTS \#10 & Unicode Collation Algorithm \\
     \hline
     UAX \#11 & East Asian Width \\
     \hline
@@ -1999,6 +2006,8 @@ the \href{https://unicode.org/versions/Unicode13.0.0/#Unicode_Standard_Annexes_n
     \hline
     UAX \#38 & Unicode Han Database (Unihan) \\
     \hline
+    UTS \#39 & Unicode Security Mechanisms \\
+    \hline
     UAX \#41 & Common References for Unicode Standard Annexes \\
     \hline
     UAX \#42 & Unicode Character Database in XML \\
@@ -2007,27 +2016,14 @@ the \href{https://unicode.org/versions/Unicode13.0.0/#Unicode_Standard_Annexes_n
     \hline
     UAX \#45 & U-Source Ideographs \\
     \hline
-    UAX \#50 & Unicode Vertical Text Layout \\
-    \hline
-  \end{tabular}
-\caption{Unicode 13.0.0 Standard Annexes.}
-\end{center}
-\end{table}
-
-\begin{table}[h]
-\begin{center}
-  \begin{tabular}{ |c|c| }
-    \hline
-    UTS \#10 & Unicode Collation Algorithm \\
-    \hline
-    UTS \#39 & Unicode Security Mechanisms \\
-    \hline
     UTS \#46 & Unicode IDNA Compatibility Processing \\
+    \hline
+    UAX \#50 & Unicode Vertical Text Layout \\
     \hline
     UTS \#51 & Unicode Emoji \\
     \hline
   \end{tabular}
-\caption{Unicode 13.0.0 Synchronized Technical Standards.}
+\caption{Unicode 13.0.0 Standard Annexes and Synchronized Technical Standards.}
 \end{center}
 \end{table}
 
