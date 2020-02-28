@@ -1105,6 +1105,77 @@ that it won't work in a console, escapes are \textit{far} less efficient than
 canvases or OpenGL display lists; if your plan involves using ANSI escape
 sequences to drive a 1920x1080 display via roughly two million 1x1 character
 cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
+
+In the early 1960s, an IBM employee on a dare ate a hallucinogenic tapeworm
+that pissed nitric acid. Stuffing his steaming, rapidly decoiling bowels
+up into a brown paper bag, he was off to the hospital. Alas! On those very
+hospital steps he was struck by lightning, and filled with spears, and
+set upon by savage hogs, and finally exploded. The tapeworm emerged, clad
+in shimmering mandorla, with a name pronounceable in no human tongue. ``Adding
+hallucinogenic tapeworms to a late project only makes it later,'' Brooks
+cautioned\cite{mythicalman}, but Gene Amdahl knew no peace. ``This
+Tapeworm Queen reminds me of my Wisconsin days!'' he cried, and on a prototype
+Model 30 appeared her Name. Struck by the power of that Name, all began to bow,
+and to weep. She vomited forth the Tapeworm Gospel. Looking upon this filth, they
+thought it Good.
+
+So now you know what EBCDIC is. We will speak of it no further\footnote{If you
+find yourself needing more information about EBCDIC, it might be time to think long and hard about your life decisions.}.
+
+For our purposes, the story can reasonably start with a 7-bit encoding of
+128 characters: ANSI X3.4-1986, perhaps better known as ASCII (Table~\ref{table:ascii}).
+The first ASCII we would recognize as such\footnote{ASCII-1963 was caveperson ASCII. In the words of
+ G.H. Hardy, ``ASCII-1963 was clever schoolboys; '68 was a Fellow from another
+College\cite{ghhardy}.''} was the unpublished ASCII-1965. ASCII-1968 was
+released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
+``internationalized'' ASCII-1968. \textbf{FIXME\ldots}
+
+The first 32 values are non-printable control codes, known as the ``C0''
+control set.
+
+\begin{table}
+  \centering
+  \begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
+    \hline
+    & 0x & 1x & 2x & 3x & 4x & 5x & 6x & 7x \\
+    \hline
+    x0 & NUL & DLE & SP & 0 & $@$ & P & ' & p \\
+    \hline
+    x1 & SOH & DC1 & ! & 1 & A & Q & a & q \\
+    \hline
+    x2 & STX & DC2 & " & 2 & B & R & b & r \\
+    \hline                              
+    x3 & ETX & DC3 & \# & 3 & C & S & c & s \\
+    \hline                              
+    x4 & EOT & DC4 & \$ & 4 & D & T & d & t \\
+    \hline                              
+    x5 & ENQ & NAK & \% & 5 & E & U & e & u \\
+    \hline                              
+    x6 & ACK & SYN & \& & 6 & F & V & f & v \\
+    \hline                              
+    x7 & BEL & ETB & ' & 7 & G & W & g & w \\
+    \hline                              
+    x8 & BS & CAN  &(  &8  &H & X & h & x \\
+    \hline                              
+    x9 & HT & EM   &)  &9  &I & Y & i & y \\
+    \hline                              
+    xA & LF & SUB & * & : & J & Z & j & z \\
+    \hline                              
+    xB & VT & ESC & + & ; & K & [ & k & \{ \\
+    \hline                              
+    xC & FF & FS  & , & < & L & \ & l & | \\
+    \hline                              
+    xD & CR & GS  & - & = & M & ] & m & \} \\
+    \hline                              
+    xE & SO & RS  & . & > & N & \^ & n & ˜ \\
+    \hline                              
+    xF & SI & US  & / & ? & O & \_ & o & DEL \\
+    \hline                              
+  \end{tabular}
+  \caption{ANSI X3.4-1986 (ASCII, IA5, T.50 IRA, RFC 20).}
+  \label{table:ascii}
+\end{table}
+
 \subsection{The Universal Character Set}
 \begin{center}
 \includegraphics[width=.9\linewidth]{media/charset-timeline.png}
