@@ -1,5 +1,6 @@
 // makes an opaque box to highlight the selected piece
-static struct ncplane* makebox(struct notcurses* nc){
+static struct ncplane*
+makebox(struct notcurses* nc){
   struct ncplane* ret = ncplane_new(nc, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, 0, 0, NULL);
   if(ret){
     uint64_t channels = 0;
@@ -14,5 +15,6 @@ static struct ncplane* makebox(struct notcurses* nc){
 }
 
 // move the highlight box to the specified plane
-static int boxit(struct ncplane* box, const struct ncplane* n){
+static int
+boxit(struct ncplane* box, const struct ncplane* n){
 }

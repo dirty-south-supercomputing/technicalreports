@@ -1,8 +1,9 @@
 // wakes up every .1s and rotates appropriate pieces pi/2. the selected piece
 // is not rotated. fastest rate is 4Hz, aka 0.0625s per step (of 16 steps).
-void* rotator_thread(void* vmarsh){
+static void*
+rotator_thread(void* vmarsh){
   const unsigned MAXSTEPS = 16; // 1 / ((2pi / pi/2) * 4)
-  int steps[sizeof(tetriminos) / sizeof(*tetriminos)]; // steps per second
+  int steps[TETRIMINO_COUNT]; // steps per second
   for(int i = 0 ; i < sizeof(steps) / sizeof(*steps) ; ++i){
     steps[i] = random() % MAXSTEPS + 1;
   }

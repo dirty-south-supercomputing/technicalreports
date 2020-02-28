@@ -3,12 +3,11 @@
 % arara: makeglossaries
 % arara: xelatex: {shell: true}
 % arara: xelatex: {shell: true}
-\documentclass[letterpaper,11pt]{article}
+\documentclass[letterpaper,10pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{newfloat}
 \usepackage{hyperref}
 \usepackage{graphicx}
-%\usepackage[justification=centering,font=small,labelfont=bf]{caption}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{parskip}
@@ -91,15 +90,14 @@ A Guide to TUIs and Character Graphics\thanks{
 \begin{center}
   \textit{For T.\ S.\ Eliot, il miglior fabbro.} \\
   \vspace{.25in}
-  \textit{For Jim Greenlee, for speaking rigor to my programming.\\
+  \textit{For Jeanette Martin, for exhortations to go H.A.M. \\
   \vspace{.25in}
-  For Coach Jeanette Martin, for exhortations to go H.A.M. \\
+  For Jim Greenlee, for speaking rigor to my programming.\\
   \vspace{.25in}
-    For Professor Hyesoon Kim, for introducing me to the glorious world
+    For Prof.\ Hyesoon Kim, for introducing me to the glorious world
     inside the die.\\
   \vspace{.25in}
-    For Professor Richard Vuduc, who
-    demonstrates serenity in brilliance, and kindness in dominance.\\}
+    For Prof.\ Richard Vuduc, for demonstrating serenity in brilliance, and kindness in dominance.\\}
 
   \vspace{1in}\ldots but mostly for Emily.
 \end{center}
@@ -127,11 +125,11 @@ A Guide to TUIs and Character Graphics\thanks{
 \end{figure}
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace*{1in}
+%\vspace*{1in}
 \section{Foreward}
 Copyright © 2020 Nick Black.
 
-\small{This edition corresponds to version 1.2.2 of the Notcurses
+This edition corresponds to version 1.2.2 of the Notcurses
 library, released 2020-02-24.
 
 Notcurses can be downloaded from
@@ -140,15 +138,20 @@ Notcurses can be downloaded from
 This document can be downloaded
 from~\url{https://nick-black.com/htp-notcurses.pdf}.
 
-Licensed under the Apache License, Version 2.0 (the ``License''); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at \url{http://www.apache.org/licenses/LICENSE-2.0}.
+Licensed under the Apache License, Version 2.0 (the ``License''); you may not
+use this document except in compliance with the License. You may obtain a copy
+of the License at \url{http://www.apache.org/licenses/LICENSE-2.0}.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an ``AS IS'' BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+This document is Free Documentation, written for love and released for
+education. You should not have been charged for this document. If you'd like to
+show thanks for my efforts, I encourage a donation to
+the~\href{https://www.thefire.org/}{Foundation for Individual Rights in Education}.
 
 Tetris © The Tetris Company, LLC.
 \textit{Hackers (1995)} © United Artists Pictures.
@@ -158,8 +161,8 @@ Tetris © The Tetris Company, LLC.
 ``Super Mario Bros.'' © Nintendo of America.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
+Please don't sue me.
 
-\vspace*{1in}
 \subsection{¡Peligro!}
 
 The code written for this book attempts to minimize use of vertical space
@@ -167,10 +170,7 @@ without eliding error checking (or crossing into the realms of the grotesque).
 Error handling is a fundamental slog of C programming, one that
 inevitably complicates reliable applications.
 
-\textbf{These listings cannot be considered examples of good general style\ldots but they \textit{do} get the job done.}
-
-}
-
+\textbf{These listings cannot be considered examples of good general style\ldots but they get the job done.}
 
 \vfill
 
@@ -191,12 +191,11 @@ impending in the ancient craft of the Beautiful.}{Paul Valéry}
 \section{Introduction}
 
 I implemented Notcurses in the winter of 2019 after having a few patches
-rejected from NCURSES. The first commit was pushed 2019-11-16. I started
-writing this manuscript 2020-02-12, following the 1.1.8 release. It proved to
+rejected from NCURSES. The first commit was pushed 2019-11-16. It proved to
 be seductive as hell, and it was only with difficulty that I tore myself away
-following three months of hard work. By that time, Notcurses subsumed large
-chunks of NCURSES, adding a great deal more. The project had three
-major goals:
+following three months of hard work. I started writing this manuscript
+2020-02-12, following the 1.1.8 release. By that time, Notcurses subsumed large
+chunks of NCURSES, adding a great deal more. The project had three major goals:
 
 \begin{denseitemize}
 \item to provide NCURSES-like functionality with 24-bit color, safety in the
@@ -989,7 +988,7 @@ existing monitor.
 
 \subsection{Statistics}
 
-notcurses tracks statistics across its operation, and a snapshot can be
+Notcurses tracks statistics across its operation, and a snapshot can be
 acquired using the \texttt{notcurses\_stats()} function. This function cannot
 fail.
 
@@ -1030,6 +1029,8 @@ void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 Timings for renderings are across the breadth of \texttt{notcurses\_render()}:
 they include all per-render preprocessing, output generation, and dumping of
 the output (including any sleeping while waiting on the terminal).
+
+\textbf{FIXME FIXME lots of duplication between here and rendering section above}
 
 The notcurses drawing algorithm logically starts by zeroing out a
 \textit{solutions array} of booleans. When this array is all true, we've solved
@@ -1102,6 +1103,8 @@ cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 \includegraphics[width=.9\linewidth]{media/charset-timeline.png}
 \end{center}
 
+\textbf{FIXME FIXME graph of unicode character count by version}
+
 \footnote{Once upon a time, these other sixteen planes were known as the
   Astral Planes\cite{astralplanes}.}
 \subsection{UTF-8}
@@ -1130,7 +1133,7 @@ placed at column 1.
 Likewise, when rendering, a plane which would partially obstruct a wide glyph
 prevents it from being rendered entirely. A pathological case would be that of
 a terminal $n$ columns in width, containing $n-1$ planes, each 2 columns wide.
-The planes are placed at offsets $[0n\ldots2]$. Each plane is above the plane to
+The planes are placed at offsets $[0\ldots n-1]$. Each plane is above the plane to
 its left, and each plane contains a single wide character. Were this to be
 rendered, only the rightmost plane (and its single glyph) would be rendered!
 
@@ -1356,6 +1359,50 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
 \section{UI widgets}
 \label{sec:uiwidgets}
 \subsection{Selectors and multiselectors}
+
+The selector widget is an ncplane with a body section and optional title riser.
+The body section is populated with options and descriptions, and supports
+infinite scrolling up and down. The widget is automatically sized according to
+the largest input provided. The keyboard and mouse wheel can scroll through
+selections, and clicking on the arrows also scrolls. Selection and cancellation
+are implemented by the caller. The currently-selected option can be retrieved
+at any time. Option/description pairs can be added or removed while the
+widget is active, even if the removed pair is currently selected. Removing the
+last pair does not destroy the widget, and it is possible to create the widget
+with no pairs.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+struct selector_item {
+  char* option;
+  char* desc;
+};
+
+typedef struct selector_options {
+  char* title; // title may be NULL, inhibiting riser, saving two rows.
+  char* secondary; // secondary may be NULL
+  char* footer; // footer may be NULL
+  struct selector_item* items; // initial items and descriptions
+  unsigned itemcount; // number of initial items and descriptions
+  // default item (selected at start), must be < itemcount unless 'itemcount'
+  // is 0, in which case 'defidx' must also be 0
+  unsigned defidx;
+  // maximum number of options to display at once, 0 to use all available space
+  unsigned maxdisplay;
+  // exhaustive styling options
+  uint64_t opchannels;   // option channels
+  uint64_t descchannels; // description channels
+  uint64_t titlechannels;// title channels
+  uint64_t footchannels; // secondary and footer channels
+  uint64_t boxchannels;  // border channels
+  uint64_t bgchannels;   // background channels, used only in body
+} selector_options;
+
+struct ncselector* ncselector_create(struct ncplane* n, int y, int x,
+                                     const selector_options* opts);
+\end{minted}
+\end{listing}
+
 \begin{figure}
     \centering
     \includegraphics[width=.75\linewidth]{media/selector1.png}
@@ -1383,7 +1430,73 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
   \caption{Naked selector.}
 \end{figure}
 
+\begin{listing}[!htbp]
+\begin{minted}{C}
+int ncselector_additem(struct ncselector* n, const struct selector_item* item);
+int ncselector_delitem(struct ncselector* n, const char* item);
+
+// Return a reference to the selected option, or NULL if there are no items.
+const char* ncselector_selected(const struct ncselector* n);
+
+// Return a reference to the ncselector's underlying ncplane.
+struct ncplane* ncselector_plane(struct ncselector* n);
+
+// Move up or down in the list. A reference to the newly-selected item is
+// returned, or NULL if there are no items in the list.
+const char* ncselector_previtem(struct ncselector* n);
+const char* ncselector_nextitem(struct ncselector* n);
+
+// Offer the input to the ncselector. If it's relevant, this function returns
+// true, and the input ought not be processed further. If it's irrelevant to
+// the selector, false is returned. Relevant inputs include:
+//  * a mouse click on an item
+//  * a mouse scrollwheel event
+//  * a mouse click on the scrolling arrows
+//  * a mouse click outside of an unrolled menu (the menu is rolled up)
+//  * up, down, pgup, or pgdown on an unrolled menu (navigates among items)
+bool ncselector_offer_input(struct ncselector* n, const struct ncinput* nc);
+
+// Destroy the ncselector. If 'item' is not NULL, the last selected option will
+// be strdup()ed and assigned to '*item' (and must be free()d by the caller).
+void ncselector_destroy(struct ncselector* n, char** item);
+\end{minted}
+\end{listing}
+
 \subsection{Menus}
+
+Horizontal menu bars are supported on the top and bottom rows of planes. If a
+menu bar is longer than the bound plane, it will be only partially visible, but
+any unrolled section will be visible. Menus may be either visible or invisible
+by default. Set the `hiding` option to get an invisible menu. In the event of a
+screen resize, menus will be automatically moved/resized.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+typedef struct menu_options {
+  bool bottom;              // on the bottom row, as opposed to top row
+  bool hiding;              // hide the menu when not being used
+  struct {
+    char* name;             // utf-8 c string
+    struct {
+      char* desc;           // utf-8 menu item, NULL for horizontal separator
+      ncinput shortcut;     // shortcut, all should be distinct
+    }* items;
+    int itemcount;
+  }* sections;              // array of menu sections
+  int sectioncount;         // must be positive
+  uint64_t headerchannels;  // styling for header
+  uint64_t sectionchannels; // styling for sections
+} menu_options;
+
+struct ncmenu;
+
+// Create a menu with the specified options. Menus are currently bound to an
+// overall notcurses object (as opposed to a particular plane), and are
+// implemented as ncplanes kept atop other ncplanes.
+struct ncmenu* ncmenu_create(struct notcurses* nc, const menu_options* opts);
+\end{minted}
+\end{listing}
+
 \begin{figure}
     \centering
     \includegraphics[width=.75\linewidth]{media/menutop.png}
@@ -1403,6 +1516,39 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
       by WarMECH, is leaping through the ``Help'' menu. In the upper left is the HUD,
       and at the bottom the About text, both implemented as translucent planes.}
 \end{figure}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Unroll the specified menu section, making the menu visible if it was
+// invisible, and rolling up any menu section that is already unrolled.
+int ncmenu_unroll(struct ncmenu* n, int sectionidx);
+
+// Roll up any unrolled menu section, and hide the menu if using hiding.
+int ncmenu_rollup(struct ncmenu* n);
+
+// Return the selected item description, or NULL if no section is unrolled. If
+// 'ni' is not NULL, and the selected item has a shortcut, 'ni' will be filled
+// in with that shortcut--this can allow faster matching.
+const char* ncmenu_selected(const struct ncmenu* n, struct ncinput* ni);
+
+// Return the ncplane backing this ncmenu.
+struct ncplane* ncmenu_plane(struct ncmenu* n);
+
+// Offer the input to the ncmenu. If it's relevant, this function returns true,
+// and the input ought not be processed further. If it's irrelevant to the
+// menu, false is returned. Relevant inputs include:
+//  * mouse movement over a hidden menu
+//  * a mouse click on a menu section (the section is unrolled)
+//  * a mouse click outside of an unrolled menu (the menu is rolled up)
+//  * left or right on an unrolled menu (navigates among sections)
+//  * up or down on an unrolled menu (navigates among items)
+//  * escape on an unrolled menu (the menu is rolled up)
+bool ncmenu_offer_input(struct ncmenu* n, const struct ncinput* nc);
+
+// Destroy a menu created with ncmenu_create().
+int ncmenu_destroy(struct ncmenu* n);
+\end{minted}
+\end{listing}
 
 \subsection{Reels}
 \subsection{Example: let's rip off \texttt{whiptail}}
@@ -1622,6 +1768,7 @@ x86\_64 binaries. My kernel is a custom 5.5.6 build. The terminal type is
   \end{minipage}\hfill
 \end{figure}
 
+\clearpage
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

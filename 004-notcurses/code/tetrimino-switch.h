@@ -1,5 +1,6 @@
-static int blast(struct ncplane* n, uint32_t attrword, uint64_t ul,
-                 uint64_t ur, uint64_t ll, uint64_t lr){
+static int
+blast(struct ncplane* n, uint32_t attrword, uint64_t ul, uint64_t ur,
+      uint64_t ll, uint64_t lr){
   int dimy, dimx;
   ncplane_dim_yx(n, &dimy, &dimx);
   return ncplane_cursor_move_yx(n, 0, 0) ||
@@ -7,7 +8,8 @@ static int blast(struct ncplane* n, uint32_t attrword, uint64_t ul,
          ncplane_stain(n, dimy - 1, dimx - 1, ul, ur, ll, lr);
 }
 
-static int highlight(struct ncplane** minos, int tidx){
+static int
+highlight(struct ncplane** minos, int tidx){
   int r, g, b;
   uint64_t corig = 0, c = 0;
   r = channel_r(tetriminos[tidx].color);
@@ -18,7 +20,8 @@ static int highlight(struct ncplane** minos, int tidx){
   return blast(minos[tidx], NCSTYLE_BOLD, corig, c, c, corig);
 }
 
-static int reduce(struct ncplane** minos, int tidx){
+static int
+reduce(struct ncplane** minos, int tidx){
   struct ncplane* n = minos[tidx];
   int r, g, b;
   uint64_t c = 0;
