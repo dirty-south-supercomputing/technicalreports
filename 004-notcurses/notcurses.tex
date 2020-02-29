@@ -272,7 +272,7 @@ Given the same display hardware,
 
 A TUI (text user interface) is a holistic model, view, and controller implemented
 using character graphics. TUIs, like WIMP\footnote{Windows, icons, menus, pointers, a paradigm so pervasive that
-the industry collectively treasures a Wiemarian memory of Xerox PARC's noble
+the industry collectively treasures a Wiemarian\cite{thirdreich} memory of Xerox PARC's noble
 engineers stabbed in the back by management (not unlike the Oatmeal-fostered\cite{fuckoatmeal}
 myopia regarding Edison and Tesla. I'll take Thomas Alva over Matthew Inman any
 day). It too often goes unmentioned that the Alto and Star were as unusable as they were visionary\cite{lightningdealers}.
@@ -280,7 +280,7 @@ This is of course still superior to Java, which isn't even visionary.} GUIs,
 freely move the cursor around their rectilinear display, as opposed to
 line-oriented CLIs and their ineluctable marches through the scrolling region.
 
-Given the same interactive task\footnote{These relations are not
+Given the same interactive task,\footnote{These relations are not
 fundamental, but emerge from the grim meathook realities of GUI toolkits.}
 
 \begin{denseitemize}
@@ -296,7 +296,7 @@ specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for
 TUIs. Maintainter (and author, in large part) Thomas E.\ Dickey,
 exemplifies conservative and fastidious stewardship. Perfectly lovely TUIs can
 be built using NCURSES (as seen in Figure~\ref{fig:ncurses-tuis}), but it \textit{does}
-have its origins in the 8-bit era, and is showing its age.
+have its origins in the 8-bit era, and shows its age.
 
 \begin{figure}[!hbtp]
   \centering
@@ -341,8 +341,8 @@ This text has two goals:
 \item{To provide a firm footing for design and implementation of character
     graphics and TUIs, elucidating the dimensions of design, along with difficulties
     to avoid, and}
-\item{to serve as ``narrative reference'' for my Notcurses library, and as
-    a starting place for newcomers.}
+\item{to serve as ``narrative reference''\cite{newjournalism} for my Notcurses
+      library, and as a starting place for newcomers.}
 \end{denseitemize}
 
 \begin{figure}[!htbp]
@@ -379,7 +379,7 @@ high-powered LED displays have their pixels summoned up and ordered into
 formations suitable for the reconstruction of 1970s technology (a history of
 terminals is presented in Appendix~\ref{sec:terminals}).
 
-The machine on which I'm typing this contains a
+The machine on which I'm preparing this \LaTeX contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
 within its silicon heart remains a VGA 80x25 text mode engine\cite{vga}, inherited
@@ -392,7 +392,7 @@ and before that smart terminals\footnote{As early as 1971, the block-oriented
 IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
 
-I generally use this modern marvel to drive terminal emulators of 80 columns.
+I mainly use this modern marvel to drive terminal emulators of 80 columns.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -416,9 +416,9 @@ it is intended to be mixed among other use of standard I/O. Essentially, direct
 mode ``styles your \texttt{printf()}s.'' Similarly to full Notcurses, direct mode
 requires a valid and correct terminfo database entry, supplied via either the
 \texttt{termtype} parameter to \texttt{notcurses\_directmode()} or the \texttt{TERM} environment
-variable. It does \textit{not}, however, require any particular encoding nor
-even a call to \texttt{setlocale()} (full Notcurses requires a properly-configured
-ASCII or UTF-8 locale).
+variable. It does \textit{not}, however, require any particular encoding or
+other locale properties\cite{setlocale} (full Notcurses requires a
+properly-configured ASCII or UTF-8 locale).
 
 Enter direct mode via a call to \texttt{notcurses\_directmode()} with a successful
 return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
@@ -499,17 +499,19 @@ instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 \end{figure}
 
 We can easily write code to reproduce this effect for standard input and output.
-Figure~\ref{fig:houseout} works as expected, but there are a few things worth noting about its code. First, observe how
-much of the logic is devoted to checking and propagating errors! Perhaps
-contrary to common expectation, reliable code--especially when that code's
-primary effect is to write to stdout--generally needs to check the results of
-e.g. \texttt{printf()} (what happens if we're redirected to a file, and
-the disk is full?). A language making use of exceptions would reduce if not
-eliminate this nonsense.
+Listing~\ref{list:holformatter} works as expected (see
+Figure~\ref{fig:houseout}), but there are a few things worth noting about its
+code. First, observe how much of the logic is devoted to checking and
+propagating errors! Perhaps contrary to common expectation, reliable
+code---especially when that code's primary effect is to write to
+stdout---generally needs to check the results of e.g. \texttt{printf()} (what
+happens if we're redirected to a file, and the disk is full?). A language
+making use of exceptions would reduce if not eliminate this nonsense.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hol-formatter.c}
 \caption{\texttt{hol-formatter.c}}
+\label{list:holformatter}
 \end{listing}
 
 
@@ -519,17 +521,28 @@ eliminate this nonsense.
 \label{fig:houseout}
 \end{figure}
 
-We don't switch from blue to some random color, because we don't know the
-background color of the terminal. Hard to believe as it is, some people don't
-favor a dark terminal background. If the terminal background were white, and we
-had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
+So long as we're dealing with either ASCII or UTF-8 input, our simple, old-skool
+\texttt{tolower(3)} is satisfactory \textit{for this problem}. The key
+observation is that UTF-8 encoded text can be compared for equality by
+a structure-oblivious~\texttt{memcmp(3)}, as of course is ASCII.
+Unless we need to color e.g. \textcolor{blue}{\texttt{ℏöûⓈᴇ}} (maybe we should,
+maybe we shouldn't) this is safe, simple, and sufficient. If we \textit{do}
+wish to collapse distinct but by some measure similar EGCs, we should normalize
+input as prescribed by Unicode Standard Annex \#15\cite{annex15}.
+
+We don't switch from blue to some other specified color, because we don't know
+the background color of the terminal. Some people, possibly aliens, don't favor
+a dark terminal background. If the terminal background were white, and we had
+just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
 ``\textcolor{blue}{house}'' would be invisible.
 
 One might observe that a user with a blue background will have invisible
-``\textcolor{blue}{house}'' text. This is true, and there's no great solution
-to it. It is not generally possible to discover the RGB values of the default
-colors. I suppose all one can do is rest easy, serene in the belief that people
-with chromatic backgrounds deserve whatever happens to them.
+``\textcolor{blue}{house}'' text. This is a real issue, one lacking a perfect
+solution\footnote{Applying \texttt{NCSTYLE\_STANDOUT} might or might not help.}.
+It is not generally possible to discover the RGB values of the default colors.
+I suppose all one can do is rest easy, serene in the belief that white
+backgrounds are one thing, but people with chromatic backgrounds deserve
+whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
 
