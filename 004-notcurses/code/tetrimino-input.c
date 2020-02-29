@@ -14,7 +14,7 @@ static const size_t TETRIMINO_COUNT = sizeof(tetriminos) / sizeof(*tetriminos);
 #include "tetrimino-mouse.h"
 #include "tetrimino-thread.h"
 #include "tetrimino-drawcircle.h"
-#include "tetrimino-switch.h"
+#include "tetrimino-switchbox.h"
 #include "tetrimino-background.h"
 #include "tetrimino-box.h"
 #include "tetrimino-inputcore.h"

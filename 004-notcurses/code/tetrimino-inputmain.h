@@ -19,7 +19,7 @@ int main(void){
   pthread_t tid;
 void* marsh = NULL; // FIXME
   if(!failed && (failed = pthread_create(&tid, NULL, rotator_thread, marsh)) == 0){
-    while((failed |= (highlight(minos, p) || notcurses_render(nc))) == 0){
+    while((failed |= (highlight_enbox(minos, p, coaster) || notcurses_render(nc))) == 0){
       failed |= handle_input(nc, minos, dimy, dimx, &y, &x, &p);
       if(p < 0){
         break;
