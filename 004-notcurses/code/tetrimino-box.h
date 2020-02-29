@@ -1,6 +1,5 @@
 // makes an opaque box to highlight the selected piece
-static struct ncplane*
-makebox(struct notcurses* nc){
+static struct ncplane* makebox(struct notcurses* nc){
   struct ncplane* ret = ncplane_new(nc, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, 0, 0, NULL);
   if(ret){
     uint64_t tl = 0, br = 0, m = 0;
@@ -25,8 +24,7 @@ makebox(struct notcurses* nc){
   return NULL;
 }
 
-static int
-highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box){
+static int highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box){
   int r, g, b, ny, nx;
   uint64_t corig = 0, c = 0;
   r = channel_r(tetriminos[tidx].color);

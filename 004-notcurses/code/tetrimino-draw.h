@@ -1,5 +1,4 @@
-static int
-draw_tetriminos(struct notcurses* nc, struct ncplane** minos, int y, int x){
+static int draw_tetriminos(struct notcurses* nc, struct ncplane** minos, int y, int x){
   if( (minos[0] = tetrimino_plane(nc, 0, y / 3, x / 3)) ){
     if( (minos[1] = tetrimino_plane(nc, 1, y / 3, x * 2 / 3)) ){
       if( (minos[2] = tetrimino_plane(nc, 2, y / 2, x / 4)) ){
