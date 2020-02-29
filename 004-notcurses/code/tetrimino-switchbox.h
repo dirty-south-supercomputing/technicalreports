@@ -9,19 +9,6 @@ blast(struct ncplane* n, uint32_t attrword, uint64_t ul, uint64_t ur,
 }
 
 static int
-highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box){
-  int r, g, b;
-  uint64_t corig = 0, c = 0;
-  r = channel_r(tetriminos[tidx].color);
-  g = channel_g(tetriminos[tidx].color);
-  b = channel_b(tetriminos[tidx].color);
-  channels_set_fg(&corig, tetriminos[tidx].color);
-  channels_set_fg_rgb_clipped(&c, g + 128, b + 128, r + 128);
-  // FIXME move box
-  return blast(minos[tidx], NCSTYLE_BOLD, corig, c, c, corig);
-}
-
-static int
 reduce(struct ncplane** minos, int tidx){
   struct ncplane* n = minos[tidx];
   int r, g, b;

@@ -14,7 +14,7 @@ handle_input(struct notcurses* nc, struct ncplane** ps, int dimy, int dimx,
   }else if(key == '('){ // rotate counterclockwise
   }else if(key == ')'){ // rotate clockwise
   }else if(key == NCKEY_LEFT || key == 'h'){
-    ncplane_move_yx(ps[*p], *y, --x < 0 ? *x = 0 : *x);
+    ncplane_move_yx(ps[*p], *y, --*x < 0 ? *x = 0 : *x);
   }else if(key == NCKEY_RIGHT || key == 'l'){
     ncplane_move_yx(ps[*p], *y, *x = (*x + ncplane_dim_x(ps[*p]) > dimx ? *x : *x + 1));
   }else if(key == NCKEY_UP || key == 'k'){

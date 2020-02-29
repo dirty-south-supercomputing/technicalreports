@@ -15,7 +15,7 @@ RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf common/south.png
 µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob \
   FSM Initialize FindBlob)
 NOTCURSESRESOURCES:=$(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg) \
-	$(wildcard $(NOTCURSESDIR)/code/*.c)
+	$(wildcard $(NOTCURSESDIR)/code/*.c) $(wildcard $(NOTCURSESDIR)/media/*.png)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
@@ -43,7 +43,7 @@ $(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBA
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, background databox displayutf8 drawcircle inputcore inputmain switch))
+$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, background box databox displayutf8 drawcircle inputcore inputmain switchbox))
 	$(CC) -pthread $(CFLAGS) -o $@ $< -lnotcurses -lm
 
 $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, display draw main mouse switch))
