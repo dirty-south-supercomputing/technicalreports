@@ -1,5 +1,4 @@
-static int blast(struct ncplane* n, uint32_t attrword, uint64_t ul,
-                 uint64_t ur, uint64_t ll, uint64_t lr){
+static int blast(struct ncplane* n, uint32_t attrword, uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr){
   int dimy, dimx;
   ncplane_dim_yx(n, &dimy, &dimx);
   return ncplane_cursor_move_yx(n, 0, 0) ||

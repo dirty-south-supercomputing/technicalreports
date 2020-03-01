@@ -27,6 +27,7 @@ LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
+NOTCURSESTEX:=$(addsuffix .tex, notcurses glossary simpleloop termhistory)
 NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech \
           tetrimino tetrimino-input)
 
@@ -37,7 +38,7 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib glossary.tex simpleloop.tex) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
