@@ -804,11 +804,11 @@ Reading input is a per-context operation, performed with \texttt{notcurses}
 objects. It is discussed in detail in Chapter~\ref{sec:input}. When reading
 input, we might get the synthesized event \texttt{NCKEY\_RESIZE}\footnote{This
 event is generated upon receipt of a \texttt{SIGWINCH} signal, SIGnifying WINdow
-CHange.}. This indicates that the terminal has been resized, and we ought call
-\texttt{notcurses\_resize()}\footnote{Really? \textbf{FIXME} \url{https://github.com/dankamongmen/notcurses/issues/367}.}.
-As discussed earlier, sometimes the display is externally corrupted. It's thus
-a good idea to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()},
-which redraws every cell on the display according to the internal Notcurses
+CHange.}. This indicates that the terminal has been resized, and we might want
+to call \texttt{notcurses\_resize()} and get the new dimensions. As discussed
+earlier, sometimes the display is externally corrupted. It's thus a good idea
+to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()}, which
+redraws every cell on the display according to the internal Notcurses
 framebuffer.
 
 \begin{listing}[!htbp]
