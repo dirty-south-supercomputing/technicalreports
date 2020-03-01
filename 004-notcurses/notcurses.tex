@@ -184,7 +184,16 @@ without eliding error checking (or crossing into the realms of the grotesque).
 Error handling is a fundamental slog of C programming, one that
 inevitably complicates reliable applications.
 
-\textbf{These listings cannot be considered examples of good general style\ldots but they get the job done.}
+These listings cannot be considered examples of good general style\ldots but they \textit{do} get the job done.
+
+Three irregular idioms show up frequently:
+
+\begin{denseitemize}
+\item{Use of |= to collect non-zero return values from each of a series of
+      non-interdependent function calls.}
+\item{Right-hand-side conditionals fed into |=, e.g. \texttt{r |= (printf("dank") < 0);}.}
+\item{Extensive use of ||'s short-circuiting property.}
+\end{denseitemize}
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1217,7 +1226,7 @@ originally planned (see Table~\ref{table:c0maps}).
   \label{table:c0maps}
 \end{table}
 
-These characters can be entered by pressing Ctrl along with another key from 
+These characters can be entered by pressing Ctrl along with another key from
 ASCII. These are described using ``caret notation''\ref{table:caret}.
 
 \begin{table}[!htbp]

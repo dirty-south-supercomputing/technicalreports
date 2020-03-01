@@ -17,8 +17,8 @@ int main(void){
   int failed = notcurses_render(nc);
   struct ncvisual* ncv = background(nc, "media/Tetris_NES_cover_art.jpg");
   pthread_t tid;
-void* marsh = NULL; // FIXME
-  if(!failed && (failed = pthread_create(&tid, NULL, rotator_thread, marsh)) == 0){
+  struct tetmarsh marsh = { .lock = PTHREAD_MUTEX_INITIALIZER, };
+  if(!failed && (failed = pthread_create(&tid, NULL, rotator_thread, &marsh)) == 0){
     while((failed |= (highlight_enbox(minos, p, coaster) || notcurses_render(nc))) == 0){
       failed |= handle_input(nc, minos, dimy, dimx, &y, &x, &p);
       if(p < 0){
@@ -28,5 +28,5 @@ void* marsh = NULL; // FIXME
     void* result;
     failed |= (pthread_cancel(tid) || pthread_join(tid, &result) || result != PTHREAD_CANCELED);
   }
-  return (notcurses_stop(nc) || failed) ? EXIT_FAILURE : EXIT_SUCCESS;
+  return (notcurses_stop(nc) || pthread_mutex_destroy(&marsh.lock) || failed) ? EXIT_FAILURE : EXIT_SUCCESS;
 }

@@ -1,6 +1,13 @@
+struct tetmarsh {
+  pthread_mutex_t lock;
+  struct ncplane* minos, *coaster;
+};
+
 // wakes up every .1s and rotates appropriate pieces pi/2. the selected piece
-// is not rotated. fastest rate is 4Hz, aka 0.0625s per step (of 16 steps).
+// is not rotated. fastest rate is 4Hz, aka 0.0625s per step (of 16 steps). in
+// addition, the whole gang is rotated through their circle (at one speed).
 static void* rotator_thread(void* vmarsh){
+  struct tetmarsh* marsh = vmarsh;
   const unsigned MAXSTEPS = 16; // 1 / ((2pi / pi/2) * 4)
   int steps[TETRIMINO_COUNT]; // steps per second
   for(int i = 0 ; i < sizeof(steps) / sizeof(*steps) ; ++i){
@@ -18,5 +25,6 @@ static void* rotator_thread(void* vmarsh){
         return NULL;
       }
     }
+    // FIXME rotate those fuckers
   }
 }
