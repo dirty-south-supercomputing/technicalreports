@@ -334,10 +334,8 @@ API int notcurses_mouse_disable(struct notcurses* n);
 API bool ncplane_mouseevent_p(const struct ncplane* n, const struct ncinput *ni);
 
 // Refresh our idea of the terminal's dimensions, reshaping the standard plane
-// if necessary. Without a call to this function following a terminal resize
-// (as signaled via SIGWINCH), notcurses_render() might not function properly.
-// References to ncplanes (and the egcpools underlying cells) remain valid
-// following a resize operation, but the cursor might have changed position.
+// if necessary, without a fresh render. References to ncplanes (and the
+// egcpools underlying cells) remain valid following a resize operation.
 API int notcurses_resize(struct notcurses* n, int* RESTRICT y, int* RESTRICT x);
 
 // Refresh the physical screen to match what was last rendered (i.e., without
@@ -888,9 +886,11 @@ API int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
 // color everything the same, all four channels should be equivalent. The
 // resulting alpha values are equal to incoming alpha values.
 //
+// Palette-indexed color is not supported.
+//
 // Preconditions for gradient operations (error otherwise):
 //
-//  all: only RGB colors, unless all four channels match
+//  all: only RGB colors, unless all four channels match as default
 //  all: all alpha values must be the same
 //  1x1: all four colors must be the same
 //  1xN: both top and both bottom colors must be the same (vertical gradient)

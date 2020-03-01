@@ -14,10 +14,12 @@ int main(void){
         if(b > blue){
           if(!*b){
             ret |= ncdirect_fg(n, 0x0339dc);
+            ret |= ncdirect_styles_on(n, NCSTYLE_STANDOUT);
           }
           ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
             ret |= ncdirect_fg_default(n);
+            ret |= ncdirect_styles_off(n, NCSTYLE_STANDOUT);
           }
           b = blue;
         }

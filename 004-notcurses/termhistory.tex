@@ -1,0 +1,140 @@
+\section{A brief history of character graphics}
+\label{sec:terminals}
+The earliest terminals making use of glyphs\footnote{Konrad Zuse's Z3, generally
+ considered the first programmable digital computer, communicated with its
+operator through a matrix of blinkenlights and a not unsteampunkish keyboard that resembled the
+Burroughs typewriters of its era\cite{zuse}.} printed them to paper, and are of
+interest to us only so far as our modern term ``tty'' is rather dubiously
+derived from ``TeleTYpewriter'', as these cantankerous contraptions were
+known\footnote{Though we do hear of their Snoopy calendars in the songs of
+legend\cite{quiche}.} (people had less experience abbreviating in those days).
+
+These devices most typically printed 72 characters per line (CPL), a limit that
+has persisted in strange places\cite{pandoc} through the modern era. Another constant
+you'll see from time to time is 132 CPL, derived from line printers such as the
+IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most common,
+however, is the 80 column line originating in 1928's 7¾x3¼x0.007in IBM
+Computer Card (as designed by Clair D.\ Lake, deriving from the 1890 U.\ S.\
+Census cards of Herman Hollerith\ldots themselves borrowing from Joseph
+Jacquard's automation in 1804 of punched card loom control technology pioneered
+by Basile Bouchon in 1725\cite{cards}). To this day, so long as your wacky
+output device can do 80 columns, eh, that's good enough. In all these cases,
+the limit arises from the number of characters that could be printed, using the
+technology of the time, on their feeder paper (8.5in and 14in in the case of
+printers).
+
+On, then, to the ``Glass TTYs'' (ugh) and Visual Display Units of the 1970s.
+Pictured in Figure~\ref{fig:terminals} are the Computer Terminal Corporation
+Datapoint 3300, the Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the
+Soroc IQ-120. Lacking microcontrollers, and generally implementing no
+independent control sequences, such devices are today often known as ``dumb
+terminals'' (this term was originally a registered trademark of Lear Sigler,
+see Figure~\ref{fig:adm3}). Already the 80x24 ``standard'' (it is not a standard) was emerging
+(the DEC contemporaries listed were already pretty ``smart'', using proprietary
+control codes):
+
+\begin{table}[h]
+\begin{center}
+  \begin{tabular}{ |c|c|c| }
+    \hline
+    IBM 2260 Model 1 & 1965 & 40x6 \\
+    \hline
+    Datapoint 3300 & 1969 & 72x25 \\
+    \hline
+    DEC VT05 & 1970 & 72x24 \\
+    \hline
+    IBM 3277 Model 2 & 1971 & 80x24 \\
+    \hline
+    Textronix 4010 & 1972 & 74x35 \\
+    \hline
+    DECscope VT52 & 1974 & 80x24 \\
+    \hline
+    LSI ADM-3A & 1976 & 80x12, 80x24 \\
+    \hline
+    Hazeltine 1500 & 1977 & 80x24 \\
+    \hline
+    Sororc IQ-120 & 1977 & 80x24 \\
+    \hline
+  \end{tabular}
+\caption{Some historical terminals and their resolutions.}
+\end{center}
+\end{table}
+
+Why 80x24 (or 80x25, as you'll also see)\cite{infoworld80}? The 80 almost certainly arises from
+the desire to display an entire punched card (this \textit{is} a standard---see
+ANSI X3.21-1967/FIPS PUB 13, ``Rectangular Holes in Twelve-Row Punched
+Cards'')\cite{sonicdelay}. The origin of 24 is less clear. 24 is highly
+composite (it has more divisors than any smaller number), and it is the largest
+integer divisible by all natural numbers not larger than its square root. There
+are of course 24 hours in a day. 24 divides the scanline counts of both NTSC
+and PAL at 480 and 576, respectively. 24 rows of 80 columns at a byte per
+column utilize 93.75\% of a 2KiB memory, leaving exactly 128 bytes left over,
+and everyone loves a good power of 2.
+
+The Aaronites, Levite descendents of Moses's brother Aaron, the first
+\texthebrew{כהן גדול}
+(High Priest),
+form the priestly \texthebrew{כֹּהֲנִים}; they were divided into 24 courses. The Buddha's Dharma Chakra (Wheel of Dhamma)
+in its Ashoka form sends forth 24 spokes. But perhaps I grow esoteric, and even
+speculative\ldots in truth, 80x24 almost certainly owes its questionable
+existence to IBM's punched cards, IBM 2260 and 3270 wanting compatibility with
+IBM printers, the upstart DEC wanting compatibility with IBM software for their
+VT52 and legendary VT100, and the VT100 subsequently becoming a \textit{de facto} standard for
+four decades.
+
+\begin{figure}
+  \centering \includegraphics[width=.9\linewidth]{media/dumbterminals.jpg}
+\caption[Dumb terminals of the 1970s.]{Clockwise starting from upper left: a dork and his LSI ADM (``American
+  Dream Machine'', supposedly). That poor woman with the Sororc IQs looks stoned out
+  of her gourd. Grizzly Adams rocks a Datapoint 3300, but really his mind is on
+  seeing Skynyrd shred it this weekend. Finally, we have Frank the Cocaine
+  Ranger and his Electric Hazeltine 1500 Band. \textit{Gott im Himmel}, the 70s were \textit{unseemly}.}
+\label{fig:terminals}
+\end{figure}
+
+\begin{figure}
+  \begin{minipage}{0.5\textwidth}
+  \centering
+    \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
+    \caption{Digital Equipment Corporation terminals of the 1970s and 1980s.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.4\textwidth}
+  \centering
+    \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
+    \caption[VT220 glyph dump.]{The VT220's glyphs from a ROM dump. VT100 implemented most of the
+      first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
+  \end{minipage}\hfill
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.8\linewidth]{media/adm3.jpeg}
+  \caption{A strange time.}
+  \label{fig:adm3}
+\end{figure}
+
+\subsection{The DEC VTxxx terminals and ANSI X3.64-1979}
+
+Introduced in August 1978, the VT100 ushered in a new era of smart terminals
+using commodity (Intel) microprocessors, implementing portions of the upcoming
+ANSI X3.64 standard (itself based on 1976's first edition of ECMA-48) along
+with DEC extensions\footnote{The VT100 \textit{did not} implement all of X3.64,
+nor was X3.64 derived from the VT100. The VT100 didn't do color, nor did it
+insert or delete lines. It furthermore implemented several features outside
+the scope of ECMA-48's first edition.} This series would go on to sell over
+six million units, and it was a rare vendor that didn't include some degree
+of DEC VT compatibility. Each major iteration of the series was designed to
+encompass all functionality of prior iterations, beginning with the VT100's
+faithful emulation of the earlier era's VT52. The VT102 cut down on the cost
+and size of the VT100, and included the 132-CPL mode by default; they were
+otherwise essentially the same device\cite{vt100}.
+
+The original \texttt{xterm} was written as an emulator of the VAXStation 100
+(VS100), and slowly acquired scattered features from the VT100, ANSI, and other
+sources\cite{xtermfaq}. Thomas E.\ Dickey (the current maintainer of \Gls{ncurses}
+and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
+\texttt{decTerminalID} resource following the addition of much VT220 compatibility.
+
+\textbf{FIXME keep goin'\ldots}
+
+\subsection{The Curses API}

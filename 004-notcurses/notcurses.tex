@@ -13,11 +13,12 @@
 \usepackage{parskip}
 \usepackage[section]{placeins}
 \usepackage{epigraph}
-\usepackage{sourcecodepro}
+%\usepackage{sourcecodepro}
 \usepackage{fontspec}
 \usepackage[toc,nonumberlist,xindy]{glossaries}
 \usepackage{relsize}
-\setmonofont[Scale=0.7]{Source Code Pro}
+%\setmonofont[Scale=0.7]{Source Code Pro}
+\setmonofont[Scale=0.8]{Unifont}
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
@@ -60,7 +61,7 @@ bibencoding=utf8,
   \textcolor{dsscawpurp}{DSSCAW Technical Report \#004}
 }
 
-\title{Hacking the Planet! with Notcurses:\\
+\title{Hacking the Planet (with Notcurses)\\
 A Guide to TUIs and Character Graphics\thanks{
  \href{https://www.dsscaw.com/}{Dirty South Supercomputing of Atlanta, GA. Free documentation under the Apache 2.0 License.}
 }\\
@@ -157,10 +158,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-This work in its entirety is Free Documentation, written for love and released
+The entirety of this work is Free Documentation, written for love and released
 to instruct. You should not have been charged for this document. If you'd like
 to show thanks for my efforts, I encourage a donation to
-the~\href{https://www.thefire.org/}{Foundation for Individual Rights in Education}.
+the~\href{https://www.thefire.org/}{Foundation for Individual Rights in Education} (\url{https://www.thefire.org/}).
 
 Tetris © The Tetris Company, LLC.
 \textit{Hackers (1995)} © United Artists Pictures.
@@ -271,7 +272,7 @@ Given the same display hardware,
 
 A TUI (text user interface) is a holistic model, view, and controller implemented
 using character graphics. TUIs, like WIMP\footnote{Windows, icons, menus, pointers, a paradigm so pervasive that
-the industry collectively treasures a Wiemarian memory of Xerox PARC's noble
+the industry collectively treasures a Wiemarian\cite{thirdreich} memory of Xerox PARC's noble
 engineers stabbed in the back by management (not unlike the Oatmeal-fostered\cite{fuckoatmeal}
 myopia regarding Edison and Tesla. I'll take Thomas Alva over Matthew Inman any
 day). It too often goes unmentioned that the Alto and Star were as unusable as they were visionary\cite{lightningdealers}.
@@ -279,7 +280,7 @@ This is of course still superior to Java, which isn't even visionary.} GUIs,
 freely move the cursor around their rectilinear display, as opposed to
 line-oriented CLIs and their ineluctable marches through the scrolling region.
 
-Given the same interactive task\footnote{These relations are not
+Given the same interactive task,\footnote{These relations are not
 fundamental, but emerge from the grim meathook realities of GUI toolkits.}
 
 \begin{denseitemize}
@@ -295,7 +296,7 @@ specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for
 TUIs. Maintainter (and author, in large part) Thomas E.\ Dickey,
 exemplifies conservative and fastidious stewardship. Perfectly lovely TUIs can
 be built using NCURSES (as seen in Figure~\ref{fig:ncurses-tuis}), but it \textit{does}
-have its origins in the 8-bit era, and is showing its age.
+have its origins in the 8-bit era, and shows its age.
 
 \begin{figure}[!hbtp]
   \centering
@@ -340,8 +341,8 @@ This text has two goals:
 \item{To provide a firm footing for design and implementation of character
     graphics and TUIs, elucidating the dimensions of design, along with difficulties
     to avoid, and}
-\item{to serve as ``narrative reference'' for my Notcurses library, and as
-    a starting place for newcomers.}
+\item{to serve as ``narrative reference''\cite{newjournalism} for my Notcurses
+      library, and as a starting place for newcomers.}
 \end{denseitemize}
 
 \begin{figure}[!htbp]
@@ -378,7 +379,7 @@ high-powered LED displays have their pixels summoned up and ordered into
 formations suitable for the reconstruction of 1970s technology (a history of
 terminals is presented in Appendix~\ref{sec:terminals}).
 
-The machine on which I'm typing this contains a
+The machine on which I'm preparing this \LaTeX\ contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
 within its silicon heart remains a VGA 80x25 text mode engine\cite{vga}, inherited
@@ -391,7 +392,7 @@ and before that smart terminals\footnote{As early as 1971, the block-oriented
 IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
 
-I generally use this modern marvel to drive terminal emulators of 80 columns.
+I mainly use this modern marvel to drive terminal emulators of 80 columns.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -415,9 +416,9 @@ it is intended to be mixed among other use of standard I/O. Essentially, direct
 mode ``styles your \texttt{printf()}s.'' Similarly to full Notcurses, direct mode
 requires a valid and correct terminfo database entry, supplied via either the
 \texttt{termtype} parameter to \texttt{notcurses\_directmode()} or the \texttt{TERM} environment
-variable. It does \textit{not}, however, require any particular encoding nor
-even a call to \texttt{setlocale()} (full Notcurses requires a properly-configured
-ASCII or UTF-8 locale).
+variable. It does \textit{not}, however, require any particular encoding or
+other locale properties\cite{setlocale} (full Notcurses requires a
+properly-configured ASCII or UTF-8 locale).
 
 Enter direct mode via a call to \texttt{notcurses\_directmode()} with a successful
 return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
@@ -498,17 +499,19 @@ instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 \end{figure}
 
 We can easily write code to reproduce this effect for standard input and output.
-Figure~\ref{fig:houseout} works as expected, but there are a few things worth noting about its code. First, observe how
-much of the logic is devoted to checking and propagating errors! Perhaps
-contrary to common expectation, reliable code--especially when that code's
-primary effect is to write to stdout--generally needs to check the results of
-e.g. \texttt{printf()} (what happens if we're redirected to a file, and
-the disk is full?). A language making use of exceptions would reduce if not
-eliminate this nonsense.
+Listing~\ref{list:holformatter} works as expected (see
+Figure~\ref{fig:houseout}), but there are a few things worth noting about its
+code. First, observe how much of the logic is devoted to checking and
+propagating errors! Perhaps contrary to common expectation, reliable
+code---especially when that code's primary effect is to write to
+stdout---generally needs to check the results of e.g. \texttt{printf()} (what
+happens if we're redirected to a file, and the disk is full?). A language
+making use of exceptions would reduce if not eliminate this nonsense.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hol-formatter.c}
 \caption{\texttt{hol-formatter.c}}
+\label{list:holformatter}
 \end{listing}
 
 
@@ -518,17 +521,28 @@ eliminate this nonsense.
 \label{fig:houseout}
 \end{figure}
 
-We don't switch from blue to some random color, because we don't know the
-background color of the terminal. Hard to believe as it is, some people don't
-favor a dark terminal background. If the terminal background were white, and we
-had just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
+So long as we're dealing with either ASCII or UTF-8 input, our simple, old-skool
+\texttt{tolower(3)} is satisfactory \textit{for this problem}. The key
+observation is that UTF-8 encoded text can be compared for equality by
+a structure-oblivious~\texttt{memcmp(3)}, as of course is ASCII.
+Unless we need to color e.g. \textcolor{blue}{\texttt{ℏöûⓈᴇ}} (maybe we should,
+maybe we shouldn't) this is safe, simple, and sufficient. If we \textit{do}
+wish to collapse distinct but by some measure similar EGCs, we should normalize
+input as prescribed by Unicode Standard Annex \#15\cite{annex15}.
+
+We don't switch from blue to some other specified color, because we don't know
+the background color of the terminal. Some people, possibly aliens, don't favor
+a dark terminal background. If the terminal background were white, and we had
+just used e.g. \texttt{ncdirect\_fg(n, 0xffffff)}, text following
 ``\textcolor{blue}{house}'' would be invisible.
 
 One might observe that a user with a blue background will have invisible
-``\textcolor{blue}{house}'' text. This is true, and there's no great solution
-to it. It is not generally possible to discover the RGB values of the default
-colors. I suppose all one can do is rest easy, serene in the belief that people
-with chromatic backgrounds deserve whatever happens to them.
+``\textcolor{blue}{house}'' text. This is a real issue, one lacking a perfect
+solution\footnote{Applying \texttt{NCSTYLE\_STANDOUT} might or might not help.}.
+It is not generally possible to discover the RGB values of the default colors.
+I suppose all one can do is rest easy, serene in the belief that white
+backgrounds are one thing, but people with chromatic backgrounds deserve
+whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
 
@@ -790,11 +804,11 @@ Reading input is a per-context operation, performed with \texttt{notcurses}
 objects. It is discussed in detail in Chapter~\ref{sec:input}. When reading
 input, we might get the synthesized event \texttt{NCKEY\_RESIZE}\footnote{This
 event is generated upon receipt of a \texttt{SIGWINCH} signal, SIGnifying WINdow
-CHange.}. This indicates that the terminal has been resized, and we ought call
-\texttt{notcurses\_resize()}\footnote{Really? \textbf{FIXME} \url{https://github.com/dankamongmen/notcurses/issues/367}.}.
-As discussed earlier, sometimes the display is externally corrupted. It's thus
-a good idea to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()},
-which redraws every cell on the display according to the internal Notcurses
+CHange.}. This indicates that the terminal has been resized, and we might want
+to call \texttt{notcurses\_resize()} and get the new dimensions. As discussed
+earlier, sometimes the display is externally corrupted. It's thus a good idea
+to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()}, which
+redraws every cell on the display according to the internal Notcurses
 framebuffer.
 
 \begin{listing}[!htbp]
@@ -1668,7 +1682,8 @@ Screenshots were taken using \texttt{scrot} 1.2 and a 80x45
 1.20.7 on NVIDIA 440.59. All of these are the unmodified Debian Unstable
 x86\_64 binaries. My kernel is a custom 5.5.6 build. The terminal type is
 \texttt{xterm-256color}, and \texttt{COLORTERM} is defined to be
-\texttt{24bit}.
+\texttt{24bit}. The terminal font was Hack 10, and the background is a 0.7
+transparency.
 
 \newpage
 
@@ -1833,141 +1848,11 @@ x86\_64 binaries. My kernel is a custom 5.5.6 build. The terminal type is
 \clearpage
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{appendices}
-\section{A brief history of character graphics}
-\label{sec:terminals}
-The earliest terminals making use of glyphs\footnote{Konrad Zuse's Z3, generally
- considered the first programmable digital computer, communicated with its
-operator through a matrix of blinkenlights and a not unsteampunkish keyboard that resembled the
-Burroughs typewriters of its era\cite{zuse}.} printed them to paper, and are of
-interest to us only so far as our modern term ``tty'' is rather dubiously
-derived from ``TeleTYpewriter'', as these cantankerous contraptions were
-known\footnote{Though we do hear of their Snoopy calendars in the songs of
-legend\cite{quiche}.} (people had less experience abbreviating in those days).
 
-These devices most typically printed 72 characters per line (CPL), a limit that
-has persisted in strange places\cite{pandoc} through the modern era. Another constant
-you'll see from time to time is 132 CPL, derived from line printers such as the
-IBM 1403, the DEC LP11, and the Centronics 101\cite{ibm1403}. Most common,
-however, is the 80 column line originating in 1928's 7¾x3¼x0.007in IBM
-Computer Card (as designed by Clair D.\ Lake, deriving from the 1890 U.\ S.\
-Census cards of Herman Hollerith\ldots themselves borrowing from Joseph
-Jacquard's automation in 1804 of punched card loom control technology pioneered
-by Basile Bouchon in 1725\cite{cards}). To this day, so long as your wacky
-output device can do 80 columns, eh, that's good enough. In all these cases,
-the limit arises from the number of characters that could be printed, using the
-technology of the time, on their feeder paper (8.5in and 14in in the case of
-printers).
-
-On, then, to the ``Glass TTYs'' (ugh) and Visual Display Units of the 1970s.
-Pictured in Figure~\ref{fig:terminals} are the Computer Terminal Corporation
-Datapoint 3300, the Lear Sigler, Inc.\ ADM-3A, the Hazeltine 1500, and the
-Soroc IQ-120. Lacking microcontrollers, and generally implementing no
-independent control sequences, such devices are today often known as ``dumb
-terminals'' (this term was originally a registered trademark of Lear Sigler,
-see below). Already the 80x24 ``standard'' (it is not a standard) was emerging
-(the DEC contemporaries listed were already pretty ``smart'', using proprietary
-control codes):
-
-\begin{table}[h]
-\begin{center}
-  \begin{tabular}{ |c|c|c| }
-    \hline
-    IBM 2260 Model 1 & 1965 & 40x6 \\
-    \hline
-    Datapoint 3300 & 1969 & 72x25 \\
-    \hline
-    DEC VT05 & 1970 & 72x24 \\
-    \hline
-    IBM 3277 Model 2 & 1971 & 80x24 \\
-    \hline
-    Textronix 4010 & 1972 & 74x35 \\
-    \hline
-    DECscope VT52 & 1974 & 80x24 \\
-    \hline
-    LSI ADM-3A & 1976 & 80x12, 80x24 \\
-    \hline
-    Hazeltine 1500 & 1977 & 80x24 \\
-    \hline
-    Sororc IQ-120 & 1977 & 80x24 \\
-    \hline
-  \end{tabular}
-\caption{Some historical terminals and their resolutions.}
-\end{center}
-\end{table}
-
-Why 80x24 (or 80x25, as you'll also see)\cite{infoworld80}? The 80 almost certainly arises from
-the desire to display an entire punched card (this \textit{is} a standard---see
-ANSI X3.21-1967/FIPS PUB 13, ``Rectangular Holes in Twelve-Row Punched
-Cards'')\cite{sonicdelay}. The origin of 24 is less clear. 24 is highly
-composite (it has more divisors than any smaller number), and it is the largest
-integer divisible by all natural numbers not larger than its square root. There
-are of course 24 hours in a day. 24 divides the scanline counts of both NTSC
-and PAL at 480 and 576, respectively. 24 rows of 80 columns at a byte per
-column utilize 93.75\% of a 2KiB memory, leaving exactly 128 bytes left over,
-and everyone loves a good power of 2.
-
-The Aaronites, Levite descendents of Moses's brother Aaron, the first
-\texthebrew{כהן גדול}
-(High Priest),
-form the priestly \texthebrew{כֹּהֲנִים}; they were divided into 24 courses. The Buddha's Dharma Chakra (Wheel of Dhamma)
-in its Ashoka form sends forth 24 spokes. But perhaps I grow esoteric, and even
-speculative\ldots in truth, 80x24 almost certainly owes its questionable
-existence to IBM's punched cards, IBM 2260 and 3270 wanting compatibility with
-IBM printers, the upstart DEC wanting compatibility with IBM software for their
-VT52 and legendary VT100, and the VT100 subsequently becoming a \textit{de facto} standard for
-four decades.
-
-\begin{figure}
-  \centering \includegraphics[width=.9\linewidth]{media/dumbterminals.jpg}
-\caption[Dumb terminals of the 1970s.]{Clockwise starting from upper left: a dork and his LSI ADM (``American
-  Dream Machine'', supposedly). That poor woman with the Sororc IQs looks stoned out
-  of her gourd. Grizzly Adams rocks a Datapoint 3300, but really his mind is on
-  seeing Skynyrd shred it this weekend. Finally, we have Frank the Cocaine
-  Ranger and his Electric Hazeltine 1500 Band. \textit{Gott im Himmel}, the 70s were \textit{unseemly}.}
-\label{fig:terminals}
-\end{figure}
-
-\begin{figure}
-  \begin{minipage}{0.5\textwidth}
-  \centering
-    \includegraphics[width=.5\linewidth]{media/digital-terms.jpeg}
-    \caption{Digital Equipment Corporation terminals of the 1970s and 1980s.}
-  \end{minipage}\hfill
-  \begin{minipage}{0.4\textwidth}
-  \centering
-    \includegraphics[width=.45\linewidth]{media/vt220-charset.png}
-    \caption[VT220 glyph dump.]{The VT220's glyphs from a ROM dump. VT100 implemented most of the
-      first seven columns. Note the existence of box-drawing characters\cite{crttypography}.}
-  \end{minipage}\hfill
-\end{figure}
-
-\subsection{The DEC VTxxx terminals and ANSI X3.64-1979}
-
-Introduced in August 1978, the VT100 ushered in a new era of smart terminals
-using commodity (Intel) microprocessors, implementing portions of the upcoming
-ANSI X3.64 standard (itself based on 1976's first edition of ECMA-48) along
-with DEC extensions\footnote{The VT100 \textit{did not} implement all of X3.64,
-nor was X3.64 derived from the VT100. The VT100 didn't do color, nor did it
-insert or delete lines. It furthermore implemented several features outside
-the scope of ECMA-48's first edition.} This series would go on to sell over
-six million units, and it was a rare vendor that didn't include some degree
-of DEC VT compatibility. Each major iteration of the series was designed to
-encompass all functionality of prior iterations, beginning with the VT100's
-faithful emulation of the earlier era's VT52. The VT102 cut down on the cost
-and size of the VT100, and included the 132-CPL mode by default; they were
-otherwise essentially the same device\cite{vt100}.
-
-The original \texttt{xterm} was written as an emulator of the VAXStation 100
-(VS100), and slowly acquired scattered features from the VT100, ANSI, and other
-sources\cite{xtermfaq}. Thomas E.\ Dickey (the current maintainer of \Gls{ncurses}
-and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
-\texttt{decTerminalID} resource following the addition of much VT220 compatibility.
-
-\textbf{FIXME keep goin'\ldots}
-
-\subsection{The Curses API}
+\input{termhistory.tex}
+\pagebreak
+\newpage
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

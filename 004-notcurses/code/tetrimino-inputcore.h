@@ -1,6 +1,5 @@
-static bool
-handle_input(struct notcurses* nc, struct ncplane** ps, int dimy, int dimx,
-             int* y, int* x, int* p){
+static bool handle_input(struct notcurses* nc, struct ncplane** ps,
+                         int dimy, int dimx, int* y, int* x, int* p){
   ncinput ni; // necessary for mouse
   char32_t key = notcurses_getc_blocking(nc, &ni);
   if(key == (char32_t)-1){
@@ -14,7 +13,7 @@ handle_input(struct notcurses* nc, struct ncplane** ps, int dimy, int dimx,
   }else if(key == '('){ // rotate counterclockwise
   }else if(key == ')'){ // rotate clockwise
   }else if(key == NCKEY_LEFT || key == 'h'){
-    ncplane_move_yx(ps[*p], *y, --x < 0 ? *x = 0 : *x);
+    ncplane_move_yx(ps[*p], *y, --*x < 0 ? *x = 0 : *x);
   }else if(key == NCKEY_RIGHT || key == 'l'){
     ncplane_move_yx(ps[*p], *y, *x = (*x + ncplane_dim_x(ps[*p]) > dimx ? *x : *x + 1));
   }else if(key == NCKEY_UP || key == 'k'){

@@ -15,7 +15,7 @@ RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf common/south.png
 µNANDFSRESOURCES:=$(addsuffix .png,combined ExtendBlob ReadBlob \
   FSM Initialize FindBlob)
 NOTCURSESRESOURCES:=$(wildcard $(NOTCURSESDIR)/*.png) $(wildcard $(NOTCURSESDIR)/*.jpg) \
-	$(wildcard $(NOTCURSESDIR)/code/*.c)
+	$(wildcard $(NOTCURSESDIR)/code/*.c) $(wildcard $(NOTCURSESDIR)/media/*.png)
 DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
@@ -27,6 +27,7 @@ LATEX:=xelatex
 BIBTEX:=biber
 VIEW:=evince
 
+NOTCURSESTEX:=$(addsuffix .tex, notcurses glossary simpleloop termhistory)
 NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech \
           tetrimino tetrimino-input)
 
@@ -37,13 +38,13 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESBASE).tex $(NOTCURSESBASE).bib glossary.tex simpleloop.tex) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, background databox displayutf8 drawcircle inputcore inputmain switch))
+$(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, background box databox displayutf8 drawcircle inputcore inputmain switchbox))
 	$(CC) -pthread $(CFLAGS) -o $@ $< -lnotcurses -lm
 
 $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, display draw main mouse switch))

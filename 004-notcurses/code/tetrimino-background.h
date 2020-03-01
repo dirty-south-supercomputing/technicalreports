@@ -1,5 +1,4 @@
-static struct ncvisual*
-background(struct notcurses* nc, const char* fname){
+static struct ncvisual* background(struct notcurses* nc, const char* fname){
   int err = 0;
   struct ncvisual* ncv = ncplane_visual_open(notcurses_stdplane(nc), fname, &err);
   if(!ncv || (err && err != AVERROR_EOF)){
