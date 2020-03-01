@@ -9,7 +9,7 @@ static const int ROWS_PER_GROW = 2;
 static const int COLS_PER_GCOL = 4;
 
 #include "tetrimino-databox.h"
-static const size_t TETRIMINO_COUNT = sizeof(tetriminos) / sizeof(*tetriminos);
+#define TETRIMINO_COUNT 7 // sizeof(tetriminos) / sizeof(*tetriminos);
 #include "tetrimino-displayutf8.h"
 #include "tetrimino-mouse.h"
 #include "tetrimino-thread.h"
