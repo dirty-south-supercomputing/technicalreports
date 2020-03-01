@@ -138,7 +138,9 @@ A Guide to TUIs and Character Graphics
 \section{Foreward}
 Hacking the Planet with Notcurses:\\
 A Guide to Character Graphics and TUIs.
+
 Copyright © 2020 Nick Black.
+
 ISBN: 9798620069491
 
 This edition corresponds to version 1.2.2 of the Notcurses
@@ -1163,7 +1165,7 @@ released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
     \hline
     4x & @ & A & B & C & D & E & F & G & H & I & J & K & L & M & N & O \\
     \hline
-    5x & P & Q & R & S & T & U & V & W & X & Y & Z & [ & \ & ] & \^{} & \_ \\
+    5x & P & Q & R & S & T & U & V & W & X & Y & Z & [ & \textbackslash{} & ] & \^{} & \_ \\
     \hline
     6x & \textasciigrave{} & a & b & c & d & e & f & g & h & i & j & k & l & m & n & o \\
     \hline
@@ -1175,8 +1177,71 @@ released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
   \label{table:ascii}
 \end{table}
 
-The first 32 values are non-printable control codes, known as the ``C0''
-control set.
+The first 32 values are non-printable control codes known as the ``C0''
+control set. These are the only Many of the associated semantics have been obsoleted, and in
+some cases the encoded characters are now used for different purposes than
+originally planned (see Table~\ref{table:c0maps}).
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{ |c|c|c|c| }
+    \hline
+    Character & Caret & C & Semantics \\
+    \hline
+    0x03 (ETX) & Ctrl+C & & Deliver \texttt{SIGINT} \\
+    \hline
+    0x04 (EOT) & Ctrl+D & & Indicate end-of-file \\
+    \hline
+    0x07 (BEL) & Ctrl+G & \textbackslash{}a & Alert (bell) \\
+    \hline
+    0x08 (BS) & Ctrl+H & \textbackslash{}b & Backspace \\
+    \hline
+    0x09 (HT) & Ctrl+I & \textbackslash{}t & Proceed to next tab stop \\
+    \hline
+    0x0a (LF) & Ctrl+J & \textbackslash{}n & Move down one line \\
+    \hline
+    0x0b (VT) & Ctrl+K & \textbackslash{}v & Move down to next vertical tab \\
+    \hline
+    0x0c (CR) & Ctrl+L & \textbackslash{}f & Move to start of line \\
+    \hline
+    0x11 (DC1) & Ctrl+Q & & Software flow control (resume output) \\
+    \hline
+    0x13 (DC3) & Ctrl+S & & Software flow control (pause output) \\
+    \hline
+    0x1a (SUB) & Ctrl+Z & & Deliver \texttt{SIGSTOP} \\
+    \hline
+    0x1c (FS) & Ctrl+\textbackslash{} & & Deliver \texttt{SIGQUIT} \\
+    \hline
+  \end{tabular}
+  \caption[Usual UNIX semantics of C0]{Usual UNIX semantics of C0. The exact mapping can be inspected with \texttt{stty -a}. See Table~\ref{table:caret} for caret notation.}
+  \label{table:c0maps}
+\end{table}
+
+These characters can be entered by pressing Ctrl along with another key from 
+ASCII. These are described using ``caret notation''\ref{table:caret}.
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{ |c|c| }
+    \hline
+    0x00 (NUL) & \^{}@ \\
+    \hline
+    0x01--0x1a (SOH--SUB) & \^{}A..Z \\
+    \hline
+    0x1b (ESC) & \^{}[ \\
+    \hline
+    0x1c (FS) & \^{}\textbackslash{} \\
+    \hline
+    0x1d (GS) & \^{}] \\
+    \hline
+    0x1e (RS) & \^{}\^{} \\
+    \hline
+    0x1f (US) & \^{}\_ \\
+    \hline
+  \end{tabular}
+  \caption{Caret notation for the C0 control set.}
+  \label{table:caret}
+\end{table}
 
 \begin{figure}
 \centering
