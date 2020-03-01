@@ -318,7 +318,8 @@ To rotate the unselected pieces, we'll go ahead and spawn a POSIX thread. We'll
 thus need lock against piece selection. We've been leaving all the end-of-process
 cleanup in the capable hands of~\texttt{notcurses\_stop()}, but it can't go
 terminating threads for us, and it in any case wouldn't be safe to do so while
-said thread was calling into Notcurses! We'll use POSIX
+said thread was calling into Notcurses! First, add a marshaling struct to share
+some state (Listing~\ref{list:tetrimino-tetmarsh}). We'll use POSIX
 cancellation\footnote{Which isn't anywhere near as bad as it's sometimes made out to be.
 Find the places where you don't want to be cancelled. Each such place needs a
 cleanup handler pushed/popped around it, or cancellation disabled for its
@@ -329,6 +330,12 @@ that is ANSI/ISO C, and---heresy, I know---I honestly prefer (most of) the
 POSIX model to (most of)
 the threading introduced in \CC11.} to blast the rotator thread, and~\texttt{pthread\_join()}
 it to ensure safe passage through shutdown.
+
+\begin{listing}[!htbp]
+\inputminted[]{C}{code/tetrimino-tetmarsh.h}
+\caption{Marshaling structure for shared state (from~\texttt{tetrimino-input.c}).}
+\label{list:tetrimino-tetmarsh}
+\end{listing}
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-thread.h}

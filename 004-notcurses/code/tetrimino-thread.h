@@ -1,10 +1,3 @@
-struct tetmarsh {
-  struct ncplane* minos[TETRIMINO_COUNT];
-  struct ncplane* coaster;
-  pthread_mutex_t lock;
-  struct notcurses* nc;
-};
-
 // wakes up every .1s and rotates appropriate pieces pi/2. the selected piece
 // is not rotated. fastest rate is 4Hz, aka 0.0625s per step (of 16 steps). in
 // addition, the whole gang is rotated through their circle (all at the same

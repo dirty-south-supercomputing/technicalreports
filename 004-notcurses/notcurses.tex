@@ -11,6 +11,7 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{makecell}
+\usepackage{wrapfig}
 \usepackage{parskip}
 \usepackage[section]{placeins}
 \usepackage{epigraph}
@@ -103,7 +104,6 @@ A Guide to TUIs and Character Graphics
     inside the die.\\
   \vspace{.25in}
     For Prof.\ Richard Vuduc, for demonstrating serenity in brilliance, and kindness in dominance.\\}
-
   \vspace{1in}\ldots but mostly for Emily.
 \end{center}
 \clearpage
@@ -1133,6 +1133,14 @@ canvases or OpenGL display lists; if your plan involves using ANSI escape
 sequences to drive a 1920x1080 display via roughly two million 1x1 character
 cells, you're not going to space today, or maybe ever\cite{upgoerfive}.}.
 
+\begin{wrapfigure}{O}{0.5\textwidth}
+\centering
+%\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
+\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{wrapfigure}
+
 In the early 1960s, an IBM employee on a dare ate a hallucinogenic tapeworm
 that pissed nitric acid. Stuffing his steaming, rapidly decoiling bowels
 up into a brown paper bag, he was off to the hospital. Alas! On those very
@@ -1146,14 +1154,19 @@ Model 30 appeared her Name. Struck by the power of that Name, all began to bow,
 and to weep. She vomited forth the Tapeworm Gospel. Looking upon this filth, they
 thought it Good.
 
-So now you know what EBCDIC is. We will speak of it no further\footnote{If you
+So now you know what EBCDIC is. There ended up being no fewer than 57 variants\cite{searle}
+of EBCDIC, worthy of Heinz. We will speak of it no further\footnote{If you
 find yourself needing more information about EBCDIC, think long and hard about your life decisions.}.
 
 For our purposes, the story can reasonably start with a 7-bit encoding of
 128 characters: ANSI X3.4-1986, perhaps better known as ASCII (Table~\ref{table:ascii}).
 The first ASCII we would recognize as such\footnote{To paraphrase G.\ H.\
 Hardy, ``ASCII-1963 was clever schoolboys; '68 a Fellow from another
-College\cite{ghhardy}.''} was the unpublished ASCII-1965. ASCII-1968 was
+College\cite{ghhardy}.''} was the unpublished ASCII-1965. The ASA (ANSI
+before it was ANSI) ASCII 1963 didn't even have miniscules\footnote{Uppercase
+and lowercase are loanwords from printing, where the two sets were
+stored in different cases of the typesetting table. ``Majuscules'' and
+``miniscules'' will mark your good breeding.}. ASCII-1968 was
 released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
 ``internationalized'' ASCII-1968. \textbf{FIXME\ldots}
 
@@ -1186,10 +1199,15 @@ released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
   \label{table:ascii}
 \end{table}
 
-The first 32 values are non-printable control codes known as the ``C0''
-control set. These are the only Many of the associated semantics have been obsoleted, and in
-some cases the encoded characters are now used for different purposes than
-originally planned (see Table~\ref{table:c0maps}).
+The first 32 values are non-printable control codes, first given their current
+definitions in ASCII 1968. These 32 codes (known as the ``C0'' coded control
+set since ISO/IEC 646) are carried through ISO/IEC 2022 (ECMA-35), ISO/IEC 6429 (ECMA-48),
+ISO/IEC 8859 (ECMA-94), and on through ISO/IEC 10646 aka the Universal Character
+Set. They're common across just about every character set of which I'm aware
+(EBCDIC went almost entirely its own way, because EBCDIC), despite being
+largely archaic and altogether mystifying. Many of the associated semantics
+have been obsoleted, and in some cases the encoded characters are now used for
+different purposes than originally planned (see Table~\ref{table:c0maps}).
 
 \begin{table}[!htbp]
   \centering
@@ -1251,13 +1269,6 @@ ASCII. These are described using ``caret notation''\ref{table:caret}.
   \caption{Caret notation for the C0 control set.}
   \label{table:caret}
 \end{table}
-
-\begin{figure}
-\centering
-\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
-\label{fig:charset-timeline}
-\end{figure}
 
 \subsection{The Universal Character Set}
 

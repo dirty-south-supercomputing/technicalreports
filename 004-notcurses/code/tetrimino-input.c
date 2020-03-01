@@ -12,6 +12,7 @@ static const int COLS_PER_GCOL = 4;
 #define TETRIMINO_COUNT 7 // sizeof(tetriminos) / sizeof(*tetriminos);
 #include "tetrimino-displayutf8.h"
 #include "tetrimino-mouse.h"
+#include "tetrimino-tetmarsh.h"
 #include "tetrimino-thread.h"
 #include "tetrimino-drawcircle.h"
 #include "tetrimino-switchbox.h"
