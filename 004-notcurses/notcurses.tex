@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
+\usepackage{makecell}
 \usepackage{parskip}
 \usepackage[section]{placeins}
 \usepackage{epigraph}
@@ -62,9 +63,7 @@ bibencoding=utf8,
 }
 
 \title{Hacking the Planet (with Notcurses)\\
-A Guide to TUIs and Character Graphics\thanks{
- \href{https://www.dsscaw.com/}{Dirty South Supercomputing of Atlanta, GA. Free documentation under the Apache 2.0 License.}
-}\\
+A Guide to TUIs and Character Graphics
 }
 \author{Nick Black, Consulting Scientist\\
 \texttt{nickblack@linux.com}
@@ -1134,21 +1133,19 @@ and to weep. She vomited forth the Tapeworm Gospel. Looking upon this filth, the
 thought it Good.
 
 So now you know what EBCDIC is. We will speak of it no further\footnote{If you
-find yourself needing more information about EBCDIC, it might be time to think long and hard about your life decisions.}.
+find yourself needing more information about EBCDIC, think long and hard about your life decisions.}.
 
 For our purposes, the story can reasonably start with a 7-bit encoding of
 128 characters: ANSI X3.4-1986, perhaps better known as ASCII (Table~\ref{table:ascii}).
 The first ASCII we would recognize as such\footnote{ASCII-1963 was caveperson ASCII. In the words of
- G.H. Hardy, ``ASCII-1963 was clever schoolboys; '68 was a Fellow from another
+Hardy, ``ASCII-1963 was clever schoolboys; '68 a Fellow from another
 College\cite{ghhardy}.''} was the unpublished ASCII-1965. ASCII-1968 was
 released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard
 ``internationalized'' ASCII-1968. \textbf{FIXME\ldots}
 
-The first 32 values are non-printable control codes, known as the ``C0''
-control set.
-
-\begin{table}
+\begin{table}[!htbp]
   \centering
+  \texttt{%
   \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c| }
     \hline
     & x0 & x1 & x2 & x3 & x4 & x5 & x6 & x7 & x8 & x9 & xa & xb & xc & xd & xe & xf \\
@@ -1161,25 +1158,38 @@ control set.
     \hline
     3x & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & : & ; & < & = & > & ? \\
     \hline
-    4x & $@$ & A & B & C & D & E & F & G & H & I & J & K & L & M & N & O \\
+    4x & @ & A & B & C & D & E & F & G & H & I & J & K & L & M & N & O \\
     \hline
-    5x & P & Q & R & S & T & U & V & W & X & Y & Z & [ & \ & ] & \^ & \_ \\
+    5x & P & Q & R & S & T & U & V & W & X & Y & Z & [ & \ & ] & \^{} & \_ \\
     \hline
-    6x & \` & a & b & c & d & e & f & g & h & i & j & k & l & m & n & o \\
+    6x & \textasciigrave{} & a & b & c & d & e & f & g & h & i & j & k & l & m & n & o \\
     \hline
-    7x & p & q & r & s & t & u & v & w & x & y & z & \{ & | & \} & $~$ & DEL \\
+    7x & p & q & r & s & t & u & v & w & x & y & z & \{ & | & \} & \textasciitilde{} & DEL \\
     \hline
   \end{tabular}
+  }
   \caption{ANSI X3.4-1986 (ASCII, IA5, T.50 IRA, RFC 20).}
   \label{table:ascii}
 \end{table}
 
-\subsection{The Universal Character Set}
-\begin{center}
-\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
-\end{center}
+The first 32 values are non-printable control codes, known as the ``C0''
+control set.
 
-\textbf{FIXME FIXME graph of unicode character count by version}
+\begin{figure}
+\centering
+\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{figure}
+
+\subsection{The Universal Character Set}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.1\linewidth]{media/unicode-growth.png}
+  \caption{2020's Unicode 13.0 ships 143,859 character definitions.}
+  \label{fig:unicodegrowth}
+\end{figure}
 
 \footnote{Once upon a time, these other sixteen planes were known as the
   Astral Planes\cite{astralplanes}.}
@@ -1973,16 +1983,16 @@ and the \href{http://www.unicode.org/Public/13.0.0/}{Unicode Character Database 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Notcurses header files}
-\subsection{The \texttt{notcurses.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-\egroup
-
-\subsection{The \texttt{nckeys.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-\egroup
+%\section{Notcurses header files}
+%\subsection{The \texttt{notcurses.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+%\egroup
+%
+%\subsection{The \texttt{nckeys.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+%\egroup
 
 \end{appendices}
 \newpage
