@@ -167,6 +167,9 @@ to instruct. You should not have been charged to download this document. If
 you'd like to show thanks for my efforts, I encourage a donation to
 the~\href{https://www.thefire.org/}{Foundation for Individual Rights in Education} (\url{https://www.thefire.org/}).
 
+This work was prepared on a Debian Unstable workstation and an Arch Linux laptop,
+using Vim, \XeLaTeX, and the GIMP.
+
 Tetris © The Tetris Company, LLC.
 \textit{Hackers (1995)} © United Artists Pictures.
 \textit{House of Leaves (2000)} © Penguin Random House.
@@ -365,16 +368,16 @@ This text has two goals:
 \end{figure}
 
 Cell graphics are primarily the realm of \textit{terminals}, which for the
-purposes of this book encompass any means by which input devices act to provide
-input to a some process generating glyph-based output to a display. This
-includes hardware terminals (inputs integrated with displays, connected to a
-computer as a unit), operating system consoles (text-mode interfaces operating
-with the graphics engine directly connected to the terminal driver), terminal
-multiplexers (tools like \texttt{screen}, \texttt{tmux}, and \texttt{mosh},
-providing a memory-persistent virtual terminal with which other terminals can
-interact), and terminal emulators (applications which present a virtual
-terminal atop the shared input and raster output methods of a graphical user
-environment). There's some vagueness and variety involved with these terms.
+purposes of this book encompass any means by which input devices act to drive
+some process generating glyph-based output to a display. This includes hardware
+terminals (inputs integrated with displays, connected to a computer as a unit),
+operating system consoles (text-mode interfaces operating with the graphics
+engine directly connected to the terminal driver), terminal multiplexers (tools
+like \texttt{screen}, \texttt{tmux}, and \texttt{mosh}, providing a
+memory-persistent virtual terminal with which other terminals can interact),
+and terminal emulators (applications which present a virtual terminal atop the
+shared input and raster output methods of a graphical user environment).
+There's some vagueness and variety involved with these terms.
 
 At its heart, a terminal is a line discipline plus two buffers: an input buffer
 to collect user-generated events (possibly from multiple devices), and an
@@ -827,10 +830,8 @@ framebuffer.
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Refresh our idea of the terminal's dimensions, reshaping the standard plane
-// if necessary. Without a call to this function following a terminal resize
-// (as signaled via SIGWINCH), notcurses_render() might not function properly.
-// References to ncplanes (and the egcpools underlying cells) remain valid
-// following a resize operation, but the cursor might have changed position.
+// if necessary. References to ncplanes (and the egcpools underlying cells)
+// remain valid following a resize, but the cursor might have changed position.
 int notcurses_resize(struct notcurses* n, int* restrict y, int* restrict x);
 
 // Refresh the physical screen to match what was last rendered (i.e., without

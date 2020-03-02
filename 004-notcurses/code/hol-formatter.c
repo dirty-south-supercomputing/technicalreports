@@ -8,13 +8,13 @@ int main(void){
   int c, ret = 0;
   if(n){
     while(!ret && (c = getchar()) != EOF){
-      if(isalpha(*b) && tolower(c) == *b){
+      if(isalpha(c) && tolower(c) == *b){
         ++b;
       }else{
         if(b > blue){
           if(!*b){
-            ret |= ncdirect_fg(n, 0x0339dc);
             ret |= ncdirect_styles_on(n, NCSTYLE_STANDOUT);
+            ret |= ncdirect_fg(n, 0x0339dc);
           }
           ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
