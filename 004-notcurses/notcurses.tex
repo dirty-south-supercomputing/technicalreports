@@ -306,7 +306,7 @@ Of course, it can also be a big pile of character graphics shit.
 
 For over two decades, NCURSES (a free software implementation of the X/Open Curses\cite{cursesosi}
 specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for implementing
-TUIs. Maintainter (and author, in large part) Thomas E.\ Dickey,
+TUIs. Maintainter (and author, in large part) Thomas E.\ Dickey
 exemplifies conservative and fastidious stewardship. Perfectly lovely TUIs can
 be built using NCURSES (as seen in Figure~\ref{fig:ncurses-tuis}), but it \textit{does}
 have its origins in the 8-bit era, and shows its age.
@@ -537,8 +537,8 @@ making use of exceptions would reduce if not eliminate this nonsense.
 So long as we're dealing with either ASCII or UTF-8 input, our simple, old-skool
 \texttt{tolower(3)} is satisfactory \textit{for this problem}. The key
 observation is that UTF-8 encoded text can be compared for equality by
-a structure-oblivious~\texttt{memcmp(3)}, as of course is ASCII.
-Unless we need to color e.g. \textcolor{blue}{\texttt{ℏöûⓈᴇ}} (maybe we should,
+a structure-oblivious~\texttt{memcmp(3)}, as of course can ASCII.
+Unless we need to color e.g.~\textcolor{blue}{\texttt{ℏöûⓈᴇ}} (maybe we should,
 maybe we shouldn't) this is safe, simple, and sufficient. If we \textit{do}
 wish to collapse distinct but by some measure similar EGCs, we should normalize
 input as prescribed by Unicode Standard Annex \#15\cite{annex15}.
@@ -1322,6 +1322,7 @@ int mbswidth(const char* mbs);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using ncplanes}
 \label{ncplane}
+\subsection{egcpools}
 \subsection{Moving and resizing planes}
 \subsection{Cells, strings, and formatted output}
 \subsection{Alpha blending and plane transparency}

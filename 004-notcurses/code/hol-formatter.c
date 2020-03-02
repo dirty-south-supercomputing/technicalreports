@@ -8,7 +8,7 @@ int main(void){
   int c, ret = 0;
   if(n){
     while(!ret && (c = getchar()) != EOF){
-      if(isalpha(*b) && tolower(*b) == c){
+      if(isalpha(*b) && tolower(c) == *b){
         ++b;
       }else{
         if(b > blue){
