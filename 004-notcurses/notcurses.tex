@@ -272,6 +272,8 @@ The console ain't dead! Hack on, hax0rs.
 \end{center}
 \vfill
 \section{Right, what's all this, then?}
+\label{sec:start}
+\epigraph{A terminal is at the end of an electric wire, a shell is the home of a turtle, tty is a strange abbreviation and a console is a kind of cabinet.}{Gilles Leblanc\cite{gillesSO}}
 Character graphics, aka text mode, aka the display side of a terminal, is
 visualization that works with fonts rather than a pixel framebuffer\footnote{``Contones'', as raster graphics are known to printers.}
 or a vector canvas\footnote{Nothing keeps you from implementing character graphics
@@ -414,7 +416,7 @@ I mainly use this modern marvel to drive terminal emulators of 80 columns.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Using direct mode with standard I\/O}
-
+\label{sec:direct}
 Many tools don't intend to be full-screen TUI applications, but instead
 implement that purest of UNIX interfaces: newline-delimited text, oblivious
 to screen geometry, capable of being fed as input to other, similar programs.
@@ -504,7 +506,6 @@ int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
 \end{listing}
 
 \subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
-
 Mark Z. Danielewski's experimental 2000 novel \textit{\textcolor{blue}{House} of Leaves}\cite{danielewski2000house} prints each
 instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 
@@ -561,7 +562,6 @@ backgrounds are one thing, but people with chromatic backgrounds deserve
 whatever happens to them.
 
 \subsection{Example: colorizing a dumb game}
-
 Imagine we've written the simple guessing game in Listing~\ref{list:guessgame}.
 
 \begin{listing}[!htbp]
@@ -624,6 +624,7 @@ the terminal.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using fullscreen mode}
+\label{sec:fullscreen}
 From this chapter forward, we will be using the fullscreen mode of Notcurses,
 opening up all of its capabilities. This comes at a cost: while fullscreen mode
 is being used, it is not safe to use standard I/O in conjunction with the
@@ -1101,24 +1102,8 @@ character can take advantage of the current color.
 \pagebreak
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{The mechanics of a tty}
-\label{section:tty}
-\textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
-  internals of kernel tty/pty devices, session groups, signal distribution,
-  \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
-\textbf{FIXME FIXME other stuff}
-\subsection{Escape codes ANSI and otherwise}
-\label{sec:escapes}
-My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
-\textbf{FIXME diagrams!}
-
-In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
-non-destructive backspace to produce composed characters from spacing ones.
-This had been eliminated by ISO 4873, ECMA-43, and ISO 8859.
-
-\textbf{FIXME FIXME other stuff}
-
+\input{ttymechanics.tex}
+\pagebreak
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1214,6 +1199,7 @@ different purposes than originally planned (see Table~\ref{table:c0maps}).
   \begin{tabular}{ |c|c|c|c| }
     \hline
     Character & Caret & C & Semantics \\
+    \hline
     \hline
     0x03 (ETX) & Ctrl+C & & Deliver \texttt{SIGINT} \\
     \hline

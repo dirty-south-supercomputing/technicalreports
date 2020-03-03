@@ -1,0 +1,70 @@
+\section{Terminal mechanics}
+\label{section:tty}
+\epigraph{The tty layer is one of the very few pieces of kernel code that scares the hell out of me.}{Ingo Molnar\footnote{When Ingo Molnar is scared, we all ought be scared.}\cite{molnarhell}}
+You won't often need to deal with the gritty details of terminal access and
+manipulation. It's still important to understand what's going on behind the
+abstraction, especially for when things go wrong. As was made clear in
+Chapters~\ref{sec:direct} and~\ref{sec:fullscreen}, Notcurses requires a
+proper terminal definition and a handle to a terminal device, or initialization
+will fail (NCURSES requires the same). With that said, the UNIX terminal layers
+have never been, and are not now for the faint of heart. Extending back to the
+AT\&T dark ages, they are configured primarily through messy \texttt{ioctl}s
+and the slightly-less-messy \texttt{termios} API.
+
+Modern workstations support a variety of physical and virtual terminal devices:
+\begin{denseitemize}
+\item{Honest-to-Bog serial terminals, probably using the RS-232\cite{rs232}
+      protocol over a D-subminiature 25-pin (DB-25M) or 9-pin (DE-9M)
+      connector (see Table~\ref{table:serial}).}
+\item{Virtual consoles on text-based video, plus a keyboard.}
+\item{Virtual framebuffer consoles on graphics-based video, plus a keyboard.} 
+\item{Terminal emulators in a graphical environment, plus brokered input devices.}
+\item{Pseudoterminals hooked up to network connections.}
+\end{denseitemize}
+
+\begin{table}
+  \centering
+  \begin{tabular}{ |c|c|c|c| }
+    \hline
+    Signal & DB-25M & DE-9M & Originator \\
+    \hline
+    \hline
+    Protective ground & 1 & & x \\
+    \hline
+    Transmitted data & 2 & 3 & DTE \\
+    \hline
+    Received data & 3 & 2 & DCE \\
+    \hline
+    Request to send & 4 & 7 & DTE \\
+    \hline
+    Clear to send & 5 & 8 & DCE \\
+    \hline
+    Data set ready & 6 & 6 & DCE \\
+    \hline
+    Signal ground & 7 & 5 & x \\
+    \hline
+    Carrier detect & 8 & 1 & DCE \\
+    \hline
+    Data terminal ready & 20 & 4 & DTE \\
+    \hline
+    Ring indicator & 22 & 9 & DCE \\
+    \hline
+  \end{tabular}
+  \caption[RS-232/EIA-232 pin mappings]{RS-232/EIA-232 D-subminiature pins (DCE=Data circuit equipment, DTE=Data terminal equipment)}
+  \label{table:serial}
+\end{table}
+
+\textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
+  internals of kernel tty/pty devices, session groups, signal distribution,
+  \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
+\textbf{FIXME FIXME other stuff}
+\subsection{Escape codes ANSI and otherwise}
+\label{sec:escapes}
+My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
+\textbf{FIXME diagrams!}
+
+In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
+non-destructive backspace to produce composed characters from spacing ones.
+This had been eliminated by ISO 4873, ECMA-43, and ISO 8859.
+
+\textbf{FIXME FIXME other stuff}
