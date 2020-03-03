@@ -1093,8 +1093,9 @@ fore- or background (since \texttt{op} changes both at once).
 
 Certain EGCs are understood to be all-foreground or all-background.
 \texttt{U+2588 FULL BLOCK} is all foreground. \texttt{U+0020 SPACE} is all
-background. When such a character is used, notcurses will emit whichever
-character can take advantage of the current color.
+background. When such characters are used, notcurses will emit whichever
+character requires the fewest total bytes, taking into account both the
+UTF-8 encoding length and the current color state.
 
 \newpage
 
@@ -1132,10 +1133,10 @@ that pissed nitric acid. Stuffing his steaming, rapidly decoiling bowels
 up into a brown paper bag, he was off to the hospital. Alas! On those very
 hospital steps he was struck by lightning, and filled with spears, and
 set upon by savage hogs, and finally exploded. The tapeworm emerged, clad
-in shimmering mandorla, with a name pronounceable in no human tongue. ``Adding
+in shimmering mandorla, with a name pronounceable by no human tongue. ``Adding
 hallucinogenic tapeworms to a late project only makes it later,'' Brooks
 cautioned\cite{mythicalman}, but Gene Amdahl knew no peace. ``This
-Tapeworm Queen reminds me of my Wisconsin days!'' he cried, and on a prototype
+Tapeworm Queen reminds me of halcyon Wisconsin days!'' he cried, and on a prototype
 Model 30 appeared her Name. Struck by the power of that Name, all began to bow,
 and to weep. She vomited forth the Tapeworm Gospel. Looking upon this filth, they
 thought it Good.
@@ -1227,7 +1228,7 @@ different purposes than originally planned (see Table~\ref{table:c0maps}).
     0x1c (FS) & Ctrl+\textbackslash{} & & Deliver \texttt{SIGQUIT} \\
     \hline
   \end{tabular}
-  \caption[Usual UNIX semantics of C0]{Usual UNIX semantics of C0. The exact mapping can be inspected with \texttt{stty -a}.}
+  \caption[Usual UNIX semantics of C0]{Usual UNIX semantics of C0. The exact mappings can be inspected with \texttt{stty -a}.}
   \label{table:c0maps}
 \end{table}
 
@@ -1314,7 +1315,7 @@ int mbswidth(const char* mbs);
 \subsection{Moving and resizing planes}
 \subsection{Cells, strings, and formatted output}
 \subsection{Alpha blending and plane transparency}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Styling with colors and attributes}
@@ -1322,7 +1323,7 @@ int mbswidth(const char* mbs);
 \label{sec:attribute}
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
-%\newpage
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}

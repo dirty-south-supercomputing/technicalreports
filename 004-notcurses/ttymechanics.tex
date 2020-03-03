@@ -1,15 +1,16 @@
 \section{Terminal mechanics}
 \label{section:tty}
-\epigraph{The tty layer is one of the very few pieces of kernel code that scares the hell out of me.}{Ingo Molnar\footnote{When Ingo Molnar is scared, we all ought be scared.}\cite{molnarhell}}
+\epigraph{The tty layer is one of the very few pieces of kernel code that scares the hell out of me.}{Ingo Molnar\cite{molnarhell}}
 You won't often need to deal with the gritty details of terminal access and
 manipulation. It's still important to understand what's going on behind the
 abstraction, especially for when things go wrong. As was made clear in
 Chapters~\ref{sec:direct} and~\ref{sec:fullscreen}, Notcurses requires a
 proper terminal definition and a handle to a terminal device, or initialization
 will fail (NCURSES requires the same). With that said, the UNIX terminal layers
-have never been, and are not now for the faint of heart. Extending back to the
-AT\&T dark ages, they are configured primarily through messy \texttt{ioctl}s
-and the slightly-less-messy \texttt{termios} API.
+have never been, and are not now for the faint of heart\footnote{When Ingo
+Molnar is scared, we all ought be scared.}. Extending back to the AT\&T dark
+ages, they are configured primarily through messy \texttt{ioctl}s and the
+slightly-less-messy \texttt{termios} API.
 
 More details than you probably want are available from Chapters 18 and 19 of \cite{apiue}
 (general UNIX), Chapters 62 and 64 of \cite{linuxprogramming} (Linux), and Chapter
@@ -60,10 +61,10 @@ Modern workstations support a variety of physical and virtual terminal devices:
 \end{table}
 
 On Linux, three kernel definitions form the core of the terminal abstraction
-(the ``tty layer''). The \texttt{tty\_driver} is a function interface; one
-exists for each tty implementation, and each has a different corresponding
+(the ``tty layer''). A \texttt{tty\_driver} function interface exists for each
+tty implementation, and each has a different corresponding
 major+minor device number pair. These implementations are enumerated in
-\texttt{/proc/tty/drivers}; sample contents are listed in Table~\ref{table:procttydrivers}.
+\texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
 
 \begin{table}
   \centering
@@ -87,7 +88,8 @@ major+minor device number pair. These implementations are enumerated in
     unknown & /dev/tty & 4 & 1--63 & console & devices/virtual/tty/console \\
     \hline
   \end{tabular}
-  \caption[Expanded contents of \texttt{/proc/tty/drivers}]{Extended content of a sample \texttt{/proc/tty/drivers}\\(5.5.6 kernel. \texttt{sysfs} information has been added)}
+  \caption[Expanded contents of \texttt{/proc/tty/drivers}]{Extended content of a sample \texttt{/proc/tty/drivers}\\
+    (5.5.6 kernel. \texttt{sysfs} information has been added)}
   \label{table:procttydrivers}
 \end{table}
 
