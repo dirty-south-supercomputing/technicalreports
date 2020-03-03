@@ -11,6 +11,10 @@ have never been, and are not now for the faint of heart. Extending back to the
 AT\&T dark ages, they are configured primarily through messy \texttt{ioctl}s
 and the slightly-less-messy \texttt{termios} API.
 
+More details than you probably want are available from Chapters 18 and 19 of \cite{apiue}
+(general UNIX), Chapters 62 and 64 of \cite{linuxprogramming} (Linux), and Chapter
+10 of \cite{freebsddesign} (FreeBSD).
+
 Modern workstations support a variety of physical and virtual terminal devices:
 \begin{denseitemize}
 \item{Honest-to-Bog serial terminals, probably using the RS-232\cite{rs232}
@@ -24,35 +28,67 @@ Modern workstations support a variety of physical and virtual terminal devices:
 
 \begin{table}
   \centering
-  \begin{tabular}{ |c|c|c|c| }
+  \begin{tabular}{ |c|c|c|c|c| }
     \hline
-    Signal & DB-25M & DE-9M & Originator \\
+    Signal & DB-25M & TIA-574 DE-9M & Yost 8P8C\cite{yost} & Originator \\
     \hline
     \hline
-    Protective ground & 1 & & x \\
+    Protective ground & 1 & x & x & x \\
     \hline
-    Transmitted data & 2 & 3 & DTE \\
+    Transmitted data & 2 & 3 & 3 & DTE \\
     \hline
-    Received data & 3 & 2 & DCE \\
+    Received data & 3 & 2 & 6 & DCE \\
     \hline
-    Request to send & 4 & 7 & DTE \\
+    Request to send & 4 & 7 & 1 & DTE \\
     \hline
-    Clear to send & 5 & 8 & DCE \\
+    Clear to send & 5 & 8 & 8 & DCE \\
     \hline
-    Data set ready & 6 & 6 & DCE \\
+    Data set ready & 6 & 6 & 2 & DCE \\
     \hline
-    Signal ground & 7 & 5 & x \\
+    Signal ground & 7 & 5 & 4, 5 & x \\
     \hline
-    Carrier detect & 8 & 1 & DCE \\
+    Carrier detect & 8 & 1 & 2 & DCE \\
     \hline
-    Data terminal ready & 20 & 4 & DTE \\
+    Data terminal ready & 20 & 4 & 7 & DTE \\
     \hline
-    Ring indicator & 22 & 9 & DCE \\
+    Ring indicator & 22 & 9 & x & DCE \\
     \hline
   \end{tabular}
   \caption[RS-232/EIA-232 pin mappings]{RS-232/EIA-232 D-subminiature pins\\
     (DCE=Data circuit equipment, DTE=Data terminal equipment)}
   \label{table:serial}
+\end{table}
+
+On Linux, three kernel definitions form the core of the terminal abstraction
+(the ``tty layer''). The \texttt{tty\_driver} is a function interface; one
+exists for each tty implementation, and each has a different corresponding
+major+minor device number pair. These implementations are enumerated in
+\texttt{/proc/tty/drivers}; sample contents are listed in Table~\ref{table:procttydrivers}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{ |c|c|c|c|c|c| }
+    \hline
+    Name & Default node & Major & Minor & Type & sysfs \\
+    \hline
+    \hline
+    /dev/tty & /dev/tty & 5 & 0 & system:/dev/tty & devices/virtual/tty/tty* \\
+    \hline
+    /dev/console & /dev/console & 5 & 1 & system:console & devices/virtual/tty/console \\
+    \hline
+    /dev/ptmx & /dev/ptmx & 5 & 2 & system & devices/virtual/tty/ptmx \\
+    \hline
+    /dev/vc/0 & /dev/vc/0 & 4 & 0 & system:vtmaster & x \\
+    \hline
+%    pty\_slave & /dev/pts & 136 & 0--1048575 & pty:slave & x \\
+%    \hline
+%    pty\_master & /dev/ptm & 128 & 0--1048575 & pty:master & x \\
+%    \hline
+%    unknown & /dev/tty & 4 & 1--63 & console & devices/virtual/tty/console \\
+%    \hline
+  \end{tabular}
+  \caption[Expanded contents of \texttt{/proc/tty/drivers}]{Extended content of a sample \texttt{/proc/tty/drivers}\\(5.5.6 kernel. \texttt{sysfs} information has been added)}
+  \label{table:procttydrivers}
 \end{table}
 
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),

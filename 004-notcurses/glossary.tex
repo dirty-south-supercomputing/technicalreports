@@ -58,7 +58,8 @@
 \newglossaryentry{cooked mode}
 {
   name={cooked mode},
-description={The default terminal mode under SUSv4 (see \gls{raw mode}).
+description={The default terminal mode under SUSv4 (compare \gls{raw mode} and
+\gls{cbreak mode}).
   The terminal driver buffers input until a newline is entered, while echoing
   it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
   mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
@@ -418,12 +419,6 @@ description={A minimal TUI library written atop slang, providing the foundation
   for \texttt{whiptail}. It is not a Curses implementation}
 }
 
-\newglossaryentry{noncanonical}
-{
-  name={non-canonical mode},
-description={See \gls{raw mode}}
-}
-
 \newglossaryentry{notcurses}
 {
   name={Notcurses},
@@ -470,10 +465,20 @@ description={``A pair of virtual character devices that provide a
   and it handles relevant \texttt{ioctl()}s}
 }
 
+\newglossaryentry{cbreak mode}
+{
+  name={cbreak mode},
+  description={A kind of middleground between \gls{cooked mode} and \gls{raw mode},
+    cbreak mode disables line buffering and erase/kill character processing.
+    Interrupt and flow control characters are unaffected. Primarily identified
+    with (and defined in) Curses\cite{cursesosi}, and sometimes known as ``rare mode''}
+}
+
 \newglossaryentry{raw mode}
 {
   name={raw mode},
-  description={A collection of behaviors differing from \gls{cooked mode},
+  description={A collection of behaviors differing from \gls{cooked mode} or
+    \gls{cbreak mode},
    originating in the Version 7 terminal driver. Notably, the terminal driver no
    longer buffers input or generates signals. Raw mode can be entered with the
    \texttt{cfmakeraw()} termios call, where available}
