@@ -1295,9 +1295,9 @@ placed at column 1.
 Likewise, when rendering, a plane which would partially obstruct a wide glyph
 prevents it from being rendered entirely. A pathological case would be that of
 a terminal $n$ columns in width, containing $n-1$ planes, each 2 columns wide.
-The planes are placed at offsets $[0\ldots n-1]$. Each plane is above the plane to
+The planes are placed at offsets $[0\ldots n-2]$. Each plane is above the plane to
 its left, and each plane contains a single wide character. Were this to be
-rendered, only the rightmost plane (and its single glyph) would be rendered!
+rendered, only the rightmost glyph would be rendered!
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
