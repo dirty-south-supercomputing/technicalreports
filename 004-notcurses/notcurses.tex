@@ -22,6 +22,7 @@
 %\setmonofont[Scale=0.7]{Source Code Pro}
 \setmonofont[Scale=0.8]{Unifont}
 \defaultfontfeatures{Ligatures=TeX}
+\usepackage[table]{xcolor}
 \usepackage{xcolor}
 \usepackage[titletoc,title]{appendix}
 \usepackage{minted}
@@ -440,7 +441,14 @@ other locale properties\cite{setlocale} (full Notcurses requires a
 properly-configured ASCII or UTF-8 locale).
 
 Enter direct mode via a call to \texttt{notcurses\_directmode()} with a successful
-return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
+return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}. It is
+typical to invoke this function as \texttt{notcurses\_directmode(NULL,
+  stdout)}. In this case, the terminal type must be present in the
+\texttt{TERM} environment variable (this should have been done by the
+terminal). The buffering and blocking status of \texttt{fp} will not be
+changed. \texttt{NULL} is returned for any number of possible errors.
+Otherwise, the \texttt{struct ncdirect} is ready to go, and should be cleaned
+up with \texttt{ncdirect\_stop()}.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -449,25 +457,18 @@ return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
 // supports nor requires notcurses_render(). This can be used to add color and styling to text in the standard
 // output paradigm. Returns NULL on error, including any failure initializing terminfo.
 struct ncdirect* notcurses_directmode(const char* termtype, FILE* fp);
-\end{minted}
-\end{listing}
 
-It is typical to invoke this function as \texttt{notcurses\_directmode(NULL, stdout)}.
-In this case, the terminal type must be present in the \texttt{TERM} environment
-variable (this should have been done by the terminal). The buffering and
-blocking status of \texttt{fp} will not be changed. \texttt{NULL} is returned for any number
-of possible errors. Otherwise, the \texttt{struct ncdirect} is ready to go, and should
-be cleaned up with \texttt{ncdirect\_stop()}:
-
-\begin{listing}[!htbp]
-\begin{minted}{C}
 // Release 'nc' and any associated resources. 0 on success, non-0 on failure.
 int ncdirect_stop(struct ncdirect* nc);
 \end{minted}
+\caption{Initializing and stopping directmode.}
 \end{listing}
 
 Between these two calls, inject stylizing control codes into the \texttt{FILE*} with
-the following API (the \texttt{stylebits} values are detailed in Chapter~\ref{sec:attribute}):
+the \texttt{ncdirect} API (the \texttt{stylebits} values are detailed in Chapter~\ref{sec:attribute}).
+As detailed in Chapter~\ref{sec:channels}, the terminal has a ``default foreground color''
+and ``default background color''. Return to these default colors with
+\texttt{ncdirect\_fg\_default()} and \texttt{ncdirect\_bg\_default()}.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -479,17 +480,10 @@ int ncdirect_styles_set(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_on(struct ncdirect* n, unsigned stylebits);
 int ncdirect_styles_off(struct ncdirect* n, unsigned stylebits);
 int ncdirect_clear(struct ncdirect* n);
-\end{minted}
-\end{listing}
-
-As detailed in Chapter~\ref{sec:channels}, the terminal has a ``default foreground color''
-and ``default background color''. Use these functions to return to them.
-
-\begin{listing}[!htbp]
-\begin{minted}{C}
 int ncdirect_fg_default(struct ncdirect* n);
 int ncdirect_bg_default(struct ncdirect* n);
 \end{minted}
+\caption{The \texttt{ncdirect} styling API.}
 \end{listing}
 
 Direct mode allows the cursor to be moved in two-dimensional space, and
@@ -502,6 +496,7 @@ int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
 int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
 \end{minted}
+\caption{Cursor management with \texttt{ncdirect}.}
 \end{listing}
 
 \subsection{Example: presenting \textit{\textcolor{blue}{House} of Leaves}}
@@ -526,10 +521,9 @@ making use of exceptions would reduce if not eliminate this nonsense.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hol-formatter.c}
-\caption{\texttt{hol-formatter.c}}
+\caption{\texttt{hol-formatter.c}, a streaming formatter.}
 \label{list:holformatter}
 \end{listing}
-
 
 \begin{figure}[!htbp]
 \centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
@@ -565,7 +559,7 @@ Imagine we've written the simple guessing game in Listing~\ref{list:guessgame}.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hilostdio.c}
-\caption{\texttt{hilostdio.c}}
+\caption{\texttt{hilostdio.c}, a simple guessing game.}
 \label{list:guessgame}
 \end{listing}
 
@@ -580,7 +574,7 @@ we'd either need accept fewer shades, or be forced to reprogram the palette.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/hilodirect.c}
-\caption{\texttt{hilodirect.c}}
+\caption{\texttt{hilodirect.c}, a colorized version of the guessing game.}
 \label{list:hilodirect}
 \end{listing}
 
@@ -812,6 +806,16 @@ struct ncplane* notcurses_top(struct notcurses* n);
 
 // Destroy any ncplanes other than the stdplane.
 void notcurses_drop_planes(struct notcurses* nc);
+
+// Return our current idea of the terminal dimensions in rows and cols.
+static inline void notcurses_term_dim_yx(struct notcurses* n, int* restrict rows, int* restrict cols){
+  ncplane_dim_yx(notcurses_stdplane(n), rows, cols);
+}
+
+// Retrieve the contents of the specified cell as last rendered. The EGC is returned, or NULL on error.
+// This EGC must be free()d by the caller. The cell 'c' is not bound to a plane, and thus its gcluster
+// value must not be used—use the return value only.
+char* notcurses_at_yx(struct notcurses* nc, int yoff, int xoff, cell* c);
 \end{minted}
 \end{listing}
 
@@ -1247,21 +1251,22 @@ along with another key from ASCII; these combinations are defined using
     \hline
     1x & DLE & DC1 & DC2 & DC3 & DC4 & NAK & SYN & ETB & CAN & EM & SUB & ESC & FS & GS & RS & US \\
     \hline
-    2x & SP & ! & " & \# & \$ & \% & \& & ' & ( & ) & * & + & , & - & . & / \\
+    2x & SP & ! & " & \cellcolor{blue!25}\# & \cellcolor{blue!25}\$ & \% & \& & ' & ( & ) & * & + & , & - & . & / \\
     \hline
     3x & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & : & ; & < & = & > & ? \\
     \hline
-    4x & @ & A & B & C & D & E & F & G & H & I & J & K & L & M & N & O \\
+    4x & \cellcolor{blue!25}@ & A & B & C & D & E & F & G & H & I & J & K & L & M & N & O \\
     \hline
-    5x & P & Q & R & S & T & U & V & W & X & Y & Z & [ & \textbackslash{} & ] & \^{} & \_ \\
+    5x & P & Q & R & S & T & U & V & W & X & Y & Z & \cellcolor{blue!25}[ & \cellcolor{blue!25}\textbackslash{} & \cellcolor{blue!25}] & \cellcolor{blue!25}\^{} & \_ \\
     \hline
-    6x & \textasciigrave{} & a & b & c & d & e & f & g & h & i & j & k & l & m & n & o \\
+    6x & \cellcolor{blue!25}\textasciigrave{} & a & b & c & d & e & f & g & h & i & j & k & l & m & n & o \\
     \hline
-    7x & p & q & r & s & t & u & v & w & x & y & z & \{ & | & \} & \textasciitilde{} & DEL \\
+    7x & p & q & r & s & t & u & v & w & x & y & z & \cellcolor{blue!25}\{ & \cellcolor{blue!25}| & \cellcolor{blue!25}\} & \cellcolor{blue!25}\textasciitilde{} & DEL \\
     \hline
   \end{tabular}
   }
-  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.}
+  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.\\
+    Shaded characters can be replaced in regional variants.}
   \label{table:ascii}
 \end{table}
 
@@ -1466,8 +1471,7 @@ char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts,
 
 // 'ni' may be NULL if the caller is uninterested in event details. If no event
 // is ready, returns 0.
-static inline char32_t
-notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
+static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigfillset(&sigmask);
   struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
@@ -1476,8 +1480,7 @@ notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
 
 // 'ni' may be NULL if the caller is uninterested in event details. Blocks
 // until an event is processed or a signal is received.
-static inline char32_t
-notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
+static inline char32_t notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigemptyset(&sigmask);
   return notcurses_getc(n, NULL, &sigmask, ni);
@@ -1543,8 +1546,7 @@ typedef int (*streamcb)(struct notcurses* nc, struct ncvisual* ncv, void*);
 // Shut up and display my frames! Provide as an argument to ncvisual_stream().
 // If you'd like subtitles to be decoded, provide an ncplane as the curry. If the
 // curry is NULL, subtitles will not be displayed.
-static inline int
-ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry){
+static inline int ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry){
   if(notcurses_render(nc)){
     return -1;
   }
