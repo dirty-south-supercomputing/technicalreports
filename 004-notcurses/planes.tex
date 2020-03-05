@@ -151,6 +151,24 @@ bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restri
 \caption{Translating coordinates between planes.}
 \end{listing}
 
+Just as each cell has a set of attributes and channels, the plane itself has
+an active attribute set and active channels. These can be freely manipulated
+using the API of Listing~\ref{listing:planecurstyle}.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+\end{minted}
+\caption{Translating coordinates between planes.}
+\end{listing}
+
+During the course of \texttt{notcurses\_render()}, the plane is examined at
+all cells intersecting with unsolved coordinates (see~\ref{sec:rendering}).
+Whenever the EGC at a cell is the null EGC (a \texttt{gcluster} value of 0;
+recall that this is the default value), the plane's base cell is instead
+considered for rendering purposes. This applies to glyph, attribute, and
+colors---there is not yet any means to make multiple cells in a plane glyph-transparent
+with different colors\footnote{See \url{https://github.com/dankamongmen/notcurses/issues/395}.}.
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Set the ncplane's base cell to this cell. It will be used for purposes of rendering anywhere that the ncplane's
@@ -352,7 +370,9 @@ static inline int cell_set_bg(cell* c, uint32_t channel){
 
 It is also possible to make use of palette-indexed color (recall that the size
 of the palette can be acquired with \texttt{notcurses\_palette\_size()}). Palette-indexed
-color requires much less bandwidth than pure RGB, and allows for finer control
+color requires much less bandwidth than pure RGB\footnote{Work is underway
+to emit palette-indexed rasterization even when RGB has been provided,
+see \url{https://github.com/dankamongmen/notcurses/issues/371}.}, and allows for finer control
 on terminals which don't faithfully implement RGB DirectColor. The terminal
 palette can be manually reprogrammed with the palette256 API.
 
