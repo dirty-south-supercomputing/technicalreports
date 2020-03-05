@@ -132,7 +132,7 @@ int ncplane_move_yx(struct ncplane* n, int y, int x);
 \caption{Moving planes on the x and y axis.}
 \end{listing}
 
-\textbf{FIXME ncplane\_resize()...}
+\textbf{FIXME ncplane\_resize(), \_rotate()...}
 
 Sometimes it is useful to translate coordinates between planes, or between the
 visible area and planes (this latter is particularly useful when interpreting
@@ -198,6 +198,200 @@ Applications generally need not work directly with cells, though sometimes it
 is easiest to do so. The usual reason for working with a cell is either to set
 all three properies of output at once (glyph, attributes, and colors), or to
 receive all three properties at once when retrieving a coordinate's data.
+
+As further discussed in Chapter~\ref{sec:channels}, the \texttt{channels}
+variable is a 64-bit field packing together a number of properties. The high
+32 bits apply to the foreground, and the low 32 bits to the background. They
+can be set and queried as a channel (Listing~\ref{listing:cellchannels}).
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Extract the 32-bit background channel from a cell.
+static inline unsigned cell_bchannel(const cell* cl){
+  return channels_bchannel(cl->channels);
+}
+
+// Extract the 32-bit foreground channel from a cell.
+static inline unsigned cell_fchannel(const cell* cl){
+  return channels_fchannel(cl->channels);
+}
+
+// Set the 32-bit background channel of a cell.
+static inline uint64_t cell_set_bchannel(cell* cl, uint32_t channel){
+  return channels_set_bchannel(&cl->channels, channel);
+}
+
+// Set the 32-bit foreground channel of a cell.
+static inline uint64_t cell_set_fchannel(cell* cl, uint32_t channel){
+  return channels_set_fchannel(&cl->channels, channel);
+}
+\end{minted}
+\caption{The \texttt{cell} definition.}
+\label{listing:cellchannels}
+\end{listing}
+
+RGB values consume 24 bits of each channel, 75\% of the 64 bits in \texttt{channels}.
+RGB values can be blended, clipped, and otherwise dealt with arithmetically.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// do not pass palette-indexed channels!
+static inline uint64_t cell_blend_fchannel(cell* cl, unsigned channel, unsigned* blends){
+  return cell_set_fchannel(cl, channels_blend(cell_fchannel(cl), channel, blends));
+}
+
+// Extract 24 bits of foreground RGB from 'cell', shifted to LSBs.
+static inline unsigned cell_fg(const cell* cl){
+  return channels_fg(cl->channels);
+}
+
+// Extract 2 bits of foreground alpha from 'cell', shifted to LSBs.
+static inline unsigned cell_fg_alpha(const cell* cl){
+  return channels_fg_alpha(cl->channels);
+}
+
+// Extract 24 bits of foreground RGB from 'cell', split into components.
+static inline unsigned cell_fg_rgb(const cell* cl, unsigned* r, unsigned* g, unsigned* b){
+  return channels_fg_rgb(cl->channels, r, g, b);
+}
+
+// Set the r, g, and b cell for the foreground component of this 64-bit
+// 'cell' variable, and mark it as not using the default color.
+static inline int cell_set_fg_rgb(cell* cl, int r, int g, int b){
+  return channels_set_fg_rgb(&cl->channels, r, g, b);
+}
+
+// Same, but clipped to [0..255].
+static inline void cell_set_fg_rgb_clipped(cell* cl, int r, int g, int b){
+  channels_set_fg_rgb_clipped(&cl->channels, r, g, b);
+}
+
+// Same, but with an assembled 24-bit RGB value.
+static inline int cell_set_fg(cell* c, uint32_t channel){
+  return channels_set_fg(&c->channels, channel);
+}
+\end{minted}
+\caption{\texttt{cell} foreground RGBA functionality.}
+\label{listing:cellrgbfg}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+static inline uint64_t cell_blend_bchannel(cell* cl, unsigned channel, unsigned* blends){
+  return cell_set_bchannel(cl, channels_blend(cell_bchannel(cl), channel, blends));
+}
+
+// Extract 24 bits of background RGB from 'cell', shifted to LSBs.
+static inline unsigned cell_bg(const cell* cl){
+  return channels_bg(cl->channels);
+}
+
+// Extract 2 bits of background alpha from 'cell', shifted to LSBs.
+static inline unsigned cell_bg_alpha(const cell* cl){
+  return channels_bg_alpha(cl->channels);
+}
+
+// Extract 24 bits of background RGB from 'cell', split into components.
+static inline unsigned cell_bg_rgb(const cell* cl, unsigned* r, unsigned* g, unsigned* b){
+  return channels_bg_rgb(cl->channels, r, g, b);
+}
+
+// Set the r, g, and b cell for the background component of this 64-bit
+// 'cell' variable, and mark it as not using the default color.
+static inline int cell_set_bg_rgb(cell* cl, int r, int g, int b){
+  return channels_set_bg_rgb(&cl->channels, r, g, b);
+}
+
+// Same, but clipped to [0..255].
+static inline void cell_set_bg_rgb_clipped(cell* cl, int r, int g, int b){
+  channels_set_bg_rgb_clipped(&cl->channels, r, g, b);
+}
+
+// Same, but with an assembled 24-bit RGB value.
+static inline int cell_set_bg(cell* c, uint32_t channel){
+  return channels_set_bg(&c->channels, channel);
+}
+\end{minted}
+\caption{\texttt{cell} background RGBA functionality.}
+\label{listing:cellrgbbg}
+\end{listing}
+
+It is also possible to make use of palette-indexed color (recall that the size
+of the palette can be acquired with \texttt{notcurses\_palette\_size()}). Palette-indexed
+color requires much less bandwidth than pure RGB, and allows for finer control
+on terminals which don't faithfully implement RGB DirectColor. The terminal
+palette can be manually reprogrammed with the palette256 API.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Set the cell's foreground palette index, set the foreground palette index
+// bit, set it foreground-opaque, and clear the foreground default color bit.
+static inline int cell_set_fg_palindex(cell* cl, int idx){
+  if(idx < 0 || idx >= NCPALETTESIZE){
+    return -1;
+  }
+  cl->channels |= CELL_FGDEFAULT_MASK;
+  cl->channels |= CELL_FG_PALETTE;
+  cl->channels &= ~(CELL_ALPHA_MASK << 32u);
+  cl->attrword &= 0xffff00ff;
+  cl->attrword |= (idx << 8u);
+  return 0;
+}
+
+static inline unsigned cell_fg_palindex(const cell* cl){
+  return (cl->attrword & 0x0000ff00) >> 8u;
+}
+
+// Set the cell's background palette index, set the background palette index
+// bit, set it background-opaque, and clear the background default color bit.
+static inline int cell_set_bg_palindex(cell* cl, int idx){
+  if(idx < 0 || idx >= NCPALETTESIZE){
+    return -1;
+  }
+  cl->channels |= CELL_BGDEFAULT_MASK;
+  cl->channels |= CELL_BG_PALETTE;
+  cl->channels &= ~CELL_ALPHA_MASK;
+  cl->attrword &= 0xffffff00;
+  cl->attrword |= idx;
+  return 0;
+}
+
+static inline unsigned cell_bg_palindex(const cell* cl){
+  return cl->attrword & 0x000000ff;
+}
+
+static inline bool cell_fg_palindex_p(const cell* cl){
+  return channels_fg_palindex_p(cl->channels);
+}
+
+static inline bool cell_bg_palindex_p(const cell* cl){
+  return channels_bg_palindex_p(cl->channels);
+}
+\end{minted}
+\caption{\texttt{cell} palette-indexed color functionality.}
+\label{listing:cellpalette}
+\end{listing}
+
+Finally, the default fore- and/or background color can be used, and is indeed
+the default. Default colors can't be blended. Some terminals can be configured
+to use a transparent background. Only in cells using the default background
+color can this effect be seen.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Is the background using the "default background color"? The "default background color"
+// must generally be used to take advantage of terminal-effected transparency.
+static inline bool cell_bg_default_p(const cell* cl){
+  return channels_bg_default_p(cl->channels);
+}
+
+// Is the foreground using the "default foreground color"?
+static inline bool cell_fg_default_p(const cell* cl){
+  return channels_fg_default_p(cl->channels);
+}
+\end{minted}
+\caption{\texttt{cell} default color functionality.}
+\end{listing}
 
 \subsection{egcpools}
 \label{sec:egcpools}
