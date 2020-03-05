@@ -1031,6 +1031,34 @@ desktop with non-pathological output, it's easy to render in excess of
 ten thousand frames per second, far beyond the refresh capabilities of any
 existing monitor.
 
+\subsection{Capabilities}
+Different terminals expose different capabilities, and different means of
+engaging them. These differences are encoded in the terminfo database\cite{terminfo}.
+The Notcurses API hides the differences where it can, and is built around those
+capabilities which are most widely supported. Some applications, however, will
+want to know details of the underlying implementation.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Returns a 16-bit bitmask of supported curses-style attributes (NCSTYLE_UNDERLINE, NCSTYLE_BOLD,
+// etc.). The attribute is only indicated as supported if the terminal can support it together
+// with color. For more information, see the "ncv" capability in terminfo(5).
+unsigned notcurses_supported_styles(const struct notcurses* nc);
+
+// Returns the number of simultaneous colors claimed to be supported, or 1 if there is no color support.
+// Note that several terminal emulators advertise more colors than they actually support, downsampling internally.
+int notcurses_palette_size(const struct notcurses* nc);
+
+// Can we fade? Fading requires either the "rgb" or "ccc" terminfo capability.
+bool notcurses_canfade(const struct notcurses* nc);
+
+// Can we set the "hardware" palette? Requires the "ccc" terminfo capability.
+bool notcurses_canchangecolor(const struct notcurses* nc);
+
+// Can we load images/videos? This requires being built against FFmpeg.
+bool notcurses_canopen(const struct notcurses* nc);
+\end{minted}
+\end{listing}
+
 \subsection{Statistics}
 Notcurses tracks statistics across its operation, and a snapshot can be
 acquired using the \texttt{notcurses\_stats()} function. This function cannot
@@ -1040,8 +1068,7 @@ current state. Timings for renderings are across the breadth of
 \texttt{notcurses\_render()}: they include all per-render preprocessing, output
 generation, and dumping of the output (including any sleeping while blocked on
 output to the terminal).
-
-\begin{listing}
+\begin{listing}[!htbp]
 \begin{minted}{C}
 typedef struct ncstats {
   // purely increasing (cumulative) stats
@@ -1071,34 +1098,6 @@ void notcurses_stats(struct notcurses* nc, ncstats* stats);
 
 // Reset all cumulative stats (immediate ones, such as fbbytes, are not reset).
 void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
-\end{minted}
-\end{listing}
-
-\subsection{Capabilities}
-Different terminals expose different capabilities, and different means of
-engaging them. These differences are encoded in the terminfo database\cite{terminfo}.
-The Notcurses API hides the differences where it can, and is built around those
-capabilities which are most widely supported. Some applications, however, will
-want to know details of the underlying implementation.
-\begin{listing}
-\begin{minted}{C}
-// Returns a 16-bit bitmask of supported curses-style attributes (NCSTYLE_UNDERLINE, NCSTYLE_BOLD,
-// etc.). The attribute is only indicated as supported if the terminal can support it together
-// with color. For more information, see the "ncv" capability in terminfo(5).
-unsigned notcurses_supported_styles(const struct notcurses* nc);
-
-// Returns the number of simultaneous colors claimed to be supported, or 1 if there is no color support.
-// Note that several terminal emulators advertise more colors than they actually support, downsampling internally.
-int notcurses_palette_size(const struct notcurses* nc);
-
-// Can we fade? Fading requires either the "rgb" or "ccc" terminfo capability.
-bool notcurses_canfade(const struct notcurses* nc);
-
-// Can we set the "hardware" palette? Requires the "ccc" terminfo capability.
-bool notcurses_canchangecolor(const struct notcurses* nc);
-
-// Can we load images/videos? This requires being built against FFmpeg.
-bool notcurses_canopen(const struct notcurses* nc);
 \end{minted}
 \end{listing}
 
