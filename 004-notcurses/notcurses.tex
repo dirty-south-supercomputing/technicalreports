@@ -1231,12 +1231,6 @@ Table~\ref{table:c0maps}). These characters can be entered by pressing Ctrl
 along with another key from ASCII; these combinations are defined using the
 ``caret notation'' of Table~\ref{table:caret}.
 
-Recall the \texttt{struct termios} from Chapter~\ref{section:tty}. The \texttt{c\_cc}
-array of that structure defines ``special characters'' for the terminal. Aside from
-CR and LF, the various caret controls can there be recovered and redefined. Should
-you really want to send \texttt{SIGINT} via 'a' rather than Ctrl+C, that's where
-you can do it.
-
 \begin{table}[!htbp]
   \centering
   \texttt{%
@@ -1265,6 +1259,12 @@ you can do it.
   \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.}
   \label{table:ascii}
 \end{table}
+
+Recall the \texttt{struct termios} from Chapter~\ref{section:tty}. The \texttt{c\_cc}
+array of that structure defines ``special characters'' for the terminal. Aside from
+CR and LF, the various caret controls can there be recovered and redefined. Should
+you really want to send \texttt{SIGINT} via 'a' rather than Ctrl+C, that's where
+you can do it.
 
 \begin{table}[!htbp]
   \centering
@@ -1328,12 +1328,12 @@ you can do it.
 \subsection{Eight-bit character sets messily diverge}
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
 for working with English\footnote{As far as this author knows, ASCII
-faithfully represents only (modern) English, Latin, and Swahili.}, but even
+can faithfully represent only (modern) English, Latin, and Swahili.}, but even
 the accented Latin scripts needed more room to be expressed. Other
-segmentally linear, monophonemic writing systems (e.g. Cyrillic, Hangul, and
+segmentally linear, monophonemic writing systems (e.g. Cyrillic, Hangul, or
 Greek) would need replace the graphic characters wholesale. The idea of
 describing syllabary-based languages in seven or even eight bits is
-laughable\footnote{An eight-bit character set for ``rudimentary form'' Japanese,
+laughable\footnote{An octet character set for ``rudimentary form'' Japanese,
 containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 
 \begin{wrapfigure}{O}{0.5\textwidth}
@@ -2159,16 +2159,16 @@ Standard of which it forms a part.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\section{Notcurses header files}
-%\subsection{The \texttt{notcurses.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-%\egroup
-%
-%\subsection{The \texttt{nckeys.h} header}
-%\bgroup
-%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-%\egroup
+\section{Notcurses header files}
+\subsection{The \texttt{notcurses.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+\egroup
+
+\subsection{The \texttt{nckeys.h} header}
+\bgroup
+\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+\egroup
 
 \end{appendices}
 \newpage
