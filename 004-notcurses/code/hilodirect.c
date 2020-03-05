@@ -4,7 +4,7 @@
 int main(void){
   srand(time(NULL)); // gross
   long guess, secret = random();
-  struct ncdirect* n = notcurses_directmode(NULL, stdout);
+  struct ncdirect* n = ncdirect_init(NULL, stdout);
   if(n == NULL){
     return EXIT_FAILURE;
   }

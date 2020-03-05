@@ -4,7 +4,7 @@
 int main(void){
   const char blue[] = "house";
   const char *b = blue;
-  struct ncdirect* n = notcurses_directmode(NULL, stdout);
+  struct ncdirect* n = ncdirect_init(NULL, stdout);
   int c, ret = 0;
   if(n){
     while(!ret && (c = getchar()) != EOF){
