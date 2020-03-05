@@ -38,7 +38,7 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) simpleloop.tex ttymechanics.tex $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) output.tex planes.tex simpleloop.tex ttymechanics.tex $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)

@@ -444,12 +444,10 @@ return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}:
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
-// Initialize a direct-mode notcurses context on the connected terminal at 'fp'.
-// 'fp' must be a tty. You'll usually want stdout. Direct mode supportes a
-// limited subset of notcurses routines which directly affect 'fp', and neither
-// supports nor requires notcurses_render(). This can be used to add color and
-// styling to text in the standard output paradigm. Returns NULL on error,
-// including any failure initializing terminfo.
+// Initialize a direct-mode notcurses context on the connected terminal at 'fp'. 'fp' must be a tty. You'll usually
+// want stdout. Direct mode supportes a limited subset of notcurses routines which directly affect 'fp', and neither
+// supports nor requires notcurses_render(). This can be used to add color and styling to text in the standard
+// output paradigm. Returns NULL on error, including any failure initializing terminfo.
 struct ncdirect* notcurses_directmode(const char* termtype, FILE* fp);
 \end{minted}
 \end{listing}
@@ -786,7 +784,7 @@ The fields therein include:
 \end{denseitemize}
 
 \subsection{Functions on \texttt{notcurses} objects}
-
+\label{sec:notcursesfuncs}
 Output is not written to this top-level \texttt{struct notcurses}---that's
 done with \texttt{ncplane}s---but there are a number of functions
 available for these objects. Acquiring an \texttt{ncplane} for output can be
@@ -807,8 +805,7 @@ struct ncplane* notcurses_stdplane(struct notcurses* nc);
 // and the specified size. The number of rows and columns must both be positive.
 // This plane is initially at the top of the z-buffer, as if ncplane_move_top()
 // had been called on it. The void* 'opaque' can be retrieved (and reset) later.
-struct ncplane* ncplane_new(struct notcurses* nc, int rows, int cols,
-                            int yoff, int xoff, void* opaque);
+struct ncplane* ncplane_new(struct notcurses* nc, int rows, int cols, int yoff, int xoff, void* opaque);
 
 // Return the topmost ncplane, of which there is always at least one.
 struct ncplane* notcurses_top(struct notcurses* n);
@@ -978,11 +975,10 @@ escapes once. An RGB change takes about 14 bytes, a palette index change
 takes about 6, and reverting to the default 2. For single-byte simple (ASCII)
 EGCs, an RGB foreground and background represent 2800\% overhead per cell!
 Eliding styling escapes is thus an important secondary optimization (it's of
-course most desirable to not update the cell at all).
-
-Using the ``default color'' as only one of the foreground or background requires
-emitting the \texttt{op} escape followed by the appropriate escape for changing
-the fore- or background (since \texttt{op} changes both at once).
+course most desirable to not update the cell at all). Using the ``default
+color'' as only one of the foreground or background requires emitting the
+\texttt{op} escape followed by the appropriate escape for changing the fore- or
+background (since \texttt{op} changes both at once).
 
 Certain EGCs are understood to be all-foreground or all-background.
 \texttt{U+2588 FULL BLOCK} is all foreground. \texttt{U+0020 SPACE} is all
@@ -1036,12 +1032,14 @@ ten thousand frames per second, far beyond the refresh capabilities of any
 existing monitor.
 
 \subsection{Statistics}
-
 Notcurses tracks statistics across its operation, and a snapshot can be
 acquired using the \texttt{notcurses\_stats()} function. This function cannot
 fail. Most of the stats can be reset with \texttt{notcurses\_reset\_stats()}.
 This function resets all cumulative stats, but not those which describe the
-current state.
+current state. Timings for renderings are across the breadth of
+\texttt{notcurses\_render()}: they include all per-render preprocessing, output
+generation, and dumping of the output (including any sleeping while blocked on
+output to the terminal).
 
 \begin{listing}
 \begin{minted}{C}
@@ -1063,7 +1061,6 @@ typedef struct ncstats {
   uint64_t bgemissions;      // RGB bg emissions
   uint64_t defaultelisions;  // default color was emitted
   uint64_t defaultemissions; // default color was elided
-
   // current state -- these can decrease
   uint64_t fbbytes;          // total bytes devoted to all active framebuffers
   unsigned planes;           // number of planes currently in existence
@@ -1077,9 +1074,33 @@ void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 \end{minted}
 \end{listing}
 
-Timings for renderings are across the breadth of \texttt{notcurses\_render()}:
-they include all per-render preprocessing, output generation, and dumping of
-the output (including any sleeping while waiting on the terminal).
+\subsection{Capabilities}
+Different terminals expose different capabilities, and different means of
+engaging them. These differences are encoded in the terminfo database\cite{terminfo}.
+The Notcurses API hides the differences where it can, and is built around those
+capabilities which are most widely supported. Some applications, however, will
+want to know details of the underlying implementation.
+\begin{listing}
+\begin{minted}{C}
+// Returns a 16-bit bitmask of supported curses-style attributes (NCSTYLE_UNDERLINE, NCSTYLE_BOLD,
+// etc.). The attribute is only indicated as supported if the terminal can support it together
+// with color. For more information, see the "ncv" capability in terminfo(5).
+unsigned notcurses_supported_styles(const struct notcurses* nc);
+
+// Returns the number of simultaneous colors claimed to be supported, or 1 if there is no color support.
+// Note that several terminal emulators advertise more colors than they actually support, downsampling internally.
+int notcurses_palette_size(const struct notcurses* nc);
+
+// Can we fade? Fading requires either the "rgb" or "ccc" terminfo capability.
+bool notcurses_canfade(const struct notcurses* nc);
+
+// Can we set the "hardware" palette? Requires the "ccc" terminfo capability.
+bool notcurses_canchangecolor(const struct notcurses* nc);
+
+// Can we load images/videos? This requires being built against FFmpeg.
+bool notcurses_canopen(const struct notcurses* nc);
+\end{minted}
+\end{listing}
 
 \newpage
 
@@ -1212,8 +1233,8 @@ because EBCDIC), despite being largely archaic and altogether mystifying. Many
 of the associated semantics have been obsoleted, and in some cases the encoded
 characters are now used for different purposes than originally planned (see
 Table~\ref{table:c0maps}). These characters can be entered by pressing Ctrl
-along with another key from ASCII; these combinations are defined using the
-``caret notation'' of Table~\ref{table:caret}.
+along with another key from ASCII; these combinations are defined using
+``caret notation''.
 
 \begin{table}[!htbp]
   \centering
@@ -1258,56 +1279,43 @@ you can do it.
     Character & Caret & C & Semantics \\
     \hline
     \hline
-    0x03 (ETX) & Ctrl+C & & Deliver \texttt{SIGINT} \\
+    0x00 (NUL) & \texttt{\^{}@} & & \\
     \hline
-    0x04 (EOT) & Ctrl+D & & Indicate end-of-file \\
+    0x03 (ETX) & \texttt{\^{}C} & & Deliver \texttt{SIGINT} \\
     \hline
-    0x07 (BEL) & Ctrl+G & \textbackslash{}a & Alert (bell) \\
+    0x04 (EOT) & \texttt{\^{}D} & & Indicate end-of-file \\
     \hline
-    0x08 (BS) & Ctrl+H & \textbackslash{}b & Backspace \\
+    0x07 (BEL) & \texttt{\^{}G} & \textbackslash{}a & Alert (bell) \\
     \hline
-    0x09 (HT) & Ctrl+I & \textbackslash{}t & Proceed to next tab stop \\
+    0x08 (BS) & \texttt{\^{}H} & \textbackslash{}b & Backspace \\
     \hline
-    0x0a (LF) & Ctrl+J & \textbackslash{}n & Move down one line \\
+    0x09 (HT) & \texttt{\^{}I} & \textbackslash{}t & Proceed to next tab stop \\
     \hline
-    0x0b (VT) & Ctrl+K & \textbackslash{}v & Move down to next vertical tab \\
+    0x0a (LF) & \texttt{\^{}J} & \textbackslash{}n & Move down one line \\
     \hline
-    0x0c (CR) & Ctrl+L & \textbackslash{}f & Move to start of line \\
+    0x0b (VT) & \texttt{\^{}K} & \textbackslash{}v & Move down to next vertical tab \\
     \hline
-    0x11 (DC1) & Ctrl+Q & & Software flow control (resume output) \\
+    0x0c (CR) & \texttt{\^{}L} & \textbackslash{}f & Move to start of line \\
     \hline
-    0x13 (DC3) & Ctrl+S & & Software flow control (pause output) \\
+    0x11 (DC1) & \texttt{\^{}Q} & & Software flow control (resume output) \\
     \hline
-    0x1a (SUB) & Ctrl+Z & & Deliver \texttt{SIGSTOP} \\
+    0x13 (DC3) & \texttt{\^{}S} & & Software flow control (pause output) \\
     \hline
-    0x1c (FS) & Ctrl+\textbackslash{} & & Deliver \texttt{SIGQUIT} \\
+    0x1a (SUB) & \texttt{\^{}Z} & & Deliver \texttt{SIGSTOP} \\
+    \hline
+    0x1b (ESC) & \texttt{\^{}[} & & Initiate escape sequence \\
+    \hline
+    0x1c (FS) & \texttt{\^{}\textbackslash{}} & & Deliver \texttt{SIGQUIT} \\
+    \hline
+    0x1d (GS) & \texttt{\^{}]} & & \\
+    \hline
+    0x1e (RS) & \texttt{\^{}\^{}} & & \\
+    \hline
+    0x1f (US) & \texttt{\^{}\_} & & \\
     \hline
   \end{tabular}
   \caption[Usual UNIX semantics of C0]{Usual UNIX semantics of C0. The exact mappings can be inspected with \texttt{stty -a}.}
   \label{table:c0maps}
-\end{table}
-
-\begin{table}[!htbp]
-  \centering
-  \begin{tabular}{ |c|c| }
-    \hline
-    0x00 (NUL) & \texttt{\^{}@} \\
-    \hline
-    0x01--0x1a (SOH--SUB) & \texttt{\^{}A..Z} \\
-    \hline
-    0x1b (ESC) & \texttt{\^{}[} \\
-    \hline
-    0x1c (FS) & \texttt{\^{}\textbackslash{}} \\
-    \hline
-    0x1d (GS) & \texttt{\^{}]} \\
-    \hline
-    0x1e (RS) & \texttt{\^{}\^{}} \\
-    \hline
-    0x1f (US) & \texttt{\^{}\_} \\
-    \hline
-  \end{tabular}
-  \caption{Caret notation for the C0 control set.}
-  \label{table:caret}
 \end{table}
 
 \subsection{Eight-bit character sets messily diverge}
@@ -1376,6 +1384,11 @@ The planes are placed at offsets $[0\ldots n-2]$. Each plane is above the plane 
 its left, and each plane contains a single wide character. Were this to be
 rendered, only the rightmost glyph would be rendered!
 
+Finally, fonts and font engines which yield glyphs wider (or narrower) than
+\texttt{wcwidth()} would lead Notcurses to believe can cause problems. It is
+best to avoid EGCs known to be very wide, or to avoid fonts which generate very
+wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Calculate the size in columns of the provided UTF8 multibyte string.
@@ -1383,23 +1396,21 @@ int mbswidth(const char* mbs);
 \end{minted}
 \end{listing}
 
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{media/wide-unicode.png}
+\caption[Some very wide Unicode glyphs]{Some very wide Unicode glyphs (font: Hack 10)}
+\label{fig:wideglyphs}
+\end{figure}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Using ncplanes}
-\label{ncplane}
-\subsection{egcpools}
-\subsection{Moving and resizing planes}
-\subsection{Cells, strings, and formatted output}
-\subsection{Alpha blending and plane transparency}
+\input{planes}
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Styling with colors and attributes}
-\subsection{The 32-bit \texttt{attribute} value}
-\label{sec:attribute}
-\subsection{The 64-bit \texttt{channels} value}
-\label{sec:channels}
+% output and styling
+\input{output}
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1793,7 +1804,7 @@ int ncmenu_destroy(struct ncmenu* n);
 \subsection{Reels}
 \subsection{Example: let's rip off \texttt{whiptail}}
 
-\section{Hack the Planet!}
+\section{Complex examples}
 \subsection{Example: let's rip off tetris}
 \label{section:casestudy}
 \subsection{Example: walking through \texttt{notcurses-demo}}
@@ -2144,16 +2155,16 @@ Standard of which it forms a part.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Notcurses header files}
-\subsection{The \texttt{notcurses.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
-\egroup
-
-\subsection{The \texttt{nckeys.h} header}
-\bgroup
-\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
-\egroup
+%\section{Notcurses header files}
+%\subsection{The \texttt{notcurses.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/notcurses.h}
+%\egroup
+%
+%\subsection{The \texttt{nckeys.h} header}
+%\bgroup
+%\inputminted[linenos,breaklines=true]{C}{code/nckeys.h}
+%\egroup
 
 \end{appendices}
 \newpage

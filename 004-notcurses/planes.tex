@@ -1,0 +1,197 @@
+\section{Using ncplanes}
+\label{ncplane}
+As mentioned in Chapter~\ref{sec:fullscreen}, \texttt{ncplane}s (henceforth
+simply planes) are the fundamental drawing surface of Notcurses. A Notcurses
+instance contains a z-axis on which planes are totally ordered\footnote{Future
+releases of Notcurses might relax this to a partial ordering, allowing
+multiple ncplanes to partition a logical level. See
+\url{https://github.com/dankamongmen/notcurses/issues/184}.}. In addition, it
+always contains at least one plane, the \textit{standard plane}. This plane's
+origin is always defined to be the rendering area's origin. It is always
+exactly as large as the rendering area, and it cannot be destroyed.
+
+Chapter \ref{sec:notcursesfuncs} introduced one function that creates a new
+plane: \texttt{ncplane\_new()}. In addition, there is \texttt{ncplane\_aligned()}.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Create a new ncplane at the specified 'yoff', of the specified 'rows' and 'cols'. Align this plane
+// according to 'align' relative to 'n'.
+struct ncplane* ncplane_aligned(struct ncplane* n, int rows, int cols, int yoff, ncalign_e align, void* opaque);
+\end{minted}
+\end{listing}
+
+A plane is defined by:
+\begin{denseitemize}
+\item{A packed ``framebuffer'' of \texttt{cell} structures. Cells are discussed
+    in detail in~\ref{sec:cells}; it is enough now to know that each has an
+    EGC, a set of attributes, and a fore- and background color.}
+\item{A ``base cell'', rendered for any cell with a null EGC.}
+\item{A cursor position relative to the plane's origin.}
+\item{The plane's position relative to the visible area's origin.}
+\item{A two-dimensional size.}
+\item{An ``egcpool'' providing backing storage for the framebuffer.}
+\item{An opaque pointer, controlled by the application.}
+\item{A current set of attributes and colors.}
+\item{A pointer to the plane below this one, or \texttt{NULL} for the bottommost plane.}
+\end{denseitemize}
+
+However a plane is created---including the standard plane---it is initialized
+in the same way. All cells--both the base cell and those of the
+framebuffer---are zeroed out. A zeroed cell has the null glyph (UTF-8
+value ``00''), no attributes, and the default foreground and background color
+(default colors are always opaque). Note that planes are thus by default
+glyph-transparent but color-opaque. The cursor is placed at the origin. The
+plane's current attributes and channels are likewise zeroed out. The plane is
+pushed onto the top of the z-axis and assigned an initialized egcpool
+(see~\ref{sec:egcpools}).
+
+A plane can be duplicated with \texttt{ncplane\_dup()}. This will create a new
+plane of the same geometry at the top of the z-axis. It will then have all
+other properties duplicated, using its own egcpool.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Duplicate an existing ncplane. The new plane will have the same geometry, will duplicate all content, and
+// will start with the same rendering state. The new plane will be immediately above the old one on the z axis.
+struct ncplane* ncplane_dup(struct ncplane* n, void* opaque);
+\end{minted}
+\end{listing}
+
+Besides the default plane, planes may occupy any positive size (both the number
+of rows and columns must be greater than zero), and have their origins any
+integer offset from the visual origin. It is possible for a plane to be a
+superset of the visual area, a subset, to exactly match the visual area, to
+partially overlap it, or even to be entirely off-screen. A plane can be
+moved to any coordinate, but the plane's cursor cannot be moved off the plane.
+
+Any plane save the standard plane may be destroyed with \texttt{ncplane\_destroy()}.
+All planes save the standard plane may be destroyed in one fell swoop with
+\texttt{notcurses\_drop\_planes()}.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Destroy the specified ncplane. None of its contents will be visible after the next
+// call to notcurses_render(). It is an error to attempt to destroy the standard plane.
+int ncplane_destroy(struct ncplane* ncp);
+
+// Destroy all ncplanes other than the standard plane.
+void notcurses_drop_planes(struct notcurses* nc);
+\end{minted}
+\end{listing}
+
+\subsection{Moving and resizing planes}
+Even the standard plane can be reordered along the z-axis. \texttt{ncplane\_move\_top()}
+and \texttt{ncplane\_move\_bottom()} are absolute, moving the specified plane
+to the top or bottom of the z-axis, respectively. \texttt{ncplane\_move\_above()}
+and \texttt{ncplane\_move\_below()} are relative, moving the plane immediately
+above or below another one. It is an error to try and move a plane below or above itself,
+or above or below \texttt{NULL}.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Splice ncplane 'n' out of the z-buffer, and reinsert it at the top or bottom.
+int ncplane_move_top(struct ncplane* n);
+int ncplane_move_bottom(struct ncplane* n);
+
+// Splice ncplane 'n' out of the z-buffer, and reinsert it above 'above'.
+int ncplane_move_above_unsafe(struct ncplane* restrict n, struct ncplane* restrict above);
+
+static inline int
+ncplane_move_above(struct ncplane* n, struct ncplane* above){
+  if(n == above){
+    return -1;
+  }
+  return ncplane_move_above_unsafe(n, above);
+}
+
+// Splice ncplane 'n' out of the z-buffer, and reinsert it below 'below'.
+int ncplane_move_below_unsafe(struct ncplane* restrict n, struct ncplane* restrict below);
+
+static inline int
+ncplane_move_below(struct ncplane* n, struct ncplane* below){
+  if(n == below){
+    return -1;
+  }
+  return ncplane_move_below_unsafe(n, below);
+}
+
+// Return the plane above this one, or NULL if this is at the top.
+struct ncplane* ncplane_below(struct ncplane* n);
+\end{minted}
+\end{listing}
+
+All planes other than the standard plane can be moved in the x- and y-dimensions.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Move this plane relative to the standard plane. It is an error to attempt to // move the standard plane.
+int ncplane_move_yx(struct ncplane* n, int y, int x);
+\end{minted}
+\end{listing}
+
+\textbf{FIXME ncplane\_resize()...}
+
+Sometimes it is useful to translate coordinates between planes, or between the
+visible area and planes (this latter is particularly useful when interpreting
+mouse clicks; see Chapter~\ref{sec:input}).
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// provided a coordinate relative to the origin of 'src', map it to the same absolute coordinate
+// relative to thte origin of 'dst'. either or both of 'y' and 'x' may be NULL.
+void ncplane_translate(const struct ncplane* src, const struct ncplane* dst, int* restrict y, int* restrict x);
+
+// Fed absolute 'y'/'x' coordinates, determine whether that coordinate is within the ncplane 'n'. If not, return false.
+// If so, return true. Either way, translate the absolute coordinates relative to 'n'. If the point is not within 'n',
+// these coordinates will not be within the dimensions of the plane.
+bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restrict x);
+\end{minted}
+\end{listing}
+
+\subsection{Cells}
+\label{sec:cells}
+Each coordinate of an plane corresponds to a \texttt{cell}. The cell definition
+is exposed to the application, though it should not generally be directly
+manipulated. A multicolumn cell (a cell containing an EGC of $n$ columns where
+$n>1$) overrides the $n-1$ following cells. Since there are always a fixed
+number of cells, this means that the overridden cells are skipped during
+rendering, as well as being zeroed out at the time the multicolumn EGC is
+written to the cell.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+typedef struct cell {
+  // These 32 bits are either a single-byte, single-character grapheme cluster (values 0–0x7f), or
+  // an offset into a per-ncplane attached pool of varying-length UTF-8 grapheme clusters.
+  uint32_t gcluster;          // 4B -> 4B
+  // NCSTYLE_* attributes (16 bits) + 8 foreground palette index bits + 8 background palette index
+  // bits. palette index bits are used only if the corresponding default color bit *is not* set,
+  // and the corresponding palette index bit *is* set.
+  uint32_t attrword;          // + 4B -> 8B
+  // (channels & 0x8000000000000000ull): left half of wide character
+  // (channels & 0x4000000000000000ull): foreground is *not* "default color"
+  // (channels & 0x3000000000000000ull): foreground alpha (2 bits)
+  // (channels & 0x0800000000000000ull): foreground uses palette index
+  // (channels & 0x0700000000000000ull): reserved, must be 0
+  // (channels & 0x00ffffff00000000ull): foreground in 3x8 RGB (rrggbb)
+  // (channels & 0x0000000080000000ull): right half of wide character
+  // (channels & 0x0000000040000000ull): background is *not* "default color"
+  // (channels & 0x0000000030000000ull): background alpha (2 bits)
+  // (channels & 0x0000000008000000ull): background uses palette index
+  // (channels & 0x0000000007000000ull): reserved, must be 0
+  // (channels & 0x0000000000ffffffull): background in 3x8 RGB (rrggbb)
+  uint64_t channels;          // + 8B == 16B
+} cell;
+\end{minted}
+\end{listing}
+The \texttt{gcluster} field is a 32-bit number. If the value is less than 128,
+it directly specifies its UTF-8 encoded character. Since Unicode's first 128
+values are taken directly from ASCII, this means the entirety of ASCII can be
+represented in-line. If the value is greater than or equal to 128, it is a
+bias-128 index into the plane's associated egcpool. Since egcpools are per-plane,
+this implies that it is unsafe to blindly copy a cell from one plane to another.
+
+Applications generally need not work directly with cells, though sometimes it
+is easiest to do so. The usual reason for working with a cell is either to set
+all three properies of output at once (glyph, attributes, and colors), or to
+receive all three properties at once when retrieving a coordinate's data.
+
+\subsection{egcpools}
+\label{sec:egcpools}
+
+\subsection{Alpha blending and plane transparency}
