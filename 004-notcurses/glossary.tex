@@ -102,29 +102,13 @@ description={The rectilinear area corresponding to a given text-mode coordinate.
 \longnewglossaryentry{character}
 {
   name={character},
-description={One of the most imprecise terms in computer science. The C and \CC
-  languages have a data type \texttt{char}, which usually cannot hold the
+description={One of the most imprecise terms in computer science (see Chapter~\ref{sec:charsets}).
+  The C and \CC languages have a data type \texttt{char}, which usually cannot hold the
   world's characters. Whether it is signed or unsigned is implementation-defined.
-  Should I speak of them, I'll write \texttt{char}. A character is an evanescence;
-  it is easier to say what it is \text{not}:
-  \begin{denseitemize}
-  \item{A character is not necessarily unique within a character set (see diacritic vs.\ precomposed forms).}
-  \item{Different characters needn't be distinct glyphs\cite{nothinggoesaway}.}
-  \item{A character needn't limit itself to a single column, even when using a fixed-width font.}
-  \item{A character does not necessarily have a visual representation.}
-  \item{A character does not necessarily have a single meaning among different languages.}
-  \item{In a given encoding, all characters are not necessarily the same size.}
-  \item{A character cannot necessarily capture the state of the keyboard at some time.}
-  \item{A character cannot necessarily describe a cell of a display at some time.}
-  \end{denseitemize}
-
-  In the absence of a coded character set or character encoding for context, a
-  character is really nothing more than an identifier, e.g. \texttt{LATIN
-    CAPITAL LETTER I}. Isn't that a recursive definition? You betcha.
-
-  When I use the word ``character'', I mean either an element of some code set, or
-  such an element as encoded by some character encoding. The context ought make
-  obvious which meaning is intended}
+  Should I speak of them, I'll write \texttt{char}. When I use the word
+  ``character'', I mean either an element of some code set, or such an element
+  as encoded by some character encoding. The context ought make obvious which
+  meaning is intended}
 }
 
 \newglossaryentry{characterencoding}
