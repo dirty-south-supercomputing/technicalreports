@@ -1157,7 +1157,7 @@ stored in different cases of the typesetting table. ``Majuscules'' and
 released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard\cite{iso646}
 ``internationalized'' ASCII-1968 by opening up 12 graphic characters to
 regional specifications (the US ASCII defined the ``International Reference
-Variant'')\cite{aivosto}. \textbf{FIXME\ldots}
+Variant'')\cite{aivosto}.
 
 \begin{table}[!htbp]
   \centering
@@ -1190,13 +1190,14 @@ Variant'')\cite{aivosto}. \textbf{FIXME\ldots}
 
 The first 32 values are non-printable control codes, first given their current
 definitions in ASCII 1968. These 32 codes (known as the ``C0'' coded control
-set since ISO/IEC 646) are carried through ISO/IEC 2022 (ECMA-35), ISO/IEC 6429 (ECMA-48),
-ISO/IEC 8859 (ECMA-94), and on through ISO/IEC 10646 aka the Universal Character
-Set. They're common across just about every character set of which I'm aware
-(EBCDIC went almost entirely its own way, because EBCDIC), despite being
-largely archaic and altogether mystifying. Many of the associated semantics
-have been obsoleted, and in some cases the encoded characters are now used for
-different purposes than originally planned (see Table~\ref{table:c0maps}).
+set since ISO/IEC 646) lived on through ISO/IEC 2022 (ECMA-35), ISO/IEC 6429
+(ECMA-48), ISO/IEC 8859 (ECMA-94), and are reproduced in today's ISO/IEC 10646,
+aka the Universal Character Set. They're common across just about every
+character set of which I'm aware (EBCDIC went almost entirely its own way,
+because EBCDIC), despite being largely archaic and altogether mystifying. Many
+of the associated semantics have been obsoleted, and in some cases the encoded
+characters are now used for different purposes than originally planned (see
+Table~\ref{table:c0maps}).
 
 \begin{table}[!htbp]
   \centering
@@ -1241,26 +1242,29 @@ ASCII. These are described using ``caret notation'' (see Table~\ref{table:caret}
   \centering
   \begin{tabular}{ |c|c| }
     \hline
-    0x00 (NUL) & \^{}@ \\
+    0x00 (NUL) & \texttt{\^{}@} \\
     \hline
-    0x01--0x1a (SOH--SUB) & \^{}A..Z \\
+    0x01--0x1a (SOH--SUB) & \texttt{\^{}A..Z} \\
     \hline
-    0x1b (ESC) & \^{}[ \\
+    0x1b (ESC) & \texttt{\^{}[} \\
     \hline
-    0x1c (FS) & \^{}\textbackslash{} \\
+    0x1c (FS) & \texttt{\^{}\textbackslash{}} \\
     \hline
-    0x1d (GS) & \^{}] \\
+    0x1d (GS) & \texttt{\^{}]} \\
     \hline
-    0x1e (RS) & \^{}\^{} \\
+    0x1e (RS) & \texttt{\^{}\^{}} \\
     \hline
-    0x1f (US) & \^{}\_ \\
+    0x1f (US) & \texttt{\^{}\_} \\
     \hline
   \end{tabular}
   \caption{Caret notation for the C0 control set.}
   \label{table:caret}
 \end{table}
 
-\subsection{The Universal Character Set}
+\subsection{Eight-bit character sets messily diverge}
+
+
+\subsection{Consilience: the Universal Character Set}
 
 \begin{figure}
   \centering
