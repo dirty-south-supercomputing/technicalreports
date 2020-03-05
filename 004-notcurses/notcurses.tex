@@ -435,15 +435,14 @@ Unlike full Notcurses, there is no explicit rendering step in direct mode, and
 it is intended to be mixed among other use of standard I/O. Essentially, direct
 mode ``styles your \texttt{printf()}s.'' Similarly to full Notcurses, direct mode
 requires a valid and correct terminfo database entry, supplied via either the
-\texttt{termtype} parameter to \texttt{notcurses\_directmode()} or the \texttt{TERM} environment
+\texttt{termtype} parameter to \texttt{ncdirect\_init()} or the \texttt{TERM} environment
 variable. It does \textit{not}, however, require any particular encoding or
 other locale properties\cite{setlocale} (full Notcurses requires a
 properly-configured ASCII or UTF-8 locale).
 
-Enter direct mode via a call to \texttt{notcurses\_directmode()} with a successful
+Enter direct mode via a call to \texttt{ncdirect\_init()} with a successful
 return of a non-\texttt{NULL} pointer to \texttt{struct ncdirect}. It is
-typical to invoke this function as \texttt{notcurses\_directmode(NULL,
-  stdout)}. In this case, the terminal type must be present in the
+typical to invoke this function as \texttt{ncdirect\_init(NULL, stdout)}. In this case, the terminal type must be present in the
 \texttt{TERM} environment variable (this should have been done by the
 terminal). The buffering and blocking status of \texttt{fp} will not be
 changed. \texttt{NULL} is returned for any number of possible errors.
@@ -456,7 +455,7 @@ up with \texttt{ncdirect\_stop()}.
 // want stdout. Direct mode supportes a limited subset of notcurses routines which directly affect 'fp', and neither
 // supports nor requires notcurses_render(). This can be used to add color and styling to text in the standard
 // output paradigm. Returns NULL on error, including any failure initializing terminfo.
-struct ncdirect* notcurses_directmode(const char* termtype, FILE* fp);
+struct ncdirect* ncdirect_init(const char* termtype, FILE* fp);
 
 // Release 'nc' and any associated resources. 0 on success, non-0 on failure.
 int ncdirect_stop(struct ncdirect* nc);
