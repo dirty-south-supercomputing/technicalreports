@@ -126,7 +126,7 @@ struct ncplane* ncplane_below(struct ncplane* n);
 All planes other than the standard plane can be moved in the x- and y-dimensions.
 \begin{listing}[!htbp]
 \begin{minted}{C}
-// Move this plane relative to the standard plane. It is an error to attempt to // move the standard plane.
+// Move this plane relative to the standard plane. It is an error to attempt to move the standard plane.
 int ncplane_move_yx(struct ncplane* n, int y, int x);
 \end{minted}
 \caption{Moving planes on the x and y axis.}
@@ -149,6 +149,40 @@ void ncplane_translate(const struct ncplane* src, const struct ncplane* dst, int
 bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restrict x);
 \end{minted}
 \caption{Translating coordinates between planes.}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Set the ncplane's base cell to this cell. It will be used for purposes of rendering anywhere that the ncplane's
+// gcluster is 0. Erasing the ncplane does not reset the base cell; this function must be called with a zero 'c'.
+int ncplane_set_base_cell(struct ncplane* ncp, const cell* c);
+
+// Set the ncplane's base cell to this cell. It will be used for purposes of
+// rendering anywhere that the ncplane's gcluster is 0. Erasing the ncplane
+// does not reset the base cell; this function must be called with an empty
+// 'egc'. 'egc' must be a single extended grapheme cluster.
+int ncplane_set_base(struct ncplane* ncp, uint64_t channels, uint32_t attrword, const char* egc);
+
+// Extract the ncplane's base cell into 'c'. The reference is invalidated if 'ncp' is destroyed.
+int ncplane_base(struct ncplane* ncp, cell* c);
+\end{minted}
+\caption{Manipulating a plane's base cell.}
+\end{listing}
+
+Sometimes you'll want to destroy all content in the plane, reinitializing
+its framebuffer and base cell without changing the geometry. \texttt{ncplane\_erase()}
+allows you to do this in one fell swoop, with the added bonus functionality
+of resetting the associated egcpool. A freshly-reset egcpool can be much faster
+than one which has been heavily used, requiring a search to find suitable free
+space. The state of the framebuffer is exactly as it was when the plane was
+created---all cells hold the null EGC, all attributes are 0, and all colors
+are defaults. All cells associated with this plane are invalidated, so be
+sure you're not holding onto any.
+\begin{listing}[!htbp]
+\begin{minted}{C}
+void ncplane_erase(struct ncplane* n);
+\end{minted}
+\caption{\texttt{ncplane\_erase()} resets the plane's content and egcpool.}
 \end{listing}
 
 \subsection{Cells}
