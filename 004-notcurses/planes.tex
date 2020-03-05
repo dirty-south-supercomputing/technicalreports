@@ -153,12 +153,31 @@ bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restri
 
 Just as each cell has a set of attributes and channels, the plane itself has
 an active attribute set and active channels. These can be freely manipulated
-using the API of Listing~\ref{listing:planecurstyle}.
+using the API of Listings~\ref{listing:planefg}, \ref{listing:planebg}, and
+\ref{listing:planeattr}.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
+FIXME
 \end{minted}
-\caption{Translating coordinates between planes.}
+\caption{Manipulating a plane's active foreground channel.}
+\label{listing:planefg}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+FIXME
+\end{minted}
+\caption{Manipulating a plane's active background channel.}
+\label{listing:planebg}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+FIXME
+\end{minted}
+\caption{Manipulating a plane's active attributes.}
+\label{listing:planeattr}
 \end{listing}
 
 During the course of \texttt{notcurses\_render()}, the plane is examined at
@@ -186,6 +205,8 @@ int ncplane_base(struct ncplane* ncp, cell* c);
 \end{minted}
 \caption{Manipulating a plane's base cell.}
 \end{listing}
+
+\textbf{FIXME FIXME...userptr...}
 
 Sometimes you'll want to destroy all content in the plane, reinitializing
 its framebuffer and base cell without changing the geometry. \texttt{ncplane\_erase()}
