@@ -27,6 +27,12 @@ Modern workstations support a variety of physical and virtual terminal devices:
 \item{Pseudoterminals hooked up to network connections.}
 \end{denseitemize}
 
+On Linux, three kernel definitions form the core of the terminal abstraction
+(the ``tty layer''). A \texttt{tty\_driver} function interface exists for each
+tty implementation, and each has a different corresponding
+major+minor device number pair. These implementations are enumerated in
+\texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
+
 \begin{table}
   \centering
   \begin{tabular}{ |c|c|c|c|c| }
@@ -59,12 +65,6 @@ Modern workstations support a variety of physical and virtual terminal devices:
     (DCE=Data circuit equipment, DTE=Data terminal equipment)}
   \label{table:serial}
 \end{table}
-
-On Linux, three kernel definitions form the core of the terminal abstraction
-(the ``tty layer''). A \texttt{tty\_driver} function interface exists for each
-tty implementation, and each has a different corresponding
-major+minor device number pair. These implementations are enumerated in
-\texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
 
 \begin{table}
   \centering
