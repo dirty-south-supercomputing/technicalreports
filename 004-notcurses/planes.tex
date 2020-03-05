@@ -19,6 +19,7 @@ plane: \texttt{ncplane\_new()}. In addition, there is \texttt{ncplane\_aligned()
 // according to 'align' relative to 'n'.
 struct ncplane* ncplane_aligned(struct ncplane* n, int rows, int cols, int yoff, ncalign_e align, void* opaque);
 \end{minted}
+\caption{Creating a new plane aligned relative to another.}
 \end{listing}
 
 A plane is defined by:
@@ -55,6 +56,7 @@ other properties duplicated, using its own egcpool.
 // will start with the same rendering state. The new plane will be immediately above the old one on the z axis.
 struct ncplane* ncplane_dup(struct ncplane* n, void* opaque);
 \end{minted}
+\caption{Duplicating a plane.}
 \end{listing}
 
 Besides the default plane, planes may occupy any positive size (both the number
@@ -76,6 +78,7 @@ int ncplane_destroy(struct ncplane* ncp);
 // Destroy all ncplanes other than the standard plane.
 void notcurses_drop_planes(struct notcurses* nc);
 \end{minted}
+\caption{Destroying planes.}
 \end{listing}
 
 \subsection{Moving and resizing planes}
@@ -84,7 +87,8 @@ and \texttt{ncplane\_move\_bottom()} are absolute, moving the specified plane
 to the top or bottom of the z-axis, respectively. \texttt{ncplane\_move\_above()}
 and \texttt{ncplane\_move\_below()} are relative, moving the plane immediately
 above or below another one. It is an error to try and move a plane below or above itself,
-or above or below \texttt{NULL}.
+or above or below \texttt{NULL}. Likewise, an error will be returned if the relative
+plane does not exist on the z-axis.
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Splice ncplane 'n' out of the z-buffer, and reinsert it at the top or bottom.
@@ -116,6 +120,7 @@ ncplane_move_below(struct ncplane* n, struct ncplane* below){
 // Return the plane above this one, or NULL if this is at the top.
 struct ncplane* ncplane_below(struct ncplane* n);
 \end{minted}
+\caption{Moving planes on the z axis.}
 \end{listing}
 
 All planes other than the standard plane can be moved in the x- and y-dimensions.
@@ -124,6 +129,7 @@ All planes other than the standard plane can be moved in the x- and y-dimensions
 // Move this plane relative to the standard plane. It is an error to attempt to // move the standard plane.
 int ncplane_move_yx(struct ncplane* n, int y, int x);
 \end{minted}
+\caption{Moving planes on the x and y axis.}
 \end{listing}
 
 \textbf{FIXME ncplane\_resize()...}
@@ -142,6 +148,7 @@ void ncplane_translate(const struct ncplane* src, const struct ncplane* dst, int
 // these coordinates will not be within the dimensions of the plane.
 bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restrict x);
 \end{minted}
+\caption{Translating coordinates between planes.}
 \end{listing}
 
 \subsection{Cells}
@@ -178,6 +185,7 @@ typedef struct cell {
   uint64_t channels;          // + 8B == 16B
 } cell;
 \end{minted}
+\caption{The \texttt{cell} definition.}
 \end{listing}
 The \texttt{gcluster} field is a 32-bit number. If the value is less than 128,
 it directly specifies its UTF-8 encoded character. Since Unicode's first 128
