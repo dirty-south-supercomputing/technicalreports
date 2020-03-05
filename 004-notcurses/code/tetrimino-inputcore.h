@@ -13,15 +13,17 @@ static bool handle_input(struct notcurses* nc, struct ncplane** ps, int dimy, in
     *p = (*p + (key == ' ' ? (TETRIMINO_COUNT - 1) : 1)) % TETRIMINO_COUNT;
     ncplane_yx(ps[*p], y, x);
   }else if(key == '('){ // rotate counterclockwise
+    return ncplane_rotate_ccw(ps[*p]) ? true : false;
   }else if(key == ')'){ // rotate clockwise
+    return ncplane_rotate_cw(ps[*p]) ? true : false;
   }else if(key == NCKEY_LEFT || key == 'h'){
-    ncplane_move_yx(ps[*p], *y, --*x < 0 ? *x = 0 : *x);
+    return ncplane_move_yx(ps[*p], *y, --*x < 0 ? *x = 0 : *x) ? true : false;
   }else if(key == NCKEY_RIGHT || key == 'l'){
-    ncplane_move_yx(ps[*p], *y, *x = (*x + ncplane_dim_x(ps[*p]) > dimx ? *x : *x + 1));
+    return ncplane_move_yx(ps[*p], *y, *x = (*x + ncplane_dim_x(ps[*p]) > dimx ? *x : *x + 1)) ? true : false;
   }else if(key == NCKEY_UP || key == 'k'){
-    ncplane_move_yx(ps[*p], --*y < 0 ? *y = 0 : *y, *x);
+    return ncplane_move_yx(ps[*p], --*y < 0 ? *y = 0 : *y, *x) ? true : false;
   }else if(key == NCKEY_DOWN || key == 'j'){
-    ncplane_move_yx(ps[*p], ++*y + 2 > dimy ? *y = dimy - 2 : *y, *x);
+    return ncplane_move_yx(ps[*p], ++*y + 2 > dimy ? *y = dimy - 2 : *y, *x) ? true : false;
   }else if(nckey_mouse_p(key)){
     return handle_mouse_event(nc, &ni);
   }
