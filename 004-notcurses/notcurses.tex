@@ -694,9 +694,9 @@ implies:
 \end{denseitemize}
 Whether or not the original screen contents are restored is terminal-dependent
 (if the \texttt{non\_rev\_rmcup} terminfo capability is defined, the original
-contents will \textit{not} be restored). This can be useful, but some users
-don't like it, so it's wise to expose this via a configuration option.
-Disabling use of the alternate screen can be done via the
+contents will \textit{not} be restored). The alternate screen is generally
+useful, but some users don't like it, so it's wise to expose this via a
+configuration option. Disabling use of the alternate screen can be done via the
 \texttt{notcurses\_options} field \texttt{inhibit\_alternate\_screen}.
 
 Successful creation of a \texttt{struct notcurses} implies the existence of
