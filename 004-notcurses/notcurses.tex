@@ -1172,7 +1172,7 @@ are registered with ISO Register of Coded Characters per ISO/IEC
 
 Character graphics are formed from \textit{glyphs}, the visual renderings of a
 character encoding, supplied by a font. These glyphs might fuse into what
-Unicode Standard Annex \#29\cite{annex29} refers to as a \texttt{user-perceived
+Unicode Standard Annex \#29\cite{annex29} refers to as a \textit{user-perceived
 character} or \textit{grapheme cluster}. A formal algorithm for dividing a
 stream of glyphs into grapheme clusters (``horizontally segmentable units of
 text\cite{meaningcodepoints}'') achieves \textit{segmentation}. The current
@@ -1180,7 +1180,7 @@ Unicode segmentation algorithm yields \textit{extended grapheme clusters}.
 
 These extended grapheme clusters (EGCs) can be thought of as the atoms of
 character graphics. It is not generally possible to write them partially, nor
-to overlay patially atop another. Backspacing ought usually remove entire EGCs
+to partially overlay one atop another. Backspacing ought usually remove entire EGCs
 at a time. The cursor ought cross an EGC in a single movement. In Notcurses,
 each cell of a plane can hold a single EGC, which must be written as a single
 unit. The actual number of columns occupied by an EGC is a property of the font
