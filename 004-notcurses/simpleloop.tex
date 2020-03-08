@@ -194,14 +194,16 @@ clockwise and counterclockwise.
 
 Of course, when there's no other activity, things are easy. Quite often, we'll
 have some periodic concurrent activity. Let's say we wanted to make the non-selected
-tetriminos slowly rotate. The rotation isn't difficult; Notcurses provides
-that functionality for you. But you don't want the rotation synced to input
-activity, and you're hardly the kind of know-nothing what-not that would
-busy loop on a nonblocking input interface, right? I hope you don't consider
-yourself ``green'' if that's the case, because you're burning dinosaurs out
-of sheer laziness. Let's do it right. There are of course four canonical
-solutions to the problem of interleaving a set of asynchronous file descriptor-based
-inputs against a set of periodic requirements; let's refresh ourselves:
+tetriminos slowly rotate around within their cicle. The rotation isn't
+difficult, just movement of the planes. But we don't want the rotation synced
+to input activity (the pieces ought rotate freely without the user doing
+anything), and you're hardly the kind of know-nothing what-not that
+would busy loop on a nonblocking input interface, right? I hope you don't
+consider yourself ``green'' if that's the case, because you're burning
+dinosaurs out of sheer laziness. Let's do it right. There are of course four
+canonical solutions to the problem of interleaving a set of asynchronous file
+descriptor-based inputs against a set of periodic requirements; let's refresh
+ourselves:
 
 \begin{denseitemize}
 \item{No holds barred, take no prisoners state machine. No quarter asked.
@@ -368,8 +370,8 @@ its black blending into the grey tones underneath. The piece is unaffected.
     \caption{Opaque highlight box.}
   \end{minipage}\hfill
   \begin{minipage}{0.30\textwidth}
-    \includegraphics[width=1\linewidth]{media/tetrimino-bg.png}
-    \caption{Rotation thread enabled\textbf{FIXME}.}
+    \includegraphics[width=1\linewidth]{media/tetrimino-rot.png}
+    \caption{Rotation thread enabled.}
   \end{minipage}\hfill
 \end{figure}
 

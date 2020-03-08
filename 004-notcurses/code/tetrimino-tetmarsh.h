@@ -3,4 +3,5 @@ struct tetmarsh {
   struct ncplane* coaster;
   pthread_mutex_t lock;
   struct notcurses* nc;
+  int p;
 };
