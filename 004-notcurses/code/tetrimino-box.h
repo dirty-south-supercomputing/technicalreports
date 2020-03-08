@@ -30,9 +30,8 @@ static int highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box
   r = channel_r(tetriminos[tidx].color);
   g = channel_g(tetriminos[tidx].color);
   b = channel_b(tetriminos[tidx].color);
-  channels_set_fg(&corig, tetriminos[tidx].color);
   channels_set_fg_rgb_clipped(&c, g + 128, b + 128, r + 128);
   ncplane_yx(minos[tidx], &ny, &nx);
   ncplane_move_yx(box, ny - 2, nx - 2 * COLS_PER_GCOL);
-  return blast(minos[tidx], NCSTYLE_BOLD, corig, c, c, corig);
+  return blast(minos[tidx], NCSTYLE_BOLD, c, c, c, c);
 }

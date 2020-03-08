@@ -1,9 +1,10 @@
-static bool handle_input(struct notcurses* nc, struct ncplane** ps, int dimy, int dimx,
-                         int* y, int* x, int* p, pthread_mutex_t* plock){
+static bool handle_input(struct notcurses* nc, struct tetmarsh* marsh,
+                         int dimy, int dimx, int* y, int* x, int* p){
   ncinput ni; // necessary for mouse
-  pthread_mutex_unlock(plock);
+  pthread_mutex_unlock(&marsh->lock);
   char32_t key = notcurses_getc_blocking(nc, &ni);
-  pthread_mutex_lock(plock);
+  pthread_mutex_lock(&marsh->lock);
+  struct ncplane** ps = marsh->minos;
   if(key == (char32_t)-1){
     return true;
   }else if(key == 'q'){

@@ -20,7 +20,7 @@ int main(void){
   if(!failed && (failed = pthread_create(&tid, NULL, rotator_thread, &marsh)) == 0){
     pthread_mutex_lock(&marsh.lock);
     while((failed |= (highlight_enbox(marsh.minos, p, marsh.coaster) || notcurses_render(nc))) == 0){
-      failed |= handle_input(nc, marsh.minos, dimy, dimx, &y, &x, &p, &marsh.lock); // emerge locked
+      failed |= handle_input(nc, &marsh, dimy, dimx, &y, &x, &p); // emerge locked
       if(p < 0){
         break;
       }
