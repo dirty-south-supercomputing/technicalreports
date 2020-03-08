@@ -419,6 +419,7 @@ I mainly use this modern marvel to drive terminal emulators of 80 columns.
 
 \section{Using direct mode with standard I\/O}
 \label{sec:direct}
+\epigraph{Unscrew the locks from the doors!\\Unscrew the doors themselves from their jambs!}{Walt Whitman, \textit{Song of Myself}}
 Many tools don't intend to be full-screen TUI applications, but instead
 implement that purest of UNIX interfaces: newline-delimited text, oblivious
 to screen geometry, capable of being fed as input to other, similar programs.
@@ -617,6 +618,7 @@ the terminal.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using fullscreen mode}
 \label{sec:fullscreen}
+\epigraph{This is how space begins, with words only, signs traced on the blank page. To describe space: to name it, to trace it, like those portolano-makers who saturated the coastlines with the names of harbours, the names of capes, the names of inlets, until in the end the land was only separated from the sea by a continuous ribbon of text. Is the aleph, that place in Borges from which the entire world is visible simultaneously, anything other than an alphabet?}{Georges Perec, \textit{Species of Spaces}}
 From this chapter forward, we will be using the fullscreen mode of Notcurses,
 opening up all of its capabilities. This comes at a cost: while fullscreen mode
 is being used, it is not safe to use standard I/O in conjunction with the
@@ -1129,7 +1131,6 @@ void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 \section{Character encodings and glyphs}\label{section:unicode}
 \label{sec:charsets}
 \epigraph{Thou whorseon zed, thou unnecessary letter!}{Wiliam Shakespeare, \textit{King Lear}}
-%\epigraph{This is how space begins, with words only, signs traced on the blank page. To describe space: to name it, to trace it, like those portolano-makers who saturated the coastlines with the names of harbours, the names of capes, the names of inlets, until in the end the land was only separated from the sea by a continuous ribbon of text. Is the aleph, that place in Borges from which the entire world is visible simultaneously, anything other than an alphabet?}{Georges Perec, \textit{Species of Spaces and Other Pieces}}
 We'll be well-served by becoming familiar with our core building
 blocks---character sets and their rasterized forms. Even if we were to shrink
 the character cell to a single pixel, we'd still need write one or another
