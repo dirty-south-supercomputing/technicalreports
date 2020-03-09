@@ -1,5 +1,4 @@
-static bool handle_input(struct notcurses* nc, struct tetmarsh* marsh,
-                         int dimy, int dimx, int* y, int* x){
+static bool handle_input(struct notcurses* nc, struct tetmarsh* marsh, int dimy, int dimx, int* y, int* x){
   ncinput ni; // necessary for mouse
   pthread_mutex_unlock(&marsh->lock);
   char32_t key = notcurses_getc_blocking(nc, &ni);

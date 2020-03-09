@@ -138,11 +138,12 @@ Curses programs) kinda fugly. I wouldn't want to play with these pieces.
   \begin{minipage}{0.30\textwidth}
     \includegraphics[width=1\linewidth]{media/tetrimino-gradient2.png}
     \caption{Linear expansion.}
+    \label{fig:expansion}
   \end{minipage}\hfill
 \end{figure}
 
 This is hardly a render/event loop; in fact it's not a loop at all. If we were
-using the alternate screen, we wouldn't see our output before flashing back to
+using the alternate screen, we wouldn't even see our output before flashing back to
 the normal screen. Let's go ahead and hook up input. We'll be controlling one
 of the tetriminos at a time---the selected piece will use boldface, and have its
 color brightened\footnote{Note how we use two distinct indicators. On a monochromatic
@@ -154,8 +155,8 @@ helpers---\texttt{reduce()} and \texttt{highlight()}--- which drive the common
 \texttt{blast()}. \texttt{blast()} makes use of two new functions,
 \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}. They allow the
 attributes and channels, respectively, of a rectangular region to be changed
-without altering other components. The corresponding glyph-only output routines
-are likewise described in (Chapter~\ref{sec:staining}).
+without altering other components. These, and the corresponding glyph-only output routines,
+are described in Chapter~\ref{sec:staining}.
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-switch.h}
@@ -165,12 +166,12 @@ are likewise described in (Chapter~\ref{sec:staining}).
 
 While we're making things prettier, let's replace
 those letters with some classy box-drawing characters, and improve on this
-layout. We can do some simple algebraic extensions and get some linear spacing,
-but it's just as easy to use trigonometric functions and get an approximation
-to a circle. This is especially valuable as the terminal geometry changes; our
-fixed linear scalings would break down as the display aspect changes, but a
-good ol' circle will work on any sufficient radius
-(Listing~\ref{list:tetrimino-drawcircle}).
+layout. We can do some simple algebraic extensions and get some linear spacing
+(Figure~\ref{fig:expansion}), but it's just as easy to use trigonometric
+functions and get an approximation to a circle. This is especially valuable as
+the terminal geometry changes; our fixed linear scalings would break down as
+the display aspect changes, but a good ol' circle will work on any sufficient
+radius (Listing~\ref{list:tetrimino-drawcircle}).
 
 \begin{listing}[!htbp]
 \inputminted[]{C}{code/tetrimino-drawcircle.h}

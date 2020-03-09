@@ -32,6 +32,9 @@ On Linux, three kernel definitions form the core of the terminal abstraction
 tty implementation, and each has a different corresponding
 major+minor device number pair. These implementations are enumerated in
 \texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
+Line disciplines can be found in \texttt{/proc/tty/ldiscs}. The only line discipline
+you're likely to encounter in a terminal context is \texttt{n\_tty}, the ``new tty''
+discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
 
 \begin{table}
   \centering
@@ -81,6 +84,12 @@ major+minor device number pair. These implementations are enumerated in
     \hline
     /dev/vc/0 & /dev/vc/0 & 4 & 0 & system:vtmaster & x \\
     \hline
+    usbserial & /dev/ttyUSB & 188 & 0--511 & serial & x \\
+    \hline
+    serial & /dev/ttyS & 4 & 64--95 & serial & x \\
+    \hline
+    rfcomm & /dev/rfcomm & 216 & 0--255 & serial & x \\
+    \hline
     pty\_slave & /dev/pts & 136 & 0--1048575 & pty:slave & x \\
     \hline
     pty\_master & /dev/ptm & 128 & 0--1048575 & pty:master & x \\
@@ -93,14 +102,34 @@ major+minor device number pair. These implementations are enumerated in
   \label{table:procttydrivers}
 \end{table}
 
+The various termios flags allow very fine control of the kernel state associated
+with a given terminal. It is possible to mix flag settings arbitrarily, but three
+modes are common, and have their own nomenclature:
+\begin{denseitemize}
+\item{\textbf{Canonical mode, aka cooked mode:}   The terminal driver buffers input until a newline is entered, while echoing
+    it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
+    mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
+    Buffered input is flushed when these signals are sent. The default mode
+  under SuS4.}
+\item{\textbf{Cbreak mode:} Line buffering is disabled, as is the processing
+  of erase/kill characters. Interrupt and flow control translation is unaffected.
+Sometimes referred to as \textit{rare mode}. This mode allows processing of input
+without waiting for a newline character, while retaining e.g. Ctrl+C.}
+\item{\textbf{Raw mode:} Interrupt and flow control translation is also disabled.
+  This allows all keyboard input to be processed without preprocessing by the
+  line discipline, but e.g. Ctrl+C behavior is lost, and (if desired) must be
+  emulated in user space.}
+\end{denseitemize}
+
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
   internals of kernel tty/pty devices, session groups, signal distribution,
   \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
-\textbf{FIXME FIXME other stuff}
-\subsection{Escape codes ANSI and otherwise}
-\label{sec:escapes}
 My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
 \textbf{FIXME diagrams!}
+
+\textbf{cover systemd-logind, getty, logind.conf, sd-login}
+\subsection{Escape codes ANSI and otherwise}
+\label{sec:escapes}
 
 In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
 non-destructive backspace to produce composed characters from spacing ones.
