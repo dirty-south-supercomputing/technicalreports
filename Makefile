@@ -53,6 +53,9 @@ $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(ad
 $(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
 
+check:
+	cd $(NOTCURSESDIR) && checkcites --unused --backend biber notcurses
+
 clean:
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.aux) $(wildcard $(dir)/*.bbl))
 	@rm -vrf $(foreach dir,$(DIRS),$(wildcard $(dir)/*.bcf) $(wildcard $(dir)/*.blg))
