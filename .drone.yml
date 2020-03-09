@@ -9,6 +9,6 @@ steps:
   commands:
     - apt-get update
     - apt-get -y dist-upgrade
-    - apt-get -y install texlive-extra-utils biber
+    - apt-get -y install texlive-extra-utils biber fonts-inconsolata
     - export LANG=en_US.UTF-8
     - make < /dev/null
