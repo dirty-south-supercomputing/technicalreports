@@ -1346,7 +1346,6 @@ containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 
 \begin{wrapfigure}{O}{0.5\textwidth}
 \centering
-%\includegraphics[width=.9\linewidth]{media/charset-timeline.png}
 \includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
 \caption{Timeline of selected character sets.}
 \label{fig:charset-timeline}
@@ -1355,6 +1354,15 @@ containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 With the high bit of an octet byte going largely unused as a parity bit, the
 seven-bit character sets were rapidly expanded into a wide variety of eight-bit
 character sets (sometimes mistakenly referred to as ``extended'' or ``high'' ASCII).
+
+This discordant cacophony gave rise to \textit{mojibake} (文字化け [{\fontspec{DejaVu Serif}mod͡ʑibake}]),
+the garbled result of mismatched character encoding and decoding\footnote{Japanese, from 文字 (moji (character))
+化ける (bakeru (take a different form)). Russians know it as \textrussian{кракозя́бры}
+(krakozyabry [{\fontspec{DejaVu Serif}krɐkɐˈzʲæbrɪ̈}]) or sometimes
+\textrussian{бНОПНЯ} (bnopnjá {\fontspec{DejaVu Serif}bnɐpˈnʲa}), while
+Bulgarians speak of \textbulgarian{маймуница} (majmunica (monkey alphabet)).
+Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đubre
+(trash)). I {\fontspec{DejaVu Serif}�} Unicode.}.
 
 \subsection{Consilience: the Universal Character Set}
 \textbf{FIXME FIXME FIXME}
@@ -1733,6 +1741,12 @@ bool ncselector_offer_input(struct ncselector* n, const struct ncinput* nc);
 void ncselector_destroy(struct ncselector* n, char** item);
 \end{minted}
 \end{listing}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{media/multiselector.png}
+    \caption{Multiselector.}
+\end{figure}
 
 \subsection{Menus}
 
