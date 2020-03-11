@@ -275,7 +275,7 @@ The console ain't dead! Hack on, hax0rs.
 \caption[An example render.]{A rendered scene from the ``chunli'' demo (see Chapter~\ref{sec:ncdemo}),
   using some of the advanced capabilities of Notcurses. The Chun-Li sprite has
   been loaded from a transparent PNG (Chapter~\ref{sec:libav}) atop boxes
-  (Chapter~\ref{sec:boxes} drawn using Unicode (Chapter~\ref{section:unicode})
+  (Chapter~\ref{sec:boxes}) drawn using Unicode (Chapter~\ref{section:unicode})
   and linear interpolations (Chapter~\ref{sec:lerps}). Along the top is a
   menu (Chapter~\ref{sec:menus}) and an independent plane (Chapter~\ref{sec:planes});
   both can be controlled with mice (Chapter~\ref{sec:input}). In the center,
@@ -1268,7 +1268,7 @@ and hard about your life decisions.}%
 The first digital codes were the English telegraph system of Charles Wheatstone
 and William Cooke, and American Samuel Morse's code, with which he famously
 signaled ``What hath God wrought!'' in 1837. The Morse system was simpler, running
-over a signle line, and quickly won out. The teleprinter of Jean-Maurice-Émile Baudot
+over a single line, and quickly won out. The teleprinter of Jean-Maurice-Émile Baudot
 (from whom we derive the modern unit \textit{baud}) followed in 1874, with its pentabit,
 fixed-length Baudot code. Baudot code required 7.42 bittimes per character; at
 a typical 0.022s bittime, it could transmit just over 6 characters per second\cite{martin}.
@@ -1326,8 +1326,7 @@ along with another key from ASCII; these combinations are defined using
     \hline
   \end{tabular}
   }
-  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (ISO/IEC 646-IRV, IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.\\
-    Shaded characters can be replaced in regional variants.}
+  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (ISO/IEC 646-IRV, IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange. Shaded characters can be replaced in regional variants.}
   \label{table:ascii}
 \end{table}
 
@@ -1447,7 +1446,7 @@ Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đ
       \hline
     \end{tabular}
   \end{center}
-  \caption{The 10 Design Principles of Unicode (Unicode Core Specification §2.2\cite{unicode}).}
+  \caption[The ten Unicode design principles.]{The 10 Design Principles of Unicode (Unicode Core Specification §2.2\cite{unicode}).}
   \label{table:ucsdesign}
 \end{table}
 The Universal Character Set (ISO 10646\footnote{Note that this is 10,000 more than ISO 646.},
@@ -1485,7 +1484,7 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
       \hline
     \end{tabular}
   \end{center}
-  \caption{The six named UCS planes (Unicode Core Specification §2.8\cite{unicode}).}
+  \caption[The six named UCS planes.]{The six named UCS planes (Unicode Core Specification §2.8\cite{unicode}).}
   \label{table:ucsplanes}
 \end{table}
 
@@ -2539,6 +2538,40 @@ Standard of which it forms a part.
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace*{2in}
+\addcontentsline{toc}{section}{Acknowledgments}
+\begin{center}\textbf{Acknowledgments}\end{center}
+
+This work would not have been possible without the early customers of
+Dirty South Supercomputing; thank you Jeff Arnold at ShareCare,
+Todd Wilson at Vakaros, Charles Brian Quinn at Greenzie, Carl Ledbetter
+at SimpleRose, Keshav Attrey at PureStorage, Jaron Nix at Pathware,
+Manuel Garcia at Cyxtera, and the folks who can't be mentioned. Keep
+churning through DGEMMs and blowing shit up, everybody. Yacin Nadji,
+Scott Hughes, Paige Bailey, Brendan Dolan-Gavitt and Joe Lafiosca were
+particularly supportive of the Notcurses endeavor. Mark Ferrari let me use
+his mindblowing palette-cycling pixel art, and was awfully sweet to a weird
+dude emailing him from out of nowhere. GitHub has remained
+shockingly useful and unoffensive for a Microsoft product. Robert Edmonds
+helped me get Notcurses into Debian's NEW queue, and coached me in the ways
+of the DFSG. Marek Habersack wrote the \CC wrapper, and has kept it up to date despite my
+total lack of communication or warning before lunging in entirely new
+API directions. Astrid Bin did the awesome DSSCAW logo\footnote{Minus the boss purple gradient, which I applied against her passionate wishes. I stand by my call.}, and I couldn't
+pay her in the end due to bullshit laws---like, I even drunkenly called her up
+and was like ``FUCK DA POLICE i'll drop a brown paper sack of \$10 bills
+on your porch and steal you a social security number, arrrrrrrr'' and yet
+she refused---thanks, Astrid! Thomas E. Dickey,
+author/maintainer of many venerable trees including NCURSES, is a saint and an
+angel, a UNESCO treasure, and the very model of conservative, thoughtful
+software stewardship. He graciously answered my mails with lengthy and rigorous
+information. The free software community owes him a great debt.
+
+Shouts out to Midtown Yuppie Scum (ATL) and Stinkeye of the Tiger (NYC) Trivia
+Clubs. Shouts out to Paul Johnson and Paul Judge. Shouts out to Outkast, Goodie
+Mob, and RTJ. Shouts out to every freedom-loving person around the world
+fighting the unceasing struggle against International Communism. God save the
+Constitution and God save the Republic.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
 %\vfill
