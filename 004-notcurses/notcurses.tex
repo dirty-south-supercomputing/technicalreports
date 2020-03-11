@@ -1089,6 +1089,38 @@ current state. Timings for renderings are across the breadth of
 \texttt{notcurses\_render()}: they include all per-render preprocessing, output
 generation, and dumping of the output (including any sleeping while blocked on
 output to the terminal).
+
+Statistics available include:
+\begin{denseitemize}
+\item{\texttt{renders}, \texttt{failed\_renders}: The number of successful and unsuccessful
+    invocations of \texttt{notcurses\_render()}. Calls to \texttt{notcurses\_refresh()} do
+    not show up in either of these stats. A render call can fail due to
+    memory pressure, invalid EGCs, or a failure to successfully write to the
+    output terminal.}
+\item{\texttt{render\_bytes}: The number of bytes written in successful renders.
+    Unsuccessful renders do not count towards the total. Dividing \texttt{renders}
+  by \texttt{render\_bytes} yields the average bytes per (successful) render.}
+\item{\texttt{render\_max\_bytes}, \texttt{render\_min\_bytes}: The maximum and
+  minimum number of bytes emitted during a successful render.}
+\item{\texttt{render\_ns}, \texttt{render\_min\_ns}, \texttt{render\_max\_ns}:
+  The total, minimum, and maximum number of nanoseconds spent in \texttt{notcurses\_render()},
+  whether the calls were successful or not. These timings are acquired using
+  POSIX timers\cite{clockgettime} with the
+  \texttt{CLOCK\_MONOTONIC}\footnote{Wouldn't \texttt{CLOCK\_MONOTONIC\_RAW} be
+  superior? It would, where it's available, which isn't everywhere. It's also
+  substantially more expensive than \texttt{CLOCK\_MONOTONIC} on Linux. Be
+  aware, then, that NTP adjustments and time suspended \textit{do} show up in
+  timings.} implementation.}
+\item{\texttt{cellemissions}, \texttt{cellelisions}: The total number of EGCs
+  written to output, and the number that did not need to be written due to
+  being undamaged.}
+\item{\texttt{fgemissions}, \texttt{fgelisions}: Foreground RGB values written to output, and the number elided.}
+\item{\texttt{bgemissions}, \texttt{bgelisions}: Background RGB values written to output, and the number elided.}
+\item{\texttt{defaultemissions}, \texttt{defaultelisions}: \texttt{op} escapes issued to set default colors, and the number elided.}
+\item{\texttt{fbbytes}: The number of bytes devoted to framebuffers.}
+\item{\texttt{planes}: The current number of planes. Will never drop below 1.}
+\end{denseitemize}
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 typedef struct ncstats {
