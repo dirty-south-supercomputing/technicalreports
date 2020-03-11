@@ -54,7 +54,7 @@ true:
 // Calculate the size in columns of the provided UTF8 multibyte string.
 int mbswidth(const char* mbs);
 \end{minted}
-\caption{\texttt{mbswidth()} counts columns in a string.}
+\caption{\texttt{mbswidth()} counts columns in a multibye string.}
 \label{list:mbswidth}
 \end{listing}
 
@@ -148,7 +148,7 @@ static inline int ncplane_putwc(struct ncplane* n, wchar_t w){
 \end{listing}
 
 EGCs can be output one at a time. Supplying multiple EGCs in a single buffer
-to the \texttt{putegc} family will only ever see the first one output.
+to the \texttt{putegc} family (Listing~\ref{list:putegc}) will only ever see the first one output.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -170,7 +170,7 @@ ncplane_putegc(struct ncplane* n, const char* gclust, int* sbytes){
 int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes);
 \end{minted}
 \caption{Output of single EGCs to planes.}
-\label{list:putc}
+\label{list:putegc}
 \end{listing}
 
 \begin{listing}[!htbp]

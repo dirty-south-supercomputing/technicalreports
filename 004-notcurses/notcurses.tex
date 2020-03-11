@@ -1853,8 +1853,7 @@ is built without FFMpeg support, these functions will all return error.
 \begin{minted}{C}
 // Open a visual (image or video), associating it with the specified ncplane.
 // Returns NULL on any error, writing the AVError to 'averr'.
-struct ncvisual* ncplane_visual_open(struct ncplane* nc, const char* file,
-                                     int* averr);
+struct ncvisual* ncplane_visual_open(struct ncplane* nc, const char* file, int* averr);
 
 // Destroy an ncvisual. Rendered elements will not be disrupted, but the visual
 // can be neither decoded nor rendered any further.
