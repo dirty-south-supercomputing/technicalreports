@@ -232,6 +232,11 @@ typedef struct notcurses_options {
   // Progressively higher log levels result in more logging to stderr. By
   // default, nothing is printed to stderr once fullscreen service begins.
   ncloglevel_e loglevel;
+  // Desirable margins. If all are 0 (default), we will render to the entirety
+  // of the screen. If the screen is too small, we do what we can--this is
+  // strictly best-effort. Absolute coordinates are relative to the rendering
+  // area ((0, 0) is always the origin of the rendering area).
+  int margin_t, margin_r, margin_b, margin_l;
 } notcurses_options;
 
 // Initialize a notcurses context on the connected terminal at 'fp'. 'fp' must
@@ -250,7 +255,7 @@ API int notcurses_render(struct notcurses* nc);
 // Return the topmost ncplane, of which there is always at least one.
 API struct ncplane* notcurses_top(struct notcurses* n);
 
-// Destroy any ncplanes other than the stdplane.
+// Destroy all ncplanes other than the stdplane.
 API void notcurses_drop_planes(struct notcurses* nc);
 
 // All input is currently taken from stdin, though this will likely change. We
@@ -415,6 +420,8 @@ API void ncplane_translate(const struct ncplane* src, const struct ncplane* dst,
 // within 'n', these coordinates will not be within the dimensions of the plane.
 API bool ncplane_translate_abs(const struct ncplane* n, int* RESTRICT y, int* RESTRICT x);
 
+// Capabilities
+
 // Returns a 16-bit bitmask of supported curses-style attributes
 // (NCSTYLE_UNDERLINE, NCSTYLE_BOLD, etc.) The attribute is only
 // indicated as supported if the terminal can support it together with color.
@@ -425,8 +432,6 @@ API unsigned notcurses_supported_styles(const struct notcurses* nc);
 // there is no color support. Note that several terminal emulators advertise
 // more colors than they actually support, downsampling internally.
 API int notcurses_palette_size(const struct notcurses* nc);
-
-// Capabilities
 
 // Can we fade? Fading requires either the "rgb" or "ccc" terminfo capability.
 API bool notcurses_canfade(const struct notcurses* nc);
@@ -553,6 +558,13 @@ ncplane_move_below(struct ncplane* n, struct ncplane* below){
 
 // Return the plane above this one, or NULL if this is at the top.
 API struct ncplane* ncplane_below(struct ncplane* n);
+
+// Rotate the plane pi/2 radians clockwise or counterclockwise. Note that
+// rotation only applies to geometry and color. Most glyphs cannot be rotated.
+// The resulting plane is thus populated only by null glyphs, spaces, full
+// blocks, and partial blocks.
+API int ncplane_rotate_cw(struct ncplane* n);
+API int ncplane_rotate_ccw(struct ncplane* n);
 
 // Retrieve the cell at the cursor location on the specified plane, returning
 // it in 'c'. This copy is safe to use until the ncplane is destroyed/erased.
@@ -900,6 +912,12 @@ API int ncplane_gradient(struct ncplane* n, const char* egc, uint32_t attrword,
                          uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
                          int ystop, int xstop);
 
+// Do a high-resolution gradient using upper blocks and synced backgrounds.
+// This doubles the number of vertical gradations, but restricts you to
+// half blocks (appearing to be full blocks).
+API int ncplane_highgradient(struct ncplane* n, uint32_t ul, uint32_t ur,
+                             uint32_t ll, uint32_t lr, int ystop, int xstop);
+
 // Draw a gradient with its upper-left corner at the current cursor position,
 // having dimensions 'ylen'x'xlen'. See ncplane_gradient for more information.
 static inline int
@@ -912,6 +930,17 @@ ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
   int y, x;
   ncplane_cursor_yx(n, &y, &x);
   return ncplane_gradient(n, egc, attrword, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
+}
+
+static inline int
+ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
+                           uint64_t ll, uint64_t lr, int ylen, int xlen){
+  if(ylen < 1 || xlen < 1){
+    return -1;
+  }
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_highgradient(n, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
 }
 
 // Set the given style throughout the specified region, keepying content and
@@ -1088,6 +1117,14 @@ channels_set_fchannel(uint64_t* channels, uint32_t channel){
   return *channels = (*channels & 0xfffffffflu) | ((uint64_t)channel << 32u);
 }
 
+static inline uint64_t
+channels_combine(uint32_t fchan, uint32_t bchan){
+  uint64_t channels = 0;
+  channels_set_fchannel(&channels, fchan);
+  channels_set_bchannel(&channels, bchan);
+  return channels;
+}
+
 // Extract 24 bits of foreground RGB from 'channels', shifted to LSBs.
 static inline unsigned
 channels_fg(uint64_t channels){
@@ -1164,7 +1201,7 @@ channels_set_bg_rgb_clipped(uint64_t* channels, int r, int g, int b){
   channels_set_bchannel(channels, channel);
 }
 
-// Same, but set an assembled 32 bit channel at once.
+// Same, but set an assembled 24 bit channel at once.
 static inline int
 channels_set_fg(uint64_t* channels, unsigned rgb){
   unsigned channel = channels_fchannel(*channels);
@@ -1349,13 +1386,13 @@ cell_bg_alpha(const cell* cl){
   return channels_bg_alpha(cl->channels);
 }
 
-// Extract 24 bits of foreground RGB from 'cell', split into subcell.
+// Extract 24 bits of foreground RGB from 'cell', split into components.
 static inline unsigned
 cell_fg_rgb(const cell* cl, unsigned* r, unsigned* g, unsigned* b){
   return channels_fg_rgb(cl->channels, r, g, b);
 }
 
-// Extract 24 bits of background RGB from 'cell', split into subcell.
+// Extract 24 bits of background RGB from 'cell', split into components.
 static inline unsigned
 cell_bg_rgb(const cell* cl, unsigned* r, unsigned* g, unsigned* b){
   return channels_bg_rgb(cl->channels, r, g, b);
@@ -1374,7 +1411,7 @@ cell_set_fg_rgb_clipped(cell* cl, int r, int g, int b){
   channels_set_fg_rgb_clipped(&cl->channels, r, g, b);
 }
 
-// Same, but with an assembled 32-bit channel.
+// Same, but with an assembled 24-bit RGB value.
 static inline int
 cell_set_fg(cell* c, uint32_t channel){
   return channels_set_fg(&c->channels, channel);
@@ -1413,7 +1450,7 @@ cell_set_bg_rgb_clipped(cell* cl, int r, int g, int b){
   channels_set_bg_rgb_clipped(&cl->channels, r, g, b);
 }
 
-// Same, but with an assembled 32-bit channel.
+// Same, but with an assembled 24-bit RGB value.
 static inline int
 cell_set_bg(cell* c, uint32_t channel){
   return channels_set_bg(&c->channels, channel);
@@ -1503,13 +1540,13 @@ ncplane_bg_alpha(const struct ncplane* nc){
   return channels_bg_alpha(ncplane_channels(nc));
 }
 
-// Extract 24 bits of foreground RGB from 'n', split into subcomponents.
+// Extract 24 bits of foreground RGB from 'n', split into components.
 static inline unsigned
 ncplane_fg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
   return channels_fg_rgb(ncplane_channels(n), r, g, b);
 }
 
-// Extract 24 bits of background RGB from 'n', split into subcomponents.
+// Extract 24 bits of background RGB from 'n', split into components.
 static inline unsigned
 ncplane_bg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
   return channels_bg_rgb(ncplane_channels(n), r, g, b);
@@ -1707,7 +1744,7 @@ API const char* cell_extended_gcluster(const struct ncplane* n, const cell* c);
 // FIXME do this at cell prep time and set a bit in the channels
 static inline bool
 cell_noforeground_p(const cell* c){
-  return cell_simple_p(c) && isspace(c->gcluster);
+  return cell_simple_p(c) && (c->gcluster == ' ' || !isprint(c->gcluster));
 }
 
 static inline int
@@ -2169,6 +2206,7 @@ API void ncplane_greyscale(struct ncplane* n);
 
 // selection widget -- an ncplane with a title header and a body section. the
 // body section supports infinite scrolling up and down. the widget looks like:
+//
 //                                 ╭──────────────────────────╮
 //                                 │This is the primary header│
 //   ╭──────────────────────this is the secondary header──────╮
@@ -2236,13 +2274,80 @@ API const char* ncselector_nextitem(struct ncselector* n);
 //  * a mouse click on an item
 //  * a mouse scrollwheel event
 //  * a mouse click on the scrolling arrows
-//  * a mouse click outside of an unrolled menu (the menu is rolled up)
 //  * up, down, pgup, or pgdown on an unrolled menu (navigates among items)
 API bool ncselector_offer_input(struct ncselector* n, const struct ncinput* nc);
 
 // Destroy the ncselector. If 'item' is not NULL, the last selected option will
 // be strdup()ed and assigned to '*item' (and must be free()d by the caller).
 API void ncselector_destroy(struct ncselector* n, char** item);
+
+struct mselector_item {
+  char* option;
+  char* desc;
+  bool selected;
+};
+
+// multiselection widget -- a selector supporting multiple selections.
+//
+//      ╭────────────────────────────────────────────────────────────────╮
+//      │ this is truly an awfully long example of a MULTISELECTOR title │
+//╭─────┴─────────────────────────────pick one (you will die regardless)─┤
+//│  ↑                                                                   │
+//│ ☐ 1 Across the Atlantic Ocean, there was a place called North America│
+//│ ☐ 2 Discovered by an Italian in the employ of the queen of Spain     │
+//│ ☐ 3 Colonized extensively by the Spanish and the French              │
+//│ ☐ 4 Developed into a rich nation by Dutch-supplied African slaves    │
+//│ ☐ 5 And thus became the largest English-speaking nation on earth     │
+//│ ☐ 6 Namely, the United States of America                             │
+//│ ☐ 7 The inhabitants of the United States called themselves Yankees   │
+//│ ☐ 8 For some reason                                                  │
+//│ ☐ 9 And, eventually noticing the rest of the world was there,        │
+//│ ☐ 10 Decided to rule it.                                             │
+//│  ↓                                                                   │
+//╰─────────────────────────press q to exit (there is sartrev("no exit")─╯
+//
+// Unlike the selector widget, zero to all of the items can be selected, but
+// also the widget does not support adding or removing items at runtime.
+typedef struct multiselector_options {
+  char* title; // title may be NULL, inhibiting riser, saving two rows.
+  char* secondary; // secondary may be NULL
+  char* footer; // footer may be NULL
+  struct mselector_item* items; // initial items, descriptions, and statuses
+  unsigned itemcount; // number of items and descriptions, can't be 0
+  // maximum number of options to display at once, 0 to use all available space
+  unsigned maxdisplay;
+  // exhaustive styling options
+  uint64_t opchannels;   // option channels
+  uint64_t descchannels; // description channels
+  uint64_t titlechannels;// title channels
+  uint64_t footchannels; // secondary and footer channels
+  uint64_t boxchannels;  // border channels
+  uint64_t bgchannels;   // background channels, used only in body
+} multiselector_options;
+
+struct ncmultiselector;
+
+API struct ncmultiselector* ncmultiselector_create(struct ncplane* n, int y, int x,
+                                                   const multiselector_options* opts);
+
+// Return selected vector. An array of bools must be provided, along with its
+// length. If that length doesn't match the itemcount, it is an error.
+API int ncmultiselector_selected(struct ncmultiselector* n, bool* selected, unsigned count);
+
+// Return a reference to the ncmultiselector's underlying ncplane.
+API struct ncplane* ncmultiselector_plane(struct ncmultiselector* n);
+
+// Offer the input to the ncmultiselector. If it's relevant, this function
+// returns true, and the input ought not be processed further. If it's
+// irrelevant to the multiselector, false is returned. Relevant inputs include:
+//  * a mouse click on an item
+//  * a mouse scrollwheel event
+//  * a mouse click on the scrolling arrows
+//  * up, down, pgup, or pgdown on an unrolled menu (navigates among items)
+API bool ncmultiselector_offer_input(struct ncmultiselector* n, const struct ncinput* nc);
+
+// Destroy the ncmultiselector.
+API void ncmultiselector_destroy(struct ncmultiselector* n, char** item);
 
 // Menus. Horizontal menu bars are supported, on the top and/or bottom rows.
 // If the menu bar is longer than the screen, it will be only partially

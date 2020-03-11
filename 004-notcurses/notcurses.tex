@@ -777,6 +777,13 @@ The fields therein include:
 \item{\texttt{FILE* renderfp}: If not \texttt{NULL}, this designates a file
     handle open for writing. In addition to the terminal, each rendered scene
     will be written to this file. This is intended for debugging.}
+\item{\texttt{int margin\_t}, \texttt{int margin\_r},\texttt{int margin\_b}, \texttt{int margin\_l}}:
+    Margin requests on the top, right, bottom, and left, respectively, of
+    the rendering area. These requests will be satisfied on a best-effort
+    basis---requesting more margin than is actually available is not an error.
+    There must always be at least one row and one column available. If the
+    alternate screen is being used, the margin areas will be cleared. Otherwise,
+    they will be left uncleared. The margins are recomputed on a resize.
 \end{denseitemize}
 
 \subsection{Functions on \texttt{notcurses} objects}
