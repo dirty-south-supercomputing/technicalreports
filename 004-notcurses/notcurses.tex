@@ -1561,7 +1561,8 @@ wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
-\subsection{Lines}
+\subsection{Linear interpolation (``lerping'') and lines}
+\label{sec:lerps}
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Draw horizontal or vertical lines using the specified cell, starting at the
@@ -1668,8 +1669,13 @@ ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur,
 \label{list:boxes}
 \end{listing}
 
-\subsection{Linear interpolation (``lerping'') and gradients}
-\label{sec:lerps}
+\subsection{Gradients and polyfills}
+\texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph.
+That coordinate will be filled with the provided \texttt{cell}. The function
+then effectively recurses on all cardinally connected coordinates, thus filling
+a bounded region with the provided cell. This operation is akin to the ``flood
+fill'' of pixel graphics.
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Starting at the specified coordinate, if it has no glyph, 'c' is copied into
@@ -1677,7 +1683,18 @@ ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur,
 // everything behind a boundary. Returns the number of cells polyfilled. An
 // invalid initial y, x is an error.
 int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
+\end{minted}
+\caption{Polyfill (``flood fill'').}
+\label{list:polyfill}
+\end{listing}
 
+A single EGC and attribute can be written to a rectangular region in any of
+a single color, a vertical, horizontal, or diagonal gradient, or a 4-cornered
+``inverted radial'' gradient. The gradient operation is independently applied
+to both the fore- and background of 4 64-bit channel parameters.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
 // Draw a gradient with its upper-left corner at the current cursor position,
 // stopping at 'ystop'x'xstop'. The glyph composed of 'egc' and 'attrword' is
 // used for all cells. The channels specified by 'ul', 'ur', 'll', and 'lr'
@@ -1731,7 +1748,7 @@ ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
   return ncplane_highgradient(n, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
 }
 \end{minted}
-\caption{Drawing gradients and polyfills.}
+\caption{Drawing gradients.}
 \label{list:gradients}
 \end{listing}
 
@@ -1816,7 +1833,7 @@ Media decoding and scaling is handled by libAV from FFmpeg, resulting in a
 corresponding to a renderable scene on the associated plane. If Notcurses
 is built without FFMpeg support, these functions will all return error.
 
-\begin{listing}
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // Open a visual (image or video), associating it with the specified ncplane.
 // Returns NULL on any error, writing the AVError to 'averr'.
@@ -1846,7 +1863,7 @@ char* ncvisual_subtitle(const struct ncvisual* ncv);
 \end{listing}
 
 \subsection{Streaming video/animated GIFs.}
-\begin{listing}
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // Called for each frame rendered from 'ncv'. If anything but 0 is returned,
 // the streaming operation ceases immediately, and that value is propagated out.
@@ -1889,7 +1906,7 @@ int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
 \end{listing}
 
 \subsection{Scaling images and video}
-\begin{listing}
+\begin{listing}[!htbp]
 \begin{minted}{C}
 // How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
 // plane tailored to the visual's exact needs, which is probably larger than the
