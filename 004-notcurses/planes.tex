@@ -423,7 +423,7 @@ static inline uint64_t cell_set_fchannel(cell* cl, uint32_t channel){
   return channels_set_fchannel(&cl->channels, channel);
 }
 \end{minted}
-\caption{The \texttt{cell} definition.}
+\caption{Modifying \texttt{cell} channels.}
 \label{listing:cellchannels}
 \end{listing}
 
@@ -594,5 +594,12 @@ static inline bool cell_fg_default_p(const cell* cl){
 
 \subsection{egcpools}
 \label{sec:egcpools}
+Each plane is backed by an \texttt{egcpool} structure. Any cell requiring more
+than a single byte to encode its EGC will write the EGC to the egcpool, and
+store a byte-granular index into the actual \texttt{gcluster} field of the
+\texttt{cell}. The first 128 UTF-8 characters are stored directly, and thus
+any \texttt{gcluster} value greater than or equal to 128 is actually a
+biased\footnote{128-biased, i.e. \texttt{gcluster} is the offset + 128.}
+index into the pool. The pool can grow as large as $2^{25}$ bytes (32 MiB).
 
 \subsection{Alpha blending and plane transparency}
