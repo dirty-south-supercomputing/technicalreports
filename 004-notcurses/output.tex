@@ -1,6 +1,312 @@
 \section{Output and styling}
 \label{sec:output}
-\subsection{Writing to planes}
+The most fundamental aspect of textual interfaces is, after all, text. All
+valid UTF-8 can be written to a plane. If scrolling has been enabled for a
+plane, any amount of text can be written. If scrolling has not been enabled,
+output can only be generated through the end of the current line. All text
+output functions return the number of screen columns written as their primary
+return value (or a negative number on failure), and load the number of bytes
+written into an auxiliary value-result parameter. If the supplied output would
+exceed the line, a short number of columns will be returned. Scrolling is
+disabled by default on the standard plane, and on all new planes.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Move the cursor to the specified position (the cursor needn't be visible).
+// Returns -1 on error, including negative parameters, or ones exceeding the
+// plane's dimensions.
+int ncplane_cursor_move_yx(struct ncplane* n, int y, int x);
+
+// Get the current position of the cursor within n. y and/or x may be NULL.
+void ncplane_cursor_yx(struct ncplane* n, int* restrict y, int* restrict x);
+\end{minted}
+\caption{Cursor management. Each plane has its own cursor.}
+\label{list:cursor}
+\end{listing}
+
+The cursor is advanced appropriately to the cell just beyond the output. If the
+entire line was written, and scrolling is not enabled, the cursor will be
+off-plane and must be repositioned before writing any further. If scrolling is
+enabled, the cursor will either move to the first column of the next line, or
+if the cursor is on the last line, the plane will be scrolled by one line (and
+the cursor will move to the first column). If there is an error following some
+output, the cursor will be positioned following the generated output. Comparing
+the new cursor location to the old can thus reveal the amount of output generated
+in the event of a failure.
+
+To check that there was no failure, then, verify that the return value is not
+negative. The entirety of the input was written if any of the following is
+true:
+
+\begin{denseitemize}
+\item{The return value is equal to the number of columns required to represent the input.
+    \texttt{mbswidth()}(Listing ~\ref{list:mbswidth}) can be used to find the number of columns required by
+    the input.}
+\item{The number of bytes written is equal to the number of bytes supplied. Since Notcurses
+   supports only ASCII, \texttt{strlen()} can be used to find the number of
+   bytes supplied.}
+\item{The cursor is not beyond the end of the plane, and scrolling is disabled
+ on the plane.}
+\end{denseitemize}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Calculate the size in columns of the provided UTF8 multibyte string.
+int mbswidth(const char* mbs);
+\end{minted}
+\caption{\texttt{mbswidth()} counts columns in a string.}
+\label{list:mbswidth}
+\end{listing}
+
+\subsection{Writing text to planes}
+\label{sec:outputtext}
+
+Multiple families of functions are available for writing to planes. Only valid
+encoded sequences from the active locale's encoding can be output. Attempting
+to e.g. write UTF-8 characters while using the \texttt{ANSI\_X3.4-1968} encoding
+will fail as soon as a non-ASCII character is submitted.
+
+The base form of each family places its output at the plane's current cursor
+location. Each family has a \texttt{\_xy()}-suffixed form which moves the
+cursor as specified prior to beginning output. Supplying -1 to the \texttt{x}
+and \texttt{y} parameters of these forms doesn't move the cursor on the
+relevant axis. Supplying -1 to both decays to the base function of the family.
+The \texttt{\_stainable()}-suffixed form updates the glyphs of a plane without
+changing the attributes or channels.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Replace the cell at the specified coordinates with the provided cell 'c',
+// and advance the cursor by the width of the cell (but not past the end of the
+// plane). On success, returns the number of columns the cursor was advanced.
+// On failure, -1 is returned.
+int ncplane_putc_yx(struct ncplane* n, int y, int x, const cell* c);
+
+// Call ncplane_putc_yx() for the current cursor location.
+static inline int
+ncplane_putc(struct ncplane* n, const cell* c){
+  return ncplane_putc_yx(n, -1, -1, c);
+}
+\end{minted}
+\caption{Output of \texttt{cell}s to planes.}
+\label{list:putc}
+\end{listing}
+
+ASCII (and thus the lowest 128 UTF-8 encoded characters) can be written directly
+with the \texttt{putsimple} family. Note that any control character will be replaced with
+a space.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+//
+// Replace the cell at the specified coordinates with the provided 7-bit char
+// 'c'. Advance the cursor by 1. On success, returns 1. On failure, returns -1.
+// This works whether the underlying char is signed or unsigned.
+int ncplane_putsimple_yx(struct ncplane* n, int y, int x, char c);
+
+// Call ncplane_putsimple_yx() at the current cursor location.
+static inline int
+ncplane_putsimple(struct ncplane* n, char c){
+  return ncplane_putsimple_yx(n, -1, -1, c);
+}
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+int ncplane_putsimple_stainable(struct ncplane* n, char c);
+\end{minted}
+\caption{Direct output of single-byte UTF-8 to planes.}
+\label{list:putc}
+\end{listing}
+
+EGCs can be output one at a time. Supplying multiple EGCs in a single buffer
+to the \texttt{putegc} family will only ever see the first one output.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Replace the cell at the specified coordinates with the provided EGC, and
+// advance the cursor by the width of the cluster (but not past the end of the
+// plane). On success, returns the number of columns the cursor was advanced.
+// On failure, -1 is returned. The number of bytes converted from gclust is
+// written to 'sbytes' if non-NULL.
+int ncplane_putegc_yx(struct ncplane* n, int y, int x, const char* gclust, int* sbytes);
+
+// Call ncplane_putegc() at the current cursor location.
+static inline int
+ncplane_putegc(struct ncplane* n, const char* gclust, int* sbytes){
+  return ncplane_putegc_yx(n, -1, -1, gclust, sbytes);
+}
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes);
+\end{minted}
+\caption{Output of single EGCs to planes.}
+\label{list:putc}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+#define WCHAR_MAX_UTF8BYTES 6
+
+// ncplane_putegc(), but following a conversion from wchar_t to UTF-8 multibyte.
+static inline int
+ncplane_putwegc(struct ncplane* n, const wchar_t* gclust, int* sbytes){
+  // maximum of six UTF8-encoded bytes per wchar_t
+  const size_t mbytes = (wcslen(gclust) * WCHAR_MAX_UTF8BYTES) + 1;
+  char* mbstr = (char*)malloc(mbytes); // need cast for c++ callers
+  if(mbstr == NULL){
+    return -1;
+  }
+  size_t s = wcstombs(mbstr, gclust, mbytes);
+  if(s == (size_t)-1){
+    free(mbstr);
+    return -1;
+  }
+  int ret = ncplane_putegc(n, mbstr, sbytes);
+  free(mbstr);
+  return ret;
+}
+
+// Call ncplane_putwegc() after successfully moving to y, x.
+static inline int
+ncplane_putwegc_yx(struct ncplane* n, int y, int x, const wchar_t* gclust,
+                   int* sbytes){
+  if(ncplane_cursor_move_yx(n, y, x)){
+    return -1;
+  }
+  return ncplane_putwegc(n, gclust, sbytes);
+}
+
+// Replace the EGC underneath us, but retain the styling. The current styling
+// of the plane will not be changed.
+API int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
+\end{minted}
+\caption{Output of single \texttt{wchar\_t}s to planes.}
+\label{list:putc}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Write a series of EGCs to the current location, using the current style.
+// They will be interpreted as a series of columns (according to the definition
+// of ncplane_putc()). Advances the cursor by some positive number of cells
+// (though not beyond the end of the plane); this number is returned on success.
+// On error, a non-positive number is returned, indicating the number of cells
+// which were written before the error.
+API int ncplane_putstr_yx(struct ncplane* n, int y, int x, const char* gclustarr);
+
+static inline int
+ncplane_putstr(struct ncplane* n, const char* gclustarr){
+  return ncplane_putstr_yx(n, -1, -1, gclustarr);
+}
+
+API int ncplane_putstr_aligned(struct ncplane* n, int y, ncalign_e align,
+                               const char* s);
+\end{minted}
+\caption{Output of strings to planes.}
+\label{list:putc}
+\end{listing}
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// ncplane_putstr(), but following a conversion from wchar_t to UTF-8 multibyte.
+static inline int
+ncplane_putwstr_yx(struct ncplane* n, int y, int x, const wchar_t* gclustarr){
+  // maximum of six UTF8-encoded bytes per wchar_t
+  const size_t mbytes = (wcslen(gclustarr) * WCHAR_MAX_UTF8BYTES) + 1;
+  char* mbstr = (char*)malloc(mbytes); // need cast for c++ callers
+  if(mbstr == NULL){
+    return -1;
+  }
+  size_t s = wcstombs(mbstr, gclustarr, mbytes);
+  if(s == (size_t)-1){
+    free(mbstr);
+    return -1;
+  }
+  int ret = ncplane_putstr_yx(n, y, x, mbstr);
+  free(mbstr);
+  return ret;
+}
+
+static inline int
+ncplane_putwstr_aligned(struct ncplane* n, int y, ncalign_e align,
+                        const wchar_t* gclustarr){
+  int width = wcswidth(gclustarr, INT_MAX);
+  int xpos = ncplane_align(n, align, width);
+  return ncplane_putwstr_yx(n, y, xpos, gclustarr);
+}
+
+static inline int
+ncplane_putwstr(struct ncplane* n, const wchar_t* gclustarr){
+  return ncplane_putwstr_yx(n, -1, -1, gclustarr);
+}
+\end{minted}
+\caption{Output of wide strings to planes.}
+\label{list:putc}
+\end{listing}
+
+Finally, analogues of \texttt{printf(3)} and \texttt{vprintf(3)} are provided.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// The ncplane equivalents of printf(3) and vprintf(3).
+API int ncplane_vprintf_aligned(struct ncplane* n, int y, ncalign_e align,
+                                const char* format, va_list ap);
+
+API int ncplane_vprintf_yx(struct ncplane* n, int y, int x,
+                           const char* format, va_list ap);
+
+static inline int
+ncplane_vprintf(struct ncplane* n, const char* format, va_list ap){
+  return ncplane_vprintf_yx(n, -1, -1, format, ap);
+}
+
+static inline int
+ncplane_printf(struct ncplane* n, const char* format, ...)
+  __attribute__ ((format (printf, 2, 3)));
+
+static inline int
+ncplane_printf(struct ncplane* n, const char* format, ...){
+  va_list va;
+  va_start(va, format);
+  int ret = ncplane_vprintf(n, format, va);
+  va_end(va);
+  return ret;
+}
+
+static inline int
+ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...)
+  __attribute__ ((format (printf, 4, 5)));
+
+static inline int
+ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...){
+  va_list va;
+  va_start(va, format);
+  int ret = ncplane_vprintf_yx(n, y, x, format, va);
+  va_end(va);
+  return ret;
+}
+
+static inline int
+ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align,
+                       const char* format, ...)
+  __attribute__ ((format (printf, 4, 5)));
+
+static inline int
+ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...){
+  va_list va;
+  va_start(va, format);
+  int ret = ncplane_vprintf_aligned(n, y, align, format, va);
+  va_end(va);
+  return ret;
+}
+\end{minted}
+\caption{Formatted output to planes.}
+\label{list:putc}
+\end{listing}
+
 \subsection{The 32-bit \texttt{attribute} value}
 \label{sec:attribute}
 \subsection{The 64-bit \texttt{channels} value}

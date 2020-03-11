@@ -252,7 +252,7 @@ application wouldn't take advantage of its advanced features).
 
 While the X/Open Curses specification is unlikely to ever go away (nor should
 it, as a lowest-common-denominator interface to devices Notcurses is unlikely
-to ever support), I believe Notcurses to present a superior API and
+to ever support), I believe Notcurses to present a superior and
 implementation for modern TUI applications.
 
 The console ain't dead! Hack on, hax0rs.
@@ -465,7 +465,7 @@ int ncdirect_stop(struct ncdirect* nc);
 \end{listing}
 
 Between these two calls, inject stylizing control codes into the \texttt{FILE*} with
-the \texttt{ncdirect} API (the \texttt{stylebits} values are detailed in Chapter~\ref{sec:attribute}).
+the \texttt{ncdirect} (the \texttt{stylebits} values are detailed in Chapter~\ref{sec:attribute}).
 As detailed in Chapter~\ref{sec:channels}, the terminal has a ``default foreground color''
 and ``default background color''. Return to these default colors with
 \texttt{ncdirect\_fg\_default()} and \texttt{ncdirect\_bg\_default()}.
@@ -1051,7 +1051,7 @@ existing monitor.
 \subsection{Capabilities}
 Different terminals expose different capabilities, and different means of
 engaging them. These differences are encoded in the terminfo database\cite{terminfo}.
-The Notcurses API hides the differences where it can, and is built around those
+The Notcurses hides the differences where it can, and is built around those
 capabilities which are most widely supported. Some applications, however, will
 want to know details of the underlying implementation.
 \begin{listing}[!htbp]
@@ -1533,13 +1533,6 @@ Finally, fonts and font engines which yield glyphs wider (or narrower) than
 best to avoid EGCs known to be very wide, or to avoid fonts which generate very
 wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 
-\begin{listing}[!htbp]
-\begin{minted}{C}
-// Calculate the size in columns of the provided UTF8 multibyte string.
-int mbswidth(const char* mbs);
-\end{minted}
-\end{listing}
-
 \begin{figure}
 \centering
 \includegraphics[width=1\linewidth]{media/wide-unicode.png}
@@ -1559,10 +1552,176 @@ int mbswidth(const char* mbs);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
+\subsection{Lines}
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Draw horizontal or vertical lines using the specified cell, starting at the
+// current cursor position. The cursor will end at the cell following the last
+// cell output (even, perhaps counter-intuitively, when drawing vertical
+// lines), just as if ncplane_putc() was called at that spot. Return the
+// number of cells drawn on success. On error, return the negative number of
+// cells drawn.
+int ncplane_hline_interp(struct ncplane* n, const cell* c, int len,
+                             uint64_t c1, uint64_t c2);
+
+static inline int
+ncplane_hline(struct ncplane* n, const cell* c, int len){
+  return ncplane_hline_interp(n, c, len, c->channels, c->channels);
+}
+
+int ncplane_vline_interp(struct ncplane* n, const cell* c, int len,
+                             uint64_t c1, uint64_t c2);
+
+static inline int
+ncplane_vline(struct ncplane* n, const cell* c, int len){
+  return ncplane_vline_interp(n, c, len, c->channels, c->channels);
+}
+\end{minted}
+\caption{Functions for drawing lines.}
+\label{list:lines}
+\end{listing}
+
+\subsection{Boxes}
+\begin{listing}[!htbp]
+\begin{minted}{C}
+#define NCBOXMASK_TOP    0x0001
+#define NCBOXMASK_RIGHT  0x0002
+#define NCBOXMASK_BOTTOM 0x0004
+#define NCBOXMASK_LEFT   0x0008
+#define NCBOXGRAD_TOP    0x0010
+#define NCBOXGRAD_RIGHT  0x0020
+#define NCBOXGRAD_BOTTOM 0x0040
+#define NCBOXGRAD_LEFT   0x0080
+#define NCBOXCORNER_MASK 0x0300
+#define NCBOXCORNER_SHIFT 8u
+
+// Draw a box with its upper-left corner at the current cursor position, and its
+// lower-right corner at 'ystop'x'xstop'. The 6 cells provided are used to draw the
+// upper-left, ur, ll, and lr corners, then the horizontal and vertical lines.
+// 'ctlword' is defined in the least significant byte, where bits [7, 4] are a
+// gradient mask, and [3, 0] are a border mask:
+//  * 7, 3: top
+//  * 6, 2: right
+//  * 5, 1: bottom
+//  * 4, 0: left
+// If the gradient bit is not set, the styling from the hl/vl cells is used for
+// the horizontal and vertical lines, respectively. If the gradient bit is set,
+// the color is linearly interpolated between the two relevant corner cells.
+//
+// By default, vertexes are drawn whether their connecting edges are drawn or
+// not. The value of the bits corresponding to NCBOXCORNER_MASK control this,
+// and are interpreted as the number of connecting edges necessary to draw a
+// given corner. At 0 (the default), corners are always drawn. At 3, corners
+// are never drawn (as at most 2 edges can touch a box's corner).
+int ncplane_box(struct ncplane* n, const cell* ul, const cell* ur,
+                const cell* ll, const cell* lr, const cell* hline,
+                const cell* vline, int ystop, int xstop,
+                unsigned ctlword);
+
+// Draw a box with its upper-left corner at the current cursor position, having
+// dimensions 'ylen'x'xlen'. See ncplane_box() for more information. The
+// minimum box size is 2x2, and it cannot be drawn off-screen.
+static inline int
+ncplane_box_sized(struct ncplane* n, const cell* ul, const cell* ur,
+                  const cell* ll, const cell* lr, const cell* hline,
+                  const cell* vline, int ylen, int xlen, unsigned ctlword){
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_box(n, ul, ur, ll, lr, hline, vline, y + ylen - 1,
+                     x + xlen - 1, ctlword);
+}
+
+static inline int
+ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur,
+                  const cell* ll, const cell* lr, const cell* hline,
+                  const cell* vline, unsigned ctlword){
+  if(ncplane_cursor_move_yx(n, 0, 0)){
+    return -1;
+  }
+  int dimy, dimx;
+  ncplane_dim_yx(n, &dimy, &dimx);
+  return ncplane_box_sized(n, ul, ur, ll, lr, hline, vline, dimy, dimx, ctlword);
+}
+\end{minted}
+\caption{Functions for drawing rectilinear boxes.}
+\label{list:boxes}
+\end{listing}
+
 \subsection{Linear interpolation (``lerping'') and gradients}
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Starting at the specified coordinate, if it has no glyph, 'c' is copied into
+// it. We do the same to all cardinally-connected glyphless cells, filling in
+// everything behind a boundary. Returns the number of cells polyfilled. An
+// invalid initial y, x is an error.
+int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
+
+// Draw a gradient with its upper-left corner at the current cursor position,
+// stopping at 'ystop'x'xstop'. The glyph composed of 'egc' and 'attrword' is
+// used for all cells. The channels specified by 'ul', 'ur', 'll', and 'lr'
+// are composed into foreground and background gradients. To do a vertical
+// gradient, 'ul' ought equal 'ur' and 'll' ought equal 'lr'. To do a
+// horizontal gradient, 'ul' ought equal 'll' and 'ur' ought equal 'ul'. To
+// color everything the same, all four channels should be equivalent. The
+// resulting alpha values are equal to incoming alpha values.
+//
+// Palette-indexed color is not supported.
+//
+// Preconditions for gradient operations (error otherwise):
+//
+//  all: only RGB colors, unless all four channels match as default
+//  all: all alpha values must be the same
+//  1x1: all four colors must be the same
+//  1xN: both top and both bottom colors must be the same (vertical gradient)
+//  Nx1: both left and both right colors must be the same (horizontal gradient)
+int ncplane_gradient(struct ncplane* n, const char* egc, uint32_t attrword,
+                     uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
+                     int ystop, int xstop);
+
+// Do a high-resolution gradient using upper blocks and synced backgrounds.
+// This doubles the number of vertical gradations, but restricts you to
+// half blocks (appearing to be full blocks).
+int ncplane_highgradient(struct ncplane* n, uint32_t ul, uint32_t ur,
+                         uint32_t ll, uint32_t lr, int ystop, int xstop);
+
+// Draw a gradient with its upper-left corner at the current cursor position,
+// having dimensions 'ylen'x'xlen'. See ncplane_gradient for more information.
+static inline int
+ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
+                       uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
+                       int ylen, int xlen){
+  if(ylen < 1 || xlen < 1){
+    return -1;
+  }
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_gradient(n, egc, attrword, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
+}
+
+static inline int
+ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
+                           uint64_t ll, uint64_t lr, int ylen, int xlen){
+  if(ylen < 1 || xlen < 1){
+    return -1;
+  }
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_highgradient(n, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
+}
+\end{minted}
+\caption{Drawing gradients and polyfills.}
+\label{list:gradients}
+\end{listing}
+
 \subsection{Blitting}
+
 \subsection{Staining}
 \label{sec:staining}
+Consult Chapter~\ref{sec:outputtext} for the ``stainable'' family of text output
+functions, allowing EGCs to be replaced without affecting attributes or channels.
+To modify attributes or channels in isolation but \textit{en masse}, Notcurses
+provides \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}.
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // Set the given style throughout the specified region, keepying content and
@@ -1573,19 +1732,8 @@ int ncplane_format(struct ncplane* n, int ystop, int xstop, uint32_t attrword);
 // attributes otherwise unchanged.
 int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul,
                   uint64_t ur, uint64_t ll, uint64_t lr);
-
-// Replace the EGC underneath us, but retain the styling. The current styling
-// of the plane will not be changed.
-int ncplane_putsimple_stainable(struct ncplane* n, char c);
-
-// Replace the EGC underneath us, but retain the styling. The current styling
-// of the plane will not be changed.
-int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes);
-
-// Replace the EGC underneath us, but retain the styling. The current styling
-// of the plane will not be changed.
-int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
 \end{minted}
+\caption{Changing attributes or channels in isolation.}
 \label{list:stain}
 \end{listing}
 

@@ -745,6 +745,8 @@ ncplane_putwc_yx(struct ncplane* n, int y, int x, wchar_t w){
   return ncplane_putwstr_yx(n, y, x, warr);
 }
 
+// FIXME what is the relation to ncplane_putwegc()?
+
 // Call ncplane_putwc() at the current cursor position.
 static inline int
 ncplane_putwc(struct ncplane* n, wchar_t w){
