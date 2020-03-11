@@ -168,7 +168,19 @@ description={An NCURSES-based application for TUI modal dialogs}
 \newglossaryentry{directcolor}
 {
   name={DirectColor},
-  description={FIXME},
+  description={A strange color system (``visual type'') of Xlib\cite{xvisualtypes} involving
+   tripartite palette indexing. It is very likely that the writer actually
+   meant \Gls{truecolor}},
+}
+
+\newglossaryentry{truecolor}
+{
+  name={TrueColor},
+  description={Specification of RGB with 24 bits in 3 8-bit channels, or RGBA
+    with 32 bits in 4 8-bit channels\cite{X11displays}. Notcurses supports
+    direct 24-bit TrueColor specification and 2 bits of alpha. NCURSES (in its
+    extended mode) supports 24-bit TrueColor specification of palettes of up to
+    256 colors expressed as up to 32,768 color pairs},
 }
 
 \newglossaryentry{ebcdic}
