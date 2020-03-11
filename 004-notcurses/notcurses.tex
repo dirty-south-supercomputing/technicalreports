@@ -1484,7 +1484,7 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
     \end{tabular}
   \end{center}
   \caption{The six named UCS planes (Unicode Core Specification §2.8\cite{unicode}).}
-  \label{table:ucsdesign}
+  \label{table:ucsplanes}
 \end{table}
 
 \textbf{FIXME FIXME FIXME}
@@ -1612,7 +1612,7 @@ edges of the plane (and has its upper-left corner at the plane origin).
 #define NCBOXCORNER_SHIFT 8u
 \end{minted}
 \caption{Bitmasks for configuring box drawing's \texttt{ctlword} parameter.}
-\label{list:boxes}
+\label{list:boxbitmasks}
 \end{listing}
 
 \begin{listing}[!htbp]
@@ -1766,8 +1766,8 @@ int ncblit_bgrx(struct ncplane* nc, int placey, int placex, int linesize, const 
 int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize, const unsigned char* data,
                 int begy, int begx, int leny, int lenx);
 \end{minted}
-\caption{Drawing gradients.}
-\label{list:gradients}
+\caption{Blitting BGRx and RGBA.}
+\label{list:blitting}
 \end{listing}
 
 \subsection{Staining}
@@ -2163,6 +2163,16 @@ int ncmenu_destroy(struct ncmenu* n);
 
 \subsection{Reels}
 \subsection{Example: let's rip off \texttt{whiptail}}
+The \texttt{colloquy} program shipped with Notcurses implements a command-line
+API similar to that of the Newt program \texttt{whiptail}, which itself ripped
+off the NCURSES program \texttt{dialog}. All of these programs allow simple
+user interfaces to be thrown up on the command line. \texttt{colloquy} is
+written in Rust\footnote{\url{https://lib.rs/crates/colloquy}}, using the
+Notcurses crate\footnote{\url{https://lib.rs/crates/notcurses}}, itself a wrapper
+of the libnotcurses-sys\footnote{\url{https://lib.rs/crates/libnotcurses-sys}}
+\texttt{bindgen}-generated Rust wrappers.
+
+\textbf{FIXME FIXME FIXME example of each}
 
 \section{Complex examples}
 \subsection{Example: let's rip off tetris}

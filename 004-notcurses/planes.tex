@@ -515,12 +515,13 @@ static inline int cell_set_bg(cell* c, uint32_t channel){
 \end{listing}
 
 It is also possible to make use of palette-indexed color (recall that the size
-of the palette can be acquired with \texttt{notcurses\_palette\_size()}). Palette-indexed
-color requires much less bandwidth than pure RGB\footnote{Work is underway
-to emit palette-indexed rasterization even when RGB has been provided,
-see \url{https://github.com/dankamongmen/notcurses/issues/371}.}, and allows for finer control
-on terminals which don't faithfully implement RGB DirectColor. The terminal
-palette can be manually reprogrammed with the palette256 API.
+of the palette can be acquired with \texttt{notcurses\_palette\_size()}).
+Palette-indexed color requires much less bandwidth than pure RGB (indeed, work
+is underway to emit palette-indexed rasterization even when RGB has been
+provided---see \url{https://github.com/dankamongmen/notcurses/issues/371}),
+and allows for finer control on terminals which don't faithfully implement RGB
+DirectColor. The terminal palette can be manually reprogrammed with the
+palette256 API (see Chapter~\ref{list:palette256}).
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -604,3 +605,59 @@ biased\footnote{128-biased, i.e. \texttt{gcluster} is the offset + 128.}
 index into the pool. The pool can grow as large as $2^{25}$ bytes (32 MiB).
 
 \subsection{Alpha blending and plane transparency}
+\label{sec:alpha}
+\textbf{FIXME FIXME FIXME}
+
+\subsection{Manual palette-indexed color}
+\label{sec:palettes}
+While it shouldn't ever be necessary, some algorithms are more easily expressed
+using palette-indexed color. Functions for manually manipulating the palette
+are available when supported by the terminal (as advertised by the ``ccc''
+terminfo capability).
+\begin{listing}[!htbp]
+\begin{minted}{C}
+
+typedef struct palette256 {
+  uint32_t chans[NCPALETTESIZE]; // We store the RGB values as a regular ol' channel
+} palette256;
+
+// Create a new palette store. It will be initialized with notcurses's best
+// knowledge of the currently configured palette.
+palette256* palette256_new(struct notcurses* nc);
+
+// Attempt to configure the terminal with the provided palette 'p'. Does not
+// transfer ownership of 'p'; palette256_free() can still be called.
+int palette256_use(struct notcurses* nc, const palette256* p);
+
+// Manipulate entries in the palette store 'p'. These are *not* locked.
+static inline int palette256_set_rgb(palette256* p, int idx, int r, int g, int b){
+  if(idx < 0 || (size_t)idx > sizeof(p->chans) / sizeof(*p->chans)){
+    return -1;
+  }
+  return channel_set_rgb(&p->chans[idx], r, g, b);
+}
+
+static inline int palette256_set(palette256* p, int idx, unsigned rgb){
+  if(idx < 0 || (size_t)idx > sizeof(p->chans) / sizeof(*p->chans)){
+    return -1;
+  }
+  return channel_set(&p->chans[idx], rgb);
+}
+
+static inline int palette256_get_rgb(const palette256* p, int idx, unsigned* restrict r,
+                                     unsigned* restrict g, unsigned* restrict b);
+  if(idx < 0 || (size_t)idx > sizeof(p->chans) / sizeof(*p->chans)){
+    return -1;
+  }
+  return channel_rgb(p->chans[idx], r, g, b);
+}
+
+// Free the palette store 'p'.
+void palette256_free(palette256* p);
+
+// Convert the plane's content to greyscale.
+void ncplane_greyscale(struct ncplane* n);
+\end{minted}
+\caption{The palette256 API facilitates manual palette programming.}
+\label{list:palette256}
+\end{listing}

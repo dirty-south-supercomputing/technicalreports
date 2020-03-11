@@ -89,7 +89,7 @@ ncplane_putc(struct ncplane* n, const cell* c){
 }
 \end{minted}
 \caption{Output of \texttt{cell}s to planes.}
-\label{list:putc}
+\label{list:putcell}
 \end{listing}
 
 ASCII (and thus the lowest 128 UTF-8 encoded characters) can be written directly
@@ -118,6 +118,33 @@ int ncplane_putsimple_stainable(struct ncplane* n, char c);
 \end{minted}
 \caption{Direct output of single-byte UTF-8 to planes.}
 \label{list:putc}
+\end{listing}
+
+On systems where \texttt{wchar\_t} is at least twenty-five bits\footnote{\texttt{wchar\_t}
+  is only 16 bits on some systems, usually those same brain-damaged ones which
+  make great use of brain-damaged UTF-16. Such a \texttt{wchar\_t} can only
+represent characters from the Basic Multilingual Plane; the other sixteen planes
+require use of \textit{surrogate characters}.}, a single \texttt{wchar\_t} can
+represent any UCS code point (though not necessarily any EGC). The
+\texttt{putwc} family (Listing~\ref{list:putwc}) allows direct output of a single \texttt{wchar\_t}.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Replace the cell at the specified coordinates with the provided wide char
+// 'w'. Advance the cursor by the character's width as reported by wcwidth().
+// On success, returns 1. On failure, returns -1.
+static inline int ncplane_putwc_yx(struct ncplane* n, int y, int x, wchar_t w){
+  wchar_t warr[2] = { w, L'\0' };
+  return ncplane_putwstr_yx(n, y, x, warr);
+}
+
+// Call ncplane_putwc() at the current cursor position.
+static inline int ncplane_putwc(struct ncplane* n, wchar_t w){
+  return ncplane_putwc_yx(n, -1, -1, w);
+}
+\end{minted}
+\caption{Direct output of a single \texttt{wchar\_t}.}
+\label{list:putwc}
 \end{listing}
 
 EGCs can be output one at a time. Supplying multiple EGCs in a single buffer
@@ -181,10 +208,10 @@ ncplane_putwegc_yx(struct ncplane* n, int y, int x, const wchar_t* gclust,
 
 // Replace the EGC underneath us, but retain the styling. The current styling
 // of the plane will not be changed.
-API int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
+int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sbytes);
 \end{minted}
-\caption{Output of single \texttt{wchar\_t}s to planes.}
-\label{list:putc}
+\caption{Output of single \texttt{wchar\_t}-encoded EGCs to planes.}
+\label{list:putwegc}
 \end{listing}
 
 \begin{listing}[!htbp]
@@ -195,18 +222,18 @@ API int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int*
 // (though not beyond the end of the plane); this number is returned on success.
 // On error, a non-positive number is returned, indicating the number of cells
 // which were written before the error.
-API int ncplane_putstr_yx(struct ncplane* n, int y, int x, const char* gclustarr);
+int ncplane_putstr_yx(struct ncplane* n, int y, int x, const char* gclustarr);
 
 static inline int
 ncplane_putstr(struct ncplane* n, const char* gclustarr){
   return ncplane_putstr_yx(n, -1, -1, gclustarr);
 }
 
-API int ncplane_putstr_aligned(struct ncplane* n, int y, ncalign_e align,
+int ncplane_putstr_aligned(struct ncplane* n, int y, ncalign_e align,
                                const char* s);
 \end{minted}
 \caption{Output of strings to planes.}
-\label{list:putc}
+\label{list:putstr}
 \end{listing}
 
 \begin{listing}[!htbp]
@@ -244,31 +271,26 @@ ncplane_putwstr(struct ncplane* n, const wchar_t* gclustarr){
 }
 \end{minted}
 \caption{Output of wide strings to planes.}
-\label{list:putc}
+\label{list:wputstr}
 \end{listing}
 
-Finally, analogues of \texttt{printf(3)} and \texttt{vprintf(3)} are provided.
+Finally, analogues of \texttt{printf(3)} and \texttt{vprintf(3)} are provided (Listing~\ref{list:printf}).
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
 // The ncplane equivalents of printf(3) and vprintf(3).
-API int ncplane_vprintf_aligned(struct ncplane* n, int y, ncalign_e align,
-                                const char* format, va_list ap);
+int ncplane_vprintf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, va_list ap);
 
-API int ncplane_vprintf_yx(struct ncplane* n, int y, int x,
-                           const char* format, va_list ap);
+int ncplane_vprintf_yx(struct ncplane* n, int y, int x, const char* format, va_list ap);
 
-static inline int
-ncplane_vprintf(struct ncplane* n, const char* format, va_list ap){
+static inline int ncplane_vprintf(struct ncplane* n, const char* format, va_list ap){
   return ncplane_vprintf_yx(n, -1, -1, format, ap);
 }
 
-static inline int
-ncplane_printf(struct ncplane* n, const char* format, ...)
+static inline int ncplane_printf(struct ncplane* n, const char* format, ...)
   __attribute__ ((format (printf, 2, 3)));
 
-static inline int
-ncplane_printf(struct ncplane* n, const char* format, ...){
+static inline int ncplane_printf(struct ncplane* n, const char* format, ...){
   va_list va;
   va_start(va, format);
   int ret = ncplane_vprintf(n, format, va);
@@ -276,12 +298,10 @@ ncplane_printf(struct ncplane* n, const char* format, ...){
   return ret;
 }
 
-static inline int
-ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...)
+static inline int ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...)
   __attribute__ ((format (printf, 4, 5)));
 
-static inline int
-ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...){
+static inline int ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...){
   va_list va;
   va_start(va, format);
   int ret = ncplane_vprintf_yx(n, y, x, format, va);
@@ -289,13 +309,10 @@ ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...){
   return ret;
 }
 
-static inline int
-ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align,
-                       const char* format, ...)
+static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...)
   __attribute__ ((format (printf, 4, 5)));
 
-static inline int
-ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...){
+static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...){
   va_list va;
   va_start(va, format);
   int ret = ncplane_vprintf_aligned(n, y, align, format, va);
@@ -304,7 +321,7 @@ ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* fo
 }
 \end{minted}
 \caption{Formatted output to planes.}
-\label{list:putc}
+\label{list:printf}
 \end{listing}
 
 \subsection{The 32-bit \texttt{attribute} value}
