@@ -1725,10 +1725,9 @@ int ncplane_highgradient(struct ncplane* n, uint32_t ul, uint32_t ur,
 
 // Draw a gradient with its upper-left corner at the current cursor position,
 // having dimensions 'ylen'x'xlen'. See ncplane_gradient for more information.
-static inline int
-ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
-                       uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
-                       int ylen, int xlen){
+static inline int ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
+                                         uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
+                                         int ylen, int xlen){
   if(ylen < 1 || xlen < 1){
     return -1;
   }
@@ -1737,9 +1736,8 @@ ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
   return ncplane_gradient(n, egc, attrword, ul, ur, ll, lr, y + ylen - 1, x + xlen - 1);
 }
 
-static inline int
-ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
-                           uint64_t ll, uint64_t lr, int ylen, int xlen){
+static inline int ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
+                                             uint64_t ll, uint64_t lr, int ylen, int xlen){
   if(ylen < 1 || xlen < 1){
     return -1;
   }
@@ -1753,6 +1751,24 @@ ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uint64_t ur,
 \end{listing}
 
 \subsection{Blitting}
+\label{sec:blitting}
+\begin{listing}[!htbp]
+\begin{minted}{C}
+// Blit a flat array 'data' of BGRx 32-bit values to the ncplane 'nc', offset from the upper left by
+// 'placey' and 'placex'. Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4
+// due to padding). A subregion of the input can be specified with 'begy'x'begx' and 'leny'x'lenx'.
+int ncblit_bgrx(struct ncplane* nc, int placey, int placex, int linesize, const unsigned char* data,
+                int begy, int begx, int leny, int lenx);
+
+// Blit a flat array 'data' of RGBA 32-bit values to the ncplane 'nc', offset from the upper left by
+// 'placey' and 'placex'. Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4
+// due to padding). A subregion of the input can be specified with 'begy'x'begx' and 'leny'x'lenx'.
+int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize, const unsigned char* data,
+                int begy, int begx, int leny, int lenx);
+\end{minted}
+\caption{Drawing gradients.}
+\label{list:gradients}
+\end{listing}
 
 \subsection{Staining}
 \label{sec:staining}
@@ -1860,6 +1876,8 @@ struct ncplane* ncvisual_plane(struct ncvisual* ncv);
 // of the UTF8 text.
 char* ncvisual_subtitle(const struct ncvisual* ncv);
 \end{minted}
+\caption{Opening, decoding, and rendering multimedia.}
+\label{list:multimedia}
 \end{listing}
 
 \subsection{Streaming video/animated GIFs.}
@@ -1903,6 +1921,8 @@ static inline int ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual
 int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
                     float timescale, streamcb streamer, void* curry);
 \end{minted}
+\caption{Media streaming and \texttt{ncvisual\_simple\_streamer()}.}
+\label{list:streaming}
 \end{listing}
 
 \subsection{Scaling images and video}
@@ -1928,6 +1948,8 @@ typedef enum {
 struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
                                      int* averr, int y, int x, ncscale_e style);
 \end{minted}
+\caption{Scaling media onto a new plane.}
+\label{list:scaling}
 \end{listing}
 
 \subsection{Sprites}
