@@ -24,6 +24,7 @@
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage[table]{xcolor}
 \usepackage{xcolor}
+\usepackage{pdfpages}
 \usepackage[titletoc,title]{appendix}
 \usepackage{minted}
 \usepackage{xeCJK}
@@ -79,6 +80,7 @@ A Guide to TUIs and Character Graphics
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\includepdf{media/cover.pdf}
 %\date{Feb 14, 2020}
 \maketitle
 %\thispagestyle{fancy}
@@ -1324,7 +1326,7 @@ along with another key from ASCII; these combinations are defined using
     \hline
   \end{tabular}
   }
-  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.\\
+  \caption[ANSI X3.4-1986 (ASCII)]{ANSI X3.4-1986 (ISO/IEC 646-IRV, IA5, T.50 IRA, RFC 20)---American Standard Code for Information Interchange.\\
     Shaded characters can be replaced in regional variants.}
   \label{table:ascii}
 \end{table}
@@ -2399,20 +2401,11 @@ transparency.
 \pagebreak
 \newpage
 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Wherein shade is thrown at current terminal emulators}
-\label{sec:termshade}
-\textbf{FIXME FIXME FIXME}
-graphs i want:
-\begin{denseitemize}
-\item{emulator performance as a function of size}
-\item{emulator performance as a function of bandwidth--same color everywhere, but turn off elision}
-\item{emulator performance as a function of color change--difference with color restored relative to previous}
-\item{emulator performance as a function of glyph variation}
-\item{some basic perf flame graphs}
-\end{denseitemize}
+\input{benchmarks.tex}
+\pagebreak
 \newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The Linux console}
@@ -2545,6 +2538,7 @@ Standard of which it forms a part.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}
 \printbibliography
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
 %\vfill
@@ -2553,4 +2547,5 @@ Standard of which it forms a part.
 %\includegraphics[width=.5\linewidth]{../common/south.png}
 %\end{center}
 %\vfill
+\includepdf{media/backcover.pdf}
 \end{document}

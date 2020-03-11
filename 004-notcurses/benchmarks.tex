@@ -1,0 +1,78 @@
+\section{Wherein shade is thrown at current terminal emulators}
+\label{sec:termshade}
+The \texttt{notcurses-demo} program detailed in Chapter~\ref{sec:ncdemo} serves
+as an excellent testbed for benchmarking certain properties of various
+terminals in various configurations. The \texttt{-c} argument ought always be
+provided when benchmarking, so that the PRNG is seeded with the same
+value\footnote{This only serves to eliminate variance among equal PRNG
+implementations.}.
+
+This binary is composed of over a dozen
+different independent demos, which can be freely scheduled on the command line.
+Different demos have different usefulness for benchmarking. Fixed-time, fixed-framecount
+demos will generally only show differences in the amount of time spent
+rendering. Fixed-framecount demos show difference in total time. Fixed-time demos
+might show differences in framecount and time spent rendering. A greater
+number of frames for the same demo is indicative of an advantage, as is completing
+any particular demo in less time. The most generally useful stat to compare
+across runs is average time per render and maximum time to render.
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{ |c|c|c| }
+    \hline
+    Demo & Type & Exercises \\
+    \hline
+    \hline
+    Intro & Fixed-time & Fades, EGC draws \\
+    \hline
+    X-Ray & Fixed-time+frame & Plane movement (x), video \\
+    \hline
+    Eagle & Time-to-completion & Large renders, multiple sprites \\
+    \hline
+    Trans & Fixed-time & Plane movement (xy) \\
+    \hline
+    \rowcolor{blue!25}
+    \textbf{Highcon} & Time-to-completion & Intense RGB, intense redraw \\
+    \hline
+    Box & Time-to-completion & Intense redraw \\
+    \hline
+    Chunli & Fixed-time+frame & Large sprite \\
+    \hline
+    \rowcolor{blue!25}
+    \textbf{Grid} & Time-to-completion & Intense RGB, RGB variance \\
+    \hline
+    Reel & Fixed-time & Plane movement (y) \\
+    \hline
+    Whiteout & Fixed-time & Intense font rendering \\
+    \hline
+    Uniblock & Fixed-time & Intense font rendering \\
+    \hline
+    View & Fixed-time+frame & Video \\
+    \hline
+    Luigi & Time-to-completion & Sprites, background \\
+    \hline
+    \rowcolor{blue!25}
+    \textbf{Fallin} & Time-to-completion & Many planes, plane movement (y) \\
+    \hline
+    Sliders & Time-to-completion & Many planes \\
+    \hline
+    Jungle & Fixed-time & Palette cycling \\
+    \hline
+    Outro & Fixed-time & Fades, video \\
+    \hline
+  \end{tabular}
+\caption[Benchmarking properties of various demos.]{Benchmarking properties of
+  various demos. I consider the colored demos particularly informative.}
+\label{table:benchmarks}
+\end{table}
+
+\textbf{FIXME FIXME FIXME}
+graphs i want:
+\begin{denseitemize}
+\item{emulator performance as a function of size}
+\item{emulator performance as a function of bandwidth--same color everywhere, but turn off elision}
+\item{emulator performance as a function of color change--difference with color restored relative to previous}
+\item{emulator performance as a function of glyph variation}
+\item{some basic perf flame graphs}
+\end{denseitemize}
