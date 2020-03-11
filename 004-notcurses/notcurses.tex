@@ -1582,6 +1582,11 @@ ncplane_vline(struct ncplane* n, const cell* c, int len){
 \end{listing}
 
 \subsection{Boxes}
+Rectangles are regularly required as borders and for grouping. Notcurses supports
+flexible box drawing. Boxes have their upper-left corner at the current cursor
+position, unless drawn with \texttt{ncplane\_perimeter()}, which draws along the
+edges of the plane (and has its upper-left corner at the plane origin).
+
 \begin{listing}[!htbp]
 \begin{minted}{C}
 #define NCBOXMASK_TOP    0x0001
@@ -1594,7 +1599,13 @@ ncplane_vline(struct ncplane* n, const cell* c, int len){
 #define NCBOXGRAD_LEFT   0x0080
 #define NCBOXCORNER_MASK 0x0300
 #define NCBOXCORNER_SHIFT 8u
+\end{minted}
+\caption{Bitmasks for configuring box drawing's \texttt{ctlword} parameter.}
+\label{list:boxes}
+\end{listing}
 
+\begin{listing}[!htbp]
+\begin{minted}{C}
 // Draw a box with its upper-left corner at the current cursor position, and its
 // lower-right corner at 'ystop'x'xstop'. The 6 cells provided are used to draw the
 // upper-left, ur, ll, and lr corners, then the horizontal and vertical lines.
