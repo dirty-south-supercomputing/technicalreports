@@ -168,14 +168,11 @@ master side will (under the cooked or cbreak disciplines) result in
 \texttt{SIGINT} being delivered to the foreground process group.
 
 The details of Linux pseudoterminal pair creation can be found on the \texttt{pts(4)}\cite{pts4} man page.
-%\texttt{posix\_openpt(3)}\cite{posixopenpt3} opens the ``master clone device''
-%\texttt{/dev/ptmx}, receiving a file descriptor corresponding to the new PTM
-(pseudoterminal master).
-A new PTS (pseudoterminal slave) is created in
-%\texttt{/dev/pts/}
-%\footnote{\texttt{/dev/pts} is typically its own \texttt{devpts} filesystem on Linux.}
-, whose name can be discovered by
-%providing the PTM file descriptor to \texttt{ptsname\_r(3)}\cite{ptsname3}.
+\texttt{posix\_openpt(3)}\cite{posixopenpt3} opens the ``master clone device''
+\path{/dev/ptmx}, receiving a file descriptor corresponding to the new PTM (pseudoterminal master).
+A new PTS (pseudoterminal slave) is created in \path{/dev/pts/}
+\footnote{\path{/dev/pts} is typically its own \texttt{devpts} filesystem on Linux.}, whose name can be discovered by
+providing the PTM file descriptor to \texttt{ptsname\_r(3)}\cite{ptsname3}.
 Opening this PTS requires use of the \texttt{grantpt(3)} and \texttt{unlockpt(3)} calls.
 Once both sides have been opened, data freely flows between the PTM and PTS.
 
