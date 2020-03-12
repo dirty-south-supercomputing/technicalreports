@@ -27,16 +27,7 @@ Modern workstations support a variety of physical and virtual terminal devices:
 \item{Pseudoterminals hooked up to network connections.}
 \end{denseitemize}
 
-On Linux, three kernel definitions form the core of the terminal abstraction
-(the ``tty layer''). A \texttt{tty\_driver} function interface exists for each
-tty implementation, and each has a different corresponding
-major+minor device number pair. These implementations are enumerated in
-\texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
-Line disciplines can be found in \texttt{/proc/tty/ldiscs}. The only line discipline
-you're likely to encounter in a terminal context is \texttt{n\_tty}, the ``new tty''
-discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
-
-\begin{table}
+\begin{table}[!htbp]
   \centering
   \begin{tabular}{ |c|c|c|c|c| }
     \hline
@@ -69,7 +60,50 @@ discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
   \label{table:serial}
 \end{table}
 
-\begin{table}
+On Linux, three kernel definitions form the core of the terminal abstraction
+(the ``tty layer''). A \texttt{tty\_driver} function interface exists for each
+tty implementation, and each has a different corresponding
+major+minor device number pair. These implementations are enumerated in
+\texttt{/proc/tty/drivers} (sample contents are listed in Table~\ref{table:procttydrivers}).
+Line disciplines can be found in \texttt{/proc/tty/ldiscs}. The only line discipline
+you're likely to encounter in a terminal context is \texttt{n\_tty}, the ``new tty''
+discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
+
+POSIX.1-2017\cite{posix2017} §10.1 ``Directory Structure and Devices''
+specifies three special files in the \texttt{/dev} directory, of which two are
+related to the terminal/console system: \texttt{/dev/tty} is, within a process
+context, a synonym for the controlling terminal associated with that process's
+group (this can also be acquired with \texttt{tty(1)} or the POSIX C function
+\texttt{ctermid(3)}\footnote{\texttt{/dev/tty} also uniquely supports the
+\texttt{TIOCNOTTY} \texttt{ioctl(2)} for detaching a process from its
+controlling terminal.}. The tty associated with an arbitrary file descriptor can
+be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a generic name for the current system console\footnote{Defined in \textit{ibid.} §3.392
+``System Console'' as the device receiving messages sent by the \texttt{syslog()}
+function. On Linux, it will also reproduce messages written to \texttt{/dev/kmsg}\cite{dmesg}.};
+POSIX requires that the system console implement its ``General Terminal Interface'' (see
+\textit{ibid.} §11). \texttt{/dev/tty0} is a special device on Linux linked to
+the current virtual console (which might not be the system console). The
+available system consoles can be found in \texttt{/proc/consoles}.
+
+Initial \texttt{/dev/ttyN} devices are created internally by the kernel
+(according to the value of \texttt{MAX\_NR\_CONSOLES}, by default 64) and set
+up by \texttt{udev}. These are distinct devices, each usable by one virtual
+console. Serial consoles show up as \texttt{/dev/ttySN}\cite{ttys4}. Each
+virtual console gets a device at \texttt{/dev/vcsN} allowing access to the
+glyph values of the console, a device at \texttt{/dev/vcsaN} allowing access to
+the attributes at each cell, plus screen geometry, and a device at \texttt{/dev/vcsuN}
+providing access to the Unicode values of each cell. If a framebuffer console
+is being used, these devices are prepared atop some framebuffer device \texttt{/dev/fbN} (see
+Figure~\ref{fig:framebuffers}); these mappings can be managed with \texttt{con2fbmap(1)}.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=.75\linewidth]{media/framebuffers.png}
+  \caption{Three different Linux framebuffer implementations.}
+  \label{fig:framebuffers}
+\end{figure}
+
+\begin{table}[!htbp]
   \centering
   \begin{tabular}{ |c|c|c|c|c|c| }
     \hline
@@ -121,6 +155,12 @@ without waiting for a newline character, while retaining e.g. Ctrl+C.}
   emulated in user space.}
 \end{denseitemize}
 
+\subsection{Terminals and the UNIX process model}
+\label{sec:unixprocs}
+
+You're hopefully aware that UNIX programs traditionally start with at least
+three file descriptors open: 0 for \texttt{stdin}, 1 for \texttt{stdout}, and 2
+for \texttt{stderr}. 
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
   internals of kernel tty/pty devices, session groups, signal distribution,
   \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
