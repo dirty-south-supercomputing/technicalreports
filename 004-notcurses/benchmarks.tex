@@ -9,7 +9,10 @@ as an excellent testbed for benchmarking certain properties of various
 terminals in various configurations. The \texttt{-c} argument ought always be
 provided when benchmarking, so that the PRNG is seeded with the same
 value\footnote{This only serves to eliminate variance among equal PRNG
-implementations.}.
+implementations.}. The \texttt{-J} argument is also useful, to generate JSON-formatted
+output suitable for machine processing. Finally, \texttt{-d} can be supplied
+to reduce the amount of artificial delay: the default is \texttt{-d1} for 1.0x
+the standard delay. \texttt{-d0} eliminates all artificial delay.
 
 This binary is composed of over a dozen
 different independent demos, which can be freely scheduled on the command line.

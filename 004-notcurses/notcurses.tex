@@ -1572,19 +1572,15 @@ wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 // lines), just as if ncplane_putc() was called at that spot. Return the
 // number of cells drawn on success. On error, return the negative number of
 // cells drawn.
-int ncplane_hline_interp(struct ncplane* n, const cell* c, int len,
-                             uint64_t c1, uint64_t c2);
+int ncplane_hline_interp(struct ncplane* n, const cell* c, int len, uint64_t c1, uint64_t c2);
 
-static inline int
-ncplane_hline(struct ncplane* n, const cell* c, int len){
+static inline int ncplane_hline(struct ncplane* n, const cell* c, int len){
   return ncplane_hline_interp(n, c, len, c->channels, c->channels);
 }
 
-int ncplane_vline_interp(struct ncplane* n, const cell* c, int len,
-                             uint64_t c1, uint64_t c2);
+int ncplane_vline_interp(struct ncplane* n, const cell* c, int len, uint64_t c1, uint64_t c2);
 
-static inline int
-ncplane_vline(struct ncplane* n, const cell* c, int len){
+static inline int ncplane_vline(struct ncplane* n, const cell* c, int len){
   return ncplane_vline_interp(n, c, len, c->channels, c->channels);
 }
 \end{minted}
