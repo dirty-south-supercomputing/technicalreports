@@ -142,8 +142,7 @@ modes are common, and have their own nomenclature:
 \item{\textbf{Canonical mode, aka cooked mode:}   The terminal driver buffers input until a newline is entered, while echoing
     it to the screen. Ctrl+C is mapped to \texttt{SIGINT}, Ctrl+\textbackslash\ is
     mapped to \texttt{SIGQUIT}, and Ctrl+Z is mapped to \texttt{SIGTSTP}.
-    Buffered input is flushed when these signals are sent. The default mode
-  under SUS4.}
+    Buffered input is flushed when these signals are sent. The default mode.}
 \item{\textbf{Cbreak mode:} Line buffering is disabled, as is the processing
   of erase/kill characters. Interrupt and flow control translation is unaffected.
 Sometimes referred to as \textit{rare mode}. This mode allows processing of input
@@ -184,11 +183,80 @@ pipes (e.g. \texttt{passwd}), you can pump the input through a named pty.}.
 \subsection{Terminals and the UNIX process model}
 \label{sec:unixprocs}
 
-Understanding how these devices
+Understanding how these devices---physical or virtual---end up connected to
+actual processes requires understanding some basic details of the UNIX
+process model\footnote{For a more complete description, consult Chapter 9
+of \cite{apiue}.}. Recall the UNIX principle that ``everything is a file''. Generally---and
+this is true for all terminal devices---devices will be \texttt{open(2)}ed
+using their \path{/dev} nodes, and then operated upon as a typical file
+descriptor. You're no doubt aware that UNIX programs traditionally start with
+at least three file descriptors open: 0 for \texttt{stdin}, 1 for
+\texttt{stdout}, and 2 for \texttt{stderr}. Recall further that file descriptors
+are by default not closed across an \text{exec(2)} call that replaces one
+process's code with another object.
 
-You're hopefully aware that UNIX programs traditionally start with at least
-three file descriptors open: 0 for \texttt{stdin}, 1 for \texttt{stdout}, and 2
-for \texttt{stderr}. 
+Each process has a process ID (PID) unique to its PID namespace (see
+\texttt{clone(2)}\cite{clone2}, particularly the \texttt{CLONE\_NEWPID} flag).
+Each process is a member of a \textit{process group}, and each process group
+has its own process group ID (PGID)\footnote{Both PIDs and PGIDs are represented using \texttt{pid\_t}.}.
+This PGID is equal to the \textit{group leader}'s PID, and each process group
+has one and only one leader. Signals can be addressed to a process group by
+supplying the negative PGID to e.g. \texttt{kill(2)}; a signal sent to a group
+will be delivered to all processes of that group. One of the most common
+scenarios in which multiple processes are kept in a single group is a shell
+pipeline (a \texttt{fork(2)}ing process will usually place independent children
+into a new process group). This is the essential facility underlying job control
+(placing a job into the background, etc.), explaining why backgrounding
+applies to an entire pipeline. Processes may be moved between process groups,
+but only within a \textit{session}.
+
+All process groups (and thus all processes) are members of some session. Each
+session has a session ID (SID)\footnote{This session ID isn't really its own
+unique value---it's implied by the session leader process.}. This SID
+is the same as the PID of its \textit{session leader}. A session might or might
+not have a controlling terminal (daemons disconnect themselves from their
+controlling terminal). Login sessions almost always do have a controlling
+terminal: the tty on which \texttt{login} was running (for a cosole session),
+or the pty opened at process creation (for e.g. SSH or \texttt{xterm}). The
+process groups of a session are divided into a single \textit{foreground group}
+and zero or more \textit{background groups}.
+
+Figure~\ref{fig:termprocs} shows the terminal-connected processes on one of
+my Linux workstations, with their PIDs, PPIDs (parent process IDs), PGIDs
+and SIDs. \texttt{agetty} is listening on tty1, spawned by
+\texttt{init} (process 1). Xorg is sitting on tty7, having been spawned by a
+display manager (which is \textbf{not} itself connected to a terminal). The
+\texttt{bash} at PID 41599 is the child of a \texttt{screen} process.
+\texttt{bash} at PID 846497 is a child of \texttt{sshd}.
+
+\begin{figure}[!htbp]
+  \centering
+\begin{verbatim}
+[killermike](0) $ ps  --ppid 2 --deselect o pid,ppid,pgid,sid,tty,comm  | grep -v ?
+    PID    PPID    PGID     SID TT       COMMAND
+  41599   41598   41599   41599 pts/1    bash
+  41654   41599   41654   41599 pts/1    rtorrent main
+ 510181       1  510181  510181 tty1     agetty
+ 510609  510187  510609  510609 tty7     Xorg
+ 846497  846495  846497  846497 pts/0    bash
+ 851850  846497  851850  846497 pts/0    ps
+ 851851  846497  851850  846497 pts/0    grep
+[killermike](0) $
+\end{verbatim}
+\caption{Terminal-connected processes on a Linux machine.}
+\label{fig:termprocs}
+\end{figure}
+
+Sessions affect how signals from the terminal are distributed. \texttt{SIGINT}
+and friends (signals generated due to the line discipline) are sent to the
+foreground process group. Only the foreground process can read from the
+terminal; if a background process attempts to do so, it is sent \texttt{SIGTTIN}, the default
+handler of which is to stop. A stopped background process will receive
+\texttt{SIGCONT} when brought into the foreground. Likewise, a background
+process will be sent \texttt{SIGTTOU} if it attempts to write to the terminal
+when the TOSTOP tty flag is valid, or attempts to reconfigure the terminal in
+any way\cite{sigterminals}.
+
 \textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
   internals of kernel tty/pty devices, session groups, signal distribution,
   \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
