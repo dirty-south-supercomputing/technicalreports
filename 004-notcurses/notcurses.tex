@@ -497,15 +497,26 @@ int ncdirect_bg_default(struct ncdirect* n);
 \caption{The \texttt{ncdirect} styling API.}
 \end{listing}
 
-Direct mode allows the cursor to be moved in two-dimensional space, and
-provides helpers for determining the terminal geometry. Either \texttt{y} or
-\texttt{x} may be specified as -1 to maintain location on the associated axis.
+Direct mode provides helpers for determining the terminal geometry.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
 int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
+\end{minted}
+\caption{Geometry discovery with \texttt{ncdirect}.}
+\end{listing}
+
+Direct mode allows the cursor to be disabled, enabled, and moved in
+two-dimensional space. Either \texttt{y} or \texttt{x} may be specified as -1
+to maintain location on the associated axis. Attempting to move the cursor
+beyond the screen is an error.
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
 int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
+int ncdirect_cursor_enable(struct ncdirect* nc);
+int ncdirect_cursor_disable(struct ncdirect* nc);
 \end{minted}
 \caption{Cursor management with \texttt{ncdirect}.}
 \end{listing}
@@ -2067,8 +2078,7 @@ typedef enum {
 // new plane will be exactly that large. Otherwise, the plane will be as large
 // as possible (given the visible screen), either maintaining aspect ratio
 // (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
-struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file,
-                                     int* averr, int y, int x, ncscale_e style);
+struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int* averr, int y, int x, ncscale_e style);
 \end{minted}
 \caption{Scaling media onto a new plane.}
 \label{list:scaling}
