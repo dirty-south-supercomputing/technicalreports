@@ -790,12 +790,19 @@ The fields therein include:
     will be written to this file. This is intended for debugging.}
 \item{\texttt{int margin\_t}, \texttt{int margin\_r},\texttt{int margin\_b}, \texttt{int margin\_l}}:
     Margin requests on the top, right, bottom, and left, respectively, of
-    the rendering area. These requests will be satisfied on a best-effort
+    the rendering area (see Figure~\ref{fig:margins}). These requests will be satisfied on a best-effort
     basis---requesting more margin than is actually available is not an error.
     There must always be at least one row and one column available. If the
     alternate screen is being used, the margin areas will be cleared. Otherwise,
     they will be left uncleared. The margins are recomputed on a resize.
 \end{denseitemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/margins.png}
+    \caption{Margins can be used around the rendering area.}
+    \label{fig:margins}
+\end{figure}
 
 \subsection{Functions on \texttt{notcurses} objects}
 \label{sec:notcursesfuncs}
@@ -1501,7 +1508,7 @@ ISO 3166-1\cite{iso3166} two-letter country codes\cite{darkcorners}. Some fonts 
 glyphs, and some layout engines will map pairs of these symbols to flags. The
 UCS \textit{does not} contain general ``flag emoji''.
 
-\begin{figure}
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=1.1\linewidth]{media/unicode-growth.png}
   \caption{2020's Unicode 13.0 ships 143,859 character definitions.}
@@ -1543,7 +1550,7 @@ Finally, fonts and font engines which yield glyphs wider (or narrower) than
 best to avoid EGCs known to be very wide, or to avoid fonts which generate very
 wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 
-\begin{figure}
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=1\linewidth]{media/wide-unicode.png}
 \caption[Some very wide Unicode glyphs]{Some very wide Unicode glyphs (font: Hack 10)}

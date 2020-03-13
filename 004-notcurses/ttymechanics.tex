@@ -9,7 +9,8 @@ proper terminal definition and a handle to a terminal device, or initialization
 will fail (NCURSES requires the same). With that said, the UNIX terminal layers
 have never been, and are not now for the faint of heart\footnote{When Ingo
 Molnar is scared, we all ought be scared.}. Extending back to the AT\&T dark
-ages, they are configured primarily through messy \texttt{ioctl}s and the
+ages (and with at least three major distinct interfaces over the years, only unified
+in 1997's SUS2), they are configured primarily through messy \texttt{ioctl}s and the
 slightly-less-messy \texttt{termios} API.
 
 More details than you probably want are available from Chapters 18 and 19 of \cite{apiue}
@@ -158,7 +159,7 @@ to support virtual teletype functionality, wherein a process plays the role
 of hardware. Pseudoterminals\footnote{You might
  hear about both System V and BSD pseudoterminals. SUS standardized around
 the System V form, known on Linux as ``UNIX 98''. This term refers to 1997's
-SUSv2. BSD ptys look like \texttt{/dev/ttyLN} and \texttt{/dev/ptyLN}, and are
+SUSv2 ¯\\\_(ツ)\_/¯. BSD ptys look like \texttt{/dev/ttyLN} and \texttt{/dev/ptyLN}, and are
 garbage.} back most terminal instances, including GUI terminal emulators, network
 services such as SSH, and multiplexers such as \texttt{screen}. A pty provides a
 bidirectional channel between a \textit{master} and \textit{slave}, with the
@@ -176,9 +177,13 @@ Opening this PTS requires use of the \texttt{grantpt(3)} and \texttt{unlockpt(3)
 Once both sides have been opened, data freely flows between the PTM and PTS.
 
 You generally shouldn't need to be mess with TTYs or PTYs yourself as an
-application developer, but it's important to know what's going on\footnote{Pro
-tip: should you ever need supply input to programs which refuse to read from
-pipes (e.g. \texttt{passwd}), you can pump the input through a named pty.}.
+application developer, but now you know what all that junk clogging up
+your \path{/dev} is. Some day when you mess up your initramfs, and
+you're getting an error message like ``\path{/dev/ptmx} does not exist you have
+no chance to survive make your time'' you'll know you're missing the
+master clone device, some small consolation as you hopelessly reboot\footnote{Pro tip:
+should you ever need supply input to programs which refuse to read from pipes
+(e.g. \texttt{passwd}), you can pump the input through a named pty.}.
 
 \subsection{Terminals and the UNIX process model}
 \label{sec:unixprocs}
@@ -259,7 +264,7 @@ any way\cite{sigterminals}.
 
 Finally, it's worth knowing how terminals get turned into login sessions. Under
 \texttt{systemd-logind}\cite{logind}, \texttt{agetty} processes are launched
-on demand (i.e. on first transition to the virtual console), on \texttt{ttyN}
+on demand (i.e.\ on first transition to the virtual console), on \texttt{ttyN}
 through the value of \texttt{NAutoVTs}. Should you be so unfortunate as to
 still be running SysVinit in 2020, ttys are configured in \path{/etc/inittab}\footnote{If you're one of those people who pine for SysVinit, your opinions are bad, and you should feel bad.}.
 On FreeBSD, \path{/etc/ttys} plays a similar role\cite{fbsdttys5}. \texttt{getty},
