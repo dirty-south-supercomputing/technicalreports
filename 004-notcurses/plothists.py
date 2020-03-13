@@ -12,7 +12,8 @@ plt.figure(figsize=(20,8))
 suffixes = ['ns', 'bytes']
 for suf in suffixes:
     total = pd.DataFrame()
-    bases = ['xfce4-terminal-383x74', 'alacritty-382x74', 'kitty-382x74-nvidia']
+    bases = ['xfce4-terminal-80x52', 'alacritty-80x55', 'kitty-80x55']
+#    bases = ['xfce4-terminal-383x74', 'alacritty-382x74', 'kitty-382x74-nvidia']
     for b in bases:
         for i in range(1,6):
             print('data/d0-' + b + '-' + str(i))
