@@ -1777,7 +1777,7 @@ int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize, const 
 \end{listing}
 
 Sometimes, you've got a chunk of RGBA or BGRx in memory, and just want to blast
-it onto a plane as quickly as possible. Blitting functions (see Listing~\ref{list:blitting}
+it onto a plane as quickly as possible. Blitting functions (see Listing~\ref{list:blitting})
 exist to transform such pixels into Unicode Block Elements. Every two input rows
 become a single row, using half-blocks when necessary. Columns are mapped 1-to-1.
 This functionality was used, for instance, to set up Notcurses as a rendering
