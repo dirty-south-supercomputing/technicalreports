@@ -257,13 +257,33 @@ process will be sent \texttt{SIGTTOU} if it attempts to write to the terminal
 when the TOSTOP tty flag is valid, or attempts to reconfigure the terminal in
 any way\cite{sigterminals}.
 
-\textbf{FIXME FIXME acquisition of a tty (getty->login, ssh->pty),
-  internals of kernel tty/pty devices, session groups, signal distribution,
-  \texttt{/dev/tty} and \texttt{/dev/ttyXX}s}
-My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
-\textbf{FIXME diagrams!}
+Finally, it's worth knowing how terminals get turned into login sessions. Under
+\texttt{systemd-logind}\cite{logind}, \texttt{agetty} processes are launched
+on demand (i.e. on first transition to the virtual console), on \texttt{ttyN}
+through the value of \texttt{NAutoVTs}. Should you be so unfortunate as to
+still be running SysVinit in 2020, ttys are configured in \path{/etc/inittab}\footnote{If you're one of those people who pine for SysVinit, your opinions are bad, and you should feel bad.}.
+On FreeBSD, \path{/etc/ttys} plays a similar role\cite{fbsdttys5}. \texttt{getty},
+\texttt{agetty} et al condition the line (if necessary), prompt for a login
+name, and then invoke \texttt{login} or a similar program. \texttt{login} prompts
+for a password (or \texttt{sshd} performs authentication by myriad means), and
+if the user is authenticated, \texttt{exec(2)s} a login shell as a new session.
+This login shell inherits the terminal file descriptors from parent processes,
+and passes them (by default) to its children.
 
-\textbf{cover systemd-logind, getty, logind.conf, sd-login}
+Environment variables are also inherited across process boundaries, and by the
+time the login shell is run, the all-important \texttt{LANG} and \texttt{TERM}
+variables ought have been set. \texttt{LANG} defaults are based off the contents
+of \path{/etc/locale.conf}. \texttt{TERM} is generally set by the terminal emulator itself,
+or by \texttt{getty} on the console. It's critical to have a correct \texttt{TERM}
+value, and misinformation on configuring it runs rampant. Besides the NCURSES FAQ\cite{ncursesfaq},
+I find the nosh project's \texttt{TERM} page\cite{noshterm} to be an excellent
+resource, along of course with the \texttt{term(7)} man page\cite{term7}. You
+will likely want to manually ensure that \texttt{COLORTERM} is properly defined
+for 24-bit TrueColor, assuming your terminal supports it.
+
+My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
+\textbf{FIXME FIXME FIXME diagrams!}
+
 \subsection{Escape codes ANSI and otherwise}
 \label{sec:escapes}
 

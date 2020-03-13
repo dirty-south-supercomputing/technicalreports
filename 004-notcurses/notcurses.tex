@@ -1593,67 +1593,75 @@ static inline int ncplane_vline(struct ncplane* n, const cell* c, int len){
 Rectangles are regularly required as borders and for grouping. Notcurses supports
 flexible box drawing. Boxes have their upper-left corner at the current cursor
 position, unless drawn with \texttt{ncplane\_perimeter()}, which draws along the
-edges of the plane (and has its upper-left corner at the plane origin).
+edges of the plane (and has its upper-left corner at the plane origin). Box-drawing
+functions accept six \texttt{cell} objects, one for each corner, one for horizontal
+lines, and one for vertical lines. It is possible to apply linear interpolation
+between the corners, in which case the colors of the horizontal and vertical
+line-drawing cells will be ignored. It is possible to draw none, all, or any set
+of the four corners and none, all, or any set of the four sides. These configurable
+behaviors are specified via the \texttt{ctlword} bitmask parameter.
+
+\texttt{ctlword} is defined in the least significant byte, where bits 4--7 are a
+gradient mask, and 0--3 are a border mask:
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Constant & Bit & Propery \\
+    \hline
+    \hline
+    \texttt{NCBOXGRAD\_TOP} & 0x010 & Left side linear interpolation \\
+    \hline
+    \texttt{NCBOXMASK\_RIGHT} & 0x002 & Inhibit right \\
+    \hline
+    \texttt{NCBOXMASK\_BOTTOM} & 0x004 & Inhibit bottom \\
+    \hline
+    \texttt{NCBOXMASK\_LEFT} & 0x008 & Inhibit left \\
+    \hline
+    \texttt{NCBOXMASK\_TOP} & 0x001 & Inhibit top \\
+    \hline
+    \texttt{NCBOXGRAD\_RIGHT} & 0x020 & Bottom side linear interpolation \\
+    \hline
+    \texttt{NCBOXGRAD\_BOTTOM} & 0x040 & Right side linear interpolation \\
+    \hline
+    \texttt{NCBOXGRAD\_LEFT} & 0x080 & Top side linear interpolation \\
+    \hline
+    x & 0x100 & Require 1 connecting edge to draw corner \\
+    \hline
+    x & 0x200 & Require 2 connecting edges to draw corner \\
+    \hline
+    x & 0x300 & Draw no corners \\
+    \hline
+  \end{tabular}
+  \caption{\texttt{ctlword} parameter for box-drawing.}
+  \label{table:boxes}
+\end{table}
+
+By default, vertexes are drawn whether their connecting edges are drawn or
+not. The value of the bits corresponding to \texttt{NCBOXCORNER\_MASK} (0x300)
+control this, and are interpreted as the number of connecting edges necessary to draw a
+given corner. At 0 (the default), corners are always drawn. At 3, corners
+are never drawn (as at most 2 edges can touch a box's corner).
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
-#define NCBOXMASK_TOP    0x0001
-#define NCBOXMASK_RIGHT  0x0002
-#define NCBOXMASK_BOTTOM 0x0004
-#define NCBOXMASK_LEFT   0x0008
-#define NCBOXGRAD_TOP    0x0010
-#define NCBOXGRAD_RIGHT  0x0020
-#define NCBOXGRAD_BOTTOM 0x0040
-#define NCBOXGRAD_LEFT   0x0080
-#define NCBOXCORNER_MASK 0x0300
-#define NCBOXCORNER_SHIFT 8u
-\end{minted}
-\caption{Bitmasks for configuring box drawing's \texttt{ctlword} parameter.}
-\label{list:boxbitmasks}
-\end{listing}
+int ncplane_box(struct ncplane* n, const cell* ul, const cell* ur, const cell* ll, const cell* lr,
+                const cell* hline, const cell* vline, int ystop, int xstop, unsigned ctlword);
 
-\begin{listing}[!htbp]
-\begin{minted}{C}
-// Draw a box with its upper-left corner at the current cursor position, and its
-// lower-right corner at 'ystop'x'xstop'. The 6 cells provided are used to draw the
-// upper-left, ur, ll, and lr corners, then the horizontal and vertical lines.
-// 'ctlword' is defined in the least significant byte, where bits [7, 4] are a
-// gradient mask, and [3, 0] are a border mask:
-//  * 7, 3: top
-//  * 6, 2: right
-//  * 5, 1: bottom
-//  * 4, 0: left
-// If the gradient bit is not set, the styling from the hl/vl cells is used for
-// the horizontal and vertical lines, respectively. If the gradient bit is set,
-// the color is linearly interpolated between the two relevant corner cells.
-//
-// By default, vertexes are drawn whether their connecting edges are drawn or
-// not. The value of the bits corresponding to NCBOXCORNER_MASK control this,
-// and are interpreted as the number of connecting edges necessary to draw a
-// given corner. At 0 (the default), corners are always drawn. At 3, corners
-// are never drawn (as at most 2 edges can touch a box's corner).
-int ncplane_box(struct ncplane* n, const cell* ul, const cell* ur,
-                const cell* ll, const cell* lr, const cell* hline,
-                const cell* vline, int ystop, int xstop,
-                unsigned ctlword);
-
-// Draw a box with its upper-left corner at the current cursor position, having
-// dimensions 'ylen'x'xlen'. See ncplane_box() for more information. The
-// minimum box size is 2x2, and it cannot be drawn off-screen.
+// Draw a box with its upper-left corner at the current cursor position, having dimensions 'ylen'x'xlen'.
+// See ncplane_box() for more information. The minimum box size is 2x2, and it cannot be drawn off-screen.
 static inline int
-ncplane_box_sized(struct ncplane* n, const cell* ul, const cell* ur,
-                  const cell* ll, const cell* lr, const cell* hline,
-                  const cell* vline, int ylen, int xlen, unsigned ctlword){
+ncplane_box_sized(struct ncplane* n, const cell* ul, const cell* ur, const cell* ll,
+                  const cell* lr, const cell* hline, const cell* vline, int ylen, int xlen, unsigned ctlword){
   int y, x;
   ncplane_cursor_yx(n, &y, &x);
-  return ncplane_box(n, ul, ur, ll, lr, hline, vline, y + ylen - 1,
-                     x + xlen - 1, ctlword);
+  return ncplane_box(n, ul, ur, ll, lr, hline, vline, y + ylen - 1, x + xlen - 1, ctlword);
 }
 
 static inline int
-ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur,
-                  const cell* ll, const cell* lr, const cell* hline,
-                  const cell* vline, unsigned ctlword){
+ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur, const cell* ll,
+                  const cell* lr, const cell* hline, const cell* vline, unsigned ctlword){
   if(ncplane_cursor_move_yx(n, 0, 0)){
     return -1;
   }
@@ -1667,7 +1675,7 @@ ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur,
 \end{listing}
 
 \subsection{Gradients and polyfills}
-\texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph.
+\texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph (Listing~\ref{list:polyfill}).
 That coordinate will be filled with the provided \texttt{cell}. The function
 then effectively recurses on all cardinally connected coordinates, thus filling
 a bounded region with the provided cell. This operation is akin to the ``flood
@@ -1687,8 +1695,9 @@ int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
 
 A single EGC and attribute can be written to a rectangular region in any of
 a single color, a vertical, horizontal, or diagonal gradient, or a 4-cornered
-``inverted radial'' gradient. The gradient operation is independently applied
-to both the fore- and background of 4 64-bit channel parameters.
+``inverted radial'' gradient (see Listing~\ref{list:gradients}). The gradient
+operation is independently applied to both the fore- and background of 4 64-bit
+channel parameters.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -1767,6 +1776,15 @@ int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize, const 
 \label{list:blitting}
 \end{listing}
 
+Sometimes, you've got a chunk of RGBA or BGRx in memory, and just want to blast
+it onto a plane as quickly as possible. Blitting functions (see Listing~\ref{list:blitting}
+exist to transform such pixels into Unicode Block Elements. Every two input rows
+become a single row, using half-blocks when necessary. Columns are mapped 1-to-1.
+This functionality was used, for instance, to set up Notcurses as a rendering
+backend for NEStopia and RetroArch, and these functions form the heart of the
+multimedia functionality described in Chapter~\ref{sec:libav}. Note that these
+functions do not offer any scaling capabilities.
+
 \subsection{Staining}
 \label{sec:staining}
 Consult Chapter~\ref{sec:outputtext} for the ``stainable'' family of text output
@@ -1782,8 +1800,7 @@ int ncplane_format(struct ncplane* n, int ystop, int xstop, uint32_t attrword);
 
 // Set the given channels throughout the specified region, keepying content and
 // attributes otherwise unchanged.
-int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul,
-                  uint64_t ur, uint64_t ll, uint64_t lr);
+int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr);
 \end{minted}
 \caption{Changing attributes or channels in isolation.}
 \label{list:stain}
@@ -1994,8 +2011,7 @@ typedef struct selector_options {
   uint64_t bgchannels;   // background channels, used only in body
 } selector_options;
 
-struct ncselector* ncselector_create(struct ncplane* n, int y, int x,
-                                     const selector_options* opts);
+struct ncselector* ncselector_create(struct ncplane* n, int y, int x, const selector_options* opts);
 \end{minted}
 \caption{Selector creation.}
 \end{listing}
