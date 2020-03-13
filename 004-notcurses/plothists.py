@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 sns.set(style="darkgrid")
 
+plt.figure(figsize=(10,6))
+
 total = pd.DataFrame()
 bases = ['xfce4-terminal-80x52', 'alacritty-80x55', 'kitty-80x55']
 for b in bases:
@@ -21,7 +23,27 @@ for b in bases:
         print(runs.keys())
         print(runs.values())
         nruns = json_normalize(runs);
+        nruns.insert(0, "Term", b.split('-')[0])
         total = pd.concat([total, nruns], ignore_index=True)
 print(total)
-ax = sns.swarmplot(data=total)
+print('*********************************')
+for k in total.keys():
+    tokes = k.split('.')
+    if len(tokes) == 2 and tokes[1] != "ns":
+        total.drop(columns=k, inplace=True)
+print(total)
+print('*********************************')
+print(total.keys())
+mtotal = pd.melt(total,
+                 id_vars=["Term"],
+                 var_name="Demo")
+print(mtotal)
+mtot = mtotal.astype({'value':'int64'}).sort_values("value", ascending=True)
+print(mtot)
+
+fig, lax = plt.subplots()
+lax.set(yscale="log", ylim=[1000000, 40000000000])
+ax = sns.swarmplot(x="Demo", y='value', data=mtot,  hue="Term", orient='v', dodge=True, ax=lax)
+plt.legend(bbox_to_anchor=(1, 1), loc=2)
 plt.show()
+#plt.savefig('swarmplot.png', dpi=350)
