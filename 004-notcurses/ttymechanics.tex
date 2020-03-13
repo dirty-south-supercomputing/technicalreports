@@ -274,7 +274,8 @@ Environment variables are also inherited across process boundaries, and by the
 time the login shell is run, the all-important \texttt{LANG} and \texttt{TERM}
 variables ought have been set. \texttt{LANG} defaults are based off the contents
 of \path{/etc/locale.conf}. \texttt{TERM} is generally set by the terminal emulator itself,
-or by \texttt{getty} on the console. It's critical to have a correct \texttt{TERM}
+or by \texttt{getty} on the console, and it is always forwarded by ssh\footnote{There is an exception; ssh does not forward \texttt{TERM} when the \texttt{-T}
+parameter explicitly inhibits pty allocation.}. It's critical to have a correct \texttt{TERM}
 value, and misinformation on configuring it runs rampant. Besides the NCURSES FAQ\cite{ncursesfaq},
 I find the nosh project's \texttt{TERM} page\cite{noshterm} to be an excellent
 resource, along of course with the \texttt{term(7)} man page\cite{term7}. You

@@ -4,8 +4,8 @@ static void unlock_mutex(void* vlock){ pthread_mutex_unlock(vlock); }
 static void* rotator_thread(void* vmarsh){
   struct tetmarsh* marsh = vmarsh;
   const float sector = M_PI * 2 / TETRIMINO_COUNT;
-  const float ssector = M_PI * 2 / 36; // 10deg movements, so 18 sec/s
-  const uint64_t NSTOS = 1000000000ull / 18;
+  const float ssector = M_PI * 2 / 18; // 20deg movements, so 18 sec/s
+  const uint64_t NSTOS = 1000000000ull / 9;
   struct timespec stime;
   clock_gettime(CLOCK_MONOTONIC, &stime);
   uint32_t iterations = 0;

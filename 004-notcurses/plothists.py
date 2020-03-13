@@ -3,6 +3,9 @@
 import seaborn as sns
 import pandas as pd
 from pandas.io.json import json_normalize
+import matplotlib.pyplot as plt
+
+sns.set(style="darkgrid")
 
 total = pd.DataFrame()
 bases = ['xfce4-terminal-80x52', 'alacritty-80x55', 'kitty-80x55']
@@ -20,4 +23,5 @@ for b in bases:
         nruns = json_normalize(runs);
         total = pd.concat([total, nruns], ignore_index=True)
 print(total)
-sns.catplot(data=total)
+ax = sns.swarmplot(data=total)
+plt.show()
