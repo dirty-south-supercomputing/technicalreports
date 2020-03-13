@@ -56,7 +56,7 @@ Modern workstations support a variety of physical and virtual terminal devices:
     Ring indicator & 22 & 9 & x & DCE \\
     \hline
   \end{tabular}
-  \caption[RS-232/EIA-232 pin mappings]{RS-232/EIA-232 D-subminiature pins (DCE=Data circuit equip., DTE=Data terminal equip.)}
+  \caption[RS-232/EIA-232 pin mappings]{RS-232/EIA-232 pins (DCE=Data circuit equipment, DTE=Data terminal equipment)}
   \label{table:serial}
 \end{table}
 
@@ -159,8 +159,8 @@ to support virtual teletype functionality, wherein a process plays the role
 of hardware. Pseudoterminals\footnote{You might
  hear about both System V and BSD pseudoterminals. SUS standardized around
 the System V form, known on Linux as ``UNIX 98''. This term refers to 1997's
-SUSv2 ¯\textbackslash\_(ツ)\_/¯. BSD ptys look like \texttt{/dev/ttyLN} and \texttt{/dev/ptyLN}, and are
-garbage.} back most terminal instances, including GUI terminal emulators, network
+SUSv2 ¯\textbackslash\_(ツ)\_/¯. Trash BSD ptys look like \texttt{/dev/ttyLN} and \texttt{/dev/ptyLN}.}
+back most terminal instances, including GUI terminal emulators, network
 services such as SSH, and multiplexers such as \texttt{screen}. A pty provides a
 bidirectional channel between a \textit{master} and \textit{slave}, with the
 slave presenting a classic terminal interface (i.e. writing a Ctrl+C to the
