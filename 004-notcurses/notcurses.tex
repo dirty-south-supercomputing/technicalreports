@@ -1674,6 +1674,83 @@ ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur, const cell*
 \label{list:boxes}
 \end{listing}
 
+It can be tedious to set up the six \texttt{cell} parameters to these functions. Since
+boxes are typically drawn with one of a small number of sets of EGCs, helper functions
+are provided for each set. I usually go with the pleasantly rounded ``Light Arc'' Box
+Drawing codes (Listing~\ref{list:roundboxes}).
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+static inline int
+cells_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                  cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+  return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╭╮╰╯─│");
+}
+
+static inline int
+ncplane_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                    int ystop, int xstop, unsigned ctlword){
+  int ret = 0;
+  cell ul = CELL_TRIVIAL_INITIALIZER, ur = CELL_TRIVIAL_INITIALIZER;
+  cell ll = CELL_TRIVIAL_INITIALIZER, lr = CELL_TRIVIAL_INITIALIZER;
+  cell hl = CELL_TRIVIAL_INITIALIZER, vl = CELL_TRIVIAL_INITIALIZER;
+  if((ret = cells_rounded_box(n, attr, channels, &ul, &ur, &ll, &lr, &hl, &vl)) == 0){
+    ret = ncplane_box(n, &ul, &ur, &ll, &lr, &hl, &vl, ystop, xstop, ctlword);
+  }
+  cell_release(n, &ul); cell_release(n, &ur);
+  cell_release(n, &ll); cell_release(n, &lr);
+  cell_release(n, &hl); cell_release(n, &vl);
+  return ret;
+}
+
+static inline int
+ncplane_rounded_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, int ylen, int xlen, unsigned ctlword){
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_rounded_box(n, attr, channels, y + ylen - 1, x + xlen - 1, ctlword);
+}
+\end{minted}
+\caption{Helpers for rounded-corner boxes.}
+\label{list:roundboxes}
+\end{listing}
+
+Or, if you prefer, there are the strong, sure Double Box Drawing characters (Listing~\ref{list:doubleboxes}).
+
+\begin{listing}[!htbp]
+\begin{minted}{C}
+static inline int
+cells_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                 cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+  return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╔╗╚╝═║");
+}
+
+static inline int
+ncplane_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                   int ystop, int xstop, unsigned ctlword){
+  int ret = 0;
+  cell ul = CELL_TRIVIAL_INITIALIZER, ur = CELL_TRIVIAL_INITIALIZER;
+  cell ll = CELL_TRIVIAL_INITIALIZER, lr = CELL_TRIVIAL_INITIALIZER;
+  cell hl = CELL_TRIVIAL_INITIALIZER, vl = CELL_TRIVIAL_INITIALIZER;
+  if((ret = cells_double_box(n, attr, channels, &ul, &ur, &ll, &lr, &hl, &vl)) == 0){
+    ret = ncplane_box(n, &ul, &ur, &ll, &lr, &hl, &vl, ystop, xstop, ctlword);
+  }
+  cell_release(n, &ul); cell_release(n, &ur);
+  cell_release(n, &ll); cell_release(n, &lr);
+  cell_release(n, &hl); cell_release(n, &vl);
+  return ret;
+}
+
+static inline int
+ncplane_double_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, int ylen, int xlen, unsigned ctlword){
+  int y, x;
+  ncplane_cursor_yx(n, &y, &x);
+  return ncplane_double_box(n, attr, channels, y + ylen - 1, x + xlen - 1, ctlword);
+}
+\end{minted}
+\caption{Helpers for doubly-thicc boxes.}
+\label{list:doubleboxes}
+\end{listing}
+
 \subsection{Gradients and polyfills}
 \texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph (Listing~\ref{list:polyfill}).
 That coordinate will be filled with the provided \texttt{cell}. The function
@@ -1697,7 +1774,7 @@ A single EGC and attribute can be written to a rectangular region in any of
 a single color, a vertical, horizontal, or diagonal gradient, or a 4-cornered
 ``inverted radial'' gradient (see Listing~\ref{list:gradients}). The gradient
 operation is independently applied to both the fore- and background of 4 64-bit
-channel parameters.
+channel parameters. Palette-indexed color is not yet supported for gradients.
 
 \begin{listing}[!htbp]
 \begin{minted}{C}
@@ -1709,8 +1786,6 @@ channel parameters.
 // horizontal gradient, 'ul' ought equal 'll' and 'ur' ought equal 'ul'. To
 // color everything the same, all four channels should be equivalent. The
 // resulting alpha values are equal to incoming alpha values.
-//
-// Palette-indexed color is not supported.
 //
 // Preconditions for gradient operations (error otherwise):
 //
