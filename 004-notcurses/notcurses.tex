@@ -1751,7 +1751,35 @@ that uses more than two colors, but it might be useful to interpolate given the
 small total number of possible colors. Some bored graduate student ought look
 into this.
 
-\textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/}
+Certain sets of Unicode characters form cyclic groups. These can be useful for
+simple, single-cell animations, e.g. work-indicating ``spinners''. I've isolated
+some of these groups in Table~\ref{table:cyclics}. Smaller groups can usually
+be isolated from larger groups: as an example, the eight-way HALF-SQUARE cycle
+yields two four-way subcycles and four two-way subcycles.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{|l|l|p{.6\linewidth}|}
+    \hline
+    Size & Glyphs & Comments \\
+    \hline
+    \hline
+    2 & \texttt{▱▰} & Parallelogram \\
+    \hline
+    4 & \texttt{◰◳◲◱} & Note that they're out of order \\
+    \hline
+    8 & \textbackslash{}|/-\textbackslash{}|/- & Approximate, but it works everywhere. \\
+    \hline
+    8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & You can get a kinda neat ``barber-pole'' effect by alternating e.g. \texttt{◩◪} and offsetting by either 0 or 1 each period. \\
+    \hline
+    \textbf{FIXME} & \textbf{FIXME} & \textbf{FIXME} \\ 
+    \hline
+  \end{tabular}
+  \caption{Cyclic groups in Unicode.}
+  \label{table:cyclics}
+\end{table}
+
+\textbf{FIXME} reversals, zalgo, \url{http://qaz.wtf/u/}
 
 \subsection{UTF-8}
 \textbf{FIXME FIXME FIXME also punycode}
