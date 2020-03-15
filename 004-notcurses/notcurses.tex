@@ -107,7 +107,7 @@ A Guide to TUIs and Character Graphics
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=1\linewidth]{media/ibm3270.jpg}
-\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A. \textit{Source: Jonathan Schilling}.}
+\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A \textit{(source: Jonathan Schilling)}.}
 \end{figure}
 \clearpage
 \vspace*{1in}
@@ -1472,9 +1472,25 @@ describing syllabary-based languages in seven or even eight bits is
 laughable\footnote{An octet character set for ``rudimentary form'' Japanese,
 containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 
-With the high bit of an octet byte going largely unused as a parity bit, the
-seven-bit character sets were rapidly expanded into a wide variety of eight-bit
-character sets (sometimes mistakenly referred to as ``extended'' or ``high'' ASCII).
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.5\linewidth]{media/cp437.png}
+  \caption{Code Page 00437, the IBM PC font immortalized by VGA.}
+  \label{fig:cp437}
+\end{figure}
+
+By the late 1970s, the eight-bit ``octet'' byte could be considered dominant\footnote{\href{https://en.wikipedia.org/wiki/8-bit_computing}{Wikipedia}
+would have you believe (as of 2020-03, anyway) that the System/360 introduced
+the eight-bit byte. The System/360 introduced a great many things, but according
+to my own research, the IBM Stretch of 1961 used an 8-bit data path three years
+prior. The last major sub-octet processor was probably the Intel 4004, and
+while the PDP-8 was a 12-bit machine, it often operated on 6-bit characters.}. The very first ANSI/ISO C standard (1989) established
+\texttt{CHAR\_BIT} to have a minimum value of 8\footnote{It can have a larger
+  value than 8, of course, and indeed does on many DSPs\cite{cookcharbit}. POSIX
+does mandate that \texttt{CHAR\_BIT}==8.}. With the high bit of an octet byte
+going largely unused as a parity bit, the seven-bit character sets were rapidly
+expanded into a wide variety of eight-bit character sets (sometimes mistakenly
+referred to as ``extended'' or ``high'' ASCII).
 
 \textbf{FIXME FIXME}
 
@@ -1671,13 +1687,57 @@ controlled. When used properly under aligned stars, however, emoji can make
 your TUI pop like nothing else.
 
 \subsection{Stupid Unicode tricks}
-Perhaps the single most useful Unicode character is U+2580 UPPER HALF BLOCK (▀),
-or alternatively its inverse U+2584 LOWER HALF BLOCK (▄).
+Perhaps the single most useful Unicode character is U+2580 UPPER HALF BLOCK
+(\texttt{▀}), or alternatively its inverse U+2584 LOWER HALF BLOCK
+(\texttt{▄}). By using these together with both a foreground and background,
+it is possible to treat a region of cells as a ``framebuffer'' having twice the
+vertical resolution as the number of occupied lines, and perhaps more importantly
+having a cell aspect ratio of 1:1. With this technique, it's trivial to blit
+RGBA as provided by e.g. image decoders and get good results (this is exactly
+what's done in Notcurses's media layer, see Chapter~\ref{sec:libav}). A smart
+implementation will, when possible, replace a HALF BLOCK plus two RGB specifications
+with U+2588 FULL BLOCK and a single foreground RGB. A smarter implementation
+still will, when possible, replace a FULL BLOCK with a space and a single
+background RGB\footnote{This optimization is not possible when, for instance,
+the alphas are anything other than \texttt{CELL\_ALPHA\_OPAQUE}.}, though this
+optimization saves only 2 bytes compared to the dozen or so saved by eliding
+an RGB escape. Notcurses effects both optimizations.
 
-\textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/, half blocks}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/blockelements.png}
+    \caption{Unicode 13.0 Block Elements \textit{(source: \href{https://commons.wikimedia.org/wiki/File:UCB_Block_Elements.png}{Antonsusi} under CCA3.0)}.}
+\end{figure}
+
+Unfortunately, it's difficult to take this technique any further. There are
+U+258C LEFT HALF BLOCK (\texttt{▌}) and U+2590 RIGHT HALF BLOCK (\texttt{▐}):
+they exacerbate the character cell aspect ratio problem, but can still be
+useful for rendering certain surfaces in tall, thin geometries. A single cell
+can be divided up to 8 ways using the eighths blocks, but only being able to
+supply two colors (not to mention the resulting aspect ratio) means this can't
+be easily used for 8x resolution. There are three incompletely-filled shades of
+U+2588 FULL BLOCK, which could conceivably be used to increase the color range
+by a factor of 4, but the 24-bit RGB space is already pretty large---resolution
+is a much more precious resource.
+
+Those readers who remember Code Page 437 might recall 0xFD, a ``middle half
+block''. Given a constant background, this can be used with the other two
+half blocks to increase ``vertical resolution'' by a factor of 3 (imagine a
+tank drawn with upper, middle, and lower half blocks moving on a monochromatic
+background). Well, that character was actually ``Solid Square/Histogram/Square Bullet''
+in the CP437 definitions\cite{cp437}, and lives on as U+25A0 BLACK SQUARE (\texttt{■}).
+Despite its name, it will take on the foreground color.
+
+It might be useful to use the quadrant characters to effect a 2x2 resolution
+doubling. The quadrants cannot yield a lossless reproduction for any 2x2 block
+that uses more than two colors, but it might be useful to interpolate given the
+small total number of possible colors. Some bored graduate student ought look
+into this.
+
+\textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/}
 
 \subsection{UTF-8}
-\textbf{FIXME FIXME FIXME}
+\textbf{FIXME FIXME FIXME also punycode}
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{planes}
@@ -2487,12 +2547,12 @@ transparency.
 \end{figure}
 
 \begin{figure}
-  \centering \includegraphics[width=.75\linewidth]{media/demo-chunli1.png}
+  \centering \includegraphics[width=.65\linewidth]{media/demo-chunli1.png}
   \caption{``Chunli''. Sprite animation.}
 \end{figure}
 
 \begin{figure}
-  \centering \includegraphics[width=.75\linewidth]{media/demo-chunli2.png}
+  \centering \includegraphics[width=.65\linewidth]{media/demo-chunli2.png}
   \caption{``Chunli''. Sprite animation.}
 \end{figure}
 

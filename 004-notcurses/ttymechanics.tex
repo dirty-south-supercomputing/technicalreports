@@ -313,3 +313,25 @@ non-destructive backspace to produce composed characters from spacing ones.
 This had been eliminated by ISO 4873, ECMA-43, and ISO 8859.
 
 \textbf{FIXME FIXME other stuff}
+
+\subsection{Terminfo}
+\label{sec:terminfo}
+While developing the editor \texttt{ex}, a precursor to the great \texttt{vi},
+Bill Joy implemented for BSD a database and set of functions abstracting away
+the differences between terminal emulators (inspired by similar capabilities of
+MIT's Incompatible Timesharing System\cite{itspdp}).
+The terminal abstraction layer was ready-made for release as the original termcap
+in 1968 (Ken Arnold would a few years later genericize the cursor optimization
+routines as the original BSD Curses\cite{arnold1977}). The termcap database
+(\path{/etc/termcap}) is indexed by terminal type and two-letter property name,
+and maps them to boolean, numeric, and string capabilities.
+
+Termcap has a number of limitations, and its use in new programs is strongly
+discouraged. In its place is recommended terminfo, a more powerful scheme
+originally introduced as part of Mary Ann Horton's\footnote{Previously Mark
+Horton.} AT\&T curses\cite{horton1982}.
+
+\textbf{FIXME}
+
+The terminfo database and API are specified in SUS, much like Curses (and indeed
+the libtinfo installed on most Linux machines is shipped as part of NCURSES).
