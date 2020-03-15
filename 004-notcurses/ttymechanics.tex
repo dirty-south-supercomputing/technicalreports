@@ -69,6 +69,14 @@ Line disciplines can be found in \texttt{/proc/tty/ldiscs}. The only line discip
 you're likely to encounter in a terminal context is \texttt{n\_tty}, the ``new tty''
 discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
 
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.65\linewidth]{dot/tty-serial.png}
+  \caption[A serial console, from hardware to userspace.]
+  {A serial console, from hardware to userspace. Adapted from \cite{ttydemystified}.}
+  \label{fig:ttysetups}
+\end{figure}
+
 POSIX.1-2017\cite{posix2017} §10.1 ``Directory Structure and Devices''
 specifies three special files in the \texttt{/dev} directory, of which two are
 related to the terminal/console system: \texttt{/dev/tty} is, within a process
@@ -155,6 +163,14 @@ without waiting for a newline character, while retaining e.g. Ctrl+C.}
   line discipline, but e.g. Ctrl+C behavior is lost, and (if desired) must be
   emulated in user space.}
 \end{denseitemize}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.85\linewidth]{dot/tty-vesafb.png}
+  \caption[VESA + USB virtual console, from hardware to userspace.]
+  {VESA + USB virtual console, from hardware to userspace. Adapted from \cite{ttydemystified}.}
+  \label{fig:vesasetups}
+\end{figure}
 
 In addition to these physically-backed devices, ptys---pseudoterminal devices\cite{pty7}---exist
 to support virtual teletype functionality, wherein a process plays the role
@@ -288,23 +304,6 @@ I find the nosh project's \texttt{TERM} page\cite{noshterm} to be an excellent
 resource, along of course with the \texttt{term(7)} man page\cite{term7}. You
 will likely want to manually ensure that \texttt{COLORTERM} is properly defined
 for 24-bit TrueColor, assuming your terminal supports it.
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=.65\linewidth]{dot/tty-serial.png}
-  \caption{A serial console, from hardware to userspace.}
-  \label{fig:ttysetups}
-\end{figure}
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=.85\linewidth]{dot/tty-vesafb.png}
-  \caption{VESA + USB virtual console, from hardware to userspace.}
-  \label{fig:vesasetups}
-\end{figure}
-
-Figures~\ref{fig:ttysetups} and \ref{fig:vesasetups} are adapted from those of
-\cite{ttydemystified}.
 
 \subsection{Escape codes ANSI and otherwise}
 \label{sec:escapes}
