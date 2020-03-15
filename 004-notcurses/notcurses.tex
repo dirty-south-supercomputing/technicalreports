@@ -98,7 +98,7 @@ A Guide to TUIs and Character Graphics
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace*{1.25in}
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=1\linewidth]{media/ibm3270.jpg}
 \caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A. \textit{Source: Jonathan Schilling}.}
@@ -343,7 +343,7 @@ have its origins in the 8-bit era, and shows its age.
   \label{fig:ncurses-tuis}
 \end{figure}
 
-\begin{figure}[!htbp] \centering
+\begin{figure}[!htb] \centering
     \includegraphics[width=.4\linewidth]{media/tui-mapscii.png}
     \hfill
     \includegraphics[width=.4\linewidth]{media/tui-growlight.png}
@@ -377,7 +377,7 @@ This text has two goals:
       library, and as a starting place for newcomers.}
 \end{denseitemize}
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.5\linewidth]{media/emacs-xerox.jpg}
   \caption{Put not your trust in hackers making a fetish of Xerox PARC.}
   \label{fig:xeroxemacs}
@@ -462,7 +462,7 @@ changed. \texttt{NULL} is returned for any number of possible errors.
 Otherwise, the \texttt{struct ncdirect} is ready to go, and should be cleaned
 up with \texttt{ncdirect\_stop()}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Initialize a direct-mode notcurses context on the connected terminal at 'fp'. 'fp' must be a tty. You'll usually
 // want stdout. Direct mode supportes a limited subset of notcurses routines which directly affect 'fp', and neither
@@ -482,7 +482,7 @@ As detailed in Chapter~\ref{sec:channels}, the terminal has a ``default foregrou
 and ``default background color''. Return to these default colors with
 \texttt{ncdirect\_fg\_default()} and \texttt{ncdirect\_bg\_default()}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 int ncdirect_bg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
 int ncdirect_fg_rgb8(struct ncdirect* n, unsigned r, unsigned g, unsigned b);
@@ -500,7 +500,7 @@ int ncdirect_bg_default(struct ncdirect* n);
 
 Direct mode provides helpers for determining the terminal geometry.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 int ncdirect_dim_x(const struct ncdirect* nc);
 int ncdirect_dim_y(const struct ncdirect* nc);
@@ -513,7 +513,7 @@ two-dimensional space. Either \texttt{y} or \texttt{x} may be specified as -1
 to maintain location on the associated axis. Attempting to move the cursor
 beyond the screen is an error.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 int ncdirect_cursor_move_yx(struct ncdirect* n, int y, int x);
 int ncdirect_cursor_enable(struct ncdirect* nc);
@@ -526,7 +526,7 @@ int ncdirect_cursor_disable(struct ncdirect* nc);
 Mark Z. Danielewski's experimental 2000 novel \textit{\textcolor{blue}{House} of Leaves}\cite{danielewski2000house} prints each
 instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.5\linewidth]{house-blue.png}
 \caption{An excerpt from page 123 of \textit{\textcolor{blue}{House} of Leaves}.}
 \label{fig:houseofleaves}
@@ -542,13 +542,13 @@ stdout---generally needs to check the results of e.g. \texttt{printf()} (what
 happens if we're redirected to a file, and the disk is full?). A language
 making use of exceptions would reduce if not eliminate this nonsense.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \inputminted[]{C}{code/hol-formatter.c}
 \caption{\texttt{hol-formatter.c}, a streaming formatter.}
 \label{list:holformatter}
 \end{listing}
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.75\linewidth]{hol-formatted.png}
 \caption[\texttt{hol-formatter} as run on OCRd input.]{\texttt{hol-formatter} as run on our input. We use \texttt{tesseract} for OCR, with solid results.}
 \label{fig:houseout}
@@ -580,7 +580,7 @@ whatever happens to them.
 \subsection{Example: colorizing a dumb game}
 Imagine we've written the simple guessing game in Listing~\ref{list:guessgame}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \inputminted[]{C}{code/hilostdio.c}
 \caption{\texttt{hilostdio.c}, a simple guessing game.}
 \label{list:guessgame}
@@ -595,7 +595,7 @@ logarithmic distance\footnote{This would be a good place to employ \gls{gamma co
 If we wanted to do this (see Listing~\ref{list:hilodirect}) without direct use of RGB color,
 we'd either need accept fewer shades, or be forced to reprogram the palette.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \inputminted[]{C}{code/hilodirect.c}
 \caption{\texttt{hilodirect.c}, a colorized version of the guessing game.}
 \label{list:hilodirect}
@@ -609,7 +609,7 @@ is left as an exercise for the reader.}, we get the expected gradient
 (Figure~\ref{fig:colorguess}). Were we to actually play, the response would
 converge to a balanced, strong green as we approached the correct answer.
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.75\linewidth]{media/hilodirect.png}
 \caption{Colorized output from~\texttt{hilodirect.c}.}
 \label{fig:colorguess}
@@ -679,7 +679,7 @@ geometry changes (see Chapter~\ref{sec:uiwidgets}).
 
 Notcurses prepares a given terminal for fullscreen mode in \texttt{notcurses\_init()}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Initialize a notcurses context on the connected terminal at 'fp'. 'fp' must
 // be a tty. You'll usually want stdout. Returns NULL on error, including any
@@ -703,7 +703,7 @@ information on character encodings), and its capabilities on US-ASCII
 are \textit{severely} constrained. \texttt{notcurses\_init()} will return an
 error for any other encoding (see Figure~\ref{fig:encodingfail}).
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.7\linewidth]{media/notcurses-init-fails.png}
 \caption{Notcurses refusing to start due to an unsupported character encoding.}
 \label{fig:encodingfail}
@@ -762,7 +762,7 @@ The fields therein include:
     option. Not using the alternate screen can look weird upon return to the
     shell (see Figure~\ref{fig:altscreen}).
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
 \centering \includegraphics[width=.7\linewidth]{media/no-alternate-screen.png}
 \caption[Inhibiting use of the alternate screen.]{\texttt{notcurses-demo} can be invoked with \texttt{-k} to avoid
   using the alternate screen. Here, we see its output left on the screen as
@@ -781,7 +781,7 @@ The fields therein include:
     field to disable these outputs, but be aware that doing so might hide
     important warnings (see Figure~\ref{fig:banner}).
 
-    \begin{figure}[!htbp]
+    \begin{figure}[!htb]
       \centering \includegraphics[width=.7\linewidth]{media/notcurses-banner.png}
       \caption[Notcurses initialization warnings.]{Initializing Notcurses without 24-bit color support will
         generate a warning, hopefully provoking your users to set it up.}
@@ -809,7 +809,7 @@ The fields therein include:
     they will be left uncleared. The margins are recomputed on a resize.
 \end{denseitemize}
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=.75\linewidth]{media/margins.png}
     \caption{Margins can be used around the rendering area.}
@@ -827,7 +827,7 @@ planes can be destroyed in one call with \texttt{notcurses\_drop\_planes()} (not
 that it is not necessary to call this prior to \texttt{notcurses\_stop()}; the
 latter cleans up all resources associated with the context).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Get a reference to the standard plane (one matching our current idea of the
 // terminal size) for this terminal. The standard plane always exists, and its
@@ -878,7 +878,7 @@ to hook some UI event (usually Ctrl+L) to \texttt{notcurses\_refresh()}, which
 redraws every cell on the display according to the internal Notcurses
 framebuffer.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Refresh our idea of the terminal's dimensions, reshaping the standard plane
 // if necessary. References to ncplanes (and the egcpools underlying cells)
@@ -905,7 +905,7 @@ the screen. When you've got your stack how you want it, and only then, invoke
 \texttt{notcurses\_render()}. It is an exclusive function---any concurrent use
 of the same \texttt{struct notcurses} is undefined.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Make the physical screen match the virtual screen. Changes made to the
 // virtual screen (i.e. most other calls) will not be visible until after a
@@ -1084,7 +1084,7 @@ engaging them. These differences are encoded in the terminfo database\cite{termi
 The Notcurses hides the differences where it can, and is built around those
 capabilities which are most widely supported. Some applications, however, will
 want to know details of the underlying implementation.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Returns a 16-bit bitmask of supported curses-style attributes (NCSTYLE_UNDERLINE, NCSTYLE_BOLD,
 // etc.). The attribute is only indicated as supported if the terminal can support it together
@@ -1151,7 +1151,7 @@ Statistics available include:
 \item{\texttt{planes}: The current number of planes. Will never drop below 1.}
 \end{denseitemize}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 typedef struct ncstats {
   // purely increasing (cumulative) stats
@@ -1319,7 +1319,7 @@ Table~\ref{table:c0maps}). These characters can be entered by pressing Ctrl
 along with another key from ASCII; these combinations are defined using
 ``caret notation''.
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \texttt{%
   \begin{tabular}{ |c||c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c| }
@@ -1355,7 +1355,7 @@ CR and LF, the various caret controls can there be recovered and redefined. Shou
 you really want to send \texttt{SIGINT} via 'a' rather than Ctrl+C, that's where
 you can do it.
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{ |c|c|c|p{.5\textwidth}| }
     \hline
@@ -1402,6 +1402,13 @@ you can do it.
 \end{table}
 
 \subsection{Eight-bit character sets messily diverge}
+\begin{wrapfigure}{o}{0.5\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{wrapfigure}
+
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
 for working with English\footnote{As far as this author knows, ASCII
 can faithfully represent only (modern) English, Latin, and Swahili.}, but even
@@ -1411,13 +1418,6 @@ Greek) would need replace the graphic characters wholesale. The idea of
 describing syllabary-based languages in seven or even eight bits is
 laughable\footnote{An octet character set for ``rudimentary form'' Japanese,
 containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
-
-\begin{wrapfigure}{O}{0.5\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
-\label{fig:charset-timeline}
-\end{wrapfigure}
 
 With the high bit of an octet byte going largely unused as a parity bit, the
 seven-bit character sets were rapidly expanded into a wide variety of eight-bit
@@ -1436,7 +1436,14 @@ Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đ
 
 \subsection{Consilience: the Universal Character Set}
 \label{sec:ucs}
-\begin{table}[h]
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1.1\linewidth]{media/unicode-growth.png}
+  \caption{2020's Unicode 13.0 ships 143,859 character definitions.}
+  \label{fig:unicodegrowth}
+\end{figure}
+
+\begin{table}[!htb]
   \begin{center}
     \begin{tabular}{ |c|p{.65\textwidth}| }
       \hline
@@ -1482,7 +1489,7 @@ UCS\footnote{Once upon a time, these other sixteen planes were known as the
 Astral Planes\cite{astralplanes}.}, however, and UTF-16 requires two code
 units to encode points from these other 16 planes (0x10000--0x10ffff).
 
-\begin{table}[h]
+\begin{table}[!htb]
   \begin{center}
     \begin{tabular}{ |c|c|p{.6\textwidth}| }
       \hline
@@ -1509,6 +1516,44 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
 
 \textbf{FIXME FIXME FIXME}
 
+\subsection{Fixed-width fonts ain't so fixed}
+
+Notcurses assumes that all glyphs occupy widths which are an integral multiple
+of the smallest possible glyph's cell width (aka a ``fixed-width font'').
+Unicode introduces characters which generally occupy two such cells, known as
+wide characters (though in the end, width of a glyph is a property of the
+font). It is not possible to print half of such a glyph, nor is it generally
+possible to print a wide glyph on the last column of a terminal.
+
+Notcurses does not consider it an error to place a wide character on the last
+column of a line. It will obliterate any content which was in that cell, but
+will not itself be rendered. The default content will not be reproduced in such
+a cell, either. When any character is placed atop a wide character's left or
+right half, the wide character is obliterated in its entirety. When a wide
+character is placed, any character under its left or right side is annihilated,
+including wide characters. It is thus possible for two wide characters to sit
+at columns 0 and 2, and for both to be obliterated by a single wide character
+placed at column 1.
+
+Likewise, when rendering, a plane which would partially obstruct a wide glyph
+prevents it from being rendered entirely. A pathological case would be that of
+a terminal $n$ columns in width, containing $n-1$ planes, each 2 columns wide.
+The planes are placed at offsets $[0\ldots n-2]$. Each plane is above the plane to
+its left, and each plane contains a single wide character. Were this to be
+rendered, only the rightmost glyph would be visible!
+
+Finally, fonts and font engines which yield glyphs wider (or narrower) than
+\texttt{wcwidth()} would lead Notcurses to believe can cause problems. It is
+best to avoid EGCs known to be very wide, or to avoid fonts which generate very
+wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\linewidth]{media/wide-unicode.png}
+\caption[Some very wide Unicode glyphs]{Some very wide Unicode glyphs (font: Hack 10)}
+\label{fig:wideglyphs}
+\end{figure}
+
 \subsection{Emoji}
 \textbf{FIXME FIXME FIXME}
 
@@ -1521,7 +1566,7 @@ glyphs, and some layout engines will map pairs of these symbols to flags. The
 UCS \textit{does not} contain national ``flag emoji'' (it does have some other
 flags, though---see Table~\ref{table:flags}).
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{|l|l|l|}
   \hline
@@ -1547,59 +1592,31 @@ There are also official and non-official EGCs that commonly render flags, rangin
 from the Jolly Roger (U+1F3F4+U200D+U2620+UFE0F, \xelatexemoji{1f3f4-200d-2620-fe0f}),
 Gilbert Baker's rainbow flag (U1F3F3+U200D+U1F308+UFE0F, \xelatexemoji{1f3f3-200d-1f308+fe0f}) and even Monica Helms's
 transgender flag (U1F3F3+U200D+U26A7+UFE0F, \xelatexemoji{1f3f3-200d-26a7-fe0f}).
-If you don't like the latter, you can of course throw U20E0 COMBINING ENCLOSING
+If you don't like the latter, you can always throw U20E0 COMBINING ENCLOSING
 CIRCLE BACKSLASH atop it:\xelatexemoji{1f3f3-200d-1f308-20e0-fe0f}. It's a big Unicode tent, and there are plenty
 of EGCs for everybody.
 
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=1.1\linewidth]{media/unicode-growth.png}
-  \caption{2020's Unicode 13.0 ships 143,859 character definitions.}
-  \label{fig:unicodegrowth}
-\end{figure}
+The downside of using such complexly combined EGCs is of course that what's
+intended to be a single EGC can be broken into multiple EGCs by the font
+rendering system. Suddenly, instead of \xelatexemoji{1f3f4-200d-2620-fe0f}
+you've got an inscrutable \texttt{🏴☠}. To add insult to injury, this will
+almost certainly screw up geometry through the end of the line, since Notcurses
+will have an incorrect concept of the cursor's horizontal position. This
+assumes that the font in use has even the basic component glyphs---in the very
+limited Linux console font, it's unlikely that anything good can come of using
+composed emoji. Note furthermore that while it is sometimes possible to set the
+background color of colored emoji, the foreground color can only rarely be
+controlled. When used properly under aligned stars, however, emoji can make
+your TUI pop like nothing else.
 
-\subsection{UTF-8}
 \subsection{Stupid Unicode tricks}
+Perhaps the single most useful Unicode character is U+2580 UPPER HALF BLOCK (▀),
+or alternatively its inverse U+2584 LOWER HALF BLOCK (▄).
+
 \textbf{FIXME} cyclic groups, reversals, zalgo, \url{http://qaz.wtf/u/, half blocks}
 
-\subsection{Fixed-width fonts ain't so fixed}
-
-Notcurses assumes that all glyphs occupy widths which are an integral multiple
-of the smallest possible glyph's cell width (aka a ``fixed-width font'').
-Unicode introduces characters which generally occupy two such cells, known as
-wide characters (though in the end, width of a glyph is a property of the
-font). It is not possible to print half of such a glyph, nor is it generally
-possible to print a wide glyph on the last column of a terminal.
-
-Notcurses does not consider it an error to place a wide character on the last
-column of a line. It will obliterate any content which was in that cell, but
-will not itself be rendered. The default content will not be reproduced in such
-a cell, either. When any character is placed atop a wide character's left or
-right half, the wide character is obliterated in its entirety. When a wide
-character is placed, any character under its left or right side is annihilated,
-including wide characters. It is thus possible for two wide characters to sit
-at columns 0 and 2, and for both to be obliterated by a single wide character
-placed at column 1.
-
-Likewise, when rendering, a plane which would partially obstruct a wide glyph
-prevents it from being rendered entirely. A pathological case would be that of
-a terminal $n$ columns in width, containing $n-1$ planes, each 2 columns wide.
-The planes are placed at offsets $[0\ldots n-2]$. Each plane is above the plane to
-its left, and each plane contains a single wide character. Were this to be
-rendered, only the rightmost glyph would be rendered!
-
-Finally, fonts and font engines which yield glyphs wider (or narrower) than
-\texttt{wcwidth()} would lead Notcurses to believe can cause problems. It is
-best to avoid EGCs known to be very wide, or to avoid fonts which generate very
-wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=1\linewidth]{media/wide-unicode.png}
-\caption[Some very wide Unicode glyphs]{Some very wide Unicode glyphs (font: Hack 10)}
-\label{fig:wideglyphs}
-\end{figure}
-
+\subsection{UTF-8}
+\textbf{FIXME FIXME FIXME}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{planes}
@@ -1614,7 +1631,7 @@ wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 \section{Lines, boxes, and fills}
 \subsection{Linear interpolation (``lerping'') and lines}
 \label{sec:lerps}
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Draw horizontal or vertical lines using the specified cell, starting at the
 // current cursor position. The cursor will end at the cell following the last
@@ -1654,7 +1671,7 @@ behaviors are specified via the \texttt{ctlword} bitmask parameter.
 \texttt{ctlword} is defined in the least significant byte, where bits 4--7 are a
 gradient mask, and 0--3 are a border mask:
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
@@ -1694,7 +1711,7 @@ control this, and are interpreted as the number of connecting edges necessary to
 given corner. At 0 (the default), corners are always drawn. At 3, corners
 are never drawn (as at most 2 edges can touch a box's corner).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 int ncplane_box(struct ncplane* n, const cell* ul, const cell* ur, const cell* ll, const cell* lr,
                 const cell* hline, const cell* vline, int ystop, int xstop, unsigned ctlword);
@@ -1729,7 +1746,7 @@ boxes are typically drawn with one of a small number of sets of EGCs, helper fun
 are provided for each set. I usually go with the pleasantly rounded ``Light Arc'' Box
 Drawing codes (Listing~\ref{list:roundboxes}).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 static inline int
 cells_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
@@ -1766,7 +1783,7 @@ ncplane_rounded_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, i
 
 Or, if you prefer, there are the strong, sure Double Box Drawing characters (Listing~\ref{list:doubleboxes}).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 static inline int
 cells_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
@@ -1808,7 +1825,7 @@ then effectively recurses on all cardinally connected coordinates, thus filling
 a bounded region with the provided cell. This operation is akin to the ``flood
 fill'' of pixel graphics.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Starting at the specified coordinate, if it has no glyph, 'c' is copied into
 // it. We do the same to all cardinally-connected glyphless cells, filling in
@@ -1826,7 +1843,7 @@ a single color, a vertical, horizontal, or diagonal gradient, or a 4-cornered
 operation is independently applied to both the fore- and background of 4 64-bit
 channel parameters. Palette-indexed color is not yet supported for gradients.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Draw a gradient with its upper-left corner at the current cursor position,
 // stopping at 'ystop'x'xstop'. The glyph composed of 'egc' and 'attrword' is
@@ -1883,7 +1900,7 @@ static inline int ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uin
 
 \subsection{Blitting}
 \label{sec:blitting}
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Blit a flat array 'data' of BGRx 32-bit values to the ncplane 'nc', offset from the upper left by
 // 'placey' and 'placex'. Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4
@@ -1917,7 +1934,7 @@ functions, allowing EGCs to be replaced without affecting attributes or channels
 To modify attributes or channels in isolation but \textit{en masse}, Notcurses
 provides \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Set the given style throughout the specified region, keepying content and
 // channels otherwise unchanged.
@@ -1939,7 +1956,7 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 
 \textbf{FIXME FIXME FIXME}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
 // of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
@@ -1988,7 +2005,7 @@ Media decoding and scaling is handled by libAV from FFmpeg, resulting in a
 corresponding to a renderable scene on the associated plane. If Notcurses
 is built without FFMpeg support, these functions will all return error.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Open a visual (image or video), associating it with the specified ncplane.
 // Returns NULL on any error, writing the AVError to 'averr'.
@@ -2019,7 +2036,7 @@ char* ncvisual_subtitle(const struct ncvisual* ncv);
 \end{listing}
 
 \subsection{Streaming video/animated GIFs.}
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Called for each frame rendered from 'ncv'. If anything but 0 is returned,
 // the streaming operation ceases immediately, and that value is propagated out.
@@ -2064,7 +2081,7 @@ int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
 \end{listing}
 
 \subsection{Scaling images and video}
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
 // plane tailored to the visual's exact needs, which is probably larger than the
@@ -2108,7 +2125,7 @@ widget is active, even if the removed pair is currently selected. Removing the
 last pair does not destroy the widget, and it is possible to create the widget
 with no pairs.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 struct selector_item {
   char* option;
@@ -2167,7 +2184,7 @@ struct ncselector* ncselector_create(struct ncplane* n, int y, int x, const sele
   \caption{Naked selector.}
 \end{figure}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 int ncselector_additem(struct ncselector* n, const struct selector_item* item);
 int ncselector_delitem(struct ncselector* n, const char* item);
@@ -2215,7 +2232,7 @@ any unrolled section will be visible. Menus may be either visible or invisible
 by default. Set the `hiding` option to get an invisible menu. In the event of a
 screen resize, menus will be automatically moved/resized.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 typedef struct menu_options {
   bool bottom;              // on the bottom row, as opposed to top row
@@ -2263,7 +2280,7 @@ struct ncmenu* ncmenu_create(struct notcurses* nc, const menu_options* opts);
       and at the bottom the About text, both implemented as translucent planes.}
 \end{figure}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Unroll the specified menu section, making the menu visible if it was
 // invisible, and rolling up any menu section that is already unrolled.
