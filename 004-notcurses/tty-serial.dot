@@ -1,0 +1,44 @@
+digraph G {
+  newrank=true;
+  subgraph cluster_Serialconsole {
+    label="True direct-attached serial terminal w/ console=/dev/ttyS1";
+    subgraph cluster_hardware {
+      label="Hardware";
+      color=lightgrey;
+      style=filled;
+      Terminal->UART [ dir="both" label="9-wire RS-232 cable (up to 15m)" ]
+      Terminal [ shape=box style=filled fillcolor=steelblue label="DEC VT520" ]
+      UART [ shape=box style=filled fillcolor=steelblue label="16550 UART" ]
+      { rank=same; Terminal UART } 
+    }
+    subgraph cluster_kernel {
+      label="Kernel";
+      color=darkgreen;
+      style=filled;
+      subgraph cluster_tty {
+        ldisc [ shape=tab style=filled fillcolor=limegreen label="n_tty.c\n(ldisc)" ]
+        ttyio [ shape=tab style=filled fillcolor=limegreen label="tty_buffer.c" ]
+        label="tty.ko";
+        color=darkolivegreen;
+        style=filled;
+        shape=folder;
+        ldisc->ttyio [dir="both"];  
+      }
+      Serial [ shape=folder style=filled fillcolor=limegreen label="8250.ko" ] 
+      Serial->ldisc [dir="both"];
+      console [shape=folder style=filled fillcolor=limegreen label="/dev/console" ]
+      ttyio->console
+      { rank=same; ldisc Serial }
+      { rank=same; ttyio console }
+    }
+    UART->Serial [dir="both" label="PIO/DMA" ]
+    subgraph cluster_userspace {
+      getty [ shape=ellipse style=filled fillcolor=gold2 label="getty /dev/tty1" ]
+      label="Userspace";
+      color=burlywood1;
+      style=filled;
+    }
+    ttyio->getty [ dir="both" ]
+  }
+  {rank=same; getty ttyio console}
+}

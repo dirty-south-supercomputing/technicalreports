@@ -28,7 +28,7 @@ Modern workstations support a variety of physical and virtual terminal devices:
 \item{Pseudoterminals hooked up to network connections.}
 \end{denseitemize}
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{ |c|c|c|c|c| }
     \hline
@@ -81,7 +81,9 @@ be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a generic na
 ``System Console'' as the device receiving messages sent by the \texttt{syslog()}
 function. On Linux, it will also reproduce messages written to \texttt{/dev/kmsg}\cite{dmesg}.};
 POSIX requires that the system console implement its ``General Terminal Interface'' (see
-\textit{ibid.} §11). \texttt{/dev/tty0} is a special device on Linux linked to
+\textit{ibid.} §11). The standard console will by default be \path{/dev/tty0}, but this
+can be changed with the \texttt{console=} kernel command line parameter, or with
+an explicit \texttt{ConOut} UEFI variable (see §11.4 of \cite{uefi}). \texttt{/dev/tty0} is a special device on Linux linked to
 the current virtual console (which might not be the system console). The
 available system consoles can be found in \texttt{/proc/consoles}.
 
@@ -96,14 +98,14 @@ providing access to the Unicode values of each cell\cite{vcs4}. If a framebuffer
 is being used, these devices are prepared atop some framebuffer device \texttt{/dev/fbN} (see
 Figure~\ref{fig:framebuffers}); these mappings can be managed with \texttt{con2fbmap(1)}.
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
   \centering
   \includegraphics[width=.75\linewidth]{media/framebuffers.png}
   \caption{Three different Linux framebuffer implementations.}
   \label{fig:framebuffers}
 \end{figure}
 
-\begin{table}[!htbp]
+\begin{table}[!htb]
   \centering
   \begin{tabular}{ |c|c|c|c|c|c| }
     \hline
@@ -234,7 +236,7 @@ display manager (which is \textbf{not} itself connected to a terminal). The
 \texttt{bash} at PID 41599 is the child of a \texttt{screen} process.
 \texttt{bash} at PID 846497 is a child of \texttt{sshd}.
 
-\begin{figure}[!htbp]
+\begin{figure}[!htb]
   \centering
 \begin{verbatim}
 [killermike](0) $ ps  --ppid 2 --deselect o pid,ppid,pgid,sid,tty,comm  | grep -v ?
@@ -287,8 +289,14 @@ resource, along of course with the \texttt{term(7)} man page\cite{term7}. You
 will likely want to manually ensure that \texttt{COLORTERM} is properly defined
 for 24-bit TrueColor, assuming your terminal supports it.
 
-My diagrams are adapted in part from those of Linus Akesson\cite{ttydemystified}.
-\textbf{FIXME FIXME FIXME diagrams!}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.75\linewidth]{dot/tty-serial.png}
+  \caption{A serial console, from hardware to userspace.}
+  \label{fig:ttysetups}
+\end{figure}
+
+Figure~\ref{fig:ttysetups} is adapted from those of \cite{ttydemystified}.
 
 \subsection{Escape codes ANSI and otherwise}
 \label{sec:escapes}

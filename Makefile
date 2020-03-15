@@ -30,6 +30,7 @@ VIEW:=evince
 NOTCURSESTEX:=$(addsuffix .tex, notcurses glossary input benchmarks output planes simpleloop termhistory ttymechanics)
 NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech \
           tetrimino tetrimino-input)
+DOTS:=$(addsuffix .png,$(addprefix $(NOTCURSESDIR)/dot/,tty-serial))
 
 all: reports
 
@@ -38,7 +39,7 @@ reports: $(REPORTS)
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
-$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS)
+$(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS) $(DOTS)
 	cd $(@D) && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
@@ -52,6 +53,10 @@ $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(ad
 
 $(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c
 	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
+
+$(NOTCURSESDIR)/dot/%.png: $(NOTCURSESDIR)/%.dot
+	@mkdir -p $(@D)
+	dot -Tpng $< > $@
 
 check:
 	cd $(NOTCURSESDIR) && checkcites --unused --backend biber notcurses
