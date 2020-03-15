@@ -84,7 +84,7 @@ context, a synonym for the controlling terminal associated with that process's
 group (this can also be acquired with \texttt{tty(1)} or the POSIX C function
 \texttt{ctermid(3)}\footnote{\texttt{/dev/tty} also uniquely supports the
 \texttt{TIOCNOTTY} \texttt{ioctl(2)} for detaching a process from its
-controlling terminal.}. The tty associated with an arbitrary file descriptor can
+controlling terminal.}). The tty associated with an arbitrary file descriptor can
 be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a generic name for the current system console\footnote{Defined in \textit{ibid.} §3.392
 ``System Console'' as the device receiving messages sent by the \texttt{syslog()}
 function. On Linux, it will also reproduce messages written to \texttt{/dev/kmsg}\cite{dmesg}.};
