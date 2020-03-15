@@ -133,8 +133,8 @@ A Guide to TUIs and Character Graphics
 %\includegraphics[width=1\linewidth]{media/widechars.png}
 %\end{center}
 
-%\cleardoublepage
-%\phantomsection
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
 \addcontentsline{toc}{section}{List of Listings}
@@ -146,7 +146,8 @@ A Guide to TUIs and Character Graphics
 
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Foreward}
+\addcontentsline{toc}{section}{Foreward}
+\section*{Foreward}
 Hacking the Planet with Notcurses:\\
 A Guide to Character Graphics and TUIs.
 
@@ -191,7 +192,8 @@ Tetris © The Tetris Company, LLC.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
 Please don't sue me.
 
-\subsection{¡Peligro!}
+\addcontentsline{toc}{subsection}{¡Peligro!}
+\subsection*{¡Peligro!}
 
 The code written for this book attempts to minimize use of vertical space
 without eliding error checking (or crossing into the realms of the grotesque).
@@ -209,13 +211,16 @@ Three irregular idioms show up frequently:
 \item{Extensive use of ||'s short-circuiting property.}
 \end{denseitemize}
 
-\subsection{Errata}
+\addcontentsline{toc}{subsection}{Errata}
+\subsection*{Errata}
 A list of errata for this First Edition is kept at\\
 
 \url{https://nick-black.com/dankwiki/index.php/Hacking\_The\_Planet!\_with\_Notcurses}\\
 
 Please contact me with corrections, either via mail at \href{mailto:nickblack@linux.com}{nickblack@linux.com},
-or via PR on \url{https://github.com/dirty-south-supercomputing/technicalreports}.
+or via PR on\\
+
+\url{https://github.com/dirty-south-supercomputing/technicalreports}.
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1348,9 +1353,10 @@ The first digital codes were the English telegraph system of Charles Wheatstone
 and William Cooke, and American Samuel Morse's code, with which he in 1837 famously
 signaled ``What hath God wrought!'' The Morse system was simpler, running
 over a single line, and quickly won out. The teleprinter of Jean-Maurice-Émile Baudot
-(from whom we derive the modern unit \textit{baud}) followed in 1874, with its pentabit,
-fixed-length Baudot code. Baudot code required 7.42 bittimes per character; at
-a typical 0.022s bittime, it could transmit just over 6 characters per second\cite{martin}.
+(from whom we derive the modern unit \textit{baud}) followed in
+1874\cite{evolutioncodes}, with its pentabit, fixed-length Baudot code. Baudot
+code required 7.42 bittimes per character; at a typical 0.022s bittime, it
+could transmit just over 6 characters per second\cite{martin}.
 
 For our purposes, the story can reasonably start with a 7-bit encoding of
 128 characters: ANSI X3.4-1986, perhaps better known as ASCII (Table~\ref{table:ascii}).
@@ -1466,7 +1472,8 @@ the top two bits of a 7-bit ASCII input. It might be less obvious that all
 miniscules are equal to the sum of 0x20 and their corresponding majuscule,
 allowing lowercase and uppercase to be switched by toggling the fifth (32) bit.
 Likewise, 0xDF provides a fast case-insensitive comparison mask. Numeric values
-for digits can be acquired by subtracing 0x30.
+for digits can be acquired by subtracing 0x30. Printable characters are all
+those with a 1 in any of the higher five bits, save 0x7F.
 
 \subsection{Eight-bit character sets messily diverge}
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
@@ -1748,6 +1755,13 @@ into this.
 
 \subsection{UTF-8}
 \textbf{FIXME FIXME FIXME also punycode}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/control-char-standards.png}
+    \caption{Flow of control characters through historic standards.}
+\end{figure}
+
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{planes}
