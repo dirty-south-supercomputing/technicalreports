@@ -1198,6 +1198,38 @@ void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 \caption{The statistics API.}
 \end{listing}
 
+\subsection{Use in multithreaded environments}
+\label{sec:fullthreads}
+To facilitate maximum performance, Notcurses does not perform any locking of
+its own\footnote{This might change if Notcurses begins to actively acquire
+input itself, necessary for certain desirable features. In that case, the
+locking would only be present in the input layer.}. All functions are safe
+for multiple threads to call with regards to system and standard library
+resources. Things become more complex when multiple threads wish to ``write''
+to Notcurses.
+
+As mentioned above, it is necessary that \texttt{notcurses\_render()} calls
+mutually exclude themselves, and also all other functions which mutate the
+context. This includes all functions which write to a plane, functions which
+change the ordering of planes (including deletion of a plane), and even
+statistics functions. With very few exceptions, calling any Notcurses function
+concurrently with \texttt{notcurses\_render()} is an error.
+
+Beyond this ``big rendering lock'', functions ought not generally be called
+concurrently on the same \texttt{ncplane}, unless all are reading. It is
+unsafe, for instance, to call \texttt{ncplane\_putegc()} (a writing function)
+concurrently with \texttt{ncplane\_cursor\_yx()} (a reading function). It
+might not be obvious that functions such as \texttt{ncplane\_at\_yx()} which
+write to a \texttt{cell} bound to the plane are writers, but supplying the
+\texttt{cell} might require writing to the plane's egcpool, and thus they are
+writers. In general, a function is only a reader if its \texttt{ncplane} argument
+is \texttt{const}.
+
+Concurrent operations on different planes are safe, unless they are changing
+the ordering along the z-axis. Note that \texttt{ncplane\_destroy()} updates
+the z-ordering by virtue of removing an element, and thus must not be called
+along with e.g. \texttt{ncplane\_move\_top()}.
+
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
