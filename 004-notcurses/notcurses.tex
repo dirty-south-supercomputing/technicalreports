@@ -1461,6 +1461,13 @@ you can do it.
   \label{table:c0maps}
 \end{table}
 
+From Table~\ref{table:c0maps}, it should be obvious that Ctrl essentially clears
+the top two bits of a 7-bit ASCII input. It might be less obvious that all
+miniscules are equal to the sum of 0x20 and their corresponding majuscule,
+allowing lowercase and uppercase to be switched by toggling the fifth (32) bit.
+Likewise, 0xDF provides a fast case-insensitive comparison mask. Numeric values
+for digits can be acquired by subtracing 0x30.
+
 \subsection{Eight-bit character sets messily diverge}
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
 for working with English\footnote{As far as this author knows, ASCII
@@ -1474,23 +1481,26 @@ containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=.5\linewidth]{media/cp437.png}
-  \caption{Code Page 00437, the IBM PC font immortalized by VGA.}
+  \includegraphics[width=.5\linewidth]{media/chart437.png}
+  \caption[The legendary Code Page 00437.]{Code Page 00437, the IBM PC font immortalized by VGA \textit{(Source: \href{https://int10h.org/oldschool-pc-fonts/readme/}{VileR} under CCA3.0)}.}
   \label{fig:cp437}
 \end{figure}
 
-By the late 1970s, the eight-bit ``octet'' byte could be considered dominant\footnote{\href{https://en.wikipedia.org/wiki/8-bit_computing}{Wikipedia}
+By the late 1970s, the eight-bit ``octet'' byte could be considered
+dominant\footnote{\href{https://en.wikipedia.org/wiki/8-bit\_computing}{Wikipedia}
 would have you believe (as of 2020-03, anyway) that the System/360 introduced
-the eight-bit byte. The System/360 introduced a great many things, but according
-to my own research, the IBM Stretch of 1961 used an 8-bit data path three years
-prior. The last major sub-octet processor was probably the Intel 4004, and
-while the PDP-8 was a 12-bit machine, it often operated on 6-bit characters.}. The very first ANSI/ISO C standard (1989) established
-\texttt{CHAR\_BIT} to have a minimum value of 8\footnote{It can have a larger
-  value than 8, of course, and indeed does on many DSPs\cite{cookcharbit}. POSIX
-does mandate that \texttt{CHAR\_BIT}==8.}. With the high bit of an octet byte
-going largely unused as a parity bit, the seven-bit character sets were rapidly
-expanded into a wide variety of eight-bit character sets (sometimes mistakenly
-referred to as ``extended'' or ``high'' ASCII).
+the eight-bit byte. The System/360 introduced a great many things, but
+according to my own research, the IBM Stretch 7030 of 1961 used an 8-bit data
+path three years prior\cite{ibmstretch}. The last major sub-octet processor
+was probably the Intel 4004, and while the PDP-8 was a 12-bit machine, it
+often operated on 6-bit characters.}. The very first ANSI/ISO C standard
+(1989) established \texttt{CHAR\_BIT} to have a minimum value of 8\footnote{It
+can have a larger value than 8, of course, and indeed does on many
+DSPs\cite{cookcharbit}. POSIX does mandate that \texttt{CHAR\_BIT}==8.}. With
+the high bit of an octet byte going largely unused as a parity bit, the
+seven-bit character sets were rapidly expanded into a wide variety of eight-bit
+character sets (sometimes mistakenly referred to as ``extended'' or ``high''
+ASCII).
 
 \textbf{FIXME FIXME}
 
