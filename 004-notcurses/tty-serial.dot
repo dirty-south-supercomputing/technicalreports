@@ -6,7 +6,7 @@ digraph G {
       label="Hardware";
       color=lightgrey;
       style=filled;
-      Terminal->UART [ dir="both" label="9-wire RS-232 cable (up to 15m)" ]
+      Terminal->UART [ dir="both" label="9-wire RS-232" labelloc="b" ]
       Terminal [ shape=box style=filled fillcolor=steelblue label="DEC VT520" ]
       UART [ shape=box style=filled fillcolor=steelblue label="16550 UART" ]
       { rank=same; Terminal UART } 
