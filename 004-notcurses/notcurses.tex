@@ -636,6 +636,19 @@ a startup period of one screen, during which the area scrolled above the HUD
 would be cleared. This could be avoided by aligning the HUD with the top of
 the terminal.
 
+\section{Use in multithreaded environments}
+\label{sec:directthreads}
+Direct mode calls reduce to a cached terminfo lookup and \texttt{fprint(3)}
+calls on the provided \texttt{FILE*}. The former is read-only; all necessary
+elements are acquired from terminfo at the time of context creation. The latter
+has the same thread semantics as \texttt{fprintf(3)}: while it is \textit{safe}
+for multiple threads to concurrently print to the same \texttt{FILE*}, there are
+no guarantees of ordering or even atomicity. Given the existence of multibyte
+UTF-8 output, let alone potentially lengthy escape sequences, it's thus practically
+necessary that multiple threads working with the same \texttt{FILE*} work exclusively.
+
+Multiple threads may freely call read-only functions such as \texttt{ncdirect\_fg()}.
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
