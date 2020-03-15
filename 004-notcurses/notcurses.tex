@@ -49,6 +49,12 @@ bibencoding=utf8,
 
 \tracinglostchars=2
 
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  pdftitle={Hacking the Planet with Notcurses},
+}
+
 \addbibresource{\jobname.bib}
 \usemintedstyle{friendly}
 \newenvironment{denseitemize}{
@@ -202,6 +208,14 @@ Three irregular idioms show up frequently:
 \item{Right-hand-side conditionals fed into |=, e.g. \texttt{r |= (printf("dank") < 0);}.}
 \item{Extensive use of ||'s short-circuiting property.}
 \end{denseitemize}
+
+\subsection{Errata}
+A list of errata for this First Edition is kept at\\
+
+\url{https://nick-black.com/dankwiki/index.php/Hacking\_The\_Planet!\_with\_Notcurses}\\
+
+Please contact me with corrections, either via mail at \href{mailto:nickblack@linux.com}{nickblack@linux.com},
+or via PR on \url{https://github.com/dirty-south-supercomputing/technicalreports}.
 
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1245,6 +1259,7 @@ along with e.g. \texttt{ncplane\_move\_top()}.
 \section{Character encodings and glyphs}\label{section:unicode}
 \label{sec:charsets}
 \epigraph{Thou whorseon zed, thou unnecessary letter!}{Wiliam Shakespeare, \textit{King Lear}}
+
 We'll be well-served by becoming familiar with our core building
 blocks---character sets and their rasterized forms. Even if we were to shrink
 the character cell to a single pixel, we'd still need write one or another
@@ -1308,7 +1323,7 @@ of switching among encodings at runtime. UNIX has its origins---and most of its
 modern UI---in a much smaller character set: ASCII.
 
 \subsection{Everyone loves ASCII}
-\begin{wrapfigure}{O}{.5\textwidth}
+\begin{wrapfigure}{o}{.5\textwidth}
   \fbox{%
     \parbox{0.5\textwidth}{
 In the early 1960s, an IBM employee on a dare ate a hallucinogenic tapeworm
@@ -1447,13 +1462,6 @@ you can do it.
 \end{table}
 
 \subsection{Eight-bit character sets messily diverge}
-\begin{wrapfigure}{o}{0.5\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
-\label{fig:charset-timeline}
-\end{wrapfigure}
-
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
 for working with English\footnote{As far as this author knows, ASCII
 can faithfully represent only (modern) English, Latin, and Swahili.}, but even
@@ -1563,6 +1571,13 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
 
 \subsection{Fixed-width fonts ain't so fixed}
 
+\begin{wrapfigure}{o}{0.4\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{wrapfigure}
+
 Notcurses assumes that all glyphs occupy widths which are an integral multiple
 of the smallest possible glyph's cell width (aka a ``fixed-width font'').
 Unicode introduces characters which generally occupy two such cells, known as
@@ -1635,9 +1650,9 @@ it is possible to generate the flag of the Great Socialist People's Libyan Arab 
 \end{table}
 
 There are also official and non-official EGCs that commonly render flags, including
-the Jolly Roger (U+1F3F4+U200D+U2620+UFE0F, \xelatexemoji{1f3f4-200d-2620-fe0f}),
-Gilbert Baker's rainbow flag (U1F3F3+U200D+U1F308+UFE0F, \xelatexemoji{1f3f3-200d-1f308+fe0f}) and even Monica Helms's
-transgender flag (U1F3F3+U200D+U26A7+UFE0F, \xelatexemoji{1f3f3-200d-26a7-fe0f}).
+the Jolly Roger (U+1F3F4, U+2620, \xelatexemoji{1f3f4-200d-2620-fe0f}),
+Gilbert Baker's rainbow flag (U+1F3F3, U+1F308, \xelatexemoji{1f3f3-200d-1f308+fe0f}) and even Monica Helms's
+transgender flag (U+1F3F3, U+26A7, \xelatexemoji{1f3f3-200d-26a7-fe0f}).
 If you don't like the latter, you can always throw U20E0 COMBINING ENCLOSING
 CIRCLE BACKSLASH atop it:\xelatexemoji{1f3f3-200d-1f308-20e0-fe0f}. It's a big Unicode tent, and there are plenty
 of EGCs for everybody.
