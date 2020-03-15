@@ -329,9 +329,7 @@ and maps them to boolean, numeric, and string capabilities.
 Termcap has a number of limitations, and its use in new programs is strongly
 discouraged. In its place is recommended terminfo, a more powerful scheme
 originally introduced as part of Mary Ann Horton's\footnote{Previously Mark
-Horton.} AT\&T curses\cite{horton1982}.
-
-\textbf{FIXME}
-
-The terminfo database and API are specified in SUS, much like Curses (and indeed
-the libtinfo installed on most Linux machines is shipped as part of NCURSES).
+Horton.} AT\&T curses\cite{horton1982}. Notcurses makes extensive use of terminfo,
+drawing from it all escapes save RGB. The terminfo database and API are
+specified in SUS, much like Curses (and indeed the libtinfo installed on most
+Linux machines is shipped as part of NCURSES).
