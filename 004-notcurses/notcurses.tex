@@ -179,15 +179,15 @@ to instruct. You should not have been charged to download this document. If
 you'd like to show thanks for my efforts, I encourage a donation to
 the~\href{https://www.thefire.org/}{Foundation for Individual Rights in Education} (\url{https://www.thefire.org/}).
 
-This work was prepared on a Debian Unstable workstation and an Arch Linux laptop,
-using Vim, \XeLaTeX, and the GIMP.
+This work was prepared on a Debian Unstable Linux workstation and an Arch Linux laptop,
+using Vim, \XeLaTeX, and the GIMP. A FreeBSD 12 machine was emulated with QEMU.
 
 Tetris © The Tetris Company, LLC.
 \textit{Hackers (1995)} © United Artists Pictures.
 \textit{House of Leaves (2000)} © Penguin Random House.
 ``Ruins with Rain'' © Mark Ferrari/Living Worlds.
 ``Final Fantasy'' © Square Enix Co Ltd.
-``Super Mario Bros.''© Nintendo of America.
+``Super Mario Bros.'' © Nintendo of America.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
 Please don't sue me.
@@ -1764,22 +1764,69 @@ yields two four-way subcycles and four two-way subcycles.
     Size & Glyphs & Comments \\
     \hline
     \hline
-    2 & \texttt{▱▰} & Parallelogram \\
+    2 & \texttt{▱▰} & Parallelogram. You can get a kinda neat ``barber-pole'' effect by alternating each period. \\
     \hline
     4 & \texttt{◰◳◲◱} & Note that they're out of order \\
     \hline
     8 & \textbackslash{}|/-\textbackslash{}|/- & Approximate, but it works everywhere. \\
     \hline
-    8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & You can get a kinda neat ``barber-pole'' effect by alternating e.g. \texttt{◩◪} and offsetting by either 0 or 1 each period. \\
+    8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
     \hline
     \textbf{FIXME} & \textbf{FIXME} & \textbf{FIXME} \\ 
     \hline
   \end{tabular}
-  \caption{Cyclic groups in Unicode.}
+  \caption{Some of Unicode's cyclic groups.}
   \label{table:cyclics}
 \end{table}
 
-\textbf{FIXME} reversals, zalgo, \url{http://qaz.wtf/u/}
+Certain transformations can be safely and more or less attractively applied
+to the entirety of the Latin alphabet:
+
+\begin{denseitemize}
+\item{\texttt{ⓦⓔ ⓒⓐⓝ ⓟⓤⓣ ⓞⓤⓡ ⓣⓔⓧⓣ ⓘⓝ ⓒⓘⓡⓒⓛⓔⓢ}}
+\item{\texttt{🅝🅔🅖🅐🅣🅘🅥🅔 🅒🅘🅡🅒🅛🅔🅢 🅐🅡🅔 🅐🅛🅢🅞 🅐🅥🅐🅘🅛🅐🅑🅛🅔}}
+\item{ｓｔｒｅｔｔｔｃｈ ｔｅｘｔ ｗｉｔｈ ｆｕｌｌｗｉｄｔｈ}
+\item{\texttt{🄴🅂🄲🄷🄴🅆 🄲🄸🅁🄲🄻🄴🅂 🄶🄴🅃 🅂🅀🅄🄰🅁🄴🅂}}
+\item{\texttt{🅰 🅱🅴🅰🆄🆃🅸🅵🆄🅻 🆄🆂🅴 🅾🅵 🅽🅴🅶🅰🆃🅸🆅🅴 🆂🆀🆄🅰🆁🅴🆂}}
+\item{\texttt{𝕞𝕒𝕥𝕙 𝕕𝕠𝕦𝕓𝕝𝕖 𝕤𝕥𝕣𝕦𝕔𝕜, 𝕗𝕠𝕣 𝕥𝕙𝕠𝕤𝕖 𝕨𝕙𝕠 𝕨𝕚𝕤𝕙 𝕥𝕠 𝕝𝕠𝕠𝕜 𝕝𝕚𝕜𝕖 ℝ\^𝕟}}
+\end{denseitemize}
+
+Others can be performed on a good chunk of Latin script, but are incomplete:
+
+\begin{denseitemize}
+\item{ᴘᴀᴄᴋ ᴍʏ ʙᴏx ᴡɪᴛʜ ꜰɪᴠᴇ ᴅᴏᴢᴇɴ ʟɪqᴜᴏʀ ᴊᴜɢꜱ (smallcaps)}
+\item{ₚₐcₖ ₘy bₒₓ wᵢₜₕ fᵢᵥₑ dₒzₑₙ ₗᵢqᵤₒᵣ ⱼᵤgₛ (subscripts)}
+\item{ᴾᵃᶜᵏ ᵐʸ ᵇᵒˣ ʷⁱᵗʰ ᶠⁱᵛᵉ ᵈᵒᶻᵉⁿ ˡⁱqᵘᵒʳ ʲᵘᵍˢ (superscripts)}
+\item{dɐɔʞ ɯʎ qox ʍıʇɥ ɟıʌǝ pozǝu ןıbnoɹ ɾnƃs (inverted)}
+\item{ꟼAↄk mY dox wiTH ꟻivɘ bozɘᴎ lipUoᴙ jUgꙅ (reversed)}
+\end{denseitemize}
+
+``Pseudoalphabets'' by the thousand exist. These simply substitute glyphs for
+others of which they are more or less suggestive. There's no real rhyme or
+reason behind these pseudoalphabets, but they can be useful if you need a
+different ``font''. Some examples are shown in Figure~\ref{fig:pseudoalphabets}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/pseudoalphabets.png}
+    \caption{Some of ``Eli the Bearded'''s pseudoalphabets from \url{http://qaz.wtf/u/}.}
+    \label{fig:pseudoalphabets}
+\end{figure}
+
+Finally, we can't speak of stupid Unicode tricks without mentioning
+\textit{zalgo}: \texttt{i̸̬̦͙̒̌̓͝n̴͛̓͋̈́͂̇̑̅̕e̵̎̈́̎̀̐̓͆͘͝l̴̠͛͂̃́̅̄̚͝u̷̾́̄̇́̎͂̚͝c̴̡̟̜̉̈́̋͂̈́̎t̵́͊̂̑̑̇̒̃̄å̵̰͎̫̅̿̏͂̽b̷̛͋̎́͛́͋̈͌l̷̰͎̫͐̑̈͛͆͝e̴̱̋̾̃̒̏͘͘̕m̸̆͋͌̍̉͆͌͛̓ȍ̷̡̜̭͙̞̣̎̚d̴̐̃͆̈́̽̔̐̀͝ä̸́̑̐̒͊̔̾́̕l̶̨̡̙̳̭̮̠̼͝i̷̋̆̌̿̎̃̋̚̚ṯ̷̱̫̺͗͒̔͆̄ẏ̷̡̛̮͈͑̓́͊ȏ̵͋̅́̋͒̐̇͝f̸̛̃͐͒̈̾̆̕͠t̶͈̱̠͋̑̊̿̇͘h̷̰͚̳̳̤͗̓͗̄e̴͇͙̜̿͐́̎̌͘ṽ̶̌̈́́́̈́͌͂͘i̷̛͊̒̏̄̀̅͠͝s̸̯̘͍̝͓̈́ͅͅì̵̃͊̇͗̄̋̇͘b̷̃̎̓͛̊̾͘̚̚l̶̯̼͎͉̎͛̆͠e̷̙͊̇̿͗̃͊̓́}. Dump enough
+diacritics into an EGC, and the result is a somewhat Cthulhian garble (it's not
+quite squamous, and I wouldn't go so far as to call it eldritch, but I suppose
+it's \textit{unheimlich}). Trying to investigate zalgo led down a Reddit hole
+of madness; I mention it only for completeness, and as an excuse to include
+Figure ~\ref{fig:zalgo}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\linewidth]{media/zalgo.png}
+    \caption{Past, present, future, all are one in Yog-Sothoth.}
+    \label{fig:zalgo}
+\end{figure}
 
 \subsection{UTF-8}
 \textbf{FIXME FIXME FIXME also punycode}
