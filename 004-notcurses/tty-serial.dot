@@ -27,7 +27,7 @@ digraph G {
       Serial [ shape=folder style=filled fillcolor=limegreen label="8250.ko" ] 
       Serial->ldisc [dir="both"];
       console [shape=folder style=filled fillcolor=limegreen label="/dev/console" ]
-      ttyio->console
+      ldisc->console
       { rank=same; ldisc Serial }
       { rank=same; ttyio console }
     }

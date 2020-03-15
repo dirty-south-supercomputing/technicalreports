@@ -1,0 +1,42 @@
+digraph G {
+  newrank=true;
+  subgraph cluster_vesafb {
+    label="VESAFB virtual console with 3 VTs+lightdm";
+    subgraph cluster_hardware {
+      label="Hardware";
+      color=lightgrey;
+      style=filled;
+      framebuffer->vga
+      keyboard->usb
+      mouse->usb
+      usb->xhci
+      { rank=same; vga usb } 
+    }
+    subgraph cluster_kernel {
+      label="Kernel";
+      color=darkgreen;
+      style=filled;
+      subgraph cluster_tty {
+        ldisc [ shape=tab style=filled fillcolor=limegreen label="n_tty.c\n(ldisc)" ]
+        fbcon [ shape=tab style=filled fillcolor=limegreen label="fbcon.c" ]
+        label="fbcon.ko";
+        color=darkolivegreen;
+        style=filled;
+        ldisc->fbcon [dir="both"];  
+      }
+      vesafb [ shape=tab style=filled fillcolor=limegreen label="vesafb.ko" ]
+      ldisc->vesafb
+    }
+    subgraph cluster_userspace {
+      getty1 [ shape=ellipse style=filled fillcolor=gold2 label="getty /dev/tty1" ]
+      getty2 [ shape=ellipse style=filled fillcolor=gold2 label="getty /dev/tty2" ]
+      getty3 [ shape=ellipse style=filled fillcolor=gold2 label="getty /dev/tty3" ]
+      label="Userspace";
+      color=burlywood1;
+      style=filled;
+    }
+    fbcon->getty1
+    fbcon->getty2
+    fbcon->getty3
+  }
+}
