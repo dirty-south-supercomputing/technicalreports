@@ -1,0 +1,48 @@
+\section{Collecting and dispatching input}
+\label{sec:input}
+
+To enter arbitrary Unicode using the keyboard, try pressing Ctrl+Shift+u. If
+successful, you ought see an underlined or otherwise stylized lowercase 'u'.
+The Unicode code point can be entered (each number will show up as you type it),
+followed by Enter. The sequence will then reduce to an EGC.
+
+\textbf{FIXME FIXME FIXME}
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
+// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
+// Signals in sigmask (less several we handle internally) will be atomically
+// masked and unmasked per ppoll(2). It should generally contain all signals.
+// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
+// be NULL. Returns 0 on a timeout. If an event is processed, the return value
+// is the 'id' field from that event. 'ni' may be NULL.
+char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts, sigset_t* sigmask, ncinput* ni);
+
+// 'ni' may be NULL if the caller is uninterested in event details. If no event
+// is ready, returns 0.
+static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
+  sigset_t sigmask;
+  sigfillset(&sigmask);
+  struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
+  return notcurses_getc(n, &ts, &sigmask, ni);
+}
+
+// 'ni' may be NULL if the caller is uninterested in event details. Blocks
+// until an event is processed or a signal is received.
+static inline char32_t notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
+  sigset_t sigmask;
+  sigemptyset(&sigmask);
+  return notcurses_getc(n, NULL, &sigmask, ni);
+}
+
+// Enable the mouse in "button-event tracking" mode with focus detection and
+// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
+// is returned, and mouse events will be published to notcurses_getc().
+int notcurses_mouse_enable(struct notcurses* n);
+
+// Disable mouse events. Any events in the input queue can still be delivered.
+int notcurses_mouse_disable(struct notcurses* n);
+\end{minted}
+\end{listing}
+

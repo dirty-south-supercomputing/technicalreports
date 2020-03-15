@@ -138,7 +138,7 @@ A Guide to TUIs and Character Graphics
 \clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Foreward}
 Hacking the Planet with Notcurses:\\
@@ -180,7 +180,7 @@ Tetris © The Tetris Company, LLC.
 \textit{House of Leaves (2000)} © Penguin Random House.
 ``Ruins with Rain'' © Mark Ferrari/Living Worlds.
 ``Final Fantasy'' © Square Enix Co Ltd.
-``Super Mario Bros.'' © Nintendo of America.
+``Super Mario Bros.''© Nintendo of America.
 ``Ninja Gaiden'' © Koei Tecmo America.
 ``Street Fighter II'' and ``Mega Man 2'' © Capcom of America.
 Please don't sue me.
@@ -266,7 +266,7 @@ The console ain't dead! Hack on, hax0rs.
   \textit{---February 2020, Atlanta}
 \end{flushright}
 
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \vfill
@@ -283,7 +283,7 @@ The console ain't dead! Hack on, hax0rs.
   the desktop can be seen through the transparent background of the terminal.}
 \end{figure}
 \vfill
-\newpage
+\cleardoublepage
 
 \section{Right, what's all this, then?}
 \label{sec:start}
@@ -426,7 +426,7 @@ IBM 3277 Model 2 ``green screen'' shipped with 80x24.}.
 
 I mainly use this modern marvel to drive terminal emulators of 80 columns.
 
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Using direct mode with standard I\/O}
@@ -636,7 +636,7 @@ a startup period of one screen, during which the area scrolled above the HUD
 would be cleared. This could be avoided by aligning the HUD with the top of
 the terminal.
 
-\section{Use in multithreaded environments}
+\subsection{Use in multithreaded environments}
 \label{sec:directthreads}
 Direct mode calls reduce to a cached terminfo lookup and \texttt{fprint(3)}
 calls on the provided \texttt{FILE*}. The former is read-only; all necessary
@@ -649,7 +649,7 @@ necessary that multiple threads working with the same \texttt{FILE*} work exclus
 
 Multiple threads may freely call read-only functions such as \texttt{ncdirect\_fg()}.
 
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Using fullscreen mode}
@@ -1198,16 +1198,16 @@ void notcurses_reset_stats(struct notcurses* nc, ncstats* stats);
 \caption{The statistics API.}
 \end{listing}
 
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{simpleloop.tex}
 \pagebreak
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{ttymechanics.tex}
 \pagebreak
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Character encodings and glyphs}\label{section:unicode}
@@ -1630,15 +1630,15 @@ or alternatively its inverse U+2584 LOWER HALF BLOCK (▄).
 
 \subsection{UTF-8}
 \textbf{FIXME FIXME FIXME}
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{planes}
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % output and styling
 \input{output}
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
@@ -1961,53 +1961,11 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 \label{list:stain}
 \end{listing}
 
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Collecting and dispatching input}
-\label{sec:input}
-
-\textbf{FIXME FIXME FIXME}
-
-\begin{listing}[!htb]
-\begin{minted}{C}
-// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
-// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
-// Signals in sigmask (less several we handle internally) will be atomically
-// masked and unmasked per ppoll(2). It should generally contain all signals.
-// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
-// be NULL. Returns 0 on a timeout. If an event is processed, the return value
-// is the 'id' field from that event. 'ni' may be NULL.
-char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts, sigset_t* sigmask, ncinput* ni);
-
-// 'ni' may be NULL if the caller is uninterested in event details. If no event
-// is ready, returns 0.
-static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
-  sigset_t sigmask;
-  sigfillset(&sigmask);
-  struct timespec ts = { .tv_sec = 0, .tv_nsec = 0 };
-  return notcurses_getc(n, &ts, &sigmask, ni);
-}
-
-// 'ni' may be NULL if the caller is uninterested in event details. Blocks
-// until an event is processed or a signal is received.
-static inline char32_t notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
-  sigset_t sigmask;
-  sigemptyset(&sigmask);
-  return notcurses_getc(n, NULL, &sigmask, ni);
-}
-
-// Enable the mouse in "button-event tracking" mode with focus detection and
-// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
-// is returned, and mouse events will be published to notcurses_getc().
-int notcurses_mouse_enable(struct notcurses* n);
-
-// Disable mouse events. Any events in the input queue can still be delivered.
-int notcurses_mouse_disable(struct notcurses* n);
-\end{minted}
-\end{listing}
-
-\newpage
+\include{input}
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
@@ -2120,7 +2078,7 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 \end{listing}
 
 \subsection{Sprites}
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
@@ -2397,7 +2355,7 @@ x86\_64 binaries. My kernel is a custom 5.5.6 build. The terminal type is
 \texttt{24bit}. The terminal font was Hack 10, and the background is a 0.7
 transparency.
 
-\newpage
+\cleardoublepage
 
 \begin{figure}
   \centering
@@ -2558,18 +2516,18 @@ transparency.
 \end{figure}
 
 \clearpage
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendices}
 
 \input{termhistory.tex}
 \pagebreak
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{benchmarks.tex}
 \pagebreak
-\newpage
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2618,7 +2576,7 @@ particularly
 and
 \texttt{charsets(7)}\cite{charsets7}.
 
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Unicode 13}
 The Unicode Consortium has scheduled Unicode 13.0 for a March 2020 release.
@@ -2680,7 +2638,7 @@ Standard of which it forms a part.
 \end{center}
 \end{table}
 
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\section{Notcurses header files}
@@ -2695,15 +2653,15 @@ Standard of which it forms a part.
 %\egroup
 
 \end{appendices}
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \glsaddallunused
 \printglossary[title={Glossary of terms}]
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}
 \printbibliography
-\newpage
+\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vspace*{2in}
 \addcontentsline{toc}{section}{Acknowledgments}
@@ -2739,7 +2697,7 @@ Mob, and RTJ. Shouts out to every freedom-loving person around the world
 fighting the unceasing struggle against International Communism. God save the
 Constitution and God save the Republic.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\newpage
+%\cleardoublepage
 %\vfill
 %\begin{center}
 %\includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
