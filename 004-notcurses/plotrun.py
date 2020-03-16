@@ -16,12 +16,12 @@ plt.figure(figsize=(20,8))
 suffixes = ['ns']#, 'bytes']
 for suf in suffixes:
     ttl = pd.DataFrame()
-    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-', 'xterm-bitmap-52-']
+    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-']#, 'xterm-bitmap-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals
     for b in bases:
-        for i in range(80,191):
+        for i in range(81,191):
             print('data/' + b + str(i) + '.json')
             xterm=pd.read_json('data/' + b + str(i) + '.json')
             #print(xterm)
@@ -53,9 +53,11 @@ for suf in suffixes:
         #    print('******rows: ' + row);
 
     sns.set_style("darkgrid")
+    title='52 lines, Hack 10 (save xterm), Kaby Lake 8550U → Lenovo T580'
     ax = sns.lineplot(x=widths, y=times, hue=terms)
+    ax.set_title(title)
     plt.legend(bbox_to_anchor=(1, 1), loc=2)
-    plt.xlabel('Width (52 lines, Hack 10)')
+    plt.xlabel('Width')
     plt.ylabel('Seconds')
     plt.show()
     plt.savefig('swarmplot-' + suf + '.png', dpi=350)

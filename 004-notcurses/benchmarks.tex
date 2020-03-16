@@ -74,6 +74,12 @@ across runs is average time per render and maximum time to render.
 \label{table:benchmarks}
 \end{table}
 
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{media/termsdemo.png}
+\caption[Intel i7-8550U benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. The font is Hack 10, except on xterm, which was unusable without bitmapped fonts. Linux 5.5.2 + i915, Arch Xorg 1.20.7, no false delay. 1920x1080 Lenovo T580 laptop. LOGARITHMIC Y.}
+\label{fig:intel-full}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -89,10 +95,16 @@ across runs is average time per render and maximum time to render.
 \label{fig:nvidia-full}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{media/plotbytes.png}
+\caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry, 3440x1440 Dell U3417W. LOGARITHMIC Y.}
+\label{fig:nvidia-full}
+\end{figure}
+
 \textbf{FIXME FIXME FIXME}
 graphs i want:
 \begin{denseitemize}
-\item{emulator performance as a function of size}
 \item{emulator performance as a function of bandwidth--same color everywhere, but turn off elision}
 \item{emulator performance as a function of color change--difference with color restored relative to previous}
 \item{emulator performance as a function of glyph variation}
