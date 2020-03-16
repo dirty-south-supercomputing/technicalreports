@@ -16,12 +16,12 @@ plt.figure(figsize=(20,8))
 suffixes = ['ns']#, 'bytes']
 for suf in suffixes:
     ttl = pd.DataFrame()
-    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xterm-52-']
+    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals
     for b in bases:
-        for i in range(80,118):
+        for i in range(80,191):
             print('data/' + b + str(i) + '.json')
             xterm=pd.read_json('data/' + b + str(i) + '.json')
             #print(xterm)
