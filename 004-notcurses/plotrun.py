@@ -10,19 +10,20 @@ import matplotlib.pyplot as plt
 
 sns.set(style="darkgrid")
 
-plt.figure(figsize=(20,8))
+plt.figure(figsize=(11,8))
 
 
 suffixes = ['ns']#, 'bytes']
 for suf in suffixes:
     ttl = pd.DataFrame()
-    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-', 'xterm-bitmap-52-', 'xterm-bitmap2-52-', 'alacritty-52-', 'alacritty-2-52-',
-             'alacritty-3-52-']
+    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-',
+             'xterm-bitmap-52-', 'xterm-bitmap2-52-',
+             'alacritty-52-', 'alacritty-2-52-', 'alacritty-3-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals
     for b in bases:
-        for i in range(81,156):
+        for i in range(81,191):
             print('data/' + b + str(i) + '.json')
             xterm=pd.read_json('data/' + b + str(i) + '.json')
             #print(xterm)
@@ -61,4 +62,3 @@ for suf in suffixes:
     plt.xlabel('Width')
     plt.ylabel('Seconds')
     plt.show()
-    plt.savefig('swarmplot-' + suf + '.png', dpi=350)
