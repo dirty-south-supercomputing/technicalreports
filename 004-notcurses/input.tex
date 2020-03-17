@@ -20,6 +20,13 @@ reported only for pointing devices, not keyboards.}. Two helpers exist to simpli
 standard use cases: \texttt{notcurses\_getc\_nblock()} and \texttt{notcurses\_getc\_blocking()}
 do exactly what you'd expect.
 
+It's important to note the difference in granularity of display and input. For
+display, we must write a UTF-8 encoded EGC as a single unit. Repeated calls do
+not combine within a cell. On input, however, we use UTF-32 and read a single
+code point, \textit{not} an entire EGC. This is done to simplify input
+processing. It is recommended that, should you find yourself needing to
+implement backspace functionality, you implement it at the EGC level.
+
 \begin{listing}[!htb]
 \begin{minted}{C}
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts' of 0 for non-blocking operation, and otherwise
@@ -71,3 +78,13 @@ int notcurses_mouse_disable(struct notcurses* n);
 Input functions may be called concurrently with any output or read-only
 functions, but only one thread at a time may call into the input layer via any
 of its entry points.
+
+There are many keys on a typical PC-104 keyboard which do not correspond to any
+Unicode code point. Examples include function keys, arrow keys, all the mouse
+buttons, and PageUp/PageDown\footnote{Though there \textit{are} code points for
+Page Up (\texttt{⇞}) and Down(\texttt{⇟}), I've never seen them emitted by the keyboard driver.}.
+For this purpose, Notcurses takes a chunk of Unicode's Private Supplementary Area-B,
+a plane explicitly left empty for use with local definitions. The lengthy set
+of \texttt{NCKEY\_} macros are exported to allow trivial matching against
+these ``synthesized characters''. Finally, \texttt{NCKEY\_RESIZE} is generated
+and pushed into the input queue whenever \texttt{SIGWINCH} is handled.
