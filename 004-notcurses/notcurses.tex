@@ -1617,7 +1617,7 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=0.5\textwidth]{media/yearly-charsets.png}
-\caption{Use of charsets over the last decade \textit{(source: \href{W3Techs}{https://w3techs.com/technologies/history\_overview/character\_encoding/ms/y})}.}
+\caption{Use of charsets over the last decade \textit{(source: \href{https://w3techs.com/technologies/history\_overview/character\_encoding/ms/y}{W3Techs})}.}
 \label{fig:charsetuse}
 \end{figure}
 
@@ -1840,7 +1840,7 @@ Finally, we can't speak of stupid Unicode tricks without mentioning
 \textit{zalgo}: \texttt{i̸̬̦͙̒̌̓͝n̴͛̓͋̈́͂̇̑̅̕e̵̎̈́̎̀̐̓͆͘͝l̴̠͛͂̃́̅̄̚͝u̷̾́̄̇́̎͂̚͝c̴̡̟̜̉̈́̋͂̈́̎t̵́͊̂̑̑̇̒̃̄å̵̰͎̫̅̿̏͂̽b̷̛͋̎́͛́͋̈͌l̷̰͎̫͐̑̈͛͆͝e̴̱̋̾̃̒̏͘͘̕m̸̆͋͌̍̉͆͌͛̓ȍ̷̡̜̭͙̞̣̎̚d̴̐̃͆̈́̽̔̐̀͝ä̸́̑̐̒͊̔̾́̕l̶̨̡̙̳̭̮̠̼͝i̷̋̆̌̿̎̃̋̚̚ṯ̷̱̫̺͗͒̔͆̄ẏ̷̡̛̮͈͑̓́͊ȏ̵͋̅́̋͒̐̇͝f̸̛̃͐͒̈̾̆̕͠t̶͈̱̠͋̑̊̿̇͘h̷̰͚̳̳̤͗̓͗̄e̴͇͙̜̿͐́̎̌͘ṽ̶̌̈́́́̈́͌͂͘i̷̛͊̒̏̄̀̅͠͝s̸̯̘͍̝͓̈́ͅͅì̵̃͊̇͗̄̋̇͘b̷̃̎̓͛̊̾͘̚̚l̶̯̼͎͉̎͛̆͠e̷̙͊̇̿͗̃͊̓́}. Dump enough
 diacritics into an EGC, and the result is a somewhat Cthulhian garble (it's not
 quite squamous, and I wouldn't go so far as to call it eldritch, but I suppose
-it's \textit{unheimlich}). Trying to investigate zalgo led down a Reddit hole
+it's \textit{unheimlich}). Investigating zalgo led down a Reddit hole
 of madness; I mention it only for completeness, and as an excuse to include
 Figure~\ref{fig:zalgo}.
 
@@ -1884,6 +1884,7 @@ EGCs, though you'll usually want one of the Unicode Box Drawing characters
     \centering
     \includegraphics[width=.75\linewidth]{media/boxdrawing.png}
     \caption{Unicode box-drawing characters \textit{(source: Chininazu12, public domain)}.}
+    \label{fig:linedrawing}
 \end{figure}
 
 Using \texttt{ncplane\_hline()} or \texttt{ncplane\_vline()}, a single cell is
@@ -1935,7 +1936,7 @@ of the four corners and none, all, or any set of the four sides. These configura
 behaviors are specified via the \texttt{ctlword} bitmask parameter.
 
 \texttt{ctlword} is defined in the least significant byte, where bits 4--7 are a
-gradient mask, and 0--3 are a border mask:
+gradient mask, and 0--3 are a border mask (see Table~\ref{table:boxes}).
 
 \begin{table}[!htb]
   \centering
@@ -2007,10 +2008,13 @@ ncplane_perimeter(struct ncplane* n, const cell* ul, const cell* ur, const cell*
 \label{list:boxes}
 \end{listing}
 
-It can be tedious to set up the six \texttt{cell} parameters to these functions. Since
-boxes are typically drawn with one of a small number of sets of EGCs, helper functions
-are provided for each set. I usually go with the pleasantly rounded ``Light Arc'' Box
-Drawing codes (Listing~\ref{list:roundboxes}).
+It can be tedious to set up the six \texttt{cell} parameters to these
+functions. Since boxes are typically drawn with one of a small number of sets
+of EGCs, helper functions are provided for each set. I usually go with the
+pleasantly rounded ``Light Arc'' Box Drawing codes
+(Listing~\ref{list:roundboxes}). Or, should you prefer, there are
+the strong, sure Double Box Drawing characters
+(Listing~\ref{list:doubleboxes}).
 
 \begin{listing}[!htb]
 \begin{minted}{C}
@@ -2046,8 +2050,6 @@ ncplane_rounded_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, i
 \caption{Helpers for rounded-corner boxes.}
 \label{list:roundboxes}
 \end{listing}
-
-Or, if you prefer, there are the strong, sure Double Box Drawing characters (Listing~\ref{list:doubleboxes}).
 
 \begin{listing}[!htb]
 \begin{minted}{C}
@@ -2085,10 +2087,11 @@ ncplane_double_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, in
 \end{listing}
 
 \subsection{Gradients and polyfills}
-\texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph (Listing~\ref{list:polyfill}).
-That coordinate will be filled with the provided \texttt{cell}. The function
-then effectively recurses on all cardinally connected coordinates, thus filling
-a bounded region with the provided cell. This operation is akin to the ``flood
+\texttt{ncplane\_polyfill()} should be applied to a coordinate with no glyph
+(Listing~\ref{list:polyfills}). That coordinate will be filled with the provided
+\texttt{cell}. The function then effectively recurses on all cardinally
+connected coordinates, thus filling a bounded region with the provided cell.
+This operation is akin to the ``flood
 fill'' of pixel graphics. Sometimes you'll want to destroy all content in the
 plane, reinitializing its framebuffer and base cell without changing the
 geometry. \texttt{ncplane\_erase()} allows you to do this in one fell swoop,
@@ -2618,6 +2621,7 @@ struct ncreel;
 struct ncreel* ncreel_create(struct ncplane* nc, const ncreel_options* popts, int efd);
 \end{minted}
 \caption{Reel creation.}
+\label{listing:reelopts}
 \end{listing}
 
 The ncreel object tracks the size, number, information depth, and order of
