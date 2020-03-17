@@ -1,0 +1,28 @@
+digraph G {
+  newrank=true;
+  ascii1963 [ shape=box style=filled label="ANSI X3.4-1963" ]
+  ascii1965 [ shape=box style=filled label="Unpublished ASCII '65" ]
+  ascii1967 [ shape=box style=filled label="ANSI X3.4-1967" ]
+  ascii1968 [ shape=box style=filled label="ANSI X3.4-1968" ]
+  isor646 [ shape=box style=filled label="ISO R 646-1967" ]
+  iso64673 [ shape=box style=filled label="ISO/IEC 646-1973" ]
+  iso64683 [ shape=box style=filled label="ISO/IEC 646-1983" ]
+  iso64691 [ shape=box style=filled label="ISO/IEC 646-1991" ]
+  iso642983 [ shape=box style=filled label="ISO/IEC 6429-1983" ]
+  iso642988 [ shape=box style=filled label="ISO/IEC 6429-1988" ]
+  iso642992 [ shape=box style=filled label="ISO/IEC 6429-1992" ]
+  iso8859 [ shape=box style=filled label="ISO/IEC 8859-1987" ]
+  iso10646 [ shape=box style=filled label="ISO/IEC 10646 (UCS)" ]
+  ascii1963 -> ascii1965
+  ascii1965 -> ascii1967
+  ascii1967 -> ascii1968
+  ascii1967 -> isor646
+  isor646 -> iso64673
+  iso64673 -> iso64683
+  iso64683 -> iso64691
+  iso642983 -> iso642988
+  iso642988 -> iso642992
+  iso64691 -> iso642992
+  iso642992 -> iso10646
+  iso8859 -> iso10646
+}
