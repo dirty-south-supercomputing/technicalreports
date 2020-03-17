@@ -576,7 +576,75 @@ this failure case.
 
 \subsection{Alpha blending and plane transparency}
 \label{sec:alpha}
-\textbf{FIXME FIXME FIXME}
+The rendering algorithm described in Chapter~\ref{sec:rendering} is responsible
+for the blending of colors and selection of glyphs from among planes. Let's look
+at it in full detail.
+
+There are three largely independent dimensions for each rendered cell, and they
+are the same three dimensions of any \texttt{cell}: EGC plus attribute, foreground
+color, and background color. There are three different ways that colors can be
+set in the actual terminal (assuming support):
+
+\begin{denseitemize}
+\item{The ``default foreground`` and ``default background`` colors. These are
+    inherited from the terminal, where they are usually user-configurable.
+    Since most of the user's shell experience will take place in these colors,
+    you can safely assume that either there is a high contrast difference
+    between the two, or the user doesn't care much about contrast. Other than
+    that, it is not safe to assume that the default background is black, white,
+    blue, or even monochromatic---most terminal emulators allow an image to be
+    set as the background (in which case the ``default background`` color can
+    be considered translucent atop this opaque background), or even a (perhaps
+    partially) transparent background (the ``default background`` color is
+    translucent atop the composited desktop)\footnote{I can only speak for myself, as a Solarized-on-black enthusiast, but a
+    program which forces a largely white background on a fullscreen application
+    annoys the hell out of me. Try to respect the user's configured background
+    for regions that don't need coloring.}. The ``op'' terminfo capability resets
+    both channels, requiring the other channel (assuming it to \textit{not} be
+    the default) to be emitted even if it would normally have been elided.}
+\item{Palette-indexed color. The size of the palette (usually 1, 2, 8, 16, 88,
+    or 256) is indicated by the \texttt{colors} terminfo capability\footnote{A
+    bad \texttt{TERM} setting will wreck havoc on colors.}. If the
+    \texttt{ccc} or \texttt{initp} terminfo capabilities are present, the palette
+    can be modified.}
+\item{RGB color. 24 bits as 3 channels of 8 bits each are directly specified. Support
+    is indicated by the terminfo \texttt{rgb} capability, or by a user-supplied
+    \texttt{COLORTERM} environment variable having the value ``24bit'' or ``truecolor''.}
+\end{denseitemize}
+
+Currently, only RGB can be blended. When rendering, recall that a color dimension
+is ``solved'' when the computed cell reaches ``CELL\_ALPHA\_OPAQUE'' in that channel.
+The channel is initialized to ``CELL\_ALPHA\_TRANSPARENT''. What is done at each
+intersecting cell depends on the computed alpha thus far; see Table~\ref{table:alphablend}.
+
+\begin{table}[!htb]
+  \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    Alpha / Blendcount & Mode & In-alpha & In-mode & Result \\
+    \hline
+    \hline
+    \texttt{CELL\_ALPHA\_TRANSPARENT}/0 & any & \texttt{CELL\_ALPHA\_TRANSPARENT} & any & No change \\
+    \hline
+    \texttt{CELL\_ALPHA\_TRANSPARENT}/0 & any & \makecell{\texttt{CELL\_ALPHA\_BLEND} or\\ \texttt{CELL\_ALPHA\_OPAQUE}} & any & \makecell{State ← Incoming\\ Blendcount ← 1} \\
+    \hline
+    \texttt{CELL\_ALPHA\_BLEND}/$n$ & RGB & \texttt{CELL\_ALPHA\_TRANSPARENT} & any & No change \\
+    \hline
+    \texttt{CELL\_ALPHA\_BLEND}/$n$ & RGB & any & Default/palette & No change \\
+    \hline
+    \texttt{CELL\_ALPHA\_BLEND}/$n$ & RGB & \texttt{CELL\_ALPHA\_BLEND} & RGB & \makecell{Blend\\ ++Blendcount}\\
+    \hline
+    \texttt{CELL\_ALPHA\_BLEND}/$n$ & RGB & \texttt{CELL\_ALPHA\_OPAQUE} & RGB & \makecell{Blend\\ mode ← \texttt{OPAQUE}\\ ++Blendcount}\\
+    \hline
+    \texttt{CELL\_ALPHA\_OPAQUE}/$n$ & any & any & any & No change \\
+    \hline
+  \end{tabular}
+  \caption[Transition matrix for alpha blending.]{Transition matrix for alpha blending. On the foreground channel, encountering
+    \texttt{CELL\_ALPHA\_HIGHCONTRAST} sets a bit, and then behaves as if it had been \texttt{CELL\_ALPHA\_OPAQUE}.
+    Upon solving the cell, if the highcontrast bit is set, either white or black is blended into the foreground as
+    necessary until a minimum contrast level is reached vis-à-vis the background.}
+  \label{table:alphablend}
+\end{table}
+
 
 \subsection{Manual palette-indexed color}
 \label{sec:palettes}
