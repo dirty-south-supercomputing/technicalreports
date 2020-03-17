@@ -1624,14 +1624,6 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
 
 
 \subsection{Fixed-width fonts ain't so fixed}
-
-\begin{wrapfigure}{o}{0.4\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
-\label{fig:charset-timeline}
-\end{wrapfigure}
-
 Notcurses assumes that all glyphs occupy widths which are an integral multiple
 of the smallest possible glyph's cell width (aka a ``fixed-width font'').
 Unicode introduces characters which generally occupy two such cells, known as
@@ -1648,6 +1640,13 @@ character is placed, any character under its left or right side is annihilated,
 including wide characters. It is thus possible for two wide characters to sit
 at columns 0 and 2, and for both to be obliterated by a single wide character
 placed at column 1.
+
+\begin{wrapfigure}{o}{0.4\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{wrapfigure}
 
 Likewise, when rendering, a plane which would partially obstruct a wide glyph
 prevents it from being rendered entirely. A pathological case would be that of
@@ -2018,15 +2017,13 @@ the strong, sure Double Box Drawing characters
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-static inline int
-cells_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                  cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+static inline int cells_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                            cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
   return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╭╮╰╯─│");
 }
 
-static inline int
-ncplane_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                    int ystop, int xstop, unsigned ctlword){
+static inline int ncplane_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                                                  int ystop, int xstop, unsigned ctlword){
   int ret = 0;
   cell ul = CELL_TRIVIAL_INITIALIZER, ur = CELL_TRIVIAL_INITIALIZER;
   cell ll = CELL_TRIVIAL_INITIALIZER, lr = CELL_TRIVIAL_INITIALIZER;
@@ -2053,15 +2050,13 @@ ncplane_rounded_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, i
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-static inline int
-cells_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                 cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+static inline int cells_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                           cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
   return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╔╗╚╝═║");
 }
 
-static inline int
-ncplane_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                   int ystop, int xstop, unsigned ctlword){
+static inline int ncplane_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
+                                                  int ystop, int xstop, unsigned ctlword){
   int ret = 0;
   cell ul = CELL_TRIVIAL_INITIALIZER, ur = CELL_TRIVIAL_INITIALIZER;
   cell ll = CELL_TRIVIAL_INITIALIZER, lr = CELL_TRIVIAL_INITIALIZER;

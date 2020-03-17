@@ -99,8 +99,7 @@ int ncplane_move_bottom(struct ncplane* n);
 // Splice ncplane 'n' out of the z-buffer, and reinsert it above 'above'.
 int ncplane_move_above_unsafe(struct ncplane* restrict n, struct ncplane* restrict above);
 
-static inline int
-ncplane_move_above(struct ncplane* n, struct ncplane* above){
+static inline int ncplane_move_above(struct ncplane* n, struct ncplane* above){
   if(n == above){
     return -1;
   }
@@ -110,8 +109,7 @@ ncplane_move_above(struct ncplane* n, struct ncplane* above){
 // Splice ncplane 'n' out of the z-buffer, and reinsert it below 'below'.
 int ncplane_move_below_unsafe(struct ncplane* restrict n, struct ncplane* restrict below);
 
-static inline int
-ncplane_move_below(struct ncplane* n, struct ncplane* below){
+static inline int ncplane_move_below(struct ncplane* n, struct ncplane* below){
   if(n == below){
     return -1;
   }
@@ -170,26 +168,22 @@ uint32_t ncplane_attr(const struct ncplane* n);
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit working foreground channel from an ncplane.
-static inline unsigned
-ncplane_fchannel(const struct ncplane* nc){
+static inline unsigned ncplane_fchannel(const struct ncplane* nc){
   return channels_fchannel(ncplane_channels(nc));
 }
 
 // Extract 24 bits of working foreground RGB from an ncplane, shifted to LSBs.
-static inline unsigned
-ncplane_fg(const struct ncplane* nc){
+static inline unsigned ncplane_fg(const struct ncplane* nc){
   return channels_fg(ncplane_channels(nc));
 }
 
 // Extract 2 bits of foreground alpha from 'struct ncplane', shifted to LSBs.
-static inline unsigned
-ncplane_fg_alpha(const struct ncplane* nc){
+static inline unsigned ncplane_fg_alpha(const struct ncplane* nc){
   return channels_fg_alpha(ncplane_channels(nc));
 }
 
 // Extract 24 bits of foreground RGB from 'n', split into subcomponents.
-static inline unsigned
-ncplane_fg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
+static inline unsigned ncplane_fg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
   return channels_fg_rgb(ncplane_channels(n), r, g, b);
 }
 
@@ -224,26 +218,22 @@ int ncplane_set_fg_alpha(struct ncplane* n, int alpha);
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit working background channel from an ncplane.
-static inline unsigned
-ncplane_bchannel(const struct ncplane* nc){
+static inline unsigned ncplane_bchannel(const struct ncplane* nc){
   return channels_bchannel(ncplane_channels(nc));
 }
 
 // Extract 24 bits of working background RGB from an ncplane, shifted to LSBs.
-static inline unsigned
-ncplane_bg(const struct ncplane* nc){
+static inline unsigned ncplane_bg(const struct ncplane* nc){
   return channels_bg(ncplane_channels(nc));
 }
 
 // Extract 2 bits of background alpha from 'struct ncplane', shifted to LSBs.
-static inline unsigned
-ncplane_bg_alpha(const struct ncplane* nc){
+static inline unsigned ncplane_bg_alpha(const struct ncplane* nc){
   return channels_bg_alpha(ncplane_channels(nc));
 }
 
 // Extract 24 bits of background RGB from 'n', split into subcomponents.
-static inline unsigned
-ncplane_bg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
+static inline unsigned ncplane_bg_rgb(const struct ncplane* n, unsigned* r, unsigned* g, unsigned* b){
   return channels_bg_rgb(ncplane_channels(n), r, g, b);
 }
 
@@ -316,8 +306,7 @@ typedef enum {
 // Return the column at which 'c' cols ought start in order to be aligned
 // according to 'align' within ncplane 'n'. Returns INT_MAX on invalid 'align'.
 // Undefined behavior on negative 'c'.
-static inline int
-ncplane_align(const struct ncplane* n, ncalign_e align, int c){
+static inline int ncplane_align(const struct ncplane* n, ncalign_e align, int c){
   if(align == NCALIGN_LEFT){
     return 0;
   }
@@ -572,6 +561,18 @@ store a byte-granular index into the actual \texttt{gcluster} field of the
 any \texttt{gcluster} value greater than or equal to 128 is actually a
 biased\footnote{128-biased, i.e. \texttt{gcluster} is the offset + 128.}
 index into the pool. The pool can grow as large as $2^{25}$ bytes (32 MiB).
+Each EGC is stored as a NUL-terminated string, so the minimum size is three
+bytes (since all single-byte UTF-8 is inlined, the minimum UTF-8 EGC to be
+placed in the pool is two bytes, plus a NUL byte).
+
+You shouldn't ever need to work directly with egcpools, and their API is not
+exposed. It is possible to exhaust an egcpool, but not without either a tremendous
+geometry (start worrying around 1024x1024 or so), or a plenitude of pathological
+EGCs. Should this unhappy situation occur, functions like \texttt{ncplane\_putegc()}
+and even \texttt{cell\_load()} will start failing (they should not crash or otherwise
+fault). There's not much you can do at this point save erase or destroy the plane.
+Outside of deliberate attempts to trigger it during testing, I have never seen
+this failure case.
 
 \subsection{Alpha blending and plane transparency}
 \label{sec:alpha}
