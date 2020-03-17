@@ -332,9 +332,33 @@ that two terminals ever implement it the exact same way. Even assuming an ANSI
 terminal, it's thus critical to use a terminal abstraction library (notwithstanding
 some people's well-meaning claims\cite{lexihale}); see the next section for
 more information. Most of the useful sequences are prefixed by ESC[ (0x27 0x5B),
-the ``Control Sequence Initiator''.
+the ``Control Sequence Initiator''. A selection of the ANSI control sequences
+is listed in Table~\ref{table:escapes} (but they should always be used through
+terminfo, as we'll see in a moment).
 
-\textbf{FIXME FIXME other stuff}
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{|c|c|c|l|}
+    \hline
+    Sequence & Name & Termcap & Description \\
+    \hline
+    \hline
+    c & RIS & rs1 & Reset to original state \\
+    \hline
+    \lbrack$n$A & CUU & cuu & Move up $n$ rows \\
+    \hline
+    \lbrack$n$B & CUD & cud & Move down $n$ rows \\
+    \hline
+    \lbrack$n$C & CUF & cuf & Move right $n$ columns \\
+    \hline
+    \lbrack$n$D & CUB & cub & Move left $n$ columns \\
+    \hline
+    \textbf{FIXME} & & & \\
+    \hline
+  \end{tabular}
+  \caption{Some ANSI (ECMA-48) escape codes.}
+  \label{table:escapes}
+\end{table}
 
 In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
 non-destructive backspace to produce composed characters from spacing ones.
