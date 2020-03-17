@@ -27,6 +27,13 @@ code point, \textit{not} an entire EGC. This is done to simplify input
 processing. It is recommended that, should you find yourself needing to
 implement backspace functionality, you implement it at the EGC level.
 
+Notcurses places the terminal into cbreak mode (recall Chapter~\ref{section:tty}).
+This means that input is made immediately available, without waiting for a newline.
+The translation of certain key combinations (as specified by \texttt{termios})
+into signals by the kernel line discipline still occurs\textellipsis for now.
+It is likely that Notcurses will move to raw mode by the 2.0.0 release, in
+which case it will have to handle signal translation itself.
+
 \begin{listing}[!htb]
 \begin{minted}{C}
 // See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts' of 0 for non-blocking operation, and otherwise
