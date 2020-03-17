@@ -21,7 +21,7 @@ for suf in suffixes:
     times = [] # nanosecond counts
     terms = [] # terminals
     for b in bases:
-        for i in range(81,158):
+        for i in range(81,191):
             print('data/' + b + str(i) + '.json')
             xterm=pd.read_json('data/' + b + str(i) + '.json')
             #print(xterm)
