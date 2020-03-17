@@ -2851,6 +2851,71 @@ Standard of which it forms a part.
 
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applicable Standards}
+All major standards regarding character sets, control sequences, and their
+encoding have ISO/IEC versions, which should probably be considered their
+canonical editions. Many of these ISO/IEC standards ratified or included ECMA
+or ANSI standards. Table~\ref{table:standards} lists equivalencies.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    ISO/IEC & ANSI & ECMA & Topic \\
+    \hline
+    \hline
+    646:1991 & X3.4-1986 & 6:1991 & \makecell{7-bit character sets \\ Twinned with ITU T.50} \\
+    \hline
+    2022:1994 & x & 35:1994 & 8-bit character sets \\
+    \hline
+    2375:2003 & x & x & Registration of character sets \\
+    \hline
+    4873:1991 & x & 43:1991 & Multitiered 8-bit codes \\
+    \hline
+    6429:1992 & X3.64-1979 & 48:1991 & Control codes \\
+    \hline
+    8613-6:1994 & x & x & \makecell{Graphic renditions in terms of SGR \\Twinned to ITU T.416} \\
+    \hline
+    8859:1998 & x & 94:1986 & \makecell{Official 8-bit character sets\\ECMA 96 is only \textnumero 1 to \textnumero 4.} \\
+    \hline
+    10367:1991 & x & x & G0, G1, G2, and G3 \\
+    \hline
+    10646:2017 & x & x & The Universal Character Set \\
+    \hline
+    14755:1996 & x & x & Input methods for the UCS \\
+    \hline
+  \end{tabular}
+  \caption{ECMA/ANSI/ISO standards referenced in this text.}
+  \label{table:standards}
+\end{table}
+
+POSIX is a family of standards from IEEE 1003, first released as IEEE 1003.1-1988 as:
+\begin{denseitemize}
+\item{POSIX.1/IEEE 1003.1-1988: Core Services, incoporating ANSI C 1989}
+\item{POSIX.2/IEEE 1003.2-1992: Shell and utilities}
+\item{POSIX.1b/IEEE 1003.1b-1993: Real-time extensions}
+\item{POSIX.1c/IEEE 1003.1c-1995: Threads}
+\end{denseitemize}
+Starting with the 1997's SUS2 (``UNIX 98''), it was agreed that the Austin
+Group would take over development of POSIX. Releases of the standard would be
+done under the SUS aegis, and then made POSIX standards upon ISO ratification.
+Three releases have followed---POSIX.1-2001 and its amending 2004 Technical Corrigendae,
+POSIX.1-2008 (aka ``Base Specifications Issue 7'') and \textit{its} two amendments,
+and POSIX.1-2017.
+
+The Single Unix Specification, then, is developed and issued by the Austin
+Group, a combination of ISO JTC 1 SC22, the Open Group, and ISO 1003. The first
+SUS emerged in 1995 as a ratification of the Open Group's Portability Guide (XPG)
+4 version 2. SUS2 followed in 1997, as mentioned, and in 2001 came the glorious
+unification: SUS3 aka POSIX.1-2001. SUS4 was built atop POSIX.1-2008, and has
+seen three new editions in 2013, 2016, and 2018. If you comply with SUS4 including
+both its Technical Corrigendae, you're officially ``UNIX V7'', and are out a few
+tens of thousands of dollars in Open Group conformance testing.
+
+Is there an ISO version of POSIX? You betcha. ISO/IEC 9945.
+
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\section{Notcurses header files}
 %\subsection{The \texttt{notcurses.h} header}

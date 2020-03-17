@@ -40,7 +40,7 @@ $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).
 	cd $(@D) && arara -v $(<F)
 
 $(NOTCURSESDIR)/$(NOTCURSESBASE).pdf: $(addprefix $(NOTCURSESDIR)/,$(NOTCURSESTEX) $(NOTCURSESBASE).bib code/notcurses.h) $(NOTCURSESRESOURCES) $(RESOURCES) $(NCBINS) $(DOTS)
-	cd $(@D) && arara -v $(<F)
+	cd $(@D) && rm -f notcurses.aux && arara -v $(<F)
 
 $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CANBUSBASE).bib $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
