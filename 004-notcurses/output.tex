@@ -10,7 +10,7 @@ written into an auxiliary value-result parameter. If the supplied output would
 exceed the line, a short number of columns will be returned. Scrolling is
 disabled by default on the standard plane, and on all new planes.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Move the cursor to the specified position (the cursor needn't be visible).
 // Returns -1 on error, including negative parameters, or ones exceeding the
@@ -49,7 +49,7 @@ true:
  on the plane.}
 \end{denseitemize}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Calculate the size in columns of the provided UTF8 multibyte string.
 int mbswidth(const char* mbs);
@@ -74,7 +74,7 @@ relevant axis. Supplying -1 to both decays to the base function of the family.
 The \texttt{\_stainable()}-suffixed form updates the glyphs of a plane without
 changing the attributes or channels.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Replace the cell at the specified coordinates with the provided cell 'c',
 // and advance the cursor by the width of the cell (but not past the end of the
@@ -96,7 +96,7 @@ ASCII (and thus the lowest 128 UTF-8 encoded characters) can be written directly
 with the \texttt{putsimple} family. Note that any control character will be replaced with
 a space.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Replace the EGC underneath us, but retain the styling. The current styling
 // of the plane will not be changed.
@@ -128,7 +128,7 @@ require use of \textit{surrogate characters}.}, a single \texttt{wchar\_t} can
 represent any UCS code point (though not necessarily any EGC). The
 \texttt{putwc} family (Listing~\ref{list:putwc}) allows direct output of a single \texttt{wchar\_t}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Replace the cell at the specified coordinates with the provided wide char
 // 'w'. Advance the cursor by the character's width as reported by wcwidth().
@@ -150,7 +150,7 @@ static inline int ncplane_putwc(struct ncplane* n, wchar_t w){
 EGCs can be output one at a time. Supplying multiple EGCs in a single buffer
 to the \texttt{putegc} family (Listing~\ref{list:putegc}) will only ever see the first one output.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Replace the cell at the specified coordinates with the provided EGC, and
 // advance the cursor by the width of the cluster (but not past the end of the
@@ -173,7 +173,7 @@ int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes)
 \label{list:putegc}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 #define WCHAR_MAX_UTF8BYTES 6
 
@@ -214,7 +214,7 @@ int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sby
 \label{list:putwegc}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Write a series of EGCs to the current location, using the current style.
 // They will be interpreted as a series of columns (according to the definition
@@ -235,7 +235,7 @@ int ncplane_putstr_aligned(struct ncplane* n, int y, ncalign_e align, const char
 \label{list:putstr}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // ncplane_putstr(), but following a conversion from wchar_t to UTF-8 multibyte.
 static inline int ncplane_putwstr_yx(struct ncplane* n, int y, int x, const wchar_t* gclustarr){
@@ -271,7 +271,7 @@ static inline int ncplane_putwstr(struct ncplane* n, const wchar_t* gclustarr){
 
 Finally, analogues of \texttt{printf(3)} and \texttt{vprintf(3)} are provided (Listing~\ref{list:printf}).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // The ncplane equivalents of printf(3) and vprintf(3).
 int ncplane_vprintf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, va_list ap);
@@ -379,19 +379,61 @@ answer. Oh well. When this baby hits 88, you're gonna see some serious shit!}.
 
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
+In addition to the 32-bit \texttt{gcluster} and \texttt{attribute} fields, each
+\texttt{cell} expends a further 64 bits (half of its 16 byte total) on the
+\texttt{channels} field. Like \texttt{attribute} above, \texttt{channels} will
+be used as both an identifier and a type. Furthermore, a 64-bit \texttt{channels}
+variable is logically composed of two 32-bit \texttt{channel} values. The upper
+32 bits describe the foreground channel, and the lower 32 bits describe the
+background channel. The full eight bytes are broken down in Listing~\ref{list:channelbits}.
+
 \begin{listing}[!htb]
 \begin{minted}{C}
-  // (channels & 0x8000000000000000ull): left half of wide character
+  // (channels & 0x8000000000000000ull): first column of wide EGC
   // (channels & 0x4000000000000000ull): foreground is *not* "default color"
   // (channels & 0x3000000000000000ull): foreground alpha (2 bits)
   // (channels & 0x0800000000000000ull): foreground uses palette index
   // (channels & 0x0700000000000000ull): reserved, must be 0
   // (channels & 0x00ffffff00000000ull): foreground in 3x8 RGB (rrggbb)
-  // (channels & 0x0000000080000000ull): right half of wide character
+  // (channels & 0x0000000080000000ull): secondary column of wide EGC
   // (channels & 0x0000000040000000ull): background is *not* "default color"
   // (channels & 0x0000000030000000ull): background alpha (2 bits)
   // (channels & 0x0000000008000000ull): background uses palette index
   // (channels & 0x0000000007000000ull): reserved, must be 0
   // (channels & 0x0000000000ffffffull): background in 3x8 RGB (rrggbb)
 \end{minted}
+\caption{Bits of the \texttt{channels} type}.
+\label{list:channelbits}
 \end{listing}
+
+The first bit of either channel is high if and only if the cell is part of a
+multicolumn EGC When a cell is loaded via e.g. \texttt{cell\_load()}, the most
+significant bit (63) of \texttt{channels} is set if and only if the EGC is wide. No
+cell having a non-zero \texttt{gcluster} has the ``secondary column of wide EGC''
+bit (31) set. This is set only in framebuffer cells having a null glyph due to
+being ``covered'' by a preceding multicolumn EGC. These two bits should never
+be manipulated by the user; Notcurses automatically manages them, and relies upon
+them internally. You can of course read them, should you be so inclined. Three
+functions are supplied for testing these bits (Listing~\ref{list:widetests}).
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Does the cell contain an East Asian Wide codepoint?
+static inline bool cell_double_wide_p(const cell* c){
+  return (c->channels & CELL_WIDEASIAN_MASK);
+}
+
+// Is this the right half of a wide character?
+static inline bool cell_wide_right_p(const cell* c){
+  return cell_double_wide_p(c) && c->gcluster == 0;
+}
+
+// Is this the left half of a wide character?
+static inline bool cell_wide_left_p(const cell* c){
+  return cell_double_wide_p(c) && c->gcluster;
+}
+\end{minted}
+\caption{\texttt{cell} predicates for testing multicolumn properties.}
+\label{list:widetests}
+\end{listing}
+
