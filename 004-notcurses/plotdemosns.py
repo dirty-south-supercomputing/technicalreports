@@ -49,7 +49,7 @@ fig, lax = plt.subplots()
 lax.set(yscale="log", ylim=[8000000, 400000000000])
 title='382x74, Hack 10, Broadwell-E 6950X+NVIDIA GTX 1080 → Dell U3417W'
 #title='80x52, Hack 10, Kaby Lake 8550U → Lenovo T580'
-ax = sns.swarmplot(x="Demo", y='value', data=mtot,  hue="Term", orient='v', dodge=True, ax=lax, hue_order=order).set_title(title)
+ax = sns.stripplot(x="Demo", y='value', data=mtot,  hue="Term", orient='v', dodge=True, ax=lax, hue_order=order).set_title(title)
 fig.set_size_inches(18, 8)
 plt.legend(bbox_to_anchor=(1, 1), loc=2)
 plt.xlabel('Demo')
