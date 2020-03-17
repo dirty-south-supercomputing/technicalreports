@@ -2498,6 +2498,180 @@ int ncmenu_destroy(struct ncmenu* n);
 \end{listing}
 
 \subsection{Reels}
+The ncreel\footnote{The term ``reel'' is borrowed from slot machines.} is a UI abstraction supported by Notcurses in which
+dynamically-created and -destroyed toplevel entities (referred to as tablets)
+are arranged in a torus (circular loop), allowing for infinite scrolling
+(infinite scrolling can be disabled, resulting in a line segment rather than a
+torus). This works naturally with keyboard navigation, mouse scrolling wheels,
+and touchpads (including the capacitive touchscreens of modern cell phones).
+An ncreel initially has no tablets; at any given time thereafter, it has zero
+or more tablets, and if there is at least one tablet, one tablet is focused
+(and on-screen). If the last tablet is removed, no tablet is focused. A tablet
+can support navigation within the tablet, in which case there is an in-tablet
+focus for the focused tablet, which can also move among elements within the
+tablet. Reels have a \texttt{struct ncreel\_options} object, passed to
+\texttt{ncreel\_create()}; this struct is detailed in Listing~\ref{listing:reelopts}.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+typedef struct ncreel_options {
+  // require this many rows and columns (including borders). otherwise, a
+  // message will be displayed stating that a larger terminal is necessary, and
+  // input will be queued. if 0, no minimum will be enforced. may not be
+  // negative. note that ncreel_create() does not return error if given a
+  // plane smaller than these minima; it instead patiently waits for the
+  // screen to get bigger.
+  int min_supported_cols;
+  int min_supported_rows;
+
+  // use no more than this many rows and columns (including borders). may not be
+  // less than the corresponding minimum. 0 means no maximum.
+  int max_supported_cols;
+  int max_supported_rows;
+
+  // desired offsets within the surrounding WINDOW (top right bottom left) upon
+  // creation / resize. an ncreel_move() operation updates these.
+  int toff, roff, boff, loff;
+  // is scrolling infinite (can one move down or up forever, or is an end
+  // reached?). if true, 'circular' specifies how to handle the special case of
+  // an incompletely-filled reel.
+  bool infinitescroll;
+  // is navigation circular (does moving down from the last tablet move to the
+  // first, and vice versa)? only meaningful when infinitescroll is true. if
+  // infinitescroll is false, this must be false.
+  bool circular;
+  // notcurses can draw a border around the ncreel, and also around the
+  // component tablets. inhibit borders by setting all valid bits in the masks.
+  // partially inhibit borders by setting individual bits in the masks. the
+  // appropriate attr and pair values will be used to style the borders.
+  // focused and non-focused tablets can have different styles. you can instead
+  // draw your own borders, or forgo borders entirely.
+  unsigned bordermask; // bitfield; 1s will not be drawn (see bordermaskbits)
+  uint64_t borderchan; // attributes used for ncreel border
+  unsigned tabletmask; // bitfield; same as bordermask but for tablet borders
+  uint64_t tabletchan; // tablet border styling channel
+  uint64_t focusedchan;// focused tablet border styling channel
+  uint64_t bgchannel;  // background colors
+} ncreel_options;
+
+struct ncreel;
+
+// Create an ncreel according to the provided specifications. Returns NULL on
+// failure. 'nc' must be a valid plane, to which offsets are relative. Note that
+// there might not be enough room for the specified offsets, in which case the
+// ncreel will be clipped on the bottom and right. A minimum number of rows
+// and columns can be enforced via popts. efd, if non-negative, is an eventfd/pipe
+// that ought be written to whenever ncreel_touch() updates a tablet (this
+// is useful in the case of nonblocking input).
+struct ncreel* ncreel_create(struct ncplane* nc, const ncreel_options* popts, int efd);
+\end{minted}
+\caption{Reel creation.}
+\end{listing}
+
+The ncreel object tracks the size, number, information depth, and order of
+tablets, and the foci. It also draws the optional borders around tablets and
+the optional border of the reel itself. It knows nothing about the actual
+content of a tablet, save the number of lines it occupies at each information
+depth. The typical control flow is that an application receives events (from
+the UI or other event sources), and calls \texttt{ncreel\_touch()} on tablets
+needing updates\footnote{This is one of the rare functions which can be called
+concurrently with \texttt{notcurses\_render()}.}. Eventually, the application
+calls \texttt{ncreel\_redraw()} to update the reel in its
+entirety\footnote{A call to \texttt{notcurses\_render()} is still required to
+update the display.}. Notcurses will call into the application for some number
+of tablets, asking it to draw some line(s) from some tablet(s) at some
+particular coordinate of that tablet's panel. Finally, control returns to the
+application, and the cycle starts anew. The typedef for these callbacks is
+defined in Listing~\ref{list:tabletcb}.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Tablet draw callback, provided a tablet (from which the ncplane and userptr may be extracted),
+// the first column that may be used, the first row that may be used, the first column that may not
+// be used, the first row that may not be used, and a bool indicating whether output ought be
+// clipped at the top (true) or bottom (false). Rows and columns are zero-indexed, and both are
+// relative to the tablet's plane.
+//
+// Regarding clipping: it is possible that the tablet is only partially displayed on the screen. If
+// so, it is either partially present on the top of the screen, or partially present at the bottom.
+// In the former case, the top is clipped (cliptop will be true), and output ought start from the
+// end. In the latter case, cliptop is false, and output ought start from the beginning.
+//
+// Returns the number of lines of output, which ought be less than or equal to
+// maxy - begy, and non-negative (negative values might be used in the future).
+typedef int (*tabletcb)(struct nctablet* t, int begx, int begy, int maxx, int maxy, bool cliptop);
+\end{minted}
+\caption{Tablet redraw callback function type.}
+\label{list:tabletcb}
+\end{listing}
+
+Each tablet might be wholly, partially, or not on-screen. Notcurses always
+places as much of the focused tablet as is possible on-screen (if the focused
+tablet has more lines than the actual reel does, it cannot be wholly on-screen.
+In this case, the focused subelements of the tablet are always on-screen). The
+placement of the focused tablet depends on how it was reached (when moving to
+the next tablet, offscreen tablets are brought onscreen at the bottom. When
+moving to the previous tablet, offscreen tablets are brought onscreen at the
+top. When moving to an arbitrary tablet which is neither the next nor previous
+tablet, it will be placed in the center). Further ncreel functionality is detailed
+in Listing~\ref{listing:reelcontrol}.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Returns the ncplane on which this ncreel lives.
+struct ncplane* ncreel_plane(struct ncreel* pr);
+
+// Add a new tablet to the provided ncreel, having the callback object opaque. Neither, either, or both of
+// after and before may be specified. If neither is specified, the new tablet can be added anywhere on the
+// reel. If one or the other is specified, the tablet will be added before or after the specified tablet.
+// If both are specified, the tablet will be added to the resulting location, assuming it is valid
+// (after->next == before->prev); if it is not valid, or there is any other error, NULL will be returned.
+struct nctablet* ncreel_add(struct ncreel* pr, struct nctablet* after, struct nctablet* before, tabletcb cb, void* opaque);
+
+// Return the number of tablets.
+int ncreel_tabletcount(const struct ncreel* pr);
+
+// Indicate that the specified tablet has been updated in a way that would change its display.
+// This will trigger some non-negative number of callbacks (though not in the caller's context).
+int ncreel_touch(struct ncreel* pr, struct nctablet* t);
+
+// Delete the tablet specified by t from the ncreel specified by pr. Returns -1 if the tablet cannot be found.
+int ncreel_del(struct ncreel* pr, struct nctablet* t);
+
+// Delete the active tablet. Returns -1 if there are no tablets.
+int ncreel_del_focused(struct ncreel* pr);
+
+// Move to the specified location within the containing plane.
+int ncreel_move(struct ncreel* pr, int x, int y);
+
+// Redraw the ncreel in its entirety, for instance after
+// clearing the screen due to external corruption, or a SIGWINCH.
+int ncreel_redraw(struct ncreel* pr);
+
+// Return the focused tablet, if any tablets are present. This is not a copy;
+// be careful to use it only for the duration of a critical section.
+struct nctablet* ncreel_focused(struct ncreel* pr);
+
+// Change focus to the next tablet, if one exists
+struct nctablet* ncreel_next(struct ncreel* pr);
+
+// Change focus to the previous tablet, if one exists
+struct nctablet* ncreel_prev(struct ncreel* pr);
+
+// Destroy an ncreel allocated with ncreel_create(). Does not destroy the
+// underlying plane. Returns non-zero on failure.
+int ncreel_destroy(struct ncreel* pr);
+
+// Returns a pointer to a user pointer associated with this nctablet.
+void* nctablet_userptr(struct nctablet* t);
+
+// Access the ncplane associated with this tablet, if one exists.
+struct ncplane* nctablet_ncplane(struct nctablet* t);
+\end{minted}
+\caption{Reel control.}
+\label{listing:realcontrol}
+\end{listing}
+
 \subsection{Example: let's rip off \texttt{whiptail}}
 The \texttt{colloquy} program shipped with Notcurses implements a command-line
 API similar to that of the Newt program \texttt{whiptail}, which itself ripped
@@ -2507,8 +2681,6 @@ written in Rust\footnote{\url{https://lib.rs/crates/colloquy}}, using the
 Notcurses crate\footnote{\url{https://lib.rs/crates/notcurses}}, itself a wrapper
 of the libnotcurses-sys\footnote{\url{https://lib.rs/crates/libnotcurses-sys}}
 \texttt{bindgen}-generated Rust wrappers.
-
-\textbf{FIXME FIXME FIXME example of each}
 
 \section{Complex examples}
 \subsection{Example: let's rip off tetris}
