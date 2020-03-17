@@ -6,21 +6,30 @@ successful, you ought see an underlined or otherwise stylized lowercase 'u'.
 The Unicode code point can be entered (each number will show up as you type it),
 followed by Enter. The sequence will then reduce to an EGC.
 
-\textbf{FIXME FIXME FIXME}
+The most fundamental call is \texttt{notcurses\_getc()}. This can operate as a
+non-blocking, timed, or blocking call. Provide a \texttt{NULL}\texttt{struct timespec} '\texttt{ts}'.
+\texttt{notcurses\_getc()} to block until input is received, or the call is
+interrupted by a signal (prepare the \texttt{sigset\_t} parameter to mask signals
+as necessary). Provide the desired timeout in '\texttt{ts}' for a timed call,
+or zero out '\texttt{ts}' for a pure nonblocking call. On timeout, 0 is returned.
+On an error, -1 is returned. Otherwise, a \texttt{char32\_t} is returned carrying
+a single UTF-32 Unicode codepoint. If the \texttt{ncinput} parameter '\texttt{ni}'
+is not \texttt{NULL}, it will be filled in with the codepoint, any applicable
+keyboard modifiers, and the cell of the input\footnote{Coordinates are currently
+reported only for pointing devices, not keyboards.}. Two helpers exist to simplify
+standard use cases: \texttt{notcurses\_getc\_nblock()} and \texttt{notcurses\_getc\_blocking()}
+do exactly what you'd expect.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
-// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
-// Signals in sigmask (less several we handle internally) will be atomically
-// masked and unmasked per ppoll(2). It should generally contain all signals.
-// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
-// be NULL. Returns 0 on a timeout. If an event is processed, the return value
+// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts' of 0 for non-blocking operation, and otherwise
+// a timespec to bound blocking. Signals in sigmask (less several we handle internally) will be atomically masked and unmasked
+// per ppoll(2). It should generally contain all signals. Returns a single Unicode code point, or (char32_t)-1 on error.
+// 'sigmask' may be NULL. Returns 0 on a timeout. If an event is processed, the return value
 // is the 'id' field from that event. 'ni' may be NULL.
 char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts, sigset_t* sigmask, ncinput* ni);
 
-// 'ni' may be NULL if the caller is uninterested in event details. If no event
-// is ready, returns 0.
+// 'ni' may be NULL if the caller is uninterested in event details. If no event is ready, returns 0.
 static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigfillset(&sigmask);
@@ -28,21 +37,37 @@ static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
   return notcurses_getc(n, &ts, &sigmask, ni);
 }
 
-// 'ni' may be NULL if the caller is uninterested in event details. Blocks
-// until an event is processed or a signal is received.
+// 'ni' may be NULL if the caller is uninterested in event details. Blocks until an event is processed or a signal is received.
 static inline char32_t notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigemptyset(&sigmask);
   return notcurses_getc(n, NULL, &sigmask, ni);
 }
+\end{minted}
+\caption{Input can be acquired in nonblocking, blocking, or timed fashion.}
+\label{listing:input}
+\end{listing}
 
-// Enable the mouse in "button-event tracking" mode with focus detection and
-// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
-// is returned, and mouse events will be published to notcurses_getc().
+Mouse events are reported only after a successful call to
+\texttt{notcurses\_mouse\_enable()}, and will no longer be reported following
+\texttt{notcurses\_mouse\_disable()}. Even when enabled, events are only
+returned while a button is held. There will be one event for the initial button
+press, one event for each cell into which the mouse moves while holding down
+the button, and one when the button is released. See Listing~\ref{listing:mice}.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Enable the mouse in "button-event tracking" mode with focus detection and UTF8-style extended coordinates. On failure,
+// -1 is returned. On success, 0 is returned, and mouse events will be published to notcurses_getc().
 int notcurses_mouse_enable(struct notcurses* n);
 
 // Disable mouse events. Any events in the input queue can still be delivered.
 int notcurses_mouse_disable(struct notcurses* n);
 \end{minted}
+\caption{Mouse events must be explicitly enabled, and can be disabled.}
+\label{listing:mice}
 \end{listing}
 
+Input functions may be called concurrently with any output or read-only
+functions, but only one thread at a time may call into the input layer via any
+of its entry points.
