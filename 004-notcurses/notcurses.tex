@@ -107,7 +107,7 @@ A Guide to TUIs and Character Graphics
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=1\linewidth]{media/ibm3270.jpg}
-\caption[A programmer at her IBM 3270]{A programmer at her IBM 3270 2A \textit{(source: Jonathan Schilling)}.}
+\caption{A programmer at her IBM 3270 2A \textit{(source: Jonathan Schilling under CCASA4)}.}
 \end{figure}
 \clearpage
 \vspace*{1in}
@@ -1512,18 +1512,25 @@ DSPs\cite{cookcharbit}. POSIX does mandate that \texttt{CHAR\_BIT}==8.}. With
 the high bit of an octet byte going largely unused as a parity bit, the
 seven-bit character sets were rapidly expanded into a wide variety of eight-bit
 character sets (sometimes mistakenly referred to as ``extended'' or ``high''
-ASCII).
+ASCII---the closest thing to ``extended ASCII'' might be the withdrawn ANSEL
+ISO-IR 231 ``ANSI extended Latin''\cite{ansel}).
 
-\textbf{FIXME FIXME}
-
-This discordant cacophony gave rise to \textit{mojibake} (文字化け [{\fontspec{DejaVu Serif}mod͡ʑibake}]),
-the garbled result of mismatched character encoding and decoding\footnote{Japanese, from 文字 (moji (character))
-化ける (bakeru (take a different form)). Russians know it as \textrussian{кракозя́бры}
-(krakozyabry [{\fontspec{DejaVu Serif}krɐkɐˈzʲæbrɪ̈}]) or sometimes
-\textrussian{бНОПНЯ} (bnopnjá {\fontspec{DejaVu Serif}bnɐpˈnʲa}), while
-Bulgarians speak of \textbulgarian{маймуница} (majmunica (monkey alphabet)).
-Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đubre
-(trash)). I {\fontspec{DejaVu Serif}�} Unicode.}.
+There are well over a thousand known ``code pages'' corresponding to regional,
+corporate, and even private character sets. There are code pages by Microsoft
+popularly known as the ``ANSI code pages'' (despite not being based on any ANSI
+standard), and there are code pages by IBM for Windows emulation which differ
+from the Windows code pages. HTML5 requires that ``text/'' media types that would
+once have been interpreted as ISO-8859-1 actually be interpreted as Windows-1252;
+Windows refers to ISO-8859-1 as Windows-28591. Be glad that you are not working
+in the age of 8-bit character sets. This discordant cacophony gave rise to
+\textit{mojibake} (文字化け [{\fontspec{DejaVu Serif}mod͡ʑibake}]), the garbled
+result of mismatched character encoding and decoding\footnote{Japanese, from
+文字 (moji (character)) 化ける (bakeru (take a different form)). Russians
+know it as \textrussian{кракозя́бры} (krakozyabry [{\fontspec{DejaVu Serif}krɐkɐˈzʲæbrɪ̈}])
+or sometimes \textrussian{бНОПНЯ} (bnopnjá {\fontspec{DejaVu Serif}bnɐpˈnʲa}),
+while Bulgarians speak of \textbulgarian{маймуница} (majmunica (monkey alphabet)).
+Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đubre (trash)). I
+{\fontspec{DejaVu Serif}�} Unicode.}.
 
 \subsection{Consilience: the Universal Character Set}
 \label{sec:ucs}
@@ -1566,7 +1573,7 @@ Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đ
   \caption[The ten Unicode design principles.]{The 10 Design Principles of Unicode (Unicode Core Specification §2.2\cite{unicode}).}
   \label{table:ucsdesign}
 \end{table}
-The Universal Character Set (ISO 10646\footnote{Note that this is 10,000 more than ISO 646.},
+The Universal Character Set (ISO 10646\footnote{Note that this is 10,000 more than ISO 646. Cute?},
 the character set underlying Unicode) was introduced to resolve these problems,
 as a ``unique, universal, and uniform character encoding''\cite{unicodehistory}. The
 Unicode Consortium traces its origin to Joe Becker's paper, ``Unicode 88''\cite{unicode88}.
@@ -1729,6 +1736,7 @@ an RGB escape. Notcurses effects both optimizations.
     \centering
     \includegraphics[width=.75\linewidth]{media/blockelements.png}
     \caption{Unicode 13.0 Block Elements \textit{(source: \href{https://commons.wikimedia.org/wiki/File:UCB_Block_Elements.png}{Antonsusi} under CCA3.0)}.}
+    \label{fig:blockelements}
 \end{figure}
 
 Unfortunately, it's difficult to take this technique any further. There are
@@ -1856,6 +1864,29 @@ Figure~\ref{fig:zalgo}.
 \section{Lines, boxes, and fills}
 \subsection{Linear interpolation (``lerping'') and lines}
 \label{sec:lerps}
+Following actual text, the most frequent need of a TUI is probably vertical
+and horizontal lines. Notcurses allows such lines to be drawn using arbitrary
+EGCs, though you'll usually want one of the Unicode Box Drawing characters
+(see Figure~\ref{fig:linedrawing}) or the Block Elements
+(Figure~\ref{fig:blockelements}).
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/boxdrawing.png}
+    \caption{Unicode box-drawing characters \textit{(source: Chininazu12, public domain)}.}
+\end{figure}
+
+Using \texttt{ncplane\_hline()} or \texttt{ncplane\_vline()}, a single cell is
+provided, and this cell (including its attributes and channels) is reproduced
+on each cell of the line\footnote{If you provide a multicolumn EGC\textellipsis
+I have no idea what happens. Maybe it works? I should look into that, huh.}.
+Two additional forms are provided: \texttt{ncplane\_hline\_interp()} and
+\texttt{ncplane\_vline\_interp()} (see Listing~\ref{list:lines}). Both of these
+accept two channel pairs, and perform a linear interpolation between the two
+foreground and two background channels. Providing the equivalent values for
+either channel will result in that channel remaining constant along the line's
+length.
+
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Draw horizontal or vertical lines using the specified cell, starting at the
@@ -2048,7 +2079,16 @@ ncplane_double_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, in
 That coordinate will be filled with the provided \texttt{cell}. The function
 then effectively recurses on all cardinally connected coordinates, thus filling
 a bounded region with the provided cell. This operation is akin to the ``flood
-fill'' of pixel graphics.
+fill'' of pixel graphics. Sometimes you'll want to destroy all content in the
+plane, reinitializing its framebuffer and base cell without changing the
+geometry. \texttt{ncplane\_erase()} allows you to do this in one fell swoop,
+with the added bonus functionality of resetting the associated egcpool. A
+freshly-reset egcpool can be much faster than one which has been heavily used,
+requiring a search to find suitable free space. The state of the framebuffer is
+exactly as it was when the plane was created---all cells hold the null EGC, all
+attributes are 0, and all colors are defaults. All cells associated with this
+plane are invalidated, so be sure you're not holding onto any. \texttt{ncplane\_polyfill\_yx()}
+and \texttt{ncplane\_erase()} are detailed in Listing~\ref{list:polyfills}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
@@ -2057,9 +2097,11 @@ fill'' of pixel graphics.
 // everything behind a boundary. Returns the number of cells polyfilled. An
 // invalid initial y, x is an error.
 int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
+
+void ncplane_erase(struct ncplane* n);
 \end{minted}
-\caption{Polyfill (``flood fill'').}
-\label{list:polyfill}
+\caption{Polyfills and plane erasure.}
+\label{list:polyfills}
 \end{listing}
 
 A single EGC and attribute can be written to a rectangular region in any of
@@ -2340,29 +2382,29 @@ struct ncselector* ncselector_create(struct ncplane* n, int y, int x, const sele
 \caption{Selector creation.}
 \end{listing}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=.75\linewidth]{media/selector1.png}
     \caption{Selector with a long title.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=.75\linewidth]{media/selector2.png}
     \caption{Short title intersecting with header.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
   \centering \includegraphics[width=.75\linewidth]{media/selector3.png}
     \caption{Selector with a long header.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \centering \includegraphics[width=.75\linewidth]{media/selector4.png}
 \caption{Selector with a long footer and no header.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
   \centering \includegraphics[width=.75\linewidth]{media/selector5.png}
   \caption{Naked selector.}
 \end{figure}

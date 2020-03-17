@@ -14,7 +14,7 @@ exactly as large as the rendering area, and it cannot be destroyed.
 Chapter \ref{sec:notcursesfuncs} introduced one function that creates a new
 plane: \texttt{ncplane\_new()}. In addition, there is \texttt{ncplane\_aligned()}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Create a new ncplane at the specified 'yoff', of the specified 'rows' and 'cols'. Align this plane
 // according to 'align' relative to 'n'.
@@ -51,7 +51,7 @@ pushed onto the top of the z-axis and assigned an initialized egcpool
 A plane can be duplicated with \texttt{ncplane\_dup()}. This will create a new
 plane of the same geometry at the top of the z-axis. It will then have all
 other properties duplicated, using its own egcpool.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Duplicate an existing ncplane. The new plane will have the same geometry, will duplicate all content, and
 // will start with the same rendering state. The new plane will be immediately above the old one on the z axis.
@@ -70,7 +70,7 @@ moved to any coordinate, but the plane's cursor cannot be moved off the plane.
 Any plane save the standard plane may be destroyed with \texttt{ncplane\_destroy()}.
 All planes save the standard plane may be destroyed in one fell swoop with
 \texttt{notcurses\_drop\_planes()}.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Destroy the specified ncplane. None of its contents will be visible after the next
 // call to notcurses_render(). It is an error to attempt to destroy the standard plane.
@@ -90,7 +90,7 @@ and \texttt{ncplane\_move\_below()} are relative, moving the plane immediately
 above or below another one. It is an error to try and move a plane below or above itself,
 or above or below \texttt{NULL}. Likewise, an error will be returned if the relative
 plane does not exist on the z-axis.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Splice ncplane 'n' out of the z-buffer, and reinsert it at the top or bottom.
 int ncplane_move_top(struct ncplane* n);
@@ -125,7 +125,7 @@ struct ncplane* ncplane_below(struct ncplane* n);
 \end{listing}
 
 All planes other than the standard plane can be moved in the x- and y-dimensions.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Move this plane relative to the standard plane. It is an error to attempt to move the standard plane.
 int ncplane_move_yx(struct ncplane* n, int y, int x);
@@ -138,7 +138,7 @@ int ncplane_move_yx(struct ncplane* n, int y, int x);
 Sometimes it is useful to translate coordinates between planes, or between the
 visible area and planes (this latter is particularly useful when interpreting
 mouse clicks; see Chapter~\ref{sec:input}).
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // provided a coordinate relative to the origin of 'src', map it to the same absolute coordinate
 // relative to thte origin of 'dst'. either or both of 'y' and 'x' may be NULL.
@@ -157,7 +157,7 @@ an active attribute set and active channels. These can be freely manipulated
 using the API of Listings~\ref{listing:planeraw}, \ref{listing:planefg}, \ref{listing:planebg}, and
 \ref{listing:planeattr}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // get the current channels or attribute word for ncplane 'n'.
 uint64_t ncplane_channels(const struct ncplane* n);
@@ -167,7 +167,7 @@ uint32_t ncplane_attr(const struct ncplane* n);
 \label{listing:planeraw}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit working foreground channel from an ncplane.
 static inline unsigned
@@ -221,7 +221,7 @@ int ncplane_set_fg_alpha(struct ncplane* n, int alpha);
 \label{listing:planefg}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit working background channel from an ncplane.
 static inline unsigned
@@ -258,7 +258,7 @@ int ncplane_set_bg_alpha(struct ncplane* n, int alpha);
 \label{listing:planebg}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Set the specified style bits for the ncplane 'n', whether they're actively supported or not.
 void ncplane_styles_set(struct ncplane* n, unsigned stylebits);
@@ -284,7 +284,7 @@ considered for rendering purposes. This applies to glyph, attribute, and
 colors---there is not yet any means to make multiple cells in a plane glyph-transparent
 with different colors\footnote{See \url{https://github.com/dankamongmen/notcurses/issues/395}.}.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Set the ncplane's base cell to this cell. It will be used for purposes of rendering anywhere that the ncplane's
 // gcluster is 0. Erasing the ncplane does not reset the base cell; this function must be called with a zero 'c'.
@@ -304,7 +304,7 @@ int ncplane_base(struct ncplane* ncp, cell* c);
 
 \textbf{FIXME FIXME...userptr...}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Alignment within the ncplane. Left/right-justified, or centered.
 typedef enum {
@@ -333,22 +333,6 @@ ncplane_align(const struct ncplane* n, ncalign_e align, int c){
 \caption{Aligning output within a plane.}
 \end{listing}
 
-Sometimes you'll want to destroy all content in the plane, reinitializing
-its framebuffer and base cell without changing the geometry. \texttt{ncplane\_erase()}
-allows you to do this in one fell swoop, with the added bonus functionality
-of resetting the associated egcpool. A freshly-reset egcpool can be much faster
-than one which has been heavily used, requiring a search to find suitable free
-space. The state of the framebuffer is exactly as it was when the plane was
-created---all cells hold the null EGC, all attributes are 0, and all colors
-are defaults. All cells associated with this plane are invalidated, so be
-sure you're not holding onto any.
-\begin{listing}[!htbp]
-\begin{minted}{C}
-void ncplane_erase(struct ncplane* n);
-\end{minted}
-\caption{\texttt{ncplane\_erase()} resets the plane's content and egcpool.}
-\end{listing}
-
 \subsection{Cells}
 \label{sec:cells}
 Each coordinate of an plane corresponds to a \texttt{cell}. The cell definition
@@ -358,7 +342,7 @@ $n>1$) overrides the $n-1$ following cells. Since there are always a fixed
 number of cells, this means that the overridden cells are skipped during
 rendering, as well as being zeroed out at the time the multicolumn EGC is
 written to the cell.
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 typedef struct cell {
   // These 32 bits are either a single-byte, single-character grapheme cluster (values 0–0x7f), or
@@ -387,7 +371,7 @@ variable is a 64-bit field packing together a number of properties. The high
 32 bits apply to the foreground, and the low 32 bits to the background. They
 can be set and queried as a channel (Listing~\ref{listing:cellchannels}).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit background channel from a cell.
 static inline unsigned cell_bchannel(const cell* cl){
@@ -416,7 +400,7 @@ static inline uint64_t cell_set_fchannel(cell* cl, uint32_t channel){
 RGB values consume 24 bits of each channel, 75\% of the 64 bits in \texttt{channels}.
 RGB values can be blended, clipped, and otherwise dealt with arithmetically.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // do not pass palette-indexed channels!
 static inline uint64_t cell_blend_fchannel(cell* cl, unsigned channel, unsigned* blends){
@@ -458,7 +442,7 @@ static inline int cell_set_fg(cell* c, uint32_t channel){
 \label{listing:cellrgbfg}
 \end{listing}
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 static inline uint64_t cell_blend_bchannel(cell* cl, unsigned channel, unsigned* blends){
   return cell_set_bchannel(cl, channels_blend(cell_bchannel(cl), channel, blends));
@@ -508,7 +492,7 @@ and allows for finer control on terminals which don't faithfully implement RGB
 TrueColor. The terminal palette can be manually reprogrammed with the
 palette256 API (see Chapter~\ref{list:palette256}).
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Set the cell's foreground palette index, set the foreground palette index
 // bit, set it foreground-opaque, and clear the foreground default color bit.
@@ -563,7 +547,7 @@ the default. Default colors can't be blended. Some terminals can be configured
 to use a transparent background. Only in cells using the default background
 color can this effect be seen.
 
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 // Is the background using the "default background color"? The "default background color"
 // must generally be used to take advantage of terminal-effected transparency.
@@ -599,7 +583,7 @@ While it shouldn't ever be necessary, some algorithms are more easily expressed
 using palette-indexed color. Functions for manually manipulating the palette
 are available when supported by the terminal (as advertised by the ``ccc''
 terminfo capability).
-\begin{listing}[!htbp]
+\begin{listing}[!htb]
 \begin{minted}{C}
 
 typedef struct palette256 {
