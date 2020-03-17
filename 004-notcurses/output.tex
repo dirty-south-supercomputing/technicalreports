@@ -321,5 +321,77 @@ static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e ali
 
 \subsection{The 32-bit \texttt{attribute} value}
 \label{sec:attribute}
+Each cell has a 32-bit \texttt{attribute} field, initialized to 0. Many functions
+accept a 32-bit attribute, either to directly set a cell, or to apply to a number
+of cells. This type (sometimes called \texttt{attrword} is logically a 2-byte
+bitmask of \texttt{NCSTYLE\_} flags (see Table~\ref{table:styles}), followed by two 8-bit palette indices. The
+palette indices may take any value from 0--255, but are used if and only if the
+corresponding ``not default color'' \textit{and} ``palette-indexed color'' bits
+are set in the channels (see below). Changing a channel to indicate default color
+will \textit{not} reset the palette byte, but \textit{will} supercede
+it\footnote{Applications are strongly encouraged not to treat these two bytes as free-use scratchpad, in
+case these semantics change in the future. With that said, sometimes you've gotta
+take sixteen bits wherever you can find them, especially when they represent 12.5%%
+of your framebuffer.}.
+
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    Constant & Value & Comments \\
+    \hline
+    \hline
+\texttt{NCSTYLE\_STANDOUT} &  0x00800000ul & Implementation-defined \\
+\texttt{NCSTYLE\_UNDERLINE} & 0x00400000ul & \\
+\texttt{NCSTYLE\_REVERSE} &   0x00200000ul & \\
+\texttt{NCSTYLE\_BLINK} &     0x00100000ul & \\
+\texttt{NCSTYLE\_DIM} &       0x00080000ul & Sometimes just a different color \\
+\texttt{NCSTYLE\_BOLD} &      0x00040000ul & Sometimes just a different color \\
+\texttt{NCSTYLE\_INVIS} &     0x00020000ul & \\
+\texttt{NCSTYLE\_PROTECT} &   0x00010000ul & \\
+\texttt{NCSTYLE\_ITALIC} &    0x01000000ul & Not commonly supported \\
+    \hline
+  \end{tabular}
+  \caption{The \texttt{NCSTYLE} bits.}
+  \label{table:styles}
+\end{table}
+
+It is not guaranteed that all styles are usable on a given terminal emulator.
+As noted in Chapter~\ref{sec:capabilities}, the \texttt{notcurses\_supported\_styles()}
+function can be used at runtime to determine which are available. 
+
+Bold mode is the culprit responsible for the widespread misconception that there
+are 16 or even 256 ANSI colors. Only 8 colors are defined in
+ECMA-48\footnote{All 8 colors are defined for both fore- and background.}:
+black, red, green, yellow, blue, magenta, cyan, and white. Some terminals
+implemented bold and/or dim as additional colors, and these colors were often
+available for direct selection. A terminal can faithfully implement all of ANSI
+with only eight colors. \texttt{aixterm} supported 16 colors, which were
+picked up by xterm and NCURSES. \texttt{rxvt-unicode} introduced 88 color support, which
+was later picked up by \texttt{rxvt} and \texttt{xterm}\footnote{Why 88? Ignoring
+possible connections to Neo-Nazis or \textit{Back to the Future}...I'm not quite
+sure. The canonical 88-color palette is the 16 \texttt{aixterm} colors, a 4x4x4
+color cube, and an 8-element grey ramp. Fair enough. But six bits can only represent
+64 colors, and the seven necessary for 88 can represent 128. So why 88? Just to
+mirror the 16+6x6x6+16+24 of 256 colors? Perhaps the other space in a byte is
+used to encode additional information? I have been unable to reach a conclusive
+answer. Oh well. When this baby hits 88, you're gonna see some serious shit!}.
+
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
+\begin{listing}[!htb]
+\begin{minted}{C}
+  // (channels & 0x8000000000000000ull): left half of wide character
+  // (channels & 0x4000000000000000ull): foreground is *not* "default color"
+  // (channels & 0x3000000000000000ull): foreground alpha (2 bits)
+  // (channels & 0x0800000000000000ull): foreground uses palette index
+  // (channels & 0x0700000000000000ull): reserved, must be 0
+  // (channels & 0x00ffffff00000000ull): foreground in 3x8 RGB (rrggbb)
+  // (channels & 0x0000000080000000ull): right half of wide character
+  // (channels & 0x0000000040000000ull): background is *not* "default color"
+  // (channels & 0x0000000030000000ull): background alpha (2 bits)
+  // (channels & 0x0000000008000000ull): background uses palette index
+  // (channels & 0x0000000007000000ull): reserved, must be 0
+  // (channels & 0x0000000000ffffffull): background in 3x8 RGB (rrggbb)
+\end{minted}
+\end{listing}
