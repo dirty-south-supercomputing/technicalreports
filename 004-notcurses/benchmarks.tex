@@ -129,6 +129,13 @@ At this scale (about 100s), timings are very repeatable from run to run. Each ru
 
 \begin{figure}[!htb]
 \centering
+\includegraphics[width=1\textwidth]{media/plotbytes.png}
+\caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry (logarithmic y). As expected, the counts are generally equal across terms. If plotted against width, the counts increase linearly.}
+\label{fig:nvidia-full}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[width=1\textwidth]{media/nvidia-termsdemo.png}
 \caption[NVIDIA GTX 1080 benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.9 + NVIDIA 440.64, Debian Xorg 1.20.7, no artificial delays. 3 runs each, at each width.}
 \label{fig:nvidia-full}
@@ -176,13 +183,6 @@ tests with a smaller font at more rows X columns \textbf{FIXME}.}.
 \centering
 \includegraphics[width=1\textwidth]{media/d0-large-nvidia.png}
 \caption[382x74 NVIDIA GTX 1080 benchmarks.]{Runtimes on a 382x74 geometry (logarithmic y) atop Linux 5.5.9 + NVIDIA GTX1080 440.64, Debian Xorg 1.20.7, no false delay. 5 runs each. VTE appears to scale much more poorly than the GL-based Kitty and Alacritty.}
-\label{fig:nvidia-full}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=1\textwidth]{media/plotbytes.png}
-\caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry (logarithmic y). As expected, the counts are generally equal across terms. If plotted against width, the counts increase linearly.}
 \label{fig:nvidia-full}
 \end{figure}
 
