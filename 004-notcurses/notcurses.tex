@@ -2361,6 +2361,17 @@ widget is active, even if the removed pair is currently selected. Removing the
 last pair does not destroy the widget, and it is possible to create the widget
 with no pairs.
 
+\begin{figure}[!htb]
+  \centering \includegraphics[width=.75\linewidth]{media/selector5.png}
+  \caption{Naked selector.}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/selector1.png}
+    \caption{Selector with a long title.}
+\end{figure}
+
 \begin{listing}[!htb]
 \begin{minted}{C}
 struct selector_item {
@@ -2395,12 +2406,6 @@ struct ncselector* ncselector_create(struct ncplane* n, int y, int x, const sele
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=.75\linewidth]{media/selector1.png}
-    \caption{Selector with a long title.}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
     \includegraphics[width=.75\linewidth]{media/selector2.png}
     \caption{Short title intersecting with header.}
 \end{figure}
@@ -2413,11 +2418,6 @@ struct ncselector* ncselector_create(struct ncplane* n, int y, int x, const sele
 \begin{figure}[!htb]
 \centering \includegraphics[width=.75\linewidth]{media/selector4.png}
 \caption{Selector with a long footer and no header.}
-\end{figure}
-
-\begin{figure}[!htb]
-  \centering \includegraphics[width=.75\linewidth]{media/selector5.png}
-  \caption{Naked selector.}
 \end{figure}
 
 \begin{listing}[!htb]
