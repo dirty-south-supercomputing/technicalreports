@@ -22,7 +22,7 @@ for suf in suffixes:
     bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-',
              'xterm-bitmap-52-', 'xterm-bitmap2-52-',
              'alacritty-52-', 'alacritty-2-52-', 'alacritty-3-52-',
-             'kitty-1-52-', 'kitty-2-52-']
+             'kitty-1-52-', 'kitty-2-52-', 'kitty-3-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals

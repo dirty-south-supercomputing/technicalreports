@@ -21,8 +21,8 @@ demos will generally only show differences in the amount of time spent
 rendering. Fixed-framecount demos show difference in total time. Fixed-time demos
 might show differences in framecount and time spent rendering. A greater
 number of frames for the same demo is indicative of an advantage, as is completing
-any particular demo in less time. The most generally useful stat to compare
-across runs is average time per render and maximum time to render.
+any particular demo in less time. The most generally useful stats to compare
+across runs are average time per render and maximum time to render.
 
 \begin{table}[!htbp]
   \centering
@@ -78,7 +78,7 @@ Prior work benchmarking terminal emulators largely focused on ``scroll speed'',
 a fairly useless and easily misleading statistic\cite{lookatterms}, and input
 latency\cite{typingpleasure}.
 
-All of the following graphs have a logarithmic y-axis. At an 80x52 geometry,
+At an 80x52 geometry,
 the number of bytes output by different demos spans three orders of magnitude,
 and the time (when all artificial delays are removed) by four orders of
 magnitude\footnote{With artificial delays, it's more like a single order of
@@ -90,13 +90,22 @@ to a much smaller total window size at the 80x52 cell geometry. Nonetheless,
 One interesting observation is that CPU usage of the \texttt{Xorg} server process
 never exceeded 20\% with other terminal emulators, but regularly spiked above 60\%
 with \texttt{xterm} using bitmapped fonts, and pegged the CPU(!) with TrueType
-fonts. This ought be investigated.
+fonts (see Figure~\ref{fig:badxterm}). This ought be investigated.
+
+\begin{figure}[!htb]
+  \centering
+\includegraphics[width=1\textwidth]{media/xterm-high-cpu.png}
+\caption[Odd performance from \texttt{xterm}.]{Only with \texttt{xterm} do we see \texttt{Xorg} and \texttt{compiz}
+  soak cores like this. With other terminal emulators, they're generally under
+  20\%.}
+\label{fig:badxterm}
+\end{figure}
 
 All terminals were their Debian Unstable or Arch-packaged variants at the time
 of testing, save \texttt{alacritty}, which was not yet present in Debian. Full
 details are provided in Table~\ref{table:benchterms}.
 
-\begin{table}
+\begin{table}[!htb]
   \centering
   \begin{tabular}{|l|l|l|l|}
     \hline
@@ -121,6 +130,24 @@ details are provided in Table~\ref{table:benchterms}.
 
 \begin{figure}[!htb]
 \centering
+\includegraphics[width=1\textwidth]{media/fg-demo-alacritty.png}
+\caption{Flame graph: \texttt{alacritty}+\texttt{notcurses-demo}.}
+\label{fig:fg-demo-alacritty}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{media/fg-demo-xterm.png}
+\caption[Flame graph: \texttt{xterm}+\texttt{notcurses-demo}.]
+ {Flame graph: \texttt{xterm}+\texttt{notcurses-demo}. Note how much time
+   \texttt{xterm} spends in \texttt{recv()} and \texttt{writev()}, presumably
+ sending and receiving X messages. This could also explain why \texttt{xterm}
+drives up \texttt{Xorg} CPU load, hrmmm\textellipsis .}
+\label{fig:fg-demo-xterm}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[width=1\textwidth]{media/termsdemo.png}
 \caption[Intel i7-8550U benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.2 + i915, Arch Xorg 1.20.7, standard delays. 3 runs each, at each width.
 At this scale (about 100s), timings are very repeatable from run to run. Each run took about five hours.}
@@ -137,7 +164,7 @@ At this scale (about 100s), timings are very repeatable from run to run. Each ru
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=1\textwidth]{media/plotbytes.png}
-\caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry (logarithmic y). As expected, the counts are generally equal across terms. If plotted against width, the counts increase linearly.}
+\caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry (logarithmic y). As expected, the counts are generally equal across terminals. If plotted against width, the counts increase linearly.}
 \label{fig:nvidia-full}
 \end{figure}
 
