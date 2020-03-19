@@ -1,0 +1,1 @@
+{"notcurses-demo":{"spec":"ixethbcgrwuvlfsjo","TERM":"xterm-kitty","rows":"52","cols":"174","runs":{"intro":{"bytes":"414899","frames":"2","ns":"10831488"},"xray":{"bytes":"20389524","frames":"302","ns":"1443879197"},"eagle":{"bytes":"23740946","frames":"192","ns":"856388022"},"trans":{"bytes":"282646","frames":"9","ns":"4799113"},}}}

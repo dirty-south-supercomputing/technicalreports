@@ -96,18 +96,20 @@ details are provided in Table~\ref{table:benchterms}.
   \centering
   \begin{tabular}{|l|l|l|l|p{.4\textwidth}|}
     \hline
-    Emulator & Deb & Arch & \texttt{TERM} & Comments \\
+    Emulator & Deb & \texttt{TERM} & Comments \\
     \hline
     \hline
-    xfce4-terminal & 0.8.9.1 & 0.8.9.1 & vte-256color & \texttt{xfce4-terminal} is based on GNOME's VTE\cite{gnomevte}, as are a great many other distro-rebranded terminals. \\
+    \texttt{xfce4-terminal} & 0.8.9.1 & vte-256color & \makecell{\texttt{xfce4-terminal} is based on GNOME's VTE\cite{gnomevte},\\
+      as are a great many other distro-rebranded terminals.} \\
     \hline
-    xterm & Patch \#353 & Patch \#353 & xterm-256color & See note above regarding regression to bitmapped fonts, yuck. \\
+    \texttt{xterm} & Patch \#353 & xterm-256color & See note above regarding regression\\
+      to bitmapped fonts, yuck. \\
     \hline
-    kitty & 0.15.0 & 0.15.0 & xterm-kitty & OpenGL-based, Python \\
+    \texttt{kitty} & 0.15.0 & xterm-kitty & OpenGL-based, Python \\
     \hline
-    alacritty & 0.5.0-dev (1ddd311) & 0.4.1-dev (4d3f6de) & alacritty & OpenGL-based, Rust \\
+    \texttt{alacritty} & 0.5.0-dev (1ddd311) & alacritty & OpenGL-based, Rust \\
     \hline
-    konsole & 19.08.1 & konsole-direct & KDE's terminal \\
+    \texttt{konsole} & 19.08.1 & konsole-direct & KDE's terminal \\
     \hline
   \end{tabular}
 \caption{Terminal software used for benchmarking.}

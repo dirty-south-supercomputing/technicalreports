@@ -138,18 +138,19 @@ site is not offered over HTTPS, and reads ``Now it is time for the last text
 terminals to give way to newer technologies\cite{boundless}.'' Press F to pay
 respects.
 
-The original \texttt{xterm} was written as an emulator of the VAXStation 100
-(VS100), and slowly acquired scattered features from the VT100, ANSI, and other
-sources\cite{xtermfaq}. Thomas E.\ Dickey (the current maintainer of \Gls{ncurses}
-and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
-\texttt{decTerminalID} resource following the addition of much VT220 compatibility.
-\texttt{xterm} can be built with support for Sixel, ReGIS, Unicode, and an extraordinary
-number of archaic and/or baroque mechanics with which I'm not personally familiar.
-Further information is available in Mr. Dickey's
-\href{https://invisible-island.net/xterm/xterm.faq.html}{XTerm FAQ}, which makes
-for excellent reading\footnote{Mr. Dickey's XTerm and NCURSES FAQs are, in my opinion,
-two of the finest pieces of technical documentation in existence. It is my hope
-that this manuscript rises to their level.}.
+The original \texttt{xterm} (released in X10R3) was written as an emulator of
+the VAXStation 100 (VS100), and slowly acquired scattered features from the
+VT100, ANSI, and other sources\cite{xtermfaq}. Thomas E.\ Dickey (the current
+maintainer of \Gls{ncurses} and xterm) began working on XTerm in the mid-90s,
+and by 1996 had added the \texttt{decTerminalID} resource following the
+addition of much VT220 compatibility. \texttt{xterm} can be built with support
+for Sixel, ReGIS, Unicode, and an extraordinary number of archaic and/or
+baroque mechanics with which I'm not personally familiar. Further information
+is available in Mr. Dickey's
+\href{https://invisible-island.net/xterm/xterm.faq.html}{XTerm FAQ}, which
+makes for excellent reading\footnote{Mr. Dickey's XTerm and NCURSES FAQs are,
+in my opinion, two of the finest pieces of technical documentation in
+existence. It is my hope that this manuscript rises to their level.}.
 
 I will not attempt to list the hundreds (probably thousands) of terminal
 emulators that are available. Most claim some manner of ``ANSI'' or ``vt100''
@@ -188,5 +189,20 @@ The best single source of terminal emulator (and terminal) information is
 probably the ``Terminal Type Descriptions'' file distributed with NCURSES\cite{termdescript}.
 
 \subsection{The Curses API}
-\textbf{FIXME keep goin'\ldots}
-\cite{cursesexplained}
+Several APIs for TUIs and character (semi)graphics have emerged over the fifty
+years of video terminals' existence. Of them, by far the most venerable,
+portable, and proven is Curses, which is has (for over twenty years) actually
+been codified in the Single UNIX Specification. Notcurses is an obvious
+intellectual descendant of Curses, and indeed ought be easy to pick up by any
+experience Curses programmer.
+
+As mentioned in Chapter ~\ref{sec:terminfo}, Ken Arnold released the first BSD
+Curses library shortly after extracting \texttt{vi}'s terminal abstraction routines
+as libtermcap, and that first Curses made use of termcap\cite{cursesexplained}.
+Similarly to termcap, Curses had its origins in Joy's \texttt{vi} code; unlike
+termcap, Curses required significant reworking to be presented as a sensible
+API. Meanwhile, over in AT\&T land, Mary Ann Horton (previously maintainer of
+BSD's \texttt{vi} and \texttt{termcap}) arrived and implemented a new Curses,
+this one making use of her terminfo. The two diverged over the years (with PDCurses
+aka Public Domain Curses reimplementing AT\&T to work around licensing issues),
+until X/Open codified an official vendor-neutral Curses in 
