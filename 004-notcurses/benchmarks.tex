@@ -87,6 +87,10 @@ except for \texttt{xterm}, which became effectively unusable with this TrueType
 font. I instead allowed \texttt{xterm} to use its default font and size, leading
 to a much smaller total window size at the 80x52 cell geometry. Nonetheless,
 \texttt{xterm} still reliably delivered the poorest performance\footnote{\textbf{FIXME FIXME FIXME investigate this}}.
+One interesting observation is that CPU usage of the \texttt{Xorg} server process
+never exceeded 20\% with other terminal emulators, but regularly spiked above 60\%
+with \texttt{xterm} using bitmapped fonts, and pegged the CPU(!) with TrueType
+fonts. This ought be investigated.
 
 All terminals were their Debian Unstable or Arch-packaged variants at the time
 of testing, save \texttt{alacritty}, which was not yet present in Debian. Full
@@ -94,20 +98,19 @@ details are provided in Table~\ref{table:benchterms}.
 
 \begin{table}
   \centering
-  \begin{tabular}{|l|l|l|l|p{.4\textwidth}|}
+  \begin{tabular}{|l|l|l|l|}
     \hline
-    Emulator & Deb & \texttt{TERM} & Comments \\
+    Emulator & Version & \texttt{TERM} & Comments \\
     \hline
     \hline
-    \texttt{xfce4-terminal} & 0.8.9.1 & vte-256color & \makecell{\texttt{xfce4-terminal} is based on GNOME's VTE\cite{gnomevte},\\
-      as are a great many other distro-rebranded terminals.} \\
+    \texttt{xfce4-terminal} & 0.8.9.1 & vte-256color & Based on GNOME's VTE\cite{gnomevte} \\
     \hline
-    \texttt{xterm} & Patch \#353 & xterm-256color & See note above regarding regression\\
-      to bitmapped fonts, yuck. \\
+    \texttt{xterm} & Patch \#353 & xterm-256color & \makecell[l]{See note above regarding regression\\
+      to bitmapped fonts, yuck.} \\
     \hline
     \texttt{kitty} & 0.15.0 & xterm-kitty & OpenGL-based, Python \\
     \hline
-    \texttt{alacritty} & 0.5.0-dev (1ddd311) & alacritty & OpenGL-based, Rust \\
+    \texttt{alacritty} & \makecell[l]{0.5.0-dev\\(1ddd311)} & alacritty & OpenGL-based, Rust \\
     \hline
     \texttt{konsole} & 19.08.1 & konsole-direct & KDE's terminal \\
     \hline
@@ -115,6 +118,14 @@ details are provided in Table~\ref{table:benchterms}.
 \caption{Terminal software used for benchmarking.}
 \label{table:benchterms}
 \end{table}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{media/termsdemo.png}
+\caption[Intel i7-8550U benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.2 + i915, Arch Xorg 1.20.7, standard delays. 3 runs each, at each width.
+At this scale (about 100s), timings are very repeatable from run to run. Each run took about five hours.}
+\label{fig:intel-full}
+\end{figure}
 
 \begin{figure}[!htb]
 \centering
@@ -128,7 +139,7 @@ by setting all cores' scaling governor to \texttt{performance}, and disabled
 boosting by writing 1 to \texttt{/sys/devices/system/cpu/intel\_pstate/}\footnote{If using \texttt{acpi-cpufreq}, write 0 to \texttt{/sys/devices/system/cpu/cpufreq/boost}.}.
 I disabled suspend mode on the Lenovo T580 laptop, and disabled screen blanking
 on both machines (I'm not sure whether this latter has any impact, but wanted
-to play it safe). Benchmarks always ran on the active desktop. \texttt{cron} was
+to play it safe). Benchmarks always ran on the active virtual desktop. \texttt{cron} was
 disabled, but I did \textit{not} disable systemd timers\footnote{All the timers I
 had enabled are either daily or weekly, and disabling them might have
 cumulative performance impact vs. typical behavior. I didn't go to any great
@@ -138,12 +149,10 @@ The runtimes were so repeatable (see e.g. Figure~\ref{fig:intel-full}, where
 runs tracked so closely I thought I must have made an error) that I didn't
 bother with things like CPU affinity or process priority.
 
-
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1\textwidth]{media/termsdemo.png}
-\caption[Intel i7-8550U benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.2 + i915, Arch Xorg 1.20.7, standard delays. 3 runs each, at each width.
-At this scale (about 100s), timings are very repeatable from run to run. Each run took about five hours.}
+\includegraphics[width=1\textwidth]{media/i915-80x52.png}
+\caption[80x52 Intel i7-8550U benchmarks.]{Runtimes on a 80x52 geometry (logarithmic y) atop Linux 5.5.2 + i915, Arch Xorg 1.20.7, no false delay. 5 runs each.}
 \label{fig:intel-full}
 \end{figure}
 
@@ -168,13 +177,6 @@ tests with a smaller font at more rows X columns \textbf{FIXME}.}.
 \includegraphics[width=1\textwidth]{media/d0-large-nvidia.png}
 \caption[382x74 NVIDIA GTX 1080 benchmarks.]{Runtimes on a 382x74 geometry (logarithmic y) atop Linux 5.5.9 + NVIDIA GTX1080 440.64, Debian Xorg 1.20.7, no false delay. 5 runs each. VTE appears to scale much more poorly than the GL-based Kitty and Alacritty.}
 \label{fig:nvidia-full}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=1\textwidth]{media/i915-80x52.png}
-\caption[80x52 Intel i7-8550U benchmarks.]{Runtimes on a 80x52 geometry (logarithmic y) atop Linux 5.5.2 + i915, Arch Xorg 1.20.7, no false delay. 5 runs each.}
-\label{fig:intel-full}
 \end{figure}
 
 \begin{figure}[!htb]

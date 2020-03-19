@@ -17,7 +17,7 @@ for suf in suffixes:
     ttl = pd.DataFrame()
     bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-',
              'kitty-1-52-', 'kitty-2-52-', 'kitty-3-52-',
-             'alacritty-1-52-', 'alacritty-2-52-'
+             'alacritty-1-52-', 'alacritty-2-52-', 'alacritty-3-52-'
              ]
 #    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-',
 #             'xterm-bitmap-52-', 'xterm-bitmap2-52-',
