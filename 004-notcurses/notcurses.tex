@@ -763,7 +763,8 @@ discussed in depth in Chapter~\ref{ncplane}, are the fundamental drawing surface
 This standard plane cannot be destroyed without destroying the containing
 Notcurses context, nor can it be moved or resized by the user. Its size always
 matches Notcurses's concept of the terminal's screen size, and its origin
-always corresponds precisely to the terminal's origin. Aside from these
+always corresponds precisely to the terminal's origin\footnote{Some will note
+clear similarities to the X ``root window''\cite{joyofx}.}. Aside from these
 restrictions, the standard plane is a drawable surface like any other
 \texttt{ncplane}---it can be moved along the z-axis, written to with arbitrary
 glyphs and styles, made transparent, etc.
@@ -2225,10 +2226,6 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{input}
-\cleardoublepage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Multimedia (images and videos)}
 \label{sec:libav}
 
@@ -2339,6 +2336,10 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 \end{listing}
 
 \subsection{Sprites}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{input}
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
