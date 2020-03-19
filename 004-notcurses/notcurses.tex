@@ -2347,6 +2347,14 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{UI widgets}
+Widgets provide ready-made tools for acquiring user input or displaying data.
+As of Notcurses 1.2.3, there are four widgets: selector, multiselector, menu,
+and reel. Multiple widgets can be in use at one time, and they are drawn onto
+planes like any other output. Widgets can thus be moved up and down the z-axis.
+It is not recommended to scribble on widgets, but nothing prevents you from
+doing so. See Chapter~\ref{sec:input} for information about routing input to
+widgets.
+
 \label{sec:uiwidgets}
 \subsection{Selectors and multiselectors}
 
@@ -2461,12 +2469,19 @@ void ncselector_destroy(struct ncselector* n, char** item);
 
 \subsection{Menus}
 \label{sec:menus}
-
+\begin{figure}
+    \centering
+    \includegraphics[width=.75\linewidth]{media/menutop.png}
+    \caption{Menu along the top of the standard plane.}
+\end{figure}
 Horizontal menu bars are supported on the top and bottom rows of planes. If a
 menu bar is longer than the bound plane, it will be only partially visible, but
 any unrolled section will be visible. Menus may be either visible or invisible
 by default. Set the `hiding` option to get an invisible menu. In the event of a
 screen resize, menus will be automatically moved/resized.
+
+Listing~\ref{list:menucreate} covers creation of menus, and Listing~\ref{list:menucontrol}
+covers their control.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
@@ -2494,13 +2509,8 @@ struct ncmenu;
 struct ncmenu* ncmenu_create(struct notcurses* nc, const menu_options* opts);
 \end{minted}
 \caption{Menu creation.}
+\label{list:menucreate}
 \end{listing}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.75\linewidth]{media/menutop.png}
-    \caption{Menu along the top of the standard plane.}
-\end{figure}
 
 \begin{figure}
     \centering
@@ -2548,6 +2558,7 @@ bool ncmenu_offer_input(struct ncmenu* n, const struct ncinput* nc);
 int ncmenu_destroy(struct ncmenu* n);
 \end{minted}
 \caption{Menu control.}
+\label{list:menucontrol}
 \end{listing}
 
 \subsection{Reels}
