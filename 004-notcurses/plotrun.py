@@ -16,8 +16,8 @@ plt.figure(figsize=(11,8))
 suffixes = ['ns']#, 'bytes']
 for suf in suffixes:
     ttl = pd.DataFrame()
-    bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-'
-             ]
+    bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-',
+             'kitty-1-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals

@@ -129,18 +129,64 @@ faithful emulation of the earlier era's VT52\cite{vt52}. The VT102 cut down on t
 and size of the VT100, and included the 132-CPL mode by default; they were
 otherwise essentially the same device\cite{vt100}.
 
+Terminals had quite a heyday through the 1970s and 1980s, but as the price of
+Wintel machines fell below \$1,000, their purpose rapidly eroded. They lived on,
+especially in niche minicomputer and mainframe installations, but as of 2020 it's
+difficult to find a new terminal. Digital sold their terminal business to SunRiver
+Data Systems (now Boundless Technologies) in 1995; the \url{boundlessterminals.com}
+site is not offered over HTTPS, and reads ``Now it is time for the last text
+terminals to give way to newer technologies\cite{boundless}.'' Press F to pay
+respects.
+
 The original \texttt{xterm} was written as an emulator of the VAXStation 100
 (VS100), and slowly acquired scattered features from the VT100, ANSI, and other
 sources\cite{xtermfaq}. Thomas E.\ Dickey (the current maintainer of \Gls{ncurses}
 and xterm) began working on XTerm in the mid-90s, and by 1996 had added the
 \texttt{decTerminalID} resource following the addition of much VT220 compatibility.
+\texttt{xterm} can be built with support for Sixel, ReGIS, Unicode, and an extraordinary
+number of archaic and/or baroque mechanics with which I'm not personally familiar.
 Further information is available in Mr. Dickey's
 \href{https://invisible-island.net/xterm/xterm.faq.html}{XTerm FAQ}, which makes
 for excellent reading\footnote{Mr. Dickey's XTerm and NCURSES FAQs are, in my opinion,
 two of the finest pieces of technical documentation in existence. It is my hope
 that this manuscript rises to their level.}.
 
-\textbf{FIXME keep goin'\ldots}
+I will not attempt to list the hundreds (probably thousands) of terminal
+emulators that are available. Most claim some manner of ``ANSI'' or ``vt100''
+(not the same thing!) compliance; take these claims with a large grain of salt.
+It's worth knowing about:
+
+\begin{denseitemize}
+\item{\texttt{rxvt}, ``Rob's \texttt{xvt}''. An enhancement of \texttt{xvt} touted
+    as a slimmed-down, simplified alternative to \texttt{xterm}. Implemented pixel-addressable
+    graphics (in a scheme incompatible with Sixel). Like \texttt{xterm}, it uses
+    X resources for configuration. Various forks add various essential technologies
+    introduced since 2000.}
+\item{Konsole, the official terminal of KDE. Having never used KDE substantially,
+   I've never made much use of Konsole. I recall it having URL recognition
+   when most terminal emulators didn't.}
+\item{VTE terminals, a family of terminals built around GNOME's VTE library, built
+  atop GTK3. GNOME and Xfce's terminals both wrap VTE, as do dozens of others.
+  \texttt{xfce4-terminal} plays the role of our VTE terminal in benchmarks, because
+  I run XFCE (atop Compiz).}
+\item{\texttt{alacritty}, written in Rust by Joe Wilm. One of the new class of
+    emulators written directly against OpenGL.}
+\item{\texttt{kitty}, another OpenGL program, this one in Python by Kovid Goyal.}
+\item{Terminology is the emulator of Enlightenment since E17, the long (twelve
+    years!) awaited successor to E16. It seemed somewhat broken every time I
+    tried it, and by 2014 I didn't want to spend time fixing terminal emulators.
+    It does look really pretty on its website\cite{terminology}.}
+\item{Terminator was written in Java, which\textellipsis life finds a way I guess.}
+\end{denseitemize}
+
+I haven't benchmarked \texttt{rxvt} because I didn't care to figure out which of
+its ten thousand forks is the one you're supposed to use. Likewise, I didn't
+benchmark Terminator because I would legitimately prefer setting myself on fire
+to running a Java terminal emulator.
+
+The best single source of terminal emulator (and terminal) information is
+probably the ``Terminal Type Descriptions'' file distributed with NCURSES\cite{termdescript}.
 
 \subsection{The Curses API}
+\textbf{FIXME keep goin'\ldots}
 \cite{cursesexplained}
