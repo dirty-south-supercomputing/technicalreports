@@ -15,22 +15,22 @@ plt.figure(figsize=(11,8))
 suffixes = ['ns']#, 'bytes']
 for suf in suffixes:
     ttl = pd.DataFrame()
-    bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-',
-             'kitty-1-52-', 'kitty-2-52-', 'kitty-3-52-',
-             'alacritty-1-52-', 'alacritty-2-52-', 'alacritty-3-52-'
-             ]
-#    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-',
-#             'xterm-bitmap-52-', 'xterm-bitmap2-52-',
-#             'alacritty-52-', 'alacritty-2-52-', 'alacritty-3-52-',
-#             'kitty-1-52-']
+ #   bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-',
+ #            'kitty-1-52-', 'kitty-2-52-', 'kitty-3-52-',
+ #            'alacritty-1-52-', 'alacritty-2-52-', 'alacritty-3-52-'
+ #            ]
+    bases = ['xfce4-vte-52-', 'xfce4-vte2-52-', 'xfce4-vte3-52-',
+             'xterm-bitmap-52-', 'xterm-bitmap2-52-',
+             'alacritty-52-', 'alacritty-2-52-', 'alacritty-3-52-',
+             'kitty-1-52-', 'kitty-2-52-']
     widths = [] # widths
     times = [] # nanosecond counts
     terms = [] # terminals
     for b in bases:
         #for i in range(81,191):
         for i in range(80,191):
-            #name = 'data/' + b + str(i) + '.json'
-            name = 'data/d0-termdemos/d0-' + b + str(i) + '.json'
+            name = 'data/' + b + str(i) + '.json'
+            #name = 'data/d0-termdemos/d0-' + b + str(i) + '.json'
             print(name)
             xterm=pd.read_json(name)
             #print(xterm)
@@ -62,8 +62,8 @@ for suf in suffixes:
         #    print('******rows: ' + row);
 
     sns.set_style("darkgrid")
-    #title='52 lines. Hack 10 (save xterm). Kaby Lake 8550U.'
-    title='52 lines. Hack 10 (save xterm), no artificial delays. Broadwell-E 6950 → GTX 1080'
+    title='52 lines. Hack 10 (save xterm). Kaby Lake 8550U.'
+    #title='52 lines. Hack 10 (save xterm), no artificial delays. Broadwell-E 6950 → GTX 1080'
     ax = sns.lineplot(x=widths, y=times, hue=terms)
     ax.set_title(title)
     plt.legend(bbox_to_anchor=(1, 1), loc=2)

@@ -146,7 +146,7 @@ and by 1996 had added the \texttt{decTerminalID} resource following the
 addition of much VT220 compatibility. \texttt{xterm} can be built with support
 for Sixel, ReGIS, Unicode, and an extraordinary number of archaic and/or
 baroque mechanics with which I'm not personally familiar. Further information
-is available in Mr. Dickey's
+is available in Mr.\ Dickey's
 \href{https://invisible-island.net/xterm/xterm.faq.html}{XTerm FAQ}, which
 makes for excellent reading\footnote{Mr. Dickey's XTerm and NCURSES FAQs are,
 in my opinion, two of the finest pieces of technical documentation in
@@ -194,7 +194,7 @@ years of video terminals' existence. Of them, by far the most venerable,
 portable, and proven is Curses, which is has (for over twenty years) actually
 been codified in the Single UNIX Specification. Notcurses is an obvious
 intellectual descendant of Curses, and indeed ought be easy to pick up by any
-experience Curses programmer.
+experienced Curses programmer.
 
 As mentioned in Chapter ~\ref{sec:terminfo}, Ken Arnold released the first BSD
 Curses library shortly after extracting \texttt{vi}'s terminal abstraction routines
@@ -205,4 +205,35 @@ API. Meanwhile, over in AT\&T land, Mary Ann Horton (previously maintainer of
 BSD's \texttt{vi} and \texttt{termcap}) arrived and implemented a new Curses,
 this one making use of her terminfo. The two diverged over the years (with PDCurses
 aka Public Domain Curses reimplementing AT\&T to work around licensing issues),
-until X/Open codified an official vendor-neutral Curses in 
+until X/Open codified an official vendor-neutral Curses, publishing it in
+1996's Issue 4, version 2 (this specification derived primarily from SVR4 Curses).
+
+Zeyd Ben-Halim adapted ncurses from the pcurses project of Pavel Curtis. Dickey
+reports the 1.8.1 version released 1993-11-05 (and included with Slackware 2.0.1)
+as the ``first widely-used version''. Numerous people (including the notorious
+Eric S. Raymond and Ulrich Drepper) contributed significant code, but most NCURSES
+development in recent years has been the work of Thomas Dickey.
+
+The Curses API is best reviewed by reading the comprehensive man pages installed
+with NCURSES. A few lines follow, summarizing major differences between Curses and Notcurses:
+
+\begin{denseitemize}
+\item{Curses has no built-in concept of a z-axis without use of its Panels
+    extension, and its \texttt{stdscr} (analogous to the standard plane of
+    Notcurses) is not considered part of the Panels stack. Curses does, however,
+    allow windows to share memory, a capability Notcurses does not yet offer.}
+\item{Panels can be ``hidden'', i.e.\ removed from the z-axis entirely. This cannot
+    be done in Notcurses (but planes can be hidden underneath an opaque plane).}
+\item{NCURSES defines its color API in terms of ``color pairs''. It is true that some
+    terminals require both colors to be changed at the same time, but Notcurses
+    hides this fact from the programmer, and instead allows foregrounds and backgrounds
+    to be specified wholly independently.}
+\item{Curses does not include the Panel, Menu, or Form extensions distributed
+    with NCURSES. With that said, their presence in NCURSES effectively means
+    they're in Curses. Notcurses is built around a Panel-like concept, and
+    includes menus in its base, but lacks the rich Forms capabilities of NCURSES.}
+\item{NCURSES supports only up to 256 colors at a time, as components of up to
+    32,767 color pairs. There are no such limits in Notcurses (assuming terminal support).}
+\item{NCURSES considers it an error to move a window or cursor off the screen. This
+    is not an error in Notcurses.}
+\end{denseitemize}
