@@ -1,6 +1,6 @@
 \section{Collecting and dispatching input}
 \label{sec:input}
-
+\epigraph{The X server primarily handles two kinds of hardware: input devices and output devices. Surprisingly, the input handling tends to be the more difficult and complicated of the two. Input is multi-source, concurrent, and highly dependent on complex user preferences.}{The New X Developer's Guide\cite{x}}
 To enter arbitrary Unicode using the keyboard, try pressing Ctrl+Shift+u. If
 successful, you ought see an underlined or otherwise stylized lowercase 'u'.
 The Unicode code point can be entered (each number will show up as you type it),
@@ -32,18 +32,26 @@ This means that input is made immediately available, without waiting for a newli
 The translation of certain key combinations (as specified by \texttt{termios})
 into signals by the kernel line discipline still occurs\textellipsis for now.
 It is likely that Notcurses will move to raw mode by the 2.0.0 release, in
-which case it will have to handle signal translation itself.
+which case it will have to handle signal translation itself\footnote{The purpose
+of this planned change is to reliably acquire the state of keyboard modifiers---Shift,
+Ctrl, Alt, and their ilk. Currently, Notcurses reliably reports these modifiers
+only for mouse events. Furthermore, it is not currently possible to differentiate
+e.g. Ctrl+I from TAB (recall Table~\ref{table:c0maps}), but it will be once
+Notcurses begins using raw mode.}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts' of 0 for non-blocking operation, and otherwise
-// a timespec to bound blocking. Signals in sigmask (less several we handle internally) will be atomically masked and unmasked
-// per ppoll(2). It should generally contain all signals. Returns a single Unicode code point, or (char32_t)-1 on error.
-// 'sigmask' may be NULL. Returns 0 on a timeout. If an event is processed, the return value
+// See ppoll(2) for more detail. Provide a NULL 'ts' to block at length, a 'ts'
+// of 0 for non-blocking operation, and otherwise a timespec to bound blocking.
+// Signals in sigmask (less several we handle internally) will be atomically
+// masked and unmasked per ppoll(2). It should generally contain all signals.
+// Returns a single Unicode code point, or (char32_t)-1 on error. 'sigmask' may
+// be NULL. Returns 0 on a timeout. If an event is processed, the return value
 // is the 'id' field from that event. 'ni' may be NULL.
 char32_t notcurses_getc(struct notcurses* n, const struct timespec* ts, sigset_t* sigmask, ncinput* ni);
 
-// 'ni' may be NULL if the caller is uninterested in event details. If no event is ready, returns 0.
+// 'ni' may be NULL if the caller is uninterested in event details. If no event
+// is ready, returns 0.
 static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigfillset(&sigmask);
@@ -51,7 +59,8 @@ static inline char32_t notcurses_getc_nblock(struct notcurses* n, ncinput* ni){
   return notcurses_getc(n, &ts, &sigmask, ni);
 }
 
-// 'ni' may be NULL if the caller is uninterested in event details. Blocks until an event is processed or a signal is received.
+// 'ni' may be NULL if the caller is uninterested in event details.
+// Blocks until an event is processed or a signal is received.
 static inline char32_t notcurses_getc_blocking(struct notcurses* n, ncinput* ni){
   sigset_t sigmask;
   sigemptyset(&sigmask);
@@ -71,8 +80,9 @@ the button, and one when the button is released. See Listing~\ref{listing:mice}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Enable the mouse in "button-event tracking" mode with focus detection and UTF8-style extended coordinates. On failure,
-// -1 is returned. On success, 0 is returned, and mouse events will be published to notcurses_getc().
+// Enable the mouse in "button-event tracking" mode with focus detection and
+// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
+// is returned, and mouse events will be published to notcurses_getc().
 int notcurses_mouse_enable(struct notcurses* n);
 
 // Disable mouse events. Any events in the input queue can still be delivered.
@@ -95,3 +105,31 @@ a plane explicitly left empty for use with local definitions. The lengthy set
 of \texttt{NCKEY\_} macros are exported to allow trivial matching against
 these ``synthesized characters''. Finally, \texttt{NCKEY\_RESIZE} is generated
 and pushed into the input queue whenever \texttt{SIGWINCH} is handled.
+
+Input is not bound to any particular plane, and is indeed processed only minimally
+by Notcurses. The input queue is associated with a \texttt{notcurses} context
+as a whole. In particular, UI widgets do not automatically handle ``their''
+input. Creating an \texttt{ncmenu} will see the menu drawn, but clicking it
+won't take any action by itself. Instead, each widget type provides a \texttt{*\_handle\_input()}
+function. Typically, your program should get the input, check it against any
+input handling your program performs, and invoke \texttt{*\_handle\_input()}
+appropriately for each UI widget active. Perform these checks in whatever order
+is appropriate for your program's concept of ``focus''. If the widget's input
+handler returns true, consider the input ``consumed'' by that widget.
+
+Just because a widget \textit{consumes} input doesn't mean it \textit{acts upon}
+that input. Essentially, if the input results in actions limited to the widget,
+those actions are performed; if the input would result in control flow external
+to the widget, they are not. I know, I know. For now (as of Notcurses 1.2.3):
+\begin{denseitemize}
+\item{Selector and multiselect widgets effect scrolling (at both the line and
+      page level) themselves, using keyboard or mouse. Multiselect effects toggling
+      itself, using keyboard or mouse. You must destroy the widget, and get its
+      current state before doing so.}
+\item{Menu effects all movement and shading/unshading, using keyboard or mouse.
+      You must get its current state when an item is executed.}
+\item{There does not yet exist a \texttt{reel\_handle\_input()} function. You
+      must manipulate reels directly.}
+\end{denseitemize}
+If you think this an unsatisfactory state of affairs, you're not alone. Expect
+changes to the input system no later than Notcurses 2.0.0.

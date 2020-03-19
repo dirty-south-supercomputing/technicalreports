@@ -9,7 +9,7 @@ as an excellent testbed for benchmarking certain properties of various
 terminals in various configurations. The \texttt{-c} argument ought always be
 provided when benchmarking, so that the PRNG is seeded with the same
 value\footnote{This only serves to eliminate variance among equal PRNG
-implementations.}. The \texttt{-J} argument is also useful, to generate JSON-formatted
+implementations.}. The \texttt{-J} argument generates JSON-formatted
 output suitable for machine processing. Finally, \texttt{-d} can be supplied
 to reduce the amount of artificial delay: the default is \texttt{-d1} for 1.0x
 the standard delay. \texttt{-d0} eliminates all artificial delay.
@@ -116,11 +116,50 @@ details are provided in Table~\ref{table:benchterms}.
 
 \begin{figure}[!htb]
 \centering
+\includegraphics[width=1\textwidth]{media/nvidia-termsdemo.png}
+\caption[NVIDIA GTX 1080 benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.9 + NVIDIA 440.64, Debian Xorg 1.20.7, no artificial delays. 3 runs each, at each width.}
+\label{fig:nvidia-full}
+\end{figure}
+
+In order to prepare a machine for benchmarking, I disabled frequency scaling
+by setting all cores' scaling governor to \texttt{performance}, and disabled
+boosting by writing 1 to \texttt{/sys/devices/system/cpu/intel\_pstate/}\footnote{If using \texttt{acpi-cpufreq}, write 0 to \texttt{/sys/devices/system/cpu/cpufreq/boost}.}.
+I disabled suspend mode on the Lenovo T580 laptop, and disabled screen blanking
+on both machines (I'm not sure whether this latter has any impact, but wanted
+to play it safe). Benchmarks always ran on the active desktop. \texttt{cron} was
+disabled, but I did \textit{not} disable systemd timers\footnote{All the timers I
+had enabled are either daily or weekly, and disabling them might have
+cumulative performance impact vs. typical behavior. I didn't go to any great
+pains to avoid running benchmarks while these tasks were running, and doubt it
+mattered much---they're minor tasks, and these are 8- and 20-core machines.}.
+The runtimes were so repeatable (see e.g. Figure~\ref{fig:intel-full}, where
+runs tracked so closely I thought I must have made an error) that I didn't
+bother with things like CPU affinity or process priority.
+
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[width=1\textwidth]{media/termsdemo.png}
 \caption[Intel i7-8550U benchmarks, varying widths.]{\texttt{notcurses-demo} runtime against terminal width. Linux 5.5.2 + i915, Arch Xorg 1.20.7, standard delays. 3 runs each, at each width.
 At this scale (about 100s), timings are very repeatable from run to run. Each run took about five hours.}
 \label{fig:intel-full}
 \end{figure}
+
+It's difficult to miss a distinct triangle pattern among the rising runtimes
+as width increases. In all cases where it occurs, odd widths appear to run
+faster than even widths. I suspect this to be a property of something within
+\texttt{notcurses-demo} rather than a general truth about Notcurses, but have
+not yet gotten to the root of this unexpected result. Beyond that, we also see
+that there is a definite difference between both the performance at any width
+between the different emulators, and furthermore a difference in the rates of
+change. \texttt{xterm} appears likely to have quadratic behavior as a function
+of width. \texttt{xfce4-terminal} looks more linear in its growth. \texttt{alacirtty}
+barely notices a larger rendering area, with its time at 191 columns less than
+10\% more than its time at 80. Over that same range, \texttt{xterm}'s runtime
+has increased by closer to 67\%\footnote{Look into whether this is repeated when
+the pixel count is held constant, but the cell count goes up---i.e. repeat these
+tests with a smaller font at more rows X columns \textbf{FIXME}.}.
+
 
 \begin{figure}[!htb]
 \centering
