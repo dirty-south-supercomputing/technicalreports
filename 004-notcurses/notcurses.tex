@@ -435,7 +435,11 @@ The machine on which I'm preparing this \LaTeX\ contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
 within its silicon heart remains a VGA 80x25 text mode engine\cite{vga}, inherited
-largely unchanged from the EGA, the CGA, the IBM Monochrome Display Adapter\footnote{The
+largely unchanged from the EGA, the CGA\footnote{The Color Graphics Adapter was
+unmitigated trash, but you could do some crazy things with it. People were
+still finding things out this decade\cite{cga1024}, resulting in the
+nigh-obscene ``8088 MPH'' demo that won Revision 2015\cite{revision2015}.},
+the IBM Monochrome Display Adapter\footnote{The
 history of video display standards since 1981's MDA is a story of imprecision,
 dashed hopes, and idle dreams. Good luck finding authoritative references
 for anything beyond \texttt{int 10h} real mode operation prior to version 1.0
@@ -1805,12 +1809,11 @@ Certain transformations can be safely and more or less attractively applied
 to the entirety of the Latin alphabet:
 
 \begin{denseitemize}
-\item{ⓐ }
-%\item{{\fontspec{DejaVu Serif}ⓦⓔ ⓒⓐⓝ ⓟⓤⓣ ⓞⓤⓡ ⓣⓔⓧⓣ ⓘⓝ ⓒⓘⓡⓒⓛⓔⓢ}}
-\item{{\fontspec{DejaVu Serif}🅝🅔🅖🅐🅣🅘🅥🅔 🅒🅘🅡🅒🅛🅔🅢 🅐🅡🅔 🅐🅛🅢🅞 🅐🅥🅐🅘🅛🅐🅑🅛🅔}}
+\item{{\fontspec{Unifont}ⓦⓔ ⓒⓐⓝ ⓟⓤⓣ ⓞⓤⓡ ⓣⓔⓧⓣ ⓘⓝ ⓒⓘⓡⓒⓛⓔⓢ}}
+\item{{\fontspec{Unifont}🅝🅔🅖🅐🅣🅘🅥🅔 🅒🅘🅡🅒🅛🅔🅢 🅐🅡🅔 🅐🅛🅢🅞 🅐🅥🅐🅘🅛🅐🅑🅛🅔}}
 \item{ｓｔｒｅｔｔｔｃｈ ｔｅｘｔ ｗｉｔｈ ｆｕｌｌｗｉｄｔｈ}
-\item{{\fontspec{DejaVu Serif}🄴🅂🄲🄷🄴🅆 🄲🄸🅁🄲🄻🄴🅂 🄶🄴🅃 🅂🅀🅄🄰🅁🄴🅂}}
-\item{{\fontspec{DejaVu Serif}🅰 🅱🅴🅰🆄🆃🅸🅵🆄🅻 🆄🆂🅴 🅾🅵 🅽🅴🅶🅰🆃🅸🆅🅴 🆂🆀🆄🅰🆁🅴🆂}}
+\item{{\fontspec{Unifont}🄴🅂🄲🄷🄴🅆 🄲🄸🅁🄲🄻🄴🅂 🄶🄴🅃 🅂🅀🅄🄰🅁🄴🅂}}
+\item{{\fontspec{Unifont}🅰 🅱🅴🅰🆄🆃🅸🅵🆄🅻 🆄🆂🅴 🅾🅵 🅽🅴🅶🅰🆃🅸🆅🅴 🆂🆀🆄🅰🆁🅴🆂}}
 \item{{\fontspec{DejaVu Serif}𝕞𝕒𝕥𝕙 𝕕𝕠𝕦𝕓𝕝𝕖 𝕤𝕥𝕣𝕦𝕔𝕜, 𝕗𝕠𝕣 𝕥𝕙𝕠𝕤𝕖 𝕨𝕙𝕠 𝕨𝕚𝕤𝕙 𝕥𝕠 𝕝𝕠𝕠𝕜 𝕝𝕚𝕜𝕖 ℝ\^𝕟}}
 \end{denseitemize}
 
@@ -2618,6 +2621,13 @@ struct ncreel* ncreel_create(struct ncplane* nc, const ncreel_options* popts, in
 \caption{Reel creation.}
 \label{listing:reelopts}
 \end{listing}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.75\linewidth]{media/growlight1.png}
+  \caption{\texttt{growlight}, a program built around reels.}
+  \label{fig:growlight1}
+\end{figure}
 
 The ncreel object tracks the size, number, information depth, and order of
 tablets, and the foci. It also draws the optional borders around tablets and
