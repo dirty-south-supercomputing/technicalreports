@@ -785,7 +785,7 @@ The fields therein include:
     use. If \texttt{NULL}, the value of the environment variable \texttt{TERM}
     is used. Failure to initialize the terminfo database will result in a
     \texttt{notcurses\_init()} failure.} A defined but invalid or suboptimal
-    entry will result in garbage, missing output, poor performance, reduced
+    entry can result in garbage, missing output, poor performance, reduced
     colors, and unsightly weight gain.
 \item{\texttt{bool inhibit\_alternate\_screen}: As noted above, this prevents
     Notcurses from making use of the alternate screen, even if the \texttt{enter\_ca\_mode}

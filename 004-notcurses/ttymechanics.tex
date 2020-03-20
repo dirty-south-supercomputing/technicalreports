@@ -282,7 +282,7 @@ any way\cite{sigterminals}.
 
 Finally, it's worth knowing how terminals get turned into login sessions. Under
 \texttt{systemd-logind}\cite{logind}, \texttt{agetty} processes are launched
-on demand (i.e.\ on first transition to the virtual console), on \texttt{ttyN}
+on demand (i.e.\ on first transition to the virtual console) on \texttt{ttyN}
 through the value of \texttt{NAutoVTs}. Should you be so unfortunate as to
 still be running SysVinit in 2020, ttys are configured in \path{/etc/inittab}\footnote{If you're one of those people who pine for SysVinit, your opinions are bad, and you should feel bad.}.
 On FreeBSD, \path{/etc/ttys} plays a similar role\cite{fbsdttys5}. \texttt{getty},
