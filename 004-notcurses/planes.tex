@@ -599,7 +599,7 @@ set in the actual terminal (assuming support):
     translucent atop the composited desktop)\footnote{I can only speak for myself, as a Solarized-on-black enthusiast, but a
     program which forces a largely white background on a fullscreen application
     annoys the hell out of me. Try to respect the user's configured background
-    for regions that don't need coloring.}. The ``op'' terminfo capability resets
+    where possible.}. The ``op'' terminfo capability resets
     both channels, requiring the other channel (assuming it to \textit{not} be
     the default) to be emitted even if it would normally have been elided.}
 \item{Palette-indexed color. The size of the palette (usually 1, 2, 8, 16, 88,
@@ -651,7 +651,11 @@ intersecting cell depends on the computed alpha thus far; see Table~\ref{table:a
 While it shouldn't ever be necessary, some algorithms are more easily expressed
 using palette-indexed color. Functions for manually manipulating the palette
 are available when supported by the terminal (as advertised by the ``ccc''
-terminfo capability).
+terminfo capability). The palette is simply an integer-indexed set of RGB values,
+where those RGB values are maintained by the terminal. It is possible to change
+them, in which case any output expressed with that palette index will be updated
+to reflect the change. The API for manipulating the palette is provided in
+Listing~\ref{list:palette256}.
 \begin{listing}[!htb]
 \begin{minted}{C}
 
@@ -699,3 +703,56 @@ void ncplane_greyscale(struct ncplane* n);
 \caption{The palette256 API facilitates manual palette programming.}
 \label{list:palette256}
 \end{listing}
+
+\subsection{Fading and pulsing planes}
+When we speak of palettes, one thing comes to mind: blingful palette fades.
+Back in my misspent adolescence, this was basically the ``Hello World'' of
+x86 assembly. Whip it into MCGA mode 13h, load up 0xa000, and drive those
+64KB. But I reminisce\textellipsis fades are available at the plane level,
+as is pulsing (a periodic fade); see Listing~\ref{list:fades}. Ironically,
+this only works for RGB data at the moment, but that is a temporary restriction.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Fade the ncplane out over the provided time, calling the specified function
+// when done. Requires a terminal which supports direct color, or at least
+// palette modification (if the terminal uses a palette, our ability to fade
+// planes is limited, and affected by the complexity of the rest of the screen).
+// It is not safe to resize or destroy the plane during the fadeout.
+int ncplane_fadeout(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
+
+// Fade the ncplane in over the specified time. Load the ncplane with the
+// target cells without rendering, then call this function. When it's done, the
+// ncplane will have reached the target levels, starting from zeroes.
+int ncplane_fadein(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
+
+// Pulse the plane in and out until the callback returns non-zero, relying on
+// the callback 'fader' to initiate rendering. 'ts' defines the half-period
+// (i.e. the transition from black to full brightness, or back again). Proper
+// use involves preparing (but not rendering) an ncplane, then calling
+// ncplane_pulse(), which will fade in from black to the specified colors.
+int ncplane_pulse(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
+\end{minted}
+\caption{Palette fades.}
+\label{list:fades}
+\end{listing}
+
+The pulsing and fading functions all accept an optional callback of type
+\texttt{fadecb} (Listing~\ref{list:fadecb}). If \texttt{NULL} is provided as
+the callback, the functions will call \texttt{notcurses\_render()} in the
+callback's place. Otherwise, the callback is provided the root
+\texttt{notcurses} struct, the plane of operation, and a user-provided,
+per-operation curry. If the callback does not itself call
+\texttt{notcurses\_render()}, this frame of the fade will not be rendered.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Called for each delta performed in a fade on ncp. If anything but 0 is returned, the fading operation ceases
+// immediately, and that value is propagated out. If provided and not NULL, the faders will not themselves call
+// notcurses_render().
+typedef int (*fadecb)(struct notcurses* nc, struct ncplane* ncp, void* curry);
+\end{minted}
+\caption{Callback type for pulsing and fading.}
+\label{list:fadecb}
+\end{listing}
+
