@@ -1774,10 +1774,15 @@ that uses more than two colors, but it might be useful to interpolate given the
 small total number of possible colors. Some graduate student ought look
 into this.
 
-It is possible to use the Braille block at U+2800 to get a 16x increase
-(Figure~\ref{figure:braille}) in resolution, at the cost of having only two
-colors available per 2x8 ``16-pixel''-cell. This can be an excellent
-solution for e.g. graphing, especially vertical histograms.
+It is possible to use the Braille Patterns at U+2800 to get a 16x increase in
+resolution, at the cost of having only two colors available per 2x4 ``8-pixel''
+cell (and looking like blotter paper, depending on the font). This can be an
+excellent solution for e.g. graphing, especially vertical histograms. By
+examining (Figure~\ref{figure:braille}), it ought be clear that the 8 areas
+map to distinct bits: counterclockwise from the upper left, the bits are 1, 2,
+4, 64, 128, 32, 16, 8. This odd ordering is due to true braille only being a
+6-bit (64 character) character set; this way, real braille maps to the first
+64 codepoints.
 
 \begin{figure}[!htb]
     \centering
