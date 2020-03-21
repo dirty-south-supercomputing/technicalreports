@@ -1,0 +1,66 @@
+#!/usr/bin/python3
+
+# line graphs of emulators against size
+
+import seaborn as sns
+import pandas as pd
+import pandas as pd
+from pandas.io.json import json_normalize
+import matplotlib.pyplot as plt
+
+sns.set(style="darkgrid")
+
+plt.figure(figsize=(11,8))
+order=['xfce4', 'kitty', 'alacritty', 'xterm']
+suffixes = ['ns']#, 'bytes']
+for suf in suffixes:
+    ttl = pd.DataFrame()
+    bases = ['xfce4-1-', 'xfce4-2-', 'xfce4-3-',
+             'kitty-1-52-', 'kitty-2-52-', 'kitty-3-52-',
+             'alacritty-1-52-', 'alacritty-2-52-', 'alacritty-3-52-',
+             'xterm-1-52-', 'xterm-2-52-'
+             ]
+    widths = [] # widths
+    times = [] # nanosecond counts
+    terms = [] # terminals
+    for b in bases:
+        for i in range(80,191):
+            name = 'data/d0-termdemos/d0-' + b + str(i) + '.json'
+            print(name)
+            xterm=pd.read_json(name)
+            #print(xterm)
+            #print(xterm.keys())
+            demo = xterm['notcurses-demo']
+            #print(demo.keys())
+            runs = demo['runs']
+            #print(runs.keys())
+            #print(runs.values())
+            nruns = json_normalize(runs);
+            terms.append(b.split('-')[0])
+            widths.append(i)
+            sum = 0
+            idx = 0
+            for ii in nruns.values:
+                for j in ii:
+                    idx = idx + 1
+                    if idx % 3 == 0:
+                        #print(j)
+                        sum = sum + int(j)
+            times.append(sum / 1000000000)
+            #print('widths: ' + str(widths[-1]) + ' term: ' + terms[-1] + ' sum: ' + str(sum))
+            #print('*********************************')
+            #print(ttl)
+
+        #print('*********************************')
+        #for width, row in ttl.iterrows():
+        #    print('width****: ' + str(width + 80));
+        #    print('******rows: ' + row);
+
+    sns.set_style("darkgrid")
+    title='52 lines. Hack 10 (save xterm), no artificial delays. Broadwell-E 6950 → GTX 1080'
+    ax = sns.lineplot(x=widths, y=times, hue=terms, hue_order=order)
+    ax.set_title(title)
+    plt.legend(bbox_to_anchor=(1, 1), loc=2)
+    plt.xlabel('Width')
+    plt.ylabel('Seconds')
+    plt.show()

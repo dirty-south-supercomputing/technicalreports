@@ -1774,6 +1774,18 @@ that uses more than two colors, but it might be useful to interpolate given the
 small total number of possible colors. Some graduate student ought look
 into this.
 
+It is possible to use the Braille block at U+2800 to get a 16x increase
+(Figure~\ref{figure:braille}) in resolution, at the cost of having only two
+colors available per 2x8 ``16-pixel''-cell. This can be an excellent
+solution for e.g. graphing, especially vertical histograms.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{media/braille-unicode.png}
+    \caption{Unicode Braille characters.}
+    \label{fig:braille}
+\end{figure}
+
 Certain sets of Unicode characters form cyclic groups. These can be useful for
 simple, single-cell animations, e.g. work-indicating ``spinners''. I've isolated
 some of these groups in Table~\ref{table:cyclics}. Smaller groups can usually
