@@ -16,3 +16,26 @@ the necessary interface to the input loop:
 \item{\texttt{Pause()}}, and
 \item{\texttt{RotateCCw} and \texttt{RotateCw}}
 \end{denseitemize}
+
+The general structure of our solution is thus:
+
+\begin{denseitemize}
+\item{A background is drawn onto the standard plane.}
+\item{A new plane is created for the game area. Why make a new plane? Recall
+    the beginning of Chapter~\ref{sec:planes}: \textit{we use a plane wherever we
+    benefit from distinct state}. By keeping the game area on its own plane,
+    we can trivially move it in response to terminal resizes, and likewise
+    trivially test whether the current piece can move in a given direction.}
+\item{Two tetrimino planes are created, one for the current piece, and one for
+    the next piece. The current piece descends from the top of the game area.
+    Upon reaching its final position, its plane is added to the game plane
+    using \texttt{ncplane\_mergedown()}. The next piece is brought to the top
+    of the game area, and the current piece is redrawn on its way to becoming
+    the next piece.}
+\item{We need no external state save the score and the order of pieces. The order
+    of pieces is left up to the PRNG. We only need track the score and
+    our four planes. The validity of a given movement can be checked entirely
+    by reflection, using \texttt{ncplane\_at\_yx()}.}
+\end{denseitemize}
+
+\textbf{FIXME FIXME FIXME}
