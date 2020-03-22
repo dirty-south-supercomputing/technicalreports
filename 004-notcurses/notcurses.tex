@@ -279,7 +279,7 @@ The console ain't dead! Hack on, hax0rs.
 \vfill
 
 \begin{flushright}
-  \textit{---February 2020, Atlanta}
+  \textit{---February--March 2020, Atlanta}
 \end{flushright}
 
 \cleardoublepage
@@ -1850,8 +1850,7 @@ Others can be performed on a good chunk of Latin script, but are incomplete:
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=.75\linewidth]{media/unicode-weird.png}
-    \caption[A pangram using a variety of Unicode texts.]
-      {A pangram using a variety of Unicode texts.\\``Even when I say nothing, it's a beautiful use of negative space.''}
+    \caption{A pangram using a variety of Unicode texts.}
     \label{fig:unicodeweird}
 \end{figure}
 
@@ -1904,6 +1903,7 @@ an excuse to include Figure~\ref{fig:zalgo}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lines, boxes, and fills}
 \subsection{Linear interpolation (``lerping'') and lines}
+\epigraph{On the plain behind him are the wanderers in search of bones and those who do not search and they move haltingly in the light like mechanisms whose movements are monitored with escapement and pallet so that they appear restrained by a prudence or reflectiveness which has no inner reality and they cross in their progress one by one that track of holes that runs to the rim of the visible ground and which seems less the pursuit of some continuance than the verification of a principle, a validation of sequence and causality as if each round and perfect hole owed its existence to the one before it there on that prairie upon which are the bones and the gatherers of bones and those who do not gather.}{Cormac McCarthy, \textit{Blood Meridian}}
 \label{sec:lerps}
 Following actual text, the most frequent need of a TUI is probably vertical
 and horizontal lines. Notcurses allows such lines to be drawn using arbitrary
@@ -2367,6 +2367,29 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 \end{listing}
 
 \subsection{Sprites}
+Danny Hillis is probably best known to computer architects for Thinking Machines,
+but to the great video game-playing masses, it was his coinage of the term
+``sprite'' which will be remembered (or not)\cite{tms34010}. First used in
+conjunction with the hallowed TMS34010 of Texas Instruments, sprites are simply
+bitmaps composed into a larger scene; like the French \textit{esprit} or Celtic
+\textit{spriggan}\footnote{Both derived from the Latin \textit{spiritus}.}, they
+float ethereally above the ground (plane). Notcurses supports full-sized sprites
+via the combination of transparency and independently moved planes, often
+populated via an external image file (texture).
+
+The basic recipe for a sprite is:
+\begin{denseitemize}
+\item{Create a new plane above whatever background is in use.}
+\item{Set the base character of this plane transparent.}
+\item{Draw your object, possibly via \texttt{ncvisual\_render()}.}
+\end{denseitemize}
+The new plane can be moved freely, and the base transparency will allow the
+underlying background to show through wherever you haven't drawn. The plane can
+be as large as is convenient, so long as it's transparent everywhere the
+sprite isn't present. To test whether the sprite has been ``hit'', the plane
+itself can be used as a bounding box, but much better accuracy can be had by
+testing the plane for character presence with \texttt{ncplane\_at\_yx()}.
+
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3259,6 +3282,7 @@ fighting the unceasing struggle against International Communism. God save the
 Constitution and God save the Republic.
 \vfill
 \begin{center}
+\textit{Hail Eris, All Hail Discordia!}
 \includegraphics[width=.4\linewidth]{../common/dsscaw-purp-scaled.png}
 \includegraphics[width=.5\linewidth]{../common/south.png}
 \end{center}
