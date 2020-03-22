@@ -11,6 +11,22 @@ always contains at least one plane, the \textit{standard plane}. This plane's
 origin is always defined to be the rendering area's origin. It is always
 exactly as large as the rendering area, and it cannot be destroyed.
 
+It's useful to note that there is never a \textit{need} for more than one plane,
+as demonstrated by the simple fact that each rendered frame is a two-dimensional
+area. Planes do not add power to the system: \textit{any algorithm which can be expressed using multiple planes can be expressed
+using a single plane and external state.} Instead, they add expressiveness, and
+supply order to the state needed beyond the data present in the rendered frame.
+The color blending performed for transparent or translucent planes can be
+simulated by the programmer. Redrawing the parts of an underlying plane exposed
+by moving another can be managed by the programmer. Mapping a base glyph to
+null cells of different planes can be done by keeping an index for each null
+cell, etc.\ etc. In a great many cases, this external structure would be
+reproducing the algorithms and data structures of planes. \textbf{Planes are
+provided as a concise and efficient implementation of the codes frequently
+necessary to implement TUIs}. The rule for using planes is thus simply to
+\textit{use a plane whenever you find yourself implementing code already
+provided by planes}.
+
 Chapter \ref{sec:notcursesfuncs} introduced one function that creates a new
 plane: \texttt{ncplane\_new()}. In addition, there is \texttt{ncplane\_aligned()}.
 
