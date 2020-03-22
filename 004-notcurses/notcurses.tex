@@ -1827,14 +1827,13 @@ yields two four-way subcycles and four two-way subcycles.
   \label{table:cyclics}
 \end{table}
 
-Certain transformations can be safely applied to the full Latin alphabet:
+Certain transformations can be safely applied to the full Latin alphabet
+(see Figure~\ref{fig:unicodeweird} for more, some of which couldn't be
+realized in \LaTeX).
 
 \begin{denseitemize}
 \item{{\fontspec{Unifont}ⓦⓔ ⓒⓐⓝ ⓟⓤⓣ ⓞⓤⓡ ⓣⓔⓧⓣ ⓘⓝ ⓒⓘⓡⓒⓛⓔⓢ}}
-\item{{\fontspec{Noto Sans}🅝🅔🅖🅐🅣🅘🅥🅔 🅒🅘🅡🅒🅛🅔🅢 🅐🅡🅔 🅐🅛🅢🅞 🅐🅥🅐🅘🅛🅐🅑🅛🅔}}
 \item{ｓｔｒｅｔｔｔｃｈ ｔｅｘｔ ｗｉｔｈ ｆｕｌｌｗｉｄｔｈ}
-\item{{\fontspec{Noto Sans}🄴🅂🄲🄷🄴🅆 🄲🄸🅁🄲🄻🄴🅂 🄶🄴🅃 🅂🅀🅄🄰🅁🄴🅂}}
-\item{{\fontspec{Noto Sans}🅰 🅱🅴🅰🆄🆃🅸🅵🆄🅻 🆄🆂🅴 🅾🅵 🅽🅴🅶🅰🆃🅸🆅🅴 🆂🆀🆄🅰🆁🅴🆂}}
 \item{{\fontspec{DejaVu Serif}𝕞𝕒𝕥𝕙 𝕕𝕠𝕦𝕓𝕝𝕖 𝕤𝕥𝕣𝕦𝕔𝕜, 𝕗𝕠𝕣 𝕥𝕙𝕠𝕤𝕖 𝕨𝕙𝕠 𝕨𝕚𝕤𝕙 𝕥𝕠 𝕝𝕠𝕠𝕜 𝕝𝕚𝕜𝕖 ℝ\^𝕟}}
 \end{denseitemize}
 
@@ -1847,6 +1846,14 @@ Others can be performed on a good chunk of Latin script, but are incomplete:
 \item{{\fontspec{DejaVu Serif}dɐɔʞ ɯʎ qox ʍıʇɥ ɟıʌǝ pozǝu ןıbnoɹ ɾnƃs (inverted)}}
 \item{{\fontspec{DejaVu Serif}ꟼAↄk mY dox wiTH ꟻivɘ bozɘᴎ lipUoᴙ jUgꙅ (reversed)}}
 \end{denseitemize}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=.75\linewidth]{media/unicode-weird.png}
+    \caption[A pangram using a variety of Unicode texts.]
+      {A pangram using a variety of Unicode texts.\\``Even when I say nothing, it's a beautiful use of negative space.''}
+    \label{fig:unicodeweird}
+\end{figure}
 
 ``Pseudoalphabets'' by the thousand exist. These simply substitute glyphs for
 others of which they are more or less suggestive. There's no real rhyme or
@@ -2783,8 +2790,7 @@ of the libnotcurses-sys\footnote{\url{https://lib.rs/crates/libnotcurses-sys}}
 \texttt{bindgen}-generated Rust wrappers.
 
 \section{Complex examples}
-\subsection{Example: let's rip off tetris}
-\label{sec:casestudy}
+\include{tetris}
 \subsection{Example: walking through \texttt{notcurses-demo}}
 \label{sec:ncdemo}
 The \texttt{notcurses-demo} program is built as part of Notcurses, and ought
@@ -3224,25 +3230,26 @@ Todd Wilson at Vakaros, Charles Brian Quinn at Greenzie, Carl Ledbetter
 at SimpleRose, Keshav Attrey at PureStorage, Jaron Nix at Pathware,
 Manuel Garcia at Cyxtera, and the folks who can't be mentioned. Keep
 churning through DGEMMs and blowing shit up, everybody. Yacin Nadji,
-Scott Hughes, Paige Bailey, Brendan Dolan-Gavitt, Brett W.\ Thompson, and Joe
-Lafiosca were particularly supportive of the Notcurses endeavor. Mark Ferrari
-let me use his mindblowing palette-cycling pixel art, and was awfully sweet to
-a weird dude emailing him from out of nowhere. GitHub has remained shockingly
-useful and unoffensive for a Microsoft product. Robert Edmonds helped me get
-Notcurses into Debian's NEW queue, and coached me in the ways of the DFSG.
-Marek Habersack wrote the \CC wrapper, and has kept it up to date despite my
-total lack of communication or warning before lunging in entirely new API
-directions. Astrid Bin did the awesome DSSCAW logo\footnote{Minus the boss
-purple gradient, which I applied against her passionate wishes. I stand by my
-call.}, and I couldn't pay her in the end due to bullshit laws---like, I
-drunkenly called her up and was like ``FUCK DA POLICE i'll drop a brown paper
-sack of \$10 bills on your porch and steal you a social security number,
-arrrrrrrr'' and yet she refused---thanks, Astrid! Mary Ann Horton, the original
-author of terminfo, was gracious and helpful in her responses. Thomas E. Dickey,
-author/maintainer of many venerable trees including NCURSES, is a saint and an
-angel, a UNESCO treasure, and the very model of conservative, thoughtful
-software stewardship. He graciously answered my mails with lengthy and rigorous
-information. The free software community owes him a great debt.
+Scott Hughes, Paige Bailey, Brendan Dolan-Gavitt, Brett W.\ Thompson, Bill
+Phillips, and Joe Lafiosca were particularly supportive of the Notcurses
+endeavor. Mark Ferrari let me use his mindblowing palette-cycling pixel art,
+and was awfully sweet to a weird dude emailing him from out of nowhere. GitHub
+has remained shockingly useful and unoffensive for a Microsoft product. Robert
+Edmonds helped me get Notcurses into Debian's NEW queue, and coached me in the
+ways of the DFSG. Marek Habersack wrote the \CC wrapper, and has kept it up to
+date despite my total lack of communication or warning before lunging in
+entirely new API directions. Astrid Bin did the awesome DSSCAW
+logo\footnote{Minus the boss purple gradient, which I applied against her
+passionate wishes. I stand by my call.}, and I couldn't pay her in the end
+due to bullshit laws---like, I drunkenly called her up and was like ``FUCK DA
+POLICE i'll drop a brown paper sack of \$10 bills on your porch and steal you a
+social security number, arrrrrrrr'' and yet she refused---thanks, Astrid! Mary
+Ann Horton, the original author of terminfo, was gracious and helpful in her
+responses. Thomas E. Dickey, author/maintainer of many venerable trees
+including NCURSES, is a saint and an angel, a UNESCO treasure, and the very
+model of conservative, thoughtful software stewardship. He graciously answered
+my mails with lengthy and rigorous information. The free software community
+owes him a great debt.
 
 Shouts out to Midtown Yuppie Scum (ATL) and Stinkeye of the Tiger (NYC) Trivia
 Clubs. Shouts out to Paul Johnson and Paul Judge. Shouts out to Outkast, Goodie
