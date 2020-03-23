@@ -2383,7 +2383,7 @@ sufficient to let Notcurses handle things, perhaps with a callback to your
 program. The function \texttt{ncvisual\_stream()} (Listing~\ref{list:streaming})
 does just that, honoring the timing hints embedded in the stream as best it can.
 Use of this function is strongly recommended. For the simplest use, \texttt{ncvisual\_simple\_streamer()}
-(Listing~\ref{list:streamingcv}) can be provided as the callback. It will print
+(Listing~\ref{list:streamingcb}) can be provided as the callback. It will print
 subtitles in the upper left, and otherwise render frames as it receives them.
 If you require more complex per-frame activity, provide your own callback of
 type \texttt{streamcb}, which can carry a \texttt{void*} curry.
