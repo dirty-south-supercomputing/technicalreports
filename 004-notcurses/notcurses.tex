@@ -640,7 +640,8 @@ converge to a balanced, strong green as we approached the correct answer.
 \subsection{Advanced coëxistence with stdio}
 It is most common to initialize Notcurses with \texttt{stdout}, whether in
 direct mode or fullscreen mode. This isn't the only way to operate, though.
-By opening the tty directly using \texttt{/dev/tty}\cite{tty4}, and providing
+By opening the tty directly using \texttt{/dev/tty}%\cite{tty4}%
+, and providing
 this \texttt{FILE*} to Notcurses, a program passing its standard output to
 another process can make concurrent use of Notcurses on the display, in either
 direct or fullscreen mode. This is how the \texttt{notcurses-pipe} program

@@ -545,8 +545,8 @@ your TUI pop like nothing else.
 Perhaps the single most useful Unicode character is U+2580 UPPER HALF BLOCK
 (\texttt{▀}), or alternatively its inverse U+2584 LOWER HALF BLOCK
 (\texttt{▄}). By using these together with both a foreground and background,
-it is possible to treat a region of cells as a ``framebuffer'' having twice the
-vertical resolution as the number of occupied lines, and perhaps more importantly
+it is possible to treat a region of cells as a ``framebuffer'' having
+vertical resolution twice the number of occupied lines, and perhaps more importantly
 having a cell aspect ratio of 1:1. With this technique, it's trivial to blit
 RGBA as provided by e.g. image decoders and get good results (this is exactly
 what's done in Notcurses's media layer, see Chapter~\ref{sec:libav}). A smart
@@ -624,20 +624,20 @@ yields two four-way subcycles and four two-way subcycles.
     \hline
     2 & {\fontspec{Symbola}▱▰} & \makecell[l]{Parallelogram. You can get a kinda\\ neat ``barber-pole'' effect by alternating each period.} \\
     \hline
+    4 & \textbackslash{}|/- & Approximate, but works even under ASCII. \\
+    \hline
     4 & {\fontspec{Symbola}◰◳◲◱} & Note that they're out of order \\
     \hline
     6 & {\fontspec{Symbola}🞯🞰🞱🞲🞳🞴} & Five-spoked asterisk \\
     \hline
-    6 & {\fontspec{Symbola}🞵🞵🞶🞷🞸🞹🞺}  & Six-spoked asterisk \\
+    6 & {\fontspec{Symbola}🞵🞶🞷🞸🞹🞺}  & Six-spoked asterisk \\
     \hline
     5 & {\fontspec{Symbola}🞻🞼🞽🞾🞿} & \makecell[l]{Fuck your seven-spoked asterisk, fuck expecting six \\eight-spoked asterisks, and fuck you too.} \\
-    \hline
-    8 & \textbackslash{}|/-\textbackslash{}|/- & Approximate, but it works everywhere. \\
     \hline
     8 & {\fontspec{Symbola}◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
     %8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
     \hline
-    10 & {\fontspec{Symbola}🞌🞍🞎'🞏'🞐'🞑'🞒'🞓'🞔'🞕🞖} & The first two are maybe cheating. \\
+    10 & {\fontspec{Symbola}🞌🞍🞎🞏🞐🞑🞒🞓🞔🞕🞖} & The first two are maybe cheating. \\
     \hline
   \end{tabular}
   \caption{Just a few of Unicode's many cyclic groups.}
