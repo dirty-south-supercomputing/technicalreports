@@ -1,5 +1,6 @@
 \section{A brief history of character graphics}
 \label{sec:terminals}
+\epigraph{Let's take it back to '79!}{Wu-Tang Clan, ``Triumph''}
 The earliest terminals making use of glyphs\footnote{Konrad Zuse's Z3, generally
  considered the first programmable digital computer, communicated with its
 operator through a matrix of blinkenlights and a not unsteampunkish keyboard that resembled the
@@ -196,7 +197,7 @@ been codified in the Single UNIX Specification. Notcurses is an obvious
 intellectual descendant of Curses, and indeed ought be easy to pick up by any
 experienced Curses programmer.
 
-As mentioned in Chapter ~\ref{sec:terminfo}, Ken Arnold released the first BSD
+As mentioned in Chapter~\ref{sec:terminfo}, Ken Arnold released the first BSD
 Curses library shortly after extracting \texttt{vi}'s terminal abstraction routines
 as libtermcap, and that first Curses made use of termcap\cite{cursesexplained}.
 Similarly to termcap, Curses had its origins in Joy's \texttt{vi} code; unlike
@@ -223,7 +224,8 @@ with NCURSES. A few lines follow, summarizing major differences between Curses a
     Notcurses) is not considered part of the Panels stack. Curses does, however,
     allow windows to share memory, a capability Notcurses does not yet offer.}
 \item{Panels can be ``hidden'', i.e.\ removed from the z-axis entirely. This cannot
-    be done in Notcurses (but planes can be hidden underneath an opaque plane).}
+    be done in Notcurses (but planes can be hidden underneath an opaque plane,
+    or moved outside the visible area).}
 \item{NCURSES defines its color API in terms of ``color pairs''. It is true that some
     terminals require both colors to be changed at the same time, but Notcurses
     hides this fact from the programmer, and instead allows foregrounds and backgrounds
