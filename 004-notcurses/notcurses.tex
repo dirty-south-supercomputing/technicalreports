@@ -2261,9 +2261,28 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 \label{sec:libav}
 
 Media decoding and scaling is handled by libAV from FFmpeg, resulting in a
-\texttt{notcurses\_visual} object. This object generates frames, each one
+\texttt{ncvisual} object. This object generates frames, each one
 corresponding to a renderable scene on the associated plane. If Notcurses
 is built without FFMpeg support, these functions will all return error.
+The flow of multimedia from the view of a Notcurses application is:
+\begin{denseitemize}
+\item{The media is opened with \texttt{ncplane\_visual\_open()} or
+    \texttt{ncvisual\_open\_plane}. The latter creates a new plane suitable
+    for rendering the media; the former will draw to a preexisting plane.
+    Stream format and the codecs in use are determined during this step, but
+    not necessarily the geometry of the visual data.}
+\item{A frame is decoded. Several frames might have been decoded from the
+    underlying stream, but the application sees them one at a time. This frame
+    carries geometry information along with a flat matrix of pixels, along with
+    some manner of timing information\footnote{This timing information can come
+    in three different forms: ``frame number'' (which can be multiplied by
+    some known frames per second to get a time offset), ``offset`` in some
+    unit of time, and ``time to display'' for this frame in some unit of
+    time. This last sadly cannot yield an O(1) time offset within the
+    stream.}. \textbf{begin loop}}
+\item{(Optional) Any subtitles associated with the frame are retrieved.}
+\item{The frame may be rendered. A delay might be taken. \textbf{end loop}}
+\end{denseitemize}
 
 \begin{listing}[!htb]
 \begin{minted}{C}
@@ -2275,6 +2294,26 @@ struct ncvisual* ncplane_visual_open(struct ncplane* nc, const char* file, int* 
 // can be neither decoded nor rendered any further.
 void ncvisual_destroy(struct ncvisual* ncv);
 
+// Return the plane to which this ncvisual is bound.
+struct ncplane* ncvisual_plane(struct ncvisual* ncv);
+\end{minted}
+\caption{Opening and destroying multimedia with \texttt{ncvisual}.}
+\label{list:ncvisual}
+\end{listing}
+
+Any scaling is applied during the decoding step. It is thus sadly not possible
+to redraw decoded media at a different size. This isn't usually a problem in
+practice, since streaming media will provide a new frame (at the correct size)
+shortly, and single-frame media can simply be decoded afresh.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// extract the next frame from an ncvisual. returns NULL on end of file,
+// writing AVERROR_EOF to 'averr'. returns NULL on a decoding or allocation
+// error, placing the AVError in 'averr'. this frame is invalidated by a
+// subsequent call to ncvisual_decode(), and should not be freed by the caller.
+struct AVFrame* ncvisual_decode(struct ncvisual* nc, int* averr);
+
 // Render the decoded frame to the associated ncplane. The frame will be scaled
 // to the size of the ncplane per the ncscale_e style. A subregion of the
 // frame can be specified using 'begx', 'begy', 'lenx', and 'leny'. To render
@@ -2283,28 +2322,37 @@ void ncvisual_destroy(struct ncvisual* ncv);
 // entire visual. Negative values for any of the four parameters are an error.
 // It is an error to specify any region beyond the boundaries of the frame.
 int ncvisual_render(const struct ncvisual* ncv, int begy, int begx, int leny, int lenx);
+\end{minted}
+\caption{Decoding and rendering multimedia with \texttt{ncvisual}.}
+\label{list:multimedia}
+\end{listing}
 
-// Return the plane to which this ncvisual is bound.
-struct ncplane* ncvisual_plane(struct ncvisual* ncv);
+Subtitles (considered ``metadata'' in FFmpeg) aren't advertised in any way to
+the caller. If subtitles are to be displayed, you can simply call \texttt{ncvisual\_subtitle()}
+at each frame. If a non-\texttt{NULL} string is returned, it is valid UTF-8
+subtitle text. The subtitle will \textit{not} typically be repeated for all
+frames where it ought be displayed, so it's best left persistent. Unfortunately,
+there's no good way to know when it ought be struck from the display. Alas!
 
-// If a subtitle ought be displayed at this time, return a heap-allocated copy
-// of the UTF8 text.
+\begin{listing}[!htb]
+\begin{minted}{C}
+// If a subtitle ought be displayed at this time, returns a heap-allocated copy
+// of the UTF8 text. Otherwise returns NULL.
 char* ncvisual_subtitle(const struct ncvisual* ncv);
 \end{minted}
-\caption{Opening, decoding, and rendering multimedia.}
-\label{list:multimedia}
+\caption{Acquiring subtitles.}
+\label{list:subtitles}
 \end{listing}
 
 \subsection{Streaming video/animated GIFs.}
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Called for each frame rendered from 'ncv'. If anything but 0 is returned,
-// the streaming operation ceases immediately, and that value is propagated out.
+// Called for each frame rendered from 'ncv'. If anything but 0 is returned, the streaming operation
+// ceases immediately, and that value is propagated out.
 typedef int (*streamcb)(struct notcurses* nc, struct ncvisual* ncv, void*);
 
-// Shut up and display my frames! Provide as an argument to ncvisual_stream().
-// If you'd like subtitles to be decoded, provide an ncplane as the curry. If the
-// curry is NULL, subtitles will not be displayed.
+// Shut up and display my frames! Provide as an argument to ncvisual_stream(). If you'd like subtitles to
+// be decoded, provide an ncplane as the curry. If the curry is NULL, subtitles will not be displayed.
 static inline int ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual* ncv, void* curry){
   if(notcurses_render(nc)){
     return -1;
@@ -2323,16 +2371,30 @@ static inline int ncvisual_simple_streamer(struct notcurses* nc, struct ncvisual
   }
   return ret;
 }
+\end{minted}
+\caption{\texttt{streamcb} callback type and \texttt{ncvisual\_simple\_streamer()}.}
+\label{list:streamingcb}
+\end{listing}
 
-// Stream the entirety of the media, according to its own timing. Blocking,
-// obviously. streamer may be NULL; it is otherwise called for each frame, and
-// its return value handled as outlined for stream cb. Pretty raw; beware.
-// If streamer() returns non-zero, the stream is aborted, and that value is
-// returned. By convention, return a positive number to indicate intentional
-// abort from within streamer(). 'timescale' allows the frame duration time to
-// be scaled. For a visual naturally running at 30FPS, a 'timescale' of 0.1
-// will result in 300FPS, and a 'timescale' of 10 will result in 3FPS. It is an
-// error to supply 'timescale' less than or equal to 0.
+Running the loop discussed above is good for the soul, but usually it's
+sufficient to let Notcurses handle things, perhaps with a callback to your
+program. The function \texttt{ncvisual\_stream()} (Listing~\ref{list:streaming})
+does just that, honoring the timing hints embedded in the stream as best it can.
+Use of this function is strongly recommended. For the simplest use, \texttt{ncvisual\_simple\_streamer()}
+(Listing~\ref{list:streamingcv}) can be provided as the callback. It will print
+subtitles in the upper left, and otherwise render frames as it receives them.
+If you require more complex per-frame activity, provide your own callback of
+type \texttt{streamcb}, which can carry a \texttt{void*} curry.
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+// Stream the entirety of the media, according to its own timing. Blocking, obviously. streamer may be NULL;
+// it is otherwise called for each frame, and its return value handled as outlined for stream cb. If
+// streamer() returns non-zero, the stream is aborted, and that value is returned. By convention, return a
+// positive number to indicate intentional abort from within streamer(). 'timescale' allows the frame
+// duration time to be scaled. For a visual naturally running at 30FPS, a 'timescale' of 0.1 will result in
+// 300FPS, and a 'timescale' of 10 will result in 3FPS. It is an error to supply 'timescale' less than or
+// equal to 0.
 int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
                     float timescale, streamcb streamer, void* curry);
 \end{minted}
@@ -2365,6 +2427,8 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 \caption{Scaling media onto a new plane.}
 \label{list:scaling}
 \end{listing}
+
+\textbf{FIXME FIXME FIXME}
 
 \subsection{Sprites}
 Danny Hillis is probably best known to computer architects for Thinking Machines,
