@@ -387,5 +387,10 @@ dumped with \texttt{infocmp(1)}, and specific properties can be queried with
 \texttt{tput(1)}. \texttt{tset(1)}, \texttt{clear(1)}, and \texttt{reset(1)}
 are usually wrappers around terminfo.
 
-The \texttt{stty} tool duplicates some functionality of terminfo, and does
-not itself make use of terminfo.
+The \texttt{stty} tool accidentally duplicates some functionality of terminfo,
+but it does not itself make use of terminfo. It is more accurate to describe
+\texttt{stty} as a command-line interface to the termios routines
+\texttt{tcgetattr()} and \texttt{tcsetattr()}. Dump all terminal attributes to
+the screen with \texttt{stty -a}\footnote{Pro tip: \texttt{stty} generally works
+  only on standard input\textellipsis but redirecting standard input from a
+  \texttt{/dev} node works just fine (subject to permissions, of course).}.

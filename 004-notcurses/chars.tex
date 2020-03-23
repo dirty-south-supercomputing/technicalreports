@@ -159,48 +159,58 @@ you can do it.
 
 \begin{table}[!htb]
   \centering
-  \begin{tabular}{ |c|c|c|l| }
+  \begin{tabular}{ |c|c|c|c|l| }
     \hline
-    Character & Caret & C & Semantics \\
+    Character & Caret & C & \texttt{c\_cc} & Semantics \\
     \hline
     \hline
-    0x00 (NUL) & \texttt{\^{}@} & & \\
+    0x00 (NUL) & \texttt{\^{}@} & & & \\
     \hline
-    0x03 (ETX) & \texttt{\^{}C} & & Deliver \texttt{SIGINT} \\
+    0x03 (ETX) & \texttt{\^{}C} & & \texttt{VINTR} & Deliver \texttt{SIGINT} \\
     \hline
-    0x04 (EOT) & \texttt{\^{}D} & & Indicate end-of-file \\
+    0x04 (EOT) & \texttt{\^{}D} & & \texttt{VEOF} & Indicate end-of-file \\
     \hline
-    0x07 (BEL) & \texttt{\^{}G} & \textbackslash{}a & Alert (bell) \\
+    0x07 (BEL) & \texttt{\^{}G} & \textbackslash{}a & & Alert (bell) \\
     \hline
-    0x08 (BS) & \texttt{\^{}H} & \textbackslash{}b & Backspace \\
+    0x08 (BS) & \texttt{\^{}H} & \textbackslash{}b & & Backspace \\
     \hline
-    0x09 (HT) & \texttt{\^{}I} & \textbackslash{}t & Proceed to next tab stop \\
+    0x09 (HT) & \texttt{\^{}I} & \textbackslash{}t & & Proceed to next tab stop \\
     \hline
-    0x0a (LF) & \texttt{\^{}J} & \textbackslash{}n & Move down one line \\
+    0x0a (LF) & \texttt{\^{}J} & \textbackslash{}n & & Move down one line \\
     \hline
-    0x0b (VT) & \texttt{\^{}K} & \textbackslash{}v & Move down to next vertical tab \\
+    0x0b (VT) & \texttt{\^{}K} & \textbackslash{}v & & Move down to next vertical tab \\
     \hline
-    0x0c (CR) & \texttt{\^{}L} & \textbackslash{}f & Move to start of line \\
+    0x0c (FF) & \texttt{\^{}L} & \textbackslash{}f & & Move to start of line \\
     \hline
-    0x0c (CR) & \texttt{\^{}N} & & (ISO 2022 mode) SO/LS1 \\
+    0x0d (CR) & \texttt{\^{}M} & & & Carriage return \\
     \hline
-    0x0c (CR) & \texttt{\^{}O} & & (ISO 2022 mode) SI/LS0 \\
+    0x0e (SO) & \texttt{\^{}N} & & & (ISO 2022 mode) SO/LS1 \\
     \hline
-    0x11 (DC1) & \texttt{\^{}Q} & & Software flow control (resume output) \\
+    0x0f (SI) & \texttt{\^{}O} & & \texttt{VDISCARD} & (ISO 2022 mode) SI/LS0 \\
     \hline
-    0x13 (DC3) & \texttt{\^{}S} & & Software flow control (pause output) \\
+    0x11 (DC1) & \texttt{\^{}Q} & & \texttt{VSTART} & Software flow control (resume output) \\
     \hline
-    0x1a (SUB) & \texttt{\^{}Z} & & Deliver \texttt{SIGSTOP} \\
+    0x12 (DC2) & \texttt{\^{}R} & & \texttt{VREPRINT} & Reprint input prompt \\
     \hline
-    0x1b (ESC) & \texttt{\^{}[} & & Initiate escape sequence \\
+    0x13 (DC3) & \texttt{\^{}S} & & \texttt{VSTOP} & Software flow control (pause output) \\
     \hline
-    0x1c (FS) & \texttt{\^{}\textbackslash{}} & & Deliver \texttt{SIGQUIT} \\
+    0x15 (NAK) & \texttt{\^{}U} & & \texttt{VKILL} & Erase line \\
     \hline
-    0x1d (GS) & \texttt{\^{}]} & & \\
+    0x16 (SYN) & \texttt{\^{}V} & & \texttt{VLNEXT} & Literal next---inhibit translation\\
     \hline
-    0x1e (RS) & \texttt{\^{}\^{}} & & \\
+    0x17 (ETB) & \texttt{\^{}W} & & \texttt{VWERASE} & Erase word \\
     \hline
-    0x1f (US) & \texttt{\^{}\_} & & \\
+    0x1a (SUB) & \texttt{\^{}Z} & & \texttt{VSUSP} & Deliver \texttt{SIGTSTP} \\
+    \hline
+    0x1b (ESC) & \texttt{\^{}[} & & & Initiate escape sequence \\
+    \hline
+    0x1c (FS) & \texttt{\^{}\textbackslash{}} & & \texttt{VQUIT} & Deliver \texttt{SIGQUIT} \\
+    \hline
+    0x1d (GS) & \texttt{\^{}]} & & & \\
+    \hline
+    0x1e (RS) & \texttt{\^{}\^{}} & & & \\
+    \hline
+    0x1f (US) & \texttt{\^{}\_} & & & \\
     \hline
   \end{tabular}
   \caption[Usual UNIX semantics of C0]{Usual UNIX semantics of C0. The exact mappings can be inspected with \texttt{stty -a}.}
@@ -314,11 +324,12 @@ discontent eventually resulted in the ``corrected'' ISO-8859-15, published in
 ISO-8859-1 was directly mapped to the Basic Latin and Latin-1 Supplement blocks
 of UCS, together having range 0--0xff. Thus the first 128 codepoints of both 
 ISO-8859-1 (all the ISO 8859 sets, actually) and UCS are inherited from ANSI
-X3.4-1986 + ISO 646's C0, and the second 128 codepoints of UCS are inherited
+X3.4-1986 + ISO 646's C0 + ISO 2022's universal declaration of SP (space, 0x20) and
+DEL (delete, 0x7f), and the second 128 codepoints of UCS are inherited
 from ISO-8859-1 + ISO 6429's C1. Only the \textit{codepoints} are equal, however---UCS
 does not typically encode these codepoints the same way\footnote{A notable
 and critical exception is UTF-8, which encodes the first 128 codepoints the
-same way as ISO 646. Read on\ellipsis}.
+same way as ISO 646. Read on\textellipsis}.
 
 \subsection{Consilience: the Universal Character Set}
 \label{sec:ucs}
@@ -447,7 +458,32 @@ wide glyphs. Some examples are shown in Figure~\ref{fig:wideglyphs}.
 \end{figure}
 
 \subsection{Emoji}
-\textbf{FIXME FIXME FIXME}
+Don't blame me, mang; I didn't do it. Emoji (Japanese 絵文字えもじ ([{\fontspec{DejaVu Serif}emodʑi}]),
+絵 (picture) and our old friend 文字 (moji (character)) emerged from Japan
+in the late 90s, and by June 2019 they were in the fucking Oxford Dictionary of
+the English Language\cite{oedgay}---sorry, I get kinda touchy about the OED.
+Emoji represent, by far, the most kibbutzed-upon, politicized, arbitrary
+element of Unicode; for us, they are also the most dangerous. Presentation of
+emoji is rivaled only by bidirectional text for variation across platforms.
+According to Unicode Standard Annex \#51\cite{annex51}, emoji are ``pictorial
+symbols that are typically presented in a colorful cartoon form and used
+inline in text. They represent things such as faces, weather, vehicles and
+buildings, food and drink, animals and plants, or icons that represent
+emotions, feelings, or activities.''
+
+Some Unicode ``emoji'' support only a textual presentation, while some
+support both (with different defaults for different characters). Selecting
+the presentation can sometimes be done by following the base with \texttt{U+FE0E VARIATION SELECTOR-15} (text)
+or \texttt{U+FE0E VARIATION SELECTOR-16} (emoji). The full data on such things
+is in the Unicode-adjacent ``Data files for emoji characters'', but how closely
+your local implementation will conform this week is generally unknowable. The
+Fitzpatrick dermatological scale has been adopted for skin-modifying postfixes.
+Microsoft, Apple, and other Californian megacorporations think
+\xelatexemoji{1f52b-200e} is the best representation for
+\xelatexemoji{1f52b-200d} \texttt{U+1F52B PISTOL} (I personally like
+\xelatexemoji{1f52b}). That'll be important for things like
+{\fontspec{Symbola}{🐊🔫👮}}, an example used in \#51 to illustrate the
+importance of maintaining pictograph direction. It's a madhouse out there.
 
 You might have seen what appeared to be emoji flags of the world. The Unicode
 Consortium, in their wisdom, wanted nothing to do with such geopolitical
@@ -483,7 +519,7 @@ it is possible to generate the flag of the Great Socialist People's Libyan Arab 
 
 There are also official and non-official EGCs that commonly render flags, including
 the Jolly Roger (U+1F3F4, U+2620, \xelatexemoji{1f3f4-200d-2620-fe0f}),
-Gilbert Baker's rainbow flag (U+1F3F3, U+1F308, \xelatexemoji{1f3f3-200d-1f308+fe0f}) and even Monica Helms's
+Gilbert Baker's rainbow flag (U+1F3F3, U+1F308, \xelatexemoji{1f3f3-200d-1f308+fe0f}) and Monica Helms's
 transgender flag (U+1F3F3, U+26A7, \xelatexemoji{1f3f3-200d-26a7-fe0f}).
 If you don't like the latter, you can always throw U20E0 COMBINING ENCLOSING
 CIRCLE BACKSLASH atop it:\xelatexemoji{1f3f3-200d-1f308-20e0-fe0f}. It's a big Unicode tent, and there are plenty
@@ -583,26 +619,25 @@ yields two four-way subcycles and four two-way subcycles.
     Size & Glyphs & Comments \\
     \hline
     \hline
-    2 & \texttt{▱▰} & \makecell[l]{Parallelogram. You can get a kinda\\ neat ``barber-pole'' effect by alternating each period.} \\
+    2 & {\fontspec{Symbola}▱▰} & \makecell[l]{Parallelogram. You can get a kinda\\ neat ``barber-pole'' effect by alternating each period.} \\
     \hline
-    4 & \texttt{◰◳◲◱} & Note that they're out of order \\
+    4 & {\fontspec{Symbola}◰◳◲◱} & Note that they're out of order \\
     \hline
-    6 & 🞯🞰🞱🞲🞳🞴 & Five-spoked asterisk \\
+    6 & {\fontspec{Symbola}🞯🞰🞱🞲🞳🞴} & Five-spoked asterisk \\
     \hline
-    6 & 🞵🞶🞷🞸🞹🞺  & Six-spoked asterisk \\
+    6 & {\fontspec{Symbola}🞵🞵🞶🞷🞸🞹🞺}  & Six-spoked asterisk \\
     \hline
-    5 & 🞻🞼🞽🞾🞿 & \makecell[l]{Fuck your seven-spoked asterisk, \\ fuck expecting six eight-spoked \\ asterisks, and fuck you too.} \\
+    5 & {\fontspec{Symbola}🞻🞼🞽🞾🞿} & \makecell[l]{Fuck your seven-spoked asterisk, fuck expecting six \\eight-spoked asterisks, and fuck you too.} \\
     \hline
     8 & \textbackslash{}|/-\textbackslash{}|/- & Approximate, but it works everywhere. \\
     \hline
-    8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
+    8 & {\fontspec{Symbola}◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
+    %8 & \texttt{◧◩⬒⬔◨◪⬓⬕} & Some fonts have different sizes. Why? Ugh. \\
     \hline
-    10 & \texttt{🞌🞍🞎'🞏'🞐'🞑'🞒'🞓'🞔'🞕🞖} & The first two are maybe cheating. \\
-    \hline
-    \textbf{FIXME} & \textbf{FIXME} & \textbf{FIXME} \\ 
+    10 & {\fontspec{Symbola}🞌🞍🞎'🞏'🞐'🞑'🞒'🞓'🞔'🞕🞖} & The first two are maybe cheating. \\
     \hline
   \end{tabular}
-  \caption{Some of Unicode's cyclic groups.}
+  \caption{Just a few of Unicode's many cyclic groups.}
   \label{table:cyclics}
 \end{table}
 
