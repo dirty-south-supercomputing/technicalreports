@@ -44,7 +44,7 @@ The general structure of our solution is thus:
     by reflection, using \texttt{ncplane\_at\_yx()}.}
 \item{Our main thread loops on \texttt{Notcurses::getc()}, calling into the
     \texttt{Tetris} object. These calls will need to lock against the timer thread.}
-\item{Whenever \texttt{StuckPiece()} returns \texttt{true}, and the stuck piece
+\item{If \texttt{StuckPiece()} returns \texttt{true}, and the stuck piece
     is at the top of the playing area, the game is over.}
 \end{denseitemize}
 
