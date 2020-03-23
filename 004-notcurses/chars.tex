@@ -231,7 +231,7 @@ letter can be acquired by subtracting 0x61 ('a') from its miniscule form. The
 digits are contiguous, as are each case of letters\footnote{This is not true for
 EBCDIC, where the letter sequences are based on the ``zones'' of punch cards\cite{nickgammon}.}.
 
-\subsection{Eight-bit character sets messily diverge}
+\subsection{Octa- and hexabit character sets messily diverge}
 US-ASCII and the regional dialects of ISO/IEC 646 were more or less sufficient
 for working with English\footnote{As far as this author knows, ASCII
 can faithfully represent only (modern) English, Latin, and Swahili.}, but even
@@ -269,7 +269,7 @@ ISO-IR 231 ``ANSI extended Latin''\cite{ansel}).
 \begin{wrapfigure}{o}{0.4\textwidth}
 \centering
 \includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
+\caption{Timeline of selected sets.}
 \label{fig:charset-timeline}
 \end{wrapfigure}
 
@@ -280,12 +280,12 @@ CP437 used most of the extended space for semigraphics, mathematical symbols,
 and some characters useful in the world as perceived by America circa 1981\footnote{The
  only suggestion that Asia existed as of CP437 is the ¥.}---CP437 has you
 covered regarding the Dutch florin and the Spanish peseta\footnote{Which said
-peseta didn't even have a symbol, just ₧.}. It also introduced
+peseta didn't even have a symbol, just \texttt{₧}.}. It also introduced
 the non-breaking space (at code 0xff). Interestingly, a melange of semigraphics
 were assigned to the C0 control character code points, though these retained
 their previous meanings (sometimes). All CP00437 characters have similar
 glyphs in ISO 10646, though not necessarily at the same locations\footnote{A few
-of the CP437 characters have multiple possible equivalents in Unicode, and
+of the CP437 characters have multiple possible UCS equivalents;
 selecting the correct one depends on context.}. Derivatives of CP437
 usually jettisoned the mixed box drawing characters and some of the math
 symbols to further expand alphabet coverage.
@@ -330,6 +330,9 @@ from ISO-8859-1 + ISO 6429's C1. Only the \textit{codepoints} are equal, however
 does not typically encode these codepoints the same way\footnote{A notable
 and critical exception is UTF-8, which encodes the first 128 codepoints the
 same way as ISO 646. Read on\textellipsis}.
+
+There were also some true 16-bit and multibyte character sets, mainly in East
+Asia. You might hear of Shift JIS, EUC-JP, Big5, and GB18030. How unfortunate.
 
 \subsection{Consilience: the Universal Character Set}
 \label{sec:ucs}
@@ -696,7 +699,84 @@ an excuse to include Figure~\ref{fig:zalgo}.
 \end{figure}
 
 \subsection{UTF-8}
-\textbf{FIXME FIXME FIXME also punycode}
+Unicode Standard Annex \#17\cite{annex17} defines seven official Unicode
+character encoding schemese: UTF-8, UTF-16, UTF-16BE, UTF-16LE, UTF-32, UTF-32BE,
+and UTF-32LE. What a wealth of encodings! How is one to choose? The -16BE and
+-16LE forms are simply UTF-16 with a known byte order; a UTF-16 stream can
+(optionally!) be prefixed with a Byte-Order Mark, at which point the stream
+reduces to -16LE or -16BE (in the absence of a BOM, the best advice is to follow
+your heart). UTF-32 breaks down the same way. This question of endianness arises
+from the fact that UTF-16 and UTF-32 are coded in terms of 16- and 32-bit units.
+UTF-8, being coded in terms of individual bytes, has no need to define byte order.
+
+``Well, that BOM sounds kinda annoying,'' I hear you asking. ``What other
+advantages are offered by UTF-8?'' Remember how ANSI X3.4-1986 maps precisely
+to the first 128 characters of UCS? UTF-8 (and \textit{only} in UTF-8, of
+the official encodings) \textit{encodes} these 128 characters the same as
+US-ASCII! Boom! Every ASCII document you have---including most source code,
+configuration files, system files, etc.---is a perfectly valid UTF-8 document.
+Furthermore, UTF-8 \textit{never encodes non-ASCII characters to the ASCII
+bytes}. So an arbitrary UTF-8 document may have plenty of high-bit bytes that
+your ASCII-aware, POSIX-locale program doesn't understand, but it never sees
+a valid ASCII character where one wasn't intended. UTF-8 encodes ASCII's 0--0x7f
+to 0--0x7f, and otherwise never produces a byte in that range. This includes
+the all-important null character 0---Boom! Every nul-terminated C string is a
+valid UTF-8 string. Every UTF-8 string can be passed through standard C APIs
+cleanly, and they'll more or less work. It's furthermore self-synchronizing.
+If you pick up a UTF-8 stream in the middle, you know after reading a single
+byte whether you're in the middle of a multibyte character.
+
+``Sweet! What's the catch? Does it waste space?'' RFC 3629\cite{rfc3629}
+limits UTF-8's range to the $17*2^{16}$-ary code space of UCS, in which case
+the maximum length of a single UTF-8-encoded UCS code point is four bytes\footnote{You
+might hear six bytes, and indeed ISO/IEC 10646 specifies six bytes to handle
+up through U+7FFFFFFF\textellipsis but only defines UCS to cover 17 planes.
+Verify your \texttt{wctomb(3)} rejects inputs in excess of 0x10ffff if you
+intend to exploit RFC 3629's tighter bound.}. It's thus always as or more efficient
+than UCS-32. When the ASCII characters are used, UTF-8 is more efficient than
+either UTF-16 or UTF-32. Only for streams utterly dominated by BMP codepoints
+requiring three or more bytes from UTF-8 can UTF-16 encode more efficiently.
+
+``Sweet! What's the catch? Is it super slow?'' UTF-32, it is true, allows you
+to index into a string by character in O(1) (UTF-16 \textit{does not}, unless
+you're only dealing with BMP strings). UTF-32 also allows you to compute the
+bytes necessary for encoding in O(1), given the number of Unicode codepoints,
+but that's only because it's wasteful; if you're willing to be similarly
+wasteful, you can do the same calculation with UTF-8 (and then trim any wastage
+at the end, if you wish). Any advantage UTF-32 might hold in lexing simplicity
+is likely a wash when UTF-8's usual space efficiency is taken into account,
+owing to more effective use of cache and memory bandwidth. Nope, it's not slow.
+\textbf{Always interoperate in UTF-8 by default.}
+
+UTF-16 is some truly stupid shit, fit only for jabronies. It only ever passed
+muster because people thought UCS was going to be a sixteen-bit character set.
+The moment a second Plane was added, UTF-16 ought have been shown the door.
+There's possibly an argument to be made for ripping it from the pages of books
+in your local library, so it can't poison the youth. If you must work on a UTF-16
+system, use UTF-16 at the boundary, and then keep it around as UTF-32 or UTF-8.
+Always interoperate---including writing files---in UTF-8 by default.
+
+There are a dozen-odd similarly-named encodings which are useful for nothing
+but trivia. UCS-2 was UTF-16, but for only the BMP. UCS-4 is just UTF-32. UTF-7
+is a seven-bit-clean UTF-8\footnote{The primary seven-bit-clean media of the
+modern era is, to the best of my knowledge, email sent without a MIME
+transfer encoding.}. UTF-1 is UTF-8's older, misshapen sister, locked away from
+sight in the attic. UTF-5 and UTF-6 were proposed encodings for IDN, but
+Punycode was selected instead. WTF-8 extends UTF-8 to handle invalid UTF-16
+input. BOCU-1 and SCSU are compressing encodings that
+don't compress as well as gzipped UTF-8. UTF-9 and UTF-18 were jokes. Is
+UTF-EBCDIC a thing? Of course UTF-EBCDIC is a thing\footnote{Perhaps the
+most cursed thing I'm aware of in computing\footnote{Also receiving votes:
+Threaded INTERCAL, sendmail configuration files, old-skool XFree86
+configuration files with the modeline bullshit, ActiveX controls, ``WebNFS'', and of course
+Perl.} is ``UTFE'', a variable-length
+UCS encoding that somehow requires six bytes sometimes, is used exclusively
+on EBCDIC platforms, and furthermore exclusively only on (drum roll)\textellipsis.
+EBCDIC. ORACLE. DATABASES. Ave Satanas!}
+
+The one place where you won't interoperate with UTF-8 is for domain name lookup,
+when converting IDNA into the LDH subset of ASCII. If you're interested,
+consult RFC 3492, and Godspeed.
 
 \begin{figure}[!htb]
     \centering
