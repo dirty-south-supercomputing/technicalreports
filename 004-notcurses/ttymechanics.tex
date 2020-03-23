@@ -190,7 +190,7 @@ The details of Linux pseudoterminal pair creation can be found on the \texttt{pt
 \path{/dev/ptmx}, receiving a file descriptor corresponding to the new PTM (pseudoterminal master).
 A new PTS (pseudoterminal slave) is created in \path{/dev/pts/}
 \footnote{\path{/dev/pts} is typically its own \texttt{devpts} filesystem on Linux.}, whose name can be discovered by
-providing the PTM file descriptor to \texttt{ptsname\_r(3)}\cite{ptsname3}.
+providing the PTM file descriptor to \texttt{ptsname\_r(3)}.%\cite{ptsname3}.
 Opening this PTS requires use of the \texttt{grantpt(3)} and \texttt{unlockpt(3)} calls.
 Once both sides have been opened, data freely flows between the PTM and PTS.
 
