@@ -18,9 +18,10 @@ placed, in which case a new piece enters the playing area), and the necessary
 interface for the input loop:
 
 \begin{denseitemize}
-\item{\texttt{MoveLeft()} and \texttt{MoveRight()}. These simply verify that
-       the lateral move can be done, and then call \texttt{Plane::move()}.}
-\item{\texttt{MoveDown()}, which calls the same \texttt{StuckPiece()},}
+\item{\texttt{MoveLeft()} (Listing~\ref{list:tetris-moveleft}) and \texttt{MoveRight()}
+    (Listing~\ref{list:tetris-moveright}). These simply verify that the lateral
+    move can be done, and then call \texttt{Plane::move()}.}
+\item{\texttt{MoveDown()} (Listing~\ref{list:tetris-movedown}), which calls the same \texttt{StuckPiece()},}
 \item{\texttt{Pause()}, and}
 \item{\texttt{RotateCCw()} and \texttt{RotateCw()}, which verify that the rotation
       is possible, and then call \texttt{Plane::rotate\_cw()} or \texttt{Plane::rotate\_ccw()}.}

@@ -325,16 +325,18 @@ compatibility with VT52-style escapes, but its 1970 User Guide already
 admonished programmers that ``All new software should be designed around the
 VT100's ANSI mode.''\cite{vt100}.
 
-It is rare to encounter a terminal that implements no ANSI control sequences; it is
-similarly rare to encounter one implementing all of them. Given the somewhat
-vague nature of ECMA-48 even in its most recent (1991) edition\cite{ecma48}, it is unlikely
-that two terminals ever implement it the exact same way. Even assuming an ANSI
-terminal, it's thus critical to use a terminal abstraction library (notwithstanding
-some people's well-meaning claims\cite{lexihale}); see the next section for
-more information. Most of the useful ANSI sequences are prefixed by ESC[ (0x27 0x5B),
-the ``Control Sequence Initiator''. A selection of the ANSI control sequences
-is listed in Table~\ref{table:escapes} (but they should always be used through
-terminfo, as we'll see in a moment).
+It is rare to encounter a terminal that implements no ANSI control sequences; I
+doubt any system exists which implements all of them\footnote{There's some
+crazy stuff in ECMA-48. ``Media copy''? ``Disable manual input''? Many things
+are woefully underspecified}. Given the somewhat vague nature of ECMA-48 even
+in its most recent (1991) edition\cite{ecma48}, it is unlikely that two
+terminals ever implement it the exact same way. Even assuming an ANSI terminal,
+it's thus critical to use a terminal abstraction library (notwithstanding some
+people's well-meaning claims\cite{lexihale}); see the next section for more
+information. Most of the useful ANSI sequences are prefixed by ESC[ (0x27
+0x5B), the ``Control Sequence Initiator''. A selection of the ANSI control
+sequences is listed in Table~\ref{table:escapes} (but they should always be
+used through terminfo, as we'll see in a moment).
 
 \begin{table}[!htb]
   \centering
@@ -353,12 +355,17 @@ terminfo, as we'll see in a moment).
     \hline
     \lbrack$n$D & CUB & cub & Move left $n$ columns \\
     \hline
-    \textbf{FIXME} & & & \\
+    \lbrack$val\ldots val$m & SGR & sgr & Set graphic rendition \\
     \hline
   \end{tabular}
-  \caption[ANSI (actually ECMA-48) escape codes]{Some ANSI (ECMA-48) escape codes. All sequences follow an ESC.}
+  \caption[ANSI (actually ECMA-48) escape codes]{A few ANSI (ECMA-48) escape codes. All sequences follow an ESC.}
   \label{table:escapes}
 \end{table}
+
+Note that some escapes commonly misattributed to ANSI come instead from some
+DEC extension. The Restore Saved Cursor (RCO) and Save Cursor Position (SCO)
+escapes, for instance, show up all over the Internet as ANSI escape sequences,
+but no trace of them can be found in ECMA-48:1991.
 
 In a relic from teletypes, ISO 646, ISO 2022, and ECMA-35 described use of
 non-destructive backspace to produce composed characters from spacing ones.
