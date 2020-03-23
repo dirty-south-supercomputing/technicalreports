@@ -1,20 +1,26 @@
 \subsection{Example: let's rip off tetris}
 \label{sec:casestudy}
 Recall our exploration of tetriminos from Chapter~\ref{sec:simpleloop}. We
-know enough now to turn this into an actual game of console Tetris. Our
+know enough now to turn this into an actual game of terminal Tetris. Our
 implementation is fewer than 200 lines total, yet it unites most of the
-techniques introduced in the past few chapters. For fun, we'll do this in \CC,
-using Marek Habersack's \CC wrappers (installed with Notcurses).
+techniques introduced in the past few chapters. For fun, we'll do this in
+\CC\footnote{LOL how often does one hear that said?}, using Marek Habersack's
+\CC wrappers (installed with Notcurses).
 
 Our \texttt{main()} will parse command line options, set up a \texttt{Tetris}
 object appropriately, and watch for input. The \texttt{Tetris} object provides
-the necessary interface to the input loop:
+a thread function \texttt{Ticker} which moves the current piece down according
+to timer events (calling \texttt{StuckPiece} to determine if the piece has been
+placed, in which case a new piece enters the playing area), and the necessary
+interface for the input loop:
 
 \begin{denseitemize}
-\item{\texttt{MoveLeft()} and \texttt{MoveRight()}},
-\item{\texttt{MoveDown()}},
-\item{\texttt{Pause()}}, and
-\item{\texttt{RotateCCw} and \texttt{RotateCw}}
+\item{\texttt{MoveLeft()} and \texttt{MoveRight()}. These simply verify that
+       the lateral move can be done, and then call \texttt{Plane::move()}.}
+\item{\texttt{MoveDown()}, which calls the same \texttt{StuckPiece()},}
+\item{\texttt{Pause()}, and}
+\item{\texttt{RotateCCw()} and \texttt{RotateCw()}, which verify that the rotation
+      is possible, and then call \texttt{Plane::rotate\_cw()} or \texttt{Plane::rotate\_ccw()}.}
 \end{denseitemize}
 
 The general structure of our solution is thus:
@@ -36,6 +42,30 @@ The general structure of our solution is thus:
     of pieces is left up to the PRNG. We only need track the score and
     our four planes. The validity of a given movement can be checked entirely
     by reflection, using \texttt{ncplane\_at\_yx()}.}
+\item{Our main thread loops on \texttt{Notcurses::getc()}, calling into the
+    \texttt{Tetris} object. These calls will need to lock against the timer thread.}
+\item{Whenever \texttt{StuckPiece()} returns \texttt{true}, and the stuck piece
+    is at the top of the playing area, the game is over.}
 \end{denseitemize}
+
+The playing area should not be visible while the game is paused, so whenever
+the game is paused, we'll move the standard plane to the top of the z-axis. As
+it is opaque and spans the visible area, this will hide the playing area. We'll
+furthermore throw up a three-row plane centered on the screen; this plane will
+contain a perimeter, and pulsing text reading ``Paused''. On an unpause event,
+the attract plane is destroyed, and the standard plane moved back to the bottom
+of the z-axis. Nothing else needs be touched, save inhibiting the operation
+of \texttt{Ticker()}. This could be done any number of ways; we'll use a
+condition variable plus a bit flag, checking it upon emerging from our timeout.
+
+Our resize logic is pretty simple: on a resize event, after verifying that the
+new geometry is large enough to play on (if not, we pause the game), we must
+redraw the background, move the playing area to the new bottom center of the
+visible area, and move the current piece to its same location relative to the
+playing area. If the game is already paused when we resize, we ought
+additionally recenter the attract plane. This is about as trivial as resize
+handling comes\footnote{Imagine that we sized the playing area according to the
+visible area. This would require resizing the game board upon a terminal
+resize, a decidedly messier affair. It's doable, of course---\textgreek{ἢ τὰν ἢ ἐπὶ τᾶς}.}.
 
 \textbf{FIXME FIXME FIXME}
