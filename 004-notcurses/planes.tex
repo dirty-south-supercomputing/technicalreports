@@ -50,7 +50,7 @@ A plane is defined by:
 \item{The plane's position relative to the visible area's origin.}
 \item{A two-dimensional size.}
 \item{An ``egcpool'' providing backing storage for the framebuffer.}
-\item{An opaque pointer, controlled by the application.}
+\item{An opaque pointer (the \textit{user pointer}, controlled by the application.}
 \item{A current set of attributes and colors.}
 \item{A pointer to the plane below this one, or \texttt{NULL} for the bottommost plane.}
 \end{denseitemize}
@@ -65,9 +65,12 @@ plane's current attributes and channels are likewise zeroed out. The plane is
 pushed onto the top of the z-axis and assigned an initialized egcpool
 (see~\ref{sec:egcpools}).
 
-A plane can be duplicated with \texttt{ncplane\_dup()}. This will create a new
-plane of the same geometry at the top of the z-axis. It will then have all
-other properties duplicated, using its own egcpool.
+Besides the default plane, planes may occupy any positive size (both the number
+of rows and columns must be greater than zero), and have their origins any
+integer offset from the visual origin. It is possible for a plane to be a
+superset of the visual area, a subset, to exactly match the visual area, to
+partially overlap it, or even to be entirely off-screen. A plane can be
+moved to any coordinate, but the plane's cursor cannot be moved off the plane.
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Duplicate an existing ncplane. The new plane will have the same geometry, will duplicate all content, and
@@ -76,17 +79,23 @@ struct ncplane* ncplane_dup(struct ncplane* n, void* opaque);
 \end{minted}
 \caption{Duplicating a plane.}
 \end{listing}
+A plane can be duplicated with \texttt{ncplane\_dup()}. This will create a new
+plane of the same geometry at the top of the z-axis. It will then have all
+other properties duplicated, using its own egcpool. A new user pointer can be
+provided at duplication time.
+\begin{listing}[!htb]
+\begin{minted}{C}
+void* ncplane_set_userptr(struct ncplane* n, void* opaque);
+void* ncplane_userptr(struct ncplane* n);
+\end{minted}
+\caption{Manipulating a plane's user pointer.}
+\end{listing}
+Each method of creating a plane allows a user pointer to be supplied. The plane
+will never touch this pointer---it exists wholly for the benefit of the calling
+program. Retrieve it with \texttt{ncplane\_userptr()}, and reset it with
+\texttt{ncplane\_set\_userptr()}. The same user pointer can be held by multiple
+planes, should you so desire.
 
-Besides the default plane, planes may occupy any positive size (both the number
-of rows and columns must be greater than zero), and have their origins any
-integer offset from the visual origin. It is possible for a plane to be a
-superset of the visual area, a subset, to exactly match the visual area, to
-partially overlap it, or even to be entirely off-screen. A plane can be
-moved to any coordinate, but the plane's cursor cannot be moved off the plane.
-
-Any plane save the standard plane may be destroyed with \texttt{ncplane\_destroy()}.
-All planes save the standard plane may be destroyed in one fell swoop with
-\texttt{notcurses\_drop\_planes()}.
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Destroy the specified ncplane. None of its contents will be visible after the next
@@ -98,23 +107,20 @@ void notcurses_drop_planes(struct notcurses* nc);
 \end{minted}
 \caption{Destroying planes.}
 \end{listing}
+Any plane save the standard plane may be destroyed with \texttt{ncplane\_destroy()}.
+All planes save the standard plane may be destroyed in one fell swoop with
+\texttt{notcurses\_drop\_planes()}.
 
 \subsection{Moving and resizing planes}
-Even the standard plane can be reordered along the z-axis. \texttt{ncplane\_move\_top()}
-and \texttt{ncplane\_move\_bottom()} are absolute, moving the specified plane
-to the top or bottom of the z-axis, respectively. \texttt{ncplane\_move\_above()}
-and \texttt{ncplane\_move\_below()} are relative, moving the plane immediately
-above or below another one. It is an error to try and move a plane below or above itself,
-or above or below \texttt{NULL}. Likewise, an error will be returned if the relative
-plane does not exist on the z-axis.
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Splice ncplane 'n' out of the z-buffer, and reinsert it at the top or bottom.
 int ncplane_move_top(struct ncplane* n);
 int ncplane_move_bottom(struct ncplane* n);
 
-// Splice ncplane 'n' out of the z-buffer, and reinsert it above 'above'.
-int ncplane_move_above_unsafe(struct ncplane* restrict n, struct ncplane* restrict above);
+// Splice ncplane 'n' out of the z-buffer, and reinsert it above/below 'targ'.
+int ncplane_move_above_unsafe(struct ncplane* restrict n, struct ncplane* restrict targ);
+int ncplane_move_below_unsafe(struct ncplane* restrict n, struct ncplane* restrict targ);
 
 static inline int ncplane_move_above(struct ncplane* n, struct ncplane* above){
   if(n == above){
@@ -123,9 +129,6 @@ static inline int ncplane_move_above(struct ncplane* n, struct ncplane* above){
   return ncplane_move_above_unsafe(n, above);
 }
 
-// Splice ncplane 'n' out of the z-buffer, and reinsert it below 'below'.
-int ncplane_move_below_unsafe(struct ncplane* restrict n, struct ncplane* restrict below);
-
 static inline int ncplane_move_below(struct ncplane* n, struct ncplane* below){
   if(n == below){
     return -1;
@@ -133,26 +136,68 @@ static inline int ncplane_move_below(struct ncplane* n, struct ncplane* below){
   return ncplane_move_below_unsafe(n, below);
 }
 
-// Return the plane above this one, or NULL if this is at the top.
+// Return the plane below this one, or NULL if this is at the bottom.
 struct ncplane* ncplane_below(struct ncplane* n);
 \end{minted}
 \caption{Moving planes on the z axis.}
+\label{listing:zaxismoves}
 \end{listing}
-
-All planes other than the standard plane can be moved in the x- and y-dimensions.
+Even the standard plane can be reordered along the z-axis (Listing~\ref{listing:zaxismoves}).
+\texttt{ncplane\_move\_top()} and \texttt{ncplane\_move\_bottom()} are absolute, moving the specified plane
+to the top or bottom of the z-axis, respectively. \texttt{ncplane\_move\_above()}
+and \texttt{ncplane\_move\_below()} are relative, moving the plane immediately
+above or below another one. It is an error to try and move a plane below or above itself,
+or above or below \texttt{NULL}. Likewise, an error will be returned if the relative
+plane does not exist on the z-axis.
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Move this plane relative to the standard plane. It is an error to attempt to move the standard plane.
 int ncplane_move_yx(struct ncplane* n, int y, int x);
 \end{minted}
 \caption{Moving planes on the x and y axis.}
+\label{list:xyaxismoves}
 \end{listing}
+All planes other than the standard plane can be moved in the x- and y-dimensions. It is permitted to move
+a plane partially or even entirely outside of the viewing area. A plane which
+lies entirely outside the rendering window plays no role in the rendering
+process.
+\begin{listing}[!htb]
+\begin{minted}{C}
+int ncplane_resize(struct ncplane* n, int keepy, int keepx, int keepleny,
+                   int keeplenx, int yoff, int xoff, int ylen, int xlen);
 
-\textbf{FIXME ncplane\_resize(), \_rotate()...}
+static inline int ncplane_resize_simple(struct ncplane* n, int ylen, int xlen){
+  int oldy, oldx;
+  ncplane_dim_yx(n, &oldy, &oldx); // current dimensions of 'n'
+  int keepleny = oldy > ylen ? ylen : oldy;
+  int keeplenx = oldx > xlen ? xlen : oldx;
+  return ncplane_resize(n, 0, 0, keepleny, keeplenx, 0, 0, ylen, xlen);
+}
+\end{minted}
+\caption{Resizing a plane can retain any amount of the old material.}
+\label{list:planeresize}
+\end{listing}
+All planes other than the standard plane can be resized (Listing~\ref{list:planeresize}).
+Resizing is a very general and powerful operation---it is possible to implement
+\texttt{ncplane\_move\_yx()} in terms of \texttt{ncplane\_resize()}. The four
+parameters \texttt{keepy}, \texttt{keepx}, \texttt{keepleny}, and
+\texttt{keeplenx} define a subset of the plane to retain. The retained
+rectangle has its origin at \texttt{keepy},\texttt{keepx}, and a
+\texttt{keepleny}-row, \texttt{keeplenx}-column geometry. If either of the
+dimensions are zero, no material is retained. In this case, \texttt{keepx} and
+\texttt{keepy} are immaterial, save that in no case may any of these four
+parameters be negative. \texttt{keepx} and \texttt{keepy} are both relative to
+the plane's origins, \textit{not} the rendering area. Attempting to ``retain''
+material beyond the boundaries of the plane is an error. \texttt{yoff} and
+\texttt{xoff} are likewise relative to the plane's origin, and define the
+geometry of the plane following the resize. Both of these arguments must be
+positive. Attempting to retain more material than there is room in the reshaped
+plane is an error.
 
-Sometimes it is useful to translate coordinates between planes, or between the
-visible area and planes (this latter is particularly useful when interpreting
-mouse clicks; see Chapter~\ref{sec:input}).
+Yeah, that's a little complex. \texttt{ncplane\_resize\_simple()} is provided
+as a gentler path to resizing. It retains everything it can (everything, if no
+shrinking is going on), preferring material towards the upper left. The resulting
+plane does not move from its origin.
 \begin{listing}[!htb]
 \begin{minted}{C}
 // provided a coordinate relative to the origin of 'src', map it to the same absolute coordinate
@@ -165,7 +210,27 @@ void ncplane_translate(const struct ncplane* src, const struct ncplane* dst, int
 bool ncplane_translate_abs(const struct ncplane* n, int* restrict y, int* restrict x);
 \end{minted}
 \caption{Translating coordinates between planes.}
+\label{list:translateplanes}
 \end{listing}
+Sometimes it is useful to translate coordinates between planes
+(Listing~\ref{list:translateplanes}), or between the visible area and planes
+(this latter is particularly useful when interpreting mouse clicks; see
+Chapter~\ref{sec:input}).
+\begin{listing}[!htb]
+\begin{minted}{C}
+int ncplane_at_cursor(struct ncplane* n, cell* c);
+int ncplane_at_yx(struct ncplane* n, int y, int x, cell* c);
+\end{minted}
+\caption{Reflecting on the plane to acquire its contents.}
+\label{listing:planereflect}
+\end{listing}
+The content of a plane can be retrieved using reflection (Listing~\ref{listing:planereflect}).
+Any coordinate relative to the plane's origin can be provided, along with a
+value-result \texttt{cell} structure. If the coordinates are valid for the
+plane, the cell at those coordinates will be copied into \texttt{c}, and the
+number of bytes required to store its EGC will be returned. A value less than
+zero is returned on error.
+
 
 Just as each cell has a set of attributes and channels, the plane itself has
 an active attribute set and active channels. These can be freely manipulated
@@ -309,8 +374,6 @@ int ncplane_base(struct ncplane* ncp, cell* c);
 \caption{Manipulating a plane's base cell.}
 \end{listing}
 
-\textbf{FIXME FIXME...userptr...}
-
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Alignment within the ncplane. Left/right-justified, or centered.
@@ -338,6 +401,22 @@ static inline int ncplane_align(const struct ncplane* n, ncalign_e align, int c)
 \end{minted}
 \caption{Aligning output within a plane.}
 \end{listing}
+
+\begin{listing}[!htb]
+\begin{minted}{C}
+int ncplane_rotate_cw(struct ncplane* n);
+int ncplane_rotate_ccw(struct ncplane* n);
+\end{minted}
+\caption{Aligning output within a plane.}
+\label{listing:rotate}
+\end{listing}
+It's possible in rather limited circumstances to perform a rotation of a plane
+(Listing~\ref{listing:rotate}). This only really works for planes entirely
+populated by half blocks or characters which can be composed from half blocks.
+The plane is rotated by $\frac{\pi}{2}$ radians in either direction. Note that
+the rotation is only lossless in terms of color and geometry; it is possible
+for half blocks to be rotated into full blocks, and vice versa. You are
+encouraged to consult the source code before making use of rotations.
 
 \subsection{Cells}
 \label{sec:cells}
