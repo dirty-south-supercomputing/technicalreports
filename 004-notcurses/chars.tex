@@ -765,13 +765,12 @@ Punycode was selected instead. WTF-8 extends UTF-8 to handle invalid UTF-16
 input. BOCU-1 and SCSU are compressing encodings that
 don't compress as well as gzipped UTF-8. UTF-9 and UTF-18 were jokes. Is
 UTF-EBCDIC a thing? Of course UTF-EBCDIC is a thing\footnote{Perhaps the
-most cursed thing I'm aware of in computing\footnote{Also receiving votes:
-Threaded INTERCAL, sendmail configuration files, old-skool XFree86
-configuration files with the modeline bullshit, ActiveX controls, ``WebNFS'', and of course
-Perl.} is ``UTFE'', a variable-length
-UCS encoding that somehow requires six bytes sometimes, is used exclusively
-on EBCDIC platforms, and furthermore exclusively only on (drum roll)\textellipsis.
-EBCDIC. ORACLE. DATABASES. Ave Satanas!}
+most cursed thing I'm aware of in computing (also receiving votes:
+Threaded INTERCAL, non-Postfix mail servers, old-skool XFree86 configuration
+files with the modeline bullshit, ActiveX controls, ``WebNFS'', Perl) is
+``UTFE'', a variable-length UCS encoding that somehow requires six bytes
+sometimes, is used exclusively on EBCDIC platforms, and furthermore exclusively
+only on (drum roll)\textellipsis. EBCDIC. ORACLE. DATABASES. Ave Satanas!}
 
 The one place where you won't interoperate with UTF-8 is for domain name lookup,
 when converting IDNA into the LDH subset of ASCII. If you're interested,
