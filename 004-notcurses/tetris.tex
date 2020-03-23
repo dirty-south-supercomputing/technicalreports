@@ -78,9 +78,9 @@ visible area. This would require resizing the game board upon a terminal
 resize, a decidedly messier affair. It's doable, of course---\textgreek{ἢ τὰν ἢ ἐπὶ τᾶς}.}.
 
 Let's do some boring groundwork first. We'll need the official constants for
-``gravity'', the level-dependent rate at which pieces fall. We can implement
-this as a \texttt{constexpr} function (not that it's likely to be of any real
-advantage).
+``gravity'', the level-dependent rate at which pieces fall
+(Listing~\ref{list:tetris-gravity}). We can implement this as a
+\texttt{constexpr} function (not that it's likely to be of any real advantage).
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/gravity.h}

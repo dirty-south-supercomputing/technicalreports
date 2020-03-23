@@ -165,7 +165,7 @@ At this scale (about 100s), timings are very repeatable from run to run. Each ru
 \centering
 \includegraphics[width=1\textwidth]{media/plotbytes.png}
 \caption[Bytes output per demo per term.]{Bytes emitted on a 80x52 geometry (logarithmic y). As expected, the counts are generally equal across terminals. If plotted against width, the counts increase linearly.}
-\label{fig:nvidia-full}
+\label{fig:nvidia-bytes}
 \end{figure}
 
 In order to prepare a machine for benchmarking, I disabled frequency scaling
@@ -187,7 +187,7 @@ bother with things like CPU affinity or process priority.
 \centering
 \includegraphics[width=1\textwidth]{media/i915-80x52.png}
 \caption[80x52 Intel i7-8550U benchmarks.]{Runtimes on a 80x52 geometry (logarithmic y) atop Linux 5.5.2 + i915, Arch Xorg 1.20.7, no false delay. 5 runs each.}
-\label{fig:intel-full}
+\label{fig:intel-secs}
 \end{figure}
 
 It's difficult to miss a distinct triangle pattern among the rising runtimes
@@ -210,5 +210,5 @@ tests with a smaller font at more rows X columns \textbf{FIXME}.}.
 \centering
 \includegraphics[width=1\textwidth]{media/d0-large-nvidia.png}
 \caption[382x74 NVIDIA GTX 1080 benchmarks.]{Runtimes on a 382x74 geometry (logarithmic y) atop Linux 5.5.9 + NVIDIA GTX1080 440.64, Debian Xorg 1.20.7, no false delay. 5 runs each. VTE appears to scale much more poorly than the GL-based Kitty and Alacritty.}
-\label{fig:nvidia-full}
+\label{fig:nvidia-secs}
 \end{figure}
