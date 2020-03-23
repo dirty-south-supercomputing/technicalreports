@@ -182,6 +182,10 @@ you can do it.
     \hline
     0x0c (CR) & \texttt{\^{}L} & \textbackslash{}f & Move to start of line \\
     \hline
+    0x0c (CR) & \texttt{\^{}N} & & (ISO 2022 mode) SO/LS1 \\
+    \hline
+    0x0c (CR) & \texttt{\^{}O} & & (ISO 2022 mode) SI/LS0 \\
+    \hline
     0x11 (DC1) & \texttt{\^{}Q} & & Software flow control (resume output) \\
     \hline
     0x13 (DC3) & \texttt{\^{}S} & & Software flow control (pause output) \\
@@ -252,22 +256,69 @@ character sets (sometimes mistakenly referred to as ``extended'' or ``high''
 ASCII---the closest thing to ``extended ASCII'' might be the withdrawn ANSEL
 ISO-IR 231 ``ANSI extended Latin''\cite{ansel}).
 
-There are well over a thousand known ``code pages'' corresponding to regional,
-corporate, and even private character sets. There are code pages by Microsoft
-popularly known as the ``ANSI code pages'' (despite not being based on any ANSI
-standard), and there are code pages by IBM for Windows emulation which differ
-from the Windows code pages. HTML5 requires that ``text/'' media types that would
-once have been interpreted as ISO-8859-1 actually be interpreted as Windows-1252;
-Windows refers to ISO-8859-1 as Windows-28591. Be glad that you are not working
-in the age of 8-bit character sets. This discordant cacophony gave rise to
-\textit{mojibake} (文字化け [{\fontspec{DejaVu Serif}mod͡ʑibake}]), the garbled
-result of mismatched character encoding and decoding\footnote{Japanese, from
-文字 (moji (character)) 化ける (bakeru (take a different form)). Russians
-know it as \textrussian{кракозя́бры} (krakozyabry [{\fontspec{DejaVu Serif}krɐkɐˈzʲæbrɪ̈}])
-or sometimes \textrussian{бНОПНЯ} (bnopnjá {\fontspec{DejaVu Serif}bnɐpˈnʲa}),
-while Bulgarians speak of \textbulgarian{маймуница} (majmunica (monkey alphabet)).
-Serbs cut to a characteristically Balkan chase with \textrussian{ђубре} (đubre (trash)). I
-{\fontspec{DejaVu Serif}�} Unicode.}.
+Among the first ASCII-derived eight-bit ``code pages'' was IBM's 00437, released
+with the IBM 5150 PC. It spread far and wide by virtue of being burned into the
+ROM of IBM's MDA (9x14), CGA (8x8), EGA (8x14), and VGA (9x16) controllers.
+CP437 used most of the extended space for semigraphics, mathematical symbols,
+and some characters useful in the world as perceived by America circa 1981\footnote{The
+ only suggestion that Asia existed as of CP437 is the ¥.}---CP437 has you
+covered regarding the Dutch florin and the Spanish peseta\footnote{Which said
+peseta didn't even have a symbol, just ₧.}. It also introduced
+the non-breaking space (at code 0xff). Interestingly, a melange of semigraphics
+were assigned to the C0 control character code points, though these retained
+their previous meanings (sometimes). All CP00437 characters have similar
+glyphs in ISO 10646, though not necessarily at the same locations\footnote{A few
+of the CP437 characters have multiple possible equivalents in Unicode, and
+selecting the correct one depends on context.}. Derivatives of CP437
+usually jettisoned the mixed box drawing characters and some of the math
+symbols to further expand alphabet coverage.
+
+\begin{wrapfigure}{o}{0.4\textwidth}
+\centering
+\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
+\caption{Timeline of selected character sets.}
+\label{fig:charset-timeline}
+\end{wrapfigure}
+
+There are well over a thousand known code pages corresponding to regional,
+corporate, and even private character sets, and I shall not even begin to
+cover them all. There are code pages by Microsoft popularly known as the ``ANSI
+code pages'' (despite not being based on any ANSI standard), and there are code
+pages by IBM for Windows emulation which differ from the Windows code pages.
+HTML5 requires that ``text/'' media types (that would previously have been interpreted
+as ISO-8859-1) be interpreted as Windows-1252; Windows refers to
+ISO-8859-1 as Windows-28591. Be glad that you are not working in the age of
+8-bit character sets. This discordant cacophony gave rise to \textit{mojibake}
+(文字化け [{\fontspec{DejaVu Serif}mod͡ʑibake}]), the garbled result of
+mismatched character encoding and decoding\footnote{Japanese, from 文字 (moji
+(character)) 化ける (bakeru (take a different form)). Russians know it as
+\textrussian{кракозя́бры} (krakozyabry [{\fontspec{DejaVu
+Serif}krɐkɐˈzʲæbrɪ̈}]) or sometimes \textrussian{бНОПНЯ} (bnopnjá
+{\fontspec{DejaVu Serif}bnɐpˈnʲa}), while Bulgarians speak of
+\textbulgarian{маймуница} (majmunica (monkey alphabet)). Serbs cut to a
+characteristically Balkan chase with \textrussian{ђубре} (đubre (trash)). I
+{\fontspec{DejaVu Serif}�} Unicode.}. ISO 4873\cite{iso4873} formalized a
+split between control character sets (prefixed with 'C') and graphic character
+sets (prefixed with 'G'); ISO 2022 formalized a baroque mechanism for shifting
+between ``left'' (for handling 7-bit graphic characters) and ``right'' active
+graphic character sets (for handling 8-bit graphic characters) from a selection
+of G0--G3. Really, be quite glad that you are not working in the age of 8-bit
+character sets.
+
+From a historical perspective, the most important eight-bit character set
+is likely ISO-8859-1\cite{iso8859}, based on the Multinational Character Set
+of DEC's VT220, ANSI X3.4-1986, and the C1 control code set defined in ISO 6429.
+Despite being a terrible attempt at encompassing the French alphabet\footnote{French
+discontent eventually resulted in the ``corrected'' ISO-8859-15, published in
+1999, by which time Unicode was eight years old and no one really gave a \textit{merde}\cite{french}.},
+ISO-8859-1 was directly mapped to the Basic Latin and Latin-1 Supplement blocks
+of UCS, together having range 0--0xff. Thus the first 128 codepoints of both 
+ISO-8859-1 (all the ISO 8859 sets, actually) and UCS are inherited from ANSI
+X3.4-1986 + ISO 646's C0, and the second 128 codepoints of UCS are inherited
+from ISO-8859-1 + ISO 6429's C1. Only the \textit{codepoints} are equal, however---UCS
+does not typically encode these codepoints the same way\footnote{A notable
+and critical exception is UTF-8, which encodes the first 128 codepoints the
+same way as ISO 646. Read on\ellipsis}.
 
 \subsection{Consilience: the Universal Character Set}
 \label{sec:ucs}
@@ -358,8 +409,6 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
 \label{fig:charsetuse}
 \end{figure}
 
-
-
 \subsection{Fixed-width fonts ain't so fixed}
 Notcurses assumes that all glyphs occupy widths which are an integral multiple
 of the smallest possible glyph's cell width (aka a ``fixed-width font'').
@@ -377,13 +426,6 @@ character is placed, any character under its left or right side is annihilated,
 including wide characters. It is thus possible for two wide characters to sit
 at columns 0 and 2, and for both to be obliterated by a single wide character
 placed at column 1.
-
-\begin{wrapfigure}{o}{0.4\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{media/charset-timeline.png}
-\caption{Timeline of selected character sets.}
-\label{fig:charset-timeline}
-\end{wrapfigure}
 
 Likewise, when rendering, a plane which would partially obstruct a wide glyph
 prevents it from being rendered entirely. A pathological case would be that of
