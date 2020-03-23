@@ -731,8 +731,8 @@ limits UTF-8's range to the $17*2^{16}$-ary code space of UCS, in which case
 the maximum length of a single UTF-8-encoded UCS code point is four bytes\footnote{You
 might hear six bytes, and indeed ISO/IEC 10646 specifies six bytes to handle
 up through U+7FFFFFFF\textellipsis but only defines UCS to cover 17 planes.
-Verify your \texttt{wctomb(3)} rejects inputs in excess of 0x10ffff if you
-intend to exploit RFC 3629's tighter bound.}. It's thus always as or more efficient
+Verify your \texttt{wctomb(3)} rejects inputs in excess of 0x10ffff before
+exploiting RFC 3629's tighter bound.}. It's thus always as or more efficient
 than UCS-32. When the ASCII characters are used, UTF-8 is more efficient than
 either UTF-16 or UTF-32. Only for streams utterly dominated by BMP codepoints
 requiring three or more bytes from UTF-8 can UTF-16 encode more efficiently.
@@ -759,8 +759,7 @@ Always interoperate---including writing files---in UTF-8 by default.
 There are a dozen-odd similarly-named encodings which are useful for nothing
 but trivia. UCS-2 was UTF-16, but for only the BMP. UCS-4 is just UTF-32. UTF-7
 is a seven-bit-clean UTF-8\footnote{The primary seven-bit-clean media of the
-modern era is, to the best of my knowledge, email sent without a MIME
-transfer encoding.}. UTF-1 is UTF-8's older, misshapen sister, locked away from
+modern era is probably email sent without a MIME transfer encoding.}. UTF-1 is UTF-8's older, misshapen sister, locked away from
 sight in the attic. UTF-5 and UTF-6 were proposed encodings for IDN, but
 Punycode was selected instead. WTF-8 extends UTF-8 to handle invalid UTF-16
 input. BOCU-1 and SCSU are compressing encodings that

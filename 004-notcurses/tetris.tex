@@ -2,7 +2,7 @@
 \label{sec:casestudy}
 Recall our exploration of tetriminos from Chapter~\ref{sec:simpleloop}. We
 know enough now to turn this into an actual game of terminal Tetris\footnote{There
-are a great many distinctive Tetris implementations. We'll aim for loose
+are a great many distinct Tetris implementations. We'll aim for loose
 conformance to the NES version as published by Nintendo of America, because
 I'm old. See \url{https://tetris.wiki/Tetris_(NES,_Nintendo)}. I'm not going
 to obsess over details, though.}. Our implementation is fewer than 200 lines
@@ -61,6 +61,12 @@ of the z-axis. Nothing else needs be touched, save inhibiting the operation
 of \texttt{Ticker()}. This could be done any number of ways; we'll use a
 condition variable plus a bit flag, checking it upon emerging from our timeout.
 
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/background.h}
+\caption{Drawing the background and the gameplay plane.}
+\label{list:tetris-background}
+\end{listing}
+
 Our resize logic is pretty simple: on a resize event, after verifying that the
 new geometry is large enough to play on (if not, we pause the game), we must
 redraw the background, move the playing area to the new bottom center of the
@@ -76,8 +82,10 @@ Let's do some boring groundwork first. We'll need the official constants for
 this as a \texttt{constexpr} function (not that it's likely to be of any real
 advantage).
 
-\begin{listing}[!h]
+\begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/gravity.h}
 \caption{Tetris gravity by level.}
+\label{list:tetris-gravity}
 \end{listing}
+
 \textbf{FIXME FIXME FIXME}
