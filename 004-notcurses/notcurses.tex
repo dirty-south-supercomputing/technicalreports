@@ -1859,6 +1859,11 @@ sprite isn't present. To test whether the sprite has been ``hit'', the plane
 itself can be used as a bounding box, but much better accuracy can be had by
 testing the plane for character presence with \texttt{ncplane\_at\_yx()}.
 
+If your sprite has an animation cycle---common for e.g. walking figures---it
+can often be easiest to render each frame of the cycle to a distinct plane,
+and keep only one visible at a time. This is used in the \texttt{luigi} demo
+for Luigi's running cycle.
+
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
