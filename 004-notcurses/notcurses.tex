@@ -1808,8 +1808,32 @@ struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int
 \caption{Scaling media onto a new plane.}
 \label{list:scaling}
 \end{listing}
+Notcurses relies on FFmpeg for all scaling, and thus must tell it the size of
+the rendering area. An \texttt{ncvisual} is always scaled according to the
+geometry of its associated plane's entirety. The scaling target is twice the
+rendering target's height in rows, and equal to the rendering target's width in
+columns. If the media is smaller than this, it will be scaled up. If larger, it
+will be scaled down. A lossless representation thus requires rendering to a
+plane having exactly half the media's height, and its exact width. Since it's
+not generally possible to know the media's size until it's been partially
+decoded, Notcurses provides \texttt{ncvisual\_open\_plane()}, which creates
+a new plane based on the media's dimensions (this plane can be retrieved from
+the returned \texttt{ncvisual} using \texttt{ncvisual\_plane()}). For an
+exactly-matched plane, supply \texttt{NCSCALE\_NONE} (this plane might of course
+be bigger or smaller than the viewing area). Use \texttt{NCSCALE\_STRETCH} to
+scale the image to the rendering area (just like \texttt{ncplane\_visual\_open()},
+except with a new plane). \texttt{NCSCALE\_SCALE} is not yet implemented, but
+will retain media aspect ratio whilst scaling to fit at least one dimension
+of the rendering area.
 
-\textbf{FIXME FIXME FIXME}
+If the plane on which your \texttt{ncvisual} is to be rendered is larger than
+the rendering area, you can save time by rendering only a portion of the
+decoded image. \texttt{ncvisual\_render()} accepts four arguments specifying a
+rectangular subsection via origin and dimensions. The last two arguments can be
+specified as -1 to render through the end of the decoded frame. This is used
+in the \texttt{eagle} demo to progressively ``zoom'' in on a level map much
+larger than a typical terminal; in general, this will be the most efficient means
+of effecting parallax scrolling.
 
 \subsection{Sprites}
 Danny Hillis is probably best known to computer architects for Thinking Machines,
