@@ -19,19 +19,11 @@ digraph G {
       color=chocolate;
       style=filled;
       label="bl0";
-      b2 [style=filled,width=5,shape=record,label="{ {sshd}\
-                         ||{}|{}|{}}"];
+      b2 [style=filled,width=5,shape=record,label="{ {bash/ssh}\
+                         |{sshd|sshd|sshd|bash}|{14045|3175763|3175775|3175778}|{1|14045|3175763|3175775}|{}}"];
       b3 [style=filled,width=5,shape=record,label="{ {screen}\
-                         ||{}|{}|{}}"];
+                         |{}|{}|{}|{}}"];
       label="Detached/Daemons";
-    }
-    subgraph clusterRemote {
-      color=darkkhaki;
-      style=filled;
-      label="bl0";
-      b4 [style=filled,width=5,shape=record,label="{ {bash}\
-                         ||{}|{}|{}}"];
-      label="Remote";
     }
   }
 } 
