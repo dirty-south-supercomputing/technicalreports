@@ -414,12 +414,16 @@ units to encode points from these other 16 planes (0x10000--0x10ffff).
   \label{table:ucsplanes}
 \end{table}
 
-\textbf{FIXME FIXME FIXME mention construction of UCS (ASCII/C0 inclusion, 8859)}
-
+Below the plane comes the \textit{block}, a range of between 16 and 65,536 related
+code points, always starting on a 16-codepoint boundary. A block is merely a
+convenience for reference. Each codepoint belongs to one and only one block.
+As mentioned earlier, the first 256 code points of UCS (making up the first two
+blocks) are taken from ISO-8859-1, plus DEL and the control character classes
+C0 and C1.
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=0.5\textwidth]{media/yearly-charsets.png}
-\caption{Use of charsets over the last decade \textit{(source: \href{https://w3techs.com/technologies/history\_overview/character\_encoding/ms/y}{W3Techs})}.}
+\caption{Use of charsets over the last decade on the Web \textit{(source: \href{https://w3techs.com/technologies/history\_overview/character\_encoding/ms/y}{W3Techs})}.}
 \label{fig:charsetuse}
 \end{figure}
 
@@ -557,8 +561,6 @@ background RGB\footnote{This optimization is not possible when, for instance,
 the alphas are anything other than \texttt{CELL\_ALPHA\_OPAQUE}.}, though this
 optimization saves only 2 bytes compared to the dozen or so saved by eliding
 an RGB escape. Notcurses effects both optimizations.
-
-% FIXME ought we talk about e.g. awesomefont? 8x8 in a plane?
 
 \begin{figure}[!htb]
     \centering
