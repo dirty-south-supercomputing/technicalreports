@@ -458,7 +458,6 @@ be manipulated by the user; Notcurses automatically manages them, and relies upo
 them internally. You can of course read them, should you be so inclined. Three
 functions are supplied for testing these bits (Listing~\ref{list:widetests}).
 
-\begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 8-bit r/g/b components from a 32-bit channel.
 static inline unsigned channel_r(unsigned channel){ return (channel & 0xff0000u) >> 16u; }
@@ -541,13 +540,12 @@ static inline unsigned channel_set_default(unsigned* channel){
   return *channel &= ~(CELL_BGDEFAULT_MASK | CELL_ALPHA_HIGHCONTRAST);
 }
 \end{minted}
-\caption{The full channel API.}
+\captionof{listing}{The full channel API.}
 \label{list:channelapi}
-\end{listing}
+
 The full channel API (suitable for dealing with a single 32-bit channel) is
 provided in Listing~\ref{list:channelapi}.
 
-\begin{listing}[!htb]
 \begin{minted}{C}
 // Extract the 32-bit background channel from a channel pair.
 static inline uint32_t
@@ -740,9 +738,8 @@ channels_set_bg_default(uint64_t* channels){
   return *channels;
 }
 \end{minted}
-\caption{The full channels API.}
+\captionof{listing}{The full channels API.}
 \label{list:channelsapi}
-\end{listing}
 
 The full channels API (suitable for dealing with two single 32-bit channels in
 a single 64-bit) is provided in Listing~\ref{list:channelsapi}. Remember, the
