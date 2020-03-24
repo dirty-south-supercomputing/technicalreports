@@ -30,7 +30,7 @@ VIEW:=evince
 NOTCURSESTEX:=$(addsuffix .tex, notcurses glossary chars input benchmarks output planes simpleloop termhistory tetris ttymechanics)
 NCBINS:=$(addprefix $(NOTCURSESDIR)/, hilodirect hilostdio hol-formatter speech \
           tetrimino tetrimino-input)
-DOTS:=$(addsuffix .png,$(addprefix $(NOTCURSESDIR)/dot/,tty-serial tty-vesafb))
+DOTS:=$(addsuffix .png,$(addprefix $(NOTCURSESDIR)/dot/,fdsessions tty-serial tty-vesafb))
 
 all: reports
 

@@ -401,3 +401,10 @@ but it does not itself make use of terminfo. It is more accurate to describe
 the screen with \texttt{stty -a}\footnote{Pro tip: \texttt{stty} generally works
   only on standard input\textellipsis but redirecting standard input from a
   \texttt{/dev} node works just fine (subject to permissions, of course).}.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.65\linewidth]{dot/fdsessions.png}
+  \caption{Processes, sessions, TTYs, and FDs.}
+  \label{fig:fdsessions}
+\end{figure}
