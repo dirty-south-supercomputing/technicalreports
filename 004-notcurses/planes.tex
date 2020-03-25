@@ -49,8 +49,8 @@ A plane is defined by:
 \item{A cursor position relative to the plane's origin.}
 \item{The plane's position relative to the visible area's origin.}
 \item{A two-dimensional size.}
-\item{An ``egcpool'' providing backing storage for the framebuffer.}
-\item{An opaque pointer (the \textit{user pointer}, controlled by the application.}
+\item{An ``egcpool'' providing backing storage for the framebuffer's complex EGCs.}
+\item{An opaque pointer (the \textit{user pointer}), controlled by the application.}
 \item{A current set of attributes and colors.}
 \item{A pointer to the plane below this one, or \texttt{NULL} for the bottommost plane.}
 \end{denseitemize}

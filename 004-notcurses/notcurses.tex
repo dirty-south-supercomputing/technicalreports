@@ -192,9 +192,9 @@ Please don't sue me.
 \subsection*{¡Peligro!}
 
 The code written for this book attempts to minimize use of vertical space
-without eliding error checking (or crossing into the realms of the grotesque).
-Error handling is a fundamental slog of C programming, one that
-inevitably complicates reliable applications.
+(fewer pages → cheaper book) without eliding error checking (or crossing into
+the realms of the grotesque). Error handling is a fundamental slog of C
+programming, one that inevitably complicates reliable applications.
 
 These listings cannot be considered examples of good general style\ldots but they \textit{do} get the job done.
 
@@ -960,7 +960,7 @@ display is critical for reasoning about your program in general, and particularl
 relevant for maximizing performance.
 
 During initialization of a terminal, unless \texttt{suppress\_banner} is supplied
-in the \texttt{notcurses\_options}, \texttt{notcurses\_init()} will print some
+in \texttt{notcurses\_options}, \texttt{notcurses\_init()} will print some
 diagnostics to stdout, and flush the output buffer. Notcurses maintains an
 internal virtual framebuffer, containing the state of the terminal as believed
 to exist\footnote{Do not confuse this with the standard plane. This framebuffer
@@ -974,8 +974,8 @@ Otherwise, the terminal will not be altered until the first call to
 \texttt{notcurses\_render()}. That first call, however, will write to every
 cell of the terminal, effectively clearing any existing output. The upshot is
 that it is not possible to integrate preexisting data into your TUI, regardless
-of whether the alternate screen is used. This reflects the impossibility of
-portably discovering the state of the terminal.
+of whether the alternate screen is used (aside from marginalia). This reflects
+the impossibility of portably discovering the state of the terminal.
 
 Subsequent to the first call, Notcurses---having written them---has a concept
 of the display's contents. From that point on, screen updates will write only
@@ -1017,15 +1017,14 @@ is on the z-axis, the more it can impact these solutions:
     \texttt{CELL\_ALPHA\_OPAQUE} foreground color, or an instance of the
     default foreground color, or an instance of a palette-indexed foreground
     color, as well as any \texttt{CELL\_ALPHA\_HIGHCONTRAST} or \texttt{CELL\_ALPHA\_BLEND}
-    foreground colors encountered along the way. If there is no such intersecting
-    terminator, the foreground color is the color as calculated thus far. It is
-    not possible to exhaust all intersecting planes without encountering some
-    influence on the foreground color, since the standard plane intersects with
-    all display cells. If \texttt{CELL\_ALPHA\_HIGHCONTRAST} is in play, the
-    calculated color is then blended to stand out against the calculated background
+    foreground colors encountered along the way. If there is no such
+    intersecting terminator, the foreground color is the color as calculated
+    thus far. If \texttt{CELL\_ALPHA\_HIGHCONTRAST} is in play, the calculated
+    color is then blended to stand out against the calculated background
     color.}
-\item{The background color is determined in the same way as the foreground color,
-    except without the complicating possibility of \texttt{CELL\_ALPHA\_HIGHCONTRAST}.}
+\item{The background color is determined independently, in the same way as the
+    foreground color, except without the complicating possibility of
+    \texttt{CELL\_ALPHA\_HIGHCONTRAST}.}
 \end{denseitemize}
 
 Once a cell is solved, Notcurses needn't continue inspecting lower planes at
@@ -1038,7 +1037,7 @@ rather than moving them beyond the boundaries of the visible window. Likewise,
 planes ought be no larger than necessary, so that they intersect with the
 minimum number of cells. Note that there will always be at least one plane
 interacting with each visible coordinate, due to the properties of the default
-plane. This process of filling a solutions matrix is referred to as rendering.
+plane.
 
 Having rendered the scene, \textit{rasterization} serializes a buffer to write
 to the terminal, minimizing the amount of data by moving the cursor over undamaged
@@ -1112,8 +1111,8 @@ notcurses onto commodity hardware at maximum framerates, with the terminal
 faithfully reproducing each rendered scene. Even small microcontrollers ought
 be able to render notcurses without user-perceptible latency. On a powerful
 desktop with non-pathological output, it's easy to render in excess of
-ten thousand frames per second, far beyond the refresh capabilities of any
-existing monitor.
+ten thousand frames per second, more than an order of magnitude beyond the
+refresh capabilities of any existing or likely monitor\cite{charni}.
 
 \subsection{Capabilities}
 \label{sec:capabilities}

@@ -29,8 +29,8 @@ definition? You betcha.}. There are many things a character is not:
 \item{A character cannot necessarily describe a cell of a display at some time.}
 \end{denseitemize}
 
-Collecting characters and assigning them distinct (not necessarily contiguous or
-even ordered) numbers creates a \textit{code set}, and the smallest contiguous
+Collecting characters and assigning them distinct (but not necessarily contiguous)
+numbers creates a \textit{code set}, and the smallest contiguous
 range of numbers covering this code set is a \textit{code space}. The Unicode 13
 code space is comprised of 17 contiguous planes of 65,536 code points each, for
 a size of $17*2^{16}$. It defines 143,859 characters, smaller than its
@@ -111,7 +111,7 @@ Variant'')\cite{aivosto}.
 The first 32 values are non-printable control codes, first given their current
 definitions in ASCII 1968. These 32 codes (known as the ``C0'' coded control
 set since ISO/IEC 646) lived on through ISO/IEC 2022 (ECMA-35), ISO/IEC 6429
-(ECMA-48), ISO/IEC 8859 (ECMA-94), and are reproduced in today's ISO/IEC 10646,
+(ECMA-48), and ISO/IEC 8859 (ECMA-94), and are reproduced in today's ISO/IEC 10646,
 aka the Universal Character Set. They're common across just about every
 character set of which I'm aware (EBCDIC went almost entirely its own way,
 because EBCDIC), despite being largely archaic and altogether mystifying. Most
@@ -273,8 +273,8 @@ ISO-IR 231 ``ANSI extended Latin''\cite{ansel}).
 \label{fig:charset-timeline}
 \end{wrapfigure}
 
-Among the first ASCII-derived eight-bit ``code pages'' was IBM's 00437, released
-with the IBM 5150 PC. It spread far and wide by virtue of being burned into the
+Among the better-known ASCII-derived eight-bit ``code pages'' was IBM's 00437, released
+with the 5150 PC. It spread far and wide by virtue of being burned into the
 ROM of IBM's MDA (9x14), CGA (8x8), EGA (8x14), and VGA (9x16) controllers.
 CP437 used most of the extended space for semigraphics, mathematical symbols,
 and some characters useful in the world as perceived by America circa 1981\footnote{The
@@ -310,10 +310,10 @@ characteristically Balkan chase with \textrussian{ђубре} (đubre (trash)). 
 {\fontspec{DejaVu Serif}�} Unicode.}. ISO 4873\cite{iso4873} formalized a
 split between control character sets (prefixed with 'C') and graphic character
 sets (prefixed with 'G'); ISO 2022 formalized a baroque mechanism for shifting
-between ``left'' (for handling 7-bit graphic characters) and ``right'' active
-graphic character sets (for handling 8-bit graphic characters) from a selection
-of G0--G3. Really, be quite glad that you are not working in the age of 8-bit
-character sets.
+between ``left'' (for handling 7-bit graphic characters) and ``right''
+(for handling 8-bit graphic characters) active graphic character sets from a
+selection of G0--G3. Really, be quite glad that you are not working in the age
+of 8-bit character sets.
 
 From a historical perspective, the most important eight-bit character set
 is likely ISO-8859-1\cite{iso8859}, based on the Multinational Character Set
@@ -753,8 +753,8 @@ owing to more effective use of cache and memory bandwidth. Nope, it's not slow.
 UTF-16 is some truly stupid shit, fit only for jabronies. It only ever passed
 muster because people thought UCS was going to be a sixteen-bit character set.
 The moment a second Plane was added, UTF-16 ought have been shown the door.
-There's possibly an argument to be made for ripping it from the pages of books
-in your local library, so it can't poison the youth. If you must work on a UTF-16
+There's an argument to be made for ripping it from the pages of books
+in your local library. If you must work on a UTF-16
 system, use UTF-16 at the boundary, and then keep it around as UTF-32 or UTF-8.
 Always interoperate---including writing files---in UTF-8 by default.
 
@@ -767,12 +767,12 @@ Punycode was selected instead. WTF-8 extends UTF-8 to handle invalid UTF-16
 input. BOCU-1 and SCSU are compressing encodings that
 don't compress as well as gzipped UTF-8. UTF-9 and UTF-18 were jokes. Is
 UTF-EBCDIC a thing? Of course UTF-EBCDIC is a thing\footnote{Perhaps the
-most cursed thing I'm aware of in computing (also receiving votes:
-Threaded INTERCAL, non-Postfix mail servers, old-skool XFree86 configuration
-files with the modeline bullshit, ActiveX controls, ``WebNFS'', Perl) is
+most cursed thing I'm aware of in computing is
 ``UTFE'', a variable-length UCS encoding that somehow requires six bytes
 sometimes, is used exclusively on EBCDIC platforms, and furthermore exclusively
-only on (drum roll)\textellipsis. EBCDIC. ORACLE. DATABASES. Ave Satanas!}
+only on (drum roll)\textellipsis. EBCDIC. ORACLE. DATABASES. Ave Satanas! Also receiving
+votes: Threaded INTERCAL, non-Postfix mail servers, old-skool XFree86 configuration
+files with the modeline bullshit, ActiveX controls, ``WebNFS'', Perl.}.
 
 The one place where you won't interoperate with UTF-8 is for domain name lookup,
 when converting IDNA into the LDH subset of ASCII. If you're interested,
