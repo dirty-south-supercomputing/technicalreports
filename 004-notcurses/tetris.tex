@@ -109,27 +109,27 @@ Let's do some boring groundwork first. We'll need the official constants for
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/rotate.h}
-\caption{Tetris rotation functions.}
+\inputminted[]{C}{code-tetris/ticker.h}
+\caption{Tetris rotation functions and ticker thread.}
 \label{list:tetris-rotate}
 \end{listing}
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/newpiece.h}
-\inputminted[]{C}{code-tetris/stuck.h}
-\caption{\texttt{Tetris::NewPiece()} and \texttt{Tetris::PieceStick()}.}
+\caption{\texttt{Tetris::NewPiece()}.}
 \label{list:tetris-newpiece}
 \end{listing}
 
 \begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/ticker.h}
-\caption{\texttt{Tetris::Ticker()}.}
-\label{list:tetris-ticker}
+\inputminted[]{C}{code-tetris/stuck.h}
+\caption{\texttt{Tetris::PieceStuck()}.}
+\label{list:tetris-newpiece}
 \end{listing}
 
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/main.cpp}
-\caption{\texttt{main()} for our Tetris ripoff.}
-\label{list:tetris-main}
-\end{listing}
+%\begin{listing}[!htb]
+%\inputminted[]{C}{code-tetris/main.cpp}
+%\caption{\texttt{main()} for our Tetris ripoff.}
+%\label{list:tetris-main}
+%\end{listing}
 
 \textbf{FIXME FIXME FIXME}

@@ -783,7 +783,8 @@ to do so.
 The first parameter to \texttt{notcurses\_init()} is a (possibly \texttt{NULL})
 \texttt{notcurses\_options}. This structure has been defined such that the
 default options are equivalent to a zero-initialized structure. Passing \texttt{NULL}
-is thus equivalent to passing a zero-initialized \texttt{notcurses\_options}.
+is thus equivalent to passing a zero-initialized \texttt{notcurses\_options}\footnote{Except
+it's strong against changes to \texttt{notcurses\_options}'s size!}.
 The fields therein include:
 \begin{denseitemize}
 \item{\texttt{const char* termtype}: The name of the terminfo database entry to
