@@ -354,9 +354,9 @@ have its origins in the 8-bit era, and shows its age.
     \hfill
     \includegraphics[width=.4\linewidth]{media/tui-omphalos.png}
     \caption[NCURSES TUIs: Ncmpcpp and Omphalos.]
-    {\texttt{ncmpcpp}, a \CC application
+    {Left: \texttt{ncmpcpp}, a \CC application
       that has driven my Music Player Daemon since 2008 or so.
-      \texttt{omphalos}, a C application
+      Right: \texttt{omphalos}, a C network exploration tool
       written using NCURSES in its extended mode.}
   \label{fig:ncurses-tuis}
 \end{figure}
@@ -365,18 +365,18 @@ have its origins in the 8-bit era, and shows its age.
     \includegraphics[width=.4\linewidth]{media/tui-mapscii.png}
     \hfill
     \includegraphics[width=.4\linewidth]{media/tui-growlight.png}
-    \caption[Non-NCURSES TUIs: Mapscii and Growlight.]{\texttt{mapscii}, a
+    \caption[Non-NCURSES TUIs: Mapscii and Growlight.]{Left: \texttt{mapscii}, a
     node.js application, blew my mind when I first saw it. The high resolution
     is achieved by using Braille characters, trading away some color control.
-    \texttt{growlight} began life as an NCURSES C program, but was ported to
-    Notcurses in 2019.}
+    Right: \texttt{growlight}, a disk manager, began life as an NCURSES C
+    program, but was ported to Notcurses in 2019.}
   \label{fig:notncurses-tuis}
 \end{figure}
 
 Implementing a TUI will usually require, at a minimum:
 \begin{denseitemize}
 \item{Receiving input from user devices, including keyboards and mice,}
-\item{some manner of user configuration widgets (menus, etc.),}
+\item{some manner of user configuration flow (menus, etc.),}
 \item{watching for some other event(s) from the system, and},
 \item{juggling these various components without wastefully polling, nor
        introducing undue latency, and enforcing safe synchronized access to
@@ -391,7 +391,7 @@ This text has two goals:
 \item{To provide a firm footing for design and implementation of character
     graphics and TUIs, elucidating the dimensions of design, along with difficulties
     to avoid, and}
-\item{to serve as ``narrative reference''\cite{newjournalism} for my Notcurses
+\item{to serve as ``narrative reference'' for my Notcurses
       library, and as a starting place for newcomers.}
 \end{denseitemize}
 
