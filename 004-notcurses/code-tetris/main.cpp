@@ -45,7 +45,7 @@ public:
   static constexpr auto BOARD_HEIGHT = 20;
 
 #include "gravity.h"
-
+#include "ticker.h"
 #include "movedown.h"
 #include "moveleft.h"
 #include "moveright.h"
@@ -83,6 +83,7 @@ int main(void) {
   if(setlocale(LC_ALL, "") == nullptr){
     return EXIT_FAILURE;
   }
+  srand(time(NULL));
   std::atomic_bool gameover = false;
   notcurses_options ncopts{};
   ncpp::NotCurses nc(ncopts);
