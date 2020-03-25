@@ -26,7 +26,7 @@
 \setmonofont[Scale=0.8]{Unifont}
 \defaultfontfeatures{Ligatures=TeX}
 \usepackage[table]{xcolor}
-%\usepackage{pdfpages}
+\usepackage{pdfpages}
 \usepackage[titletoc,title]{appendix}
 \usepackage{minted}
 \usepackage{xeCJK}
@@ -91,10 +91,9 @@ A Guide to TUIs and Character Graphics
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\includepdf{media/frontcover.pdf}
-%\date{Feb 14, 2020}
+\includepdf{media/frontcover.pdf}
+\date{March 24, 2020}
 \maketitle
-%\thispagestyle{fancy}
 \date{}
 \vspace{1in}
 \begin{center}
@@ -1644,7 +1643,7 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 Media decoding and scaling is handled by libAV from FFmpeg, resulting in a
 \texttt{ncvisual} object. This object generates frames, each one
 corresponding to a renderable scene on the associated plane. If Notcurses
-is built without FFMpeg support, these functions will all return error.
+is built without FFmpeg support, these functions will all return error.
 The flow of multimedia from the view of a Notcurses application is:
 \begin{denseitemize}
 \item{The media is opened with \texttt{ncplane\_visual\_open()} or
@@ -2802,5 +2801,5 @@ might have laying around.
 \end{figure}
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\includepdf{media/backcover.pdf}
+\includepdf{media/backcover.pdf}
 \end{document}
