@@ -339,7 +339,10 @@ fundamental, but emerge from the grim meathook realities of GUI toolkits.}
 \item{a properly-done TUI implementation can often be significantly more portable.}
 \end{denseitemize}
 
-Of course, it can also be a big pile of character graphics shit.
+It can also be a big pile of character graphics garbage. A TUI offers
+less resolution, less flexibility, and (due to monospaced fonts) less total
+text space. Applications must be carefully designed for the limitations of
+a dynamic textual environment.
 
 For over two decades, NCURSES (a free software implementation of the X/Open Curses\cite{cursesosi}
 specification, plus extensions\cite{ncursesfaq}) has been a ubiquitous go-to for implementing
@@ -385,6 +388,8 @@ Implementing a TUI will usually require, at a minimum:
 
 Perhaps most terrifyingly, it will require user interface design. Notcurses
 attempts to assist with this by providing numerous ready-made widgets.
+
+\pagebreak
 
 This text has two goals:
 \begin{denseitemize}
