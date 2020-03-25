@@ -2537,6 +2537,9 @@ than the Linux console in several ways:
 \item{Console font capabilities are extremely limited.}
 \end{denseitemize}
 
+Userspace alternatives to the Linux console include \texttt{fbterm} and
+\texttt{kmscon}.
+
 Like any interface to a termios\cite{termios} implementation, the \texttt{IUTF8}
 flag should be set (consult \texttt{stty}). This can be accomplished with the
 \texttt{IUTF8} termios flag (or \texttt{stty iutf8} on the command line). This
@@ -2555,7 +2558,17 @@ Ensure, as always, that \texttt{LANG} is properly set, that your program
 initializes the locale with \texttt{setlocale(3)}, and that \texttt{TERM} is
 properly set (in this case, to one of the ``linux*'' variants).
 
-\textbf{FIXME FIXME FIXME talk about console font}
+The console font supports only 256 characters, or 512 when colors are cut in
+half. The built-in ``PSF''\footnote{The PC Screen Font of H. Peter Anvin and
+  Andries Brouwer.} font supports the 256 characters of CP437 (remember
+CP437?). The font can be displayed with the \texttt{showconsolefont} command,
+and updated with \texttt{setfont}. The font is independent of whether the
+console is supplied via \texttt{vgacon} or e.g. \texttt{fbcon}. It is worth
+noting that this default font is missing several characters of which Notcurses
+makes extensive default use, particularly the rounded and double box-drawing
+characters. I intend to look into reprogramming the console font on the fly to
+better support this environment\footnote{See \url{https://github.com/dankamongmen/notcurses/issues/201}.},
+but for the moment, Notcurses on the console is definitely a weak spot.
 
 Consult the \textit{The Linux Programmer's Manual} for more information,
 particularly
