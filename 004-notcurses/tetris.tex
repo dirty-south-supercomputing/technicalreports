@@ -62,26 +62,14 @@ of the z-axis. Nothing else needs be touched, save inhibiting the operation
 of \texttt{Ticker()}. This could be done any number of ways; we'll use a
 condition variable plus a bit flag, checking it upon emerging from our timeout.
 
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/background.h}
-\caption{Drawing the background and the gameplay plane.}
-\label{list:tetris-background}
-\end{listing}
-
 Our resize logic is pretty simple: on a resize event, after verifying that the
 new geometry is large enough to play on (if not, we pause the game), we must
 redraw the background, move the playing area to the new bottom center of the
 visible area, and move the current piece to its same location relative to the
 playing area. If the game is already paused when we resize, we ought
-additionally recenter the attract plane. This is about as trivial as resize
-handling comes\footnote{Imagine that we sized the playing area according to the
+additionally recenter the attract plane\footnote{Imagine that we sized the playing area according to the
 visible area. This would require resizing the game board upon a terminal
 resize, a decidedly messier affair. It's \textit{doable}---\textgreek{ἢ τὰν ἢ ἐπὶ τᾶς}.}.
-
-Let's do some boring groundwork first. We'll need the official constants for
-``gravity'', the level-dependent rate at which pieces fall
-(Listing~\ref{list:tetris-gravity}). We can implement this as a
-\texttt{constexpr} function (not that it's likely to be of any real advantage).
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/gravity.h}
@@ -89,11 +77,33 @@ Let's do some boring groundwork first. We'll need the official constants for
 \label{list:tetris-gravity}
 \end{listing}
 
+Let's do some boring groundwork first. We'll need the official constants for
+``gravity'', the level-dependent rate at which pieces fall
+(Listing~\ref{list:tetris-gravity}). We can implement this as a
+\texttt{constexpr} function (not that it's likely to be of any real advantage).
+
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/clear.h}
 \caption{\texttt{Tetris::LineClear()}.}
 \label{list:tetris-lineclear}
 \end{listing}
+
+We'll need a function to tell us whether a line has been cleared
+(Listing~\ref{list:tetris-lineclear}). We could track the state of the board
+ourselves as a simple boolean matrix, but why bother when we can just ask the
+source? Reflecting on a Notcurses plane is good practice of the
+DRY\footnote{Don't Repeat Yourself.} principle.
+
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/background.h}
+\caption{Drawing the background and the gameplay plane.}
+\label{list:tetris-background}
+\end{listing}
+
+Our background function (Listing~\ref{list:tetris-background}) just loads up
+the provided image, stretched to fill the standard plane, blits it, and then
+converts it to greyscale (so as not to be confused with actual playing pieces,
+all of which are in color).
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/movedown.h}
