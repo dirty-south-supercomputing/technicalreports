@@ -79,21 +79,24 @@ discipline responsible for implementing ``cooked mode''\cite{essentialdrivers}.
 
 POSIX.1-2017\cite{posix2017} §10.1 ``Directory Structure and Devices''
 specifies three special files in the \texttt{/dev} directory, of which two are
-related to the terminal/console system: \texttt{/dev/tty} is, within a process
-context, a synonym for the controlling terminal associated with that process's
-group (this can also be acquired with \texttt{tty(1)} or the POSIX C function
+related to the terminal/console system: \texttt{/dev/tty} is a synonym for the
+controlling terminal associated with that process's group (this can also be
+acquired with \texttt{tty(1)} or the POSIX C function
 \texttt{ctermid(3)}\footnote{\texttt{/dev/tty} also uniquely supports the
-\texttt{TIOCNOTTY} \texttt{ioctl(2)} for detaching a process from its
-controlling terminal.}). The tty associated with an arbitrary file descriptor can
-be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a generic name for the current system console\footnote{Defined in \textit{ibid.} §3.392
-``System Console'' as the device receiving messages sent by the \texttt{syslog()}
-function. On Linux, it will also reproduce messages written to \texttt{/dev/kmsg}\cite{dmesg}.};
-POSIX requires that the system console implement its ``General Terminal Interface'' (see
-\textit{ibid.} §11). The standard console will by default be \path{/dev/tty0}, but this
-can be changed with the \texttt{console=} kernel command line parameter, or with
-an explicit \texttt{ConOut} UEFI variable (see §11.4 of \cite{uefi}). \texttt{/dev/tty0} is a special device on Linux linked to
-the current virtual console (which might not be the system console). The
-available system consoles can be found in \texttt{/proc/consoles}.
+  \texttt{TIOCNOTTY} \texttt{ioctl(2)} for detaching a process from its
+  controlling terminal.}). The tty associated with an arbitrary file descriptor
+can be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a
+generic name for the current system console\footnote{Defined in \textit{ibid.}
+  §3.392 ``System Console'' as the device receiving messages sent by the
+  \texttt{syslog()} function. On Linux, it will also reproduce messages written
+  to \texttt{/dev/kmsg}\cite{dmesg}.}; POSIX requires that the system console
+implement its ``General Terminal Interface'' (see \textit{ibid.} §11). The
+standard console will by default be \path{/dev/tty0}, but this can be changed
+with the \texttt{console=} kernel command line parameter, or with an explicit
+\texttt{ConOut} UEFI variable (see §11.4 of \cite{uefi}). \texttt{/dev/tty0} is
+a special device on Linux linked to the current virtual console (which might
+not be the system console). The available system consoles can be found in
+\texttt{/proc/consoles}.
 
 Initial \texttt{/dev/ttyN} devices are created internally by the kernel
 (according to the value of \texttt{MAX\_NR\_CONSOLES}, by default 64) and set
