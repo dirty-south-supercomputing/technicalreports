@@ -7,16 +7,11 @@ void LockPiece(){
   board_->get_dim(&bdimy, &bdimx);
   int cleared; // how many contiguous lines were cleared
   do{
-    uint64_t tl, tr, bl, br;
-    tl = tr = bl = br = 0;
-    channels_set_bg_alpha(&tl, CELL_ALPHA_TRANSPARENT);
-    channels_set_bg_alpha(&tr, CELL_ALPHA_TRANSPARENT);
-    channels_set_bg_alpha(&bl, CELL_ALPHA_TRANSPARENT);
-    channels_set_bg_alpha(&br, CELL_ALPHA_TRANSPARENT);
-    channels_set_fg(&tl, 0xff0000);
-    channels_set_fg(&tr, 0x00ff00);
-    channels_set_fg(&bl, 0x0000ff);
-    channels_set_fg(&br, 0x00ffff);
+    uint64_t tl = 0, tr = 0, bl = 0, br = 0;
+    channels_set_fg(&tl, 0xff0000); channels_set_bg_alpha(&tl, CELL_ALPHA_TRANSPARENT);
+    channels_set_fg(&tr, 0x00ff00); channels_set_bg_alpha(&tr, CELL_ALPHA_TRANSPARENT);
+    channels_set_fg(&bl, 0x0000ff); channels_set_bg_alpha(&bl, CELL_ALPHA_TRANSPARENT);
+    channels_set_fg(&br, 0x00ffff); channels_set_bg_alpha(&br, CELL_ALPHA_TRANSPARENT);
     if(!board_->stain(bdimy - 2, bdimx - 2, tl, tr, bl, br)){
       throw TetrisNotcursesErr("stain()");
     }
@@ -46,15 +41,8 @@ void LockPiece(){
         }
       }
       linescleared_ += cleared;
-      if(cleared == 4){
-        score_ += (level_ + 1) * 1000;
-      }else if(cleared == 3){
-        score_ += (level_ + 1) * 350;
-      }else if(cleared == 2){
-        score_ += (level_ + 1) * 150;
-      }else{
-        score_ += (level_ + 1) * 50;
-      }
+      static constexpr int points[] = {50, 150, 350, 1000};
+      score_ += (level_ + 1) * points[cleared - 1];
       level_ = linescleared_ / 10;
       UpdateScore();
     }
