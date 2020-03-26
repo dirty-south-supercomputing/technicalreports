@@ -84,7 +84,7 @@ controlling terminal associated with that process's group (this can also be
 acquired with \texttt{tty(1)} or the POSIX C function
 \texttt{ctermid(3)}\footnote{\texttt{/dev/tty} also uniquely supports the
   \texttt{TIOCNOTTY} \texttt{ioctl(2)} for detaching a process from its
-  controlling terminal.}). The tty associated with an arbitrary file descriptor
+  controlling terminal.}; the tty associated with an arbitrary file descriptor
 can be retrieved with \texttt{ttyname\_r(3)}). \texttt{/dev/console} is a
 generic name for the current system console\footnote{Defined in \textit{ibid.}
   §3.392 ``System Console'' as the device receiving messages sent by the
@@ -331,7 +331,7 @@ VT100's ANSI mode.''\cite{vt100}.
 It is rare to encounter a terminal that implements no ANSI control sequences; I
 doubt any system exists which implements all of them\footnote{There's some
 crazy stuff in ECMA-48. ``Media copy''? ``Disable manual input''? Many things
-are woefully underspecified}. Given the somewhat vague nature of ECMA-48 even
+are woefully underspecified.}. Given the somewhat vague nature of ECMA-48 even
 in its most recent (1991) edition\cite{ecma48}, it is unlikely that two
 terminals ever implement it the exact same way. Even assuming an ANSI terminal,
 it's thus critical to use a terminal abstraction library (notwithstanding some
@@ -365,8 +365,8 @@ used through terminfo, as we'll see in a moment).
   \label{table:escapes}
 \end{table}
 
-Note that some escapes commonly misattributed to ANSI come instead from some
-DEC extension. The Restore Saved Cursor (RCO) and Save Cursor Position (SCO)
+Note that some escapes commonly misattributed to ANSI come instead from vendor
+extensions. The Restore Saved Cursor (RCO) and Save Cursor Position (SCO)
 escapes, for instance, show up all over the Internet as ANSI escape sequences,
 but no trace of them can be found in ECMA-48:1991.
 
