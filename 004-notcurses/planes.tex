@@ -666,7 +666,8 @@ exposed. It is possible to exhaust an egcpool, but not without either a tremendo
 geometry (start worrying around 1024x1024 or so), or a plenitude of pathological
 EGCs. Should this unhappy situation occur, functions like \texttt{ncplane\_putegc()}
 and even \texttt{cell\_load()} will start failing (they should not crash or otherwise
-fault). There's not much you can do at this point save erase or destroy the plane.
+fault). There's not much you can do at this point save erase or destroy the plane\footnote{This
+ought be addressed by \url{https://github.com/dankamongmen/notcurses/issues/425}.}.
 Outside of deliberate attempts to trigger it during testing, I have never seen
 this failure case.
 
