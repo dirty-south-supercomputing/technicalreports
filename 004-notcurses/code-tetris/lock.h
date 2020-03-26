@@ -21,15 +21,42 @@ void LockPiece(){
       throw TetrisNotcursesErr("stain()");
     }
     cleared = 0;
-    for(int y = bdimy - 2 ; y > 0 ; --y){
+    int y;
+    for(y = bdimy - 2 ; y > 0 ; --y){ // get the lowest cleared area
       if(LineClear(y)){
         ++cleared;
       }else if(cleared){
         break;
       }
     }
-    if(cleared){
-      // FIXME purge them, augment score
+    if(cleared){ // topmost verified clear is y + 1, bottommost is y + cleared
+      for(int dy = y ; dy >= 0 ; --dy){
+        for(int x = 1 ; x < bdimx - 2 ; ++x){
+          ncpp::Cell c;
+          if(board_->get_at(dy, x, &c) < 0){
+            throw TetrisNotcursesErr("get_at()");
+          }
+          if(board_->putc(dy + cleared, x, &c) < 0){
+            throw TetrisNotcursesErr("putc()");
+          }
+          c.get().gcluster = 0;
+          if(board_->putc(dy, x, &c) < 0){
+            throw TetrisNotcursesErr("putc()");
+          }
+        }
+      }
+      linescleared_ += cleared;
+      if(cleared == 4){
+        score_ += (level_ + 1) * 1000;
+      }else if(cleared == 3){
+        score_ += (level_ + 1) * 350;
+      }else if(cleared == 2){
+        score_ += (level_ + 1) * 150;
+      }else{
+        score_ += (level_ + 1) * 50;
+      }
+      level_ = linescleared_ / 10;
+      UpdateScore();
     }
   }while(cleared);
 }
