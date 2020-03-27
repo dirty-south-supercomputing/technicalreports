@@ -204,7 +204,7 @@ would busy loop on a nonblocking input interface, right? I hope you don't
 consider yourself ``green'' if that's the case, because you're burning
 dinosaurs out of sheer laziness. Let's do it right. There are four
 canonical solutions to the problem of interleaving a set of asynchronous file
-descriptor-based inputs against a set of periodic requirements; let's refresh
+descriptor-based inputs against a set of periodic requirements. Let's refresh
 ourselves:
 
 \begin{denseitemize}
@@ -330,7 +330,7 @@ cleanup handler pushed/popped around it, or cancellation disabled for its
 breadth. Things get a little counterintuitive with
 cancellable-but-uninterruptible system calls, but that's nothing if you came up
 on BSD signals. It's hardly the most offensive wart on the great hairy ass
-that is ANSI/ISO C, and---heresy, I know---I honestly prefer (most of) the
+that is UNIX systems programming, and---heresy, I know---I honestly prefer (most of) the
 POSIX model to (most of)
 the threading introduced in \CC11.} to blast the rotator thread, and~\texttt{pthread\_join()}
 it to ensure safe passage through shutdown.

@@ -77,9 +77,8 @@ the button, and one when the button is released. See Listing~\ref{listing:mice}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Enable the mouse in "button-event tracking" mode with focus detection and
-// UTF8-style extended coordinates. On failure, -1 is returned. On success, 0
-// is returned, and mouse events will be published to notcurses_getc().
+// Enable the mouse in "button-event tracking" mode with focus detection and UTF8-style extended coordinates. On
+// failure, -1 is returned. On success, 0 is returned, and mouse events will be published to notcurses_getc().
 int notcurses_mouse_enable(struct notcurses* n);
 
 // Disable mouse events. Any events in the input queue can still be delivered.

@@ -594,11 +594,11 @@ that uses more than two colors, but it might be useful to interpolate given the
 small total number of possible colors. Some graduate student ought look
 into this.
 
-It is possible to use the Braille Patterns at U+2800 to get a 16x increase in
+It is possible to use the Braille Patterns at U+2800 to get an 8x increase in
 resolution, at the cost of having only two colors available per 2x4 ``8-pixel''
 cell (and looking like blotter paper, depending on the font). This can be an
 excellent solution for e.g. graphing, especially vertical histograms. By
-examining (Figure~\ref{fig:braille}), it ought be clear that the 8 areas
+inspecting Figure~\ref{fig:braille}, it ought be clear that the 8 areas
 map to distinct bits: counterclockwise from the upper left, the bits are 1, 2,
 4, 64, 128, 32, 16, 8. This odd ordering is due to true braille only being a
 6-bit (64 character) character set; this way, real braille maps to the first
@@ -647,8 +647,8 @@ yields two four-way subcycles and four two-way subcycles.
 \end{table}
 
 Certain transformations can be safely applied to the full Latin alphabet
-(see Figure~\ref{fig:unicodeweird} for more, some of which couldn't be
-realized in \LaTeX).
+(see Figure~\ref{fig:unicodeweird} for more, some of which I couldn't
+realize in \XeLaTeX).
 
 \begin{denseitemize}
 \item{{\fontspec{Unifont}ⓦⓔ ⓒⓐⓝ ⓟⓤⓣ ⓞⓤⓡ ⓣⓔⓧⓣ ⓘⓝ ⓒⓘⓡⓒⓛⓔⓢ}}
@@ -713,7 +713,7 @@ UTF-8, being coded in terms of individual bytes, has no need to define byte orde
 
 ``Well, that BOM sounds kinda annoying,'' I hear you asking. ``What other
 advantages are offered by UTF-8?'' Remember how ANSI X3.4-1986 maps precisely
-to the first 128 characters of UCS? UTF-8 (and \textit{only} in UTF-8, of
+to the first 128 characters of UCS? UTF-8 (and \textit{only} UTF-8, of
 the official encodings) \textit{encodes} these 128 characters the same as
 US-ASCII! Boom! Every ASCII document you have---including most source code,
 configuration files, system files, etc.---is a perfectly valid UTF-8 document.

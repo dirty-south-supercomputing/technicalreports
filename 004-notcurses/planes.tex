@@ -269,12 +269,11 @@ static inline unsigned ncplane_fg_rgb(const struct ncplane* n, unsigned* r, unsi
   return channels_fg_rgb(ncplane_channels(n), r, g, b);
 }
 
-// Set the current fore/background color using RGB specifications. If the
-// terminal does not support directly-specified 3x8b cells (24-bit "Direct
-// Color", indicated by the "RGB" terminfo capability), the provided values
-// will be interpreted in some lossy fashion. None of r, g, or b may exceed 255.
-// "HP-like" terminals require setting foreground and background at the same
-// time using "color pairs"; notcurses will manage color pairs transparently.
+// Set the current fore/background color using RGB specifications. If the terminal does not support
+// directly-specified 3x8b cells (24-bit "TrueColor", indicated by the "RGB" terminfo capability),
+// the provided values will be interpreted in some lossy fashion. None of r, g, or b may exceed 255.
+// "HP-like" terminals require setting foreground and background at the same time using "color pairs";
+// notcurses will manage color pairs transparently.
 int ncplane_set_fg_rgb(struct ncplane* n, int r, int g, int b);
 
 // Same, but clipped to [0..255].
@@ -286,8 +285,8 @@ int ncplane_set_fg(struct ncplane* n, unsigned channel);
 // Use the default color for the foreground/background.
 void ncplane_set_fg_default(struct ncplane* n);
 
-// Set the ncplane's foreground palette index, set the foreground palette index
-// bit, set it foreground-opaque, and clear the foreground default color bit.
+// Set the ncplane's foreground palette index, set the foreground palette index bit, set it
+// foreground-opaque, and clear the foreground default color bit.
 int ncplane_set_fg_palindex(struct ncplane* n, int idx);
 
 // Set the alpha parameters for ncplane 'n'.
@@ -362,9 +361,8 @@ with different colors\footnote{See \url{https://github.com/dankamongmen/notcurse
 // gcluster is 0. Erasing the ncplane does not reset the base cell; this function must be called with a zero 'c'.
 int ncplane_set_base_cell(struct ncplane* ncp, const cell* c);
 
-// Set the ncplane's base cell to this cell. It will be used for purposes of
-// rendering anywhere that the ncplane's gcluster is 0. Erasing the ncplane
-// does not reset the base cell; this function must be called with an empty
+// Set the ncplane's base cell to this cell. It will be used for purposes of rendering anywhere that the ncplane's
+// gcluster is 0. Erasing the ncplane does not reset the base cell; this function must be called with an empty
 // 'egc'. 'egc' must be a single extended grapheme cluster.
 int ncplane_set_base(struct ncplane* ncp, uint64_t channels, uint32_t attrword, const char* egc);
 
@@ -377,15 +375,10 @@ int ncplane_base(struct ncplane* ncp, cell* c);
 \begin{listing}[!htb]
 \begin{minted}{C}
 // Alignment within the ncplane. Left/right-justified, or centered.
-typedef enum {
-  NCALIGN_LEFT,
-  NCALIGN_CENTER,
-  NCALIGN_RIGHT,
-} ncalign_e;
+typedef enum { NCALIGN_LEFT, NCALIGN_CENTER, NCALIGN_RIGHT, } ncalign_e;
 
-// Return the column at which 'c' cols ought start in order to be aligned
-// according to 'align' within ncplane 'n'. Returns INT_MAX on invalid 'align'.
-// Undefined behavior on negative 'c'.
+// Return the column at which 'c' cols ought start in order to be aligned according to 'align' within ncplane 'n'.
+// Returns INT_MAX on invalid 'align'. Undefined behavior on negative 'c'.
 static inline int ncplane_align(const struct ncplane* n, ncalign_e align, int c){
   if(align == NCALIGN_LEFT){
     return 0;
@@ -811,23 +804,20 @@ this only works for RGB data at the moment, but that is a temporary restriction.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Fade the ncplane out over the provided time, calling the specified function
-// when done. Requires a terminal which supports direct color, or at least
-// palette modification (if the terminal uses a palette, our ability to fade
-// planes is limited, and affected by the complexity of the rest of the screen).
-// It is not safe to resize or destroy the plane during the fadeout.
+// Fade the ncplane out over the provided time, calling the specified function when done. Requires a terminal
+// which supports truecolor, or at least palette modification (if the terminal uses a palette, our ability to
+// fade planes is limited, and affected by the complexity of the rest of the screen). It is not safe to
+// resize or destroy the plane during the fadeout.
 int ncplane_fadeout(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
 
-// Fade the ncplane in over the specified time. Load the ncplane with the
-// target cells without rendering, then call this function. When it's done, the
-// ncplane will have reached the target levels, starting from zeroes.
+// Fade the ncplane in over the specified time. Load the ncplane with the target cells without rendering, then
+// call this function. When it's done, the ncplane will have reached the target levels, starting from zeroes.
 int ncplane_fadein(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
 
-// Pulse the plane in and out until the callback returns non-zero, relying on
-// the callback 'fader' to initiate rendering. 'ts' defines the half-period
-// (i.e. the transition from black to full brightness, or back again). Proper
-// use involves preparing (but not rendering) an ncplane, then calling
-// ncplane_pulse(), which will fade in from black to the specified colors.
+// Pulse the plane in and out until the callback returns non-zero, relying on the callback 'fader' to initiate
+// rendering. 'ts' defines the half-period (i.e. the transition from black to full brightness, or back again).
+// Proper use involves preparing (but not rendering) an ncplane, then calling ncplane_pulse(), which will fade
+// in from black to the specified colors.
 int ncplane_pulse(struct ncplane* n, const struct timespec* ts, fadecb fader, void* curry);
 \end{minted}
 \caption{Palette fades.}

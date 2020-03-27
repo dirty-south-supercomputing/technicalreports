@@ -13,9 +13,8 @@ disabled by default on the standard plane, and on all new planes.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Move the cursor to the specified position (the cursor needn't be visible).
-// Returns -1 on error, including negative parameters, or ones exceeding the
-// plane's dimensions.
+// Move the cursor to the specified position (the cursor needn't be visible). Returns -1 on error,
+// including negative parameters, or ones exceeding the plane's dimensions.
 int ncplane_cursor_move_yx(struct ncplane* n, int y, int x);
 
 // Get the current position of the cursor within n. y and/or x may be NULL.
@@ -77,15 +76,13 @@ changing the attributes or channels.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Replace the cell at the specified coordinates with the provided cell 'c',
-// and advance the cursor by the width of the cell (but not past the end of the
-// plane). On success, returns the number of columns the cursor was advanced.
-// On failure, -1 is returned.
+// Replace the cell at the specified coordinates with the provided cell 'c', and advancethe cursor by
+// the width of the cell (but not past the end of the plane). On success, returns the number of columns
+// the cursor was advanced. On failure, -1 is returned.
 int ncplane_putc_yx(struct ncplane* n, int y, int x, const cell* c);
 
 // Call ncplane_putc_yx() for the current cursor location.
-static inline int
-ncplane_putc(struct ncplane* n, const cell* c){
+static inline int ncplane_putc(struct ncplane* n, const cell* c){
   return ncplane_putc_yx(n, -1, -1, c);
 }
 \end{minted}
@@ -99,12 +96,10 @@ a space.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Replace the EGC underneath us, but retain the styling. The current styling
-// of the plane will not be changed.
-//
-// Replace the cell at the specified coordinates with the provided 7-bit char
-// 'c'. Advance the cursor by 1. On success, returns 1. On failure, returns -1.
-// This works whether the underlying char is signed or unsigned.
+// Replace the EGC underneath us with that of 'c', but retain the styling. The current styling of the
+// plane will not be changed. Replace the cell at the specified coordinates with the provided 7-bit char
+// 'c'. Advance the cursor by 1. On success, returns 1. On failure, returns -1. This works whether the
+// underlying char is signed or unsigned.
 int ncplane_putsimple_yx(struct ncplane* n, int y, int x, char c);
 
 // Call ncplane_putsimple_yx() at the current cursor location.
@@ -131,9 +126,8 @@ represent any UCS code point (though not necessarily any EGC). The
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Replace the cell at the specified coordinates with the provided wide char
-// 'w'. Advance the cursor by the character's width as reported by wcwidth().
-// On success, returns 1. On failure, returns -1.
+// Replace the cell at the specified coordinates with the provided wide char 'w'. Advance the cursor
+// by the character's width as reported by wcwidth(). On success, returns 1. On failure, returns -1.
 static inline int ncplane_putwc_yx(struct ncplane* n, int y, int x, wchar_t w){
   wchar_t warr[2] = { w, L'\0' };
   return ncplane_putwstr_yx(n, y, x, warr);
@@ -153,16 +147,14 @@ to the \texttt{putegc} family (Listing~\ref{list:putegc}) will only ever see the
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Replace the cell at the specified coordinates with the provided EGC, and
-// advance the cursor by the width of the cluster (but not past the end of the
-// plane). On success, returns the number of columns the cursor was advanced.
-// On failure, -1 is returned. The number of bytes converted from gclust is
+// Replace the cell at the specified coordinates with the provided EGC, and advance the cursor by the
+// width of the cluster (but not past the end of the plane). On success, returns the number of columns
+// the cursor was advanced. On failure, -1 is returned. The number of bytes converted from gclust is
 // written to 'sbytes' if non-NULL.
 int ncplane_putegc_yx(struct ncplane* n, int y, int x, const char* gclust, int* sbytes);
 
 // Call ncplane_putegc() at the current cursor location.
-static inline int
-ncplane_putegc(struct ncplane* n, const char* gclust, int* sbytes){
+static inline int ncplane_putegc(struct ncplane* n, const char* gclust, int* sbytes){
   return ncplane_putegc_yx(n, -1, -1, gclust, sbytes);
 }
 
@@ -179,8 +171,7 @@ int ncplane_putegc_stainable(struct ncplane* n, const char* gclust, int* sbytes)
 #define WCHAR_MAX_UTF8BYTES 6
 
 // ncplane_putegc(), but following a conversion from wchar_t to UTF-8 multibyte.
-static inline int
-ncplane_putwegc(struct ncplane* n, const wchar_t* gclust, int* sbytes){
+static inline int ncplane_putwegc(struct ncplane* n, const wchar_t* gclust, int* sbytes){
   // maximum of six UTF8-encoded bytes per wchar_t
   const size_t mbytes = (wcslen(gclust) * WCHAR_MAX_UTF8BYTES) + 1;
   char* mbstr = (char*)malloc(mbytes); // need cast for c++ callers
@@ -198,9 +189,7 @@ ncplane_putwegc(struct ncplane* n, const wchar_t* gclust, int* sbytes){
 }
 
 // Call ncplane_putwegc() after successfully moving to y, x.
-static inline int
-ncplane_putwegc_yx(struct ncplane* n, int y, int x, const wchar_t* gclust,
-                   int* sbytes){
+static inline int ncplane_putwegc_yx(struct ncplane* n, int y, int x, const wchar_t* gclust, int* sbytes){
   if(ncplane_cursor_move_yx(n, y, x)){
     return -1;
   }
@@ -217,12 +206,10 @@ int ncplane_putwegc_stainable(struct ncplane* n, const wchar_t* gclust, int* sby
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Write a series of EGCs to the current location, using the current style.
-// They will be interpreted as a series of columns (according to the definition
-// of ncplane_putc()). Advances the cursor by some positive number of cells
-// (though not beyond the end of the plane); this number is returned on success.
-// On error, a non-positive number is returned, indicating the number of cells
-// which were written before the error.
+// Write a series of EGCs to the current location, using the current style. They will be interpreted as a
+// series of columns (according to the definition of ncplane_putc()). Advances the cursor by some positive
+// number of cells (though not beyond the end of the plane); this number is returned on success. On error,
+// a non-positive number is returned, indicating the number of cells which were written before the error.
 int ncplane_putstr_yx(struct ncplane* n, int y, int x, const char* gclustarr);
 
 static inline int
@@ -283,9 +270,6 @@ static inline int ncplane_vprintf(struct ncplane* n, const char* format, va_list
   return ncplane_vprintf_yx(n, -1, -1, format, ap);
 }
 
-static inline int ncplane_printf(struct ncplane* n, const char* format, ...)
-  __attribute__ ((format (printf, 2, 3)));
-
 static inline int ncplane_printf(struct ncplane* n, const char* format, ...){
   va_list va;
   va_start(va, format);
@@ -294,9 +278,6 @@ static inline int ncplane_printf(struct ncplane* n, const char* format, ...){
   return ret;
 }
 
-static inline int ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...)
-  __attribute__ ((format (printf, 4, 5)));
-
 static inline int ncplane_printf_yx(struct ncplane* n, int y, int x, const char* format, ...){
   va_list va;
   va_start(va, format);
@@ -304,9 +285,6 @@ static inline int ncplane_printf_yx(struct ncplane* n, int y, int x, const char*
   va_end(va);
   return ret;
 }
-
-static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...)
-  __attribute__ ((format (printf, 4, 5)));
 
 static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e align, const char* format, ...){
   va_list va;
@@ -376,7 +354,8 @@ color cube, and an 8-element grey ramp. Fair enough. But six bits can only repre
 64 colors, and the seven necessary for 88 can represent 128. So why 88? Just to
 mirror the 16+6x6x6+16+24 of 256 colors? Perhaps the other space in a byte is
 used to encode additional information? I have been unable to reach a conclusive
-answer. Oh well. According to my calculations\textellipsis when this baby hits 88, you're gonna see some serious shit!}.
+answer. Oh well. According to my calculations\textellipsis when this baby hits $2^{24}$,
+you're gonna see some serious shit!}.
 
 \subsection{The 64-bit \texttt{channels} value}
 \label{sec:channels}
@@ -449,7 +428,7 @@ static inline bool cell_wide_left_p(const cell* c){
 \end{listing}
 
 The first bit of either channel is high if and only if the cell is part of a
-multicolumn EGC When a cell is loaded via e.g. \texttt{cell\_load()}, the most
+multicolumn EGC. When a cell is loaded via e.g. \texttt{cell\_load()}, the most
 significant bit (63) of \texttt{channels} is set if and only if the EGC is wide. No
 cell having a non-zero \texttt{gcluster} has the ``secondary column of wide EGC''
 bit (31) set. This is set only in framebuffer cells having a null glyph due to
@@ -473,8 +452,8 @@ static inline unsigned channel_rgb(unsigned channel, unsigned* restrict r, unsig
   return channel;
 }
 
-// Set the three 8-bit components of a 32-bit channel, and mark it as not using
-// the default color. Retain the other bits unchanged.
+// Set the three 8-bit components of a 32-bit channel, and mark it as not using the default color.
+// Retain the other bits unchanged.
 static inline int channel_set_rgb(unsigned* channel, int r, int g, int b){
   if(r >= 256 || g >= 256 || b >= 256){
     return -1;
@@ -487,9 +466,8 @@ static inline int channel_set_rgb(unsigned* channel, int r, int g, int b){
   return 0;
 }
 
-// Set the three 8-bit components of a 32-bit channel, and mark it as not using
-// the default color. Retain the other bits unchanged. r, g, and b will be
-// clipped to the range [0..255].
+// Set the three 8-bit components of a 32-bit channel, and mark it as not using the default color. Retain the other bits
+// unchanged. r, g, and b will be clipped to the range [0..255].
 static inline void channel_set_rgb_clipped(unsigned* channel, int r, int g, int b){
   if(r >= 256){ r = 255; }
   if(g >= 256){ g = 255; }
@@ -551,31 +529,26 @@ provided in Listing~\ref{list:channelapi}.
 \bgroup
 \begin{minted}{C}
 // Extract the 32-bit background channel from a channel pair.
-static inline uint32_t
-channels_bchannel(uint64_t channels){
+static inline uint32_t channels_bchannel(uint64_t channels){
   return channels & 0xfffffffflu;
 }
 
 // Extract the 32-bit foreground channel from a channel pair.
-static inline uint32_t
-channels_fchannel(uint64_t channels){
+static inline uint32_t channels_fchannel(uint64_t channels){
   return channels_bchannel(channels >> 32u);
 }
 
 // Set the 32-bit background channel of a channel pair.
-static inline uint64_t
-channels_set_bchannel(uint64_t* channels, uint32_t channel){
+static inline uint64_t channels_set_bchannel(uint64_t* channels, uint32_t channel){
   return *channels = (*channels & 0xffffffff00000000llu) | channel;
 }
 
 // Set the 32-bit foreground channel of a channel pair.
-static inline uint64_t
-channels_set_fchannel(uint64_t* channels, uint32_t channel){
+static inline uint64_t channels_set_fchannel(uint64_t* channels, uint32_t channel){
   return *channels = (*channels & 0xfffffffflu) | ((uint64_t)channel << 32u);
 }
 
-static inline uint64_t
-channels_combine(uint32_t fchan, uint32_t bchan){
+static inline uint64_t channels_combine(uint32_t fchan, uint32_t bchan){
   uint64_t channels = 0;
   channels_set_fchannel(&channels, fchan);
   channels_set_bchannel(&channels, bchan);
@@ -583,44 +556,38 @@ channels_combine(uint32_t fchan, uint32_t bchan){
 }
 
 // Extract 24 bits of foreground RGB from 'channels', shifted to LSBs.
-static inline unsigned
-channels_fg(uint64_t channels){
+static inline unsigned channels_fg(uint64_t channels){
   return channels_fchannel(channels) & CELL_BG_MASK;
 }
 
 // Extract 24 bits of background RGB from 'channels', shifted to LSBs.
-static inline unsigned
-channels_bg(uint64_t channels){
+static inline unsigned channels_bg(uint64_t channels){
   return channels_bchannel(channels) & CELL_BG_MASK;
 }
 
 // Extract 2 bits of foreground alpha from 'channels', shifted to LSBs.
-static inline unsigned
-channels_fg_alpha(uint64_t channels){
+static inline unsigned channels_fg_alpha(uint64_t channels){
   return channel_alpha(channels_fchannel(channels));
 }
 
 // Extract 2 bits of background alpha from 'channels', shifted to LSBs.
-static inline unsigned
-channels_bg_alpha(uint64_t channels){
+static inline unsigned channels_bg_alpha(uint64_t channels){
   return channel_alpha(channels_bchannel(channels));
 }
 
 // Extract 24 bits of foreground RGB from 'channels', split into subchannels.
-static inline unsigned
-channels_fg_rgb(uint64_t channels, unsigned* r, unsigned* g, unsigned* b){
+static inline unsigned channels_fg_rgb(uint64_t channels, unsigned* r, unsigned* g, unsigned* b){
   return channel_rgb(channels_fchannel(channels), r, g, b);
 }
 
 // Extract 24 bits of background RGB from 'channels', split into subchannels.
-static inline unsigned
-channels_bg_rgb(uint64_t channels, unsigned* r, unsigned* g, unsigned* b){
+static inline unsigned channels_bg_rgb(uint64_t channels, unsigned* r, unsigned* g, unsigned* b){
   return channel_rgb(channels_bchannel(channels), r, g, b);
 }
-// Set the r, g, and b channels for the foreground component of this 64-bit
-// 'channels' variable, and mark it as not using the default color.
-static inline int
-channels_set_fg_rgb(uint64_t* channels, int r, int g, int b){
+
+// Set the r, g, and b channels for the foreground component of this 64-bit 'channels' variable, and mark
+// it as not using the default color.
+static inline int channels_set_fg_rgb(uint64_t* channels, int r, int g, int b){
   unsigned channel = channels_fchannel(*channels);
   if(channel_set_rgb(&channel, r, g, b) < 0){
     return -1;
@@ -630,17 +597,15 @@ channels_set_fg_rgb(uint64_t* channels, int r, int g, int b){
 }
 
 // Same, but clips to [0..255].
-static inline void
-channels_set_fg_rgb_clipped(uint64_t* channels, int r, int g, int b){
+static inline void channels_set_fg_rgb_clipped(uint64_t* channels, int r, int g, int b){
   unsigned channel = channels_fchannel(*channels);
   channel_set_rgb_clipped(&channel, r, g, b);
   *channels = ((uint64_t)channel << 32llu) | (*channels & 0xffffffffllu);
 }
 
-// Set the r, g, and b channels for the background component of this 64-bit
-// 'channels' variable, and mark it as not using the default color.
-static inline int
-channels_set_bg_rgb(uint64_t* channels, int r, int g, int b){
+// Set the r, g, and b channels for the background component of this 64-bit 'channels' variable, and mark
+// it as not using the default color.
+static inline int channels_set_bg_rgb(uint64_t* channels, int r, int g, int b){
   unsigned channel = channels_bchannel(*channels);
   if(channel_set_rgb(&channel, r, g, b) < 0){
     return -1;
@@ -650,16 +615,14 @@ channels_set_bg_rgb(uint64_t* channels, int r, int g, int b){
 }
 
 // Same, but clips to [0..255].
-static inline void
-channels_set_bg_rgb_clipped(uint64_t* channels, int r, int g, int b){
+static inline void channels_set_bg_rgb_clipped(uint64_t* channels, int r, int g, int b){
   unsigned channel = channels_bchannel(*channels);
   channel_set_rgb_clipped(&channel, r, g, b);
   channels_set_bchannel(channels, channel);
 }
 
 // Same, but set an assembled 24 bit channel at once.
-static inline int
-channels_set_fg(uint64_t* channels, unsigned rgb){
+static inline int channels_set_fg(uint64_t* channels, unsigned rgb){
   unsigned channel = channels_fchannel(*channels);
   if(channel_set(&channel, rgb) < 0){
     return -1;
@@ -668,13 +631,17 @@ channels_set_fg(uint64_t* channels, unsigned rgb){
   return 0;
 }
 
-static inline int
-channels_set_bg(uint64_t* channels, unsigned rgb){
+static inline int channels_set_bg(uint64_t* channels, unsigned rgb){
   unsigned channel = channels_bchannel(*channels);
   if(channel_set(&channel, rgb) < 0){
+    return -1;
+  }
+  channels_set_bchannel(channels, channel);
+  return 0;
+}
+
 // Set the 2-bit alpha component of the foreground channel.
-static inline int
-channels_set_fg_alpha(uint64_t* channels, int alpha){
+static inline int channels_set_fg_alpha(uint64_t* channels, int alpha){
   unsigned channel = channels_fchannel(*channels);
   if(channel_set_alpha(&channel, alpha) < 0){
     return -1;
@@ -684,8 +651,7 @@ channels_set_fg_alpha(uint64_t* channels, int alpha){
 }
 
 // Set the 2-bit alpha component of the background channel.
-static inline int
-channels_set_bg_alpha(uint64_t* channels, int alpha){
+static inline int channels_set_bg_alpha(uint64_t* channels, int alpha){
   if(alpha == CELL_ALPHA_HIGHCONTRAST){ // forbidden for background alpha
     return -1;
   }
@@ -698,34 +664,28 @@ channels_set_bg_alpha(uint64_t* channels, int alpha){
 }
 
 // Is the foreground using the "default foreground color"?
-static inline bool
-channels_fg_default_p(uint64_t channels){
+static inline bool channels_fg_default_p(uint64_t channels){
   return channel_default_p(channels_fchannel(channels));
 }
 
 // Is the foreground using indexed palette color?
-static inline bool
-channels_fg_palindex_p(uint64_t channels){
+static inline bool channels_fg_palindex_p(uint64_t channels){
   return channel_palindex_p(channels_fchannel(channels));
 }
 
-// Is the background using the "default background color"? The "default
-// background color" must generally be used to take advantage of
-// terminal-effected transparency.
-static inline bool
-channels_bg_default_p(uint64_t channels){
+// Is the background using the "default background color"? The "default background color"
+// must generally be used to take advantage of terminal-effected transparency.
+static inline bool channels_bg_default_p(uint64_t channels){
   return channel_default_p(channels_bchannel(channels));
 }
 
 // Is the background using indexed palette color?
-static inline bool
-channels_bg_palindex_p(uint64_t channels){
+static inline bool channels_bg_palindex_p(uint64_t channels){
   return channel_palindex_p(channels_bchannel(channels));
 }
 
 // Mark the foreground channel as using its default color.
-static inline uint64_t
-channels_set_fg_default(uint64_t* channels){
+static inline uint64_t channels_set_fg_default(uint64_t* channels){
   unsigned channel = channels_fchannel(*channels);
   channel_set_default(&channel);
   *channels = ((uint64_t)channel << 32llu) | (*channels & 0xffffffffllu);
@@ -733,8 +693,7 @@ channels_set_fg_default(uint64_t* channels){
 }
 
 // Mark the foreground channel as using its default color.
-static inline uint64_t
-channels_set_bg_default(uint64_t* channels){
+static inline uint64_t channels_set_bg_default(uint64_t* channels){
   unsigned channel = channels_bchannel(*channels);
   channel_set_default(&channel);
   channels_set_bchannel(channels, channel);
@@ -751,15 +710,13 @@ foreground is always the more significant 32 bits of a 64-bit channel pair.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Returns the result of blending two channels. 'blends' indicates how heavily
-// 'c1' ought be weighed. If 'blends' is 0, 'c1' will be entirely replaced by
-// 'c2'. If 'c1' is otherwise the default color, 'c1' will not be touched,
-// since we can't blend default colors. Likewise, if 'c2' is a default color,
-// it will not be used (unless 'blends' is 0).
+// Returns the result of blending two channels. 'blends' indicates how heavily 'c1' ought be weighed.
+// If 'blends' is 0, 'c1' will be entirely replaced by 'c2'. If 'c1' is otherwise the default color,
+// 'c1' will not be touched, since we can't blend default colors. Likewise, if 'c2' is a default
+// color, it will not be used (unless 'blends' is 0).
 //
-// Palette-indexed colors do not blend, and since we need the attrword to store
-// them, we just don't fuck wit' 'em here. Do not pass me palette-indexed
-// channels! I will eat them.
+// Palette-indexed colors do not blend, and since we need the attrword to store them, we just don't
+// fuck wit' 'em here. Do not pass me palette-indexed channels! I will eat them.
 static inline unsigned
 channels_blend(unsigned c1, unsigned c2, unsigned* blends){
   if(channel_alpha(c2) == CELL_ALPHA_TRANSPARENT){

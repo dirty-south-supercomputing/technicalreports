@@ -434,7 +434,7 @@ high-powered LED displays have their pixels summoned up and ordered into
 formations suitable for the reconstruction of 1970s technology (a history of
 terminals is presented in Appendix~\ref{sec:terminals}).
 
-The machine on which I'm preparing this \LaTeX\ contains a
+The machine on which I'm preparing this \XeLaTeX\ contains a
 TU104 GPU consisting of over thirteen billion 12nm-process transistors,
 rendering its output to a 3440x1440 (almost five megapixel) display. Deep
 within its silicon heart remains a VGA 80x25 text mode engine\cite{vga}, inherited
@@ -1315,12 +1315,10 @@ length.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Draw horizontal or vertical lines using the specified cell, starting at the
-// current cursor position. The cursor will end at the cell following the last
-// cell output (even, perhaps counter-intuitively, when drawing vertical
-// lines), just as if ncplane_putc() was called at that spot. Return the
-// number of cells drawn on success. On error, return the negative number of
-// cells drawn.
+// Draw horizontal or vertical lines using the specified cell, starting at the current cursor position. The
+// cursor will end at the cell following the last cell output (even, perhaps counter-intuitively, when
+// drawing vertical lines), just as if ncplane_putc() was called at that spot. Return the number of cells
+// drawn on success. On error, return the negative number of cells drawn.
 int ncplane_hline_interp(struct ncplane* n, const cell* c, int len, uint64_t c1, uint64_t c2);
 
 static inline int ncplane_hline(struct ncplane* n, const cell* c, int len){
@@ -1795,11 +1793,7 @@ int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
 // exact needs, which is probably larger than the visible screen (but might be smaller). NCSCALE_SCALE
 // scales a visual larger than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH stretches
 // and scales the image in an attempt to fill the visible screen.
-typedef enum {
-  NCSCALE_NONE,
-  NCSCALE_SCALE,
-  NCSCALE_STRETCH,
-} ncscale_e;
+typedef enum { NCSCALE_NONE, NCSCALE_SCALE, NCSCALE_STRETCH, } ncscale_e;
 
 // Open a visual, extract a codec and parameters, and create a new plane suitable for its display at 'y','x'.
 // If there is sufficient room to display the visual in its native size, or if NCSCALE_NONE is passed for
@@ -2030,9 +2024,8 @@ typedef struct menu_options {
 
 struct ncmenu;
 
-// Create a menu with the specified options. Menus are currently bound to an
-// overall notcurses object (as opposed to a particular plane), and are
-// implemented as ncplanes kept atop other ncplanes.
+// Create a menu with the specified options. Menus are currently bound to an overall notcurses object
+// (as opposed to a particular plane), and are implemented as ncplanes kept atop other ncplanes.
 struct ncmenu* ncmenu_create(struct notcurses* nc, const menu_options* opts);
 \end{minted}
 \caption{Menu creation.}
@@ -2055,24 +2048,22 @@ struct ncmenu* ncmenu_create(struct notcurses* nc, const menu_options* opts);
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Unroll the specified menu section, making the menu visible if it was
-// invisible, and rolling up any menu section that is already unrolled.
+// Unroll the specified menu section, making the menu visible if it was invisible, and rolling
+// up any menu section that is already unrolled.
 int ncmenu_unroll(struct ncmenu* n, int sectionidx);
 
 // Roll up any unrolled menu section, and hide the menu if using hiding.
 int ncmenu_rollup(struct ncmenu* n);
 
-// Return the selected item description, or NULL if no section is unrolled. If
-// 'ni' is not NULL, and the selected item has a shortcut, 'ni' will be filled
-// in with that shortcut--this can allow faster matching.
+// Return the selected item description, or NULL if no section is unrolled. If 'ni' is not NULL,
+// and the selected item has a shortcut, 'ni' will be filled in with that shortcut. This can allow faster matching.
 const char* ncmenu_selected(const struct ncmenu* n, struct ncinput* ni);
 
 // Return the ncplane backing this ncmenu.
 struct ncplane* ncmenu_plane(struct ncmenu* n);
 
-// Offer the input to the ncmenu. If it's relevant, this function returns true,
-// and the input ought not be processed further. If it's irrelevant to the
-// menu, false is returned. Relevant inputs include:
+// Offer the input to the ncmenu. If it's relevant, this function returns true, and the input ought not be
+// processed further. If it's irrelevant to the menu, false is returned. Relevant inputs include:
 //  * mouse movement over a hidden menu
 //  * a mouse click on a menu section (the section is unrolled)
 //  * a mouse click outside of an unrolled menu (the menu is rolled up)
@@ -2106,37 +2097,32 @@ tablet. Reels have a \texttt{struct ncreel\_options} object, passed to
 \begin{listing}[!htb]
 \begin{minted}{C}
 typedef struct ncreel_options {
-  // require this many rows and columns (including borders). otherwise, a
-  // message will be displayed stating that a larger terminal is necessary, and
-  // input will be queued. if 0, no minimum will be enforced. may not be
-  // negative. note that ncreel_create() does not return error if given a
-  // plane smaller than these minima; it instead patiently waits for the
-  // screen to get bigger.
+  // require this many rows and columns (including borders). otherwise, a message will be displayed stating
+  // that a larger terminal is necessary, and input will be queued. if 0, no minimum will be enforced. may
+  // not be negative. note that ncreel_create() does not return error if given a plane smaller than these
+  // minima; it instead patiently waits for the screen to get bigger.
   int min_supported_cols;
   int min_supported_rows;
 
-  // use no more than this many rows and columns (including borders). may not be
-  // less than the corresponding minimum. 0 means no maximum.
+  // use no more than this many rows and columns (including borders). may not be less than the
+  // corresponding minimum. 0 means no maximum.
   int max_supported_cols;
   int max_supported_rows;
 
-  // desired offsets within the surrounding WINDOW (top right bottom left) upon
-  // creation / resize. an ncreel_move() operation updates these.
+  // desired offsets within the surrounding WINDOW (top right bottom left) upon creation / resize. an
+  // ncreel_move() operation updates these.
   int toff, roff, boff, loff;
-  // is scrolling infinite (can one move down or up forever, or is an end
-  // reached?). if true, 'circular' specifies how to handle the special case of
-  // an incompletely-filled reel.
+  // is scrolling infinite (can one move down or up forever, or is an end reached?). if true, 'circular'
+  // specifies how to handle the special case of an incompletely-filled reel.
   bool infinitescroll;
-  // is navigation circular (does moving down from the last tablet move to the
-  // first, and vice versa)? only meaningful when infinitescroll is true. if
-  // infinitescroll is false, this must be false.
+  // is navigation circular (does moving down from the last tablet move to the first, and vice versa)?
+  // only meaningful when infinitescroll is true. if infinitescroll is false, this must be false.
   bool circular;
-  // notcurses can draw a border around the ncreel, and also around the
-  // component tablets. inhibit borders by setting all valid bits in the masks.
-  // partially inhibit borders by setting individual bits in the masks. the
-  // appropriate attr and pair values will be used to style the borders.
-  // focused and non-focused tablets can have different styles. you can instead
-  // draw your own borders, or forgo borders entirely.
+  // notcurses can draw a border around the ncreel, and also around the component tablets. inhibit
+  // borders by setting all valid bits in the masks. partially inhibit borders by setting individual
+  // bits in the masks. the appropriate attr and pair values will be used to style the borders. focused
+  // and non-focused tablets can have different styles. you can instead draw your own borders, or
+  // forgo borders entirely.
   unsigned bordermask; // bitfield; 1s will not be drawn (see bordermaskbits)
   uint64_t borderchan; // attributes used for ncreel border
   unsigned tabletmask; // bitfield; same as bordermask but for tablet borders
@@ -2147,13 +2133,11 @@ typedef struct ncreel_options {
 
 struct ncreel;
 
-// Create an ncreel according to the provided specifications. Returns NULL on
-// failure. 'nc' must be a valid plane, to which offsets are relative. Note that
-// there might not be enough room for the specified offsets, in which case the
-// ncreel will be clipped on the bottom and right. A minimum number of rows
-// and columns can be enforced via popts. efd, if non-negative, is an eventfd/pipe
-// that ought be written to whenever ncreel_touch() updates a tablet (this
-// is useful in the case of nonblocking input).
+// Create an ncreel according to the provided specifications. Returns NULL on failure. 'nc' must be a
+// valid plane, to which offsets are relative. Note that there might not be enough room for the
+// specified offsets, in which case the ncreel will be clipped on the bottom and right. A minimum number
+// of rows and columns can be enforced via popts. efd, if non-negative, is an eventfd/pipe that ought be
+// written to whenever ncreel_touch() updates a tablet (this is useful in the case of nonblocking input).
 struct ncreel* ncreel_create(struct ncplane* nc, const ncreel_options* popts, int efd);
 \end{minted}
 \caption{Reel creation.}
