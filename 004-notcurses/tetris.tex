@@ -75,7 +75,8 @@ resize, a decidedly messier affair. It's \textit{doable}---\textgreek{ἢ τὰ�
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/gravity.h}
-\caption{Tetris gravity by level.}
+\inputminted[]{C}{code-tetris/stain.h}
+\caption{Tetris helpers \texttt{Gravity()} and \texttt{StainBoard()}.}
 \label{list:tetris-gravity}
 \end{listing}
 
@@ -95,7 +96,10 @@ We'll need a function to tell us whether a line has been cleared
 (Listing~\ref{list:tetris-lineclear}). We could track the state of the board
 ourselves as a simple boolean matrix, but why bother when we can just ask the
 source? Reflecting on a Notcurses plane is good practice of the
-DRY\footnote{Don't Repeat Yourself.} principle.
+DRY\footnote{Don't Repeat Yourself.} principle. These aren't system calls,
+just cheap indexed lookups into a framebuffer. It's unlikely that you can
+do significantly better with your own implementation, so why bother? Let
+Notcurses handle the state for you.
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/background.h}
@@ -106,12 +110,61 @@ DRY\footnote{Don't Repeat Yourself.} principle.
 Our background function (Listing~\ref{list:tetris-background}) just loads up
 the provided image, stretched to fill the standard plane, blits it, and then
 converts it to greyscale (so as not to be confused with actual playing pieces,
-all of which are in color).
+all of which are in color). The board is a double-lined box with the top
+missing, and is its own plane. We also make a distinct plane for the score
+and other textual info; this is useful as a last-ditch stopgap preventing
+such text from spilling into the play area. Placing the board on its own
+plane (as opposed to blitting it destructively onto the background) has two
+major advantages: it simplifies responding to a terminal resize, and it allows
+us to determine illegal moves via reflection on this plane.
+
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/stuck.h}
+\caption{\texttt{Tetris::InvalidMove()}.}
+\label{list:tetris-stuck}
+\end{listing}
+
+This brings us to \texttt{InvalidMove()} (Listing~\ref{list:tetris-stuck}).
+All of our movement functions to come will need a means to test whether the
+selected movement is legal, whether it's a lateral translation (\texttt{MoveLeft()}
+and \texttt{MoveRight()}), a rotation (\texttt{RotateCw()} and \texttt{RotateCcw()}),
+or falling towards the bottom (\texttt{MoveDown()}, called when the user presses
+down and when the timer expires). Similarly to \texttt{LineClear()}, it's easiest
+to leverage the Notcurses state. All five of these functions operate by speculatively
+transforming the current piece, testing for overlap with the gameboard plane,
+and pulling the piece back if there was an overlap.
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/movedown.h}
 \caption{\texttt{Tetris::MoveDown()}.}
 \label{list:tetris-movedown}
+\end{listing}
+
+As mentioned above, \texttt{MoveDown()} is called both by the timer thread,
+and by the UI when the user initiates a drop. \texttt{MoveDown()} is special
+among the movement functions: whereas the others undo an invalid move,
+\texttt{MoveDown()} recognizes such as the current piece having bottomed out.
+If the location is above the gameboard, the game is over. Otherwise, we
+call \texttt{LockPiece()} to fuse the current piece with the stack, and bring
+a new piece into play.
+
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/lock.h}
+\caption{\texttt{Tetris::LockPiece()}.}
+\label{list:tetris-lock}
+\end{listing}
+
+When the current piece reaches its resting place, \texttt{LockPiece()} (Listing~\ref{list:tetris-lock})
+is called. This merges the current piece down onto the playing area\footnote{The
+``stack'', at least in Tetris parlance.}, scans for any cleared lines, removes
+them, allows the material above these lines to fall, and finally repaints a
+gradient onto the stack before rendering. The gradient slowly changes over
+different levels---indeed, the gradient's computation limits us to 16 levels.
+
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/newpiece.h}
+\caption{\texttt{Tetris::NewPiece()}.}
+\label{list:tetris-newpiece}
 \end{listing}
 
 \begin{listing}[!htb]
@@ -120,12 +173,8 @@ all of which are in color).
 \label{list:tetris-ticker}
 \end{listing}
 
-\texttt{MoveDown()} (Listing~\ref{list:tetris-movedown}) is called either when
-the user calls for a drop, or the timer expires. The timer is managed in
-\texttt{Ticker()} (Listing~\ref{list:tetris-ticker}), which is run inside its
-own thread.
-
-\pagebreak
+The timer is managed in \texttt{Ticker()} (Listing~\ref{list:tetris-ticker}),
+which is run inside its own thread.
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/moveleft.h}
@@ -145,36 +194,9 @@ own thread.
 \label{list:tetris-rotate}
 \end{listing}
 
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/lock.h}
-\caption{\texttt{Tetris::LockPiece()}.}
-\label{list:tetris-lock}
-\end{listing}
-
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/newpiece.h}
-\caption{\texttt{Tetris::NewPiece()}.}
-\label{list:tetris-newpiece}
-\end{listing}
-
 \texttt{NewPiece()} (Listing~\ref{list:tetris-newpiece}) is called at the
 beginning of the game, and whenever a piece is locked in. We saw most of this
 already in Chapter~\ref{sec:simpleloop}.
-
-\pagebreak
-
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/stuck.h}
-\caption{\texttt{Tetris::InvalidMove()}.}
-\label{list:tetris-stuck}
-\end{listing}
-
-\texttt{MoveDown()} needs to check whether a piece can actually fall any
-further, which has been factored out into \texttt{InvalidMove()}
-(Listing~\ref{list:tetris-stuck}). Similarly, \texttt{MoveLeft()}, \texttt{MoveDown()},
-and \texttt{MoveRight()} all must check that the requested move is valid,
-undoing it if not. Since we don't render between the two moves, the piece
-is never visible in this unholy state.
 
 %\begin{listing}[!htb]
 %\inputminted[]{C}{code-tetris/main.cpp}
