@@ -4,9 +4,14 @@ void RotateCcw() {
   if(!PrepForMove(&y, &x)){
     return;
   }
-  // FIXME need to check game board for validity of rotation in both of these
-  if(!curpiece_->rotate_ccw() || !nc_.render()){
-    throw TetrisNotcursesErr("rotate_ccw() or render()");
+  if(!curpiece_->rotate_ccw()){
+    throw TetrisNotcursesErr("rotate_ccw()");
+  }
+  if(InvalidMove() && !curpiece_->rotate_cw()){
+    throw TetrisNotcursesErr("rotate_cw()");
+  }
+  if(!nc_.render()){
+    throw TetrisNotcursesErr("render()");
   }
 }
 
@@ -16,7 +21,13 @@ void RotateCw() {
   if(!PrepForMove(&y, &x)){
     return;
   }
-  if(!curpiece_->rotate_cw() || !nc_.render()){
-    throw TetrisNotcursesErr("rotate_cw() or render()");
+  if(!curpiece_->rotate_cw()){
+    throw TetrisNotcursesErr("rotate_cw()");
+  }
+  if(InvalidMove() && !curpiece_->rotate_ccw()){
+    throw TetrisNotcursesErr("rotate_ccw()");
+  }
+  if(!nc_.render()){
+    throw TetrisNotcursesErr("render()");
   }
 }

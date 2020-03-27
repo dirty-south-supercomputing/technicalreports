@@ -82,7 +82,8 @@ resize, a decidedly messier affair. It's \textit{doable}---\textgreek{ἢ τὰ�
 Let's do some boring groundwork first. We'll need the official constants for
 ``gravity'', the level-dependent rate at which pieces fall
 (Listing~\ref{list:tetris-gravity}). We can implement this as a
-\texttt{constexpr} function (not that it's likely to be of any real advantage).
+\texttt{constexpr} function, not that it's likely to be of any real
+advantage (especially since we only call \texttt{Gravity()} upon level changes).
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/clear.h}
@@ -166,27 +167,16 @@ already in Chapter~\ref{sec:simpleloop}.
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/stuck.h}
-\caption{\texttt{Tetris::PieceStuck()}.}
+\caption{\texttt{Tetris::InvalidMove()}.}
 \label{list:tetris-stuck}
 \end{listing}
 
 \texttt{MoveDown()} needs to check whether a piece can actually fall any
-further, which has been factored out into \texttt{PieceStuck()}
-(Listing~\ref{list:tetris-stuck}). The logic is similar to that performed by
-\texttt{MoveLeft()} and \texttt{MoveRight()}---there's no real reason why I
-put it in its own function here, and left it inline for the lateral moves.
-
-\begin{figure}
-  \centering
-  \begin{minipage}{0.45\textwidth}
-    \includegraphics[width=1\linewidth]{media/tetris-prescore.png}
-    \caption{Primed to score.}
-  \end{minipage}\hfill
-  \begin{minipage}{0.45\textwidth}
-    \includegraphics[width=1\linewidth]{media/tetris-postscore.png}
-    \caption{Boom!}
-  \end{minipage}
-\end{figure}
+further, which has been factored out into \texttt{InvalidMove()}
+(Listing~\ref{list:tetris-stuck}). Similarly, \texttt{MoveLeft()}, \texttt{MoveDown()},
+and \texttt{MoveRight()} all must check that the requested move is valid,
+undoing it if not. Since we don't render between the two moves, the piece
+is never visible in this unholy state.
 
 %\begin{listing}[!htb]
 %\inputminted[]{C}{code-tetris/main.cpp}
