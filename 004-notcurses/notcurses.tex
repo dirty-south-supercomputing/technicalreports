@@ -110,7 +110,7 @@ A Guide to TUIs and Character Graphics
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=1\linewidth]{media/ibm3270.jpg}
-\caption{A programmer at her IBM 3270 2A \textit{(source: Jonathan Schilling under CCASA4)}.}
+\caption[]{A programmer at her IBM 3270 2A \textit{(source: Jonathan Schilling under CCASA4)}.}
 \end{figure}
 \clearpage
 \vspace*{1in}
@@ -290,7 +290,7 @@ The console ain't dead! Hack on, hax0rs.
 \begin{figure}
 \centering
 \includegraphics[width=.65\linewidth]{media/chunli-box-front.png}
-\caption[An example render.]{A rendered scene from the ``chunli'' demo (see Chapter~\ref{sec:ncdemo}),
+\caption[]{A rendered scene from the ``chunli'' demo (see Chapter~\ref{sec:ncdemo}),
   using some of the advanced capabilities of Notcurses. The Chun-Li sprite has
   been loaded from a transparent PNG (Chapter~\ref{sec:libav}) atop boxes
   (Chapter~\ref{sec:boxes}) drawn using Unicode (Chapter~\ref{section:unicode})
@@ -554,7 +554,7 @@ instance of the word \textcolor{blue}{house} in blue, even when it is a subword:
 
 \begin{figure}[!htb]
 \centering \includegraphics[width=.5\linewidth]{house-blue.png}
-\caption{An excerpt from page 123 of \textit{\textcolor{blue}{House} of Leaves}.}
+\caption[]{An excerpt from page 123 of \textit{\textcolor{blue}{House} of Leaves}.}
 \label{fig:houseofleaves}
 \end{figure}
 
@@ -1434,12 +1434,12 @@ the strong, sure Double Box Drawing characters
 \begin{listing}[!htb]
 \begin{minted}{C}
 static inline int cells_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                            cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+                                    cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
   return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╭╮╰╯─│");
 }
 
 static inline int ncplane_rounded_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                                                  int ystop, int xstop, unsigned ctlword){
+                                      int ystop, int xstop, unsigned ctlword){
   int ret = 0;
   cell ul = CELL_TRIVIAL_INITIALIZER, ur = CELL_TRIVIAL_INITIALIZER;
   cell ll = CELL_TRIVIAL_INITIALIZER, lr = CELL_TRIVIAL_INITIALIZER;
@@ -1467,7 +1467,7 @@ ncplane_rounded_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, i
 \begin{listing}[!htb]
 \begin{minted}{C}
 static inline int cells_double_box(struct ncplane* n, uint32_t attr, uint64_t channels,
-                           cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
+                                   cell* ul, cell* ur, cell* ll, cell* lr, cell* hl, cell* vl){
   return cells_load_box(n, attr, channels, ul, ur, ll, lr, hl, vl, "╔╗╚╝═║");
 }
 
@@ -1486,8 +1486,8 @@ static inline int ncplane_double_box(struct ncplane* n, uint32_t attr, uint64_t 
   return ret;
 }
 
-static inline int
-ncplane_double_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels, int ylen, int xlen, unsigned ctlword){
+static inline int ncplane_double_box_sized(struct ncplane* n, uint32_t attr, uint64_t channels,
+                                           int ylen, int xlen, unsigned ctlword){
   int y, x;
   ncplane_cursor_yx(n, &y, &x);
   return ncplane_double_box(n, attr, channels, y + ylen - 1, x + xlen - 1, ctlword);
@@ -1516,10 +1516,9 @@ and \texttt{ncplane\_erase()} are detailed in Listing~\ref{list:polyfills}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Starting at the specified coordinate, if it has no glyph, 'c' is copied into
-// it. We do the same to all cardinally-connected glyphless cells, filling in
-// everything behind a boundary. Returns the number of cells polyfilled. An
-// invalid initial y, x is an error.
+// Starting at the specified coordinate, if it has no glyph, 'c' is copied into it. We do the same to
+// all cardinally-connected glyphless cells, filling in everything behind a boundary. Returns the
+// number of cells polyfilled. An invalid initial y, x is an error.
 int ncplane_polyfill_yx(struct ncplane* n, int y, int x, const cell* c);
 
 void ncplane_erase(struct ncplane* n);
@@ -1536,14 +1535,12 @@ channel parameters. Palette-indexed color is not yet supported for gradients.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Draw a gradient with its upper-left corner at the current cursor position,
-// stopping at 'ystop'x'xstop'. The glyph composed of 'egc' and 'attrword' is
-// used for all cells. The channels specified by 'ul', 'ur', 'll', and 'lr'
-// are composed into foreground and background gradients. To do a vertical
-// gradient, 'ul' ought equal 'ur' and 'll' ought equal 'lr'. To do a
-// horizontal gradient, 'ul' ought equal 'll' and 'ur' ought equal 'ul'. To
-// color everything the same, all four channels should be equivalent. The
-// resulting alpha values are equal to incoming alpha values.
+// Draw a gradient with its upper-left corner at the current cursor position, stopping at 'ystop'x'xstop'.
+// The glyph composed of 'egc' and 'attrword' is used for all cells. The channels specified by 'ul', 'ur',
+// 'll', and 'lr' are composed into foreground and background gradients. To do a vertical gradient, 'ul'
+// ought equal 'ur' and 'll' ought equal 'lr'. To do a horizontal gradient, 'ul' ought equal 'll' and 'ur'
+// ought equal 'ul'. To color everything the same, all four channels should be equivalent. The resulting
+// alpha values are equal to incoming alpha values.
 //
 // Preconditions for gradient operations (error otherwise):
 //
@@ -1552,21 +1549,18 @@ channel parameters. Palette-indexed color is not yet supported for gradients.
 //  1x1: all four colors must be the same
 //  1xN: both top and both bottom colors must be the same (vertical gradient)
 //  Nx1: both left and both right colors must be the same (horizontal gradient)
-int ncplane_gradient(struct ncplane* n, const char* egc, uint32_t attrword,
-                     uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
-                     int ystop, int xstop);
+int ncplane_gradient(struct ncplane* n, const char* egc, uint32_t attrword, uint64_t ul, uint64_t ur,
+                     uint64_t ll, uint64_t lr, int ystop, int xstop);
 
-// Do a high-resolution gradient using upper blocks and synced backgrounds.
-// This doubles the number of vertical gradations, but restricts you to
-// half blocks (appearing to be full blocks).
+// Do a high-resolution gradient using upper blocks and synced backgrounds. This doubles the number of
+// vertical gradations, but restricts you to half blocks (appearing to be full blocks).
 int ncplane_highgradient(struct ncplane* n, uint32_t ul, uint32_t ur,
                          uint32_t ll, uint32_t lr, int ystop, int xstop);
 
-// Draw a gradient with its upper-left corner at the current cursor position,
-// having dimensions 'ylen'x'xlen'. See ncplane_gradient for more information.
-static inline int ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword,
-                                         uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr,
-                                         int ylen, int xlen){
+// Draw a gradient with its upper-left corner at the current cursor position, having dimensions
+// 'ylen'x'xlen'. See ncplane_gradient for more information.
+static inline int ncplane_gradient_sized(struct ncplane* n, const char* egc, uint32_t attrword, uint64_t ul,
+                                         uint64_t ur, uint64_t ll, uint64_t lr, int ylen, int xlen){
   if(ylen < 1 || xlen < 1){
     return -1;
   }
@@ -1593,15 +1587,15 @@ static inline int ncplane_highgradient_sized(struct ncplane* n, uint64_t ul, uin
 \label{sec:blitting}
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Blit a flat array 'data' of BGRx 32-bit values to the ncplane 'nc', offset from the upper left by
-// 'placey' and 'placex'. Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4
-// due to padding). A subregion of the input can be specified with 'begy'x'begx' and 'leny'x'lenx'.
+// Blit a flat array 'data' of BGRx 32-bit values to the ncplane 'nc', offset from the upper left by 'placey' and 'placex'.
+// Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4 due to padding). A subregion of the input
+// can be specified with 'begy'x'begx' and 'leny'x'lenx'.
 int ncblit_bgrx(struct ncplane* nc, int placey, int placex, int linesize, const unsigned char* data,
                 int begy, int begx, int leny, int lenx);
 
-// Blit a flat array 'data' of RGBA 32-bit values to the ncplane 'nc', offset from the upper left by
-// 'placey' and 'placex'. Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4
-// due to padding). A subregion of the input can be specified with 'begy'x'begx' and 'leny'x'lenx'.
+// Blit a flat array 'data' of RGBA 32-bit values to the ncplane 'nc', offset from the upper left by 'placey' and 'placex'.
+// Each row ought occupy 'linesize' bytes (this might be greater than lenx * 4 due to padding). A subregion of the input can
+// be specified with 'begy'x'begx' and 'leny'x'lenx'.
 int ncblit_rgba(struct ncplane* nc, int placey, int placex, int linesize, const unsigned char* data,
                 int begy, int begx, int leny, int lenx);
 \end{minted}
@@ -1627,12 +1621,10 @@ provides \texttt{ncplane\_format()} and \texttt{ncplane\_stain()}.
 
 \begin{listing}[!htb]
 \begin{minted}{C}
-// Set the given style throughout the specified region, keepying content and
-// channels otherwise unchanged.
+// Set the given style throughout the specified region, keepying content and channels otherwise unchanged.
 int ncplane_format(struct ncplane* n, int ystop, int xstop, uint32_t attrword);
 
-// Set the given channels throughout the specified region, keepying content and
-// attributes otherwise unchanged.
+// Set the given channels throughout the specified region, keepying content and attributes otherwise unchanged.
 int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t ur, uint64_t ll, uint64_t lr);
 \end{minted}
 \caption{Changing attributes or channels in isolation.}
@@ -1790,23 +1782,20 @@ int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
 \subsection{Scaling images and video}
 \begin{listing}[!htb]
 \begin{minted}{C}
-// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a
-// plane tailored to the visual's exact needs, which is probably larger than the
-// visible screen (but might be smaller). NCSCALE_SCALE scales a visual larger
-// than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH
-// stretches and scales the image in an attempt to fill the visible screen.
+// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a plane tailored to the visual's
+// exact needs, which is probably larger than the visible screen (but might be smaller). NCSCALE_SCALE
+// scales a visual larger than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH stretches
+// and scales the image in an attempt to fill the visible screen.
 typedef enum {
   NCSCALE_NONE,
   NCSCALE_SCALE,
   NCSCALE_STRETCH,
 } ncscale_e;
 
-// Open a visual, extract a codec and parameters, and create a new plane
-// suitable for its display at 'y','x'. If there is sufficient room to display
-// the visual in its native size, or if NCSCALE_NONE is passed for 'style', the
-// new plane will be exactly that large. Otherwise, the plane will be as large
-// as possible (given the visible screen), either maintaining aspect ratio
-// (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
+// Open a visual, extract a codec and parameters, and create a new plane suitable for its display at 'y','x'.
+// If there is sufficient room to display the visual in its native size, or if NCSCALE_NONE is passed for
+// 'style', the new plane will be exactly that large. Otherwise, the plane will be as large as possible (given
+// the visible screen), either maintaining aspect ratio (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
 struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int* averr, int y, int x, ncscale_e style);
 \end{minted}
 \caption{Scaling media onto a new plane.}
