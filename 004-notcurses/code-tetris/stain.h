@@ -1,4 +1,3 @@
-
 void StainBoard(int dimy, int dimx){
   if(!board_->cursor_move(0, 1)){
     throw TetrisNotcursesErr("cursor_move()");

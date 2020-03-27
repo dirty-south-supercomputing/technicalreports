@@ -176,6 +176,18 @@ different levels---indeed, the gradient's computation limits us to 16 levels.
 The timer is managed in \texttt{Ticker()} (Listing~\ref{list:tetris-ticker}),
 which is run inside its own thread.
 
+\begin{figure}
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetris-prescore.png}
+    \caption{Tetris---primed to score.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \includegraphics[width=1\linewidth]{media/tetris-postscore.png}
+    \caption{Tetris---boom!}
+  \end{minipage}
+\end{figure}
+
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/moveleft.h}
 \caption{\texttt{Tetris::MoveLeft()}.}
