@@ -1041,7 +1041,7 @@ for any intersecting unsolved cells. It is thus generally more performant to
 rather than moving them beyond the boundaries of the visible window. Likewise,
 planes ought be no larger than necessary, so that they intersect with the
 minimum number of cells. Note that there will always be at least one plane
-interacting with each visible coordinate, due to the properties of the default
+interacting with each visible coordinate, due to the properties of the standard
 plane.
 
 Having rendered the scene, \textit{rasterization} serializes a buffer to write
@@ -1631,6 +1631,16 @@ int ncplane_stain(struct ncplane* n, int ystop, int xstop, uint64_t ul, uint64_t
 \label{list:stain}
 \end{listing}
 
+Staining could be accomplished without a special function call by reflecting
+on each cell of interest using \texttt{ncplane\_at\_yx()}, changing the cell,
+and writing it back, but \texttt{ncplane\_stain()} and \texttt{ncplane\_format()}
+are faster and simpler. Creating a new plane of all null glyphs, setting the
+channels as desired, and placing it atop the region would also accomplish a
+staining, and can further be used as a ``moving'' stain. This wouldn't affect
+the lower plane; it would purely be an effect of rendering. It is not possible
+to simulate \texttt{ncplane\_format()} in this way, however---glyph and
+attribute are a single dimension and cannot be independently transparent.
+
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2082,9 +2092,9 @@ int ncmenu_destroy(struct ncmenu* n);
 \subsection{Reels}
 The ncreel\footnote{The term ``reel'' is borrowed from slot machines.} is a UI abstraction supported by Notcurses in which
 dynamically-created and -destroyed toplevel entities (referred to as tablets)
-are arranged in a torus (circular loop), allowing for infinite scrolling
-(infinite scrolling can be disabled, resulting in a line segment rather than a
-torus). This works naturally with keyboard navigation, mouse scrolling wheels,
+are arranged on a ``cylinder'', allowing for infinite scrolling
+(infinite scrolling can be disabled, resulting in a rectangle rather than a
+cylinder). This works naturally with keyboard navigation, mouse scrolling wheels,
 and touchpads (including the capacitive touchscreens of modern cell phones).
 An ncreel initially has no tablets; at any given time thereafter, it has zero
 or more tablets, and if there is at least one tablet, one tablet is focused
@@ -2739,7 +2749,7 @@ at SimpleRose, Keshav Attrey at PureStorage, Jaron Nix at Pathware,
 Manuel Garcia at Cyxtera, and the folks who can't be mentioned. Keep
 churning through DGEMMs and blowing shit up, everybody. Yacin Nadji,
 Scott Hughes, Paige Bailey, Brendan Dolan-Gavitt, Brett W.\ Thompson, Bill
-Phillips, and Joe Lafiosca were particularly supportive of the Notcurses
+Phillips, Lee Hall, Jon Paprocki, and Joe Lafiosca were particularly supportive of the Notcurses
 endeavor. Mark Ferrari let me use his mindblowing palette-cycling pixel art,
 and was awfully sweet to a weird dude emailing him from out of nowhere. GitHub
 has remained shockingly useful and unoffensive for a Microsoft product. Robert
