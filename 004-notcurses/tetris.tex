@@ -149,6 +149,15 @@ call \texttt{LockPiece()} to fuse the current piece with the stack, and bring
 a new piece into play.
 
 \begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/ticker.h}
+\caption{\texttt{Tetris::Ticker()}.}
+\label{list:tetris-ticker}
+\end{listing}
+
+The timer is managed in \texttt{Ticker()} (Listing~\ref{list:tetris-ticker}),
+which is run inside its own thread.
+
+\begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/lock.h}
 \caption{\texttt{Tetris::LockPiece()}.}
 \label{list:tetris-lock}
@@ -170,15 +179,6 @@ different levels---indeed, the gradient's computation limits us to 16 levels.
 \texttt{NewPiece()} (Listing~\ref{list:tetris-newpiece}) is called at the
 beginning of the game, and whenever a piece is locked in. We saw most of this
 already in Chapter~\ref{sec:simpleloop}.
-
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/ticker.h}
-\caption{\texttt{Tetris::Ticker()}.}
-\label{list:tetris-ticker}
-\end{listing}
-
-The timer is managed in \texttt{Ticker()} (Listing~\ref{list:tetris-ticker}),
-which is run inside its own thread.
 
 \begin{figure}
   \centering
@@ -205,11 +205,17 @@ which is run inside its own thread.
   \label{list:tetris-move}
 \end{figure}
 
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/rotate.h}
-\caption{\texttt{Tetris::RotateCcw()} and \texttt{Tetris::RotateCw()}.}
-\label{list:tetris-rotate}
-\end{listing}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \inputminted[]{C}{code-tetris/rotate-cw.h}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \inputminted[]{C}{code-tetris/rotate-ccw.h}
+  \end{minipage}
+  \caption{\texttt{Tetris::RotateCcw()} and \texttt{Tetris::RotateCw()}.}
+  \label{list:tetris-rotate}
+\end{figure}
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/main.h}
@@ -225,3 +231,9 @@ Finally, we \texttt{join()} the \texttt{Ticker()} thread, and shut down
 Notcurses. We accept function keys or vi keys for movement. 'z' and 'x' rotate
 counterclockwise and clockwise respectively. Ctrl+L refreshes the screen to
 round out our UI.
+
+Note that, once again, a majority of our actual lines of code are devoted to
+the detection and propagation of errors. Our \CC wrappers do not throw
+exceptions themselves; I will likely add a further \CC wrapper which does in
+the future. Should that come into play, all these error checks and manual
+\texttt{throw} directives could be sweetly elided.
