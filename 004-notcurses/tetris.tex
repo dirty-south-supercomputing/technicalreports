@@ -18,8 +18,8 @@ placed, in which case a new piece enters the playing area), and the necessary
 interface for the input loop:
 
 \begin{denseitemize}
-\item{\texttt{MoveLeft()} (Listing~\ref{list:tetris-moveleft}) and \texttt{MoveRight()}
-    (Listing~\ref{list:tetris-moveright}). These simply verify that the lateral
+\item{\texttt{MoveLeft()} and \texttt{MoveRight()}
+    (Listing~\ref{list:tetris-move}). These simply verify that the lateral
     move can be done, and then call \texttt{Plane::move()}.}
 \item{\texttt{MoveDown()} (Listing~\ref{list:tetris-movedown}), which calls the same \texttt{StuckPiece()},}
 \item{\texttt{Pause()}, and}
@@ -192,17 +192,18 @@ which is run inside its own thread.
   \end{minipage}
 \end{figure}
 
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/moveleft.h}
-\caption{\texttt{Tetris::MoveLeft()}.}
-\label{list:tetris-moveleft}
-\end{listing}
-
-\begin{listing}[!htb]
-\inputminted[]{C}{code-tetris/moveright.h}
-\caption{\texttt{Tetris::MoveRight()}.}
-\label{list:tetris-moveright}
-\end{listing}
+\begin{figure}
+  \centering
+  \begin{minipage}{0.45\textwidth}
+    \inputminted[]{C}{code-tetris/moveleft.h}
+    \caption{\texttt{Tetris::MoveLeft()}.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.45\textwidth}
+    \inputminted[]{C}{code-tetris/moveright.h}
+    \caption{\texttt{Tetris::MoveRight()}.}
+  \end{minipage}
+  \label{list:tetris-move}
+\end{figure}
 
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/rotate.h}
