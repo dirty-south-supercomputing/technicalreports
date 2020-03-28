@@ -167,6 +167,10 @@ different levels---indeed, the gradient's computation limits us to 16 levels.
 \label{list:tetris-newpiece}
 \end{listing}
 
+\texttt{NewPiece()} (Listing~\ref{list:tetris-newpiece}) is called at the
+beginning of the game, and whenever a piece is locked in. We saw most of this
+already in Chapter~\ref{sec:simpleloop}.
+
 \begin{listing}[!htb]
 \inputminted[]{C}{code-tetris/ticker.h}
 \caption{\texttt{Tetris::Ticker()}.}
@@ -206,12 +210,17 @@ which is run inside its own thread.
 \label{list:tetris-rotate}
 \end{listing}
 
-\texttt{NewPiece()} (Listing~\ref{list:tetris-newpiece}) is called at the
-beginning of the game, and whenever a piece is locked in. We saw most of this
-already in Chapter~\ref{sec:simpleloop}.
+\begin{listing}[!htb]
+\inputminted[]{C}{code-tetris/main.h}
+\caption[]{Tetris \texttt{main()}.}
+\label{list:tetris-main}
+\end{listing}
 
-%\begin{listing}[!htb]
-%\inputminted[]{C}{code-tetris/main.cpp}
-%\caption{\texttt{main()} for our Tetris ripoff.}
-%\label{list:tetris-main}
-%\end{listing}
+Our \texttt{main()} is quite minimal. A \texttt{Tetris} instance is
+constructed, initializting the game board and providing necessary state (score,
+level, etc.). \texttt{Tetris::Ticker()} is launched as a {\CC}11 thread. We
+then loop on input until either the game is over or the user presses 'q'.
+Finally, we \texttt{join()} the \texttt{Ticker()} thread, and shut down
+Notcurses. We accept function keys or vi keys for movement. 'z' and 'x' rotate
+counterclockwise and clockwise respectively. Ctrl+L refreshes the screen to
+round out our UI.
