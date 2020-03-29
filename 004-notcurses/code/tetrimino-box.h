@@ -5,7 +5,7 @@ static struct ncplane* makebox(struct notcurses* nc){
     uint64_t tl = 0, br = 0, m = 0;
     channels_set_fg(&tl, 0xffffff); channels_set_fg(&br, 0xffffff); channels_set_fg(&m, 0xffffff);
     channels_set_bg(&tl, 0x000000); channels_set_bg(&br, 0x000000); channels_set_bg(&m, 0x808080);
-    if(!ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4)){
+    if(ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4) >= 0){
       #define CTI(cname) cell cname = CELL_TRIVIAL_INITIALIZER
       CTI(cul); CTI(cur); CTI(cbl); CTI(cbr); CTI(chl); CTI(cvl);
       #undef CTI

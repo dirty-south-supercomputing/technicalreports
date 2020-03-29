@@ -4,7 +4,7 @@ static struct ncvisual* background(struct notcurses* nc, const char* fname){
   if(!ncv || (err && err != AVERROR_EOF)){
     return NULL;
   }
-  if(!ncvisual_decode(ncv, &err) || ncvisual_render(ncv, 0, 0, 0, 0)){
+  if(!ncvisual_decode(ncv, &err) || ncvisual_render(ncv, 0, 0, -1, -1) <= 0){
     ncvisual_destroy(ncv);
     return NULL;
   }

@@ -92,6 +92,13 @@ never exceeded 20\% with other terminal emulators, but regularly spiked above 60
 with \texttt{xterm} using bitmapped fonts, and pegged the CPU(!) with TrueType
 fonts (see Figure~\ref{fig:badxterm}). This ought be investigated.
 
+\textbf{UPDATE: I am now getting reasonable performance from \texttt{xterm}
+  following reconfiguration of FontConfig to enable bitmapped fonts. The poor
+  results seen here are not necessarily representative of a well-tempered
+  \texttt{xterm} configuration. I am leaving them in until I can completely
+  rerun \texttt{xterm} benchmarks, and might leave them in at that point as
+  an alternative result set.}
+
 \begin{figure}[!htb]
   \centering
 \includegraphics[width=1\textwidth]{media/xterm-high-cpu.png}
