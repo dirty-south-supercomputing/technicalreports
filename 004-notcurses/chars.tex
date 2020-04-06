@@ -326,10 +326,10 @@ of UCS, together having range 0--0xff. Thus the first 128 codepoints of both
 ISO-8859-1 (all the ISO 8859 sets, actually) and UCS are inherited from ANSI
 X3.4-1986 + ISO 646's C0 + ISO 2022's universal declaration of SP (space, 0x20) and
 DEL (delete, 0x7f), and the second 128 codepoints of UCS are inherited
-from ISO-8859-1 + ISO 6429's C1. Only the \textit{codepoints} are equal, however---UCS
-does not typically encode these codepoints the same way\footnote{A notable
-and critical exception is UTF-8, which encodes the first 128 codepoints the
-same way as ISO 646. Read on\textellipsis}.
+from ISO-8859-1 + ISO 6429's C1. Only the \textit{codepoints} are equal,
+however---these codepoints are not typically encoded the same way\footnote{A
+notable and critical exception is UTF-8, which encodes the first 128 codepoints
+the same way as ISO 646. Read on\textellipsis}.
 
 There were also some true 16-bit and multibyte character sets, mainly in East
 Asia. You might hear of Shift JIS, EUC-JP, Big5, and GB18030. How unfortunate.
