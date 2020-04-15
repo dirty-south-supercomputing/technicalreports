@@ -690,12 +690,12 @@ the screen. If \texttt{stdout} and \texttt{stderr} are attached to the same
 terminal (as they usually are in an interactive session), and \texttt{stdout}
 is provided to Notcurses, output to \texttt{stderr} will corrupt the display
 just as thoroughly as output to \texttt{stdout}. If your fullscreen Notcurses
-program intends to log to \texttt{stderr}, you should first ensure that that
+program intends to log to \texttt{stderr}, you should first ensure that
 it has been redirected or is otherwise going somewhere different than
 \texttt{stdout}. Note that simply rerendering the output will \textit{not}
 necessarily clean up corruption, even following \texttt{ncplane\_erase()}
 operations, since Notcurses optimizes its rendering based on its concept of the
-screen. A call to \texttt{notcurses\_refresh()} will be necessary to sync the
+screen. A call to \texttt{notcurses\_refresh()} will be necessary to sync
 the physical screen to Notcurses's concept thereof.
 
 It is possible for the screen to be corrupted by external agents. For this
@@ -780,7 +780,7 @@ Once you're done using a \texttt{struct notcurses}, it's important to destroy
 it with \texttt{notcurses\_stop()}, even if your process exits abnormally. By
 default, Notcurses registers signal handlers for most fatal signals. These
 handlers will call \texttt{notcurses\_stop()} and then pass the signal to the
-orginal actions. You can disable this with the \texttt{no\_quit\_sighandlers}
+original actions. You can disable this with the \texttt{no\_quit\_sighandlers}
 field of \texttt{notcurses\_options}, but there aren't very many good reasons
 to do so.
 
@@ -1354,7 +1354,7 @@ a gradient mask, and 0--3 are a border mask (see Table~\ref{table:boxes}).
   \centering
   \begin{tabular}{|l|l|l|}
     \hline
-    Constant & Bit & Propery \\
+    Constant & Bit & Property \\
     \hline
     \hline
     \texttt{NCBOXMASK\_TOP} & 0x001 & Inhibit top \\
@@ -2296,7 +2296,7 @@ Some relevant terminfo capabilities are described in Table~\ref{table:terminfo}.
       \hline
       \texttt{ccc} & Boolean & The palette can be programmed. \\
       \hline
-      \texttt{RGB} & Boolean & Direct RGB values can be speficied. \\
+      \texttt{RGB} & Boolean & Direct RGB values can be specified. \\
       \hline
     \end{tabular}
   \end{center}
@@ -2673,7 +2673,7 @@ or ANSI standards. Table~\ref{table:standards} lists equivalencies.
 
 POSIX is a family of standards from IEEE 1003, first released as IEEE 1003.1-1988 as:
 \begin{denseitemize}
-\item{POSIX.1/IEEE 1003.1-1988: Core Services, incoporating ANSI C 1989}
+\item{POSIX.1/IEEE 1003.1-1988: Core Services, incorporating ANSI C 1989}
 \item{POSIX.2/IEEE 1003.2-1992: Shell and utilities}
 \item{POSIX.1b/IEEE 1003.1b-1993: Real-time extensions}
 \item{POSIX.1c/IEEE 1003.1c-1995: Threads}
@@ -2777,7 +2777,7 @@ Approaching forty, he still manages to code about ten hours a day, every day,
 ideally those free of the Daystar's malignant influence. He hopes to one day
 destroy the sun. This is his first book as an adult. He lives in Midtown
 Atlanta with wife Emily (both a finer engineer, and just plain finer),
-along with their poofy penguin and serveral orca. Nick exclusively uses black
+along with their poofy penguin and several orca. Nick exclusively uses black
 IBM Model-M Trackpoint II M-13 keyboards, and will happily buy any that you
 might have laying around \textbf{CLACK CLACK CLACK}.
 

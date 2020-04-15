@@ -99,10 +99,10 @@ For our purposes, the story can reasonably start with a 7-bit encoding of
 The first ASCII we would recognize as such\footnote{To paraphrase G.\ H.\
 Hardy, ``ASCII-1963 was clever schoolboys; '68 a Fellow from another
 College\cite{ghhardy}.''} was the unpublished ASCII-1965. The ASA (ANSI
-before it was ANSI) ASCII 1963 didn't even have miniscules\footnote{Uppercase
+before it was ANSI) ASCII 1963 didn't even have minuscules\footnote{Uppercase
 and lowercase are loanwords from printing, where the two sets were
 stored in different cases of the typesetting table. ``Majuscules'' and
-``miniscules'' will mark your good breeding.}. ASCII-1968 was
+``minuscules'' will mark your good breeding.}. ASCII-1968 was
 released as USAS X3.4-1968 to wild acclaim. The ISO/IEC 646 standard\cite{iso646}
 ``internationalized'' ASCII-1968 by opening up 12 graphic characters to
 regional specifications (the US ASCII defined the ``International Reference
@@ -219,7 +219,7 @@ you can do it.
 
 From Table~\ref{table:c0maps}, it should be obvious that Ctrl essentially clears
 the top two bits of a 7-bit ASCII input. It might be less obvious that all
-miniscules are equal to the sum of 0x20 and their corresponding majuscule,
+minuscules are equal to the sum of 0x20 and their corresponding majuscule,
 allowing lowercase and uppercase to be switched by toggling the fifth (32) bit.
 Likewise, 0xDF provides a fast case-insensitive eight-bit comparison mask (it
 is necessary to mask out 0x2). Numeric values
@@ -228,7 +228,7 @@ those with a 1 in any of the higher five bits, save 0x7F\footnote{Why 0x7f? Like
 so many things, this comes down to punch cards. If you've punched an error on
 a group of 7 holes, and want to correct it, what are your choices? The only
 general solution is to interpret all 7 holes as a strikeout\cite{cardpunch}.}. Numeric values for a
-letter can be acquired by subtracting 0x61 ('a') from its miniscule form. The
+letter can be acquired by subtracting 0x61 ('a') from its minuscule form. The
 digits are contiguous, as are each case of letters\footnote{This is not true for
 EBCDIC, where the letter sequences are based on the ``zones'' of punch cards\cite{nickgammon}.}.
 
