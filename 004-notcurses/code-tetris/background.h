@@ -1,4 +1,5 @@
 void DrawBackground(const std::string& s) { // drawn to the standard plane
+#ifdef USE_FFMPEG
   int averr;
   try{
     backg_ = std::make_unique<ncpp::Visual>(s.c_str(), &averr, 0, 0, ncpp::NCScale::Stretch);
@@ -12,10 +13,17 @@ void DrawBackground(const std::string& s) { // drawn to the standard plane
     throw TetrisNotcursesErr("render(): " + s);
   }
   backg_->get_plane()->greyscale();
+#else
+  (void)s;
+#endif
 }
 
 void DrawBoard() { // draw all fixed components of the game
-  DrawBackground(BackgroundFile);
+  try{
+    DrawBackground(BackgroundFile);
+  }catch(TetrisNotcursesErr& e){
+    stdplane_->printf(1, 1, "couldn't load %s", BackgroundFile.c_str());
+  }
   int y, x;
   stdplane_->get_dim(&y, &x);
   board_top_y_ = y - (BOARD_HEIGHT + 2);
@@ -44,7 +52,7 @@ void DrawBoard() { // draw all fixed components of the game
   scoreplane_->printf(0, 1, "%s", cuserid(nullptr));
   scoreplane_->set_fg(0x00d0a0);
   UpdateScore();
-  if(!nc_.render()){
+  if(nc_.render()){
     throw TetrisNotcursesErr("render()");
   }
 }

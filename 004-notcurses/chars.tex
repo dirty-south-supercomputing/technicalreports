@@ -221,7 +221,8 @@ From Table~\ref{table:c0maps}, it should be obvious that Ctrl essentially clears
 the top two bits of a 7-bit ASCII input. It might be less obvious that all
 miniscules are equal to the sum of 0x20 and their corresponding majuscule,
 allowing lowercase and uppercase to be switched by toggling the fifth (32) bit.
-Likewise, 0xDF provides a fast case-insensitive comparison mask. Numeric values
+Likewise, 0xDF provides a fast case-insensitive eight-bit comparison mask (it
+is necessary to mask out 0x2). Numeric values
 for a digit can be acquired by subtracting 0x30 ('0'). Printable characters are all
 those with a 1 in any of the higher five bits, save 0x7F\footnote{Why 0x7f? Like
 so many things, this comes down to punch cards. If you've punched an error on
@@ -238,7 +239,7 @@ can faithfully represent only (modern) English, Latin, and Swahili.}, but even
 the accented Latin scripts needed more room to be expressed. Other
 segmentally linear, monophonemic writing systems (e.g. Cyrillic, Hangul, or
 Greek) would need replace the graphic characters wholesale. The idea of
-describing syllabary-based languages in seven or even eight bits is
+enumerating syllabary-based languages in seven or even eight bits is
 laughable\footnote{An octet character set for ``rudimentary form'' Japanese,
 containing only the \textit{katakana}, was introduced as JIS X 0201-1976.}.
 

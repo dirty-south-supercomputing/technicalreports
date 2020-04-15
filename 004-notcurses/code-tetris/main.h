@@ -2,7 +2,7 @@ int main(void) {
   if(setlocale(LC_ALL, "") == nullptr){
     return EXIT_FAILURE;
   }
-  srand(time(NULL));
+  srand(time(nullptr));
   std::atomic_bool gameover = false;
   notcurses_options ncopts{};
   ncpp::NotCurses nc(ncopts);
@@ -15,11 +15,12 @@ int main(void) {
     if(input == 'q'){
       break;
     }
+    ncmtx.lock();
     switch(input){
       case NCKEY_LEFT: case 'h': t.MoveLeft(); break;
       case NCKEY_RIGHT: case 'l': t.MoveRight(); break;
       case NCKEY_DOWN: case 'j': t.MoveDown(); break;
-      case 'L': if(ni.ctrl){ notcurses_refresh(nc); } break;
+      case 'L': if(ni.ctrl){ notcurses_refresh(nc, nullptr, nullptr); } break;
       case 'z': t.RotateCcw(); break;
       case 'x': t.RotateCw(); break;
       default:
@@ -28,6 +29,7 @@ int main(void) {
         nc.render();
         break;
     }
+    ncmtx.unlock();
   }
   if(gameover || input == 'q'){ // FIXME signal it on 'q'
     gameover = true;
