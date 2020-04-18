@@ -5,10 +5,10 @@ name: debian-unstable
 
 steps:
 - name: debian-build
-  image: dankamongmen/unstable_builder:2020-03-05a
+  image: dankamongmen/unstable_builder:2020-04-18c
   commands:
     - apt-get update
     - apt-get -y dist-upgrade
-    - apt-get -y install texlive-extra-utils biber fonts-inconsolata python3-pygments ttf-unifont texlive-fonts-extra
+    - apt-get -y install texlive-extra-utils biber fonts-inconsolata python3-pygments ttf-unifont texlive-fonts-extra graphviz
     - export LANG=en_US.UTF-8
     - make < /dev/null
