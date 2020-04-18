@@ -1,5 +1,4 @@
 void DrawBackground(const std::string& s) { // drawn to the standard plane
-#ifdef USE_FFMPEG
   int averr;
   try{
     backg_ = std::make_unique<ncpp::Visual>(s.c_str(), &averr, 0, 0, ncpp::NCScale::Stretch);
@@ -13,9 +12,6 @@ void DrawBackground(const std::string& s) { // drawn to the standard plane
     throw TetrisNotcursesErr("render(): " + s);
   }
   backg_->get_plane()->greyscale();
-#else
-  (void)s;
-#endif
 }
 
 void DrawBoard() { // draw all fixed components of the game
