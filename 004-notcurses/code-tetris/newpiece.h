@@ -23,7 +23,7 @@ std::unique_ptr<ncpp::Plane> NewPiece() {
     channels_set_fg_alpha(&channels, CELL_ALPHA_TRANSPARENT);
     n->set_fg(t->color);
     n->set_bg_alpha(CELL_ALPHA_TRANSPARENT);
-    n->set_base(channels, 0, "");
+    n->set_base("", 0, channels);
     y = 0; x = 0;
     for(size_t i = 0 ; i < strlen(t->texture) ; ++i){
       if(t->texture[i] == '*'){
@@ -34,7 +34,7 @@ std::unique_ptr<ncpp::Plane> NewPiece() {
       y += ((x = ((x + 2) % cols)) == 0);
     }
   }
-  if(nc_.render()){
+  if(!nc_.render()){
     throw TetrisNotcursesErr("render()");
   }
   return n;

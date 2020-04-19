@@ -6,8 +6,10 @@
 #include <cstdlib>
 #include <clocale>
 #include <ncpp/NotCurses.hh>
+#include "version.h"
 
-const std::string BackgroundFile = "../data/tetris-background.jpeg";
+std::mutex ncmtx;
+const std::string BackgroundFile = NOTCURSES_SHARE "/tetris-background.jpeg";
 
 using namespace std::chrono_literals;
 
@@ -54,14 +56,13 @@ public:
 #include "stain.h"
 #include "lock.h"
 #include "movedown.h"
-#include "moveleft.h"
-#include "moveright.h"
+#include "movelateral.h"
 #include "rotate.h"
 
 private:
   ncpp::NotCurses& nc_;
   uint64_t score_;
-  std::mutex mtx_;
+  std::mutex mtx_; // guards msdelay_
   std::unique_ptr<ncpp::Plane> curpiece_;
   std::unique_ptr<ncpp::Plane> board_;
   std::unique_ptr<ncpp::Visual> backg_;
