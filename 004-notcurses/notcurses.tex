@@ -1789,7 +1789,7 @@ int ncvisual_stream(struct notcurses* nc, struct ncvisual* ncv, int* averr,
 \subsection{Scaling images and video}
 \begin{listing}[!htb]
 \begin{minted}{C}
-// How to scale the visual in ncvisual_open_plane(). NCSCALE_NONE will open a plane tailored to the visual's
+// How to scale the visual in ncvisual_from_file(). NCSCALE_NONE will open a plane tailored to the visual's
 // exact needs, which is probably larger than the visible screen (but might be smaller). NCSCALE_SCALE
 // scales a visual larger than the visible screen down, maintaining aspect ratio. NCSCALE_STRETCH stretches
 // and scales the image in an attempt to fill the visible screen.
@@ -1799,7 +1799,7 @@ typedef enum { NCSCALE_NONE, NCSCALE_SCALE, NCSCALE_STRETCH, } ncscale_e;
 // If there is sufficient room to display the visual in its native size, or if NCSCALE_NONE is passed for
 // 'style', the new plane will be exactly that large. Otherwise, the plane will be as large as possible (given
 // the visible screen), either maintaining aspect ratio (NCSCALE_SCALE) or abandoning it (NCSCALE_STRETCH).
-struct ncvisual* ncvisual_open_plane(struct notcurses* nc, const char* file, int* averr, int y, int x, ncscale_e style);
+struct ncvisual* ncvisual_from_file(struct notcurses* nc, const char* file, int* averr, int y, int x, ncscale_e style);
 \end{minted}
 \caption{Scaling media onto a new plane.}
 \label{list:scaling}
