@@ -223,7 +223,7 @@ already in Chapter~\ref{sec:simpleloop}.
 \end{listing}
 
 Our \texttt{main()} is quite minimal. A \texttt{Tetris} instance is
-constructed, initializting the game board and providing necessary state (score,
+constructed, initializing the game board and providing necessary state (score,
 level, etc.). \texttt{Tetris::Ticker()} is launched as a {\CC}11 thread. We
 then loop on input until either the game is over or the user presses 'q'.
 Finally, we \texttt{join()} the \texttt{Ticker()} thread, and shut down
