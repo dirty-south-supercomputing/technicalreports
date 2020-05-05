@@ -400,7 +400,7 @@ static inline int ncplane_align(const struct ncplane* n, ncalign_e align, int c)
 int ncplane_rotate_cw(struct ncplane* n);
 int ncplane_rotate_ccw(struct ncplane* n);
 \end{minted}
-\caption{Aligning output within a plane.}
+\caption{Rotating planes.}
 \label{listing:rotate}
 \end{listing}
 It's possible in rather limited circumstances to perform a rotation of a plane
@@ -703,8 +703,8 @@ set in the actual terminal (assuming support):
 \end{denseitemize}
 
 Currently, only RGB can be blended. When rendering, recall that a color dimension
-is ``solved'' when the computed cell reaches ``CELL\_ALPHA\_OPAQUE'' in that channel.
-The channel is initialized to ``CELL\_ALPHA\_TRANSPARENT''. What is done at each
+is ``solved'' when the computed cell reaches \texttt{CELL\_ALPHA\_OPAQUE} in that channel.
+The channel is initialized to \texttt{CELL\_ALPHA\_TRANSPARENT}. What is done at each
 intersecting cell depends on the computed alpha thus far; see Table~\ref{table:alphablend}.
 
 \begin{table}[!htb]
