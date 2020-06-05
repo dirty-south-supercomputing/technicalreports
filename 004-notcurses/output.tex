@@ -64,7 +64,7 @@ int mbswidth(const char* mbs);
 Multiple families of functions are available for writing to planes. Only valid
 encoded sequences from the active locale's encoding can be output. Attempting
 to e.g. write UTF-8 characters while using the \texttt{ANSI\_X3.4-1968} encoding
-will fail as soon as a non-ASCII character is submitted.
+will fail as soon as a non-ASCII (multibyte) character is submitted.
 
 The base form of each family places its output at the plane's current cursor
 location. Each family has a \texttt{\_xy()}-suffixed form which moves the

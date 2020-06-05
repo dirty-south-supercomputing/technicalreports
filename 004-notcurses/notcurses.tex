@@ -500,7 +500,7 @@ struct ncdirect* ncdirect_init(const char* termtype, FILE* fp);
 // Release 'nc' and any associated resources. 0 on success, non-0 on failure.
 int ncdirect_stop(struct ncdirect* nc);
 \end{minted}
-\caption{Initializing and stopping directmode.}
+\caption{Initializing and stopping direct mode.}
 \end{listing}
 
 Between these two calls, inject stylizing control codes into the \texttt{FILE*} with
@@ -702,8 +702,8 @@ It is possible for the screen to be corrupted by external agents. For this
 reason, Ctrl+L is by tradition bound to screen redrawing. You should hook this
 input up to \texttt{notcurses\_refresh()} unless you have good reasons not to
 do so (this is not default behavior of Notcurses only because Notcurses does
-not itself read input). It is sadly not possible for such corruption to be
-efficiently and generally detected.
+not itself drive the reading of input). It is sadly not possible for such
+corruption to be efficiently and generally detected.
 
 It is possible for the attached terminal to be resized, especially (but not
 only) for terminal emulators in GUI windowing environments\footnote{This could
