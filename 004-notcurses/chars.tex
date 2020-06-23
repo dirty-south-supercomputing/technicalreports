@@ -479,12 +479,14 @@ Emoji represent, by far, the most kibbitzed-upon, politicized, arbitrary
 element of Unicode; for us, they are also the most dangerous. Presentation of
 emoji is rivaled only by bidirectional text for variation across platforms.
 
-Some Unicode ``emoji'' support only a textual presentation, while some
-support both (with different defaults for different characters). Selecting
-the presentation can sometimes be done by following the base with \texttt{U+FE0E VARIATION SELECTOR-15} (text)
-or \texttt{U+FE0E VARIATION SELECTOR-16} (emoji). The full data on such things
-is in the Unicode-adjacent ``Data files for emoji characters'', but how closely
-your local implementation will conform this week is generally unknowable. The
+Some Unicode ``emoji'' support only a textual presentation (\texttt{text-only}),
+while some support both (with different defaults
+(\texttt{text-default}/\texttt{emoji-default}) for different characters).
+Selecting the presentation can sometimes be done by following the base with
+\texttt{U+FE0E VARIATION SELECTOR-15} (for text) or \texttt{U+FE0E VARIATION
+SELECTOR-16} (for emoji). The full data on such things is in the
+Unicode-adjacent ``Data files for emoji characters'', but how closely your
+local implementation will conform this week is generally unknowable. The
 Fitzpatrick dermatological scale has been adopted for skin-modifying postfixes.
 Google, Apple, and other Californian megacorporations think
 \xelatexemoji{1f52b-200e} is the best representation for
@@ -492,6 +494,15 @@ Google, Apple, and other Californian megacorporations think
 \xelatexemoji{1f52b}). That'll be important for things like
 {\fontspec{Symbola}{🐊🔫👮}}, an example used in \#51 to illustrate the
 importance of maintaining pictograph direction. It's a madhouse out there.
+
+Official Unicode support for the concept of emoji was added in Unicode 6.0, but
+some earlier characters have been retroactively recognized as emoji, reaching
+all the way back to the 23 Zapf Dingbats of Unicode 1.0. Unicode 5.2 added
+88 symbols for conformance with the Japanese Association of Radio
+Industries and Businesses (ARIB). The remaining 608 characters necessary to
+cover various Japanese mobile carriers were added to 6.0 (and indeed their
+definitions are given in terms of the Shift-JIS encoding\cite{emojiversions}).
+Unicode 6.1 added the concept of emoji presentation.
 
 You might have seen what appeared to be emoji flags of the world. The Unicode
 Consortium, in their wisdom, wanted nothing to do with such geopolitical
@@ -545,6 +556,11 @@ composed emoji. Note furthermore that while it is sometimes possible to set the
 background color of colored emoji, the foreground color can only rarely be
 controlled. When used properly under aligned stars, however, emoji can make
 your TUI pop like nothing else.
+
+Some applications map emoticons to emoji. This is not performed at the terminal
+level for any terminal of which I am aware, so if you want this feature, you'll
+need effect it yourself. Notcurses provides no support for this, because I
+think it's dumb. There is no concept of emoticons in Unicode.
 
 \subsection{Stupid Unicode tricks}
 Perhaps the single most useful Unicode character is U+2580 UPPER HALF BLOCK
