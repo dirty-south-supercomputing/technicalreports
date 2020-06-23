@@ -486,14 +486,18 @@ Selecting the presentation can sometimes be done by following the base with
 \texttt{U+FE0E VARIATION SELECTOR-15} (for text) or \texttt{U+FE0E VARIATION
 SELECTOR-16} (for emoji). The full data on such things is in the
 Unicode-adjacent ``Data files for emoji characters'', but how closely your
-local implementation will conform this week is generally unknowable. The
-Fitzpatrick dermatological scale has been adopted for skin-modifying postfixes.
-Google, Apple, and other Californian megacorporations think
-\xelatexemoji{1f52b-200e} is the best representation for
-\xelatexemoji{1f52b-200d} \texttt{U+1F52B PISTOL} (I personally like
-\xelatexemoji{1f52b}). That'll be important for things like
-{\fontspec{Symbola}{🐊🔫👮}}, an example used in \#51 to illustrate the
-importance of maintaining pictograph direction. It's a madhouse out there.
+local implementation will conform this week is generally unknowable.
+
+When using the textual presentation, emoji can be arbitrarily colored according
+to the standard Notcurses mechanisms. Emoji presentation will typically make use
+of its own colors (the background color will usually be honored, in my
+experience). The Fitzpatrick dermatological scale has been adopted for modifying
+the skin tone of base glyphs via Zero-Width-Joiner (ZWJ) sequences. Characters
+which can be so modified are designated with the \texttt{Emoji\_Modifier\_Base}
+property, and can be affected by characters with the \texttt{Emoji\_Modifier}
+property. Both (and the ZWJ character) are part of the same EGC. ``Standard'' ZWJ
+sequences are described as ``Recommended for General Interchange'' (RGI) in
+the Unicode data files.
 
 Official Unicode support for the concept of emoji was added in Unicode 6.0, but
 some earlier characters have been retroactively recognized as emoji, reaching
@@ -503,6 +507,13 @@ Industries and Businesses (ARIB). The remaining 608 characters necessary to
 cover various Japanese mobile carriers were added to 6.0 (and indeed their
 definitions are given in terms of the Shift-JIS encoding\cite{emojiversions}).
 Unicode 6.1 added the concept of emoji presentation.
+
+Google, Apple, and other Californian megacorporations think
+\xelatexemoji{1f52b-200e} is the best representation for
+\xelatexemoji{1f52b-200d} \texttt{U+1F52B PISTOL} (I personally like
+\xelatexemoji{1f52b}). That'll be important for things like
+{\fontspec{Symbola}{🐊🔫👮}}, an example used in \#51 to illustrate the
+importance of maintaining pictograph direction. It's a madhouse out there.
 
 You might have seen what appeared to be emoji flags of the world. The Unicode
 Consortium, in their wisdom, wanted nothing to do with such geopolitical
@@ -552,9 +563,7 @@ almost certainly screw up geometry through the end of the line, since Notcurses
 will have an incorrect concept of the cursor's horizontal position. This
 assumes that the font in use has even the basic component glyphs---in the very
 limited Linux console font, it's unlikely that anything good can come of using
-composed emoji. Note furthermore that while it is sometimes possible to set the
-background color of colored emoji, the foreground color can only rarely be
-controlled. When used properly under aligned stars, however, emoji can make
+composed emoji. When used properly under aligned stars, however, emoji can make
 your TUI pop like nothing else.
 
 Some applications map emoticons to emoji. This is not performed at the terminal
