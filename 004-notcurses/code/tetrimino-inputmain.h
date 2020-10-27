@@ -8,8 +8,8 @@ int main(void){
   }
   int dimy, dimx, y, x;
   struct tetmarsh marsh = { .lock = PTHREAD_MUTEX_INITIALIZER, .nc = nc, .p = 0, };
-  notcurses_stddim_yx(nc, &dimy, &dimx);
-  if(!(marsh.coaster = makebox(nc)) || draw_tetriminos(nc, marsh.minos, dimy, dimx)){
+  struct ncplane* nstd = notcurses_stddim_yx(nc, &dimy, &dimx);
+  if(!(marsh.coaster = makebox(nstd)) || draw_tetriminos(nstd, marsh.minos, dimy, dimx)){
     notcurses_stop(nc);
     return EXIT_FAILURE;
   }

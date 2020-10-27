@@ -1,10 +1,9 @@
 static struct ncvisual* background(struct notcurses* nc, const char* fname){
-  int err = 0;
-  struct ncvisual* ncv = ncplane_visual_open(notcurses_stdplane(nc), fname, &err);
-  if(!ncv || (err && err != AVERROR_EOF)){
+  struct ncvisual* ncv = ncvisual_from_file(fname);
+  if(!ncv){
     return NULL;
   }
-  if(!ncvisual_decode(ncv, &err) || ncvisual_render(ncv, 0, 0, -1, -1) <= 0){
+  if(ncvisual_render(nc, ncv, NULL) <= 0){
     ncvisual_destroy(ncv);
     return NULL;
   }

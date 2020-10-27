@@ -1,10 +1,10 @@
 // makes an opaque box to highlight the selected piece
-static struct ncplane* makebox(struct notcurses* nc){
-  struct ncplane* ret = ncplane_new(nc, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, 0, 0, NULL);
+static struct ncplane* makebox(struct ncplane* nc){
+  struct ncplane* ret = ncplane_new(nc, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, 0, 0, NULL, NULL);
   if(ret){
     uint64_t tl = 0, br = 0, m = 0;
-    channels_set_fg(&tl, 0xffffff); channels_set_fg(&br, 0xffffff); channels_set_fg(&m, 0xffffff);
-    channels_set_bg(&tl, 0x000000); channels_set_bg(&br, 0x000000); channels_set_bg(&m, 0x808080);
+    channels_set_fg_rgb(&tl, 0xffffff); channels_set_fg_rgb(&br, 0xffffff); channels_set_fg_rgb(&m, 0xffffff);
+    channels_set_bg_rgb(&tl, 0x000000); channels_set_bg_rgb(&br, 0x000000); channels_set_bg_rgb(&m, 0x808080);
     if(ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4) >= 0){
       #define CTI(cname) cell cname = CELL_TRIVIAL_INITIALIZER
       CTI(cul); CTI(cur); CTI(cbl); CTI(cbr); CTI(chl); CTI(cvl);
@@ -30,7 +30,7 @@ static int highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box
   r = channel_r(tetriminos[tidx].color);
   g = channel_g(tetriminos[tidx].color);
   b = channel_b(tetriminos[tidx].color);
-  channels_set_fg_rgb_clipped(&c, g + 128, b + 128, r + 128);
+  channels_set_fg_rgb8_clipped(&c, g + 128, b + 128, r + 128);
   ncplane_yx(minos[tidx], &ny, &nx);
   ncplane_move_yx(box, ny - 2, nx - 2 * COLS_PER_GCOL);
   return blast(minos[tidx], NCSTYLE_BOLD, c, c, c, c);

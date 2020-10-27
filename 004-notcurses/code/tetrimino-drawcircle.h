@@ -1,4 +1,4 @@
-static int draw_tetriminos(struct notcurses* nc, struct ncplane** minos, int dimy, int dimx){
+static int draw_tetriminos(struct ncplane* nc, struct ncplane** minos, int dimy, int dimx){
   const int centy = dimy / 2, centx = dimx / 2;
   const int radius = dimy < dimx ? dimy / 3 : dimx / 3;
   const float aspect = dimx / (float)dimy;
