@@ -7,14 +7,14 @@ int main(void){
   setlocale(LC_ALL, "");
   notcurses_options nopts;
   memset(&nopts, 0, sizeof(nopts));
-  nopts.inhibit_alternate_screen = true;
+  nopts.flags |= NCOPTION_NO_ALTERNATE_SCREEN;
   struct notcurses* nc = notcurses_init(&nopts, stdout);
   fflush(stdout);
-  int averr;
-  struct ncvisual* ncv = ncvisual_open_plane(nc, "htp-speech-bubble.jpg", &averr, 0, 0, NCSCALE_SCALE);
-  ncvisual_decode(ncv, &averr);
-  ncvisual_render(ncv, 0, 0, 0, 0);
-  struct ncplane* n = ncvisual_plane(ncv);
+  struct ncvisual* ncv = ncvisual_from_file("htp-speech-bubble.jpg");
+  struct ncvisual_options vopts = {
+    .scaling = NCSCALE_NONE,
+  };
+  struct ncplane* n = ncvisual_render(nc, ncv, &vopts);
   ncplane_putstr_yx(n, 7, 50, "hacking the planet!");
   ncplane_putstr_yx(n, 9, 51, "with libnotcurses");
   ncplane_putstr_yx(n, 13, 53, "by nick black");
