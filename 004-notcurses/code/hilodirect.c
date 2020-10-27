@@ -1,10 +1,10 @@
 #include <limits.h>
-#include <notcurses/notcurses.h>
+#include <notcurses/direct.h>
 
 int main(void){
   srand(time(NULL)); // gross
   long guess, secret = random();
-  struct ncdirect* n = ncdirect_init(NULL, stdout);
+  struct ncdirect* n = ncdirect_init(NULL, stdout, 0);
   if(n == NULL){
     return EXIT_FAILURE;
   }
