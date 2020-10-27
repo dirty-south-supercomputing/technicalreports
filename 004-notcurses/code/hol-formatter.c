@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include <notcurses/notcurses.h>
+#include <notcurses/direct.h>
 
 int main(void){
   const char blue[] = "house";
   const char *b = blue;
-  struct ncdirect* n = ncdirect_init(NULL, stdout);
+  struct ncdirect* n = ncdirect_init(NULL, stdout, 0);
   int c, ret = 0;
   if(n){
     while(!ret && (c = getchar()) != EOF){
@@ -14,7 +14,7 @@ int main(void){
         if(b > blue){
           if(!*b){
             ret |= ncdirect_styles_on(n, NCSTYLE_STANDOUT);
-            ret |= ncdirect_fg(n, 0x0339dc);
+            ret |= ncdirect_fg_rgb(n, 0x0339dc);
           }
           ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
