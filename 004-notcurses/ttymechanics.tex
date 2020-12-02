@@ -242,7 +242,7 @@ unique value---it's implied by the session leader process.}. This SID
 is the same as the PID of its \textit{session leader}. A session might or might
 not have a controlling terminal (daemons disconnect themselves from their
 controlling terminal). Login sessions almost always do have a controlling
-terminal: the tty on which \texttt{login} was running (for a cosole session),
+terminal: the tty on which \texttt{login} was running (for a console session),
 or the pty opened at process creation (for e.g. SSH or \texttt{xterm}). The
 process groups of a session are divided into a single \textit{foreground group}
 and zero or more \textit{background groups}.
