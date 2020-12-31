@@ -218,7 +218,7 @@ using their \path{/dev} nodes, and then operated upon as a typical file
 descriptor. You're no doubt aware that UNIX programs traditionally start with
 at least three file descriptors open: 0 for \texttt{stdin}, 1 for
 \texttt{stdout}, and 2 for \texttt{stderr}. Recall further that file descriptors
-are by default not closed across an \text{exec(2)} call that replaces one
+are by default not closed across an \texttt{exec(2)} call that replaces one
 process's code with another object.
 
 Each process has a process ID (PID) unique to its PID namespace (see
