@@ -4,7 +4,7 @@
 int main(void){
   const char blue[] = "house";
   const char *b = blue;
-  struct ncdirect* n = ncdirect_init(NULL, stdout, 0);
+  struct ncdirect* n = ncdirect_core_init(NULL, stdout, 0);
   int c, ret = 0;
   if(n){
     while(!ret && (c = getchar()) != EOF){
@@ -13,13 +13,13 @@ int main(void){
       }else{
         if(b > blue){
           if(!*b){
-            ret |= ncdirect_styles_on(n, NCSTYLE_STANDOUT);
-            ret |= ncdirect_fg_rgb(n, 0x0339dc);
+            ret |= ncdirect_on_styles(n, NCSTYLE_STANDOUT);
+            ret |= ncdirect_set_fg_rgb(n, 0x0339dc);
           }
           ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
-            ret |= ncdirect_fg_default(n);
-            ret |= ncdirect_styles_off(n, NCSTYLE_STANDOUT);
+            ret |= ncdirect_set_fg_default(n);
+            ret |= ncdirect_off_styles(n, NCSTYLE_STANDOUT);
           }
           b = blue;
         }

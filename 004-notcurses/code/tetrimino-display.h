@@ -3,7 +3,10 @@
 static struct ncplane* tetrimino_plane(struct ncplane* nc, int tidx, int yoff, int xoff){
   const struct tetrimino* t = &tetriminos[tidx];
   const size_t cols = strlen(t->texture) / (2 * ROWS_PER_GROW);
-  struct ncplane* n = ncplane_new(nc, 2 * ROWS_PER_GROW, cols, yoff, xoff, NULL, NULL);
+  struct ncplane_options nopts = {
+    .y = yoff, .x = xoff, .rows = 2 * ROWS_PER_GROW, .cols = cols,
+  };
+  struct ncplane* n = ncplane_create(nc, &nopts);
   if(n){
     ncplane_set_fg_rgb(n, t->color);
     size_t y = 0, x = 0;

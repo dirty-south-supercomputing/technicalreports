@@ -4,7 +4,7 @@
 int main(void){
   srand(time(NULL)); // gross
   long guess, secret = random();
-  struct ncdirect* n = ncdirect_init(NULL, stdout, 0);
+  struct ncdirect* n = ncdirect_core_init(NULL, stdout, 0);
   if(n == NULL){
     return EXIT_FAILURE;
   }
@@ -31,7 +31,8 @@ int main(void){
     }
   }while(guess != secret && !r);
   if(r || printf("You enjoy 20/20 vision into the minds of antimen!\n") < 0){
+    ncdirect_stop(n);
     return EXIT_FAILURE;
   }
-  return EXIT_SUCCESS;
+  return ncdirect_stop(n) ? EXIT_FAILURE : EXIT_SUCCESS;
 }

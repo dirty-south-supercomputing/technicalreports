@@ -1,6 +1,9 @@
 // makes an opaque box to highlight the selected piece
 static struct ncplane* makebox(struct ncplane* nc){
-  struct ncplane* ret = ncplane_new(nc, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, 0, 0, NULL, NULL);
+  struct ncplane_options nopts = {
+    .rows = 2 * ROWS_PER_GROW + 2, .cols = 4 * COLS_PER_GCOL + 4,
+  };
+  struct ncplane* ret = ncplane_create(nc, &nopts);
   if(ret){
     uint64_t tl = 0, br = 0, m = 0;
     channels_set_fg_rgb(&tl, 0xffffff); channels_set_fg_rgb(&br, 0xffffff); channels_set_fg_rgb(&m, 0xffffff);

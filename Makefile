@@ -36,6 +36,8 @@ all: reports
 
 reports: $(REPORTS)
 
+LFLAGS:=$(shell pkg-config --libs notcurses)
+
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
@@ -46,13 +48,13 @@ $(CANBUSDIR)/$(CANBUSBASE).pdf: $(CANBUSDIR)/$(CANBUSBASE).tex $(CANBUSDIR)/$(CA
 	cd $(@D) && arara -v $(<F)
 
 $(NOTCURSESDIR)/tetrimino-input: $(NOTCURSESDIR)/code/tetrimino-input.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, background box databox displayutf8 drawcircle inputcore inputmain switchbox thread))
-	$(CC) -pthread $(CFLAGS) -o $@ $< -lnotcurses -lm
+	$(CC) -pthread $(CFLAGS) -o $@ $< $(LFLAGS) -lm
 
 $(NOTCURSESDIR)/tetrimino: $(NOTCURSESDIR)/code/tetrimino.c $(addsuffix .h, $(addprefix $(NOTCURSESDIR)/code/tetrimino-, display draw main mouse switch))
-	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
+	$(CC) $(CFLAGS) -o $@ $< $(LFLAGS)
 
 $(NOTCURSESDIR)/%: $(NOTCURSESDIR)/code/%.c
-	$(CC) $(CFLAGS) -o $@ $< -lnotcurses
+	$(CC) $(CFLAGS) -o $@ $< $(LFLAGS)
 
 $(NOTCURSESDIR)/dot/%.png: $(NOTCURSESDIR)/%.dot
 	@mkdir -p $(@D)
