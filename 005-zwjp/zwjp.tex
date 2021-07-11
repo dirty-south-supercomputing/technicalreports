@@ -1,0 +1,101 @@
+% arara: xelatex: {shell: true}
+% arara: biber
+% arara: xelatex: {shell: true}
+% arara: xelatex: {shell: true}
+% arara: xelatex: {shell: true}
+\documentclass[letterpaper,10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{newfloat}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption}
+%\usepackage{draftwatermark}
+\usepackage{fancyhdr}
+\usepackage{makecell}
+\usepackage{wrapfig}
+\usepackage{parskip}
+\usepackage[section]{placeins}
+\usepackage{epigraph}
+%\usepackage{sourcecodepro}
+\usepackage{fontspec}
+\usepackage[toc,nonumberlist,xindy]{glossaries}
+\usepackage{relsize}
+%\setmonofont[Scale=0.7]{Source Code Pro}
+\setmonofont[Scale=0.8]{Unifont}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage[table]{xcolor}
+%\usepackage{pdfpages}
+\usepackage[titletoc,title]{appendix}
+\usepackage{tipa}
+\newfontfamily\greekfont{Noto Sans}
+\definecolor{dsscawpurp}{HTML}{b079b0}
+\definecolor{dsscawpurpcap}{HTML}{6c286c}
+\usepackage[font={color=dsscawpurpcap},labelfont={sc}]{caption}
+\usepackage[backend=biber,
+date=iso,
+seconds=true,
+style=numeric,
+bibencoding=utf8,
+]{biblatex}
+
+\tracinglostchars=2
+
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  pdftitle={Proposal for a Prefix ZWJ},
+}
+
+\addbibresource{\jobname.bib}
+\newenvironment{denseitemize}{
+  \begin{itemize}
+      \setlength{\itemsep}{0pt}
+}{
+  \end{itemize}
+}
+
+\pagestyle{fancy}
+\rhead{
+  \includegraphics[height=\fontcharht\font`\D,keepaspectratio=true]{../dsscaw-hdr.pdf}
+  \textcolor{dsscawpurp}{DSSCAW Technical Report \#005}
+}
+
+\title{Proposal for a Prefix ZWJ}
+\author{Nick Black, Consulting Scientist\\
+\texttt{nickblack@linux.com}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\includepdf{media/frontcover.pdf}
+%\date{March 24, 2020}
+\maketitle
+\date{}
+\vspace{1in}
+\begin{abstract}
+When processing a stream of Unicode, there are several cases where it
+is useful or even necessary to know that a codepoint is only part of a
+ZWJ sequence. This is not possible with existing ZWJ semantics, since
+the ZWJ arrives only after each non-terminating combined character. I
+propose a stacking, prefixing ZWJ, indicating that the subsequent two
+encoded codepoints and/or ZWJ sequences are to be combined into a single
+ZWJ sequence.
+\end{abstract}
+\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+As the author of a modern library for TUIs and character graphics\cite{notcurses}
+library, I've spent significant time over the past two years working with
+complex Unicode in interactive environments. Interactivity, and more
+fundamentally streaming, adds complexity to handling Unicode, especially
+with regard to combining characters, ZWJ sequences\cite{zwjseqs}, and
+segmentation\cite{segmentation}.
+
+\pagenumbering{roman}
+
+\end{document}

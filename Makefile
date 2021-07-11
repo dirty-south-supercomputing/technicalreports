@@ -8,6 +8,8 @@ CANBUSDIR:=001-$(CANBUSBASE)
 µNANDFSDIR:=002-$(µNANDFSBASE)
 NOTCURSESBASE:=notcurses
 NOTCURSESDIR:=004-$(NOTCURSESBASE)
+ZWJPBASE:=zwjp
+ZWJPDIR:=005-$(ZWJPBASE)
 
 # Common resources
 RESOURCES:=common/dsscaw-purp-scaled.png dsscaw-hdr.pdf common/south.png
@@ -21,6 +23,7 @@ DIRS:=$(CANBUSDIR) $(µNANDFSDIR) $(NOTCURSESDIR)
 REPORTS:=$(CANBUSDIR)/$(CANBUSBASE)
 REPORTS+=$(µNANDFSDIR)/$(µNANDFSBASE)
 REPORTS+=$(NOTCURSESDIR)/$(NOTCURSESBASE)
+REPORTS+=$(ZWJPDIR)/$(ZWJPBASE)
 REPORTS:=$(addsuffix .pdf,$(REPORTS))
 
 LATEX:=xelatex
@@ -37,6 +40,9 @@ all: reports
 reports: $(REPORTS)
 
 LFLAGS:=$(shell pkg-config --libs notcurses)
+
+$(ZWJPDIR)/$(ZWJPBASE).pdf: $(addprefix $(ZWJPDIR)/,$(ZWJPBASE).tex) $(RESOURCES)
+	cd $(@D) && arara -v $(<F)
 
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
