@@ -41,7 +41,7 @@ reports: $(REPORTS)
 
 LFLAGS:=$(shell pkg-config --libs notcurses)
 
-$(ZWJPDIR)/$(ZWJPBASE).pdf: $(addprefix $(ZWJPDIR)/,$(ZWJPBASE).tex) $(RESOURCES)
+$(ZWJPDIR)/$(ZWJPBASE).pdf: $(addprefix $(ZWJPDIR)/$(ZWJPBASE),.tex .bib) $(RESOURCES)
 	cd $(@D) && arara -v $(<F)
 
 $(µNANDFSDIR)/$(µNANDFSBASE).pdf: $(addprefix $(µNANDFSDIR)/,$(µNANDFSBASE).tex $(µNANDFSBASE).bib $(µNANDFSRESOURCES)) $(RESOURCES)
