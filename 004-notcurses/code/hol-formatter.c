@@ -13,13 +13,13 @@ int main(void){
       }else{
         if(b > blue){
           if(!*b){
-            ret |= ncdirect_on_styles(n, NCSTYLE_STANDOUT);
+            ret |= ncdirect_on_styles(n, NCSTYLE_BOLD);
             ret |= ncdirect_set_fg_rgb(n, 0x0339dc);
           }
           ret |= (printf("%.*s", (int)(b - blue), blue) < 0);
           if(!*b){
             ret |= ncdirect_set_fg_default(n);
-            ret |= ncdirect_off_styles(n, NCSTYLE_STANDOUT);
+            ret |= ncdirect_off_styles(n, NCSTYLE_BOLD);
           }
           b = blue;
         }

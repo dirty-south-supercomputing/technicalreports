@@ -9,8 +9,8 @@ static struct ncplane* tetrimino_plane(struct ncplane* nc, int tidx, int yoff, i
   struct ncplane* n = ncplane_create(nc, &nopts);
   if(n){
     uint64_t channels = 0;
-    channels_set_bg_alpha(&channels, CELL_ALPHA_TRANSPARENT);
-    channels_set_fg_alpha(&channels, CELL_ALPHA_TRANSPARENT);
+    ncchannels_set_bg_alpha(&channels, NCALPHA_TRANSPARENT);
+    ncchannels_set_fg_alpha(&channels, NCALPHA_TRANSPARENT);
     ncplane_set_fg_rgb(n, t->color);
     ncplane_set_base(n, "", 0, channels);
     size_t y = 0, x = 0;

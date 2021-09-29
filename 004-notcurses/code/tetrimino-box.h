@@ -6,20 +6,20 @@ static struct ncplane* makebox(struct ncplane* nc){
   struct ncplane* ret = ncplane_create(nc, &nopts);
   if(ret){
     uint64_t tl = 0, br = 0, m = 0;
-    channels_set_fg_rgb(&tl, 0xffffff); channels_set_fg_rgb(&br, 0xffffff); channels_set_fg_rgb(&m, 0xffffff);
-    channels_set_bg_rgb(&tl, 0x000000); channels_set_bg_rgb(&br, 0x000000); channels_set_bg_rgb(&m, 0x808080);
+    ncchannels_set_fg_rgb(&tl, 0xffffff); ncchannels_set_fg_rgb(&br, 0xffffff); ncchannels_set_fg_rgb(&m, 0xffffff);
+    ncchannels_set_bg_rgb(&tl, 0x000000); ncchannels_set_bg_rgb(&br, 0x000000); ncchannels_set_bg_rgb(&m, 0x808080);
     if(ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4) >= 0){
-      #define CTI(cname) cell cname = CELL_TRIVIAL_INITIALIZER
+      #define CTI(cname) nccell cname = CELL_TRIVIAL_INITIALIZER
       CTI(cul); CTI(cur); CTI(cbl); CTI(cbr); CTI(chl); CTI(cvl);
       #undef CTI
-      if(cells_double_box(ret, 0, br, &cul, &cur, &cbl, &cbr, &chl, &cvl) == 0){
+      if(nccells_double_box(ret, 0, br, &cul, &cur, &cbl, &cbr, &chl, &cvl) == 0){
         int r = ncplane_perimeter(ret, &cul, &cur, &cbl, &cbr, &chl, &cvl, 0);
         if(r == 0){
           ncplane_cursor_move_yx(ret, 0, 0);
           return ret;
         }
-        cell_release(ret, &cul); cell_release(ret, &cur); cell_release(ret, &chl);
-        cell_release(ret, &cbl); cell_release(ret, &cbr); cell_release(ret, &cvl);
+        nccell_release(ret, &cul); nccell_release(ret, &cur); nccell_release(ret, &chl);
+        nccell_release(ret, &cbl); nccell_release(ret, &cbr); nccell_release(ret, &cvl);
       }
     }
     ncplane_destroy(ret);
@@ -30,10 +30,10 @@ static struct ncplane* makebox(struct ncplane* nc){
 static int highlight_enbox(struct ncplane** minos, int tidx, struct ncplane* box){
   int r, g, b, ny, nx;
   uint64_t corig = 0, c = 0;
-  r = channel_r(tetriminos[tidx].color);
-  g = channel_g(tetriminos[tidx].color);
-  b = channel_b(tetriminos[tidx].color);
-  channels_set_fg_rgb8_clipped(&c, g + 128, b + 128, r + 128);
+  r = ncchannel_r(tetriminos[tidx].color);
+  g = ncchannel_g(tetriminos[tidx].color);
+  b = ncchannel_b(tetriminos[tidx].color);
+  ncchannels_set_fg_rgb8_clipped(&c, g + 128, b + 128, r + 128);
   ncplane_yx(minos[tidx], &ny, &nx);
   ncplane_move_yx(box, ny - 2, nx - 2 * COLS_PER_GCOL);
   return blast(minos[tidx], NCSTYLE_BOLD, c, c, c, c);

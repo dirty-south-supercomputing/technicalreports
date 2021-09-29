@@ -11,6 +11,6 @@ static int reduce(struct ncplane** minos, int tidx){
   struct ncplane* n = minos[tidx];
   int r, g, b;
   uint64_t c = 0;
-  channels_set_fg_rgb(&c, tetriminos[tidx].color);
+  ncchannels_set_fg_rgb(&c, tetriminos[tidx].color);
   return blast(minos[tidx], 0, c, c, c, c);
 }
