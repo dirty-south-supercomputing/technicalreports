@@ -160,10 +160,10 @@ modes are common, and have their own nomenclature:
 \item{\textbf{Cbreak mode:} Line buffering is disabled, as is the processing
   of erase/kill characters. Interrupt and flow control translation is unaffected.
 Sometimes referred to as \textit{rare mode}. This mode allows processing of input
-without waiting for a newline character, while retaining e.g. Ctrl+C.}
+without waiting for a newline character, while retaining e.g.\ Ctrl+C.}
 \item{\textbf{Raw mode:} Interrupt and flow control translation is also disabled.
   This allows all keyboard input to be processed without preprocessing by the
-  line discipline, but e.g. Ctrl+C behavior is lost, and (if desired) must be
+  line discipline, but e.g.\ Ctrl+C behavior is lost, and (if desired) must be
   emulated in user space.}
 \end{denseitemize}
 
@@ -204,7 +204,7 @@ you're getting an error message like ``\path{/dev/ptmx} does not exist you have
 no chance to survive make your time'' you'll know you're missing the
 master clone device, some small consolation as you hopelessly reboot\footnote{Pro tip:
 should you ever need supply input to programs which refuse to read from pipes
-(e.g. \texttt{passwd}), you can pump the input through a named pty.}.
+(e.g.\ \texttt{passwd}), you can pump the input through a named pty.}.
 
 \subsection{Terminals and the UNIX process model}
 \label{sec:unixprocs}
@@ -227,7 +227,7 @@ Each process is a member of a \textit{process group}, and each process group
 has its own process group ID (PGID)\footnote{Both PIDs and PGIDs are represented using \texttt{pid\_t}.}.
 This PGID is equal to the \textit{group leader}'s PID, and each process group
 has one and only one leader. Signals can be addressed to a process group by
-supplying the negative PGID to e.g. \texttt{kill(2)}; a signal sent to a group
+supplying the negative PGID to e.g.\ \texttt{kill(2)}; a signal sent to a group
 will be delivered to all processes of that group. One of the most common
 scenarios in which multiple processes are kept in a single group is a shell
 pipeline (a \texttt{fork(2)}ing process will usually place independent children
@@ -243,7 +243,7 @@ is the same as the PID of its \textit{session leader}. A session might or might
 not have a controlling terminal (daemons disconnect themselves from their
 controlling terminal). Login sessions almost always do have a controlling
 terminal: the tty on which \texttt{login} was running (for a console session),
-or the pty opened at process creation (for e.g. SSH or \texttt{xterm}). The
+or the pty opened at process creation (for e.g.\ SSH or \texttt{xterm}). The
 process groups of a session are divided into a single \textit{foreground group}
 and zero or more \textit{background groups}.
 
