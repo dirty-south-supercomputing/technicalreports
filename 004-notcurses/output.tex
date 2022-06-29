@@ -302,7 +302,7 @@ static inline int ncplane_printf_aligned(struct ncplane* n, int y, ncalign_e ali
 \label{sec:attribute}
 Each cell has a 32-bit \texttt{attribute} field, initialized to 0. Many functions
 accept a 32-bit attribute, either to directly set a cell, or to apply to a number
-of cells. This type (sometimes called \texttt{attrword} is logically a 2-byte
+of cells. This type (sometimes called \texttt{attrword}) is logically a 2-byte
 bitmask of \texttt{NCSTYLE\_} flags (see Table~\ref{table:styles}), followed by two 8-bit palette indices. The
 palette indices may take any value from 0--255, but are used if and only if the
 corresponding ``not default color'' \textit{and} ``palette-indexed color'' bits
