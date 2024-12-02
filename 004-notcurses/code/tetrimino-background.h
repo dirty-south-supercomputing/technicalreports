@@ -3,7 +3,7 @@ static struct ncvisual* background(struct notcurses* nc, const char* fname){
   if(!ncv){
     return NULL;
   }
-  if(ncvisual_render(nc, ncv, NULL) <= 0){
+  if(ncvisual_blit(nc, ncv, NULL) == NULL){
     ncvisual_destroy(ncv);
     return NULL;
   }
