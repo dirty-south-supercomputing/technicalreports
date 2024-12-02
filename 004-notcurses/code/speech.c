@@ -14,7 +14,7 @@ int main(void){
   struct ncvisual_options vopts = {
     .scaling = NCSCALE_NONE,
   };
-  struct ncplane* n = ncvisual_render(nc, ncv, &vopts);
+  struct ncplane* n = ncvisual_blit(nc, ncv, &vopts);
   ncplane_putstr_yx(n, 7, 50, "hacking the planet!");
   ncplane_putstr_yx(n, 9, 51, "with libnotcurses");
   ncplane_putstr_yx(n, 13, 53, "by nick black");
