@@ -9,7 +9,7 @@ static struct ncplane* makebox(struct ncplane* nc){
     ncchannels_set_fg_rgb(&tl, 0xffffff); ncchannels_set_fg_rgb(&br, 0xffffff); ncchannels_set_fg_rgb(&m, 0xffffff);
     ncchannels_set_bg_rgb(&tl, 0x000000); ncchannels_set_bg_rgb(&br, 0x000000); ncchannels_set_bg_rgb(&m, 0x808080);
     if(ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4) >= 0){
-      #define CTI(cname) nccell cname = CELL_TRIVIAL_INITIALIZER
+      #define CTI(cname) nccell cname = NCCELL_TRIVIAL_INITIALIZER
       CTI(cul); CTI(cur); CTI(cbl); CTI(cbr); CTI(chl); CTI(cvl);
       #undef CTI
       if(nccells_double_box(ret, 0, br, &cul, &cur, &cbl, &cbr, &chl, &cvl) == 0){
