@@ -39,6 +39,7 @@ all: reports
 
 reports: $(REPORTS)
 
+CFLAGS:=$(shell pkg-config --cflags notcurses)
 LFLAGS:=$(shell pkg-config --libs notcurses)
 
 $(ZWJPDIR)/$(ZWJPBASE).pdf: $(addprefix $(ZWJPDIR)/$(ZWJPBASE),.tex .bib) $(RESOURCES)
