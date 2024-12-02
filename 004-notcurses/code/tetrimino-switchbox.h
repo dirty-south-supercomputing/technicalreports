@@ -3,8 +3,8 @@ static int blast(struct ncplane* n, uint32_t attrword, uint64_t ul,
   int dimy, dimx;
   ncplane_dim_yx(n, &dimy, &dimx);
   return ncplane_cursor_move_yx(n, 0, 0) ||
-         ncplane_format(n, dimy - 1, dimx - 1, attrword) ||
-         ncplane_stain(n, dimy - 1, dimx - 1, ul, ur, ll, lr);
+         ncplane_format(n, -1, -1, dimy - 1, dimx - 1, attrword) ||
+         ncplane_stain(n, -1, -1, dimy - 1, dimx - 1, ul, ur, ll, lr);
 }
 
 static int reduce(struct ncplane** minos, int tidx){

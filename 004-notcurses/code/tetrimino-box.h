@@ -8,7 +8,7 @@ static struct ncplane* makebox(struct ncplane* nc){
     uint64_t tl = 0, br = 0, m = 0;
     ncchannels_set_fg_rgb(&tl, 0xffffff); ncchannels_set_fg_rgb(&br, 0xffffff); ncchannels_set_fg_rgb(&m, 0xffffff);
     ncchannels_set_bg_rgb(&tl, 0x000000); ncchannels_set_bg_rgb(&br, 0x000000); ncchannels_set_bg_rgb(&m, 0x808080);
-    if(ncplane_gradient_sized(ret, " ", 0, tl, m, m, br, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4) >= 0){
+    if(ncplane_gradient(ret, 0, 0, 2 * ROWS_PER_GROW + 2, 4 * COLS_PER_GCOL + 4, " ", 0, tl, m, m, br) >= 0){
       #define CTI(cname) nccell cname = NCCELL_TRIVIAL_INITIALIZER
       CTI(cul); CTI(cur); CTI(cbl); CTI(cbr); CTI(chl); CTI(cvl);
       #undef CTI
