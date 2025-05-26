@@ -7,6 +7,10 @@ OUT:=$(addsuffix .pdf, $(PAPERBACK))
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo)
+PDFVIEW:=evince
+
+preview: all
+	$(PDFVIEW) $(PAPERBACK).pdf
 
 all: $(OUT)
 
