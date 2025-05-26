@@ -6,7 +6,7 @@ PAPERBACK:=pgo-pb
 OUT:=$(addsuffix .pdf, $(PAPERBACK))
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
-TEX:=$(addsuffix .tex, pgo)
+TEX:=$(addsuffix .tex, pgo trainer)
 PDFVIEW:=evince
 
 preview: all

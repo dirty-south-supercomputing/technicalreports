@@ -28,6 +28,8 @@
 \usepackage{luatex85} % otherwise pdfx blows up =\
 \usepackage[a-3u]{pdfx}
 
+\newcommand\Midrule[0]{\midrule}
+
 \def\LOGO {\textsf{\fontsize{56pt}{60pt}
   \color{MidnightBlue}
   \vspace{-1cm} % align it with following page
@@ -66,4 +68,10 @@ W \LOGO % W: Command terminated with space. (1)
 %--------------------------main text------------------------------------------%
 \mainmatter
 \input{trainer}
+\input{types}
+\input{attacks}
+\input{species}
+\input{pokémon}
+\input{stats}
+\input{damage}
 \end{document}
