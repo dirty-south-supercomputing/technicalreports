@@ -6,7 +6,7 @@ PAPERBACK:=pgo-pb
 OUT:=$(addsuffix .pdf, $(PAPERBACK))
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
-TEX:=$(addsuffix .tex, pgo trainer)
+TEX:=$(addsuffix .tex, pgo trainer types attacks species pokémon stats damage)
 PDFVIEW:=evince
 
 preview: all
