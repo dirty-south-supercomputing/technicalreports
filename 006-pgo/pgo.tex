@@ -1,0 +1,97 @@
+\documentclass[ebook,9pt]{memoir}                                                                                                 
+\title{pgo}                                                                                                      
+\author{nick black}                                                                                                               
+%\special{pdf:minorversion 7}                                                                                                     
+\usepackage{unicode-math}                                                                                                         
+\defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}                                                        
+\usepackage{microtype}                                                                                                            
+\usepackage{bookmark}                                                                                                             
+\usepackage{ninecolors}                                                                                                           
+\usepackage[svgnames,HSB]{xcolor}                                                                                                 
+\selectcolormodel{rgb}                                                                                                            
+\usepackage{caption} % for \captionsetup                                                                                          
+\usepackage{polyglossia}                                                                                                          
+\usepackage{pdfpages}                                                                                                             
+\usepackage{tabularray}                                                                                                           
+\usepackage{ifthen}                                                                                                               
+\usepackage{multicol}                                                                                                             
+\usepackage[siunitx]{circuitikz}                                                                                                  
+\usepackage[mode=text]{siunitx}                                                                                                   
+\usepackage[most]{tcolorbox}                                                                                                      
+%\usepackage[symbols,notext]{kpfonts-otf} % upsets tex4ebook                                                                       
+\setsansfont{Kanit}                                                                                                               
+\setmonofont[Scale=0.8]{Hack}                                                                                                     
+\setmainfont{Gentium Book Plus}                                                                                                   
+\newfontfamily\latinfont{Gentium Book Plus}                                                                                       
+\newfontfamily\chinesefont[Script=CJK]{Noto Serif CJK SC}                                                                         
+\newfontfamily\japanesefont[Script=CJK]{Noto Serif CJK JP}                                                                        
+\newfontfamily\koreanfont[Script=CJK]{Noto Serif CJK KR}                                                                          
+\newfontfamily\hebrewfont[Script=Hebrew]{Noto Serif Hebrew}                                                                       
+\newfontfamily\berberfont{Noto Sans Tifinagh}[Scale=0.8]                                                                          
+\newfontfamily\arabicfont[Script=Arabic]{Noto Naskh Arabic}                                                                       
+\newfontfamily\divehifont{Noto Sans Thaana}                                                                                       
+\newfontfamily\tamilfont[Script=Tamil]{Noto Serif Tamil}                                                                          
+\newfontfamily\sinhalafont[Script=Sinhala]{Noto Sans Sinhala}                                                                     
+\newfontfamily\tibetanfont{Noto Serif Tibetan}                                                                                    
+\newfontfamily\javanesefont{Noto Sans Javanese}                                                                                   
+\newfontfamily\khmerfont{Noto Serif Khmer}                                                                                        
+\newfontfamily\hieroglyphfont{Noto Sans Egyptian Hieroglyphs}                                                                     
+\newfontfamily\gujaratifont[Script=Gujarati]{Noto Serif Gujarati}                                                                 
+\newfontfamily\hindifont[Script=Devanagari]{Noto Serif Devanagari}                                                                
+\newfontfamily\sanskritfont{Noto Serif Devanagari}                                                                                
+\newfontfamily\thaifont{Noto Serif Thai}                                                                                          
+\newfontfamily\lannafont{Noto Sans Tai Tham}                                                                                      
+\newfontfamily\emojifont{Noto Color Emoji}                                                                                        
+\newfontfamily\urdufont{Noto Nastaliq Urdu}                                                                                       
+\setdefaultlanguage{american}                                                                                                     
+\setotherlanguage[variant=ancient]{greek}                                                                                         
+\setotherlanguage[variant=classic]{latin}                                                                                         
+\setotherlanguage[numerals=chinese]{chinese}                                                                                      
+% javanese, czech have problems                                                                                                   
+\setotherlanguages{polish,spanish,arabic,german,farsi,khmer,thai,korean,hindi,                                                    
+                   russian,divehi,tamil,japanese,hungarian,lithuanian,urdu,                                                       
+                   norwegian,welsh,hebrew,french,sanskrit,tibetan,vietnamese,                                                     
+                   italian,ukrainian}                                                                                             
+\usepackage{newunicodechar}                                                                                                       
+\usepackage{realscripts} % typographical enhancement for sub/superscripts                                                         
+\usepackage{luatex85} % otherwise pdfx blows up =\                                                                                
+\usepackage[a-3u]{pdfx}       
+
+\def\LOGO {\textsf{\fontsize{56pt}{60pt} % W: Command terminated with space. (1)
+  \color{MidnightBlue}
+  \vspace{-1cm} % align it with following page
+  \textbf{
+    \centering unnamed\\
+    \hspace*{27pt}pgo project
+}}}
+
+\frontmatter
+\begin{document}
+  \pagestyle{empty}
+W \LOGO % W: Command terminated with space. (1)
+  \vfill
+  \hrule
+  \begin{center}
+  \textsf{Gold \& Appel Publishing}
+  \end{center}
+  \hrule
+  \clearpage
+  %\input{aux/copyright}
+  %\clearpage
+  \setcounter{page}{1}
+  \pagestyle{plain} % want (roman) page numbers
+
+\ifdefined\epub % W: Command terminated with space. (1)
+\else
+  \hypertarget{toc}{}%
+  \bookmark[dest=toc]{contents}
+  \tableofcontents*
+  %\cleartorecto
+  \hypertarget{lof}{}%
+  \bookmark[dest=lof]{illustrations} % if we use 3, it changes to i instead of iii [shrug]
+  \vfill
+  \listoffigures*
+  \fi
+%--------------------------main text------------------------------------------%
+\mainmatter
+\end{document}
