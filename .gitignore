@@ -16,7 +16,7 @@
 */*.toc
 */*.xdy
 */*.xml
-*/_minted-*
+*/_minted*
 004-notcurses/hilodirect
 004-notcurses/hilostdio
 004-notcurses/hol-formatter
