@@ -1,0 +1,13 @@
+\chapter{Optimizing for CP}
+
+Several leagues (and some Research tasks) place a ceiling on the CP of
+ participating Pokémon.
+If CP does not accurately represent a given Pokémon's chance to win, we ought
+ be able to exploit this by assembling teams using undervalued Pokémon.
+We will see that CP is indeed a very incomplete assessment.
+
+Recall the CP equation:
+\[ CP = Eff_A \times \sqrt{Eff_D} \times \sqrt{Eff_S} \times CPM^2 \]
+where
+\[ Eff_A = ATK + IV_A, Eff_D = DEF + IV_D, Eff_S = STA + IV_S \]
+and CPM is taken from Table\ref{table:cpm}.
