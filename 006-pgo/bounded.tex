@@ -1,4 +1,4 @@
-\chapter{Optimizing for CP limits}
+\chapter{CP-bounded team selection}
 
 Several leagues (and some Research tasks) place a ceiling on the CP of
  participating Pokémon.
@@ -7,11 +7,10 @@ If CP does not accurately represent a given Pokémon's chance to win, we ought
 We will see that CP is indeed a very incomplete assessment for PvP.
 
 A Pokémon's CP is defined as:
-\[ CP = Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2 \]
+\[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
 
-First off, notice that CP grows quadratically with $CPM$,
- linearly with $Mod_A$, and only logarithmically with
- $Mod_D$ and $Mod_S$.
+First off, notice that CP growth is quadratic with respect to $CPM$,
+ linear with $Mod_A$, and sublinear with $Mod_D$ and $Mod_S$.
 Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
 This suggests that $Mod_D$ is undervalued by the CP equation
@@ -30,3 +29,16 @@ The quadratic term for CPM makes sense from the perspective of the Damage
  case of both the attacker and defender.
 Indeed, since CPM is also used to calculate MHP from $Mod_S$, an argument
  can be made that it ought be raised to the third power.
+
+But some of the most important factors in the Damage equation are left
+out of CP entirely! The Power of the Pokémon's Attacks are not present,
+despite dominating the inflicted Damage. Type effectiveness and STAB
+have likewise been left out. Any advantages we can find here can be
+exploited without cost.
+
+\section{Strength under a CP ceiling}
+We can simply take the sorted list of Pokémon built in
+\autoref{chap:unbounded}, remove all entries whose CP exceed the CP ceiling,
+and then select a team using the strategies of that chapter. Since
+that list was sorted according to a general strength function, it
+ought apply in this reduced context.
