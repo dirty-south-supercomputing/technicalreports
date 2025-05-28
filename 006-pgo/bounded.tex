@@ -13,13 +13,13 @@ First off, notice that CP growth is quadratic with respect to $CPM$,
  linear with $Mod_A$, and sublinear with $Mod_D$ and $Mod_S$.
 Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
-This suggests that $Mod_D$ is undervalued by the CP equation
-The CP equation would suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$,
- and we will exploit this discrepancy\footnote{Why would the game use such
+This suggests that $Mod_D$ is undervalued by the CP equation, which
+ would seem to suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$.
+We will exploit this discrepancy\footnote{Why would the game use such
  a flawed measure of power? A single stat was clearly desired to cover both
  modes of Pokémon GO battling. Since Raids allow substitution of defeated
  Pokémon, but are subject to a timer, the ability to defend and absorb
- Damage is less important than the capability of inflicting damage.}
+ Damage is less important than the capability of inflicting damage.}.
 MHP isn't used in the Damage equation, but knocking out a Pokémon
  requires inflicting some average Damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.

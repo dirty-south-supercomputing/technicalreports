@@ -21,9 +21,9 @@ We can thus define an independent core fitness evaluation:
 
 \[ F = Eff_A \times P \times M_{STAB} \times Eff_D \times MHP \]
 
-This is roughly equivalent to
+This is roughly equivalent ($MHP \approx Mod_S * CPM$) to
 
-\[ F = Mod_A \times P \times M_{STAB} \times Mod_D \times Mod_S \times CPM^3 \]
+\[ Mod_A \times P \times M_{STAB} \times Mod_D \times Mod_S \times CPM^3 \]
 
 Of course, a given Pokémon can generally select from multiple Fast and Charged Attacks,
   knowing up to two of the latter at a given time.
@@ -77,7 +77,7 @@ If we expand over multiple cycles of Fast and Charged Attack, we can
 
  The number of Fast Attacks in a cycle is actually always either
  $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
- or $\lceil\frac{E_{Charged}}{E_{Fast}}\rceil$ (when $E_{Charged}$ is a multiple of
+ or $\lceil\frac{E_{Charged}}{E_{Fast}}\rceil$ (iff $E_{Charged}$ is a multiple of
  $E_{Fast}$, these two expressions are equal, and the number of Fast Attacks
  per Charged Attack is constant). Normalize for the total time:
 
@@ -85,8 +85,7 @@ If we expand over multiple cycles of Fast and Charged Attack, we can
 
 This has only exacerbated one of the problems we mentioned before: we may
   not get to throw all these Attacks!
-
-Suppose we have some constant chance $0 \le L_{KO} \leq 1$ of being knocked out or
+Suppose we have some constant chance $0 < L_{KO} \leq 1$ of being knocked out or
  substituted following each Attack we launch, the probability of being
  in to throw the $N$th Attack is $(1 - L_{KO})^{N-1}$.
 We could thus define an expected damage from Attack $N$:
@@ -98,7 +97,7 @@ and a cumulative expected damage through $N$ Attacks:
 \[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \times (1 - L_{KO})^{i-1} \]
 
 This is a geometric series where $a = \overline{P}$ and $r = 1 - L_{KO}$.
-Since $0 \leq r \le 1$, this series converges to
+Since $0 \leq r < 1$, this series converges to
 
 \[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \times r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
 
