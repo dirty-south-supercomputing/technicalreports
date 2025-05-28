@@ -1,7 +1,8 @@
 \chapter{Types}
-There are eighteen Types:
-
-\begin{table}
+There are eighteen Types, each with a representative icon.
+In Trainer Battles, the Types of active Pokémon are displayed
+ using these icons, so it is important to memorize them.
+\begin{table}[h]
   \begin{tabular}{c c c c c c}
   \includegraphics[scale=.25]{images/bug.png} &
     \includegraphics[scale=.25]{images/dark.png} &
@@ -26,56 +27,135 @@ There are eighteen Types:
   Normal & Poison & Psychic & Rock & Steel & Water \\
 \end{tabular}
 \end{table}
+Each Species has either one or two distinct Types.
+Each Attack has a single Type.
+It is advantageous if either of an attacker's Types is the same Type as
+ the Attack being used.
+The relationship between Attack Type and defender typing is more complex.
+For each Type, the Attack Type can be \textit{very ineffective},
+ \textit{ineffective}, \textit{standard}, or \textit{very effective}.
+These are mapped to -2, -1, 0, and 1.
+For each Type of the defender, determine the Attack Type's effectiveness
+ on that Type, and add the results.
+This is the total type effectiveness of the Attack Type on that Species.
 
-\section{Type relations}
-Poison and Grass are both self-ineffective.
-Ground kills Rock and Poison.
-Grass kills Ground.
-Poison kills Grass.
-Bug kills Grass.
+There are 324 (18 * 18) total Type relationships, of which 208 are standard.
+That leaves 116 Type relations giving either attacker or defender an advantage,
+ one that can easily define the winner of a battle.
+These relationships must also be memorized.
+
+\begin{table}[h]
+  \setlength{\tabcolsep}{1pt}
+  \begin{tabular}{c c c c c c c c c c c c c c c c c c c c}
+\captionlistentry[table]{Type relations}
+  &
+  \includegraphics[scale=.1]{images/bug.png} &
+    \includegraphics[scale=.1]{images/dark.png} &
+    \includegraphics[scale=.1]{images/dragon.png} &
+    \includegraphics[scale=.1]{images/electric.png} &
+    \includegraphics[scale=.1]{images/fairy.png} &
+    \includegraphics[scale=.1]{images/fighting.png} &
+  \includegraphics[scale=.1]{images/fire.png} &
+    \includegraphics[scale=.1]{images/flying.png} &
+    \includegraphics[scale=.1]{images/ghost.png} &
+    \includegraphics[scale=.1]{images/grass.png} &
+    \includegraphics[scale=.1]{images/ground.png} &
+    \includegraphics[scale=.1]{images/ice.png} &
+  \includegraphics[scale=.1]{images/normal.png} &
+    \includegraphics[scale=.1]{images/poison.png} &
+    \includegraphics[scale=.1]{images/psychic.png} &
+    \includegraphics[scale=.1]{images/rock.png} &
+    \includegraphics[scale=.1]{images/steel.png} &
+    \includegraphics[scale=.1]{images/water.png} \\
+  \includegraphics[scale=.1]{images/bug.png} \\
+    \includegraphics[scale=.1]{images/dark.png} \\
+    \includegraphics[scale=.1]{images/dragon.png} \\
+    \includegraphics[scale=.1]{images/electric.png} \\
+    \includegraphics[scale=.1]{images/fairy.png} \\
+    \includegraphics[scale=.1]{images/fighting.png} \\
+  \includegraphics[scale=.1]{images/fire.png} \\
+    \includegraphics[scale=.1]{images/flying.png} \\
+    \includegraphics[scale=.1]{images/ghost.png} \\
+    \includegraphics[scale=.1]{images/grass.png} \\
+    \includegraphics[scale=.1]{images/ground.png} \\
+    \includegraphics[scale=.1]{images/ice.png} \\
+  \includegraphics[scale=.1]{images/normal.png} \\
+    \includegraphics[scale=.1]{images/poison.png} \\
+    \includegraphics[scale=.1]{images/psychic.png} \\
+    \includegraphics[scale=.1]{images/rock.png} \\
+    \includegraphics[scale=.1]{images/steel.png} \\
+    \includegraphics[scale=.1]{images/water.png} \\
+\end{tabular}
+\end{table}
+
+Only eight relationships are very ineffective:
+Normal → Ghost,
+Fighting → Ghost,
+Poison → Steel,
+Ground → Flying,
+Ghost → Normal,
+Electric → Ground,
+Psychic → Dark,
+Dragon → Fairy.
+
+\section{Memorizing the type relations}
+I've found it useful to break the 116 relationships of impact into a few directed graphs.
+A thick green edge indicates effectiveness.
+A thin red or black line indicates an ineffective or very ineffective relationship.
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/nature.dot.png}
 \caption{The Nature relations}
 \end{figure}
+Poison and Grass are both self-ineffective.
+Ground kills Rock and Poison.
+Grass kills Ground.
+Poison kills Grass.
+Bug kills Grass.
 
-All are self-ineffective except Rock.
-Water kills Fire.
-Fire kills Ice.
-Rock kills Fire.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/phases.dot.png}
 \caption{The Elemental relations}
 \end{figure}
+All are self-ineffective except Rock.
+Water kills Fire.
+Fire kills Ice.
+Rock kills Fire.
 
-Dark and Psychic are self-ineffective, while Ghost is self-effective.
-Psychic kills Fighting.
-Fighting kills Dark.
-Dark kills Ghost, and slaughters Psychic.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/rational.dot.png}
 \caption{The Rational relations}
 \end{figure}
+Dark and Psychic are self-ineffective, while Ghost is self-effective.
+Psychic kills Fighting.
+Fighting kills Dark.
+Dark kills Ghost, and slaughters Psychic.
 
-Dragon is self-effective.
-Fairy slaughters Dragon.
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
 \caption{The Dragon relations}
 \end{figure}
+Dragon is self-effective.
+Fairy slaughters Dragon.
 
-Steel is self-ineffective.
-Fire kills Steel.
-Steel kills Ice, Rock, and Fairy.
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/steel.dot.png}
 \caption{The Steel relations}
 \end{figure}
+Steel is self-ineffective.
+Fire kills Steel.
+Steel kills Ice, Rock, and Fairy.
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=.25]{out/dot/death.dot.png}
+\caption{The Death Graph}
+\end{figure}
 The Graph of Death.
 Fairy kills Dark and Fighting.
 Poison kills Fairy.
@@ -85,16 +165,11 @@ Fire kills Bug and Grass.
 Grass kills Water.
 Electric kills Flying.
 Ground slaughters Electric.
-\begin{figure}[h]
-\centering
-\includegraphics[scale=.25]{out/dot/death.dot.png}
-\caption{The Death Graph}
-\end{figure}
 
-The remaining interactions don't have any real structure, and simply must be
-memorized as they are.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/dot/jumble.dot.png}
 \caption{Remaining interactions}
 \end{figure}
+The remaining interactions don't have any real structure, and simply must be
+memorized as they are.

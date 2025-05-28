@@ -7,25 +7,26 @@ If CP does not accurately represent a given Pokémon's chance to win, we ought
 We will see that CP is indeed a very incomplete assessment for PvP.
 
 A Pokémon's CP is defined as:
-\[ CP = Eff_A \times \sqrt{Eff_D} \times \sqrt{Eff_S} \times CPM^2 \]
+\[ CP = Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2 \]
 
 First off, notice that CP grows quadratically with $CPM$,
- linearly with $Eff_A$, and only logarithmically with
- $Eff_D$ and $Eff_S$.
-Remember from our Damage equation that $Eff_A$ is divided by $Eff_D$
+ linearly with $Mod_A$, and only logarithmically with
+ $Mod_D$ and $Mod_S$.
+Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
-This suggests that $Eff_D$ is undervalued by the CP equation
-The CP equation would suggest that $Eff_A$ is divided by $\sqrt{Eff_D}$,
+This suggests that $Mod_D$ is undervalued by the CP equation
+The CP equation would suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$,
  and we will exploit this discrepancy\footnote{Why would the game use such
  a flawed measure of power? A single stat was clearly desired to cover both
  modes of Pokémon GO battling. Since Raids allow substitution of defeated
  Pokémon, but are subject to a timer, the ability to defend and absorb
  Damage is less important than the capability of inflicting damage.}
-The quadratic term for CPM makes sense from the perspective of the Damage
- equation, since CPM is used as a factor when calculating Damage in the
- case of both the attacker and defender.
-Indeed, since CPM is also used to calculate MHP from $Eff_S$, an argument
- can be made that it ought be raised to the third power.
 MHP isn't used in the Damage equation, but knocking out a Pokémon
  requires inflicting some average Damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.
+It is thus similarly undervalued by CP\@.
+The quadratic term for CPM makes sense from the perspective of the Damage
+ equation, since CPM is used as a factor when calculating Damage in the
+ case of both the attacker and defender.
+Indeed, since CPM is also used to calculate MHP from $Mod_S$, an argument
+ can be made that it ought be raised to the third power.
