@@ -1,9 +1,31 @@
 \chapter{Types}
 There are eighteen Types:
-\includegraphics[scale=.25]{images/bug.png}
-\includegraphics[scale=.25]{images/dark.png}
-\includegraphics[scale=.25]{images/dragon.png}
-\includegraphics[scale=.25]{images/electric.png}
+
+\begin{table}
+  \begin{tabular}{c c c c c c}
+  \includegraphics[scale=.25]{images/bug.png} &
+    \includegraphics[scale=.25]{images/dark.png} &
+    \includegraphics[scale=.25]{images/dragon.png} &
+    \includegraphics[scale=.25]{images/electric.png} &
+    \includegraphics[scale=.25]{images/fairy.png} &
+    \includegraphics[scale=.25]{images/fighting.png} \\
+  Bug & Dark & Dragon & Electric & Fairy & Fighting \\
+  \includegraphics[scale=.25]{images/fire.png} &
+    \includegraphics[scale=.25]{images/flying.png} &
+    \includegraphics[scale=.25]{images/ghost.png} &
+    \includegraphics[scale=.25]{images/grass.png} &
+    \includegraphics[scale=.25]{images/ground.png} &
+    \includegraphics[scale=.25]{images/ice.png} \\
+  Fire & Flying & Ghost & Grass & Ground & Ice \\
+  \includegraphics[scale=.25]{images/normal.png} &
+    \includegraphics[scale=.25]{images/poison.png} &
+    \includegraphics[scale=.25]{images/psychic.png} &
+    \includegraphics[scale=.25]{images/rock.png} &
+    \includegraphics[scale=.25]{images/steel.png} &
+    \includegraphics[scale=.25]{images/water.png} \\
+  Normal & Poison & Psychic & Rock & Steel & Water \\
+\end{tabular}
+\end{table}
 
 \section{Type relations}
 Poison and Grass are both self-ineffective.
@@ -13,7 +35,7 @@ Poison kills Grass.
 Bug kills Grass.
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{out/circo/nature.dot.png}
+\includegraphics[scale=.25]{out/circo/nature.dot.png}
 \caption{The Nature relations}
 \end{figure}
 
@@ -23,7 +45,7 @@ Fire kills Ice.
 Rock kills Fire.
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{out/circo/phases.dot.png}
+\includegraphics[scale=.25]{out/circo/phases.dot.png}
 \caption{The Elemental relations}
 \end{figure}
 
@@ -33,7 +55,7 @@ Fighting kills Dark.
 Dark kills Ghost, and slaughters Psychic.
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{out/circo/rational.dot.png}
+\includegraphics[scale=.25]{out/circo/rational.dot.png}
 \caption{The Rational relations}
 \end{figure}
 
@@ -41,7 +63,7 @@ Dragon is self-effective.
 Fairy slaughters Dragon.
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{out/circo/dragon.dot.png}
+\includegraphics[scale=.25]{out/circo/dragon.dot.png}
 \caption{The Dragon relations}
 \end{figure}
 
@@ -65,6 +87,14 @@ Electric kills Flying.
 Ground slaughters Electric.
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{out/dot/death.dot.png}
+\includegraphics[scale=.25]{out/dot/death.dot.png}
 \caption{The Death Graph}
+\end{figure}
+
+The remaining interactions don't have any real structure, and simply must be
+memorized as they are.
+\begin{figure}
+\centering
+\includegraphics[scale=.25]{out/dot/jumble.dot.png}
+\caption{Remaining interactions}
 \end{figure}
