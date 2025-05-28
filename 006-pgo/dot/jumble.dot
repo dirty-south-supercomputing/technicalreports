@@ -1,0 +1,45 @@
+digraph G {
+  labelloc=top
+  label="The remaining crapfest."
+  node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
+    normal [ image="images/normal.png" ]
+    fighting [ image="images/fighting.png" ]
+    fire [ image="images/fire.png" ]
+    rock [ image="images/rock.png" ]
+    ghost [ image="images/ghost.png" ]
+    electric [ image="images/electric.png" ]
+    flying [ image="images/flying.png" ]
+    bug [ image="images/bug.png" ]
+    ground [ image="images/ground.png" ]
+    dark [ image="images/dark.png" ]
+    poison [ image="images/poison.png" ]
+    grass [ image="images/grass.png" ]
+    fairy [ image="images/fairy.png" ]
+    water [ image="images/water.png" ]
+    ice [ image="images/ice.png" ]
+    psychic [ image="images/psychic.png" ]
+
+  normal -> rock [ color=red ]
+  fighting -> poison [ color=red ]
+  fighting -> bug [ color=red ]
+  fighting -> ice [ color=green ]
+  poison -> ghost [ color=red ]
+  ground -> flying [ color=black ]
+  rock -> flying [ color=green ]
+  bug -> fighting [ color=red ]
+  bug -> ghost [ color=red ]
+  bug -> psychic [ color=green ]
+  bug -> dark [ color=green ]
+  bug -> fairy [ color=red ]
+  electric -> grass [ color=red ]
+  ice -> flying [ color=green ]
+  ice -> grass [ color=green ]
+
+  ground -> fire [ color=green ]
+  water -> ground [ color=green ]
+  ice -> ground [ color=green ]
+
+  psychic -> poison [ color=green ]
+  fairy -> fire [ color=red ]
+
+}

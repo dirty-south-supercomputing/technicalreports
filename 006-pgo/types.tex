@@ -1,1 +1,70 @@
 \chapter{Types}
+There are eighteen Types:
+\includegraphics[scale=.25]{images/bug.png}
+\includegraphics[scale=.25]{images/dark.png}
+\includegraphics[scale=.25]{images/dragon.png}
+\includegraphics[scale=.25]{images/electric.png}
+
+\section{Type relations}
+Poison and Grass are both self-ineffective.
+Ground kills Rock and Poison.
+Grass kills Ground.
+Poison kills Grass.
+Bug kills Grass.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{out/circo/nature.dot.png}
+\caption{The Nature relations}
+\end{figure}
+
+All are self-ineffective except Rock.
+Water kills Fire.
+Fire kills Ice.
+Rock kills Fire.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{out/circo/phases.dot.png}
+\caption{The Elemental relations}
+\end{figure}
+
+Dark and Psychic are self-ineffective, while Ghost is self-effective.
+Psychic kills Fighting.
+Fighting kills Dark.
+Dark kills Ghost, and slaughters Psychic.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{out/circo/rational.dot.png}
+\caption{The Rational relations}
+\end{figure}
+
+Dragon is self-effective.
+Fairy slaughters Dragon.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{out/circo/dragon.dot.png}
+\caption{The Dragon relations}
+\end{figure}
+
+Steel is self-ineffective.
+Fire kills Steel.
+Steel kills Ice, Rock, and Fairy.
+\begin{figure}
+\centering
+\includegraphics[scale=.25]{out/circo/steel.dot.png}
+\caption{The Steel relations}
+\end{figure}
+
+The Graph of Death.
+Fairy kills Dark and Fighting.
+Poison kills Fairy.
+Fighting kills Rock.
+Flying kills Fighting, Bug, and Grass.
+Fire kills Bug and Grass.
+Grass kills Water.
+Electric kills Flying.
+Ground slaughters Electric.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{out/dot/death.dot.png}
+\caption{The Death Graph}
+\end{figure}

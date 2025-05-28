@@ -1,0 +1,28 @@
+digraph G {
+  node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
+    bugC [ image="images/bug.png" ]
+    groundC [ image="images/ground.png" ]
+    poisonC [ image="images/poison.png" ]
+    grassC [ image="images/grass.png" ]
+    rockC [ image="images/rock.png" ]
+  { rank=same; bugC groundC }
+  { rank=same; poisonC grassC }
+  { rank=same; rockC }
+  poisonC -> poisonC [ color=red ]
+  poisonC -> groundC [ color=red ]
+  poisonC -> rockC [ color=red ]
+  poisonC -> grassC [ color=green ]
+  groundC -> poisonC [ color=green ]
+  groundC -> rockC [ color=green ]
+  groundC -> bugC [ color=red ]
+  groundC -> grassC [ color=red ]
+  rockC -> groundC [ color=red ]
+  rockC -> bugC [ color=green ]
+  bugC -> poisonC [ color=red ]
+  bugC -> grassC [ color=green ]
+  grassC -> poisonC [ color=red ]
+  grassC -> groundC [ color=green ]
+  grassC -> rockC [ color=green ]
+  grassC -> bugC [ color=red ]
+  grassC -> grassC [ color=red ]
+}

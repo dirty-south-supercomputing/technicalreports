@@ -1,0 +1,27 @@
+digraph G {
+  node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
+    normalD [ image="images/normal.png" ]
+    ghostD [ image="images/ghost.png" ]
+    darkD [ image="images/dark.png" ]
+    psychicD [ image="images/psychic.png" ]
+    fightingD [ image="images/fighting.png" ]
+  { rank=same; normalD ghostD }
+  { rank=same; darkD psychicD }
+  { rank=same; fightingD }
+  darkD -> fightingD [ color=red ]
+  fightingD -> normalD [ color=green ]
+  fightingD -> ghostD [ color=black ]
+  fightingD -> psychicD [ color=red ]
+  fightingD -> darkD [ color=green ]
+  psychicD -> fightingD [ color=green ]
+  darkD -> ghostD [ color=green ]
+  darkD -> psychicD [ color=green ]
+  darkD -> darkD [ color=red ]
+  ghostD -> normalD [ color=black ]
+  ghostD -> ghostD [ color=green ]
+  ghostD -> psychicD [ color=green ]
+  ghostD -> darkD [ color=red ]
+  psychicD -> psychicD [ color=red ]
+  psychicD -> darkD [ color=black ]
+  normalD -> ghostD [ color=black ]
+}

@@ -1,0 +1,25 @@
+digraph G {
+  node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
+    fireC [ image="images/fire.png" ]
+    electricC [ image="images/electric.png" ]
+    waterC [ image="images/water.png" ]
+    iceC [ image="images/ice.png" ]
+    rockC [ image="images/rock.png" ]
+  #{ rank=same; fireC rockC }
+  #{ rank=same; waterC electricC }
+  #{ rank=same; steelC iceC }
+  rockC -> iceC [ color=green ]
+  waterC -> rockC [ color=green ]
+  fireC -> rockC [ color=red ]
+  rockC -> fireC [ color=green ]
+  iceC -> iceC [ color=red ]
+  iceC -> fireC [ color=red ]
+  iceC -> waterC [ color=red ]
+  electricC -> electricC [ color=red ]
+  electricC -> waterC [ color=green ]
+  fireC -> fireC [ color=red ]
+  fireC -> waterC [ color=red ]
+  fireC -> iceC [ color=green ]
+  waterC -> fireC [ color=green ]
+  waterC -> waterC [ color=red ]
+}
