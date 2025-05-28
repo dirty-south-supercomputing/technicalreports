@@ -51,9 +51,11 @@ and arrive at a weighted average:
 This has several problems. It doesn't account for the possibility of multiple
 Charged Attacks. It doesn't account for leftover Energy, which will sometimes
 be present whenever $E_{Charged}$ is not a multiple of $E_{Fast}$ (i.e. $N_{Fast}$
-might fluctuate from one cycle to the next). Finally, it presumes that the
-attacker can always get off a full cycle of Fast Attacks followed by a Charged
-Attack. In reality, the attacker might be knocked out long before its Charged
-Attack becomes relevant, or the defender might use a Shield. It is tempting to
-ignore Charged Attacks, but when they land, they tend to dominate our total
-Damage.
+might fluctuate from one cycle to the next). It ignores the possibility that
+the attacker might not use its Charged Attack immediately (and it is often
+unwise to throw Charged Attacks as quickly as possible; see
+\autoref{chap:strategy}). Finally, it presumes that the attacker can always get
+off a full cycle of Fast Attacks followed by a Charged Attack. In reality, the
+attacker might be knocked out long before its Charged Attack becomes relevant,
+or the defender might use a Shield. It is tempting to ignore Charged Attacks,
+but when they land, they tend to dominate our total Damage.
