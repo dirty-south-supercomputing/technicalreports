@@ -44,9 +44,16 @@ First, we can simply normalize the Charged Attack as we did the Fast Attack,
 
 \[ N_{Fast} = \lceil\frac{E_{Charged}}{E_{Fast}}\rceil \]
 
-and arrive at a weighted average:
+yielding the total Power of a cycle, known by the community as Total Damage Output (TDO):
 
-\[ P_{cycle} = \frac{N_{Fast} \times P_{Fast} + P_{Charged}}{N_{Fast} \times T_{Fast} + T_{Charged}} \]
+\[ P_{cycle} = N_{Fast} \times P_{Fast} + P_{Charged} \]
+
+We normalize this:
+
+\[ F_{cycle} = \frac{P_{Cycle}}{N_{Fast} \times T_{Fast} + T_{Charged}} \]
+
+There are two turns per second. Multiplying $F_{cycle}$ by two yields a
+  stat the community calls Damage Per Second (DPS).
 
 This has several problems. It doesn't account for the possibility of multiple
 Charged Attacks. It doesn't account for leftover Energy, which will sometimes
@@ -56,6 +63,45 @@ the attacker might not use its Charged Attack immediately (and it is often
 unwise to throw Charged Attacks as quickly as possible; see
 \autoref{chap:strategy}). Finally, it presumes that the attacker can always get
 off a full cycle of Fast Attacks followed by a Charged Attack. In reality, the
-attacker might be knocked out long before its Charged Attack becomes relevant,
-or the defender might use a Shield. It is tempting to ignore Charged Attacks,
-but when they land, they tend to dominate our total Damage.
+attacker might be knocked out or substituted long before its Charged Attack
+becomes relevant, or the defender might use a Shield. It is tempting to ignore
+Charged Attacks, but when they land, they tend to dominate our total Damage.
+
+If we expand over multiple cycles of Fast and Charged Attack, we can
+ generalize to situations with excess Energy. We know $E_{Charged} \times
+ E_{Fast}$ will be a multiple of both the generated and consumed Energy, so
+ simply consider $E_{Charged}$ cycles, each of which throws an average of
+ $\frac{E_{Charged}}{E_{Fast}}$ Fast Attacks followed by one Charged Attack.
+
+\[ P_{cycles} = E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times P_{Fast} + P_{Charged}) \]
+
+ The number of Fast Attacks in a cycle is actually always either
+ $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
+ or $\lceil\frac{E_{Charged}}{E_{Fast}}\rceil$ (when $E_{Charged}$ is a multiple of
+ $E_{Fast}$, these two expressions are equal, and the number of Fast Attacks
+ per Charged Attack is constant). Normalize for the total time:
+
+\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times T_{Fast} + T_{Charged})} \]
+
+This has only exacerbated one of the problems we mentioned before: we may
+  not get to throw all these Attacks!
+
+Suppose we have some constant chance $0 \le L_{KO} \leq 1$ of being knocked out or
+ substituted following each Attack we launch, the probability of being
+ in to throw the $N$th Attack is $(1 - L_{KO})^{N-1}$.
+We could thus define an expected damage from Attack $N$:
+
+\[ E_D(N) = \overline{P} \times (1 - L_{KO})^{N-1} \]
+
+and a cumulative expected damage through $N$ Attacks:
+
+\[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \times (1 - L_{KO})^{i-1} \]
+
+This is a geometric series where $a = \overline{P}$ and $r = 1 - L_{KO}$.
+Since $0 \leq r \le 1$, this series converges to
+
+\[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \times r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
+
+Of course, our chance of being knocked out is usually not constant across
+Attacks, but rather an immediate function of our remaining HP and any
+Damage we are about to absorb.
