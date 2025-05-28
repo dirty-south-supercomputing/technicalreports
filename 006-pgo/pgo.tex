@@ -33,6 +33,10 @@
 \settypeblocksize{6.5in}{\textwidth}{*}   % want 6.5in of our 9/8.5
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
+\makeatletter
+\newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
+\makeatother
+
 \newcommand\Midrule[0]{\midrule}
 
 \def\LOGO {\textsf{\fontsize{40pt}{44pt}
