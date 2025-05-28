@@ -9,6 +9,7 @@ TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo trainer types attacks species pokémon stats damage optimize)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
+IMAGES:=$(wildcard images/*)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)))
 PDFVIEW:=evince
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
@@ -18,10 +19,10 @@ preview: all
 
 all: $(PDF)
 
-$(PAPERBACK).pdf: $(TEX) $(IMAGES) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES)
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
