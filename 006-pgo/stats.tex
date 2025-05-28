@@ -1,9 +1,22 @@
 \chapter{Basic stats}
 
-We will make regular use of the modified ATK and DEF.
-$Mod_A$ is defined as the sum of the Species' ATK and $IV_A$
+We'll derive some statistics from each Pokémon.
+These values are used as inputs to battle mechanics.
+First, sum the Species's ATK, DEF, and STA with the Pokémon's
+ IVs to generate $Mod_A$, $Mod_D$, and $Mod_S$:
+
+ \[ Mod_A = ATK + IV_A \]
+ \[ Mod_D = DEF + IV_D \]
+ \[ Mod_S = STA + IV_S \]
+
+These values are typically scaled by the Pokémon's Combat Power Multiplier.
 
 \section{Combat Power Multiplier}
+Recall that each Pokémon has its own Level, ranging from 1.0
+ to 50.0, defined on half integers.
+This Level is used as an index into a table of rational,
+ positive constants.
+The value accessed is that Pokémon's Combat Power Multiplier (CPM).
 
 \begin{table}
 \begin{tabular}{l l l l l l}
@@ -16,3 +29,17 @@ Level & CPM & Level & CPM & Level & CPM \\
 17.0 & 0.55079269 & 32.5 & 0.746781211 & 50.0 & 0.84030001 \\
 \end{tabular}
 \end{table}
+
+We multiply each of the $Mod$ values by CPM to generate $Eff_A$, $Eff_D$, and $EFF_S$:
+\[ Eff_A = Mod_A \times CPM \]
+\[ Eff_D = Mod_D \times CPM \]
+\[ Eff_S = Mod_S \times CPM \]
+
+\section{$Eff_A$, $Eff_D$, and MHP}
+$Eff_S$ determines the Pokémon's Maximum Hit Points (MHP).
+When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
+ used (nor made a Buddy) until revived.
+Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
+ and can be restored (up to MHP) with Potions.
+MHP is defined such that it is always a positive integer:
+\[ MHP = \min{1, \lfloor Eff_S \rfloor} \]
