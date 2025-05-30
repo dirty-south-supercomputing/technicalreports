@@ -7,7 +7,7 @@
 \usepackage{microtype}
 \usepackage{bookmark}
 \usepackage{ninecolors}
-\usepackage[svgnames,HSB]{xcolor}
+\usepackage[svgnames,HSB,table]{xcolor}
 \selectcolormodel{rgb}
 \usepackage[labelfont=bf]{caption} % for \captionsetup
 \usepackage{polyglossia}
@@ -23,6 +23,8 @@
 \usepackage{realscripts} % typographical enhancement for sub/superscripts
 \usepackage{luatex85} % otherwise pdfx blows up =\
 \usepackage[a-3u]{pdfx}
+
+\newcolumntype{g}{>{\columncolor{Gray!25}}c} % for alternate column coloring in tabels
 
 \settrims{0pt}{0pt}
 \setstocksize{8.75in}{5.625in}

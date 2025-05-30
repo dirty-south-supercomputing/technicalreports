@@ -30,8 +30,7 @@ In Trainer Battles, the Types of active Pokémon are displayed
 \end{table}
 Each Species has either one or two distinct Types.
 Each Attack has a single Type.
-It is advantageous if either of an attacker's Types is the same Type as
- the Attack being used.
+The attacker benefits if it has a Type in common with the Attack being used.
 The relationship between Attack Type and defender typing is more complex.
 For each Type, the Attack Type can be \textit{very ineffective},
  \textit{ineffective}, \textit{standard}, or \textit{very effective}.
@@ -48,7 +47,7 @@ These relationships must also be memorized.
 \begin{table}[h]
   \begin{center}
   \setlength{\tabcolsep}{1pt}
-  \begin{tabular}{c c c c c c c c c c c c c c c c c c c c}
+  \begin{tabular}{c c g c g c g c g c g c g c g c g c g c}
   &
   \includegraphics[width=1em]{images/bug.png} &
     \includegraphics[width=1em]{images/dark.png} &
@@ -69,24 +68,33 @@ These relationships must also be memorized.
     \includegraphics[width=1em]{images/steel.png} &
     \includegraphics[width=1em]{images/water.png} &
     \\
-    \includegraphics[width=1em]{images/bug.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} \\
-    \includegraphics[width=1em]{images/dark.png} & & \includegraphics[width=1em]{images/negone.png} & & & & & & \includegraphics[width=1em]{images/one.png} & & & & & & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} \\
-    \includegraphics[width=1em]{images/dragon.png} & & & & & & & & & \includegraphics[width=1em]{images/negone.png} & & & & & & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negtwo.png} \\
-    \includegraphics[width=1em]{images/electric.png} & & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negtwo.png} & & & & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & & \includegraphics[width=1em]{images/negone.png} & & \\
-    \includegraphics[width=1em]{images/fairy.png} & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & & & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/one.png} & \\
-    \includegraphics[width=1em]{images/fighting.png} & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negtwo.png} & \includegraphics[width=1em]{images/one.png} & & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} \\
-    \includegraphics[width=1em]{images/fire.png} & & & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & & \\
-    \includegraphics[width=1em]{images/flying.png} & & \includegraphics[width=1em]{images/one.png} & & & & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & & & & & \\
-    \includegraphics[width=1em]{images/ghost.png} & \includegraphics[width=1em]{images/negtwo.png} & & & & & & & \includegraphics[width=1em]{images/one.png} & & & & & & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/negone.png} & \\
-    \includegraphics[width=1em]{images/grass.png} & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & & & & \includegraphics[width=1em]{images/negone.png} & & \\
-    \includegraphics[width=1em]{images/ground.png} & & & \includegraphics[width=1em]{images/negtwo.png} & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & & & & \\
-    \includegraphics[width=1em]{images/ice.png} & & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/one.png} & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & \\
-    \includegraphics[width=1em]{images/normal.png} & & & & & & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/negtwo.png} & \includegraphics[width=1em]{images/negone.png} & & & & & & & & & \\
-    \includegraphics[width=1em]{images/poison.png} & & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negtwo.png} & & & \includegraphics[width=1em]{images/one.png} & & & & & & \includegraphics[width=1em]{images/one.png} \\
-    \includegraphics[width=1em]{images/psychic.png} & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/one.png} & & & & & \includegraphics[width=1em]{images/negone.png} & & & & & \includegraphics[width=1em]{images/negone.png} & & & \includegraphics[width=1em]{images/negtwo.png} & &  \\
-    \includegraphics[width=1em]{images/rock.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/one.png} & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/one.png} & & & & & \includegraphics[width=1em]{images/one.png} & & & \\
-    \includegraphics[width=1em]{images/steel.png} & & & & & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/negone.png} & & \includegraphics[width=1em]{images/one.png} & & & \includegraphics[width=1em]{images/one.png} \\
-    \includegraphics[width=1em]{images/water.png} & & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/one.png} & & & & \includegraphics[width=1em]{images/one.png} & \includegraphics[width=1em]{images/negone.png} & \includegraphics[width=1em]{images/negone.png} & & & & \includegraphics[width=1em]{images/negone.png} & & \\
+    \includegraphics[width=1em]{images/bug.png} & & -1 & -1 & -1 & & & & -1 & -1 & -1 & & 1 & & 1 & & & 1 & -1 \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/dark.png} & & -1 & & & & & & 1 & & & & & & 1 & & & -1 & -1 \\
+    \includegraphics[width=1em]{images/dragon.png} & & & & & & & & & -1 & & & & & & & 1 & & -2 \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/electric.png} & & & 1 & & -2 & & & & & & 1 & -1 & -1 & & & -1 & & \\
+    \includegraphics[width=1em]{images/fairy.png} & & 1 & & -1 & & & & & -1 & -1 & & & & & & 1 & 1 & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/fighting.png} & 1 & & -1 & -1 & & 1 & -1 & -2 & 1 & & & & & -1 & 1 & -1 & 1 & -1 \\
+    \includegraphics[width=1em]{images/fire.png} & & & & & & -1 & 1 & & 1 & -1 & -1 & 1 & & & 1 & -1 & & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/flying.png} & & 1 & & & & & 1 & & -1 & & & 1 & -1 & & & & & \\
+    \includegraphics[width=1em]{images/ghost.png} & -2 & & & & & & & 1 & & & & & & 1 & & & -1 & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/grass.png} & & & -1 & -1 & 1 & 1 & -1 & & -1 & -1 & 1 & -1 & & & & -1 & & \\
+    \includegraphics[width=1em]{images/ground.png} & & & -2 & 1 & & 1 & -1 & & 1 & 1 & & -1 & 1 & & & & & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/ice.png} & & & 1 & & 1 & & & & -1 & -1 & -1 & 1 & & & -1 & 1 & & \\
+    \includegraphics[width=1em]{images/normal.png} & & & & & & -1 & & -2 & -1 & & & & & & & & & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/poison.png} & & & & -1 & -1 & -1 & & -1 & -2 & & & 1 & & & & & & 1 \\
+    \includegraphics[width=1em]{images/psychic.png} & & 1 & & 1 & & & & & -1 & & & & & -1 & & & -2 & &  \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/rock.png} & & -1 & 1 & & -1 & & 1 & & -1 & 1 & & & & & 1 & & & \\
+    \includegraphics[width=1em]{images/steel.png} & & & & & 1 & & & -1 & -1 & -1 & & -1 & & 1 & & & 1 & \\
+    \rowcolor{Gray!25}
+    \includegraphics[width=1em]{images/water.png} & & & -1 & & & & 1 & & & -1 & 1 & & & & & 1 & & -1 \\
 \end{tabular}
     \caption[Type relations]{Type relations. Rows attack, columns defend.}
 \end{center}
