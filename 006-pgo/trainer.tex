@@ -1,20 +1,24 @@
 \chapter{Trainers}
 A Pokémon GO account is synonymous with its associated Trainer.\\
-\\
+
 A new Trainer starts at Level 1 with 0 XP.
 There are 50 Trainer Levels.
-A Trainer's Pokémon cannot exceed the Trainer's Level by more than 10,
+A new Level is conferred as soon as the Trainer's XP meets or exceeds
+  its XP threshold, and it is possible to advance multiple Levels
+  through a single reward of XP.
+A Trainer's cannot control Pokémon whose Level exceeds the Trainer's by more than 10,
   i.e. a Level 22 Trainer cannot power a Pokémon past Level 32.
 If such a Pokémon is captured or otherwise received, its Level will be
-  reduced to the maximum allowed.
-The maximum Pokémon Level is 50, so full power is available upon reaching
-  Trainer Level 40.
+  reduced to the Trainer's plus 10.
+The maximum Pokémon Level is 50, so all Pokémon Levels are available upon
+  reaching Trainer Level 40.
+Trainer Levels beyond 40 have extra requirements beyond XP (see \autoref{table:xp41plus}).
 
 Reaching a new Level always brings rewards in the form of items.
 Levels 1, 7, 8, 15, and 20 each open Special Research.
 Upon reaching Level 5, a Trainer can select one of three Teams:
  Mystic, Valor, or Instinct.
-Team membership opens up access to Appraisal.
+Team membership opens up access to Appraisal (see \autoref{section:ivs}).
 One's Team has ramifications for Gyms (see \autoref{chap:gyms}) and Raids (see \autoref{chap:raids}),
   both of which are likewise opened by membership.
 A Trainer's Team can be changed by purchasing and making use of a Team Medallion.
@@ -22,39 +26,38 @@ The cost is 1,000 Pokécoins, and 365 days must pass between Medallion purchases
 
 \begin{table}[ht]
 \begin{center}
-\begin{tabular}{l r r l r r}
+\begin{tabular}{r r r|r r r}
   Level & kXP & ΔkXP & Level & kXP & ΔkXP \\
 \Midrule
-1 & 0 & 0 & 21 & 50 & 260 \\
-2 & 1 & 1 & 22 & 75 & 335 \\
-3 & 2 & 3 & 23 & 100 & 435 \\
-4 & 3 & 6 & 24 & 125 & 560 \\
-5 & 4 & 10 & 25 & 150 & 710 \\
-6 & 5 & 15 & 26 & 190 & 900 \\
-7 & 6 & 21 & 27 & 1,100 & 200 \\
-8 & 7 & 28 & 28 & 1,350 & 250 \\
-9 & 8 & 36 & 29 & 1,650 & 300 \\
-10 & 9 & 45 & 30 & 2,000 & 350 \\
-11 & 10 & 55 & 31 & 2,500 & 500 \\
-12 & 10 & 65 & 32 & 3,000 & 500 \\
-13 & 10 & 75 & 33 & 3,750 & 750 \\
-14 & 10 & 85 & 34 & 4,750 & 1,000 \\
-15 & 15 & 100 & 35 & 6,000 & 1,250 \\
-16 & 20 & 120 & 36 & 7,500 & 7,500 \\
-17 & 20 & 140 & 37 & 9,500 & 2,000 \\
-18 & 20 & 160 & 38 & 12,000 & 2,500 \\
-19 & 25 & 185 & 39 & 15,000 & 3,000 \\
-20 & 25 & 210 & 40 & 20,000 & 5,000 \\
+1 & 0 & 0 & 21 & 260 & 50 \\
+2 & 1 & 1 & 22 & 335 & 75 \\
+3 & 3 & 2 & 23 & 435 & 100 \\
+4 & 6 & 3 & 24 & 560 & 125 \\
+5 & 10 & 4 & 25 & 710 & 150 \\
+6 & 15 & 5 & 26 & 900 & 190 \\
+7 & 21 & 6 & 27 & 200 & 1,100 \\
+8 & 28 & 7 & 28 & 250 & 1,350 \\
+9 & 36 & 8 & 29 & 300 & 1,650 \\
+10 & 45 & 9 & 30 & 350 & 2,000 \\
+11 & 55 & 10 & 31 & 500 & 2,500 \\
+12 & 65 & 10 & 32 & 500 & 3,000 \\
+13 & 75 & 10 & 33 & 750 & 3,750 \\
+14 & 85 & 10 & 34 & 1,000 & 4,750 \\
+15 & 100 & 15 & 35 & 1,250 & 6,000 \\
+16 & 120 & 20 & 36 & 7,500 & 7,500 \\
+17 & 140 & 20 & 37 & 2,000 & 9,500 \\
+18 & 160 & 20 & 38 & 2,500 & 12,000 \\
+19 & 185 & 25 & 39 & 3,000 & 15,000 \\
+20 & 210 & 25 & 40 & 5,000 & 20,000 \\
 \end{tabular}
 \caption{Requirements for Trainer Levels 1--40}
+\label{table:xp40}
 \end{center}
 \end{table}
 
-Trainer Levels beyond 40 have extra requirements beyond XP.
-
 \begin{table}[ht]
 \begin{center}
-\begin{tabular}{l r r l}
+\begin{tabular}{r r r l}
 Level & kXP required & ΔkXP & Special requirements \\
 \Midrule
 41 & 26,000 & 6,000 & \begin{varwidth}{\dimexpr\linewidth-2\tabcolsep}
@@ -74,6 +77,7 @@ Level & kXP required & ΔkXP & Special requirements \\
 50 & 176,000 & 30,000 & \\
 \end{tabular}
 \caption{Requirements for Trainer Levels 41--50}
+\label{table:xp41plus}
 \end{center}
 \end{table}
 

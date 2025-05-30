@@ -4,9 +4,11 @@ We'll define some statistics for each Pokémon.
 These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
  IVs to generate $Mod_A$, $Mod_D$, and $Mod_S$:
- \[ Mod_A = ATK + IV_A \]
- \[ Mod_D = DEF + IV_D \]
- \[ Mod_S = STA + IV_S \]
+\begin{align*}
+   Mod_A &= ATK + IV_A \\
+   Mod_D &= DEF + IV_D \\
+   Mod_S &= STA + IV_S
+\end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier}
 Recall that each Pokémon has its own Level, ranging from 1.0
@@ -22,7 +24,7 @@ The extremal ratios are 0.1119 (L1 / L50) and 8.9394 (L50 / L1).
 
 \begin{table}
 \begin{center}
-\begin{tabular}{l l l l l l}
+\begin{tabular}{l l|l l|l l}
 Level & CPM & Level & CPM & Level & CPM \\
 \Midrule
 1.0 & 0.0940 & 17.5 & 0.5588 & 34.0 & 0.7557 \\ 
@@ -64,14 +66,14 @@ Level & CPM & Level & CPM & Level & CPM \\
 \end{center}
 \end{table}
 
-\section{$Eff_A$, $Eff_D$, and $Eff_S$}
+\section{Effective stats}
 We multiply each of the $Mod$ values by the Pokémon's CPM to generate
  its $Eff_A$, $Eff_D$, and $Eff_S$:
-
-\[ Eff_A = Mod_A \times CPM \]
-\[ Eff_D = Mod_D \times CPM \]
-\[ Eff_S = Mod_S \times CPM \]
-
+\begin{align*}
+ Eff_A &= Mod_A \times CPM \\
+ Eff_D &= Mod_D \times CPM \\
+ Eff_S &= Mod_S \times CPM
+\end{align*}
 $Eff_S$ determines the Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
