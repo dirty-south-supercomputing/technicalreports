@@ -1,27 +1,26 @@
 \chapter{Damage}
 \label{chap:damage}
 Each Attack reduces the opponent's Hit Points by an integer greater than zero.
-This integer is called (inflicted) Damage, and calculated as a product of several factors.
+This integer is called (inflicted) Damage $D$, and calculated as a product of several factors.
 The factors are different for Gym/Raid/Max Battles and Trainer Battles,
- but the core $D_C$ of the Damage equation is common to all contests.
+ but the core of the Damage equation is common to all contexts.
 
-\section{Typing multipliers}
-We must first determine the multiplier due to Typing:
+\section{$M_C$, the typing multiplier}
+We must first determine the common multiplier due Typing:
 
-\[ M = M_{STAB} \times M_{T} \]
+\[ M_C = M_{STAB} \times 1.6^{T} \]
 
 $M_{STAB}$ is the STAB bonus, equal to 1.2 when the Attack's Type matches any
   Type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the Attack Type
  and the defender's Type.
-$M_{T}$ is $1.6^{T}$.
 For completeness I include a $T$ of -4 in \autoref{table:typemult},
  but remember that this is not currently realizable.
 
 \begin{table}
 \begin{center}
 \begin{tabular}{c r r r r}
-  Effectiveness & $M_{T}$ & Δ\% & $M$ w/ STAB & Δ\% \\
+  $T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
 \Midrule
   -4 & 0.1526 & -84.74 & 0.1831 & -81.69 \\
   -3 & 0.2441 & -75.59 & 0.2930 & -70.7 \\
@@ -36,40 +35,89 @@ For completeness I include a $T$ of -4 in \autoref{table:typemult},
 \end{center}
 \end{table}
 
-Leaving out the hideous $TE = -4$ case, we see that $M$ ranges
+Leaving out the hideous −4 case, we see that $M_C$ ranges
  from 0.2441 (a 75.59\% reduction in Damage) to 3.072
  (a 207.2\% increase).
-Considered another way, when $TE = -3$ and there is no STAB bonus,
- it takes about four times as many Attacks (and thus time) to subdue
- an opponent than would be expected without typing effects.
-When $TE = 2$ and STAB is in play, it takes about one-third as many Attacks.
+Considered another way, for an effectiveness of −3 with no STAB bonus,
+ it takes about four times as many Attacks to subdue an opponent than
+ we would otherwise expect.
+With an effectiveness of 2 with STAB, it takes about one-third as many Attacks.
+
+Note that the change due to a $T$ of 1 (60\%) is very close to the negative change
+ when $T$ is -2 (-60.94\%). A $T$ of -1 is a smaller (-37.5\%) loss. This does not
+ mean that an Attack ineffective against one of the defender's types and
+ effective against the other enjoys a 12.5\% gain!
+The change is actually 0.
+The two effectiveness relationships must be added, and this value used to
+ calculate $1.6^T$.
+Exponential functions are not linear functions, and must not be treated as such.
+
+\section{$M_B$, the battle-specific multiplier}
+In Raids and Max battles, a number of effects come into play.
+\[ M_B = 0.5 \times M_D \times M_F \times M_W \times M_M \times M_P \]
+\begin{itemize}
+ \item $M_D$ is 0.25 if the Attack is dodged (dodging is only possible in Raids/Max battles),
+ and 1 otherwise. Note that this seems to have been subject to recent changes.
+ \item The friendship bonus $M_F$: \textbf{FIXME}
+ \item $M_W$ is 1.2 if the Attack is weather-boosted, and 1 otherwise.
+ \item The Mega bonus $M_M$: \textbf{FIXME}
+ \item The Power Stop bonus $M_P$: \textbf{FIXME}
+\end{itemize}
+The calculation for Trainer Battles is simpler:
+\[ M_B = 0.65 \times M_G \]
+For Fast Attacks, $M_G$ is 1.
+When throwing a Charged Attack, the attacking Trainer plays a short minigame.
+Performance on this minigame is summarized with ``Excellent!'', ``Great!'',
+``Nice!'', or silence.
+This summary corresponds to $M_G$, which ranges over [0.25, 0].
+``Excellent!'' is necessary and sufficient for a 1, and should always be obtainable.
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{l r}
+      Summary & $M_G$ range \\
+      \Midrule
+      ``Excellent!'' & 1 \\
+      ``Great!'' & [0.75, 1) \\
+      ``Nice!'' & [0.5, 0.75) \\
+      No summary & [0.25, 0.5) \\
+  \end{tabular}
+    \caption{The minigame summary is an indication of $M_{MGAME}$}
+  \end{center}
+\end{table}
 
 \section{The Damage equation}
 
-\[ D_C = P \times \frac{Eff_A}{Eff_D} \times M \]
+$D_A$ is what we can calculate using only the attacker's knowledge, i.e.
+ it is that component of $D$ which is independent of the defender.
 
-That is, the Power of the employed attack is scaled by the ratio of
- $Eff_A$ to $Eff_D$ and the product of Type Effectiveness multipliers.
-Remembering their definitions, this can be rewritten as:
+\[ D_A = P \times Eff_A \times M_{STAB} \times M_B \]
 
-\[ D_C = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M \]
+In all cases, the Power of the employed attack is scaled by the ratio of
+ $Eff_A$ to $Eff_D$ and the common multiplier $M_C$.
+
+\[ D_C = \frac{D_A}{Eff_D} \times 1.6^T = P \times \frac{Eff_A}{Eff_D} \times M_C \times M_B \]
+
+Using the definitions of $Eff_A$ and $Eff_D$, this can be rewritten as:
+
+\[ D_C = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M_C \]
 
 which can of course be rewritten as:
 
-\[ D_C = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M \]
+\[ D_C = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M_C \]
 
-From there, it's just some multipliers, a floor function (to ensure
+From there, it's just the context-specific multiplier, a floor function (to ensure
  an integer), and a min function (to ensure at least 1 point of Damage
  is always inflicted):
 
-\[ D = \min{1, \left\lfloor P \times \frac{Eff_A}{Eff_D} \times M \times M_M \right\rfloor } \]
+\[ D = \min{1, \left\lfloor P \times \frac{Eff_A}{Eff_D} \times M_C \times M_B \right\rfloor } \]
 
 Since this is a product, a proportional increase in any factor leads to
  the same change.
 If we have a Power of 10, a $Mod_A$ of 140, and a CPM of 0.4628 (corresponding
- to Level 12), no STAB bonus, and no Type Effectiveness, $D_C$ is 647.92.
-Increasing Power to 12 (a 20\% increase) yields 777.504.
-Increasing $Mod_A$ to 168 (a 20\% increase) yields 777.504.
+ to Level 12), no STAB bonus, and no Type Effectiveness, $D_C$ is $\frac{647.92}{Eff_D}$.
+Increasing Power to 12 (a 20\% increase) yields $\frac{777.504}{Eff_D}$.
+Increasing $Mod_A$ to 168 (a 20\% increase) yields $\frac{777.504}{Eff_D}$.
 Switching to an Attack matching the attacker's type adds the
  STAB bonus, a 1.2x multiplier, yielding 777.504.
 Increasing CPM 20\% to 0.55536 (somewhere between Levels 17 and 17.5; this
