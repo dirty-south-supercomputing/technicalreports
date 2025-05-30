@@ -44,7 +44,6 @@ That leaves 120 Type relations giving either attacker or defender an advantage,
  one that can easily define the winner of a battle.
 These relationships must also be memorized.
 
-\textbf{FIXME: MOST OF THESE ROWS ARE WRONG}
 \begin{table}[h]
   \begin{center}
   \setlength{\tabcolsep}{1pt}
@@ -86,13 +85,14 @@ These relationships must also be memorized.
     \includegraphics[width=1em]{images/grass.png} & & & -1 & -1 & 1 & 1 & -1 & & -1 & -1 & 1 & -1 & & & & -1 & & \\ % 10
     \includegraphics[width=1em]{images/ground.png} & & & -2 & 1 & & 1 & -1 & & 1 & 1 & & -1 & 1 & & & & & \\ % 8
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/ice.png} & & & 1 & & 1 & & & & -1 & -1 & -1 & 1 & & & -1 & 1 & & \\ % 8
+%\textbf{FIXME: ROWS ABOVE ARE WRONG}
+    \includegraphics[width=1em]{images/ice.png} & & & 1 & & & & -1 & 1 & & 1 & 1 & -1 & & & & & -1 & -1 \\ % 8
     \includegraphics[width=1em]{images/normal.png} & & & & & & & & & -2 & & & & & & & -1 & -1 & \\ % 3
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/poison.png} & & & & -1 & -1 & -1 & & -1 & -2 & & & 1 & & & & & & 1 \\ % 7
+    \includegraphics[width=1em]{images/poison.png} & & & &  & 1 &  & &  &  -1 & 1 & -1 & & & -1 & & -1 & & \\ % 7
     \includegraphics[width=1em]{images/psychic.png} & & -2 & &  & & 1 & & &  & & & & & 1 & -1 & & -1 & &  \\ % 5
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/rock.png} & & -1 & 1 & & -1 & & 1 & & -1 & 1 & & & & & 1 & & & \\ % 7
+    \includegraphics[width=1em]{images/rock.png} & 1 &  &  & &  & -1 & 1 & 1 &  &  & -1 & 1 & & &  & & -1 & \\ % 7
     \includegraphics[width=1em]{images/steel.png} & & & & -1 & 1 & & -1 & & & & & 1 & & & & 1 & -1 & -1 \\ % 7
     \rowcolor{Gray!25}
     \includegraphics[width=1em]{images/water.png} & & & -1 & & & & 1 & & & -1 & 1 & & & & & 1 & & -1 \\ % 6
