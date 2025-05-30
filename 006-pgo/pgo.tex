@@ -9,7 +9,7 @@
 \usepackage{ninecolors}
 \usepackage[svgnames,HSB]{xcolor}
 \selectcolormodel{rgb}
-\usepackage{caption} % for \captionsetup
+\usepackage[labelfont=bf]{caption} % for \captionsetup
 \usepackage{polyglossia}
 \usepackage{pdfpages}
 \usepackage{tabularray}
@@ -67,16 +67,15 @@
   \hypertarget{toc}{}%
   \bookmark[dest=toc]{contents}
   \tableofcontents*
-  %\cleartorecto
   \hypertarget{lof}{}%
   \bookmark[dest=lof]{illustrations} % if we use 3, it changes to i instead of iii [shrug]
-  \vfill
   \listoftables*
   \listoffigures*
   \fi
 %--------------------------main text------------------------------------------%
 \mainmatter
 \input{foreward}
+\input{story}
 \input{trainer}
 \input{types}
 \input{attacks}
