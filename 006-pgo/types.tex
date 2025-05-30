@@ -39,8 +39,8 @@ For each Type of the defender, determine the Attack Type's effectiveness
  on that Type, and add the results.
 This is the total type effectiveness of the Attack Type on that Species.
 
-There are 324 (18 * 18) total Type relationships, of which 208 are standard.
-That leaves 116 Type relations giving either attacker or defender an advantage,
+There are 324 (18 * 18) total Type relationships, of which 204 are standard.
+That leaves 120 Type relations giving either attacker or defender an advantage,
  one that can easily define the winner of a battle.
 These relationships must also be memorized.
 
@@ -68,33 +68,33 @@ These relationships must also be memorized.
     \includegraphics[width=1em]{images/steel.png} &
     \includegraphics[width=1em]{images/water.png} &
     \\
-    \includegraphics[width=1em]{images/bug.png} & & -1 & -1 & -1 & & & & -1 & -1 & -1 & & 1 & & 1 & & & 1 & -1 \\
+    \includegraphics[width=1em]{images/bug.png} & & -1 & -1 & -1 & & & & -1 & -1 & -1 & & 1 & & 1 & & & 1 & -1 \\ % 10
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/dark.png} & & -1 & & & & & & 1 & & & & & & 1 & & & -1 & -1 \\
-    \includegraphics[width=1em]{images/dragon.png} & & & & & & & & & -1 & & & & & & & 1 & & -2 \\
+    \includegraphics[width=1em]{images/dark.png} & & -1 & & & & & & 1 & & & & & & 1 & & & -1 & -1 \\ % 5
+    \includegraphics[width=1em]{images/dragon.png} & & & & & & & & & -1 & & & & & & & 1 & & -2 \\ % 3
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/electric.png} & & & 1 & & -2 & & & & & & 1 & -1 & -1 & & & -1 & & \\
-    \includegraphics[width=1em]{images/fairy.png} & & 1 & & -1 & & & & & -1 & -1 & & & & & & 1 & 1 & \\
+    \includegraphics[width=1em]{images/electric.png} & & & 1 & & -2 & & & & & & 1 & -1 & -1 & & & -1 & & \\ % 6
+    \includegraphics[width=1em]{images/fairy.png} & & 1 & & -1 & & & & & -1 & -1 & & & & & & 1 & 1 & \\ % 6
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/fighting.png} & 1 & & -1 & -1 & & 1 & -1 & -2 & 1 & & & & & -1 & 1 & -1 & 1 & -1 \\
-    \includegraphics[width=1em]{images/fire.png} & & & & & & -1 & 1 & & 1 & -1 & -1 & 1 & & & 1 & -1 & & \\
+    \includegraphics[width=1em]{images/fighting.png} & 1 & & -1 & -1 & & 1 & -1 & -2 & 1 & & & & & -1 & 1 & -1 & 1 & -1 \\ % 12
+    \includegraphics[width=1em]{images/fire.png} & & & & & & -1 & 1 & & 1 & -1 & -1 & 1 & & & 1 & -1 & & \\ % 8
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/flying.png} & & 1 & & & & & 1 & & -1 & & & 1 & -1 & & & & & \\
-    \includegraphics[width=1em]{images/ghost.png} & -2 & & & & & & & 1 & & & & & & 1 & & & -1 & \\
+    \includegraphics[width=1em]{images/flying.png} & & 1 & & & & & 1 & & -1 & & & 1 & -1 & & & & & \\ % 5
+    \includegraphics[width=1em]{images/ghost.png} & -2 & & & & & & & 1 & & & & & & 1 & & & -1 & \\ % 4
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/grass.png} & & & -1 & -1 & 1 & 1 & -1 & & -1 & -1 & 1 & -1 & & & & -1 & & \\
-    \includegraphics[width=1em]{images/ground.png} & & & -2 & 1 & & 1 & -1 & & 1 & 1 & & -1 & 1 & & & & & \\
+    \includegraphics[width=1em]{images/grass.png} & & & -1 & -1 & 1 & 1 & -1 & & -1 & -1 & 1 & -1 & & & & -1 & & \\ % 10
+    \includegraphics[width=1em]{images/ground.png} & & & -2 & 1 & & 1 & -1 & & 1 & 1 & & -1 & 1 & & & & & \\ % 8
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/ice.png} & & & 1 & & 1 & & & & -1 & -1 & -1 & 1 & & & -1 & 1 & & \\
-    \includegraphics[width=1em]{images/normal.png} & & & & & & -1 & & -2 & -1 & & & & & & & & & \\
+    \includegraphics[width=1em]{images/ice.png} & & & 1 & & 1 & & & & -1 & -1 & -1 & 1 & & & -1 & 1 & & \\ % 8
+    \includegraphics[width=1em]{images/normal.png} & & & & & & -1 & & -2 & -1 & & & & & & & & & \\ % 3
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/poison.png} & & & & -1 & -1 & -1 & & -1 & -2 & & & 1 & & & & & & 1 \\
-    \includegraphics[width=1em]{images/psychic.png} & & 1 & & 1 & & & & & -1 & & & & & -1 & & & -2 & &  \\
+    \includegraphics[width=1em]{images/poison.png} & & & & -1 & -1 & -1 & & -1 & -2 & & & 1 & & & & & & 1 \\ % 7
+    \includegraphics[width=1em]{images/psychic.png} & & 1 & & 1 & & & & & -1 & & & & & -1 & & & -2 & &  \\ % 5
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/rock.png} & & -1 & 1 & & -1 & & 1 & & -1 & 1 & & & & & 1 & & & \\
-    \includegraphics[width=1em]{images/steel.png} & & & & & 1 & & & -1 & -1 & -1 & & -1 & & 1 & & & 1 & \\
+    \includegraphics[width=1em]{images/rock.png} & & -1 & 1 & & -1 & & 1 & & -1 & 1 & & & & & 1 & & & \\ % 7
+    \includegraphics[width=1em]{images/steel.png} & & & & & 1 & & & -1 & -1 & -1 & & -1 & & 1 & & & 1 & \\ % 7
     \rowcolor{Gray!25}
-    \includegraphics[width=1em]{images/water.png} & & & -1 & & & & 1 & & & -1 & 1 & & & & & 1 & & -1 \\
+    \includegraphics[width=1em]{images/water.png} & & & -1 & & & & 1 & & & -1 & 1 & & & & & 1 & & -1 \\ % 6
 \end{tabular}
     \caption[Type relations]{Type relations. Rows attack, columns defend.}
 \end{center}
@@ -120,7 +120,7 @@ On the other hand, Ground is effective against Electric, and Fairy is effective
     \Midrule
     Steel & 1 & 10 & 4 & 3 & -5 \\
     Ghost & 2 & 2 & 12 & 2 & -0.\textoverline{2} \\
-    Fairy & 1 & 3 & 13 & 2 & -0.1\textoverline{6} \\
+    Fairy & 1 & 3 & 12 & 2 & -0.1\textoverline{6} \\
     Poison & 0 & 5 & 11 & 2 & -0.1\textoverline{6} \\
     Dragon & 0 & 3 & 10 & 5 & -0.\textoverline{1} \\
     Electric & 0 & 3 & 14 & 1 & -0.\textoverline{1} \\
@@ -186,7 +186,7 @@ A thin red or black edge indicates an ineffective or very ineffective relationsh
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/nature.dot.png}
-\caption{The Nature relations}
+\caption{The 17 Nature relations}
 \end{figure}
 Poison and Grass are both self-ineffective.
 Ground kills Rock and Poison.
@@ -197,7 +197,7 @@ Bug kills Grass.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/phases.dot.png}
-\caption{The Elemental relations}
+\caption{The 14 Elemental relations}
 \end{figure}
 All are self-ineffective except Rock.
 Water kills Fire.
@@ -207,7 +207,7 @@ Rock kills Fire.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/circo/rational.dot.png}
-\caption{The Rational relations}
+\caption{The 16 Rational relations}
 \end{figure}
 Dark and Psychic are self-ineffective, while Ghost is self-effective.
 Psychic kills Fighting.
@@ -217,7 +217,7 @@ Dark kills Ghost, and slaughters Psychic.
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
-\caption{The Dragon relations}
+\caption{The 9 Dragon relations}
 \end{figure}
 Dragon is self-effective.
 Fairy slaughters Dragon.
@@ -225,7 +225,7 @@ Fairy slaughters Dragon.
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/steel.dot.png}
-\caption{The Steel relations}
+\caption{The 20 Steel relations}
 \end{figure}
 Steel is self-ineffective.
 Fire kills Steel.
@@ -234,7 +234,7 @@ Steel kills Ice, Rock, and Fairy.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/dot/death.dot.png}
-\caption{The Death Graph}
+\caption{The Death Graph's 24 relations}
 \end{figure}
 The Graph of Death.
 Fairy kills Dark and Fighting.
@@ -249,7 +249,7 @@ Ground slaughters Electric.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=.25]{out/dot/jumble.dot.png}
-\caption{Remaining interactions}
+\caption{The 20 remaining interactions}
 \end{figure}
 The remaining interactions don't have any real structure, and simply must be
 memorized as they are.
