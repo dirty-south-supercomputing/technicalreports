@@ -2,11 +2,6 @@
 Each account is defined by its associated Trainer.
 A new Trainer starts at Level 1 (of 50), with 0 XP, no Stardust, no Max Particles,
  no Candy of any kind, and no Mega Energy of any kind.
-They have a Bag capable of storing 350 items (not all items count against this limit),
- a Postcard Book with space for 350 Postcards,
- and capacity to hold 300 Pokémon.
-Upgrades to these capacities can be purchased in units of 50, up to maximum limits
- of 8,800 items, 2,000 Postcards, and 10,500 Pokémon.
 A Trainer cannot hold Pokémon whose XP level exceeds the Trainer's
  by more than 10, i.e. a Level 22 Trainer cannot possess a Level 33
  Pokémon. If such a Pokémon is captured or otherwise received, its
@@ -15,7 +10,7 @@ A Trainer cannot hold Pokémon whose XP level exceeds the Trainer's
 \begin{table}
 \begin{center}
 \begin{tabular}{l l l l l l}
-  Level & kXP required & Min total kXP & Level & kXP required & Min total kXP \\
+  Level & kXP required & ΔkXP & Level & kXP required & ΔkXP \\
 \Midrule
   1 & 0 & 0 & 2 & 1 & 1 \\
   3 & 2 & 3 & 4 & 3 & 6 \\
@@ -30,26 +25,44 @@ A Trainer cannot hold Pokémon whose XP level exceeds the Trainer's
  21 & 50 & 260 & 22 & 75 & 335 \\
  23 & 100 & 435 & 24 & 125 & 560 \\
  25 & 150 & 710 & 26 & 190 & 900 \\
- 27 & 200 & 1,100 & 28 & 250 & 1,350 \\
- 29 & 300 & 1,650 & 30 & 350 & 2,000 \\
- 31 & 500 & 2,500 & 32 & 500 & 3,000 \\
- 33 & 750 & 3,750 & 34 & 1,000 & 4,750 \\
- 35 & 1,250 & 6,000 & 36 & 7,500 & 7,500 \\
- 37 & 2,000 & 9,500 & 38 & 2,500 & 12,000 \\
- 39 & 3,000 & 15,000 & 40 & 5,000 & 20,000 \\
- 41 & 6,000 & 26,000 & 42 & 7,500 & 33,500 \\
- 43 & 9,000 & 42,500 & 44 & 11,000 & 53,500 \\
- 45 & 13,000 & 66,500 & 46 & 15,500 & 82,000 \\
- 47 & 18,000 & 100,000 & 48 & 21,000 & 121,000 \\
- 49 & 25,000 & 146,000 & 50 & 30,000 & 176,000 \\
+ 27 & 1,100 & 200 & 28 & 1,350 & 250 \\
+ 29 & 1,650 & 300 & 30 & 2,000 & 350 \\
+ 31 & 2,500 & 500 & 32 & 3,000 & 500 \\
+ 33 & 3,750 & 750 & 34 & 4,750 & 1,000 \\
+ 35 & 6,000 & 1,250 & 36 & 7,500 & 7,500 \\
+ 37 & 9,500 & 2,000 & 38 & 12,000 & 2,500 \\
+ 39 & 15,000 & 3,000 & 40 & 20,000 & 5,000 \\
+ 41 & 26,000 & 6,000 & 42 & 33,500 & 7,500 \\
+ 43 & 42,500 & 9,000 & 44 & 53,500 & 11,000 \\
+ 45 & 66,500 & 13,000 & 46 & 82,000 & 15,500 \\
+ 47 & 100,000 & 18,000 & 48 & 121,000 & 21,000 \\
+ 49 & 146,000 & 25,000 & 50 & 176,000 & 30,000 \\
 \end{tabular}
 \caption{Requirements for Trainer Levels}
 \end{center}
 \end{table}
 
 Upon reaching Level 5, a Trainer can select one of three Teams.
-There is a large set of Medals, each of which can be achieved at the Bronze,
- Silver, Gold, or Platinum level.
+This opens up access to Gyms, Raids, and Appraisal, and is otherwise
+ merely cosmetic.
+The Trainer's Team can be changed (once per year only) by buying and
+ making use of a Team Medallion.
+The cost is 1,000 Pokécoins.
+
+\section{Capacities}
+The Trainer has a Bag initially capable of storing 350 items (not all items
+  count against this limit, e.g. Gifts and Stickers).
+The Bag can be upgraded to store up to 8,800 items in 50 item increments;
+  each upgrade costs 200 Pokécoins.
+The Bag comes with an Infinite Incubator, a Camera, and 50 Poké Balls.
+They have carrying capacity sufficient for 300 Pokémon; additional
+  capacity can be added in 50 Pokémon increments up to a total
+  of 10,500.
+Each upgrade likewise runs 200 Pokécoins.
+They have a Postcard Book with pages for 350 Postcards, and pages can be
+ added for 100 Pokécoins each, supporting 50 additional Postcards, up
+ to a maximum of 2,000.
+The Trainer can carry up to 20 Gifts at a time.
 
 \section{Collecting XP}
 
@@ -62,3 +75,8 @@ A Pokémon can be ``transferred to the Professor'' from your collection,
 Whenever a Pokémon is captured, Candy is awarded. The amount depends on
  the evolutionary state of the captured Pokémon, and the type of Berry
  applied at the time of capture.
+
+\section{Medals}
+There is a large set of Medals, each of which can be achieved at the Bronze,
+ Silver, Gold, or Platinum level.
+
