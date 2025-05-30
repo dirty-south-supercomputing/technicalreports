@@ -13,6 +13,7 @@
 \usepackage{polyglossia}
 \usepackage{pdfpages}
 \usepackage{tabularray}
+\usepackage{varwidth}
 \usepackage{ifthen}
 \usepackage{multicol}
 \usepackage[siunitx]{circuitikz}
@@ -71,9 +72,11 @@
   \hypertarget{toc}{}%
   \bookmark[dest=toc]{contents}
   \tableofcontents*
-  \hypertarget{lof}{}%
-  \bookmark[dest=lof]{illustrations} % if we use 3, it changes to i instead of iii [shrug]
+  \hypertarget{lot}{}%
+  \bookmark[dest=lot]{list of tables}
   \listoftables*
+  \hypertarget{lof}{}%
+  \bookmark[dest=lof]{list of figures} % if we use 3, it changes to i instead of iii [shrug]
   \listoffigures*
   \fi
 %--------------------------main text------------------------------------------%
@@ -90,6 +93,8 @@
 \input{stats}
 \input{damage}
 \input{battle}
+\input{gyms}
+\input{raids}
 \input{unbounded}
 \input{bounded}
 \input{strategy}
