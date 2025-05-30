@@ -4,13 +4,10 @@ We'll define some statistics from each Pokémon.
 These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
  IVs to generate $Mod_A$, $Mod_D$, and $Mod_S$:
-
  \[ Mod_A = ATK + IV_A \]
  \[ Mod_D = DEF + IV_D \]
  \[ Mod_S = STA + IV_S \]
-
-These values are typically scaled by the Pokémon's Combat Power Multiplier.
-
+These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier}
 Recall that each Pokémon has its own Level, ranging from 1.0
  to 50.0, defined on half integers\footnote{I would rather they
@@ -62,7 +59,7 @@ Level & CPM & Level & CPM & Level & CPM \\
 16.5 & 0.5426 & 33.0 & 0.7498 & 49.5 & 0.8378 \\
 17.0 & 0.5508 & 33.5 & 0.7527 & 50.0 & 0.8403 \\
 \end{tabular}
-\caption{Combat Power Multiplier by half-level}
+\caption{Combat Power Multiplier for Pokémon Levels}
 \label{table:cpm}
 \end{center}
 \end{table}

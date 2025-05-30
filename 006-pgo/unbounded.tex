@@ -1,106 +1,23 @@
 \chapter{Unbounded team selection}
 \label{chap:unbounded}
+Trainer Battles make very little use of random numbers (to the best of my
+ knowledge, they only show up when checking for a Charged Attack side
+ effect).
+Their intrigue is instead rooted in ignorance: ignorance of
+ the Pokémon you'll face, the order in which you'll face them,
+ their statistics (beyond the static properties of the Species),
+ their Attacks, and how their Trainer will employ them.
+We've established that Pokémon battle fitness is highly dependent
+ on opponent details.
+We cannot name a globally superior Pokémon---there is no individual Pokémon
+ that (assuming competent play by both Trainers) can defeat all others,
+ primarily due to Type Effectiveness.
 
-Building a winning team is all about selecting Pokémon that can win.
-Part of this is choosing the strongest possible Pokémon.
-This is greatly complicated by the fact that a Pokémon's fitness for
- combat is dependent on its opponent, and complicated further by
- the fact that a team's overall fitness is dependent on the makeup
- of the opposing team.
-We generally don't know the opposing team when selecting our own.
-How, then, can we account for it?
+Does this extend to teams?
+At first, it seems that it might: after all, a team's overall fitness
+ depends on the entire opposing team, involving still more unknowns.
+We will see that the team mechanism actually allows us to mitigate certain
+ unknowns, while adding new ones.
+Comparing teams is highly nontrivial, and this greater complexity admits
+ further opportunities for strategy and cunning.
 
-First off, we can break the Damage equation into those parts dependent
- upon opponents, and those which are independent.
-Looking at the Damage equation, Power, $Eff_A$, and STAB do not depend
- upon an attacker's opponent.
-Likewise $Eff_D$ and MHP for the defender.
-The attacker knows neither $Eff_D$ nor MHP, while the defender doesn't know $Eff_A$.
-Type effectiveness always requires knowing the opposing type.
-We can thus define an independent core fitness evaluation:
-
-\[ F = Eff_A \times P \times M_{STAB} \times Eff_D \times MHP \]
-
-This is roughly equivalent ($MHP \approx Mod_S * CPM$) to
-
-\[ Mod_A \times P \times M_{STAB} \times Mod_D \times Mod_S \times CPM^3 \]
-
-Of course, a given Pokémon can generally select from multiple Fast and Charged Attacks,
-  knowing up to two of the latter at a given time.
-Furthermore, Fast and Charged Attacks are not used in equal ratio (there will
-  always be multiple Fast Attacks per Charged Attack), and a Shield can
-  nullify a Charged Attack.
-How do we define $P$ and $M_{STAB}$?
-As only one Fast Attack can be known at a time, it's easy enough to define one
-  fitness for each possible Fast Attack, leaving out Charged Attacks for now.
-All we need do is normalize the Power of the Fast Attack, using the number of
-  Turns it requires.
-
-\[ F = Eff_A \times \frac{P_{Fast}}{T_{Fast}} \times M_{STAB-Fast} \times Eff_D \times Eff_S \]
-
-Integrating Charged Attacks is more complex.
-First, we can simply normalize the Charged Attack as we did the Fast Attack,
- determine the number of Fast Attacks necessary to launch it:
-
-\[ N_{Fast} = \lceil\frac{E_{Charged}}{E_{Fast}}\rceil \]
-
-yielding the total Power of a cycle, known by the community as Total Damage Output (TDO):
-
-\[ P_{cycle} = N_{Fast} \times P_{Fast} + P_{Charged} \]
-
-We normalize this:
-
-\[ F_{cycle} = \frac{P_{Cycle}}{N_{Fast} \times T_{Fast} + T_{Charged}} \]
-
-There are two turns per second. Multiplying $F_{cycle}$ by two yields a
-  stat the community calls Damage Per Second (DPS).
-
-This has several problems. It doesn't account for the possibility of multiple
-Charged Attacks. It doesn't account for leftover Energy, which will sometimes
-be present whenever $E_{Charged}$ is not a multiple of $E_{Fast}$ (i.e. $N_{Fast}$
-might fluctuate from one cycle to the next). It ignores the possibility that
-the attacker might not use its Charged Attack immediately (and it is often
-unwise to throw Charged Attacks as quickly as possible; see
-\autoref{chap:strategy}). Finally, it presumes that the attacker can always get
-off a full cycle of Fast Attacks followed by a Charged Attack. In reality, the
-attacker might be knocked out or substituted long before its Charged Attack
-becomes relevant, or the defender might use a Shield. It is tempting to ignore
-Charged Attacks, but when they land, they tend to dominate our total Damage.
-
-If we expand over multiple cycles of Fast and Charged Attack, we can
- generalize to situations with excess Energy. We know $E_{Charged} \times
- E_{Fast}$ will be a multiple of both the generated and consumed Energy, so
- simply consider $E_{Charged}$ cycles, each of which throws an average of
- $\frac{E_{Charged}}{E_{Fast}}$ Fast Attacks followed by one Charged Attack.
-
-\[ P_{cycles} = E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times P_{Fast} + P_{Charged}) \]
-
- The number of Fast Attacks in a cycle is actually always either
- $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
- or $\lceil\frac{E_{Charged}}{E_{Fast}}\rceil$ (iff $E_{Charged}$ is a multiple of
- $E_{Fast}$, these two expressions are equal, and the number of Fast Attacks
- per Charged Attack is constant). Normalize for the total time:
-
-\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times T_{Fast} + T_{Charged})} \]
-
-This has only exacerbated one of the problems we mentioned before: we may
-  not get to throw all these Attacks!
-Suppose we have some constant chance $0 < L_{KO} \leq 1$ of being knocked out or
- substituted following each Attack we launch, the probability of being
- in to throw the $N$th Attack is $(1 - L_{KO})^{N-1}$.
-We could thus define an expected damage from Attack $N$:
-
-\[ E_D(N) = \overline{P} \times (1 - L_{KO})^{N-1} \]
-
-and a cumulative expected damage through $N$ Attacks:
-
-\[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \times (1 - L_{KO})^{i-1} \]
-
-This is a geometric series where $a = \overline{P}$ and $r = 1 - L_{KO}$.
-Since $0 \leq r < 1$, this series converges to
-
-\[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \times r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
-
-Of course, our chance of being knocked out is usually not constant across
-Attacks, but rather an immediate function of our remaining HP and any
-Damage we are about to absorb.
