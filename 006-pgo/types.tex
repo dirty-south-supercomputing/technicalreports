@@ -3,7 +3,7 @@
 There are eighteen Types, each with a representative icon.
 In Trainer Battles, the Types of active Pokémon are displayed
  using these icons, so it is important to memorize them.
-\begin{table}[h]
+\begin{table}[ht]
   \begin{tabular}{c c c c c c}
   \includegraphics[scale=.25]{images/bug.png} &
     \includegraphics[scale=.25]{images/dark.png} &
@@ -39,12 +39,12 @@ For each Type of the defender, determine the Attack Type's effectiveness
  on that Type, and add the results.
 This is the total type effectiveness of the Attack Type on that Species.
 
-There are 324 (18 * 18) total Type relationships, of which 204 are standard.
+There are 324 (18 * 18) total Type relationships, of which 204 (63\%) are standard.
 That leaves 120 Type relations giving either attacker or defender an advantage,
  one that can easily define the winner of a battle.
 These relationships must also be memorized.
 
-\begin{table}[h]
+\begin{table}[ht]
   \begin{center}
   \setlength{\tabcolsep}{1pt}
   \begin{tabular}{c c g c g c g c g c g c g c g c g c g c}
@@ -113,7 +113,7 @@ Note that the Ghost/Normal relationship is very ineffective in both directions.
 On the other hand, Ground is effective against Electric, and Fairy is effective
  against Dragon, making these the most lopsided matchups between single Types.
 
-\begin{table}[h]
+\begin{table}[ht]
   \begin{center}
   \begin{tabular}{l r r r r r r r r r r r}
     Type & -2 & -1 & 0 & 1 & DRA \\
@@ -141,17 +141,29 @@ On the other hand, Ground is effective against Electric, and Fairy is effective
   \end{center}
 \end{table}
 
-In addition to the 18 base types, there are 153 dual types (it is not possible
-to dual typed using a single Type, and ordering does not matter) for a total
-of 171. Nine are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
-Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy). When
-dual typing is considered, the type relation ranges from -3 to 2 (-4 is not
-possible, because no Type is very ineffective against two different Types).
+With regards to dual typing, it is not possible to dual type using a single
+  Type, and ordering does not matter.
+\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153 \]
+There are thus 153 dual types in addition to the 18 base types,
+  for a total of 171.
+Nine are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
+ Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
+ leaving 162 defender typings to consider.
+
+Dual typing expands the type relation range, adding the possibilities
+ of -3 and 2 (-4 is not possible, because no Type is very ineffective against
+ two different Types).
+It furthermore vastly expands the Type Effectiveness matrix:
+There are now 3,078 (18 * 171) relations of which only 1499 (48.7\%) are standard.
+Thankfully, these needn't be memorized, as they can all be calculated
+ using the base relations matrix.
 
 % i'd like toppers explaining that 4 are against single types and 6 against all types
-\begin{table}[h]
+\begin{table}[ht]
   \begin{center}
   \begin{tabular}{l r r r r r r r r r r r}
+    & \multicolumn{4}{c}{Type → Type} & \multicolumn{7}{c}{Type → Typing} \\
+    & \multicolumn{4}{c}{\dotfill} & \multicolumn{7}{c}{\downbracefill} \\
     Type & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
     \Midrule
     Ground & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1 \\
@@ -183,7 +195,7 @@ I've found it useful to break the 120 relationships of impact into a few directe
 A thick green edge indicates effectiveness.
 A thin red or black edge indicates an ineffective or very ineffective relationship, respectively.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/nature.dot.png}
 \caption{The 17 Nature relations}
@@ -194,7 +206,7 @@ Grass kills Ground.
 Poison kills Grass.
 Bug kills Grass.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/phases.dot.png}
 \caption{The 14 Elemental relations}
@@ -204,7 +216,7 @@ Water kills Fire.
 Fire kills Ice.
 Rock kills Fire.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/rational.dot.png}
 \caption{The 16 Rational relations}
@@ -231,7 +243,7 @@ Steel is self-ineffective.
 Fire kills Steel.
 Steel kills Ice, Rock, and Fairy.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/dot/death.dot.png}
 \caption{The Death Graph's 24 relations}
@@ -246,7 +258,7 @@ Grass kills Water.
 Electric kills Flying.
 Ground slaughters Electric.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/dot/jumble.dot.png}
 \caption{The 20 remaining interactions}
