@@ -39,14 +39,17 @@
 \newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
 \makeatother
 
+\renewcommand{\insertchapterspace}{}
+
 \newcommand\Midrule[0]{\midrule}
 
-\def\LOGO {\textsf{
+\def\LOGO {
+  \begin{center}
   \textbf{
-  \begin{center} \huge Pokémon GO\\
-   \normalsize A Quantitative Approach
-  \end{center}
-}}}
+    \huge Pokémon GO\\
+    \normalsize A Quantitative Approach\\
+  }
+\end{center}}
 \frontmatter
 \begin{document}
   \pagestyle{empty}
@@ -54,7 +57,7 @@
   \vfill
   \hrule
   \begin{center}
-  \textsf{Gold \& Appel Publishing}
+  \textbf{Gold \& Appel Publishing}
   \end{center}
   \hrule
   \clearpage
