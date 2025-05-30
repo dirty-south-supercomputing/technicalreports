@@ -1,16 +1,15 @@
 \chapter{CP-bounded team selection}
-
+\label{chap:bounded}
 Several leagues (and some Research tasks) place a ceiling on the CP of
  participating Pokémon.
 If CP does not accurately represent a given Pokémon's chance to win, we ought
  be able to exploit this by assembling teams using undervalued Pokémon.
-We will see that CP is indeed a very incomplete assessment for PvP.
+We will see that CP is indeed a very questionable assessment for PvP.\\
 
-A Pokémon's CP is defined as:
+\noindent{}A Pokémon's CP is defined as:
 \[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
-
-First off, notice that CP growth is quadratic with respect to $CPM$,
- linear with $Mod_A$, and sublinear with $Mod_D$ and $Mod_S$.
+\noindent{}CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
+  sublinear with $Mod_D$ and $Mod_S$.
 Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
 This suggests that $Mod_D$ is undervalued by the CP equation, which
@@ -19,7 +18,7 @@ We will exploit this discrepancy\footnote{Why would the game use such
  a flawed measure of power? A single stat was clearly desired to cover both
  modes of Pokémon GO battling. Since Raids allow substitution of defeated
  Pokémon, but are subject to a timer, the ability to defend and absorb
- Damage is less important than the capability of inflicting damage.}.
+ Damage is less important than being able to quickly inflict damage.}.
 MHP isn't used in the Damage equation, but knocking out a Pokémon
  requires inflicting some average Damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.
