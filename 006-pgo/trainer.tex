@@ -1,31 +1,9 @@
 \chapter{Trainers}
-A Pokémon GO account is synonymous with its associated Trainer.\\
+A Pokémon GO account is synonymous with its associated Trainer.
 
-A new Trainer starts at Level 1 with 0 XP.
-There are 50 Trainer Levels.
+New Trainers start at Level 1 (of 50) with 0 XP\@.
 A new Level is conferred as soon as the Trainer's XP meets or exceeds
-  its XP threshold, and it is possible to advance multiple Levels
-  through a single reward of XP.
-A Trainer's cannot control Pokémon whose Level exceeds the Trainer's by more than 10,
-  i.e. a Level 22 Trainer cannot power a Pokémon past Level 32.
-If such a Pokémon is captured or otherwise received, its Level will be
-  reduced to the Trainer's plus 10.
-The maximum Pokémon Level is 50, so all Pokémon Levels are available upon
-  reaching Trainer Level 40.
-Trainer Levels beyond 40 have extra requirements beyond XP (see \autoref{table:xp41plus}).
-
-Reaching a new Level always brings rewards in the form of items.
-Levels 1, 7, 8, 15, and 20 each open Special Research.
-Upon reaching Level 5, a Trainer can receive Potions and Revives,
- and select one of three Teams: Mystic, Valor, or Instinct.
-Team membership opens up access to Appraisal (see \autoref{section:ivs}).
-One's Team has ramifications for Gyms (see \autoref{chap:gyms}) and Raids (see \autoref{chap:raids}),
-  both of which are likewise opened by membership.
-A Trainer's Team can be changed by purchasing and making use of a Team Medallion.
-The cost is 1,000 Pokécoins, and 365 days must pass between Medallion purchases.
-
-XL Candy becomes available at Level 31.
-
+  the Level's XP threshold (see \autoref{table:xp40}).
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{r r r|r r r}
@@ -56,81 +34,100 @@ XL Candy becomes available at Level 31.
 \label{table:xp40}
 \end{center}
 \end{table}
+It is possible to advance multiple Levels via a single reward of XP\@.
+A Trainer cannot control Pokémon of a Level exceeding the Trainer's by more than 10,
+  i.e.\ a Level 22 Trainer cannot power a Pokémon past Level 32.
+If such a Pokémon is captured or otherwise received, its Level will be
+  reduced to the Trainer's plus 10.
+The maximum Pokémon Level is 50, so all Pokémon Levels are available upon
+  reaching Trainer Level 40.
+Trainer Levels beyond 40 have extra requirements beyond XP (see \autoref{table:xp41plus}).
+
+Reaching a new Level is rewarded with items (\autoref{table:levelitems}),
+  and sometimes opens up new elements of gameplay (\autoref{table:levelgates}).
+Levels 1, 7, 8, 15, and 20 each come with Special Research.
 
 \begin{table}[ht]
 \begin{center}
-\begin{tabular}{r r r l}
-Level & kXP & ΔkXP & Special requirements \\
+\begin{tabular}{r r r|r r r}
+\end{tabular}
+\caption{Rewards for achieving Trainer Levels}
+\label{table:levelitems}
+\end{center}
+\end{table}
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{r r}
+  Level & Features unlocked \\
 \Midrule
-41 & 26,000 & 6,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                      20 Legendary/Mythical power ups,
+  2 & Nenab berries \\
+  5 & Potions, Revives, Team selection, appraisal, Gyms, Raids \\
+  8 & Razz berries, Team Rocket \\
+  10 & Super Potions, Golden Razz berries, Evolution items, Trades, Trainer Battles \\
+  12 & Great Balls \\
+  15 & Hyper Potions, Fast TMs, Parties \\
+  18 & Pinap berries \\
+  20 & Silver Pinap berries, Ultra Balls, Mega Evolution \\
+  25 & Max Potions, Charged TMs \\
+  30 & Max Revives, Route creation \\
+  31 & XL Candy \\
+  37 & Pokéstop creation \\
+\end{tabular}
+\caption{}
+\label{table:levelgates}
+\end{center}
+\end{table}
+
+Upon reaching Level 5, a Trainer can join one of three Teams: Mystic, Valor, or Instinct.
+A Trainer can change Team later by purchasing and making use of a Team Medallion.
+The cost is 1,000 Pokécoins, and 365 days must pass between Medallion purchases.
+
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{r r r p{0.65\textwidth}}
+Level & MXP & ΔMXP & Special requirements \\
+\Midrule
+41 & 26 & 6 & 20 Legendary/Mythical power ups,
                       30 Raid wins,
                       200 Pokémon caught in 24h,
-                      5 Gold medals
-                      \end{varwidth} \\
-                      \hline
-42 & 33,500 & 7,500 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                      Evolve all 8 Eevee forms,
+                      5 Gold medals\\
+42 & 33.5 & 7.5 & Evolve all 8 Eevee forms,
                       15 item-assisted evolutions,
                       3 Excellent throws,
-                      200 Pokémon caught with berries
-                      \end{varwidth} \\
-                      \hline
-43 & 42,500 & 9,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                      100,000 Stardust earned,
+                      200 Pokémon caught with berries \\
+43 & 42.5 & 9 & 100 Stardust earned,
                       200 effective Charged Attacks,
                       5 Legendary/Mythical catches,
-                      5 Platinum medals
-                      \end{varwidth} \\
-                      \hline
-44 & 53,500 & 11,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                       30 Great League wins,
+                      5 Platinum medals \\
+44 & 53.5 & 11 & 30 Great League wins,
                        30 Ultra League wins,
                        30 Master League wins,
-                       20 GO Battle League battles
-                       \end{varwidth} \\
-                       \hline
-45 & 66,500 & 13,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                       100 Rocket Grunts wins,
+                       20 GO Battle League battles \\
+45 & 66.5 & 13 & 100 Rocket Grunts wins,
                        100 Pokémon purified,
                        50 Rocket Leaders wins,
-                       10 Platinum medals
-                       \end{varwidth} \\
-                       \hline
-46 & 82,000 & 15,500 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                       100 Field Research tasks,
+                       10 Platinum medals\\
+46 & 82 & 15.5 & 100 Field Research tasks,
                        7 consecutive days w/snapshot,
                        50 Excellent throws,
-                       30 Eggs hatched
-                       \end{varwidth} \\
-                       \hline
-47 & 100,000 & 18,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                        30 Raid wins with heterogenous teams,
+                       30 Eggs hatched\\
+47 & 100 & 18 & 30 Raid wins with heterogenous teams,
                         3{\symbolfont ✯}+ Raid win with CP1500-bounded team,
                         3 power ups to Max CP,
-                        20 Platinum medals
-                        \end{varwidth}\\
-                       \hline
-48 & 121,000 & 21,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                        10 Souvenirs from buddy,
+                        20 Platinum medals\\
+48 & 121 & 21 & 10 Souvenirs from buddy,
                         300 hearts with buddy,
                         200km walked with buddy,
-                        8 weeks with 25km walked
-                        \end{varwidth}\\
-                       \hline
-49 & 146,000 & 25,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                        10 trades of 300km+ catch distance,
+                        8 weeks with 25km walked\\
+49 & 146 & 25 & 10 trades of 300km+ catch distance,
                         50 Lucky Pokémon received in trades,
                         500 Gifts sent,
-                        35 Platinum medals
-                        \end{varwidth}\\
-                       \hline
-50 & 176,000 & 30,000 & \begin{varwidth}{\dimexpr0.5\linewidth}
-                        999 Excellent throws,
+                        35 Platinum medals\\
+50 & 176 & 30 & 999 Excellent throws,
                         5 consecutive Legendary/Mythical catches,
                         3 Rocket Leader wins with CP2500-bounded teams,
-                        Rank 10 in GO Battle League
-                        \end{varwidth}\\
+                        Rank 10 in GO Battle League\\
 \end{tabular}
 \caption{Requirements for Trainer Levels 41--50}
 \label{table:xp41plus}
