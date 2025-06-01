@@ -18,17 +18,18 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 UPSTREAM:=$(addsuffix .csv, moves)
 CHARGED:=chargedattacks
 FAST:=fastattacks
-CSV:=$(addprefix $(OUT), $(addsuffix .csv, $(CHARGED) $(FAST)))
+JSON:=$(addprefix $(OUT), $(addsuffix .json, $(CHARGED) $(FAST)))
+TYPES:=out/types
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
 all: $(PDF)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(JSON)
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -39,11 +40,15 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
-$(CSV): csvs $(UPSTREAM)
+$(JSON): csvs $(UPSTREAM) $(TYPES)
 	./$(<F)
 
+$(TYPES): types.c
+	@mkdir -p $(@D)
+	gcc -o $@ -Wall -W -O2 $(<F)
+
 clean:
-	@rm -vrf $(CSV)
+	@rm -vrf $(JSON) $(TYPES)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
