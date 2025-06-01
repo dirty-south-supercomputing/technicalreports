@@ -1,12 +1,25 @@
 #!/bin/sh
 
+# uses pokemon data from
+#
+#  https://pokemongo.fandom.com/wiki/List_of_Pok%C3%A9mon_by_statistics
+#  https://pokemongo.gamepress.gg/c/pokemon
+# uses attack data from
+#  https://pvpoke.com/moves/charged/
+#  https://pokemongo.gamepress.gg/c/moves
+#  https://pokemondb.net/move/all
+
 set -e
 
 MOVES=moves.csv
-FAST=fastattacks.csv
-CHARGED=chargedattacks.csv
+FAST=fastattacks.json
+CHARGED=chargedattacks.json
 
 [ -r "$MOVES" ] || { echo "Couldn't find $MOVES, exiting" >&2 ; return 1 ; }
 
-( echo "Move,Type,Category,Power,Energy,Turns" && grep 'Fast Attack' < "$MOVES" ) > "$FAST"
-( echo "Move,Type,Category,Power,Energy,Turns" && grep 'Charged Attack' < "$MOVES" ) > "$CHARGED"
+echo "Generating $FAST from $MOVES..."
+csvgrep -c 3 -m "Fast Attack" "$MOVES" | csvcut -C 3,9 | csvjson -k "Move" > "$FAST"
+echo "Generating $CHARGED from $MOVES..."
+csvgrep -c 3 -m "Charged Attack" "$MOVES" | csvcut -C 3,6,7,8 | csvjson -k "Move" > "$CHARGED"
+
+
