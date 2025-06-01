@@ -99,17 +99,21 @@ copy_tvec(int tnew[], const int tvec[]){
 }
 
 // print tocc iff it covers tvec
-// tvec is a v-sized vector of ints
-// if an int is TYPECOUNT, it's not populated
+// tvec is a v-sized vector of 2-vectors of ints
+// if the first int is TYPECOUNT, it's not populated (we don't care)
 static int
-print_coverset(const int tocc[], int v, const int tvec[]){
+print_coverset(const int tocc[], int v, const int tvec[][2]){
   for(int i = 0 ; i < v ; ++i){
-    if(tvec[i] != TYPECOUNT){ // it's populated; ensure we cover
+    if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
       int covered = 0;
       for(int j = 0 ; j < TYPECOUNT ; ++j){
         if(tocc[j]){
-          if(trelations[j][tvec[i]] > 0){
-            covered = 1;
+          if(trelations[j][tvec[i][0]] > 0){
+            // tocc[j] covers tvec[i][0] (others might also do so).
+            // ensure it isn't invalidated by tvec[i][1]
+            if(trelations[j][tvec[i][1]] >= 0){
+              covered = 1;
+            }
             break;
           }
         }
@@ -132,7 +136,7 @@ print_coverset(const int tocc[], int v, const int tvec[]){
 
 // we are placing n 1s among the last m slots of tocc
 static int
-place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[]){
+place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2]){
   int tcopy[TYPECOUNT];
   copy_tvec(tcopy, tocc);
   // base case m == 1
@@ -151,16 +155,17 @@ place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[]){
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(int n, int v, const int tvec[]){
+print_coversets(int n, int v, const int tvec[][2]){
   int tocc[TYPECOUNT] = {};
   return place_n_in_m(n, TYPECOUNT, tocc, v, tvec);
 }
 
 static void
 print_complete_coversets(void){
-  int t[TYPECOUNT];
+  int t[TYPECOUNT][2];
   for(int i = 0 ; i < TYPECOUNT ; ++i){
-    t[i] = i;
+    t[i][0] = i;
+    t[i][1] = i;
   }
   for(int j = 0 ; j < TYPECOUNT ; ++j){
     int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
@@ -169,19 +174,39 @@ print_complete_coversets(void){
       break;
     }
   }
-  int prev = -1;
+  int prev[2];
   for(int i = 0 ; i < TYPECOUNT ; ++i){
-    if(prev >= 0){ // turn previous back on
-      t[i - 1] = prev;
+    if(i > 0){ // turn previous back on
+      t[i - 1][0] = prev[0];
+      t[i - 1][1] = prev[0];
     }
-    prev = t[i];
-    t[i] = 0; // turn off each one in succession
+    prev[0] = t[i][0];
+    prev[1] = t[i][1];
+    t[i][0] = t[i][1] = TYPECOUNT; // turn off each one in succession
     for(int j = 0 ; j < TYPECOUNT ; ++j){
       int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
       if(min){
         printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
         break;
       }
+    }
+  }
+}
+
+static void
+print_complete_coversets_duals(void){
+  int t[TYPECOUNT * TYPECOUNT][2];
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    for(int j = 0 ; j < TYPECOUNT ; ++j){
+      t[i * TYPECOUNT + j][0] = i;
+      t[i * TYPECOUNT + j][1] = j;
+    }
+  }
+  for(int j = 0 ; j < TYPECOUNT ; ++j){
+    int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
+    if(min){
+      printf("%d dual coversets of size %d\n", min, j);
+      break;
     }
   }
 }
