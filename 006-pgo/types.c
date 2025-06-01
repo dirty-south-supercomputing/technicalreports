@@ -91,6 +91,99 @@ choose2(int n){
   return n * (n - 1) / 2;
 }
 
+static void
+copy_tvec(int tnew[], const int tvec[]){
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    tnew[i] = tvec[i];
+  }
+}
+
+// print tocc iff it covers tvec
+static int
+print_coverset(const int tocc[], const int tvec[]){
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    if(tvec[i]){
+      // the bit is specified in tvec, so ensure it's covered by a type in tocc
+      int covered = 0;
+      for(int j = 0 ; j < TYPECOUNT ; ++j){
+        if(tocc[j]){
+          if(trelations[j][i] > 0){
+            covered = 1;
+            break;
+          }
+        }
+      }
+      if(!covered){
+        return 0;
+      }
+    }
+  }
+  // we were a cover, yay
+  printf("cover: ");
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    if(tocc[i]){
+      printf("%s ", tnames[i]);
+    }
+  }
+  printf("\n");
+  return 1;
+}
+
+// we are placing n 1s in the last m slots of tvec
+static int
+place_n_in_m(int n, int m, const int tocc[], const int tvec[]){
+  int tcopy[TYPECOUNT];
+  copy_tvec(tcopy, tocc);
+  // base case m == 1
+  if(m == 1){
+    tcopy[TYPECOUNT - 1] = n;
+    return print_coverset(tcopy, tvec);
+  }
+  // always test with our bit off
+  int ret = place_n_in_m(n, m - 1, tcopy, tvec);
+  if(n){
+    tcopy[m] = 1;
+    ret += place_n_in_m(n - 1, m - 1, tcopy, tvec);
+  }
+  return ret;
+}
+
+// print the sets of size n or less which cover the specified vector
+static int
+print_coversets(int n, const int tvec[]){
+  int tocc[TYPECOUNT] = {};
+  return place_n_in_m(n, TYPECOUNT, tocc, tvec);
+}
+
+// print the sets of size n which cover all types
+static int
+print_complete_coversets(int n){
+  const int all[TYPECOUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };;
+  int min = print_coversets(n, all);
+  if(min){
+    printf("%d coversets of size %d\n", min, n);
+  }
+  return min;
+}
+
+static void
+print_incomplete_coversets(void){
+  int t[TYPECOUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };;
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    t[i] = 0; // turn off each one in succession
+    if(i){ // turn previous back on
+      t[i - 1] = 1;
+    }
+    for(int j = 0 ; j < TYPECOUNT ; ++j){
+      int min = print_coversets(j, t);
+      if(min){
+        printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
+        break;
+      }
+    }
+  }
+}
+
 int main(void){
   printf("Attack efficiencies\n");
   printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
@@ -101,6 +194,12 @@ int main(void){
   }
 
   printf("\n");
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    if(print_complete_coversets(i)){
+      break;
+    }
+  }
+  print_incomplete_coversets();
   printf("Attack efficiency summaries\n");
   printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2   T  A\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
