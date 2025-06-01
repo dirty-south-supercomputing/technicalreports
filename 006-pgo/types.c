@@ -99,15 +99,16 @@ copy_tvec(int tnew[], const int tvec[]){
 }
 
 // print tocc iff it covers tvec
+// tvec is a v-sized vector of ints
+// if an int is TYPECOUNT, it's not populated
 static int
-print_coverset(const int tocc[], const int tvec[]){
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    if(tvec[i]){
-      // the bit is specified in tvec, so ensure it's covered by a type in tocc
+print_coverset(const int tocc[], int v, const int tvec[]){
+  for(int i = 0 ; i < v ; ++i){
+    if(tvec[i] != TYPECOUNT){ // it's populated; ensure we cover
       int covered = 0;
       for(int j = 0 ; j < TYPECOUNT ; ++j){
         if(tocc[j]){
-          if(trelations[j][i] > 0){
+          if(trelations[j][tvec[i]] > 0){
             covered = 1;
             break;
           }
@@ -119,7 +120,7 @@ print_coverset(const int tocc[], const int tvec[]){
     }
   }
   // we were a cover, yay
-  printf("cover: ");
+  printf(" cover: ");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     if(tocc[i]){
       printf("%s ", tnames[i]);
@@ -129,53 +130,54 @@ print_coverset(const int tocc[], const int tvec[]){
   return 1;
 }
 
-// we are placing n 1s in the last m slots of tvec
+// we are placing n 1s among the last m slots of tocc
 static int
-place_n_in_m(int n, int m, const int tocc[], const int tvec[]){
+place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[]){
   int tcopy[TYPECOUNT];
   copy_tvec(tcopy, tocc);
   // base case m == 1
   if(m == 1){
     tcopy[TYPECOUNT - 1] = n;
-    return print_coverset(tcopy, tvec);
+    return print_coverset(tcopy, v, tvec);
   }
   // always test with our bit off
-  int ret = place_n_in_m(n, m - 1, tcopy, tvec);
+  int ret = place_n_in_m(n, m - 1, tcopy, v, tvec);
   if(n){
     tcopy[m] = 1;
-    ret += place_n_in_m(n - 1, m - 1, tcopy, tvec);
+    ret += place_n_in_m(n - 1, m - 1, tcopy, v, tvec);
   }
   return ret;
 }
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(int n, const int tvec[]){
+print_coversets(int n, int v, const int tvec[]){
   int tocc[TYPECOUNT] = {};
-  return place_n_in_m(n, TYPECOUNT, tocc, tvec);
-}
-
-// print the sets of size n which cover all types
-static int
-print_complete_coversets(int n){
-  const int all[TYPECOUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };;
-  int min = print_coversets(n, all);
-  if(min){
-    printf("%d coversets of size %d\n", min, n);
-  }
-  return min;
+  return place_n_in_m(n, TYPECOUNT, tocc, v, tvec);
 }
 
 static void
-print_incomplete_coversets(void){
-  int t[TYPECOUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };;
+print_complete_coversets(void){
+  int t[TYPECOUNT];
   for(int i = 0 ; i < TYPECOUNT ; ++i){
-    t[i] = 0; // turn off each one in succession
-    if(i){ // turn previous back on
-      t[i - 1] = 1;
+    t[i] = i;
+  }
+  for(int j = 0 ; j < TYPECOUNT ; ++j){
+    int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
+    if(min){
+      printf("%d coversets of size %d\n", min, j);
+      break;
     }
+  }
+  int prev = -1;
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    if(prev >= 0){ // turn previous back on
+      t[i - 1] = prev;
+    }
+    prev = t[i];
+    t[i] = 0; // turn off each one in succession
     for(int j = 0 ; j < TYPECOUNT ; ++j){
-      int min = print_coversets(j, t);
+      int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
       if(min){
         printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
         break;
@@ -192,14 +194,11 @@ int main(void){
     print_vector_ints(trelations[i]);
     printf("\n");
   }
-
   printf("\n");
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    if(print_complete_coversets(i)){
-      break;
-    }
-  }
-  print_incomplete_coversets();
+
+  print_complete_coversets();
+  printf("\n");
+
   printf("Attack efficiency summaries\n");
   printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2   T  A\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -223,5 +222,6 @@ int main(void){
         tneg4, tneg3, tneg2, tneg1, tzero, tpos1, tpos2, tsum, tavg);
     printf("\n");
   }
+  printf("\n");
   return EXIT_SUCCESS;
 }
