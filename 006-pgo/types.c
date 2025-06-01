@@ -102,7 +102,7 @@ int main(void){
 
   printf("\n");
   printf("Attack efficiency summaries\n");
-  printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2  T\n");
+  printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2   T  A\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     printf("%8s: ", tnames[i]);
     int aneg2 = vector_match_count(trelations[i], -2);
@@ -119,7 +119,9 @@ int main(void){
     int tpos1 = apos1 * (azero + 1);
     int tpos2 = choose2(apos1);
     int tsum = tneg4 * -4 + tneg3 * -3 + tneg2 * -2 - tneg1 + tpos1 + tpos2 * 2;
-    printf(" %2d %2d %2d %2d %3d %2d %2d %3d", tneg4, tneg3, tneg2, tneg1, tzero, tpos1, tpos2, tsum);
+    int tavg = tsum / 18; // always a multiple of 18
+    printf(" %2d %2d %2d %2d %3d %2d %2d %3d %2d",
+        tneg4, tneg3, tneg2, tneg1, tzero, tpos1, tpos2, tsum, tavg);
     printf("\n");
   }
   return EXIT_SUCCESS;
