@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+MOVES=moves.csv
+FAST=fastattacks.csv
+CHARGED=chargedattacks.csv
+
+[ -r "$MOVES" ] || { echo "Couldn't find $MOVES, exiting" >&2 ; return 1 ; }
+
+( echo "Move,Type,Category,Power,Energy,Turns" && grep 'Fast Attack' < "$MOVES" ) > "$FAST"
+( echo "Move,Type,Category,Power,Energy,Turns" && grep 'Charged Attack' < "$MOVES" ) > "$CHARGED"

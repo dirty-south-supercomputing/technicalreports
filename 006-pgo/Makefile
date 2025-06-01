@@ -15,6 +15,11 @@ GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)))
 PDFVIEW:=evince
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 
+UPSTREAM:=$(addsuffix .csv, moves)
+CHARGED:=chargedattacks
+FAST:=fastattacks
+CSV:=$(addprefix $(OUT), $(addsuffix .csv, $(CHARGED) $(FAST)))
+
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
@@ -34,7 +39,11 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
+$(CSV): csvs $(UPSTREAM)
+	./$(<F)
+
 clean:
+	@rm -vrf $(CSV)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)

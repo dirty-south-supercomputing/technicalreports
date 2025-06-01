@@ -1,0 +1,317 @@
+Move,Type,Category,Damage,Energy,Turns,DPT,EPT,DPE
+Acid,Poison,Fast Attack,6,5,2,3,2.5,
+Acid Spray,Poison,Charged Attack,20,45,,,,0.44
+Acrobatics,Flying,Charged Attack,110,55,,,,2
+Aerial Ace,Flying,Charged Attack,55,40,,,,1.37
+Aeroblast,Flying,Charged Attack,170,75,,,,2.26
+Air Cutter,Flying,Charged Attack,45,35,,,,1.28
+Air Slash,Flying,Fast Attack,9,9,3,3,3,
+Ancient Power,Rock,Charged Attack,60,45,,,,1.33
+Aqua Jet,Water,Charged Attack,70,40,,,,1.75
+Aqua Tail,Water,Charged Attack,55,35,,,,1.57
+Astonish,Ghost,Fast Attack,12,10,3,4,3.33,
+Aura Sphere,Fighting,Charged Attack,100,55,,,,1.81
+Aura Wheel,Electric,Charged Attack,100,45,,,,2.22
+Aura Wheel,Dark,Charged Attack,100,45,,,,2.22
+Aurora Beam,Ice,Charged Attack,80,60,,,,1.33
+Avalanche,Ice,Charged Attack,90,45,,,,2
+Behemoth Bash,Steel,Charged Attack,80,45,,,,1.77
+Behemoth Blade,Steel,Charged Attack,100,55,,,,1.81
+Bite,Dark,Fast Attack,4,2,1,4,2,
+Blast Burn,Fire,Charged Attack,110,50,,,,2.2
+Bleakwind Storm,Flying,Charged Attack,60,45,,,,1.33
+Blizzard,Ice,Charged Attack,140,75,,,,1.86
+Body Slam,Normal,Charged Attack,50,35,,,,1.42
+Boomburst,Normal,Charged Attack,150,70,,,,2.14
+Bone Club,Ground,Charged Attack,55,35,,,,1.57
+Brave Bird,Flying,Charged Attack,130,55,,,,2.36
+Breaking Swipe,Dragon,Charged Attack,50,35,,,,1.42
+Brick Break,Fighting,Charged Attack,40,40,,,,1
+Brutal Swing,Dark,Charged Attack,55,35,,,,1.57
+Brine,Water,Charged Attack,60,50,,,,1.2
+Bubble,Water,Fast Attack,8,11,3,2.66,3.66,
+Bubble Beam,Water,Charged Attack,25,40,,,,0.62
+Bug Bite,Bug,Fast Attack,3,3,1,3,3,
+Bug Buzz,Bug,Charged Attack,100,60,,,,1.66
+Bulldoze,Ground,Charged Attack,45,45,,,,1
+Bullet Punch,Steel,Fast Attack,6,7,2,3,3.5,
+Bullet Seed,Grass,Fast Attack,5,13,3,1.66,4.33,
+Charge Beam,Electric,Fast Attack,5,11,3,1.66,3.66,
+Charm,Fairy,Fast Attack,15,6,3,5,2,
+Close Combat,Fighting,Charged Attack,100,45,,,,2.22
+Confusion,Psychic,Fast Attack,16,12,4,4,3,
+Counter,Fighting,Fast Attack,8,6,2,4,3,
+Crabhammer,Water,Charged Attack,85,50,,,,1.7
+Cross Chop,Fighting,Charged Attack,55,35,,,,1.57
+Cross Poison,Poison,Charged Attack,50,35,,,,1.42
+Crunch,Dark,Charged Attack,70,45,,,,1.55
+Cut,Normal,Fast Attack,3,2,1,3,2,
+Darkest Lariat,Dark,Charged Attack,120,60,,,,2
+Dark Pulse,Dark,Charged Attack,80,50,,,,1.6
+Dazzling Gleam,Fairy,Charged Attack,90,55,,,,1.63
+Dig,Ground,Charged Attack,70,50,,,,1.4
+Disarming Voice,Fairy,Charged Attack,70,45,,,,1.55
+Discharge,Electric,Charged Attack,55,40,,,,1.37
+Doom Desire,Steel,Charged Attack,75,40,,,,1.87
+Double Iron Bash,Steel,Charged Attack,50,35,,,,1.42
+Double Kick,Fighting,Fast Attack,8,12,3,2.66,4,
+Draco Meteor,Dragon,Charged Attack,150,65,,,,2.3
+Dragon Ascent,Flying,Charged Attack,150,70,,,,2.14
+Dragon Breath,Dragon,Fast Attack,4,3,1,4,3,
+Dragon Claw,Dragon,Charged Attack,50,35,,,,1.42
+Dragon Pulse,Dragon,Charged Attack,90,60,,,,1.5
+Dragon Tail,Dragon,Fast Attack,13,9,3,4.33,3,
+Drain Punch,Fighting,Charged Attack,20,40,,,,0.5
+Draining Kiss,Fairy,Charged Attack,60,55,,,,1.09
+Drill Peck,Flying,Charged Attack,65,40,,,,1.62
+Drill Run,Ground,Charged Attack,80,45,,,,1.77
+Dynamic Punch,Fighting,Charged Attack,90,45,,,,2
+Earthquake,Ground,Charged Attack,110,65,,,,1.69
+Earth Power,Ground,Charged Attack,90,55,,,,1.63
+Ember,Fire,Fast Attack,7,6,2,3.5,3,
+Energy Ball,Grass,Charged Attack,90,55,,,,1.63
+Extrasensory,Psychic,Fast Attack,8,10,3,2.66,3.33,
+Feint Attack,Dark,Fast Attack,6,6,2,3,3,
+Fell Stinger,Bug,Charged Attack,20,35,,,,0.57
+Fire Blast,Fire,Charged Attack,140,80,,,,1.75
+Fire Fang,Fire,Fast Attack,8,6,2,4,3,
+Fire Punch,Fire,Charged Attack,60,40,,,,1.5
+Blaze Kick,Fire,Charged Attack,60,40,,,,1.5
+Fairy Wind,Fairy,Fast Attack,4,9,2,2,4.5,
+Feather Dance,Flying,Charged Attack,35,50,,,,0.7
+Fire Spin,Fire,Fast Attack,11,10,3,3.66,3.33,
+Flame Burst,Fire,Charged Attack,70,55,,,,1.27
+Flame Charge,Fire,Charged Attack,65,50,,,,1.3
+Flame Wheel,Fire,Charged Attack,60,55,,,,1.09
+Flamethrower,Fire,Charged Attack,90,55,,,,1.63
+Flash Cannon,Steel,Charged Attack,110,70,,,,1.57
+Flower Trick,Grass,Charged Attack,30,35,,,,0.85
+Fly,Flying,Charged Attack,80,45,,,,1.77
+Flying Press,Fighting,Charged Attack,90,40,,,,2.25
+Focus Blast,Fighting,Charged Attack,150,75,,,,2
+Force Palm,Fighting,Fast Attack,13,10,3,4.33,3.33,
+Foul Play,Dark,Charged Attack,60,40,,,,1.5
+Freeze Shock,Ice,Charged Attack,120,60,,,,2
+Frenzy Plant,Grass,Charged Attack,100,45,,,,2.22
+Frost Breath,Ice,Fast Attack,7,5,2,3.5,2.5,
+Frustration,Normal,Charged Attack,10,70,,,,0.14
+Fury Cutter,Bug,Fast Attack,2,4,1,2,4,
+Fusion Bolt,Electric,Charged Attack,90,45,,,,2
+Fusion Flare,Fire,Charged Attack,90,45,,,,2
+Future Sight,Psychic,Charged Attack,110,65,,,,1.69
+Geomancy,Fairy,Fast Attack,4,13,3,1.33,4.33,
+Giga Drain,Grass,Charged Attack,50,80,,,,0.62
+Giga Impact,Normal,Charged Attack,150,80,,,,1.87
+Glaciate,Ice,Charged Attack,60,40,,,,1.5
+Grass Knot,Grass,Charged Attack,90,50,,,,1.8
+Gunk Shot,Poison,Charged Attack,130,75,,,,1.73
+Gust,Flying,Fast Attack,16,12,4,4,3,
+Gyro Ball,Steel,Charged Attack,80,60,,,,1.33
+Heart Stamp,Psychic,Charged Attack,40,40,,,,1
+Heat Wave,Fire,Charged Attack,95,75,,,,1.26
+Heavy Slam,Steel,Charged Attack,70,50,,,,1.4
+Hex,Ghost,Fast Attack,7,13,3,2.33,4.33,
+Hidden Power (Bug),Bug,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Dark),Dark,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Dragon),Dragon,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Electric),Electric,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Fighting),Fighting,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Fire),Fire,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Flying),Flying,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Ghost),Ghost,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Grass),Grass,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Ground),Ground,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Ice),Ice,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Poison),Poison,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Psychic),Psychic,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Rock),Rock,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Steel),Steel,Fast Attack,9,8,3,3,2.66,
+Hidden Power (Water),Water,Fast Attack,9,8,3,3,2.66,
+High Horsepower,Ground,Charged Attack,100,60,,,,1.66
+High Jump Kick,Fighting,Charged Attack,110,55,,,,2
+Horn Attack,Normal,Charged Attack,40,35,,,,1.14
+Hurricane,Flying,Charged Attack,110,65,,,,1.69
+Hydro Cannon,Water,Charged Attack,80,40,,,,2
+Hydro Pump,Water,Charged Attack,130,75,,,,1.73
+Hydro Pump Blastoise,Water,Charged Attack,90,80,,,,1.12
+Hyper Beam,Normal,Charged Attack,150,80,,,,1.87
+Hyper Fang,Normal,Charged Attack,80,50,,,,1.6
+Ice Beam,Ice,Charged Attack,90,55,,,,1.63
+Ice Burn,Ice,Charged Attack,120,60,,,,2
+Ice Fang,Ice,Fast Attack,8,6,2,4,3,
+Ice Punch,Ice,Charged Attack,60,40,,,,1.5
+Ice Shard,Ice,Fast Attack,9,10,3,3,3.33,
+Icicle Spear,Ice,Charged Attack,65,40,,,,1.62
+Icy Wind,Ice,Charged Attack,60,45,,,,1.33
+Incinerate,Fire,Fast Attack,20,20,5,4,4,
+Infestation,Bug,Fast Attack,6,12,3,2,4,
+Iron Head,Steel,Charged Attack,70,50,,,,1.4
+Iron Tail,Steel,Fast Attack,10,7,3,3.33,2.33,
+Karate Chop,Fighting,Fast Attack,5,9,2,2.5,4.5,
+Last Resort,Normal,Charged Attack,90,55,,,,1.63
+Leaf Blade,Grass,Charged Attack,70,35,,,,2
+Leaf Tornado,Grass,Charged Attack,45,40,,,,1.12
+Leaf Storm,Grass,Charged Attack,130,55,,,,2.36
+Leafage,Grass,Fast Attack,6,7,2,3,3.5,
+Lick,Ghost,Fast Attack,3,3,1,3,3,
+Liquidation,Water,Charged Attack,70,45,,,,1.55
+Lock On,Normal,Fast Attack,1,5,1,1,5,
+Low Kick,Fighting,Fast Attack,4,5,2,2,2.5,
+Low Sweep,Fighting,Charged Attack,40,40,,,,1
+Lunge,Bug,Charged Attack,60,45,,,,1.33
+Luster Purge,Psychic,Charged Attack,120,60,,,,2
+Magical Leaf,Grass,Fast Attack,10,10,3,3.33,3.33,
+Magma Storm,Fire,Charged Attack,65,40,,,,1.62
+Magnet Bomb,Steel,Charged Attack,70,45,,,,1.55
+Mega Drain,Grass,Charged Attack,25,55,,,,0.45
+Megahorn,Bug,Charged Attack,110,55,,,,2
+Metal Claw,Steel,Fast Attack,5,7,2,2.5,3.5,
+Metal Sound,Steel,Fast Attack,3,8,2,1.5,4,
+Meteor Beam,Rock,Charged Attack,120,60,,,,2
+Meteor Mash,Steel,Charged Attack,100,50,,,,2
+Mirror Coat,Psychic,Charged Attack,60,55,,,,1.09
+Mirror Shot,Steel,Charged Attack,35,35,,,,1
+Mist Ball,Psychic,Charged Attack,120,60,,,,2
+Moonblast,Fairy,Charged Attack,110,60,,,,1.83
+Moongeist Beam,Ghost,Charged Attack,135,65,,,,2.07
+Mud Bomb,Ground,Charged Attack,60,40,,,,1.5
+Muddy Water,Water,Charged Attack,35,35,,,,1
+Mud Shot,Ground,Fast Attack,4,8,2,2,4,
+Mud Slap,Ground,Fast Attack,12,10,3,4,3.33,
+Mystical Fire,Fire,Charged Attack,60,45,,,,1.33
+Nature's Madness,Fairy,Charged Attack,80,50,,,,1.6
+Night Shade,Ghost,Charged Attack,70,45,,,,1.55
+Night Slash,Dark,Charged Attack,50,35,,,,1.42
+Oblivion Wing,Flying,Charged Attack,85,50,,,,1.7
+Obstruct,Dark,Charged Attack,15,40,,,,0.37
+Octazooka,Water,Charged Attack,50,50,,,,1
+Ominous Wind,Ghost,Charged Attack,45,45,,,,1
+Origin Pulse,Water,Charged Attack,130,60,,,,2.16
+Outrage,Dragon,Charged Attack,110,60,,,,1.83
+Overheat,Fire,Charged Attack,130,55,,,,2.36
+Parabolic Charge,Electric,Charged Attack,70,50,,,,1.4
+Payback,Dark,Charged Attack,110,60,,,,1.83
+Peck,Flying,Fast Attack,6,5,2,3,2.5,
+Petal Blizzard,Grass,Charged Attack,110,65,,,,1.69
+Play Rough,Fairy,Charged Attack,90,60,,,,1.5
+Poison Fang,Poison,Charged Attack,45,40,,,,1.12
+Poison Jab,Poison,Fast Attack,7,7,2,3.5,3.5,
+Poison Sting,Poison,Fast Attack,4,9,2,2,4.5,
+Poltergeist,Ghost,Charged Attack,150,75,,,,2
+Pound,Normal,Fast Attack,4,4,2,2,2,
+Powder Snow,Ice,Fast Attack,5,8,2,2.5,4,
+Power Gem,Rock,Charged Attack,85,50,,,,1.7
+Power-Up Punch,Fighting,Charged Attack,20,35,,,,0.57
+Power Whip,Grass,Charged Attack,90,50,,,,1.8
+Precipice Blades,Ground,Charged Attack,130,60,,,,2.16
+Present,Normal,Fast Attack,3,12,3,1,4,
+Psybeam,Psychic,Charged Attack,70,60,,,,1.16
+Psychic,Psychic,Charged Attack,75,55,,,,1.36
+Psychic Fangs,Psychic,Charged Attack,40,35,,,,1.14
+Psycho Boost,Psychic,Charged Attack,70,35,,,,2
+Psycho Cut,Psychic,Fast Attack,3,9,2,1.5,4.5,
+Psyshock,Psychic,Charged Attack,70,40,,,,1.75
+Psystrike,Psychic,Charged Attack,90,45,,,,2
+Psywave,Psychic,Fast Attack,3,4,1,3,4,
+Quick Attack,Normal,Fast Attack,5,8,2,2.5,4,
+Rage Fist,Ghost,Charged Attack,50,35,,,,1.42
+Razor Leaf,Grass,Fast Attack,9,4,2,4.5,2,
+Razor Shell,Water,Charged Attack,35,35,,,,1
+Rest,Normal,Charged Attack,50,35,,,,1.42
+Return,Normal,Charged Attack,130,70,,,,1.85
+Roar of Time,Dragon,Charged Attack,150,65,,,,2.3
+Rock Blast,Rock,Charged Attack,50,40,,,,1.25
+Rock Slide,Rock,Charged Attack,65,45,,,,1.44
+Rock Smash,Fighting,Fast Attack,9,7,3,3,2.33,
+Rock Throw,Rock,Fast Attack,8,5,2,4,2.5,
+Rock Tomb,Rock,Charged Attack,80,50,,,,1.6
+Rock Wrecker,Rock,Charged Attack,110,50,,,,2.2
+Rollout,Rock,Fast Attack,7,13,3,2.33,4.33,
+Sacred Fire,Fire,Charged Attack,130,65,,,,2
+Sacred Sword,Fighting,Charged Attack,60,35,,,,1.71
+Sand Attack,Ground,Fast Attack,2,4,1,2,4,
+Sand Tomb,Ground,Charged Attack,25,40,,,,0.62
+Sandsear Storm,Ground,Charged Attack,60,45,,,,1.33
+Scald,Water,Charged Attack,85,50,,,,1.7
+Scorching Sands,Ground,Charged Attack,80,50,,,,1.6
+Scratch,Normal,Fast Attack,4,2,1,4,2,
+Seed Bomb,Grass,Charged Attack,65,45,,,,1.44
+Seed Flare,Grass,Charged Attack,130,75,,,,1.73
+Shadow Ball,Ghost,Charged Attack,100,55,,,,1.81
+Shadow Bone,Ghost,Charged Attack,80,45,,,,1.77
+Shadow Claw,Ghost,Fast Attack,6,8,2,3,4,
+Shadow Force,Ghost,Charged Attack,120,90,,,,1.33
+Shadow Punch,Ghost,Charged Attack,55,35,,,,1.57
+Shadow Sneak,Ghost,Charged Attack,50,45,,,,1.11
+Signal Beam,Bug,Charged Attack,75,55,,,,1.36
+Silver Wind,Bug,Charged Attack,60,45,,,,1.33
+Skull Bash,Normal,Charged Attack,130,75,,,,1.73
+Sky Attack,Flying,Charged Attack,85,55,,,,1.54
+Sludge,Poison,Charged Attack,70,40,,,,1.75
+Sludge Bomb,Poison,Charged Attack,80,50,,,,1.6
+Sludge Wave,Poison,Charged Attack,110,65,,,,1.69
+Smack Down,Rock,Fast Attack,11,8,3,3.66,2.66,
+Snarl,Dark,Fast Attack,5,13,3,1.66,4.33,
+Solar Beam,Grass,Charged Attack,150,80,,,,1.87
+Spacial Rend,Dragon,Charged Attack,95,50,,,,1.9
+Spark,Electric,Fast Attack,5,7,2,2.5,3.5,
+Sparkling Aria,Water,Charged Attack,80,45,,,,1.77
+Spirit Shackle,Ghost,Charged Attack,50,40,,,,1.25
+Splash,Water,Fast Attack,0,12,4,0,3,
+Springtide Storm (Speculative),Fairy,Charged Attack,60,45,,,,1.33
+Steel Wing,Steel,Fast Attack,7,6,2,3.5,3,
+Stomp,Normal,Charged Attack,55,40,,,,1.37
+Stone Edge,Rock,Charged Attack,100,55,,,,1.81
+Struggle,Normal,Charged Attack,35,100,,,,0.35
+Struggle Bug,Bug,Fast Attack,9,8,3,3,2.66,
+Submission,Fighting,Charged Attack,60,50,,,,1.2
+Sucker Punch,Dark,Fast Attack,8,7,2,4,3.5,
+Sunsteel Strike,Steel,Charged Attack,135,65,,,,2.07
+Superpower,Fighting,Charged Attack,85,40,,,,2.12
+Surf,Water,Charged Attack,75,45,,,,1.66
+Swift,Normal,Charged Attack,55,35,,,,1.57
+Synchronoise,Psychic,Charged Attack,80,50,,,,1.6
+Tackle,Normal,Fast Attack,3,3,1,3,3,
+Take Down,Normal,Fast Attack,5,8,3,1.66,2.66,
+Techno Blast (Normal),Normal,Charged Attack,120,55,,,,2.18
+Techno Blast (Burn),Fire,Charged Attack,120,55,,,,2.18
+Techno Blast (Chill),Ice,Charged Attack,120,55,,,,2.18
+Techno Blast (Douse),Water,Charged Attack,120,55,,,,2.18
+Techno Blast (Shock),Electric,Charged Attack,120,55,,,,2.18
+Thunder,Electric,Charged Attack,100,60,,,,1.66
+Thunder Fang,Electric,Fast Attack,8,6,2,4,3,
+Thunder Punch,Electric,Charged Attack,60,40,,,,1.5
+Thunder Shock,Electric,Fast Attack,4,9,2,2,4.5,
+Thunderbolt,Electric,Charged Attack,90,55,,,,1.63
+Torch Song,Fire,Charged Attack,70,45,,,,1.55
+Trailblaze,Grass,Charged Attack,65,45,,,,1.44
+Transform,Normal,,0,0,,,,
+Tri Attack,Normal,Charged Attack,65,50,,,,1.3
+Triple Axel,Ice,Charged Attack,60,45,,,,1.33
+Twister,Dragon,Charged Attack,45,45,,,,1
+Upper Hand,Fighting,Charged Attack,70,40,,,,1.75
+V-Create,Fire,Charged Attack,95,40,,,,2.37
+Vise Grip,Normal,Charged Attack,40,40,,,,1
+Vine Whip,Grass,Fast Attack,5,8,2,2.5,4,
+Volt Switch,Electric,Fast Attack,12,16,4,3,4,
+Volt Tackle,Electric,Charged Attack,90,50,,,,1.8
+Water Gun,Water,Fast Attack,3,3,1,3,3,
+Water Gun Fast Blastoise,Water,Fast Attack,6,4,2,3,2,
+Water Pulse,Water,Charged Attack,80,55,,,,1.45
+Waterfall,Water,Fast Attack,12,8,3,4,2.66,
+Water Shuriken,Water,Fast Attack,6,14,3,2,4.66,
+Weather Ball (Fire),Fire,Charged Attack,55,35,,,,1.57
+Weather Ball (Ice),Ice,Charged Attack,55,35,,,,1.57
+Weather Ball (Rock),Rock,Charged Attack,55,35,,,,1.57
+Weather Ball (Normal),Normal,Charged Attack,55,35,,,,1.57
+Weather Ball (Water),Water,Charged Attack,55,35,,,,1.57
+Wildbolt Storm,Electric,Charged Attack,60,45,,,,1.33
+Wild Charge,Electric,Charged Attack,100,45,,,,2.22
+Wing Attack,Flying,Fast Attack,5,7,2,2.5,3.5,
+Wrap,Normal,Charged Attack,60,45,,,,1.33
+Wrap Green,Normal,Charged Attack,25,45,,,,0.55
+Wrap Pink,Normal,Charged Attack,25,45,,,,0.55
+X-Scissor,Bug,Charged Attack,65,40,,,,1.62
+Yawn,Normal,Fast Attack,0,12,4,0,3,
+Zap Cannon,Electric,Charged Attack,150,80,,,,1.87
+Zen Headbutt,Psychic,Fast Attack,8,6,3,2.66,2,
