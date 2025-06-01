@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 enum {
   TYPE_BUG,
@@ -211,7 +212,7 @@ print_complete_coversets(void){
 
 static void
 print_complete_coversets_duals(void){
-  static int t[TYPECOUNT * TYPECOUNT / 2][2];
+  static int t[TYPECOUNT * (TYPECOUNT + 1) / 2][2];
   int pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
@@ -228,6 +229,14 @@ print_complete_coversets_duals(void){
     }else{
       printf("no dual coversets of size %d\n", j);
     }
+  }
+}
+
+static void
+melt_column(int* vec, const int* col){
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    vec[i] = *col;
+    col += TYPECOUNT;
   }
 }
 
@@ -271,5 +280,45 @@ int main(void){
     printf("\n");
   }
   printf("\n");
+
+  printf("Defense efficiency summaries\n");
+  int vec[TYPECOUNT];
+  int vec2[TYPECOUNT];
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    melt_column(vec, &trelations[0][i]);
+    for(int j = i ; j < TYPECOUNT ; ++j){
+      const int* p;
+      if(i == j){
+        printf("%s|", tnames[i]);
+        p = vec;
+      }else{
+        melt_column(vec2, &trelations[0][j]);
+        printf("%s+%s|", tnames[i], tnames[j]);
+        for(int k = 0 ; k < TYPECOUNT ; ++k){
+          vec2[k] += vec[k];
+        }
+        p = vec2;
+      }
+      printf(" strong");
+      int pos = 0;
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(p[k] < 0){
+          printf("%c%s", !pos ? ':' : ',', tnames[k]);
+          ++pos;
+        }
+      }
+      printf("(%d) weak", pos);
+      pos = 0;
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(p[k] > 0){
+          printf("%c%s", !pos ? ':' : ',', tnames[k]);
+          ++pos;
+        }
+      }
+      printf("(%d)\n", pos);
+    }
+  }
+  printf("\n");
+
   return EXIT_SUCCESS;
 }

@@ -7,12 +7,54 @@ Their intrigue is instead rooted in ignorance: ignorance of
  the Pokémon you'll face, the order in which you'll face them,
  their statistics (beyond the static properties of the Species),
  their Attacks, and how their Trainer will employ them.
+
 We've established that Pokémon battle fitness is highly dependent
  on opponent details.
-We cannot name a globally superior Pokémon---there is no individual Pokémon
- that (assuming competent play by both Trainers) can defeat all others,
- primarily due to Type Effectiveness.
+We cannot name a globally superior Pokémon---primarily due to Type Effectiveness,
+ there is no individual Pokémon that (assuming competent play by both Trainers)
+ can defeat all others in even a 1-on-1 contest.
+Yet the game provides a per-Pokémon measure of strength in battle: Combat Power (CP).
+Obviously no single statistic can account for all possible opponents, but
+ we will see that CP is a very questionable assessment for a PvP
+ context (and not great for PvE, either).
+A Pokémon's CP is defined as:
+\[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
+CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
+  sublinear with $Mod_D$ and $Mod_S$.
+Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
+ to generate one of the factors.
+This suggests that $Mod_D$ is undervalued by the CP equation, which
+ would seem to suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$.
+We will exploit this discrepancy\footnote{Why would the game use such
+ a flawed measure of power? A single stat was clearly desired to cover both
+ modes of Pokémon GO battling. Since Raids allow substitution of defeated
+ Pokémon, but are subject to a timer, the ability to defend and absorb
+ Damage is less important than being able to quickly inflict damage.}.
+MHP isn't used in the Damage equation, but knocking out a Pokémon
+ requires inflicting some average Damage $D$ $n$ times,
+ where $n = \lceil\frac{MHP}{D}\rceil$.
+It is thus similarly undervalued by CP\@.
+The quadratic term for CPM makes sense from the perspective of the Damage
+ equation, since CPM is used as a factor when calculating Damage in the
+ case of both the attacker and defender.
+But since CPM is also used to calculate MHP from $Mod_S$, an argument
+ can be made that it ought be raised to the third power.
+Since $CPM < 1$ for all Levels, $CPM^3 < CPM^2$, and thus it seems
+ overvalued by CP\@.
 
+But some of the most important factors in the Damage equation are left
+  out of CP entirely!
+The Power and timing of the Pokémon's Attacks are not present, despite
+  dominating the inflicted Damage and overall flow of the battle.
+Type effectiveness and STAB have been likewise ignored.
+Why would the game use such a flawed measure of power?
+A single stat was clearly desired to cover both modes of Pokémon GO battling.
+Since Raids allow substitution of defeated Pokémon, but are subject to a timer,
+  the ability to defend and absorb Damage is less important than being able to
+  quickly inflict damage.
+Still, even in Raids, Attack Power is of great importance!
+
+\section{Team assembly}
 Does this extend to teams?
 At first, it seems that it might: after all, a team's overall fitness
  depends on the entire opposing team, involving still more unknowns.

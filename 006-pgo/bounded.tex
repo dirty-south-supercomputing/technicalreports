@@ -2,42 +2,13 @@
 \label{chap:bounded}
 Several leagues (and some Research tasks) place a ceiling on the CP of
  participating Pokémon.
+We have established that CP is a poor proxy for PvP performance, and thus
+ expect that we might find strong candidates based on where CP fails.
 If CP does not accurately represent a given Pokémon's chance to win, we ought
  be able to exploit this by assembling teams using undervalued Pokémon.
-We will see that CP is indeed a very questionable assessment for PvP.\\
+We first take the sorted list of Pokémon developed in \autoref{chap:unbounded},
+ and remove all entries whose CP exceed the CP ceiling.
+We then select a team using the strategies of that chapter. Since
+ that list was sorted according to a general strength function, it
+ ought apply in this reduced context.
 
-\noindent{}A Pokémon's CP is defined as:
-\[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
-\noindent{}CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
-  sublinear with $Mod_D$ and $Mod_S$.
-Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
- to generate one of the factors.
-This suggests that $Mod_D$ is undervalued by the CP equation, which
- would seem to suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$.
-We will exploit this discrepancy\footnote{Why would the game use such
- a flawed measure of power? A single stat was clearly desired to cover both
- modes of Pokémon GO battling. Since Raids allow substitution of defeated
- Pokémon, but are subject to a timer, the ability to defend and absorb
- Damage is less important than being able to quickly inflict damage.}.
-MHP isn't used in the Damage equation, but knocking out a Pokémon
- requires inflicting some average Damage $D$ $n$ times,
- where $n = \lceil\frac{MHP}{D}\rceil$.
-It is thus similarly undervalued by CP\@.
-The quadratic term for CPM makes sense from the perspective of the Damage
- equation, since CPM is used as a factor when calculating Damage in the
- case of both the attacker and defender.
-Indeed, since CPM is also used to calculate MHP from $Mod_S$, an argument
- can be made that it ought be raised to the third power.
-
-But some of the most important factors in the Damage equation are left
-out of CP entirely! The Power of the Pokémon's Attacks are not present,
-despite dominating the inflicted Damage. Type effectiveness and STAB
-have likewise been left out. Any advantages we can find here can be
-exploited without cost.
-
-\section{Strength under a CP ceiling}
-We can simply take the sorted list of Pokémon built in
-\autoref{chap:unbounded}, remove all entries whose CP exceed the CP ceiling,
-and then select a team using the strategies of that chapter. Since
-that list was sorted according to a general strength function, it
-ought apply in this reduced context.
