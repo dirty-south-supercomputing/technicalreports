@@ -1,12 +1,12 @@
 \chapter{Damage}
 \label{chap:damage}
-Each Attack reduces the opponent's Hit Points by an integer greater than zero.
+Each Attack reduces the opponent's Hit Points by some positive integer.
 This integer is called (inflicted) Damage $D$, and calculated as a product of several factors.
 The factors are different for Gym/Raid/Max Battles and Trainer Battles,
  but the core of the Damage equation is common to all contexts.
 
 \section{The typing multiplier}
-We must first determine $M_C$, the common multiplier due typing:
+Determine $M_C$, the common multiplier due typing:
 
 \[ M_C = M_{STAB} \times 1.6^{T} \]
 
@@ -14,7 +14,7 @@ $M_{STAB}$ is the STAB bonus, equal to 1.2 when the Attack's Type matches any
   Type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the Attack Type
  and the defender's Type.
-For completeness I include a $T$ of -4 in \autoref{table:typemult},
+For completeness I have included a $T$ of -4 in \autoref{table:typemult},
  but remember that this is not currently realizable.
 
 \begin{table}
@@ -43,11 +43,11 @@ Considered another way, for an effectiveness of −3 with no STAB bonus,
  we would otherwise expect.
 With an effectiveness of 2 with STAB, it takes about one-third as many Attacks.
 
-Note that the change due to a $T$ of 1 (60\%) is very close to the negative change
+Note that the change due to a $T$ of 1 (60\%) is similar in magnitude to the change
  when $T$ is -2 (-60.94\%). A $T$ of -1 is a smaller loss (-37.5\%).
 This does not mean that an Attack ineffective against one of the defender's types and
- effective against the other enjoys a 12.5\% gain!
-The change is actually 0.
+ effective against the other enjoys a 22.5\% gain (as one would see from $1.6^{-1} + 1.6^{1})$!
+The multiplier is 1, and results in no change ($1.6^{-1+1}$).
 The two effectiveness relationships must be added, and this value used to
  calculate $1.6^T$.
 Exponential functions are not linear functions, and must not be treated as such.
@@ -69,22 +69,26 @@ For Fast Attacks, $M_G$ is 1.
 When throwing a Charged Attack, the attacking Trainer plays a short minigame.
 Performance on this minigame is summarized with ``Excellent!'', ``Great!'',
 ``Nice!'', or silence.
-This summary corresponds to $M_G$, which ranges over [0.25, 0].
+This summary typically determines $M_G$, with a range over [0.25, 1].
 ``Excellent!'' is necessary and sufficient for a 1, and should always be obtainable.
-
 \begin{table}
   \begin{center}
     \begin{tabular}{l r}
-      Summary & $M_G$ range \\
+      Summary & $M_G$ range (no Shield) \\
       \Midrule
       ``Excellent!'' & 1 \\
       ``Great!'' & [0.75, 1) \\
       ``Nice!'' & [0.5, 0.75) \\
       No summary & [0.25, 0.5) \\
   \end{tabular}
-    \caption{The minigame summary is an indication of $M_{MGAME}$}
+    \caption{The minigame summary is an indication of $M_G$}
   \end{center}
 \end{table}
+Each Trainer gets two shields in a battle, each of which can be used
+ to block a single Charged Attack.
+If a shield is used, $M_G$ is 0, no matter the minigame performance.
+The effect is equivalent to raising the defender's DEF to infinity for the
+  duration of the Attack.
 
 \section{The Damage equation}
 
@@ -100,11 +104,11 @@ In all cases, the Power of the employed attack is scaled by the ratio of
 
 Using the definitions of $Eff_A$ and $Eff_D$, this can be rewritten as:
 
-\[ D_C = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M_C \]
+\[ D_C = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M_C \times M_B \]
 
 which can of course be rewritten as:
 
-\[ D_C = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M_C \]
+\[ D_C = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M_C \times M_B \]
 
 From there, it's just the context-specific multiplier, a floor function (to ensure
  an integer), and a min function (to ensure at least 1 point of Damage

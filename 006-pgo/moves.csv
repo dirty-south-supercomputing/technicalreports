@@ -11,8 +11,8 @@ Aqua Jet,Water,Charged Attack,70,40,,,,1.75
 Aqua Tail,Water,Charged Attack,55,35,,,,1.57
 Astonish,Ghost,Fast Attack,12,10,3,4,3.33,
 Aura Sphere,Fighting,Charged Attack,100,55,,,,1.81
-Aura Wheel,Electric,Charged Attack,100,45,,,,2.22
-Aura Wheel,Dark,Charged Attack,100,45,,,,2.22
+Aura Wheel (Electric),Electric,Charged Attack,100,45,,,,2.22
+Aura Wheel (Dark),Dark,Charged Attack,100,45,,,,2.22
 Aurora Beam,Ice,Charged Attack,80,60,,,,1.33
 Avalanche,Ice,Charged Attack,90,45,,,,2
 Behemoth Bash,Steel,Charged Attack,80,45,,,,1.77
