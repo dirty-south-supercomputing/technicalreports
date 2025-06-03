@@ -170,9 +170,7 @@ We can thus define an independent core fitness evaluation:
 
 \[ F = Eff_A \times P \times M_{STAB} \times Eff_D \times MHP \]
 
-This is roughly equivalent ($MHP \approx Mod_S * CPM$) to
-
-\[ Mod_A \times P \times M_{STAB} \times Mod_D \times Mod_S \times CPM^3 \]
+Note that CPM is implicitly cubed in this function.
 
 Of course, a given Pokémon can generally select from multiple Fast and Charged Attacks,
   knowing up to two of the latter at a given time.
@@ -216,7 +214,7 @@ Finally, it presumes that the attacker can always get off a full cycle.
 In reality, the attacker might be knocked out or substituted long before its
   Charged Attack becomes relevant, or the defender might use a Shield.
 It is tempting to ignore Charged Attacks, but when they land, they tend to
-  dominate our total Damage.
+  dominate our total inflicted damage.
 
 If we expand over multiple cycles of Fast and Charged Attack, we can
  generalize to situations with excess Energy. We know $E_{Charged} \times

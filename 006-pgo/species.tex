@@ -1,6 +1,32 @@
 \chapter{Species}
+Every Pokémon is of some species, identified by its own Pokédex number.
+
+\section{Forms}
+Some species boast multiple forms and genders, all sharing one common Pokédex entry.
+Form is usually merely a visual distinction, but it is sometimes reflected
+ in stats (e.g. Mega forms have a higher ATK than their base forms)
+ or even typing.
+All Pokémon of a given form share the same base Attack (ATK), Defense (DEF), and
+ Stamina (STA) statistics.
+These statistics are always positive integers.
+
+Common forms include:
+\begin{itemize}
+  \item Mega, a temporary form with greater ATK (see \autoref{section:mega}).
+  \item Dynamax and Gigantamax, temporary forms with the ability to use
+          powerful attacks (see \autoref{section:dmax} and \autoref{section:gmax}).
+  \item Shiny, a visually distinctive form (see \autoref{section:shiny}).
+  \item The regional forms Alolan, Galarian, Hisuian, and Paldean.
+\end{itemize}
+Gender, if differentiated at all, is usually a small change to
+ appearance or call, but it affects a few evolutionary paths.
 
 \section{Evolution}
+Certain species can, under the correct conditions, evolve into others.
+We call the set of Pokémon related by evolution operations a genus.
+Change of form is not an evolution, since the species remains the same.
+We call a Pokémon that has evolved $N$ times a Stage $N+1$ Pokémon.
+No Pokémon of Stage 4 or greater currently exist.
 Evolution does not necessarily preserve typing, i.e. typing is not always constant within genera.
 
 \textbf{FIXME: table of heterogeneous genera}
