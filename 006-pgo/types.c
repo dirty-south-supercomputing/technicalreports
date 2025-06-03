@@ -315,9 +315,9 @@ static void
 defensive_relations_latex(const typing* t){
   int totals[6];
   const int offset = -3;
-  printf("\\begin{longtable}{cccccc}\n");
+  printf("\\begin{longtable}{cC{2em}C{3em}C{3em}C{3em}C{2em}}\n");
   printf("Typing & -3 & -2 & -1 & 1 & 2\\\\\n");
-  printf("\\Midrule\\\\\n");
+  printf("\\hline\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
     printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
@@ -327,9 +327,13 @@ defensive_relations_latex(const typing* t){
     printf(" & ");
     for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
       totals[j] = 0;
+      int out = 0;
       for(int k = 0 ; k < TYPECOUNT ; ++k){
         if(t[i].atypes[k] == offset + (int)j){
           if(offset + (int)j){
+            if(out++ % 3 == 0 && out != 1){
+              printf("\\newline ");
+            }
             printf("\\includegraphics[width=1em]{images/%s.png}", tnames[k]);
           }
           ++totals[t[i].atypes[k] - offset];
