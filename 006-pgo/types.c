@@ -316,7 +316,7 @@ defensive_relations_latex(const typing* t){
   int totals[6];
   const int offset = -3;
   printf("\\begin{longtable}{cC{2em}C{3em}C{3em}C{3em}C{2em}}\n");
-  printf("Typing & -3 & -2 & -1 & 1 & 2\\\\\n");
+  printf("Type & -3 & -2 & -1 & 1 & 2\\\\\n");
   printf("\\hline\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
