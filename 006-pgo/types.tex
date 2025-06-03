@@ -1,37 +1,40 @@
 \chapter{Types}
 \label{chap:types}
-There are eighteen Types, each with a representative icon.
-In Trainer Battles, the Types of active Pokémon are displayed
+There are eighteen types, each with a representative icon.
+In trainer battles, the types of active Pokémon are displayed
  using these icons, so it is important to memorize them.
-\begin{table}[ht]
-  \begin{tabular}{c c c c c c}
+
+\begin{table}[h!]
+  \begin{center}
+  \begin{tabular}{c c c c c c c c c}
   \includegraphics[scale=.25]{images/bug.png} &
-    \includegraphics[scale=.25]{images/dark.png} &
-    \includegraphics[scale=.25]{images/dragon.png} &
-    \includegraphics[scale=.25]{images/electric.png} &
-    \includegraphics[scale=.25]{images/fairy.png} &
-    \includegraphics[scale=.25]{images/fighting.png} \\
-  Bug & Dark & Dragon & Electric & Fairy & Fighting \\
+  \includegraphics[scale=.25]{images/dark.png} &
+  \includegraphics[scale=.25]{images/dragon.png} &
+  \includegraphics[scale=.25]{images/electric.png} &
+  \includegraphics[scale=.25]{images/fairy.png} &
+  \includegraphics[scale=.25]{images/fighting.png} &
   \includegraphics[scale=.25]{images/fire.png} &
-    \includegraphics[scale=.25]{images/flying.png} &
-    \includegraphics[scale=.25]{images/ghost.png} &
-    \includegraphics[scale=.25]{images/grass.png} &
-    \includegraphics[scale=.25]{images/ground.png} &
-    \includegraphics[scale=.25]{images/ice.png} \\
-  Fire & Flying & Ghost & Grass & Ground & Ice \\
+  \includegraphics[scale=.25]{images/flying.png} &
+  \includegraphics[scale=.25]{images/ghost.png} \\
+  Bug & Dark & Dragon & Electric & Fairy & Fighting & Fire & Flying & Ghost \\
+  \includegraphics[scale=.25]{images/grass.png} &
+  \includegraphics[scale=.25]{images/ground.png} &
+  \includegraphics[scale=.25]{images/ice.png} &
   \includegraphics[scale=.25]{images/normal.png} &
-    \includegraphics[scale=.25]{images/poison.png} &
-    \includegraphics[scale=.25]{images/psychic.png} &
-    \includegraphics[scale=.25]{images/rock.png} &
-    \includegraphics[scale=.25]{images/steel.png} &
-    \includegraphics[scale=.25]{images/water.png} \\
-  Normal & Poison & Psychic & Rock & Steel & Water \\
+  \includegraphics[scale=.25]{images/poison.png} &
+  \includegraphics[scale=.25]{images/psychic.png} &
+  \includegraphics[scale=.25]{images/rock.png} &
+  \includegraphics[scale=.25]{images/steel.png} &
+  \includegraphics[scale=.25]{images/water.png} \\
+  Grass & Ground & Ice & Normal & Poison & Psychic & Rock & Steel & Water \\
 \end{tabular}
+\end{center}
 \end{table}
-Each Species has either one or two distinct Types.
-Each Attack has a single Type.
-The attacker benefits if it has a Type in common with the Attack being used.
-The relationship between Attack Type and defender typing is more complex.
+
+Each species has either one or two distinct types, and each attack has a single type.
+The attacker benefits if it has a type in common with the attack being used:
+ the Same Type Attack Bonus (STAB), worth a 20\% boost.
+The relationship between attack type and defender typing is more complex.
 For each Type, the Attack Type can be \textit{very ineffective},
  \textit{ineffective}, \textit{standard}, or \textit{very effective}.
 These are mapped to -2, -1, 0, and 1.
@@ -141,57 +144,6 @@ On the other hand, Ground is effective against Electric, and Fairy is effective
   \end{center}
 \end{table}
 
-With regards to dual typing, it is not possible to dual type using a single
-  Type, and ordering does not matter.
-\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153 \]
-There are thus 153 dual types in addition to the 18 base types,
-  for a total of 171.
-We could also arrive at this number by summing 1 through 18:
-\[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
-Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
- Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
- leaving 162 defender typings to consider.
-
-Dual typing expands the type relation range, adding the possibilities
- of -3 and 2 (-4 is not possible, because no Type is very ineffective against
- two different Types).
-It furthermore vastly expands the Type Effectiveness matrix,
- with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
-Thankfully, these needn't be memorized, as they can all be calculated
- using the base relations matrix.
-
-% i'd like toppers explaining that 4 are against single types and 6 against all types
-\begin{table}[ht]
-  \begin{center}
-  \begin{tabular}{l r r r r r r r r r r r}
-    & \multicolumn{4}{c}{Type → Type} & \multicolumn{7}{c}{Type → Typing} \\
-    & \multicolumn{4}{c}{\downbracefill} & \multicolumn{7}{c}{\downbracefill} \\
-    Type & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
-    \Midrule
-    Ground & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1 \\
-    Rock & 0 & 3 & 11 & 4 & 0 & 3 & 36 & 78 & 48 & 6 & 1 \\
-    Fairy & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Flying & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Fire & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
-    Ice & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
-    Water & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Ghost & 1 & 1 & 14 & 2 & 1 & 15 & 17 & 107 & 30 & 1 & -1 \\
-    Steel & 0 & 4 & 11 & 3 & 0 & 6 & 48 & 78 & 36 & 3 & -1 \\
-    Dark & 0 & 3 & 13 & 2 & 0 & 3 & 43 & 96 & 28 & 1 & -1 \\
-    Fighting & 1 & 5 & 7 & 5 & 5 & 18 & 45 & 52 & 40 & 10 & -2 \\
-    Psychic & 1 & 2 & 13 & 2 & 2 & 15 & 30 & 95 & 28 & 1 & -2 \\
-    Dragon & 1 & 1 & 15 & 1 & 1 & 16 & 17 & 121 & 16 & 0 & -2 \\
-    Electric & 1 & 3 & 12 & 2 & 3 & 11 & 41 & 89 & 26 & 1 & -3 \\
-    Bug & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
-    Grass & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
-    Poison & 1 & 4 & 11 & 2 & 4 & 18 & 50 & 74 & 24 & 1 & -4 \\
-    Normal & 1 & 2 & 15 & 0 & 2 & 17 & 34 & 118 & 0 & 0 & -4 \\
-\end{tabular}
-    \caption[Attack Type effectiveness summaries]{Attack Type effectiveness summaries (higher is better)}
-  \end{center}
-\end{table}
-
-
 \section{Memorizing the type relations}
 I've found it useful to break the 120 relationships of impact into a few directed graphs.
 A thick green edge indicates effectiveness.
@@ -267,5 +219,58 @@ Ground slaughters Electric.
 \end{figure}
 The remaining interactions don't have any real structure, and simply must be
 memorized as they are.
+
+\section{Dual typing}
+A species of Pokémon may be singly or doubly types.
+It is not possible to dual type using a single type,
+ and ordering of the types does not matter.
+\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153 \]
+There are thus 153 dual types in addition to the 18 base types,
+  for a total of 171.
+We could also arrive at this number by summing 1 through 18:
+\[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
+Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
+ Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
+ leaving 162 defender typings to consider.
+
+Dual typing expands the type relation range, adding the possibilities
+ of -3 and 2 (-4 is not possible, because no Type is very ineffective against
+ two different Types).
+It furthermore vastly expands the Type Effectiveness matrix,
+ with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
+Thankfully, these needn't be memorized, as they can all be calculated
+ using the base relations matrix.
+
+\begin{table}[ht]
+  \begin{center}
+  \begin{tabular}{l r r r r r r r r r r r}
+    & \multicolumn{4}{c}{Type → Type} & \multicolumn{7}{c}{Type → Typing} \\
+    & \multicolumn{4}{c}{\downbracefill} & \multicolumn{7}{c}{\downbracefill} \\
+    Type & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
+    \Midrule
+    Ground & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1 \\
+    Rock & 0 & 3 & 11 & 4 & 0 & 3 & 36 & 78 & 48 & 6 & 1 \\
+    Fairy & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
+    Flying & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
+    Fire & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
+    Ice & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
+    Water & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
+    Ghost & 1 & 1 & 14 & 2 & 1 & 15 & 17 & 107 & 30 & 1 & -1 \\
+    Steel & 0 & 4 & 11 & 3 & 0 & 6 & 48 & 78 & 36 & 3 & -1 \\
+    Dark & 0 & 3 & 13 & 2 & 0 & 3 & 43 & 96 & 28 & 1 & -1 \\
+    Fighting & 1 & 5 & 7 & 5 & 5 & 18 & 45 & 52 & 40 & 10 & -2 \\
+    Psychic & 1 & 2 & 13 & 2 & 2 & 15 & 30 & 95 & 28 & 1 & -2 \\
+    Dragon & 1 & 1 & 15 & 1 & 1 & 16 & 17 & 121 & 16 & 0 & -2 \\
+    Electric & 1 & 3 & 12 & 2 & 3 & 11 & 41 & 89 & 26 & 1 & -3 \\
+    Bug & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
+    Grass & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
+    Poison & 1 & 4 & 11 & 2 & 4 & 18 & 50 & 74 & 24 & 1 & -4 \\
+    Normal & 1 & 2 & 15 & 0 & 2 & 17 & 34 & 118 & 0 & 0 & -4 \\
+\end{tabular}
+    \caption[Attack Type effectiveness summaries]{Attack Type effectiveness summaries (higher is better)}
+  \end{center}
+\end{table}
+
+\input{out/dualtypes.tex}
 
 \section{Cover sets}

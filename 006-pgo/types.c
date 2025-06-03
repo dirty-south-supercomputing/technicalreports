@@ -29,24 +29,24 @@ enum {
 } types_e;
 
 static const char* tnames[TYPECOUNT] = {
-  "bug",
-  "dark",
-  "dragon",
-  "electric",
-  "fairy",
-  "fighting",
-  "fire",
-  "flying",
-  "ghost",
-  "grass",
-  "ground",
-  "ice",
-  "normal",
-  "poison",
-  "psychic",
-  "rock",
-  "steel",
-  "water"
+  "Bug",
+  "Dark",
+  "Dragon",
+  "Electric",
+  "Fairy",
+  "Fighting",
+  "Fire",
+  "Flying",
+  "Ghost",
+  "Grass",
+  "Ground",
+  "Ice",
+  "Normal",
+  "Poison",
+  "Psychic",
+  "Rock",
+  "Steel",
+  "Water"
 };
 
 // each row is an attacking Type
@@ -351,7 +351,46 @@ defensive_summaries(const typing* t){
     printf("\n");
   }
   printf("\n");
+}
 
+static void
+defensive_summaries_latex(const typing* t){
+printf("\\begin{longtable}{lrrrrr|rrrrrr}\n");
+  printf("\\setlength{\\tabcolsep}{1pt}\n");
+printf("Typing & -3 & -2 & -1 & 1 & 2 & -3 &-2 & -1 & 0 & 1 & 2\\\\\n");
+  printf("\\Midrule\\\\\n");
+  printf("\\endhead\n");
+  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    if(t[i].types[0] == t[i].types[1]){
+      printf("%s & ", tnames[t[i].types[0]]);
+    }else{
+      printf("%s/%s & ", tnames[t[i].types[0]], tnames[t[i].types[1]]);
+    }
+    int totals[6];
+    const int offset = -3;
+    for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
+      totals[j] = 0;
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(t[i].atypes[k] == offset + (int)j){
+          if(offset + (int)j){
+            printf("%c", tnames[k][0]);
+          }
+          ++totals[t[i].atypes[k] - offset];
+        }
+      }
+      if(offset + (int)j){
+        printf("& ");
+      }
+    }
+    for(unsigned k = 0 ; k < sizeof(totals) / sizeof(*totals) ; ++k){
+      if(totals[k]){
+        printf("%d ", totals[k]);
+      }
+      printf("%s", k + 1 < sizeof(totals) / sizeof(*totals) ? "& " : "");
+    }
+    printf("\\\\\n");
+  }
+  printf("\\end{longtable}\n");
 }
 
 static void
@@ -383,6 +422,7 @@ attack_summaries(void){
 }
 
 int main(void){
+  /*
   printf("Attack efficiencies\n");
   printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -399,9 +439,11 @@ int main(void){
   printf("\n");
 
   attack_summaries();
-  typing* t = setup_typings();
   defensive_summaries(t);
-  free(t);
+  */
 
+  typing* t = setup_typings();
+  defensive_summaries_latex(t);
+  free(t);
   return EXIT_SUCCESS;
 }

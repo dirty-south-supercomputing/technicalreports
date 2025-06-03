@@ -20,16 +20,17 @@ CHARGED:=chargedattacks
 FAST:=fastattacks
 JSON:=$(addprefix $(OUT), $(addsuffix .json, $(CHARGED) $(FAST)))
 TYPES:=out/types
+GENTEX:=out/dualtypes.tex
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
 all: $(PDF)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(JSON)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(GENTEX)
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -43,12 +44,16 @@ $(OUT)/circo/%.png: circo/%
 $(JSON): csvs $(UPSTREAM) $(TYPES)
 	./$(<F)
 
+$(GENTEX): $(TYPES)
+	@mkdir -p $(@D)
+	$(TYPES) > $@
+
 $(TYPES): types.c
 	@mkdir -p $(@D)
 	gcc -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(JSON) $(TYPES)
+	@rm -vrf $(JSON) $(TYPES) $(GENTEX)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
