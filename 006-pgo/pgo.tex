@@ -16,6 +16,7 @@
 \usepackage{pdfpages}
 \usepackage{tabularray}
 \usepackage{longtable}
+\usepackage{makecell}
 \usepackage{varwidth}
 \usepackage{ifthen}
 \usepackage{multicol}
@@ -30,14 +31,14 @@
 \newfontfamily{\symbolfont}{Symbola}
 \newcolumntype{g}{>{\columncolor{Gray!25}}c} % for alternate column coloring in tabels
 
-% we're 8.5x11"
+% we're either 6x9" or (less desirably) 8.5x11"
 \settrims{0pt}{0pt}
-\setstocksize{10.75in}{8.125in}
-\settrimmedsize{10.5in}{8in}{*}
+\setstocksize{8.75in}{5.625in}
+\settrimmedsize{8.5in}{5.5in}{*}
 \setlrmarginsandblock{.75in}{*}{1}
 \setulmarginsandblock{1in}{1in}{1}       % 2" of total vertical margin
 \setlength{\headwidth}{\textwidth}       % don't go to the end of paperback
-\settypeblocksize{9in}{\textwidth}{*}   % want 9in of our 11
+\settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
 \makeatletter

@@ -20,6 +20,7 @@ CHARGED:=chargedattacks
 FAST:=fastattacks
 JSON:=$(addprefix $(OUT), $(addsuffix .json, $(CHARGED) $(FAST)))
 TYPES:=out/types
+STATS:=out/stats
 GENTEX:=out/dualtypes.tex
 
 preview: all
@@ -44,11 +45,15 @@ $(OUT)/circo/%.png: circo/%
 $(JSON): csvs $(UPSTREAM) $(TYPES)
 	./$(<F)
 
-$(GENTEX): $(TYPES)
+$(GENTEX): $(TYPES) $(STATS)
 	@mkdir -p $(@D)
 	$(TYPES) > $@
 
-$(TYPES): types.c
+$(TYPES): types.c pgotypes.h
+	@mkdir -p $(@D)
+	gcc -o $@ -Wall -W -O2 $(<F) -lm
+
+$(STATS): stats.c pgotypes.h
 	@mkdir -p $(@D)
 	gcc -o $@ -Wall -W -O2 $(<F) -lm
 

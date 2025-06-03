@@ -1,3 +1,4 @@
+#include "pgotypes.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,47 +7,25 @@
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 
-enum {
-  TYPE_BUG,
-  TYPE_DARK,
-  TYPE_DRAGON,
-  TYPE_ELECTRIC,
-  TYPE_FAIRY,
-  TYPE_FIGHTING,
-  TYPE_FIRE,
-  TYPE_FLYING,
-  TYPE_GHOST,
-  TYPE_GRASS,
-  TYPE_GROUND,
-  TYPE_ICE,
-  TYPE_NORMAL,
-  TYPE_POISON,
-  TYPE_PSYCHIC,
-  TYPE_ROCK,
-  TYPE_STEEL,
-  TYPE_WATER,
-  TYPECOUNT
-} types_e;
-
 static const char* tnames[TYPECOUNT] = {
-  "Bug",
-  "Dark",
-  "Dragon",
-  "Electric",
-  "Fairy",
-  "Fighting",
-  "Fire",
-  "Flying",
-  "Ghost",
-  "Grass",
-  "Ground",
-  "Ice",
-  "Normal",
-  "Poison",
-  "Psychic",
-  "Rock",
-  "Steel",
-  "Water"
+  "bug",
+  "dark",
+  "dragon",
+  "electric",
+  "fairy",
+  "fighting",
+  "fire",
+  "flying",
+  "ghost",
+  "grass",
+  "ground",
+  "ice",
+  "normal",
+  "poison",
+  "psychic",
+  "rock",
+  "steel",
+  "water"
 };
 
 // each row is an attacking Type
@@ -354,42 +333,61 @@ defensive_summaries(const typing* t){
 }
 
 static void
-defensive_summaries_latex(const typing* t){
-printf("\\begin{longtable}{lrrrrr|rrrrrr}\n");
-  printf("\\setlength{\\tabcolsep}{1pt}\n");
-printf("Typing & -3 & -2 & -1 & 1 & 2 & -3 &-2 & -1 & 0 & 1 & 2\\\\\n");
+defensive_relations_latex(const typing* t){
+  int totals[6];
+  const int offset = -3;
+  printf("\\begin{longtable}{cccccc}\n");
+  printf("Typing & -3 & -2 & -1 & 1 & 2\\\\\n");
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
-    if(t[i].types[0] == t[i].types[1]){
-      printf("%s & ", tnames[t[i].types[0]]);
-    }else{
-      printf("%s/%s & ", tnames[t[i].types[0]], tnames[t[i].types[1]]);
+    printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
+    if(t[i].types[0] != t[i].types[1]){
+      printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
     }
-    int totals[6];
-    const int offset = -3;
+    printf(" & ");
     for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
       totals[j] = 0;
       for(int k = 0 ; k < TYPECOUNT ; ++k){
         if(t[i].atypes[k] == offset + (int)j){
           if(offset + (int)j){
-            printf("%c", tnames[k][0]);
+            printf("\\includegraphics[width=1em]{images/%s.png}", tnames[k]);
           }
           ++totals[t[i].atypes[k] - offset];
         }
       }
-      if(offset + (int)j){
+      if(offset + (int)j && j + 1 < sizeof(totals) / sizeof(*totals)){
         printf("& ");
       }
     }
-    for(unsigned k = 0 ; k < sizeof(totals) / sizeof(*totals) ; ++k){
-      if(totals[k]){
-        printf("%d ", totals[k]);
+    printf("\\\\\n");
+  }
+  printf("\\caption{Defender typing effectiveness}\n");
+  printf("\\end{longtable}\n");
+
+  // defensive typing summaries
+  printf("\\begin{longtable}{crrrrrr}\n");
+  printf("Typing & -3 & -2 & -1 & 0 & 1 & 2\\\\\n");
+  printf("\\Midrule\\\\\n");
+  printf("\\endhead\n");
+  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
+    if(t[i].types[0] != t[i].types[1]){
+      printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
+    }
+    printf(" & ");
+    for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
+      totals[j] = 0;
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(t[i].atypes[k] == offset + (int)j){
+          ++totals[t[i].atypes[k] - offset];
+        }
       }
-      printf("%s", k + 1 < sizeof(totals) / sizeof(*totals) ? "& " : "");
+      printf("%d %s", totals[j], j + 1 < sizeof(totals) / sizeof(*totals) ? "& " : "");
     }
     printf("\\\\\n");
   }
+  printf("\\caption{Defender effectiveness summaries}\n");
   printf("\\end{longtable}\n");
 }
 
@@ -443,7 +441,7 @@ int main(void){
   */
 
   typing* t = setup_typings();
-  defensive_summaries_latex(t);
+  defensive_relations_latex(t);
   free(t);
   return EXIT_SUCCESS;
 }

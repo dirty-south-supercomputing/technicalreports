@@ -12,21 +12,22 @@ In trainer battles, the types of active Pokémon are displayed
   \includegraphics[scale=.25]{images/dragon.png} &
   \includegraphics[scale=.25]{images/electric.png} &
   \includegraphics[scale=.25]{images/fairy.png} &
-  \includegraphics[scale=.25]{images/fighting.png} &
+  \includegraphics[scale=.25]{images/fighting.png} \\
+  Bug & Dark & Dragon & Electric & Fairy & Fighting \\
   \includegraphics[scale=.25]{images/fire.png} &
   \includegraphics[scale=.25]{images/flying.png} &
-  \includegraphics[scale=.25]{images/ghost.png} \\
-  Bug & Dark & Dragon & Electric & Fairy & Fighting & Fire & Flying & Ghost \\
+  \includegraphics[scale=.25]{images/ghost.png} &
   \includegraphics[scale=.25]{images/grass.png} &
   \includegraphics[scale=.25]{images/ground.png} &
-  \includegraphics[scale=.25]{images/ice.png} &
+  \includegraphics[scale=.25]{images/ice.png} \\
+  Fire & Flying & Ghost & Grass & Ground & Ice \\
   \includegraphics[scale=.25]{images/normal.png} &
   \includegraphics[scale=.25]{images/poison.png} &
   \includegraphics[scale=.25]{images/psychic.png} &
   \includegraphics[scale=.25]{images/rock.png} &
   \includegraphics[scale=.25]{images/steel.png} &
   \includegraphics[scale=.25]{images/water.png} \\
-  Grass & Ground & Ice & Normal & Poison & Psychic & Rock & Steel & Water \\
+  Normal & Poison & Psychic & Rock & Steel & Water \\
 \end{tabular}
 \end{center}
 \end{table}
@@ -53,23 +54,23 @@ These relationships must also be memorized.
   \begin{tabular}{c g c g c g c g c g c g c g c g c g c}
   &
   \includegraphics[width=1em]{images/bug.png} &
-    \includegraphics[width=1em]{images/dark.png} &
-    \includegraphics[width=1em]{images/dragon.png} &
-    \includegraphics[width=1em]{images/electric.png} &
-    \includegraphics[width=1em]{images/fairy.png} &
-    \includegraphics[width=1em]{images/fighting.png} &
+  \includegraphics[width=1em]{images/dark.png} &
+  \includegraphics[width=1em]{images/dragon.png} &
+  \includegraphics[width=1em]{images/electric.png} &
+  \includegraphics[width=1em]{images/fairy.png} &
+  \includegraphics[width=1em]{images/fighting.png} &
   \includegraphics[width=1em]{images/fire.png} &
-    \includegraphics[width=1em]{images/flying.png} &
-    \includegraphics[width=1em]{images/ghost.png} &
-    \includegraphics[width=1em]{images/grass.png} &
-    \includegraphics[width=1em]{images/ground.png} &
-    \includegraphics[width=1em]{images/ice.png} &
+  \includegraphics[width=1em]{images/flying.png} &
+  \includegraphics[width=1em]{images/ghost.png} &
+  \includegraphics[width=1em]{images/grass.png} &
+  \includegraphics[width=1em]{images/ground.png} &
+  \includegraphics[width=1em]{images/ice.png} &
   \includegraphics[width=1em]{images/normal.png} &
-    \includegraphics[width=1em]{images/poison.png} &
-    \includegraphics[width=1em]{images/psychic.png} &
-    \includegraphics[width=1em]{images/rock.png} &
-    \includegraphics[width=1em]{images/steel.png} &
-    \includegraphics[width=1em]{images/water.png}
+  \includegraphics[width=1em]{images/poison.png} &
+  \includegraphics[width=1em]{images/psychic.png} &
+  \includegraphics[width=1em]{images/rock.png} &
+  \includegraphics[width=1em]{images/steel.png} &
+  \includegraphics[width=1em]{images/water.png}
     \\
     \rowcolor{Gray!25}
     \includegraphics[width=1em]{images/bug.png} & & 1 & & & −1 & −1 & −1 & −1 & −1 & 1 & & & & −1 & 1 & & −1 & \\ % 10
@@ -240,36 +241,8 @@ It furthermore vastly expands the Type Effectiveness matrix,
  with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
-
-\begin{table}[ht]
-  \begin{center}
-  \begin{tabular}{l r r r r r r r r r r r}
-    & \multicolumn{4}{c}{Type → Type} & \multicolumn{7}{c}{Type → Typing} \\
-    & \multicolumn{4}{c}{\downbracefill} & \multicolumn{7}{c}{\downbracefill} \\
-    Type & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
-    \Midrule
-    Ground & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1 \\
-    Rock & 0 & 3 & 11 & 4 & 0 & 3 & 36 & 78 & 48 & 6 & 1 \\
-    Fairy & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Flying & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Fire & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
-    Ice & 0 & 4 & 10 & 4 & 0 & 6 & 44 & 71 & 44 & 6 & 0 \\
-    Water & 0 & 3 & 12 & 3 & 0 & 3 & 39 & 87 & 39 & 3 & 0 \\
-    Ghost & 1 & 1 & 14 & 2 & 1 & 15 & 17 & 107 & 30 & 1 & -1 \\
-    Steel & 0 & 4 & 11 & 3 & 0 & 6 & 48 & 78 & 36 & 3 & -1 \\
-    Dark & 0 & 3 & 13 & 2 & 0 & 3 & 43 & 96 & 28 & 1 & -1 \\
-    Fighting & 1 & 5 & 7 & 5 & 5 & 18 & 45 & 52 & 40 & 10 & -2 \\
-    Psychic & 1 & 2 & 13 & 2 & 2 & 15 & 30 & 95 & 28 & 1 & -2 \\
-    Dragon & 1 & 1 & 15 & 1 & 1 & 16 & 17 & 121 & 16 & 0 & -2 \\
-    Electric & 1 & 3 & 12 & 2 & 3 & 11 & 41 & 89 & 26 & 1 & -3 \\
-    Bug & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
-    Grass & 0 & 7 & 8 & 3 & 0 & 21 & 63 & 57 & 27 & 3 & -4 \\
-    Poison & 1 & 4 & 11 & 2 & 4 & 18 & 50 & 74 & 24 & 1 & -4 \\
-    Normal & 1 & 2 & 15 & 0 & 2 & 17 & 34 & 118 & 0 & 0 & -4 \\
-\end{tabular}
-    \caption[Attack Type effectiveness summaries]{Attack Type effectiveness summaries (higher is better)}
-  \end{center}
-\end{table}
+Completely unexpectedly, the best typings include Steel, with the top 16
+ spots all making use of it.
 
 \input{out/dualtypes.tex}
 
