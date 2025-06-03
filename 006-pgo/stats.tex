@@ -68,16 +68,23 @@ Level & CPM & Level & CPM & Level & CPM \\
 
 \section{Effective stats}
 We multiply each of the $Mod$ values by the Pokémon's CPM to generate
- its $Eff_A$, $Eff_D$, and $Eff_S$:
+ its $Eff_A$, $Eff_D$, and $Eff_S$.
+$M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
+  and 1 otherwise.
+We multiply $Eff_A$ by this Shadow bonus for $Eff_A$, and divide by it for $Eff_D$.
+This yields a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
 \begin{align*}
- Eff_A &= Mod_A \times CPM \\
- Eff_D &= Mod_D \times CPM \\
- Eff_S &= Mod_S \times CPM
+ Eff_A &= Mod_A \times CPM \times M_{Shadow} \\
+ Eff_D &= \frac{Mod_D \times CPM}{M_{Shadow}}
 \end{align*}
 $Eff_S$ determines the Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
- and can be restored (up to MHP) with Potions.
+ and can be restored (up to MHP) with Potions\footnote{Trainer Battles (other
+ than those with Team Rocket) always start with full HP).}.
 MHP is defined such that it is always a positive integer:
-\[ MHP = \min{1, \lfloor Eff_S \rfloor} \]
+\begin{align*}
+ Eff_S &= Mod_S \times CPM \\
+ MHP &= \min{1, \lfloor Eff_S \rfloor}
+\end{align*}

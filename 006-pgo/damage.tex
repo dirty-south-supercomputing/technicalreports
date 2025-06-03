@@ -14,8 +14,8 @@ $M_{STAB}$ is the STAB bonus, equal to 1.2 when the Attack's Type matches any
   Type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the Attack Type
  and the defender's Type.
-For completeness I have included a $T$ of -4 in \autoref{table:typemult},
- but remember that this is not currently realizable.
+I have included a $T$ of -4 in \autoref{table:typemult} for completeness,
+ but remember that this is n t currently realizable.
 
 \begin{table}
 \begin{center}
@@ -58,9 +58,35 @@ In Raids and Max battles, a number of effects come into play.
 \begin{itemize}
  \item $M_D$ is 0.25 if the Attack is dodged (dodging is only possible in Raids/Max battles),
  and 1 otherwise. Note that this seems to have been subject to recent changes.
- \item The friendship bonus $M_F$: \textbf{FIXME}
+ \item The friendship bonus $M_F$:
+   \begin{table}[h!]
+     \begin{center}
+       \begin{tabular}{lc}
+         Situation & $M_F$ \\
+         \Midrule
+         No friends present, \textit{unless…} & 1 \\
+         Battling with at least one Good Friend, \textit{unless…} & 1.03 \\
+         Battling with at least one Great Friend, \textit{unless…}  & 1.05 \\
+         Battling with at least one Ultra Friend, \textit{unless…} & 1.07 \\
+         Battling with at least one Best Friend, \textit{unless…}  & 1.1
+       \end{tabular}
+     \end{center}
+     \caption{Bonus due the presence of friends}
+   \end{table}
  \item $M_W$ is 1.2 if the Attack is weather-boosted, and 1 otherwise.
- \item The Mega bonus $M_M$: \textbf{FIXME}
+ \item $M_M$ from Mega Pokémon \textit{actively} involved in the battle:
+   \begin{table}[h!]
+     \begin{center}
+       \begin{tabular}{lc}
+         Situation & $M_M$ \\
+         \Midrule
+         No active Mega Pokémon, \textit{unless…} & 1 \\
+         Battling with at least one Mega Pokémon, \textit{unless…} & 1.1 \\
+         Battling with at least one Mega Pokémon of the attack's type & 1.3 \\
+       \end{tabular}
+     \end{center}
+     \caption{Bonus due the presence of Mega Pokémon}
+   \end{table}
  \item The Power Stop bonus $M_P$: \textbf{FIXME}
 \end{itemize}
 The calculation for Trainer Battles is simpler:

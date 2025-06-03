@@ -1079,11 +1079,25 @@ print_cpms(void){
   }
 }
 
+static unsigned long
+cp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
+
+}
+
+// print the optimal level/IV combinations bounded by the given cp
+static void
+print_cp_bounded(const species* s, int cp){
+  
+}
+
 int main(void){
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     printf("%s:\n", tnames[t]);
     filter_by_type(t);
   }
   print_cpms();
+  for(int i = 0 ; i < SPECIESCOUNT ; ++i){
+    print_cp_bounded(&sdex[i], 1500);
+  }
   return EXIT_SUCCESS;
 }
