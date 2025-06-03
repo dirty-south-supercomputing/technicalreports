@@ -1071,10 +1071,19 @@ filter_by_type(pgo_types_e t){
   }
 }
 
+static void
+print_cpms(void){
+  printf("cpms:\n");
+  for(int i = 1 ; i < 100 ; ++i){
+    printf("%2d %f\n", i, cpm(i));
+  }
+}
+
 int main(void){
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     printf("%s:\n", tnames[t]);
     filter_by_type(t);
   }
+  print_cpms();
   return EXIT_SUCCESS;
 }
