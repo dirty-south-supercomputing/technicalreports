@@ -23,7 +23,7 @@ typedef enum {
   TYPECOUNT
 } pgo_types_e;
 
-static const char* tnames[TYPECOUNT] = {
+const char* tnames[TYPECOUNT] = {
   "bug",
   "dark",
   "dragon",
@@ -42,6 +42,27 @@ static const char* tnames[TYPECOUNT] = {
   "rock",
   "steel",
   "water"
+};
+
+const char* TNames[TYPECOUNT] = {
+  "Bug",
+  "Dark",
+  "Dragon",
+  "Electric",
+  "Fairy",
+  "Fighting",
+  "Fire",
+  "Flying",
+  "Ghost",
+  "Grass",
+  "Ground",
+  "Ice",
+  "Normal",
+  "Poison",
+  "Psychic",
+  "Rock",
+  "Steel",
+  "Water"
 };
 
 /*

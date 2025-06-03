@@ -257,7 +257,6 @@ setup_typings(void){
         ++pos;
       }
     }
-    qsort(dtypes, TYPINGCOUNT, sizeof(*dtypes), typing_compare);
   }
   return dtypes;
 }
@@ -312,6 +311,41 @@ defensive_summaries(const typing* t){
 }
 
 static void
+defensive_summaries_latex(const typing* t){
+  int totals[6];
+  const int offset = -3;
+  // defensive typing summaries
+  printf("\\begin{longtable}{lrrrrrrr}\n");
+  printf("Type & -3 & -2 & -1 & 0 & 1 & 2 & DRA\\\\\n");
+  printf("\\Midrule\\\\\n");
+  printf("\\endhead\n");
+  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    //printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
+    printf("%s", TNames[t[i].types[0]]);
+    if(t[i].types[0] != t[i].types[1]){
+      printf("+%s", TNames[t[i].types[1]]);
+      //printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
+    }
+    printf(" & ");
+    float dra = 0;
+    for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
+      totals[j] = 0;
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(t[i].atypes[k] == offset + (int)j){
+          ++totals[t[i].atypes[k] - offset];
+        }
+      }
+      dra += pow(1.6, (offset + (int)j)) * totals[j];
+      printf("%d &", totals[j]);
+    }
+    printf("%.2f", dra / 18);
+    printf("\\\\\n");
+  }
+  printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
+  printf("\\end{longtable}\n");
+}
+
+static void
 defensive_relations_latex(const typing* t){
   int totals[6];
   const int offset = -3;
@@ -346,31 +380,6 @@ defensive_relations_latex(const typing* t){
     printf("\\\\\n");
   }
   printf("\\caption{Defender typing effectiveness}\n");
-  printf("\\end{longtable}\n");
-
-  // defensive typing summaries
-  printf("\\begin{longtable}{crrrrrr}\n");
-  printf("Typing & -3 & -2 & -1 & 0 & 1 & 2\\\\\n");
-  printf("\\Midrule\\\\\n");
-  printf("\\endhead\n");
-  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
-    printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
-    if(t[i].types[0] != t[i].types[1]){
-      printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
-    }
-    printf(" & ");
-    for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
-      totals[j] = 0;
-      for(int k = 0 ; k < TYPECOUNT ; ++k){
-        if(t[i].atypes[k] == offset + (int)j){
-          ++totals[t[i].atypes[k] - offset];
-        }
-      }
-      printf("%d %s", totals[j], j + 1 < sizeof(totals) / sizeof(*totals) ? "& " : "");
-    }
-    printf("\\\\\n");
-  }
-  printf("\\caption{Defender effectiveness summaries}\n");
   printf("\\end{longtable}\n");
 }
 
@@ -425,6 +434,8 @@ int main(void){
 
   typing* t = setup_typings();
   defensive_relations_latex(t);
+  qsort(t, TYPINGCOUNT, sizeof(*t), typing_compare);
+  defensive_summaries_latex(t);
   free(t);
   return EXIT_SUCCESS;
 }
