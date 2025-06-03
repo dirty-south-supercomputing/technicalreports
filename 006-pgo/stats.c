@@ -1079,15 +1079,17 @@ print_cpms(void){
   }
 }
 
+// atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
 static unsigned long
 cp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
-
+  float cand = (atk * sqrt(def) * sqrt(sta) * pow(cpm(halflevel), 2)) / 10;
+  return cand < 10 ? 10 : cand;
 }
 
 // print the optimal level/IV combinations bounded by the given cp
 static void
 print_cp_bounded(const species* s, int cp){
-  
+
 }
 
 int main(void){
@@ -1096,7 +1098,7 @@ int main(void){
     filter_by_type(t);
   }
   print_cpms();
-  for(int i = 0 ; i < SPECIESCOUNT ; ++i){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     print_cp_bounded(&sdex[i], 1500);
   }
   return EXIT_SUCCESS;
