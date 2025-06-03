@@ -338,7 +338,7 @@ defensive_summaries_latex(const typing* t){
       dra += pow(1.6, (offset + (int)j)) * totals[j];
       printf("%d &", totals[j]);
     }
-    printf("%.2f", dra / 18);
+    printf("%.3f", dra / 18);
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
