@@ -45,7 +45,7 @@ $(JSON): csvs $(UPSTREAM) $(TYPES)
 
 $(TYPES): types.c
 	@mkdir -p $(@D)
-	gcc -o $@ -Wall -W -O2 $(<F)
+	gcc -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
 	@rm -vrf $(JSON) $(TYPES)

@@ -1,6 +1,10 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+// there are 171 distinct species types (18 + C(18, 2))
+#define TYPINGCOUNT 171
 
 enum {
   TYPE_BUG,
@@ -240,22 +244,118 @@ melt_column(int* vec, const int* col){
   }
 }
 
-int main(void){
-  printf("Attack efficiencies\n");
-  printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
+// represents some typing, either a dualtype or monotype.
+typedef struct typing {
+  int types[2];           // our types; both are the same for monotypes
+  int atypes[TYPECOUNT];  // reaction to attack type, ranging from -3 to 2
+} typing;
+
+// convert a type effectiveness exponent {-4..2} to a float
+static float
+typeeff_multiplier(int texp){
+  if(texp < -4 || texp > 2){
+    fprintf(stderr, "invalid type relation %d\n", texp);
+    return NAN;
+  }
+  return pow(1.6, texp);
+}
+
+static int
+typing_compare(const void* a, const void* b){
+  float atot = 0;
+  float btot = 0;
+  const typing* ta = a;
+  const typing* tb = b;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
-    printf("%8s: ", tnames[i]);
-    print_vector_ints(trelations[i]);
+    atot += typeeff_multiplier(ta->atypes[i]);
+    btot += typeeff_multiplier(tb->atypes[i]);
+  }
+  if(atot < btot){
+    return -1;
+  }else if(btot < atot){
+    return 1;
+  }
+  return 0;
+}
+
+// create an array of TYPINGCOUNT typings, sorted by type resistance
+static typing* 
+setup_typings(void){
+  typing* dtypes = malloc(sizeof(*dtypes) * TYPINGCOUNT);
+  if(dtypes){
+    int pos = 0;
+    for(int i = 0 ; i < TYPECOUNT ; ++i){
+      for(int j = i ; j < TYPECOUNT ; ++j){
+        dtypes[pos].types[0] = i;
+        dtypes[pos].types[1] = j;
+        melt_column(dtypes[pos].atypes, &trelations[0][i]);
+        if(i != j){
+          int vec[TYPECOUNT];
+          melt_column(vec, &trelations[0][j]);
+          for(int k = 0 ; k < TYPECOUNT ; ++k){
+            dtypes[pos].atypes[k] += vec[k];
+          }
+        }
+        ++pos;
+      }
+    }
+    qsort(dtypes, TYPINGCOUNT, sizeof(*dtypes), typing_compare);
+  }
+  return dtypes;
+}
+
+static void
+defensive_summaries(const typing* t){
+  printf("Defense efficiency summaries\n");
+  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    if(t[i].types[0] == t[i].types[1]){
+      printf("%s|", tnames[t[i].types[0]]);
+    }else{
+      printf("%s+%s|", tnames[t[i].types[0]], tnames[t[i].types[1]]);
+    }
+    int pos = 0;
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k] == -3){
+        printf("%s%s", !pos ? " -3:" : ",", tnames[k]);
+        ++pos;
+      }
+    }
+    pos = 0;
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k] == -2){
+        printf("%s%s", !pos ? " -2:" : ",", tnames[k]);
+        ++pos;
+      }
+    }
+    pos = 0;
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k] == -1){
+        printf("%s%s", !pos ? " -1:" : ",", tnames[k]);
+        ++pos;
+      }
+    }
+    pos = 0;
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k] == 1){
+        printf("%s%s", !pos ? " 1:" : ",", tnames[k]);
+        ++pos;
+      }
+    }
+    pos = 0;
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k] == 2){
+        printf("%s%s", !pos ? " 2:" : ",", tnames[k]);
+        ++pos;
+      }
+    }
     printf("\n");
   }
   printf("\n");
 
-  print_complete_coversets();
-  printf("\n");
+}
 
-  print_complete_coversets_duals();
-  printf("\n");
-
+static void
+attack_summaries(void){
   printf("Attack efficiency summaries\n");
   printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2   T  A\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -280,45 +380,28 @@ int main(void){
     printf("\n");
   }
   printf("\n");
+}
 
-  printf("Defense efficiency summaries\n");
-  int vec[TYPECOUNT];
-  int vec2[TYPECOUNT];
+int main(void){
+  printf("Attack efficiencies\n");
+  printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
-    melt_column(vec, &trelations[0][i]);
-    for(int j = i ; j < TYPECOUNT ; ++j){
-      const int* p;
-      if(i == j){
-        printf("%s|", tnames[i]);
-        p = vec;
-      }else{
-        melt_column(vec2, &trelations[0][j]);
-        printf("%s+%s|", tnames[i], tnames[j]);
-        for(int k = 0 ; k < TYPECOUNT ; ++k){
-          vec2[k] += vec[k];
-        }
-        p = vec2;
-      }
-      printf(" strong");
-      int pos = 0;
-      for(int k = 0 ; k < TYPECOUNT ; ++k){
-        if(p[k] < 0){
-          printf("%c%s", !pos ? ':' : ',', tnames[k]);
-          ++pos;
-        }
-      }
-      printf("(%d) weak", pos);
-      pos = 0;
-      for(int k = 0 ; k < TYPECOUNT ; ++k){
-        if(p[k] > 0){
-          printf("%c%s", !pos ? ':' : ',', tnames[k]);
-          ++pos;
-        }
-      }
-      printf("(%d)\n", pos);
-    }
+    printf("%8s: ", tnames[i]);
+    print_vector_ints(trelations[i]);
+    printf("\n");
   }
   printf("\n");
+
+  print_complete_coversets();
+  printf("\n");
+
+  print_complete_coversets_duals();
+  printf("\n");
+
+  attack_summaries();
+  typing* t = setup_typings();
+  defensive_summaries(t);
+  free(t);
 
   return EXIT_SUCCESS;
 }
