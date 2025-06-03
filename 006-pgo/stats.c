@@ -1,4 +1,6 @@
-#include "pgotypes.h"
+#include "pgotypes.c"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct species {
   unsigned idx; // pokedex index, not unique
@@ -1047,3 +1049,32 @@ static const species sdex[] = {
   {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128 },
   { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202 }
 };
+
+#define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
+
+static void
+print_species(const species* s){
+  printf("%u %u %u %u %s", s->idx, s->atk, s->def, s->sta, tnames[s->t1]);
+  if(s->t2 != TYPECOUNT){
+    printf("+%s", tnames[s->t2]);
+  }
+  printf(" %s\n", s->name);
+}
+
+// print those entries containing type
+static void
+filter_by_type(pgo_types_e t){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    if(sdex[i].t1 == t || sdex[i].t2 == t){
+      print_species(&sdex[i]);
+    }
+  }
+}
+
+int main(void){
+  for(int t = 0 ; t < TYPECOUNT ; ++t){
+    printf("%s:\n", tnames[t]);
+    filter_by_type(t);
+  }
+  return EXIT_SUCCESS;
+}

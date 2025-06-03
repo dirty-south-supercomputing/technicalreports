@@ -1,6 +1,3 @@
-#ifndef PGO_TYPES
-#define PGO_TYPES
-
 typedef enum {
   TYPE_BUG,
   TYPE_DARK,
@@ -23,4 +20,23 @@ typedef enum {
   TYPECOUNT
 } pgo_types_e;
 
-#endif
+static const char* tnames[TYPECOUNT] = {
+  "bug",
+  "dark",
+  "dragon",
+  "electric",
+  "fairy",
+  "fighting",
+  "fire",
+  "flying",
+  "ghost",
+  "grass",
+  "ground",
+  "ice",
+  "normal",
+  "poison",
+  "psychic",
+  "rock",
+  "steel",
+  "water"
+};

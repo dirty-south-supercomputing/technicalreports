@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "pgotypes.c"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,27 +6,6 @@
 
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
-
-static const char* tnames[TYPECOUNT] = {
-  "bug",
-  "dark",
-  "dragon",
-  "electric",
-  "fairy",
-  "fighting",
-  "fire",
-  "flying",
-  "ghost",
-  "grass",
-  "ground",
-  "ice",
-  "normal",
-  "poison",
-  "psychic",
-  "rock",
-  "steel",
-  "water"
-};
 
 // each row is an attacking Type
 static const int trelations[TYPECOUNT][TYPECOUNT] = {

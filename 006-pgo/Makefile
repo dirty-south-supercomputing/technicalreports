@@ -49,11 +49,11 @@ $(GENTEX): $(TYPES) $(STATS)
 	@mkdir -p $(@D)
 	$(TYPES) > $@
 
-$(TYPES): types.c pgotypes.h
+$(TYPES): types.c pgotypes.c
 	@mkdir -p $(@D)
 	gcc -o $@ -Wall -W -O2 $(<F) -lm
 
-$(STATS): stats.c pgotypes.h
+$(STATS): stats.c pgotypes.c
 	@mkdir -p $(@D)
 	gcc -o $@ -Wall -W -O2 $(<F) -lm
 
