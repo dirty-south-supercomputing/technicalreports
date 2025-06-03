@@ -312,6 +312,8 @@ defensive_summaries(const typing* t){
 
 static void
 defensive_summaries_latex(const typing* t){
+  printf("\\begingroup\n");
+  printf("\\setlength{\\tabcolsep}{0.5em}");
   int totals[6];
   const int offset = -3;
   // defensive typing summaries
@@ -336,44 +338,39 @@ defensive_summaries_latex(const typing* t){
         }
       }
       dra += pow(1.6, (offset + (int)j)) * totals[j];
-      printf("%d &", totals[j]);
+      if(totals[j]){ // don't print zeroes
+        printf("%d &", totals[j]);
+      }else{
+        printf("&");
+      }
     }
     printf("%.3f", dra / 18);
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
   printf("\\end{longtable}\n");
+  printf("\\endgroup\n");
 }
 
 static void
 defensive_relations_latex(const typing* t){
-  int totals[6];
-  const int offset = -3;
-  printf("\\begin{longtable}{cC{2em}C{3em}C{3em}C{3em}C{2em}}\n");
-  printf("Type & -3 & -2 & -1 & 1 & 2\\\\\n");
-  printf("\\hline\\\\\n");
+  printf("\\begingroup\n");
+  printf("\\setlength{\\tabcolsep}{1pt}");
+  printf("\\begin{longtable}{cC{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}}\n");
+  for(int k = 0 ; k < TYPECOUNT ; ++k){
+    printf("& \\includegraphics[width=1em]{images/%s.png}", tnames[k]);
+  }
+  printf("\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
     printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
     if(t[i].types[0] != t[i].types[1]){
       printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
     }
-    printf(" & ");
-    for(unsigned j = 0 ; j < sizeof(totals) / sizeof(*totals) ; ++j){
-      totals[j] = 0;
-      int out = 0;
-      for(int k = 0 ; k < TYPECOUNT ; ++k){
-        if(t[i].atypes[k] == offset + (int)j){
-          if(offset + (int)j){
-            if(out++ % 3 == 0 && out != 1){
-              printf("\\newline ");
-            }
-            printf("\\includegraphics[width=1em]{images/%s.png}", tnames[k]);
-          }
-          ++totals[t[i].atypes[k] - offset];
-        }
-      }
-      if(offset + (int)j && j + 1 < sizeof(totals) / sizeof(*totals)){
+    for(int k = 0 ; k < TYPECOUNT ; ++k){
+      if(t[i].atypes[k]){
+        printf("& %d", t[i].atypes[k]);
+      }else{
         printf("& ");
       }
     }
@@ -381,6 +378,7 @@ defensive_relations_latex(const typing* t){
   }
   printf("\\caption{Defender typing effectiveness}\n");
   printf("\\end{longtable}\n");
+  printf("\\endgroup\n");
 }
 
 static void
