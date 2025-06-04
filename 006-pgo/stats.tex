@@ -71,7 +71,7 @@ We multiply each of the $Mod$ values by the Pokémon's CPM to generate
  its $Eff_A$, $Eff_D$, and $Eff_S$.
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
   and 1 otherwise.
-We multiply $Eff_A$ by this Shadow bonus for $Eff_A$, and divide by it for $Eff_D$.
+We multiply $Eff_A$ by this Shadow bonus, and divide $Eff_D$ by it.
 This yields a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
 \begin{align*}
  Eff_A &= Mod_A \times CPM \times M_{Shadow} \\
