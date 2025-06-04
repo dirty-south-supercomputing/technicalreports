@@ -18,7 +18,6 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 UPSTREAM:=$(addsuffix .csv, moves)
 CHARGED:=chargedattacks
 FAST:=fastattacks
-JSON:=$(addprefix $(OUT), $(addsuffix .json, $(CHARGED) $(FAST)))
 TYPES:=out/types
 STATS:=out/stats
 GENTEX:=out/dualtypes.tex
@@ -28,10 +27,10 @@ preview: all
 
 all: $(PDF)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(GENTEX) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(JSON) $(GENTEX)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(GENTEX)
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -41,9 +40,6 @@ $(OUT)/dot/%.png: dot/%
 $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
-
-$(JSON): csvs $(UPSTREAM) $(TYPES)
-	./$(<F)
 
 $(GENTEX): $(TYPES) $(STATS)
 	@mkdir -p $(@D)
@@ -58,7 +54,7 @@ $(STATS): stats.c pgotypes.c
 	gcc -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(JSON) $(TYPES) $(GENTEX)
+	@rm -vrf $(TYPES) $(GENTEX)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)

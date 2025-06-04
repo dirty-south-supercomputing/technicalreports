@@ -1,6 +1,7 @@
 #include "pgotypes.c"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct species {
   unsigned idx; // pokedex index, not unique
@@ -1123,6 +1124,18 @@ calc_fit(float effa, float effd, unsigned mhp){
   return cbrt(effa * effd * mhp);
 }
 
+// returns integer part, sets *half to 1 if it's a +0.5
+// (aren't guaranteed exact representation with floats)
+static inline unsigned
+halflevel_to_level(unsigned hl, unsigned* half){
+  if(hl % 2 == 0){
+    *half = 1;
+  }else{
+    *half = 0;
+  }
+  return (hl + 1) / 2;
+}
+
 // print the optimal level/IV combinations bounded by the given cp
 static void
 print_cp_bounded(const species* s, int cpceil){
@@ -1131,26 +1144,48 @@ print_cp_bounded(const species* s, int cpceil){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
-        unsigned l = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        float effa = calc_eff_a(s->atk + iva, l);
-        float effd = calc_eff_d(s->def + ivd, l);
-        unsigned mhp = calc_mhp(s->sta + ivs, l);
+        unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
+        float effa = calc_eff_a(s->atk + iva, hl);
+        float effd = calc_eff_d(s->def + ivd, hl);
+        unsigned mhp = calc_mhp(s->sta + ivs, hl);
         float f = calc_fit(effa, effd, mhp);
-        printf(" %2d-%2d-%2d: %2u %4d %.3f %.3f %u %.3f\n",
-                iva, ivd, ivs, l, cp, effa, effd, mhp, f);
+        unsigned half;
+        unsigned l = halflevel_to_level(hl, &half);
+        printf(" %d-%d-%d: %2u%s %4d %.3f %.3f %u %.3f\n",
+                iva, ivd, ivs, l,
+                half ? ".5" : "",
+                cp, effa, effd, mhp, f);
       }
     }
   }
 }
 
-int main(void){
+static const species*
+lookup_species(const char* name){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    if(strcasecmp(sdex[i].name, name) == 0){
+      return &sdex[i];
+    }
+  }
+  return NULL;
+}
+
+int main(int argc, char **argv){
+  if(argc > 1){
+    while(*++argv){
+      const species *s = lookup_species(*argv);
+      if(s == NULL){
+        fprintf(stderr, "no species named \"%s\", exiting\n", *argv);
+        return EXIT_FAILURE;
+      }
+      print_cp_bounded(s, 1500);
+    }
+    return EXIT_SUCCESS;
+  }
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     printf("%s:\n", tnames[t]);
     filter_by_type(t);
   }
   print_cpms();
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    print_cp_bounded(&sdex[i], 1500);
-  }
   return EXIT_SUCCESS;
 }
