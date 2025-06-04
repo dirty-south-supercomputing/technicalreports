@@ -74,20 +74,43 @@ In Raids and Max battles, a number of effects come into play.
      \caption{Bonus due the presence of friends}
    \end{table}
  \item $M_W$ is 1.2 if the Attack is weather-boosted, and 1 otherwise.
- \item $M_M$ from Mega Pokémon \textit{actively} involved in the battle:
+ \item $M_M$ from Mega Pokémon \textit{actively} involved in a Raid (i.e. they
+   must be fighting, not just on the team), or Primal Pokémon \textit{present}
+   (even knocked out) at a Raid or Gym. The Primal bonus is not awarded to the Trainer who brought
+   that Primal Pokémon, but they can receive it from some other Trainer's Pokémon.
    \begin{table}[h!]
      \begin{center}
-       \begin{tabular}{lc}
+       \begin{tabular}{p{.7\textwidth}c}
          Situation & $M_M$ \\
          \Midrule
-         No active Mega Pokémon, \textit{unless…} & 1 \\
-         Battling with at least one Mega Pokémon, \textit{unless…} & 1.1 \\
-         Battling with at least one Mega Pokémon of the attack's type & 1.3 \\
+         No active Mega Pokémon, and no Primal Pokémon brought
+          by other Trainers present, \textit{unless…} & 1 \\
+         Battling with at least one Mega Pokémon,
+          or another Trainer's Primal Pokémon present, \textit{unless…} & 1.1 \\
+         Battling with at least one Mega Pokémon of the attack's type,
+          or another Trainer's Primal Pokémon is present and of
+          the attack's type. & 1.3 \\
        \end{tabular}
      \end{center}
      \caption{Bonus due the presence of Mega Pokémon}
    \end{table}
- \item The Power Stop bonus $M_P$: \textbf{FIXME}
+ \item The Power Stop/Primal bonus $M_P$:
+   In Max battles, there is a bonus based on the number of Pokémon left at that Power Stop
+     (see \autoref{section:maxbattles}).
+   \begin{table}[h!]
+     \begin{center}
+       \begin{tabular}{lc}
+         Pokémon present at Power Stop & $M_P$ \\
+         \Midrule
+         0 & 1 \\
+         1 & 1.1 \\
+         2--3 & 1.15 \\
+         4--14 & 18.8 \\
+         15+ & 1.2 \\
+       \end{tabular}
+     \end{center}
+     \caption{Bonus due Pokémon at a Power Stop}
+   \end{table}
 \end{itemize}
 The calculation for Trainer Battles is simpler:
 \[ M_B = 0.65 \times M_G \]
