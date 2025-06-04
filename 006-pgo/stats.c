@@ -1080,16 +1080,42 @@ print_cpms(void){
 }
 
 // atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
-static unsigned long
-cp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
+static int
+calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   float cand = (atk * sqrt(def) * sqrt(sta) * pow(cpm(halflevel), 2)) / 10;
-  return cand < 10 ? 10 : cand;
+  return cand < 10 ? 10 : floor(cand);
+}
+
+// FIXME binary search on it
+static unsigned
+maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
+  unsigned lastgood = 0;
+  *cp = 0;
+  for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL ; ++hl){
+    int tmpc = calccp(atk, def, sta, hl);
+    if(tmpc <= cpceil){
+      lastgood = hl;
+      *cp = tmpc;
+    }else{
+      break;
+    }
+  }
+  return lastgood;
 }
 
 // print the optimal level/IV combinations bounded by the given cp
 static void
-print_cp_bounded(const species* s, int cp){
-
+print_cp_bounded(const species* s, int cpceil){
+  printf("%d-bounded set for %s:\n", cpceil, s->name);
+  for(int iva = 0 ; iva < 16 ; ++iva){
+    for(int ivd = 0 ; ivd < 16 ; ++ivd){
+      for(int ivs = 0 ; ivs < 16 ; ++ivs){
+        int cp;
+        unsigned l = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
+        printf(" %2d-%2d-%2d: %2u %4d\n", iva, ivd, ivs, l, cp);
+      }
+    }
+  }
 }
 
 int main(void){

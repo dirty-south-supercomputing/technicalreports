@@ -91,6 +91,8 @@ float cpm(int halflevel){
 }
 */
 
+#define MAX_HALFLEVEL 99
+
 float cpm(int halflevel){
   static const float cpms[] = {
     0.094, 0.1351374318, 0.16639787, 0.192650919, 0.21573247, 0.2365726613,
