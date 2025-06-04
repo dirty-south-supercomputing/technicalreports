@@ -1103,6 +1103,26 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   return lastgood;
 }
 
+static inline float
+calc_eff_a(unsigned atk, unsigned halflevel){
+  return cpm(halflevel) * atk;
+}
+
+static inline float
+calc_eff_d(unsigned def, unsigned halflevel){
+  return cpm(halflevel) * def;
+}
+
+static inline unsigned
+calc_mhp(unsigned sta, unsigned halflevel){
+  return floor(cpm(halflevel) * sta);
+}
+
+static inline float
+calc_fit(float effa, float effd, unsigned mhp){
+  return cbrt(effa * effd * mhp);
+}
+
 // print the optimal level/IV combinations bounded by the given cp
 static void
 print_cp_bounded(const species* s, int cpceil){
@@ -1112,7 +1132,12 @@ print_cp_bounded(const species* s, int cpceil){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned l = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        printf(" %2d-%2d-%2d: %2u %4d\n", iva, ivd, ivs, l, cp);
+        float effa = calc_eff_a(s->atk + iva, l);
+        float effd = calc_eff_d(s->def + ivd, l);
+        unsigned mhp = calc_mhp(s->sta + ivs, l);
+        float f = calc_fit(effa, effd, mhp);
+        printf(" %2d-%2d-%2d: %2u %4d %.3f %.3f %u %.3f\n",
+                iva, ivd, ivs, l, cp, effa, effd, mhp, f);
       }
     }
   }

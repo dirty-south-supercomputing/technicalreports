@@ -214,7 +214,10 @@ Finally, it presumes that the attacker can always get off a full cycle.
 In reality, the attacker might be knocked out or substituted long before its
   Charged Attack becomes relevant, or the defender might use a Shield.
 It is tempting to ignore Charged Attacks, but when they land, they tend to
-  dominate our total inflicted damage.
+  dominate our total inflicted damage\footnote{When a Charged Attack is thrown
+  early against a lengthy fast attack, it allows for a ``free fast attack''
+  (see \autoref{chap:battle}). This needn't be taken into account, as it is
+  technically imperfect play.}.
 
 If we expand over multiple cycles of Fast and Charged Attack, we can
  generalize to situations with excess Energy. We know $E_{Charged} \times
@@ -251,5 +254,5 @@ Since $0 \leq r < 1$, this series converges to
 \[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \times r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
 
 Of course, our chance of being knocked out is usually not constant across
-Attacks, but rather an immediate function of our remaining HP and any
-Damage we are about to absorb.
+ Attacks, but rather an immediate function of our remaining HP and any
+ Damage we are about to absorb.
