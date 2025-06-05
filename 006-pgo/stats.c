@@ -1205,7 +1205,8 @@ print_cp_bounded(const species* s, int cpceil){
     stats* cur;
     cur = optsets;
     optsets = cur->next;
-    //printf(" %u-%u-%u: %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
+    //printf(" %u-%u-%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
+    //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(cur->geommean > maxmean){ // new optimal
       stats* c;
       // clean out existing true optimals
@@ -1279,13 +1280,14 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
       }
       print_cp_bounded(s, 1500);
+      print_cp_bounded(s, 2500);
     }
     return EXIT_SUCCESS;
   }
+  print_cpms();
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     printf("%s:\n", tnames[t]);
     filter_by_type(t);
   }
-  print_cpms();
   return EXIT_SUCCESS;
 }
