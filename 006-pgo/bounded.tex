@@ -7,12 +7,12 @@ We have established that CP is a poor proxy for PvP performance, and thus
 If CP does not accurately represent a given Pokémon's chance to win, we ought
  be able to exploit this by assembling teams using undervalued Pokémon.
 We first take the sorted list of Pokémon developed in \autoref{chap:unbounded},
- and remove all entries whose CP exceed the CP ceiling.
+ and remove all entries not in the optimal sets generated below.
 We then select a team using the strategies of that chapter. Since
  that list was sorted according to a general strength function, it
  ought apply in this reduced context.
 
-\section{Optimal IVs}
+\section{Optimal IVs and Levels under a CP bound}
 For a given CP bound and Form, there is some optimal set of Pokémon Levels
  and Individual Vectors.
 Higher IV components might require a lower level than lower components to
@@ -42,9 +42,10 @@ Compute $Eff_A$, $Eff_D$, and $MHP$ using the IVs and corresponding levels.
 Any resulting set with all three components less than or equal to some other set's
  is strictly inferior to the second, and can be discarded.
 This captures $MHP$'s floor function.
-What remains is an optimal frontier of at least one solution,
- where arguments can be made for each depending on how one values attack,
- defense, and stamina, especially in the context of different opponents.
+What remains is an optimal frontier of at least one solution (usually
+ many solutions), where arguments can be made for each depending on how one
+ values attack, defense, and stamina, especially in the context of different
+ opponents.
 
 Before taking Power and Type into the question, let's examine the optimal
  solutions for a genus using the 1500 and 2500 CP bounds, using the
@@ -89,13 +90,3 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
  Its opponent's 139 HP absorbs 23 attacks before falling to the 24th, but this could
     have easily gone the other way.
  If the attack's Power were 10, both hit for nine damage, and both fall after nine attacks.
-
-\section{Team assembly}
-Does this extend to teams?
-At first, it seems that it might: after all, a team's overall fitness
- depends on the entire opposing team, involving still more unknowns.
-We will see that the team mechanism actually allows us to mitigate certain
- unknowns, while adding new ones.
-Comparing teams is highly nontrivial, and this greater complexity admits
- further opportunities for strategy and cunning.
-
