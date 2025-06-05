@@ -1054,25 +1054,6 @@ static const species sdex[] = {
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
 
 static void
-print_species(const species* s){
-  printf("%u %u %u %u %s", s->idx, s->atk, s->def, s->sta, tnames[s->t1]);
-  if(s->t2 != TYPECOUNT){
-    printf("+%s", tnames[s->t2]);
-  }
-  printf(" %s\n", s->name);
-}
-
-// print those entries containing type
-static void
-filter_by_type(pgo_types_e t){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    if(sdex[i].t1 == t || sdex[i].t2 == t){
-      print_species(&sdex[i]);
-    }
-  }
-}
-
-static void
 print_cpms(void){
   printf("cpms:\n");
   for(int i = 1 ; i < 100 ; ++i){
@@ -1224,11 +1205,7 @@ print_cp_bounded(const species* s, int cpceil){
     stats* cur;
     cur = optsets;
     optsets = cur->next;
-    unsigned half;
-    unsigned l = halflevel_to_level(cur->hlevel, &half);
-    printf(" %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
-      cur->ia, cur->id, cur->is, l, half ? ".5" : "",
-      cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
+    //printf(" %u-%u-%u: %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(cur->geommean > maxmean){ // new optimal
       stats* c;
       // clean out existing true optimals
@@ -1248,7 +1225,7 @@ print_cp_bounded(const species* s, int cpceil){
       free(cur);
     }
   }
-  printf("TRULY OPTIMAL CONFIGURATIONS:\n");
+  //printf("TRULY OPTIMAL CONFIGURATIONS:\n");
   stats* tmp;
   while( (tmp = collectopt) ){
     unsigned half;
@@ -1270,6 +1247,27 @@ lookup_species(const char* name){
     }
   }
   return NULL;
+}
+
+static void
+print_species(const species* s){
+  printf("%u %u %u %u %s", s->idx, s->atk, s->def, s->sta, tnames[s->t1]);
+  if(s->t2 != TYPECOUNT){
+    printf("+%s", tnames[s->t2]);
+  }
+  printf(" %s\n", s->name);
+  print_cp_bounded(s, 1500);
+  print_cp_bounded(s, 2500);
+}
+
+// print those entries containing type
+static void
+filter_by_type(pgo_types_e t){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    if(sdex[i].t1 == t || sdex[i].t2 == t){
+      print_species(&sdex[i]);
+    }
+  }
 }
 
 int main(int argc, char **argv){
