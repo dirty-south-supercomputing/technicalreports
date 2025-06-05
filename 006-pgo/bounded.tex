@@ -12,9 +12,39 @@ We then select a team using the strategies of that chapter. Since
  that list was sorted according to a general strength function, it
  ought apply in this reduced context.
 
-\textbf{FIXME: IVs are important for lower-tier Pokémon where you're going for high level,
-          as they represent a bigger contribution, and each point of Mod is less useful
-          than the last}
+\section{Optimal IVs}
+For a given CP bound and Form, there is some optimal set of Pokémon Levels
+ and Individual Vectors.
+Higher IV components might require a lower level than lower components to
+ come in under the same ceiling.
+It is not possible to provide a global rule; optimal IVs are strongly
+ dependent upon the base stats, and weakly dependent upon the opponent.
+What can be said is that IVs add less value to a high base stat than a low
+ base stat, and that higher levels provide diminishing returns.
+For a base stat of 100, a corresponding IV component of 15 represents a
+ 15\% improvement to $Eff_A$.
+For a base stat of 300, the same IV represents only a 5\% improvement.
+A Level 10 Pokémon advancing to level 10.5 enjoys a 2.47\% improvement to
+ $Eff_A$ (and also $Eff_D$ and $Eff_S$), paying a price of 5\% increase
+ in CP.
+Advancing from 30 to 30.5 represents only a 0.42\% improvement (and a
+ 0.83\% increase in CP).
+
+The maximum level for which a 15--15--15 IV comes in under the bound is the
+ minimum possible optimal level, since any lesser level would be strictly less
+ powerful.
+The maximum level for which a 0--0--0 IV comes in under the bound is the
+ maximum possible optimal level, as it is not possible to gain another level
+ while remaining within the bound.
+Any IV with all three components less than or equal to another IV, but bounded
+ by the same level, is strictly inferior to the second IV, and can be discarded.
+Compute $Eff_A$, $Eff_D$, and $MHP$ using the IVs and corresponding levels.
+Any resulting set with all three components less than or equal to some other set's
+ is strictly inferior to the second, and can be discarded.
+This captures $MHP$'s floor function.
+What remains is an optimal frontier of at least one solution,
+ where arguments can be made for each depending on how one values attack,
+ defense, and stamina, especially in the context of different opponents.
 
 \section{Team assembly}
 Does this extend to teams?
