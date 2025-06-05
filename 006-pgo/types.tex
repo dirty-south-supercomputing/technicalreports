@@ -140,31 +140,30 @@ When one type $V$ is ineffective against type $K$, but $K$ is strong
  against $V$, I say $K$ ``kills'' $V$, or
  (if $V$ is very ineffective against $K$) ``slaughters'' $V$.
 These twenty-nine relationships must be memorized and immediately recognized.
-Thankfully, the rules thus far give you 73 of the 120 relationships.
 There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
   introduced in Generation VI in large part to balance Dragon.}, Dark → Psychic,
   and Ground → Electric.
-Normal isn't strong against anything, and is weak against Rock and Steel.
-At the same time, only Fighting is strong against Normal.
-That's 76.
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=.25]{out/circo/nature.dot.png}
-\caption{The 17 Natural relations}
+
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.5\textwidth}
+    \includegraphics[scale=.25]{out/circo/nature.dot.png}
+    \caption{17 Natural relations}
+    \label{fig:natural}
+  \end{minipage}
+  \begin{minipage}[t]{0.5\textwidth}
+    \includegraphics[scale=.25]{out/circo/phases.dot.png}
+    \caption{14 Elemental relations}
+    \label{fig:elemental}
+  \end{minipage}
 \end{figure}
 Poison kills Grass, which kills Ground, which kills Poison.
 Ground kills Rock.
 Bug kills Grass.
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=.25]{out/circo/phases.dot.png}
-\caption{The 14 Elemental relations}
-\end{figure}
+Rock is strong against Bug, but Ground is weak against it.
+Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
 Rock and Water kill Fire, which kills Ice, which kills nothing.
 Electric is strong against Water, which is strong against Rock, which is strong against Ice,
- which once again is strong against nothing.
+ which once again is strong against nothing (\autoref{fig:elemental}).
 
 \begin{figure}[ht]
 \centering
@@ -174,22 +173,29 @@ Electric is strong against Water, which is strong against Rock, which is strong 
 Psychic kills Fighting.
 Fighting kills Dark.
 Dark kills Ghost, and slaughters Psychic.
-Ghost is strong against Psychic; the only other type 
+Ghost is strong against Psychic.
+Fighting, unique among the types, is strong against Normal.
 
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
 \caption{The 9 Dragon relations}
 \end{figure}
-Fairy slaughters Dragon.
+Fairy famously slaughters Dragon.
+Ice is strong against Dragon.
+Fighting, Grass, Electric, Water, and Fire are all weak against it.
 
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/steel.dot.png}
 \caption{The 20 Steel relations}
 \end{figure}
-Fire kills Steel.
-Steel kills Ice, Rock, and Fairy.
+Ground and Fighting are strong against Steel, and Fire kills Steel.
+Most everything else is weak against Steel, especially
+ Poison, which is very ineffective against it.
+Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
+Steel is weak against Water and Electric.
+Only two types have no relationships with Steel: Dark and Ghost.
 
 \begin{figure}[ht]
 \centering
