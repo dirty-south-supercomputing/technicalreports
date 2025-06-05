@@ -46,6 +46,50 @@ What remains is an optimal frontier of at least one solution,
  where arguments can be made for each depending on how one values attack,
  defense, and stamina, especially in the context of different opponents.
 
+Before taking Power and Type into the question, let's examine the optimal
+ solutions for a genus using the 1500 and 2500 CP bounds, using the
+ geometric mean of $Eff_A$, $Eff_D$, and $MHP$ as our global fit function.
+Timburr (134 ATK, 87 DEF, and 181 STA) evolves into
+  Gurdurr (180 ATK, 134 DEF, and 198 STA), which evolves into
+  Conkeldurr (243 ATK, 158 DEF, 233 STA).
+Their base products are 2,110,098 (Timburr), 4,775,760 (Gurdurr),
+  and 8,945,802 (Conkeldurr).
+The geometric means are 128.263, 168.402, and 207.590.
+Poor Timburr isn't really suited for the common PvP Leagues,
+  and does best with a 15--15--15 at Level 50 (CP 1487).
+Gurdurr can hold its own under a 1500 CP ceiling, and its
+  optimal IVs are 1--15--15 at Level 26 (CP 1496).
+It falls short of the Master League's 2500, though, where
+  15--15--15 and 15--15--14 are functionally equivalent
+  at Level 50 (both result in MHP of 178) despite
+  respective CPs of 2452 and 2447.
+It is impossible to distinguish between a Level 16.5 Conkeldurr at
+  3--15--15 or 3--15--14 (134 MHP either way), though
+  the CPs are 1500 and 1497.
+In the Master League, Conkeldurr wants Level 28 0--15--12 with
+  a CP of 2499.
+Take two things away from this:
+\begin{itemize}
+\item The optimal IVs, and even the number of equivalent optimal IVs, can change across evolution.
+  This is largely independent of any global fitness function.
+\item Hitting the ceiling does not guarantee optimal IVs for most fitness functions.
+  More generally, under most fitness functions, higher CP does not necessarily imply superior IVs.
+    Gurdurr has numerous solutions yielding 1500 CP (Level 28 3--2--0, for instance, with geometric
+    mean 120.015), but Level 26 1--15--15 beats it at 1496 (121.968).
+\end{itemize}
+There are many fitness functions. In the Gurdurr example given previously, 3--2--0 loses
+    to 1--15--15 at geometric mean, but has an $Eff_A$ of 129.36, comfortably above the latter's 123.29.
+ Does this compensate for six fewer hit points (145 vs 139) and lower $Eff_D$ (101.49 vs 96.136)?
+ Let's pit them against one another, using Low Kick (Power of 4, neutral type effectiveness, STAB bonus).
+ Our Level 28 competitor strikes for six damage with each attack:
+    \[ \lfloor \frac{129.36 \times 4 \times 1.2}{101.49} \rfloor = \lfloor 6.118 \rfloor = 6 \]
+ The supposedly optimal Gurdurr strikes for six as well:
+    \[ \lfloor \frac{123.29 \times 4 \times 1.2}{96.136} \rfloor = \lfloor 6.156 \rfloor = 6 \]
+ At 145 HP, Gurdurr goes down on the 25th attack.
+ Its opponent's 139 HP absorbs 23 attacks before falling to the 24th, but this could
+    have easily gone the other way.
+ If the attack's Power were 10, both hit for nine damage, and both fall after nine attacks.
+
 \section{Team assembly}
 Does this extend to teams?
 At first, it seems that it might: after all, a team's overall fitness
