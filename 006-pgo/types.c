@@ -356,7 +356,7 @@ static void
 defensive_relations_latex(const typing* t){
   printf("\\begingroup\n");
   printf("\\setlength{\\tabcolsep}{1pt}");
-  printf("\\begin{longtable}{cC{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}C{1em}}\n");
+  printf("\\begin{longtable}{ccccccccccccccccccc}\n");
   for(int k = 0 ; k < TYPECOUNT ; ++k){
     printf("& \\includegraphics[width=1em]{images/%s.png}", tnames[k]);
   }

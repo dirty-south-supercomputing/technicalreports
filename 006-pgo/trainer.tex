@@ -3,8 +3,9 @@ A Pokémon GO account is synonymous with its associated Trainer.
 
 New Trainers start at Level 1 (of 50) with 0 XP\@.
 A new Level is conferred as soon as the Trainer's XP meets or exceeds
-  the Level's XP threshold (see \autoref{table:xp40}).
-\begin{table}[ht]
+  the Level's XP threshold (\autoref{table:xp40}).
+It is possible to advance multiple Levels via a single reward of XP\@.
+\begin{table}[hb]
 \begin{center}
 \begin{tabular}{r r r|r r r}
   Level & kXP & ΔkXP & Level & kXP & ΔkXP \\
@@ -34,82 +35,7 @@ A new Level is conferred as soon as the Trainer's XP meets or exceeds
 \label{table:xp40}
 \end{center}
 \end{table}
-It is possible to advance multiple Levels via a single reward of XP\@.
-A Trainer cannot control Pokémon of a Level exceeding the Trainer's by more than 10,
-  i.e.\ a Level 22 Trainer cannot power a Pokémon past Level 32.
-If such a Pokémon is captured or otherwise received, its Level will be
-  reduced to the Trainer's plus 10.
-The maximum Pokémon Level is 50, so all Pokémon Levels are available upon
-  reaching Trainer Level 40.
-Trainer Levels 41 and above have extra requirements beyond XP (see \autoref{table:xp41plus}).
-
-Reaching a new Level is rewarded with items (\autoref{table:levelitems}),
-  and sometimes opens up new elements of gameplay (\autoref{table:levelgates}).
-Levels 1, 7, 8, 15, and 20 each come with Special Research.
-
-\begin{table}[ht]
-  \begin{center}
-  \setlength{\tabcolsep}{1pt}
-  \begin{tabular}{l g c g c g c g c g c g c g c g c g}
-  Level &
-  \includegraphics[width=1em]{images/pokeball.png} &
-  \includegraphics[width=1em]{images/greatball.png} &
-  \includegraphics[width=1em]{images/ultraball.png} &
-  \includegraphics[width=1em]{images/nanab.png} &
-  \includegraphics[width=1em]{images/razz.png} &
-  \includegraphics[width=1em]{images/goldenrazz.png} &
-  \includegraphics[width=1em]{images/pinap.png} &
-  \includegraphics[width=1em]{images/silverpinap.png} &
-  \includegraphics[width=1em]{images/incense.png} &
-  \includegraphics[width=1em]{images/revive.png} &
-  \includegraphics[width=1em]{images/maxrevive.png} &
-  \includegraphics[width=1em]{images/Potion.png} &
-  \includegraphics[width=1em]{images/Super_Potion.png} &
-  \includegraphics[width=1em]{images/Hyper_Potion.png} &
-  \includegraphics[width=1em]{images/Max_Potion.png} &
-  \includegraphics[width=1em]{images/lure.png} &
-  \includegraphics[width=1em]{images/pokecoin.png}
-    \\
-    2 & 10 & & &  6 &    & & & &   &    &    &    & &   &   &   & \\
-    3 & 15 & & &  8 &    & & & &   &    &    &    & &   &   &   & \\
-    4 & 15 & & & 15 &    & & & &   &    &    &    & &   &   &   & \\
-    5 & 20 & & &    &    & & & & 1 & 10 &    & 10 & &   &   &   & \\
-    6 & 15 & & &    &    & & & &   &  5 &    & 10 & &   &   &   & \\
-    7 & 15 & & &    &    & & & & 1 &  5 &    & 10 & &   &   &   & 150 \\
-    8 & 15 & & &    & 10 & & & &   &  5 &    & 10 & &   &   & 1 & \\
-\end{tabular}
-\caption{Rewards for achieving Trainer Levels}
-\label{table:levelitems}
-\end{center}
-\end{table}
-
-\begin{table}[ht]
-\begin{center}
-  \begin{tabular}{r p{0.75\textwidth}}
-  Level & Features unlocked \\
-\Midrule
-  2 & Nenab berries \\
-  5 & Potions, Revives, Team selection, appraisal, Gyms, Raids \\
-  8 & Razz berries, Team Rocket \\
-  10 & Super Potions, Golden Razz berries, Evolution items, Trades, Trainer Battles \\
-  12 & Great Balls \\
-  15 & Hyper Potions, Fast TMs, Parties \\
-  18 & Pinap berries \\
-  20 & Silver Pinap berries, Ultra Balls, Mega Evolution \\
-  25 & Max Potions, Charged TMs \\
-  30 & Max Revives, Route creation \\
-  31 & XL Candy \\
-  37 & Pokéstop creation \\
-\end{tabular}
-\caption{Features unlocked by Trainer Levels}
-\label{table:levelgates}
-\end{center}
-\end{table}
-
-Upon reaching Level 5, a Trainer can join one of three Teams: Mystic, Valor, or Instinct.
-A Trainer can change Team later by purchasing and making use of a Team Medallion.
-The cost is 1,000 Pokécoins, and 365 days must pass between Medallion purchases.
-
+Trainer Levels 41 and above have extra requirements beyond XP (\autoref{table:xp41plus}).
 \begin{table}[ht]
 \begin{center}
   \begin{tabular}{r r r p{0.65\textwidth}}
@@ -160,6 +86,121 @@ Level & MXP & ΔMXP & Special requirements \\
 \label{table:xp41plus}
 \end{center}
 \end{table}
+Certain elements of gameplay are gated by Trainer Level (\autoref{table:levelgates}).
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{r p{0.75\textwidth}}
+  Level & Features unlocked \\
+\Midrule
+  2 & Nenab berries \\
+  5 & Potions, Revives, Team selection, appraisal, Gyms, Raids \\
+  8 & Razz berries, Team Rocket \\
+  10 & Super Potions, Golden Razz berries, Evolution items, Trades, Trainer Battles \\
+  12 & Great Balls \\
+  15 & Hyper Potions, Fast TMs, Parties \\
+  18 & Pinap berries \\
+  20 & Silver Pinap berries, Ultra Balls, Mega Evolution \\
+  25 & Max Potions, Charged TMs \\
+  30 & Max Revives, Route creation \\
+  31 & XL Candy \\
+  37 & Pokéstop creation \\
+\end{tabular}
+\caption{Features unlocked by Trainer Levels}
+\label{table:levelgates}
+\end{center}
+\end{table}
+A Trainer furthermore cannot control Pokémon of a Level exceeding the Trainer's by more than 10,
+  i.e.\ a Level 22 Trainer cannot power a Pokémon past Level 32.
+If such a Pokémon is captured or otherwise received, its Level will be
+  reduced to the Trainer's plus 10.
+The maximum Pokémon Level is 50, so all Pokémon Levels are available upon
+  reaching Trainer Level 40.
+
+Reaching a new Level is rewarded with items (\autoref{table:levelitems}).
+Levels 7, 8, 15, and 20 introduce Special Research (\autoref{sec:research}).
+
+\begin{table}[t]
+  \begin{center}
+  \setlength{\tabcolsep}{1pt}
+  \footnotesize
+  \begin{tabular}{l g c g c g c g c g c g c g c g c g}
+  Level &
+  \includegraphics[width=1em]{images/pokeball.png} &
+  \includegraphics[width=1em]{images/greatball.png} &
+  \includegraphics[width=1em]{images/ultraball.png} &
+  \includegraphics[width=1em]{images/nanab.png} &
+  \includegraphics[width=1em]{images/razz.png} &
+  \includegraphics[width=1em]{images/goldenrazz.png} &
+  \includegraphics[width=1em]{images/pinap.png} &
+  \includegraphics[width=1em]{images/silverpinap.png} &
+  \includegraphics[width=1em]{images/incense.png} &
+  \includegraphics[width=1em]{images/revive.png} &
+  \includegraphics[width=1em]{images/maxrevive.png} &
+  \includegraphics[width=1em]{images/Potion.png} &
+  \includegraphics[width=1em]{images/Super_Potion.png} &
+  \includegraphics[width=1em]{images/Hyper_Potion.png} &
+  \includegraphics[width=1em]{images/Max_Potion.png} &
+  \includegraphics[width=1em]{images/lure.png} &
+  \includegraphics[width=1em]{images/pokecoin.png}
+    \\
+    2 & 10 & & &  6 &    & & & &   &    &    &    & &   &   &   & \\
+    3 & 15 & & &  8 &    & & & &   &    &    &    & &   &   &   & \\
+    4 & 15 & & & 15 &    & & & &   &    &    &    & &   &   &   & \\
+    5 & 20 & & &    &    & & & & 1 & 10 &    & 10 & &   &   &   & \\
+    6 & 15 & & &    &    & & & &   &  5 &    & 10 & &   &   &   & \\
+    7 & 15 & & &    &    & & & & 1 &  5 &    & 10 & &   &   &   & 150 \\
+    8 & 15 & & &    & 10 & & & &   &  5 &    & 10 & &   &   & 1 & \\
+    9 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   10 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   11 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   12 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   13 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   14 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   15 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   16 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   17 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   18 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   19 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   20 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   21 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   22 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   23 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   24 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   25 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   26 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   27 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   28 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   29 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   30 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   31 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   32 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   33 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   34 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   35 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   36 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   37 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   38 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   39 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   40 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   41 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   42 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   43 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   44 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   45 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   46 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   47 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   48 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   49 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+   50 &    & & &    &    & & & &   &    &    &    & &   &   &   & \\
+\end{tabular}
+\caption{Rewards for achieving Trainer Levels}
+\label{table:levelitems}
+\end{center}
+\end{table}
+
+Upon reaching Level 5, a Trainer can join one of three Teams: Mystic, Valor, or Instinct.
+A Trainer can change Team later by purchasing and making use of a Team Medallion.
+The cost is 1,000 Pokécoins, and 365 days must pass between Medallion purchases.
 
 All game mechanics, including the ability to fully power up Pokémon,
  are available upon reaching Level 40.
@@ -201,7 +242,7 @@ No limit is known for Candy nor Candy XL.
 During the initial tour with Professor Willow, you are able to catch one of
  Bulbasaur, Charmander, Squirtle, or Pikachu.
 You will be provided an infinite supply of Pokéballs for this encounter, and
- the catch rate (see \autoref{chap:spawn}) is set to 100\%.
+ the catch rate (\autoref{chap:spawn}) is set to 100\%.
 
 \textbf{FIXME}
 
@@ -229,3 +270,6 @@ The relevant Energies can be acquired by winning a Mega Raid of that type,
 There is a large set of Medals, each of which can be achieved at the Bronze,
  Silver, Gold, or Platinum level.
 \textbf{FIXME}
+
+\section{Research}
+\label{sec:research}
