@@ -1216,6 +1216,10 @@ print_cp_bounded(const species* s, int cpceil){
       }
     }
   }
+  stats* collectopt = NULL;
+  stats** qopt = &collectopt;
+  float maxmean = -1;
+  // print the optimal frontier (large), and extract the truly optimal sets (small)
   while(optsets){
     stats* cur;
     cur = optsets;
@@ -1225,7 +1229,35 @@ print_cp_bounded(const species* s, int cpceil){
     printf(" %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
       cur->ia, cur->id, cur->is, l, half ? ".5" : "",
       cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
-    free(cur);
+    if(cur->geommean > maxmean){ // new optimal
+      stats* c;
+      // clean out existing true optimals
+      while( (c = collectopt) ){
+        collectopt = c->next;
+        free(c);
+      }
+      collectopt = cur;
+      qopt = &cur->next;
+      cur->next = NULL;
+      maxmean = cur->geommean;
+    }else if(cur->geommean == maxmean){ // FIXME unsafe FP comparison
+      *qopt = cur;
+      qopt = &cur->next;
+      cur->next = NULL;
+    }else{
+      free(cur);
+    }
+  }
+  printf("TRULY OPTIMAL CONFIGURATIONS:\n");
+  stats* tmp;
+  while( (tmp = collectopt) ){
+    unsigned half;
+    unsigned l = halflevel_to_level(tmp->hlevel, &half);
+    printf(" %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
+      tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
+      tmp->cp, tmp->effa, tmp->effd, tmp->mhp, tmp->geommean);
+    collectopt = tmp->next;
+    free(tmp);
   }
   return 0;
 }
