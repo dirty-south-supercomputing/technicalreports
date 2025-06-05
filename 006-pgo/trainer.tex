@@ -3,7 +3,7 @@ A Pokémon GO account is synonymous with its associated Trainer.
 
 New Trainers start at Level 1 (of 50) with 0 XP\@.
 A new Level is conferred as soon as the Trainer's XP meets or exceeds
-  the Level's XP threshold (\autoref{table:xp40}).
+  that Level's XP threshold (\autoref{table:xp40}).
 It is possible to advance multiple Levels via a single reward of XP\@.
 \begin{table}[hb]
 \begin{center}
@@ -86,7 +86,12 @@ Level & MXP & ΔMXP & Special requirements \\
 \label{table:xp41plus}
 \end{center}
 \end{table}
-Certain elements of gameplay are gated by Trainer Level (\autoref{table:levelgates}).
+Certain elements of gameplay are gated by Trainer Level (\autoref{table:levelgates}),
+  and a Trainer cannot control Pokémon whose Level exceeds the Trainer's
+  by more than 10.
+A Level 22 Trainer will be unable to power up a Pokémon past Level 32;
+  if a Pokémon of Level 32.5 or more is captured, or received via trade, its
+  Level will be reduced to 32.
 \begin{table}[ht]
 \begin{center}
   \begin{tabular}{r p{0.75\textwidth}}
@@ -109,25 +114,19 @@ Certain elements of gameplay are gated by Trainer Level (\autoref{table:levelgat
 \label{table:levelgates}
 \end{center}
 \end{table}
-A Trainer furthermore cannot control Pokémon whose Level exceeds the Trainer's
-  by more than 10, i.e.\ a Level 22 Trainer cannot possess a Pokémon of Level 33,
-  and will be unable to power up a Pokémon past 32.
-If such a Pokémon is captured or received via trade, its Level will be
-  reduced to the Trainer's plus 10.
 
 Reaching a new Level is rewarded with items (\autoref{table:levelitems}).
 \begin{table}[t]
   \begin{center}
   \setlength{\tabcolsep}{1pt}
   \footnotesize
-  \begin{tabular}{r g c g c g c g c g c g c g c g c g c}
-  Level &
+  \begin{tabular}{r|g c g c g c g c g c g c g c g c g}
+  &
   \includegraphics[width=1em]{images/pokeball.png} &
   \includegraphics[width=1em]{images/greatball.png} &
   \includegraphics[width=1em]{images/ultraball.png} &
   \includegraphics[width=1em]{images/nanab.png} &
   \includegraphics[width=1em]{images/razz.png} &
-  \includegraphics[width=1em]{images/goldenrazz.png} &
   \includegraphics[width=1em]{images/pinap.png} &
   \includegraphics[width=1em]{images/silverpinap.png} &
   \includegraphics[width=1em]{images/incense.png} &
@@ -141,55 +140,55 @@ Reaching a new Level is rewarded with items (\autoref{table:levelitems}).
   \includegraphics[width=1em]{images/luckyegg.png} &
   \includegraphics[width=1em]{images/pokecoin.png}
     \\
-    2 & 10 &    &    &  6 &    & & & &   &    &    &    &    &    &   &   &   & \\
-    3 & 15 &    &    &  8 &    & & & &   &    &    &    &    &    &   &   &   & \\
-    4 & 15 &    &    & 15 &    & & & &   &    &    &    &    &    &   &   &   & \\
-    5 & 20 &    &    &    &    & & & & 1 & 10 &    & 10 &    &    &   &   &   & \\
-    6 & 15 &    &    &    &    & & & &   &  5 &    & 10 &    &    &   &   &   & \\
-    7 & 15 &    &    &    &    & & & & 1 &  5 &    & 10 &    &    &   &   &   & 150 \\
-    8 & 15 &    &    &    & 10 & & & &   &  5 &    & 10 &    &    &   & 1 &   & \\
-    9 & 15 &    &    &    &  3 & & & &   &  5 &    & 10 &    &    &   &   & 1 & \\
-   10 & 20 &    &    &    & 10 & & & & 1 & 10 &    &    & 20 &    &   & 1 & 1 & \\
-   11 & 15 &    &    &    &  3 & & & &   &  3 &    &    & 10 &    &   &   &   & \\
-   12 &    & 20 &    &    &  3 & & & &   &  3 &    &    & 10 &    &   &   &   & \\
-   13 &    & 10 &    &    &  3 & & & &   &  3 &    &    & 10 &    &   &   &   & \\
-   14 &    & 10 &    &  3 &    & & & &   &  3 &    &    & 10 &    &   &   &   & \\
-   15 &    & 15 &    &    & 10 & & & & 1 & 10 &    &    &    & 20 &   & 1 & 1 & \\
-   16 &    & 10 &    &  5 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   17 &    & 10 &    &    &  5 & & & &   &    &    &    &    &    &   &   &   & \\
-   18 &    & 10 &    &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   19 &    & 15 &    &    &  5 & & & &   &    &    &    &    &    &   &   &   & \\
-   20 &    &    & 20 & 20 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   21 &    &    & 10 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   22 &    &    & 10 &    & 10 & & & &   &    &    &    &    &    &   &   &   & \\
-   23 &    &    & 10 & 10 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   24 &    &    & 15 &    & 10 & & & &   &    &    &    &    &    &   &   &   & \\
-   25 &    &    & 25 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   26 &    &    & 10 &    & 15 & & & &   &    &    &    &    &    &   &   &   & \\
-   27 &    &    & 10 & 15 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   28 &    &    & 10 &    & 15 & & & &   &    &    &    &    &    &   &   &   & \\
-   29 &    &    & 10 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   30 &    &    & 30 &    & 20 & & & &   &    &    &    &    &    &   &   &   & \\
-   31 &    &    & 10 & 15 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   32 &    &    & 10 &    & 15 & & & &   &    &    &    &    &    &   &   &   & \\
-   33 &    &    & 10 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   34 &    &    & 10 &    & 15 & & & &   &    &    &    &    &    &   &   &   & \\
-   35 &    &    & 30 & 20 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   36 &    &    & 20 &    & 20 & & & &   &    &    &    &    &    &   &   &   & \\
-   37 &    &    & 20 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   38 &    &    & 20 &    & 20 & & & &   &    &    &    &    &    &   &   &   & \\
-   39 &    &    & 20 & 20 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   40 &    &    & 40 &    & 40 & & & &   &    &    &    &    &    &   &   &   & \\
-   41 &    &    & 20 &    & 20 & & & &   &    &    &    &    &    &   &   &   & \\
-   42 &    &    & 20 & 20 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   43 &    &    & 20 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   44 &    &    & 20 &    & 20 & & & &   &    &    &    &    &    &   &   &   & \\
-   45 &    &    & 40 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   46 &    &    & 30 &    & 25 & & & &   &    &    &    &    &    &   &   &   & \\
-   47 &    &    & 30 & 25 &    & & & &   &    &    &    &    &    &   &   &   & \\
-   48 &    &    & 30 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   49 &    &    & 30 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
-   50 &    &    & 50 &    &    & & & &   &    &    &    &    &    &   &   &   & \\
+    2 & 10 &    &    &  6 &    &    &    &   &    &    &    &    &    &   &   &   & \\
+    3 & 15 &    &    &  8 &    &    &    &   &    &    &    &    &    &   &   &   & \\
+    4 & 15 &    &    & 15 &    &    &    &   &    &    &    &    &    &   &   &   & \\
+    5 & 20 &    &    &    &    &    &    & 1 & 10 &    & 10 &    &    &   &   &   & \\
+    6 & 15 &    &    &    &    &    &    &   &  5 &    & 10 &    &    &   &   &   & \\
+    7 & 15 &    &    &    &    &    &    & 1 &  5 &    & 10 &    &    &   &   &   & 150 \\
+    8 & 15 &    &    &    & 10 &    &    &   &  5 &    & 10 &    &    &   & 1 &   & \\
+    9 & 15 &    &    &    &  3 &    &    &   &  5 &    & 10 &    &    &   &   & 1 & \\
+   10 & 20 &    &    &    & 10 &    &    & 1 & 10 &    &    & 20 &    &   & 1 & 1 & \\
+   11 & 15 &    &    &    &  3 &    &    &   &  3 &    &    & 10 &    &   &   &   & \\
+   12 &    & 20 &    &    &  3 &    &    &   &  3 &    &    & 10 &    &   &   &   & \\
+   13 &    & 10 &    &    &  3 &    &    &   &  3 &    &    & 10 &    &   &   &   & \\
+   14 &    & 10 &    &  3 &    &    &    &   &  3 &    &    & 10 &    &   &   &   & \\
+   15 &    & 15 &    &    & 10 &    &    & 1 & 10 &    &    &    & 20 &   & 1 & 1 & \\
+   16 &    & 10 &    &  5 &    &    &    &   &  5 &    &    &    &    &   &   &   & \\
+   17 &    & 10 &    &    &  5 &    &    &   &  5 &    &    &    &    &   &   &   & \\
+   18 &    & 10 &    &    &    &  5 &    &   &  5 &    &    &    &    &   &   &   & \\
+   19 &    & 15 &    &    &  5 &    &    &   &  5 &    &    &    &    &   &   &   & \\
+   20 &    &    & 20 & 20 &    &    &    & 2 & 20 &    &    &    &    &   &   &   & \\
+   21 &    &    & 10 &    &    & 10 &    &   & 10 &    &    &    &    &   &   &   & \\
+   22 &    &    & 10 &    & 10 &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   23 &    &    & 10 & 10 &    &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   24 &    &    & 15 &    & 10 &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   25 &    &    & 25 &    &    & 15 &    & 1 & 15 &    &    &    &    &   &   &   & \\
+   26 &    &    & 10 &    & 15 &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   27 &    &    & 10 & 15 &    &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   28 &    &    & 10 &    & 15 &    &    &   & 10 &    &    &    &    &   &   &   & \\
+   29 &    &    & 10 &    &    & 15 &    &   & 10 &    &    &    &    &   &   &   & \\
+   30 &    &    & 30 &    & 20 &    &    & 3 &    & 20 &    &    &    &   &   &   & \\
+   31 &    &    & 10 & 15 &    &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   32 &    &    & 10 &    & 15 &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   33 &    &    & 10 &    &    & 15 &    &   &    & 10 &    &    &    &   &   &   & \\
+   34 &    &    & 10 &    & 15 &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   35 &    &    & 30 & 20 &    &    &    & 2 &    & 20 &    &    &    &   &   &   & \\
+   36 &    &    & 20 &    & 20 &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   37 &    &    & 20 &    &    & 20 &    &   &    & 10 &    &    &    &   &   &   & \\
+   38 &    &    & 20 &    & 20 &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   39 &    &    & 20 & 20 &    &    &    &   &    & 10 &    &    &    &   &   &   & \\
+   40 &    &    & 40 &    & 40 &    &    & 4 &    & 40 &    &    &    &   &   &   & \\
+   41 &    &    & 20 &    & 20 &    &    &   &    & 20 &    &    &    &   &   &   & \\
+   42 &    &    & 20 & 20 &    &    &    &   &    & 20 &    &    &    &   &   &   & \\
+   43 &    &    & 20 &    &    &    & 20 &   &    & 20 &    &    &    &   &   &   & \\
+   44 &    &    & 20 &    & 20 &    &    &   &    & 20 &    &    &    &   &   &   & \\
+   45 &    &    & 40 &    &    &    &    & 2 &    & 40 &    &    &    &   &   &   & \\
+   46 &    &    & 30 &    & 25 &    &    &   &    & 20 &    &    &    &   &   &   & \\
+   47 &    &    & 30 & 25 &    &    &    &   &    & 20 &    &    &    &   &   &   & \\
+   48 &    &    & 30 &    &    &    & 15 &   &    & 20 &    &    &    &   &   &   & \\
+   49 &    &    & 30 &    &    & 25 &    &   &    & 20 &    &    &    &   &   &   & \\
+   50 &    &    & 50 &    &    &    &    & 5 &    &    &    &    &    &   &   &   & \\
 \end{tabular}
 \caption{Rewards for achieving Trainer Levels}
 \label{table:levelitems}
@@ -225,7 +224,8 @@ Each upgrade costs 200 Pokécoins.
 A full upgrade will thus currently run you 40,800 Pokécoins.
 
 The Trainer has a Bag capable of storing 350 items (strangely, not all items
-  count against this limit, including Gifts, Stickers, and the Postcard Book).
+  count against this limit, including Gifts, Stickers, and the Postcard Book,
+  which you presumably shove down the front of your Trainer pants).
 The Bag comes with an Infinite Incubator, a Camera, 2 Incense, and 50 Poké Balls,
   and thus space for 296 new items.
 The Bag can be upgraded to store up to 8,800 items.

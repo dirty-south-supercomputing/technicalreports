@@ -197,6 +197,7 @@ The remaining interactions don't have any real structure, and simply must be
 memorized as they are.
 
 \section{Dual typing}
+\label{section:dualtypes}
 A species of Pokémon may be singly or doubly types.
 It is not possible to dual type using a single type,
  and ordering of the types does not matter.
@@ -241,6 +242,30 @@ Poison → Rock+Steel & Poison → Ghost+Steel \\
     \end{tabular}
     \caption{The twenty triple resistances}
   \end{center}
+\end{table}
+
+\section{Weather boosting}
+\label{section:weather}
+Local weather ``boosts'' its associated types (\autoref{table:weathers}), affecting attack strength
+ in PvE (\autoref{section:mbmult}),
+ spawn rates (\autoref{section:spawns}), and catching (\autoref{section:catch}).
+The game's assessment of your weather is communicated via an icon on the Map View.
+\begin{table}[ht]
+\begin{center}
+  \begin{tabular}{ll}
+    Weather & Types \\
+    \Midrule
+    Sun & Fire, Grass, Ground \\
+    Rain & Bug, Electric, Water \\
+    Partly Cloudy & Normal, Rock \\
+    Cloudy & Fairy, Fighting, Poison \\
+    Windy & Dragon, Flying, Psychic \\
+    Snow & Ice, Steel \\
+    Fog & Dark, Ghost \\
+  \end{tabular}
+  \label{table:weather}
+  \caption{Weather-boosted types}
+\end{center}
 \end{table}
 
 \section{Cover sets}
