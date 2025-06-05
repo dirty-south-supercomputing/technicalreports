@@ -28,22 +28,42 @@ typedef struct attack {
 #define ATTACK_FLAMETHROWER  11
 #define ATTACK_FLAME_CHARGE  12
 #define ATTACK_FLAME_BURST   13
+#define ATTACK_FIRE_FANG     14
+#define ATTACK_FIRE_PUNCH    15
+#define ATTACK_FIRE_SPIN     16
+#define ATTACK_WING_ATTACK   17
+#define ATTACK_AIR_SLASH     18
+#define ATTACK_DRAGON_BREATH 19
+#define ATTACK_DRAGON_CLAW   20
+#define ATTACK_OVERHEAT      21
+#define ATTACK_FIRE_BLAST    22
+#define ATTACK_BLAST_BURN    23
 
 static const attack attacks[] = {
-  { "Vine Whip",        6,   5,   5,   8,  2, TYPE_GRASS,  },
-  { "Tackle",           5,   5,   3,   3,  1, TYPE_NORMAL, },
-  { "Seed Bomb",       55,  33,  65,  45,  4, TYPE_GRASS,  },
-  { "Sludge Bomb",     85,  50,  80,  50,  5, TYPE_POISON, },
-  { "Power Whip",      90,  50,  90,  50,  5, TYPE_GRASS,  },
-  { "Razor Leaf",      13,   7,   9,   4,  2, TYPE_GRASS,  },
-  { "Solar Beam",     180, 100, 150,  80, 10, TYPE_GRASS,  },
-  { "Petal Blizzard", 110, 100, 110,  65,  5, TYPE_GRASS,  },
-  { "Frenzy Plant",   100,  50, 100,  45,  5, TYPE_GRASS,  },
-  { "Ember",           10,  10,   7,   7,  2, TYPE_FIRE,   },
-  { "Scratch",          6,   4,   4,   2,  1, TYPE_NORMAL, },
-  { "Flamethrower",    65,  50,  90,  55,  4, TYPE_FIRE,   },
-  { "Flame Charge",    70,  33,  65,  50,  8, TYPE_FIRE,   },
-  { "Flame Burst",     70,  50,  70,  55,  5, TYPE_FIRE,   },
+  { "Vine Whip",        6,    5,   5,    8,  2, TYPE_GRASS,  },
+  { "Tackle",           5,    5,   3,    3,  1, TYPE_NORMAL, },
+  { "Seed Bomb",       55,  -33,  65,  -45,  4, TYPE_GRASS,  },
+  { "Sludge Bomb",     85,  -50,  80,  -50,  5, TYPE_POISON, },
+  { "Power Whip",      90,  -50,  90,  -50,  5, TYPE_GRASS,  },
+  { "Razor Leaf",      13,    7,   9,    4,  2, TYPE_GRASS,  },
+  { "Solar Beam",     180, -100, 150,  -80, 10, TYPE_GRASS,  },
+  { "Petal Blizzard", 110, -100, 110,  -65,  5, TYPE_GRASS,  },
+  { "Frenzy Plant",   100,  -50, 100,  -45,  5, TYPE_GRASS,  },
+  { "Ember",           10,   10,   7,    7,  2, TYPE_FIRE,   },
+  { "Scratch",          6,    4,   4,    2,  1, TYPE_NORMAL, },
+  { "Flamethrower",    65,  -50,  90,  -55,  4, TYPE_FIRE,   },
+  { "Flame Charge",    70,  -33,  65,  -50,  8, TYPE_FIRE,   },
+  { "Flame Burst",     70,  -50,  70,  -55,  5, TYPE_FIRE,   },
+  { "Fire Fang",       13,    9,   8,    6,  2, TYPE_FIRE,   },
+  { "Fire Punch",      50,  -33,  60,  -40,  4, TYPE_FIRE,   },
+  { "Fire Spin",       13,    9,  11,   10,  2, TYPE_FIRE,   },
+  { "Wing Attack",     10,   11,   5,    7,  2, TYPE_FLYING, },
+  { "Air Slash",       12,    8,   9,    9,  2, TYPE_FLYING, },
+  { "Dragon Breath",    6,    4,   4,    3,  1, TYPE_DRAGON, },
+  { "Dragon Claw",     50,  -33,  60,  -40,  4, TYPE_DRAGON, },
+  { "Overheat",       160, -100, 130,  -55,  8, TYPE_FIRE,   },
+  { "Fire Blast",     140, -100, 140,  -80,  8, TYPE_FIRE,   },
+  { "Blast Burn",     120,  -50, 110,  -50,  7, TYPE_FIRE,   },
 };
 
 static const unsigned BULBASAUR_ATTACKS[] = {
@@ -79,6 +99,28 @@ static const unsigned CHARMANDER_ATTACKS[] = {
   ATTACK_FLAME_BURST,
 };
 
+static const unsigned CHARMELEON_ATTACKS[] = {
+  ATTACK_EMBER,
+  ATTACK_SCRATCH,
+  ATTACK_FIRE_FANG,
+  ATTACK_FLAMETHROWER,
+  ATTACK_FLAME_BURST,
+  ATTACK_FIRE_PUNCH,
+};
+
+static const unsigned CHARIZARD_ATTACKS[] = {
+  ATTACK_DRAGON_BREATH,
+  ATTACK_EMBER,
+  ATTACK_WING_ATTACK,
+  ATTACK_AIR_SLASH,
+  ATTACK_FIRE_SPIN,
+  ATTACK_FLAMETHROWER,
+  ATTACK_DRAGON_CLAW,
+  ATTACK_FIRE_BLAST,
+  ATTACK_OVERHEAT,
+  ATTACK_BLAST_BURN,
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -96,8 +138,8 @@ static const species sdex[] = {
   {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, },
   {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, },
   {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, },
-  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151 },
-  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186 },
+  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander", CHARMELEON_ATTACKS, },
+  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATTACKS, },
   {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186 },
   {    6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186 },
   {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127 },
