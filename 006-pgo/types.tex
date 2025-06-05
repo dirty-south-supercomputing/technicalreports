@@ -121,27 +121,44 @@ On the other hand, Ground is effective against Electric, and Fairy is effective
  against Dragon, making these the most lopsided matchups between single Types.
 
 \section{Memorizing the type relations}
-I've found it useful to break the 120 relationships of impact into a few directed graphs.
-A thick green edge indicates effectiveness.
-A thin red or black edge indicates an ineffective or very ineffective relationship, respectively.
+Eleven of the eighteen types are self-active.
+Of these, only Dragon and Ghost are
+  self-effective\footnote{I use the mnemonic ``Goddamnit!'', as in e.g.
+  ``Goddamnit, I stupidly forgot Abomasnow can have Outrage, and am now less one Dragonite.''}.
+Dark, Electric, Fire, Grass, Ice, Poison, Psychic,
+ Steel, and Water are all self-ineffective\footnote{
+Fire, Ice, and Water are easily enough remembered together.
+For the remainder I employ the mnemonic PEGSDARKASS\@:
+  Poison/Psychic, Electric, Steel, DARK, and GrASS\@.
+You are encouraged to develop and use alternate mnemonics.}.
 
+Whenever possible, remember two relationships as a single bidirectional one.
+No types are mutually effective.
+  only one pair of types is mutually ineffective (Bug↔Fighting),
+  and only one pair is mutually very ineffective (Ghost↔Normal).
+When one type $V$ is ineffective against type $K$, but $K$ is strong
+ against $V$, I say $K$ ``kills'' $V$, or
+ (if $V$ is very ineffective against $K$) ``slaughters'' $V$.
+These twenty-nine relationships must be memorized and immediately recognized.
+Thankfully, the rules thus far give you 70 of the 120 relationships.
+Normal isn't strong against anything, and is weak against Rock and Steel.
+At the same time, only Fighting is strong against Normal.
+That's 73.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/nature.dot.png}
-\caption{The 17 Nature relations}
+\caption{The 17 Natural relations}
 \end{figure}
-Poison and Grass are both self-ineffective.
-Ground kills Rock and Poison.
-Grass kills Ground.
-Poison kills Grass.
+Poison kills Grass, which kills Ground, which kills Poison.
+Ground kills Rock.
 Bug kills Grass.
+
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/phases.dot.png}
 \caption{The 14 Elemental relations}
 \end{figure}
-All are self-ineffective except Rock.
 Water kills Fire.
 Fire kills Ice.
 Rock kills Fire.
@@ -151,17 +168,16 @@ Rock kills Fire.
 \includegraphics[scale=.25]{out/circo/rational.dot.png}
 \caption{The 16 Rational relations}
 \end{figure}
-Dark and Psychic are self-ineffective, while Ghost is self-effective.
 Psychic kills Fighting.
 Fighting kills Dark.
 Dark kills Ghost, and slaughters Psychic.
+Ghost is strong against Psychic; the only other type 
 
 \begin{figure}
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
 \caption{The 9 Dragon relations}
 \end{figure}
-Dragon is self-effective.
 Fairy slaughters Dragon.
 
 \begin{figure}
@@ -169,7 +185,6 @@ Fairy slaughters Dragon.
 \includegraphics[scale=.25]{out/circo/steel.dot.png}
 \caption{The 20 Steel relations}
 \end{figure}
-Steel is self-ineffective.
 Fire kills Steel.
 Steel kills Ice, Rock, and Fairy.
 
@@ -195,6 +210,20 @@ Ground slaughters Electric.
 \end{figure}
 The remaining interactions don't have any real structure, and simply must be
 memorized as they are.
+
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{llllll}
+      \multirow{3}{*}{Ice} & \multirow{3}{*}{effective} & Grass & & \\
+      & & Flying & & \\
+      & & Ground & effective & Fire \\
+      \multirow{4}{*}{Bug} & \multirow{2}{*}{effective} & Dark & & \\
+      & & Psychic & effective & Poison \\
+      & \multirow{2}{*}{ineffective} & Ghost \\
+      & & Fairy & ineffective & Fire \\
+    \end{tabular}
+  \end{center}
+\end{table}
 
 \section{Dual typing}
 \label{section:dualtypes}

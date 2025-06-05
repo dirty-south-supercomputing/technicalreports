@@ -8,18 +8,18 @@ digraph G {
   #{ rank=same; fireC rockC }
   #{ rank=same; waterC electricC }
   #{ rank=same; steelC iceC }
-  rockC -> iceC [ color=green ]
-  waterC -> rockC [ color=green ]
+  rockC -> iceC [ color=green penwidth=4 ]
+  waterC -> rockC [ color=green penwidth=4 ]
   fireC -> rockC [ color=red ]
-  rockC -> fireC [ color=green ]
+  rockC -> fireC [ color=green penwidth=4 ]
   iceC -> iceC [ color=red ]
   iceC -> fireC [ color=red ]
   iceC -> waterC [ color=red ]
   electricC -> electricC [ color=red ]
-  electricC -> waterC [ color=green ]
+  electricC -> waterC [ color=green penwidth=4 ]
   fireC -> fireC [ color=red ]
   fireC -> waterC [ color=red ]
-  fireC -> iceC [ color=green ]
-  waterC -> fireC [ color=green ]
+  fireC -> iceC [ color=green penwidth=4 ]
+  waterC -> fireC [ color=green penwidth=4 ]
   waterC -> waterC [ color=red ]
 }

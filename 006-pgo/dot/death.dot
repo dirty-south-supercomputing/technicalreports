@@ -4,10 +4,10 @@ digraph G {
       poison [ image="images/poison.png" ]
       fairy [ image="images/fairy.png" ]
       dark [ image="images/dark.png" ]
-      fairy -> dark [ color=green ]
+      fairy -> dark [ color=green penwidth=4 ]
       dark -> fairy [ color=red ]
       fairy -> poison [ color=red ]
-      poison -> fairy [ color=green ]
+      poison -> fairy [ color=green penwidth=4 ]
     }
 
     { rank=same;
@@ -16,16 +16,16 @@ digraph G {
       rock [ image="images/rock.png" ]
       ground -> fighting [color=invis]
       rock -> fighting [ color=red ]
-      fighting -> rock [ color=green ]
+      fighting -> rock [ color=green penwidth=4 ]
     }
 
     { rank=same;
       electric [ image="images/electric.png" ]
       flying [ image="images/flying.png" ]
       bug [ image="images/bug.png" ]
-      electric -> flying [ color=green ]
+      electric -> flying [ color=green penwidth=4 ]
       flying -> electric [ color=red ]
-      flying -> bug [ color=green ]
+      flying -> bug [ color=green penwidth=4 ]
       bug -> flying [ color=red ]
     }
 
@@ -34,24 +34,24 @@ digraph G {
       grass [ image="images/grass.png" ]
       fire [ image="images/fire.png" ]
       water -> grass [ color=red ]
-      grass -> water [ color=green ]
+      grass -> water [ color=green penwidth=4 ]
       grass -> fire [ color=red ]
-      fire -> grass [ color=green ]
+      fire -> grass [ color=green penwidth=4 ]
     }
 
     {
-    fairy -> fighting [ color=green ]
+    fairy -> fighting [ color=green penwidth=4 ]
     poison -> ground [style=invis]
-    ground -> electric [ color=green ]
+    ground -> electric [ color=green penwidth=4 ]
     electric -> ground [ color=black ]
     fighting -> fairy [ color=red ]
     fighting -> flying [ color=red ]
     electric -> water [style=invis]
     bug -> fire [ color=red ]
-    fire -> bug [ color=green ]
-    flying -> grass [ color=green ]
+    fire -> bug [ color=green penwidth=4 ]
+    flying -> grass [ color=green penwidth=4 ]
     grass -> flying [ color=red ]
-    flying -> fighting [ color=green ]
+    flying -> fighting [ color=green penwidth=4 ]
     }
 
 }
