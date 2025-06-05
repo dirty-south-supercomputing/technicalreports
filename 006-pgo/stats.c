@@ -3,6 +3,35 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct attack {
+  const char *name;
+  unsigned powerraid; // can be zero
+  int energyraid;     // charged are negative, fast are positive
+  unsigned powertrain;
+  int energytrain;
+  unsigned turns;
+  pgo_types_e type;
+} attack;
+
+// must match the order of attacks[] declaration, ugh
+#define ATTACK_VINE_WHIP 0
+#define ATTACK_TACKLE    1
+#define ATTACK_SEED_BOMB 2
+#define ATTACK_SLUDGE_BOMB 3
+#define ATTACK_POWER_WHIP 4
+
+static const attack attacks[] = {
+  { "Vine Whip", 6, 5, 5, 8, 2, TYPE_GRASS },
+};
+
+static const unsigned BULBASAUR_ATTACKS[] = {
+  ATTACK_VINE_WHIP,
+  ATTACK_TACKLE,
+  ATTACK_SEED_BOMB,
+  ATTACK_SLUDGE_BOMB,
+  ATTACK_POWER_WHIP,
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -10,10 +39,11 @@ typedef struct species {
   unsigned atk;
   unsigned def;
   unsigned sta;
+  const unsigned * const attacks;  // array of attack indices this form can learn
 } species;
 
 static const species sdex[] = {
-  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128 },
+  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, BULBASAUR_ATTACKS },
   {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155 },
   {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190 },
   {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190 },
