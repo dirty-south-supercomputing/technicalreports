@@ -1,30 +1,42 @@
 digraph G {
   node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
-    normal [ image="images/normal.png" ]
-    fighting [ image="images/fighting.png" ]
-    fire [ image="images/fire.png" ]
-    rock [ image="images/rock.png" ]
-    ghost [ image="images/ghost.png" ]
-    electric [ image="images/electric.png" ]
-    flying [ image="images/flying.png" ]
-    bug [ image="images/bug.png" ]
-    ground [ image="images/ground.png" ]
-    dark [ image="images/dark.png" ]
-    poison [ image="images/poison.png" ]
-    grass [ image="images/grass.png" ]
-    fairy [ image="images/fairy.png" ]
-    water [ image="images/water.png" ]
-    ice [ image="images/ice.png" ]
-    psychic [ image="images/psychic.png" ]
+    { rank=same;
+      bug [ image="images/bug.png" ]
+      fighting [ image="images/fighting.png" ]
+      bug -> fighting [ color=red ]
+      fighting -> bug [ color=red ]
+      normal [ image="images/normal.png" ]
+      electric [ image="images/electric.png" ]
+    }
+    { rank=same;
+      fairy [ image="images/fairy.png" ]
+      dark [ image="images/dark.png" ]
+      psychic [ image="images/psychic.png" ]
+      ice [ image="images/ice.png" ]
+      psychic -> poison [ color=green penwidth=4 ]
+      rock [ image="images/rock.png" ]
+    }
+    { rank=same;
+      poison [ image="images/poison.png" ]
+    }
+    { rank=same;
+      ghost [ image="images/ghost.png" ]
+      ground [ image="images/ground.png" ]
+      water [ image="images/water.png" ]
+      water -> ground [ color=green penwidth=4 ]
+      grass [ image="images/grass.png" ]
+    }
+    { rank=same;
+      fire [ image="images/fire.png" ]
+      flying [ image="images/flying.png" ]
+    }
 
+      poison -> ghost [ color=red ]
   normal -> rock [ color=red ]
   fighting -> poison [ color=red ]
-  fighting -> bug [ color=red ]
   fighting -> ice [ color=green penwidth=4 ]
-  poison -> ghost [ color=red ]
   ground -> flying [ color=black ]
   rock -> flying [ color=green penwidth=4 ]
-  bug -> fighting [ color=red ]
   bug -> ghost [ color=red ]
   bug -> psychic [ color=green penwidth=4 ]
   bug -> dark [ color=green penwidth=4 ]
@@ -34,10 +46,8 @@ digraph G {
   ice -> grass [ color=green penwidth=4 ]
 
   ground -> fire [ color=green penwidth=4 ]
-  water -> ground [ color=green penwidth=4 ]
   ice -> ground [ color=green penwidth=4 ]
 
-  psychic -> poison [ color=green penwidth=4 ]
   fairy -> fire [ color=red ]
 
 }

@@ -109,16 +109,17 @@ These relationships must also be memorized.
 
 Only eight relationships are very ineffective:
 Normal → Ghost,
+Ghost → Normal,
 Fighting → Ghost,
 Poison → Steel,
 Ground → Flying,
-Ghost → Normal,
 Electric → Ground,
 Psychic → Dark,
 and Dragon → Fairy.
 Note that the Ghost/Normal relationship is very ineffective in both directions.
-On the other hand, Ground is effective against Electric, and Fairy is effective
- against Dragon, making these the most lopsided matchups between single Types.
+On the other hand, Ground is effective against Electric, Fairy is effective
+ against Dragon, and Dark is effective against Psychic, making these the most
+ lopsided matchups between single Types.
 
 \section{Memorizing the type relations}
 Eleven of the eighteen types are self-active.
@@ -156,7 +157,7 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
     \label{fig:elemental}
   \end{minipage}
 \end{figure}
-Poison kills Grass, which kills Ground, which kills Poison.
+\noindent{}Poison kills Grass, which kills Ground, which kills Poison.
 Ground kills Rock.
 Bug kills Grass.
 Rock is strong against Bug, but Ground is weak against it.
@@ -168,66 +169,76 @@ Electric is strong against Water, which is strong against Rock, which is strong 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/rational.dot.png}
-\caption{The 16 Rational relations}
+\caption{16 Rational relations}
+\label{fig:rational}
 \end{figure}
-Psychic kills Fighting.
+\noindent{}Psychic kills Fighting.
 Fighting kills Dark.
 Dark kills Ghost, and slaughters Psychic.
 Ghost is strong against Psychic.
-Fighting, unique among the types, is strong against Normal.
+Fighting, unique among the types, is strong against Normal (\autoref{fig:rational}).
+\clearpage
 
-\begin{figure}
+\begin{figure}[t!]
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
-\caption{The 9 Dragon relations}
+\caption{9 Dragon relations}
+\label{fig:dragon}
 \end{figure}
-Fairy famously slaughters Dragon.
+\noindent{}Fairy famously slaughters Dragon.
 Ice is strong against Dragon.
-Fighting, Grass, Electric, Water, and Fire are all weak against it.
+Fighting, Grass, Electric, Water, and Fire are all weak against it (\autoref{fig:dragon}).
+\vspace{.5in}
 
-\begin{figure}
-\centering
-\includegraphics[scale=.25]{out/circo/steel.dot.png}
-\caption{The 20 Steel relations}
-\end{figure}
-Ground and Fighting are strong against Steel, and Fire kills Steel.
-Most everything else is weak against Steel, especially
- Poison, which is very ineffective against it.
-Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
-Steel is weak against Water and Electric.
-Only two types have no relationships with Steel: Dark and Ghost.
-
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=.25]{out/dot/death.dot.png}
-\caption{The Death Graph's 24 relations}
+\caption{24 relations of death}
+\label{fig:death}
 \end{figure}
-The Graph of Death.
+\noindent{}The Graph of Death (\autoref{fig:death}).
 Poison kills Fairy, which kills Dark.
 Fairy also kills Fighting, which kills Rock.
 Ground slaughters Electric, which kills Flying.
 Flying strikes back, raining death from above and killing Fighting, Bug, and Grass.
 Fire likewise kills Bug and Grass.
 Grass kills Water (it is the only thing strong against Water besides Electric).
+\clearpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.25]{out/circo/steel.dot.png}
+\caption{The 20 Steel relations}
+\label{fig:steel}
+\end{figure}
+\noindent{}Ground and Fighting are strong against Steel, and Fire kills Steel.
+Most everything else is weak against Steel, especially
+ Poison, which is very ineffective against it.
+Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
+Steel is weak against Water and Electric.
+Only two types have no relationships with Steel: Dark and Ghost (\autoref{fig:steel}).
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/dot/jumble.dot.png}
 \caption{The 20 remaining interactions}
 \end{figure}
-The remaining interactions don't have any real structure, and simply must be
+The remaining interactions don't have any real structure, and must simply be
 memorized as they are.
 
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{llllll}
+      \hline
       \multirow{3}{*}{Ice} & \multirow{3}{*}{effective} & Grass & & \\
       & & Flying & & \\
       & & Ground & effective & Fire \\
+      \hline
       \multirow{4}{*}{Bug} & \multirow{2}{*}{effective} & Dark & & \\
       & & Psychic & effective & Poison \\
       & \multirow{2}{*}{ineffective} & Ghost \\
       & & Fairy & ineffective & Fire \\
+      \hline
     \end{tabular}
   \end{center}
 \end{table}
