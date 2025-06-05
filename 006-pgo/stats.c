@@ -1136,28 +1136,98 @@ halflevel_to_level(unsigned hl, unsigned* half){
   return (hl + 1) / 2;
 }
 
+typedef struct stats {
+  unsigned atk, def, sta;   // base stats for the Form
+  unsigned hlevel;          // halflevel 1..99
+  unsigned ia, id, is;      // individual vector components
+  float effa, effd;         // effective attack and defense
+  unsigned mhp;             // max hit points
+  unsigned cp;              // combat power
+  float geommean;           // geometric mean of effa, effd, mhp
+  struct stats* next;
+} stats;
+
+static int
+update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigned is, unsigned hl){
+  stats **prev = osets;
+  stats *cur;
+  unsigned moda = s->atk + ia;
+  unsigned modd = s->def + id;
+  float effa = calc_eff_a(moda, hl);
+  float effd = calc_eff_d(modd, hl);
+  unsigned mods = s->sta + is;
+  unsigned mhp = calc_mhp(s->sta + is, hl);
+  while( (cur = *prev) ){
+    if(hl < cur->hlevel){
+      break; // we're a lower level than any on the list; insert
+    }
+    if(hl == cur->hlevel){ // need compare
+      if(effa == cur->effa && effd == cur->effd && mhp == cur->mhp){
+        // we're equal to something on the list; insert here
+        break;
+      }else if(effa <= cur->effa && effd <= cur->effd && mhp <= cur->mhp){ // we're worse, exit
+        // we're strictly less than something on the list; exit
+        return -1;
+      }else if(effa >= cur->effa && effd >= cur->effd && mhp >= cur->mhp){
+        // we're strictly better than something on the list; remove it and continue
+        *prev = cur->next;
+        free(cur);
+      }else{
+        // we're not comparable; continue
+        prev = &cur->next;
+      }
+    }else{
+      prev = &cur->next;
+    }
+  }
+  if((cur = malloc(sizeof(*cur))) == NULL){
+    return -1;
+  }
+  cur->atk = s->atk;
+  cur->def = s->def;
+  cur->sta = s->sta;
+  cur->hlevel = hl;
+  cur->ia = ia;
+  cur->id = id;
+  cur->is = is;
+  cur->effa = effa;
+  cur->effd = effd;
+  cur->mhp = mhp;
+  cur->cp = calccp(moda, modd, mods, cur->hlevel);
+  cur->geommean = calc_fit(cur->effa, cur->effd, cur->mhp);
+  cur->next = *prev;
+  *prev = cur;
+  return 0;
+}
+
 // print the optimal level/IV combinations bounded by the given cp
-static void
+static int
 print_cp_bounded(const species* s, int cpceil){
+  stats* optsets = NULL;
   printf("%d-bounded set for %s:\n", cpceil, s->name);
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        float effa = calc_eff_a(s->atk + iva, hl);
-        float effd = calc_eff_d(s->def + ivd, hl);
-        unsigned mhp = calc_mhp(s->sta + ivs, hl);
-        float f = calc_fit(effa, effd, mhp);
-        unsigned half;
-        unsigned l = halflevel_to_level(hl, &half);
-        printf(" %d-%d-%d: %2u%s %4d %.3f %.3f %u %.3f\n",
-                iva, ivd, ivs, l,
-                half ? ".5" : "",
-                cp, effa, effd, mhp, f);
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
+          return -1;
+        }
       }
     }
   }
+  while(optsets){
+    stats* cur;
+    cur = optsets;
+    optsets = cur->next;
+    unsigned half;
+    unsigned l = halflevel_to_level(cur->hlevel, &half);
+    printf(" %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
+      cur->ia, cur->id, cur->is, l, half ? ".5" : "",
+      cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
+    free(cur);
+  }
+  return 0;
 }
 
 static const species*
