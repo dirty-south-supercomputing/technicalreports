@@ -317,7 +317,7 @@ defensive_summaries_latex(const typing* t){
   int totals[6];
   const int offset = -3;
   // defensive typing summaries
-  printf("\\begin{longtable}{lrrrrrrr}\n");
+  printf("\\begin{longtable}{rrrrrrrr}\n");
   printf("Type & -3 & -2 & -1 & 0 & 1 & 2 & DRA\\\\\n");
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
