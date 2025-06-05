@@ -14,14 +14,36 @@ typedef struct attack {
 } attack;
 
 // must match the order of attacks[] declaration, ugh
-#define ATTACK_VINE_WHIP 0
-#define ATTACK_TACKLE    1
-#define ATTACK_SEED_BOMB 2
-#define ATTACK_SLUDGE_BOMB 3
-#define ATTACK_POWER_WHIP 4
+#define ATTACK_VINE_WHIP      0
+#define ATTACK_TACKLE         1
+#define ATTACK_SEED_BOMB      2
+#define ATTACK_SLUDGE_BOMB    3
+#define ATTACK_POWER_WHIP     4
+#define ATTACK_RAZOR_LEAF     5
+#define ATTACK_SOLAR_BEAM     6
+#define ATTACK_PETAL_BLIZZARD 7
+#define ATTACK_FRENZY_PLANT   8
+#define ATTACK_EMBER          9
+#define ATTACK_SCRATCH       10
+#define ATTACK_FLAMETHROWER  11
+#define ATTACK_FLAME_CHARGE  12
+#define ATTACK_FLAME_BURST   13
 
 static const attack attacks[] = {
-  { "Vine Whip", 6, 5, 5, 8, 2, TYPE_GRASS },
+  { "Vine Whip",        6,   5,   5,   8,  2, TYPE_GRASS,  },
+  { "Tackle",           5,   5,   3,   3,  1, TYPE_NORMAL, },
+  { "Seed Bomb",       55,  33,  65,  45,  4, TYPE_GRASS,  },
+  { "Sludge Bomb",     85,  50,  80,  50,  5, TYPE_POISON, },
+  { "Power Whip",      90,  50,  90,  50,  5, TYPE_GRASS,  },
+  { "Razor Leaf",      13,   7,   9,   4,  2, TYPE_GRASS,  },
+  { "Solar Beam",     180, 100, 150,  80, 10, TYPE_GRASS,  },
+  { "Petal Blizzard", 110, 100, 110,  65,  5, TYPE_GRASS,  },
+  { "Frenzy Plant",   100,  50, 100,  45,  5, TYPE_GRASS,  },
+  { "Ember",           10,  10,   7,   7,  2, TYPE_FIRE,   },
+  { "Scratch",          6,   4,   4,   2,  1, TYPE_NORMAL, },
+  { "Flamethrower",    65,  50,  90,  55,  4, TYPE_FIRE,   },
+  { "Flame Charge",    70,  33,  65,  50,  8, TYPE_FIRE,   },
+  { "Flame Burst",     70,  50,  70,  55,  5, TYPE_FIRE,   },
 };
 
 static const unsigned BULBASAUR_ATTACKS[] = {
@@ -32,6 +54,31 @@ static const unsigned BULBASAUR_ATTACKS[] = {
   ATTACK_POWER_WHIP,
 };
 
+static const unsigned IVYSAUR_ATTACKS[] = {
+  ATTACK_VINE_WHIP,
+  ATTACK_RAZOR_LEAF,
+  ATTACK_SLUDGE_BOMB,
+  ATTACK_SOLAR_BEAM,
+  ATTACK_POWER_WHIP,
+};
+
+static const unsigned VENUSAUR_ATTACKS[] = {
+  ATTACK_VINE_WHIP,
+  ATTACK_RAZOR_LEAF,
+  ATTACK_PETAL_BLIZZARD,
+  ATTACK_SLUDGE_BOMB,
+  ATTACK_SOLAR_BEAM,
+  ATTACK_FRENZY_PLANT,
+};
+
+static const unsigned CHARMANDER_ATTACKS[] = {
+  ATTACK_EMBER,
+  ATTACK_SCRATCH,
+  ATTACK_FLAMETHROWER,
+  ATTACK_FLAME_CHARGE,
+  ATTACK_FLAME_BURST,
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -39,15 +86,16 @@ typedef struct species {
   unsigned atk;
   unsigned def;
   unsigned sta;
+  const char* from;    // from what does it evolve? NULL for nothing
   const unsigned * const attacks;  // array of attack indices this form can learn
 } species;
 
 static const species sdex[] = {
-  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, BULBASAUR_ATTACKS },
-  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155 },
-  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190 },
-  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190 },
-  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118 },
+  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, NULL, BULBASAUR_ATTACKS, },
+  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155, "Bulbasaur", IVYSAUR_ATTACKS, },
+  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, },
+  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, },
+  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, },
   {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151 },
   {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186 },
   {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186 },
@@ -990,6 +1038,8 @@ static const species sdex[] = {
   {  830, "Eldegoss", TYPE_GRASS, TYPECOUNT, 148, 211, 155 },
   {  831, "Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123 },
   {  832, "Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176 },
+  {  835, "Yamper", TYPE_ELECTRIC, TYPECOUNT, 80, 90, 153 },
+  {  836, "Boltund",TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170 },
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120 },
   {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172 },
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242 },
