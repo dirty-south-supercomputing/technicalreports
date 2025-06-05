@@ -2,14 +2,19 @@
 For purposes of battle, a Pokémon $P$ is defined as:
 \begin{itemize}
 \item A Species, possibly taking some Form
-\item An ``Individual Vector'' of 3 integers from 0--15, inclusive, corresponding to ATK, DEF, and STA.
+\item An ``Individual Vector'' of 3 integers from 0--15, inclusive, corresponding to ATK, DEF, and STA\@.
 \item Shadow status
 \item Current Hit Points. A Pokémon with zero HP has ``fainted'', and is generally unusable.
 \end{itemize}
 Visual presentation does not affect battle.
 Hit Points are carried across PvE battles, but Trainer Battles always start
- with full HP.
+ with full HP\@.
 Fainted Pokémon cannot be used in battles of any kind.
 
 \section{Individual Vectors}
 \label{section:ivs}
+
+\section{Pokémon Level}
+Powering up a fainted Pokémon will revive it, but with minimal HP\@:
+
+\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
