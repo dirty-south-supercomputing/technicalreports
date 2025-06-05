@@ -53,8 +53,9 @@ The two effectiveness relationships must be added, and this value used to
 Exponential functions are not linear functions, and must not be treated as such.
 
 \section{The context-specific multiplier}
+\label{section:mbmult}
 In Raids and Max battles, a number of effects come into play.
-\[ M_B = 0.5 \times M_D \times M_F \times M_W \times M_M \times M_P \]
+\[ M_B = 0.5 \times M_D \times M_F \times M_W \times M_M \]
 \begin{itemize}
  \item $M_D$ is 0.25 if the Attack is dodged (dodging is only possible in Raids/Max battles),
  and 1 otherwise. Note that this seems to have been subject to recent changes.
@@ -92,15 +93,14 @@ In Raids and Max battles, a number of effects come into play.
           the attack's type. & 1.3 \\
        \end{tabular}
      \end{center}
-     \caption{Bonus due the presence of Mega Pokémon}
+     \caption{Bonus due the presence of Mega and Primal Pokémon}
    \end{table}
- \item The Power Stop/Primal bonus $M_P$:
-   In Max battles, there is a bonus based on the number of Pokémon left at that Power Stop
+   In a Max battle, $M_M$ is based on the number of Pokémon left at that Power Stop
      (see \autoref{section:maxbattles}).
    \begin{table}[h!]
      \begin{center}
        \begin{tabular}{lc}
-         Pokémon present at Power Stop & $M_P$ \\
+         Pokémon present at Power Stop & $M_M$ \\
          \Midrule
          0 & 1 \\
          1 & 1.1 \\
@@ -109,7 +109,7 @@ In Raids and Max battles, a number of effects come into play.
          15+ & 1.2 \\
        \end{tabular}
      \end{center}
-     \caption{Bonus due Pokémon at a Power Stop}
+     \caption{Bonus in Max battles due Pokémon at Power Stop}
    \end{table}
 \end{itemize}
 The calculation for Trainer Battles is simpler:
