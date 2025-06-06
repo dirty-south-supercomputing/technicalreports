@@ -334,58 +334,64 @@ static const attack charged[] = {
 };
 
 static const char* BULBASAUR_ATTACKS[] = {
-  "Vine Whip"
-  "Tackle"
-  "Seed Bomb"
-  "Sludge Bomb"
-  "Power Whip"
+  "Vine Whip",
+  "Tackle",
+  "Seed Bomb",
+  "Sludge Bomb",
+  "Power Whip",
+  NULL
 };
 
 static const char* IVYSAUR_ATTACKS[] = {
-  "Vine Whip"
-  "Razor Leaf"
-  "Sludge Bomb"
-  "Solar Beam"
-  "Power Whip"
+  "Vine Whip",
+  "Razor Leaf",
+  "Sludge Bomb",
+  "Solar Beam",
+  "Power Whip",
+  NULL
 };
 
 static const char* VENUSAUR_ATTACKS[] = {
-  "Vine Whip"
-  "Razor Leaf"
-  "Petal Blizzard"
-  "Sludge Bomb"
-  "Solar Beam"
-  "Frenzy Plant"
+  "Vine Whip",
+  "Razor Leaf",
+  "Petal Blizzard",
+  "Sludge Bomb",
+  "Solar Beam",
+  "Frenzy Plant",
+  NULL
 };
 
 static const char* CHARMANDER_ATTACKS[] = {
-  "Ember"
-  "Scratch"
-  "Flamethrower"
-  "Flame Charge"
-  "Flame Burst"
+  "Ember",
+  "Scratch",
+  "Flamethrower",
+  "Flame Charge",
+  "Flame Burst",
+  NULL
 };
 
 static const char* CHARMELEON_ATTACKS[] = {
-  "Ember"
-  "Scratch"
-  "Fire Fang"
-  "Flamethrower"
-  "Flame Burst"
-  "Fire Punch"
+  "Ember",
+  "Scratch",
+  "Fire Fang",
+  "Flamethrower",
+  "Flame Burst",
+  "Fire Punch",
+  NULL
 };
 
 static const char* CHARIZARD_ATTACKS[] = {
-  "Dragon Breath"
-  "Ember"
-  "Wing Attack"
-  "Air Slash"
-  "Fire Spin"
-  "Flamethrower"
-  "Dragon Claw"
-  "Fire Blast"
-  "Overheat"
-  "Blast Burn"
+  "Dragon Breath",
+  "Ember",
+  "Wing Attack",
+  "Air Slash",
+  "Fire Spin",
+  "Flamethrower",
+  "Dragon Claw",
+  "Fire Blast",
+  "Overheat",
+  "Blast Burn",
+  NULL
 };
 
 typedef struct species {
@@ -395,7 +401,7 @@ typedef struct species {
   unsigned atk;
   unsigned def;
   unsigned sta;
-  const char* from;    // from what does it evolve? NULL for nothing
+  const char *from;    // from what does it evolve? NULL for nothing
   const char * const * attacks;  // array of attack indices this form can learn
 } species;
 
@@ -1629,6 +1635,21 @@ print_cp_bounded(const species* s, int cpceil){
   return 0;
 }
 
+static const attack*
+lookup_attack(const char* name){
+  for(unsigned i = 0 ; i < sizeof(fast) / sizeof(*fast) ; ++i){
+    if(strcasecmp(fast[i].name, name) == 0){
+      return &fast[i];
+    }
+  }
+  for(unsigned i = 0 ; i < sizeof(charged) / sizeof(*charged) ; ++i){
+    if(strcasecmp(charged[i].name, name) == 0){
+      return &charged[i];
+    }
+  }
+  return NULL;
+}
+
 static const species*
 lookup_species(const char* name){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
@@ -1660,7 +1681,42 @@ filter_by_type(pgo_types_e t){
   }
 }
 
+// create array on bijection with species, containing arrays of looked up attacks
+static int
+associate_attacks(void){
+  unsigned **attack_idxs;
+  if((attack_idxs = malloc(SPECIESCOUNT * sizeof(*attack_idxs))) == NULL){
+    return -1;
+  }
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species* s = &sdex[i];
+    printf("attacks for %s: %p ", s->name, s->attacks);
+    if(s->attacks){ // FIXME kill
+      for(const char * const *anames = s->attacks ; *anames ; ++anames){
+        const char* aname = *anames;
+        printf("%s ", aname);
+        const attack* a = lookup_attack(aname);
+        if(!a){
+          fprintf(stderr, "invalid attack '%s'\n", aname);
+          goto err;
+        }
+      }
+    // FIXME
+    }
+    printf("\n");
+  }
+  return 0;
+
+err:
+  // FIXME free built up arrays
+  free(attack_idxs);
+  return -1;
+}
+
 int main(int argc, char **argv){
+  if(associate_attacks()){
+    return EXIT_FAILURE;
+  }
   if(argc > 1){
     while(*++argv){
       const species *s = lookup_species(*argv);
