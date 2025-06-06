@@ -12,7 +12,7 @@ typedef struct attack {
   unsigned turns;
 } attack;
 
-static const attack fast[] = {
+static const attack attacks[] = {
   { "Acid", TYPE_POISON, 6, 8, 2, },
   { "Air Slash", TYPE_FLYING, 9, 9, 3, },
   { "Astonish", TYPE_GHOST, 12, 10, 3, },
@@ -108,9 +108,6 @@ static const attack fast[] = {
   { "Wing Attack", TYPE_FLYING, 5, 7, 2, },
   { "Yawn", TYPE_NORMAL, 0, 12, 4, },
   { "Zen Headbutt", TYPE_PSYCHIC, 8, 6, 3, },
-};
-
-static const attack charged[] = {
   { "Acid Spray", TYPE_POISON, 20, -45, 0 },
   { "Acrobatics", TYPE_FLYING, 110, -55, 0 },
   { "Aerial Ace", TYPE_FLYING, 55, -40, 0 },
@@ -1637,17 +1634,17 @@ print_cp_bounded(const species* s, int cpceil){
 
 static const attack*
 lookup_attack(const char* name){
-  for(unsigned i = 0 ; i < sizeof(fast) / sizeof(*fast) ; ++i){
-    if(strcasecmp(fast[i].name, name) == 0){
-      return &fast[i];
-    }
-  }
-  for(unsigned i = 0 ; i < sizeof(charged) / sizeof(*charged) ; ++i){
-    if(strcasecmp(charged[i].name, name) == 0){
-      return &charged[i];
+  for(unsigned i = 0 ; i < sizeof(attacks) / sizeof(*attacks) ; ++i){
+    if(strcasecmp(attacks[i].name, name) == 0){
+      return &attacks[i];
     }
   }
   return NULL;
+}
+
+static unsigned
+attack_idx(const attack* a){
+  return a - attacks;
 }
 
 static const species*
@@ -1682,39 +1679,60 @@ filter_by_type(pgo_types_e t){
 }
 
 // create array on bijection with species, containing arrays of looked up attacks
-static int
+static unsigned **
 associate_attacks(void){
   unsigned **attack_idxs;
   if((attack_idxs = malloc(SPECIESCOUNT * sizeof(*attack_idxs))) == NULL){
-    return -1;
+    return NULL;
   }
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+  unsigned i;
+  for(i = 0 ; i < SPECIESCOUNT ; ++i){
     const species* s = &sdex[i];
     printf("attacks for %s: %p ", s->name, s->attacks);
+    attack_idxs[i] = NULL;
+    unsigned acount = 0;
     if(s->attacks){ // FIXME kill
       for(const char * const *anames = s->attacks ; *anames ; ++anames){
         const char* aname = *anames;
-        printf("%s ", aname);
         const attack* a = lookup_attack(aname);
         if(!a){
           fprintf(stderr, "invalid attack '%s'\n", aname);
           goto err;
         }
+        ++acount;
+        unsigned* tmp = realloc(attack_idxs[i], sizeof(*attack_idxs) * acount);
+        if(tmp == NULL){
+          goto err;
+        }
+        attack_idxs[i] = tmp;
+        tmp[acount - 1] = attack_idx(a);
       }
-    // FIXME
     }
     printf("\n");
   }
-  return 0;
+  return attack_idxs;
 
 err:
-  // FIXME free built up arrays
+  do{
+    free(attack_idxs[i]);
+  }while(i--);
   free(attack_idxs);
-  return -1;
+  return NULL;
+}
+
+static void
+free_aidxs(unsigned **aidxs, unsigned n){
+  if(aidxs){
+    while(--n){
+      free(aidxs[n]);
+    }
+    free(aidxs);
+  }
 }
 
 int main(int argc, char **argv){
-  if(associate_attacks()){
+  unsigned **aidxs;
+  if((aidxs = associate_attacks()) == NULL){
     return EXIT_FAILURE;
   }
   if(argc > 1){
@@ -1727,12 +1745,13 @@ int main(int argc, char **argv){
       print_cp_bounded(s, 1500);
       print_cp_bounded(s, 2500);
     }
-    return EXIT_SUCCESS;
+  }else{
+    print_cpms();
+    for(int t = 0 ; t < TYPECOUNT ; ++t){
+      printf("%s:\n", tnames[t]);
+      filter_by_type(t);
+    }
   }
-  print_cpms();
-  for(int t = 0 ; t < TYPECOUNT ; ++t){
-    printf("%s:\n", tnames[t]);
-    filter_by_type(t);
-  }
+  free_aidxs(aidxs, SPECIESCOUNT);
   return EXIT_SUCCESS;
 }
