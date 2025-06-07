@@ -941,6 +941,49 @@ static const attack* ALOLAN_RATICATE_ATTACKS[] = {
   NULL
 };
 
+static const attack* SPEAROW_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Quick_Attack,
+  &ATK_Drill_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Twister,
+  &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* FEAROW_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Steel_Wing,
+  &ATK_Aerial_Ace,
+  &ATK_Drill_Run,
+  &ATK_Twister,
+  &ATK_Sky_Attack,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* EKANS_ATTACKS[] = {
+  &ATK_Acid,
+  &ATK_Poison_Sting,
+  &ATK_Wrap,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Bomb,
+  &ATK_Gunk_Shot,
+  NULL
+};
+
+static const attack* ARBOK_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Acid,
+  &ATK_Poison_Sting,
+  &ATK_Dragon_Tail,
+  &ATK_Dark_Pulse,
+  &ATK_Sludge_Wave,
+  &ATK_Gunk_Shot,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -983,10 +1026,10 @@ static const species sdex[] = {
   {   19, "Alolan Rattata", TYPE_DARK, TYPE_NORMAL, 103, 70, 102, NULL, ALOLAN_RATTATA_ATTACKS, true, true, },
   {   20, "Raticate", TYPE_NORMAL, TYPECOUNT, 161, 139, 146, "Rattata", RATICATE_ATTACKS, true, true, },
   {   20, "Alolan Raticate", TYPE_DARK, TYPE_NORMAL, 135, 154, 181, "Alolan Rattata", ALOLAN_RATICATE_ATTACKS, true, true, },
-  {   21, "Spearow", TYPE_NORMAL, TYPE_FLYING, 112, 60, 120, NULL, NULL, },
-  {   22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, NULL, NULL, },
-  {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, NULL, },
-  {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, NULL, NULL, },
+  {   21, "Spearow", TYPE_NORMAL, TYPE_FLYING, 112, 60, 120, NULL, SPEAROW_ATTACKS, true, false, },
+  {   22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, "Spearow", FEAROW_ATTACKS, true, false, },
+  {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, EKANS_ATTACKS, true, true, },
+  {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, "Ekans", ARBOK_ATTACKS, true, true, },
   {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, NULL, },
   {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, NULL, NULL, },
   {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, NULL, },
