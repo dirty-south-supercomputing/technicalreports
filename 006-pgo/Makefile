@@ -47,11 +47,11 @@ $(GENTEX): $(TYPES) $(STATS)
 
 $(TYPES): types.c pgotypes.c
 	@mkdir -p $(@D)
-	gcc -o $@ -Wall -W -O2 $(<F) -lm
+	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 $(STATS): stats.c pgotypes.c
 	@mkdir -p $(@D)
-	gcc -o $@ -Wall -W -O2 $(<F) -lm
+	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
 	@rm -vrf $(TYPES) $(GENTEX)
