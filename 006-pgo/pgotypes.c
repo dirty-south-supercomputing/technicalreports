@@ -1024,6 +1024,51 @@ static const attack* ALOLAN_RAICHU_ATTACKS[] = {
   NULL
 };
 
+static const attack* SANDSHREW_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Scratch,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  &ATK_Sand_Tomb,
+  NULL
+};
+
+static const attack* ALOLAN_SANDSHREW_ATTACKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Powder_Snow,
+  &ATK_Blizzard,
+  &ATK_Night_Slash,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* SANDSLASH_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Metal_Claw,
+  &ATK_Sand_Attack,
+  &ATK_Earthquake,
+  &ATK_Night_Slash,
+  &ATK_Rock_Tomb,
+  &ATK_Bulldoze,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* ALOLAN_SANDSLASH_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Metal_Claw,
+  &ATK_Powder_Snow,
+  &ATK_Ice_Punch,
+  &ATK_Blizzard,
+  &ATK_Aerial_Ace,
+  &ATK_Drill_Run,
+  &ATK_Bulldoze,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1072,11 +1117,11 @@ static const species sdex[] = {
   {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, "Ekans", ARBOK_ATTACKS, true, true, },
   {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, PIKACHU_ATTACKS, true, false, },
   {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu", RAICHU_ATTACKS, true, },
-  {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, ALOLAN_RAICHU_ATTACKS, true, false},
-  {   27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, NULL, NULL, },
-  {   27, "Alolan Sandshrew", TYPE_ICE, TYPE_STEEL, 125, 129, 137, NULL, NULL, },
-  {   28, "Sandslash", TYPE_GROUND, TYPECOUNT, 182, 175, 181, NULL, NULL, },
-  {   28, "Alolan Sandslash", TYPE_ICE, TYPE_STEEL, 177, 195, 181, NULL, NULL, },
+  {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, ALOLAN_RAICHU_ATTACKS, true, false, },
+  {   27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, NULL, SANDSHREW_ATTACKS, true, true, },
+  {   27, "Alolan Sandshrew", TYPE_ICE, TYPE_STEEL, 125, 129, 137, NULL, ALOLAN_SANDSHREW_ATTACKS, true, true, },
+  {   28, "Sandslash", TYPE_GROUND, TYPECOUNT, 182, 175, 181, "Sandshrew", SANDSLASH_ATTACKS, true, true, },
+  {   28, "Alolan Sandslash", TYPE_ICE, TYPE_STEEL, 177, 195, 181, "Alolan Sandshrew", ALOLAN_SANDSLASH_ATTACKS, true, true, },
   {   29, "Nidoran♀", TYPE_POISON, TYPECOUNT, 86, 89, 146, NULL, NULL, },
   {   30, "Nidorina", TYPE_POISON, TYPECOUNT, 117, 120, 172, NULL, NULL, },
   {   31, "Nidoqueen", TYPE_POISON, TYPE_GROUND, 180, 173, 207, NULL, NULL, },
