@@ -875,6 +875,36 @@ static const attack* BEEDRILL_ATTACKS[] = {
   NULL
 };
 
+static const attack* PIDGEY_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Tackle,
+  &ATK_Aerial_Ace,
+  &ATK_Twister,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* PIDGEOTTO_ATTACKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Steel_Wing,
+  &ATK_Aerial_Ace,
+  &ATK_Twister,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* PIDGEOT_ATTACKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Steel_Wing,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Hurricane,
+  &ATK_Brave_Bird,
+  &ATK_Feather_Dance,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -908,10 +938,10 @@ static const species sdex[] = {
   {   14, "Kakuna", TYPE_BUG, TYPE_POISON, 46, 75, 128, "Weedle", KAKUNA_ATTACKS, true, },
   {   15, "Beedrill", TYPE_BUG, TYPE_POISON, 169, 130, 163, "Kakuna", BEEDRILL_ATTACKS, true, },
   {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Mega Beedrill", BEEDRILL_ATTACKS, true, },
-  {   16, "Pidgey", TYPE_NORMAL, TYPE_FLYING, 85, 73, 120, NULL, NULL, },
-  {   17, "Pidgeotto", TYPE_NORMAL, TYPE_FLYING, 117, 105, 160, NULL, NULL, },
-  {   18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, NULL, NULL, },
-  {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, NULL, NULL, },
+  {   16, "Pidgey", TYPE_NORMAL, TYPE_FLYING, 85, 73, 120, NULL, PIDGEY_ATTACKS, true, },
+  {   17, "Pidgeotto", TYPE_NORMAL, TYPE_FLYING, 117, 105, 160, "Pidgey", PIDGEOTTO_ATTACKS, true, },
+  {   18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, "Pidgeotto", PIDGEOT_ATTACKS, true, },
+  {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, },
   {   19, "Rattata", TYPE_NORMAL, TYPECOUNT, 103, 70, 102, NULL, NULL, },
   {   19, "Alolan Rattata", TYPE_DARK, TYPE_NORMAL, 103, 70, 102, NULL, NULL, },
   {   20, "Raticate", TYPE_NORMAL, TYPECOUNT, 161, 139, 146, NULL, NULL, },
