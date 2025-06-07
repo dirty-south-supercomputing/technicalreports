@@ -1672,7 +1672,7 @@ static const species sdex[] = {
   {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, NULL, },
   {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, NULL, NULL, },
   {  744, "Rockruff", TYPE_ROCK, TYPECOUNT, 117, 78, 128, NULL, NULL, },
-  {  745, "Lycanric Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, NULL, NULL, },
+  {  745, "Lycanroc Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, NULL, NULL, },
   {  745, "Lycanroc Midnight", TYPE_ROCK, TYPECOUNT, 218, 152, 198, NULL, NULL, },
   {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, NULL, NULL, },
   {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, NULL, NULL, },
