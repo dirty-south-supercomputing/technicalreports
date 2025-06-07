@@ -42,8 +42,22 @@ print_species(const species* s){
 
 static void
 print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}\n");
-  printf("\\includegraphics{images/pokédex/%s.png}\n", s->name);
+  printf("\\begin{tcolorbox}[title=");
+  for(const char* curs = s->name ; *curs ; ++curs){
+    if(*curs != '%'){
+      printf("%c", *curs);
+    }else{
+      printf("\\%%");
+    }
+  }
+  printf("]\n");
+  printf("\\includegraphics[width=1in,height=1in]{images/pokédex/");
+  for(const char* curs = s->name ; *curs ; ++curs){
+    if(*curs != '%' && *curs != '\''){
+      printf("%c", *curs);
+    }
+  }
+  printf(".png}\n");
   printf("%s %u %u %u\n", s->name, s->atk, s->def, s->sta);
   /*print_cp_bounded_latex(s, 1500);
   print_cp_bounded_latex(s, 2500);*/
