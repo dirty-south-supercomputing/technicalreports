@@ -58,6 +58,11 @@ print_species_latex(const species* s){
     }
   }
   printf(".png}\n");
+  if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
+    printf("%s+%s\\\\\n", TNames[s->t1], TNames[s->t2]);
+  }else{
+    printf("%s\\\\\n", TNames[s->t1]);
+  }
   printf("ATK: %u DEF: %u STA: %u\n", s->atk, s->def, s->sta);
   /*print_cp_bounded_latex(s, 1500);
   print_cp_bounded_latex(s, 2500);*/
