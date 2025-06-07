@@ -82,6 +82,9 @@ print_species_latex(const species* s){
   }
   printf(".png}\n\\tcblower\n");
   printf("\\hfill");
+  if(s->shadow){
+    printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
+  }
   if(s->shiny){
     printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
   }
@@ -97,9 +100,6 @@ print_species_latex(const species* s){
   }
   print_optimal_latex(s);
   printf("\\vfill\n");
-  if(s->shadow){
-    printf("Shadow form available\\\\\n");
-  }
   printf("\\end{tcolorbox}\n");
 }
 
