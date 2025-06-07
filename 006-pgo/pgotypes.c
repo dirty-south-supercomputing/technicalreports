@@ -1069,6 +1069,70 @@ static const attack* ALOLAN_SANDSLASH_ATTACKS[] = {
   NULL
 };
 
+static const attack* NIDORANF_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Bomb,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* NIDORANM_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Poison_Sting,
+  &ATK_Sludge_Bomb,
+  &ATK_Horn_Attack,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* NIDORINA_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Dig,
+  &ATK_Poison_Fang,
+  &ATK_Thunderbolt,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* NIDORINO_ATTACKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Dig,
+  &ATK_Ice_Beam,
+  &ATK_Sludge_Bomb,
+  &ATK_Horn_Attack,
+  NULL
+};
+
+static const attack* NIDOQUEEN_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Wave,
+  &ATK_Earth_Power,
+  NULL
+};
+
+static const attack* NIDOKING_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Iron_Tail,
+  &ATK_Double_Kick,
+  &ATK_Megahorn,
+  &ATK_Earthquake,
+  &ATK_Sludge_Wave,
+  &ATK_Sand_Tomb,
+  &ATK_Earth_Power,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1122,12 +1186,12 @@ static const species sdex[] = {
   {   27, "Alolan Sandshrew", TYPE_ICE, TYPE_STEEL, 125, 129, 137, NULL, ALOLAN_SANDSHREW_ATTACKS, true, true, },
   {   28, "Sandslash", TYPE_GROUND, TYPECOUNT, 182, 175, 181, "Sandshrew", SANDSLASH_ATTACKS, true, true, },
   {   28, "Alolan Sandslash", TYPE_ICE, TYPE_STEEL, 177, 195, 181, "Alolan Sandshrew", ALOLAN_SANDSLASH_ATTACKS, true, true, },
-  {   29, "Nidoran♀", TYPE_POISON, TYPECOUNT, 86, 89, 146, NULL, NULL, },
-  {   30, "Nidorina", TYPE_POISON, TYPECOUNT, 117, 120, 172, NULL, NULL, },
-  {   31, "Nidoqueen", TYPE_POISON, TYPE_GROUND, 180, 173, 207, NULL, NULL, },
-  {   32, "Nidoran♂", TYPE_POISON, TYPECOUNT, 105, 76, 130, NULL, NULL, },
-  {   33, "Nidorino", TYPE_POISON, TYPECOUNT, 137, 111, 156, NULL, NULL, },
-  {   34, "Nidoking", TYPE_POISON, TYPE_GROUND, 204, 156, 191, NULL, NULL, },
+  {   29, "Nidoran♀", TYPE_POISON, TYPECOUNT, 86, 89, 146, NULL, NIDORANF_ATTACKS, true, true, },
+  {   30, "Nidorina", TYPE_POISON, TYPECOUNT, 117, 120, 172, "Nidoran♀", NIDORINA_ATTACKS, true, true, },
+  {   31, "Nidoqueen", TYPE_POISON, TYPE_GROUND, 180, 173, 207, "Nidorina", NIDOQUEEN_ATTACKS, true, true, },
+  {   32, "Nidoran♂", TYPE_POISON, TYPECOUNT, 105, 76, 130, NULL, NIDORANM_ATTACKS, true, true},
+  {   33, "Nidorino", TYPE_POISON, TYPECOUNT, 137, 111, 156, "Nidoran♂", NIDORINO_ATTACKS, true, true, },
+  {   34, "Nidoking", TYPE_POISON, TYPE_GROUND, 204, 156, 191, "Nidorino", NIDOKING_ATTACKS, true, true, },
   {   35, "Clefairy", TYPE_FAIRY, TYPECOUNT, 107, 108, 172, NULL, NULL, },
   {   36, "Clefable", TYPE_FAIRY, TYPECOUNT, 178, 162, 216, NULL, NULL, },
   {   37, "Vulpix", TYPE_FIRE, TYPECOUNT, 96, 109, 116, NULL, NULL, },
