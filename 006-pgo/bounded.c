@@ -4,15 +4,17 @@
 
 // merge with print_cp_bounded(), ugh
 static stats *
-find_optimal_set(const species* s, int cpceil){
+find_optimal_set(const species* s, int cpceil, int cpfloor){
   stats* optsets = NULL;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
-          return NULL;
+        if(cp >= cpfloor){
+          if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
+            return NULL;
+          }
         }
       }
     }
@@ -50,27 +52,31 @@ find_optimal_set(const species* s, int cpceil){
   return collectopt;
 }
 
-void print_bounded_table(int bound){
+void print_bounded_table(int bound, int lbound){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
-  printf("\\begin{longtable}{p{6em}m{3em}m{5em}m{3em}m{3em}m{3em}m{3em}m{3em}}\n");
-  printf("Species & L & IVs & MHP & $Eff_A$ & $Eff_D$ & $\\sqrt[3]{BP}$ & CP \\\\\n");
+  printf("\\begin{longtable}{p{7em}rrrrrrr}\n");
+  printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\sqrt[3]{BP}$ & CP \\\\\n");
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    stats *s = find_optimal_set(&sdex[i], bound);
-    stats **prev = &sols;
-    stats *tmp;
-    while( (tmp = *prev) ){
-      if(s->geommean > tmp->geommean){
-        break;
+    stats *s = find_optimal_set(&sdex[i], bound, lbound);
+    while(s){
+      stats **prev = &sols;
+      stats *tmp;
+      while( (tmp = *prev) ){
+        if(s->geommean > tmp->geommean){
+          break;
+        }
+        prev = &tmp->next;
       }
-      prev = &tmp->next;
+      stats* tmps = s->next;
+      s->next = tmp;
+      *prev = s;
+      s = tmps;
     }
-    s->next = tmp;
-    *prev = s;
   }
   while(sols){
     stats *tmp = sols;
@@ -92,7 +98,7 @@ void print_bounded_table(int bound){
 
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations
 int main(void){
-  print_bounded_table(2500);
-  print_bounded_table(1500);
+  print_bounded_table(2500, 1500);
+  print_bounded_table(1500, 0);
   return EXIT_SUCCESS;
 }
