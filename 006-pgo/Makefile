@@ -22,7 +22,8 @@ TYPES:=out/dualtypes
 STATS:=out/species
 DUALTYPES:=out/dualtypes.tex
 SPECIES:=out/species.tex
-GENTEX:=$(DUALTYPES) $(SPECIES)
+BOUNDED:=out/bounded.tex
+GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
