@@ -58,7 +58,7 @@ print_species_latex(const species* s){
     }
   }
   printf(".png}\n");
-  printf("%s %u %u %u\n", s->name, s->atk, s->def, s->sta);
+  printf("ATK: %u DEF: %u STA: %u\n", s->atk, s->def, s->sta);
   /*print_cp_bounded_latex(s, 1500);
   print_cp_bounded_latex(s, 2500);*/
   printf("\\end{tcolorbox}\n");

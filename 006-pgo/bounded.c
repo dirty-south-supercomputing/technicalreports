@@ -32,8 +32,13 @@ void print_bounded_table(int bound, int lbound){
     stats *tmp = sols;
     unsigned half;
     unsigned l = halflevel_to_level(tmp->hlevel, &half);
-    printf("%s & %2u%s & %u-%u-%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
-            tmp->s->name,
+    for(const char* curs = tmp->s->name ; *curs ; ++curs){
+      if(*curs == '%'){
+        putchar('\\');
+      }
+      putchar(*curs);
+    }
+    printf(" & %2u%s & %u-%u-%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
             l, half ? ".5" : "",
             tmp->ia, tmp->id, tmp->is,
             tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
