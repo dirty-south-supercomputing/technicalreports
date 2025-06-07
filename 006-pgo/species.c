@@ -59,11 +59,12 @@ print_species_latex(const species* s){
     }
   }
   printf(".png}\n\\tcblower\n");
+  printf("\\hfill\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t1]);
   if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
-    printf("%s+%s\\\\\n", TNames[s->t1], TNames[s->t2]);
-  }else{
-    printf("%s\\\\\n", TNames[s->t1]);
+    printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t2]);
   }
+  // FIXME list attacks
+  printf("\\vfill\n");
   if(s->shiny){
     printf("Shiny form available\\\\\n");
   }
