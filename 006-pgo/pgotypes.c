@@ -1133,6 +1133,18 @@ static const attack* NIDOKING_ATTACKS[] = {
   NULL
 };
 
+static const attack* CLEFFA_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Zen_Headbutt,
+  &ATK_Psyshock,
+  &ATK_Signal_Beam,
+  &ATK_Psychic,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  &ATK_Grass_Knot,
+  NULL
+};
+
 static const attack* CLEFAIRY_ATTACKS[] = {
   &ATK_Pound,
   &ATK_Zen_Headbutt,
@@ -1205,6 +1217,30 @@ static const attack* ALOLAN_NINETALES_ATTACKS[] = {
   NULL
 };
 
+static const attack* JIGGLYPUFF_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Zen_Headbutt,
+  &ATK_Psyshock,
+  &ATK_Signal_Beam,
+  &ATK_Psychic,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* WIGGLYTUFF_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Feint_Attack,
+  &ATK_Disarming_Voice,
+  &ATK_Dazzling_Gleam,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1264,14 +1300,14 @@ static const species sdex[] = {
   {   32, "Nidoran♂", TYPE_POISON, TYPECOUNT, 105, 76, 130, NULL, NIDORANM_ATTACKS, true, true},
   {   33, "Nidorino", TYPE_POISON, TYPECOUNT, 137, 111, 156, "Nidoran♂", NIDORINO_ATTACKS, true, true, },
   {   34, "Nidoking", TYPE_POISON, TYPE_GROUND, 204, 156, 191, "Nidorino", NIDOKING_ATTACKS, true, true, },
-  {   35, "Clefairy", TYPE_FAIRY, TYPECOUNT, 107, 108, 172, NULL, CLEFAIRY_ATTACKS, true, false, },
+  {   35, "Clefairy", TYPE_FAIRY, TYPECOUNT, 107, 108, 172, "Cleffa", CLEFAIRY_ATTACKS, true, false, },
   {   36, "Clefable", TYPE_FAIRY, TYPECOUNT, 178, 162, 216, "Clefairy", CLEFABLE_ATTACKS, true, false, },
   {   37, "Vulpix", TYPE_FIRE, TYPECOUNT, 96, 109, 116, NULL, VULPIX_ATTACKS, true, true, },
   {   37, "Alolan Vulpix", TYPE_ICE, TYPECOUNT, 96, 109, 116, NULL, ALOLAN_VULPIX_ATTACKS, true, true, },
   {   38, "Ninetales", TYPE_FIRE, TYPECOUNT, 169, 190, 177, "Vulpix", NINETALES_ATTACKS, true, true, },
   {   38, "Alolan Ninetales", TYPE_ICE, TYPE_FAIRY, 170, 193, 177, "Alolan Vulpix", ALOLAN_NINETALES_ATTACKS, true, true, },
-  {   39, "Jigglypuff", TYPE_NORMAL, TYPE_FAIRY, 80, 41, 251, NULL, NULL, },
-  {   40, "Wigglytuff", TYPE_NORMAL, TYPE_FAIRY, 156, 90, 295, NULL, NULL, },
+  {   39, "Jigglypuff", TYPE_NORMAL, TYPE_FAIRY, 80, 41, 251, NULL, JIGGLYPUFF_ATTACKS, true, false, },
+  {   40, "Wigglytuff", TYPE_NORMAL, TYPE_FAIRY, 156, 90, 295, "Jigglypuff", WIGGLYTUFF_ATTACKS, true, false, },
   {   41, "Zubat", TYPE_POISON, TYPE_FLYING, 83, 73, 120, NULL, NULL, },
   {   42, "Golbat", TYPE_POISON, TYPE_FLYING, 161, 150, 181, NULL, NULL, },
   {   43, "Oddish", TYPE_GRASS, TYPE_POISON, 131, 112, 128, NULL, NULL, },
@@ -1442,7 +1478,7 @@ static const species sdex[] = {
   {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, NULL, },
   {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, NULL, NULL, },
   {  172, "Pichu", TYPE_ELECTRIC, TYPECOUNT, 77, 53, 85, NULL, NULL, },
-  {  173, "Cleffa", TYPE_FAIRY, TYPECOUNT, 75, 79, 137, NULL, NULL, },
+  {  173, "Cleffa", TYPE_FAIRY, TYPECOUNT, 75, 79, 137, NULL, CLEFFA_ATTACKS, true, false, },
   {  174, "Igglybuff", TYPE_NORMAL, TYPE_FAIRY, 69, 32, 207, NULL, NULL, },
   {  175, "Togepi", TYPE_FAIRY, TYPECOUNT, 67, 116, 111, NULL, NULL, },
   {  176, "Togetic", TYPE_FAIRY, TYPE_FLYING, 139, 181, 146, NULL, NULL, },
