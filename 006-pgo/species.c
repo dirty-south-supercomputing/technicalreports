@@ -50,7 +50,8 @@ print_species_latex(const species* s){
       printf("\\%%");
     }
   }
-  printf(",sidebyside,lower separated=false]\n");
+  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={\\hfill%u %u %u}]\n",
+      s->atk, s->def, s->sta);
   printf("\\includegraphics[width=1in,height=1in]{images/pokédex/");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
@@ -63,7 +64,6 @@ print_species_latex(const species* s){
   }else{
     printf("%s\\\\\n", TNames[s->t1]);
   }
-  printf("ATK: %u DEF: %u STA: %u\\\\\n", s->atk, s->def, s->sta);
   if(s->shiny){
     printf("Shiny form available\\\\\n");
   }
