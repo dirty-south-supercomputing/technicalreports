@@ -1,5 +1,6 @@
 #include "pgotypes.c"
 #include <math.h>
+#include <memory>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,7 +56,7 @@ choose2(int n){
 }
 
 static void
-copy_tvec(int tnew[], const int tvec[]){
+copy_tvec(int* tnew, const int tvec[]){
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     tnew[i] = tvec[i];
   }
@@ -106,28 +107,26 @@ print_coverset(const int tocc[], int v, const int tvec[][2]){
 // we are placing n 1s among the last m slots of tocc
 static int
 place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2]){
-  int *tcopy = malloc(sizeof(*tcopy) * TYPECOUNT);
-  copy_tvec(tcopy, tocc);
+  auto tcopy = std::make_unique<int[]>(TYPECOUNT);
+  copy_tvec(tcopy.get(), tocc);
   // base case m == 1
   if(m == 1){
     if(n){
       tcopy[TYPECOUNT - m] = 1;
     }
-    int r = print_coverset(tcopy, v, tvec);
-    free(tcopy);
+    int r = print_coverset(tcopy.get(), v, tvec);
     return r;
   }
   int ret = 0;
   // test with our bit off unless we must place this bit
   if(n < m){
-    ret += place_n_in_m(n, m - 1, tcopy, v, tvec);
+    ret += place_n_in_m(n, m - 1, tcopy.get(), v, tvec);
   }
   // test with our bit on if we have a bit to place
   if(n){
     tcopy[TYPECOUNT - m] = 1;
-    ret += place_n_in_m(n - 1, m - 1, tcopy, v, tvec);
+    ret += place_n_in_m(n - 1, m - 1, tcopy.get(), v, tvec);
   }
-  free(tcopy);
   return ret;
 }
 
@@ -222,8 +221,8 @@ static int
 typing_compare(const void* a, const void* b){
   float atot = 0;
   float btot = 0;
-  const typing* ta = a;
-  const typing* tb = b;
+  const typing* ta = static_cast<const typing*>(a);
+  const typing* tb = static_cast<const typing*>(b);
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     atot += typeeff_multiplier(ta->atypes[i]);
     btot += typeeff_multiplier(tb->atypes[i]);
@@ -237,9 +236,9 @@ typing_compare(const void* a, const void* b){
 }
 
 // create an array of TYPINGCOUNT typings, sorted by type resistance
-static typing* 
+static std::unique_ptr<typing[]>
 setup_typings(void){
-  typing* dtypes = malloc(sizeof(*dtypes) * TYPINGCOUNT);
+  auto dtypes = std::make_unique<typing[]>(TYPINGCOUNT);
   if(dtypes){
     int pos = 0;
     for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -430,10 +429,9 @@ int main(void){
   defensive_summaries(t);
   */
 
-  typing* t = setup_typings();
-  defensive_relations_latex(t);
-  qsort(t, TYPINGCOUNT, sizeof(*t), typing_compare);
-  defensive_summaries_latex(t);
-  free(t);
+  auto t = setup_typings();
+  defensive_relations_latex(t.get());
+  qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
+  defensive_summaries_latex(t.get());
   return EXIT_SUCCESS;
 }
