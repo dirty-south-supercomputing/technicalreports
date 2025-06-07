@@ -81,7 +81,11 @@ print_species_latex(const species* s){
     }
   }
   printf(".png}\n\\tcblower\n");
-  printf("\\hfill\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t1]);
+  printf("\\hfill");
+  if(s->shiny){
+    printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
+  }
+  printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t1]);
   if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
     printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t2]);
   }
@@ -93,9 +97,6 @@ print_species_latex(const species* s){
   }
   print_optimal_latex(s);
   printf("\\vfill\n");
-  if(s->shiny){
-    printf("Shiny form available\\\\\n");
-  }
   if(s->shadow){
     printf("Shadow form available\\\\\n");
   }
