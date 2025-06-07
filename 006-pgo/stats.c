@@ -1671,8 +1671,7 @@ int main(int argc, char **argv){
         fprintf(stderr, "no species named \"%s\", exiting\n", *argv);
         return EXIT_FAILURE;
       }
-      print_cp_bounded(s, 1500);
-      print_cp_bounded(s, 2500);
+      print_species(s);
     }
   }else{
     print_cpms();
