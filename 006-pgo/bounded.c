@@ -3,17 +3,16 @@
 #include <stdlib.h>
 
 // merge with print_cp_bounded(), ugh
-static int
-print_cp_bounded_latex(const species* s, int cpceil){
+static stats *
+find_optimal_set(const species* s, int cpceil){
   stats* optsets = NULL;
-  printf(" %d-bounded set for %s:\\\\\n", cpceil, s->name);
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
         if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
-          return -1;
+          return NULL;
         }
       }
     }
@@ -26,6 +25,7 @@ print_cp_bounded_latex(const species* s, int cpceil){
     stats* cur;
     cur = optsets;
     optsets = cur->next;
+    cur->s = s;
     //printf(" %u-%u-%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(cur->geommean > maxmean){ // new optimal
@@ -47,31 +47,47 @@ print_cp_bounded_latex(const species* s, int cpceil){
       free(cur);
     }
   }
-  stats* tmp;
-  while( (tmp = collectopt) ){
-    unsigned half;
-    unsigned l = halflevel_to_level(tmp->hlevel, &half);
-    printf("  %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\\\\\n",
-      tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
-      tmp->cp, tmp->effa, tmp->effd, tmp->mhp, tmp->geommean);
-    collectopt = tmp->next;
-    free(tmp);
-  }
-  return 0;
+  return collectopt;
 }
 
 void print_bounded_table(int bound){
-  printf("\\begin{longtable}{rrrrrrrrrr}\n");
-  printf("Species & Level & ATK & DEF & STA & IVs & $Eff_A$ & $Eff_D$ & $MHP$ & CP \\\\\n");
+  printf("\\begingroup\n");
+  printf("\\nohyphenation\n");
+  printf("\\setlength{\\tabcolsep}{1pt}\n");
+  printf("\\begin{longtable}{p{6em}m{3em}m{5em}m{3em}m{3em}m{3em}m{3em}m{3em}}\n");
+  printf("Species & L & IVs & MHP & $Eff_A$ & $Eff_D$ & $\\sqrt[3]{BP}$ & CP \\\\\n");
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
+  stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    // FIXME generate list
+    stats *s = find_optimal_set(&sdex[i], bound);
+    stats **prev = &sols;
+    stats *tmp;
+    while( (tmp = *prev) ){
+      if(s->geommean > tmp->geommean){
+        break;
+      }
+      prev = &tmp->next;
+    }
+    s->next = tmp;
+    *prev = s;
   }
-  // FIXME sort list
-  // FIXME print list
+  while(sols){
+    stats *tmp = sols;
+    unsigned half;
+    unsigned l = halflevel_to_level(tmp->hlevel, &half);
+    printf("%s & %2u%s & %u-%u-%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
+            tmp->s->name,
+            l, half ? ".5" : "",
+            tmp->ia, tmp->id, tmp->is,
+            tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
+            tmp->cp);
+    sols = sols->next;
+    free(tmp);
+  }
   printf("\\caption{Optimal solutions bounded by %d CP}\n", bound);
   printf("\\end{longtable}\n");
+  printf("\\endgroup\n");
 }
 
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations

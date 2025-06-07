@@ -1849,6 +1849,7 @@ static const species sdex[] = {
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
 
 typedef struct stats {
+  const species* s;
   unsigned atk, def, sta;   // base stats for the Form
   unsigned hlevel;          // halflevel 1..99
   unsigned ia, id, is;      // individual vector components
