@@ -409,8 +409,7 @@ attack_summaries(void){
 }
 
 int main(void){
-  /*
-  printf("Attack efficiencies\n");
+  /*printf("Attack efficiencies\n");
   printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     printf("%8s: ", tnames[i]);
@@ -425,13 +424,12 @@ int main(void){
   print_complete_coversets_duals();
   printf("\n");
 
-  attack_summaries();
-  defensive_summaries(t);
-  */
+  attack_summaries();*/
 
   auto t = setup_typings();
   defensive_relations_latex(t.get());
   qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
+  //defensive_summaries(t.get());
   defensive_summaries_latex(t.get());
   return EXIT_SUCCESS;
 }

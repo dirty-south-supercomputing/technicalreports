@@ -41,6 +41,28 @@ print_species(const species* s){
 }
 
 static void
+print_optimal_latex(const species* sp){
+  stats* s = find_optimal_set(sp, 2500, 0);
+  printf("OptCP2500: ");
+  while(s){
+    stats* tmp = s->next;
+    printf("%u-%u-%u@%u ", s->ia, s->id, s->is, s->hlevel);
+    free(s);
+    s = tmp;
+  }
+  printf("\\\\\n");
+  s = find_optimal_set(sp, 1500, 0);
+  printf("OptCP1500: ");
+  while(s){
+    stats* tmp = s->next;
+    printf("%u-%u-%u@%u ", s->ia, s->id, s->is, s->hlevel);
+    free(s);
+    s = tmp;
+  }
+  printf("\\\\\n");
+}
+
+static void
 print_species_latex(const species* s){
   printf("\\begin{tcolorbox}[title=");
   for(const char* curs = s->name ; *curs ; ++curs){
@@ -66,10 +88,10 @@ print_species_latex(const species* s){
   printf("\\\\\n");
   if(s->attacks){ // FIXME remove
     for(const attack** a = s->attacks ; *a ; ++a){
-      printf("%s\\\\\n", (*a)->name);
-      // FIXME list attacks
+      printf("%s\\\\\n", (*a)->name); // FIXME list attack details
     }
   }
+  print_optimal_latex(s);
   printf("\\vfill\n");
   if(s->shiny){
     printf("Shiny form available\\\\\n");
@@ -77,8 +99,6 @@ print_species_latex(const species* s){
   if(s->shadow){
     printf("Shadow form available\\\\\n");
   }
-  /*print_cp_bounded_latex(s, 1500);
-  print_cp_bounded_latex(s, 2500);*/
   printf("\\end{tcolorbox}\n");
 }
 
