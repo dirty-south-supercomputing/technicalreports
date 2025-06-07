@@ -824,6 +824,57 @@ static const attack* BLASTOISE_ATTACKS[] = {
   NULL
 };
 
+static const attack* CATERPIE_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Tackle,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* METAPOD_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Tackle,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* BUTTERFREE_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Confusion,
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  &ATK_Signal_Beam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* WEEDLE_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* KAKUNA_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* BEEDRILL_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Infestation,
+  &ATK_Aerial_Ace,
+  &ATK_Drill_Run,
+  &ATK_Sludge_Bomb,
+  &ATK_XScissor,
+  &ATK_Fell_Stinger,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -849,14 +900,14 @@ static const species sdex[] = {
   {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, NULL, SQUIRTLE_ATTACKS, true, },
   {    8, "Wartortle", TYPE_WATER, TYPECOUNT, 126, 155, 153, "Squirtle", WARTORTLE_ATTACKS, true, },
   {    9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATTACKS, true, },
-  {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, NULL, NULL, },
-  {   10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, NULL, NULL, },
-  {   11, "Metapod", TYPE_BUG, TYPECOUNT, 45, 80, 137, NULL, NULL, },
-  {   12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, NULL, NULL, },
-  {   13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, NULL, NULL, },
-  {   14, "Kakuna", TYPE_BUG, TYPE_POISON, 46, 75, 128, NULL, NULL, },
-  {   15, "Beedrill", TYPE_BUG, TYPE_POISON, 169, 130, 163, NULL, NULL, },
-  {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, NULL, NULL, },
+  {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, "Blastoise", BLASTOISE_ATTACKS, },
+  {   10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, NULL, CATERPIE_ATTACKS, true, },
+  {   11, "Metapod", TYPE_BUG, TYPECOUNT, 45, 80, 137, "Caterpie", METAPOD_ATTACKS, true, },
+  {   12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Metapod", BUTTERFREE_ATTACKS, true, },
+  {   13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, NULL, WEEDLE_ATTACKS, true, },
+  {   14, "Kakuna", TYPE_BUG, TYPE_POISON, 46, 75, 128, "Weedle", KAKUNA_ATTACKS, true, },
+  {   15, "Beedrill", TYPE_BUG, TYPE_POISON, 169, 130, 163, "Kakuna", BEEDRILL_ATTACKS, true, },
+  {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Mega Beedrill", BEEDRILL_ATTACKS, true, },
   {   16, "Pidgey", TYPE_NORMAL, TYPE_FLYING, 85, 73, 120, NULL, NULL, },
   {   17, "Pidgeotto", TYPE_NORMAL, TYPE_FLYING, 117, 105, 160, NULL, NULL, },
   {   18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, NULL, NULL, },
