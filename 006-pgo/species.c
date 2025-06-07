@@ -50,14 +50,14 @@ print_species_latex(const species* s){
       printf("\\%%");
     }
   }
-  printf("]\n");
+  printf(",sidebyside,lower separated=false]\n");
   printf("\\includegraphics[width=1in,height=1in]{images/pokédex/");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
     }
   }
-  printf(".png}\n");
+  printf(".png}\n\\tcblower\n");
   if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
     printf("%s+%s\\\\\n", TNames[s->t1], TNames[s->t2]);
   }else{
