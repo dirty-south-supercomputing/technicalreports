@@ -1966,3 +1966,55 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
   *prev = cur;
   return 0;
 }
+
+// returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
+// with a CP less than or equal to cpceil and greater than or equal to cpfloor.
+static stats *
+find_optimal_set(const species* s, int cpceil, int cpfloor){
+  stats* optsets = NULL;
+  for(int iva = 0 ; iva < 16 ; ++iva){
+    for(int ivd = 0 ; ivd < 16 ; ++ivd){
+      for(int ivs = 0 ; ivs < 16 ; ++ivs){
+        int cp;
+        unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
+        if(cp >= cpfloor){
+          if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
+            return NULL;
+          }
+        }
+      }
+    }
+  }
+  stats* collectopt = NULL;
+  stats** qopt = &collectopt;
+  float maxmean = -1;
+  // print the optimal frontier (large), and extract the truly optimal sets (small)
+  while(optsets){
+    stats* cur;
+    cur = optsets;
+    optsets = cur->next;
+    cur->s = s;
+    //printf(" %u-%u-%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
+    //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
+    if(cur->geommean > maxmean){ // new optimal
+      stats* c;
+      // clean out existing true optimals
+      while( (c = collectopt) ){
+        collectopt = c->next;
+        free(c);
+      }
+      collectopt = cur;
+      qopt = &cur->next;
+      cur->next = NULL;
+      maxmean = cur->geommean;
+    }else if(cur->geommean == maxmean){ // FIXME unsafe FP comparison
+      *qopt = cur;
+      qopt = &cur->next;
+      cur->next = NULL;
+    }else{
+      free(cur);
+    }
+  }
+  return collectopt;
+}
+
