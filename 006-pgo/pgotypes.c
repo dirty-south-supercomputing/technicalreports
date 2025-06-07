@@ -1133,6 +1133,78 @@ static const attack* NIDOKING_ATTACKS[] = {
   NULL
 };
 
+static const attack* CLEFAIRY_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Zen_Headbutt,
+  &ATK_Disarming_Voice,
+  &ATK_Moonblast,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* CLEFABLE_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Charm,
+  &ATK_Fairy_Wind,
+  &ATK_Draining_Kiss,
+  &ATK_Dazzling_Gleam,
+  &ATK_Moonblast,
+  &ATK_Psychic,
+  &ATK_Swift,
+  &ATK_Meteor_Mash,
+  NULL
+};
+
+static const attack* VULPIX_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Quick_Attack,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Body_Slam,
+  &ATK_Weather_Ball_Fire,
+  NULL
+};
+
+static const attack* ALOLAN_VULPIX_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Powder_Snow,
+  &ATK_Dark_Pulse,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Weather_Ball_Ice,
+  NULL
+};
+
+static const attack* NINETALES_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Feint_Attack,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Heat_Wave,
+  &ATK_Psyshock,
+  &ATK_Fire_Blast,
+  &ATK_Solar_Beam,
+  &ATK_Overheat,
+  &ATK_Weather_Ball_Fire,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* ALOLAN_NINETALES_ATTACKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Powder_Snow,
+  &ATK_Charm,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  &ATK_Weather_Ball_Ice,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1192,12 +1264,12 @@ static const species sdex[] = {
   {   32, "Nidoran♂", TYPE_POISON, TYPECOUNT, 105, 76, 130, NULL, NIDORANM_ATTACKS, true, true},
   {   33, "Nidorino", TYPE_POISON, TYPECOUNT, 137, 111, 156, "Nidoran♂", NIDORINO_ATTACKS, true, true, },
   {   34, "Nidoking", TYPE_POISON, TYPE_GROUND, 204, 156, 191, "Nidorino", NIDOKING_ATTACKS, true, true, },
-  {   35, "Clefairy", TYPE_FAIRY, TYPECOUNT, 107, 108, 172, NULL, NULL, },
-  {   36, "Clefable", TYPE_FAIRY, TYPECOUNT, 178, 162, 216, NULL, NULL, },
-  {   37, "Vulpix", TYPE_FIRE, TYPECOUNT, 96, 109, 116, NULL, NULL, },
-  {   37, "Alolan Vulpix", TYPE_ICE, TYPECOUNT, 96, 109, 116, NULL, NULL, },
-  {   38, "Ninetales", TYPE_FIRE, TYPECOUNT, 169, 190, 177, NULL, NULL, },
-  {   38, "Alolan Ninetales", TYPE_ICE, TYPE_FAIRY, 170, 193, 177, NULL, NULL, },
+  {   35, "Clefairy", TYPE_FAIRY, TYPECOUNT, 107, 108, 172, NULL, CLEFAIRY_ATTACKS, true, false, },
+  {   36, "Clefable", TYPE_FAIRY, TYPECOUNT, 178, 162, 216, "Clefairy", CLEFABLE_ATTACKS, true, false, },
+  {   37, "Vulpix", TYPE_FIRE, TYPECOUNT, 96, 109, 116, NULL, VULPIX_ATTACKS, true, true, },
+  {   37, "Alolan Vulpix", TYPE_ICE, TYPECOUNT, 96, 109, 116, NULL, ALOLAN_VULPIX_ATTACKS, true, true, },
+  {   38, "Ninetales", TYPE_FIRE, TYPECOUNT, 169, 190, 177, "Vulpix", NINETALES_ATTACKS, true, true, },
+  {   38, "Alolan Ninetales", TYPE_ICE, TYPE_FAIRY, 170, 193, 177, "Alolan Vulpix", ALOLAN_NINETALES_ATTACKS, true, true, },
   {   39, "Jigglypuff", TYPE_NORMAL, TYPE_FAIRY, 80, 41, 251, NULL, NULL, },
   {   40, "Wigglytuff", TYPE_NORMAL, TYPE_FAIRY, 156, 90, 295, NULL, NULL, },
   {   41, "Zubat", TYPE_POISON, TYPE_FLYING, 83, 73, 120, NULL, NULL, },
