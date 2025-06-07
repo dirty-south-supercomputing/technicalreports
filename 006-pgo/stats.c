@@ -1577,7 +1577,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
 static int
 print_cp_bounded(const species* s, int cpceil){
   stats* optsets = NULL;
-  printf("%d-bounded set for %s:\n", cpceil, s->name);
+  printf(" %d-bounded set for %s:\n", cpceil, s->name);
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
@@ -1623,7 +1623,7 @@ print_cp_bounded(const species* s, int cpceil){
   while( (tmp = collectopt) ){
     unsigned half;
     unsigned l = halflevel_to_level(tmp->hlevel, &half);
-    printf(" %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
+    printf("  %u-%u-%u: %2u%s %4u %.3f %.3f %u %.3f\n",
       tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
       tmp->cp, tmp->effa, tmp->effd, tmp->mhp, tmp->geommean);
     collectopt = tmp->next;
@@ -1645,20 +1645,20 @@ lookup_species(const char* name){
 static void
 print_species(const species* s){
   printf("%u %u %u %u %s", s->idx, s->atk, s->def, s->sta, tnames[s->t1]);
-  if(s->t2 != TYPECOUNT){
-    printf("+%s", tnames[s->t2]);
-  }
   printf(" %s\n", s->name);
   print_cp_bounded(s, 1500);
   print_cp_bounded(s, 2500);
 }
 
-// print those entries containing type
+// print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
+// pass the same type twice for only that base type.
 static void
-filter_by_type(int t){
+filter_by_types(int t1, int t2){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    if(sdex[i].t1 == t || sdex[i].t2 == t){
-      print_species(&sdex[i]);
+    if(sdex[i].t1 == t1){
+      if(sdex[i].t2 == t2 || t2 == TYPECOUNT || (t1 == t2 && sdex[i].t2 == TYPECOUNT)){
+        print_species(&sdex[i]);
+      }
     }
   }
 }
@@ -1677,8 +1677,14 @@ int main(int argc, char **argv){
   }else{
     print_cpms();
     for(int t = TYPESTART ; t < static_cast<int>(TYPECOUNT) ; ++t){
-      printf("%s:\n", tnames[t]);
-      filter_by_type(t);
+      for(int t2 = t ; t2 < static_cast<int>(TYPECOUNT) ; ++t2){
+        if(t2 == t){
+          printf("%s:\n", tnames[t]);
+        }else{
+          printf("%s+%s:\n", tnames[t], tnames[t2]);
+        }
+        filter_by_types(t, t2);
+      }
     }
   }
   return EXIT_SUCCESS;
