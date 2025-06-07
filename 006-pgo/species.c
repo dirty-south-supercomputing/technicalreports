@@ -63,7 +63,10 @@ print_species_latex(const species* s){
   }else{
     printf("%s\\\\\n", TNames[s->t1]);
   }
-  printf("ATK: %u DEF: %u STA: %u\n", s->atk, s->def, s->sta);
+  printf("ATK: %u DEF: %u STA: %u\\\\\n", s->atk, s->def, s->sta);
+  if(s->shiny){
+    printf("Shiny form available\\\\\n");
+  }
   /*print_cp_bounded_latex(s, 1500);
   print_cp_bounded_latex(s, 2500);*/
   printf("\\end{tcolorbox}\n");

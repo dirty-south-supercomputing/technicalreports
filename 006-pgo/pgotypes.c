@@ -794,6 +794,36 @@ static const attack* CHARIZARD_ATTACKS[] = {
   NULL
 };
 
+static const attack* SQUIRTLE_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Bubble,
+  &ATK_Aqua_Jet,
+  &ATK_Aqua_Tail,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* WARTORTLE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Aqua_Jet,
+  &ATK_Hydro_Pump,
+  NULL
+};
+
+static const attack* BLASTOISE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Rollout,
+  &ATK_Flash_Cannon,
+  &ATK_Ice_Beam,
+  &ATK_Hydro_Pump,
+  &ATK_Hydro_Cannon,
+  &ATK_Skull_Bash,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -803,21 +833,22 @@ typedef struct species {
   unsigned sta;
   const char *from;    // from what does it evolve? NULL for nothing
   const attack** attacks;  // array of attack indices this form can learn
+  bool shiny;         // is there a shiny form?
 } species;
 
 static const species sdex[] = {
-  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, NULL, BULBASAUR_ATTACKS, },
-  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155, "Bulbasaur", IVYSAUR_ATTACKS, },
-  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, },
-  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, },
-  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, },
-  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander", CHARMELEON_ATTACKS, },
-  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATTACKS, },
-  {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, NULL, NULL, },
-  {    6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, NULL, NULL, },
-  {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, NULL, NULL, },
-  {    8, "Wartortle", TYPE_WATER, TYPECOUNT, 126, 155, 153, NULL, NULL, },
-  {    9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, NULL, },
+  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, NULL, BULBASAUR_ATTACKS, true, },
+  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155, "Bulbasaur", IVYSAUR_ATTACKS, true, },
+  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, true, },
+  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, true, },
+  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, true, },
+  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander", CHARMELEON_ATTACKS, true, },
+  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATTACKS, true, },
+  {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, "Charizard", CHARIZARD_ATTACKS, true, },
+  {    6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, "Charizard", CHARIZARD_ATTACKS, true, },
+  {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, NULL, SQUIRTLE_ATTACKS, true, },
+  {    8, "Wartortle", TYPE_WATER, TYPECOUNT, 126, 155, 153, "Squirtle", WARTORTLE_ATTACKS, true, },
+  {    9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATTACKS, true, },
   {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, NULL, NULL, },
   {   10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, NULL, NULL, },
   {   11, "Metapod", TYPE_BUG, TYPECOUNT, 45, 80, 137, NULL, NULL, },
