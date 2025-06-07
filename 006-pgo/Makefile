@@ -18,9 +18,11 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 UPSTREAM:=$(addsuffix .csv, moves)
 CHARGED:=chargedattacks
 FAST:=fastattacks
-TYPES:=out/types
-STATS:=out/stats
-GENTEX:=out/dualtypes.tex
+TYPES:=out/dualtypes
+STATS:=out/species
+DUALTYPES:=out/dualtypes.tex
+SPECIES:=out/species.tex
+GENTEX:=$(DUALTYPES) $(SPECIES)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -41,15 +43,11 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
-$(GENTEX): $(TYPES) $(STATS)
+$(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)
-	$(TYPES) > $@
+	$(<) > $@
 
-$(TYPES): types.c pgotypes.c
-	@mkdir -p $(@D)
-	g++ -o $@ -Wall -W -O2 $(<F) -lm
-
-$(STATS): stats.c pgotypes.c
+$(OUT)/%: %.c pgotypes.c
 	@mkdir -p $(@D)
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
