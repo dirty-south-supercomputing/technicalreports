@@ -905,6 +905,42 @@ static const attack* PIDGEOT_ATTACKS[] = {
   NULL
 };
 
+static const attack* RATTATA_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Tackle,
+  &ATK_Dig,
+  &ATK_Hyper_Fang,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* ALOLAN_RATTATA_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Tackle,
+  &ATK_Shadow_Ball,
+  &ATK_Hyper_Fang,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* RATICATE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Quick_Attack,
+  &ATK_Hyper_Beam,
+  &ATK_Dig,
+  &ATK_Hyper_Fang,
+  NULL
+};
+
+static const attack* ALOLAN_RATICATE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Quick_Attack,
+  &ATK_Hyper_Beam,
+  &ATK_Hyper_Fang,
+  &ATK_Crunch,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -915,37 +951,38 @@ typedef struct species {
   const char *from;    // from what does it evolve? NULL for nothing
   const attack** attacks;  // array of attack indices this form can learn
   bool shiny;         // is there a shiny form?
+  bool shadow;        // is there a shadow form?
 } species;
 
 static const species sdex[] = {
-  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, NULL, BULBASAUR_ATTACKS, true, },
-  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155, "Bulbasaur", IVYSAUR_ATTACKS, true, },
-  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, true, },
-  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, true, },
-  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, true, },
-  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander", CHARMELEON_ATTACKS, true, },
-  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATTACKS, true, },
-  {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, "Charizard", CHARIZARD_ATTACKS, true, },
-  {    6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, "Charizard", CHARIZARD_ATTACKS, true, },
-  {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, NULL, SQUIRTLE_ATTACKS, true, },
-  {    8, "Wartortle", TYPE_WATER, TYPECOUNT, 126, 155, 153, "Squirtle", WARTORTLE_ATTACKS, true, },
-  {    9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATTACKS, true, },
-  {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, "Blastoise", BLASTOISE_ATTACKS, },
-  {   10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, NULL, CATERPIE_ATTACKS, true, },
-  {   11, "Metapod", TYPE_BUG, TYPECOUNT, 45, 80, 137, "Caterpie", METAPOD_ATTACKS, true, },
-  {   12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Metapod", BUTTERFREE_ATTACKS, true, },
-  {   13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, NULL, WEEDLE_ATTACKS, true, },
-  {   14, "Kakuna", TYPE_BUG, TYPE_POISON, 46, 75, 128, "Weedle", KAKUNA_ATTACKS, true, },
-  {   15, "Beedrill", TYPE_BUG, TYPE_POISON, 169, 130, 163, "Kakuna", BEEDRILL_ATTACKS, true, },
-  {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Mega Beedrill", BEEDRILL_ATTACKS, true, },
-  {   16, "Pidgey", TYPE_NORMAL, TYPE_FLYING, 85, 73, 120, NULL, PIDGEY_ATTACKS, true, },
-  {   17, "Pidgeotto", TYPE_NORMAL, TYPE_FLYING, 117, 105, 160, "Pidgey", PIDGEOTTO_ATTACKS, true, },
-  {   18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, "Pidgeotto", PIDGEOT_ATTACKS, true, },
-  {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, },
-  {   19, "Rattata", TYPE_NORMAL, TYPECOUNT, 103, 70, 102, NULL, NULL, },
-  {   19, "Alolan Rattata", TYPE_DARK, TYPE_NORMAL, 103, 70, 102, NULL, NULL, },
-  {   20, "Raticate", TYPE_NORMAL, TYPECOUNT, 161, 139, 146, NULL, NULL, },
-  {   20, "Alolan Raticate", TYPE_DARK, TYPE_NORMAL, 135, 154, 181, NULL, NULL, },
+  {    1, "Bulbasaur", TYPE_GRASS, TYPE_POISON, 118, 111, 128, NULL, BULBASAUR_ATTACKS, true, true, },
+  {    2, "Ivysaur", TYPE_GRASS, TYPE_POISON, 151, 143, 155, "Bulbasaur", IVYSAUR_ATTACKS, true, true, },
+  {    3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATTACKS, true, true, },
+  {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATTACKS, true, false, },
+  {    4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CHARMANDER_ATTACKS, true, false, },
+  {    5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander", CHARMELEON_ATTACKS, true, false, },
+  {    6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATTACKS, true, false, },
+  {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, "Charizard", CHARIZARD_ATTACKS, true, false, },
+  {    6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, "Charizard", CHARIZARD_ATTACKS, true, false, },
+  {    7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, NULL, SQUIRTLE_ATTACKS, true, true, },
+  {    8, "Wartortle", TYPE_WATER, TYPECOUNT, 126, 155, 153, "Squirtle", WARTORTLE_ATTACKS, true, true, },
+  {    9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATTACKS, true, true, },
+  {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, "Blastoise", BLASTOISE_ATTACKS, true, false, },
+  {   10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, NULL, CATERPIE_ATTACKS, true, true, },
+  {   11, "Metapod", TYPE_BUG, TYPECOUNT, 45, 80, 137, "Caterpie", METAPOD_ATTACKS, true, true, },
+  {   12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Metapod", BUTTERFREE_ATTACKS, true, true, },
+  {   13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, NULL, WEEDLE_ATTACKS, true, true, },
+  {   14, "Kakuna", TYPE_BUG, TYPE_POISON, 46, 75, 128, "Weedle", KAKUNA_ATTACKS, true, true, },
+  {   15, "Beedrill", TYPE_BUG, TYPE_POISON, 169, 130, 163, "Kakuna", BEEDRILL_ATTACKS, true, true, },
+  {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Mega Beedrill", BEEDRILL_ATTACKS, true, false, },
+  {   16, "Pidgey", TYPE_NORMAL, TYPE_FLYING, 85, 73, 120, NULL, PIDGEY_ATTACKS, true, true, },
+  {   17, "Pidgeotto", TYPE_NORMAL, TYPE_FLYING, 117, 105, 160, "Pidgey", PIDGEOTTO_ATTACKS, true, true, },
+  {   18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, "Pidgeotto", PIDGEOT_ATTACKS, true, true, },
+  {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, false, },
+  {   19, "Rattata", TYPE_NORMAL, TYPECOUNT, 103, 70, 102, NULL, RATTATA_ATTACKS, true, true, },
+  {   19, "Alolan Rattata", TYPE_DARK, TYPE_NORMAL, 103, 70, 102, NULL, ALOLAN_RATTATA_ATTACKS, true, true, },
+  {   20, "Raticate", TYPE_NORMAL, TYPECOUNT, 161, 139, 146, "Rattata", RATICATE_ATTACKS, true, true, },
+  {   20, "Alolan Raticate", TYPE_DARK, TYPE_NORMAL, 135, 154, 181, "Alolan Rattata", ALOLAN_RATICATE_ATTACKS, true, true, },
   {   21, "Spearow", TYPE_NORMAL, TYPE_FLYING, 112, 60, 120, NULL, NULL, },
   {   22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, NULL, NULL, },
   {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, NULL, },

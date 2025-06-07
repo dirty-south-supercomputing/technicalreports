@@ -63,10 +63,19 @@ print_species_latex(const species* s){
   if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
     printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t2]);
   }
-  // FIXME list attacks
+  printf("\\\\\n");
+  if(s->attacks){ // FIXME remove
+    for(const attack** a = s->attacks ; *a ; ++a){
+      printf("%s\\\\\n", (*a)->name);
+      // FIXME list attacks
+    }
+  }
   printf("\\vfill\n");
   if(s->shiny){
     printf("Shiny form available\\\\\n");
+  }
+  if(s->shadow){
+    printf("Shadow form available\\\\\n");
   }
   /*print_cp_bounded_latex(s, 1500);
   print_cp_bounded_latex(s, 2500);*/
