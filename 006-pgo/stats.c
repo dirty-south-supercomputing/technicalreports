@@ -1,4 +1,6 @@
 #include "pgotypes.c"
+#include <memory>
+#include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1553,9 +1555,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
       prev = &cur->next;
     }
   }
-  if((cur = malloc(sizeof(*cur))) == NULL){
-    return -1;
-  }
+  cur = new(stats);
   cur->atk = s->atk;
   cur->def = s->def;
   cur->sta = s->sta;
@@ -1632,21 +1632,6 @@ print_cp_bounded(const species* s, int cpceil){
   return 0;
 }
 
-static const attack*
-lookup_attack(const char* name){
-  for(unsigned i = 0 ; i < sizeof(attacks) / sizeof(*attacks) ; ++i){
-    if(strcasecmp(attacks[i].name, name) == 0){
-      return &attacks[i];
-    }
-  }
-  return NULL;
-}
-
-static unsigned
-attack_idx(const attack* a){
-  return a - attacks;
-}
-
 static const species*
 lookup_species(const char* name){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
@@ -1670,7 +1655,7 @@ print_species(const species* s){
 
 // print those entries containing type
 static void
-filter_by_type(pgo_types_e t){
+filter_by_type(int t){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     if(sdex[i].t1 == t || sdex[i].t2 == t){
       print_species(&sdex[i]);
@@ -1678,63 +1663,7 @@ filter_by_type(pgo_types_e t){
   }
 }
 
-// create array on bijection with species, containing arrays of looked up attacks
-static unsigned **
-associate_attacks(void){
-  unsigned **attack_idxs;
-  if((attack_idxs = malloc(SPECIESCOUNT * sizeof(*attack_idxs))) == NULL){
-    return NULL;
-  }
-  unsigned i;
-  for(i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species* s = &sdex[i];
-    printf("attacks for %s: %p ", s->name, s->attacks);
-    attack_idxs[i] = NULL;
-    unsigned acount = 0;
-    if(s->attacks){ // FIXME kill
-      for(const char * const *anames = s->attacks ; *anames ; ++anames){
-        const char* aname = *anames;
-        const attack* a = lookup_attack(aname);
-        if(!a){
-          fprintf(stderr, "invalid attack '%s'\n", aname);
-          goto err;
-        }
-        ++acount;
-        unsigned* tmp = realloc(attack_idxs[i], sizeof(*attack_idxs) * acount);
-        if(tmp == NULL){
-          goto err;
-        }
-        attack_idxs[i] = tmp;
-        tmp[acount - 1] = attack_idx(a);
-      }
-    }
-    printf("\n");
-  }
-  return attack_idxs;
-
-err:
-  do{
-    free(attack_idxs[i]);
-  }while(i--);
-  free(attack_idxs);
-  return NULL;
-}
-
-static void
-free_aidxs(unsigned **aidxs, unsigned n){
-  if(aidxs){
-    while(--n){
-      free(aidxs[n]);
-    }
-    free(aidxs);
-  }
-}
-
 int main(int argc, char **argv){
-  unsigned **aidxs;
-  if((aidxs = associate_attacks()) == NULL){
-    return EXIT_FAILURE;
-  }
   if(argc > 1){
     while(*++argv){
       const species *s = lookup_species(*argv);
@@ -1747,11 +1676,10 @@ int main(int argc, char **argv){
     }
   }else{
     print_cpms();
-    for(int t = 0 ; t < TYPECOUNT ; ++t){
+    for(int t = TYPESTART ; t < static_cast<int>(TYPECOUNT) ; ++t){
       printf("%s:\n", tnames[t]);
       filter_by_type(t);
     }
   }
-  free_aidxs(aidxs, SPECIESCOUNT);
   return EXIT_SUCCESS;
 }

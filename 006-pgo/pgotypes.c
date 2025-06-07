@@ -1,6 +1,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define TYPESTART TYPE_BUG
+
 typedef enum {
   TYPE_BUG,
   TYPE_DARK,
