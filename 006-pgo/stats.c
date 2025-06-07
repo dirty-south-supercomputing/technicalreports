@@ -616,64 +616,64 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
-static const char* BULBASAUR_ATTACKS[] = {
-  "Vine Whip",
-  "Tackle",
-  "Seed Bomb",
-  "Sludge Bomb",
-  "Power Whip",
+static const attack* BULBASAUR_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Tackle,
+  &ATK_Seed_Bomb,
+  &ATK_Sludge_Bomb,
+  &ATK_Power_Whip,
   NULL
 };
 
-static const char* IVYSAUR_ATTACKS[] = {
-  "Vine Whip",
-  "Razor Leaf",
-  "Sludge Bomb",
-  "Solar Beam",
-  "Power Whip",
+static const attack* IVYSAUR_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Razor_Leaf,
+  &ATK_Sludge_Bomb,
+  &ATK_Solar_Beam,
+  &ATK_Power_Whip,
   NULL
 };
 
-static const char* VENUSAUR_ATTACKS[] = {
-  "Vine Whip",
-  "Razor Leaf",
-  "Petal Blizzard",
-  "Sludge Bomb",
-  "Solar Beam",
-  "Frenzy Plant",
+static const attack* VENUSAUR_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Razor_Leaf,
+  &ATK_Petal_Blizzard,
+  &ATK_Sludge_Bomb,
+  &ATK_Solar_Beam,
+  &ATK_Frenzy_Plant,
   NULL
 };
 
-static const char* CHARMANDER_ATTACKS[] = {
-  "Ember",
-  "Scratch",
-  "Flamethrower",
-  "Flame Charge",
-  "Flame Burst",
+static const attack* CHARMANDER_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Flame_Burst,
   NULL
 };
 
-static const char* CHARMELEON_ATTACKS[] = {
-  "Ember",
-  "Scratch",
-  "Fire Fang",
-  "Flamethrower",
-  "Flame Burst",
-  "Fire Punch",
+static const attack* CHARMELEON_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Fire_Fang,
+  &ATK_Flamethrower,
+  &ATK_Flame_Burst,
+  &ATK_Fire_Punch,
   NULL
 };
 
-static const char* CHARIZARD_ATTACKS[] = {
-  "Dragon Breath",
-  "Ember",
-  "Wing Attack",
-  "Air Slash",
-  "Fire Spin",
-  "Flamethrower",
-  "Dragon Claw",
-  "Fire Blast",
-  "Overheat",
-  "Blast Burn",
+static const attack* CHARIZARD_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Ember,
+  &ATK_Wing_Attack,
+  &ATK_Air_Slash,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Dragon_Claw,
+  &ATK_Fire_Blast,
+  &ATK_Overheat,
+  &ATK_Blast_Burn,
   NULL
 };
 
@@ -685,7 +685,7 @@ typedef struct species {
   unsigned def;
   unsigned sta;
   const char *from;    // from what does it evolve? NULL for nothing
-  const char * const * attacks;  // array of attack indices this form can learn
+  const attack** attacks;  // array of attack indices this form can learn
 } species;
 
 static const species sdex[] = {
