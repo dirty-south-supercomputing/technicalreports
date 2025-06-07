@@ -1011,6 +1011,19 @@ static const attack* RAICHU_ATTACKS[] = {
   NULL
 };
 
+static const attack* ALOLAN_RAICHU_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Volt_Switch,
+  &ATK_Thunder_Punch,
+  &ATK_Psychic,
+  &ATK_Wild_Charge,
+  &ATK_Grass_Knot,
+  &ATK_Surf,
+  &ATK_Trailblaze,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1057,9 +1070,9 @@ static const species sdex[] = {
   {   22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, "Spearow", FEAROW_ATTACKS, true, false, },
   {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, EKANS_ATTACKS, true, true, },
   {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, "Ekans", ARBOK_ATTACKS, true, true, },
-  {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, PIKACHU_ATTACKS, true, },
+  {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, PIKACHU_ATTACKS, true, false, },
   {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu", RAICHU_ATTACKS, true, },
-  {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, NULL, },
+  {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, ALOLAN_RAICHU_ATTACKS, true, false},
   {   27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, NULL, NULL, },
   {   27, "Alolan Sandshrew", TYPE_ICE, TYPE_STEEL, 125, 129, 137, NULL, NULL, },
   {   28, "Sandslash", TYPE_GROUND, TYPECOUNT, 182, 175, 181, NULL, NULL, },
