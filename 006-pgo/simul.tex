@@ -1,19 +1,18 @@
 \chapter{Simulation}
 \label{chap:simul}
 
-It is not believed that simple closed form solutions exist describing
+It is unlikely that simple closed form solutions exist describing
  the set of reasonable games between two arbitrary opponents (see \autoref{chap:unbounded}),
  let alone two teams.
 For the highest level of predictive power, we must turn to machine-aided simulation.
 Here we are lucky, for unlike most contests, Pokémon GO is concretely finite and discrete.
 Its time evolves in half-second turns, each of which presents a small number of choices
   to both Trainers.
-The use of random numbers is furthermore minimal.
+The use of random numbers is minimal.
 Finally, it never diverges, instead advancing always towards a conclusion\footnote{There
-  is an exception to convergence: both Trainers choosing to do nothing or use
-  zero power fast attacks despite full energy. Continuously choosing either
-  is pathological, so we simply dismiss all choice pairs that change no state,
-  neatly sidestepping this issue.}.
+  is an exception to convergence: both Trainers continuously choosing to do nothing (remember,
+  even zero power attacks do one point of damage). This is pathological, and we
+  simply dismiss all choice pairs that change no state beyond the clock, neatly sidestepping this issue.}.
 It is thus feasible to exhaustively simulate matches.
 A naive but still viable solution is to begin at the first turn, generate the set
   of possible choices for both Trainers, and recurse on each one, performing
@@ -92,8 +91,10 @@ This is bounded by $T_{max}$ turns.
 \[ T_{max} = \lceil\frac{HP_1}{D_2 * T_2}\rceil + \lceil\frac{HP_2}{D_1 * T_1}\rceil \]
 
 $D$ is the damage inflicted per fast attack, and $T$ is the number of turns per fast attack.
+This equation is well-defined for all attacks, since damage (unlike power,
+  which can be zero) is always at least 1.
 So, knowing $T_{max}$, we can determine those cases where no charged attack
-  can be used: whenever $T_{max} * E_{fast} < E_{charged}$ for both Pokémon.
+  can be used: whenever $T_{max} * E_{fast} + E_{current} < E_{charged}$ for both Pokémon.
 In this case, we can easily construct a closed form for the number of wins
   possible for each Trainer, and evaluate it in constant time, eliding
   a large tree of explicit (stateful) simulation.
