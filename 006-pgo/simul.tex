@@ -18,9 +18,9 @@ A naive but still viable solution is to begin at the first turn, generate the se
   of possible choices for both Trainers, and recurse on each one, performing
   a depth-first generation of the game tree.
 When done, we'll know how each choice affects the universe of possible outcomes,
-  and how the teams would fare under random Trainers.
-Let's examine the computational requirements.
+  and how the teams ought fare for random choices.
 
+Let's examine the computational requirements.
 What choices are available on a given turn?
 If either Trainer has no Pokémon remaining, the match is over, and no choice
   need be made---we have our result, and can begin rolling up our recursion.
@@ -62,6 +62,7 @@ These changes are infrequent, so rather than duplicating the stats in
 In many matches, there will be no such changes, and we'll require
   only constant state.
 
+\section{Closed form of the endgame}
 Game simulation is friendly to the technique of memoization, i.e.\ storing
   and recognizing equivalent game states.
 The easiest place to apply this is the endgame.
@@ -94,7 +95,32 @@ $D$ is the damage inflicted per fast attack, and $T$ is the number of turns per 
 This equation is well-defined for all attacks, since damage (unlike power,
   which can be zero) is always at least 1.
 So, knowing $T_{max}$, we can determine those cases where no charged attack
-  can be used: whenever $T_{max} * E_{fast} + E_{current} < E_{charged}$ for both Pokémon.
+  can be used: whenever $T_{max} * EPT + E_{current} < E_{charged}$ for both Pokémon.
 In this case, we can easily construct a closed form for the number of wins
   possible for each Trainer, and evaluate it in constant time, eliding
   a large tree of explicit (stateful) simulation.
+The outputs ought be the same as our general problem: the number of paths
+  concluding in a victory for Trainer 1, the number concluding in victory for
+  Trainer 2, and the number concluding in a tie.
+We ought be able to check this closed form with our simulation infrastructure,
+  since recognizing and calculating the form adds complexity to
+  already necessary code.
+
+A tie requires that both Pokémon are reduced to 0 HP on the same turn.
+This is the set of paths where each Pokémon launches exactly $\lceil\frac{HP}{D}\rceil$
+  attacks, and the final damages are inflicted on the same turn.
+Otherwise, all paths where a Trainer inflicts $\lceil\frac{HP}{D}\rceil$ fast attacks
+  represent a victory for that Trainer.
+\textbf{so construct it then...}
+
+\section{Solving Pokémon PvP}
+If there exists a subgraph including the root of the game tree such that at each
+  node it includes all choices from Trainer $A$ for at least one choice from Trainer $B$
+  (Trainer $B$'s choice can of course be different at different states), and all
+  paths terminate in victory for Trainer $A$, Trainer $A$'s team can be considered
+  to \textit{dominate} the team of $B$---assuming perfect play from $A$ (defined
+  as a path in such a subgraph), $B$ is condemned to lose, no matter their choices.
+We consider finding such a team $A$ to be a ``solution'' for the problem presented
+  by team $B$.
+Does there exist a team that dominates all possible teams?
+Almost certainly not \textbf{why?}.
