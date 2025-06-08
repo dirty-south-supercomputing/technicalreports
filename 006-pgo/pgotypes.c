@@ -1241,6 +1241,37 @@ static const attack* WIGGLYTUFF_ATTACKS[] = {
   NULL
 };
 
+static const attack* ZUBAT_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Quick_Attack,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Bomb,
+  &ATK_Air_Cutter,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* GOLBAT_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Wing_Attack,
+  &ATK_Poison_Fang,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* CROBAT_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Air_Slash,
+  &ATK_Poison_Fang,
+  &ATK_Shadow_Ball,
+  &ATK_Cross_Poison,
+  &ATK_Sludge_Bomb,
+  &ATK_Air_Cutter,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -1308,8 +1339,8 @@ static const species sdex[] = {
   {   38, "Alolan Ninetales", TYPE_ICE, TYPE_FAIRY, 170, 193, 177, "Alolan Vulpix", ALOLAN_NINETALES_ATTACKS, true, true, },
   {   39, "Jigglypuff", TYPE_NORMAL, TYPE_FAIRY, 80, 41, 251, NULL, JIGGLYPUFF_ATTACKS, true, false, },
   {   40, "Wigglytuff", TYPE_NORMAL, TYPE_FAIRY, 156, 90, 295, "Jigglypuff", WIGGLYTUFF_ATTACKS, true, false, },
-  {   41, "Zubat", TYPE_POISON, TYPE_FLYING, 83, 73, 120, NULL, NULL, },
-  {   42, "Golbat", TYPE_POISON, TYPE_FLYING, 161, 150, 181, NULL, NULL, },
+  {   41, "Zubat", TYPE_POISON, TYPE_FLYING, 83, 73, 120, NULL, ZUBAT_ATTACKS, true, true, },
+  {   42, "Golbat", TYPE_POISON, TYPE_FLYING, 161, 150, 181, "Zubat", GOLBAT_ATTACKS, true, true, },
   {   43, "Oddish", TYPE_GRASS, TYPE_POISON, 131, 112, 128, NULL, NULL, },
   {   44, "Gloom", TYPE_GRASS, TYPE_POISON, 153, 136, 155, NULL, NULL, },
   {   45, "Vileplume", TYPE_GRASS, TYPE_POISON, 202, 167, 181, NULL, NULL, },
@@ -1474,7 +1505,7 @@ static const species sdex[] = {
   {  166, "Ledian", TYPE_BUG, TYPE_FLYING, 107, 179, 146, NULL, NULL, },
   {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, NULL, NULL, },
   {  168, "Ariados", TYPE_BUG, TYPE_POISON, 161, 124, 172, NULL, NULL, },
-  {  169, "Crobat", TYPE_POISON, TYPE_FLYING, 194, 178, 198, NULL, NULL, },
+  {  169, "Crobat", TYPE_POISON, TYPE_FLYING, 194, 178, 198, "Golbat", CROBAT_ATTACKS, true, true, },
   {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, NULL, },
   {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, NULL, NULL, },
   {  172, "Pichu", TYPE_ELECTRIC, TYPECOUNT, 77, 53, 85, NULL, NULL, },
