@@ -2449,8 +2449,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
 
 // returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
 // with a CP less than or equal to cpceil and greater than or equal to cpfloor.
-static stats *
-find_optimal_set(const species* s, int cpceil, int cpfloor){
+stats *find_optimal_set(const species* s, int cpceil, int cpfloor){
   stats* optsets = NULL;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){

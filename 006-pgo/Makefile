@@ -16,14 +16,16 @@ PDFVIEW:=evince
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 
 UPSTREAM:=$(addsuffix .csv, moves)
-CHARGED:=chargedattacks
-FAST:=fastattacks
+FATTACKS:=out/fastattacks
+CATTACKS:=out/chargedattacks
 TYPES:=out/dualtypes
 STATS:=out/species
+FATTACKTEX:=out/fastattacks.tex
+CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
 SPECIES:=out/species.tex
 BOUNDED:=out/bounded.tex
-GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED)
+GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED) $(FATTACKTEX) $(CATTACKTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -53,7 +55,7 @@ $(OUT)/%: %.c pgotypes.c
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(TYPES) $(GENTEX)
+	@rm -vrf $(TYPES) $(GENTEX) $(STATS) $(FATTACKS) $(CATTACKS)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
