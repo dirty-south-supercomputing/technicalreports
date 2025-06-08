@@ -12,7 +12,7 @@ The use of random numbers is minimal.
 Finally, it never diverges, instead advancing always towards a conclusion\footnote{There
   is an exception to convergence: both Trainers continuously choosing to do nothing (remember,
   even zero power attacks do one point of damage). This is pathological, and we
-  simply dismiss all choice pairs that change no state beyond the clock, neatly sidestepping this issue.}.
+  simply dismiss all choice-pairs that change no state beyond the clock, neatly sidestepping this issue.}.
 It is thus feasible to exhaustively simulate matches.
 A naive but still viable solution is to begin at the first turn, generate the set
   of possible choices for both Trainers, and recurse on each one, performing
@@ -38,10 +38,10 @@ Each option must be pursued for an exhaustive search.
 In the best case, no choices are available, and the turn is handled in constant
   time and space.
 In the worst case, each Trainer has four options, for a Cartesian product
-  of sixteen choice-pairs.
+  of sixteen choicepairs.
 The growth is clearly exponential, and continuous realization of either the
-  best case or the worst case is vanishingly rare.
-In truth, there will most often be two or three available choices for each Trainer,
+  best case or worst case is vanishingly rare.
+There will most often be two or three available choices for each Trainer,
   for a product of about eight.
 Nonetheless, we require $16^n$ time and space for $n$ turns in the worse case.
 One might argue that certain choices are obviously inferior, and would not be taken
@@ -78,7 +78,7 @@ This restriction means we can ignore shields, as they're only relevant
   when charged attacks are used.
 How do we put an upper bound on turns?
 Remember that we don't consider rounds which effect no change in state.
-There are thus five possible choice pairs:
+There are thus five possible choice-pairs:
   { ongoing, ongoing },
   { ongoing, noop },
   { noop, ongoing },
