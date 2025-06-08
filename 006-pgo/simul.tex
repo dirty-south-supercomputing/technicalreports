@@ -9,6 +9,91 @@ Here we are lucky, for unlike most contests, Pokémon GO is concretely finite an
 Its time evolves in half-second turns, each of which presents a small number of choices
   to both Trainers.
 The use of random numbers is furthermore minimal.
-Finally, it never diverges, instead advancing always towards a conclusion.
-It is thus feasible to exhaustively simulate matches, examining every possible choice
-  a Trainer might make, and the results.
+Finally, it never diverges, instead advancing always towards a conclusion\footnote{There
+  is an exception to convergence: both Trainers choosing to do nothing or use
+  zero power fast attacks despite full energy. Continuously choosing either
+  is pathological, so we simply dismiss all choice pairs that change no state,
+  neatly sidestepping this issue.}.
+It is thus feasible to exhaustively simulate matches.
+A naive but still viable solution is to begin at the first turn, generate the set
+  of possible choices for both Trainers, and recurse on each one, performing
+  a depth-first generation of the game tree.
+When done, we'll know how each choice affects the universe of possible outcomes,
+  and how the teams would fare under random Trainers.
+Let's examine the computational requirements.
+
+What choices are available on a given turn?
+If either Trainer has no Pokémon remaining, the match is over, and no choice
+  need be made---we have our result, and can begin rolling up our recursion.
+A Trainer otherwise has between one and three Pokémon, one of which is active
+  in the arena.
+If the active Pokémon is in the middle of a multiturn fast attack, the
+  Trainer has no choice to make.
+Otherwise, if more than one Pokémon is present, and the substitution timer is
+  inactive, the Trainer may call for a substitution.
+If there is sufficient energy, the Trainer may call for a charged attack.
+In the case of a charged attack, the defending Trainer can opt to use a Defense
+  Shield (if any remain).
+The Trainer can call for a fast attack, or do nothing for the turn.
+Each option must be pursued for an exhaustive search.
+In the best case, no choices are available, and the turn is handled in constant
+  time and space.
+In the worst case, each Trainer has four options, for a Cartesian product
+  of sixteen choice-pairs.
+The growth is clearly exponential, and continuous realization of either the
+  best case or the worst case is vanishingly rare.
+In truth, there will most often be two or three available choices for each Trainer,
+  for a product of about eight.
+Nonetheless, we require $16^n$ time and space for $n$ turns in the worse case.
+One might argue that certain choices are obviously inferior, and would not be taken
+  by a reasonable player.
+We simulate them anyway, both for simplicity (we'd otherwise need logic to
+  detect such choices) and to discover those unexpected winning strategies
+  emerging only from the unreasonable or, if you will, genius.
+
+For each state, we must preserve the HP and energy of the Pokémon (up to six),
+  the number of turns remaining in any ongoing fast attacks (up to two),
+  the number of shields remaining for each Trainer,
+  and the turns remaining on each Trainer's substitution timer.
+Since certain charged attacks affect active Pokémons' attack and defense,
+  these must also be maintained.
+These changes are infrequent, so rather than duplicating the stats in
+  each state, it might be wise to store the sets of stats externally,
+  and index into them from the states.
+In many matches, there will be no such changes, and we'll require
+  only constant state.
+
+Game simulation is friendly to the technique of memoization, i.e.\ storing
+  and recognizing equivalent game states.
+The easiest place to apply this is the endgame.
+More correctly, this is the easiest way to choose states to memoize,
+  such that we can effectively look them up and don't blow up memory.
+Even better would be a closed form analytic treatment of the endgame,
+  which seems like it ought be possible.
+Let's restrict ourselves to the case of one Pokémon remaining per Trainer.
+We dispense with charged attacks entirely (at least initially) by considering
+  only those states where the possible turns remaining times EPT plus current
+  energy is less than the energy required for a charged attack.
+This restriction means we can ignore shields, as they're only relevant
+  when charged attacks are used.
+How do we put an upper bound on turns?
+Remember that we don't consider rounds which effect no change in state.
+There are thus five possible choice pairs:
+  { ongoing, ongoing },
+  { ongoing, noop },
+  { noop, ongoing },
+  { ongoing, fast },
+  { fast, ongoing }.
+The ``worst'' case (most turns) would take the form of two Pokémon
+  with roughly equal HP taking turns executing fast attacks
+  inflicting equal damage.
+This is bounded by $T_{max}$ turns.
+
+\[ T_{max} = \lceil\frac{HP_1}{D_2 * T_2}\rceil + \lceil\frac{HP_2}{D_1 * T_1}\rceil \]
+
+$D$ is the damage inflicted per fast attack, and $T$ is the number of turns per fast attack.
+So, knowing $T_{max}$, we can determine those cases where no charged attack
+  can be used: whenever $T_{max} * E_{fast} < E_{charged}$ for both Pokémon.
+In this case, we can easily construct a closed form for the number of wins
+  possible for each Trainer, and evaluate it in constant time, eliding
+  a large tree of explicit (stateful) simulation.
