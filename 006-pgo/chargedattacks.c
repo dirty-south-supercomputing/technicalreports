@@ -11,9 +11,8 @@ static int cmpatk(const void* va1, const void* va2){
 }
 
 void print_latex_table(const attack* as, unsigned ccount){
-  printf("\\begin{table}\n");
   printf("\\begin{center}\n");
-  printf("\\begin{tabular}{llrrr}\n");
+  printf("\\begin{longtable}{llrrr}\n");
   printf("Attack & Type & Power & Energy\\\\\n");
   printf("\\Midrule\\\\\n");
   int c = ccount;
@@ -21,11 +20,10 @@ void print_latex_table(const attack* as, unsigned ccount){
     const attack* a = &as[c];
     printf("%s & %s & %u & %d\\\\\n", a->name, TNames[a->type], a->powertrain, -a->energytrain);
   }
-  printf("\\end{tabular}\n");
-  printf("\\end{center}\n");
   printf("\\caption{Charged attacks}\n");
-  printf("\\label{table:charged}\n");
-  printf("\\end{table}\n");
+  printf("\\label{table:chargedattacks}\n");
+  printf("\\end{longtable}\n");
+  printf("\\end{center}\n");
 }
 
 // emit table of fast attacks by duration x energy x power
