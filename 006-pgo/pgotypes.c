@@ -2496,4 +2496,3 @@ stats *find_optimal_set(const species* s, int cpceil, int cpfloor){
   }
   return collectopt;
 }
-
