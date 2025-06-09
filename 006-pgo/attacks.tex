@@ -124,11 +124,14 @@ Every Pokémon knows exactly one Fast Attack, which can be changed with a Fast T
  (an Elite Fast TM allows the new attack to be chosen; it is otherwise random).
 A fast attack is defined by its duration, its power, and the energy built up with each use (\autoref{table:fastattacks}).
 Each Pokémon can store up to 100 units of energy, which is preserved across substitutions.
+DPT and EPT are power and energy, respectively, normalized per turn.
 If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
   weaker than $B$ in 3x3 mode, and vice versa (i.e.\ partial ordering is maintained).
 Furthermore, no fast attack's Nx1 power is less than its 3x3 power.
 Incinerate is thus the most powerful fast attack in both modes.
-DPT and EPT are power and energy, respectively, normalized per turn.
+It is also the only five turn attack, and the only one to hit 4 with both EPT and DPT\@.
+Charm stands alone with a DPT of 5, with Razor Leaf coming in behind it at 4.5.
+Lock On manages 5 EPT, with Psycho Cut, Poison Sting, Fairy Wind, and Thunder Shock at 4.5.
 \input{out/fastattacks}
 
 \section{Charged Attacks}
@@ -155,8 +158,8 @@ It's sometimes useful to delay use of a charged attack, but is it ever wise to f
 Charged attack power ranges from 10 (Frustration) to 170 (Sunsteel Strike)
 Fast attack power ranges from 1 (Locked On) to 20 (Incinerate), but we need look at
   the power per turn (charged attacks operate in a single turn).
-Using normalized power, Charm takes the lead with 5 DPT.
-Assume STAB and type effectiveness of 1 for Charm, boosting it to 9.6 DPT.
+Using normalized power, Charm takes the lead with 5 DPT\@.
+Assume STAB and type effectiveness of 1 for Charm, boosting it to 9.6 DPT\@.
 Assuming no STAB and type effectiveness of -1 for Frustration, it is reduced to 6.25,
   and in this pathological case will inflict less damage per turn than the fast attack.
 At even the meager 20 of Acid Spray and friends, however, the -1 type relation only
