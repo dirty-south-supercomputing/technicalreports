@@ -1,5 +1,7 @@
-#include <math.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define TYPESTART TYPE_BUG
 
@@ -2499,4 +2501,13 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
     }
   }
   return collectopt;
+}
+
+const species* lookup_species(const char* name){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    if(strcasecmp(sdex[i].name, name) == 0){
+      return &sdex[i];
+    }
+  }
+  return NULL;
 }

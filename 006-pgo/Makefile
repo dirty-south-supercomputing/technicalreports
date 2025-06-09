@@ -20,6 +20,7 @@ FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
 TYPES:=out/dualtypes
 STATS:=out/species
+SIMUL:=out/simul
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
@@ -30,7 +31,7 @@ GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED) $(FATTACKTEX) $(CATTACKTEX)
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
-all: $(PDF)
+all: $(PDF) $(SIMUL)
 
 $(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)

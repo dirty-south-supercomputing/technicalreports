@@ -13,16 +13,6 @@ print_cpms(void){
   }
 }*/
 
-static const species*
-lookup_species(const char* name){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    if(strcasecmp(sdex[i].name, name) == 0){
-      return &sdex[i];
-    }
-  }
-  return NULL;
-}
-
 static void
 print_species(const species* s){
   if(s->t2 == TYPECOUNT){
