@@ -123,13 +123,16 @@ Call the turns required by the fast attacks $FT_1$ and $FT_2$.
 Call the damage inflicted $D_1$ and $D_2$.
 Given our restriction on null states, all turns must see at least one Pokémon engaged
   in a fast attack.
+Pseudocode for simulating a death march is given in \autoref{list:deathmarch}; it
+  makes it obvious that all nodes will have either zero, two, or three children.
 
-\begin{verbatim}
-deathmarch (T_1, T_2, D_1, D_2, H_1, H_2) → {p1wins, p2wins, ties}
+\begin{lstlisting}[caption={Death march simulation code},label={list:deathmarch}]
+deathmarch (T_1, T_2, D_1, D_2, H_1, H_2)
+               → {p1wins, p2wins, ties}
 if T_1 < T_2
   if T_1 > 0 // conclude p1's attack
     H_2 -= D_1
-    if H_2 \le 0
+    if H_2 󰥽 0
       return 1, 0, 0  // p1 wins
     T_2 -= T_1
     T_1 = 0
@@ -138,7 +141,7 @@ if T_1 < T_2
 else if T_2 < T_1
   if T_2 > 0 // conclude p2's attack
     H_1 -= D_2
-    if H_1 \le 0
+    if H_1 󰥽 0
       return 0, 1, 0 // p2 wins
     T_1 -= T_2
     T_2 = 0
@@ -148,11 +151,11 @@ else // they're equal
   if T_1 // conclude both attacks
     H_2 -= D_1
     H_1 -= D_2
-    if H_2 \le 0 and H_1 \le 0
+    if H_2 󰥽 0 and H_1 󰥽 0
       return 0, 0, 1 // tie
-    else if H_2 \le 0
+    else if H_2 󰥽 0
       return 1, 0, 0 // p1 wins
-    else if H_1 \le 0
+    else if H_1 󰥽 0
       return 0, 1, 0 // p2 wins
     T_1 = T_2 = 0
 if T_2 // p1 attacks or does nothing
@@ -165,7 +168,7 @@ else // p1 attacks, p2 attacks, or both attack
     return deathmarch (FT_1, 0, D_1, D_2, H_1, H_2) +
            deathmatch (0, FT_2, D_1, D_2, H_1, H_2) +
            deathmatch (FT_1, FT_2, D_1, D_2, H_1, H_2)
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{so construct it then...}
 
