@@ -2349,16 +2349,19 @@ calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   return cand < 10 ? 10 : floor(cand);
 }
 
+// provide mod_a
 static inline float
 calc_eff_a(unsigned atk, unsigned halflevel){
   return cpm(halflevel) * atk;
 }
 
+// provide mod_d
 static inline float
 calc_eff_d(unsigned def, unsigned halflevel){
   return cpm(halflevel) * def;
 }
 
+// provide mod_s
 static inline unsigned
 calc_mhp(unsigned sta, unsigned halflevel){
   return floor(cpm(halflevel) * sta);
