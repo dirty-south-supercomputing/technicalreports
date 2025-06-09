@@ -46,7 +46,7 @@ print_optimal_latex(const species* sp){
   printf("OptCP2500: ");
   while(s){
     stats* tmp = s->next;
-    printf("%u-%u-%u@%u ", s->ia, s->id, s->is, s->hlevel);
+    printf("%u/%u/%u@%u ", s->ia, s->id, s->is, s->hlevel);
     free(s);
     s = tmp;
   }
@@ -55,7 +55,7 @@ print_optimal_latex(const species* sp){
   printf("OptCP1500: ");
   while(s){
     stats* tmp = s->next;
-    printf("%u-%u-%u@%u ", s->ia, s->id, s->is, s->hlevel);
+    printf("%u/%u/%u@%u ", s->ia, s->id, s->is, s->hlevel);
     free(s);
     s = tmp;
   }

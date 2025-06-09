@@ -1,6 +1,6 @@
 \chapter{CP-bounded team selection}
 \label{chap:bounded}
-Several leagues (and some Research tasks) place a ceiling on the CP of
+Several Leagues (and some Research tasks) place a ceiling on the CP of
  participating Pokémon.
 We have established that CP is a poor proxy for PvP performance, and thus
  expect that we might find strong candidates based on where CP fails.
@@ -11,6 +11,8 @@ We first take the sorted list of Pokémon developed in \autoref{chap:unbounded},
 We then select a team using the strategies of that chapter. Since
  that list was sorted according to a general strength function, it
  ought apply in this reduced context.
+\textbf{This chapter has no relevance for Nx1 battles, nor the Master
+  League, none of which employ CP bounds.}
 
 \section{Optimal IVs and Levels under a CP bound}
 For a given CP bound and Form, there is some optimal set of Pokémon Levels
@@ -60,14 +62,14 @@ Poor Timburr isn't really suited for the common PvP Leagues,
   and does best with a 15--15--15 at Level 50 (CP 1487).
 Gurdurr can hold its own under a 1500 CP ceiling, and its
   optimal IVs are 1--15--15 at Level 26 (CP 1496).
-It falls short of the Master League's 2500, though, where
+It falls short of the Ultra League's 2500, though, where
   15--15--15 and 15--15--14 are functionally equivalent
   at Level 50 (both result in MHP of 178) despite
   respective CPs of 2452 and 2447.
 It is impossible to distinguish between a Level 16.5 Conkeldurr at
   3--15--15 or 3--15--14 (134 MHP either way), though
   the CPs are 1500 and 1497.
-In the Master League, Conkeldurr wants Level 28 0--15--12 with
+In the Ultra League, Conkeldurr wants Level 28 0--15--12 with
   a CP of 2499.
 Take two things away from this:
 \begin{itemize}
@@ -91,9 +93,40 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
     have easily gone the other way.
  If the attack's Power were 10, both hit for nine damage, and both fall after nine attacks.
 
+\section{Optimal League forms}
+Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
+   the Ultra League (CP 2500).
+\autoref{table:cp1500} lists all species' optimal level and IVs for the Great League\footnote{Forms
+  disallowed in League play, particularly Mega, are not listed},
+  as evaluated using the harmonic mean of $Eff_A$, $Eff_D$, and $MHP$.
+It is possible for multiple sets of IVs to score equally due to the discrete nature
+  of $MHP$, and in this case all optimal sets are listed (there are never more than
+  two).
+A few observations from this table:
+In general, there is no correlation between $\sqrt{3}{BP}$ and level,
+  save that everything at the bottom of the list is maxed (15/15/15@50),
+  since many species cannot reach 1500 CP at all.
+The geometric mean ($\sqrt{3}{BP}$) ranges from 51.39 (max Shedinja)
+  to 147.18 (15/15/15@49.5 Chancey).
+There is a strong bimodal preference for IVs: 15-15-15 for level 49.5
+  and 50, and otherwise $n$-15-15 where $n < 2$, and $n$ usually equals 0.
+This verifies that attack is highly overvalued in the CP calculation
+  relative to $\sqrt{3}{BP}$ (not that we had any doubt).
+Other IVs usually correspond to low level, powerful species, where a level
+  raises CP by a large amount, leaving more room for beneficial IVs.
+$Eff_A$ ranges from 63.02 (Chancey) to tremendous outlier 254.05 (Deoxys Attack).
+In general, the top positions have relatively low $Eff_A$, rising in an
+  orderly fashion to about 145 as we go down the list.
+At this point, they become more disordered, until falling at the back
+  of the list.
+$MHP$ and $Eff_D$ are much less predictable.
+
+\autoref{table:cp2500} does the same for the Ultra League, leaving out those species which
+  can't hit a $\sqrt{3}{BP}$ of 115.
+\textbf{FIXME: add plots of $Eff_A$, $Eff_D$, $MHP$ by geometric mean for optimal sets}
+\input{out/bounded}
+
 \section{Anticipating opponents}
 Similarly to an unbounded contest, we can assume that a rational opponent is selecting
   according to the same rules as we are (or better), but a more powerful result is
   strong against all possible opponents.
-
-\input{out/bounded}

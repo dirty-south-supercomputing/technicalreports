@@ -2397,7 +2397,8 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
 }
 
 static int
-update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigned is, unsigned hl){
+update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
+              unsigned is, unsigned hl, float gmfloor){
   stats **prev = osets;
   stats *cur;
   unsigned moda = s->atk + ia;
@@ -2406,6 +2407,10 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
   float effd = calc_eff_d(modd, hl);
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
+  float gm = calc_fit(effa, effd, mhp);
+  if(gm < gmfloor){
+    return 0;
+  }
   while( (cur = *prev) ){
     if(hl < cur->hlevel){
       break; // we're a lower level than any on the list; insert
@@ -2414,9 +2419,9 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
       if(effa == cur->effa && effd == cur->effd && mhp == cur->mhp){
         // we're equal to something on the list; insert here
         break;
-      }else if(effa <= cur->effa && effd <= cur->effd && mhp <= cur->mhp){ // we're worse, exit
+      }else if(effa <= cur->effa && effd <= cur->effd && mhp <= cur->mhp){
         // we're strictly less than something on the list; exit
-        return -1;
+        return 0;
       }else if(effa >= cur->effa && effd >= cur->effd && mhp >= cur->mhp){
         // we're strictly better than something on the list; remove it and continue
         *prev = cur->next;
@@ -2448,18 +2453,17 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id, unsigne
 }
 
 // returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
-// with a CP less than or equal to cpceil and greater than or equal to cpfloor.
-stats *find_optimal_set(const species* s, int cpceil, int cpfloor){
+// with a CP less than or equal to cpceil and harmonic mean of EffA, EffD
+// and MHP greater than or equal to gmfloor.
+stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
   stats* optsets = NULL;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(cp >= cpfloor){
-          if(update_optset(&optsets, s, iva, ivd, ivs, hl) < 0){
-            return NULL;
-          }
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor) < 0){
+          return NULL;
         }
       }
     }
@@ -2473,7 +2477,7 @@ stats *find_optimal_set(const species* s, int cpceil, int cpfloor){
     cur = optsets;
     optsets = cur->next;
     cur->s = s;
-    //printf(" %u-%u-%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
+    //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(cur->geommean > maxmean){ // new optimal
       stats* c;

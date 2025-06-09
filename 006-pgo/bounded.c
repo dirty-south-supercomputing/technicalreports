@@ -1,8 +1,10 @@
 #include "pgotypes.c"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 
-void print_bounded_table(int bound, int lbound){
+// print optimal sets bounded by CP of |bound| above and geometric mean of |lbound| below
+void print_bounded_table(int bound, float lbound){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
@@ -12,6 +14,13 @@ void print_bounded_table(int bound, int lbound){
   printf("\\endhead\n");
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    // don't include Mega/Primal forms, which are prohibited from PvP
+    if(strncmp(sdex[i].name, "Mega ", strlen("Mega ")) == 0){
+      continue;
+    }
+    if(strncmp(sdex[i].name, "Primal ", strlen("Primal ")) == 0){
+      continue;
+    }
     stats *s = find_optimal_set(&sdex[i], bound, lbound);
     while(s){
       stats **prev = &sols;
@@ -38,7 +47,7 @@ void print_bounded_table(int bound, int lbound){
       }
       putchar(*curs);
     }
-    printf(" & %2u%s & %u-%u-%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
+    printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
             l, half ? ".5" : "",
             tmp->ia, tmp->id, tmp->is,
             tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
@@ -47,13 +56,14 @@ void print_bounded_table(int bound, int lbound){
     free(tmp);
   }
   printf("\\caption{Optimal solutions bounded by %d CP}\n", bound);
+  printf("\\label{table:cp%d}\n", bound);
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }
 
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations
 int main(void){
-  print_bounded_table(2500, 1500);
   print_bounded_table(1500, 0);
+  print_bounded_table(2500, 115);
   return EXIT_SUCCESS;
 }
