@@ -49,11 +49,10 @@ void print_bounded_table(int bound, float lbound){
               tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
               tmp->cp);
     }else{
-      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %4u\\\\\n",
+      printf(" & %2u%s & %u/%u/%u & & & & %.2f & %4u\\\\\n",
               l, half ? ".5" : "",
               tmp->ia, tmp->id, tmp->is,
-              tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
-              tmp->cp);
+              tmp->geommean, tmp->cp);
     }
     lastspecies = tmp->s;
     sols = sols->next;
