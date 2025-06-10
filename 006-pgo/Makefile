@@ -27,10 +27,11 @@ FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
 SPECIES:=out/species.tex
-BOUNDED:=out/bounded.tex
+CP1500:=out/cp1500.tex
+CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
-GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED) $(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
+GENTEX:=$(DUALTYPES) $(SPECIES) $(CP1500) $(CP2500) $(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -50,6 +51,14 @@ $(OUT)/dot/%.png: dot/%
 $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
+
+$(OUT)/cp1500.tex: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) 1500 0 > $@
+
+$(OUT)/cp2500.tex: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) 2500 115 > $@
 
 $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)

@@ -65,8 +65,13 @@ void print_bounded_table(int bound, float lbound){
 }
 
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations
-int main(void){
-  print_bounded_table(1500, 0);
-  print_bounded_table(2500, 115);
+int main(int argc, char** argv){
+  if(argc != 3){
+    fprintf(stderr, "usage: highcp lowGM\n");
+    return EXIT_FAILURE;
+  }
+  int hcp = atoi(argv[1]);
+  int lgm = atoi(argv[2]);
+  print_bounded_table(hcp, lgm);
   return EXIT_SUCCESS;
 }

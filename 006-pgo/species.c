@@ -82,13 +82,13 @@ print_species_latex(const species* s){
   print_optimal_latex(s);
   printf("\\end{tabular}\n");
   printf("\\tcblower\n");
-  printf("\\hfill\\includegraphics[width=1in,height=1in]{images/pokédex/");
+  printf("\\raggedleft\\includegraphics[width=1in,height=1in]{images/pokédex/");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
     }
   }
-  printf(".png}\n");
+  printf(".png}\\\\\n");
   if(s->shadow){
     printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
   }
