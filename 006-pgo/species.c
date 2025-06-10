@@ -115,6 +115,7 @@ filter_by_types(int t1, int t2){
         printf("\\Midrule\n");
         printf("\\endhead\n");
       }*/
+      // don't put mega forms here FIXME they ought be their own array, we do this elsewhere
       print_species_latex(&sdex[i]);
     }
   }

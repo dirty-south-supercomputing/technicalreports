@@ -85,6 +85,25 @@ Normal & Fighting \\
 \caption{Single-weakness typings}
 \label{table:singleweak}
 \end{table}
+
+\section{How important are IVs?}
+As with most properties, we could answer ``the details are opponent-dependent''.
+More usefully, we can say ``more important with low base stats, less important
+  with higher base stats''.
+Quantitatively, we can say ``An $IV_A$ of 15 is worth more than STAB to an
+  attacker with ATK less than 75. It is worth exactly as much (20\%) as STAB
+  to an attacker with ATK of exactly 75. It is worth less than STAB
+  to an attacker with ATK greater than 75.''
+Similarly, an $IV_A$ of 15 is equal to type effectiveness of 1 when ATK is 25.
+For a more plausible ATK of 150, a maximum $IV_A$ is worth a 10\% bonus to attack.
+In general, $IV_A$ adds a percentage boost of
+
+\[ frac{IV_A}{ATK} \times 100 \]
+
+\noindent{}to attack, and $IV_D$ lends the same (of course using DEF) to defense.
+
+\textbf{FIXME: for each species, determine worst IV (IV that when taken to max level for a league has the lowest geommean, and difference between it and best}
+
 \section{Team assembly}
 Does this extend to teams?
 At first, it seems that it might: after all, a team's overall fitness

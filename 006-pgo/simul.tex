@@ -81,11 +81,11 @@ We will call these subgraphs ``death marches''.
 How do we put an upper bound on turns?
 Remember that we don't consider rounds which effect no change in state.
 There are thus five possible choice-pairs:
-  { ongoing, ongoing },
-  { ongoing, noop },
-  { noop, ongoing },
-  { ongoing, fast },
-  { fast, ongoing }.
+  \{ ongoing, ongoing \},
+  \{ ongoing, noop \},
+  \{ noop, ongoing \},
+  \{ ongoing, fast \},
+  \{ fast, ongoing \}.
 The ``worst'' case (most turns) would take the form of two Pokémon
   with roughly equal HP taking turns executing fast attacks
   inflicting equal damage.
@@ -127,47 +127,47 @@ Pseudocode for simulating a death march is given in \autoref{list:deathmarch}; i
   makes it obvious that all nodes will have either zero, two, or three children.
 
 \begin{lstlisting}[caption={Death march simulation code},label={list:deathmarch}]
-deathmarch (T_1, T_2, D_1, D_2, H_1, H_2)
+deathmarch (T1, T2, D1, D2, H1, H2)
                → {p1wins, p2wins, ties}
-if T_1 < T_2
-  if T_1 > 0 // conclude p1's attack
-    H_2 -= D_1
-    if H_2 󰥽 0
+if T1 < T2
+  if T1 > 0 // conclude p1's attack
+    H2 -= D1
+    if H2 󰥽 0
       return 1, 0, 0  // p1 wins
-    T_2 -= T_1
-    T_1 = 0
+    T2 -= T1
+    T1 = 0
   else // p1 wasn't doing anything
-    --T_2
-else if T_2 < T_1
-  if T_2 > 0 // conclude p2's attack
-    H_1 -= D_2
-    if H_1 󰥽 0
+    --T2
+else if T2 < T1
+  if T2 > 0 // conclude p2's attack
+    H1 -= D2
+    if H1 󰥽 0
       return 0, 1, 0 // p2 wins
-    T_1 -= T_2
-    T_2 = 0
+    T1 -= T2
+    T2 = 0
   else // p2 wasn't doing anything
-    --T_1
+    --T1
 else // they're equal
-  if T_1 // conclude both attacks
-    H_2 -= D_1
-    H_1 -= D_2
-    if H_2 󰥽 0 and H_1 󰥽 0
+  if T1 // conclude both attacks
+    H2 -= D1
+    H1 -= D2
+    if H2 󰥽 0 and H1 󰥽 0
       return 0, 0, 1 // tie
-    else if H_2 󰥽 0
+    else if H2 󰥽 0
       return 1, 0, 0 // p1 wins
-    else if H_1 󰥽 0
+    else if H1 󰥽 0
       return 0, 1, 0 // p2 wins
-    T_1 = T_2 = 0
-if T_2 // p1 attacks or does nothing
-    return deathmarch (FT_1, T_2, D_1, D_2, H_1, H_2) +
-           deathmatch (0, T_2, D_1, D_2, H_1, H_2)
-else if T_1 // p2 attacks or does nothing
-    return deathmarch (T_1, FT_2, D_1, D_2, H_1, H_2) +
-           deathmatch (T_1, 0, D_1, D_2, H_1, H_2)
+    T1 = T2 = 0
+if T2 // p1 attacks or does nothing
+    return deathmarch (FT1, T2, D1, D2, H1, H2) +
+           deathmatch (0, T2, D1, D2, H1, H2)
+else if T1 // p2 attacks or does nothing
+    return deathmarch (T1, FT2, D1, D2, H1, H2) +
+           deathmatch (T1, 0, D1, D2, H1, H2)
 else // p1 attacks, p2 attacks, or both attack
-    return deathmarch (FT_1, 0, D_1, D_2, H_1, H_2) +
-           deathmatch (0, FT_2, D_1, D_2, H_1, H_2) +
-           deathmatch (FT_1, FT_2, D_1, D_2, H_1, H_2)
+    return deathmarch (FT1, 0, D1, D2, H1, H2) +
+           deathmatch (0, FT2, D1, D2, H1, H2) +
+           deathmatch (FT1, FT2, D1, D2, H1, H2)
 \end{lstlisting}
 
 \textbf{so construct it then...}

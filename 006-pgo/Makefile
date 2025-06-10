@@ -22,13 +22,15 @@ TYPES:=out/dualtypes
 STATS:=out/species
 SIMUL:=out/simul
 HETERO:=out/hetero
+TRELS:=out/typerels
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
 SPECIES:=out/species.tex
 BOUNDED:=out/bounded.tex
 HETEROTEX:=out/hetero.tex
-GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED) $(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX)
+TRELSTEX:=out/typerels.tex
+GENTEX:=$(DUALTYPES) $(SPECIES) $(BOUNDED) $(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -58,7 +60,7 @@ $(OUT)/%: %.c pgotypes.c
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(TYPES) $(GENTEX) $(STATS) $(FATTACKS) $(CATTACKS) $(HETERO)
+	@rm -vrf $(TYPES) $(GENTEX) $(STATS) $(FATTACKS) $(CATTACKS) $(HETERO) $(TRELS)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
