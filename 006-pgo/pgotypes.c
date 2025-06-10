@@ -826,6 +826,47 @@ static const attack* BLASTOISE_ATTACKS[] = {
   NULL
 };
 
+static const attack* KRICKETOT_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Struggle_Bug,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* KRICKETUNE_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Struggle_Bug,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_XScissor,
+  NULL
+};
+
+static const attack* BURMY_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Tackle,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* P_WORMADAM_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Bug_Buzz,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* MOTHIM_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Air_Slash,
+  &ATK_Psybeam,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  NULL
+};
+
 static const attack* CATERPIE_ATTACKS[] = {
   &ATK_Bug_Bite,
   &ATK_Tackle,
@@ -1534,6 +1575,24 @@ static const attack* FORRETRESS_ATTACKS[] = {
   NULL
 };
 
+static const attack* VOLBEAT_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  &ATK_Thunderbolt,
+  &ATK_Signal_Beam,
+  NULL
+};
+
+static const attack* ILLUMISE_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  &ATK_Dazzling_Gleam,
+  &ATK_Silver_Wind,
+  NULL
+};
+
 static const attack* WURMPLE_ATTACKS[] = {
   &ATK_Bug_Bite,
   &ATK_Tackle,
@@ -1972,8 +2031,8 @@ static const species sdex[] = {
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, NULL, NULL, },
   {  311, "Plusle", TYPE_ELECTRIC, TYPECOUNT, 167, 129, 155, NULL, NULL, },
   {  312, "Minun", TYPE_ELECTRIC, TYPECOUNT, 147, 150, 155, NULL, NULL, },
-  {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, NULL, },
-  {  314, "Illumise", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, NULL, },
+  {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, VOLBEAT_ATTACKS, true, false, },
+  {  314, "Illumise", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, ILLUMISE_ATTACKS, true, false, },
   {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, NULL, NULL, },
   {  316, "Gulpin", TYPE_POISON, TYPECOUNT, 80, 99, 172, NULL, NULL, },
   {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, NULL, NULL, },
@@ -2076,8 +2135,8 @@ static const species sdex[] = {
   {  398, "Staraptor", TYPE_NORMAL, TYPE_FLYING, 234, 140, 198, NULL, NULL, },
   {  399, "Bidoof", TYPE_NORMAL, TYPECOUNT, 80, 73, 153, NULL, NULL, },
   {  400, "Bibarel", TYPE_NORMAL, TYPE_WATER, 162, 119, 188, NULL, NULL, },
-  {  401, "Kricketot", TYPE_BUG, TYPECOUNT, 45, 74, 114, NULL, NULL, },
-  {  402, "Kricketune", TYPE_BUG, TYPECOUNT, 160, 100, 184, NULL, NULL, },
+  {  401, "Kricketot", TYPE_BUG, TYPECOUNT, 45, 74, 114, NULL, KRICKETOT_ATTACKS, true, false, },
+  {  402, "Kricketune", TYPE_BUG, TYPECOUNT, 160, 100, 184, "Kricketot", KRICKETUNE_ATTACKS, true, false, },
   {  403, "Shinx", TYPE_ELECTRIC, TYPECOUNT, 117, 64, 128, NULL, NULL, },
   {  404, "Luxio", TYPE_ELECTRIC, TYPECOUNT, 159, 95, 155, NULL, NULL, },
   {  405, "Luxray", TYPE_ELECTRIC, TYPECOUNT, 232, 156, 190, NULL, NULL, },
@@ -2087,11 +2146,11 @@ static const species sdex[] = {
   {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, NULL, NULL, },
   {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, NULL, },
   {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, NULL, NULL, },
-  {  412, "Burmy", TYPE_BUG, TYPECOUNT, 53, 83, 120, NULL, NULL, },
-  {  413, "Plant Wormadam", TYPE_BUG, TYPE_GRASS, 141, 180, 155, NULL, NULL, },
+  {  412, "Burmy", TYPE_BUG, TYPECOUNT, 53, 83, 120, NULL, BURMY_ATTACKS, true, false, },
+  {  413, "Plant Wormadam", TYPE_BUG, TYPE_GRASS, 141, 180, 155, "Burmy", P_WORMADAM_ATTACKS, true, false, },
   {  413, "Sandy Wormadam", TYPE_BUG, TYPE_GROUND, 141, 180, 155, NULL, NULL, },
   {  413, "Trash Wormadam", TYPE_BUG, TYPE_STEEL, 127, 175, 155, NULL, NULL, },
-  {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, NULL, NULL, },
+  {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy", MOTHIM_ATTACKS, true, false, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, NULL, NULL, },
   {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, NULL, NULL, },
   {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, NULL, NULL, },

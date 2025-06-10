@@ -38,7 +38,7 @@ print_optimal_latex(const species* sp){
     stats* tmp = s->next;
     unsigned half;
     unsigned l = halflevel_to_level(s->hlevel, &half);
-    printf("%u/%u/%u@%u.%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
+    printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
     free(s);
     s = tmp;
   }
@@ -49,7 +49,7 @@ print_optimal_latex(const species* sp){
     stats* tmp = s->next;
     unsigned half;
     unsigned l = halflevel_to_level(s->hlevel, &half);
-    printf("%u/%u/%u@%u.%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
+    printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
     free(s);
     s = tmp;
   }
