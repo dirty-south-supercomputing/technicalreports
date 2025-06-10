@@ -203,7 +203,7 @@ melt_column(int* vec, const int* col){
 
 // represents some typing, either a dualtype or monotype.
 typedef struct typing {
-  int types[2];           // our types; both are the same for monotypes
+  pgo_types_e types[2];           // our types; both are the same for monotypes
   int atypes[TYPECOUNT];  // reaction to attack type, ranging from -3 to 2
 } typing;
 
@@ -243,8 +243,8 @@ setup_typings(void){
     int pos = 0;
     for(int i = 0 ; i < TYPECOUNT ; ++i){
       for(int j = i ; j < TYPECOUNT ; ++j){
-        dtypes[pos].types[0] = i;
-        dtypes[pos].types[1] = j;
+        dtypes[pos].types[0] = static_cast<pgo_types_e>(i);
+        dtypes[pos].types[1] = static_cast<pgo_types_e>(j);
         melt_column(dtypes[pos].atypes, &trelations[0][i]);
         if(i != j){
           int vec[TYPECOUNT];

@@ -21,9 +21,9 @@ int main(void){
       continue;
     }
     print_types(from->t1, from->t2);
-    printf(" %s ", from->name);
+    printf(" %s & ", from->name);
     print_types(s->t1, s->t2);
-    printf(" & %s ", s->name);
+    printf(" %s ", s->name);
     printf("\\\\\n");
   }
   printf("\\end{tabular}\n");
