@@ -1,4 +1,5 @@
-\documentclass[ebook,10pt,openany]{memoir}
+% onesided ought not be used for printed, bound material!
+\documentclass[ebook,10pt,openany,onesided]{memoir}
 \title{pgo}
 \author{nick black}
 %\special{pdf:minorversion 7}
@@ -113,4 +114,7 @@
 \input{bounded}
 \input{strategy}
 \input{simul}
+\appendix
+\chapter{Species by typings}
+\input{out/species}
 \end{document}
