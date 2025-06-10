@@ -33,7 +33,6 @@ print_species(const species* s){
 static void
 print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0);
-  printf("OptCP2500: ");
   while(s){
     stats* tmp = s->next;
     unsigned half;
@@ -42,9 +41,8 @@ print_optimal_latex(const species* sp){
     free(s);
     s = tmp;
   }
-  printf("\\\\\n");
+  printf("& ");
   s = find_optimal_set(sp, 1500, 0);
-  printf("OptCP1500: ");
   while(s){
     stats* tmp = s->next;
     unsigned half;
@@ -58,7 +56,7 @@ print_optimal_latex(const species* sp){
 
 static void
 print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[title=");
+  printf("\\begin{tcolorbox}[boxsep=0mm,title=");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%'){
       printf("%c", *curs);
@@ -66,16 +64,27 @@ print_species_latex(const species* s){
       printf("\\%%");
     }
   }
-  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={\\hfill%u %u %u}]\n",
-      s->atk, s->def, s->sta);
-  printf("\\includegraphics[width=1in,height=1in]{images/pokédex/");
+  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={\\hfill%u %u %u %.2f}]\n",
+      s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
+  if(s->attacks){ // FIXME remove conditional once all attacks are defined
+    printf("\\begin{tabular}{lrrr}\n");
+    for(const attack** a = s->attacks ; *a ; ++a){
+      printf("%s & %u & %u & %d\\\\\n", (*a)->name, (*a)->turns,
+              (*a)->powertrain, (*a)->energytrain);
+    }
+    printf("\\end{tabular}\n");
+  }
+  printf("\\begin{tabular}{lr}\n");
+  print_optimal_latex(s);
+  printf("\\end{tabular}\n");
+  printf("\\tcblower\n");
+  printf("\\hfill\\includegraphics[width=1in,height=1in]{images/pokédex/");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
     }
   }
-  printf(".png}\n\\tcblower\n");
-  printf("\\hfill");
+  printf(".png}\n");
   if(s->shadow){
     printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
   }
@@ -83,14 +92,6 @@ print_species_latex(const species* s){
     printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
   }
   print_types(s->t1, s->t2);
-  printf("\\\\\n");
-  if(s->attacks){ // FIXME remove
-    for(const attack** a = s->attacks ; *a ; ++a){
-      printf("%s\\\\\n", (*a)->name); // FIXME list attack details
-    }
-  }
-  print_optimal_latex(s);
-  printf("\\vfill\n");
   printf("\\end{tcolorbox}\n");
 }
 
@@ -98,35 +99,17 @@ print_species_latex(const species* s){
 // pass the same type twice for only that base type. LaTeX output.
 static void
 filter_by_types(int t1, int t2){
-  unsigned printed = false;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     bool printit = false;
     if(sdex[i].t1 == t1){
       if(sdex[i].t2 == t2 || t2 == TYPECOUNT || (t1 == t2 && sdex[i].t2 == TYPECOUNT)){
         printit = true;
       }
-    }else if(sdex[i].t1 == t2 && sdex[i].t2 == t1){
-      printit = true;
     }
     if(printit){
-      /*if(printed++ == 0){
-        printf("\\begin{longtable}{lrrr}\n");
-        printf("Species & ATK & DEF & STA\\\\\n");
-        printf("\\Midrule\n");
-        printf("\\endhead\n");
-      }*/
-      // don't put mega forms here FIXME they ought be their own array, we do this elsewhere
       print_species_latex(&sdex[i]);
     }
   }
-  /*if(printed){
-    printf("\\caption{%u species of type %s", printed, TNames[t1]);
-    if(t1 != t2){
-      printf("+%s", TNames[t2]);
-    }
-    printf("}\n");
-    printf("\\end{longtable}\n");
-  }*/
 }
 
 int main(int argc, char **argv){
@@ -140,10 +123,14 @@ int main(int argc, char **argv){
       print_species(s);
     }
   }else{
-    //print_cpms();
+    // we want to retain the order of typings here, so do both ways
     for(int t = TYPESTART ; t < static_cast<int>(TYPECOUNT) ; ++t){
-      for(int t2 = t ; t2 < static_cast<int>(TYPECOUNT) ; ++t2){
-        filter_by_types(t, t2);
+      // we always want the pure typing first
+      filter_by_types(t, t);
+      for(int t2 = TYPESTART ; t2 < static_cast<int>(TYPECOUNT) ; ++t2){
+        if(t != t2){
+          filter_by_types(t, t2);
+        }
       }
     }
   }

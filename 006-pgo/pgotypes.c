@@ -762,6 +762,37 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* SALAMENCE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Fire_Fang,
+  &ATK_Dragon_Tail,
+  &ATK_Fire_Blast,
+  &ATK_Hydro_Pump,
+  &ATK_Outrage,
+  &ATK_Draco_Meteor,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* DIALGA_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Metal_Claw,
+  &ATK_Iron_Head,
+  &ATK_Thunder,
+  &ATK_Draco_Meteor,
+  NULL
+};
+
+static const attack* O_DIALGA_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Metal_Claw,
+  &ATK_Iron_Head,
+  &ATK_Thunder,
+  &ATK_Draco_Meteor,
+  &ATK_Roar_of_Time,
+  NULL
+};
+
 static const attack* BULBASAUR_ATTACKS[] = {
   &ATK_Vine_Whip,
   &ATK_Tackle,
@@ -885,12 +916,50 @@ static const attack* P_WORMADAM_ATTACKS[] = {
   NULL
 };
 
+static const attack* S_WORMADAM_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Bug_Buzz,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* T_WORMADAM_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Confusion,
+  &ATK_Metal_Sound,
+  &ATK_Psybeam,
+  &ATK_Bug_Buzz,
+  &ATK_Iron_Head,
+  NULL
+};
+
 static const attack* MOTHIM_ATTACKS[] = {
   &ATK_Bug_Bite,
   &ATK_Air_Slash,
   &ATK_Psybeam,
   &ATK_Aerial_Ace,
   &ATK_Bug_Buzz,
+  NULL
+};
+
+static const attack* STUNFISK_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Mud_Shot,
+  &ATK_Discharge,
+  &ATK_Mud_Bomb,
+  &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* G_STUNFISK_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Metal_Claw,
+  &ATK_Earthquake,
+  &ATK_Flash_Cannon,
+  &ATK_Rock_Slide,
+  &ATK_Muddy_Water,
   NULL
 };
 
@@ -2267,16 +2336,16 @@ static const species sdex[] = {
   {  367, "Huntail", TYPE_WATER, TYPECOUNT, 197, 179, 146, NULL, NULL, },
   {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, NULL, NULL, },
   {  369, "Relicanth", TYPE_WATER, TYPE_ROCK, 162, 203, 225, NULL, NULL, },
-  {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, NULL, },
-  {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, NULL, },
-  {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, NULL, NULL, },
-  {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, NULL, NULL, },
-  {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, NULL, },
-  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, NULL, NULL, },
-  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, NULL, NULL, },
-  {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, NULL, },
-  {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, NULL, },
-  {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, NULL, },
+  {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, NULL, true, false, },
+  {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, NULL, true, true, },
+  {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, NULL, NULL, true, true, },
+  {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon", SALAMENCE_ATTACKS, true, true, },
+  {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, NULL, true, true, },
+  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", NULL, true, true, },
+  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", NULL, true, true, },
+  {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, NULL, true, true, },
+  {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, NULL, true, true, },
+  {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, NULL, true, true, },
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, NULL, NULL, },
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, NULL, NULL, },
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, NULL, NULL, },
@@ -2314,10 +2383,12 @@ static const species sdex[] = {
   {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, NULL, NULL, },
   {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, NULL, },
   {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, NULL, NULL, },
+  // plant, sandy, and trash burmy all have the same stats and attacks, but
+  // different evolution targets which *do* have different stats. 
   {  412, "Burmy", TYPE_BUG, TYPECOUNT, 53, 83, 120, NULL, BURMY_ATTACKS, true, false, },
   {  413, "Plant Wormadam", TYPE_BUG, TYPE_GRASS, 141, 180, 155, "Burmy", P_WORMADAM_ATTACKS, true, false, },
-  {  413, "Sandy Wormadam", TYPE_BUG, TYPE_GROUND, 141, 180, 155, NULL, NULL, },
-  {  413, "Trash Wormadam", TYPE_BUG, TYPE_STEEL, 127, 175, 155, NULL, NULL, },
+  {  413, "Sandy Wormadam", TYPE_BUG, TYPE_GROUND, 141, 180, 155, "Burmy", S_WORMADAM_ATTACKS, true, false, },
+  {  413, "Trash Wormadam", TYPE_BUG, TYPE_STEEL, 127, 175, 155, "Burmy", T_WORMADAM_ATTACKS, true, false, },
   {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy", MOTHIM_ATTACKS, true, false, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, NULL, NULL, },
   {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, NULL, NULL, },
@@ -2392,8 +2463,8 @@ static const species sdex[] = {
   {  480, "Uxie", TYPE_PSYCHIC, TYPECOUNT, 156, 270, 181, NULL, NULL, },
   {  481, "Mesprit", TYPE_PSYCHIC, TYPECOUNT, 212, 212, 190, NULL, NULL, },
   {  482, "Azelf", TYPE_PSYCHIC, TYPECOUNT, 270, 151, 181, NULL, NULL, },
-  {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, NULL, NULL, },
-  {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, NULL, },
+  {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, NULL, DIALGA_ATTACKS, true, true, },
+  {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, O_DIALGA_ATTACKS, true, true, },
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, NULL, },
   {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, NULL, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, NULL, },
@@ -2532,8 +2603,8 @@ static const species sdex[] = {
   {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, NULL, NULL, },
   {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, NULL, SHELMET_ATTACKS, true, true, },
   {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, "Shelmet", ACCELGOR_ATTACKS, true, true, },
-  {  618, "Stunfisk", TYPE_GROUND, TYPE_ELECTRIC, 144, 171, 240, NULL, NULL, },
-  {  618, "Galarian Stunfisk", TYPE_GROUND, TYPE_STEEL, 144, 171, 240, NULL, NULL, },
+  {  618, "Stunfisk", TYPE_GROUND, TYPE_ELECTRIC, 144, 171, 240, NULL, STUNFISK_ATTACKS, true, true, },
+  {  618, "Galarian Stunfisk", TYPE_GROUND, TYPE_STEEL, 144, 171, 240, NULL, G_STUNFISK_ATTACKS, true, true, },
   {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, NULL, },
   {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, NULL, NULL, },
   {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, NULL, NULL, },

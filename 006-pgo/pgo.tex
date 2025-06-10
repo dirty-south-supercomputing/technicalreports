@@ -115,6 +115,37 @@
 \input{strategy}
 \input{simul}
 \appendix
+\chapter{Optimal League configurations}
+\label{chap:optimal}
+Forms\footnote{Forms disallowed in League play, particularly Mega, are not
+  listed} are sorted by $\sqrt{3}{BP}$, the harmonic mean of $Eff_A$, $Eff_D$, and $MHP$.
+This ought not be interpreted to imply that a higher $\sqrt{3}{BP}$ ought
+  defeat a lower one; other issues, such as type effectiveness and attack
+  choice, are usually more important.
+It is possible for multiple sets of IVs to score equally due to the discrete nature
+  of $MHP$.
+In this case, both optimal sets are listed (there are never more than two).
+\input{out/bounded}
 \chapter{Species by typings}
+\label{chap:speciesbytype}
+Forms are sorted by typing, and within typing by Pokédex number.
+I provide the base stats and their geometric mean, evolutionary line,
+ Pokédex number, an image, cost to purify and to teach a second charged
+ move, walk distance (\autoref{sec:getcandy}), catch and flee rates,
+ region, generation, optimal IV+level configurations for CP1500-
+ and CP2500-bounded play, weather and Mega boost, and whether the
+ form is available as Shiny and/or Shadow.
+Forms have been combined when distinguished only visually.
+
+\textbf{FIXME: need index by name}
+
+\textbf{infobox for each species still needs: attacks, genus, evolves from, evolves to, geommean, optimal1500, optimal2500,
+           requirements to evolve, catch rate, flee rate, region, generation, shadow?, dmax?,
+           pokédex entry, cost to purify/teach, walk distance, weather boost}
 \input{out/species}
+\chapter{Employers of attacks}
+Attacks are sorted by duration, and within duration by the product of DPT and EPT.
+
+\textbf{FIXME: need index by name}
+%FIXME need content
 \end{document}

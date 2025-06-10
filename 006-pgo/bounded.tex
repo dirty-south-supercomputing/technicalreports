@@ -96,12 +96,8 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
 \section{Optimal League forms}
 Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
    the Ultra League (CP 2500).
-\autoref{table:cp1500} lists all species' optimal level and IVs for the Great League\footnote{Forms
-  disallowed in League play, particularly Mega, are not listed},
+\autoref{table:cp1500} lists all species' optimal level and IVs for the Great League
   as evaluated using the harmonic mean of $Eff_A$, $Eff_D$, and $MHP$.
-It is possible for multiple sets of IVs to score equally due to the discrete nature
-  of $MHP$, and in this case all optimal sets are listed (there are never more than
-  two).
 A few observations from this table:
 In general, there is no correlation between $\sqrt{3}{BP}$ and level,
   save that everything at the bottom of the list is maxed (15/15/15@50),
@@ -121,10 +117,20 @@ At this point, they become more disordered, until falling at the back
   of the list.
 $MHP$ and $Eff_D$ are much less predictable.
 
+What's more important, IVs or level?
+Given the vast number of 0/15/15 IVs among the optimal sets, it
+  would seem to be $IV_D$ and $IV_S$ (and that it is equally
+  important to minimize $IV_A$).
+This is true for levels below 30 or so, but more powerful Pokémon
+  have optimal configurations below that.
+Among these, we see much more diversity of IVs.
+The IVs are being pushed lower to allow for higher levels.
+This reflects the diminishing returns on CPM as level increases.
+The real answer is: equal importance until level 30 or so, and IVs beyond that.
+
 \autoref{table:cp2500} does the same for the Ultra League, leaving out those species which
   can't hit a $\sqrt{3}{BP}$ of 115.
 \textbf{FIXME: add plots of $Eff_A$, $Eff_D$, $MHP$ by geometric mean for optimal sets}
-\input{out/bounded}
 
 \section{Anticipating opponents}
 Similarly to an unbounded contest, we can assume that a rational opponent is selecting
