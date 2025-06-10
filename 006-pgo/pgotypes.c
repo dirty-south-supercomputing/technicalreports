@@ -867,6 +867,29 @@ static const attack* MOTHIM_ATTACKS[] = {
   NULL
 };
 
+static const attack* SCATTERBUG_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Tackle,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* SPEWPA_ATTACKS[] = {
+  &ATK_Struggle_Bug,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* VIVILLON_ATTACKS[] = {
+  &ATK_Struggle_Bug,
+  &ATK_Gust,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Hurricane,
+  &ATK_Energy_Ball,
+  NULL
+};
+
 static const attack* CATERPIE_ATTACKS[] = {
   &ATK_Bug_Bite,
   &ATK_Tackle,
@@ -1632,6 +1655,48 @@ static const attack* DUSTOX_ATTACKS[] = {
   NULL
 };
 
+static const attack* KARRABLAST_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Drill_Run,
+  &ATK_Signal_Beam,
+  &ATK_XScissor,
+  NULL
+};
+
+static const attack* ESCAVALIER_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Counter,
+  &ATK_Megahorn,
+  &ATK_Aerial_Ace,
+  &ATK_Drill_Run,
+  &ATK_Acid_Spray,
+  &ATK_Razor_Shell,
+  NULL
+};
+
+static const attack* SHELMET_ATTACKS[] = {
+  &ATK_Acid,
+  &ATK_Infestation,
+  &ATK_Bug_Buzz,
+  &ATK_Signal_Beam,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* ACCELGOR_ATTACKS[] = {
+  &ATK_Acid,
+  &ATK_Infestation,
+  &ATK_Water_Shuriken,
+  &ATK_Bug_Buzz,
+  &ATK_Signal_Beam,
+  &ATK_Focus_Blast,
+  &ATK_Energy_Ball,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -2340,8 +2405,8 @@ static const species sdex[] = {
   {  585, "Deerling", TYPE_NORMAL, TYPE_GRASS, 115, 100, 155, NULL, NULL, },
   {  586, "Sawsbuck", TYPE_NORMAL, TYPE_GRASS, 198, 146, 190, NULL, NULL, },
   {  587, "Emolga", TYPE_ELECTRIC, TYPE_FLYING, 158, 127, 146, NULL, NULL, },
-  {  588, "Karrablast", TYPE_BUG, TYPECOUNT, 137, 87, 137, NULL, NULL, },
-  {  589, "Escavalier", TYPE_BUG, TYPE_STEEL, 223, 187, 172, NULL, NULL, },
+  {  588, "Karrablast", TYPE_BUG, TYPECOUNT, 137, 87, 137, NULL, KARRABLAST_ATTACKS, true, true, },
+  {  589, "Escavalier", TYPE_BUG, TYPE_STEEL, 223, 187, 172, "Karrablast", ESCAVALIER_ATTACKS, true, true, },
   {  590, "Foongus", TYPE_GRASS, TYPE_POISON, 97, 91, 170, NULL, NULL, },
   {  591, "Amoonguss", TYPE_GRASS, TYPE_POISON, 155, 139, 249, NULL, NULL, },
   {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, NULL, },
@@ -2368,8 +2433,8 @@ static const species sdex[] = {
   {  613, "Cubchoo", TYPE_ICE, TYPECOUNT, 128, 74, 146, NULL, NULL, },
   {  614, "Beartic", TYPE_ICE, TYPECOUNT, 233, 152, 216, NULL, NULL, },
   {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, NULL, NULL, },
-  {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, NULL, NULL, },
-  {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, NULL, NULL, },
+  {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, NULL, SHELMET_ATTACKS, true, true, },
+  {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, "Shelmet", ACCELGOR_ATTACKS, true, true, },
   {  618, "Stunfisk", TYPE_GROUND, TYPE_ELECTRIC, 144, 171, 240, NULL, NULL, },
   {  618, "Galarian Stunfisk", TYPE_GROUND, TYPE_STEEL, 144, 171, 240, NULL, NULL, },
   {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, NULL, },
@@ -2423,9 +2488,9 @@ static const species sdex[] = {
   {  661, "Fletchling", TYPE_NORMAL, TYPE_FLYING, 95, 80, 128, NULL, NULL, },
   {  662, "Fletchinder", TYPE_FIRE, TYPE_FLYING, 145, 110, 158, NULL, NULL, },
   {  663, "Talonflame", TYPE_FIRE, TYPE_FLYING, 176, 155, 186, NULL, NULL, },
-  {  664, "Scatterbug", TYPE_BUG, TYPECOUNT, 63, 63, 116, NULL, NULL, },
-  {  665, "Spewpa", TYPE_BUG, TYPECOUNT, 48, 89, 128, NULL, NULL, },
-  {  666, "Vivillon", TYPE_BUG, TYPE_FLYING, 176, 103, 190, NULL, NULL, },
+  {  664, "Scatterbug", TYPE_BUG, TYPECOUNT, 63, 63, 116, NULL, SCATTERBUG_ATTACKS, true, false, },
+  {  665, "Spewpa", TYPE_BUG, TYPECOUNT, 48, 89, 128, "Scatterbug", SPEWPA_ATTACKS, true, false, },
+  {  666, "Vivillon", TYPE_BUG, TYPE_FLYING, 176, 103, 190, "Spewpa", VIVILLON_ATTACKS, true, false, },
   {  667, "Litleo", TYPE_FIRE, TYPE_NORMAL, 139, 112, 158, NULL, NULL, },
   {  668, "Pyroar", TYPE_FIRE, TYPE_NORMAL, 221, 149, 200, NULL, NULL, },
   {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, NULL, NULL, },
