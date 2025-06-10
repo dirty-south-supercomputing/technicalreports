@@ -69,8 +69,12 @@ print_species_latex(const species* s){
   if(s->attacks){ // FIXME remove conditional once all attacks are defined
     printf("\\begin{tabular}{lrrr}\n");
     for(const attack** a = s->attacks ; *a ; ++a){
-      printf("%s & %u & %u & %d\\\\\n", (*a)->name, (*a)->turns,
-              (*a)->powertrain, (*a)->energytrain);
+      if((*a)->energytrain < 0){
+        printf("%s & & %u & %d\\\\\n", (*a)->name, (*a)->powertrain, (*a)->energytrain);
+      }else{
+        printf("%s & %u & %u & %d\\\\\n", (*a)->name, (*a)->turns,
+                (*a)->powertrain, (*a)->energytrain);
+      }
     }
     printf("\\end{tabular}\n");
   }
