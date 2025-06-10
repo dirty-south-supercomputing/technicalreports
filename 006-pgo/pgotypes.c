@@ -2937,3 +2937,18 @@ const species* lookup_species(const char* name){
   }
   return NULL;
 }
+
+void print_type(pgo_types_e t){
+  if(t != TYPECOUNT){
+    printf("\\includegraphics[width=1em,height=1em]{images/%s.png}", tnames[t]);
+  }
+}
+
+// emit the symbols for some typing. nothing is shown for TYPECOUNT, and
+// monotypes are only displayed once.
+void print_types(pgo_types_e t1, pgo_types_e t2){
+  print_type(t1);
+  if(t1 != t2){
+    print_type(t2);
+  }
+}

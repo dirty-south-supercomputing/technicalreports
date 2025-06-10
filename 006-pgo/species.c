@@ -82,10 +82,7 @@ print_species_latex(const species* s){
   if(s->shiny){
     printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
   }
-  printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t1]);
-  if(s->t1 != s->t2 && s->t2 != TYPECOUNT){
-    printf("\\includegraphics[width=1em,height=1em]{images/%s}", tnames[s->t2]);
-  }
+  print_types(s->t1, s->t2);
   printf("\\\\\n");
   if(s->attacks){ // FIXME remove
     for(const attack** a = s->attacks ; *a ; ++a){

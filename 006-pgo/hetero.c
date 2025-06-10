@@ -20,8 +20,11 @@ int main(void){
     if(from->t1 == s->t1 && from->t2 == s->t2){
       continue;
     }
-    // FIXME also want types
-    printf("%s & %s\\\\\n", from->name, s->name);
+    print_types(from->t1, from->t2);
+    printf(" %s ", from->name);
+    print_types(s->t1, s->t2);
+    printf(" & %s ", s->name);
+    printf("\\\\\n");
   }
   printf("\\end{tabular}\n");
   printf("\\caption{Evolutions which change type}\n");

@@ -362,10 +362,7 @@ defensive_relations_latex(const typing* t){
   printf("\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
-    printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[0]]);
-    if(t[i].types[0] != t[i].types[1]){
-      printf("\\includegraphics[width=1em]{images/%s.png}", tnames[t[i].types[1]]);
-    }
+    print_types(t[i].types[0], t[i].types[1]);
     for(int k = 0 ; k < TYPECOUNT ; ++k){
       if(t[i].atypes[k]){
         printf("& %d", t[i].atypes[k]);
