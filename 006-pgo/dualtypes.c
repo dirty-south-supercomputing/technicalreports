@@ -233,53 +233,22 @@ setup_typings(void){
   return dtypes;
 }
 
-static void
-defensive_summaries(const typing* t){
-  printf("Defense efficiency summaries\n");
-  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
-    if(t[i].types[0] == t[i].types[1]){
-      printf("%s|", tnames[t[i].types[0]]);
-    }else{
-      printf("%s+%s|", tnames[t[i].types[0]], tnames[t[i].types[1]]);
+static unsigned
+typing_popcount(pgo_types_e t1, pgo_types_e t2){
+  unsigned pcnt = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species* s = &sdex[u];
+    if((s->t1 == t1 && s->t2 == t2) || (s->t2 == t1 && s->t1 == t2)){
+      ++pcnt;
     }
-    int pos = 0;
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k] == -3){
-        printf("%s%s", !pos ? " -3:" : ",", tnames[k]);
-        ++pos;
-      }
-    }
-    pos = 0;
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k] == -2){
-        printf("%s%s", !pos ? " -2:" : ",", tnames[k]);
-        ++pos;
-      }
-    }
-    pos = 0;
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k] == -1){
-        printf("%s%s", !pos ? " -1:" : ",", tnames[k]);
-        ++pos;
-      }
-    }
-    pos = 0;
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k] == 1){
-        printf("%s%s", !pos ? " 1:" : ",", tnames[k]);
-        ++pos;
-      }
-    }
-    pos = 0;
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k] == 2){
-        printf("%s%s", !pos ? " 2:" : ",", tnames[k]);
-        ++pos;
-      }
-    }
-    printf("\n");
   }
-  printf("\n");
+  for(unsigned u = 0 ; u < MEGACOUNT ; ++u){
+    const species* s = &megasdex[u];
+    if((s->t1 == t1 && s->t2 == t2) || (s->t2 == t1 && s->t1 == t2)){
+      ++pcnt;
+    }
+  }
+  return pcnt;
 }
 
 static void
@@ -289,11 +258,15 @@ defensive_summaries_latex(const typing* t){
   int totals[6];
   const int offset = -3;
   // defensive typing summaries
-  printf("\\begin{longtable}{rrrrrrrr}\n");
-  printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA\\\\\n");
+  printf("\\begin{longtable}{crrrrrrrr}\n");
+  printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop\\\\\n");
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);
+    if(pcnt == 0){
+      printf("\\rowcolor{Red!25}\n");
+    }
     print_types(t[i].types[0], t[i].types[1]);
     printf(" & ");
     float dra = 0;
@@ -311,7 +284,7 @@ defensive_summaries_latex(const typing* t){
         printf("&");
       }
     }
-    printf("%.3f", dra / 18);
+    printf("%.3f & %u", dra / 18, pcnt);
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
@@ -394,7 +367,6 @@ int main(void){
   auto t = setup_typings();
   defensive_relations_latex(t.get());
   qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
-  //defensive_summaries(t.get());
   defensive_summaries_latex(t.get());
   return EXIT_SUCCESS;
 }
