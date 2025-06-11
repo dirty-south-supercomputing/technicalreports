@@ -1855,6 +1855,25 @@ static const attack* LOPUNNY_ATTACKS[] = {
   NULL
 };
 
+static const attack* HOUNDOUR_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Feint_Attack,
+  &ATK_Dark_Pulse,
+  &ATK_Flamethrower,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* HOUNDOOM_ATTACKS[] = {
+  &ATK_Fire_Fang,
+  &ATK_Snarl,
+  &ATK_Flamethrower,
+  &ATK_Fire_Blast,
+  &ATK_Crunch,
+  &ATK_Foul_Play,
+  NULL
+};
+
 static const attack* FUECOCO_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Incinerate,
@@ -2362,8 +2381,8 @@ static const species sdex[] = {
   {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, NULL, },
   {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
   {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
-  {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, NULL, },
-  {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, NULL, NULL, },
+  {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, HOUNDOUR_ATTACKS, true, true, },
+  {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, "Houndour", HOUNDOOM_ATTACKS, true, true, },
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, NULL, NULL, },
   {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, NULL, NULL, },
   {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, NULL, NULL, },
