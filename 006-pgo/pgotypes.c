@@ -2374,6 +2374,26 @@ static const attack* LAPRAS_ATTACKS[] = {
   NULL
 };
 
+static const attack* MANTYKE_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Bubble,
+  &ATK_Ice_Beam,
+  &ATK_Aerial_Ace,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* MANTINE_ATTACKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Bubble,
+  &ATK_Bullet_Seed,
+  &ATK_Ice_Beam,
+  &ATK_Aerial_Ace,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  NULL
+};
+
 static const attack* CARNIVINE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Vine_Whip,
@@ -2996,7 +3016,7 @@ static const species sdex[] = {
   {  223, "Remoraid", TYPE_WATER, TYPECOUNT, 127, 69, 111, NULL, REMORAID_ATTACKS, true, true, },
   {  224, "Octillery", TYPE_WATER, TYPECOUNT, 197, 141, 181, "Remoraid", OCTILLERY_ATTACKS, true, true, },
   {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, NULL, },
-  {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
+  {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, "Mantyke", MANTINE_ATTACKS, true, false, },
   {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, SKARMORY_ATTACKS, true, true, },
   {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, HOUNDOUR_ATTACKS, true, true, },
   {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, "Houndour", HOUNDOOM_ATTACKS, true, true, },
@@ -3242,7 +3262,7 @@ static const species sdex[] = {
   {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, CARNIVINE_ATTACKS, true, false, },
   {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, NULL, },
   {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, NULL, NULL, },
-  {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, NULL, },
+  {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, MANTYKE_ATTACKS, true, false, },
   {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, NULL, },
   {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, NULL, NULL, },
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, NULL, NULL, },
