@@ -1855,6 +1855,68 @@ static const attack* LOPUNNY_ATTACKS[] = {
   NULL
 };
 
+static const attack* FUECOCO_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Disarming_Voice,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* CROCALOR_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Disarming_Voice,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SKELEDIRGE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Hex,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Shadow_Ball,
+  &ATK_Disarming_Voice,
+  &ATK_Crunch,
+  &ATK_Blast_Burn,
+  &ATK_Torch_Song,
+  NULL
+};
+
+static const attack* CUBONE_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Dig,
+  &ATK_Bone_Club,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* MAROWAK_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Dig,
+  &ATK_Earthquake,
+  &ATK_Rock_Slide,
+  &ATK_Bone_Club,
+  NULL
+};
+
+static const attack* A_MAROWAK_ATTACKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Hex,
+  &ATK_Fire_Spin,
+  &ATK_Flame_Wheel,
+  &ATK_Shadow_Ball,
+  &ATK_Bone_Club,
+  &ATK_Fire_Blast,
+  &ATK_Shadow_Bone,
+  NULL
+};
+
 static const attack* LICKITUNG_ATTACKS[] = {
   &ATK_Lick,
   &ATK_Zen_Headbutt,
@@ -2160,9 +2222,9 @@ static const species sdex[] = {
   {  102, "Exeggcute", TYPE_GRASS, TYPE_PSYCHIC, 107, 125, 155, NULL, NULL, },
   {  103, "Exeggutor", TYPE_GRASS, TYPE_PSYCHIC, 233, 149, 216, NULL, NULL, },
   {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, NULL, NULL, },
-  {  104, "Cubone", TYPE_GROUND, TYPECOUNT, 90, 144, 137, NULL, NULL, },
-  {  105, "Marowak", TYPE_GROUND, TYPECOUNT, 144, 186, 155, NULL, NULL, },
-  {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, NULL, NULL, },
+  {  104, "Cubone", TYPE_GROUND, TYPECOUNT, 90, 144, 137, NULL, CUBONE_ATTACKS, true, true, },
+  {  105, "Marowak", TYPE_GROUND, TYPECOUNT, 144, 186, 155, "Cubone", MAROWAK_ATTACKS, true, true, },
+  {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, NULL, A_MAROWAK_ATTACKS, true, true, },
   {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, NULL, NULL, },
   {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, NULL, NULL, },
   {  108, "Lickitung", TYPE_NORMAL, TYPECOUNT, 108, 137, 207, NULL, LICKITUNG_ATTACKS, true, false, },
@@ -2979,9 +3041,9 @@ static const species sdex[] = {
   {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, NULL, NULL, },
   {  907, "Floragato", TYPE_GRASS, TYPECOUNT, 157, 128, 156, NULL, NULL, },
   {  908, "Meowscarada", TYPE_GRASS, TYPE_DARK, 233, 153, 183, NULL, NULL, },
-  {  909, "Fuecoco", TYPE_FIRE, TYPECOUNT, 112, 96, 167, NULL, NULL, },
-  {  910, "Crocalor", TYPE_FIRE, TYPECOUNT, 162, 134, 191, NULL, NULL, },
-  {  911, "Skeledirge", TYPE_FIRE, TYPE_GHOST, 207, 178, 232, NULL, NULL, },
+  {  909, "Fuecoco", TYPE_FIRE, TYPECOUNT, 112, 96, 167, NULL, FUECOCO_ATTACKS, true, false, },
+  {  910, "Crocalor", TYPE_FIRE, TYPECOUNT, 162, 134, 191, "Fuecoco", CROCALOR_ATTACKS, true, false, },
+  {  911, "Skeledirge", TYPE_FIRE, TYPE_GHOST, 207, 178, 232, "Crocalor", SKELEDIRGE_ATTACKS, true, false, },
   {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, NULL, },
   {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, NULL, NULL, },
   {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, NULL, NULL, },
