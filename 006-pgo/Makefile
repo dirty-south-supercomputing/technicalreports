@@ -19,19 +19,22 @@ UPSTREAM:=$(addsuffix .csv, moves)
 FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
 TYPES:=out/dualtypes
-STATS:=out/species
+SPECIES:=out/species
+MEGAS:=out/megas
 SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
-SPECIES:=out/species.tex
+SPECIESTEX:=out/species.tex
+MEGATEX:=out/mega.tex
 CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
-GENTEX:=$(DUALTYPES) $(SPECIES) $(CP1500) $(CP2500) $(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
+GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
+	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -69,7 +72,7 @@ $(OUT)/%: %.c pgotypes.c
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(TYPES) $(GENTEX) $(STATS) $(FATTACKS) $(CATTACKS) $(HETERO) $(TRELS)
+	@rm -vrf $(TYPES) $(GENTEX) $(SPECIESTEX) $(FATTACKS) $(CATTACKS) $(HETERO) $(TRELS) $(MEGATEX)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)

@@ -33,7 +33,7 @@ print_species(const species* s){
 int main(int argc, char **argv){
   if(argc > 1){
     while(*++argv){
-      const species *s = lookup_species(*argv);
+      const species *s = lookup_mega(*argv);
       if(s == NULL){
         fprintf(stderr, "no species named \"%s\", exiting\n", *argv);
         return EXIT_FAILURE;
@@ -44,10 +44,10 @@ int main(int argc, char **argv){
     // we want to retain the order of typings here, so do both ways
     for(int t = TYPESTART ; t < static_cast<int>(TYPECOUNT) ; ++t){
       // we always want the pure typing first
-      filter_by_types(t, t, sdex, SPECIESCOUNT);
+      filter_by_types(t, t, megasdex, MEGACOUNT);
       for(int t2 = TYPESTART ; t2 < static_cast<int>(TYPECOUNT) ; ++t2){
         if(t != t2){
-          filter_by_types(t, t2, sdex, SPECIESCOUNT);
+          filter_by_types(t, t2, megasdex, MEGACOUNT);
         }
       }
     }
