@@ -2551,6 +2551,70 @@ static const attack* TOXTRICITY_ATTACKS[] = {
   NULL
 };
 
+static const attack* SLOWPOKE_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Confusion,
+  &ATK_Psyshock,
+  &ATK_Water_Pulse,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* SLOWBRO_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Confusion,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  &ATK_Psychic,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* G_SLOWPOKE_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Iron_Tail,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* G_SLOWBRO_ATTACKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Confusion,
+  &ATK_Sludge_Bomb,
+  &ATK_Scald,
+  &ATK_Psychic,
+  &ATK_Focus_Blast,
+  &ATK_Surf,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* SLOWKING_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Confusion,
+  &ATK_Blizzard,
+  &ATK_Fire_Blast,
+  &ATK_Scald,
+  &ATK_Psychic,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* G_SLOWKING_ATTACKS[] = {
+  &ATK_Acid,
+  &ATK_Confusion,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Sludge_Wave,
+  &ATK_Scald,
+  &ATK_Future_Sight,
+  &ATK_Surf,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -2662,10 +2726,10 @@ static const species sdex[] = {
   {   77, "Galarian Ponyta", TYPE_PSYCHIC, TYPECOUNT, 170, 127, 137, NULL, NULL, },
   {   78, "Rapidash", TYPE_FIRE, TYPECOUNT, 207, 162, 163, NULL, NULL, },
   {   78, "Galarian Rapidash", TYPE_PSYCHIC, TYPE_FAIRY, 207, 162, 163, NULL, NULL, },
-  {   79, "Slowpoke", TYPE_WATER, TYPE_PSYCHIC, 109, 98, 207, NULL, NULL, },
-  {   79, "Galarian Slowpoke", TYPE_PSYCHIC, TYPECOUNT, 109, 98, 207, NULL, NULL, },
-  {   80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, NULL, NULL, },
-  {   80, "Galarian Slowbro", TYPE_POISON, TYPE_PSYCHIC, 182, 156, 216, NULL, NULL, },
+  {   79, "Slowpoke", TYPE_WATER, TYPE_PSYCHIC, 109, 98, 207, NULL, SLOWPOKE_ATTACKS, true, true, },
+  {   79, "Galarian Slowpoke", TYPE_PSYCHIC, TYPECOUNT, 109, 98, 207, NULL, G_SLOWPOKE_ATTACKS, true, true, },
+  {   80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWBRO_ATTACKS, true, true, },
+  {   80, "Galarian Slowbro", TYPE_POISON, TYPE_PSYCHIC, 182, 156, 216, "Galarian Slowpoke", G_SLOWBRO_ATTACKS, true, true, },
   {   81, "Magnemite", TYPE_ELECTRIC, TYPE_STEEL, 165, 121, 93, NULL, NULL, },
   {   82, "Magneton", TYPE_ELECTRIC, TYPE_STEEL, 223, 169, 137, NULL, NULL, },
   {   83, "Farfetch'd", TYPE_NORMAL, TYPE_FLYING, 124, 115, 141, NULL, NULL, },
@@ -2802,8 +2866,8 @@ static const species sdex[] = {
   {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, "Eevee", ESPEON_ATTACKS, true, false, },
   {  197, "Umbreon", TYPE_DARK, TYPECOUNT, 126, 240, 216, "Eevee", UMBREON_ATTACKS, true, false, },
   {  198, "Murkrow", TYPE_DARK, TYPE_FLYING, 175, 87, 155, NULL, NULL, },
-  {  199, "Slowking", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, NULL, NULL, },
-  {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, NULL, NULL, },
+  {  199, "Slowking", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWKING_ATTACKS, true, true, },
+  {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, "Galarian Slowpoke", G_SLOWKING_ATTACKS, true, true, },
   {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, NULL, NULL, },
   {  201, "Unown", TYPE_PSYCHIC, TYPECOUNT, 136, 91, 134, NULL, NULL, },
   {  202, "Wobbuffet", TYPE_PSYCHIC, TYPECOUNT, 60, 106, 382, NULL, NULL, },
@@ -3575,7 +3639,7 @@ static const species megasdex[] = {
   {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Beedrill", BEEDRILL_ATTACKS, true, false, },
   {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, false, },
   {   65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, "Alakazam", ALAKAZAM_ATTACKS, },
-  {   80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro", NULL, true, false, },
+  {   80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro", SLOWBRO_ATTACKS, true, false, },
   {   94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar", GENGAR_ATTACKS, true, false, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, "Kangaskhan", KANGASKHAN_ATTACKS, true, false, },
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir", NULL, true, false, },
