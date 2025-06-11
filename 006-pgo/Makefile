@@ -60,7 +60,7 @@ $(OUT)/circo/%.png: circo/%
 
 $(OUT)/cp1500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 1500 0 > $@
+	$(<) 1500 95 > $@
 
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)

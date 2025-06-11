@@ -132,7 +132,7 @@ deathmarch (T1, T2, D1, D2, H1, H2)
 if T1 < T2
   if T1 > 0 // conclude p1's attack
     H2 -= D1
-    if H2 󰥽 0
+    if H2 <= 0
       return 1, 0, 0  // p1 wins
     T2 -= T1
     T1 = 0
@@ -141,7 +141,7 @@ if T1 < T2
 else if T2 < T1
   if T2 > 0 // conclude p2's attack
     H1 -= D2
-    if H1 󰥽 0
+    if H1 <= 0
       return 0, 1, 0 // p2 wins
     T1 -= T2
     T2 = 0
@@ -153,9 +153,9 @@ else // they're equal
     H1 -= D2
     if H2 󰥽 0 and H1 󰥽 0
       return 0, 0, 1 // tie
-    else if H2 󰥽 0
+    else if H2 <= 0
       return 1, 0, 0 // p1 wins
-    else if H1 󰥽 0
+    else if H1 <= 0
       return 0, 1, 0 // p2 wins
     T1 = T2 = 0
 if T2 // p1 attacks or does nothing

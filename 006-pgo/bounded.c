@@ -14,16 +14,12 @@ void print_bounded_table(int bound, float lbound){
   printf("\\Midrule\\\\\n");
   printf("\\endhead\n");
   stats *sols = NULL;
-  float worstopt = 0;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     stats *s = find_optimal_set(&sdex[i], bound, lbound);
     while(s){
       stats **prev = &sols;
       stats *tmp;
       while( (tmp = *prev) ){
-        if(!worstopt || s->geommean < worstopt){
-          worstopt = s->geommean;
-        }
         if(s->geommean > tmp->geommean){
           break;
         }
@@ -47,12 +43,12 @@ void print_bounded_table(int bound, float lbound){
         }
         putchar(*curs);
       }
-      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %4u & %.2f\\\\\n",
+      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %4u & %.1f\\\\\n",
               l, half ? ".5" : "",
               tmp->ia, tmp->id, tmp->is,
               tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
               tmp->cp,
-              tmp->geommean / worstopt);
+              tmp->apercent);
     }else{
       printf(" & & %u/%u/%u & & & & & %4u\\\\\n", tmp->ia, tmp->id, tmp->is, tmp->cp);
     }

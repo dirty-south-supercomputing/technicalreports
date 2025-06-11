@@ -3713,6 +3713,7 @@ typedef struct stats {
   unsigned mhp;             // max hit points
   unsigned cp;              // combat power
   float geommean;           // geometric mean of effa, effd, mhp
+  float apercent;           // advantage over pessimal level-maxed iv
   struct stats* next;
 } stats;
 
@@ -3777,7 +3778,7 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
 
 static int
 update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float gmfloor){
+              unsigned is, unsigned hl, float gmfloor, float* minmean){
   stats **prev = osets;
   stats *cur;
   unsigned moda = s->atk + ia;
@@ -3787,6 +3788,9 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
   float gm = calc_fit(effa, effd, mhp);
+  if(gm < *minmean || *minmean <= 0){
+    *minmean = gm;
+  }
   if(gm < gmfloor){
     return 0;
   }
@@ -3836,12 +3840,13 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
 // and MHP greater than or equal to gmfloor.
 stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
   stats* optsets = NULL;
+  float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor) < 0){
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor, &minmean) < 0){
           return NULL;
         }
       }
@@ -3876,6 +3881,10 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
     }else{
       free(cur);
     }
+  }
+  // FIXME need we set apercent in all we return?
+  if(collectopt){
+    collectopt->apercent = (collectopt->geommean / minmean - 1.0) * 100;
   }
   return collectopt;
 }
