@@ -1977,6 +1977,41 @@ static const attack* ALAKAZAM_ATTACKS[] = {
   NULL
 };
 
+static const attack* MACHOP_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Karate_Chop,
+  &ATK_Rock_Smash,
+  &ATK_Cross_Chop,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* MACHOKE_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Karate_Chop,
+  &ATK_Cross_Chop,
+  &ATK_Submission,
+  &ATK_Brick_Break,
+  &ATK_Dynamic_Punch,
+  NULL
+};
+
+static const attack* MACHAMP_ATTACKS[] = {
+  &ATK_Karate_Chop,
+  &ATK_Bullet_Punch,
+  &ATK_Counter,
+  &ATK_Cross_Chop,
+  &ATK_Stone_Edge,
+  &ATK_Submission,
+  &ATK_Rock_Slide,
+  &ATK_Close_Combat,
+  &ATK_Dynamic_Punch,
+  &ATK_Heavy_Slam,
+  &ATK_Payback,
+  NULL
+};
+
 static const attack* BUNEARY_ATTACKS[] = {
   &ATK_Quick_Attack,
   &ATK_Pound,
@@ -2389,9 +2424,9 @@ static const species sdex[] = {
   {   63, "Abra", TYPE_PSYCHIC, TYPECOUNT, 195, 82, 93, NULL, ABRA_ATTACKS, true, true, },
   {   64, "Kadabra", TYPE_PSYCHIC, TYPECOUNT, 232, 117, 120, "Abra", KADABRA_ATTACKS, true, true, },
   {   65, "Alakazam", TYPE_PSYCHIC, TYPECOUNT, 271, 167, 146, "Kadabra", ALAKAZAM_ATTACKS, true, true, },
-  {   66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, NULL, NULL, },
-  {   67, "Machoke", TYPE_FIGHTING, TYPECOUNT, 177, 125, 190, NULL, NULL, },
-  {   68, "Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, NULL, },
+  {   66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, NULL, MACHOP_ATTACKS, true, true, },
+  {   67, "Machoke", TYPE_FIGHTING, TYPECOUNT, 177, 125, 190, "Machop", MACHOKE_ATTACKS, true, true, },
+  {   68, "Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machoke", MACHAMP_ATTACKS, true, true, },
   {   69, "Bellsprout", TYPE_GRASS, TYPE_POISON, 139, 61, 137, NULL, NULL, },
   {   70, "Weepinbell", TYPE_GRASS, TYPE_POISON, 172, 92, 163, NULL, NULL, },
   {   71, "Victreebel", TYPE_GRASS, TYPE_POISON, 207, 135, 190, NULL, NULL, },
@@ -3363,6 +3398,10 @@ static const species megasdex[] = {
 // gigantimax forms are never shadows
 static const species gigantasdex[] = {
   {    3, "Gigantamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATTACKS, true, false, },
+  {    6, "Gigantamax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, NULL, CHARIZARD_ATTACKS, true, false, },
+  {    9, "Gigantamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATTACKS, true, false, },
+  {   58, "Gigantamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATTACKS, true, false, },
+  // FIXME
 };
 
 #define GIGANTACOUNT (sizeof(gigantasdex) / sizeof(*gigantasdex))
