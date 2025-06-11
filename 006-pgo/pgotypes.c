@@ -2119,6 +2119,28 @@ static const attack* GENGAR_ATTACKS[] = {
   NULL
 };
 
+static const attack* KRABBY_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Vise_Grip,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Razor_Shell,
+  NULL
+};
+
+static const attack* KINGLER_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Metal_Claw,
+  &ATK_Bubble,
+  &ATK_Vise_Grip,
+  &ATK_XScissor,
+  &ATK_Water_Pulse,
+  &ATK_Crabhammer,
+  &ATK_Razor_Shell,
+  NULL
+};
+
 static const attack* CUBONE_ATTACKS[] = {
   &ATK_Mud_Slap,
   &ATK_Rock_Smash,
@@ -2208,6 +2230,21 @@ static const attack* GYARADOS_ATTACKS[] = {
   &ATK_Hydro_Pump,
   &ATK_Outrage,
   &ATK_Crunch,
+  NULL
+};
+
+static const attack* LAPRAS_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Water_Gun,
+  &ATK_Psywave,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Dragon_Pulse,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  &ATK_Skull_Bash,
+  &ATK_Sparkling_Aria,
   NULL
 };
 
@@ -2504,8 +2541,8 @@ static const species sdex[] = {
   {   95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, NULL, NULL, },
   {   96, "Drowzee", TYPE_PSYCHIC, TYPECOUNT, 89, 136, 155, NULL, NULL, },
   {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, NULL, NULL, },
-  {   98, "Krabby", TYPE_WATER, TYPECOUNT, 181, 124, 102, NULL, NULL, },
-  {   99, "Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, NULL, },
+  {   98, "Krabby", TYPE_WATER, TYPECOUNT, 181, 124, 102, NULL, KRABBY_ATTACKS, true, true, },
+  {   99, "Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Krabby", KINGLER_ATTACKS, true, true, },
   {  100, "Voltorb", TYPE_ELECTRIC, TYPECOUNT, 109, 111, 120, NULL, NULL, },
   {  100, "Hisuian Voltorb", TYPE_ELECTRIC, TYPE_GRASS, 109, 111, 120, NULL, NULL, },
   {  101, "Electrode", TYPE_ELECTRIC, TYPECOUNT, 173, 173, 155, NULL, NULL, },
@@ -2546,7 +2583,7 @@ static const species sdex[] = {
   {  128, "Aqua Breed Tauros", TYPE_FIGHTING, TYPE_WATER, 210, 193, 181, NULL, NULL, },
   {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, MAGIKARP_ATTACKS, true, true, },
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp", GYARADOS_ATTACKS, true, true, },
-  {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, NULL, },
+  {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATTACKS, true, true, },
   {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, NULL, NULL, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, EEVEE_ATTACKS, true, false, },
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee", VAPOREON_ATTACKS, true, false, },
@@ -3440,6 +3477,8 @@ static const species gigantasdex[] = {
   {    9, "Gigantamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATTACKS, true, false, },
   {   68, "Gigantamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATTACKS, true, false, },
   {   94, "Gigantamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATTACKS, true, false, },
+  {   99, "Gigantamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATTACKS, true, false, },
+  {  131, "Gigantamax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATTACKS, true, false, },
   // FIXME
 };
 
