@@ -64,7 +64,7 @@ $(OUT)/cp1500.tex: $(OUT)/bounded
 
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 2500 115 > $@
+	$(<) 2500 130 > $@
 
 $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)
