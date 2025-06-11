@@ -2429,6 +2429,31 @@ static const attack* UMBREON_ATTACKS[] = {
   NULL
 };
 
+static const attack* GROOKEY_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Scratch,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* THWACKEY_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Scratch,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* RILLABOOM_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Scratch,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Earth_Power,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -3329,9 +3354,9 @@ static const species sdex[] = {
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, NULL, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, NULL, },
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, NULL, NULL, },
-  {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, NULL, NULL, },
-  {  811, "Thwackey", TYPE_GRASS, TYPECOUNT, 165, 134, 172, NULL, NULL, },
-  {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, NULL, },
+  {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, NULL, GROOKEY_ATTACKS, true, true, },
+  {  811, "Thwackey", TYPE_GRASS, TYPECOUNT, 165, 134, 172, "Grookey", THWACKEY_ATTACKS, true, true, },
+  {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey", RILLABOOM_ATTACKS, true, true, },
   {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, NULL, NULL, },
   {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, NULL, NULL, },
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, NULL, },
@@ -3503,6 +3528,7 @@ static const species gigantasdex[] = {
   {   99, "Gigantamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATTACKS, true, false, },
   {  131, "Gigantamax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATTACKS, true, false, },
   {  143, "Gigantamax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATTACKS, true, false, },
+  {  812, "Gigantamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATTACKS, true, false, },
   // FIXME
 };
 
