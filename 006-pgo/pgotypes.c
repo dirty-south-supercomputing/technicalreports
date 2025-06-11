@@ -2219,6 +2219,36 @@ static const attack* LICKITUNG_ATTACKS[] = {
   NULL
 };
 
+static const attack* SPRIGATITO_ATTACKS[] = {
+  &ATK_Charm,
+  &ATK_Leafage,
+  &ATK_Play_Rough,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* FLORAGATO_ATTACKS[] = {
+  &ATK_Charm,
+  &ATK_Leafage,
+  &ATK_Play_Rough,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* MEOWSCARADA_ATTACKS[] = {
+  &ATK_Charm,
+  &ATK_Leafage,
+  &ATK_Night_Slash,
+  &ATK_Play_Rough,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Frenzy_Plant,
+  &ATK_Flower_Trick,
+  NULL
+};
+
 static const attack* TERRAKION_ATTACKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Smack_Down,
@@ -3481,9 +3511,9 @@ static const species sdex[] = {
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, NULL, NULL, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, NULL, NULL, },
   {  905, "Incarnate Forme Enamorus", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, NULL, NULL, },
-  {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, NULL, NULL, },
-  {  907, "Floragato", TYPE_GRASS, TYPECOUNT, 157, 128, 156, NULL, NULL, },
-  {  908, "Meowscarada", TYPE_GRASS, TYPE_DARK, 233, 153, 183, NULL, NULL, },
+  {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, NULL, SPRIGATITO_ATTACKS, true, false, },
+  {  907, "Floragato", TYPE_GRASS, TYPECOUNT, 157, 128, 156, "Sprigatito", FLORAGATO_ATTACKS, true, false, },
+  {  908, "Meowscarada", TYPE_GRASS, TYPE_DARK, 233, 153, 183, "Floragato", MEOWSCARADA_ATTACKS, true, false, },
   {  909, "Fuecoco", TYPE_FIRE, TYPECOUNT, 112, 96, 167, NULL, FUECOCO_ATTACKS, true, false, },
   {  910, "Crocalor", TYPE_FIRE, TYPECOUNT, 162, 134, 191, "Fuecoco", CROCALOR_ATTACKS, true, false, },
   {  911, "Skeledirge", TYPE_FIRE, TYPE_GHOST, 207, 178, 232, "Crocalor", SKELEDIRGE_ATTACKS, true, false, },
