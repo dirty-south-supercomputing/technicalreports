@@ -762,6 +762,37 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* SKARMORY_ATTACKS[] = {
+  &ATK_Steel_Wing,
+  &ATK_Air_Slash,
+  &ATK_Flash_Cannon,
+  &ATK_Brave_Bird,
+  &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* SABLEYE_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Feint_Attack,
+  &ATK_Power_Gem,
+  &ATK_Shadow_Sneak,
+  &ATK_Dazzling_Gleam,
+  &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* RAYQUAZA_ATTACKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Ancient_Power,
+  &ATK_Hurricane,
+  &ATK_Outrage,
+  &ATK_Breaking_Swipe,
+  &ATK_Dragon_Ascent,
+  NULL
+};
+
 static const attack* SALAMENCE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Fire_Fang,
@@ -2380,7 +2411,7 @@ static const species sdex[] = {
   {  224, "Octillery", TYPE_WATER, TYPECOUNT, 197, 141, 181, NULL, NULL, },
   {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, NULL, },
   {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
-  {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
+  {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, SKARMORY_ATTACKS, true, true, },
   {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, HOUNDOUR_ATTACKS, true, true, },
   {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, "Houndour", HOUNDOOM_ATTACKS, true, true, },
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, NULL, NULL, },
@@ -2457,7 +2488,7 @@ static const species sdex[] = {
   {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NULL, },
   {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
   {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, NULL, NULL, },
-  {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, NULL, },
+  {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, SABLEYE_ATTACKS, true, true, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, NULL, NULL, },
   {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, NULL, },
   {  305, "Lairon", TYPE_STEEL, TYPE_ROCK, 158, 198, 155, NULL, NULL, },
@@ -2544,7 +2575,7 @@ static const species sdex[] = {
   {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, NULL, NULL, },
   {  383, "Groudon", TYPE_GROUND, TYPECOUNT, 270, 228, 205, NULL, NULL, },
   {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, NULL, NULL, },
-  {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, NULL, },
+  {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, RAYQUAZA_ATTACKS, true, false, },
   {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, NULL, NULL, },
   {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, NULL, NULL, },
   {  386, "Deoxys Attack", TYPE_PSYCHIC, TYPECOUNT, 414, 46, 137, NULL, NULL, },
