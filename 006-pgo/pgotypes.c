@@ -872,6 +872,49 @@ static const attack* SALAMENCE_ATTACKS[] = {
   NULL
 };
 
+static const attack* REGIROCK_ATTACKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Rock_Smash,
+  &ATK_Lock_On,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Focus_Blast,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* REGICE_ATTACKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Rock_Smash,
+  &ATK_Lock_On,
+  &ATK_Earthquake,
+  &ATK_Blizzard,
+  &ATK_Thunder,
+  &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* REGISTEEL_ATTACKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Rock_Smash,
+  &ATK_Lock_On,
+  &ATK_Hyper_Beam,
+  &ATK_Flash_Cannon,
+  &ATK_Focus_Blast,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* REGIELEKI_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Volt_Switch,
+  &ATK_Lock_On,
+  &ATK_Hyper_Beam,
+  &ATK_Thunder,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
 static const attack* DIALGA_ATTACKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Metal_Claw,
@@ -2692,9 +2735,9 @@ static const species sdex[] = {
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, NULL, true, true, },
   {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", NULL, true, true, },
   {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", NULL, true, true, },
-  {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, NULL, true, true, },
-  {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, NULL, true, true, },
-  {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, NULL, true, true, },
+  {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, REGIROCK_ATTACKS, true, true, },
+  {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, REGICE_ATTACKS, true, true, },
+  {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, REGISTEEL_ATTACKS, true, true, },
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, NULL, NULL, },
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, NULL, NULL, },
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, NULL, NULL, },
@@ -3206,7 +3249,7 @@ static const species sdex[] = {
   {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, NULL, NULL, },
   {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, NULL, NULL, },
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, NULL, NULL, },
-  {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, NULL, },
+  {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, REGIELEKI_ATTACKS, true, true, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, NULL, },
   {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, NULL, },
   {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, NULL, },
