@@ -12,17 +12,18 @@ static int cmpatk(const void* va1, const void* va2){
 
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
-  printf("\\begin{longtable}{lrrr}\n");
-  printf("Attack & P & E & $\\frac{P}{E}$\\\\\n");
+  printf("\\begin{longtable}{lrrrr}\n");
+  printf("Attack & P & E & $\\frac{P}{E}$ & Pop\\\\\n");
   printf("\\Midrule\\\\\n");
   int c = ccount;
   while(--c >= 0){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
-      printf("\\includegraphics[width=1em,height=1em]{images/%s.png}", TNames[a->type]);
+      printf("\\includegraphics[width=1em,height=1em]{images/%s.png} ", TNames[a->type]);
     }
-    printf("%s & %u & %d & %.2f\\\\\n", a->name, a->powertrain,
-            -a->energytrain, a->powertrain / (float)-a->energytrain);
+    printf("%s & %u & %d & %.2f & %u\\\\\n", a->name, a->powertrain,
+            -a->energytrain, a->powertrain / (float)-a->energytrain,
+            learner_count(a));
   }
   printf("\\caption{Charged attacks and power-per-energy}\n");
   printf("\\label{table:chargedattacks}\n");

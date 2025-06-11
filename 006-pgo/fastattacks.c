@@ -18,19 +18,19 @@ static int cmpatk(const void* va1, const void* va2){
 
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
-  printf("\\begin{longtable}{lrrrrrr}\n");
-  printf("Attack & P & E & T & DPT & EPT\\\\\n");
+  printf("\\begin{longtable}{lrrrrrrr}\n");
+  printf("Attack & P & E & T & DPT & EPT & Pop\\\\\n");
   printf("\\Midrule\\\\\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
-      printf("\\includegraphics[width=1em,height=1em]{images/%s.png}", TNames[a->type]);
+      printf("\\includegraphics[width=1em,height=1em]{images/%s.png} ", TNames[a->type]);
     }else{
       printf("\\hspace{1em}");
     }
-    printf("%s & %u & %d & %u & %.02f & %.02f\\\\\n", a->name, a->powertrain,
+    printf("%s & %u & %d & %u & %.02f & %.02f & %u\\\\\n", a->name, a->powertrain,
             a->energytrain, a->turns, a->powertrain / (float)a->turns,
-            a->energytrain / (float)a->turns);
+            a->energytrain / (float)a->turns, learner_count(a));
   }
   printf("\\caption{Fast attacks, DPT, and EPT}\n");
   printf("\\label{table:fastattacks}\n");

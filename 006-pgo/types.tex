@@ -1,7 +1,7 @@
 \chapter{Types}
 \label{chap:types}
 There are eighteen types, each with a representative icon.
-In trainer battles, the types of active Pokémon are displayed
+In trainer battles, the types of active Pokémon are indicated
  using these icons, and it is necessary to immediately recognize
  them on sight.
 
@@ -82,7 +82,7 @@ and Dragon → Fairy.
 Note that the Ghost/Normal relationship is very ineffective in both directions.
 On the other hand, Ground is effective against Electric, Fairy is effective
  against Dragon, and Dark is effective against Psychic, making these the most
- lopsided matchups between single Types.
+ lopsided matchups between single types.
 
 \section{Memorizing the type relations}
 I memorized the type system fairly easily after developing the following seven graphs.
@@ -156,7 +156,7 @@ Fairy also kills Fighting, which kills Rock.
 Ground slaughters Electric, which kills Flying.
 Flying strikes back, raining death from above and killing Fighting, Bug, and Grass.
 Fire likewise kills Bug and Grass.
-Grass kills Water (it is the only thing strong against Water besides Electric).
+Grass kills Water (it is the only type strong against Water besides Electric).
 \clearpage
 
 \begin{figure}[h!]
@@ -171,6 +171,7 @@ Most everything else is weak against Steel, especially
 Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
 Steel is weak against Water and Electric.
 Only two types have no relationships with Steel: Dark and Ghost (\autoref{fig:steel}).
+As Josef Stalin said, ``it's good to be Steel''.
 
 \begin{figure}[ht]
 \centering
@@ -202,7 +203,7 @@ memorized as they are.
 A species of Pokémon may be singly or doubly types.
 It is not possible to dual type using a single type,
  and ordering of the types does not matter.
-\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153 \]
+\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153, 153 + 18 = 171 \]
 There are thus 153 dual types in addition to the 18 base types,
   for a total of 171.
 We could also arrive at this number by summing 1 through 18:
@@ -212,9 +213,9 @@ Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock
  leaving 162 defender typings to consider.
 
 Dual typing expands the type relation range, adding the possibilities
- of -3 and 2 (-4 is not possible, because no Type is very ineffective against
- two different Types).
-It furthermore vastly expands the Type Effectiveness matrix,
+ of -3 and 2 (-4 is not possible, because no type is very ineffective against
+ two different types).
+It furthermore vastly expands the type effectiveness matrix,
  with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
@@ -223,7 +224,7 @@ Completely unexpectedly, the best typings include Steel, with the top 16
 
 \input{out/dualtypes.tex}
 
-There are twenty triple resistances, five of which are against Fighting attacks.
+There are twenty triple resistances, five of which are against Fighting attacks (\autoref{table:triples}).
 Two of the typings exhibiting such resistances are unpopulated
   (Electricity+Ground\footnote{Sandy Shocks, Pokédex \#0989, is a Generation IX
   Electricity+Ground, but is not at this time present in Pokémon GO.} and Ghost+Rock).
@@ -242,6 +243,7 @@ Poison → Ground+Normal & Poison → Poison+Steel \\
 Poison → Rock+Steel & Poison → Ghost+Steel \\
     \end{tabular}
     \caption{The twenty triple resistances}
+    \label{table:triples}
   \end{center}
 \end{table}
 
@@ -284,4 +286,3 @@ The game's assessment of your weather is communicated via an icon on the Map Vie
   \label{table:weather}
 \end{center}
 \end{table}
-\textbf{FIXME: include weather icons}

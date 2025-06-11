@@ -1661,6 +1661,18 @@ static const attack* ANNIHILAPE_ATTACKS[] = {
   NULL
 };
 
+static const attack* CLODSIRE_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Poison_Sting,
+  &ATK_Megahorn,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Sludge_Bomb,
+  &ATK_Water_Pulse,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* PINSIR_ATTACKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Bug_Bite,
@@ -1904,6 +1916,105 @@ static const attack* KANGASKHAN_ATTACKS[] = {
   NULL
 };
 
+static const attack* EEVEE_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Tackle,
+  &ATK_Dig,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  &ATK_Last_Resort,
+  NULL
+};
+
+static const attack* JOLTEON_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Volt_Switch,
+  &ATK_Discharge,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Zap_Cannon,
+  &ATK_Last_Resort,
+  NULL
+};
+
+static const attack* GLACEON_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Icy_Wind,
+  &ATK_Avalanche,
+  &ATK_Last_Resort,
+  NULL
+};
+
+static const attack* ESPEON_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
+  &ATK_Last_Resort,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
+static const attack* LEAFEON_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Quick_Attack,
+  &ATK_Bullet_Seed,
+  &ATK_Solar_Beam,
+  &ATK_Leaf_Blade,
+  &ATK_Energy_Ball,
+  &ATK_Last_Resort,
+  NULL
+};
+
+static const attack* SYLVEON_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Charm,
+  &ATK_Psyshock,
+  &ATK_Draining_Kiss,
+  &ATK_Dazzling_Gleam,
+  &ATK_Moonblast,
+  &ATK_Last_Resort,
+  NULL
+};
+
+static const attack* VAPOREON_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Aqua_Tail,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  &ATK_Hydro_Pump,
+  &ATK_Last_Resort,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* FLAREON_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Heat_Wave,
+  &ATK_Fire_Blast,
+  &ATK_Overheat,
+  &ATK_Last_Resort,
+  &ATK_Superpower,
+  NULL
+};
+
+static const attack* UMBREON_ATTACKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Psychic,
+  &ATK_Foul_Play,
+  &ATK_Last_Resort,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -2084,10 +2195,10 @@ static const species sdex[] = {
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, NULL, NULL, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, NULL, },
   {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, NULL, NULL, },
-  {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, NULL, },
-  {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, NULL, NULL, },
-  {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, NULL, NULL, },
-  {  136, "Flareon", TYPE_FIRE, TYPECOUNT, 246, 179, 163, NULL, NULL, },
+  {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, EEVEE_ATTACKS, true, false, },
+  {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee", VAPOREON_ATTACKS, true, false, },
+  {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee", JOLTEON_ATTACKS, true, false, },
+  {  136, "Flareon", TYPE_FIRE, TYPECOUNT, 246, 179, 163, "Eevee", FLAREON_ATTACKS, true, false, },
   {  137, "Porygon", TYPE_NORMAL, TYPECOUNT, 153, 136, 163, NULL, NULL, },
   {  138, "Omanyte", TYPE_ROCK, TYPE_WATER, 155, 153, 111, NULL, NULL, },
   {  139, "Omastar", TYPE_ROCK, TYPE_WATER, 207, 201, 172, NULL, NULL, },
@@ -2150,11 +2261,11 @@ static const species sdex[] = {
   {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, NULL, },
   {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, NULL, NULL, },
   {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, NULL, },
-  {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, NULL, },
-  {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, NULL, },
-  {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, NULL, NULL, },
-  {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, NULL, NULL, },
-  {  197, "Umbreon", TYPE_DARK, TYPECOUNT, 126, 240, 216, NULL, NULL, },
+  {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, NULL, true, true, },
+  {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, NULL, true, true, },
+  {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper", NULL, true, true, },
+  {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, "Eevee", ESPEON_ATTACKS, true, false, },
+  {  197, "Umbreon", TYPE_DARK, TYPECOUNT, 126, 240, 216, "Eevee", UMBREON_ATTACKS, true, false, },
   {  198, "Murkrow", TYPE_DARK, TYPE_FLYING, 175, 87, 155, NULL, NULL, },
   {  199, "Slowking", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, NULL, NULL, },
   {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, NULL, NULL, },
@@ -2445,8 +2556,8 @@ static const species sdex[] = {
   {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, NULL, NULL, },
   {  468, "Togekiss", TYPE_FAIRY, TYPE_FLYING, 225, 217, 198, NULL, NULL, },
   {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, NULL, NULL, },
-  {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, NULL, NULL, },
-  {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, NULL, NULL, },
+  {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, "Eevee", LEAFEON_ATTACKS, true, false, },
+  {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATTACKS, true, false},
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, NULL, NULL, },
   {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, NULL, NULL, },
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, NULL, NULL, },
@@ -2689,7 +2800,7 @@ static const species sdex[] = {
   {  697, "Tyrantrum", TYPE_ROCK, TYPE_DRAGON, 227, 191, 193, NULL, NULL, },
   {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, NULL, NULL, },
   {  699, "Aurorus", TYPE_ROCK, TYPE_ICE, 186, 163, 265, NULL, NULL, },
-  {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, NULL, NULL, },
+  {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, "Eevee", SYLVEON_ATTACKS, true, false, },
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, NULL, },
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, NULL, },
   {  703, "Carbink", TYPE_ROCK, TYPE_FAIRY, 95, 285, 137, NULL, NULL, },
@@ -2909,7 +3020,7 @@ static const species sdex[] = {
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, NULL, },
   {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, NULL, NULL, },
   {  979, "Annihilape", TYPE_FIGHTING, TYPE_GHOST, 220, 178, 242, "Primeape", ANNIHILAPE_ATTACKS, true, true, },
-  {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, NULL, NULL, },
+  {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper", CLODSIRE_ATTACKS, true, false, },
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, NULL, NULL, },
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, NULL, NULL, },
   {  997, "Arctibax", TYPE_DRAGON, TYPE_ICE, 173, 128, 207, NULL, NULL, },
@@ -3168,4 +3279,21 @@ void print_types(pgo_types_e t1, pgo_types_e t2){
     printf(" ");
     print_type(t2);
   }
+}
+
+// how many species can learn this attack?
+unsigned learner_count(const attack* as){
+  unsigned count = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species* s = &sdex[u];
+    if(s->attacks){
+      for(const attack** a = s->attacks ; *a ; ++a){
+        if(strcmp((*a)->name, as->name) == 0){
+          ++count;
+          break;
+        }
+      }
+    }
+  }
+  return count;
 }
