@@ -2017,6 +2017,26 @@ static const attack* GRENINJA_ATTACKS[] = {
   NULL
 };
 
+static const attack* MAGIKARP_ATTACKS[] = {
+  &ATK_Splash,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* GYARADOS_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Dragon_Breath,
+  &ATK_Dragon_Tail,
+  &ATK_Waterfall,
+  &ATK_Aqua_Tail,
+  &ATK_Twister,
+  &ATK_Dragon_Pulse,
+  &ATK_Hydro_Pump,
+  &ATK_Outrage,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* CARNIVINE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Vine_Whip,
@@ -2351,8 +2371,8 @@ static const species sdex[] = {
   {  128, "Combat Breed Tauros", TYPE_FIGHTING, TYPECOUNT, 210, 193, 181, NULL, NULL, },
   {  128, "Blaze Breed Tauros", TYPE_FIGHTING, TYPE_FIRE, 210, 193, 181, NULL, NULL, },
   {  128, "Aqua Breed Tauros", TYPE_FIGHTING, TYPE_WATER, 210, 193, 181, NULL, NULL, },
-  {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, NULL, },
-  {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, NULL, NULL, },
+  {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, MAGIKARP_ATTACKS, true, true, },
+  {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp", GYARADOS_ATTACKS, true, true, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, NULL, },
   {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, NULL, NULL, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, EEVEE_ATTACKS, true, false, },
