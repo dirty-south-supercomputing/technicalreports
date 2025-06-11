@@ -762,6 +762,28 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* SCYTHER_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Steel_Wing,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Night_Slash,
+  &ATK_XScissor,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* SCIZOR_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Bullet_Punch,
+  &ATK_Night_Slash,
+  &ATK_Iron_Head,
+  &ATK_XScissor,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* DEOXYS_ATTACKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Charge_Beam,
@@ -2427,6 +2449,32 @@ static const attack* MAGIKARP_ATTACKS[] = {
   NULL
 };
 
+static const attack* AMPHAROS_ATTACKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Volt_Switch,
+  &ATK_Power_Gem,
+  &ATK_Thunder_Punch,
+  &ATK_Thunder,
+  &ATK_Dragon_Pulse,
+  &ATK_Focus_Blast,
+  &ATK_Zap_Cannon,
+  &ATK_Brutal_Swing,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* AERODACTYL_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Rock_Throw,
+  &ATK_Steel_Wing,
+  &ATK_Hyper_Beam,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Slide,
+  &ATK_Iron_Head,
+  &ATK_Earth_Power,
+  NULL
+};
+
 static const attack* GYARADOS_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Dragon_Breath,
@@ -2982,7 +3030,7 @@ static const species sdex[] = {
   {  121, "Starmie", TYPE_WATER, TYPE_PSYCHIC, 210, 184, 155, NULL, NULL, },
   {  122, "Mr. Mime", TYPE_PSYCHIC, TYPE_FAIRY, 192, 205, 120, NULL, NULL, },
   {  122, "Galarian Mr. Mime", TYPE_ICE, TYPE_PSYCHIC, 183, 169, 137, NULL, NULL, },
-  {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, NULL, },
+  {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, SCYTHER_ATTACKS, true, true, },
   {  124, "Jynx", TYPE_ICE, TYPE_PSYCHIC, 223, 151, 163, NULL, NULL, },
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, NULL, NULL, },
   {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, NULL, NULL, },
@@ -3004,7 +3052,7 @@ static const species sdex[] = {
   {  139, "Omastar", TYPE_ROCK, TYPE_WATER, 207, 201, 172, NULL, NULL, },
   {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, NULL, NULL, },
   {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, NULL, NULL, },
-  {  142, "Aerodactyl", TYPE_ROCK, TYPE_FLYING, 221, 159, 190, NULL, NULL, },
+  {  142, "Aerodactyl", TYPE_ROCK, TYPE_FLYING, 221, 159, 190, NULL, AERODACTYL_ATTACKS, true, true, },
   {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax", SNORLAX_ATTACKS, true, true, },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, NULL, },
   {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, NULL, NULL, },
@@ -3048,7 +3096,7 @@ static const species sdex[] = {
   {  178, "Xatu", TYPE_PSYCHIC, TYPE_FLYING, 192, 146, 163, NULL, NULL, },
   {  179, "Mareep", TYPE_ELECTRIC, TYPECOUNT, 114, 79, 146, NULL, NULL, },
   {  180, "Flaaffy", TYPE_ELECTRIC, TYPECOUNT, 145, 109, 172, NULL, NULL, },
-  {  181, "Ampharos", TYPE_ELECTRIC, TYPECOUNT, 211, 169, 207, NULL, NULL, },
+  {  181, "Ampharos", TYPE_ELECTRIC, TYPECOUNT, 211, 169, 207, NULL, AMPHAROS_ATTACKS, true, true, },
   {  182, "Bellossom", TYPE_GRASS, TYPECOUNT, 169, 186, 181, "Gloom", BELLOSSOM_ATTACKS, true, true, },
   {  183, "Marill", TYPE_WATER, TYPE_FAIRY, 37, 93, 172, NULL, NULL, },
   {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, NULL, NULL, },
@@ -3082,7 +3130,7 @@ static const species sdex[] = {
   {  210, "Granbull", TYPE_FAIRY, TYPECOUNT, 212, 131, 207, NULL, NULL, },
   {  211, "Qwilfish", TYPE_WATER, TYPE_POISON, 184, 138, 163, NULL, NULL, },
   {  211, "Hisuian Qwilfish", TYPE_DARK, TYPE_POISON, 184, 151, 163, NULL, NULL, },
-  {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, NULL, NULL, },
+  {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther", SCIZOR_ATTACKS, true, true, },
   {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, NULL, NULL, },
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, HERACROSS_ATTACKS, true, false, },
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, NULL, },
@@ -3841,12 +3889,12 @@ static const species megasdex[] = {
   {   80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro", SLOWBRO_ATTACKS, true, false, },
   {   94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar", GENGAR_ATTACKS, true, false, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, "Kangaskhan", KANGASKHAN_ATTACKS, true, false, },
-  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir", NULL, true, false, },
-  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados", NULL, true, false, },
-  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, "Aerodactyl", NULL, true, false, },
-  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos", NULL, true, false, },
+  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir", PINSIR_ATTACKS, true, false, },
+  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados", GYARADOS_ATTACKS, true, false, },
+  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, "Aerodactyl", AERODACTYL_ATTACKS, true, false, },
+  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos", AMPHAROS_ATTACKS, true, false, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix", NULL, true, false, },
-  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor", NULL, true, false, },
+  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor", SCIZOR_ATTACKS, true, false, },
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross", HERACROSS_ATTACKS, true, false, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, "Houndoom", HOUNDOOM_ATTACKS, true, false, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar", NULL, true, false, },
