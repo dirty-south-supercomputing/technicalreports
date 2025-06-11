@@ -29,6 +29,7 @@ CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
 SPECIESTEX:=out/species.tex
 MEGATEX:=out/mega.tex
+PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
 GIGANTATEX:=out/gigantas.tex
 CP1500:=out/cp1500.tex
@@ -37,7 +38,7 @@ HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
-	$(GIGANTATEX)
+	$(GIGANTATEX) $(PRIMALTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -66,6 +67,10 @@ $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) 2500 130 > $@
 
+$(OUT)/primal.tex: $(OUT)/forms
+	@mkdir -p $(@D)
+	$(<) primal > $@
+
 $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) mega > $@
@@ -87,7 +92,7 @@ $(OUT)/%: %.c pgotypes.c
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
-	@rm -vrf $(TYPES) $(GENTEX) $(SPECIESTEX) $(FATTACKS) $(CATTACKS) $(HETERO) $(TRELS) $(MEGATEX)
+	@rm -vrf $(TYPES) $(GENTEX) $(SPECIESTEX) $(FATTACKS) $(CATTACKS) $(HETERO) $(TRELS) $(MEGATEX) $(PRIMALTEX)
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)

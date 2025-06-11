@@ -32,7 +32,7 @@ print_species(const species* s){
 
 int main(int argc, char **argv){
   if(argc != 2){
-    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|primal|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   const species* dex;
@@ -40,6 +40,9 @@ int main(int argc, char **argv){
   if(strcasecmp(argv[1], "mega") == 0){
     dex = megasdex;
     count = MEGACOUNT;
+  }else if(strcasecmp(argv[1], "primal") == 0){
+    dex = primalsdex;
+    count = PRIMALCOUNT;
   }else if(strcasecmp(argv[1], "dynamax") == 0){
     dex = dynadex;
     count = DYNACOUNT;
@@ -47,7 +50,7 @@ int main(int argc, char **argv){
     dex = gigantasdex;
     count = GIGANTACOUNT;
   }else{
-    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|primal|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   // we want to retain the order of typings here, so do both ways

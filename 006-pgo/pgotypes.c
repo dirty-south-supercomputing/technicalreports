@@ -875,6 +875,37 @@ static const attack* SABLEYE_ATTACKS[] = {
   NULL
 };
 
+static const attack* MELTAN_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Flash_Cannon,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* MELMETAL_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Hyper_Beam,
+  &ATK_Flash_Cannon,
+  &ATK_Rock_Slide,
+  &ATK_Thunderbolt,
+  &ATK_Superpower,
+  &ATK_Double_Iron_Bash,
+  NULL
+};
+
+static const attack* MAWILE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Fire_Fang,
+  &ATK_Astonish,
+  &ATK_Ice_Fang,
+  &ATK_Fairy_Wind,
+  &ATK_Vise_Grip,
+  &ATK_Iron_Head,
+  &ATK_Play_Rough,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
 static const attack* JIRACHI_ATTACKS[] = {
   &ATK_Confusion,
   &ATK_Charge_Beam,
@@ -948,6 +979,27 @@ static const attack* REGIELEKI_ATTACKS[] = {
   &ATK_Hyper_Beam,
   &ATK_Thunder,
   &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* KYOGRE_ATTACKS[] = {
+  &ATK_Waterfall,
+  &ATK_Blizzard,
+  &ATK_Thunder,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  &ATK_Origin_Pulse,
+  NULL
+};
+
+static const attack* GROUDON_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Dragon_Tail,
+  &ATK_Earthquake,
+  &ATK_Fire_Blast,
+  &ATK_Fire_Punch,
+  &ATK_Solar_Beam,
+  &ATK_Precipice_Blades,
   NULL
 };
 
@@ -2135,6 +2187,36 @@ static const attack* HOUNDOOM_ATTACKS[] = {
   NULL
 };
 
+static const attack* TREECKO_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Bullet_Seed,
+  &ATK_Aerial_Ace,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* GROVYLE_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Bullet_Seed,
+  &ATK_Aerial_Ace,
+  &ATK_Leaf_Blade,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* SCEPTILE_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Bullet_Seed,
+  &ATK_Earthquake,
+  &ATK_Aerial_Ace,
+  &ATK_Dragon_Claw,
+  &ATK_Leaf_Blade,
+  &ATK_Frenzy_Plant,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
 static const attack* FUECOCO_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Incinerate,
@@ -3042,9 +3124,9 @@ static const species sdex[] = {
   {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, NULL, NULL, },
   {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, NULL, NULL, },
   {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, NULL, NULL, },
-  {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, NULL, NULL, },
-  {  253, "Grovyle", TYPE_GRASS, TYPECOUNT, 172, 120, 137, NULL, NULL, },
-  {  254, "Sceptile", TYPE_GRASS, TYPECOUNT, 223, 169, 172, NULL, NULL, },
+  {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, NULL, TREECKO_ATTACKS, true, true, },
+  {  253, "Grovyle", TYPE_GRASS, TYPECOUNT, 172, 120, 137, "Treecko", GROVYLE_ATTACKS, true, true, },
+  {  254, "Sceptile", TYPE_GRASS, TYPECOUNT, 223, 169, 172, "Grovyle", SCEPTILE_ATTACKS, true, true, },
   {  255, "Torchic", TYPE_FIRE, TYPECOUNT, 130, 87, 128, NULL, NULL, },
   {  256, "Combusken", TYPE_FIRE, TYPE_FIGHTING, 163, 115, 155, NULL, NULL, },
   {  257, "Blaziken", TYPE_FIRE, TYPE_FIGHTING, 240, 141, 190, NULL, NULL, },
@@ -3095,7 +3177,7 @@ static const species sdex[] = {
   {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
   {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, NULL, NULL, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, SABLEYE_ATTACKS, true, true, },
-  {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, NULL, NULL, },
+  {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, NULL, MAWILE_ATTACKS, true, true, },
   {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, NULL, },
   {  305, "Lairon", TYPE_STEEL, TYPE_ROCK, 158, 198, 155, NULL, NULL, },
   {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, NULL, NULL, },
@@ -3177,10 +3259,8 @@ static const species sdex[] = {
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, REGISTEEL_ATTACKS, true, true, },
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, NULL, NULL, },
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, NULL, NULL, },
-  {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, NULL, NULL, },
-  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, NULL, NULL, },
-  {  383, "Groudon", TYPE_GROUND, TYPECOUNT, 270, 228, 205, NULL, NULL, },
-  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, NULL, NULL, },
+  {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, NULL, KYOGRE_ATTACKS, true, true, },
+  {  383, "Groudon", TYPE_GROUND, TYPECOUNT, 270, 228, 205, NULL, GROUDON_ATTACKS, true, true, },
   {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, RAYQUAZA_ATTACKS, true, false, },
   {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, NULL, JIRACHI_ATTACKS, true, false, },
   {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, NULL, DEOXYS_ATTACKS, true, false, },
@@ -3632,8 +3712,8 @@ static const species sdex[] = {
   {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, NULL, NULL, },
   {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, NULL, },
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, NULL, },
-  {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, NULL, },
-  {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, NULL, NULL, },
+  {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, MELTAN_ATTACKS, true, false, },
+  {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan", MELMETAL_ATTACKS, true, false, },
   {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, NULL, GROOKEY_ATTACKS, true, true, },
   {  811, "Thwackey", TYPE_GRASS, TYPECOUNT, 165, 134, 172, "Grookey", THWACKEY_ATTACKS, true, true, },
   {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey", RILLABOOM_ATTACKS, true, true, },
@@ -3770,12 +3850,12 @@ static const species megasdex[] = {
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross", HERACROSS_ATTACKS, true, false, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, "Houndoom", HOUNDOOM_ATTACKS, true, false, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar", NULL, true, false, },
-  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, "Sceptile", NULL, true, false, },
+  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, "Sceptile", SCEPTILE_ATTACKS, true, false, },
   {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, "Blaziken", NULL, true, false, },
   {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, "Swampert", NULL, true, false, },
   {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, "Gardevoir", NULL, true, false, },
   {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATTACKS, true, false, },
-  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", NULL, true, false, },
+  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", MAWILE_ATTACKS, true, false, },
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", NULL, true, false, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", NULL, true, false, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", NULL, true, false, },
@@ -3797,6 +3877,14 @@ static const species megasdex[] = {
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
+
+// primal forms are never shadows
+static const species primalsdex[] = {
+  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, "Kyogre", KYOGRE_ATTACKS, false, false, },
+  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, "Groudon", GROUDON_ATTACKS, false, false, },
+};
+
+#define PRIMALCOUNT (sizeof(primalsdex) / sizeof(*primalsdex))
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
