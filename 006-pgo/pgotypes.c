@@ -1940,6 +1940,55 @@ static const attack* DUSTOX_ATTACKS[] = {
   NULL
 };
 
+static const attack* JOLTIK_ATTACKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Charge_Beam,
+  &ATK_Discharge,
+  &ATK_Bug_Buzz,
+  &ATK_Cross_Poison,
+  NULL
+};
+
+static const attack* GRAVANTULA_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Volt_Switch,
+  &ATK_Discharge,
+  &ATK_Bug_Buzz,
+  &ATK_Cross_Poison,
+  &ATK_Energy_Ball,
+  &ATK_Lunge,
+  NULL
+};
+
+static const attack* CUTIEFLY_ATTACKS[] = {
+  &ATK_Struggle_Bug,
+  &ATK_Fairy_Wind,
+  &ATK_Bug_Buzz,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* RIBOMBEE_ATTACKS[] = {
+  &ATK_Struggle_Bug,
+  &ATK_Charm,
+  &ATK_Fairy_Wind,
+  &ATK_Bug_Buzz,
+  &ATK_Draining_Kiss,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* HERACROSS_ATTACKS[] = {
+  &ATK_Counter,
+  &ATK_Struggle_Bug,
+  &ATK_Megahorn,
+  &ATK_Earthquake,
+  &ATK_Close_Combat,
+  &ATK_Rock_Blast,
+  &ATK_Upper_Hand,
+  NULL
+};
+
 static const attack* KARRABLAST_ATTACKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Peck,
@@ -2615,6 +2664,56 @@ static const attack* G_SLOWKING_ATTACKS[] = {
   NULL
 };
 
+static const attack* GRUBBIN_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Spark,
+  &ATK_Vise_Grip,
+  &ATK_XScissor,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* CHARJABUG_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Spark,
+  &ATK_Volt_Switch,
+  &ATK_Discharge,
+  &ATK_XScissor,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* VIKAVOLT_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Spark,
+  &ATK_Mud_Slap,
+  &ATK_Volt_Switch,
+  &ATK_Discharge,
+  &ATK_XScissor,
+  &ATK_Crunch,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* NYMBLE_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  &ATK_XScissor,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* LOKIX_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Sucker_Punch,
+  &ATK_Counter,
+  &ATK_Dark_Pulse,
+  &ATK_Bug_Buzz,
+  &ATK_Trailblaze,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -2883,7 +2982,7 @@ static const species sdex[] = {
   {  211, "Hisuian Qwilfish", TYPE_DARK, TYPE_POISON, 184, 151, 163, NULL, NULL, },
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, NULL, NULL, },
   {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, NULL, NULL, },
-  {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, NULL, },
+  {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, HERACROSS_ATTACKS, true, false, },
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, NULL, },
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, NULL, NULL, },
   {  216, "Teddiursa", TYPE_NORMAL, TYPECOUNT, 142, 93, 155, NULL, NULL, },
@@ -3290,8 +3389,8 @@ static const species sdex[] = {
   {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, NULL, },
   {  593, "Jellicent", TYPE_WATER, TYPE_GHOST, 159, 178, 225, NULL, NULL, },
   {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, NULL, },
-  {  595, "Joltik", TYPE_BUG, TYPE_ELECTRIC, 110, 98, 137, NULL, NULL, },
-  {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, NULL, NULL, },
+  {  595, "Joltik", TYPE_BUG, TYPE_ELECTRIC, 110, 98, 137, NULL, JOLTIK_ATTACKS, true, true, },
+  {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, "Joltik", GRAVANTULA_ATTACKS, true, true, },
   {  597, "Ferroseed", TYPE_GRASS, TYPE_STEEL, 82, 155, 127, NULL, NULL, },
   {  598, "Ferrothorn", TYPE_GRASS, TYPE_STEEL, 158, 223, 179, NULL, NULL, },
   {  599, "Klink", TYPE_STEEL, TYPECOUNT, 98, 121, 120, NULL, NULL, },
@@ -3445,14 +3544,14 @@ static const species sdex[] = {
   {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, NULL, NULL, },
   {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, NULL, NULL, },
   {  735, "Gumshoos", TYPE_NORMAL, TYPECOUNT, 194, 113, 204, NULL, NULL, },
-  {  736, "Grubbin", TYPE_BUG, TYPECOUNT, 115, 85, 132, NULL, NULL, },
-  {  737, "Charjabug", TYPE_BUG, TYPE_ELECTRIC, 145, 161, 149, NULL, NULL, },
-  {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, NULL, NULL, },
+  {  736, "Grubbin", TYPE_BUG, TYPECOUNT, 115, 85, 132, NULL, GRUBBIN_ATTACKS, true, false, },
+  {  737, "Charjabug", TYPE_BUG, TYPE_ELECTRIC, 145, 161, 149, "Grubbin", CHARJABUG_ATTACKS, true, false, },
+  {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, "Charjabug", VIKAVOLT_ATTACKS, true, false, },
   {  739, "Crabrawler", TYPE_FIGHTING, TYPECOUNT, 150, 104, 132, NULL, NULL, },
   {  740, "Crabominable", TYPE_FIGHTING, TYPE_ICE, 231, 138, 219, NULL, NULL, },
   {  741, "Oricorio", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, NULL, NULL, },
-  {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, NULL, },
-  {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, NULL, NULL, },
+  {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, CUTIEFLY_ATTACKS, true, false, },
+  {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, "Cutiefly", RIBOMBEE_ATTACKS, true, false, },
   {  744, "Rockruff", TYPE_ROCK, TYPECOUNT, 117, 78, 128, NULL, NULL, },
   {  745, "Lycanroc Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, NULL, NULL, },
   {  745, "Lycanroc Midnight", TYPE_ROCK, TYPECOUNT, 218, 152, 198, NULL, NULL, },
@@ -3587,8 +3686,8 @@ static const species sdex[] = {
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, NULL, },
   {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, NULL, NULL, },
   {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, NULL, NULL, },
-  {  919, "Nymble", TYPE_BUG, TYPECOUNT, 81, 65, 107, NULL, NULL, },
-  {  920, "Lokix", TYPE_BUG, TYPE_DARK, 199, 144, 174, NULL, NULL, },
+  {  919, "Nymble", TYPE_BUG, TYPECOUNT, 81, 65, 107, NULL, NYMBLE_ATTACKS, true, false, },
+  {  920, "Lokix", TYPE_BUG, TYPE_DARK, 199, 144, 174, "Nymble", LOKIX_ATTACKS, true, false, },
   {  921, "Pawmi", TYPE_ELECTRIC, TYPECOUNT, 95, 45, 128, NULL, NULL, },
   {  922, "Pawmo", TYPE_ELECTRIC, TYPE_FIGHTING, 147, 82, 155, NULL, NULL, },
   {  923, "Pawmot", TYPE_ELECTRIC, TYPE_FIGHTING, 232, 141, 172, NULL, NULL, },
@@ -3648,7 +3747,7 @@ static const species megasdex[] = {
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos", NULL, true, false, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix", NULL, true, false, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor", NULL, true, false, },
-  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross", NULL, true, false, },
+  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross", HERACROSS_ATTACKS, true, false, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, "Houndoom", HOUNDOOM_ATTACKS, true, false, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar", NULL, true, false, },
   {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, "Sceptile", NULL, true, false, },
