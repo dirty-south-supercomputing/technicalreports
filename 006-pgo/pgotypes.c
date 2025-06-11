@@ -2269,6 +2269,29 @@ static const attack* LICKILICKY_ATTACKS[] = {
   NULL
 };
 
+static const attack* MUNCHLAX_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Tackle,
+  &ATK_Gunk_Shot,
+  &ATK_Bulldoze,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* SNORLAX_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Zen_Headbutt,
+  &ATK_Yawn,
+  &ATK_Hyper_Beam,
+  &ATK_Earthquake,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  &ATK_Outrage,
+  &ATK_Skull_Bash,
+  &ATK_Superpower,
+  NULL
+};
+
 static const attack* HAPPINY_ATTACKS[] = {
   &ATK_Pound,
   &ATK_Zen_Headbutt,
@@ -2595,7 +2618,7 @@ static const species sdex[] = {
   {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, NULL, NULL, },
   {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, NULL, NULL, },
   {  142, "Aerodactyl", TYPE_ROCK, TYPE_FLYING, 221, 159, 190, NULL, NULL, },
-  {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, NULL, },
+  {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax", SNORLAX_ATTACKS, true, true, },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, NULL, },
   {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, NULL, NULL, },
   {  145, "Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, NULL, NULL, },
@@ -2922,7 +2945,7 @@ static const species sdex[] = {
   {  443, "Gible", TYPE_DRAGON, TYPE_GROUND, 124, 84, 151, NULL, NULL, },
   {  444, "Gabite", TYPE_DRAGON, TYPE_GROUND, 172, 125, 169, NULL, NULL, },
   {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, NULL, NULL, },
-  {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, NULL, NULL, },
+  {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, NULL, MUNCHLAX_ATTACKS, true, false, },
   {  447, "Riolu", TYPE_FIGHTING, TYPECOUNT, 127, 78, 120, NULL, NULL, },
   {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, NULL, NULL, },
   {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, NULL, NULL, },
@@ -3479,6 +3502,7 @@ static const species gigantasdex[] = {
   {   94, "Gigantamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATTACKS, true, false, },
   {   99, "Gigantamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATTACKS, true, false, },
   {  131, "Gigantamax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATTACKS, true, false, },
+  {  143, "Gigantamax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATTACKS, true, false, },
   // FIXME
 };
 
