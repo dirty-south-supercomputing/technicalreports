@@ -99,15 +99,15 @@ Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
 \autoref{table:cp1500} lists all species' optimal level and IVs for the Great League
   as evaluated using the harmonic mean of $Eff_A$, $Eff_D$, and $MHP$.
 A few observations from this table:
-In general, there is no correlation between $\sqrt{3}{BP}$ and level,
+In general, there is no correlation between $\sqrt[3]{BP}$ and level,
   save that everything at the bottom of the list is maxed (15/15/15@50),
   since many species cannot reach 1500 CP at all.
-The geometric mean ($\sqrt{3}{BP}$) ranges from 51.39 (max Shedinja)
+The geometric mean ($\sqrt[3]{BP}$) ranges from 51.39 (max Shedinja)
   to 147.18 (15/15/15@49.5 Chansey).
 There is a strong bimodal preference for IVs: 15-15-15 for level 49.5
   and 50, and otherwise $n$-15-15 where $n < 2$, and $n$ usually equals 0.
 This verifies that attack is highly overvalued in the CP calculation
-  relative to $\sqrt{3}{BP}$ (not that we had any doubt).
+  relative to $\sqrt[3]{BP}$ (not that we had any doubt).
 Other IVs usually correspond to low level, powerful species, where a level
   raises CP by a large amount, leaving more room for beneficial IVs.
 $Eff_A$ ranges from 63.02 (Chansey) to tremendous outlier 254.05 (Deoxys Attack).
@@ -129,7 +129,7 @@ This reflects the diminishing returns on CPM as level increases.
 The real answer is: equal importance until level 30 or so, and IVs beyond that.
 
 \autoref{table:cp2500} does the same for the Ultra League, leaving out those species which
-  can't hit a $\sqrt{3}{BP}$ of 115.
+  can't hit a $\sqrt[3]{BP}$ of 115.
 \textbf{FIXME: add plots of $Eff_A$, $Eff_D$, $MHP$ by geometric mean for optimal sets}
 
 \section{Anticipating opponents}
