@@ -762,6 +762,42 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* DEOXYS_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Hyper_Beam,
+  &ATK_Thunderbolt,
+  &ATK_Psycho_Boost,
+  NULL
+};
+
+static const attack* A_DEOXYS_ATTACKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Zen_Headbutt,
+  &ATK_Dark_Pulse,
+  &ATK_Zap_Cannon,
+  &ATK_Psycho_Boost,
+  NULL
+};
+
+static const attack* D_DEOXYS_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Counter,
+  &ATK_Rock_Slide,
+  &ATK_Thunderbolt,
+  &ATK_Psycho_Boost,
+  NULL
+};
+
+static const attack* S_DEOXYS_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  &ATK_Psycho_Boost,
+  NULL
+};
+
 static const attack* PORYGON_ATTACKS[] = {
   &ATK_Tackle,
   &ATK_Zen_Headbutt,
@@ -2923,10 +2959,10 @@ static const species sdex[] = {
   {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, NULL, NULL, },
   {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, RAYQUAZA_ATTACKS, true, false, },
   {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, NULL, JIRACHI_ATTACKS, true, false, },
-  {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, NULL, NULL, },
-  {  386, "Deoxys Attack", TYPE_PSYCHIC, TYPECOUNT, 414, 46, 137, NULL, NULL, },
-  {  386, "Deoxys Defense", TYPE_PSYCHIC, TYPECOUNT, 144, 330, 137, NULL, NULL, },
-  {  386, "Deoxys Speed", TYPE_PSYCHIC, TYPECOUNT, 230, 218, 137, NULL, NULL, },
+  {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, NULL, DEOXYS_ATTACKS, true, false, },
+  {  386, "Deoxys Attack", TYPE_PSYCHIC, TYPECOUNT, 414, 46, 137, NULL, A_DEOXYS_ATTACKS, true, false, },
+  {  386, "Deoxys Defense", TYPE_PSYCHIC, TYPECOUNT, 144, 330, 137, NULL, D_DEOXYS_ATTACKS, true, false, },
+  {  386, "Deoxys Speed", TYPE_PSYCHIC, TYPECOUNT, 230, 218, 137, NULL, S_DEOXYS_ATTACKS, true, false, },
   {  387, "Turtwig", TYPE_GRASS, TYPECOUNT, 119, 110, 146, NULL, NULL, },
   {  388, "Grotle", TYPE_GRASS, TYPECOUNT, 157, 143, 181, NULL, NULL, },
   {  389, "Torterra", TYPE_GRASS, TYPE_GROUND, 202, 188, 216, NULL, NULL, },

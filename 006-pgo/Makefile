@@ -7,7 +7,7 @@ OUT:=out
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo foreward story trainer types attacks species pokémon \
-		 		stats battle damage unbounded bounded strategy simul)
+		 		stats battle damage unbounded bounded strategy simul max)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 IMAGES:=$(wildcard images/*)
