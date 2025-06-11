@@ -2454,6 +2454,26 @@ static const attack* RILLABOOM_ATTACKS[] = {
   NULL
 };
 
+static const attack* CINDERACE_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* TOXTRICITY_ATTACKS[] = {
+  &ATK_Spark,
+  &ATK_Poison_Jab,
+  &ATK_Acid,
+  &ATK_Discharge,
+  &ATK_Wild_Charge,
+  &ATK_Acid_Spray,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const char* name;
@@ -3358,8 +3378,8 @@ static const species sdex[] = {
   {  811, "Thwackey", TYPE_GRASS, TYPECOUNT, 165, 134, 172, "Grookey", THWACKEY_ATTACKS, true, true, },
   {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey", RILLABOOM_ATTACKS, true, true, },
   {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, NULL, NULL, },
-  {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, NULL, NULL, },
-  {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, NULL, },
+  {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, "Scorbunny", NULL, },
+  {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot", CINDERACE_ATTACKS, true, false, },
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, NULL, NULL, },
   {  817, "Drizzile", TYPE_WATER, TYPECOUNT, 186, 113, 163, NULL, NULL, },
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, NULL, },
@@ -3380,7 +3400,7 @@ static const species sdex[] = {
   {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172, NULL, NULL, },
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, NULL, NULL, },
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, NULL, NULL, },
-  {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, NULL, },
+  {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel", TOXTRICITY_ATTACKS, true, true, },
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, NULL, },
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, NULL, NULL, },
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, NULL, NULL, },
@@ -3529,6 +3549,8 @@ static const species gigantasdex[] = {
   {  131, "Gigantamax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATTACKS, true, false, },
   {  143, "Gigantamax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATTACKS, true, false, },
   {  812, "Gigantamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATTACKS, true, false, },
+  {  815, "Gigantamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, CINDERACE_ATTACKS, true, false, },
+  {  849, "Gigantamax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATTACKS, true, false, },
   // FIXME
 };
 
