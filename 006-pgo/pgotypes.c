@@ -762,6 +762,64 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* PORYGON_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Hidden_Power,
+  &ATK_Hyper_Beam,
+  &ATK_Psybeam,
+  &ATK_Discharge,
+  &ATK_Signal_Beam,
+  &ATK_Solar_Beam,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* PORYGON2_ATTACKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Hidden_Power,
+  &ATK_Lock_On,
+  &ATK_Hyper_Beam,
+  &ATK_Solar_Beam,
+  &ATK_Zap_Cannon,
+  &ATK_Tri_Attack,
+  NULL
+};
+
+static const attack* PORYGONZ_ATTACKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Hidden_Power,
+  &ATK_Lock_On,
+  &ATK_Hyper_Beam,
+  &ATK_Blizzard,
+  &ATK_Solar_Beam,
+  &ATK_Zap_Cannon,
+  &ATK_Tri_Attack,
+  NULL
+};
+
+static const attack* REMORAID_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Water_Pulse,
+  &ATK_Aurora_Beam,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* OCTILLERY_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Lock_On,
+  &ATK_Gunk_Shot,
+  &ATK_Water_Pulse,
+  &ATK_Aurora_Beam,
+  &ATK_Acid_Spray,
+  &ATK_Octazooka,
+  NULL
+};
+
 static const attack* SKARMORY_ATTACKS[] = {
   &ATK_Steel_Wing,
   &ATK_Air_Slash,
@@ -2379,7 +2437,7 @@ static const species sdex[] = {
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee", VAPOREON_ATTACKS, true, false, },
   {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee", JOLTEON_ATTACKS, true, false, },
   {  136, "Flareon", TYPE_FIRE, TYPECOUNT, 246, 179, 163, "Eevee", FLAREON_ATTACKS, true, false, },
-  {  137, "Porygon", TYPE_NORMAL, TYPECOUNT, 153, 136, 163, NULL, NULL, },
+  {  137, "Porygon", TYPE_NORMAL, TYPECOUNT, 153, 136, 163, NULL, PORYGON_ATTACKS, true, true, },
   {  138, "Omanyte", TYPE_ROCK, TYPE_WATER, 155, 153, 111, NULL, NULL, },
   {  139, "Omastar", TYPE_ROCK, TYPE_WATER, 207, 201, 172, NULL, NULL, },
   {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, NULL, NULL, },
@@ -2475,8 +2533,8 @@ static const species sdex[] = {
   {  221, "Piloswine", TYPE_ICE, TYPE_GROUND, 181, 138, 225, NULL, NULL, },
   {  222, "Corsola", TYPE_WATER, TYPE_ROCK, 118, 156, 146, NULL, NULL, },
   {  222, "Galarian Corsola", TYPE_GHOST, TYPECOUNT, 116, 182, 155, NULL, NULL, },
-  {  223, "Remoraid", TYPE_WATER, TYPECOUNT, 127, 69, 111, NULL, NULL, },
-  {  224, "Octillery", TYPE_WATER, TYPECOUNT, 197, 141, 181, NULL, NULL, },
+  {  223, "Remoraid", TYPE_WATER, TYPECOUNT, 127, 69, 111, NULL, REMORAID_ATTACKS, true, true, },
+  {  224, "Octillery", TYPE_WATER, TYPECOUNT, 197, 141, 181, "Remoraid", OCTILLERY_ATTACKS, true, true, },
   {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, NULL, },
   {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, NULL, NULL, },
   {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, SKARMORY_ATTACKS, true, true, },
@@ -2485,7 +2543,7 @@ static const species sdex[] = {
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, NULL, NULL, },
   {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, NULL, NULL, },
   {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, NULL, NULL, },
-  {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, NULL, NULL, },
+  {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, "Porygon", PORYGON2_ATTACKS, true, true, },
   {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, NULL, },
   {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, NULL, },
   {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, NULL, },
@@ -2740,7 +2798,7 @@ static const species sdex[] = {
   {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATTACKS, true, false},
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, NULL, NULL, },
   {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, NULL, NULL, },
-  {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, NULL, NULL, },
+  {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATTACKS, true, true, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, NULL, NULL, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, NULL, NULL, },
   {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, NULL, NULL, },
