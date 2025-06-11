@@ -20,7 +20,7 @@ FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
 TYPES:=out/dualtypes
 SPECIES:=out/species
-MEGAS:=out/megas
+FORMS:=out/forms
 SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
@@ -29,12 +29,15 @@ CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
 SPECIESTEX:=out/species.tex
 MEGATEX:=out/mega.tex
+DYNATEX:=out/dynas.tex
+GIGANTATEX:=out/gigantas.tex
 CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
-	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX)
+	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
+	$(GIGANTATEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -62,6 +65,18 @@ $(OUT)/cp1500.tex: $(OUT)/bounded
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) 2500 115 > $@
+
+$(OUT)/megas.tex: $(OUT)/forms
+	@mkdir -p $(@D)
+	$(<) mega > $@
+
+$(OUT)/dynas.tex: $(OUT)/forms
+	@mkdir -p $(@D)
+	$(<) dynamax > $@
+
+$(OUT)/gigantas.tex: $(OUT)/forms
+	@mkdir -p $(@D)
+	$(<) gigantamax > $@
 
 $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)

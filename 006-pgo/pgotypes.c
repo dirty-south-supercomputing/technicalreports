@@ -3538,6 +3538,13 @@ static const species megasdex[] = {
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
 
+// dynamax forms are never shadows
+static const species dynadex[] = {
+  // FIXME
+};
+
+#define DYNACOUNT (sizeof(dynadex) / sizeof(*dynadex))
+
 // gigantimax forms are never shadows
 static const species gigantasdex[] = {
   {    3, "Gigantamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATTACKS, true, false, },
