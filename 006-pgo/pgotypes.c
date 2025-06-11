@@ -2081,6 +2081,44 @@ static const attack* SKELEDIRGE_ATTACKS[] = {
   NULL
 };
 
+static const attack* GASTLY_ATTACKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Lick,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Ominous_Wind,
+  &ATK_Sludge_Bomb,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* HAUNTER_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Shadow_Claw,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Ice_Punch,
+  &ATK_Shadow_Punch,
+  &ATK_Shadow_Ball,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* GENGAR_ATTACKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Lick,
+  &ATK_Shadow_Claw,
+  &ATK_Hex,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Punch,
+  &ATK_Shadow_Ball,
+  &ATK_Sludge_Bomb,
+  &ATK_Sludge_Wave,
+  &ATK_Psychic,
+  &ATK_Focus_Blast,
+  NULL
+};
+
 static const attack* CUBONE_ATTACKS[] = {
   &ATK_Mud_Slap,
   &ATK_Rock_Smash,
@@ -2460,9 +2498,9 @@ static const species sdex[] = {
   {   89, "Alolan Muk", TYPE_POISON, TYPE_DARK, 190, 172, 233, NULL, NULL, },
   {   90, "Shellder", TYPE_WATER, TYPECOUNT, 116, 134, 102, NULL, NULL, },
   {   91, "Cloyster", TYPE_WATER, TYPE_ICE, 186, 256, 137, NULL, NULL, },
-  {   92, "Gastly", TYPE_GHOST, TYPE_POISON, 186, 67, 102, NULL, NULL, },
-  {   93, "Haunter", TYPE_GHOST, TYPE_POISON, 223, 107, 128, NULL, NULL, },
-  {   94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, NULL, },
+  {   92, "Gastly", TYPE_GHOST, TYPE_POISON, 186, 67, 102, NULL, GASTLY_ATTACKS, true, true, },
+  {   93, "Haunter", TYPE_GHOST, TYPE_POISON, 223, 107, 128, "Gastly", HAUNTER_ATTACKS, true, true, },
+  {   94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter", GENGAR_ATTACKS, true, true, },
   {   95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, NULL, NULL, },
   {   96, "Drowzee", TYPE_PSYCHIC, TYPECOUNT, 89, 136, 155, NULL, NULL, },
   {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, NULL, NULL, },
@@ -3356,7 +3394,7 @@ static const species megasdex[] = {
   {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, false, },
   {   65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, "Alakazam", ALAKAZAM_ATTACKS, },
   {   80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro", NULL, true, false, },
-  {   94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar", NULL, true, false, },
+  {   94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar", GENGAR_ATTACKS, true, false, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, "Kangaskhan", KANGASKHAN_ATTACKS, true, false, },
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir", NULL, true, false, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados", NULL, true, false, },
@@ -3400,7 +3438,8 @@ static const species gigantasdex[] = {
   {    3, "Gigantamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATTACKS, true, false, },
   {    6, "Gigantamax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, NULL, CHARIZARD_ATTACKS, true, false, },
   {    9, "Gigantamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATTACKS, true, false, },
-  {   58, "Gigantamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATTACKS, true, false, },
+  {   68, "Gigantamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATTACKS, true, false, },
+  {   94, "Gigantamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATTACKS, true, false, },
   // FIXME
 };
 

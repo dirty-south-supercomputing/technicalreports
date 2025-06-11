@@ -51,6 +51,16 @@ int main(int argc, char **argv){
         }
       }
     }
+    // we want to retain the order of typings here, so do both ways
+    for(int t = TYPESTART ; t < static_cast<int>(TYPECOUNT) ; ++t){
+      // we always want the pure typing first
+      filter_by_types(t, t, gigantasdex, GIGANTACOUNT);
+      for(int t2 = TYPESTART ; t2 < static_cast<int>(TYPECOUNT) ; ++t2){
+        if(t != t2){
+          filter_by_types(t, t2, gigantasdex, GIGANTACOUNT);
+        }
+      }
+    }
   }
   return EXIT_SUCCESS;
 }
