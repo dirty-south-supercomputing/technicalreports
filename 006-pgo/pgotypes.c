@@ -781,6 +781,15 @@ static const attack* SABLEYE_ATTACKS[] = {
   NULL
 };
 
+static const attack* JIRACHI_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Charge_Beam,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  &ATK_Doom_Desire,
+  NULL
+};
+
 static const attack* RAYQUAZA_ATTACKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Air_Slash,
@@ -1978,6 +1987,45 @@ static const attack* LICKITUNG_ATTACKS[] = {
   NULL
 };
 
+static const attack* FROAKIE_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Bubble,
+  &ATK_Aerial_Ace,
+  &ATK_Water_Pulse,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* FROGADIER_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Bubble,
+  &ATK_Aerial_Ace,
+  &ATK_Water_Pulse,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* GRENINJA_ATTACKS[] = {
+  &ATK_Bubble,
+  &ATK_Feint_Attack,
+  &ATK_Water_Shuriken,
+  &ATK_Aerial_Ace,
+  &ATK_Night_Slash,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  &ATK_Hydro_Cannon,
+  NULL
+};
+
+static const attack* CARNIVINE_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Vine_Whip,
+  &ATK_Power_Whip,
+  &ATK_Energy_Ball,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* LICKILICKY_ATTACKS[] = {
   &ATK_Lick,
   &ATK_Zen_Headbutt,
@@ -2576,7 +2624,7 @@ static const species sdex[] = {
   {  383, "Groudon", TYPE_GROUND, TYPECOUNT, 270, 228, 205, NULL, NULL, },
   {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, NULL, NULL, },
   {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, RAYQUAZA_ATTACKS, true, false, },
-  {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, NULL, NULL, },
+  {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, NULL, JIRACHI_ATTACKS, true, false, },
   {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, NULL, NULL, },
   {  386, "Deoxys Attack", TYPE_PSYCHIC, TYPECOUNT, 414, 46, 137, NULL, NULL, },
   {  386, "Deoxys Defense", TYPE_PSYCHIC, TYPECOUNT, 144, 330, 137, NULL, NULL, },
@@ -2653,7 +2701,7 @@ static const species sdex[] = {
   {  452, "Drapion", TYPE_POISON, TYPE_DARK, 180, 202, 172, NULL, NULL, },
   {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, NULL, },
   {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, NULL, NULL, },
-  {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, NULL, },
+  {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, CARNIVINE_ATTACKS, true, false, },
   {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, NULL, },
   {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, NULL, NULL, },
   {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, NULL, },
@@ -2871,9 +2919,9 @@ static const species sdex[] = {
   {  653, "Fennekin", TYPE_FIRE, TYPECOUNT, 116, 102, 120, NULL, NULL, },
   {  654, "Braixen", TYPE_FIRE, TYPECOUNT, 171, 130, 153, NULL, NULL, },
   {  655, "Delphox", TYPE_FIRE, TYPE_PSYCHIC, 230, 189, 181, NULL, NULL, },
-  {  656, "Froakie", TYPE_WATER, TYPECOUNT, 122, 84, 121, NULL, NULL, },
-  {  657, "Frogadier", TYPE_WATER, TYPECOUNT, 168, 114, 144, NULL, NULL, },
-  {  658, "Greninja", TYPE_WATER, TYPE_DARK, 223, 152, 176, NULL, NULL, },
+  {  656, "Froakie", TYPE_WATER, TYPECOUNT, 122, 84, 121, NULL, FROAKIE_ATTACKS, true, false, },
+  {  657, "Frogadier", TYPE_WATER, TYPECOUNT, 168, 114, 144, "Froakie", FROGADIER_ATTACKS, true, false, },
+  {  658, "Greninja", TYPE_WATER, TYPE_DARK, 223, 152, 176, "Frogadier", GRENINJA_ATTACKS, true, false, },
   {  659, "Bunnelby", TYPE_NORMAL, TYPECOUNT, 68, 72, 116, NULL, NULL, },
   {  660, "Diggersby", TYPE_NORMAL, TYPE_GROUND, 112, 155, 198, NULL, NULL, },
   {  661, "Fletchling", TYPE_NORMAL, TYPE_FLYING, 95, 80, 128, NULL, NULL, },
