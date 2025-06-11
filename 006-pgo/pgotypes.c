@@ -2219,6 +2219,17 @@ static const attack* LICKITUNG_ATTACKS[] = {
   NULL
 };
 
+static const attack* TERRAKION_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Smack_Down,
+  &ATK_Double_Kick,
+  &ATK_Earthquake,
+  &ATK_Rock_Slide,
+  &ATK_Close_Combat,
+  &ATK_Sacred_Sword,
+  NULL
+};
+
 static const attack* FROAKIE_ATTACKS[] = {
   &ATK_Pound,
   &ATK_Bubble,
@@ -3231,7 +3242,7 @@ static const species sdex[] = {
   {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, NULL, NULL, },
   {  637, "Volcarona", TYPE_BUG, TYPE_FIRE, 264, 189, 198, NULL, NULL, },
   {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
-  {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, NULL, NULL, },
+  {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, NULL, TERRAKION_ATTACKS, true, true, },
   {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
   {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, NULL, },
   {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, NULL, },
