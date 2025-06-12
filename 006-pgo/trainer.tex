@@ -231,7 +231,7 @@ A full upgrade will thus currently run you 40,800 Pokécoins.
 
 The Trainer has a Bag capable of storing 350 items (strangely, not all items
   count against this limit, including Gifts, Stickers, and the Postcard Book,
-  which you presumably shove down the front of your Trainer uniform).
+  which I suppose are shoved down the front of one's Trainer uniform).
 The Bag comes with an Infinite Incubator, a Camera, 2 Incense, and 50 Poké Balls,
   and thus space for 296 new items.
 The Bag can be upgraded to store up to 8,800 items.
@@ -256,15 +256,36 @@ A lower bound has been established in the millions.
 It seems plausible that the limit is one less than a large power of 2:
   4,294,967,295 seems as good a guess as any\footnote{If the limit is driven by UI requirements, it's likely lower.}.
 
+\section{Buddy Pokémon}
+\label{sec:buddies}
+\textbf{FIXME}
+
 \section{Grinding}
 \subsection{Collecting Pokémon}
 \label{subsec:getmons}
-During the initial tour with Professor Willow, you are able to catch one of
- Bulbasaur, Charmander, Squirtle, or Pikachu.
-You will be provided an infinite supply of Pokéballs for this encounter, and
- the catch rate (\autoref{chap:spawn}) is set to 100\%.
+Pokémon can be received from other Trainers via trades (\autoref{chap:trades}),
+  but most are captured with Pokéballs in encounters.
+An encounter involves a single subject Pokémon, a single Trainer,
+  and possibly that Trainer's current Buddy Pokémon.
+Outcomes (aside from certain plot-based encounters) include capture, flight of
+  the Pokémon, and departure of the Trainer.
 
-\textbf{FIXME}
+During the initial tour with Professor Willow, you select one of
+ Bulbasaur, Charmander, Squirtle, or Pikachu to catch.
+You will enter the Encounter screen, be provided an infinite supply of
+  Pokéballs for the encounter, and enjoy a catch rate (\autoref{sec:catch}) set to 100\%.
+
+Pokémon will spawn on the Map screen, seemingly at random (see \autoref{sec:spawns} for details).
+Pressing on them will open the Encounter screen with that Pokémon,
+  providing an opportunity to catch it.
+Encounters are also triggered by the completion of certain Research,
+  defeats of Team GO Rocket, Raid wins, and Max Battle wins.
+Encounters due to Research can be arbitrarily postponed by leaving the encounter screen,
+  or simply not closing the research out.
+Leaving wild encounters might see the Pokémon disappear from the Map, especially
+  if you've moved significantly, or much time has gone by.
+Encounters following battle wins are one-and-done; if you exit the encounter,
+  that Pokémon is gone.
 
 \subsection{Collecting XP}
 \label{subsec:getxp}
@@ -307,10 +328,10 @@ There is a large set of Medals, each of which can be achieved at the Bronze,
 
 \section{Pokédexen}
 \label{sec:dexen}
-The Trainer has 10 Pokédexen\footnote{``Pokédexes'' to the uncultured.}:
+The Trainer has ten Pokédexen\footnote{``Pokédexes'' to the uncultured.}:
   ``Pokémon'', ``Shiny'', ``XXL'', ``XXS'', ``G-Max'', ``Mega'', ``Shadow'',
   ``Purified'', ``🟉100\%'', and ``Lucky''.
-All 10 start empty, and several start locked.
+All ten start empty, and several start locked.
 \textbf{FIXME details}
 Entries are filled in as the relevant Pokémon are acquired (via any means).
 Once registered, Pokédex entries are never unregistered.

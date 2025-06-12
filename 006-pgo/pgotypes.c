@@ -1199,6 +1199,63 @@ static const attack* AUDINO_ATKS[] = {
   NULL
 };
 
+static const attack* WHISMUR_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Astonish,
+  &ATK_Flamethrower,
+  &ATK_Disarming_Voice,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* LOUDRED_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Rock_Smash,
+  &ATK_Flamethrower,
+  &ATK_Disarming_Voice,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* EXPLOUD_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Astonish,
+  &ATK_Disarming_Voice,
+  &ATK_Fire_Blast,
+  &ATK_Crunch,
+  &ATK_Boomburst,
+  NULL
+};
+
+static const attack* JANGMO_O_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Dragon_Tail,
+  &ATK_Dragon_Pulse,
+  &ATK_Dragon_Claw,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* HAKAMO_O_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Dragon_Tail,
+  &ATK_Dragon_Pulse,
+  &ATK_Dragon_Claw,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* KOMMO_O_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Dragon_Tail,
+  &ATK_Flamethrower,
+  &ATK_Dragon_Claw,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Boomburst,
+  NULL
+};
+
 static const attack* RALTS_ATKS[] = {
   &ATK_Confusion,
   &ATK_Charge_Beam,
@@ -2623,6 +2680,41 @@ static const attack* ALOLAN_SANDSLASH_ATKS[] = {
   &ATK_Drill_Run,
   &ATK_Bulldoze,
   &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* TRAPINCH_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Struggle_Bug,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Sand_Tomb,
+  &ATK_Crunch,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* VIBRAVA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Mud_Shot,
+  &ATK_Sand_Attack,
+  &ATK_Bug_Buzz,
+  &ATK_Bulldoze,
+  &ATK_Sand_Tomb,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* FLYGON_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Dragon_Tail,
+  &ATK_Sand_Attack,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Dragon_Claw,
+  &ATK_Earth_Power,
+  &ATK_Boomburst,
+  &ATK_Scorching_Sands,
   NULL
 };
 
@@ -4849,9 +4941,9 @@ static const species sdex[] = {
   {  290, "Nincada", TYPE_BUG, TYPE_GROUND, 80, 126, 104, NULL, NULL, },
   {  291, "Ninjask", TYPE_BUG, TYPE_FLYING, 199, 112, 156, "Nincade", NULL, },
   {  292, "Shedinja", TYPE_BUG, TYPE_GHOST, 153, 73, 1, NULL, NULL, },
-  {  293, "Whismur", TYPE_NORMAL, TYPECOUNT, 92, 42, 162, NULL, NULL, },
-  {  294, "Loudred", TYPE_NORMAL, TYPECOUNT, 134, 81, 197, "Whismur", NULL, },
-  {  295, "Exploud", TYPE_NORMAL, TYPECOUNT, 179, 137, 232, "Loudred", NULL, },
+  {  293, "Whismur", TYPE_NORMAL, TYPECOUNT, 92, 42, 162, NULL, WHISMUR_ATKS, true, true, },
+  {  294, "Loudred", TYPE_NORMAL, TYPECOUNT, 134, 81, 197, "Whismur", LOUDRED_ATKS, true, true, },
+  {  295, "Exploud", TYPE_NORMAL, TYPECOUNT, 179, 137, 232, "Loudred", EXPLOUD_ATKS, true, true, },
   {  296, "Makuhita", TYPE_FIGHTING, TYPECOUNT, 99, 54, 176, NULL, NULL, },
   {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", NULL, },
   {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, NULL, },
@@ -4884,9 +4976,9 @@ static const species sdex[] = {
   {  325, "Spoink", TYPE_PSYCHIC, TYPECOUNT, 125, 122, 155, NULL, NULL, },
   {  326, "Grumpig", TYPE_PSYCHIC, TYPECOUNT, 171, 188, 190, "Spoink", NULL, },
   {  327, "Spinda", TYPE_NORMAL, TYPECOUNT, 116, 116, 155, NULL, NULL, },
-  {  328, "Trapinch", TYPE_GROUND, TYPECOUNT, 162, 78, 128, NULL, NULL, },
-  {  329, "Vibrava", TYPE_GROUND, TYPE_DRAGON, 134, 99, 137, "Trapinch", NULL, },
-  {  330, "Flygon", TYPE_GROUND, TYPE_DRAGON, 205, 168, 190, "Vibrava", NULL, },
+  {  328, "Trapinch", TYPE_GROUND, TYPECOUNT, 162, 78, 128, NULL, TRAPINCH_ATKS, true, true, },
+  {  329, "Vibrava", TYPE_GROUND, TYPE_DRAGON, 134, 99, 137, "Trapinch", VIBRAVA_ATKS, true, true, },
+  {  330, "Flygon", TYPE_GROUND, TYPE_DRAGON, 205, 168, 190, "Vibrava", FLYGON_ATKS, true, true, },
   {  331, "Cacnea", TYPE_GRASS, TYPECOUNT, 156, 74, 137, NULL, NULL, },
   {  332, "Cacturne", TYPE_GRASS, TYPE_DARK, 221, 115, 172, "Cacnea", NULL, },
   {  333, "Swablu", TYPE_NORMAL, TYPE_FLYING, 76, 132, 128, NULL, NULL, },
@@ -5368,9 +5460,9 @@ static const species sdex[] = {
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, NULL, },
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, NULL, NULL, },
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, NULL, NULL, },
-  {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, NULL, NULL, },
-  {  783, "Hakamo-o", TYPE_DRAGON, TYPE_FIGHTING, 145, 162, 146, "Jangmo-o", NULL, },
-  {  784, "Kommo-o", TYPE_DRAGON, TYPE_FIGHTING, 222, 240, 181, "Hakamo-o", NULL, },
+  {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, NULL, JANGMO_O_ATKS, true, false, },
+  {  783, "Hakamo-o", TYPE_DRAGON, TYPE_FIGHTING, 145, 162, 146, "Jangmo-o", HAKAMO_O_ATKS, true, false, },
+  {  784, "Kommo-o", TYPE_DRAGON, TYPE_FIGHTING, 222, 240, 181, "Hakamo-o", KOMMO_O_ATKS, true, false, },
   {  785, "Tapu Koko", TYPE_ELECTRIC, TYPE_FAIRY, 250, 181, 172, NULL, NULL, },
   {  786, "Tapu Lele", TYPE_PSYCHIC, TYPE_FAIRY, 259, 208, 172, NULL, NULL, },
   {  787, "Tapu Bulu", TYPE_GRASS, TYPE_FAIRY, 249, 215, 172, NULL, NULL, },
