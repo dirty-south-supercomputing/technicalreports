@@ -798,6 +798,65 @@ static const attack* CELESTEELA_ATKS[] = {
   NULL
 };
 
+static const attack* A_GEODUDE_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Volt_Switch,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* A_GRAVELER_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Volt_Switch,
+  &ATK_Stone_Edge,
+  &ATK_Thunderbolt,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* A_GOLEM_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Volt_Switch,
+  &ATK_Rollout,
+  &ATK_Stone_Edge,
+  &ATK_Wild_Charge,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* GEODUDE_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Throw,
+  &ATK_Dig,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  NULL
+};
+
+static const attack* GRAVELER_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Rock_Throw,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Slide,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* GOLEM_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Rock_Throw,
+  &ATK_Mud_Slap,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Blast,
+  NULL
+};
+
 static const attack* BOMBIRDIER_ATKS[] = {
   &ATK_Sucker_Punch,
   &ATK_Wing_Attack,
@@ -1441,6 +1500,45 @@ static const attack* LUCARIO_ATKS[] = {
   &ATK_Blaze_Kick,
   &ATK_Power_Up_Punch,
   &ATK_Aura_Sphere,
+  NULL
+};
+
+static const attack* H_VOLTORB_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Charge_Beam,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* VOLTORB_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Tackle,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Signal_Beam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* H_ELECTRODE_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Tackle,
+  &ATK_Swift,
+  &ATK_Wild_Charge,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* ELECTRODE_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Tackle,
+  &ATK_Volt_Switch,
+  &ATK_Hyper_Beam,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Foul_Play,
   NULL
 };
 
@@ -4501,12 +4599,12 @@ static const species sdex[] = {
   {   71, "Victreebel", TYPE_GRASS, TYPE_POISON, 207, 135, 190, "Weepinbell", NULL, },
   {   72, "Tentacool", TYPE_WATER, TYPE_POISON, 97, 149, 120, NULL, TENTACOOL_ATKS, true, true, },
   {   73, "Tentacruel", TYPE_WATER, TYPE_POISON, 166, 209, 190, "Tentacool", TENTACRUEL_ATKS, true, true, },
-  {   74, "Geodude", TYPE_ROCK, TYPE_GROUND, 132, 132, 120, NULL, NULL, },
-  {   74, "Alolan Geodude", TYPE_ROCK, TYPE_ELECTRIC, 132, 132, 120, NULL, NULL, },
-  {   75, "Graveler", TYPE_ROCK, TYPE_GROUND, 164, 164, 146, "Geodude", NULL, },
-  {   75, "Alolan Graveler", TYPE_ROCK, TYPE_ELECTRIC, 164, 164, 146, "Alolan Geodude", NULL, },
-  {   76, "Golem", TYPE_ROCK, TYPE_GROUND, 211, 198, 190, "Graveler", NULL, },
-  {   76, "Alolan Golem", TYPE_ROCK, TYPE_ELECTRIC, 211, 198, 190, "Alolan Graveler", NULL, },
+  {   74, "Geodude", TYPE_ROCK, TYPE_GROUND, 132, 132, 120, NULL, GEODUDE_ATKS, true, true, },
+  {   74, "Alolan Geodude", TYPE_ROCK, TYPE_ELECTRIC, 132, 132, 120, NULL, A_GEODUDE_ATKS, true, true, },
+  {   75, "Graveler", TYPE_ROCK, TYPE_GROUND, 164, 164, 146, "Geodude", GRAVELER_ATKS, true, true, },
+  {   75, "Alolan Graveler", TYPE_ROCK, TYPE_ELECTRIC, 164, 164, 146, "Alolan Geodude", A_GRAVELER_ATKS, true, true, },
+  {   76, "Golem", TYPE_ROCK, TYPE_GROUND, 211, 198, 190, "Graveler", GOLEM_ATKS, true, true, },
+  {   76, "Alolan Golem", TYPE_ROCK, TYPE_ELECTRIC, 211, 198, 190, "Alolan Graveler", A_GOLEM_ATKS, true, true, },
   {   77, "Ponyta", TYPE_FIRE, TYPECOUNT, 170, 127, 137, NULL, PONYTA_ATKS, true, true, },
   {   77, "Galarian Ponyta", TYPE_PSYCHIC, TYPECOUNT, 170, 127, 137, NULL, G_PONYTA_ATKS, true, true, },
   {   78, "Rapidash", TYPE_FIRE, TYPECOUNT, 207, 162, 163, "Ponyta", RAPIDASH_ATKS, true, true, },
@@ -4537,10 +4635,10 @@ static const species sdex[] = {
   {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, "Drowzee", NULL, },
   {   98, "Krabby", TYPE_WATER, TYPECOUNT, 181, 124, 102, NULL, KRABBY_ATKS, true, true, },
   {   99, "Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Krabby", KINGLER_ATKS, true, true, },
-  {  100, "Voltorb", TYPE_ELECTRIC, TYPECOUNT, 109, 111, 120, NULL, NULL, },
-  {  100, "Hisuian Voltorb", TYPE_ELECTRIC, TYPE_GRASS, 109, 111, 120, NULL, NULL, },
-  {  101, "Electrode", TYPE_ELECTRIC, TYPECOUNT, 173, 173, 155, "Voltorb", NULL, },
-  {  101, "Hisuian Electrode", TYPE_ELECTRIC, TYPE_GRASS, 176, 176, 155, "Hisuian Voltorb", NULL, },
+  {  100, "Voltorb", TYPE_ELECTRIC, TYPECOUNT, 109, 111, 120, NULL, VOLTORB_ATKS, true, true, },
+  {  100, "Hisuian Voltorb", TYPE_ELECTRIC, TYPE_GRASS, 109, 111, 120, NULL, H_VOLTORB_ATKS, true, true, },
+  {  101, "Electrode", TYPE_ELECTRIC, TYPECOUNT, 173, 173, 155, "Voltorb", ELECTRODE_ATKS, true, true, },
+  {  101, "Hisuian Electrode", TYPE_ELECTRIC, TYPE_GRASS, 176, 176, 155, "Hisuian Voltorb", H_ELECTRODE_ATKS, true, true, },
   {  102, "Exeggcute", TYPE_GRASS, TYPE_PSYCHIC, 107, 125, 155, NULL, NULL, },
   {  103, "Exeggutor", TYPE_GRASS, TYPE_PSYCHIC, 233, 149, 216, "Exeggcute", NULL, },
   {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, "Exeggcute", NULL, },
