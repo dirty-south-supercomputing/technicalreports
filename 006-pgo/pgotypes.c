@@ -762,6 +762,97 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* ONIX_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Throw,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Slide,
+  &ATK_Iron_Head,
+  &ATK_Sand_Tomb,
+  &ATK_Heavy_Slam,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
+static const attack* STEELIX_ATTACKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Iron_Tail,
+  &ATK_Thunder_Fang,
+  &ATK_Earthquake,
+  &ATK_Heavy_Slam,
+  &ATK_Crunch,
+  &ATK_Psychic_Fangs,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
+static const attack* LARVITAR_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Rock_Smash,
+  &ATK_Ancient_Power,
+  &ATK_Stomp,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* PUPITAR_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Rock_Smash,
+  &ATK_Dig,
+  &ATK_Ancient_Power,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* TYRANITAR_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Iron_Tail,
+  &ATK_Smack_Down,
+  &ATK_Stone_Edge,
+  &ATK_Fire_Blast,
+  &ATK_Crunch,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* LUGIA_ATTACKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Extrasensory,
+  &ATK_Hydro_Pump,
+  &ATK_Sky_Attack,
+  &ATK_Future_Sight,
+  &ATK_Aeroblast,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* BELDUM_ATTACKS[] = {
+  &ATK_Take_Down,
+  &ATK_Iron_Head,
+  NULL
+};
+
+static const attack* METANG_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Metal_Claw,
+  &ATK_Zen_Headbutt,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* METAGROSS_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Bullet_Punch,
+  &ATK_Zen_Headbutt,
+  &ATK_Earthquake,
+  &ATK_Flash_Cannon,
+  &ATK_Psychic,
+  &ATK_Meteor_Mash,
+  NULL
+};
+
 static const attack* SCYTHER_ATTACKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Steel_Wing,
@@ -884,6 +975,112 @@ static const attack* SKARMORY_ATTACKS[] = {
   &ATK_Flash_Cannon,
   &ATK_Brave_Bird,
   &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* RALTS_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Charge_Beam,
+  &ATK_Psyshock,
+  &ATK_Shadow_Sneak,
+  &ATK_Disarming_Voice,
+  NULL
+};
+
+static const attack* KIRLIA_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Charge_Beam,
+  &ATK_Magical_Leaf,
+  &ATK_Shadow_Sneak,
+  &ATK_Disarming_Voice,
+  &ATK_Draining_Kiss,
+  &ATK_Psychic,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* GALLADE_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Psycho_Cut,
+  &ATK_Confusion,
+  &ATK_Charm,
+  &ATK_Psychic,
+  &ATK_Leaf_Blade,
+  &ATK_Close_Combat,
+  &ATK_Synchronoise,
+  NULL
+};
+
+static const attack* GARDEVOIR_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Charge_Beam,
+  &ATK_Charm,
+  &ATK_Magical_Leaf,
+  &ATK_Shadow_Ball,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  &ATK_Synchronoise,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* MUDKIP_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Sludge,
+  &ATK_Dig,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* MARSHTOMP_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Sludge,
+  &ATK_Mud_Bomb,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* SWAMPERT_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Sludge,
+  &ATK_Earthquake,
+  &ATK_Sludge_Wave,
+  &ATK_Surf,
+  &ATK_Hydro_Cannon,
+  &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* TORCHIC_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Rock_Tomb,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* COMBUSKEN_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Peck,
+  &ATK_Flamethrower,
+  &ATK_Rock_Slide,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* BLAZIKEN_ATTACKS[] = {
+  &ATK_Counter,
+  &ATK_Fire_Spin,
+  &ATK_Stone_Edge,
+  &ATK_Focus_Blast,
+  &ATK_Brave_Bird,
+  &ATK_Overheat,
+  &ATK_Blast_Burn,
+  &ATK_Blaze_Kick,
   NULL
 };
 
@@ -3026,7 +3223,7 @@ static const species sdex[] = {
   {   92, "Gastly", TYPE_GHOST, TYPE_POISON, 186, 67, 102, NULL, GASTLY_ATTACKS, true, true, },
   {   93, "Haunter", TYPE_GHOST, TYPE_POISON, 223, 107, 128, "Gastly", HAUNTER_ATTACKS, true, true, },
   {   94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter", GENGAR_ATTACKS, true, true, },
-  {   95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, NULL, NULL, },
+  {   95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, NULL, ONIX_ATTACKS, true, true, },
   {   96, "Drowzee", TYPE_PSYCHIC, TYPECOUNT, 89, 136, 155, NULL, NULL, },
   {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, NULL, NULL, },
   {   98, "Krabby", TYPE_WATER, TYPECOUNT, 181, 124, 102, NULL, KRABBY_ATTACKS, true, true, },
@@ -3155,7 +3352,7 @@ static const species sdex[] = {
   {  205, "Forretress", TYPE_BUG, TYPE_STEEL, 161, 205, 181, "Pineco", FORRETRESS_ATTACKS, true, true, },
   {  206, "Dunsparce", TYPE_NORMAL, TYPECOUNT, 131, 128, 225, NULL, NULL, },
   {  207, "Gligar", TYPE_GROUND, TYPE_FLYING, 143, 184, 163, NULL, NULL, },
-  {  208, "Steelix", TYPE_STEEL, TYPE_GROUND, 148, 272, 181, NULL, NULL, },
+  {  208, "Steelix", TYPE_STEEL, TYPE_GROUND, 148, 272, 181, "Onix", STEELIX_ATTACKS, true, true, },
   {  209, "Snubbull", TYPE_FAIRY, TYPECOUNT, 137, 85, 155, NULL, NULL, },
   {  210, "Granbull", TYPE_FAIRY, TYPECOUNT, 212, 131, 207, NULL, NULL, },
   {  211, "Qwilfish", TYPE_WATER, TYPE_POISON, 184, 138, 163, NULL, NULL, },
@@ -3196,21 +3393,21 @@ static const species sdex[] = {
   {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, NULL, },
   {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, NULL, NULL, },
   {  245, "Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, NULL, NULL, },
-  {  246, "Larvitar", TYPE_ROCK, TYPE_GROUND, 115, 93, 137, NULL, NULL, },
-  {  247, "Pupitar", TYPE_ROCK, TYPE_GROUND, 155, 133, 172, NULL, NULL, },
-  {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, NULL, NULL, },
-  {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, NULL, NULL, },
+  {  246, "Larvitar", TYPE_ROCK, TYPE_GROUND, 115, 93, 137, NULL, LARVITAR_ATTACKS, true, true, },
+  {  247, "Pupitar", TYPE_ROCK, TYPE_GROUND, 155, 133, 172, "Larvitar", PUPITAR_ATTACKS, true, true, },
+  {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, "Pupitar", TYRANITAR_ATTACKS, true, true, },
+  {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, NULL, LUGIA_ATTACKS, true, true, },
   {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, NULL, NULL, },
   {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, NULL, NULL, },
   {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, NULL, TREECKO_ATTACKS, true, true, },
   {  253, "Grovyle", TYPE_GRASS, TYPECOUNT, 172, 120, 137, "Treecko", GROVYLE_ATTACKS, true, true, },
   {  254, "Sceptile", TYPE_GRASS, TYPECOUNT, 223, 169, 172, "Grovyle", SCEPTILE_ATTACKS, true, true, },
-  {  255, "Torchic", TYPE_FIRE, TYPECOUNT, 130, 87, 128, NULL, NULL, },
-  {  256, "Combusken", TYPE_FIRE, TYPE_FIGHTING, 163, 115, 155, NULL, NULL, },
-  {  257, "Blaziken", TYPE_FIRE, TYPE_FIGHTING, 240, 141, 190, NULL, NULL, },
-  {  258, "Mudkip", TYPE_WATER, TYPECOUNT, 126, 93, 137, NULL, NULL, },
-  {  259, "Marshtomp", TYPE_WATER, TYPE_GROUND, 156, 133, 172, NULL, NULL, },
-  {  260, "Swampert", TYPE_WATER, TYPE_GROUND, 208, 175, 225, NULL, NULL, },
+  {  255, "Torchic", TYPE_FIRE, TYPECOUNT, 130, 87, 128, NULL, TORCHIC_ATTACKS, true, true, },
+  {  256, "Combusken", TYPE_FIRE, TYPE_FIGHTING, 163, 115, 155, "Torchic", COMBUSKEN_ATTACKS, true, true, },
+  {  257, "Blaziken", TYPE_FIRE, TYPE_FIGHTING, 240, 141, 190, "Combusken", BLAZIKEN_ATTACKS, true, true, },
+  {  258, "Mudkip", TYPE_WATER, TYPECOUNT, 126, 93, 137, NULL, MUDKIP_ATTACKS, true, true, },
+  {  259, "Marshtomp", TYPE_WATER, TYPE_GROUND, 156, 133, 172, "Mudkip", MARSHTOMP_ATTACKS, true, true, },
+  {  260, "Swampert", TYPE_WATER, TYPE_GROUND, 208, 175, 225, "Marshtomp", SWAMPERT_ATTACKS, true, true, },
   {  261, "Poochyena", TYPE_DARK, TYPECOUNT, 96, 61, 111, NULL, NULL, },
   {  262, "Mightyena", TYPE_DARK, TYPECOUNT, 171, 132, 172, NULL, NULL, },
   {  263, "Zigzagoon", TYPE_NORMAL, TYPECOUNT, 58, 80, 116, NULL, NULL, },
@@ -3232,9 +3429,9 @@ static const species sdex[] = {
   {  277, "Swellow", TYPE_NORMAL, TYPE_FLYING, 185, 124, 155, NULL, NULL, },
   {  278, "Wingull", TYPE_WATER, TYPE_FLYING, 106, 61, 120, NULL, NULL, },
   {  279, "Pelipper", TYPE_WATER, TYPE_FLYING, 175, 174, 155, NULL, NULL, },
-  {  280, "Ralts", TYPE_PSYCHIC, TYPE_FAIRY, 79, 59, 99, NULL, NULL, },
-  {  281, "Kirlia", TYPE_PSYCHIC, TYPE_FAIRY, 117, 90, 116, NULL, NULL, },
-  {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, NULL, NULL, },
+  {  280, "Ralts", TYPE_PSYCHIC, TYPE_FAIRY, 79, 59, 99, NULL, RALTS_ATTACKS, true, true, },
+  {  281, "Kirlia", TYPE_PSYCHIC, TYPE_FAIRY, 117, 90, 116, "Ralts", KIRLIA_ATTACKS, true, true, },
+  {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, "Kirlia", GARDEVOIR_ATTACKS, true, true, },
   {  283, "Surskit", TYPE_BUG, TYPE_WATER, 93, 87, 120, NULL, NULL, },
   {  284, "Masquerain", TYPE_BUG, TYPE_FLYING, 192, 150, 172, NULL, NULL, },
   {  285, "Shroomish", TYPE_GRASS, TYPECOUNT, 74, 110, 155, NULL, NULL, },
@@ -3329,9 +3526,9 @@ static const species sdex[] = {
   {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, NULL, true, true, },
   {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, NULL, NULL, true, true, },
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon", SALAMENCE_ATTACKS, true, true, },
-  {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, NULL, true, true, },
-  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", NULL, true, true, },
-  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", NULL, true, true, },
+  {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, BELDUM_ATTACKS, true, true, },
+  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", NULL, METANG_ATTACKS, true, },
+  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", NULL, METAGROSS_ATTACKS, true, },
   {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, REGIROCK_ATTACKS, true, true, },
   {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, REGICE_ATTACKS, true, true, },
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, REGISTEEL_ATTACKS, true, true, },
@@ -3437,7 +3634,7 @@ static const species sdex[] = {
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, NULL, NULL, },
   {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, NULL, NULL, },
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATTACKS, true, true, },
-  {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, NULL, NULL, },
+  {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATTACKS, true, true, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, NULL, NULL, },
   {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, NULL, NULL, },
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, NULL, NULL, },
@@ -3915,7 +4112,7 @@ static const species megasdex[] = {
   {    9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, "Blastoise", BLASTOISE_ATTACKS, true, false, },
   {   15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Beedrill", BEEDRILL_ATTACKS, true, false, },
   {   18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot", PIDGEOT_ATTACKS, true, false, },
-  {   65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, "Alakazam", ALAKAZAM_ATTACKS, },
+  {   65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, "Alakazam", ALAKAZAM_ATTACKS, true, false, },
   {   80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro", SLOWBRO_ATTACKS, true, false, },
   {   94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar", GENGAR_ATTACKS, true, false, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, "Kangaskhan", KANGASKHAN_ATTACKS, true, false, },
@@ -3923,15 +4120,15 @@ static const species megasdex[] = {
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados", GYARADOS_ATTACKS, true, false, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, "Aerodactyl", AERODACTYL_ATTACKS, true, false, },
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos", AMPHAROS_ATTACKS, true, false, },
-  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix", NULL, true, false, },
+  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix", STEELIX_ATTACKS, true, false, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor", SCIZOR_ATTACKS, true, false, },
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross", HERACROSS_ATTACKS, true, false, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, "Houndoom", HOUNDOOM_ATTACKS, true, false, },
-  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar", NULL, true, false, },
+  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar", TYRANITAR_ATTACKS, true, false, },
   {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, "Sceptile", SCEPTILE_ATTACKS, true, false, },
-  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, "Blaziken", NULL, true, false, },
-  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, "Swampert", NULL, true, false, },
-  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, "Gardevoir", NULL, true, false, },
+  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, "Blaziken", BLAZIKEN_ATTACKS, true, false, },
+  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, "Swampert", SWAMPERT_ATTACKS, true, false, },
+  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, "Gardevoir", GARDEVOIR_ATTACKS, true, false, },
   {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATTACKS, true, false, },
   {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", MAWILE_ATTACKS, true, false, },
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", NULL, true, false, },
@@ -4248,6 +4445,11 @@ void print_optimal_latex(const species* sp){
   printf("\\\\\n");
 }
 
+static inline unsigned
+has_stab_p(const species *s, const attack *a){
+  return a->type == s->t1 || a->type == s->t2;
+}
+
 void print_species_latex(const species* s){
   printf("\\begin{tcolorbox}[boxsep=0mm,title=");
   for(const char* curs = s->name ; *curs ; ++curs){
@@ -4259,14 +4461,16 @@ void print_species_latex(const species* s){
   }
   printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={\\hfill%u %u %u %.2f}]\n",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
+  printf("\\footnotesize\n");
   if(s->attacks){ // FIXME remove conditional once all attacks are defined
     printf("\\begin{tabular}{lrrr}\n");
     for(const attack** a = s->attacks ; *a ; ++a){
+      unsigned stab = has_stab_p(s, *a);
+      float power = (*a)->powertrain * (stab ? 1.2 : 1);
       if((*a)->energytrain < 0){
-        printf("%s & & %u & %d\\\\\n", (*a)->name, (*a)->powertrain, (*a)->energytrain);
+        printf("%s & & %g & %d\\\\\n", (*a)->name, power, (*a)->energytrain);
       }else{
-        printf("%s & %u & %u & %d\\\\\n", (*a)->name, (*a)->turns,
-                (*a)->powertrain, (*a)->energytrain);
+        printf("%s & %u & %g & %d\\\\\n", (*a)->name, (*a)->turns, power, (*a)->energytrain);
       }
     }
     printf("\\end{tabular}\n");
