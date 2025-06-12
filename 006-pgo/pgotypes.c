@@ -1181,6 +1181,42 @@ static const attack* SABLEYE_ATTACKS[] = {
   NULL
 };
 
+static const attack* MAGNEMITE_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Volt_Switch,
+  &ATK_Metal_Sound,
+  &ATK_Discharge,
+  &ATK_Magnet_Bomb,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* MAGNETON_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Charge_Beam,
+  &ATK_Volt_Switch,
+  &ATK_Metal_Sound,
+  &ATK_Discharge,
+  &ATK_Flash_Cannon,
+  &ATK_Magnet_Bomb,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* MAGNEZONE_ATTACKS[] = {
+  &ATK_Spark,
+  &ATK_Charge_Beam,
+  &ATK_Volt_Switch,
+  &ATK_Metal_Sound,
+  &ATK_Flash_Cannon,
+  &ATK_Wild_Charge,
+  &ATK_Zap_Cannon,
+  &ATK_Mirror_Shot,
+  NULL
+};
+
 static const attack* MELTAN_ATTACKS[] = {
   &ATK_Thunder_Shock,
   &ATK_Flash_Cannon,
@@ -2827,6 +2863,17 @@ static const attack* ALAKAZAM_ATTACKS[] = {
   NULL
 };
 
+static const attack* BEWEAR_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Shadow_Claw,
+  &ATK_Tackle,
+  &ATK_Stomp,
+  &ATK_Superpower,
+  &ATK_Drain_Punch,
+  &ATK_Payback,
+  NULL
+};
+
 static const attack* MACHOP_ATTACKS[] = {
   &ATK_Low_Kick,
   &ATK_Karate_Chop,
@@ -3553,6 +3600,56 @@ static const attack* CINDERACE_ATTACKS[] = {
   NULL
 };
 
+static const attack* ZIGZAGOON_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Smash,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Thunderbolt,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* G_ZIGZAGOON_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Dig,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* LINOONE_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Tackle,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Thunder,
+  &ATK_Swift,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* G_LINOONE_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Snarl,
+  &ATK_Dig,
+  &ATK_Gunk_Shot,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* OBSTAGOON_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Counter,
+  &ATK_Hyper_Beam,
+  &ATK_Cross_Chop,
+  &ATK_Night_Slash,
+  &ATK_Gunk_Shot,
+  &ATK_Obstruct,
+  NULL
+};
+
 static const attack* TOXTRICITY_ATTACKS[] = {
   &ATK_Spark,
   &ATK_Poison_Jab,
@@ -3839,8 +3936,8 @@ static const species sdex[] = {
   {   79, "Galarian Slowpoke", TYPE_PSYCHIC, TYPECOUNT, 109, 98, 207, NULL, G_SLOWPOKE_ATTACKS, true, true, },
   {   80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWBRO_ATTACKS, true, true, },
   {   80, "Galarian Slowbro", TYPE_POISON, TYPE_PSYCHIC, 182, 156, 216, "Galarian Slowpoke", G_SLOWBRO_ATTACKS, true, true, },
-  {   81, "Magnemite", TYPE_ELECTRIC, TYPE_STEEL, 165, 121, 93, NULL, NULL, },
-  {   82, "Magneton", TYPE_ELECTRIC, TYPE_STEEL, 223, 169, 137, "Magnemite", NULL, },
+  {   81, "Magnemite", TYPE_ELECTRIC, TYPE_STEEL, 165, 121, 93, NULL, MAGNEMITE_ATTACKS, true, true, },
+  {   82, "Magneton", TYPE_ELECTRIC, TYPE_STEEL, 223, 169, 137, "Magnemite", MAGNETON_ATTACKS, true, true, },
   {   83, "Farfetch'd", TYPE_NORMAL, TYPE_FLYING, 124, 115, 141, NULL, NULL, },
   {   83, "Galarian Farfetch'd", TYPE_FIGHTING, TYPECOUNT, 174, 114, 141, NULL, NULL, },
   {   84, "Doduo", TYPE_NORMAL, TYPE_FLYING, 158, 83, 111, NULL, NULL, },
@@ -4043,10 +4140,10 @@ static const species sdex[] = {
   {  260, "Swampert", TYPE_WATER, TYPE_GROUND, 208, 175, 225, "Marshtomp", SWAMPERT_ATTACKS, true, true, },
   {  261, "Poochyena", TYPE_DARK, TYPECOUNT, 96, 61, 111, NULL, NULL, },
   {  262, "Mightyena", TYPE_DARK, TYPECOUNT, 171, 132, 172, "Poochyena", NULL, },
-  {  263, "Zigzagoon", TYPE_NORMAL, TYPECOUNT, 58, 80, 116, NULL, NULL, },
-  {  263, "Galarian Zigzagoon", TYPE_DARK, TYPE_NORMAL, 58, 80, 116, NULL, NULL, },
-  {  264, "Linoone", TYPE_NORMAL, TYPECOUNT, 142, 128, 186, "Zigzagoon", NULL, },
-  {  264, "Galarian Linoone", TYPE_DARK, TYPE_NORMAL, 142, 128, 186, "Galarian Zigzagoon", NULL, },
+  {  263, "Zigzagoon", TYPE_NORMAL, TYPECOUNT, 58, 80, 116, NULL, ZIGZAGOON_ATTACKS, true, true, },
+  {  263, "Galarian Zigzagoon", TYPE_DARK, TYPE_NORMAL, 58, 80, 116, NULL, G_ZIGZAGOON_ATTACKS, true, true, },
+  {  264, "Linoone", TYPE_NORMAL, TYPECOUNT, 142, 128, 186, "Zigzagoon", LINOONE_ATTACKS, true, true, },
+  {  264, "Galarian Linoone", TYPE_DARK, TYPE_NORMAL, 142, 128, 186, "Galarian Zigzagoon", G_LINOONE_ATTACKS, true, true, },
   {  265, "Wurmple", TYPE_BUG, TYPECOUNT, 75, 59, 128, NULL, WURMPLE_ATTACKS, true, false, },
   {  266, "Silcoon", TYPE_BUG, TYPECOUNT, 60, 77, 137, "Wurmple", SILCOON_ATTACKS, true, false, },
   {  267, "Beautifly", TYPE_BUG, TYPE_FLYING, 189, 98, 155, "Silcoon", BEAUTIFLY_ATTACKS, true, false, },
@@ -4254,7 +4351,7 @@ static const species sdex[] = {
   {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, SNOVER_ATTACKS, true, true, },
   {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, "Snover", ABOMASNOW_ATTACKS, true, true, },
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel", NULL, },
-  {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, NULL, NULL, },
+  {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, "Magneton", MAGNEZONE_ATTACKS, true, true, },
   {  463, "Lickilicky", TYPE_NORMAL, TYPECOUNT, 161, 181, 242, "Lickitung", LICKILICKY_ATTACKS, true, false, },
   {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon", NULL, },
   {  465, "Tangrowth", TYPE_GRASS, TYPECOUNT, 207, 184, 225, "Tangela", NULL, },
@@ -4577,7 +4674,7 @@ static const species sdex[] = {
   {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, NULL, },
   {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", NULL, },
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, NULL, },
-  {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful", NULL, },
+  {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful", BEWEAR_ATTACKS, true, false, },
   {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, NULL, },
   {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", NULL, },
   {  763, "Tsareena", TYPE_GRASS, TYPECOUNT, 222, 195, 176, "Steenee", NULL, },
@@ -4656,7 +4753,7 @@ static const species sdex[] = {
   {  856, "Hatenna", TYPE_PSYCHIC, TYPECOUNT, 98, 93, 123, NULL, NULL, },
   {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna", NULL, },
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", NULL, },
-  {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone", NULL, },
+  {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone", OBSTAGOON_ATTACKS, true, true, },
   {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, NULL, NULL, },
   {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Corsola", NULL, },
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
