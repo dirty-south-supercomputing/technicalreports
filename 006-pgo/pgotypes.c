@@ -1506,6 +1506,16 @@ static const attack* AGGRON_ATKS[] = {
   NULL
 };
 
+static const attack* DELIBIRD_ATKS[] = {
+  &ATK_Present,
+  &ATK_Ice_Punch,
+  &ATK_Aerial_Ace,
+  &ATK_Icy_Wind,
+  &ATK_Fly,
+  &ATK_Triple_Axel,
+  NULL
+};
+
 static const attack* MEDITITE_ATKS[] = {
   &ATK_Confusion,
   &ATK_Rock_Smash,
@@ -3972,6 +3982,53 @@ static const attack* LAPRAS_ATKS[] = {
   NULL
 };
 
+static const attack* CURSOLA_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Brine,
+  &ATK_Rock_Blast,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* G_CORSOLA_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Astonish,
+  &ATK_Power_Gem,
+  &ATK_Rock_Blast,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* CORSOLA_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Power_Gem,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* FRILLISH_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Hex,
+  &ATK_Ice_Beam,
+  &ATK_Ominous_Wind,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* JELLICENT_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Hex,
+  &ATK_Ice_Beam,
+  &ATK_Bubble_Beam,
+  &ATK_Shadow_Ball,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* SNORUNT_ATKS[] = {
   &ATK_Powder_Snow,
   &ATK_Hex,
@@ -4867,11 +4924,11 @@ static const species sdex[] = {
   {  219, "Magcargo", TYPE_FIRE, TYPE_ROCK, 139, 191, 137, "Slugma", MAGCARGO_ATKS, true, false, },
   {  220, "Swinub", TYPE_ICE, TYPE_GROUND, 90, 69, 137, NULL, SWINUB_ATKS, true, true, },
   {  221, "Piloswine", TYPE_ICE, TYPE_GROUND, 181, 138, 225, "Swinub", PILOSWINE_ATKS, true, true, },
-  {  222, "Corsola", TYPE_WATER, TYPE_ROCK, 118, 156, 146, NULL, NULL, },
-  {  222, "Galarian Corsola", TYPE_GHOST, TYPECOUNT, 116, 182, 155, NULL, NULL, },
+  {  222, "Corsola", TYPE_WATER, TYPE_ROCK, 118, 156, 146, NULL, CORSOLA_ATKS, true, false, },
+  {  222, "Galarian Corsola", TYPE_GHOST, TYPECOUNT, 116, 182, 155, NULL, G_CORSOLA_ATKS, true, false, },
   {  223, "Remoraid", TYPE_WATER, TYPECOUNT, 127, 69, 111, NULL, REMORAID_ATKS, true, true, },
   {  224, "Octillery", TYPE_WATER, TYPECOUNT, 197, 141, 181, "Remoraid", OCTILLERY_ATKS, true, true, },
-  {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, NULL, },
+  {  225, "Delibird", TYPE_ICE, TYPE_FLYING, 128, 90, 128, NULL, DELIBIRD_ATKS, true, true, },
   {  226, "Mantine", TYPE_WATER, TYPE_FLYING, 148, 226, 163, "Mantyke", MANTINE_ATKS, true, false, },
   {  227, "Skarmory", TYPE_STEEL, TYPE_FLYING, 148, 226, 163, NULL, SKARMORY_ATKS, true, true, },
   {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, HOUNDOUR_ATKS, true, true, },
@@ -5260,8 +5317,8 @@ static const species sdex[] = {
   {  589, "Escavalier", TYPE_BUG, TYPE_STEEL, 223, 187, 172, "Karrablast", ESCAVALIER_ATKS, true, true, },
   {  590, "Foongus", TYPE_GRASS, TYPE_POISON, 97, 91, 170, NULL, NULL, },
   {  591, "Amoonguss", TYPE_GRASS, TYPE_POISON, 155, 139, 249, "Foongus", NULL, },
-  {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, NULL, },
-  {  593, "Jellicent", TYPE_WATER, TYPE_GHOST, 159, 178, 225, "Frillish", NULL, },
+  {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, FRILLISH_ATKS, true, false, },
+  {  593, "Jellicent", TYPE_WATER, TYPE_GHOST, 159, 178, 225, "Frillish", JELLICENT_ATKS, true, false, },
   {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, NULL, },
   {  595, "Joltik", TYPE_BUG, TYPE_ELECTRIC, 110, 98, 137, NULL, JOLTIK_ATKS, true, true, },
   {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, "Joltik", GRAVANTULA_ATKS, true, true, },
@@ -5524,7 +5581,7 @@ static const species sdex[] = {
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", NULL, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone", OBSTAGOON_ATKS, true, true, },
   {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, NULL, NULL, },
-  {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Corsola", NULL, },
+  {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Galarian Corsola", CURSOLA_ATKS, true, true, },
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
   {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Mr. Mime", NULL, },
   {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Yamask", NULL, },
