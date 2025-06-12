@@ -1000,6 +1000,16 @@ static const attack* SKARMORY_ATTACKS[] = {
   NULL
 };
 
+static const attack* AUDINO_ATTACKS[] = {
+  &ATK_Pound,
+  &ATK_Zen_Headbutt,
+  &ATK_Hyper_Beam,
+  &ATK_Disarming_Voice,
+  &ATK_Dazzling_Gleam,
+  &ATK_Body_Slam,
+  NULL
+};
+
 static const attack* RALTS_ATTACKS[] = {
   &ATK_Confusion,
   &ATK_Charge_Beam,
@@ -1410,6 +1420,28 @@ static const attack* VENUSAUR_ATTACKS[] = {
   NULL
 };
 
+static const attack* SNOVER_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Powder_Snow,
+  &ATK_Leafage,
+  &ATK_Ice_Beam,
+  &ATK_Stomp,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* ABOMASNOW_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Powder_Snow,
+  &ATK_Leafage,
+  &ATK_Blizzard,
+  &ATK_Icy_Wind,
+  &ATK_Energy_Ball,
+  &ATK_Outrage,
+  &ATK_Weather_Ball_Ice,
+  NULL
+};
+
 static const attack* CHARMANDER_ATTACKS[] = {
   &ATK_Ember,
   &ATK_Scratch,
@@ -1728,6 +1760,15 @@ static const attack* ALTARIA_ATTACKS[] = {
   &ATK_Dazzling_Gleam,
   &ATK_Moonblast,
   &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* DIANCIE_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Throw,
+  &ATK_Rock_Slide,
+  &ATK_Power_Gem,
+  &ATK_Moonblast,
   NULL
 };
 
@@ -3856,8 +3897,8 @@ static const species sdex[] = {
   {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, NULL, },
   {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, NULL, NULL, },
   {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, MANTYKE_ATTACKS, true, false, },
-  {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, NULL, },
-  {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, NULL, NULL, },
+  {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, SNOVER_ATTACKS, true, true, },
+  {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, "Snover", ABOMASNOW_ATTACKS, true, true, },
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, NULL, NULL, },
   {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, NULL, NULL, },
   {  463, "Lickilicky", TYPE_NORMAL, TYPECOUNT, 161, 181, 242, "Lickitung", LICKILICKY_ATTACKS, true, false, },
@@ -3935,7 +3976,7 @@ static const species sdex[] = {
   {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, NULL, NULL, },
   {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, NULL, },
   {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, NULL, NULL, },
-  {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, NULL, NULL, },
+  {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, NULL, AUDINO_ATTACKS, true, false, },
   {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, NULL, NULL, },
   {  533, "Gurdurr", TYPE_FIGHTING, TYPECOUNT, 180, 134, 198, NULL, NULL, },
   {  534, "Conkeldurr", TYPE_FIGHTING, TYPECOUNT, 243, 158, 233, NULL, NULL, },
@@ -4139,7 +4180,7 @@ static const species sdex[] = {
   {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, NULL, NULL, },
   {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, NULL, NULL, },
   {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, NULL, NULL, },
-  {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, NULL, },
+  {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, DIANCIE_ATTACKS, true, false, },
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, NULL, },
   {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, NULL, },
   {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, NULL, },
@@ -4383,10 +4424,10 @@ static const species megasdex[] = {
   {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, "Lopunny", LOPUNNY_ATTACKS, true, false, },
   {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, "Garchomp", GARCHOMP_ATTACKS, true, false, },
   {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, "Lucario", LUCARIO_ATTACKS, true, false, },
-  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, "Abomasnow", NULL, true, false, },
-  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, "Gallade", NULL, true, false, },
-  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, "Audino", NULL, true, false, },
-  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, "Diancie", NULL, true, false, },
+  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, "Abomasnow", ABOMASNOW_ATTACKS, true, false, },
+  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, "Gallade", GALLADE_ATTACKS, true, false, },
+  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, "Audino", AUDINO_ATTACKS, true, false, },
+  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, "Diancie", DIANCIE_ATTACKS, true, false, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
