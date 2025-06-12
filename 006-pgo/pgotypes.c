@@ -1503,6 +1503,90 @@ static const attack* O_DIALGA_ATTACKS[] = {
   NULL
 };
 
+static const attack* HEATRAN_ATTACKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Stone_Edge,
+  &ATK_Iron_Head,
+  &ATK_Fire_Blast,
+  &ATK_Earth_Power,
+  &ATK_Magma_Storm,
+  NULL
+};
+
+static const attack* ROWLET_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Magical_Leaf,
+  &ATK_Leafage,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* DARTRIX_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Razor_Leaf,
+  &ATK_Magical_Leaf,
+  &ATK_Leafage,
+  &ATK_Seed_Bomb,
+  &ATK_Brave_Bird,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* DECIDUEYE_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Astonish,
+  &ATK_Magical_Leaf,
+  &ATK_Leafage,
+  &ATK_Shadow_Sneak,
+  &ATK_Brave_Bird,
+  &ATK_Energy_Ball,
+  &ATK_Frenzy_Plant,
+  &ATK_Spirit_Shackle,
+  NULL
+};
+
+static const attack* SNIVY_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Tackle,
+  &ATK_Wrap,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* SERVINE_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Iron_Tail,
+  &ATK_Wrap,
+  &ATK_Grass_Knot,
+  &ATK_Leaf_Tornado,
+  NULL
+};
+
+static const attack* SERPERIOR_ATTACKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Iron_Tail,
+  &ATK_Aerial_Ace,
+  &ATK_Grass_Knot,
+  &ATK_Frenzy_Plant,
+  &ATK_Leaf_Tornado,
+  NULL
+};
+
+static const attack* VICTINI_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Confusion,
+  &ATK_Psychic,
+  &ATK_Focus_Blast,
+  &ATK_Overheat,
+  &ATK_V_Create,
+  NULL
+};
+
 static const attack* BULBASAUR_ATTACKS[] = {
   &ATK_Vine_Whip,
   &ATK_Tackle,
@@ -4203,7 +4287,7 @@ static const species sdex[] = {
   {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, O_DIALGA_ATTACKS, true, true, },
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, NULL, },
   {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, NULL, },
-  {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, NULL, },
+  {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATTACKS, true, true, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, NULL, },
   {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
@@ -4211,10 +4295,10 @@ static const species sdex[] = {
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, NULL, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, NULL, },
   {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, NULL, NULL, },
-  {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, NULL, NULL, },
-  {  495, "Snivy", TYPE_GRASS, TYPECOUNT, 88, 107, 128, NULL, NULL, },
-  {  496, "Servine", TYPE_GRASS, TYPECOUNT, 122, 152, 155, "Snivy", NULL, },
-  {  497, "Serperior", TYPE_GRASS, TYPECOUNT, 161, 204, 181, "Servine", NULL, },
+  {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, NULL, VICTINI_ATTACKS, false, false, },
+  {  495, "Snivy", TYPE_GRASS, TYPECOUNT, 88, 107, 128, NULL, SNIVY_ATTACKS, true, false, },
+  {  496, "Servine", TYPE_GRASS, TYPECOUNT, 122, 152, 155, "Snivy", SERVINE_ATTACKS, true, false, },
+  {  497, "Serperior", TYPE_GRASS, TYPECOUNT, 161, 204, 181, "Servine", SERPERIOR_ATTACKS, true, false, },
   {  498, "Tepig", TYPE_FIRE, TYPECOUNT, 115, 85, 163, NULL, NULL, },
   {  499, "Pignite", TYPE_FIRE, TYPE_FIGHTING, 173, 106, 207, NULL, NULL, },
   {  500, "Emboar", TYPE_FIRE, TYPE_FIGHTING, 235, 127, 242, NULL, NULL, },
@@ -4456,9 +4540,9 @@ static const species sdex[] = {
   {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, DIANCIE_ATTACKS, true, false, },
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, NULL, },
   {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, NULL, },
-  {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, NULL, },
-  {  723, "Dartrix", TYPE_GRASS, TYPE_FLYING, 142, 139, 186, "Rowlet", NULL, },
-  {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", NULL, },
+  {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, ROWLET_ATTACKS, true, false, },
+  {  723, "Dartrix", TYPE_GRASS, TYPE_FLYING, 142, 139, 186, "Rowlet", DARTRIX_ATTACKS, true, false, },
+  {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", DECIDUEYE_ATTACKS, true, false, },
   {  724, "Hisuian Decidueye", TYPE_GRASS, TYPE_FIGHTING, 213, 174, 204, NULL, NULL, },
   {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, NULL, },
   {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, NULL, },
