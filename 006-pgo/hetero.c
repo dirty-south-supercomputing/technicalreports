@@ -33,7 +33,7 @@ int main(void){
   printf("\\begin{table}[ht]\n");
   printf("\\footnotesize\n");
   printf("\\begin{center}\n");
-  printf("\\begin{tabular}{ll}\n");
+  printf("\\begin{tabular}{p{.5\\textwidth}p{.5\\textwidth}}\n");
   unsigned count = 0;
   print_hetero_evols(sdex, SPECIESCOUNT, &count);
   print_hetero_evols(megasdex, MEGACOUNT, &count);
