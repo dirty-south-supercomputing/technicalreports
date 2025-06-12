@@ -19,6 +19,8 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
     printf(" %s", from->name);
     if(strchr(from->name, ' ') || strchr(s->name, ' ')){
       printf("\\newline → ");
+    }else{
+      printf(" → ");
     }
     print_types(s->t1, s->t2);
     printf(" %s ", s->name);
