@@ -897,6 +897,27 @@ static const attack* WAILORD_ATTACKS[] = {
   NULL
 };
 
+static const attack* SHAYMIN_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Solar_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Seed_Flare,
+  NULL
+};
+
+static const attack* S_SHAYMIN_ATTACKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Magical_Leaf,
+  &ATK_Solar_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Seed_Flare,
+  NULL
+};
+
 static const attack* XERNEAS_ATTACKS[] = {
   &ATK_Tackle,
   &ATK_Zen_Headbutt,
@@ -4650,8 +4671,8 @@ static const species sdex[] = {
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, NULL, },
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, NULL, },
-  {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, NULL, },
-  {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, NULL, NULL, },
+  {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, SHAYMIN_ATTACKS, true, false, },
+  {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, NULL, S_SHAYMIN_ATTACKS, true, false, },
   {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, NULL, VICTINI_ATTACKS, false, false, },
   {  495, "Snivy", TYPE_GRASS, TYPECOUNT, 88, 107, 128, NULL, SNIVY_ATTACKS, true, false, },
   {  496, "Servine", TYPE_GRASS, TYPECOUNT, 122, 152, 155, "Snivy", SERVINE_ATTACKS, true, false, },
@@ -5165,9 +5186,7 @@ static const species crownedsdex[] = {
 // dynamax forms are never shadows
 static const species dynadex[] = {
   {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATTACKS, true, false, },
-  {  819, "Dynamax Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, "Skwovet", SKWOVET_ATTACKS, true, false, },
   {  820, "Dynamax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATTACKS, true, false, },
-  {  831, "Dynamax Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123, "Wooloo", WOOLOO_ATTACKS, true, false, },
   {  832, "Dynamax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATTACKS, true, false, },
   {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
   {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, },
