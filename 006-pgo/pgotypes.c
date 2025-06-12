@@ -326,7 +326,6 @@ static const attack ATK_Glaciate = { "Glaciate", TYPE_ICE, 60, -40, 0 };
 static const attack ATK_Grass_Knot = { "Grass Knot", TYPE_GRASS, 90, -50, 0 };
 static const attack ATK_Gunk_Shot = { "Gunk Shot", TYPE_POISON, 130, -75, 0 };
 static const attack ATK_Gyro_Ball = { "Gyro Ball", TYPE_STEEL, 80, -60, 0 };
-static const attack ATK_Heart_Stamp = { "Heart Stamp", TYPE_PSYCHIC, 40, -40, 0 };
 static const attack ATK_Heat_Wave = { "Heat Wave", TYPE_FIRE, 95, -75, 0 };
 static const attack ATK_Heavy_Slam = { "Heavy Slam", TYPE_STEEL, 70, -50, 0 };
 static const attack ATK_High_Horsepower = { "High Horsepower", TYPE_GROUND, 100, -60, 0 };
@@ -627,7 +626,6 @@ static const attack* const attacks[] = {
   &ATK_Grass_Knot,
   &ATK_Gunk_Shot,
   &ATK_Gyro_Ball,
-  &ATK_Heart_Stamp,
   &ATK_Heat_Wave,
   &ATK_Heavy_Slam,
   &ATK_High_Horsepower,
