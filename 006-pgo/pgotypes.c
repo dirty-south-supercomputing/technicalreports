@@ -239,7 +239,6 @@ static const attack ATK_Thunder_Shock = { "Thunder Shock", TYPE_ELECTRIC, 4, 9, 
 static const attack ATK_Vine_Whip = { "Vine Whip", TYPE_GRASS, 5, 8, 2, };
 static const attack ATK_Volt_Switch = { "Volt Switch", TYPE_ELECTRIC, 12, 16, 4, };
 static const attack ATK_Water_Gun = { "Water Gun", TYPE_WATER, 3, 3, 1, };
-static const attack ATK_Water_Gun_Fast = { "Water Gun Fast", TYPE_WATER, 6, 4, 2, };
 static const attack ATK_Waterfall = { "Waterfall", TYPE_WATER, 12, 8, 3, };
 static const attack ATK_Water_Shuriken = { "Water Shuriken", TYPE_WATER, 6, 14, 3, };
 static const attack ATK_Wing_Attack = { "Wing Attack", TYPE_FLYING, 5, 7, 2, };
@@ -536,7 +535,6 @@ static const attack* const attacks[] = {
   &ATK_Vine_Whip,
   &ATK_Volt_Switch,
   &ATK_Water_Gun,
-  &ATK_Water_Gun_Fast,
   &ATK_Waterfall,
   &ATK_Water_Shuriken,
   &ATK_Wing_Attack,
@@ -903,6 +901,18 @@ static const attack* WAILORD_ATTACKS[] = {
   NULL
 };
 
+static const attack* XERNEAS_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Geomancy,
+  &ATK_Megahorn,
+  &ATK_Thunder,
+  &ATK_Moonblast,
+  &ATK_Close_Combat,
+  &ATK_Giga_Impact,
+  NULL
+};
+
 static const attack* BELDUM_ATTACKS[] = {
   &ATK_Take_Down,
   &ATK_Iron_Head,
@@ -927,6 +937,24 @@ static const attack* METAGROSS_ATTACKS[] = {
   &ATK_Flash_Cannon,
   &ATK_Psychic,
   &ATK_Meteor_Mash,
+  NULL
+};
+
+static const attack* DWEBBLE_ATTACKS[] = {
+  &ATK_Cut,
+  &ATK_Smack_Down,
+  &ATK_Rock_Tomb,
+  &ATK_XScissor,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* CRUSTLE_ATTACKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Smack_Down,
+  &ATK_Rock_Slide,
+  &ATK_XScissor,
+  &ATK_Rock_Blast,
   NULL
 };
 
@@ -4455,8 +4483,8 @@ static const species sdex[] = {
   {  555, "Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darumaka", NULL, },
   {  555, "Galarian Darmanitan", TYPE_ICE, TYPECOUNT, 263, 114, 233, "Galarian Darumaka", NULL, },
   {  556, "Maractus", TYPE_GRASS, TYPECOUNT, 201, 130, 181, NULL, NULL, },
-  {  557, "Dwebble", TYPE_BUG, TYPE_ROCK, 118, 128, 137, NULL, NULL, },
-  {  558, "Crustle", TYPE_BUG, TYPE_ROCK, 188, 200, 172, "Dwebble", NULL, },
+  {  557, "Dwebble", TYPE_BUG, TYPE_ROCK, 118, 128, 137, NULL, DWEBBLE_ATTACKS, true, true, },
+  {  558, "Crustle", TYPE_BUG, TYPE_ROCK, 188, 200, 172, "Dwebble", CRUSTLE_ATTACKS, true, true, },
   {  559, "Scraggy", TYPE_DARK, TYPE_FIGHTING, 132, 132, 137, NULL, NULL, },
   {  560, "Scrafty", TYPE_DARK, TYPE_FIGHTING, 163, 222, 163, "Scraggy", NULL, },
   {  561, "Sigilyph", TYPE_PSYCHIC, TYPE_FLYING, 204, 167, 176, NULL, NULL, },
@@ -4626,7 +4654,7 @@ static const species sdex[] = {
   {  713, "Hisuian Avalugg", TYPE_ICE, TYPE_ROCK, 214, 238, 216, NULL, NULL, },
   {  714, "Noibat", TYPE_FLYING, TYPE_DRAGON, 83, 73, 120, NULL, NULL, },
   {  715, "Noivern", TYPE_FLYING, TYPE_DRAGON, 205, 175, 198, "Noibat", NULL, },
-  {  716, "Xerneas", TYPE_FAIRY, TYPECOUNT, 250, 185, 246, NULL, NULL, },
+  {  716, "Xerneas", TYPE_FAIRY, TYPECOUNT, 250, 185, 246, NULL, XERNEAS_ATTACKS, true, false, },
   {  717, "Yveltal", TYPE_DARK, TYPE_FLYING, 250, 185, 246, NULL, NULL, },
   {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, NULL, NULL, },
   {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%", NULL, },
