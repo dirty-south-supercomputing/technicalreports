@@ -762,6 +762,16 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* CELESTEELA_ATTACKS[] = {
+  &ATK_Air_Slash,
+  &ATK_Smack_Down,
+  &ATK_Iron_Head,
+  &ATK_Bulldoze,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
 static const attack* ONIX_ATTACKS[] = {
   &ATK_Tackle,
   &ATK_Rock_Throw,
@@ -4255,7 +4265,7 @@ static const species sdex[] = {
   {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, NULL, },
   {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, NULL, },
   {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, NULL, },
-  {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, NULL, },
+  {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATTACKS, true, false, },
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, NULL, },
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, NULL, },
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NULL, },
