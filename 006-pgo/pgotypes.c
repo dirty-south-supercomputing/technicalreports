@@ -1530,6 +1530,28 @@ static const attack* KUBFU_ATTACKS[] = {
   NULL
 };
 
+static const attack* S_URSHIFU_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Dynamic_Punch,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* R_URSHIFU_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Waterfall,
+  &ATK_Aqua_Jet,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Dynamic_Punch,
+  NULL
+};
+
 static const attack* LATIOS_ATTACKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Zen_Headbutt,
@@ -3767,6 +3789,46 @@ static const attack* QUAGSIRE_ATTACKS[] = {
   NULL
 };
 
+static const attack* SKWOVET_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Body_Slam,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* GREEDENT_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Mud_Shot,
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Body_Slam,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* WOOLOO_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Stomp,
+  &ATK_Wild_Charge,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* DUBWOOL_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Double_Kick,
+  &ATK_Body_Slam,
+  &ATK_Wild_Charge,
+  &ATK_Payback,
+  NULL
+};
+
 static const attack* GROOKEY_ATTACKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Scratch,
@@ -4929,8 +4991,8 @@ static const species sdex[] = {
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, NULL, NULL, },
   {  817, "Drizzile", TYPE_WATER, TYPECOUNT, 186, 113, 163, "Sobble", NULL, },
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Drizzile", NULL, },
-  {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, NULL, NULL, },
-  {  820, "Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Skwovet", NULL, },
+  {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, NULL, SKWOVET_ATTACKS, true, false, },
+  {  820, "Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Skwovet", GREEDENT_ATTACKS, true, false, },
   {  821, "Rookidee", TYPE_FLYING, TYPECOUNT, 88, 67, 116, NULL, NULL, },
   {  822, "Corvisquire", TYPE_FLYING, TYPECOUNT, 129, 110, 169, "Rookidee", NULL, },
   {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire", NULL, },
@@ -4938,8 +5000,8 @@ static const species sdex[] = {
   {  828, "Thievul", TYPE_DARK, TYPECOUNT, 172, 164, 172, "Nickit", NULL, },
   {  829, "Gossifleur", TYPE_GRASS, TYPECOUNT, 70, 104, 120, NULL, NULL, },
   {  830, "Eldegoss", TYPE_GRASS, TYPECOUNT, 148, 211, 155, "Gossifleur", NULL, },
-  {  831, "Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123, NULL, NULL, },
-  {  832, "Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Wooloo", NULL, },
+  {  831, "Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123, NULL, WOOLOO_ATTACKS, true, false, },
+  {  832, "Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Wooloo", DUBWOOL_ATTACKS, true, false, },
   {  835, "Yamper", TYPE_ELECTRIC, TYPECOUNT, 80, 90, 153, NULL, NULL, },
   {  836, "Boltund",TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170, NULL, NULL, },
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, NULL, NULL, },
@@ -4969,8 +5031,8 @@ static const species sdex[] = {
   {  888, "Zacian", TYPE_FAIRY, TYPECOUNT, 254, 236, 192, NULL, ZACIAN_ATTACKS, true, false, },
   {  889, "Zamazenta", TYPE_FIGHTING, TYPECOUNT, 254, 236, 192, NULL, ZAMAZENTA_ATTACKS, true, false, },
   {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, NULL, KUBFU_ATTACKS, false, false, },
-  {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Kubfu", NULL, false, false, },
-  {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu", NULL, false, false, },
+  {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Kubfu", S_URSHIFU_ATKS, false, false, },
+  {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu", R_URSHIFU_ATKS, false, false, },
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, NULL, NULL, },
   {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, REGIELEKI_ATTACKS, true, true, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, NULL, },
@@ -5103,8 +5165,12 @@ static const species crownedsdex[] = {
 // dynamax forms are never shadows
 static const species dynadex[] = {
   {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATTACKS, true, false, },
-  {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", NULL, false, false, },
-  {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", NULL, false, false, },
+  {  819, "Dynamax Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, "Skwovet", SKWOVET_ATTACKS, true, false, },
+  {  820, "Dynamax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATTACKS, true, false, },
+  {  831, "Dynamax Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123, "Wooloo", WOOLOO_ATTACKS, true, false, },
+  {  832, "Dynamax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATTACKS, true, false, },
+  {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
+  {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, },
 };
 
 #define DYNACOUNT (sizeof(dynadex) / sizeof(*dynadex))
