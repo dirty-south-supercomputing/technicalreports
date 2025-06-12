@@ -1145,6 +1145,25 @@ static const attack* AGGRON_ATTACKS[] = {
   NULL
 };
 
+static const attack* MEDITITE_ATTACKS[] = {
+  &ATK_Confusion,
+  &ATK_Rock_Smash,
+  &ATK_Ice_Punch,
+  &ATK_Low_Sweep,
+  &ATK_Psyshock,
+  NULL
+};
+
+static const attack* MEDICHAM_ATTACKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Counter,
+  &ATK_Ice_Punch,
+  &ATK_Psychic,
+  &ATK_Dynamic_Punch,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
 static const attack* MAWILE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Fire_Fang,
@@ -3489,8 +3508,8 @@ static const species sdex[] = {
   {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, ARON_ATTACKS, true, true, },
   {  305, "Lairon", TYPE_STEEL, TYPE_ROCK, 158, 198, 155, "Aron", LAIRON_ATTACKS, true, true, },
   {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, "Lairon", AGGRON_ATTACKS, true, true, },
-  {  307, "Meditite", TYPE_FIGHTING, TYPE_PSYCHIC, 78, 107, 102, NULL, NULL, },
-  {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, NULL, NULL, },
+  {  307, "Meditite", TYPE_FIGHTING, TYPE_PSYCHIC, 78, 107, 102, NULL, MEDITITE_ATTACKS, true, false, },
+  {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, "Meditite", MEDICHAM_ATTACKS, true, false, },
   {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, NULL, NULL, },
   {  310, "Manectric", TYPE_ELECTRIC, TYPECOUNT, 215, 127, 172, NULL, NULL, },
   {  311, "Plusle", TYPE_ELECTRIC, TYPECOUNT, 167, 129, 155, NULL, NULL, },
@@ -4165,7 +4184,7 @@ static const species megasdex[] = {
   {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATTACKS, true, false, },
   {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", MAWILE_ATTACKS, true, false, },
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATTACKS, true, false, },
-  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", NULL, true, false, },
+  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATTACKS, true, false, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", NULL, true, false, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", NULL, true, false, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", NULL, true, false, },
