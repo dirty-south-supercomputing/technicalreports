@@ -1112,6 +1112,39 @@ static const attack* MELMETAL_ATTACKS[] = {
   NULL
 };
 
+static const attack* ARON_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Metal_Claw,
+  &ATK_Metal_Sound,
+  &ATK_Rock_Tomb,
+  &ATK_Iron_Head,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* LAIRON_ATTACKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Iron_Tail,
+  &ATK_Metal_Sound,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* AGGRON_ATTACKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Iron_Tail,
+  &ATK_Smack_Down,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Tomb,
+  &ATK_Thunder,
+  &ATK_Heavy_Slam,
+  &ATK_Meteor_Beam,
+  NULL
+};
+
 static const attack* MAWILE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Fire_Fang,
@@ -3453,9 +3486,9 @@ static const species sdex[] = {
   {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, NULL, NULL, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, SABLEYE_ATTACKS, true, true, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, NULL, MAWILE_ATTACKS, true, true, },
-  {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, NULL, },
-  {  305, "Lairon", TYPE_STEEL, TYPE_ROCK, 158, 198, 155, NULL, NULL, },
-  {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, NULL, NULL, },
+  {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, ARON_ATTACKS, true, true, },
+  {  305, "Lairon", TYPE_STEEL, TYPE_ROCK, 158, 198, 155, "Aron", LAIRON_ATTACKS, true, true, },
+  {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, "Lairon", AGGRON_ATTACKS, true, true, },
   {  307, "Meditite", TYPE_FIGHTING, TYPE_PSYCHIC, 78, 107, 102, NULL, NULL, },
   {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, NULL, NULL, },
   {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, NULL, NULL, },
@@ -4131,7 +4164,7 @@ static const species megasdex[] = {
   {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, "Gardevoir", GARDEVOIR_ATTACKS, true, false, },
   {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATTACKS, true, false, },
   {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", MAWILE_ATTACKS, true, false, },
-  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", NULL, true, false, },
+  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATTACKS, true, false, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", NULL, true, false, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", NULL, true, false, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", NULL, true, false, },
