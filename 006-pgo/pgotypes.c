@@ -826,6 +826,28 @@ static const attack* LUGIA_ATTACKS[] = {
   NULL
 };
 
+static const attack* WAILMER_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Splash,
+  &ATK_Rollout,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* WAILORD_ATTACKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Zen_Headbutt,
+  &ATK_Rollout,
+  &ATK_Hyper_Beam,
+  &ATK_Blizzard,
+  &ATK_Scald,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* BELDUM_ATTACKS[] = {
   &ATK_Take_Down,
   &ATK_Iron_Head,
@@ -1164,6 +1186,31 @@ static const attack* MEDICHAM_ATTACKS[] = {
   NULL
 };
 
+static const attack* RIOLU_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Counter,
+  &ATK_Cross_Chop,
+  &ATK_Low_Sweep,
+  &ATK_Thunder_Punch,
+  &ATK_Brick_Break,
+  &ATK_Blaze_Kick,
+  NULL
+};
+
+static const attack* LUCARIO_ATTACKS[] = {
+  &ATK_Bullet_Punch,
+  &ATK_Counter,
+  &ATK_Force_Palm,
+  &ATK_Flash_Cannon,
+  &ATK_Shadow_Ball,
+  &ATK_Thunder_Punch,
+  &ATK_Close_Combat,
+  &ATK_Blaze_Kick,
+  &ATK_Power_Up_Punch,
+  &ATK_Aura_Sphere,
+  NULL
+};
+
 static const attack* ELECTRIKE_ATTACKS[] = {
   &ATK_Spark,
   &ATK_Quick_Attack,
@@ -1292,6 +1339,27 @@ static const attack* GROUDON_ATTACKS[] = {
   &ATK_Fire_Punch,
   &ATK_Solar_Beam,
   &ATK_Precipice_Blades,
+  NULL
+};
+
+static const attack* LATIOS_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Zen_Headbutt,
+  &ATK_Dragon_Claw,
+  &ATK_Psychic,
+  &ATK_Solar_Beam,
+  &ATK_Luster_Purge,
+  NULL
+};
+
+static const attack* LATIAS_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Zen_Headbutt,
+  &ATK_Charm,
+  &ATK_Thunder,
+  &ATK_Psychic,
+  &ATK_Outrage,
+  &ATK_Mist_Ball,
   NULL
 };
 
@@ -1621,6 +1689,35 @@ static const attack* ALOLAN_RATICATE_ATTACKS[] = {
   &ATK_Hyper_Beam,
   &ATK_Hyper_Fang,
   &ATK_Crunch,
+  NULL
+};
+
+static const attack* SHUPPET_ATTACKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Astonish,
+  &ATK_Shadow_Sneak,
+  &ATK_Ominous_Wind,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* BANETTE_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Thunder,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* ABSOL_ATTACKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Megahorn,
+  &ATK_Thunder,
+  &ATK_Payback,
+  &ATK_Brutal_Swing,
   NULL
 };
 
@@ -2755,6 +2852,35 @@ static const attack* AERODACTYL_ATTACKS[] = {
   NULL
 };
 
+static const attack* GIBLE_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Take_Down,
+  &ATK_Dig,
+  &ATK_Twister,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* GABITE_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Take_Down,
+  &ATK_Flamethrower,
+  &ATK_Dig,
+  &ATK_Twister,
+  NULL
+};
+
+static const attack* GARCHOMP_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Dragon_Tail,
+  &ATK_Earthquake,
+  &ATK_Fire_Blast,
+  &ATK_Sand_Tomb,
+  &ATK_Outrage,
+  &ATK_Earth_Power,
+  NULL
+};
+
 static const attack* GYARADOS_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Dragon_Breath,
@@ -2781,6 +2907,35 @@ static const attack* LAPRAS_ATTACKS[] = {
   &ATK_Surf,
   &ATK_Skull_Bash,
   &ATK_Sparkling_Aria,
+  NULL
+};
+
+static const attack* SNORUNT_ATTACKS[] = {
+  &ATK_Powder_Snow,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Icy_Wind,
+  &ATK_Avalanche,
+  NULL
+};
+
+static const attack* FROSLASS_ATTACKS[] = {
+  &ATK_Powder_Snow,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Avalanche,
+  &ATK_Crunch,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* GLALIE_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Rollout,
+  &ATK_Shadow_Ball,
+  &ATK_Avalanche,
+  &ATK_Gyro_Ball,
   NULL
 };
 
@@ -3552,8 +3707,8 @@ static const species sdex[] = {
   {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, NULL, NULL, },
   {  318, "Carvanha", TYPE_WATER, TYPE_DARK, 171, 39, 128, NULL, NULL, },
   {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, NULL, NULL, },
-  {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, NULL, NULL, },
-  {  321, "Wailord", TYPE_WATER, TYPECOUNT, 175, 87, 347, NULL, NULL, },
+  {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, NULL, WAILMER_ATTACKS, true, true, },
+  {  321, "Wailord", TYPE_WATER, TYPECOUNT, 175, 87, 347, "Wailmer", WAILORD_ATTACKS, true, true, },
   {  322, "Numel", TYPE_FIRE, TYPE_GROUND, 119, 79, 155, NULL, NULL, },
   {  323, "Camerupt", TYPE_FIRE, TYPE_GROUND, 194, 136, 172, NULL, NULL, },
   {  324, "Torkoal", TYPE_FIRE, TYPECOUNT, 151, 203, 172, NULL, NULL, },
@@ -3588,16 +3743,16 @@ static const species sdex[] = {
   {  351, "Castform (Rainy)", TYPE_WATER, TYPECOUNT, 139, 139, 172, NULL, NULL, },
   {  351, "Castform (Snowy)", TYPE_ICE, TYPECOUNT, 139, 139, 172, NULL, NULL, },
   {  352, "Kecleon", TYPE_NORMAL, TYPECOUNT, 161, 189, 155, NULL, NULL, },
-  {  353, "Shuppet", TYPE_GHOST, TYPECOUNT, 138, 65, 127, NULL, NULL, },
-  {  354, "Banette", TYPE_GHOST, TYPECOUNT, 218, 126, 162, NULL, NULL, },
+  {  353, "Shuppet", TYPE_GHOST, TYPECOUNT, 138, 65, 127, NULL, SHUPPET_ATTACKS, true, true, },
+  {  354, "Banette", TYPE_GHOST, TYPECOUNT, 218, 126, 162, NULL, BANETTE_ATTACKS, true, true, },
   {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, NULL, NULL, },
   {  356, "Dusclops", TYPE_GHOST, TYPECOUNT, 124, 234, 120, NULL, NULL, },
   {  357, "Tropius", TYPE_GRASS, TYPE_FLYING, 136, 163, 223, NULL, NULL, },
   {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, NULL, NULL, },
-  {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, NULL, NULL, },
+  {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, NULL, ABSOL_ATTACKS, true, true, },
   {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, NULL, },
-  {  361, "Snorunt", TYPE_ICE, TYPECOUNT, 95, 95, 137, NULL, NULL, },
-  {  362, "Glalie", TYPE_ICE, TYPECOUNT, 162, 162, 190, NULL, NULL, },
+  {  361, "Snorunt", TYPE_ICE, TYPECOUNT, 95, 95, 137, NULL, SNORUNT_ATTACKS, true, true, },
+  {  362, "Glalie", TYPE_ICE, TYPECOUNT, 162, 162, 190, "Snorunt", GLALIE_ATTACKS, true, true, },
   {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, NULL, NULL, },
   {  364, "Sealeo", TYPE_ICE, TYPE_WATER, 137, 132, 207, NULL, NULL, },
   {  365, "Walrein", TYPE_ICE, TYPE_WATER, 182, 176, 242, NULL, NULL, },
@@ -3610,13 +3765,13 @@ static const species sdex[] = {
   {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, NULL, NULL, true, true, },
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon", SALAMENCE_ATTACKS, true, true, },
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, BELDUM_ATTACKS, true, true, },
-  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", NULL, METANG_ATTACKS, true, },
-  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", NULL, METAGROSS_ATTACKS, true, },
+  {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", METANG_ATTACKS, true, true, },
+  {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang", METAGROSS_ATTACKS, true, true, },
   {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, NULL, REGIROCK_ATTACKS, true, true, },
   {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, NULL, REGICE_ATTACKS, true, true, },
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, NULL, REGISTEEL_ATTACKS, true, true, },
-  {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, NULL, NULL, },
-  {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, NULL, NULL, },
+  {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, NULL, LATIAS_ATTACKS, true, true, },
+  {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, NULL, LATIOS_ATTACKS, true, true, },
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, NULL, KYOGRE_ATTACKS, true, true, },
   {  383, "Groudon", TYPE_GROUND, TYPECOUNT, 270, 228, 205, NULL, GROUDON_ATTACKS, true, true, },
   {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, NULL, RAYQUAZA_ATTACKS, true, false, },
@@ -3685,12 +3840,12 @@ static const species sdex[] = {
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATTACKS, true, false, },
   {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, NULL, },
   {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, NULL, },
-  {  443, "Gible", TYPE_DRAGON, TYPE_GROUND, 124, 84, 151, NULL, NULL, },
-  {  444, "Gabite", TYPE_DRAGON, TYPE_GROUND, 172, 125, 169, NULL, NULL, },
-  {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, NULL, NULL, },
+  {  443, "Gible", TYPE_DRAGON, TYPE_GROUND, 124, 84, 151, NULL, GIBLE_ATTACKS, true, true, },
+  {  444, "Gabite", TYPE_DRAGON, TYPE_GROUND, 172, 125, 169, "Gible", GABITE_ATTACKS, true, true, },
+  {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, "Gabite", GARCHOMP_ATTACKS, true, true, },
   {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, NULL, MUNCHLAX_ATTACKS, true, false, },
-  {  447, "Riolu", TYPE_FIGHTING, TYPECOUNT, 127, 78, 120, NULL, NULL, },
-  {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, NULL, NULL, },
+  {  447, "Riolu", TYPE_FIGHTING, TYPECOUNT, 127, 78, 120, NULL, RIOLU_ATTACKS, true, false, },
+  {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, "Riolu", LUCARIO_ATTACKS, true, false, },
   {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, NULL, NULL, },
   {  450, "Hippowdon", TYPE_GROUND, TYPECOUNT, 201, 191, 239, NULL, NULL, },
   {  451, "Skorupi", TYPE_POISON, TYPE_BUG, 93, 151, 120, NULL, NULL, },
@@ -3720,7 +3875,7 @@ static const species sdex[] = {
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATTACKS, true, true, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, NULL, NULL, },
   {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, NULL, NULL, },
-  {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, NULL, NULL, },
+  {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt", FROSLASS_ATTACKS, true, true, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, NULL, NULL, },
   {  479, "Heat Rotom", TYPE_ELECTRIC, TYPE_FIRE, 204, 219, 137, NULL, NULL, },
   {  479, "Wash Rotom", TYPE_ELECTRIC, TYPE_WATER, 204, 219, 137, NULL, NULL, },
@@ -4218,16 +4373,16 @@ static const species megasdex[] = {
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATTACKS, true, false, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", MANECTRIC_ATTACKS, true, false, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", ALTARIA_ATTACKS, true, false, },
-  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", NULL, true, false, },
-  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", NULL, true, false, },
-  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, "Glalie", NULL, true, false, },
+  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", BANETTE_ATTACKS, true, false, },
+  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", ABSOL_ATTACKS, true, false, },
+  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, "Glalie", GLALIE_ATTACKS, true, false, },
   {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, "Salamence", SALAMENCE_ATTACKS, true, false, },
-  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, "Latias", NULL, true, false, },
-  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, "Latios", NULL, true, false, },
+  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, "Latias", LATIAS_ATTACKS, true, false, },
+  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, "Latios", LATIOS_ATTACKS, true, false, },
   {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, "Rayquaza", RAYQUAZA_ATTACKS, true, false, },
   {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, "Lopunny", LOPUNNY_ATTACKS, true, false, },
-  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, "Garchomp", NULL, true, false, },
-  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, "Lucario", NULL, true, false, },
+  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, "Garchomp", GARCHOMP_ATTACKS, true, false, },
+  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, "Lucario", LUCARIO_ATTACKS, true, false, },
   {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, "Abomasnow", NULL, true, false, },
   {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, "Gallade", NULL, true, false, },
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, "Audino", NULL, true, false, },
