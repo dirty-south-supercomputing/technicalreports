@@ -1164,6 +1164,27 @@ static const attack* MEDICHAM_ATTACKS[] = {
   NULL
 };
 
+static const attack* ELECTRIKE_ATTACKS[] = {
+  &ATK_Spark,
+  &ATK_Quick_Attack,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* MANECTRIC_ATTACKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Snarl,
+  &ATK_Thunder_Fang,
+  &ATK_Thunder,
+  &ATK_Flame_Burst,
+  &ATK_Wild_Charge,
+  &ATK_Overheat,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
 static const attack* MAWILE_ATTACKS[] = {
   &ATK_Bite,
   &ATK_Fire_Fang,
@@ -1600,6 +1621,16 @@ static const attack* ALOLAN_RATICATE_ATTACKS[] = {
   &ATK_Hyper_Beam,
   &ATK_Hyper_Fang,
   &ATK_Crunch,
+  NULL
+};
+
+static const attack* ALTARIA_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Peck,
+  &ATK_Dragon_Pulse,
+  &ATK_Dazzling_Gleam,
+  &ATK_Moonblast,
+  &ATK_Sky_Attack,
   NULL
 };
 
@@ -3510,8 +3541,8 @@ static const species sdex[] = {
   {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, "Lairon", AGGRON_ATTACKS, true, true, },
   {  307, "Meditite", TYPE_FIGHTING, TYPE_PSYCHIC, 78, 107, 102, NULL, MEDITITE_ATTACKS, true, false, },
   {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, "Meditite", MEDICHAM_ATTACKS, true, false, },
-  {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, NULL, NULL, },
-  {  310, "Manectric", TYPE_ELECTRIC, TYPECOUNT, 215, 127, 172, NULL, NULL, },
+  {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, NULL, ELECTRIKE_ATTACKS, true, true, },
+  {  310, "Manectric", TYPE_ELECTRIC, TYPECOUNT, 215, 127, 172, "Electrike", MANECTRIC_ATTACKS, true, true, },
   {  311, "Plusle", TYPE_ELECTRIC, TYPECOUNT, 167, 129, 155, NULL, NULL, },
   {  312, "Minun", TYPE_ELECTRIC, TYPECOUNT, 147, 150, 155, NULL, NULL, },
   {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, VOLBEAT_ATTACKS, true, false, },
@@ -3535,7 +3566,7 @@ static const species sdex[] = {
   {  331, "Cacnea", TYPE_GRASS, TYPECOUNT, 156, 74, 137, NULL, NULL, },
   {  332, "Cacturne", TYPE_GRASS, TYPE_DARK, 221, 115, 172, NULL, NULL, },
   {  333, "Swablu", TYPE_NORMAL, TYPE_FLYING, 76, 132, 128, NULL, NULL, },
-  {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, NULL, NULL, },
+  {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, NULL, ALTARIA_ATTACKS, true, false, },
   {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, NULL, NULL, },
   {  336, "Seviper", TYPE_POISON, TYPECOUNT, 196, 118, 177, NULL, NULL, },
   {  337, "Lunatone", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, NULL, },
@@ -4185,8 +4216,8 @@ static const species megasdex[] = {
   {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile", MAWILE_ATTACKS, true, false, },
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATTACKS, true, false, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATTACKS, true, false, },
-  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", NULL, true, false, },
-  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", NULL, true, false, },
+  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", MANECTRIC_ATTACKS, true, false, },
+  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", ALTARIA_ATTACKS, true, false, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", NULL, true, false, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", NULL, true, false, },
   {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, "Glalie", NULL, true, false, },
