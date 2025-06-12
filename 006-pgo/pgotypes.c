@@ -798,6 +798,17 @@ static const attack* CELESTEELA_ATTACKS[] = {
   NULL
 };
 
+static const attack* BOMBIRDIER_ATTACKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Wing_Attack,
+  &ATK_Rock_Throw,
+  &ATK_Aerial_Ace,
+  &ATK_Rock_Tomb,
+  &ATK_Payback,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* ONIX_ATTACKS[] = {
   &ATK_Tackle,
   &ATK_Rock_Throw,
@@ -894,6 +905,25 @@ static const attack* WAILORD_ATTACKS[] = {
   &ATK_Blizzard,
   &ATK_Scald,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* SHELLOS_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Hidden_Power,
+  &ATK_Mud_Bomb,
+  &ATK_Water_Pulse,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* GASTRODON_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Hidden_Power,
+  &ATK_Earthquake,
+  &ATK_Water_Pulse,
+  &ATK_Body_Slam,
+  &ATK_Earth_Power,
   NULL
 };
 
@@ -1213,6 +1243,34 @@ static const attack* BLAZIKEN_ATTACKS[] = {
   &ATK_Overheat,
   &ATK_Blast_Burn,
   &ATK_Blaze_Kick,
+  NULL
+};
+
+static const attack* ROOKIDEE_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Air_Slash,
+  &ATK_Sand_Attack,
+  &ATK_Sky_Attack,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* CORVISQUIRE_ATTACKS[] = {
+  &ATK_Peck,
+  &ATK_Air_Slash,
+  &ATK_Sand_Attack,
+  &ATK_Sky_Attack,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* CORVIKNIGHT_ATTACKS[] = {
+  &ATK_Steel_Wing,
+  &ATK_Air_Slash,
+  &ATK_Sand_Attack,
+  &ATK_Iron_Head,
+  &ATK_Sky_Attack,
+  &ATK_Payback,
   NULL
 };
 
@@ -3681,6 +3739,27 @@ static const attack* T_THUNDURUS_ATTACKS[] = {
   NULL
 };
 
+static const attack* I_TORNADUS_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Air_Slash,
+  &ATK_Hyper_Beam,
+  &ATK_Dark_Pulse,
+  &ATK_Hurricane,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* T_TORNADUS_ATTACKS[] = {
+  &ATK_Astonish,
+  &ATK_Gust,
+  &ATK_Heat_Wave,
+  &ATK_Psychic,
+  &ATK_Hurricane,
+  &ATK_Focus_Blast,
+  &ATK_Bleakwind_Storm,
+  NULL
+};
+
 static const attack* EEVEE_ATTACKS[] = {
   &ATK_Quick_Attack,
   &ATK_Tackle,
@@ -4595,8 +4674,8 @@ static const species sdex[] = {
   {  419, "Floatzel", TYPE_WATER, TYPECOUNT, 221, 114, 198, "Buizel", NULL, },
   {  420, "Cherubi", TYPE_GRASS, TYPECOUNT, 108, 92, 128, NULL, NULL, },
   {  421, "Cherrim", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi", NULL, },
-  {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, NULL, NULL, },
-  {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", NULL, },
+  {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, NULL, SHELLOS_ATTACKS, true, false, },
+  {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", GASTRODON_ATTACKS, true, false, },
   {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", NULL, },
   {  425, "Drifloon", TYPE_GHOST, TYPE_FLYING, 117, 80, 207, NULL, NULL, },
   {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", NULL, },
@@ -4826,8 +4905,8 @@ static const species sdex[] = {
   {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
   {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, NULL, TERRAKION_ATTACKS, true, true, },
   {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
-  {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, NULL, },
-  {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, NULL, },
+  {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, I_TORNADUS_ATTACKS, true, false, },
+  {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, T_TORNADUS_ATTACKS, true, false, },
   {  642, "Incarnate Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, NULL, I_THUNDURUS_ATTACKS, true, false, },
   {  642, "Therian Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 295, 161, 188, NULL, T_THUNDURUS_ATTACKS, true, false, },
   {  643, "Reshiram", TYPE_DRAGON, TYPE_FIRE, 275, 211, 205, NULL, NULL, },
@@ -5014,9 +5093,9 @@ static const species sdex[] = {
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Drizzile", NULL, },
   {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, NULL, SKWOVET_ATTACKS, true, false, },
   {  820, "Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Skwovet", GREEDENT_ATTACKS, true, false, },
-  {  821, "Rookidee", TYPE_FLYING, TYPECOUNT, 88, 67, 116, NULL, NULL, },
-  {  822, "Corvisquire", TYPE_FLYING, TYPECOUNT, 129, 110, 169, "Rookidee", NULL, },
-  {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire", NULL, },
+  {  821, "Rookidee", TYPE_FLYING, TYPECOUNT, 88, 67, 116, NULL, ROOKIDEE_ATTACKS, true, false, },
+  {  822, "Corvisquire", TYPE_FLYING, TYPECOUNT, 129, 110, 169, "Rookidee", CORVISQUIRE_ATTACKS, true, false, },
+  {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire", CORVIKNIGHT_ATTACKS, true, false, },
   {  827, "Nickit", TYPE_DARK, TYPECOUNT, 85, 82, 120, NULL, NULL, },
   {  828, "Thievul", TYPE_DARK, TYPECOUNT, 172, 164, 172, "Nickit", NULL, },
   {  829, "Gossifleur", TYPE_GRASS, TYPECOUNT, 70, 104, 120, NULL, NULL, },
@@ -5099,7 +5178,7 @@ static const species sdex[] = {
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", NULL, },
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, NULL, },
   {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", NULL, },
-  {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, NULL, },
+  {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATTACKS, true, false, },
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, NULL, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", NULL, },
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, NULL, NULL, },
