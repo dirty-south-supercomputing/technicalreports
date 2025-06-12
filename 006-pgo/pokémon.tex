@@ -33,6 +33,44 @@ While 15/15/15 is generally the optimal IV, this is not always true in CP-bounde
   competition; see \autoref{chap:bounded} for more information,
   and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
 
+\section{Generation of IV and level}
+\label{sec:ivgeneration}
+IVs and levels are generated when the Pokémon is ``created'', not when it is captured.
+It is thus possible to glean information from the CP displayed for a Pokémon;
+  one can sometimes even uniquely determine the IV\@.
+The equation for CP is provided in \autoref{chap:unbounded}; reverse it and
+  use \autoref{table:cpms} plus the base stats of the species to determine
+  the set of IV+level pairs yielding that CP\@.
+Various applications and websites can perform this analysis automatically.
+Depending on the situation, there might be a floor for IVs.
+Beyond that, they are uniformly randomly generated.
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{lcc}
+      Context & IV floors & Level \\
+      \Midrule \\
+      \multirow{2}{*}{Wild catch} & 0 & 1--max(TL, 30) \\
+      & 4 w/ weather boost & 1--max(TL, 30) + 5 \\
+      Hatch & 10 & max(TL, 20) \\
+      \multirow{2}{*}{Raid} & 10 & 20 \\
+      & 6 (shadow) & 25 w/ weather boost \\
+      Max Battle & 10 & 20 \\
+      Research & 10 & 15 \\
+      Team GO Rocket & 0 & 8 \\
+      Grunts and Leaders & 4 w/ weather boost & 13 w/ weather boost \\
+      \multirow{2}{*}{Giovanni} & \multirow{2}{*}{6} & 8\\
+      \multirow{2}{*}{Giovanni} & \multirow{2}{*}{6} & 13 w/ weather boost\\
+      GBL & 10 & 20\\
+      \multirow{5}{*}{Trade} & 1 w/ Good Friend & \multirow{5}{*}{See \autoref{sec:trades}} \\
+      & 2 w/ Great Friend & \\
+      & 3 w/ Ultra Friend & \\
+      & 5 w/ Best Friend & \\
+      & 12 (lucky trade) & \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
 \section{Pokémon Level}
 \label{sec:plevel}
 \textbf{FIXME}

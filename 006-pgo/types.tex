@@ -79,22 +79,18 @@ Ground → Flying,
 Electric → Ground,
 Psychic → Dark,
 and Dragon → Fairy.
-Note that the Ghost/Normal relationship is very ineffective in both directions.
-On the other hand, Ground is effective against Electric, Fairy is effective
- against Dragon, and Dark is effective against Psychic, making these the most
- lopsided matchups between single types.
 
 \section{Memorizing the type relations}
 I memorized the type system fairly easily after developing the following seven graphs.
 Other people use different methods.
-Whenever possible, remember two relationships as a single bidirectional one.
+Whenever possible, remember two relationships as a single bidirectional relation;
+  this reduces sixty-two facts to thirty-one.
 No types are mutually effective.
-  Only one pair of types is mutually ineffective (Bug↔Fighting),
+Only one pair of types is mutually ineffective (Bug↔Fighting),
   and only one pair is mutually very ineffective (Ghost↔Normal).
 When one type $V$ is ineffective against type $K$, but $K$ is strong
  against $V$, I say $K$ ``kills'' $V$, or
  (if $V$ is very ineffective against $K$) ``slaughters'' $V$.
-These twenty-nine relationships must be memorized and immediately recognized.
 There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
   introduced in Generation VI in large part to balance Dragon.}, Dark → Psychic,
   and Ground → Electric.
@@ -112,13 +108,12 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
   \end{minipage}
 \end{figure}
 \noindent{}Poison kills Grass, which kills Ground, which kills Poison.
-Ground kills Rock.
-Bug kills Grass.
-Rock is strong against Bug, but Ground is weak against it.
+Rock is strong against Bug, which kills Grass, which is strong against Rock.
+Ground kills Rock, but is weak against Bug.
 Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
-Rock and Water kill Fire, which kills Ice, which kills nothing.
+Rock and Water kill Fire, which kills Ice, which kills nothing on this graph or any other.
 Electric is strong against Water, which is strong against Rock, which is strong against Ice,
- which once again is strong against nothing (\autoref{fig:elemental}).
+ which on this graph is strong against nothing (\autoref{fig:elemental}).
 
 \begin{figure}[ht]
 \centering
@@ -126,11 +121,11 @@ Electric is strong against Water, which is strong against Rock, which is strong 
 \caption{16 Rational relations}
 \label{fig:rational}
 \end{figure}
-\noindent{}Psychic kills Fighting.
-Fighting kills Dark.
-Dark kills Ghost, and slaughters Psychic.
-Ghost is strong against Psychic.
-Fighting, unique among the types, is strong against Normal (\autoref{fig:rational}).
+\noindent{}Psychic kills Fighting, which kills Dark, which slaughters Psychic.
+Dark kills Ghost, which is strong against Psychic.
+Fighting (unique among all types) is strong against Normal,
+  but very weak against Ghost.
+Normal and Ghost are very weak against one another (\autoref{fig:rational}).
 \clearpage
 
 \begin{figure}[t!]
@@ -181,32 +176,45 @@ As Josef Stalin said, ``it's good to be Steel''.
 The remaining interactions don't have any real structure, and must simply be
 memorized as they are.
 
-\begin{table}[ht]
-  \begin{center}
-    \begin{tabular}{llllll}
-      \hline
-      \multirow{3}{*}{Ice} & \multirow{3}{*}{effective} & Grass & & \\
-      & & Flying & & \\
-      & & Ground & effective & Fire \\
-      \hline
-      \multirow{4}{*}{Bug} & \multirow{2}{*}{effective} & Dark & & \\
-      & & Psychic & effective & Poison \\
-      & \multirow{2}{*}{ineffective} & Ghost \\
-      & & Fairy & ineffective & Fire \\
-      \hline
-    \end{tabular}
-  \end{center}
-\end{table}
+%\begin{table}[ht]
+%  \begin{center}
+%    \begin{tabular}{llllllll}
+%      \toprule
+%      Normal & - & Rock & + & \multirow{2}{*}{Flying} & & \\
+%      \multirow{4}{*}{Fighting} &
+%      \multirow{3}{*}{+} & 
+%      \multirow{3}{*}{Ice} &
+%      \multirow{3}{*}{+} & 
+%      & & & \\
+%      & & & & Grass & & \\
+%      & & & & Ground & + & Fire \\
+%      & - & Poison & & & & \\
+%      \midrule
+%      \multirow{5}{*}{Bug} & \multirow{2}{*}{+} & Dark & & \\
+%      & & Psychic & + & Poison \\
+%      & \multirow{3}{*}{-} & Ghost \\
+%      & & Fairy & - & Fire \\
+%      & & Fighting & - & Poison \\
+%      \bottomrule
+%    \end{tabular}
+%  \end{center}
+%\end{table}
+%
+Every type except Normal is killed by at least one other type.
+Bug is killed by two types (Fire and Flying), as is Fire (Water and Rock).
+Grass is killed by four (Fire, Flying, Bug, and Poison).
+The killing is more concentrated: Ghost, Ice, and Normal don't kill
+  any other type, while mighty Fire kills four.
 
 \section{Dual typing}
 \label{sec:dualtypes}
 A species of Pokémon may be singly or doubly typed.
 It is not possible to dual type using a single type,
  and ordering of the types does not matter.
-\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2!16!} = 153,\\
-153 + 18 = 171 \]
 There are thus 153 dual types in addition to the 18 base types,
   for a total of 171.
+\[ C(18, 2) = \binom{18}{2} = \frac{18!}{2! \times 16!} = 153 \]
+\[ 153 + 18 = 171 \]
 We could also arrive at this number by summing 1 through 18:
 \[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
 Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,

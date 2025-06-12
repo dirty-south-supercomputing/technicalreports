@@ -100,7 +100,7 @@ Levels 7, 8, 15, and 20 introduce Special Research (\autoref{sec:research}).
   Level & Features unlocked \\
 \Midrule
   2 & Nenab berries \\
-  5 & Potions, Revives, Team selection, appraisal, Gyms, Raids \\
+  5 & Potions, Revives, Teams, Appraisal, Gyms, Raids \\
   8 & Razz berries, Team GO Rocket \\
   10 & Super Potions, Golden Razz berries, Evolution items, Trades, Trainer Battles \\
   12 & Great Balls \\
@@ -108,9 +108,9 @@ Levels 7, 8, 15, and 20 introduce Special Research (\autoref{sec:research}).
   18 & Pinap berries \\
   20 & Silver Pinap berries, Ultra Balls, Mega Evolution \\
   25 & Max Potions, Charged TMs \\
-  30 & Max Revives, Route creation \\
+  30 & Max Revives, Route submission \\
   31 & XL Candy \\
-  37 & Pokéstop creation \\
+  37 & Pokéstop submission \\
 \end{tabular}
 \caption{Features unlocked by Trainer Levels}
 \label{table:levelgates}
@@ -254,8 +254,8 @@ A limit on Crown Energy is not yet known, but seems likely to be 9,999.
 
 No limit is known for Candy nor Candy XL.
 A lower bound has been established in the millions.
-It seems plausible that the limit is one less than a large power of 2,
-  e.g. 4,294,967,295\footnote{If the limit is driven by UI requirements, it's likely lower.}.
+It seems plausible that the limit is one less than a large power of 2:
+  4,294,967,295 seems as good a guess as any\footnote{If the limit is driven by UI requirements, it's likely lower.}.
 
 \section{Collecting Pokémon}
 During the initial tour with Professor Willow, you are able to catch one of
@@ -279,12 +279,19 @@ A Pokémon can be ``transferred to the Professor'' from your collection,
 Whenever a Pokémon is captured, Candy is awarded. The amount depends on
  the evolutionary state of the captured Pokémon, and the type of Berry
  applied at the time of capture.
+
 \textbf{FIXME}
 
+It is possible (through Research) to receive Candy for a genus not present in
+  your Pokédex, i.e. one whose constituent species you have never captured.
+You'll keep this Candy, but it doesn't result in a Pokédex entry.
+Likewise, Candy is retained even if all Pokémon of that genus have been transferred.
 \section{Collecting Mega and Primal Energy}
 The relevant Energies can be acquired by winning a Mega Raid of that type,
   walking with a Mega Evolved or Primal Reverted Buddy, and completing
   certain research tasks.
+\textbf{FIXME}
+
 
 \section{Medals}
 There is a large set of Medals, each of which can be achieved at the Bronze,
