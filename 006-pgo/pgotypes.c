@@ -1410,6 +1410,59 @@ static const attack* GROUDON_ATTACKS[] = {
   NULL
 };
 
+static const attack* ZACIAN_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Metal_Claw,
+  &ATK_Fire_Fang,
+  &ATK_Snarl,
+  &ATK_Iron_Head,
+  &ATK_Play_Rough,
+  &ATK_Close_Combat,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* ZAMAZENTA_ATTACKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Metal_Claw,
+  &ATK_Snarl,
+  &ATK_Ice_Fang,
+  &ATK_Iron_Head,
+  &ATK_Moonblast,
+  &ATK_Close_Combat,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* C_ZACIAN_ATTACKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Air_Slash,
+  &ATK_Play_Rough,
+  &ATK_Close_Combat,
+  &ATK_Giga_Impact,
+  &ATK_Behemoth_Blade,
+  NULL
+};
+
+static const attack* C_ZAMAZENTA_ATTACKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Ice_Fang,
+  &ATK_Moonblast,
+  &ATK_Close_Combat,
+  &ATK_Giga_Impact,
+  &ATK_Behemoth_Blade,
+  NULL
+};
+
+static const attack* KUBFU_ATTACKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Dynamic_Punch,
+  NULL
+};
+
 static const attack* LATIOS_ATTACKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Zen_Headbutt,
@@ -4534,11 +4587,11 @@ static const species sdex[] = {
   {  885, "Dreepy", TYPE_DRAGON, TYPE_GHOST, 117, 61, 99, NULL, NULL, },
   {  886, "Drakloak", TYPE_DRAGON, TYPE_GHOST, 163, 105, 169, NULL, NULL, },
   {  887, "Dragapult", TYPE_DRAGON, TYPE_GHOST, 266, 170, 204, NULL, NULL, },
-  {  888, "Zacian", TYPE_FAIRY, TYPECOUNT, 254, 236, 192, NULL, NULL, },
-  {  889, "Zamazenta", TYPE_FIGHTING, TYPECOUNT, 254, 236, 192, NULL, NULL, },
-  {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, NULL, NULL, },
-  {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, NULL, NULL, },
-  {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, NULL, NULL, },
+  {  888, "Zacian", TYPE_FAIRY, TYPECOUNT, 254, 236, 192, NULL, ZACIAN_ATTACKS, true, false, },
+  {  889, "Zamazenta", TYPE_FIGHTING, TYPECOUNT, 254, 236, 192, NULL, ZAMAZENTA_ATTACKS, true, false, },
+  {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, NULL, KUBFU_ATTACKS, false, false, },
+  {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Kubfu", NULL, false, false, },
+  {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu", NULL, false, false, },
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, NULL, NULL, },
   {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, REGIELEKI_ATTACKS, true, true, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, NULL, },
@@ -4659,6 +4712,14 @@ static const species primalsdex[] = {
 };
 
 #define PRIMALCOUNT (sizeof(primalsdex) / sizeof(*primalsdex))
+
+// crowned forms are never shadows
+static const species crownedsdex[] = {
+  {  888, "Crowned Sword Zacian", TYPE_FAIRY, TYPE_STEEL, 332, 240, 192, "Zacian", C_ZACIAN_ATTACKS, true, false, },
+  {  889, "Crowned Shield Zamazenta", TYPE_FIGHTING, TYPE_STEEL, 250, 292, 192, "Zamazenta", C_ZAMAZENTA_ATTACKS, true, false, },
+};
+
+#define CROWNEDCOUNT (sizeof(crownedsdex) / sizeof(*crownedsdex))
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
