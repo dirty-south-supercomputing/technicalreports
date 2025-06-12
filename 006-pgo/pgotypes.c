@@ -1889,6 +1889,19 @@ static const attack* ALTARIA_ATTACKS[] = {
   NULL
 };
 
+static const attack* INCINEROAR_ATTACKS[] = {
+  &ATK_Fire_Fang,
+  &ATK_Snarl,
+  &ATK_Double_Kick,
+  &ATK_Dark_Pulse,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Blast_Burn,
+  &ATK_Blaze_Kick,
+  &ATK_Darkest_Lariat,
+  NULL
+};
+
 static const attack* DIANCIE_ATTACKS[] = {
   &ATK_Tackle,
   &ATK_Rock_Throw,
@@ -2943,6 +2956,41 @@ static const attack* MEOWSCARADA_ATTACKS[] = {
   &ATK_Energy_Ball,
   &ATK_Frenzy_Plant,
   &ATK_Flower_Trick,
+  NULL
+};
+
+static const attack* KYUREM_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Steel_Wing,
+  &ATK_Blizzard,
+  &ATK_Dragon_Claw,
+  &ATK_Draco_Meteor,
+  &ATK_Glaciate,
+  NULL
+};
+
+static const attack* W_KYUREM_ATTACKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Steel_Wing,
+  &ATK_Ice_Fang,
+  &ATK_Blizzard,
+  &ATK_Ancient_Power,
+  &ATK_Dragon_Pulse,
+  &ATK_Focus_Blast,
+  &ATK_Fusion_Flare,
+  &ATK_Ice_Burn,
+  NULL
+};
+
+static const attack* B_KYUREM_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Dragon_Tail,
+  &ATK_Stone_Edge,
+  &ATK_Blizzard,
+  &ATK_Iron_Head,
+  &ATK_Outrage,
+  &ATK_Fusion_Bolt,
+  &ATK_Freeze_Shock,
   NULL
 };
 
@@ -4271,9 +4319,9 @@ static const species sdex[] = {
   {  644, "Zekrom", TYPE_DRAGON, TYPE_ELECTRIC, 275, 211, 205, NULL, NULL, },
   {  645, "Incarnate Forme Landorus", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, NULL, NULL, },
   {  645, "Therian Forme Landorus", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, NULL, NULL, },
-  {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, NULL, },
-  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, NULL, },
-  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, NULL, },
+  {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATTACKS, true, false, },
+  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATTACKS, true, false, },
+  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATTACKS, true, false, },
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, NULL, },
   {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, NULL, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, NULL, },
@@ -4361,7 +4409,7 @@ static const species sdex[] = {
   {  724, "Hisuian Decidueye", TYPE_GRASS, TYPE_FIGHTING, 213, 174, 204, NULL, NULL, },
   {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, NULL, },
   {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, NULL, },
-  {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, NULL, NULL, },
+  {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, NULL, INCINEROAR_ATTACKS, true, false, },
   {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, NULL, },
   {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, NULL, NULL, },
   {  730, "Primarina", TYPE_WATER, TYPE_FAIRY, 232, 195, 190, NULL, NULL, },
