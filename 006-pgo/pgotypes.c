@@ -762,6 +762,41 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* NECROZMA_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Psycho_Cut,
+  &ATK_Metal_Claw,
+  &ATK_Dark_Pulse,
+  &ATK_Iron_Head,
+  &ATK_Future_Sight,
+  &ATK_Outrage,
+  NULL
+};
+
+static const attack* DUSK_NECROZMA_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Psycho_Cut,
+  &ATK_Metal_Claw,
+  &ATK_Dark_Pulse,
+  &ATK_Iron_Head,
+  &ATK_Future_Sight,
+  &ATK_Outrage,
+  &ATK_Sunsteel_Strike,
+  NULL
+};
+
+static const attack* DAWN_NECROZMA_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Psycho_Cut,
+  &ATK_Metal_Claw,
+  &ATK_Dark_Pulse,
+  &ATK_Iron_Head,
+  &ATK_Future_Sight,
+  &ATK_Outrage,
+  &ATK_Moongeist_Beam,
+  NULL
+};
+
 static const attack* CELESTEELA_ATTACKS[] = {
   &ATK_Air_Slash,
   &ATK_Smack_Down,
@@ -4395,9 +4430,9 @@ static const species sdex[] = {
   {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATTACKS, true, false, },
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, NULL, },
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, NULL, },
-  {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NULL, },
-  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, NULL, },
-  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, NULL, },
+  {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATTACKS, true, false, },
+  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATTACKS, true, false, },
+  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATTACKS, true, false, },
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, NULL, },
   {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, NULL, },
   {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, NULL, NULL, },
