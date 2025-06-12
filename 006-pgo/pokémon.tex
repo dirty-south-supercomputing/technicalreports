@@ -3,7 +3,7 @@
 For purposes of battle, a Pokémon $P$ is defined as:
 \begin{itemize}
 \item A Species, possibly taking some Form
-\item An ``Individual Vector'' of 3 integers from 0--15, inclusive, corresponding to ATK, DEF, and STA\@.
+\item An ``Individual Vector'' (\autoref{sec:ivs})
 \item Shadow status
 \item Current Hit Points. A Pokémon with zero HP has ``fainted'', and is generally unusable.
 \end{itemize}
@@ -14,8 +14,32 @@ Fainted Pokémon cannot be used in battles of any kind.
 
 \section{Individual Vectors}
 \label{sec:ivs}
+Each Pokémon has three integers associated with it, each ranging from 0--15.
+These serve to distinguish members of a species from one another.
+See \autoref{chap:stats} for a quantitative treatment.
+
+Once a Trainer has joined a team, the ``Appraise'' function can be used to
+  get a visual representation of these three numbers (this representation,
+  while annoying, is sufficient to determine the actual numbers).
+Additionally, the Pokémon will be given a rating of 0--4, represented as
+  one, two, or three stars (0 shows one star; 4 shows three, albeit in a different color).
+A Pokémon rated 4 has an IV of 15/15/15, and is colloquially known as a ``hundo'' or ``100\%er''.
+Such Pokémon have their own Pokédex (\autoref{sec:dexen}).
+A Pokémon rated 0 has an IV of 0/0/0, and is colloquially known as a ``nundo'' or ``0\%er''.
+They have no unique Pokédex, because they are worthless pieces of shit,
+  and don't let anyone tell you otherwise\footnote{Consult \autoref{chap:optimal}
+  to see that 0/0/0 is never an optimal IV.}.
+While 15/15/15 is generally the optimal IV, this is not always true in CP-bounded
+  competition; see \autoref{chap:bounded} for more information,
+  and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
 
 \section{Pokémon Level}
+\label{sec:plevel}
+\textbf{FIXME}
 Powering up a fainted Pokémon will revive it, but with minimal HP\@:
 
 \[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
+
+\section{Lucky Pokémon}
+\label{sec:lucky}
+\textbf{FIXME}
