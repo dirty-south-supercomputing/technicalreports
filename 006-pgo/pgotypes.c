@@ -2072,6 +2072,109 @@ static const attack* BANETTE_ATTACKS[] = {
   NULL
 };
 
+static const attack* LITWICK_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Astonish,
+  &ATK_Heat_Wave,
+  &ATK_Flame_Charge,
+  &ATK_Flame_Burst,
+  &ATK_Mystical_Fire,
+  NULL
+};
+
+static const attack* LAMPENT_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Astonish,
+  &ATK_Heat_Wave,
+  &ATK_Flame_Burst,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* CHANDELURE_ATTACKS[] = {
+  &ATK_Hex,
+  &ATK_Fire_Spin,
+  &ATK_Incinerate,
+  &ATK_Shadow_Ball,
+  &ATK_Flame_Charge,
+  &ATK_Overheat,
+  &ATK_Energy_Ball,
+  &ATK_Poltergeist,
+  NULL
+};
+
+static const attack* GOLETT_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Astonish,
+  &ATK_Shadow_Punch,
+  &ATK_Brick_Break,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* GOLURK_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Astonish,
+  &ATK_Shadow_Punch,
+  &ATK_Dynamic_Punch,
+  &ATK_Earth_Power,
+  &ATK_Poltergeist,
+  NULL
+};
+
+static const attack* DUSKULL_ATTACKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Shadow_Sneak,
+  &ATK_Ominous_Wind,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* DUSCLOPS_ATTACKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Hex,
+  &ATK_Ice_Punch,
+  &ATK_Shadow_Punch,
+  &ATK_Fire_Punch,
+  &ATK_Poltergeist,
+  NULL
+};
+
+static const attack* DUSKNOIR_ATTACKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Punch,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  &ATK_Dynamic_Punch,
+  &ATK_Poltergeist,
+  NULL
+};
+
+static const attack* GOURGEIST_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Hex,
+  &ATK_Seed_Bomb,
+  &ATK_Shadow_Punch,
+  &ATK_Fire_Blast,
+  &ATK_Foul_Play,
+  &ATK_Poltergeist,
+  NULL
+};
+
+static const attack* TROPIUS_ATTACKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Leaf_Blade,
+  &ATK_Stomp,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
 static const attack* ABSOL_ATTACKS[] = {
   &ATK_Psycho_Cut,
   &ATK_Snarl,
@@ -4313,9 +4416,9 @@ static const species sdex[] = {
   {  352, "Kecleon", TYPE_NORMAL, TYPECOUNT, 161, 189, 155, NULL, NULL, },
   {  353, "Shuppet", TYPE_GHOST, TYPECOUNT, 138, 65, 127, NULL, SHUPPET_ATTACKS, true, true, },
   {  354, "Banette", TYPE_GHOST, TYPECOUNT, 218, 126, 162, "Shuppet", BANETTE_ATTACKS, true, true, },
-  {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, NULL, NULL, },
-  {  356, "Dusclops", TYPE_GHOST, TYPECOUNT, 124, 234, 120, NULL, NULL, },
-  {  357, "Tropius", TYPE_GRASS, TYPE_FLYING, 136, 163, 223, "Duskull", NULL, },
+  {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, NULL, DUSKULL_ATTACKS, true, true, },
+  {  356, "Dusclops", TYPE_GHOST, TYPECOUNT, 124, 234, 120, "Duskull", DUSCLOPS_ATTACKS, true, true, },
+  {  357, "Tropius", TYPE_GRASS, TYPE_FLYING, 136, 163, 223, NULL, TROPIUS_ATTACKS, true, false, },
   {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, "Chingling", NULL, },
   {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, NULL, ABSOL_ATTACKS, true, true, },
   {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, NULL, },
@@ -4442,7 +4545,7 @@ static const species sdex[] = {
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATTACKS, true, true, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATTACKS, true, true, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass", NULL, },
-  {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops", NULL, },
+  {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops", DUSKNOIR_ATTACKS, true, true, },
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt", FROSLASS_ATTACKS, true, true, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, NULL, NULL, },
   {  479, "Heat Rotom", TYPE_ELECTRIC, TYPE_FIRE, 204, 219, 137, NULL, NULL, },
@@ -4582,9 +4685,9 @@ static const species sdex[] = {
   {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik", NULL, },
   {  605, "Elgyem", TYPE_PSYCHIC, TYPECOUNT, 148, 100, 146, NULL, NULL, },
   {  606, "Beheeyem", TYPE_PSYCHIC, TYPECOUNT, 221, 163, 181, "Elgyem", NULL, },
-  {  607, "Litwick", TYPE_GHOST, TYPE_FIRE, 108, 98, 137, NULL, NULL, },
-  {  608, "Lampent", TYPE_GHOST, TYPE_FIRE, 169, 115, 155, "Litwick", NULL, },
-  {  609, "Chandelure", TYPE_GHOST, TYPE_FIRE, 271, 182, 155, "Lampent", NULL, },
+  {  607, "Litwick", TYPE_GHOST, TYPE_FIRE, 108, 98, 137, NULL, LITWICK_ATTACKS, true, true, },
+  {  608, "Lampent", TYPE_GHOST, TYPE_FIRE, 169, 115, 155, "Litwick", LAMPENT_ATTACKS, true, true, },
+  {  609, "Chandelure", TYPE_GHOST, TYPE_FIRE, 271, 182, 155, "Lampent", CHANDELURE_ATTACKS, true, true, },
   {  610, "Axew", TYPE_DRAGON, TYPECOUNT, 154, 101, 130, NULL, NULL, },
   {  611, "Fraxure", TYPE_DRAGON, TYPECOUNT, 212, 123, 165, "Axew", NULL, },
   {  612, "Haxorus", TYPE_DRAGON, TYPECOUNT, 284, 172, 183, "Fraxure", NULL, },
@@ -4598,8 +4701,8 @@ static const species sdex[] = {
   {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, NULL, },
   {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, "Mienfoo", NULL, },
   {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, NULL, NULL, },
-  {  622, "Golett", TYPE_GROUND, TYPE_GHOST, 127, 92, 153, NULL, NULL, },
-  {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett", NULL, },
+  {  622, "Golett", TYPE_GROUND, TYPE_GHOST, 127, 92, 153, NULL, GOLETT_ATTACKS, true, true, },
+  {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett", GOLURK_ATTACKS, true, true, },
   {  624, "Pawniard", TYPE_DARK, TYPE_STEEL, 154, 114, 128, NULL, NULL, },
   {  625, "Bisharp", TYPE_DARK, TYPE_STEEL, 232, 176, 163, "Pawniard", NULL, },
   {  626, "Bouffalant", TYPE_NORMAL, TYPECOUNT, 195, 182, 216, NULL, NULL, },
@@ -4693,10 +4796,10 @@ static const species sdex[] = {
   {  710, "Pumpkaboo Small", TYPE_GHOST, TYPE_GRASS, 122, 124, 127, NULL, NULL, },
   {  710, "Pumpkaboo Large", TYPE_GHOST, TYPE_GRASS, 120, 122, 144, NULL, NULL, },
   {  710, "Pumpkaboo Super", TYPE_GHOST, TYPE_GRASS, 118, 120, 153, NULL, NULL, },
-  {  711, "Gourgeist", TYPE_GHOST, TYPE_GRASS, 175, 213, 163, "Pumpkaboo", NULL, },
-  {  711, "Gourgeist Small", TYPE_GHOST, TYPE_GRASS, 171, 219, 146, "Pumpkaboo Small", NULL, },
-  {  711, "Gourgeist Large", TYPE_GHOST, TYPE_GRASS, 179, 206, 181, "Pumpkaboo Large", NULL, },
-  {  711, "Gourgeist Super", TYPE_GHOST, TYPE_GRASS, 182, 200, 198, "Pumpkaboo Super", NULL, },
+  {  711, "Gourgeist", TYPE_GHOST, TYPE_GRASS, 175, 213, 163, "Pumpkaboo", GOURGEIST_ATTACKS, true, false, },
+  {  711, "Gourgeist Small", TYPE_GHOST, TYPE_GRASS, 171, 219, 146, "Pumpkaboo Small", GOURGEIST_ATTACKS, true, false, },
+  {  711, "Gourgeist Large", TYPE_GHOST, TYPE_GRASS, 179, 206, 181, "Pumpkaboo Large", GOURGEIST_ATTACKS, true, false, },
+  {  711, "Gourgeist Super", TYPE_GHOST, TYPE_GRASS, 182, 200, 198, "Pumpkaboo Super", GOURGEIST_ATTACKS, true, false, },
   {  712, "Bergmite", TYPE_ICE, TYPECOUNT, 117, 120, 146, NULL, NULL, },
   {  713, "Avalugg", TYPE_ICE, TYPECOUNT, 196, 240, 216, "Bergmite", NULL, },
   {  713, "Hisuian Avalugg", TYPE_ICE, TYPE_ROCK, 214, 238, 216, NULL, NULL, },
