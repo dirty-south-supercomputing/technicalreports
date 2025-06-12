@@ -1284,6 +1284,25 @@ static const attack* SABLEYE_ATKS[] = {
   NULL
 };
 
+static const attack* TADBULB_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Water_Gun,
+  &ATK_Discharge,
+  &ATK_Parabolic_Charge,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* BELLIBOLT_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Thunder_Shock,
+  &ATK_Water_Gun,
+  &ATK_Discharge,
+  &ATK_Parabolic_Charge,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
 static const attack* MAGNEMITE_ATKS[] = {
   &ATK_Thunder_Shock,
   &ATK_Spark,
@@ -1387,6 +1406,16 @@ static const attack* MEDICHAM_ATKS[] = {
   &ATK_Psychic,
   &ATK_Dynamic_Punch,
   &ATK_Power_Up_Punch,
+  NULL
+};
+
+static const attack* CRESSELIA_ATKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Confusion,
+  &ATK_Moonblast,
+  &ATK_Aurora_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Future_Sight,
   NULL
 };
 
@@ -3309,6 +3338,35 @@ static const attack* MAGCARGO_ATKS[] = {
   NULL
 };
 
+static const attack* CHARCADET_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Heat_Wave,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* CERULEDGE_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Heat_Wave,
+  &ATK_Shadow_Ball,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* ARMAROUGE_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Heat_Wave,
+  &ATK_Psyshock,
+  &ATK_Flame_Charge,
+  NULL
+};
+
 static const attack* TANGELA_ATKS[] = {
   &ATK_Vine_Whip,
   &ATK_Infestation,
@@ -4906,7 +4964,7 @@ static const species sdex[] = {
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, NULL, },
   {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
-  {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, NULL, },
+  {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, CRESSELIA_ATKS, true, false, },
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, NULL, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, SHAYMIN_ATKS, true, false, },
   {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, NULL, S_SHAYMIN_ATKS, true, false, },
@@ -5324,11 +5382,11 @@ static const species sdex[] = {
   {  928, "Smoliv", TYPE_GRASS, TYPE_NORMAL, 100, 89, 121, NULL, NULL, },
   {  929, "Dolliv", TYPE_GRASS, TYPE_NORMAL, 137, 131, 141, "Smoliv", NULL, },
   {  930, "Arboliva", TYPE_GRASS, TYPE_NORMAL, 219, 189, 186, "Dolliv", NULL, },
-  {  935, "Charcadet", TYPE_FIRE, TYPECOUNT, 92, 74, 120, NULL, NULL, },
-  {  936, "Armarouge", TYPE_FIRE, TYPE_PSYCHIC, 234, 185, 198, "Charcadet", NULL, },
-  {  937, "Ceruledge", TYPE_FIRE, TYPE_GHOST, 239, 189, 181, "Charcadet", NULL, },
-  {  938, "Tadbulb", TYPE_ELECTRIC, TYPECOUNT, 104, 73, 156, NULL, NULL, },
-  {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb", NULL, },
+  {  935, "Charcadet", TYPE_FIRE, TYPECOUNT, 92, 74, 120, NULL, CHARCADET_ATKS, true, false, },
+  {  936, "Armarouge", TYPE_FIRE, TYPE_PSYCHIC, 234, 185, 198, "Charcadet", ARMAROUGE_ATKS, true, false, },
+  {  937, "Ceruledge", TYPE_FIRE, TYPE_GHOST, 239, 189, 181, "Charcadet", CERULEDGE_ATKS, true, false, },
+  {  938, "Tadbulb", TYPE_ELECTRIC, TYPECOUNT, 104, 73, 156, NULL, TADBULB_ATKS, false, false, },
+  {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb", BELLIBOLT_ATKS, false, false, },
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, NULL, NULL, },
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle", NULL, },
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, NULL, },
