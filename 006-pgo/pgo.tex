@@ -34,6 +34,7 @@
 \usepackage{luatex85} % otherwise pdfx blows up =\
 \usepackage[a-3u]{pdfx}
 \newfontfamily{\symbolfont}{Symbola}
+\newunicodechar{🟉}{{\symbolfont🟉}}
 \newcolumntype{g}{>{\columncolor{Gray!25}}c} % for alternate column coloring in tabels
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}} % centering within p-type column
 
@@ -145,7 +146,7 @@ It is otherwise generally less than 3\%.
 Forms are sorted by typing, and within typing by Pokédex number.
 I provide the base stats and their geometric mean, evolutionary line,
  Pokédex number, an image, cost to purify and to teach a second charged
- move, walk distance (\autoref{sec:getcandy}), catch and flee rates,
+ move, walk distance (\autoref{subsec:getcandy}), catch and flee rates,
  region, generation, optimal IV+level configurations for CP1500-
  and CP2500-bounded play, weather and Mega boost, and whether the
  form is available as Shiny and/or Shadow.
@@ -156,7 +157,7 @@ Forms have been combined when distinguished only visually.
 \textbf{infobox for each species still needs: attacks, genus, evolves from, evolves to, geommean, optimal1500, optimal2500,
            requirements to evolve, catch rate, flee rate, region, generation, shadow?, dmax?,
            pokédex entry, cost to purify/teach, walk distance, weather boost, candy/items to evolve}
-\input{out/species}
+%\input{out/species}
 \chapter{Employers of attacks}
 \label{chap:attackemployers}
 Attacks are sorted by duration, and within duration by the product of DPT and EPT.

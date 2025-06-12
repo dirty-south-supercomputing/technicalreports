@@ -1714,6 +1714,28 @@ static const attack* MAMOSWINE_ATTACKS[] = {
   NULL
 };
 
+static const attack* ARTICUNO_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Ancient_Power,
+  &ATK_Icy_Wind,
+  &ATK_Hurricane,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* G_ARTICUNO_ATTACKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Confusion,
+  &ATK_Ancient_Power,
+  &ATK_Brave_Bird,
+  &ATK_Future_Sight,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* TEDDIURSA_ATTACKS[] = {
   &ATK_Lick,
   &ATK_Scratch,
@@ -4190,8 +4212,8 @@ static const species sdex[] = {
   {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, "Kabuto", NULL, },
   {  142, "Aerodactyl", TYPE_ROCK, TYPE_FLYING, 221, 159, 190, NULL, AERODACTYL_ATTACKS, true, true, },
   {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax", SNORLAX_ATTACKS, true, true, },
-  {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, NULL, },
-  {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, NULL, NULL, },
+  {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATTACKS, true, true, },
+  {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, NULL, G_ARTICUNO_ATTACKS, true, true, },
   {  145, "Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, NULL, NULL, },
   {  145, "Galarian Zapdos", TYPE_FIGHTING, TYPE_FLYING, 252, 189, 207, NULL, NULL, },
   {  146, "Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, NULL, NULL, },
@@ -5080,7 +5102,9 @@ static const species crownedsdex[] = {
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
-  // FIXME
+  {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATTACKS, true, false, },
+  {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", NULL, false, false, },
+  {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", NULL, false, false, },
 };
 
 #define DYNACOUNT (sizeof(dynadex) / sizeof(*dynadex))
@@ -5376,7 +5400,14 @@ void print_species_latex(const species* s){
       printf("\\%%");
     }
   }
-  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={\\hfill%u %u %u %.2f}]\n",
+  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={");
+  if(s->shadow){
+    printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
+  }
+  if(s->shiny){
+    printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
+  }
+  printf("\\hfill%u %u %u %.2f}]\n",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
   printf("\\footnotesize\n");
   if(s->attacks){ // FIXME remove conditional once all attacks are defined
@@ -5403,12 +5434,6 @@ void print_species_latex(const species* s){
     }
   }
   printf(".png}\\\\\n");
-  if(s->shadow){
-    printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
-  }
-  if(s->shiny){
-    printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
-  }
   print_types(s->t1, s->t2);
   printf("\\end{tcolorbox}\n");
 }

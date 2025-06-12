@@ -18,7 +18,7 @@ Each Pokémon has three integers associated with it, each ranging from 0--15.
 These serve to distinguish members of a species from one another.
 See \autoref{chap:stats} for a quantitative treatment.
 
-Once a Trainer has joined a team, the ``Appraise'' function can be used to
+Once a Trainer has joined a team (\autoref{sec:levels}), the ``Appraise'' function can be used to
   get a visual representation of these three numbers (this representation,
   while annoying, is sufficient to determine the actual numbers).
 Additionally, the Pokémon will be given a rating of 0--4, represented as
@@ -46,7 +46,7 @@ IVs and levels are generated when the Pokémon is ``created'', not when it is ca
 It is thus possible to glean information from the CP displayed for a Pokémon;
   one can sometimes even uniquely determine the IV\@.
 The equation for CP is provided in \autoref{chap:unbounded}; reverse it and
-  use \autoref{table:cpms} plus the base stats of the species to determine
+  use \autoref{table:cpm} plus the base stats of the species to determine
   the set of IV+level pairs yielding that CP\@.
 Various applications and websites can perform this analysis automatically.
 Depending on the situation, there might be a floor for IVs.
