@@ -320,7 +320,6 @@ static const attack ATK_Frustration = { "Frustration", TYPE_NORMAL, 10, -70, 0 }
 static const attack ATK_Fusion_Bolt = { "Fusion Bolt", TYPE_ELECTRIC, 90, -45, 0 };
 static const attack ATK_Fusion_Flare = { "Fusion Flare", TYPE_FIRE, 90, -45, 0 };
 static const attack ATK_Future_Sight = { "Future Sight", TYPE_PSYCHIC, 110, -65, 0 };
-static const attack ATK_Giga_Drain = { "Giga Drain", TYPE_GRASS, 50, -80, 0 };
 static const attack ATK_Giga_Impact = { "Giga Impact", TYPE_NORMAL, 150, -80, 0 };
 static const attack ATK_Glaciate = { "Glaciate", TYPE_ICE, 60, -40, 0 };
 static const attack ATK_Grass_Knot = { "Grass Knot", TYPE_GRASS, 90, -50, 0 };
@@ -353,7 +352,6 @@ static const attack ATK_Lunge = { "Lunge", TYPE_BUG, 60, -45, 0 };
 static const attack ATK_Luster_Purge = { "Luster Purge", TYPE_PSYCHIC, 120, -60, 0 };
 static const attack ATK_Magma_Storm = { "Magma Storm", TYPE_FIRE, 65, -40, 0 };
 static const attack ATK_Magnet_Bomb = { "Magnet Bomb", TYPE_STEEL, 70, -45, 0 };
-static const attack ATK_Mega_Drain = { "Mega Drain", TYPE_GRASS, 25, -55, 0 };
 static const attack ATK_Megahorn = { "Megahorn", TYPE_BUG, 110, -55, 0 };
 static const attack ATK_Meteor_Beam = { "Meteor Beam", TYPE_ROCK, 120, -60, 0 };
 static const attack ATK_Meteor_Mash = { "Meteor Mash", TYPE_STEEL, 100, -50, 0 };
@@ -393,7 +391,6 @@ static const attack ATK_Psyshock = { "Psyshock", TYPE_PSYCHIC, 70, -40, 0 };
 static const attack ATK_Psystrike = { "Psystrike", TYPE_PSYCHIC, 90, -45, 0 };
 static const attack ATK_Rage_Fist = { "Rage Fist", TYPE_GHOST, 50, -35, 0 };
 static const attack ATK_Razor_Shell = { "Razor Shell", TYPE_WATER, 35, -35, 0 };
-static const attack ATK_Rest = { "Rest", TYPE_NORMAL, 50, -35, 0 };
 static const attack ATK_Return = { "Return", TYPE_NORMAL, 130, -70, 0 };
 static const attack ATK_Roar_of_Time = { "Roar of Time", TYPE_DRAGON, 150, -65, 0 };
 static const attack ATK_Rock_Blast = { "Rock Blast", TYPE_ROCK, 50, -40, 0 };
@@ -620,7 +617,6 @@ static const attack* const attacks[] = {
   &ATK_Fusion_Bolt,
   &ATK_Fusion_Flare,
   &ATK_Future_Sight,
-  &ATK_Giga_Drain,
   &ATK_Giga_Impact,
   &ATK_Glaciate,
   &ATK_Grass_Knot,
@@ -653,7 +649,6 @@ static const attack* const attacks[] = {
   &ATK_Luster_Purge,
   &ATK_Magma_Storm,
   &ATK_Magnet_Bomb,
-  &ATK_Mega_Drain,
   &ATK_Megahorn,
   &ATK_Meteor_Beam,
   &ATK_Meteor_Mash,
@@ -693,7 +688,6 @@ static const attack* const attacks[] = {
   &ATK_Psystrike,
   &ATK_Rage_Fist,
   &ATK_Razor_Shell,
-  &ATK_Rest,
   &ATK_Return,
   &ATK_Roar_of_Time,
   &ATK_Rock_Blast,
