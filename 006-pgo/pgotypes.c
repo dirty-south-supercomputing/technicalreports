@@ -455,8 +455,6 @@ static const attack ATK_Weather_Ball_Water = { "Weather Ball (Water)", TYPE_WATE
 static const attack ATK_Wildbolt_Storm = { "Wildbolt Storm", TYPE_ELECTRIC, 60, -45, 0 };
 static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 0 };
 static const attack ATK_Wrap = { "Wrap", TYPE_NORMAL, 60, -45, 0 };
-static const attack ATK_Wrap_Green = { "Wrap Green", TYPE_NORMAL, 25, -45, 0 };
-static const attack ATK_Wrap_Pink = { "Wrap Pink", TYPE_NORMAL, 25, -45, 0 };
 static const attack ATK_XScissor = { "X-Scissor", TYPE_BUG, 65, -40, 0 };
 static const attack ATK_Zap_Cannon = { "Zap Cannon", TYPE_ELECTRIC, 150, -80, 0 };
 
@@ -751,8 +749,6 @@ static const attack* const attacks[] = {
   &ATK_Wildbolt_Storm,
   &ATK_Wild_Charge,
   &ATK_Wrap,
-  &ATK_Wrap_Green,
-  &ATK_Wrap_Pink,
   &ATK_XScissor,
   &ATK_Zap_Cannon,
 };
@@ -1512,6 +1508,16 @@ static const attack* C_ZAMAZENTA_ATTACKS[] = {
   &ATK_Close_Combat,
   &ATK_Giga_Impact,
   &ATK_Behemoth_Blade,
+  NULL
+};
+
+static const attack* HAWLUCHA_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Poison_Jab,
+  &ATK_Aerial_Ace,
+  &ATK_XScissor,
+  &ATK_Power_Up_Punch,
+  &ATK_Flying_Press,
   NULL
 };
 
@@ -3465,6 +3471,48 @@ static const attack* KANGASKHAN_ATTACKS[] = {
   NULL
 };
 
+static const attack* I_LANDORUS_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Rock_Throw,
+  &ATK_Rock_Slide,
+  &ATK_Focus_Blast,
+  &ATK_Outrage,
+  &ATK_Earth_Power,
+  NULL
+};
+
+static const attack* I_THUNDURUS_ATTACKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Astonish,
+  &ATK_Thunder_Punch,
+  &ATK_Thunder,
+  &ATK_Brick_Break,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* T_LANDORUS_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Extrasensory,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Bulldoze,
+  &ATK_Superpower,
+  &ATK_Sandsear_Storm,
+  NULL
+};
+
+static const attack* T_THUNDURUS_ATTACKS[] = {
+  &ATK_Bite,
+  &ATK_Volt_Switch,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Sludge_Wave,
+  &ATK_Focus_Blast,
+  &ATK_Wildbolt_Storm,
+  NULL
+};
+
 static const attack* EEVEE_ATTACKS[] = {
   &ATK_Quick_Attack,
   &ATK_Tackle,
@@ -4572,12 +4620,12 @@ static const species sdex[] = {
   {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
   {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, NULL, },
   {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, NULL, },
-  {  642, "Incarnate Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, NULL, NULL, },
-  {  642, "Therian Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 295, 161, 188, NULL, NULL, },
+  {  642, "Incarnate Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, NULL, I_THUNDURUS_ATTACKS, true, false, },
+  {  642, "Therian Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 295, 161, 188, NULL, T_THUNDURUS_ATTACKS, true, false, },
   {  643, "Reshiram", TYPE_DRAGON, TYPE_FIRE, 275, 211, 205, NULL, NULL, },
   {  644, "Zekrom", TYPE_DRAGON, TYPE_ELECTRIC, 275, 211, 205, NULL, NULL, },
-  {  645, "Incarnate Forme Landorus", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, NULL, NULL, },
-  {  645, "Therian Forme Landorus", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, NULL, NULL, },
+  {  645, "Incarnate Forme Landorus", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, NULL, I_LANDORUS_ATTACKS, true, false, },
+  {  645, "Therian Forme Landorus", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, NULL, T_LANDORUS_ATTACKS, true, false, },
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATTACKS, true, false, },
   {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATTACKS, true, false, },
   {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATTACKS, true, false, },
@@ -4632,7 +4680,7 @@ static const species sdex[] = {
   {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, NULL, NULL, },
   {  699, "Aurorus", TYPE_ROCK, TYPE_ICE, 186, 163, 265, "Amaura", NULL, },
   {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, "Eevee", SYLVEON_ATTACKS, true, false, },
-  {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, NULL, },
+  {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, HAWLUCHA_ATTACKS, false, false, },
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, NULL, },
   {  703, "Carbink", TYPE_ROCK, TYPE_FAIRY, 95, 285, 137, NULL, NULL, },
   {  704, "Goomy", TYPE_DRAGON, TYPECOUNT, 101, 112, 128, NULL, NULL, },
