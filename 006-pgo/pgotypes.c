@@ -2705,6 +2705,36 @@ static const attack* UMBREON_ATTACKS[] = {
   NULL
 };
 
+static const attack* WOOPER_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Dig,
+  &ATK_Mud_Bomb,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* P_WOOPER_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Poison_Jab,
+  &ATK_Dig,
+  &ATK_Sludge_Wave,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* QUAGSIRE_ATTACKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Aqua_Tail,
+  &ATK_Sludge_Bomb,
+  &ATK_Mud_Bomb,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* GROOKEY_ATTACKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Scratch,
@@ -3109,9 +3139,9 @@ static const species sdex[] = {
   {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, NULL, },
   {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, NULL, NULL, },
   {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, NULL, },
-  {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, NULL, true, true, },
-  {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, NULL, true, true, },
-  {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper", NULL, true, true, },
+  {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, WOOPER_ATTACKS, true, true, },
+  {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, P_WOOPER_ATTACKS, true, true, },
+  {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper", QUAGSIRE_ATTACKS, true, true, },
   {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, "Eevee", ESPEON_ATTACKS, true, false, },
   {  197, "Umbreon", TYPE_DARK, TYPECOUNT, 126, 240, 216, "Eevee", UMBREON_ATTACKS, true, false, },
   {  198, "Murkrow", TYPE_DARK, TYPE_FLYING, 175, 87, 155, NULL, NULL, },
