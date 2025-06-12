@@ -5578,7 +5578,11 @@ static const species crownedsdex[] = {
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
+  {   68, "Dynamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, },
+  {   94, "Dynamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, },
   {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATKS, true, false, },
+  {  302, "Dynamax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, },
+  {  376, "Dynamax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, },
   {  820, "Dynamax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATKS, true, false, },
   {  832, "Dynamax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATKS, true, false, },
   {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
