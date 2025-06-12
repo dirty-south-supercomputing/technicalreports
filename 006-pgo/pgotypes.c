@@ -825,6 +825,19 @@ static const attack* TYRANITAR_ATTACKS[] = {
   NULL
 };
 
+static const attack* HOOH_ATTACKS[] = {
+  &ATK_Steel_Wing,
+  &ATK_Extrasensory,
+  &ATK_Hidden_Power,
+  &ATK_Incinerate,
+  &ATK_Earthquake,
+  &ATK_Fire_Blast,
+  &ATK_Solar_Beam,
+  &ATK_Brave_Bird,
+  &ATK_Sacred_Fire,
+  NULL
+};
+
 static const attack* LUGIA_ATTACKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Extrasensory,
@@ -1427,6 +1440,74 @@ static const attack* VENUSAUR_ATTACKS[] = {
   &ATK_Sludge_Bomb,
   &ATK_Solar_Beam,
   &ATK_Frenzy_Plant,
+  NULL
+};
+
+static const attack* SWINUB_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Powder_Snow,
+  &ATK_Rock_Slide,
+  &ATK_Icy_Wind,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* PILOSWINE_ATTACKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Powder_Snow,
+  &ATK_Stone_Edge,
+  &ATK_Bulldoze,
+  &ATK_Avalanche,
+  &ATK_Icicle_Spear,
+  &ATK_High_Horsepower,
+  NULL
+};
+
+static const attack* MAMOSWINE_ATTACKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Powder_Snow,
+  &ATK_Stone_Edge,
+  &ATK_Ancient_Power,
+  &ATK_Bulldoze,
+  &ATK_Avalanche,
+  &ATK_Icicle_Spear,
+  &ATK_High_Horsepower,
+  NULL
+};
+
+static const attack* TEDDIURSA_ATTACKS[] = {
+  &ATK_Lick,
+  &ATK_Scratch,
+  &ATK_Cross_Chop,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* URSARING_ATTACKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Metal_Claw,
+  &ATK_Counter,
+  &ATK_Hyper_Beam,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  &ATK_Close_Combat,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* URSALUNA_ATTACKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Smash,
+  &ATK_Ice_Punch,
+  &ATK_Aerial_Ace,
+  &ATK_Thunder_Punch,
+  &ATK_Fire_Punch,
+  &ATK_Swift,
+  &ATK_High_Horsepower,
+  &ATK_Trailblaze,
   NULL
 };
 
@@ -3266,6 +3347,52 @@ static const attack* TOXTRICITY_ATTACKS[] = {
   NULL
 };
 
+static const attack* PONYTA_ATTACKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Flame_Wheel,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* G_PONYTA_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Psycho_Cut,
+  &ATK_Psybeam,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* RAPIDASH_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Ember,
+  &ATK_Fire_Spin,
+  &ATK_Incinerate,
+  &ATK_Heat_Wave,
+  &ATK_Drill_Run,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Wild_Charge,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* G_RAPIDASH_ATTACKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Psycho_Cut,
+  &ATK_Fairy_Wind,
+  &ATK_Megahorn,
+  &ATK_Play_Rough,
+  &ATK_Psychic,
+  &ATK_Body_Slam,
+  &ATK_Wild_Charge,
+  &ATK_High_Horsepower,
+  NULL
+};
+
 static const attack* SLOWPOKE_ATTACKS[] = {
   &ATK_Water_Gun,
   &ATK_Confusion,
@@ -3487,10 +3614,10 @@ static const species sdex[] = {
   {   75, "Alolan Graveler", TYPE_ROCK, TYPE_ELECTRIC, 164, 164, 146, NULL, NULL, },
   {   76, "Golem", TYPE_ROCK, TYPE_GROUND, 211, 198, 190, NULL, NULL, },
   {   76, "Alolan Golem", TYPE_ROCK, TYPE_ELECTRIC, 211, 198, 190, NULL, NULL, },
-  {   77, "Ponyta", TYPE_FIRE, TYPECOUNT, 170, 127, 137, NULL, NULL, },
-  {   77, "Galarian Ponyta", TYPE_PSYCHIC, TYPECOUNT, 170, 127, 137, NULL, NULL, },
-  {   78, "Rapidash", TYPE_FIRE, TYPECOUNT, 207, 162, 163, NULL, NULL, },
-  {   78, "Galarian Rapidash", TYPE_PSYCHIC, TYPE_FAIRY, 207, 162, 163, NULL, NULL, },
+  {   77, "Ponyta", TYPE_FIRE, TYPECOUNT, 170, 127, 137, NULL, PONYTA_ATTACKS, true, true, },
+  {   77, "Galarian Ponyta", TYPE_PSYCHIC, TYPECOUNT, 170, 127, 137, NULL, G_PONYTA_ATTACKS, true, true, },
+  {   78, "Rapidash", TYPE_FIRE, TYPECOUNT, 207, 162, 163, "Ponyta", RAPIDASH_ATTACKS, true, true, },
+  {   78, "Galarian Rapidash", TYPE_PSYCHIC, TYPE_FAIRY, 207, 162, 163, "Galarian Ponyta", G_RAPIDASH_ATTACKS, true, true, },
   {   79, "Slowpoke", TYPE_WATER, TYPE_PSYCHIC, 109, 98, 207, NULL, SLOWPOKE_ATTACKS, true, true, },
   {   79, "Galarian Slowpoke", TYPE_PSYCHIC, TYPECOUNT, 109, 98, 207, NULL, G_SLOWPOKE_ATTACKS, true, true, },
   {   80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWBRO_ATTACKS, true, true, },
@@ -3651,12 +3778,12 @@ static const species sdex[] = {
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, HERACROSS_ATTACKS, true, false, },
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, NULL, },
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, NULL, NULL, },
-  {  216, "Teddiursa", TYPE_NORMAL, TYPECOUNT, 142, 93, 155, NULL, NULL, },
-  {  217, "Ursaring", TYPE_NORMAL, TYPECOUNT, 236, 144, 207, NULL, NULL, },
+  {  216, "Teddiursa", TYPE_NORMAL, TYPECOUNT, 142, 93, 155, NULL, TEDDIURSA_ATTACKS, true, true, },
+  {  217, "Ursaring", TYPE_NORMAL, TYPECOUNT, 236, 144, 207, "Teddiursa", URSARING_ATTACKS, true, true, },
   {  218, "Slugma", TYPE_FIRE, TYPECOUNT, 118, 71, 120, NULL, NULL, },
   {  219, "Magcargo", TYPE_FIRE, TYPE_ROCK, 139, 191, 137, NULL, NULL, },
-  {  220, "Swinub", TYPE_ICE, TYPE_GROUND, 90, 69, 137, NULL, NULL, },
-  {  221, "Piloswine", TYPE_ICE, TYPE_GROUND, 181, 138, 225, NULL, NULL, },
+  {  220, "Swinub", TYPE_ICE, TYPE_GROUND, 90, 69, 137, NULL, SWINUB_ATTACKS, true, true, },
+  {  221, "Piloswine", TYPE_ICE, TYPE_GROUND, 181, 138, 225, "Swinub", PILOSWINE_ATTACKS, true, true, },
   {  222, "Corsola", TYPE_WATER, TYPE_ROCK, 118, 156, 146, NULL, NULL, },
   {  222, "Galarian Corsola", TYPE_GHOST, TYPECOUNT, 116, 182, 155, NULL, NULL, },
   {  223, "Remoraid", TYPE_WATER, TYPECOUNT, 127, 69, 111, NULL, REMORAID_ATTACKS, true, true, },
@@ -3686,7 +3813,7 @@ static const species sdex[] = {
   {  247, "Pupitar", TYPE_ROCK, TYPE_GROUND, 155, 133, 172, "Larvitar", PUPITAR_ATTACKS, true, true, },
   {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, "Pupitar", TYRANITAR_ATTACKS, true, true, },
   {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, NULL, LUGIA_ATTACKS, true, true, },
-  {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, NULL, NULL, },
+  {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, NULL, HOOH_ATTACKS, true, true, },
   {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, NULL, NULL, },
   {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, NULL, TREECKO_ATTACKS, true, true, },
   {  253, "Grovyle", TYPE_GRASS, TYPECOUNT, 172, 120, 137, "Treecko", GROVYLE_ATTACKS, true, true, },
@@ -3921,7 +4048,7 @@ static const species sdex[] = {
   {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, "Eevee", LEAFEON_ATTACKS, true, false, },
   {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATTACKS, true, false},
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, NULL, NULL, },
-  {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, NULL, NULL, },
+  {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, "Piloswine", MAMOSWINE_ATTACKS, true, true, },
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATTACKS, true, true, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATTACKS, true, true, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, NULL, NULL, },
@@ -4334,7 +4461,7 @@ static const species sdex[] = {
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, NULL, },
   {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, NULL, },
   {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, NULL, },
-  {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, NULL, NULL, },
+  {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, "Ursaring", URSALUNA_ATTACKS, true, true, },
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, NULL, NULL, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, NULL, NULL, },
   {  905, "Incarnate Forme Enamorus", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, NULL, NULL, },
