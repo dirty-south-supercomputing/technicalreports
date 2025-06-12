@@ -1,9 +1,9 @@
 \chapter{Damage}
 \label{chap:damage}
 Each Attack reduces the opponent's Hit Points by some positive integer.
-This integer is called (inflicted) Damage $D$, and calculated as a product of several factors.
+This integer is called (inflicted) damage $D$, and calculated as a product of several factors.
 The factors are different for Gym/Raid/Max Battles and Trainer Battles,
- but the core of the Damage equation is common to all contexts.
+ but the core of the damage equation is common to all contexts.
 
 \section{The typing multiplier}
 \label{sec:typemult}
@@ -37,7 +37,7 @@ I have included a $T$ of -4 in \autoref{table:typemult} for completeness,
 \end{table}
 
 Leaving out the hideous −4 case, we see that $M_C$ ranges
- from 0.2441 (a 75.59\% reduction in Damage) to 3.072
+ from 0.2441 (a 75.59\% reduction in damage) to 3.072
  (a 207.2\% increase).
 Considered another way, for an effectiveness of −3 with no STAB bonus,
  it takes about four times as many Attacks to subdue an opponent than
@@ -140,7 +140,7 @@ If a shield is used, $M_G$ is 0, no matter the minigame performance.
 The effect is equivalent to raising the defender's DEF to infinity for the
   duration of the Attack.
 
-\section{The Damage equation}
+\section{The damage equation}
 
 $D_A$ is what we can calculate using only the attacker's knowledge, i.e.
  it is that component of $D$ which is independent of the defender.
@@ -176,16 +176,16 @@ which can of course be rewritten as:
 \[ D_D = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M_C \times M_B \]
 
 A floor function is applied to ensure an integer,
- followed by a min function to ensure at least 1 point of Damage is always inflicted:
+ followed by a min function to ensure at least 1 point of damage is always inflicted:
 
 \[ D = \min{1, \left\lfloor P \times \frac{Eff_A}{Eff_D} \times M_C \times M_B \right\rfloor } \]
 
 If $D$ equals or exceeds the opponent's HP, it will fight no more.
 
-\section{Opponent-independent Damage}
-We can break the Damage equation into those parts dependent
+\section{Opponent-independent damage}
+We can break the damage equation into those parts dependent
  upon opponents, and those which are independent.
-Looking at the Damage equation, Power, $Eff_A$, and STAB do not depend
+Looking at the damage equation, Power, $Eff_A$, and STAB do not depend
  upon an attacker's opponent.
 Likewise $Eff_D$ and MHP for the defender.
 The attacker knows neither $Eff_D$ nor MHP, while the defender doesn't know $Eff_A$.
@@ -279,7 +279,7 @@ Since $0 \leq r < 1$, this series converges to
 
 Of course, our chance of being knocked out is usually not constant across
  Attacks, but rather an immediate function of our remaining HP and any
- Damage we are about to absorb.
+ damage we are about to absorb.
 
 \section{Breakpoints}
 \label{sec:breakpoints}

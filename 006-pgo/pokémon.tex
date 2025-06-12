@@ -33,6 +33,13 @@ While 15/15/15 is generally the optimal IV, this is not always true in CP-bounde
   competition; see \autoref{chap:bounded} for more information,
   and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
 
+\section{Pokémon Level}
+\label{sec:plevel}
+\textbf{FIXME}
+Powering up a fainted Pokémon will revive it, but with minimal HP\@:
+
+\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
+
 \section{Generation of IV and level}
 \label{sec:ivgeneration}
 IVs and levels are generated when the Pokémon is ``created'', not when it is captured.
@@ -75,13 +82,6 @@ The probability of a random Pokémon being a hundo is actually
     \end{tabular}
   \end{center}
 \end{table}
-
-\section{Pokémon Level}
-\label{sec:plevel}
-\textbf{FIXME}
-Powering up a fainted Pokémon will revive it, but with minimal HP\@:
-
-\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
 
 \section{Lucky Pokémon}
 \label{sec:lucky}
