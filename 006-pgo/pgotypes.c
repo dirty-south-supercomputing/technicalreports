@@ -798,6 +798,27 @@ static const attack* CELESTEELA_ATKS[] = {
   NULL
 };
 
+static const attack* DRILBUR_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Drill_Run,
+  &ATK_Rock_Tomb,
+  NULL
+};
+
+static const attack* EXCADRILL_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Metal_Claw,
+  &ATK_Mud_Slap,
+  &ATK_Earthquake,
+  &ATK_Drill_Run,
+  &ATK_Rock_Slide,
+  &ATK_Iron_Head,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
 static const attack* A_GEODUDE_ATKS[] = {
   &ATK_Rock_Throw,
   &ATK_Volt_Switch,
@@ -1425,6 +1446,31 @@ static const attack* BLAZIKEN_ATKS[] = {
   &ATK_Overheat,
   &ATK_Blast_Burn,
   &ATK_Blaze_Kick,
+  NULL
+};
+
+static const attack* HIPPOPOTAS_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Rock_Tomb,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* HIPPOWDON_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Fire_Fang,
+  &ATK_Thunder_Fang,
+  &ATK_Ice_Fang,
+  &ATK_Sand_Attack,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Body_Slam,
+  &ATK_Weather_Ball_Rock,
+  &ATK_Earth_Power,
+  &ATK_Scorching_Sands,
   NULL
 };
 
@@ -5272,8 +5318,8 @@ static const species sdex[] = {
   {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, NULL, MUNCHLAX_ATKS, true, false, },
   {  447, "Riolu", TYPE_FIGHTING, TYPECOUNT, 127, 78, 120, NULL, RIOLU_ATKS, true, false, },
   {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, "Riolu", LUCARIO_ATKS, true, false, },
-  {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, NULL, NULL, },
-  {  450, "Hippowdon", TYPE_GROUND, TYPECOUNT, 201, 191, 239, "Hippopotas", NULL, },
+  {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, NULL, HIPPOPOTAS_ATKS, true, true, },
+  {  450, "Hippowdon", TYPE_GROUND, TYPECOUNT, 201, 191, 239, "Hippopotas", HIPPOWDON_ATKS, true, true, },
   {  451, "Skorupi", TYPE_POISON, TYPE_BUG, 93, 151, 120, NULL, NULL, },
   {  452, "Drapion", TYPE_POISON, TYPE_DARK, 180, 202, 172, "Skorupi", NULL, },
   {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, NULL, },
@@ -5359,8 +5405,8 @@ static const species sdex[] = {
   {  526, "Gigalith", TYPE_ROCK, TYPECOUNT, 226, 201, 198, "Boldore", NULL, },
   {  527, "Woobat", TYPE_PSYCHIC, TYPE_FLYING, 107, 85, 163, NULL, NULL, },
   {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, "Woobat", NULL, },
-  {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, NULL, },
-  {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur", NULL, },
+  {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, DRILBUR_ATKS, true, false, },
+  {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur", EXCADRILL_ATKS, true, false, },
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, NULL, AUDINO_ATKS, true, false, },
   {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, NULL, NULL, },
   {  533, "Gurdurr", TYPE_FIGHTING, TYPECOUNT, 180, 134, 198, "Timburr", NULL, },
