@@ -1007,6 +1007,34 @@ static const attack* EXCADRILL_ATKS[] = {
   NULL
 };
 
+static const attack* FALINKS_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Megahorn,
+  &ATK_Brick_Break,
+  &ATK_Superpower,
+  NULL
+};
+
+static const attack* ANORITH_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Struggle_Bug,
+  &ATK_Aqua_Jet,
+  &ATK_Ancient_Power,
+  &ATK_Cross_Poison,
+  NULL
+};
+
+static const attack* ARMALDO_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Struggle_Bug,
+  &ATK_Cross_Poison,
+  &ATK_Water_Pulse,
+  &ATK_Rock_Blast,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* MUDBRAY_ATKS[] = {
   &ATK_Mud_Slap,
   &ATK_Rock_Smash,
@@ -1207,6 +1235,15 @@ static const attack* CARRACOSTA_ATKS[] = {
   &ATK_Body_Slam,
   &ATK_Surf,
   &ATK_Liquidation,
+  NULL
+};
+
+static const attack* CARBINK_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Throw,
+  &ATK_Rock_Slide,
+  &ATK_Power_Gem,
+  &ATK_Moonblast,
   NULL
 };
 
@@ -1447,6 +1484,15 @@ static const attack* ARBOLIVA_ATKS[] = {
   &ATK_Energy_Ball,
   &ATK_Earth_Power,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* DEDENNE_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Tackle,
+  &ATK_Discharge,
+  &ATK_Parabolic_Charge,
+  &ATK_Play_Rough,
   NULL
 };
 
@@ -1788,6 +1834,14 @@ static const attack* OMASTAR_ATKS[] = {
   &ATK_Rock_Slide,
   &ATK_Hydro_Pump,
   &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* STONJOURNER_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Slide,
+  &ATK_Stomp,
   NULL
 };
 
@@ -3904,6 +3958,23 @@ static const attack* DUSTOX_ATKS[] = {
   NULL
 };
 
+static const attack* FEEBAS_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Splash,
+  &ATK_Mirror_Coat,
+  NULL
+};
+
+static const attack* MILOTIC_ATKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Waterfall,
+  &ATK_Wrap,
+  &ATK_Hyper_Beam,
+  &ATK_Blizzard,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* LILEEP_ATKS[] = {
   &ATK_Acid,
   &ATK_Infestation,
@@ -5748,10 +5819,10 @@ static const species sdex[] = {
   {  344, "Claydol", TYPE_GROUND, TYPE_PSYCHIC, 140, 229, 155, "Baltoy", NULL, },
   {  345, "Lileep", TYPE_ROCK, TYPE_GRASS, 105, 150, 165, NULL, LILEEP_ATKS, true, true, },
   {  346, "Cradily", TYPE_ROCK, TYPE_GRASS, 152, 194, 200, "Lileep", CRADILY_ATKS, true, true, },
-  {  347, "Anorith", TYPE_ROCK, TYPE_BUG, 176, 100, 128, NULL, NULL, },
-  {  348, "Armaldo", TYPE_ROCK, TYPE_BUG, 222, 174, 181, "Anorith", NULL, },
-  {  349, "Feebas", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, NULL, },
-  {  350, "Milotic", TYPE_WATER, TYPECOUNT, 192, 219, 216, "Feebas", NULL, },
+  {  347, "Anorith", TYPE_ROCK, TYPE_BUG, 176, 100, 128, NULL, ANORITH_ATKS, true, true, },
+  {  348, "Armaldo", TYPE_ROCK, TYPE_BUG, 222, 174, 181, "Anorith", ARMALDO_ATKS, true, true, },
+  {  349, "Feebas", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, FEEBAS_ATKS, true, true, },
+  {  350, "Milotic", TYPE_WATER, TYPECOUNT, 192, 219, 216, "Feebas", MILOTIC_ATKS, true, true, },
   {  351, "Castform", TYPE_NORMAL, TYPECOUNT, 139, 139, 172, NULL, NULL, },
   {  351, "Castform (Sunny)", TYPE_FIRE, TYPECOUNT, 139, 139, 172, NULL, NULL, },
   {  351, "Castform (Rainy)", TYPE_WATER, TYPECOUNT, 139, 139, 172, NULL, NULL, },
@@ -6127,8 +6198,8 @@ static const species sdex[] = {
   {  699, "Aurorus", TYPE_ROCK, TYPE_ICE, 186, 163, 265, "Amaura", AURORUS_ATKS, true, true, },
   {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, "Eevee", SYLVEON_ATKS, true, false, },
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, HAWLUCHA_ATKS, false, false, },
-  {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, NULL, },
-  {  703, "Carbink", TYPE_ROCK, TYPE_FAIRY, 95, 285, 137, NULL, NULL, },
+  {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, DEDENNE_ATKS, true, false, },
+  {  703, "Carbink", TYPE_ROCK, TYPE_FAIRY, 95, 285, 137, NULL, CARBINK_ATKS, true, false, },
   {  704, "Goomy", TYPE_DRAGON, TYPECOUNT, 101, 112, 128, NULL, NULL, },
   {  705, "Sliggoo", TYPE_DRAGON, TYPECOUNT, 159, 176, 169, "Gloomy", NULL, },
   {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo", NULL, },
@@ -6281,8 +6352,8 @@ static const species sdex[] = {
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
   {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Galarian Mr. Mime", MRRIME_ATKS, true, true, },
   {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Yamask", NULL, },
-  {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, NULL, NULL, },
-  {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, NULL, NULL, },
+  {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, NULL, FALINKS_ATKS, true, false, },
+  {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, NULL, STONJOURNER_ATKS, false, false, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, NULL, NULL, },
   {  885, "Dreepy", TYPE_DRAGON, TYPE_GHOST, 117, 61, 99, NULL, NULL, },
   {  886, "Drakloak", TYPE_DRAGON, TYPE_GHOST, 163, 105, 169, "Dreepy", NULL, },
