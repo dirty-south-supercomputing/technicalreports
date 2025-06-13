@@ -753,6 +753,32 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* APPLIN_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* APPLETUN_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Dragon_Pulse,
+  &ATK_Energy_Ball,
+  &ATK_Outrage,
+  NULL
+};
+
+static const attack* FLAPPLE_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Dragon_Pulse,
+  &ATK_Outrage,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* FERROSEED_ATKS[] = {
   &ATK_Tackle,
   &ATK_Metal_Claw,
@@ -1411,6 +1437,47 @@ static const attack* DONPHAN_ATKS[] = {
   NULL
 };
 
+static const attack* GRIMER_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Mud_Slap,
+  &ATK_Sludge,
+  &ATK_Sludge_Bomb,
+  &ATK_Mud_Bomb,
+  NULL
+};
+
+static const attack* A_GRIMER_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Sludge_Bomb,
+  &ATK_Gunk_Shot,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* MUK_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Poison_Jab,
+  &ATK_Infestation,
+  &ATK_Dark_Pulse,
+  &ATK_Thunder_Punch,
+  &ATK_Sludge_Wave,
+  &ATK_Gunk_Shot,
+  &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* A_MUK_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Sludge_Wave,
+  &ATK_Gunk_Shot,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* NIHILEGO_ATKS[] = {
   &ATK_Pound,
   &ATK_Poison_Jab,
@@ -1783,6 +1850,29 @@ static const attack* AURORUS_ATKS[] = {
   &ATK_Thunderbolt,
   &ATK_Weather_Ball_Ice,
   &ATK_Meteor_Beam,
+  NULL
+};
+
+static const attack* SHELLDER_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Tackle,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Icy_Wind,
+  &ATK_Razor_Shell,
+  NULL
+};
+
+static const attack* CLOYSTER_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Blizzard,
+  &ATK_Hydro_Pump,
+  &ATK_Icy_Wind,
+  &ATK_Aurora_Beam,
+  &ATK_Avalanche,
+  &ATK_Razor_Shell,
+  &ATK_Liquidation,
   NULL
 };
 
@@ -5615,12 +5705,12 @@ static const species sdex[] = {
   {   85, "Dodrio", TYPE_NORMAL, TYPE_FLYING, 218, 140, 155, "Doduo", NULL, },
   {   86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, NULL, NULL, },
   {   87, "Dewgong", TYPE_WATER, TYPE_ICE, 139, 177, 207, "Seel", NULL, },
-  {   88, "Grimer", TYPE_POISON, TYPECOUNT, 135, 90, 190, NULL, NULL, },
-  {   88, "Alolan Grimer", TYPE_POISON, TYPE_DARK, 135, 90, 190, NULL, NULL, },
-  {   89, "Muk", TYPE_POISON, TYPECOUNT, 190, 172, 233, "Grimer", NULL, },
-  {   89, "Alolan Muk", TYPE_POISON, TYPE_DARK, 190, 172, 233, "Alolan Grimer", NULL, },
-  {   90, "Shellder", TYPE_WATER, TYPECOUNT, 116, 134, 102, NULL, NULL, },
-  {   91, "Cloyster", TYPE_WATER, TYPE_ICE, 186, 256, 137, "Shellder", NULL, },
+  {   88, "Grimer", TYPE_POISON, TYPECOUNT, 135, 90, 190, NULL, GRIMER_ATKS, true, true, },
+  {   88, "Alolan Grimer", TYPE_POISON, TYPE_DARK, 135, 90, 190, NULL, A_GRIMER_ATKS, true, true, },
+  {   89, "Muk", TYPE_POISON, TYPECOUNT, 190, 172, 233, "Grimer", MUK_ATKS, true, true, },
+  {   89, "Alolan Muk", TYPE_POISON, TYPE_DARK, 190, 172, 233, "Alolan Grimer", A_MUK_ATKS, true, true, },
+  {   90, "Shellder", TYPE_WATER, TYPECOUNT, 116, 134, 102, NULL, SHELLDER_ATKS, true, true, },
+  {   91, "Cloyster", TYPE_WATER, TYPE_ICE, 186, 256, 137, "Shellder", CLOYSTER_ATKS, true, true, },
   {   92, "Gastly", TYPE_GHOST, TYPE_POISON, 186, 67, 102, NULL, GASTLY_ATKS, true, true, },
   {   93, "Haunter", TYPE_GHOST, TYPE_POISON, 223, 107, 128, "Gastly", HAUNTER_ATKS, true, true, },
   {   94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter", GENGAR_ATKS, true, true, },
@@ -6412,9 +6502,9 @@ static const species sdex[] = {
   {  832, "Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Wooloo", DUBWOOL_ATKS, true, false, },
   {  835, "Yamper", TYPE_ELECTRIC, TYPECOUNT, 80, 90, 153, NULL, NULL, },
   {  836, "Boltund",TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170, NULL, NULL, },
-  {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, NULL, NULL, },
-  {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172, NULL, NULL, },
-  {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, NULL, NULL, },
+  {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, NULL, APPLIN_ATKS, false, false, },
+  {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172, "Applin", FLAPPLE_ATKS, false, false, },
+  {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin", APPLETUN_ATKS, false, false, },
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, NULL, NULL, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel", TOXTRICITY_ATKS, true, true, },
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, NULL, },
