@@ -828,6 +828,27 @@ static const attack* CELESTEELA_ATKS[] = {
   NULL
 };
 
+static const attack* BINACLE_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Cross_Chop,
+  &ATK_Ancient_Power,
+  NULL
+};
+
+static const attack* BARBARACLE_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Water_Gun,
+  &ATK_Mud_Slap,
+  &ATK_Cross_Chop,
+  &ATK_Stone_Edge,
+  &ATK_Grass_Knot,
+  &ATK_Skull_Bash,
+  &ATK_Razor_Shell,
+  NULL
+};
+
 static const attack* SANDILE_ATKS[] = {
   &ATK_Bite,
   &ATK_Mud_Slap,
@@ -1320,6 +1341,37 @@ static const attack* ARBOLIVA_ATKS[] = {
   &ATK_Energy_Ball,
   &ATK_Earth_Power,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* KLINK_ATKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Volt_Switch,
+  &ATK_Metal_Sound,
+  &ATK_Vise_Grip,
+  &ATK_Discharge,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* KLANG_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Charge_Beam,
+  &ATK_Metal_Sound,
+  &ATK_Vise_Grip,
+  &ATK_Thunderbolt,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* KLINKKLANG_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Charge_Beam,
+  &ATK_Metal_Sound,
+  &ATK_Hyper_Beam,
+  &ATK_Flash_Cannon,
+  &ATK_Zap_Cannon,
+  &ATK_Mirror_Shot,
   NULL
 };
 
@@ -5757,9 +5809,9 @@ static const species sdex[] = {
   {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, "Joltik", GRAVANTULA_ATKS, true, true, },
   {  597, "Ferroseed", TYPE_GRASS, TYPE_STEEL, 82, 155, 127, NULL, FERROSEED_ATKS, true, true, },
   {  598, "Ferrothorn", TYPE_GRASS, TYPE_STEEL, 158, 223, 179, "Ferroseed", FERROTHORN_ATKS, true, true, },
-  {  599, "Klink", TYPE_STEEL, TYPECOUNT, 98, 121, 120, NULL, NULL, },
-  {  600, "Klang", TYPE_STEEL, TYPECOUNT, 150, 174, 155, "Klink", NULL, },
-  {  601, "Klinklang", TYPE_STEEL, TYPECOUNT, 199, 214, 155, "Klang", NULL, },
+  {  599, "Klink", TYPE_STEEL, TYPECOUNT, 98, 121, 120, NULL, KLINK_ATKS, true, false, },
+  {  600, "Klang", TYPE_STEEL, TYPECOUNT, 150, 174, 155, "Klink", KLANG_ATKS, true, false, },
+  {  601, "Klinklang", TYPE_STEEL, TYPECOUNT, 199, 214, 155, "Klang", KLINKKLANG_ATKS, true, false, },
   {  602, "Tynamo", TYPE_ELECTRIC, TYPECOUNT, 105, 78, 111, NULL, NULL, },
   {  603, "Eelektrik", TYPE_ELECTRIC, TYPECOUNT, 156, 130, 163, "Tynamo", NULL, },
   {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik", NULL, },
@@ -5850,8 +5902,8 @@ static const species sdex[] = {
   {  685, "Slurpuff", TYPE_FAIRY, TYPECOUNT, 168, 163, 193, "Swirlix", NULL, },
   {  686, "Inkay", TYPE_DARK, TYPE_PSYCHIC, 98, 95, 142, NULL, NULL, },
   {  687, "Malamar", TYPE_DARK, TYPE_PSYCHIC, 177, 165, 200, "Inkay", NULL, },
-  {  688, "Binacle", TYPE_ROCK, TYPE_WATER, 96, 120, 123, NULL, NULL, },
-  {  689, "Barbaracle", TYPE_ROCK, TYPE_WATER, 194, 205, 176, "Binacle", NULL, },
+  {  688, "Binacle", TYPE_ROCK, TYPE_WATER, 96, 120, 123, NULL, BINACLE_ATKS, true, false, },
+  {  689, "Barbaracle", TYPE_ROCK, TYPE_WATER, 194, 205, 176, "Binacle", BARBARACLE_ATKS, true, false, },
   {  690, "Skrelp", TYPE_POISON, TYPE_WATER, 109, 109, 137, NULL, NULL, },
   {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp", NULL, },
   {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, NULL, NULL, },
