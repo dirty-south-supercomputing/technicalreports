@@ -1820,6 +1820,31 @@ static const attack* GARDEVOIR_ATKS[] = {
   NULL
 };
 
+static const attack* MEWTWO_ATKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Confusion,
+  &ATK_Hyper_Beam,
+  &ATK_Flamethrower,
+  &ATK_Ice_Beam,
+  &ATK_Shadow_Ball,
+  &ATK_Thunderbolt,
+  &ATK_Psychic,
+  &ATK_Psystrike,
+  &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* A_MEWTWO_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Iron_Tail,
+  &ATK_Earthquake,
+  &ATK_Rock_Slide,
+  &ATK_Psystrike,
+  &ATK_Dynamic_Punch,
+  &ATK_Future_Sight,
+  NULL
+};
+
 static const attack* PHEROMOSA_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Low_Kick,
@@ -4520,6 +4545,48 @@ static const attack* SKELEDIRGE_ATKS[] = {
   NULL
 };
 
+static const attack* MEW_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Frost_Breath,
+  &ATK_Pound,
+  &ATK_Cut,
+  &ATK_Poison_Jab,
+  &ATK_Steel_Wing,
+  &ATK_Rock_Smash,
+  &ATK_Charge_Beam,
+  &ATK_Volt_Switch,
+  &ATK_Dragon_Tail,
+  &ATK_Infestation,
+  &ATK_Struggle_Bug,
+  &ATK_Snarl,
+  &ATK_Hyper_Beam,
+  &ATK_Dark_Pulse,
+  &ATK_Stone_Edge,
+  &ATK_Flash_Cannon,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Low_Sweep,
+  &ATK_Psyshock,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Slide,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Dragon_Claw,
+  &ATK_Dazzling_Gleam,
+  &ATK_Bulldoze,
+  &ATK_Flame_Charge,
+  &ATK_Psychic,
+  &ATK_Solar_Beam,
+  &ATK_Focus_Blast,
+  &ATK_Wild_Charge,
+  &ATK_Gyro_Ball,
+  &ATK_Overheat,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* GASTLY_ATKS[] = {
   &ATK_Sucker_Punch,
   &ATK_Lick,
@@ -5781,9 +5848,9 @@ static const species sdex[] = {
   {  147, "Dratini", TYPE_DRAGON, TYPECOUNT, 119, 91, 121, NULL, NULL, },
   {  148, "Dragonair", TYPE_DRAGON, TYPECOUNT, 163, 135, 156, "Dratini", NULL, },
   {  149, "Dragonite", TYPE_DRAGON, TYPE_FLYING, 263, 198, 209, "Dragonair", NULL, },
-  {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, NULL, NULL, },
-  {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, NULL, },
-  {  151, "Mew", TYPE_PSYCHIC, TYPECOUNT, 210, 210, 225, NULL, NULL, },
+  {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, NULL, MEWTWO_ATKS, true, true, },
+  {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, A_MEWTWO_ATKS, true, true, },
+  {  151, "Mew", TYPE_PSYCHIC, TYPECOUNT, 210, 210, 225, NULL, MEW_ATKS, true, false, },
   {  152, "Chikorita", TYPE_GRASS, TYPECOUNT, 92, 122, 128, NULL, NULL, },
   {  153, "Bayleef", TYPE_GRASS, TYPECOUNT, 122, 155, 155, "Chikorita", NULL, },
   {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef", NULL, },
