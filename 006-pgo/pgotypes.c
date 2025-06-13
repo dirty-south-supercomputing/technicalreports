@@ -1086,6 +1086,38 @@ static const attack* SCIZOR_ATKS[] = {
   NULL
 };
 
+static const attack* SMOLIV_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  &ATK_Earth_Power,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* DOLLIV_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Magical_Leaf,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  &ATK_Earth_Power,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* ARBOLIVA_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Magical_Leaf,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  &ATK_Earth_Power,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* DEOXYS_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Charge_Beam,
@@ -4278,6 +4310,48 @@ static const attack* ESPEON_ATKS[] = {
   NULL
 };
 
+static const attack* MIMEJR_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* MRMIME_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Magical_Leaf,
+  &ATK_Psywave,
+  &ATK_Psybeam,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* G_MRMIME_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Ice_Punch,
+  &ATK_Psychic,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* MRRIME_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Ice_Punch,
+  &ATK_Psychic,
+  &ATK_Icy_Wind,
+  &ATK_Triple_Axel,
+  NULL
+};
+
 static const attack* LEAFEON_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Quick_Attack,
@@ -4822,8 +4896,8 @@ static const species sdex[] = {
   {  119, "Seaking", TYPE_WATER, TYPECOUNT, 175, 147, 190, "Goldeen", NULL, },
   {  120, "Staryu", TYPE_WATER, TYPECOUNT, 137, 112, 102, NULL, NULL, },
   {  121, "Starmie", TYPE_WATER, TYPE_PSYCHIC, 210, 184, 155, "Staryu", NULL, },
-  {  122, "Mr. Mime", TYPE_PSYCHIC, TYPE_FAIRY, 192, 205, 120, NULL, NULL, },
-  {  122, "Galarian Mr. Mime", TYPE_ICE, TYPE_PSYCHIC, 183, 169, 137, NULL, NULL, },
+  {  122, "Mr. Mime", TYPE_PSYCHIC, TYPE_FAIRY, 192, 205, 120, "Mime Jr.", MRMIME_ATKS, true, true, },
+  {  122, "Galarian Mr. Mime", TYPE_ICE, TYPE_PSYCHIC, 183, 169, 137, NULL, G_MRMIME_ATKS, true, true, },
   {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, SCYTHER_ATKS, true, true, },
   {  124, "Jynx", TYPE_ICE, TYPE_PSYCHIC, 223, 151, 163, "Smoochum", NULL, },
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, "Elekid", NULL, },
@@ -5165,7 +5239,7 @@ static const species sdex[] = {
   {  436, "Bronzor", TYPE_STEEL, TYPE_PSYCHIC, 43, 154, 149, NULL, NULL, },
   {  437, "Bronzong", TYPE_STEEL, TYPE_PSYCHIC, 161, 213, 167, "Brunzong", NULL, },
   {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, NULL, },
-  {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", NULL, },
+  {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", MIMEJR_ATKS, true, false, },
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATKS, true, false, },
   {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, NULL, },
   {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, NULL, },
@@ -5594,7 +5668,7 @@ static const species sdex[] = {
   {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, NULL, NULL, },
   {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Galarian Corsola", CURSOLA_ATKS, true, true, },
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
-  {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Mr. Mime", NULL, },
+  {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Galarian Mr. Mime", MRRIME_ATKS, true, true, },
   {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Yamask", NULL, },
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, NULL, NULL, },
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, NULL, NULL, },
@@ -5637,9 +5711,9 @@ static const species sdex[] = {
   {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", NULL, },
   {  926, "Fidough", TYPE_FAIRY, TYPECOUNT, 102, 126, 114, NULL, NULL, },
   {  927, "Dachsbun", TYPE_FAIRY, TYPECOUNT, 159, 212, 149, "Fidough", NULL, },
-  {  928, "Smoliv", TYPE_GRASS, TYPE_NORMAL, 100, 89, 121, NULL, NULL, },
-  {  929, "Dolliv", TYPE_GRASS, TYPE_NORMAL, 137, 131, 141, "Smoliv", NULL, },
-  {  930, "Arboliva", TYPE_GRASS, TYPE_NORMAL, 219, 189, 186, "Dolliv", NULL, },
+  {  928, "Smoliv", TYPE_GRASS, TYPE_NORMAL, 100, 89, 121, NULL, SMOLIV_ATKS, true, false, },
+  {  929, "Dolliv", TYPE_GRASS, TYPE_NORMAL, 137, 131, 141, "Smoliv", DOLLIV_ATKS, true, false, },
+  {  930, "Arboliva", TYPE_GRASS, TYPE_NORMAL, 219, 189, 186, "Dolliv", ARBOLIVA_ATKS, true, false, },
   {  935, "Charcadet", TYPE_FIRE, TYPECOUNT, 92, 74, 120, NULL, CHARCADET_ATKS, true, false, },
   {  936, "Armarouge", TYPE_FIRE, TYPE_PSYCHIC, 234, 185, 198, "Charcadet", ARMAROUGE_ATKS, true, false, },
   {  937, "Ceruledge", TYPE_FIRE, TYPE_GHOST, 239, 189, 181, "Charcadet", CERULEDGE_ATKS, true, false, },
