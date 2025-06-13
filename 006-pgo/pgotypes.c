@@ -819,6 +819,25 @@ static const attack* EXCADRILL_ATKS[] = {
   NULL
 };
 
+static const attack* MUDBRAY_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Earthquake,
+  &ATK_Bulldoze,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* MUDSDALE_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Earthquake,
+  &ATK_Bulldoze,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
 static const attack* A_GEODUDE_ATKS[] = {
   &ATK_Rock_Throw,
   &ATK_Volt_Switch,
