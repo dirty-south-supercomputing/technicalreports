@@ -47,7 +47,7 @@ int main(void){
   const size_t acount = sizeof(attacks) / sizeof(*attacks);
   auto fast = std::make_unique<attack[]>(acount);
   unsigned fcount = 0;
-  for(unsigned i = 0 ; i < sizeof(attacks) / sizeof(*attacks) ; ++i){
+  for(unsigned i = 0 ; i < acount ; ++i){
     const attack* a = attacks[i];
     if(a->energytrain >= 0){
       memcpy(&fast[fcount], a, sizeof(*a));

@@ -24,9 +24,11 @@ FORMS:=out/forms
 SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
+ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
+ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
 MEGATEX:=out/mega.tex
 PRIMALTEX:=out/primal.tex
@@ -39,7 +41,7 @@ HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
-	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX)
+	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf

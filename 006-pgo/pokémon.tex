@@ -1,16 +1,33 @@
 \chapter{Pokémon}
 \label{chap:pokemon}
-For purposes of battle, a Pokémon $P$ is defined as:
+For purposes of battle, a Pokémon $P$ is defined as having:
 \begin{itemize}
-\item A Species, possibly taking some Form
-\item An ``Individual Vector'' (\autoref{sec:ivs})
-\item Shadow status
-\item Current Hit Points. A Pokémon with zero HP has ``fainted'', and is generally unusable.
+\item Some form of some species, and thus a typing and base stats
+\item An Individual Vector (IV) (\autoref{sec:ivs})
+\item A level
+\item Shadow status, or the absence thereof
+\item Hit Points (HP). A Pokémon with zero HP has ``fainted'', and is generally unusable.
 \end{itemize}
-Visual presentation does not affect battle.
+Visual presentation does not affect battle, nor does Purified status.
 Hit Points are carried across PvE battles, but Trainer Battles always start
  with full HP\@.
 Fainted Pokémon cannot be used in battles of any kind.
+
+\section{Pokémon Level}
+\label{sec:plevel}
+Each Pokémon has its own level, taking one of the 99 integer and half-integer
+ values from 0--50, inclusive.
+A Trainer can ``power up'' their Pokémon in single level increments,
+ not exceeding the Trainer's own level plus 10.
+Each increase has a cost in Stardust and the Candy of that genus; beyond level 40, there
+  is a further cost in Candy XL (\autoref{table:powerups}).
+An increase in level improves the Pokémon's attack and defense, and
+  will sometimes increase MHP.
+See \autoref{chap:stats} for a quantitative treatment.
+
+Powering up a fainted Pokémon will revive it, but with minimal HP\@:
+
+\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
 
 \section{Individual Vectors}
 \label{sec:ivs}
@@ -32,13 +49,6 @@ They have no unique Pokédex, because they are worthless pieces of shit,
 While 15/15/15 is generally the optimal IV, this is not always true in CP-bounded
   competition; see \autoref{chap:bounded} for more information,
   and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
-
-\section{Pokémon Level}
-\label{sec:plevel}
-\textbf{FIXME}
-Powering up a fainted Pokémon will revive it, but with minimal HP\@:
-
-\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
 
 \section{Generation of IV and level}
 \label{sec:ivgeneration}
