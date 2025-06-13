@@ -1086,6 +1086,29 @@ static const attack* SCIZOR_ATKS[] = {
   NULL
 };
 
+static const attack* PHANPY_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Smash,
+  &ATK_Rock_Slide,
+  &ATK_Bulldoze,
+  &ATK_Body_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* DONPHAN_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Mud_Slap,
+  &ATK_Counter,
+  &ATK_Charm,
+  &ATK_Earthquake,
+  &ATK_Play_Rough,
+  &ATK_Body_Slam,
+  &ATK_Heavy_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* SMOLIV_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Tackle,
@@ -5019,8 +5042,8 @@ static const species sdex[] = {
   {  228, "Houndour", TYPE_DARK, TYPE_FIRE, 152, 83, 128, NULL, HOUNDOUR_ATKS, true, true, },
   {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, "Houndour", HOUNDOOM_ATKS, true, true, },
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, "Seadra", NULL, },
-  {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, NULL, NULL, },
-  {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, "Phanpy", NULL, },
+  {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, NULL, PHANPY_ATKS, true, true, },
+  {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, "Phanpy", DONPHAN_ATKS, true, true, },
   {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, "Porygon", PORYGON2_ATKS, true, true, },
   {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, NULL, },
   {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, NULL, },
