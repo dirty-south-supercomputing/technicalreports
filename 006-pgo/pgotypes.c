@@ -798,6 +798,34 @@ static const attack* CELESTEELA_ATKS[] = {
   NULL
 };
 
+static const attack* SANDILE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Bulldoze,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* KROKOROK_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Mud_Slap,
+  &ATK_Earthquake,
+  &ATK_Bulldoze,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* KROOKODILE_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Snarl,
+  &ATK_Earthquake,
+  &ATK_Brick_Break,
+  &ATK_Outrage,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* DRILBUR_ATKS[] = {
   &ATK_Scratch,
   &ATK_Mud_Slap,
@@ -5446,9 +5474,9 @@ static const species sdex[] = {
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, NULL, },
   {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", NULL, },
   {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, NULL, },
-  {  551, "Sandile", TYPE_GROUND, TYPE_DARK, 132, 69, 137, NULL, NULL, },
-  {  552, "Krokorok", TYPE_GROUND, TYPE_DARK, 155, 90, 155, "Sandile", NULL, },
-  {  553, "Krookodile", TYPE_GROUND, TYPE_DARK, 229, 158, 216, "Krokorok", NULL, },
+  {  551, "Sandile", TYPE_GROUND, TYPE_DARK, 132, 69, 137, NULL, SANDILE_ATKS, true, false, },
+  {  552, "Krokorok", TYPE_GROUND, TYPE_DARK, 155, 90, 155, "Sandile", KROKOROK_ATKS, true, false, },
+  {  553, "Krookodile", TYPE_GROUND, TYPE_DARK, 229, 158, 216, "Krokorok", KROOKODILE_ATKS, true, false, },
   {  554, "Darumaka", TYPE_FIRE, TYPECOUNT, 153, 86, 172, NULL, NULL, },
   {  554, "Galarian Darumaka", TYPE_ICE, TYPECOUNT, 153, 86, 172, NULL, NULL, },
   {  555, "Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darumaka", NULL, },
@@ -5662,8 +5690,8 @@ static const species sdex[] = {
   {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff", NULL, },
   {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, NULL, NULL, },
   {  748, "Toxapex", TYPE_POISON, TYPE_WATER, 114, 273, 137, "Mareanie", NULL, },
-  {  749, "Mudbray", TYPE_GROUND, TYPECOUNT, 175, 121, 172, NULL, NULL, },
-  {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", NULL, },
+  {  749, "Mudbray", TYPE_GROUND, TYPECOUNT, 175, 121, 172, NULL, MUDBRAY_ATKS, true, false, },
+  {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", MUDSDALE_ATKS, true, false, },
   {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, NULL, NULL, },
   {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider", NULL, },
   {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, NULL, NULL, },
