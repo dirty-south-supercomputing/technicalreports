@@ -753,6 +753,26 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* FERROSEED_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Metal_Claw,
+  &ATK_Flash_Cannon,
+  &ATK_Iron_Head,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* FERROTHORN_ATKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Bullet_Seed,
+  &ATK_Flash_Cannon,
+  &ATK_Thunder,
+  &ATK_Power_Whip,
+  &ATK_Acid_Spray,
+  &ATK_Mirror_Shot,
+  NULL
+};
+
 static const attack* NECROZMA_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Psycho_Cut,
@@ -823,6 +843,36 @@ static const attack* KROOKODILE_ATKS[] = {
   &ATK_Brick_Break,
   &ATK_Outrage,
   &ATK_Crunch,
+  NULL
+};
+
+static const attack* EXEGGCUTE_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Ancient_Power,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* EXEGGUTOR_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Bullet_Seed,
+  &ATK_Extrasensory,
+  &ATK_Seed_Bomb,
+  &ATK_Psychic,
+  &ATK_Solar_Beam,
+  NULL
+};
+
+static const attack* A_EXEGGUTOR_ATKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Dragon_Pulse,
+  &ATK_Solar_Beam,
+  &ATK_Draco_Meteor,
   NULL
 };
 
@@ -4989,9 +5039,9 @@ static const species sdex[] = {
   {  100, "Hisuian Voltorb", TYPE_ELECTRIC, TYPE_GRASS, 109, 111, 120, NULL, H_VOLTORB_ATKS, true, true, },
   {  101, "Electrode", TYPE_ELECTRIC, TYPECOUNT, 173, 173, 155, "Voltorb", ELECTRODE_ATKS, true, true, },
   {  101, "Hisuian Electrode", TYPE_ELECTRIC, TYPE_GRASS, 176, 176, 155, "Hisuian Voltorb", H_ELECTRODE_ATKS, true, true, },
-  {  102, "Exeggcute", TYPE_GRASS, TYPE_PSYCHIC, 107, 125, 155, NULL, NULL, },
-  {  103, "Exeggutor", TYPE_GRASS, TYPE_PSYCHIC, 233, 149, 216, "Exeggcute", NULL, },
-  {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, "Exeggcute", NULL, },
+  {  102, "Exeggcute", TYPE_GRASS, TYPE_PSYCHIC, 107, 125, 155, NULL, EXEGGCUTE_ATKS, true, true, },
+  {  103, "Exeggutor", TYPE_GRASS, TYPE_PSYCHIC, 233, 149, 216, "Exeggcute", EXEGGUTOR_ATKS, true, true, },
+  {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, "Exeggcute", A_EXEGGUTOR_ATKS, true, true, },
   {  104, "Cubone", TYPE_GROUND, TYPECOUNT, 90, 144, 137, NULL, CUBONE_ATKS, true, true, },
   {  105, "Marowak", TYPE_GROUND, TYPECOUNT, 144, 186, 155, "Cubone", MAROWAK_ATKS, true, true, },
   {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, "Cubone", A_MAROWAK_ATKS, true, true, },
@@ -5523,8 +5573,8 @@ static const species sdex[] = {
   {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, NULL, },
   {  595, "Joltik", TYPE_BUG, TYPE_ELECTRIC, 110, 98, 137, NULL, JOLTIK_ATKS, true, true, },
   {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, "Joltik", GRAVANTULA_ATKS, true, true, },
-  {  597, "Ferroseed", TYPE_GRASS, TYPE_STEEL, 82, 155, 127, NULL, NULL, },
-  {  598, "Ferrothorn", TYPE_GRASS, TYPE_STEEL, 158, 223, 179, "Ferroseed", NULL, },
+  {  597, "Ferroseed", TYPE_GRASS, TYPE_STEEL, 82, 155, 127, NULL, FERROSEED_ATKS, true, true, },
+  {  598, "Ferrothorn", TYPE_GRASS, TYPE_STEEL, 158, 223, 179, "Ferroseed", FERROTHORN_ATKS, true, true, },
   {  599, "Klink", TYPE_STEEL, TYPECOUNT, 98, 121, 120, NULL, NULL, },
   {  600, "Klang", TYPE_STEEL, TYPECOUNT, 150, 174, 155, "Klink", NULL, },
   {  601, "Klinklang", TYPE_STEEL, TYPECOUNT, 199, 214, 155, "Klang", NULL, },
