@@ -1575,6 +1575,16 @@ static const attack* AUDINO_ATKS[] = {
   NULL
 };
 
+static const attack* KLEFKI_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Astonish,
+  &ATK_Flash_Cannon,
+  &ATK_Draining_Kiss,
+  &ATK_Play_Rough,
+  &ATK_Foul_Play,
+  NULL
+};
+
 static const attack* WHISMUR_ATKS[] = {
   &ATK_Pound,
   &ATK_Astonish,
@@ -1737,6 +1747,28 @@ static const attack* MARSHTOMP_ATKS[] = {
   &ATK_Sludge,
   &ATK_Mud_Bomb,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* OMANYTE_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Bubble_Beam,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Tomb,
+  &ATK_Brine,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* OMASTAR_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Rock_Throw,
+  &ATK_Water_Gun,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Slide,
+  &ATK_Hydro_Pump,
+  &ATK_Rock_Blast,
   NULL
 };
 
@@ -2319,6 +2351,26 @@ static const attack* R_URSHIFU_ATKS[] = {
   &ATK_Brick_Break,
   &ATK_Close_Combat,
   &ATK_Dynamic_Punch,
+  NULL
+};
+
+static const attack* KABUTO_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Scratch,
+  &ATK_Aqua_Jet,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Tomb,
+  NULL
+};
+
+static const attack* KABUTOPS_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Mud_Shot,
+  &ATK_Rock_Smash,
+  &ATK_Waterfall,
+  &ATK_Stone_Edge,
+  &ATK_Ancient_Power,
+  &ATK_Water_Pulse,
   NULL
 };
 
@@ -5438,10 +5490,10 @@ static const species sdex[] = {
   {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee", JOLTEON_ATKS, true, false, },
   {  136, "Flareon", TYPE_FIRE, TYPECOUNT, 246, 179, 163, "Eevee", FLAREON_ATKS, true, false, },
   {  137, "Porygon", TYPE_NORMAL, TYPECOUNT, 153, 136, 163, NULL, PORYGON_ATKS, true, true, },
-  {  138, "Omanyte", TYPE_ROCK, TYPE_WATER, 155, 153, 111, NULL, NULL, },
-  {  139, "Omastar", TYPE_ROCK, TYPE_WATER, 207, 201, 172, "Omanyte", NULL, },
-  {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, NULL, NULL, },
-  {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, "Kabuto", NULL, },
+  {  138, "Omanyte", TYPE_ROCK, TYPE_WATER, 155, 153, 111, NULL, OMANYTE_ATKS, true, true, },
+  {  139, "Omastar", TYPE_ROCK, TYPE_WATER, 207, 201, 172, "Omanyte", OMASTAR_ATKS, true, true, },
+  {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, NULL, KABUTO_ATKS, true, true, },
+  {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, "Kabuto", KABUTOPS_ATKS, true, true, },
   {  142, "Aerodactyl", TYPE_ROCK, TYPE_FLYING, 221, 159, 190, NULL, AERODACTYL_ATKS, true, true, },
   {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax", SNORLAX_ATKS, true, true, },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATKS, true, true, },
@@ -6043,7 +6095,7 @@ static const species sdex[] = {
   {  704, "Goomy", TYPE_DRAGON, TYPECOUNT, 101, 112, 128, NULL, NULL, },
   {  705, "Sliggoo", TYPE_DRAGON, TYPECOUNT, 159, 176, 169, "Gloomy", NULL, },
   {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo", NULL, },
-  {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, NULL, NULL, },
+  {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, NULL, KLEFKI_ATKS, false, false, },
   {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, NULL, NULL, },
   {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump", NULL, },
   {  710, "Pumpkaboo", TYPE_GHOST, TYPE_GRASS, 121, 123, 135, NULL, NULL, },
