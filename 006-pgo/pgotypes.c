@@ -1247,6 +1247,39 @@ static const attack* DONPHAN_ATKS[] = {
   NULL
 };
 
+static const attack* BUDEW_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Hidden_Power,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* ROSELIA_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Poison_Jab,
+  &ATK_Magical_Leaf,
+  &ATK_Petal_Blizzard,
+  &ATK_Dazzling_Gleam,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* ROSERADE_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Bullet_Seed,
+  &ATK_Magical_Leaf,
+  &ATK_Dazzling_Gleam,
+  &ATK_Sludge_Bomb,
+  &ATK_Solar_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Weather_Ball_Fire,
+  &ATK_Leaf_Storm,
+  NULL
+};
+
 static const attack* SMOLIV_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Tackle,
@@ -2627,6 +2660,24 @@ static const attack* ALOLAN_RATICATE_ATKS[] = {
   &ATK_Hyper_Beam,
   &ATK_Hyper_Fang,
   &ATK_Crunch,
+  NULL
+};
+
+static const attack* FOONGUS_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Astonish,
+  &ATK_Body_Slam,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* AMOONGUSS_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Astonish,
+  &ATK_Sludge_Bomb,
+  &ATK_Grass_Knot,
+  &ATK_Foul_Play,
   NULL
 };
 
@@ -5291,7 +5342,7 @@ static const species sdex[] = {
   {  312, "Minun", TYPE_ELECTRIC, TYPECOUNT, 147, 150, 155, NULL, NULL, },
   {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, VOLBEAT_ATKS, true, false, },
   {  314, "Illumise", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, ILLUMISE_ATKS, true, false, },
-  {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, "Budew", NULL, },
+  {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, "Budew", ROSELIA_ATKS, true, false, },
   {  316, "Gulpin", TYPE_POISON, TYPECOUNT, 80, 99, 172, NULL, NULL, },
   {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, "Gulpin", NULL, },
   {  318, "Carvanha", TYPE_WATER, TYPE_DARK, 171, 39, 128, NULL, NULL, },
@@ -5388,8 +5439,8 @@ static const species sdex[] = {
   {  403, "Shinx", TYPE_ELECTRIC, TYPECOUNT, 117, 64, 128, NULL, NULL, },
   {  404, "Luxio", TYPE_ELECTRIC, TYPECOUNT, 159, 95, 155, "Shinx", NULL, },
   {  405, "Luxray", TYPE_ELECTRIC, TYPECOUNT, 232, 156, 190, "Luxio", NULL, },
-  {  406, "Budew", TYPE_GRASS, TYPE_POISON, 91, 109, 120, NULL, NULL, },
-  {  407, "Roserade", TYPE_GRASS, TYPE_POISON, 243, 185, 155, "Roselia", NULL, },
+  {  406, "Budew", TYPE_GRASS, TYPE_POISON, 91, 109, 120, NULL, BUDEW_ATKS, true, false, },
+  {  407, "Roserade", TYPE_GRASS, TYPE_POISON, 243, 185, 155, "Roselia", ROSERADE_ATKS, true, false, },
   {  408, "Cranidos", TYPE_ROCK, TYPECOUNT, 218, 71, 167, NULL, NULL, },
   {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, "Cranidos", NULL, },
   {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, NULL, },
@@ -5586,8 +5637,8 @@ static const species sdex[] = {
   {  587, "Emolga", TYPE_ELECTRIC, TYPE_FLYING, 158, 127, 146, NULL, NULL, },
   {  588, "Karrablast", TYPE_BUG, TYPECOUNT, 137, 87, 137, NULL, KARRABLAST_ATKS, true, true, },
   {  589, "Escavalier", TYPE_BUG, TYPE_STEEL, 223, 187, 172, "Karrablast", ESCAVALIER_ATKS, true, true, },
-  {  590, "Foongus", TYPE_GRASS, TYPE_POISON, 97, 91, 170, NULL, NULL, },
-  {  591, "Amoonguss", TYPE_GRASS, TYPE_POISON, 155, 139, 249, "Foongus", NULL, },
+  {  590, "Foongus", TYPE_GRASS, TYPE_POISON, 97, 91, 170, NULL, FOONGUS_ATKS, true, true, },
+  {  591, "Amoonguss", TYPE_GRASS, TYPE_POISON, 155, 139, 249, "Foongus", AMOONGUSS_ATKS, true, true, },
   {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, FRILLISH_ATKS, true, false, },
   {  593, "Jellicent", TYPE_WATER, TYPE_GHOST, 159, 178, 225, "Frillish", JELLICENT_ATKS, true, false, },
   {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, NULL, },
