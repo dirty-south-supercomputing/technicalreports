@@ -47,7 +47,7 @@ int main(void){
   print_hetero_evols(megasdex, MEGACOUNT, &count);
   print_hetero_evols(primalsdex, PRIMALCOUNT, &count);
   printf("\\end{tabular}\n");
-  printf("\\caption{Evolutions which change type}\n");
+  printf("\\caption{Type-changing evolutions and form changes}\n");
   printf("\\label{table:heteroevolve}\n");
   printf("\\end{center}\n");
   printf("\\end{table}\n");
