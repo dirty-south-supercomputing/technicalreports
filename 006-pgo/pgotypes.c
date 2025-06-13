@@ -1191,6 +1191,25 @@ static const attack* LUGIA_ATKS[] = {
   NULL
 };
 
+static const attack* TIRTOUGA_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Ancient_Power,
+  &ATK_Body_Slam,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* CARRACOSTA_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Water_Gun,
+  &ATK_Ancient_Power,
+  &ATK_Body_Slam,
+  &ATK_Surf,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* WAILMER_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Splash,
@@ -2951,6 +2970,24 @@ static const attack* PIDGEOT_ATKS[] = {
   &ATK_Hurricane,
   &ATK_Brave_Bird,
   &ATK_Feather_Dance,
+  NULL
+};
+
+static const attack* ARCHEN_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Quick_Attack,
+  &ATK_Ancient_Power,
+  &ATK_Dragon_Claw,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* ARCHEOPS_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Steel_Wing,
+  &ATK_Ancient_Power,
+  &ATK_Dragon_Claw,
+  &ATK_Crunch,
   NULL
 };
 
@@ -5948,10 +5985,10 @@ static const species sdex[] = {
   {  562, "Yamask", TYPE_GHOST, TYPECOUNT, 95, 141, 116, NULL, NULL, },
   {  562, "Galarian Yamask", TYPE_GROUND, TYPE_GHOST, 95, 141, 116, NULL, NULL, },
   {  563, "Cofagrigus", TYPE_GHOST, TYPECOUNT, 163, 237, 151, "Yamask", NULL, },
-  {  564, "Tirtouga", TYPE_WATER, TYPE_ROCK, 134, 146, 144, NULL, NULL, },
-  {  565, "Carracosta", TYPE_WATER, TYPE_ROCK, 192, 197, 179, "Tirtouga", NULL, },
-  {  566, "Archen", TYPE_ROCK, TYPE_FLYING, 213, 89, 146, NULL, NULL, },
-  {  567, "Archeops", TYPE_ROCK, TYPE_FLYING, 292, 139, 181, "Archen", NULL, },
+  {  564, "Tirtouga", TYPE_WATER, TYPE_ROCK, 134, 146, 144, NULL, TIRTOUGA_ATKS, true, true, },
+  {  565, "Carracosta", TYPE_WATER, TYPE_ROCK, 192, 197, 179, "Tirtouga", CARRACOSTA_ATKS, true, true, },
+  {  566, "Archen", TYPE_ROCK, TYPE_FLYING, 213, 89, 146, NULL, ARCHEN_ATKS, true, true, },
+  {  567, "Archeops", TYPE_ROCK, TYPE_FLYING, 292, 139, 181, "Archen", ARCHEOPS_ATKS, true, true, },
   {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, NULL, NULL, },
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", NULL, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, NULL, },
