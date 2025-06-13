@@ -18,6 +18,7 @@ static int cmpatk(const void* va1, const void* va2){
 
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
+  printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
   printf("Attack & P & $\\times\\frac{6}{5}$ & E & T & DPT & $\\times\\frac{6}{5}$ & EPT & Pop\\\\\n");
   printf("\\Midrule\\\\\n");

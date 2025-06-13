@@ -7,11 +7,18 @@
 static int cmpatk(const void* va1, const void* va2){
   auto a1 = static_cast<const attack*>(va1);
   auto a2 = static_cast<const attack*>(va2);
-  return a1->energytrain < a2->energytrain ? -1 : a1->energytrain == a2->energytrain ? 0 : 1;
+  // remember, energytrain is negative
+  float ppere1 = ((float)a1->powertrain) / a1->energytrain;
+  float ppere2 = ((float)a2->powertrain) / a2->energytrain;
+  return a1->energytrain < a2->energytrain ? -1
+          : a1->energytrain > a2->energytrain ? 1
+          : ppere1 < ppere2 ? -1
+          : ppere1 > ppere2 ? 1 : 0;
 }
 
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
+  printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrr}\n");
   printf("Attack & P & $\\times\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\times\\frac{6}{5}$ & Pop\\\\\n");
   printf("\\Midrule\\\\\n");
