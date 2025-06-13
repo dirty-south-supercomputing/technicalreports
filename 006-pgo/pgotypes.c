@@ -948,6 +948,34 @@ static const attack* SOLROCK_ATKS[] = {
   NULL
 };
 
+static const attack* NOSEPASS_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Rock_Throw,
+  &ATK_Rock_Slide,
+  &ATK_Thunderbolt,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* PROBOPASS_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Rock_Throw,
+  &ATK_Rock_Slide,
+  &ATK_Magnet_Bomb,
+  &ATK_Thunderbolt,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* STAKATAKA_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Take_Down,
+  &ATK_Stone_Edge,
+  &ATK_Flash_Cannon,
+  &ATK_Bulldoze,
+  NULL
+};
+
 static const attack* GUZZLORD_ATKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Snarl,
@@ -1089,6 +1117,24 @@ static const attack* STEELIX_ATKS[] = {
   &ATK_Crunch,
   &ATK_Psychic_Fangs,
   &ATK_Breaking_Swipe,
+  NULL
+};
+
+static const attack* SHIELDON_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Iron_Tail,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Tomb,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* BASTIODON_ATKS[] = {
+  &ATK_Iron_Tail,
+  &ATK_Smack_Down,
+  &ATK_Flamethrower,
+  &ATK_Stone_Edge,
+  &ATK_Flash_Cannon,
   NULL
 };
 
@@ -5565,7 +5611,7 @@ static const species sdex[] = {
   {  296, "Makuhita", TYPE_FIGHTING, TYPECOUNT, 99, 54, 176, NULL, NULL, },
   {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", NULL, },
   {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, NULL, },
-  {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NULL, },
+  {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NOSEPASS_ATKS, true, true, },
   {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
   {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, "Skitty", NULL, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, SABLEYE_ATKS, true, true, },
@@ -5603,8 +5649,8 @@ static const species sdex[] = {
   {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, "Swablu", ALTARIA_ATKS, true, false, },
   {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, NULL, NULL, },
   {  336, "Seviper", TYPE_POISON, TYPECOUNT, 196, 118, 177, NULL, NULL, },
-  {  337, "Lunatone", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, NULL, },
-  {  338, "Solrock", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, NULL, },
+  {  337, "Lunatone", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, LUNATONE_ATKS, true, false, },
+  {  338, "Solrock", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, SOLROCK_ATKS, true, false, },
   {  339, "Barboach", TYPE_WATER, TYPE_GROUND, 93, 82, 137, NULL, NULL, },
   {  340, "Whiscash", TYPE_WATER, TYPE_GROUND, 151, 141, 242, "Barboach", NULL, },
   {  341, "Corphish", TYPE_WATER, TYPECOUNT, 141, 99, 125, NULL, NULL, },
@@ -5682,8 +5728,8 @@ static const species sdex[] = {
   {  407, "Roserade", TYPE_GRASS, TYPE_POISON, 243, 185, 155, "Roselia", ROSERADE_ATKS, true, false, },
   {  408, "Cranidos", TYPE_ROCK, TYPECOUNT, 218, 71, 167, NULL, NULL, },
   {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, "Cranidos", NULL, },
-  {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, NULL, },
-  {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, "Shieldon", NULL, },
+  {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, SHIELDON_ATKS, true, true, },
+  {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, "Shieldon", BASTIODON_ATKS, true, true, },
   // plant, sandy, and trash burmy all have the same stats and attacks, but
   // different evolution targets which *do* have different stats. 
   {  412, "Burmy", TYPE_BUG, TYPECOUNT, 53, 83, 120, NULL, BURMY_ATKS, true, false, },
@@ -5752,7 +5798,7 @@ static const species sdex[] = {
   {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, "Piloswine", MAMOSWINE_ATKS, true, true, },
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATKS, true, true, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATKS, true, true, },
-  {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass", NULL, },
+  {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass", PROBOPASS_ATKS, true, true, },
   {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops", DUSKNOIR_ATKS, true, true, },
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt", FROSLASS_ATKS, true, true, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, NULL, NULL, },
@@ -6102,7 +6148,7 @@ static const species sdex[] = {
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, NULL, },
   {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, NULL, },
   {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NULL, },
-  {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, NULL, },
+  {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, STAKATAKA_ATKS, true, false, },
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, NULL, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, MELTAN_ATKS, true, false, },
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan", MELMETAL_ATKS, true, false, },
