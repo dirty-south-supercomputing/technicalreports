@@ -2188,6 +2188,36 @@ static const attack* O_DIALGA_ATKS[] = {
   NULL
 };
 
+static const attack* LARVESTA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Ember,
+  &ATK_Flame_Wheel,
+  &ATK_Bug_Buzz,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* VOLCARONA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Fire_Spin,
+  &ATK_Bug_Buzz,
+  &ATK_Solar_Beam,
+  &ATK_Hurricane,
+  &ATK_Overheat,
+  NULL
+};
+
+static const attack* COBALION_ATKS[] = {
+  &ATK_Metal_Claw,
+  &ATK_Zen_Headbutt,
+  &ATK_Double_Kick,
+  &ATK_Stone_Edge,
+  &ATK_Iron_Head,
+  &ATK_Close_Combat,
+  &ATK_Sacred_Sword,
+  NULL
+};
+
 static const attack* HEATRAN_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Fire_Spin,
@@ -2472,6 +2502,46 @@ static const attack* BLASTOISE_ATKS[] = {
   &ATK_Hydro_Pump,
   &ATK_Hydro_Cannon,
   &ATK_Skull_Bash,
+  NULL
+};
+
+static const attack* LEDYBA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Tackle,
+  &ATK_Aerial_Ace,
+  &ATK_Swift,
+  &ATK_Silver_Wind,
+  NULL
+};
+
+static const attack* LEDIAN_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Counter,
+  &ATK_Struggle_Bug,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Dynamic_Punch,
+  &ATK_Silver_Wind,
+  NULL
+};
+
+static const attack* SPINARAK_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Night_Slash,
+  &ATK_Cross_Poison,
+  &ATK_Signal_Beam,
+  NULL
+};
+
+static const attack* ARIADOS_ATKS[] = {
+  &ATK_Poison_Sting,
+  &ATK_Infestation,
+  &ATK_Megahorn,
+  &ATK_Shadow_Sneak,
+  &ATK_Cross_Poison,
+  &ATK_Lunge,
+  &ATK_Trailblaze,
   NULL
 };
 
@@ -5226,10 +5296,10 @@ static const species sdex[] = {
   {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret", NULL, },
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, NULL, NULL, },
   {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot", NULL, },
-  {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, NULL, NULL, },
-  {  166, "Ledian", TYPE_BUG, TYPE_FLYING, 107, 179, 146, "Ledyba", NULL, },
-  {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, NULL, NULL, },
-  {  168, "Ariados", TYPE_BUG, TYPE_POISON, 161, 124, 172, "Spinarak", NULL, },
+  {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, NULL, LEDYBA_ATKS, true, true, },
+  {  166, "Ledian", TYPE_BUG, TYPE_FLYING, 107, 179, 146, "Ledyba", LEDIAN_ATKS, true, true, },
+  {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, NULL, SPINARAK_ATKS, true, false, },
+  {  168, "Ariados", TYPE_BUG, TYPE_POISON, 161, 124, 172, "Spinarak", ARIADOS_ATKS, true, false, },
   {  169, "Crobat", TYPE_POISON, TYPE_FLYING, 194, 178, 198, "Golbat", CROBAT_ATKS, true, true, },
   {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, NULL, },
   {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, "Chinchou", NULL, },
@@ -5726,9 +5796,9 @@ static const species sdex[] = {
   {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, NULL, NULL, },
   {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino", NULL, },
   {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous", NULL, },
-  {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, NULL, NULL, },
-  {  637, "Volcarona", TYPE_BUG, TYPE_FIRE, 264, 189, 198, "Larvesta", NULL, },
-  {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
+  {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, NULL, LARVESTA_ATKS, true, false, },
+  {  637, "Volcarona", TYPE_BUG, TYPE_FIRE, 264, 189, 198, "Larvesta", VOLCARONA_ATKS, true, false, },
+  {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, COBALION_ATKS, true, false, },
   {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, NULL, TERRAKION_ATKS, true, true, },
   {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
   {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, I_TORNADUS_ATKS, true, false, },
