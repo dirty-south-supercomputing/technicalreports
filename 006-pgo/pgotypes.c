@@ -1247,6 +1247,17 @@ static const attack* DONPHAN_ATKS[] = {
   NULL
 };
 
+static const attack* NIHILEGO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Poison_Jab,
+  &ATK_Acid,
+  &ATK_Rock_Slide,
+  &ATK_Power_Gem,
+  &ATK_Sludge_Bomb,
+  &ATK_Gunk_Shot,
+  NULL
+};
+
 static const attack* BUDEW_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Hidden_Power,
@@ -1528,6 +1539,16 @@ static const attack* GARDEVOIR_ATKS[] = {
   NULL
 };
 
+static const attack* PHEROMOSA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Low_Kick,
+  &ATK_Bug_Buzz,
+  &ATK_Close_Combat,
+  &ATK_Focus_Blast,
+  &ATK_Lunge,
+  NULL
+};
+
 static const attack* CRYOGONAL_ATKS[] = {
   &ATK_Ice_Shard,
   &ATK_Frost_Breath,
@@ -1659,6 +1680,16 @@ static const attack* SABLEYE_ATKS[] = {
   &ATK_Shadow_Sneak,
   &ATK_Dazzling_Gleam,
   &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* XURKITREE_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Discharge,
+  &ATK_Thunder,
+  &ATK_Dazzling_Gleam,
+  &ATK_Power_Whip,
   NULL
 };
 
@@ -4440,6 +4471,16 @@ static const attack* KANGASKHAN_ATKS[] = {
   NULL
 };
 
+static const attack* BUZZWOLE_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Counter,
+  &ATK_Lunge,
+  &ATK_Superpower,
+  &ATK_Fell_Stinger,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
 static const attack* I_LANDORUS_ATKS[] = {
   &ATK_Mud_Shot,
   &ATK_Rock_Throw,
@@ -5850,10 +5891,10 @@ static const species sdex[] = {
   {  790, "Cosmoem", TYPE_PSYCHIC, TYPECOUNT, 54, 242, 125, "Cosmog", NULL, },
   {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem", NULL, },
   {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem", NULL, },
-  {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, NULL, NULL, },
-  {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, NULL, },
-  {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, NULL, },
-  {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, NULL, },
+  {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, NULL, NIHILEGO_ATKS, true, false, },
+  {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, BUZZWOLE_ATKS, true, false, },
+  {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, PHEROMOSA_ATKS, true, false, },
+  {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, XURKITREE_ATKS, true, false, },
   {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATKS, true, false, },
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, },
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, },
