@@ -2563,6 +2563,37 @@ static const attack* DECIDUEYE_ATKS[] = {
   NULL
 };
 
+static const attack* BELLSPROUT_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Acid,
+  &ATK_Wrap,
+  &ATK_Sludge_Bomb,
+  &ATK_Power_Whip,
+  NULL
+};
+
+static const attack* WEEPINBELL_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Acid,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Sludge_Bomb,
+  &ATK_Power_Whip,
+  NULL
+};
+
+static const attack* VICTREEBEL_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Acid,
+  &ATK_Magical_Leaf,
+  &ATK_Sludge_Bomb,
+  &ATK_Solar_Beam,
+  &ATK_Leaf_Blade,
+  &ATK_Acid_Spray,
+  &ATK_Leaf_Tornado,
+  NULL
+};
+
 static const attack* SNIVY_ATKS[] = {
   &ATK_Vine_Whip,
   &ATK_Tackle,
@@ -4437,6 +4468,53 @@ static const attack* GENGAR_ATKS[] = {
   NULL
 };
 
+static const attack* POLIWAG_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Mud_Bomb,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* POLIWHIRL_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Mud_Bomb,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  NULL
+};
+
+static const attack* POLIWRATH_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Ice_Punch,
+  &ATK_Submission,
+  &ATK_Scald,
+  &ATK_Hydro_Pump,
+  &ATK_Icy_Wind,
+  &ATK_Dynamic_Punch,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
+static const attack* POLITOED_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Earthquake,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Scald,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  &ATK_Weather_Ball_Water,
+  NULL
+};
+
 static const attack* KRABBY_ATKS[] = {
   &ATK_Mud_Shot,
   &ATK_Bubble,
@@ -5501,18 +5579,18 @@ static const species sdex[] = {
   {   58, "Hisuian Growlithe", TYPE_FIRE, TYPE_ROCK, 142, 92, 155, NULL, H_GROWLITHE_ATKS, true, true, },
   {   59, "Arcanine", TYPE_FIRE, TYPECOUNT, 227, 166, 207, "Growlithe", ARCANINE_ATKS, true, true, },
   {   59, "Hisuian Arcanine", TYPE_FIRE, TYPE_ROCK, 232, 165, 216, "Hisuian Growlithe", H_ARCANINE_ATKS, true, true, },
-  {   60, "Poliwag", TYPE_WATER, TYPECOUNT, 101, 82, 120, NULL, NULL, },
-  {   61, "Poliwhirl", TYPE_WATER, TYPECOUNT, 130, 123, 163, "Poliwag", NULL, },
-  {   62, "Poliwrath", TYPE_WATER, TYPE_FIGHTING, 182, 184, 207, "Poliwhirl", NULL, },
+  {   60, "Poliwag", TYPE_WATER, TYPECOUNT, 101, 82, 120, NULL, POLIWAG_ATKS, true, true, },
+  {   61, "Poliwhirl", TYPE_WATER, TYPECOUNT, 130, 123, 163, "Poliwag", POLIWHIRL_ATKS, true, true, },
+  {   62, "Poliwrath", TYPE_WATER, TYPE_FIGHTING, 182, 184, 207, "Poliwhirl", POLIWRATH_ATKS, true, true, },
   {   63, "Abra", TYPE_PSYCHIC, TYPECOUNT, 195, 82, 93, NULL, ABRA_ATKS, true, true, },
   {   64, "Kadabra", TYPE_PSYCHIC, TYPECOUNT, 232, 117, 120, "Abra", KADABRA_ATKS, true, true, },
   {   65, "Alakazam", TYPE_PSYCHIC, TYPECOUNT, 271, 167, 146, "Kadabra", ALAKAZAM_ATKS, true, true, },
   {   66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, NULL, MACHOP_ATKS, true, true, },
   {   67, "Machoke", TYPE_FIGHTING, TYPECOUNT, 177, 125, 190, "Machop", MACHOKE_ATKS, true, true, },
   {   68, "Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machoke", MACHAMP_ATKS, true, true, },
-  {   69, "Bellsprout", TYPE_GRASS, TYPE_POISON, 139, 61, 137, NULL, NULL, },
-  {   70, "Weepinbell", TYPE_GRASS, TYPE_POISON, 172, 92, 163, "Bellsprout", NULL, },
-  {   71, "Victreebel", TYPE_GRASS, TYPE_POISON, 207, 135, 190, "Weepinbell", NULL, },
+  {   69, "Bellsprout", TYPE_GRASS, TYPE_POISON, 139, 61, 137, NULL, BELLSPROUT_ATKS, true, true, },
+  {   70, "Weepinbell", TYPE_GRASS, TYPE_POISON, 172, 92, 163, "Bellsprout", WEEPINBELL_ATKS, true, true, },
+  {   71, "Victreebel", TYPE_GRASS, TYPE_POISON, 207, 135, 190, "Weepinbell", VICTREEBEL_ATKS, true, true, },
   {   72, "Tentacool", TYPE_WATER, TYPE_POISON, 97, 149, 120, NULL, TENTACOOL_ATKS, true, true, },
   {   73, "Tentacruel", TYPE_WATER, TYPE_POISON, 166, 209, 190, "Tentacool", TENTACRUEL_ATKS, true, true, },
   {   74, "Geodude", TYPE_ROCK, TYPE_GROUND, 132, 132, 120, NULL, GEODUDE_ATKS, true, true, },
@@ -5651,7 +5729,7 @@ static const species sdex[] = {
   {  183, "Marill", TYPE_WATER, TYPE_FAIRY, 37, 93, 172, "Azurill", NULL, },
   {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill", NULL, },
   {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly", NULL, },
-  {  186, "Politoed", TYPE_WATER, TYPECOUNT, 174, 179, 207, "Poliwhirl", NULL, },
+  {  186, "Politoed", TYPE_WATER, TYPECOUNT, 174, 179, 207, "Poliwhirl", POLITOED_ATKS, true, true, },
   {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, NULL, },
   {  188, "Skiploom", TYPE_GRASS, TYPE_FLYING, 91, 120, 146, "Hoppip", NULL, },
   {  189, "Jumpluff", TYPE_GRASS, TYPE_FLYING, 118, 183, 181, "Skiploom", NULL, },
