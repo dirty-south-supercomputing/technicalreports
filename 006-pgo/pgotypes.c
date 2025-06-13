@@ -773,6 +773,16 @@ static const attack* FERROTHORN_ATKS[] = {
   NULL
 };
 
+static const attack* KARTANA_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Night_Slash,
+  &ATK_XScissor,
+  &ATK_Leaf_Blade,
+  NULL
+};
+
 static const attack* NECROZMA_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Psycho_Cut,
@@ -873,6 +883,16 @@ static const attack* A_EXEGGUTOR_ATKS[] = {
   &ATK_Dragon_Pulse,
   &ATK_Solar_Beam,
   &ATK_Draco_Meteor,
+  NULL
+};
+
+static const attack* GUZZLORD_ATKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Snarl,
+  &ATK_Dragon_Claw,
+  &ATK_Sludge_Bomb,
+  &ATK_Crunch,
+  &ATK_Brutal_Swing,
   NULL
 };
 
@@ -5784,8 +5804,8 @@ static const species sdex[] = {
   {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, NULL, },
   {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, NULL, },
   {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATKS, true, false, },
-  {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, NULL, },
-  {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, NULL, },
+  {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, },
+  {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, },
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATKS, true, false, },
   {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, },
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, },
