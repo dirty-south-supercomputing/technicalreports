@@ -928,6 +928,26 @@ static const attack* TYRANTRUM_ATKS[] = {
   NULL
 };
 
+static const attack* LUNATONE_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Confusion,
+  &ATK_Psywave,
+  &ATK_Rock_Slide,
+  &ATK_Moonblast,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* SOLROCK_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Confusion,
+  &ATK_Psywave,
+  &ATK_Rock_Slide,
+  &ATK_Psychic,
+  &ATK_Solar_Beam,
+  NULL
+};
+
 static const attack* GUZZLORD_ATKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Snarl,
