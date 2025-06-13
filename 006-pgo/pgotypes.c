@@ -907,6 +907,27 @@ static const attack* A_EXEGGUTOR_ATKS[] = {
   NULL
 };
 
+static const attack* TYRUNT_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Dragon_Tail,
+  &ATK_Ancient_Power,
+  &ATK_Dragon_Claw,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* TYRANTRUM_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Dragon_Tail,
+  &ATK_Charm,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Outrage,
+  &ATK_Crunch,
+  &ATK_Meteor_Beam,
+  NULL
+};
+
 static const attack* GUZZLORD_ATKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Snarl,
@@ -1598,6 +1619,29 @@ static const attack* PHEROMOSA_ATKS[] = {
   &ATK_Close_Combat,
   &ATK_Focus_Blast,
   &ATK_Lunge,
+  NULL
+};
+
+static const attack* AMAURA_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Powder_Snow,
+  &ATK_Ancient_Power,
+  &ATK_Thunderbolt,
+  &ATK_Aurora_Beam,
+  &ATK_Weather_Ball_Ice,
+  NULL
+};
+
+static const attack* AURORUS_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Rock_Throw,
+  &ATK_Powder_Snow,
+  &ATK_Hyper_Beam,
+  &ATK_Blizzard,
+  &ATK_Ancient_Power,
+  &ATK_Thunderbolt,
+  &ATK_Weather_Ball_Ice,
+  &ATK_Meteor_Beam,
   NULL
 };
 
@@ -5922,10 +5966,10 @@ static const species sdex[] = {
   {  693, "Clawitzer", TYPE_WATER, TYPECOUNT, 221, 171, 174, "Clauncher", NULL, },
   {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, NULL, NULL, },
   {  695, "Heliolisk", TYPE_ELECTRIC, TYPE_NORMAL, 219, 168, 158, "Helioptile", NULL, },
-  {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, NULL, NULL, },
-  {  697, "Tyrantrum", TYPE_ROCK, TYPE_DRAGON, 227, 191, 193, "Tyrunt", NULL, },
-  {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, NULL, NULL, },
-  {  699, "Aurorus", TYPE_ROCK, TYPE_ICE, 186, 163, 265, "Amaura", NULL, },
+  {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, NULL, TYRUNT_ATKS, true, true, },
+  {  697, "Tyrantrum", TYPE_ROCK, TYPE_DRAGON, 227, 191, 193, "Tyrunt", TYRANTRUM_ATKS, true, true, },
+  {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, NULL, AMAURA_ATKS, true, true, },
+  {  699, "Aurorus", TYPE_ROCK, TYPE_ICE, 186, 163, 265, "Amaura", AURORUS_ATKS, true, true, },
   {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, "Eevee", SYLVEON_ATKS, true, false, },
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, HAWLUCHA_ATKS, false, false, },
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, NULL, },
