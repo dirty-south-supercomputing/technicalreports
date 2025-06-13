@@ -1302,6 +1302,17 @@ static const attack* GARDEVOIR_ATKS[] = {
   NULL
 };
 
+static const attack* CRYOGONAL_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Night_Slash,
+  &ATK_Water_Pulse,
+  &ATK_Solar_Beam,
+  &ATK_Aurora_Beam,
+  &ATK_Triple_Axel,
+  NULL
+};
+
 static const attack* MUDKIP_ATKS[] = {
   &ATK_Tackle,
   &ATK_Water_Gun,
@@ -5340,7 +5351,7 @@ static const species sdex[] = {
   {  612, "Haxorus", TYPE_DRAGON, TYPECOUNT, 284, 172, 183, "Fraxure", NULL, },
   {  613, "Cubchoo", TYPE_ICE, TYPECOUNT, 128, 74, 146, NULL, NULL, },
   {  614, "Beartic", TYPE_ICE, TYPECOUNT, 233, 152, 216, "Cubchoo", NULL, },
-  {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, NULL, NULL, },
+  {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, NULL, CRYOGONAL_ATKS, true, false, },
   {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, NULL, SHELMET_ATKS, true, true, },
   {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, "Shelmet", ACCELGOR_ATKS, true, true, },
   {  618, "Stunfisk", TYPE_GROUND, TYPE_ELECTRIC, 144, 171, 240, NULL, STUNFISK_ATKS, true, true, },
