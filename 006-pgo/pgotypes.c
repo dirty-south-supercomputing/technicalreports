@@ -1725,6 +1725,18 @@ static const attack* CORVIKNIGHT_ATKS[] = {
   NULL
 };
 
+static const attack* PERRSERKER_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Metal_Claw,
+  &ATK_Metal_Sound,
+  &ATK_Iron_Head,
+  &ATK_Play_Rough,
+  &ATK_Close_Combat,
+  &ATK_Foul_Play,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* SABLEYE_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Feint_Attack,
@@ -6065,7 +6077,7 @@ static const species sdex[] = {
   {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna", NULL, },
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", NULL, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone", OBSTAGOON_ATKS, true, true, },
-  {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, NULL, NULL, },
+  {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, "Galarian Meowth", PERRSERKER_ATKS, true, true, },
   {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Galarian Corsola", CURSOLA_ATKS, true, true, },
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
   {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Galarian Mr. Mime", MRRIME_ATKS, true, true, },
