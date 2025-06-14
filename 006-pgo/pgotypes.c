@@ -3881,6 +3881,24 @@ static const attack* RAYQUAZA_ATKS[] = {
   NULL
 };
 
+static const attack* BAGON_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Ember,
+  &ATK_Flamethrower,
+  &ATK_Twister,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SHELGON_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Ember,
+  &ATK_Flamethrower,
+  &ATK_Twister,
+  &ATK_Dragon_Pulse,
+  NULL
+};
+
 static const attack* SALAMENCE_ATKS[] = {
   &ATK_Bite,
   &ATK_Fire_Fang,
@@ -7859,8 +7877,8 @@ static const species sdex[] = {
   {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, "Clamperl", GOREBYSS_ATKS, true, false, },
   {  369, "Relicanth", TYPE_WATER, TYPE_ROCK, 162, 203, 225, NULL, RELICANTH_ATKS, true, false, },
   {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, NULL, true, false, },
-  {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, NULL, true, true, },
-  {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, "Bagon", NULL, true, true, },
+  {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, BAGON_ATKS, true, true, },
+  {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, "Bagon", SHELGON_ATKS, true, true, },
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon", SALAMENCE_ATKS, true, true, },
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, NULL, BELDUM_ATKS, true, true, },
   {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum", METANG_ATKS, true, true, },
