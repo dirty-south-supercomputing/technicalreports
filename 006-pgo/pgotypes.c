@@ -1002,6 +1002,17 @@ static const attack* STAKATAKA_ATKS[] = {
   NULL
 };
 
+static const attack* PASSIMIAN_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Take_Down,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Superpower,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
 static const attack* GUZZLORD_ATKS[] = {
   &ATK_Dragon_Tail,
   &ATK_Snarl,
@@ -1036,6 +1047,34 @@ static const attack* CONKELDURR_ATKS[] = {
   &ATK_Stone_Edge,
   &ATK_Dynamic_Punch,
   &ATK_Focus_Blast,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* DEINO_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Tackle,
+  &ATK_Dragon_Pulse,
+  &ATK_Body_Slam,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* ZWEILOUS_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Dragon_Breath,
+  &ATK_Dark_Pulse,
+  &ATK_Dragon_Pulse,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* HYDREIGON_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Dragon_Breath,
+  &ATK_Dark_Pulse,
+  &ATK_Flash_Cannon,
+  &ATK_Dragon_Pulse,
   &ATK_Brutal_Swing,
   NULL
 };
@@ -1320,6 +1359,18 @@ static const attack* WAILORD_ATKS[] = {
   &ATK_Blizzard,
   &ATK_Scald,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* ORANGURU_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Yawn,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
+  &ATK_Foul_Play,
+  &ATK_Brutal_Swing,
+  &ATK_Trailblaze,
   NULL
 };
 
@@ -6443,9 +6494,9 @@ static const species sdex[] = {
   {  630, "Mandibuzz", TYPE_DARK, TYPE_FLYING, 129, 205, 242, "Vullaby", NULL, },
   {  631, "Heatmor", TYPE_FIRE, TYPECOUNT, 204, 129, 198, NULL, NULL, },
   {  632, "Durant", TYPE_BUG, TYPE_STEEL, 217, 188, 151, NULL, NULL, },
-  {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, NULL, NULL, },
-  {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino", NULL, },
-  {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous", NULL, },
+  {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, NULL, DEINO_ATKS, true, false, },
+  {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino", ZWEILOUS_ATKS, true, false, },
+  {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous", HYDREIGON_ATKS, true, false, },
   {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, NULL, LARVESTA_ATKS, true, false, },
   {  637, "Volcarona", TYPE_BUG, TYPE_FIRE, 264, 189, 198, "Larvesta", VOLCARONA_ATKS, true, false, },
   {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, COBALION_ATKS, true, false, },
@@ -6588,8 +6639,8 @@ static const species sdex[] = {
   {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", STEENEE_ATKS, true, false, },
   {  763, "Tsareena", TYPE_GRASS, TYPECOUNT, 222, 195, 176, "Steenee", TSAREENA_ATKS, true, false, },
   {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, NULL, NULL, },
-  {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, NULL, NULL, },
-  {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, NULL, },
+  {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, NULL, ORANGURU_ATKS, true, false, },
+  {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, PASSIMIAN_ATKS, true, false, },
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, NULL, NULL, },
   {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod", NULL, },
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, NULL, },
