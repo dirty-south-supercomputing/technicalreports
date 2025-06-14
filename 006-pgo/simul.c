@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 typedef struct pmon {
-  const struct stats* s;
+  struct stats s;
   unsigned hp;
 } pmon;
 
@@ -49,36 +49,42 @@ static void
 print_pmon(const pmon *p){
   // FIXME need attacks
   printf("%s effa: %g effd: %g mhp: %u cp %u\n",
-        p->s->s->name, p->s->effa, p->s->effd, p->s->mhp, p->s->cp);
+        p->s.s->name, p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
+}
+
+// pass in argv at the start of the pmon spec with argc downadjusted
+static int
+lex_pmon(pmon* p, int *argc, char*** argv){
+  if(*argc < 4){
+    return -1;
+  }
+  if((p->s.s = lookup_species(**argv)) == NULL){
+    fprintf(stderr, "no such species: %s\n", **argv);
+    return -1;
+  };
+  if(lex_ivlevel((*argv)[1], &p->s)){
+    fprintf(stderr, "invalid IV@level in %s\n", (*argv)[1]);
+    return -1;
+  }
+  fill_stats(&p->s);
+  p->hp = p->s.mhp;
+  (*argv) += 3;
+  *argc -= 3;
+  return 0;
 }
 
 int main(int argc, char** argv){
-  if(argc != 5){
-    usage(argv[0]);
+  const char* argv0 = *argv;
+  pmon p1, p2;
+  --argc;
+  ++argv;
+  if(lex_pmon(&p1, &argc, &argv)){
+    usage(argv0);
   }
-  stats st1, st2;
-  if(lex_ivlevel(argv[2], &st1) || lex_ivlevel(argv[4], &st2)){
-    fprintf(stderr, "invalid IV@level in %s %s\n", argv[2], argv[4]);
-    usage(argv[0]);
-  }
-  // FIXME need extract attacks
-  st1.s = lookup_species(argv[1]);
-  st2.s = lookup_species(argv[3]);
-  if(!st1.s || !st2.s){
-    fprintf(stderr, "invalid pokémon name in %s %s\n", argv[1], argv[3]);
-    usage(argv[0]);
-  }
-  fill_stats(&st1);
-  fill_stats(&st2);
-  pmon p1 = {
-    .s = &st1,
-    .hp = st1.mhp,
-  };
-  pmon p2 = {
-    .s = &st2,
-    .hp = st2.mhp,
-  };
   print_pmon(&p1);
+  if(lex_pmon(&p2, &argc, &argv)){
+    usage(argv0);
+  }
   print_pmon(&p2);
   return EXIT_SUCCESS;
 }

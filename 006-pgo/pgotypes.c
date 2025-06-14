@@ -1072,6 +1072,46 @@ static const attack* RUNERIGUS_ATKS[] = {
   NULL
 };
 
+static const attack* SNEASEL_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Feint_Attack,
+  &ATK_Ice_Punch,
+  &ATK_Avalanche,
+  &ATK_Foul_Play,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* WEAVILE_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Feint_Attack,
+  &ATK_Snarl,
+  &ATK_Focus_Blast,
+  &ATK_Avalanche,
+  &ATK_Foul_Play,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* H_SNEASEL_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Rock_Smash,
+  &ATK_Aerial_Ace,
+  &ATK_XScissor,
+  &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* SNEASLER_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Poison_Jab,
+  &ATK_Rock_Smash,
+  &ATK_Aerial_Ace,
+  &ATK_XScissor,
+  &ATK_Close_Combat,
+  NULL
+};
+
 static const attack* YAMASK_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Astonish,
@@ -1203,6 +1243,18 @@ static const attack* MARSHADOW_ATKS[] = {
   &ATK_Thunder_Punch,
   &ATK_Fire_Punch,
   &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* KECLEON_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Lick,
+  &ATK_Flamethrower,
+  &ATK_Ice_Beam,
+  &ATK_Aerial_Ace,
+  &ATK_Shadow_Sneak,
+  &ATK_Thunder,
+  &ATK_Foul_Play,
   NULL
 };
 
@@ -6659,8 +6711,8 @@ static const species sdex[] = {
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther", SCIZOR_ATKS, true, true, },
   {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, NULL, NULL, },
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, HERACROSS_ATKS, true, false, },
-  {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, NULL, },
-  {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, NULL, NULL, },
+  {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, SNEASEL_ATKS, true, true, },
+  {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, NULL, H_SNEASEL_ATKS, true, true, },
   {  216, "Teddiursa", TYPE_NORMAL, TYPECOUNT, 142, 93, 155, NULL, TEDDIURSA_ATKS, true, true, },
   {  217, "Ursaring", TYPE_NORMAL, TYPECOUNT, 236, 144, 207, "Teddiursa", URSARING_ATKS, true, true, },
   {  218, "Slugma", TYPE_FIRE, TYPECOUNT, 118, 71, 120, NULL, SLUGMA_ATKS, true, false, },
@@ -6784,7 +6836,7 @@ static const species sdex[] = {
   {  333, "Swablu", TYPE_NORMAL, TYPE_FLYING, 76, 132, 128, NULL, NULL, },
   {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, "Swablu", ALTARIA_ATKS, true, false, },
   {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, NULL, NULL, },
-  {  336, "Seviper", TYPE_POISON, TYPECOUNT, 196, 118, 177, NULL, SEVIPER_ATK, true, false, },
+  {  336, "Seviper", TYPE_POISON, TYPECOUNT, 196, 118, 177, NULL, SEVIPER_ATKS, true, false, },
   {  337, "Lunatone", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, LUNATONE_ATKS, true, false, },
   {  338, "Solrock", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, SOLROCK_ATKS, true, false, },
   {  339, "Barboach", TYPE_WATER, TYPE_GROUND, 93, 82, 137, NULL, NULL, },
@@ -6800,7 +6852,7 @@ static const species sdex[] = {
   {  349, "Feebas", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, FEEBAS_ATKS, true, true, },
   {  350, "Milotic", TYPE_WATER, TYPECOUNT, 192, 219, 216, "Feebas", MILOTIC_ATKS, true, true, },
   {  351, "Castform", TYPE_NORMAL, TYPECOUNT, 139, 139, 172, NULL, CASTFORM_ATKS, true, false, },
-  {  352, "Kecleon", TYPE_NORMAL, TYPECOUNT, 161, 189, 155, NULL, NULL, },
+  {  352, "Kecleon", TYPE_NORMAL, TYPECOUNT, 161, 189, 155, NULL, KECLEON_ATKS, true, false, },
   {  353, "Shuppet", TYPE_GHOST, TYPECOUNT, 138, 65, 127, NULL, SHUPPET_ATKS, true, true, },
   {  354, "Banette", TYPE_GHOST, TYPECOUNT, 218, 126, 162, "Shuppet", BANETTE_ATKS, true, true, },
   {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, NULL, DUSKULL_ATKS, true, true, },
@@ -6916,7 +6968,7 @@ static const species sdex[] = {
   {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, MANTYKE_ATKS, true, false, },
   {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, SNOVER_ATKS, true, true, },
   {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, "Snover", ABOMASNOW_ATKS, true, true, },
-  {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel", NULL, },
+  {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel", WEAVILE_ATKS, true, true, },
   {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, "Magneton", MAGNEZONE_ATKS, true, true, },
   {  463, "Lickilicky", TYPE_NORMAL, TYPECOUNT, 161, 181, 242, "Lickitung", LICKILICKY_ATKS, true, false, },
   {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon", NULL, },
@@ -7342,7 +7394,7 @@ static const species sdex[] = {
   {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, NULL, },
   {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, NULL, },
   {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, "Ursaring", URSALUNA_ATKS, true, true, },
-  {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Sneasel", NULL, },
+  {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Hisuian Sneasel", SNEASLER_ATKS, true, true, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Qwilfish", NULL, },
   {  905, "Incarnate Forme Enamorus", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, NULL, NULL, },
   {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, NULL, SPRIGATITO_ATKS, true, false, },
