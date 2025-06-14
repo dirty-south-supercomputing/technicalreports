@@ -1012,6 +1012,34 @@ static const attack* GUZZLORD_ATKS[] = {
   NULL
 };
 
+static const attack* TIMBURR_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Pound,
+  &ATK_Low_Sweep,
+  &ATK_Rock_Tomb,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* GURDURR_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Poison_Jab,
+  &ATK_Stone_Edge,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* CONKELDURR_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Counter,
+  &ATK_Stone_Edge,
+  &ATK_Dynamic_Punch,
+  &ATK_Focus_Blast,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
 static const attack* DRILBUR_ATKS[] = {
   &ATK_Scratch,
   &ATK_Mud_Slap,
@@ -1909,6 +1937,59 @@ static const attack* CRYOGONAL_ATKS[] = {
   &ATK_Solar_Beam,
   &ATK_Aurora_Beam,
   &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* BOUNSWEET_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Charm,
+  &ATK_Draining_Kiss,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* STEENEE_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Charm,
+  &ATK_Draining_Kiss,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Triple_Axel,
+  NULL
+};
+
+static const attack* TSAREENA_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Charm,
+  &ATK_Magical_Leaf,
+  &ATK_Draining_Kiss,
+  &ATK_Stomp,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Triple_Axel,
+  &ATK_High_Jump_Kick,
+  NULL
+};
+
+static const attack* MIENFOO_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Pound,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  &ATK_Focus_Blast,
+  &ATK_High_Jump_Kick,
+  NULL
+};
+
+static const attack* MIENSHAO_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Poison_Jab,
+  &ATK_Force_Palm,
+  &ATK_Stone_Edge,
+  &ATK_Brick_Break,
+  &ATK_Grass_Knot,
+  &ATK_Blaze_Kick,
+  &ATK_Brutal_Swing,
   NULL
 };
 
@@ -6256,9 +6337,9 @@ static const species sdex[] = {
   {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, DRILBUR_ATKS, true, false, },
   {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur", EXCADRILL_ATKS, true, false, },
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, NULL, AUDINO_ATKS, true, false, },
-  {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, NULL, NULL, },
-  {  533, "Gurdurr", TYPE_FIGHTING, TYPECOUNT, 180, 134, 198, "Timburr", NULL, },
-  {  534, "Conkeldurr", TYPE_FIGHTING, TYPECOUNT, 243, 158, 233, "Gurdurr", NULL, },
+  {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, NULL, TIMBURR_ATKS, true, true, },
+  {  533, "Gurdurr", TYPE_FIGHTING, TYPECOUNT, 180, 134, 198, "Timburr", GURDURR_ATKS, true, true, },
+  {  534, "Conkeldurr", TYPE_FIGHTING, TYPECOUNT, 243, 158, 233, "Gurdurr", CONKELDURR_ATKS, true, true, },
   {  535, "Tympole", TYPE_WATER, TYPECOUNT, 98, 78, 137, NULL, NULL, },
   {  536, "Palpitoad", TYPE_WATER, TYPE_GROUND, 128, 109, 181, "Tympole", NULL, },
   {  537, "Seismitoad", TYPE_WATER, TYPE_GROUND, 188, 150, 233, "Palpitoad", NULL, },
@@ -6347,8 +6428,8 @@ static const species sdex[] = {
   {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, "Shelmet", ACCELGOR_ATKS, true, true, },
   {  618, "Stunfisk", TYPE_GROUND, TYPE_ELECTRIC, 144, 171, 240, NULL, STUNFISK_ATKS, true, true, },
   {  618, "Galarian Stunfisk", TYPE_GROUND, TYPE_STEEL, 144, 171, 240, NULL, G_STUNFISK_ATKS, true, true, },
-  {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, NULL, },
-  {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, "Mienfoo", NULL, },
+  {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, MIENFOO_ATKS, true, false, },
+  {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, "Mienfoo", MIENSHAO_ATKS, true, false, },
   {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, NULL, NULL, },
   {  622, "Golett", TYPE_GROUND, TYPE_GHOST, 127, 92, 153, NULL, GOLETT_ATKS, true, true, },
   {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett", GOLURK_ATKS, true, true, },
@@ -6503,9 +6584,9 @@ static const species sdex[] = {
   {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", NULL, },
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, NULL, },
   {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful", BEWEAR_ATKS, true, false, },
-  {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, NULL, },
-  {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", NULL, },
-  {  763, "Tsareena", TYPE_GRASS, TYPECOUNT, 222, 195, 176, "Steenee", NULL, },
+  {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, BOUNSWEET_ATKS, true, false, },
+  {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", STEENEE_ATKS, true, false, },
+  {  763, "Tsareena", TYPE_GRASS, TYPECOUNT, 222, 195, 176, "Steenee", TSAREENA_ATKS, true, false, },
   {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, NULL, NULL, },
   {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, NULL, NULL, },
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, NULL, },

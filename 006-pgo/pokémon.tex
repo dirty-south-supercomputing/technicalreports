@@ -2,21 +2,23 @@
 \label{chap:pokemon}
 For purposes of battle, a Pokémon $P$ is defined as having:
 \begin{itemize}
-\item Some form of some species, and thus a typing and base stats
-\item An Individual Vector (IV) (\autoref{sec:ivs})
-\item A level
+\item A species and form (and thus a typing and base stats)
+\item An Individual Vector (IV) (\autoref{sec:ivs}) and level (\autoref{sec:plevel})
+\item A set of two or three attacks, one of which is a fast attack
 \item Shadow status, or the absence thereof
-\item Hit Points (HP). A Pokémon with zero HP has ``fainted'', and is generally unusable.
+\item Some number of hit points 󰥽 MHP.
 \end{itemize}
 Visual presentation and size do not affect battle, nor does Purified status.
 Hit Points are carried across PvE battles (including encounters with
   Team GO Rocket and Gym battles), but Trainer Battles always start with full HP\@.
-Fainted Pokémon cannot be used in battles of any kind.
+A Pokémon with zero hit points has ``fainted''.
+Fainted Pokémon cannot be used in battles of any kind, nor can they be left in
+ Power Stops (see \autoref{maxbattles}).
 
 \section{Pokémon Level}
 \label{sec:plevel}
 Each Pokémon has its own level, taking one of the 99 integer and half-integer
- values from 0--50, inclusive.
+ values between 0--50, inclusive.
 A Trainer can ``power up'' their Pokémon in single level increments,
  not exceeding the Trainer's own level plus 10.
 Each increase has a cost in Stardust and the Candy of that genus; beyond level 40, there
@@ -99,7 +101,7 @@ Powering up a fainted Pokémon will revive it, but with minimal HP\@:
 \section{Individual Vectors}
 \label{sec:ivs}
 Each Pokémon has three integers associated with it, each ranging from 0--15.
-Aside from temporary changes of form, they do not change over the Pokémon's lifetime.
+They are unchanging across the Pokémon's existence.
 
 Once a Trainer has joined a team (\autoref{sec:levels}), the ``Appraise'' function can be used to
   get a visual representation of these three numbers (this representation,
