@@ -809,6 +809,71 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* SEEDOT_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Bullet_Seed,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* NUZLEAF_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Feint_Attack,
+  &ATK_Leaf_Blade,
+  &ATK_Grass_Knot,
+  &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* SHIFTRY_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Feint_Attack,
+  &ATK_Bullet_Seed,
+  &ATK_Snarl,
+  &ATK_Leaf_Blade,
+  &ATK_Hurricane,
+  &ATK_Foul_Play,
+  &ATK_Leaf_Tornado,
+  NULL
+};
+
+static const attack* TAILLOW_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Quick_Attack,
+  &ATK_Aerial_Ace,
+  NULL
+};
+
+static const attack* SWELLOW_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Steel_Wing,
+  &ATK_Aerial_Ace,
+  &ATK_Brave_Bird,
+  &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* WINGULL_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* PELIPPER_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Water_Gun,
+  &ATK_Blizzard,
+  &ATK_Hydro_Pump,
+  &ATK_Hurricane,
+  &ATK_Weather_Ball_Water,
+  NULL
+};
+
 static const attack* CLAMPERL_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Ice_Beam,
@@ -7696,13 +7761,13 @@ static const species sdex[] = {
   {  270, "Lotad", TYPE_WATER, TYPE_GRASS, 71, 77, 120, NULL, LOTAD_ATKS, true, false, },
   {  271, "Lombre", TYPE_WATER, TYPE_GRASS, 112, 119, 155, "Lotad", LOMBRE_ATKS, true, false, },
   {  272, "Ludicolo", TYPE_WATER, TYPE_GRASS, 173, 176, 190, "Lombre", LUDICOLO_ATKS, true, false, },
-  {  273, "Seedot", TYPE_GRASS, TYPECOUNT, 71, 77, 120, NULL, NULL, },
-  {  274, "Nuzleaf", TYPE_GRASS, TYPE_DARK, 134, 78, 172, "Seedot", NULL, },
-  {  275, "Shiftry", TYPE_GRASS, TYPE_DARK, 200, 121, 207, "Nuzleaf", NULL, },
-  {  276, "Taillow", TYPE_NORMAL, TYPE_FLYING, 106, 61, 120, NULL, NULL, },
-  {  277, "Swellow", TYPE_NORMAL, TYPE_FLYING, 185, 124, 155, "Taillow", NULL, },
-  {  278, "Wingull", TYPE_WATER, TYPE_FLYING, 106, 61, 120, NULL, NULL, },
-  {  279, "Pelipper", TYPE_WATER, TYPE_FLYING, 175, 174, 155, "Wingull", NULL, },
+  {  273, "Seedot", TYPE_GRASS, TYPECOUNT, 71, 77, 120, NULL, SEEDOT_ATKS, true, true, },
+  {  274, "Nuzleaf", TYPE_GRASS, TYPE_DARK, 134, 78, 172, "Seedot", NUZLEAF_ATKS, true, true, },
+  {  275, "Shiftry", TYPE_GRASS, TYPE_DARK, 200, 121, 207, "Nuzleaf", SHIFTRY_ATKS, true, true, },
+  {  276, "Taillow", TYPE_NORMAL, TYPE_FLYING, 106, 61, 120, NULL, TAILLOW_ATKS, true, true, },
+  {  277, "Swellow", TYPE_NORMAL, TYPE_FLYING, 185, 124, 155, "Taillow", SWELLOW_ATKS, true, true, },
+  {  278, "Wingull", TYPE_WATER, TYPE_FLYING, 106, 61, 120, NULL, WINGULL_ATKS, true, false, },
+  {  279, "Pelipper", TYPE_WATER, TYPE_FLYING, 175, 174, 155, "Wingull", PELIPPER_ATKS, true, false, },
   {  280, "Ralts", TYPE_PSYCHIC, TYPE_FAIRY, 79, 59, 99, NULL, RALTS_ATKS, true, true, },
   {  281, "Kirlia", TYPE_PSYCHIC, TYPE_FAIRY, 117, 90, 116, "Ralts", KIRLIA_ATKS, true, true, },
   {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, "Kirlia", GARDEVOIR_ATKS, true, true, },
