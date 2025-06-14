@@ -1030,6 +1030,38 @@ static const attack* FERROTHORN_ATKS[] = {
   NULL
 };
 
+static const attack* LOTAD_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Water_Gun,
+  &ATK_Bubble_Beam,
+  &ATK_Scald,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* LOMBRE_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bubble,
+  &ATK_Ice_Beam,
+  &ATK_Bubble_Beam,
+  &ATK_Scald,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* LUDICOLO_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bubble,
+  &ATK_Ice_Beam,
+  &ATK_Blizzard,
+  &ATK_Scald,
+  &ATK_Hydro_Pump,
+  &ATK_Solar_Beam,
+  &ATK_Energy_Ball,
+  &ATK_Leaf_Storm,
+  NULL
+};
+
 static const attack* KARTANA_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Air_Slash,
@@ -7661,9 +7693,9 @@ static const species sdex[] = {
   {  267, "Beautifly", TYPE_BUG, TYPE_FLYING, 189, 98, 155, "Silcoon", BEAUTIFLY_ATKS, true, false, },
   {  268, "Cascoon", TYPE_BUG, TYPECOUNT, 60, 77, 137, "Wurmple", CASCOON_ATKS, true, false, },
   {  269, "Dustox", TYPE_BUG, TYPE_POISON, 98, 162, 155, "Cascoon", DUSTOX_ATKS, true, false, },
-  {  270, "Lotad", TYPE_WATER, TYPE_GRASS, 71, 77, 120, NULL, NULL, },
-  {  271, "Lombre", TYPE_WATER, TYPE_GRASS, 112, 119, 155, "Lotad", NULL, },
-  {  272, "Ludicolo", TYPE_WATER, TYPE_GRASS, 173, 176, 190, "Lombre", NULL, },
+  {  270, "Lotad", TYPE_WATER, TYPE_GRASS, 71, 77, 120, NULL, LOTAD_ATKS, true, false, },
+  {  271, "Lombre", TYPE_WATER, TYPE_GRASS, 112, 119, 155, "Lotad", LOMBRE_ATKS, true, false, },
+  {  272, "Ludicolo", TYPE_WATER, TYPE_GRASS, 173, 176, 190, "Lombre", LUDICOLO_ATKS, true, false, },
   {  273, "Seedot", TYPE_GRASS, TYPECOUNT, 71, 77, 120, NULL, NULL, },
   {  274, "Nuzleaf", TYPE_GRASS, TYPE_DARK, 134, 78, 172, "Seedot", NULL, },
   {  275, "Shiftry", TYPE_GRASS, TYPE_DARK, 200, 121, 207, "Nuzleaf", NULL, },
