@@ -2103,6 +2103,16 @@ static const attack* MORPEKO_ATKS[] = {
   NULL
 };
 
+static const attack* RAIKOU_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Volt_Switch,
+  &ATK_Shadow_Ball,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Wild_Charge,
+  NULL
+};
+
 static const attack* ZAPDOS_ATKS[] = {
   &ATK_Thunder_Shock,
   &ATK_Charge_Beam,
@@ -6857,7 +6867,7 @@ static const species sdex[] = {
   {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, NULL, },
   {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, NULL, },
   {  242, "Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Chansey", BLISSEY_ATKS, true, false, },
-  {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, NULL, },
+  {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, RAIKOU_ATKS, true, true, },
   {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, NULL, NULL, },
   {  245, "Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, NULL, NULL, },
   {  246, "Larvitar", TYPE_ROCK, TYPE_GROUND, 115, 93, 137, NULL, LARVITAR_ATKS, true, true, },
@@ -7644,6 +7654,7 @@ static const species dynadex[] = {
   {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, },
   {  145, "Dynamax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, },
   {  146, "Dynamax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, },
+  {  243, "Dynamax Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, "Raikou", RAIKOU_ATKS, true, false, },
   {  302, "Dynamax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, },
   {  376, "Dynamax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, },
   {  521, "Dynamax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, },
