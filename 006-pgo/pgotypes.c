@@ -809,6 +809,52 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* CLAMPERL_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* HUNTAIL_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Aqua_Tail,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* GOREBYSS_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Confusion,
+  &ATK_Draining_Kiss,
+  &ATK_Water_Pulse,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* BRUXISH_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Confusion,
+  &ATK_Aqua_Tail,
+  &ATK_Psyshock,
+  &ATK_Crunch,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
+static const attack* RELICANTH_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Zen_Headbutt,
+  &ATK_Aqua_Tail,
+  &ATK_Ancient_Power,
+  &ATK_Hydro_Pump,
+  NULL
+};
+
 static const attack* OSHAWOTT_ATKS[] = {
   &ATK_Tackle,
   &ATK_Water_Gun,
@@ -7711,10 +7757,10 @@ static const species sdex[] = {
   {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, NULL, SPHEAL_ATKS, true, true, },
   {  364, "Sealeo", TYPE_ICE, TYPE_WATER, 137, 132, 207, "Spheal", SEALEO_ATKS, true, true, },
   {  365, "Walrein", TYPE_ICE, TYPE_WATER, 182, 176, 242, "Sealeo", WALREIN_ATKS, true, true, },
-  {  366, "Clamperl", TYPE_WATER, TYPECOUNT, 133, 135, 111, NULL, NULL, },
-  {  367, "Huntail", TYPE_WATER, TYPECOUNT, 197, 179, 146, "Clamperl", NULL, },
-  {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, "Clamperl", NULL, },
-  {  369, "Relicanth", TYPE_WATER, TYPE_ROCK, 162, 203, 225, NULL, NULL, },
+  {  366, "Clamperl", TYPE_WATER, TYPECOUNT, 133, 135, 111, NULL, CLAMPERL_ATKS, true, false, },
+  {  367, "Huntail", TYPE_WATER, TYPECOUNT, 197, 179, 146, "Clamperl", HUNTAIL_ATKS, true, false, },
+  {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, "Clamperl", GOREBYSS_ATKS, true, false, },
+  {  369, "Relicanth", TYPE_WATER, TYPE_ROCK, 162, 203, 225, NULL, RELICANTH_ATKS, true, false, },
   {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, NULL, true, false, },
   {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, NULL, true, true, },
   {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, "Bagon", NULL, true, true, },
@@ -8151,7 +8197,7 @@ static const species sdex[] = {
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, KOMALA_ATKS, true, false, },
   {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, NULL, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, NULL, NULL, },
-  {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, NULL, },
+  {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, BRUXISH_ATKS, true, false, },
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, NULL, NULL, },
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, NULL, NULL, },
   {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, NULL, JANGMO_O_ATKS, true, false, },
