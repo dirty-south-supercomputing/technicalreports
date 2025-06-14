@@ -1083,6 +1083,51 @@ static const attack* GUZZLORD_ATKS[] = {
   NULL
 };
 
+static const attack* TYROGUE_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Smash,
+  &ATK_Low_Sweep,
+  &ATK_Rock_Slide,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* HITMONLEE_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Rock_Smash,
+  &ATK_Double_Kick,
+  &ATK_Stone_Edge,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  &ATK_Stomp,
+  &ATK_Close_Combat,
+  &ATK_Blaze_Kick,
+  NULL
+};
+
+static const attack* HITMONCHAN_ATKS[] = {
+  &ATK_Bullet_Punch,
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Ice_Punch,
+  &ATK_Thunder_Punch,
+  &ATK_Fire_Punch,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
+static const attack* HITMONTOP_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Counter,
+  &ATK_Stone_Edge,
+  &ATK_Close_Combat,
+  &ATK_Gyro_Ball,
+  &ATK_Triple_Axel,
+  NULL
+};
+
 static const attack* TIMBURR_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Pound,
@@ -1499,6 +1544,33 @@ static const attack* WAILORD_ATKS[] = {
   &ATK_Blizzard,
   &ATK_Scald,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* SLAKOTH_ATKS[] = {
+  &ATK_Yawn,
+  &ATK_Night_Slash,
+  &ATK_Brick_Break,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* VIGOROTH_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Counter,
+  &ATK_Rock_Slide,
+  &ATK_Bulldoze,
+  &ATK_Brick_Break,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* SLAKING_ATKS[] = {
+  &ATK_Yawn,
+  &ATK_Hyper_Beam,
+  &ATK_Earthquake,
+  &ATK_Play_Rough,
+  &ATK_Body_Slam,
   NULL
 };
 
@@ -6188,8 +6260,8 @@ static const species sdex[] = {
   {  104, "Cubone", TYPE_GROUND, TYPECOUNT, 90, 144, 137, NULL, CUBONE_ATKS, true, true, },
   {  105, "Marowak", TYPE_GROUND, TYPECOUNT, 144, 186, 155, "Cubone", MAROWAK_ATKS, true, true, },
   {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, "Cubone", A_MAROWAK_ATKS, true, true, },
-  {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, "Tyrogue", NULL, },
-  {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, "Tyrogue", NULL, },
+  {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, "Tyrogue", HITMONLEE_ATKS, true, true, },
+  {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, "Tyrogue", HITMONCHAN_ATKS, true, true, },
   {  108, "Lickitung", TYPE_NORMAL, TYPECOUNT, 108, 137, 207, NULL, LICKITUNG_ATKS, true, false, },
   {  109, "Koffing", TYPE_POISON, TYPECOUNT, 119, 141, 120, NULL, NULL, },
   {  110, "Weezing", TYPE_POISON, TYPECOUNT, 174, 197, 163, "Koffing", NULL, },
@@ -6333,8 +6405,8 @@ static const species sdex[] = {
   {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, "Porygon", PORYGON2_ATKS, true, true, },
   {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, NULL, },
   {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, NULL, },
-  {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, NULL, },
-  {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", NULL, },
+  {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, TYROGUE_ATKS, true, false, },
+  {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", HITMONTOP_ATKS, true, true, },
   {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, NULL, },
   {  239, "Elekid", TYPE_ELECTRIC, TYPECOUNT, 135, 101, 128, NULL, NULL, },
   {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, NULL, },
@@ -6386,9 +6458,9 @@ static const species sdex[] = {
   {  284, "Masquerain", TYPE_BUG, TYPE_FLYING, 192, 150, 172, "Surskit", NULL, },
   {  285, "Shroomish", TYPE_GRASS, TYPECOUNT, 74, 110, 155, NULL, NULL, },
   {  286, "Breloom", TYPE_GRASS, TYPE_FIGHTING, 241, 144, 155, "Shroomish", NULL, },
-  {  287, "Slakoth", TYPE_NORMAL, TYPECOUNT, 104, 92, 155, NULL, NULL, },
-  {  288, "Vigoroth", TYPE_NORMAL, TYPECOUNT, 159, 145, 190, "Slakoth", NULL, },
-  {  289, "Slaking", TYPE_NORMAL, TYPECOUNT, 290, 166, 284, "Vigoroth", NULL, },
+  {  287, "Slakoth", TYPE_NORMAL, TYPECOUNT, 104, 92, 155, NULL, SLAKOTH_ATKS, true, true, },
+  {  288, "Vigoroth", TYPE_NORMAL, TYPECOUNT, 159, 145, 190, "Slakoth", VIGOROTH_ATKS, true, true, },
+  {  289, "Slaking", TYPE_NORMAL, TYPECOUNT, 290, 166, 284, "Vigoroth", SLAKING_ATKS, true, true, },
   {  290, "Nincada", TYPE_BUG, TYPE_GROUND, 80, 126, 104, NULL, NINCADA_ATKS, true, false, },
   {  291, "Ninjask", TYPE_BUG, TYPE_FLYING, 199, 112, 156, "Nincada", NINJASK_ATKS, true, false, },
   {  292, "Shedinja", TYPE_BUG, TYPE_GHOST, 153, 73, 1, NULL, SHEDINJA_ATKS, true, false, },
