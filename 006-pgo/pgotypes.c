@@ -1446,6 +1446,45 @@ static const attack* SNEASLER_ATKS[] = {
   NULL
 };
 
+static const attack* SPHEAL_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Rock_Smash,
+  &ATK_Water_Pulse,
+  &ATK_Body_Slam,
+  &ATK_Aurora_Beam,
+  NULL
+};
+
+static const attack* SEALEO_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Powder_Snow,
+  &ATK_Water_Pulse,
+  &ATK_Body_Slam,
+  &ATK_Aurora_Beam,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* WALREIN_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Powder_Snow,
+  &ATK_Waterfall,
+  &ATK_Earthquake,
+  &ATK_Blizzard,
+  &ATK_Water_Pulse,
+  &ATK_Icicle_Spear,
+  NULL
+};
+
+static const attack* REGIGIGAS_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Thunder,
+  &ATK_Focus_Blast,
+  &ATK_Giga_Impact,
+  NULL
+};
+
 static const attack* YAMASK_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Astonish,
@@ -5638,6 +5677,38 @@ static const attack* DUSTOX_ATKS[] = {
   NULL
 };
 
+static const attack* BERGMITE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Icy_Wind,
+  &ATK_Mirror_Coat,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* AVALUGG_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Ice_Fang,
+  &ATK_Earthquake,
+  &ATK_Icy_Wind,
+  &ATK_Body_Slam,
+  &ATK_Avalanche,
+  &ATK_Mirror_Coat,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* H_AVALUGG_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Powder_Snow,
+  &ATK_Blizzard,
+  &ATK_Rock_Slide,
+  &ATK_Icy_Wind,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* FEEBAS_ATKS[] = {
   &ATK_Tackle,
   &ATK_Splash,
@@ -7637,9 +7708,9 @@ static const species sdex[] = {
   {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, NULL, },
   {  361, "Snorunt", TYPE_ICE, TYPECOUNT, 95, 95, 137, NULL, SNORUNT_ATKS, true, true, },
   {  362, "Glalie", TYPE_ICE, TYPECOUNT, 162, 162, 190, "Snorunt", GLALIE_ATKS, true, true, },
-  {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, NULL, NULL, },
-  {  364, "Sealeo", TYPE_ICE, TYPE_WATER, 137, 132, 207, "Spheal", NULL, },
-  {  365, "Walrein", TYPE_ICE, TYPE_WATER, 182, 176, 242, "Sealeo", NULL, },
+  {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, NULL, SPHEAL_ATKS, true, true, },
+  {  364, "Sealeo", TYPE_ICE, TYPE_WATER, 137, 132, 207, "Spheal", SEALEO_ATKS, true, true, },
+  {  365, "Walrein", TYPE_ICE, TYPE_WATER, 182, 176, 242, "Sealeo", WALREIN_ATKS, true, true, },
   {  366, "Clamperl", TYPE_WATER, TYPECOUNT, 133, 135, 111, NULL, NULL, },
   {  367, "Huntail", TYPE_WATER, TYPECOUNT, 197, 179, 146, "Clamperl", NULL, },
   {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, "Clamperl", NULL, },
@@ -7774,7 +7845,7 @@ static const species sdex[] = {
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, NULL, },
   {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, NULL, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATKS, true, true, },
-  {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, NULL, },
+  {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, REGIGIGAS_ATKS, true, true, },
   {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, CRESSELIA_ATKS, true, false, },
@@ -8013,9 +8084,9 @@ static const species sdex[] = {
   {  711, "Gourgeist Small", TYPE_GHOST, TYPE_GRASS, 171, 219, 146, "Pumpkaboo Small", GOURGEIST_ATKS, true, false, },
   {  711, "Gourgeist Large", TYPE_GHOST, TYPE_GRASS, 179, 206, 181, "Pumpkaboo Large", GOURGEIST_ATKS, true, false, },
   {  711, "Gourgeist Super", TYPE_GHOST, TYPE_GRASS, 182, 200, 198, "Pumpkaboo Super", GOURGEIST_ATKS, true, false, },
-  {  712, "Bergmite", TYPE_ICE, TYPECOUNT, 117, 120, 146, NULL, NULL, },
-  {  713, "Avalugg", TYPE_ICE, TYPECOUNT, 196, 240, 216, "Bergmite", NULL, },
-  {  713, "Hisuian Avalugg", TYPE_ICE, TYPE_ROCK, 214, 238, 216, NULL, NULL, },
+  {  712, "Bergmite", TYPE_ICE, TYPECOUNT, 117, 120, 146, NULL, BERGMITE_ATKS, true, false, },
+  {  713, "Avalugg", TYPE_ICE, TYPECOUNT, 196, 240, 216, "Bergmite", AVALUGG_ATKS, true, false, },
+  {  713, "Hisuian Avalugg", TYPE_ICE, TYPE_ROCK, 214, 238, 216, NULL, H_AVALUGG_ATKS, true, false, },
   {  714, "Noibat", TYPE_FLYING, TYPE_DRAGON, 83, 73, 120, NULL, NULL, },
   {  715, "Noivern", TYPE_FLYING, TYPE_DRAGON, 205, 175, 198, "Noibat", NULL, },
   {  716, "Xerneas", TYPE_FAIRY, TYPECOUNT, 250, 185, 246, NULL, XERNEAS_ATKS, true, false, },
