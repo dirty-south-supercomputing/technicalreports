@@ -850,6 +850,26 @@ static const attack* H_SAMUROTT_ATKS[] = {
   NULL
 };
 
+static const attack* GLIGAR_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Wing_Attack,
+  &ATK_Dig,
+  &ATK_Aerial_Ace,
+  &ATK_Night_Slash,
+  NULL
+};
+
+static const attack* GLISCOR_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Wing_Attack,
+  &ATK_Sand_Attack,
+  &ATK_Earthquake,
+  &ATK_Aerial_Ace,
+  &ATK_Night_Slash,
+  &ATK_Sand_Tomb,
+  NULL
+};
+
 static const attack* SOBBLE_ATKS[] = {
   &ATK_Pound,
   &ATK_Water_Gun,
@@ -1118,6 +1138,30 @@ static const attack* SIGILYPH_ATKS[] = {
   NULL
 };
 
+static const attack* BALTOY_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Extrasensory,
+  &ATK_Dig,
+  &ATK_Psybeam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* CLAYDOL_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Confusion,
+  &ATK_Extrasensory,
+  &ATK_Earthquake,
+  &ATK_Ice_Beam,
+  &ATK_Rock_Tomb,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  &ATK_Gyro_Ball,
+  &ATK_Earth_Power,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
 static const attack* UXIE_ATKS[] = {
   &ATK_Confusion,
   &ATK_Extrasensory,
@@ -1337,6 +1381,40 @@ static const attack* LIEPARD_ATKS[] = {
   &ATK_Play_Rough,
   &ATK_Gunk_Shot,
   &ATK_Payback,
+  NULL
+};
+
+static const attack* SMOOCHUM_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Pound,
+  &ATK_Powder_Snow,
+  &ATK_Ice_Punch,
+  &ATK_Ice_Beam,
+  &ATK_Psyshock,
+  NULL
+};
+
+static const attack* JYNX_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Ice_Punch,
+  &ATK_Psyshock,
+  &ATK_Draining_Kiss,
+  &ATK_Focus_Blast,
+  &ATK_Avalanche,
+  NULL
+};
+
+static const attack* JYNX_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Ice_Punch,
+  &ATK_Psyshock,
+  &ATK_Draining_Kiss,
+  &ATK_Focus_Blast,
+  &ATK_Avalanche,
   NULL
 };
 
@@ -2329,6 +2407,37 @@ static const attack* GARBODOR_ATKS[] = {
   NULL
 };
 
+static const attack* KOFFING_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Infestation,
+  &ATK_Dark_Pulse,
+  &ATK_Sludge,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* WEEZING_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Infestation,
+  &ATK_Rollout,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Thunderbolt,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* G_WEEZING_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Fairy_Wind,
+  &ATK_Hyper_Beam,
+  &ATK_Sludge,
+  &ATK_Play_Rough,
+  &ATK_Overheat,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
 static const attack* GRIMER_ATKS[] = {
   &ATK_Poison_Jab,
   &ATK_Mud_Slap,
@@ -2504,6 +2613,29 @@ static const attack* DEDENNE_ATKS[] = {
   &ATK_Discharge,
   &ATK_Parabolic_Charge,
   &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* CORPHISH_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Rock_Smash,
+  &ATK_Vise_Grip,
+  &ATK_Bubble_Beam,
+  &ATK_Aqua_Jet,
+  &ATK_Scald,
+  &ATK_Razor_Shell,
+  NULL
+};
+
+static const attack* CRAWDAUNT_ATKS[] = {
+  &ATK_Snarl,
+  &ATK_Waterfall,
+  &ATK_Vise_Grip,
+  &ATK_Night_Slash,
+  &ATK_Bubble_Beam,
+  &ATK_Scald,
+  &ATK_Crabhammer,
+  &ATK_Razor_Shell,
   NULL
 };
 
@@ -2694,6 +2826,39 @@ static const attack* KLEFKI_ATKS[] = {
   &ATK_Draining_Kiss,
   &ATK_Play_Rough,
   &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* RHYHORN_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Bulldoze,
+  &ATK_Horn_Attack,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* RHYDON_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Rock_Smash,
+  &ATK_Megahorn,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Surf,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
+static const attack* RHYPERIOR_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Smack_Down,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Surf,
+  &ATK_Skull_Bash,
+  &ATK_Superpower,
+  &ATK_Rock_Wrecker,
+  &ATK_Breaking_Swipe,
   NULL
 };
 
@@ -7213,11 +7378,11 @@ static const species sdex[] = {
   {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, "Tyrogue", HITMONLEE_ATKS, true, true, },
   {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, "Tyrogue", HITMONCHAN_ATKS, true, true, },
   {  108, "Lickitung", TYPE_NORMAL, TYPECOUNT, 108, 137, 207, NULL, LICKITUNG_ATKS, true, false, },
-  {  109, "Koffing", TYPE_POISON, TYPECOUNT, 119, 141, 120, NULL, NULL, },
-  {  110, "Weezing", TYPE_POISON, TYPECOUNT, 174, 197, 163, "Koffing", NULL, },
-  {  110, "Galarian Weezing", TYPE_POISON, TYPE_FAIRY, 174, 197, 163, NULL, NULL, },
-  {  111, "Rhyhorn", TYPE_GROUND, TYPE_ROCK, 140, 127, 190, NULL, NULL, },
-  {  112, "Rhydon", TYPE_GROUND, TYPE_ROCK, 222, 171, 233, "Rhyhorn", NULL, },
+  {  109, "Koffing", TYPE_POISON, TYPECOUNT, 119, 141, 120, NULL, KOFFING_ATKS, true, true, },
+  {  110, "Weezing", TYPE_POISON, TYPECOUNT, 174, 197, 163, "Koffing", WEEZING_ATKS, true, true, },
+  {  110, "Galarian Weezing", TYPE_POISON, TYPE_FAIRY, 174, 197, 163, NULL, G_WEEZING_ATKS, true, true, },
+  {  111, "Rhyhorn", TYPE_GROUND, TYPE_ROCK, 140, 127, 190, NULL, RHYHORN_ATKS, true, true, },
+  {  112, "Rhydon", TYPE_GROUND, TYPE_ROCK, 222, 171, 233, "Rhyhorn", RHYDON_ATKS, true, true, },
   {  113, "Chansey", TYPE_NORMAL, TYPECOUNT, 60, 128, 487, "Happiny", CHANSEY_ATKS, true, false, },
   {  114, "Tangela", TYPE_GRASS, TYPECOUNT, 183, 169, 163, NULL, TANGELA_ATKS, true, true, },
   {  115, "Kangaskhan", TYPE_NORMAL, TYPECOUNT, 181, 165, 233, NULL, KANGASKHAN_ATKS, true, true, },
@@ -7230,7 +7395,7 @@ static const species sdex[] = {
   {  122, "Mr. Mime", TYPE_PSYCHIC, TYPE_FAIRY, 192, 205, 120, "Mime Jr.", MRMIME_ATKS, true, true, },
   {  122, "Galarian Mr. Mime", TYPE_ICE, TYPE_PSYCHIC, 183, 169, 137, NULL, G_MRMIME_ATKS, true, true, },
   {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, SCYTHER_ATKS, true, true, },
-  {  124, "Jynx", TYPE_ICE, TYPE_PSYCHIC, 223, 151, 163, "Smoochum", NULL, },
+  {  124, "Jynx", TYPE_ICE, TYPE_PSYCHIC, 223, 151, 163, "Smoochum", JYNX_ATKS, true, false, },
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, "Elekid", NULL, },
   {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, NULL, NULL, },
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, NULL, PINSIR_ATKS, true, true, },
@@ -7323,7 +7488,7 @@ static const species sdex[] = {
   {  204, "Pineco", TYPE_BUG, TYPECOUNT, 108, 122, 137, NULL, PINECO_ATKS, true, true, },
   {  205, "Forretress", TYPE_BUG, TYPE_STEEL, 161, 205, 181, "Pineco", FORRETRESS_ATKS, true, true, },
   {  206, "Dunsparce", TYPE_NORMAL, TYPECOUNT, 131, 128, 225, NULL, NULL, },
-  {  207, "Gligar", TYPE_GROUND, TYPE_FLYING, 143, 184, 163, NULL, NULL, },
+  {  207, "Gligar", TYPE_GROUND, TYPE_FLYING, 143, 184, 163, NULL, GLIGAR_ATKS, true, true, },
   {  208, "Steelix", TYPE_STEEL, TYPE_GROUND, 148, 272, 181, "Onix", STEELIX_ATKS, true, true, },
   {  209, "Snubbull", TYPE_FAIRY, TYPECOUNT, 137, 85, 155, NULL, NULL, },
   {  210, "Granbull", TYPE_FAIRY, TYPECOUNT, 212, 131, 207, "Snubbull", NULL, },
@@ -7357,7 +7522,7 @@ static const species sdex[] = {
   {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, NULL, },
   {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, TYROGUE_ATKS, true, false, },
   {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", HITMONTOP_ATKS, true, true, },
-  {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, NULL, },
+  {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, SMOOCHUM_ATKS, true, false, },
   {  239, "Elekid", TYPE_ELECTRIC, TYPECOUNT, 135, 101, 128, NULL, NULL, },
   {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, NULL, },
   {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, NULL, },
@@ -7462,10 +7627,10 @@ static const species sdex[] = {
   {  338, "Solrock", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, SOLROCK_ATKS, true, false, },
   {  339, "Barboach", TYPE_WATER, TYPE_GROUND, 93, 82, 137, NULL, NULL, },
   {  340, "Whiscash", TYPE_WATER, TYPE_GROUND, 151, 141, 242, "Barboach", NULL, },
-  {  341, "Corphish", TYPE_WATER, TYPECOUNT, 141, 99, 125, NULL, NULL, },
-  {  342, "Crawdaunt", TYPE_WATER, TYPE_DARK, 224, 142, 160, "Corphish", NULL, },
-  {  343, "Baltoy", TYPE_GROUND, TYPE_PSYCHIC, 77, 124, 120, NULL, NULL, },
-  {  344, "Claydol", TYPE_GROUND, TYPE_PSYCHIC, 140, 229, 155, "Baltoy", NULL, },
+  {  341, "Corphish", TYPE_WATER, TYPECOUNT, 141, 99, 125, NULL, CORPHISH_ATKS, true, true, },
+  {  342, "Crawdaunt", TYPE_WATER, TYPE_DARK, 224, 142, 160, "Corphish", CRAWDAUNT_ATKS, true, true, },
+  {  343, "Baltoy", TYPE_GROUND, TYPE_PSYCHIC, 77, 124, 120, NULL, BALTOY_ATKS, true, false, },
+  {  344, "Claydol", TYPE_GROUND, TYPE_PSYCHIC, 140, 229, 155, "Baltoy", CLAYDOL_ATKS, true, false, },
   {  345, "Lileep", TYPE_ROCK, TYPE_GRASS, 105, 150, 165, NULL, LILEEP_ATKS, true, true, },
   {  346, "Cradily", TYPE_ROCK, TYPE_GRASS, 152, 194, 200, "Lileep", CRADILY_ATKS, true, true, },
   {  347, "Anorith", TYPE_ROCK, TYPE_BUG, 176, 100, 128, NULL, ANORITH_ATKS, true, true, },
@@ -7592,7 +7757,7 @@ static const species sdex[] = {
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel", WEAVILE_ATKS, true, true, },
   {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, "Magneton", MAGNEZONE_ATKS, true, true, },
   {  463, "Lickilicky", TYPE_NORMAL, TYPECOUNT, 161, 181, 242, "Lickitung", LICKILICKY_ATKS, true, false, },
-  {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon", NULL, },
+  {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon", RHYPERIOR_ATKS, true, true, },
   {  465, "Tangrowth", TYPE_GRASS, TYPECOUNT, 207, 184, 225, "Tangela", TANGROWTH_ATKS, true, true, },
   {  466, "Electivire", TYPE_ELECTRIC, TYPECOUNT, 249, 163, 181, "Electabuzz", NULL, },
   {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar", NULL, },
@@ -7600,7 +7765,7 @@ static const species sdex[] = {
   {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, "Yanma", YANMEGA_ATKS, true, false, },
   {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, "Eevee", LEAFEON_ATKS, true, false, },
   {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATKS, true, false},
-  {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, "Gligar", NULL, },
+  {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, "Gligar", GLISCOR_ATKS, true, true, },
   {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, "Piloswine", MAMOSWINE_ATKS, true, true, },
   {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATKS, true, true, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATKS, true, true, },
