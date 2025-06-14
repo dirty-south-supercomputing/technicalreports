@@ -855,6 +855,15 @@ static const attack* SWELLOW_ATKS[] = {
   NULL
 };
 
+static const attack* LUVDISC_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Splash,
+  &ATK_Aqua_Jet,
+  &ATK_Draining_Kiss,
+  &ATK_Water_Pulse,
+  NULL
+};
+
 static const attack* WINGULL_ATKS[] = {
   &ATK_Quick_Attack,
   &ATK_Water_Gun,
@@ -7876,7 +7885,7 @@ static const species sdex[] = {
   {  367, "Huntail", TYPE_WATER, TYPECOUNT, 197, 179, 146, "Clamperl", HUNTAIL_ATKS, true, false, },
   {  368, "Gorebyss", TYPE_WATER, TYPECOUNT, 211, 179, 146, "Clamperl", GOREBYSS_ATKS, true, false, },
   {  369, "Relicanth", TYPE_WATER, TYPE_ROCK, 162, 203, 225, NULL, RELICANTH_ATKS, true, false, },
-  {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, NULL, true, false, },
+  {  370, "Luvdisc", TYPE_WATER, TYPECOUNT, 81, 128, 125, NULL, LUVDISC_ATKS, true, false, },
   {  371, "Bagon", TYPE_DRAGON, TYPECOUNT, 134, 93, 128, NULL, BAGON_ATKS, true, true, },
   {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, "Bagon", SHELGON_ATKS, true, true, },
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon", SALAMENCE_ATKS, true, true, },
