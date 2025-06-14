@@ -71,6 +71,15 @@ typedef struct simulstate {
   unsigned p1turns, p2turns;
 } simulstate;
 
+static void
+inflict_damage(unsigned *hp, unsigned damage){
+  if(*hp < damage){
+    *hp = 0;
+  }else{
+    *hp -= damage;
+  }
+}
+
 // must simulate cartesian of p1 options and p2 options.
 // options include:
 //  - continue fast attack if one is ongoing
@@ -83,50 +92,59 @@ static int
 simulturn(const simulstate *ins, results *r){
   bool p1ongoing, p2ongoing;
   simulstate s = *ins;
-  if(s->p1turns == 0){
+  if(s.p1turns == 0){
     // p1 needs make a choice
     p1ongoing = false;
   }else{
     // p1's ongoing fast attack has not yet ended
-    if(!--s->p1turns){
+    if(!--s.p1turns){
       // deal damage to p2
+      inflict_damage(&s.p2hp, p1.fa->powertrain);
     }
     p1ongoing = true;
   }
-  if(s->p2turns == 0){
+  if(s.p2turns == 0){
     // p2 needs make a choice
     p2ongoing = false;
   }else{
     // p2's ongoing fast attack has not yet ended
-    if(--s->p2turns == 0){
+    if(--s.p2turns == 0){
       // deal damage to p1
+      inflict_damage(&s.p1hp, p2.fa->powertrain);
     }
     p2ongoing = true;
+  }
+  if(s.p1hp == 0 && s.p2hp == 0){
+    ++r->ties;
+    return 0;
+  }else if(s.p1hp == 0){
+    ++r->p2wins;
+    return 0;
+  }else if(s.p2hp == 0){
+    ++r->p1wins;
+    return 0;
   }
   // run this turn then call the next turns, accumulate into r
   if(p1ongoing && p2ongoing){
     // only one option: both wait for attack to finish
-    simulturn(s, r);
+    simulturn(&s, r);
   }else if(!p1ongoing && p2ongoing){
-    try_charged(
-    simulturn(s, r);
+    simulturn(&s, r);
     // cartesian of p1 and wait
   }else if(p1ongoing && !p2ongoing){
-    simulturn(s, r);
+    simulturn(&s, r);
     // cartesian of wait and p2
   }else{
-    simulturn(s, r);
+    simulturn(&s, r);
     // cartesian of all
   }
   return 0;
 }
 
 static int
-simul(simulstate *s){
-  results r;
-  r.p1wins = r.p2wins = r.ties = 0;
+simul(simulstate *s, results *r){
   s->p1turns = s->p2turns = 0;
-  return simulturn(s, &r);
+  return simulturn(s, r);
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
@@ -176,9 +194,11 @@ int main(int argc, char** argv){
     fprintf(stderr, "unexpected argument: %s\n", *argv);
     usage(argv0);
   }
-  simul(&sstate);
-  unsigned long total = sstate.p1wins + sstate.p2wins + sstate.ties;
+  results r;
+  r.p1wins = r.p2wins = r.ties = 0;
+  simul(&sstate, &r);
+  unsigned long total = r.p1wins + r.p2wins + r.ties;
   printf("p1 wins: %u p2 wins: %u ties: %u total: %lu\n",
-         sstate.p1wins, sstate.p2wins, sstate.ties, total);
+         r.p1wins, r.p2wins, r.ties, total);
   return EXIT_SUCCESS;
 }
