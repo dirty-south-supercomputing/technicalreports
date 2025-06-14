@@ -2,11 +2,13 @@
 #include <cstdio>
 #include <cstdlib>
 
+// holds only those elements which don't change over the course of the simulation
 typedef struct pmon {
   struct stats s;
-  unsigned hp;
   const attack *fa, *ca1, *ca2;
 } pmon;
+
+static pmon p1, p2;
 
 static void
 usage(const char *argv0){
@@ -58,9 +60,78 @@ print_pmon(const pmon *p){
   }
 }
 
+typedef struct results {
+  unsigned p1wins, p2wins, ties;
+} results;
+
+// those parts which change over the course of the simulation
+typedef struct simulstate {
+  unsigned p1hp, p2hp;
+  // number of turns remaining in an ongoing fast attack, can be 0
+  unsigned p1turns, p2turns;
+} simulstate;
+
+// must simulate cartesian of p1 options and p2 options.
+// options include:
+//  - continue fast attack if one is ongoing
+//  - substitution (if timer has not expired)
+//  - fast attack
+//  - charged attack (with sufficient energy)
+//  - do nothing
+// but we do not simulate both doing nothing in the same turn
+static int
+simulturn(const simulstate *ins, results *r){
+  bool p1ongoing, p2ongoing;
+  simulstate s = *ins;
+  if(s->p1turns == 0){
+    // p1 needs make a choice
+    p1ongoing = false;
+  }else{
+    // p1's ongoing fast attack has not yet ended
+    if(!--s->p1turns){
+      // deal damage to p2
+    }
+    p1ongoing = true;
+  }
+  if(s->p2turns == 0){
+    // p2 needs make a choice
+    p2ongoing = false;
+  }else{
+    // p2's ongoing fast attack has not yet ended
+    if(--s->p2turns == 0){
+      // deal damage to p1
+    }
+    p2ongoing = true;
+  }
+  // run this turn then call the next turns, accumulate into r
+  if(p1ongoing && p2ongoing){
+    // only one option: both wait for attack to finish
+    simulturn(s, r);
+  }else if(!p1ongoing && p2ongoing){
+    try_charged(
+    simulturn(s, r);
+    // cartesian of p1 and wait
+  }else if(p1ongoing && !p2ongoing){
+    simulturn(s, r);
+    // cartesian of wait and p2
+  }else{
+    simulturn(s, r);
+    // cartesian of all
+  }
+  return 0;
+}
+
+static int
+simul(simulstate *s){
+  results r;
+  r.p1wins = r.p2wins = r.ties = 0;
+  s->p1turns = s->p2turns = 0;
+  return simulturn(s, &r);
+}
+
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
-lex_pmon(pmon* p, int *argc, char*** argv){
+lex_pmon(pmon* p, unsigned *hp, int *argc, char*** argv){
   if(*argc < 4){
     fprintf(stderr, "expected 4 arguments, %d left\n", (*argc) - 1);
     return -1;
@@ -82,7 +153,7 @@ lex_pmon(pmon* p, int *argc, char*** argv){
     return -1;
   }
   fill_stats(&p->s);
-  p->hp = p->s.mhp;
+  *hp = p->s.mhp;
   (*argv) += 4;
   *argc -= 4;
   return 0;
@@ -90,14 +161,14 @@ lex_pmon(pmon* p, int *argc, char*** argv){
 
 int main(int argc, char** argv){
   const char* argv0 = *argv;
-  pmon p1, p2;
+  simulstate sstate;
   --argc;
   ++argv;
-  if(lex_pmon(&p1, &argc, &argv)){
+  if(lex_pmon(&p1, &sstate.p1hp, &argc, &argv)){
     usage(argv0);
   }
   print_pmon(&p1);
-  if(lex_pmon(&p2, &argc, &argv)){
+  if(lex_pmon(&p2, &sstate.p2hp, &argc, &argv)){
     usage(argv0);
   }
   print_pmon(&p2);
@@ -105,5 +176,9 @@ int main(int argc, char** argv){
     fprintf(stderr, "unexpected argument: %s\n", *argv);
     usage(argv0);
   }
+  simul(&sstate);
+  unsigned long total = sstate.p1wins + sstate.p2wins + sstate.ties;
+  printf("p1 wins: %u p2 wins: %u ties: %u total: %lu\n",
+         sstate.p1wins, sstate.p2wins, sstate.ties, total);
   return EXIT_SUCCESS;
 }

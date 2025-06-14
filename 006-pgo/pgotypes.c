@@ -809,6 +809,47 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* OSHAWOTT_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Night_Slash,
+  &ATK_Aqua_Tail,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* DEWOTT_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Tail,
+  &ATK_XScissor,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* SAMUROTT_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Waterfall,
+  &ATK_Megahorn,
+  &ATK_Blizzard,
+  &ATK_Hydro_Pump,
+  &ATK_Hydro_Cannon,
+  &ATK_Razor_Shell,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* H_SAMUROTT_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Snarl,
+  &ATK_Waterfall,
+  &ATK_Dark_Pulse,
+  &ATK_XScissor,
+  &ATK_Icy_Wind,
+  &ATK_Razor_Shell,
+  NULL
+};
+
 static const attack* SOBBLE_ATKS[] = {
   &ATK_Pound,
   &ATK_Water_Gun,
@@ -1158,6 +1199,35 @@ static const attack* RUNERIGUS_ATKS[] = {
   &ATK_Shadow_Ball,
   &ATK_Sand_Tomb,
   &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* DARKRAI_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Sludge_Bomb,
+  &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* PURRLOIN_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Scratch,
+  &ATK_Dark_Pulse,
+  &ATK_Night_Slash,
+  &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* LIEPARD_ATKS[] = {
+  &ATK_Snarl,
+  &ATK_Charm,
+  &ATK_Dark_Pulse,
+  &ATK_Play_Rough,
+  &ATK_Gunk_Shot,
+  &ATK_Payback,
   NULL
 };
 
@@ -2771,6 +2841,35 @@ static const attack* SWAMPERT_ATKS[] = {
   &ATK_Surf,
   &ATK_Hydro_Cannon,
   &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* TEPIG_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* PIGNITE_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Flamethrower,
+  &ATK_Rock_Tomb,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* EMBOAR_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Ember,
+  &ATK_Heat_Wave,
+  &ATK_Rock_Slide,
+  &ATK_Flame_Charge,
+  &ATK_Focus_Blast,
+  &ATK_Blast_Burn,
   NULL
 };
 
@@ -7327,27 +7426,27 @@ static const species sdex[] = {
   {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, CRESSELIA_ATKS, true, false, },
-  {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, NULL, },
+  {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, DARKRAI_ATKS, true, false, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, SHAYMIN_ATKS, true, false, },
   {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, NULL, S_SHAYMIN_ATKS, true, false, },
   {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, NULL, VICTINI_ATKS, false, false, },
   {  495, "Snivy", TYPE_GRASS, TYPECOUNT, 88, 107, 128, NULL, SNIVY_ATKS, true, false, },
   {  496, "Servine", TYPE_GRASS, TYPECOUNT, 122, 152, 155, "Snivy", SERVINE_ATKS, true, false, },
   {  497, "Serperior", TYPE_GRASS, TYPECOUNT, 161, 204, 181, "Servine", SERPERIOR_ATKS, true, false, },
-  {  498, "Tepig", TYPE_FIRE, TYPECOUNT, 115, 85, 163, NULL, NULL, },
-  {  499, "Pignite", TYPE_FIRE, TYPE_FIGHTING, 173, 106, 207, NULL, NULL, },
-  {  500, "Emboar", TYPE_FIRE, TYPE_FIGHTING, 235, 127, 242, NULL, NULL, },
-  {  501, "Oshawott", TYPE_WATER, TYPECOUNT, 117, 85, 146, NULL, NULL, },
-  {  502, "Dewott", TYPE_WATER, TYPECOUNT, 159, 116, 181, "Oshawott", NULL, },
-  {  503, "Samurott", TYPE_WATER, TYPECOUNT, 212, 157, 216, "Dewott", NULL, },
-  {  503, "Hisuian Samurott", TYPE_WATER, TYPE_DARK, 218, 152, 207, NULL, NULL, },
+  {  498, "Tepig", TYPE_FIRE, TYPECOUNT, 115, 85, 163, NULL, TEPIG_ATKS, true, true, },
+  {  499, "Pignite", TYPE_FIRE, TYPE_FIGHTING, 173, 106, 207, "Tepig", PIGNITE_ATKS, true, true, },
+  {  500, "Emboar", TYPE_FIRE, TYPE_FIGHTING, 235, 127, 242, "Pignite", EMBOAR_ATKS, true, true, },
+  {  501, "Oshawott", TYPE_WATER, TYPECOUNT, 117, 85, 146, NULL, OSHAWOTT_ATKS, true, true, },
+  {  502, "Dewott", TYPE_WATER, TYPECOUNT, 159, 116, 181, "Oshawott", DEWOTT_ATKS, true, true, },
+  {  503, "Samurott", TYPE_WATER, TYPECOUNT, 212, 157, 216, "Dewott", SAMUROTT_ATKS, true, true, },
+  {  503, "Hisuian Samurott", TYPE_WATER, TYPE_DARK, 218, 152, 207, NULL, H_SAMUROTT_ATKS, true, true, },
   {  504, "Patrat", TYPE_NORMAL, TYPECOUNT, 98, 73, 128, NULL, NULL, },
   {  505, "Watchog", TYPE_NORMAL, TYPECOUNT, 165, 139, 155, "Patrat", NULL, },
   {  506, "Lillipup", TYPE_NORMAL, TYPECOUNT, 107, 86, 128, NULL, NULL, },
   {  507, "Herdier", TYPE_NORMAL, TYPECOUNT, 145, 126, 163, "Lillipup", NULL, },
   {  508, "Stoutland", TYPE_NORMAL, TYPECOUNT, 206, 182, 198, "Herdier", NULL, },
-  {  509, "Purrloin", TYPE_DARK, TYPECOUNT, 98, 73, 121, NULL, NULL, },
-  {  510, "Liepard", TYPE_DARK, TYPECOUNT, 187, 106, 162, "Purrloin", NULL, },
+  {  509, "Purrloin", TYPE_DARK, TYPECOUNT, 98, 73, 121, NULL, PURRLOIN_ATKS, true, true, },
+  {  510, "Liepard", TYPE_DARK, TYPECOUNT, 187, 106, 162, "Purrloin", LIEPARD_ATKS, true, true, },
   {  511, "Pansage", TYPE_GRASS, TYPECOUNT, 104, 94, 137, NULL, NULL, },
   {  512, "Simisage", TYPE_GRASS, TYPECOUNT, 206, 133, 181, "Pansage", NULL, },
   {  513, "Pansear", TYPE_FIRE, TYPECOUNT, 104, 94, 137, NULL, NULL, },
