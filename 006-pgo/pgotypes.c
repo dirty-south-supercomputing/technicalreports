@@ -845,6 +845,17 @@ static const attack* KINGDRA_ATKS[] = {
   NULL
 };
 
+static const attack* KLEAVOR_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Quick_Attack,
+  &ATK_Air_Slash,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Slide,
+  &ATK_XScissor,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* GENESECT_ATKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Metal_Claw,
@@ -1405,6 +1416,35 @@ static const attack* ARMALDO_ATKS[] = {
   NULL
 };
 
+static const attack* SEWADDLE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Struggle_Bug,
+  &ATK_Seed_Bomb,
+  &ATK_Silver_Wind,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* SWADLOON_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  &ATK_Silver_Wind,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* LEAVANNY_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Shadow_Claw,
+  &ATK_Razor_Leaf,
+  &ATK_XScissor,
+  &ATK_Leaf_Blade,
+  &ATK_Silver_Wind,
+  &ATK_Leaf_Storm,
+  NULL
+};
+
 static const attack* COMBEE_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Bug_Buzz,
@@ -1469,6 +1509,15 @@ static const attack* MUDSDALE_ATKS[] = {
   &ATK_Bulldoze,
   &ATK_Body_Slam,
   &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* SHUCKLE_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Struggle_Bug,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Blast,
+  &ATK_Gyro_Ball,
   NULL
 };
 
@@ -6925,7 +6974,7 @@ static const species sdex[] = {
   {  211, "Qwilfish", TYPE_WATER, TYPE_POISON, 184, 138, 163, NULL, NULL, },
   {  211, "Hisuian Qwilfish", TYPE_DARK, TYPE_POISON, 184, 151, 163, NULL, NULL, },
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther", SCIZOR_ATKS, true, true, },
-  {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, NULL, NULL, },
+  {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, NULL, SHUCKLE_ATKS, true, true, },
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, NULL, HERACROSS_ATKS, true, false, },
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, NULL, SNEASEL_ATKS, true, true, },
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, NULL, H_SNEASEL_ATKS, true, true, },
@@ -7270,9 +7319,9 @@ static const species sdex[] = {
   {  537, "Seismitoad", TYPE_WATER, TYPE_GROUND, 188, 150, 233, "Palpitoad", NULL, },
   {  538, "Throh", TYPE_FIGHTING, TYPECOUNT, 172, 160, 260, NULL, NULL, },
   {  539, "Sawk", TYPE_FIGHTING, TYPECOUNT, 231, 153, 181, NULL, NULL, },
-  {  540, "Sewaddle", TYPE_BUG, TYPE_GRASS, 96, 124, 128, NULL, NULL, },
-  {  541, "Swadloon", TYPE_BUG, TYPE_GRASS, 115, 162, 146, "Sewaddle", NULL, },
-  {  542, "Leavanny", TYPE_BUG, TYPE_GRASS, 205, 165, 181, "Swadloon", NULL, },
+  {  540, "Sewaddle", TYPE_BUG, TYPE_GRASS, 96, 124, 128, NULL, SEWADDLE_ATKS, true, false, },
+  {  541, "Swadloon", TYPE_BUG, TYPE_GRASS, 115, 162, 146, "Sewaddle", SWADLOON_ATKS, true, false, },
+  {  542, "Leavanny", TYPE_BUG, TYPE_GRASS, 205, 165, 181, "Swadloon", LEAVANNY_ATKS, true, false, },
   {  543, "Venipede", TYPE_BUG, TYPE_POISON, 83, 99, 102, NULL, VENIPEDE_ATKS, true, true, },
   {  544, "Whirlipede", TYPE_BUG, TYPE_POISON, 100, 173, 120, "Venipede", WHIRLIPEDE_ATKS, true, true, },
   {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede", SCOLIPEDE_ATKS, true, true, },
@@ -7608,7 +7657,7 @@ static const species sdex[] = {
   {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, REGIELEKI_ATKS, true, true, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, NULL, },
   {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, NULL, },
-  {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, NULL, },
+  {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, KLEAVOR_ATKS, true, false, },
   {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, "Ursaring", URSALUNA_ATKS, true, true, },
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Hisuian Sneasel", SNEASLER_ATKS, true, true, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Qwilfish", NULL, },
