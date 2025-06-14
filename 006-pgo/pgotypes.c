@@ -331,7 +331,6 @@ static const attack ATK_Horn_Attack = { "Horn Attack", TYPE_NORMAL, 40, -35, 0 }
 static const attack ATK_Hurricane = { "Hurricane", TYPE_FLYING, 110, -65, 0 };
 static const attack ATK_Hydro_Cannon = { "Hydro Cannon", TYPE_WATER, 80, -40, 0 };
 static const attack ATK_Hydro_Pump = { "Hydro Pump", TYPE_WATER, 130, -75, 0 };
-static const attack ATK_Hydro_Pump_Blastoise = { "Hydro Pump Blastoise", TYPE_WATER, 90, -80, 0 };
 static const attack ATK_Hyper_Beam = { "Hyper Beam", TYPE_NORMAL, 150, -80, 0 };
 static const attack ATK_Hyper_Fang = { "Hyper Fang", TYPE_NORMAL, 80, -50, 0 };
 static const attack ATK_Ice_Beam = { "Ice Beam", TYPE_ICE, 90, -55, 0 };
@@ -619,7 +618,6 @@ static const attack* const attacks[] = {
   &ATK_Hurricane,
   &ATK_Hydro_Cannon,
   &ATK_Hydro_Pump,
-  &ATK_Hydro_Pump_Blastoise,
   &ATK_Hyper_Beam,
   &ATK_Hyper_Fang,
   &ATK_Ice_Beam,
@@ -3178,6 +3176,19 @@ static const attack* REGIELEKI_ATKS[] = {
   NULL
 };
 
+static const attack* SUICUNE_ATKS[] = {
+  &ATK_Extrasensory,
+  &ATK_Snarl,
+  &ATK_Hidden_Power,
+  &ATK_Ice_Fang,
+  &ATK_Ice_Beam,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  &ATK_Hydro_Pump,
+  NULL
+};
+
 static const attack* KYOGRE_ATKS[] = {
   &ATK_Waterfall,
   &ATK_Blizzard,
@@ -4420,6 +4431,18 @@ static const attack* ALOLAN_SANDSLASH_ATKS[] = {
   &ATK_Drill_Run,
   &ATK_Bulldoze,
   &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* ENTEI_ATKS[] = {
+  &ATK_Fire_Fang,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Iron_Head,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Overheat,
+  &ATK_Scorching_Sands,
   NULL
 };
 
@@ -6868,8 +6891,8 @@ static const species sdex[] = {
   {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, NULL, },
   {  242, "Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Chansey", BLISSEY_ATKS, true, false, },
   {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, RAIKOU_ATKS, true, true, },
-  {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, NULL, NULL, },
-  {  245, "Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, NULL, NULL, },
+  {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, NULL, ENTEI_ATKS, true, false, },
+  {  245, "Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, NULL, SUICUNE_ATKS, true, true, },
   {  246, "Larvitar", TYPE_ROCK, TYPE_GROUND, 115, 93, 137, NULL, LARVITAR_ATKS, true, true, },
   {  247, "Pupitar", TYPE_ROCK, TYPE_GROUND, 155, 133, 172, "Larvitar", PUPITAR_ATKS, true, true, },
   {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, "Pupitar", TYRANITAR_ATKS, true, true, },
@@ -7648,19 +7671,24 @@ static const species dynadex[] = {
   {    3, "Dynamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATKS, true, false, },
   {    6, "Dynamax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATKS, true, false, },
   {    9, "Dynamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATKS, true, false, },
+  {   12, "Dynamax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, },
   {   68, "Dynamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, },
   {   94, "Dynamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, },
   {   99, "Dynamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, },
   {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, },
   {  145, "Dynamax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, },
   {  146, "Dynamax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, },
+  {  242, "Dynamax Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Blissey", BLISSEY_ATKS, true, false, },
   {  243, "Dynamax Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, "Raikou", RAIKOU_ATKS, true, false, },
+  {  244, "Dynamax Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, "Entei", ENTEI_ATKS, true, false, },
+  {  245, "Dynamax Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, "Suicune", SUICUNE_ATKS, true, false, },
   {  302, "Dynamax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, },
   {  376, "Dynamax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, },
   {  521, "Dynamax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, },
   {  530, "Dynamax Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Excadrill", EXCADRILL_ATKS, true, false, },
   {  555, "Dynamax Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darmanitan", DARMANITAN_ATKS, true, false, },
   {  615, "Dynamax Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, "Cryogonal", CRYOGONAL_ATKS, true, false, },
+  {  766, "Dynamax Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, "Passimian", PASSIMIAN_ATKS, true, false, },
   {  812, "Dynamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Rillaboom", RILLABOOM_ATKS, true, false, },
   {  815, "Dynamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Cinderace", CINDERACE_ATKS, true, false, },
   {  818, "Dynamax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Inteleon", INTELEON_ATKS, false, false, },
