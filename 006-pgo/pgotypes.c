@@ -1002,6 +1002,42 @@ static const attack* STAKATAKA_ATKS[] = {
   NULL
 };
 
+static const attack* G_YAMASK_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Rock_Tomb,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* RUNERIGUS_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Astonish,
+  &ATK_Rock_Smash,
+  &ATK_Shadow_Ball,
+  &ATK_Sand_Tomb,
+  &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* YAMASK_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  NULL
+};
+
+static const attack* COFAGRIGUS_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Zen_Headbutt,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
 static const attack* PASSIMIAN_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Counter,
@@ -1513,6 +1549,24 @@ static const attack* DONPHAN_ATKS[] = {
   &ATK_Body_Slam,
   &ATK_Heavy_Slam,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* TRUBBISH_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Take_Down,
+  &ATK_Seed_Bomb,
+  &ATK_Gunk_Shot,
+  NULL
+};
+
+static const attack* GARBODOR_ATKS[] = {
+  &ATK_Infestation,
+  &ATK_Take_Down,
+  &ATK_Seed_Bomb,
+  &ATK_Gunk_Shot,
+  &ATK_Body_Slam,
+  &ATK_Acid_Spray,
   NULL
 };
 
@@ -6420,15 +6474,15 @@ static const species sdex[] = {
   {  559, "Scraggy", TYPE_DARK, TYPE_FIGHTING, 132, 132, 137, NULL, NULL, },
   {  560, "Scrafty", TYPE_DARK, TYPE_FIGHTING, 163, 222, 163, "Scraggy", NULL, },
   {  561, "Sigilyph", TYPE_PSYCHIC, TYPE_FLYING, 204, 167, 176, NULL, NULL, },
-  {  562, "Yamask", TYPE_GHOST, TYPECOUNT, 95, 141, 116, NULL, NULL, },
-  {  562, "Galarian Yamask", TYPE_GROUND, TYPE_GHOST, 95, 141, 116, NULL, NULL, },
-  {  563, "Cofagrigus", TYPE_GHOST, TYPECOUNT, 163, 237, 151, "Yamask", NULL, },
+  {  562, "Yamask", TYPE_GHOST, TYPECOUNT, 95, 141, 116, NULL, YAMASK_ATKS, true, true, },
+  {  562, "Galarian Yamask", TYPE_GROUND, TYPE_GHOST, 95, 141, 116, NULL, G_YAMASK_ATKS, true, true, },
+  {  563, "Cofagrigus", TYPE_GHOST, TYPECOUNT, 163, 237, 151, "Yamask", COFAGRIGUS_ATKS, true, true, },
   {  564, "Tirtouga", TYPE_WATER, TYPE_ROCK, 134, 146, 144, NULL, TIRTOUGA_ATKS, true, true, },
   {  565, "Carracosta", TYPE_WATER, TYPE_ROCK, 192, 197, 179, "Tirtouga", CARRACOSTA_ATKS, true, true, },
   {  566, "Archen", TYPE_ROCK, TYPE_FLYING, 213, 89, 146, NULL, ARCHEN_ATKS, true, true, },
   {  567, "Archeops", TYPE_ROCK, TYPE_FLYING, 292, 139, 181, "Archen", ARCHEOPS_ATKS, true, true, },
-  {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, NULL, NULL, },
-  {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", NULL, },
+  {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, NULL, TRUBBISH_ATKS, true, true, },
+  {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", GARBODOR_ATKS, true, true, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, NULL, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", NULL, },
   {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, NULL, },
@@ -6718,7 +6772,7 @@ static const species sdex[] = {
   {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Galarian Corsola", CURSOLA_ATKS, true, true, },
   {  865, "Sirfetch'd", TYPE_FIGHTING, TYPECOUNT, 248, 176, 158, NULL, NULL, },
   {  866, "Mr. Rime", TYPE_ICE, TYPE_PSYCHIC, 212, 179, 190, "Galarian Mr. Mime", MRRIME_ATKS, true, true, },
-  {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Yamask", NULL, },
+  {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Galarian Yamask", RUNERIGUS_ATKS, true, true, },
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, NULL, FALINKS_ATKS, true, false, },
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, NULL, STONJOURNER_ATKS, false, false, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, NULL, NULL, },

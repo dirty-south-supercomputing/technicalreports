@@ -151,7 +151,7 @@ else // they're equal
   if T1 // conclude both attacks
     H2 -= D1
     H1 -= D2
-    if H2 󰥽 0 and H1 󰥽 0
+    if H2 <= 0 and H1 <= 0
       return 0, 0, 1 // tie
     else if H2 <= 0
       return 1, 0, 0 // p1 wins
