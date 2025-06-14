@@ -66,6 +66,7 @@ typedef struct results {
 
 // those parts which change over the course of the simulation
 typedef struct simulstate {
+  unsigned turn;
   unsigned p1hp, p2hp;
   int p1energy, p2energy;
   // number of turns remaining in an ongoing fast attack, can be 0
@@ -93,7 +94,8 @@ static int
 simulturn(const simulstate *ins, results *r){
   bool p1ongoing, p2ongoing;
   simulstate s = *ins;
-  printf("HP: %u %u\n", ins->p1hp, ins->p2hp);
+  ++s.turn;
+  //printf("Turn %u HP: %u %u Energy: %d %d\n", s.turn, ins->p1hp, ins->p2hp, ins->p1energy, ins->p2energy);
   if(s.p1turns == 0){
     // p1 needs make a choice
     p1ongoing = false;
@@ -117,28 +119,28 @@ simulturn(const simulstate *ins, results *r){
     p2ongoing = true;
   }
   if(s.p1hp == 0 && s.p2hp == 0){
-    printf("tie!\n");
+    //printf("tie!\n");
     ++r->ties;
     return 0;
   }else if(s.p1hp == 0){
-    printf("p2 wins!\n");
+    //printf("p2 wins!\n");
     ++r->p2wins;
     return 0;
   }else if(s.p2hp == 0){
-    printf("p1 wins!\n");
+    //printf("p1 wins!\n");
     ++r->p1wins;
     return 0;
   }
   // run this turn then call the next turns, accumulate into r
   if(p1ongoing && p2ongoing){
     // only one option: both wait for attack to finish
-    printf("recursing both wait\n");
+    //printf("recursing both wait\n");
     simulturn(&s, r);
     return 0;
   }else if(!p1ongoing && p2ongoing){
     // cartesian of p1 and wait
-    printf("recursing p2wait\n");
-    simulturn(&s, r); // p1 does nothing
+    //printf("recursing p2wait\n");
+    //simulturn(&s, r); // p1 does nothing
     s.p1turns = p1.fa->turns; // p1 launches fast attack
     s.p1energy += p1.fa->energytrain;
     simulturn(&s, r);
@@ -148,8 +150,8 @@ simulturn(const simulstate *ins, results *r){
     return 0;
   }else if(p1ongoing && !p2ongoing){
     // cartesian of wait and p2
-    printf("recursing p1wait\n");
-    simulturn(&s, r); // p2 does nothing
+    //printf("recursing p1wait\n");
+    //simulturn(&s, r); // p2 does nothing
     s.p2turns = p2.fa->turns; // p2 launches fast attack
     s.p2energy += p2.fa->energytrain;
     simulturn(&s, r);
@@ -159,14 +161,13 @@ simulturn(const simulstate *ins, results *r){
     return 0;
   }
   // cartesian of all options
-  printf("recursing cartesian\n");
+  //printf("recursing cartesian\n");
   // first, have them both do a fast attack
   s.p1turns = p1.fa->turns;
   s.p2turns = p2.fa->turns;
   s.p1energy += p1.fa->energytrain;
   s.p2energy += p2.fa->energytrain;
   simulturn(&s, r);
-  /*
   // now, p1 fast while p2 does nothing
   s.p1turns = p1.fa->turns;
   s.p2turns = 0;
@@ -179,6 +180,7 @@ simulturn(const simulstate *ins, results *r){
   s.p1energy -= p1.fa->energytrain;
   simulturn(&s, r);
   s.p2energy -= p2.fa->energytrain;
+  /*
   // if p1 can do charged attacks, try them
   if(s.p1energy >= -p1.ca1->energytrain){
     s.p1energy += p1.ca1->energytrain;
@@ -194,6 +196,7 @@ simulturn(const simulstate *ins, results *r){
   }
   // FIXME p2 charged attacks
   */
+  printf("p1: %u p2: %u t: %u\n", r->p1wins, r->p2wins, r->ties);
   return 0;
 }
 
@@ -201,6 +204,7 @@ static int
 simul(simulstate *s, results *r){
   s->p1turns = s->p2turns = 0;
   s->p1energy = s->p2energy = 0;
+  s->turn = 0;
   return simulturn(s, r);
 }
 
