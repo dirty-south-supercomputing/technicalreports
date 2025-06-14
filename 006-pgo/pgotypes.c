@@ -1295,6 +1295,27 @@ static const attack* SEVIPER_ATKS[] = {
   NULL
 };
 
+static const attack* POOCHYENA_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Snarl,
+  &ATK_Dig,
+  &ATK_Poison_Fang,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* MIGHTYENA_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Sucker_Punch,
+  &ATK_Fire_Fang,
+  &ATK_Thunder_Fang,
+  &ATK_Ice_Fang,
+  &ATK_Poison_Fang,
+  &ATK_Play_Rough,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* TIMBURR_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Pound,
@@ -1815,6 +1836,15 @@ static const attack* SLAKING_ATKS[] = {
   &ATK_Earthquake,
   &ATK_Play_Rough,
   &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* KOMALA_ATKS[] = {
+  &ATK_Yawn,
+  &ATK_Rollout,
+  &ATK_Play_Rough,
+  &ATK_Bulldoze,
+  &ATK_Payback,
   NULL
 };
 
@@ -7052,8 +7082,8 @@ static const species sdex[] = {
   {  258, "Mudkip", TYPE_WATER, TYPECOUNT, 126, 93, 137, NULL, MUDKIP_ATKS, true, true, },
   {  259, "Marshtomp", TYPE_WATER, TYPE_GROUND, 156, 133, 172, "Mudkip", MARSHTOMP_ATKS, true, true, },
   {  260, "Swampert", TYPE_WATER, TYPE_GROUND, 208, 175, 225, "Marshtomp", SWAMPERT_ATKS, true, true, },
-  {  261, "Poochyena", TYPE_DARK, TYPECOUNT, 96, 61, 111, NULL, NULL, },
-  {  262, "Mightyena", TYPE_DARK, TYPECOUNT, 171, 132, 172, "Poochyena", NULL, },
+  {  261, "Poochyena", TYPE_DARK, TYPECOUNT, 96, 61, 111, NULL, POOCHYENA_ATKS, true, true, },
+  {  262, "Mightyena", TYPE_DARK, TYPECOUNT, 171, 132, 172, "Poochyena", MIGHTYENA_ATKS, true, true, },
   {  263, "Zigzagoon", TYPE_NORMAL, TYPECOUNT, 58, 80, 116, NULL, ZIGZAGOON_ATKS, true, true, },
   {  263, "Galarian Zigzagoon", TYPE_DARK, TYPE_NORMAL, 58, 80, 116, NULL, G_ZIGZAGOON_ATKS, true, true, },
   {  264, "Linoone", TYPE_NORMAL, TYPECOUNT, 142, 128, 186, "Zigzagoon", LINOONE_ATKS, true, true, },
@@ -7596,7 +7626,7 @@ static const species sdex[] = {
   {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod", GOLISOPOD_ATKS, true, false, },
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, NULL, },
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast", NULL, },
-  {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, NULL, },
+  {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, KOMALA_ATKS, true, false, },
   {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, NULL, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, NULL, NULL, },
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, NULL, },
