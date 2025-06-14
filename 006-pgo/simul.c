@@ -5,11 +5,12 @@
 typedef struct pmon {
   struct stats s;
   unsigned hp;
+  const attack *fa, *ca;
 } pmon;
 
 static void
 usage(const char *argv0){
-  fprintf(stderr, "usage: %s pokémon1 iv@level pokémon2 iv@level\n", argv0);
+  fprintf(stderr, "usage: %s pokémon1 iv@level fast charged pokémon2 iv@level fast charged\n", argv0);
   exit(EXIT_FAILURE);
 }
 
@@ -50,12 +51,15 @@ print_pmon(const pmon *p){
   // FIXME need attacks
   printf("%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name, p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
+  printf(" fast attack: %s\n", p->fa->name); // FIXME need details
+  printf(" charged attack: %s\n", p->ca->name);
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
 lex_pmon(pmon* p, int *argc, char*** argv){
   if(*argc < 4){
+    fprintf(stderr, "expected 4 arguments, %d left\n", (*argc) - 1);
     return -1;
   }
   if((p->s.s = lookup_species(**argv)) == NULL){
@@ -66,10 +70,16 @@ lex_pmon(pmon* p, int *argc, char*** argv){
     fprintf(stderr, "invalid IV@level in %s\n", (*argv)[1]);
     return -1;
   }
+  p->fa = species_fast_attack(p->s.s, (*argv)[2]);
+  p->ca = species_charged_attack(p->s.s, (*argv)[3]);
+  if(!p->fa || !p->ca){
+    fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name, (*argv)[2], (*argv)[3]);
+    return -1;
+  }
   fill_stats(&p->s);
   p->hp = p->s.mhp;
-  (*argv) += 3;
-  *argc -= 3;
+  (*argv) += 4;
+  *argc -= 4;
   return 0;
 }
 
@@ -86,5 +96,9 @@ int main(int argc, char** argv){
     usage(argv0);
   }
   print_pmon(&p2);
+  if(argc){
+    fprintf(stderr, "unexpected argument: %s\n", *argv);
+    usage(argv0);
+  }
   return EXIT_SUCCESS;
 }

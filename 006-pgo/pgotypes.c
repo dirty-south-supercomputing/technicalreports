@@ -8172,6 +8172,7 @@ void print_species_latex(const species* s){
     }
     printf("\\end{tabular}\n");
   }
+  printf("\\hrule\n");
   printf("\\begin{tabular}{lr}\n");
   print_optimal_latex(s);
   printf("\\end{tabular}\n");
@@ -8201,4 +8202,32 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count){
       print_species_latex(&dex[i]);
     }
   }
+}
+
+// return the named charged attack iff s can learn it
+const attack *species_charged_attack(const species *s, const char *aname){
+  for(const attack **a = s->attacks ; *a ; ++a){
+    if((*a)->energytrain >= 0){
+      continue;
+    }
+    if(strcasecmp(aname, (*a)->name)){
+      continue;
+    }
+    return *a;
+  }
+  return NULL;
+}
+
+// return the named fast attack iff s can learn it
+const attack *species_fast_attack(const species *s, const char *aname){
+  for(const attack **a = s->attacks ; *a ; ++a){
+    if((*a)->energytrain <= 0){
+      continue;
+    }
+    if(strcasecmp(aname, (*a)->name)){
+      continue;
+    }
+    return *a;
+  }
+  return NULL;
 }
