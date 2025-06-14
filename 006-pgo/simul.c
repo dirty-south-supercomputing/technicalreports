@@ -5,7 +5,7 @@
 typedef struct pmon {
   struct stats s;
   unsigned hp;
-  const attack *fa, *ca;
+  const attack *fa, *ca1, *ca2;
 } pmon;
 
 static void
@@ -51,8 +51,11 @@ print_pmon(const pmon *p){
   // FIXME need attacks
   printf("%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name, p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
-  printf(" fast attack: %s\n", p->fa->name); // FIXME need details
-  printf(" charged attack: %s\n", p->ca->name);
+  printf(" f attack: %s\t%3u %3d %u\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
+  printf(" c attack: %s\t%3u %3d\n", p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
+  if(p->ca2){
+    printf(" c attack: %s\t%3u %3d\n", p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
+  }
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
@@ -71,8 +74,10 @@ lex_pmon(pmon* p, int *argc, char*** argv){
     return -1;
   }
   p->fa = species_fast_attack(p->s.s, (*argv)[2]);
-  p->ca = species_charged_attack(p->s.s, (*argv)[3]);
-  if(!p->fa || !p->ca){
+  // FIXME handle two charged attacks delimited by '/'
+  p->ca2 = NULL;
+  p->ca1 = species_charged_attack(p->s.s, (*argv)[3]);
+  if(!p->fa || !p->ca1){
     fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name, (*argv)[2], (*argv)[3]);
     return -1;
   }
