@@ -2433,6 +2433,35 @@ static const attack* GARDEVOIR_ATKS[] = {
   NULL
 };
 
+static const attack* HATENNA_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Charm,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* HATTREM_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Charm,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* HATTERENE_ATKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Confusion,
+  &ATK_Charm,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  &ATK_Power_Whip,
+  NULL
+};
+
 static const attack* MEWTWO_ATKS[] = {
   &ATK_Psycho_Cut,
   &ATK_Confusion,
@@ -3767,6 +3796,44 @@ static const attack* BLASTOISE_ATKS[] = {
   &ATK_Hydro_Pump,
   &ATK_Hydro_Cannon,
   &ATK_Skull_Bash,
+  NULL
+};
+
+static const attack* SURSKIT_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Aqua_Jet,
+  &ATK_Signal_Beam,
+  NULL
+};
+
+static const attack* MASQUERAIN_ATKS[] = {
+  &ATK_Air_Slash,
+  &ATK_Infestation,
+  &ATK_Bubble_Beam,
+  &ATK_Ominous_Wind,
+  &ATK_Air_Cutter,
+  &ATK_Silver_Wind,
+  &ATK_Lunge,
+  NULL
+};
+
+static const attack* YANMA_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Quick_Attack,
+  &ATK_Aerial_Ace,
+  &ATK_Ancient_Power,
+  &ATK_Silver_Wind,
+  NULL
+};
+
+static const attack* YANMEGA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Wing_Attack,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Ancient_Power,
   NULL
 };
 
@@ -6835,7 +6902,7 @@ static const species sdex[] = {
   {  190, "Aipom", TYPE_NORMAL, TYPECOUNT, 136, 112, 146, NULL, NULL, },
   {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, NULL, },
   {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, "Sunkern", NULL, },
-  {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, NULL, },
+  {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, YANMA_ATKS, true, false, },
   {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, WOOPER_ATKS, true, true, },
   {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, P_WOOPER_ATKS, true, true, },
   {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper", QUAGSIRE_ATKS, true, true, },
@@ -6932,8 +6999,8 @@ static const species sdex[] = {
   {  280, "Ralts", TYPE_PSYCHIC, TYPE_FAIRY, 79, 59, 99, NULL, RALTS_ATKS, true, true, },
   {  281, "Kirlia", TYPE_PSYCHIC, TYPE_FAIRY, 117, 90, 116, "Ralts", KIRLIA_ATKS, true, true, },
   {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, "Kirlia", GARDEVOIR_ATKS, true, true, },
-  {  283, "Surskit", TYPE_BUG, TYPE_WATER, 93, 87, 120, NULL, NULL, },
-  {  284, "Masquerain", TYPE_BUG, TYPE_FLYING, 192, 150, 172, "Surskit", NULL, },
+  {  283, "Surskit", TYPE_BUG, TYPE_WATER, 93, 87, 120, NULL, SURSKIT_ATKS, true, false, },
+  {  284, "Masquerain", TYPE_BUG, TYPE_FLYING, 192, 150, 172, "Surskit", MASQUERAIN_ATKS, true, false, },
   {  285, "Shroomish", TYPE_GRASS, TYPECOUNT, 74, 110, 155, NULL, NULL, },
   {  286, "Breloom", TYPE_GRASS, TYPE_FIGHTING, 241, 144, 155, "Shroomish", NULL, },
   {  287, "Slakoth", TYPE_NORMAL, TYPECOUNT, 104, 92, 155, NULL, SLAKOTH_ATKS, true, true, },
@@ -7125,7 +7192,7 @@ static const species sdex[] = {
   {  466, "Electivire", TYPE_ELECTRIC, TYPECOUNT, 249, 163, 181, "Electabuzz", NULL, },
   {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar", NULL, },
   {  468, "Togekiss", TYPE_FAIRY, TYPE_FLYING, 225, 217, 198, "Togetic", TOGEKISS_ATKS, true, false, },
-  {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, "Yanma", NULL, },
+  {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, "Yanma", YANMEGA_ATKS, true, false, },
   {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, "Eevee", LEAFEON_ATKS, true, false, },
   {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATKS, true, false},
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, "Gligar", NULL, },
@@ -7517,9 +7584,9 @@ static const species sdex[] = {
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede", NULL, },
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, NULL, NULL, },
   {  855, "Polteageist", TYPE_GHOST, TYPECOUNT, 248, 189, 155, "Sinistea", NULL, },
-  {  856, "Hatenna", TYPE_PSYCHIC, TYPECOUNT, 98, 93, 123, NULL, NULL, },
-  {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna", NULL, },
-  {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", NULL, },
+  {  856, "Hatenna", TYPE_PSYCHIC, TYPECOUNT, 98, 93, 123, NULL, HATENNA_ATKS, true, false, },
+  {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna", HATTREM_ATKS, true, false, },
+  {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", HATTERENE_ATKS, true, false, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone", OBSTAGOON_ATKS, true, true, },
   {  863, "Perrserker", TYPE_STEEL, TYPECOUNT, 195, 162, 172, "Galarian Meowth", PERRSERKER_ATKS, true, true, },
   {  864, "Cursola", TYPE_GHOST, TYPECOUNT, 253, 182, 155, "Galarian Corsola", CURSOLA_ATKS, true, true, },
@@ -7693,8 +7760,10 @@ static const species dynadex[] = {
   {  815, "Dynamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Cinderace", CINDERACE_ATKS, true, false, },
   {  818, "Dynamax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Inteleon", INTELEON_ATKS, false, false, },
   {  820, "Dynamax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATKS, true, false, },
+  {  823, "Dynamax Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corviknight", CORVIKNIGHT_ATKS, true, false, },
   {  832, "Dynamax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATKS, true, false, },
   {  849, "Dynamax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxtricity", TOXTRICITY_ATKS, true, false, },
+  {  858, "Dynamax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
   {  870, "Dynamax Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, "Falinks", FALINKS_ATKS, true, false, },
   {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
   {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, },
