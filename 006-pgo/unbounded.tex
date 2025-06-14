@@ -17,6 +17,9 @@ Yet the game provides a per-Pokémon ordered measure of strength in battle: Comb
 Obviously no single statistic can account for all possible opponents, but
  we will see that CP is a very questionable assessment for a PvP
  context (and not great for PvE, either).
+
+\section{Combat Power}
+\label{sec:cp}
 A Pokémon's CP is defined as:
 \[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
 CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
@@ -25,7 +28,6 @@ Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
 This suggests that $Mod_D$ is undervalued by the CP equation, which
  would seem to suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$.
-We will exploit this discrepancy.
 MHP isn't used in the Damage equation, but knocking out a Pokémon
  requires inflicting some average Damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.
@@ -37,6 +39,15 @@ But since CPM is also used to calculate MHP from $Mod_S$, an argument
  can be made that it ought be raised to the third power.
 Since $CPM < 1$ for all Levels, $CPM^3 < CPM^2$, and thus it seems
  overvalued by CP\@.
+Finally, recall that $MHP = \lfloor Eff_S \rfloor$.
+Since the observable $MHP$ increases only stepwise with respect to $Eff_S$,
+  there is a stepwise overvaluation of $Mod_S$.
+This doesn't correct the undervaluation due the square root, but it does
+  have effects: a 0/14/13 level 30.5 Clodsire has the same MHP
+  as a 0/14/14 at the same level (213), but a CP of 1499 as
+  opposed to the latter's 1502.
+Despite being exactly the same on the field, one is allowed in Great League,
+  and the other is prohibited.
 
 Why would the game use such a flawed measure of power?
 Clearly, a single stat was desired to cover both modes of Pokémon GO battling.
@@ -53,7 +64,7 @@ It ought be clear that we must look beyond CP in our selection of Pokémon.
 
 Remember that a type advantage is more impactful than a type
   disadvantage (60\% vs -37.5\%):
-  all else being equal, it's more important to reduce your Pokémons'
+  all else being equal, it's usually more important to reduce your Pokémons'
   weaknesses than to increase their strengths.
 Every typing is weak against at least one attack type---usually several.
 Weakness against only a single type is uncommon: only seven typings manage it, and in two
@@ -159,3 +170,24 @@ Pokémon that can't learn two good charged attacks having distinct types are bes
   \textbf{FIXME: generate table of such}
 
 \textbf{FIXME...}
+
+\section{Solving Pokémon PvP}
+If there exists a subgraph including the root of the game tree such that at each
+  node it includes all choices from Trainer $A$ for at least one choice from Trainer $B$
+  (Trainer $B$'s choice can of course be different at different states), and all
+  paths terminate in victory for Trainer $A$, Trainer $A$'s team can be considered
+  to \textit{dominate} the team of $B$---assuming perfect play from $A$ (defined
+  as a path in such a subgraph), $B$ is condemned to lose, no matter their choices.
+We consider finding such a team $A$ to be a ``solution'' for the problem presented
+  by team $B$.
+Does there exist a team that dominates all possible teams?
+
+Almost certainly not.
+At the unbounded top end, or the top end under a capability bound (\autoref{chap:bounded}), Pokémon are not generally
+  wildly superior to one another, nor are their attacks.
+Gains of 1.6x are infrequent; it is rare that one can overcome type
+  effectiveness with stats alone, whether they be attack, defense, or stamina.
+Since every typing has weaknesses, a team can be constructed with
+  very effective attacks against all possible orderings of any three Pokémon,
+  and the former team is likely to dominate the latter.
+\textbf{FIXME: prove it}

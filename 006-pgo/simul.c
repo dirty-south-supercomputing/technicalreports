@@ -45,6 +45,13 @@ fill_stats(stats* s){
   s->next = NULL;
 }
 
+static void
+print_pmon(const pmon *p){
+  // FIXME need attacks
+  printf("%s effa: %g effd: %g mhp: %u cp %u\n",
+        p->s->s->name, p->s->effa, p->s->effd, p->s->mhp, p->s->cp);
+}
+
 int main(int argc, char** argv){
   if(argc != 5){
     usage(argv[0]);
@@ -71,5 +78,7 @@ int main(int argc, char** argv){
     .s = &st2,
     .hp = st2.mhp,
   };
+  print_pmon(&p1);
+  print_pmon(&p2);
   return EXIT_SUCCESS;
 }

@@ -753,6 +753,30 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* MORELULL_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Seed_Bomb,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* SHIINOTIC_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Seed_Bomb,
+  &ATK_Moonblast,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* BLACEPHALON_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Incinerate,
+  &ATK_Shadow_Ball,
+  &ATK_Overheat,
+  &ATK_Mystical_Fire,
+  NULL
+};
+
 static const attack* APPLIN_ATKS[] = {
   &ATK_Astonish,
   &ATK_Struggle,
@@ -1087,6 +1111,38 @@ static const attack* CONKELDURR_ATKS[] = {
   NULL
 };
 
+static const attack* MARSHADOW_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Poison_Jab,
+  &ATK_Counter,
+  &ATK_Ice_Punch,
+  &ATK_Rock_Slide,
+  &ATK_Thunder_Punch,
+  &ATK_Fire_Punch,
+  &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* POIPOLE_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Poison_Jab,
+  &ATK_Sludge_Bomb,
+  &ATK_Sludge_Wave,
+  &ATK_Fell_Stinger,
+  NULL
+};
+
+static const attack* NAGANADEL_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Air_Slash,
+  &ATK_Dragon_Pulse,
+  &ATK_Dragon_Claw,
+  &ATK_Sludge_Bomb,
+  &ATK_Fell_Stinger,
+  &ATK_Acrobatics,
+  NULL
+};
+
 static const attack* DEINO_ATKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Tackle,
@@ -1161,6 +1217,54 @@ static const attack* ARMALDO_ATKS[] = {
   &ATK_Water_Pulse,
   &ATK_Rock_Blast,
   &ATK_Liquidation,
+  NULL
+};
+
+static const attack* COMBEE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Bug_Buzz,
+  NULL
+};
+
+static const attack* VESPIQUEN_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Air_Slash,
+  &ATK_Bug_Buzz,
+  &ATK_Power_Gem,
+  &ATK_Signal_Beam,
+  &ATK_XScissor,
+  &ATK_Fell_Stinger,
+  NULL
+};
+
+static const attack* VENIPEDE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Sludge_Bomb,
+  &ATK_Signal_Beam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* WHIRLIPEDE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Sludge_Bomb,
+  &ATK_Signal_Beam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* SCOLIPEDE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Megahorn,
+  &ATK_Sludge_Bomb,
+  &ATK_XScissor,
+  &ATK_Gyro_Ball,
   NULL
 };
 
@@ -1468,6 +1572,24 @@ static const attack* BELDUM_ATKS[] = {
   NULL
 };
 
+static const attack* NINCADA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Scratch,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Night_Slash,
+  NULL
+};
+
+static const attack* NINJASK_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Metal_Claw,
+  &ATK_Aerial_Ace,
+  &ATK_Bug_Buzz,
+  &ATK_Shadow_Ball,
+  NULL
+};
+
 static const attack* METANG_ATKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Metal_Claw,
@@ -1684,6 +1806,26 @@ static const attack* ARBOLIVA_ATKS[] = {
   &ATK_Energy_Ball,
   &ATK_Earth_Power,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* ZAPDOS_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Charge_Beam,
+  &ATK_Drill_Peck,
+  &ATK_Ancient_Power,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Zap_Cannon,
+  NULL
+};
+
+static const attack* G_ZAPDOS_ATKS[] = {
+  &ATK_Counter,
+  &ATK_Ancient_Power,
+  &ATK_Close_Combat,
+  &ATK_Brave_Bird,
+  &ATK_Fly,
   NULL
 };
 
@@ -3359,6 +3501,27 @@ static const attack* PIDGEOT_ATKS[] = {
   NULL
 };
 
+static const attack* MOLTRES_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Fire_Spin,
+  &ATK_Heat_Wave,
+  &ATK_Ancient_Power,
+  &ATK_Fire_Blast,
+  &ATK_Sky_Attack,
+  &ATK_Overheat,
+  NULL
+};
+
+static const attack* G_MOLTRES_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Wing_Attack,
+  &ATK_Ancient_Power,
+  &ATK_Brave_Bird,
+  &ATK_Payback,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* ARCHEN_ATKS[] = {
   &ATK_Wing_Attack,
   &ATK_Quick_Attack,
@@ -3446,6 +3609,16 @@ static const attack* BANETTE_ATKS[] = {
   &ATK_Shadow_Ball,
   &ATK_Thunder,
   &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* SHEDINJA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Shadow_Claw,
+  &ATK_Struggle_Bug,
+  &ATK_Dig,
+  &ATK_Aerial_Ace,
+  &ATK_Shadow_Sneak,
   NULL
 };
 
@@ -4952,6 +5125,39 @@ static const attack* MEOWSCARADA_ATKS[] = {
   NULL
 };
 
+static const attack* DRATINI_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Iron_Tail,
+  &ATK_Wrap,
+  &ATK_Aqua_Tail,
+  &ATK_Twister,
+  NULL
+};
+
+static const attack* DRAGONAIR_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Iron_Tail,
+  &ATK_Wrap,
+  &ATK_Aqua_Tail,
+  &ATK_Dragon_Pulse,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* DRAGONITE_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Steel_Wing,
+  &ATK_Dragon_Tail,
+  &ATK_Hyper_Beam,
+  &ATK_Dragon_Pulse,
+  &ATK_Dragon_Claw,
+  &ATK_Hurricane,
+  &ATK_Outrage,
+  &ATK_Draco_Meteor,
+  &ATK_Superpower,
+  NULL
+};
+
 static const attack* KYUREM_ATKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Steel_Wing,
@@ -6027,13 +6233,13 @@ static const species sdex[] = {
   {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax", SNORLAX_ATKS, true, true, },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, NULL, ARTICUNO_ATKS, true, true, },
   {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, NULL, G_ARTICUNO_ATKS, true, true, },
-  {  145, "Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, NULL, NULL, },
-  {  145, "Galarian Zapdos", TYPE_FIGHTING, TYPE_FLYING, 252, 189, 207, NULL, NULL, },
-  {  146, "Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, NULL, NULL, },
-  {  146, "Galarian Moltres", TYPE_DARK, TYPE_FLYING, 202, 231, 207, NULL, NULL, },
-  {  147, "Dratini", TYPE_DRAGON, TYPECOUNT, 119, 91, 121, NULL, NULL, },
-  {  148, "Dragonair", TYPE_DRAGON, TYPECOUNT, 163, 135, 156, "Dratini", NULL, },
-  {  149, "Dragonite", TYPE_DRAGON, TYPE_FLYING, 263, 198, 209, "Dragonair", NULL, },
+  {  145, "Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, NULL, ZAPDOS_ATKS, true, true, },
+  {  145, "Galarian Zapdos", TYPE_FIGHTING, TYPE_FLYING, 252, 189, 207, NULL, G_ZAPDOS_ATKS, true, true, },
+  {  146, "Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, NULL, MOLTRES_ATKS, true, true, },
+  {  146, "Galarian Moltres", TYPE_DARK, TYPE_FLYING, 202, 231, 207, NULL, G_MOLTRES_ATKS, true, true, },
+  {  147, "Dratini", TYPE_DRAGON, TYPECOUNT, 119, 91, 121, NULL, DRATINI_ATKS, true, true, },
+  {  148, "Dragonair", TYPE_DRAGON, TYPECOUNT, 163, 135, 156, "Dratini", DRAGONAIR_ATKS, true, true, },
+  {  149, "Dragonite", TYPE_DRAGON, TYPE_FLYING, 263, 198, 209, "Dragonair", DRAGONITE_ATKS, true, true, },
   {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, NULL, MEWTWO_ATKS, true, true, },
   {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, A_MEWTWO_ATKS, true, true, },
   {  151, "Mew", TYPE_PSYCHIC, TYPECOUNT, 210, 210, 225, NULL, MEW_ATKS, true, false, },
@@ -6183,9 +6389,9 @@ static const species sdex[] = {
   {  287, "Slakoth", TYPE_NORMAL, TYPECOUNT, 104, 92, 155, NULL, NULL, },
   {  288, "Vigoroth", TYPE_NORMAL, TYPECOUNT, 159, 145, 190, "Slakoth", NULL, },
   {  289, "Slaking", TYPE_NORMAL, TYPECOUNT, 290, 166, 284, "Vigoroth", NULL, },
-  {  290, "Nincada", TYPE_BUG, TYPE_GROUND, 80, 126, 104, NULL, NULL, },
-  {  291, "Ninjask", TYPE_BUG, TYPE_FLYING, 199, 112, 156, "Nincade", NULL, },
-  {  292, "Shedinja", TYPE_BUG, TYPE_GHOST, 153, 73, 1, NULL, NULL, },
+  {  290, "Nincada", TYPE_BUG, TYPE_GROUND, 80, 126, 104, NULL, NINCADA_ATKS, true, false, },
+  {  291, "Ninjask", TYPE_BUG, TYPE_FLYING, 199, 112, 156, "Nincada", NINJASK_ATKS, true, false, },
+  {  292, "Shedinja", TYPE_BUG, TYPE_GHOST, 153, 73, 1, NULL, SHEDINJA_ATKS, true, false, },
   {  293, "Whismur", TYPE_NORMAL, TYPECOUNT, 92, 42, 162, NULL, WHISMUR_ATKS, true, true, },
   {  294, "Loudred", TYPE_NORMAL, TYPECOUNT, 134, 81, 197, "Whismur", LOUDRED_ATKS, true, true, },
   {  295, "Exploud", TYPE_NORMAL, TYPECOUNT, 179, 137, 232, "Loudred", EXPLOUD_ATKS, true, true, },
@@ -6318,8 +6524,8 @@ static const species sdex[] = {
   {  413, "Sandy Wormadam", TYPE_BUG, TYPE_GROUND, 141, 180, 155, "Burmy", S_WORMADAM_ATKS, true, false, },
   {  413, "Trash Wormadam", TYPE_BUG, TYPE_STEEL, 127, 175, 155, "Burmy", T_WORMADAM_ATKS, true, false, },
   {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy", MOTHIM_ATKS, true, false, },
-  {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, NULL, NULL, },
-  {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, "Combee", NULL, },
+  {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, NULL, COMBEE_ATKS, true, false, },
+  {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, "Combee", VESPIQUEN_ATKS, true, false, },
   {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, NULL, NULL, },
   {  418, "Buizel", TYPE_WATER, TYPECOUNT, 132, 67, 146, NULL, NULL, },
   {  419, "Floatzel", TYPE_WATER, TYPECOUNT, 221, 114, 198, "Buizel", NULL, },
@@ -6453,9 +6659,9 @@ static const species sdex[] = {
   {  540, "Sewaddle", TYPE_BUG, TYPE_GRASS, 96, 124, 128, NULL, NULL, },
   {  541, "Swadloon", TYPE_BUG, TYPE_GRASS, 115, 162, 146, "Sewaddle", NULL, },
   {  542, "Leavanny", TYPE_BUG, TYPE_GRASS, 205, 165, 181, "Swadloon", NULL, },
-  {  543, "Venipede", TYPE_BUG, TYPE_POISON, 83, 99, 102, NULL, NULL, },
-  {  544, "Whirlipede", TYPE_BUG, TYPE_POISON, 100, 173, 120, "Venipede", NULL, },
-  {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede", NULL, },
+  {  543, "Venipede", TYPE_BUG, TYPE_POISON, 83, 99, 102, NULL, VENIPEDE_ATKS, true, true, },
+  {  544, "Whirlipede", TYPE_BUG, TYPE_POISON, 100, 173, 120, "Venipede", WHIRLIPEDE_ATKS, true, true, },
+  {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede", SCOLIPEDE_ATKS, true, true, },
   {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, NULL, NULL, },
   {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", NULL, },
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, NULL, },
@@ -6683,8 +6889,8 @@ static const species sdex[] = {
   {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider", NULL, },
   {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, NULL, NULL, },
   {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis", NULL, },
-  {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, NULL, NULL, },
-  {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull", NULL, },
+  {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, NULL, MORELULL_ATKS, true, false, },
+  {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull", SHIINOTIC_ATKS, true, false, },
   {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, NULL, },
   {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", NULL, },
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, NULL, },
@@ -6726,11 +6932,11 @@ static const species sdex[] = {
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATKS, true, false, },
   {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, },
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, },
-  {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, NULL, },
-  {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, NULL, },
-  {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NULL, },
+  {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, MARSHADOW_ATKS, true, false, },
+  {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, POIPOLE_ATKS, true, false, },
+  {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NAGANADEL_ATKS, true, false, },
   {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, STAKATAKA_ATKS, true, false, },
-  {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, NULL, },
+  {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, BLACEPHALON_ATKS, true, false, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, MELTAN_ATKS, true, false, },
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan", MELMETAL_ATKS, true, false, },
   {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, NULL, GROOKEY_ATKS, true, true, },

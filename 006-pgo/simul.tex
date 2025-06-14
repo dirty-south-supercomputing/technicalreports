@@ -171,15 +171,3 @@ else // p1 attacks, p2 attacks, or both attack
 \end{lstlisting}
 
 \textbf{so construct it then...}
-
-\section{Solving Pokémon PvP}
-If there exists a subgraph including the root of the game tree such that at each
-  node it includes all choices from Trainer $A$ for at least one choice from Trainer $B$
-  (Trainer $B$'s choice can of course be different at different states), and all
-  paths terminate in victory for Trainer $A$, Trainer $A$'s team can be considered
-  to \textit{dominate} the team of $B$---assuming perfect play from $A$ (defined
-  as a path in such a subgraph), $B$ is condemned to lose, no matter their choices.
-We consider finding such a team $A$ to be a ``solution'' for the problem presented
-  by team $B$.
-Does there exist a team that dominates all possible teams?
-Almost certainly not \textbf{why?}.
