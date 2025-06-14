@@ -856,6 +856,15 @@ static const attack* KLEAVOR_ATKS[] = {
   NULL
 };
 
+static const attack* DURANT_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Metal_Claw,
+  &ATK_Stone_Edge,
+  &ATK_Iron_Head,
+  &ATK_XScissor,
+  NULL
+};
+
 static const attack* GENESECT_ATKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Metal_Claw,
@@ -7416,7 +7425,7 @@ static const species sdex[] = {
   {  629, "Vullaby", TYPE_DARK, TYPE_FLYING, 105, 139, 172, NULL, NULL, },
   {  630, "Mandibuzz", TYPE_DARK, TYPE_FLYING, 129, 205, 242, "Vullaby", NULL, },
   {  631, "Heatmor", TYPE_FIRE, TYPECOUNT, 204, 129, 198, NULL, NULL, },
-  {  632, "Durant", TYPE_BUG, TYPE_STEEL, 217, 188, 151, NULL, NULL, },
+  {  632, "Durant", TYPE_BUG, TYPE_STEEL, 217, 188, 151, NULL, DURANT_ATKS, true, false, },
   {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, NULL, DEINO_ATKS, true, false, },
   {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino", ZWEILOUS_ATKS, true, false, },
   {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous", HYDREIGON_ATKS, true, false, },
