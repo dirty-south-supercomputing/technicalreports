@@ -1406,18 +1406,6 @@ static const attack* JYNX_ATKS[] = {
   NULL
 };
 
-static const attack* JYNX_ATKS[] = {
-  &ATK_Frost_Breath,
-  &ATK_Pound,
-  &ATK_Confusion,
-  &ATK_Ice_Punch,
-  &ATK_Psyshock,
-  &ATK_Draining_Kiss,
-  &ATK_Focus_Blast,
-  &ATK_Avalanche,
-  NULL
-};
-
 static const attack* SNEASEL_ATKS[] = {
   &ATK_Ice_Shard,
   &ATK_Feint_Attack,
