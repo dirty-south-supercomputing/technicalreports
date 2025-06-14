@@ -1011,6 +1011,33 @@ static const attack* A_EXEGGUTOR_ATKS[] = {
   NULL
 };
 
+static const attack* UXIE_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Extrasensory,
+  &ATK_Thunder,
+  &ATK_Swift,
+  &ATK_Future_Sight,
+  NULL
+};
+
+static const attack* MESPRIT_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Extrasensory,
+  &ATK_Blizzard,
+  &ATK_Swift,
+  &ATK_Future_Sight,
+  NULL
+};
+
+static const attack* AZELF_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Extrasensory,
+  &ATK_Fire_Blast,
+  &ATK_Swift,
+  &ATK_Future_Sight,
+  NULL
+};
+
 static const attack* TYRUNT_ATKS[] = {
   &ATK_Tackle,
   &ATK_Dragon_Tail,
@@ -7081,9 +7108,9 @@ static const species sdex[] = {
   {  479, "Frost Rotom", TYPE_ELECTRIC, TYPE_ICE, 204, 219, 137, NULL, NULL, },
   {  479, "Fan Rotom", TYPE_ELECTRIC, TYPE_FLYING, 204, 219, 137, NULL, NULL, },
   {  479, "Mow Rotom", TYPE_ELECTRIC, TYPE_GRASS, 204, 219, 137, NULL, NULL, },
-  {  480, "Uxie", TYPE_PSYCHIC, TYPECOUNT, 156, 270, 181, NULL, NULL, },
-  {  481, "Mesprit", TYPE_PSYCHIC, TYPECOUNT, 212, 212, 190, NULL, NULL, },
-  {  482, "Azelf", TYPE_PSYCHIC, TYPECOUNT, 270, 151, 181, NULL, NULL, },
+  {  480, "Uxie", TYPE_PSYCHIC, TYPECOUNT, 156, 270, 181, NULL, UXIE_ATKS, true, false, },
+  {  481, "Mesprit", TYPE_PSYCHIC, TYPECOUNT, 212, 212, 190, NULL, MESPRIT_ATKS, true, false, },
+  {  482, "Azelf", TYPE_PSYCHIC, TYPECOUNT, 270, 151, 181, NULL, AZELF_ATKS, true, false, },
   {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, NULL, DIALGA_ATKS, true, true, },
   {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, O_DIALGA_ATKS, true, true, },
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, NULL, },
