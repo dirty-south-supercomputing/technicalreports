@@ -764,6 +764,25 @@ static const attack* BLACEPHALON_ATKS[] = {
   NULL
 };
 
+static const attack* WIMPOD_ATKS[] = {
+  &ATK_Struggle_Bug,
+  &ATK_Bug_Buzz,
+  NULL
+};
+
+static const attack* GOLISOPOD_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Shadow_Claw,
+  &ATK_Metal_Claw,
+  &ATK_Waterfall,
+  &ATK_Aerial_Ace,
+  &ATK_Aqua_Jet,
+  &ATK_XScissor,
+  &ATK_Razor_Shell,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* APPLIN_ATKS[] = {
   &ATK_Astonish,
   &ATK_Struggle,
@@ -7573,8 +7592,8 @@ static const species sdex[] = {
   {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, NULL, NULL, },
   {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, NULL, ORANGURU_ATKS, true, false, },
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, PASSIMIAN_ATKS, true, false, },
-  {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, NULL, NULL, },
-  {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod", NULL, },
+  {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, NULL, WIMPOD_ATKS, true, false, },
+  {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod", GOLISOPOD_ATKS, true, false, },
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, NULL, },
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast", NULL, },
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, NULL, },
