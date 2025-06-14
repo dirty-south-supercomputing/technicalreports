@@ -1,17 +1,34 @@
 \chapter{Battle Mechanics}
 \label{chap:battle}
+Pokémon GO features two major modes of battle: Nx1 and 3x3\footnote{These are commonly called PvE and PvP
+ respectively. I don't like these terms, because Team GO Rocket uses the PvP format despite not
+ being two Trainers, and Gyms use the PvE format despite representing two Trainers.}.
+Nx1 is used for raids, Max Battles, and (in a series of 1x1 matches) assaults on Gyms.
+3x3 is used for encounters with Team GO Rocket and Trainer Battles.
 All battles work on quanta of 0.5s\footnote{This is a recent change for Raid-style battling.}.
+Aside from Trainer Battles, Trainers can make use of items in the screen before
+  battle is entered (called the ``lobby'', especially in an Nx1 context), and
+  likewise engage Mega evolutions.
+Pokémon exchange fast attacks (and, when enough energy has been built up, charged attacks)
+  until one side is entirely reduced to zero HP (or surrenders).
+Note that attacks typically have different power and energy stats depending on
+  whether it's a 3x3 or Nx1 context (\autoref{chap:attacks}).
 
 \section{3x3 battles}
 \label{sec:3x3}
-There is a four and a half minute (270 second) timer on Trainer Battles.
+Two teams of three Pokémon each are locked in mortal combat.
+Each team has one champion fighting at any given time.
+The team is ordered: the first Pokémon will emerge first, and should that Pokémon
+  faint, the second Pokémon will come in unless the Trainer specifies otherwise.
+An active Pokémon can be substituted, but the Trainer cannot perform another
+  such substitution for fifty seconds.
+There is a four minute (240 second) timer on Trainer Battles, which is not displayed
+  until there are twenty seconds remaining or less.
 If this timer expires, the Trainer with the most Pokémon remaining wins.
 If they have an equal number of Pokémon, the Trainer with less damage to their
   Pokémon (by percentage) wins.
 
 One pays for charged attacks with energy, and fast attacks with time.
-
-Switching out 
 
 \textbf{FIXME}
 
@@ -21,6 +38,10 @@ Switching out
 
 \section{Nx1 battles}
 \label{sec:nx1}
+One Pokémon fends off a number of simultaneously attacking Trainers,
+  each of whom has one Pokémon active at a time.
+There is a timer of 180 seconds for raids below the 5🟉 difficulty level,
+  and a timer of 300 seconds for 5🟉 raids.
 \textbf{FIXME}
 
 \subsection{Gyms}
