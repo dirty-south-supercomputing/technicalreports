@@ -1,4 +1,4 @@
-\chapter{Species}
+\chapter{Species and forms}
 \label{chap:species}
 Pokémon are partitioned into species.
 Each species is identified by its own Pokédex number.
@@ -35,10 +35,23 @@ Evolution does not necessarily preserve typing, i.e.\ typing is not always
   constant within a genus (\autoref{table:heteroevolve}).
 \input{out/hetero}
 Almost all evolutions require that Candy of that genus (Zygarde is an exception),
-  and some evolutions depend upon a catalyzing item (\autoref{table:itemevolutions}).
+  and some evolutions depend upon some condition (\autoref{table:condevolutions})
+  or catalyzing item, which is consumed (\autoref{table:itemevolutions})
 Evolution generally improves base stats \textbf{(FIXME: are there exceptions?)},
   and typically makes available new, more powerful attacks.
-Evolution revives a Pokémon if necessary, and always fully restores HP\@.
+Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
+
+\begin{table}[ht]
+\footnotesize
+\begin{center}
+  \begin{tabular}{lll}
+    Base & Requirements & Result \\
+    \Midrule
+  \end{tabular}
+\end{center}
+\caption{Evolutions dependent upon a condition}
+\label{table:condevolutions}
+\end{table}
 
 \begin{table}[ht]
 \footnotesize
@@ -80,7 +93,7 @@ Evolution revives a Pokémon if necessary, and always fully restores HP\@.
     Zygarde 50\% & 200 Zygarde Cubes & Zygarde Complete \\
   \end{tabular}
 \end{center}
-\caption{Evolutions catalyzed by items}
+\caption{Evolutions dependent upon items}
 \label{table:itemevolutions}
 \end{table}
 
