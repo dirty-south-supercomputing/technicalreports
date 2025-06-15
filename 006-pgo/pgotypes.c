@@ -855,6 +855,29 @@ static const attack* SWELLOW_ATKS[] = {
   NULL
 };
 
+static const attack* SKRELP_ATKS[] = {
+  &ATK_Acid,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Tail,
+  &ATK_Twister,
+  &ATK_Sludge_Bomb,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* DRAGALGE_ATKS[] = {
+  &ATK_Acid,
+  &ATK_Water_Gun,
+  &ATK_Dragon_Tail,
+  &ATK_Aqua_Tail,
+  &ATK_Sludge_Bomb,
+  &ATK_Gunk_Shot,
+  &ATK_Hydro_Pump,
+  &ATK_Focus_Blast,
+  &ATK_Outrage,
+  NULL
+};
+
 static const attack* LUVDISC_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Splash,
@@ -8431,8 +8454,8 @@ static const species sdex[] = {
   {  687, "Malamar", TYPE_DARK, TYPE_PSYCHIC, 177, 165, 200, "Inkay", MALAMAR_ATKS, true, true, },
   {  688, "Binacle", TYPE_ROCK, TYPE_WATER, 96, 120, 123, NULL, BINACLE_ATKS, true, false, },
   {  689, "Barbaracle", TYPE_ROCK, TYPE_WATER, 194, 205, 176, "Binacle", BARBARACLE_ATKS, true, false, },
-  {  690, "Skrelp", TYPE_POISON, TYPE_WATER, 109, 109, 137, NULL, NULL, },
-  {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp", NULL, },
+  {  690, "Skrelp", TYPE_POISON, TYPE_WATER, 109, 109, 137, NULL, SKRELP_ATKS, true, false, },
+  {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp", DRAGALGE_ATKS, true, false, },
   {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, NULL, NULL, },
   {  693, "Clawitzer", TYPE_WATER, TYPECOUNT, 221, 171, 174, "Clauncher", NULL, },
   {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, NULL, NULL, },
