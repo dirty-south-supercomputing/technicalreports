@@ -3759,6 +3759,25 @@ static const attack* CRAWDAUNT_ATKS[] = {
   NULL
 };
 
+static const attack* CLAUNCHER_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Smack_Down,
+  &ATK_Aqua_Jet,
+  &ATK_Water_Pulse,
+  &ATK_Crabhammer,
+  NULL
+};
+
+static const attack* CLAWITZER_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Smack_Down,
+  &ATK_Dark_Pulse,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Crabhammer,
+  NULL
+};
+
 static const attack* KLINK_ATKS[] = {
   &ATK_Charge_Beam,
   &ATK_Volt_Switch,
@@ -9369,8 +9388,8 @@ static const species sdex[] = {
   {  689, "Barbaracle", TYPE_ROCK, TYPE_WATER, 194, 205, 176, "Binacle", BARBARACLE_ATKS, true, false, },
   {  690, "Skrelp", TYPE_POISON, TYPE_WATER, 109, 109, 137, NULL, SKRELP_ATKS, true, false, },
   {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp", DRAGALGE_ATKS, true, false, },
-  {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, NULL, NULL, },
-  {  693, "Clawitzer", TYPE_WATER, TYPECOUNT, 221, 171, 174, "Clauncher", NULL, },
+  {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, NULL, CLAUNCHER_ATKS, true, false, },
+  {  693, "Clawitzer", TYPE_WATER, TYPECOUNT, 221, 171, 174, "Clauncher", CLAWITZER_ATKS, true, false, },
   {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, NULL, NULL, },
   {  695, "Heliolisk", TYPE_ELECTRIC, TYPE_NORMAL, 219, 168, 158, "Helioptile", NULL, },
   {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, NULL, TYRUNT_ATKS, true, true, },
