@@ -1011,6 +1011,55 @@ static const attack* SWELLOW_ATKS[] = {
   NULL
 };
 
+static const attack* QUAXLY_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Water_Gun,
+  &ATK_Aerial_Ace,
+  &ATK_Aqua_Jet,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* QUAQUAVAL_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Water_Gun,
+  &ATK_Aerial_Ace,
+  &ATK_Aqua_Jet,
+  &ATK_Close_Combat,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* KELDEO_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Poison_Jab,
+  &ATK_Aqua_Jet,
+  &ATK_XScissor,
+  &ATK_Hydro_Pump,
+  &ATK_Close_Combat,
+  &ATK_Sacred_Sword,
+  NULL
+};
+
+static const attack* MELOETTA_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Quick_Attack,
+  &ATK_Hyper_Beam,
+  &ATK_Ice_Punch,
+  &ATK_Fire_Punch,
+  &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* QUAXWELL_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Water_Gun,
+  &ATK_Aerial_Ace,
+  &ATK_Aqua_Jet,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* SKRELP_ATKS[] = {
   &ATK_Acid,
   &ATK_Water_Gun,
@@ -1078,6 +1127,63 @@ static const attack* PELIPPER_ATKS[] = {
   &ATK_Hydro_Pump,
   &ATK_Hurricane,
   &ATK_Weather_Ball_Water,
+  NULL
+};
+
+static const attack* POPPLIO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Jet,
+  &ATK_Aqua_Tail,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* BRIONNE_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Charm,
+  &ATK_Aqua_Jet,
+  &ATK_Disarming_Voice,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* PRIMARINA_ATKS[] = {
+  &ATK_Waterfall,
+  &ATK_Charm,
+  &ATK_Disarming_Voice,
+  &ATK_Moonblast,
+  &ATK_Hydro_Pump,
+  &ATK_Psychic,
+  &ATK_Hydro_Cannon,
+  &ATK_Sparkling_Aria,
+  NULL
+};
+
+static const attack* AZURILL_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Bubble,
+  &ATK_Ice_Beam,
+  &ATK_Bubble_Beam,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* MARILL_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Aqua_Tail,
+  &ATK_Body_Slam,
+  NULL
+};
+
+static const attack* AZUMARILL_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Rock_Smash,
+  &ATK_Ice_Beam,
+  &ATK_Play_Rough,
+  &ATK_Hydro_Pump,
   NULL
 };
 
@@ -2489,6 +2595,24 @@ static const attack* MANDIBUZZ_ATKS[] = {
   NULL
 };
 
+static const attack* NATU_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Quick_Attack,
+  &ATK_Drill_Peck,
+  &ATK_Psyshock,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* XATU_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Ominous_Wind,
+  &ATK_Future_Sight,
+  NULL
+};
+
 static const attack* MURKROW_ATKS[] = {
   &ATK_Peck,
   &ATK_Feint_Attack,
@@ -3419,6 +3543,26 @@ static const attack* ARBOLIVA_ATKS[] = {
   &ATK_Seed_Bomb,
   &ATK_Energy_Ball,
   &ATK_Earth_Power,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* MAREEP_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Tackle,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Body_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* FLAAFFY_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Charge_Beam,
+  &ATK_Discharge,
+  &ATK_Power_Gem,
+  &ATK_Thunderbolt,
   &ATK_Trailblaze,
   NULL
 };
@@ -8604,14 +8748,14 @@ static const species sdex[] = {
   {  174, "Igglybuff", TYPE_NORMAL, TYPE_FAIRY, 69, 32, 207, NULL, NULL, },
   {  175, "Togepi", TYPE_FAIRY, TYPECOUNT, 67, 116, 111, NULL, TOGEPI_ATKS, true, false, },
   {  176, "Togetic", TYPE_FAIRY, TYPE_FLYING, 139, 181, 146, "Togepi", TOGETIC_ATKS, true, false, },
-  {  177, "Natu", TYPE_PSYCHIC, TYPE_FLYING, 134, 89, 120, NULL, NULL, },
-  {  178, "Xatu", TYPE_PSYCHIC, TYPE_FLYING, 192, 146, 163, "Natu", NULL, },
-  {  179, "Mareep", TYPE_ELECTRIC, TYPECOUNT, 114, 79, 146, NULL, NULL, },
-  {  180, "Flaaffy", TYPE_ELECTRIC, TYPECOUNT, 145, 109, 172, "Mareep", NULL, },
+  {  177, "Natu", TYPE_PSYCHIC, TYPE_FLYING, 134, 89, 120, NULL, NATU_ATKS, true, true, },
+  {  178, "Xatu", TYPE_PSYCHIC, TYPE_FLYING, 192, 146, 163, "Natu", XATU_ATKS, true, true, },
+  {  179, "Mareep", TYPE_ELECTRIC, TYPECOUNT, 114, 79, 146, NULL, MAREEP_ATKS, true, true, },
+  {  180, "Flaaffy", TYPE_ELECTRIC, TYPECOUNT, 145, 109, 172, "Mareep", FLAAFFY_ATKS, true, true, },
   {  181, "Ampharos", TYPE_ELECTRIC, TYPECOUNT, 211, 169, 207, "Flaaffy", AMPHAROS_ATKS, true, true, },
   {  182, "Bellossom", TYPE_GRASS, TYPECOUNT, 169, 186, 181, "Gloom", BELLOSSOM_ATKS, true, true, },
-  {  183, "Marill", TYPE_WATER, TYPE_FAIRY, 37, 93, 172, "Azurill", NULL, },
-  {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill", NULL, },
+  {  183, "Marill", TYPE_WATER, TYPE_FAIRY, 37, 93, 172, "Azurill", MARILL_ATKS, true, false, },
+  {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill", AZUMARILL_ATKS, true, false, },
   {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly", SUDOWOODO_ATKS, true, false, },
   {  186, "Politoed", TYPE_WATER, TYPECOUNT, 174, 179, 207, "Poliwhirl", POLITOED_ATKS, true, true, },
   {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, NULL, },
@@ -8732,7 +8876,7 @@ static const species sdex[] = {
   {  295, "Exploud", TYPE_NORMAL, TYPECOUNT, 179, 137, 232, "Loudred", EXPLOUD_ATKS, true, true, },
   {  296, "Makuhita", TYPE_FIGHTING, TYPECOUNT, 99, 54, 176, NULL, NULL, },
   {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", NULL, },
-  {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, NULL, },
+  {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, AZURILL_ATKS, true, false, },
   {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NOSEPASS_ATKS, true, true, },
   {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
   {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, "Skitty", NULL, },
@@ -9105,8 +9249,8 @@ static const species sdex[] = {
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATKS, true, false, },
   {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATKS, true, false, },
   {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATKS, true, false, },
-  {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, NULL, },
-  {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, NULL, },
+  {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, KELDEO_ATKS, false, false, },
+  {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, GENESECT_ATKS, true, false, },
   {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, NULL, NULL, },
   {  651, "Quilladin", TYPE_GRASS, TYPECOUNT, 146, 156, 156, "Chespin", NULL, },
@@ -9193,9 +9337,9 @@ static const species sdex[] = {
   {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, NULL, },
   {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, NULL, },
   {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, NULL, INCINEROAR_ATKS, true, false, },
-  {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, NULL, },
-  {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, "Popplio", NULL, },
-  {  730, "Primarina", TYPE_WATER, TYPE_FAIRY, 232, 195, 190, "Brionne", NULL, },
+  {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, POPPLIO_ATKS, true, false, },
+  {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, "Popplio", BRIONNE_ATKS, true, false, },
+  {  730, "Primarina", TYPE_WATER, TYPE_FAIRY, 232, 195, 190, "Brionne", PRIMARINA_ATKS, true, false, },
   {  731, "Pikipek", TYPE_NORMAL, TYPE_FLYING, 136, 59, 111, NULL, NULL, },
   {  732, "Trumbeak", TYPE_NORMAL, TYPE_FLYING, 159, 100, 146, "Pikipek", NULL, },
   {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak", NULL, },
@@ -9338,9 +9482,9 @@ static const species sdex[] = {
   {  909, "Fuecoco", TYPE_FIRE, TYPECOUNT, 112, 96, 167, NULL, FUECOCO_ATKS, true, false, },
   {  910, "Crocalor", TYPE_FIRE, TYPECOUNT, 162, 134, 191, "Fuecoco", CROCALOR_ATKS, true, false, },
   {  911, "Skeledirge", TYPE_FIRE, TYPE_GHOST, 207, 178, 232, "Crocalor", SKELEDIRGE_ATKS, true, false, },
-  {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, NULL, },
-  {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, "Quaxly", NULL, },
-  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", NULL, },
+  {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, QUAXLY_ATKS, true, false, },
+  {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, "Quaxly", QUAXWELL_ATKS, true, false, },
+  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false, },
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, NULL, },
   {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk", NULL, },
   {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk", NULL, },
