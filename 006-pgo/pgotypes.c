@@ -1419,6 +1419,26 @@ static const attack* KROOKODILE_ATKS[] = {
   NULL
 };
 
+static const attack* SENTRET_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Scratch,
+  &ATK_Dig,
+  &ATK_Brick_Break,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* FURRET_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Quick_Attack,
+  &ATK_Hyper_Beam,
+  &ATK_Dig,
+  &ATK_Brick_Break,
+  &ATK_Swift,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* TINKATINK_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Fairy_Wind,
@@ -8100,8 +8120,8 @@ static const species sdex[] = {
   {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, NULL, NULL, },
   {  159, "Croconaw", TYPE_WATER, TYPECOUNT, 150, 142, 163, "Totodile", NULL, },
   {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw", NULL, },
-  {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, NULL, NULL, },
-  {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret", NULL, },
+  {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, NULL, SENTRET_ATKS, true, false, },
+  {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret", FURRET_ATKS, true, false, },
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, NULL, NULL, },
   {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot", NULL, },
   {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, NULL, LEDYBA_ATKS, true, true, },
