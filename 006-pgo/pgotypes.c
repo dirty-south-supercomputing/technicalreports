@@ -740,6 +740,51 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* TAPUBULU_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Bullet_Seed,
+  &ATK_Megahorn,
+  &ATK_Dazzling_Gleam,
+  &ATK_Solar_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Natures_Madness,
+  NULL
+};
+
+static const attack* TAPUFINI_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Hidden_Power,
+  &ATK_Ice_Beam,
+  &ATK_Moonblast,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  &ATK_Natures_Madness,
+  NULL
+};
+
+static const attack* TAPULELE_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Astonish,
+  &ATK_Psyshock,
+  &ATK_Draining_Kiss,
+  &ATK_Moonblast,
+  &ATK_Focus_Blast,
+  &ATK_Future_Sight,
+  &ATK_Natures_Madness,
+  NULL
+};
+
+static const attack* TAPUKOKO_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Volt_Switch,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Dazzling_Gleam,
+  &ATK_Brave_Bird,
+  &ATK_Natures_Madness,
+  NULL
+};
+
 static const attack* MORELULL_ATKS[] = {
   &ATK_Astonish,
   &ATK_Seed_Bomb,
@@ -8601,10 +8646,10 @@ static const species sdex[] = {
   {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, NULL, JANGMO_O_ATKS, true, false, },
   {  783, "Hakamo-o", TYPE_DRAGON, TYPE_FIGHTING, 145, 162, 146, "Jangmo-o", HAKAMO_O_ATKS, true, false, },
   {  784, "Kommo-o", TYPE_DRAGON, TYPE_FIGHTING, 222, 240, 181, "Hakamo-o", KOMMO_O_ATKS, true, false, },
-  {  785, "Tapu Koko", TYPE_ELECTRIC, TYPE_FAIRY, 250, 181, 172, NULL, NULL, },
-  {  786, "Tapu Lele", TYPE_PSYCHIC, TYPE_FAIRY, 259, 208, 172, NULL, NULL, },
-  {  787, "Tapu Bulu", TYPE_GRASS, TYPE_FAIRY, 249, 215, 172, NULL, NULL, },
-  {  788, "Tapu Fini", TYPE_WATER, TYPE_FAIRY, 189, 254, 172, NULL, NULL, },
+  {  785, "Tapu Koko", TYPE_ELECTRIC, TYPE_FAIRY, 250, 181, 172, NULL, TAPUKOKO_ATKS, true, false, },
+  {  786, "Tapu Lele", TYPE_PSYCHIC, TYPE_FAIRY, 259, 208, 172, NULL, TAPULELE_ATKS, true, false, },
+  {  787, "Tapu Bulu", TYPE_GRASS, TYPE_FAIRY, 249, 215, 172, NULL, TAPUBULU_ATKS, true, false, },
+  {  788, "Tapu Fini", TYPE_WATER, TYPE_FAIRY, 189, 254, 172, NULL, TAPUFINI_ATKS, true, false, },
   {  789, "Cosmog", TYPE_PSYCHIC, TYPECOUNT, 54, 57, 125, NULL, NULL, },
   {  790, "Cosmoem", TYPE_PSYCHIC, TYPECOUNT, 54, 242, 125, "Cosmog", NULL, },
   {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem", NULL, },
