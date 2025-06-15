@@ -1389,6 +1389,15 @@ static const attack* KARTANA_ATKS[] = {
   NULL
 };
 
+static const attack* SPINDA_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Psycho_Cut,
+  &ATK_Dig,
+  &ATK_Rock_Tomb,
+  &ATK_Icy_Wind,
+  NULL
+};
+
 static const attack* NECROZMA_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Psycho_Cut,
@@ -3837,6 +3846,35 @@ static const attack* SWAMPERT_ATKS[] = {
   &ATK_Surf,
   &ATK_Hydro_Cannon,
   &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* NUMEL_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Heat_Wave,
+  &ATK_Bulldoze,
+  &ATK_Stomp,
+  NULL
+};
+
+static const attack* CAMERUPT_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Rock_Smash,
+  &ATK_Incinerate,
+  &ATK_Earthquake,
+  &ATK_Solar_Beam,
+  &ATK_Overheat,
+  &ATK_Earth_Power,
+  NULL
+};
+
+static const attack* TORKOAL_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Fire_Spin,
+  &ATK_Earthquake,
+  &ATK_Solar_Beam,
+  &ATK_Overheat,
   NULL
 };
 
@@ -6432,6 +6470,26 @@ static const attack* DUSTOX_ATKS[] = {
   NULL
 };
 
+static const attack* SPOINK_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Zen_Headbutt,
+  &ATK_Psybeam,
+  &ATK_Shadow_Ball,
+  &ATK_Mirror_Coat,
+  NULL
+};
+
+static const attack* GRUMPIG_ATKS[] = {
+  &ATK_Charge_Beam,
+  &ATK_Extrasensory,
+  &ATK_Psywave,
+  &ATK_Psychic,
+  &ATK_Shadow_Ball,
+  &ATK_Dynamic_Punch,
+  &ATK_Mirror_Coat,
+  NULL
+};
+
 static const attack* BERGMITE_ATKS[] = {
   &ATK_Bite,
   &ATK_Tackle,
@@ -8432,12 +8490,12 @@ static const species sdex[] = {
   {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, "Carvanha", NULL, },
   {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, NULL, WAILMER_ATKS, true, true, },
   {  321, "Wailord", TYPE_WATER, TYPECOUNT, 175, 87, 347, "Wailmer", WAILORD_ATKS, true, true, },
-  {  322, "Numel", TYPE_FIRE, TYPE_GROUND, 119, 79, 155, NULL, NULL, },
-  {  323, "Camerupt", TYPE_FIRE, TYPE_GROUND, 194, 136, 172, "Numel", NULL, },
-  {  324, "Torkoal", TYPE_FIRE, TYPECOUNT, 151, 203, 172, NULL, NULL, },
-  {  325, "Spoink", TYPE_PSYCHIC, TYPECOUNT, 125, 122, 155, NULL, NULL, },
-  {  326, "Grumpig", TYPE_PSYCHIC, TYPECOUNT, 171, 188, 190, "Spoink", NULL, },
-  {  327, "Spinda", TYPE_NORMAL, TYPECOUNT, 116, 116, 155, NULL, NULL, },
+  {  322, "Numel", TYPE_FIRE, TYPE_GROUND, 119, 79, 155, NULL, NUMEL_ATKS, true, true, },
+  {  323, "Camerupt", TYPE_FIRE, TYPE_GROUND, 194, 136, 172, "Numel", CAMERUPT_ATKS, true, true, },
+  {  324, "Torkoal", TYPE_FIRE, TYPECOUNT, 151, 203, 172, NULL, TORKOAL_ATKS, true, false, },
+  {  325, "Spoink", TYPE_PSYCHIC, TYPECOUNT, 125, 122, 155, NULL, SPOINK_ATKS, true, true, },
+  {  326, "Grumpig", TYPE_PSYCHIC, TYPECOUNT, 171, 188, 190, "Spoink", GRUMPIG_ATKS, true, true, },
+  {  327, "Spinda", TYPE_NORMAL, TYPECOUNT, 116, 116, 155, NULL, SPINDA_ATKS, true, false, },
   {  328, "Trapinch", TYPE_GROUND, TYPECOUNT, 162, 78, 128, NULL, TRAPINCH_ATKS, true, true, },
   {  329, "Vibrava", TYPE_GROUND, TYPE_DRAGON, 134, 99, 137, "Trapinch", VIBRAVA_ATKS, true, true, },
   {  330, "Flygon", TYPE_GROUND, TYPE_DRAGON, 205, 168, 190, "Vibrava", FLYGON_ATKS, true, true, },
