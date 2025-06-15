@@ -1753,6 +1753,27 @@ static const attack* STAKATAKA_ATKS[] = {
   NULL
 };
 
+static const attack* BONSLY_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Counter,
+  &ATK_Earthquake,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  NULL
+};
+
+static const attack* SUDOWOODO_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Counter,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Tomb,
+  &ATK_Rock_Slide,
+  &ATK_Meteor_Beam,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* G_YAMASK_ATKS[] = {
   &ATK_Astonish,
   &ATK_Rock_Tomb,
@@ -2559,6 +2580,29 @@ static const attack* MUDSDALE_ATKS[] = {
   &ATK_Bulldoze,
   &ATK_Body_Slam,
   &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* BRONZOR_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Confusion,
+  &ATK_Psyshock,
+  &ATK_Gyro_Ball,
+  &ATK_Heavy_Slam,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* BRONZONG_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Feint_Attack,
+  &ATK_Metal_Sound,
+  &ATK_Flash_Cannon,
+  &ATK_Psyshock,
+  &ATK_Bulldoze,
+  &ATK_Psychic,
+  &ATK_Heavy_Slam,
+  &ATK_Payback,
   NULL
 };
 
@@ -8416,7 +8460,7 @@ static const species sdex[] = {
   {  182, "Bellossom", TYPE_GRASS, TYPECOUNT, 169, 186, 181, "Gloom", BELLOSSOM_ATKS, true, true, },
   {  183, "Marill", TYPE_WATER, TYPE_FAIRY, 37, 93, 172, "Azurill", NULL, },
   {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill", NULL, },
-  {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly", NULL, },
+  {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly", SUDOWOODO_ATKS, true, false, },
   {  186, "Politoed", TYPE_WATER, TYPECOUNT, 174, 179, 207, "Poliwhirl", POLITOED_ATKS, true, true, },
   {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, NULL, },
   {  188, "Skiploom", TYPE_GRASS, TYPE_FLYING, 91, 120, 146, "Hoppip", NULL, },
@@ -8681,9 +8725,9 @@ static const species sdex[] = {
   {  433, "Chingling", TYPE_PSYCHIC, TYPECOUNT, 114, 94, 128, NULL, NULL, },
   {  434, "Stunky", TYPE_POISON, TYPE_DARK, 121, 90, 160, NULL, NULL, },
   {  435, "Skuntank", TYPE_POISON, TYPE_DARK, 184, 132, 230, "Stunky", NULL, },
-  {  436, "Bronzor", TYPE_STEEL, TYPE_PSYCHIC, 43, 154, 149, NULL, NULL, },
-  {  437, "Bronzong", TYPE_STEEL, TYPE_PSYCHIC, 161, 213, 167, "Brunzong", NULL, },
-  {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, NULL, },
+  {  436, "Bronzor", TYPE_STEEL, TYPE_PSYCHIC, 43, 154, 149, NULL, BRONZOR_ATKS, true, false, },
+  {  437, "Bronzong", TYPE_STEEL, TYPE_PSYCHIC, 161, 213, 167, "Brunzong", BRONZONG_ATKS, true, false, },
+  {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, BONSLY_ATKS, true, false, },
   {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", MIMEJR_ATKS, true, false, },
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATKS, true, false, },
   {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, NULL, },
