@@ -1536,6 +1536,94 @@ static const attack* LIEPARD_ATKS[] = {
   NULL
 };
 
+static const attack* CUBCHOO_ATKS[] = {
+  &ATK_Powder_Snow,
+  &ATK_Charm,
+  &ATK_Ice_Punch,
+  &ATK_Play_Rough,
+  &ATK_Icy_Wind,
+  NULL
+};
+
+static const attack* BEARTIC_ATKS[] = {
+  &ATK_Powder_Snow,
+  &ATK_Charm,
+  &ATK_Ice_Punch,
+  &ATK_Play_Rough,
+  &ATK_Surf,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* AXEW_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Iron_Tail,
+  &ATK_Aqua_Tail,
+  &ATK_Dragon_Pulse,
+  &ATK_Dragon_Claw,
+  NULL
+};
+
+static const attack* FRAXURE_ATKS[] = {
+  &ATK_Dragon_Tail,
+  &ATK_Iron_Tail,
+  &ATK_Night_Slash,
+  &ATK_Aqua_Tail,
+  &ATK_Dragon_Claw,
+  NULL
+};
+
+static const attack* HAXORUS_ATKS[] = {
+  &ATK_Counter,
+  &ATK_Dragon_Tail,
+  &ATK_Earthquake,
+  &ATK_Night_Slash,
+  &ATK_Dragon_Claw,
+  &ATK_Surf,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
+static const attack* DRUDDIGON_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Dragon_Tail,
+  &ATK_Hyper_Beam,
+  &ATK_Night_Slash,
+  &ATK_Dragon_Claw,
+  NULL
+};
+
+static const attack* GOOMY_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Dragon_Pulse,
+  &ATK_Sludge_Wave,
+  &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* SLIGGOO_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Dragon_Pulse,
+  &ATK_Sludge_Wave,
+  &ATK_Water_Pulse,
+  &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* GOODRA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Tail,
+  &ATK_Thunder_Punch,
+  &ATK_Sludge_Wave,
+  &ATK_Power_Whip,
+  &ATK_Draco_Meteor,
+  &ATK_Muddy_Water,
+  NULL
+};
+
 static const attack* SMOOCHUM_ATKS[] = {
   &ATK_Frost_Breath,
   &ATK_Pound,
@@ -8142,11 +8230,11 @@ static const species sdex[] = {
   {  607, "Litwick", TYPE_GHOST, TYPE_FIRE, 108, 98, 137, NULL, LITWICK_ATKS, true, true, },
   {  608, "Lampent", TYPE_GHOST, TYPE_FIRE, 169, 115, 155, "Litwick", LAMPENT_ATKS, true, true, },
   {  609, "Chandelure", TYPE_GHOST, TYPE_FIRE, 271, 182, 155, "Lampent", CHANDELURE_ATKS, true, true, },
-  {  610, "Axew", TYPE_DRAGON, TYPECOUNT, 154, 101, 130, NULL, NULL, },
-  {  611, "Fraxure", TYPE_DRAGON, TYPECOUNT, 212, 123, 165, "Axew", NULL, },
-  {  612, "Haxorus", TYPE_DRAGON, TYPECOUNT, 284, 172, 183, "Fraxure", NULL, },
-  {  613, "Cubchoo", TYPE_ICE, TYPECOUNT, 128, 74, 146, NULL, NULL, },
-  {  614, "Beartic", TYPE_ICE, TYPECOUNT, 233, 152, 216, "Cubchoo", NULL, },
+  {  610, "Axew", TYPE_DRAGON, TYPECOUNT, 154, 101, 130, NULL, AXEW_ATKS, true, false, },
+  {  611, "Fraxure", TYPE_DRAGON, TYPECOUNT, 212, 123, 165, "Axew", FRAXURE_ATKS, true, false, },
+  {  612, "Haxorus", TYPE_DRAGON, TYPECOUNT, 284, 172, 183, "Fraxure", HAXORUS_ATKS, true, false, },
+  {  613, "Cubchoo", TYPE_ICE, TYPECOUNT, 128, 74, 146, NULL, CUBCHOO_ATKS, true, false, },
+  {  614, "Beartic", TYPE_ICE, TYPECOUNT, 233, 152, 216, "Cubchoo", BEARTIC_ATKS, true, false, },
   {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, NULL, CRYOGONAL_ATKS, true, false, },
   {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, NULL, SHELMET_ATKS, true, true, },
   {  617, "Accelgor", TYPE_BUG, TYPECOUNT, 220, 120, 190, "Shelmet", ACCELGOR_ATKS, true, true, },
@@ -8154,7 +8242,7 @@ static const species sdex[] = {
   {  618, "Galarian Stunfisk", TYPE_GROUND, TYPE_STEEL, 144, 171, 240, NULL, G_STUNFISK_ATKS, true, true, },
   {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, NULL, MIENFOO_ATKS, true, false, },
   {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, "Mienfoo", MIENSHAO_ATKS, true, false, },
-  {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, NULL, NULL, },
+  {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, NULL, DRUDDIGON_ATKS, true, false, },
   {  622, "Golett", TYPE_GROUND, TYPE_GHOST, 127, 92, 153, NULL, GOLETT_ATKS, true, true, },
   {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett", GOLURK_ATKS, true, true, },
   {  624, "Pawniard", TYPE_DARK, TYPE_STEEL, 154, 114, 128, NULL, PAWNIARD_ATKS, true, false, },
@@ -8240,9 +8328,9 @@ static const species sdex[] = {
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, NULL, HAWLUCHA_ATKS, false, false, },
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, NULL, DEDENNE_ATKS, true, false, },
   {  703, "Carbink", TYPE_ROCK, TYPE_FAIRY, 95, 285, 137, NULL, CARBINK_ATKS, true, false, },
-  {  704, "Goomy", TYPE_DRAGON, TYPECOUNT, 101, 112, 128, NULL, NULL, },
-  {  705, "Sliggoo", TYPE_DRAGON, TYPECOUNT, 159, 176, 169, "Gloomy", NULL, },
-  {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo", NULL, },
+  {  704, "Goomy", TYPE_DRAGON, TYPECOUNT, 101, 112, 128, NULL, GOOMY_ATKS, true, false, },
+  {  705, "Sliggoo", TYPE_DRAGON, TYPECOUNT, 159, 176, 169, "Gloomy", SLIGGOO_ATKS, true, false, },
+  {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo", GOODRA_ATKS, true, false, },
   {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, NULL, KLEFKI_ATKS, false, false, },
   {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, NULL, NULL, },
   {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump", NULL, },
