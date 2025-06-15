@@ -1212,6 +1212,15 @@ static const attack* WISHIWASHI_ATKS[] = {
   NULL
 };
 
+static const attack* ALOMOMOLA_ATKS[] = {
+  &ATK_Hidden_Power,
+  &ATK_Waterfall,
+  &ATK_Blizzard,
+  &ATK_Hydro_Pump,
+  &ATK_Psychic,
+  NULL
+};
+
 static const attack* WINGULL_ATKS[] = {
   &ATK_Quick_Attack,
   &ATK_Water_Gun,
@@ -9406,7 +9415,7 @@ static const species sdex[] = {
   {  591, "Amoonguss", TYPE_GRASS, TYPE_POISON, 155, 139, 249, "Foongus", AMOONGUSS_ATKS, true, true, },
   {  592, "Frillish", TYPE_WATER, TYPE_GHOST, 115, 134, 146, NULL, FRILLISH_ATKS, true, false, },
   {  593, "Jellicent", TYPE_WATER, TYPE_GHOST, 159, 178, 225, "Frillish", JELLICENT_ATKS, true, false, },
-  {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, NULL, },
+  {  594, "Alomomola", TYPE_WATER, TYPECOUNT, 138, 131, 338, NULL, ALOMOMOLA_ATKS, true, false, },
   {  595, "Joltik", TYPE_BUG, TYPE_ELECTRIC, 110, 98, 137, NULL, JOLTIK_ATKS, true, true, },
   {  596, "Galvantula", TYPE_BUG, TYPE_ELECTRIC, 201, 128, 172, "Joltik", GRAVANTULA_ATKS, true, true, },
   {  597, "Ferroseed", TYPE_GRASS, TYPE_STEEL, 82, 155, 127, NULL, FERROSEED_ATKS, true, true, },
