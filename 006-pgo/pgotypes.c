@@ -839,6 +839,24 @@ static const attack* SHIFTRY_ATKS[] = {
   NULL
 };
 
+static const attack* BLITZLE_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Low_Kick,
+  &ATK_Discharge,
+  &ATK_Flame_Charge,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* ZEBSTRIKA_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Quick_Attack,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Flame_Charge,
+  NULL
+};
+
 static const attack* TAILLOW_ATKS[] = {
   &ATK_Peck,
   &ATK_Quick_Attack,
@@ -8279,8 +8297,8 @@ static const species sdex[] = {
   {  519, "Pidove", TYPE_NORMAL, TYPE_FLYING, 98, 80, 137, NULL, PIDOVE_ATKS, true, true, },
   {  520, "Tranquill", TYPE_NORMAL, TYPE_FLYING, 144, 107, 158, "Pidove", TRANQUILL_ATKS, true, true, },
   {  521, "Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Tranquill", UNFEZANT_ATKS, true, true, },
-  {  522, "Blitzle", TYPE_ELECTRIC, TYPECOUNT, 118, 64, 128, NULL, NULL, },
-  {  523, "Zebstrika", TYPE_ELECTRIC, TYPECOUNT, 211, 136, 181, "Blitzle", NULL, },
+  {  522, "Blitzle", TYPE_ELECTRIC, TYPECOUNT, 118, 64, 128, NULL, BLITZLE_ATKS, true, true, },
+  {  523, "Zebstrika", TYPE_ELECTRIC, TYPECOUNT, 211, 136, 181, "Blitzle", ZEBSTRIKA_ATKS, true, true, },
   {  524, "Roggenrola", TYPE_ROCK, TYPECOUNT, 121, 110, 146, NULL, NULL, },
   {  525, "Boldore", TYPE_ROCK, TYPECOUNT, 174, 143, 172, "Roggenrola", NULL, },
   {  526, "Gigalith", TYPE_ROCK, TYPECOUNT, 226, 201, 198, "Boldore", NULL, },
