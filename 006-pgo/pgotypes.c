@@ -839,6 +839,34 @@ static const attack* SHIFTRY_ATKS[] = {
   NULL
 };
 
+static const attack* TYNAMO_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Tackle,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* EELEKTRIK_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Acid,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* EELEKTROSS_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Acid,
+  &ATK_Volt_Switch,
+  &ATK_Thunderbolt,
+  &ATK_Dragon_Claw,
+  &ATK_Crunch,
+  &ATK_Acid_Spray,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* BLITZLE_ATKS[] = {
   &ATK_Spark,
   &ATK_Low_Kick,
@@ -8380,9 +8408,9 @@ static const species sdex[] = {
   {  599, "Klink", TYPE_STEEL, TYPECOUNT, 98, 121, 120, NULL, KLINK_ATKS, true, false, },
   {  600, "Klang", TYPE_STEEL, TYPECOUNT, 150, 174, 155, "Klink", KLANG_ATKS, true, false, },
   {  601, "Klinklang", TYPE_STEEL, TYPECOUNT, 199, 214, 155, "Klang", KLINKKLANG_ATKS, true, false, },
-  {  602, "Tynamo", TYPE_ELECTRIC, TYPECOUNT, 105, 78, 111, NULL, NULL, },
-  {  603, "Eelektrik", TYPE_ELECTRIC, TYPECOUNT, 156, 130, 163, "Tynamo", NULL, },
-  {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik", NULL, },
+  {  602, "Tynamo", TYPE_ELECTRIC, TYPECOUNT, 105, 78, 111, NULL, TYNAMO_ATKS, true, false, },
+  {  603, "Eelektrik", TYPE_ELECTRIC, TYPECOUNT, 156, 130, 163, "Tynamo", EELEKTRIK_ATKS, true, false, },
+  {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik", EELEKTROSS_ATKS, true, false, },
   {  605, "Elgyem", TYPE_PSYCHIC, TYPECOUNT, 148, 100, 146, NULL, NULL, },
   {  606, "Beheeyem", TYPE_PSYCHIC, TYPECOUNT, 221, 163, 181, "Elgyem", NULL, },
   {  607, "Litwick", TYPE_GHOST, TYPE_FIRE, 108, 98, 137, NULL, LITWICK_ATKS, true, true, },
