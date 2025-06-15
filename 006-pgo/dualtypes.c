@@ -285,8 +285,10 @@ defensive_summaries_latex(const typing* t){
       }
     }
     printf("%.3f & %u & ", dra / 18, pcnt);
-    printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
-            t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
+    if(pcnt){ // no page if no population
+      printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
+              t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
+    }
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");

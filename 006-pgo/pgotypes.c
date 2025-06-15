@@ -4945,6 +4945,26 @@ static const attack* YANMEGA_ATKS[] = {
   NULL
 };
 
+static const attack* NOIBAT_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Wing_Attack,
+  &ATK_Heat_Wave,
+  &ATK_Dragon_Pulse,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* NOIVERN_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Air_Slash,
+  &ATK_Heat_Wave,
+  &ATK_Psychic,
+  &ATK_Hurricane,
+  &ATK_Draco_Meteor,
+  &ATK_Boomburst,
+  NULL
+};
+
 static const attack* LEDYBA_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Tackle,
@@ -8641,8 +8661,8 @@ static const species sdex[] = {
   {  712, "Bergmite", TYPE_ICE, TYPECOUNT, 117, 120, 146, NULL, BERGMITE_ATKS, true, false, },
   {  713, "Avalugg", TYPE_ICE, TYPECOUNT, 196, 240, 216, "Bergmite", AVALUGG_ATKS, true, false, },
   {  713, "Hisuian Avalugg", TYPE_ICE, TYPE_ROCK, 214, 238, 216, NULL, H_AVALUGG_ATKS, true, false, },
-  {  714, "Noibat", TYPE_FLYING, TYPE_DRAGON, 83, 73, 120, NULL, NULL, },
-  {  715, "Noivern", TYPE_FLYING, TYPE_DRAGON, 205, 175, 198, "Noibat", NULL, },
+  {  714, "Noibat", TYPE_FLYING, TYPE_DRAGON, 83, 73, 120, NULL, NOIBAT_ATKS, true, false, },
+  {  715, "Noivern", TYPE_FLYING, TYPE_DRAGON, 205, 175, 198, "Noibat", NOIVERN_ATKS, true, false, },
   {  716, "Xerneas", TYPE_FAIRY, TYPECOUNT, 250, 185, 246, NULL, XERNEAS_ATKS, true, false, },
   {  717, "Yveltal", TYPE_DARK, TYPE_FLYING, 250, 185, 246, NULL, YVELTAL_ATKS, true, false, },
   {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, NULL, ZYGARDE10_ATKS, true, false, },
