@@ -92,31 +92,30 @@ inflict_damage(unsigned *hp, unsigned damage){
 // but we do not simulate both doing nothing in the same turn
 static int
 simulturn(const simulstate *ins, results *r){
-  bool p1ongoing, p2ongoing;
+  bool p1ongoing = false;
+  bool p2ongoing = false;
   simulstate s = *ins;
   ++s.turn;
-  //printf("Turn %u HP: %u %u Energy: %d %d\n", s.turn, ins->p1hp, ins->p2hp, ins->p1energy, ins->p2energy);
-  if(s.p1turns == 0){
+  //printf("Turn %u HP: %u %u Energy: %d %d wait: %u %u\n", s.turn, ins->p1hp, ins->p2hp, ins->p1energy, ins->p2energy, ins->p1turns, ins->p2turns);
+  if(s.p1turns){
     // p1 needs make a choice
-    p1ongoing = false;
-  }else{
-    // p1's ongoing fast attack has not yet ended
     if(!--s.p1turns){
       // deal damage to p2
       inflict_damage(&s.p2hp, p1.fa->powertrain);
+    }else{
+      // p1's ongoing fast attack has not yet ended
+      p1ongoing = true;
     }
-    p1ongoing = true;
   }
-  if(s.p2turns == 0){
+  if(s.p2turns){
     // p2 needs make a choice
-    p2ongoing = false;
-  }else{
-    // p2's ongoing fast attack has not yet ended
     if(--s.p2turns == 0){
       // deal damage to p1
       inflict_damage(&s.p1hp, p2.fa->powertrain);
+    }else{
+      // p2's ongoing fast attack has not yet ended
+      p2ongoing = true;
     }
-    p2ongoing = true;
   }
   if(s.p1hp == 0 && s.p2hp == 0){
     //printf("tie!\n");
@@ -134,7 +133,7 @@ simulturn(const simulstate *ins, results *r){
   // run this turn then call the next turns, accumulate into r
   if(p1ongoing && p2ongoing){
     // only one option: both wait for attack to finish
-    //printf("recursing both wait\n");
+    //printf("turn %u recursing both wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     simulturn(&s, r);
     return 0;
   }else if(!p1ongoing && p2ongoing){
@@ -150,7 +149,7 @@ simulturn(const simulstate *ins, results *r){
     return 0;
   }else if(p1ongoing && !p2ongoing){
     // cartesian of wait and p2
-    //printf("recursing p1wait\n");
+    //printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     //simulturn(&s, r); // p2 does nothing
     s.p2turns = p2.fa->turns; // p2 launches fast attack
     s.p2energy += p2.fa->energytrain;
@@ -196,7 +195,7 @@ simulturn(const simulstate *ins, results *r){
   }
   // FIXME p2 charged attacks
   */
-  printf("p1: %u p2: %u t: %u\n", r->p1wins, r->p2wins, r->ties);
+  printf("p1: %8u p2:%8u t: %8u\n", r->p1wins, r->p2wins, r->ties);
   return 0;
 }
 
