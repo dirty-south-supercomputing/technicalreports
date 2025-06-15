@@ -1288,6 +1288,31 @@ static const attack* KINGDRA_ATKS[] = {
   NULL
 };
 
+static const attack* SEEL_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Ice_Shard,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Jet,
+  &ATK_Aqua_Tail,
+  &ATK_Icy_Wind,
+  &ATK_Aurora_Beam,
+  NULL
+};
+
+static const attack* DEWGONG_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Frost_Breath,
+  &ATK_Iron_Tail,
+  &ATK_Blizzard,
+  &ATK_Drill_Run,
+  &ATK_Aqua_Jet,
+  &ATK_Water_Pulse,
+  &ATK_Icy_Wind,
+  &ATK_Aurora_Beam,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* KLEAVOR_ATKS[] = {
   &ATK_Fury_Cutter,
   &ATK_Quick_Attack,
@@ -8277,8 +8302,8 @@ static const species sdex[] = {
   {   83, "Galarian Farfetch'd", TYPE_FIGHTING, TYPECOUNT, 174, 114, 141, NULL, NULL, },
   {   84, "Doduo", TYPE_NORMAL, TYPE_FLYING, 158, 83, 111, NULL, NULL, },
   {   85, "Dodrio", TYPE_NORMAL, TYPE_FLYING, 218, 140, 155, "Doduo", NULL, },
-  {   86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, NULL, NULL, },
-  {   87, "Dewgong", TYPE_WATER, TYPE_ICE, 139, 177, 207, "Seel", NULL, },
+  {   86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, NULL, SEEL_ATKS, true, false, },
+  {   87, "Dewgong", TYPE_WATER, TYPE_ICE, 139, 177, 207, "Seel", DEWGONG_ATKS, true, false, },
   {   88, "Grimer", TYPE_POISON, TYPECOUNT, 135, 90, 190, NULL, GRIMER_ATKS, true, true, },
   {   88, "Alolan Grimer", TYPE_POISON, TYPE_DARK, 135, 90, 190, NULL, A_GRIMER_ATKS, true, true, },
   {   89, "Muk", TYPE_POISON, TYPECOUNT, 190, 172, 233, "Grimer", MUK_ATKS, true, true, },
