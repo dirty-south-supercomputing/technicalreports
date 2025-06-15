@@ -800,6 +800,47 @@ static const attack* SHIINOTIC_ATKS[] = {
   NULL
 };
 
+static const attack* ROCKRUFF_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Throw,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Tomb,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* LYCANROC_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Rock_Throw,
+  &ATK_Stone_Edge,
+  &ATK_Drill_Run,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* D_LYCANROC_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Rock_Throw,
+  &ATK_Counter,
+  &ATK_Stone_Edge,
+  &ATK_Iron_Head,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* N_LYCANROC_ATKS[] = {
+  &ATK_Rock_Throw,
+  &ATK_Counter,
+  &ATK_Stone_Edge,
+  &ATK_Crunch,
+  &ATK_Psychic_Fangs,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* CACNEA_ATKS[] = {
   &ATK_Sucker_Punch,
   &ATK_Poison_Sting,
@@ -993,12 +1034,31 @@ static const attack* DRAGALGE_ATKS[] = {
   NULL
 };
 
+static const attack* MAREANIE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Sludge_Wave,
+  &ATK_Gunk_Shot,
+  &ATK_Brine,
+  NULL
+};
+
 static const attack* LUVDISC_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Splash,
   &ATK_Aqua_Jet,
   &ATK_Draining_Kiss,
   &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* WISHIWASHI_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Iron_Tail,
+  &ATK_Waterfall,
+  &ATK_Aqua_Tail,
+  &ATK_Brine,
+  &ATK_Surf,
   NULL
 };
 
@@ -9057,11 +9117,12 @@ static const species sdex[] = {
   {  741, "Oricorio", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, NULL, NULL, },
   {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, CUTIEFLY_ATKS, true, false, },
   {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, "Cutiefly", RIBOMBEE_ATKS, true, false, },
-  {  744, "Rockruff", TYPE_ROCK, TYPECOUNT, 117, 78, 128, NULL, NULL, },
-  {  745, "Lycanroc Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, "Rockruff", NULL, },
-  {  745, "Lycanroc Midnight", TYPE_ROCK, TYPECOUNT, 218, 152, 198, "Rockruff", NULL, },
-  {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff", NULL, },
-  {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, NULL, NULL, },
+  {  744, "Rockruff", TYPE_ROCK, TYPECOUNT, 117, 78, 128, NULL, ROCKRUFF_ATKS, true, false, },
+  {  745, "Lycanroc Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, "Rockruff", LYCANROC_ATKS, true, false, },
+  {  745, "Lycanroc Midnight", TYPE_ROCK, TYPECOUNT, 218, 152, 198, "Rockruff", N_LYCANROC_ATKS, true, false, },
+  {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff", D_LYCANROC_ATKS, true, false, },
+  {  746, "Wishiwashi", TYPE_WATER, TYPECOUNT, 46, 43, 128, NULL, WISHIWASHI_ATKS, false, false, },
+  {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, NULL, MAREANIE_ATKS, true, false, },
   {  748, "Toxapex", TYPE_POISON, TYPE_WATER, 114, 273, 137, "Mareanie", NULL, },
   {  749, "Mudbray", TYPE_GROUND, TYPECOUNT, 175, 121, 172, NULL, MUDBRAY_ATKS, true, false, },
   {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", MUDSDALE_ATKS, true, false, },
