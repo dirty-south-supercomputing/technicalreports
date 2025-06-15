@@ -800,6 +800,30 @@ static const attack* SHIINOTIC_ATKS[] = {
   NULL
 };
 
+static const attack* CACNEA_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Poison_Sting,
+  &ATK_Sand_Attack,
+  &ATK_Seed_Bomb,
+  &ATK_Brick_Break,
+  &ATK_Grass_Knot,
+  &ATK_Payback,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* CACTURNE_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Poison_Jab,
+  &ATK_Sand_Attack,
+  &ATK_Dark_Pulse,
+  &ATK_Dynamic_Punch,
+  &ATK_Grass_Knot,
+  &ATK_Payback,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* BLACEPHALON_ATKS[] = {
   &ATK_Astonish,
   &ATK_Incinerate,
@@ -1051,6 +1075,15 @@ static const attack* PANGORO_ATKS[] = {
   &ATK_Night_Slash,
   &ATK_Rock_Slide,
   &ATK_Iron_Head,
+  &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* ZANGOOSE_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Shadow_Claw,
+  &ATK_Dig,
+  &ATK_Night_Slash,
   &ATK_Close_Combat,
   NULL
 };
@@ -4349,6 +4382,26 @@ static const attack* SALAMENCE_ATKS[] = {
   NULL
 };
 
+static const attack* BARBOACH_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Aqua_Tail,
+  &ATK_Mud_Bomb,
+  &ATK_Scald,
+  NULL
+};
+
+static const attack* WHISCASH_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Water_Gun,
+  &ATK_Blizzard,
+  &ATK_Mud_Bomb,
+  &ATK_Water_Pulse,
+  &ATK_Scald,
+  NULL
+};
+
 static const attack* TURTONATOR_ATKS[] = {
   &ATK_Ember,
   &ATK_Fire_Spin,
@@ -5596,6 +5649,15 @@ static const attack* ABSOL_ATKS[] = {
   &ATK_Thunder,
   &ATK_Payback,
   &ATK_Brutal_Swing,
+  NULL
+};
+
+static const attack* SWABLU_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Astonish,
+  &ATK_Ice_Beam,
+  &ATK_Aerial_Ace,
+  &ATK_Disarming_Voice,
   NULL
 };
 
@@ -8379,16 +8441,16 @@ static const species sdex[] = {
   {  328, "Trapinch", TYPE_GROUND, TYPECOUNT, 162, 78, 128, NULL, TRAPINCH_ATKS, true, true, },
   {  329, "Vibrava", TYPE_GROUND, TYPE_DRAGON, 134, 99, 137, "Trapinch", VIBRAVA_ATKS, true, true, },
   {  330, "Flygon", TYPE_GROUND, TYPE_DRAGON, 205, 168, 190, "Vibrava", FLYGON_ATKS, true, true, },
-  {  331, "Cacnea", TYPE_GRASS, TYPECOUNT, 156, 74, 137, NULL, NULL, },
-  {  332, "Cacturne", TYPE_GRASS, TYPE_DARK, 221, 115, 172, "Cacnea", NULL, },
-  {  333, "Swablu", TYPE_NORMAL, TYPE_FLYING, 76, 132, 128, NULL, NULL, },
+  {  331, "Cacnea", TYPE_GRASS, TYPECOUNT, 156, 74, 137, NULL, CACNEA_ATKS, true, true, },
+  {  332, "Cacturne", TYPE_GRASS, TYPE_DARK, 221, 115, 172, "Cacnea", CACTURNE_ATKS, true, true, },
+  {  333, "Swablu", TYPE_NORMAL, TYPE_FLYING, 76, 132, 128, NULL, SWABLU_ATKS, true, false, },
   {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, "Swablu", ALTARIA_ATKS, true, false, },
-  {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, NULL, NULL, },
+  {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, NULL, ZANGOOSE_ATKS, true, false, },
   {  336, "Seviper", TYPE_POISON, TYPECOUNT, 196, 118, 177, NULL, SEVIPER_ATKS, true, false, },
   {  337, "Lunatone", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, LUNATONE_ATKS, true, false, },
   {  338, "Solrock", TYPE_ROCK, TYPE_PSYCHIC, 178, 153, 207, NULL, SOLROCK_ATKS, true, false, },
-  {  339, "Barboach", TYPE_WATER, TYPE_GROUND, 93, 82, 137, NULL, NULL, },
-  {  340, "Whiscash", TYPE_WATER, TYPE_GROUND, 151, 141, 242, "Barboach", NULL, },
+  {  339, "Barboach", TYPE_WATER, TYPE_GROUND, 93, 82, 137, NULL, BARBOACH_ATKS, true, true, },
+  {  340, "Whiscash", TYPE_WATER, TYPE_GROUND, 151, 141, 242, "Barboach", WHISCASH_ATKS, true, true, },
   {  341, "Corphish", TYPE_WATER, TYPECOUNT, 141, 99, 125, NULL, CORPHISH_ATKS, true, true, },
   {  342, "Crawdaunt", TYPE_WATER, TYPE_DARK, 224, 142, 160, "Corphish", CRAWDAUNT_ATKS, true, true, },
   {  343, "Baltoy", TYPE_GROUND, TYPE_PSYCHIC, 77, 124, 120, NULL, BALTOY_ATKS, true, false, },
