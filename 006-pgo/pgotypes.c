@@ -949,6 +949,26 @@ static const attack* SHIFTRY_ATKS[] = {
   NULL
 };
 
+static const attack* CHINCHOU_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Bubble,
+  &ATK_Bubble_Beam,
+  &ATK_Thunderbolt,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* LANTURN_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Water_Gun,
+  &ATK_Charge_Beam,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Hydro_Pump,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* TYNAMO_ATKS[] = {
   &ATK_Spark,
   &ATK_Tackle,
@@ -1830,6 +1850,27 @@ static const attack* A_EXEGGUTOR_ATKS[] = {
   &ATK_Dragon_Pulse,
   &ATK_Solar_Beam,
   &ATK_Draco_Meteor,
+  NULL
+};
+
+static const attack* PALKIA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Dragon_Tail,
+  &ATK_Aqua_Tail,
+  &ATK_Fire_Blast,
+  &ATK_Hydro_Pump,
+  &ATK_Draco_Meteor,
+  NULL
+};
+
+static const attack* O_PALKIA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Dragon_Tail,
+  &ATK_Aqua_Tail,
+  &ATK_Fire_Blast,
+  &ATK_Hydro_Pump,
+  &ATK_Draco_Meteor,
+  &ATK_Spacial_Rend,
   NULL
 };
 
@@ -8741,8 +8782,8 @@ static const species sdex[] = {
   {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, NULL, SPINARAK_ATKS, true, false, },
   {  168, "Ariados", TYPE_BUG, TYPE_POISON, 161, 124, 172, "Spinarak", ARIADOS_ATKS, true, false, },
   {  169, "Crobat", TYPE_POISON, TYPE_FLYING, 194, 178, 198, "Golbat", CROBAT_ATKS, true, true, },
-  {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, NULL, },
-  {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, "Chinchou", NULL, },
+  {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, CHINCHOU_ATKS, true, false, },
+  {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, "Chinchou", LANTURN_ATKS, true, false, },
   {  172, "Pichu", TYPE_ELECTRIC, TYPECOUNT, 77, 53, 85, NULL, NULL, },
   {  173, "Cleffa", TYPE_FAIRY, TYPECOUNT, 75, 79, 137, NULL, CLEFFA_ATKS, true, false, },
   {  174, "Igglybuff", TYPE_NORMAL, TYPE_FAIRY, 69, 32, 207, NULL, NULL, },
@@ -9075,8 +9116,8 @@ static const species sdex[] = {
   {  482, "Azelf", TYPE_PSYCHIC, TYPECOUNT, 270, 151, 181, NULL, AZELF_ATKS, true, false, },
   {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, NULL, DIALGA_ATKS, true, true, },
   {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, O_DIALGA_ATKS, true, true, },
-  {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, NULL, },
-  {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, NULL, },
+  {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, PALKIA_ATKS, true, true, },
+  {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, O_PALKIA_ATKS, true, true, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATKS, true, true, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, REGIGIGAS_ATKS, true, true, },
   {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
