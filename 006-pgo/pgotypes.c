@@ -8039,7 +8039,6 @@ static const species sdex[] = {
   {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, MAGIKARP_ATKS, true, true, },
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp", GYARADOS_ATKS, true, true, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, true, },
-  {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, NULL, NULL, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, EEVEE_ATKS, true, false, },
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee", VAPOREON_ATKS, true, false, },
   {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee", JOLTEON_ATKS, true, false, },
