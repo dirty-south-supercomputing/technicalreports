@@ -96,9 +96,12 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
 \section{Optimal League forms}
 Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
    the Ultra League (CP 2500).
-\autoref{table:cp1500} lists all species' optimal level and IVs for the Great League
+\autoref{table:cp1500} lists species' optimal level and IVs for the Great League
   as evaluated using the harmonic mean of $Eff_A$, $Eff_D$, and $MHP$.
-A few observations from this table:
+Species which can't manage a harmonic mean of 95 have been left out.
+\autoref{table:cp2500} does the same for the Ultra League, eliding those species which
+  can't hit a $\sqrt[3]{BP}$ of 130.
+A few observations from the CP1500 table:
 In general, there is no correlation between $\sqrt[3]{BP}$ and level,
   save that everything at the bottom of the list is maxed (15/15/15@50),
   since many species cannot reach 1500 CP at all.
@@ -130,8 +133,10 @@ The real answer is: equal importance until level 30 or so, and IVs beyond that,
   though the Attack component is always less important than level
   (as evidenced by the large number of x/15/15@50 configurations).
 
-\autoref{table:cp2500} does the same for the Ultra League, leaving out those species which
-  can't hit a $\sqrt[3]{BP}$ of 115.
+What's always more important is typing and attack selection.
+I'm a fan of bringing in powerful Pokémon at low levels; their stats are
+  comparable to less powerful Pokémon at higher levels, but they
+  generally have more powerful moves.
 
 \section{Anticipating opponents}
 Similarly to an unbounded contest, we can assume that a rational opponent is selecting
