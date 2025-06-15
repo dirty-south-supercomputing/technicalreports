@@ -1169,6 +1169,37 @@ static const attack* GLISCOR_ATKS[] = {
   NULL
 };
 
+static const attack* TOTODILE_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Jet,
+  &ATK_Water_Pulse,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* CROCONAW_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Water_Gun,
+  &ATK_Ice_Punch,
+  &ATK_Water_Pulse,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* FERALIGATR_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Shadow_Claw,
+  &ATK_Water_Gun,
+  &ATK_Waterfall,
+  &ATK_Ice_Fang,
+  &ATK_Ice_Beam,
+  &ATK_Hydro_Pump,
+  &ATK_Crunch,
+  &ATK_Hydro_Cannon,
+  NULL
+};
+
 static const attack* SOBBLE_ATKS[] = {
   &ATK_Pound,
   &ATK_Water_Gun,
@@ -8117,9 +8148,9 @@ static const species sdex[] = {
   {  156, "Quilava", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Cyndaquil", NULL, },
   {  157, "Typhlosion", TYPE_FIRE, TYPECOUNT, 223, 173, 186, "Quilava", NULL, },
   {  157, "Hisuian Typhlosion", TYPE_FIRE, TYPE_GHOST, 238, 172, 177, NULL, NULL, },
-  {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, NULL, NULL, },
-  {  159, "Croconaw", TYPE_WATER, TYPECOUNT, 150, 142, 163, "Totodile", NULL, },
-  {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw", NULL, },
+  {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, NULL, TOTODILE_ATKS, true, true, },
+  {  159, "Croconaw", TYPE_WATER, TYPECOUNT, 150, 142, 163, "Totodile", CROCONAW_ATKS, true, true, },
+  {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw", FERALIGATR_ATKS, true, true, },
   {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, NULL, SENTRET_ATKS, true, false, },
   {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret", FURRET_ATKS, true, false, },
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, NULL, NULL, },
