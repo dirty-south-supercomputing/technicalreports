@@ -136,8 +136,7 @@ simulturn(const simulstate *ins, results *r){
     //printf("turn %u recursing both wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     simulturn(&s, r);
     return 0;
-  }else if(!p1ongoing && p2ongoing){
-    // cartesian of p1 and wait
+  }else if(!p1ongoing && p2ongoing){ // cartesian of p1 and wait
     //printf("recursing p2wait\n");
     //simulturn(&s, r); // p1 does nothing
     s.p1turns = p1.fa->turns; // p1 launches fast attack
@@ -147,8 +146,7 @@ simulturn(const simulstate *ins, results *r){
     s.p1turns = 0;
     // FIXME now try p1 charged attacks
     return 0;
-  }else if(p1ongoing && !p2ongoing){
-    // cartesian of wait and p2
+  }else if(p1ongoing && !p2ongoing){ // cartesian of wait and p2
     //printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     //simulturn(&s, r); // p2 does nothing
     s.p2turns = p2.fa->turns; // p2 launches fast attack
@@ -156,7 +154,35 @@ simulturn(const simulstate *ins, results *r){
     simulturn(&s, r);
     s.p2energy -= p2.fa->energytrain;
     s.p2turns = 0;
-    // FIXME now try p2 charged attacks
+    // now try p2 charged attacks
+    s.p1turns = 0; // charged attack ends opponent's fast attack
+    inflict_damage(&s.p2hp, p1.fa->powertrain);
+    if(!s.p2hp){
+      ++r->p1wins;
+    }else{
+      if(s.p2energy >= -p2.ca1->energytrain){
+        s.p2energy += p2.ca1->energytrain;
+        inflict_damage(&s.p1hp, p2.ca1->powertrain);
+        if(!s.p1hp){
+          ++r->p2wins;
+        }else{
+          simulturn(&s, r);
+        }
+        s.p2energy -= p2.ca1->energytrain;
+      }
+      if(p2.ca2){
+        if(s.p2energy >= -p2.ca2->energytrain){
+          s.p2energy += p2.ca2->energytrain;
+          inflict_damage(&s.p1hp, p2.ca2->powertrain);
+          if(!s.p1hp){
+            ++r->p2wins;
+          }else{
+            simulturn(&s, r);
+          }
+          s.p2energy -= p2.ca2->energytrain;
+        }
+      }
+    }
     return 0;
   }
   // cartesian of all options
