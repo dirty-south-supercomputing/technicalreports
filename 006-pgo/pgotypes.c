@@ -1034,6 +1034,71 @@ static const attack* BRUXISH_ATKS[] = {
   NULL
 };
 
+static const attack* PANCHAM_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Tackle,
+  &ATK_Low_Sweep,
+  &ATK_Body_Slam,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* PANGORO_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Karate_Chop,
+  &ATK_Bullet_Punch,
+  &ATK_Snarl,
+  &ATK_Night_Slash,
+  &ATK_Rock_Slide,
+  &ATK_Iron_Head,
+  &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* C_TAUROS_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Double_Kick,
+  &ATK_Earthquake,
+  &ATK_Iron_Head,
+  &ATK_Close_Combat,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* B_TAUROS_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Double_Kick,
+  &ATK_Earthquake,
+  &ATK_Iron_Head,
+  &ATK_Flame_Charge,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* A_TAUROS_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Double_Kick,
+  &ATK_Earthquake,
+  &ATK_Aqua_Jet,
+  &ATK_Iron_Head,
+  &ATK_Horn_Attack,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* TAUROS_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Earthquake,
+  &ATK_Iron_Head,
+  &ATK_Horn_Attack,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* RELICANTH_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Zen_Headbutt,
@@ -7947,10 +8012,10 @@ static const species sdex[] = {
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, "Elekid", ELECTABUZZ_ATKS, true, true, },
   {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, NULL, MAGMAR_ATKS, true, true, },
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, NULL, PINSIR_ATKS, true, true, },
-  {  128, "Tauros", TYPE_NORMAL, TYPECOUNT, 198, 183, 181, NULL, NULL, },
-  {  128, "Combat Breed Tauros", TYPE_FIGHTING, TYPECOUNT, 210, 193, 181, NULL, NULL, },
-  {  128, "Blaze Breed Tauros", TYPE_FIGHTING, TYPE_FIRE, 210, 193, 181, NULL, NULL, },
-  {  128, "Aqua Breed Tauros", TYPE_FIGHTING, TYPE_WATER, 210, 193, 181, NULL, NULL, },
+  {  128, "Tauros", TYPE_NORMAL, TYPECOUNT, 198, 183, 181, NULL, TAUROS_ATKS, true, false, },
+  {  128, "Paldean Combat Tauros", TYPE_FIGHTING, TYPECOUNT, 210, 193, 181, NULL, C_TAUROS_ATKS, false, false, },
+  {  128, "Paldean Blaze Tauros", TYPE_FIGHTING, TYPE_FIRE, 210, 193, 181, NULL, B_TAUROS_ATKS, false, false, },
+  {  128, "Paldean Aqua Tauros", TYPE_FIGHTING, TYPE_WATER, 210, 193, 181, NULL, A_TAUROS_ATKS, false, false, },
   {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, NULL, MAGIKARP_ATKS, true, true, },
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp", GYARADOS_ATKS, true, true, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, true, },
@@ -8532,8 +8597,8 @@ static const species sdex[] = {
   {  671, "Florges", TYPE_FAIRY, TYPECOUNT, 212, 244, 186, "Floette", NULL, },
   {  672, "Skiddo", TYPE_GRASS, TYPECOUNT, 123, 102, 165, NULL, NULL, },
   {  673, "Gogoat", TYPE_GRASS, TYPECOUNT, 196, 146, 265, "Skiddo", NULL, },
-  {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, NULL, },
-  {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham", NULL, },
+  {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, PANCHAM_ATKS, true, false, },
+  {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham", PANGORO_ATKS, true, false, },
   {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, NULL, },
   {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, NULL, NULL, },
   {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr", NULL, },
