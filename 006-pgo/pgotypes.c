@@ -1741,6 +1741,34 @@ static const attack* LIEPARD_ATKS[] = {
   NULL
 };
 
+static const attack* VANILLITE_ATKS[] = {
+  &ATK_Powder_Snow,
+  &ATK_Astonish,
+  &ATK_Ice_Beam,
+  &ATK_Signal_Beam,
+  &ATK_Icy_Wind,
+  NULL
+};
+
+static const attack* VANILLISH_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Astonish,
+  &ATK_Ice_Beam,
+  &ATK_Signal_Beam,
+  &ATK_Icy_Wind,
+  NULL
+};
+
+static const attack* VANILLUXE_ATKS[] = {
+  &ATK_Frost_Breath,
+  &ATK_Astonish,
+  &ATK_Flash_Cannon,
+  &ATK_Blizzard,
+  &ATK_Signal_Beam,
+  &ATK_Avalanche,
+  NULL
+};
+
 static const attack* CUBCHOO_ATKS[] = {
   &ATK_Powder_Snow,
   &ATK_Charm,
@@ -8517,9 +8545,9 @@ static const species sdex[] = {
   {  579, "Reuniclus", TYPE_PSYCHIC, TYPECOUNT, 214, 148, 242, "Duosion", NULL, },
   {  580, "Ducklett", TYPE_WATER, TYPE_FLYING, 84, 96, 158, NULL, NULL, },
   {  581, "Swanna", TYPE_WATER, TYPE_FLYING, 182, 132, 181, "Ducklett", NULL, },
-  {  582, "Vanillite", TYPE_ICE, TYPECOUNT, 118, 106, 113, NULL, NULL, },
-  {  583, "Vanillish", TYPE_ICE, TYPECOUNT, 151, 138, 139, "Vanillite", NULL, },
-  {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanilluxe", NULL, },
+  {  582, "Vanillite", TYPE_ICE, TYPECOUNT, 118, 106, 113, NULL, VANILLITE_ATKS, true, false, },
+  {  583, "Vanillish", TYPE_ICE, TYPECOUNT, 151, 138, 139, "Vanillite", VANILLISH_ATKS, true, false, },
+  {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanilluxe", VANILLUXE_ATKS, true, false, },
   {  585, "Deerling", TYPE_NORMAL, TYPE_GRASS, 115, 100, 155, NULL, NULL, },
   {  586, "Sawsbuck", TYPE_NORMAL, TYPE_GRASS, 198, 146, 190, "Deerling", NULL, },
   {  587, "Emolga", TYPE_ELECTRIC, TYPE_FLYING, 158, 127, 146, NULL, NULL, },
