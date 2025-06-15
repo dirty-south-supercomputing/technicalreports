@@ -4639,6 +4639,24 @@ static const attack* EMPOLEON_ATKS[] = {
   NULL
 };
 
+static const attack* CARVANHA_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Snarl,
+  &ATK_Poison_Fang,
+  &ATK_Aqua_Jet,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SHARPEDO_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Waterfall,
+  &ATK_Poison_Fang,
+  &ATK_Hydro_Pump,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* HAWLUCHA_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Poison_Jab,
@@ -8486,8 +8504,8 @@ static const species sdex[] = {
   {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, "Budew", ROSELIA_ATKS, true, false, },
   {  316, "Gulpin", TYPE_POISON, TYPECOUNT, 80, 99, 172, NULL, NULL, },
   {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, "Gulpin", NULL, },
-  {  318, "Carvanha", TYPE_WATER, TYPE_DARK, 171, 39, 128, NULL, NULL, },
-  {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, "Carvanha", NULL, },
+  {  318, "Carvanha", TYPE_WATER, TYPE_DARK, 171, 39, 128, NULL, CARVANHA_ATKS, true, true, },
+  {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, "Carvanha", SHARPEDO_ATKS, true, true, },
   {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, NULL, WAILMER_ATKS, true, true, },
   {  321, "Wailord", TYPE_WATER, TYPECOUNT, 175, 87, 347, "Wailmer", WAILORD_ATKS, true, true, },
   {  322, "Numel", TYPE_FIRE, TYPE_GROUND, 119, 79, 155, NULL, NUMEL_ATKS, true, true, },
@@ -9150,6 +9168,7 @@ static const species megasdex[] = {
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATKS, true, false, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATKS, true, false, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", MANECTRIC_ATKS, true, false, },
+  {  319, "Mega Sharpedo", TYPE_DARK, TYPE_WATER, 289, 144, 172, "Sharpedo", SHARPEDO_ATKS, true, false, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", ALTARIA_ATKS, true, false, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", BANETTE_ATKS, true, false, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", ABSOL_ATKS, true, false, },
