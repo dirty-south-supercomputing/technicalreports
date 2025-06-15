@@ -2888,6 +2888,24 @@ static const attack* ARMALDO_ATKS[] = {
   NULL
 };
 
+static const attack* FINNEON_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Water_Gun,
+  &ATK_Ice_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Silver_Wind,
+  NULL
+};
+
+static const attack* LUMINEON_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Waterfall,
+  &ATK_Blizzard,
+  &ATK_Water_Pulse,
+  &ATK_Silver_Wind,
+  NULL
+};
+
 static const attack* SEWADDLE_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Struggle_Bug,
@@ -9267,8 +9285,8 @@ static const species sdex[] = {
   {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, NULL, },
   {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, "Croagunk", NULL, },
   {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, CARNIVINE_ATKS, true, false, },
-  {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, NULL, },
-  {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, "Finneon", NULL, },
+  {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, FINNEON_ATKS, true, false, },
+  {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, "Finneon", LUMINEON_ATKS, true, false, },
   {  458, "Mantyke", TYPE_WATER, TYPE_FLYING, 105, 179, 128, NULL, MANTYKE_ATKS, true, false, },
   {  459, "Snover", TYPE_GRASS, TYPE_ICE, 115, 105, 155, NULL, SNOVER_ATKS, true, true, },
   {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, "Snover", ABOMASNOW_ATKS, true, true, },
