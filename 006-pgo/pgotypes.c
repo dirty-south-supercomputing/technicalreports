@@ -1919,6 +1919,33 @@ static const attack* DRUDDIGON_ATKS[] = {
   NULL
 };
 
+static const attack* TYMPOLE_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Sludge_Wave,
+  &ATK_Mud_Bomb,
+  &ATK_Water_Pulse,
+  NULL
+};
+
+static const attack* PALPITOAD_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Sludge_Wave,
+  &ATK_Water_Pulse,
+  &ATK_Earth_Power,
+  NULL
+};
+
+static const attack* SEISMITOAD_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bubble,
+  &ATK_Sludge_Bomb,
+  &ATK_Earth_Power,
+  &ATK_Muddy_Water,
+  NULL
+};
+
 static const attack* GOOMY_ATKS[] = {
   &ATK_Tackle,
   &ATK_Water_Gun,
@@ -8735,9 +8762,9 @@ static const species sdex[] = {
   {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, NULL, TIMBURR_ATKS, true, true, },
   {  533, "Gurdurr", TYPE_FIGHTING, TYPECOUNT, 180, 134, 198, "Timburr", GURDURR_ATKS, true, true, },
   {  534, "Conkeldurr", TYPE_FIGHTING, TYPECOUNT, 243, 158, 233, "Gurdurr", CONKELDURR_ATKS, true, true, },
-  {  535, "Tympole", TYPE_WATER, TYPECOUNT, 98, 78, 137, NULL, NULL, },
-  {  536, "Palpitoad", TYPE_WATER, TYPE_GROUND, 128, 109, 181, "Tympole", NULL, },
-  {  537, "Seismitoad", TYPE_WATER, TYPE_GROUND, 188, 150, 233, "Palpitoad", NULL, },
+  {  535, "Tympole", TYPE_WATER, TYPECOUNT, 98, 78, 137, NULL, TYMPOLE_ATKS, true, false, },
+  {  536, "Palpitoad", TYPE_WATER, TYPE_GROUND, 128, 109, 181, "Tympole", PALPITOAD_ATKS, true, false, },
+  {  537, "Seismitoad", TYPE_WATER, TYPE_GROUND, 188, 150, 233, "Palpitoad", SEISMITOAD_ATKS, true, false, },
   {  538, "Throh", TYPE_FIGHTING, TYPECOUNT, 172, 160, 260, NULL, NULL, },
   {  539, "Sawk", TYPE_FIGHTING, TYPECOUNT, 231, 153, 181, NULL, NULL, },
   {  540, "Sewaddle", TYPE_BUG, TYPE_GRASS, 96, 124, 128, NULL, SEWADDLE_ATKS, true, false, },
