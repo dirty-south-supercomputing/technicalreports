@@ -149,6 +149,7 @@ simulturn(const simulstate *ins, results *r){
     if(!s.p1hp){
       ++r->p2wins;
     }else{
+      unsigned p2hppreserve = s.p2hp;
       if(s.p1energy >= -p1.ca1->energytrain){
         s.p1energy += p1.ca1->energytrain;
         inflict_damage(&s.p2hp, p1.ca1->powertrain);
@@ -159,6 +160,7 @@ simulturn(const simulstate *ins, results *r){
         }
         s.p1energy -= p1.ca1->energytrain;
       }
+      s.p2hp = p2hppreserve;
       if(p1.ca2){
         if(s.p1energy >= -p1.ca2->energytrain){
           s.p1energy += p1.ca2->energytrain;
@@ -187,6 +189,7 @@ simulturn(const simulstate *ins, results *r){
     if(!s.p2hp){
       ++r->p1wins;
     }else{
+      unsigned p1hppreserve = s.p1hp;
       if(s.p2energy >= -p2.ca1->energytrain){
         s.p2energy += p2.ca1->energytrain;
         inflict_damage(&s.p1hp, p2.ca1->powertrain);
@@ -197,6 +200,7 @@ simulturn(const simulstate *ins, results *r){
         }
         s.p2energy -= p2.ca1->energytrain;
       }
+      s.p1hp = p1hppreserve;
       if(p2.ca2){
         if(s.p2energy >= -p2.ca2->energytrain){
           s.p2energy += p2.ca2->energytrain;
@@ -232,22 +236,66 @@ simulturn(const simulstate *ins, results *r){
   s.p1energy -= p1.fa->energytrain;
   simulturn(&s, r);
   s.p2energy -= p2.fa->energytrain;
-  /*
-  // if p1 can do charged attacks, try them
   if(s.p1energy >= -p1.ca1->energytrain){
     s.p1energy += p1.ca1->energytrain;
-    // FIXME do charged attack
+    inflict_damage(&s.p2hp, p1.ca1->powertrain);
+    if(!s.p2hp){
+      ++r->p1wins;
+    }else{
+      simulturn(&s, r);
+    }
     s.p1energy -= p1.ca1->energytrain;
   }
+  unsigned p2hppreserve = s.p2hp;
+  if(s.p1energy >= -p1.ca1->energytrain){
+    s.p1energy += p1.ca1->energytrain;
+    inflict_damage(&s.p2hp, p1.ca1->powertrain);
+    if(!s.p2hp){
+      ++r->p1wins;
+    }else{
+      simulturn(&s, r);
+    }
+    s.p1energy -= p1.ca1->energytrain;
+  }
+  s.p2hp = p2hppreserve;
   if(p1.ca2){
     if(s.p1energy >= -p1.ca2->energytrain){
       s.p1energy += p1.ca2->energytrain;
-      // FIXME do charged attack 2
+      inflict_damage(&s.p2hp, p1.ca2->powertrain);
+      if(!s.p2hp){
+        ++r->p1wins;
+      }else{
+        simulturn(&s, r);
+      }
       s.p1energy -= p1.ca2->energytrain;
     }
   }
-  // FIXME p2 charged attacks
-  */
+  s.p2hp = p2hppreserve;
+  unsigned p1hppreserve = s.p1hp;
+  if(s.p2energy >= -p2.ca1->energytrain){
+    s.p2energy += p2.ca1->energytrain;
+    inflict_damage(&s.p1hp, p2.ca1->powertrain);
+    if(!s.p1hp){
+      ++r->p2wins;
+    }else{
+      simulturn(&s, r);
+    }
+    s.p2energy -= p2.ca1->energytrain;
+  }
+  s.p1hp = p1hppreserve;
+  if(p2.ca2){
+    if(s.p2energy >= -p2.ca2->energytrain){
+      s.p2energy += p2.ca2->energytrain;
+      inflict_damage(&s.p1hp, p2.ca2->powertrain);
+      if(!s.p1hp){
+        ++r->p2wins;
+      }else{
+        simulturn(&s, r);
+      }
+      s.p2energy -= p2.ca2->energytrain;
+    }
+  }
+  s.p1hp = p1hppreserve;
   printf("p1: %8u p2:%8u t: %8u\n", r->p1wins, r->p2wins, r->ties);
   return 0;
 }
