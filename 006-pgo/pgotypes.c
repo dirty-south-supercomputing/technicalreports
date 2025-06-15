@@ -6662,6 +6662,17 @@ static const attack* DRAGONITE_ATKS[] = {
   NULL
 };
 
+static const attack* RESHIRAM_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Fire_Fang,
+  &ATK_Stone_Edge,
+  &ATK_Overheat,
+  &ATK_Crunch,
+  &ATK_Draco_Meteor,
+  &ATK_Fusion_Flare,
+  NULL
+};
+
 static const attack* KYUREM_ATKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Steel_Wing,
@@ -8267,7 +8278,7 @@ static const species sdex[] = {
   {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, T_TORNADUS_ATKS, true, false, },
   {  642, "Incarnate Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, NULL, I_THUNDURUS_ATKS, true, false, },
   {  642, "Therian Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 295, 161, 188, NULL, T_THUNDURUS_ATKS, true, false, },
-  {  643, "Reshiram", TYPE_DRAGON, TYPE_FIRE, 275, 211, 205, NULL, NULL, },
+  {  643, "Reshiram", TYPE_DRAGON, TYPE_FIRE, 275, 211, 205, NULL, RESHIRAM_ATKS, true, false, },
   {  644, "Zekrom", TYPE_DRAGON, TYPE_ELECTRIC, 275, 211, 205, NULL, ZEKROM_ATKS, true, false, },
   {  645, "Incarnate Forme Landorus", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, NULL, I_LANDORUS_ATKS, true, false, },
   {  645, "Therian Forme Landorus", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, NULL, T_LANDORUS_ATKS, true, false, },
