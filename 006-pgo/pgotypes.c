@@ -1192,6 +1192,27 @@ static const attack* TAUROS_ATKS[] = {
   NULL
 };
 
+static const attack* GOLDEEN_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Mud_Shot,
+  &ATK_Aqua_Tail,
+  &ATK_Water_Pulse,
+  &ATK_Horn_Attack,
+  NULL
+};
+
+static const attack* SEAKING_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Poison_Jab,
+  &ATK_Waterfall,
+  &ATK_Megahorn,
+  &ATK_Ice_Beam,
+  &ATK_Drill_Run,
+  &ATK_Water_Pulse,
+  &ATK_Icy_Wind,
+  NULL
+};
+
 static const attack* RELICANTH_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Zen_Headbutt,
@@ -1348,6 +1369,30 @@ static const attack* KINGDRA_ATKS[] = {
   NULL
 };
 
+static const attack* STARYU_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Bubble_Beam,
+  &ATK_Power_Gem,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* STARMIE_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Hidden_Power,
+  &ATK_Psywave,
+  &ATK_Psybeam,
+  &ATK_Ice_Beam,
+  &ATK_Power_Gem,
+  &ATK_Thunder,
+  &ATK_Hydro_Pump,
+  &ATK_Psychic,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* SEEL_ATKS[] = {
   &ATK_Lick,
   &ATK_Ice_Shard,
@@ -1429,6 +1474,25 @@ static const attack* FERROTHORN_ATKS[] = {
   &ATK_Power_Whip,
   &ATK_Acid_Spray,
   &ATK_Mirror_Shot,
+  NULL
+};
+
+static const attack* DUCKLETT_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Water_Gun,
+  &ATK_Aerial_Ace,
+  &ATK_Bubble_Beam,
+  &ATK_Brave_Bird,
+  NULL
+};
+
+static const attack* SWANNA_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Air_Slash,
+  &ATK_Ice_Beam,
+  &ATK_Bubble_Beam,
+  &ATK_Hurricane,
+  &ATK_Fly,
   NULL
 };
 
@@ -1838,6 +1902,34 @@ static const attack* G_YAMASK_ATKS[] = {
   &ATK_Astonish,
   &ATK_Rock_Tomb,
   &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* SOLOSIS_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Psyshock,
+  &ATK_Thunder,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* DUOSION_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Psyshock,
+  &ATK_Thunder,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* REUNICLUS_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Hidden_Power,
+  &ATK_Psyshock,
+  &ATK_Shadow_Ball,
+  &ATK_Thunder,
+  &ATK_Future_Sight,
   NULL
 };
 
@@ -8445,10 +8537,10 @@ static const species sdex[] = {
   {  115, "Kangaskhan", TYPE_NORMAL, TYPECOUNT, 181, 165, 233, NULL, KANGASKHAN_ATKS, true, true, },
   {  116, "Horsea", TYPE_WATER, TYPECOUNT, 129, 103, 102, NULL, HORSEA_ATKS, true, true, },
   {  117, "Seadra", TYPE_WATER, TYPECOUNT, 187, 156, 146, "Horsea", SEADRA_ATKS, true, true, },
-  {  118, "Goldeen", TYPE_WATER, TYPECOUNT, 123, 110, 128, NULL, NULL, },
-  {  119, "Seaking", TYPE_WATER, TYPECOUNT, 175, 147, 190, "Goldeen", NULL, },
-  {  120, "Staryu", TYPE_WATER, TYPECOUNT, 137, 112, 102, NULL, NULL, },
-  {  121, "Starmie", TYPE_WATER, TYPE_PSYCHIC, 210, 184, 155, "Staryu", NULL, },
+  {  118, "Goldeen", TYPE_WATER, TYPECOUNT, 123, 110, 128, NULL, GOLDEEN_ATKS, true, false, },
+  {  119, "Seaking", TYPE_WATER, TYPECOUNT, 175, 147, 190, "Goldeen", SEAKING_ATKS, true, false, },
+  {  120, "Staryu", TYPE_WATER, TYPECOUNT, 137, 112, 102, NULL, STARYU_ATKS, true, false, },
+  {  121, "Starmie", TYPE_WATER, TYPE_PSYCHIC, 210, 184, 155, "Staryu", STARMIE_ATKS, true, false, },
   {  122, "Mr. Mime", TYPE_PSYCHIC, TYPE_FAIRY, 192, 205, 120, "Mime Jr.", MRMIME_ATKS, true, true, },
   {  122, "Galarian Mr. Mime", TYPE_ICE, TYPE_PSYCHIC, 183, 169, 137, NULL, G_MRMIME_ATKS, true, true, },
   {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, SCYTHER_ATKS, true, true, },
@@ -8936,11 +9028,11 @@ static const species sdex[] = {
   {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, NULL, },
   {  575, "Gothorita", TYPE_PSYCHIC, TYPECOUNT, 137, 153, 155, "Gothita", NULL, },
   {  576, "Gothitelle", TYPE_PSYCHIC, TYPECOUNT, 176, 205, 172, "Gothorita", NULL, },
-  {  577, "Solosis", TYPE_PSYCHIC, TYPECOUNT, 170, 83, 128, NULL, NULL, },
-  {  578, "Duosion", TYPE_PSYCHIC, TYPECOUNT, 208, 103, 163, "Solosis", NULL, },
-  {  579, "Reuniclus", TYPE_PSYCHIC, TYPECOUNT, 214, 148, 242, "Duosion", NULL, },
-  {  580, "Ducklett", TYPE_WATER, TYPE_FLYING, 84, 96, 158, NULL, NULL, },
-  {  581, "Swanna", TYPE_WATER, TYPE_FLYING, 182, 132, 181, "Ducklett", NULL, },
+  {  577, "Solosis", TYPE_PSYCHIC, TYPECOUNT, 170, 83, 128, NULL, SOLOSIS_ATKS, true, true, },
+  {  578, "Duosion", TYPE_PSYCHIC, TYPECOUNT, 208, 103, 163, "Solosis", DUOSION_ATKS, true, true, },
+  {  579, "Reuniclus", TYPE_PSYCHIC, TYPECOUNT, 214, 148, 242, "Duosion", REUNICLUS_ATKS, true, true, },
+  {  580, "Ducklett", TYPE_WATER, TYPE_FLYING, 84, 96, 158, NULL, DUCKLETT_ATKS, true, true, },
+  {  581, "Swanna", TYPE_WATER, TYPE_FLYING, 182, 132, 181, "Ducklett", SWANNA_ATKS, true, true, },
   {  582, "Vanillite", TYPE_ICE, TYPECOUNT, 118, 106, 113, NULL, VANILLITE_ATKS, true, false, },
   {  583, "Vanillish", TYPE_ICE, TYPECOUNT, 151, 138, 139, "Vanillite", VANILLISH_ATKS, true, false, },
   {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanilluxe", VANILLUXE_ATKS, true, false, },
