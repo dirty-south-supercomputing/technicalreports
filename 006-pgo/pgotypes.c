@@ -740,6 +740,24 @@ static const attack* const attacks[] = {
   &ATK_Zap_Cannon,
 };
 
+static const attack* WIGLETT_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Surf,
+  &ATK_Liquidation,
+  NULL
+};
+
+static const attack* WUGTRIO_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Surf,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* TAPUBULU_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Bullet_Seed,
@@ -3428,6 +3446,25 @@ static const attack* GARBODOR_ATKS[] = {
   &ATK_Gunk_Shot,
   &ATK_Body_Slam,
   &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* DEWPIDER_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Infestation,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Mirror_Coat,
+  NULL
+};
+
+static const attack* ARAQUANID_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Infestation,
+  &ATK_Bug_Buzz,
+  &ATK_Bubble_Beam,
+  &ATK_Water_Pulse,
+  &ATK_Mirror_Coat,
   NULL
 };
 
@@ -9403,8 +9440,8 @@ static const species sdex[] = {
   {  748, "Toxapex", TYPE_POISON, TYPE_WATER, 114, 273, 137, "Mareanie", NULL, },
   {  749, "Mudbray", TYPE_GROUND, TYPECOUNT, 175, 121, 172, NULL, MUDBRAY_ATKS, true, false, },
   {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", MUDSDALE_ATKS, true, false, },
-  {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, NULL, NULL, },
-  {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider", NULL, },
+  {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, NULL, DEWPIDER_ATKS, true, false, },
+  {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider", ARAQUANID_ATKS, true, false, },
   {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, NULL, NULL, },
   {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis", NULL, },
   {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, NULL, MORELULL_ATKS, true, false, },
@@ -9551,8 +9588,8 @@ static const species sdex[] = {
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, TINKATINK_ATKS, false, false, },
   {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", TINKATUFF_ATKS, false, false, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", TINKATON_ATKS, false, false, },
-  {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, NULL, },
-  {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", NULL, },
+  {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, WIGLETT_ATKS, false, false, },
+  {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", WUGTRIO_ATKS, false, false, },
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATKS, true, false, },
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, NULL, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", NULL, },
