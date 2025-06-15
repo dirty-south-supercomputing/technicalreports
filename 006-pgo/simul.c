@@ -144,7 +144,34 @@ simulturn(const simulstate *ins, results *r){
     simulturn(&s, r);
     s.p1energy -= p1.fa->energytrain;
     s.p1turns = 0;
-    // FIXME now try p1 charged attacks
+    s.p2turns = 0; // charged attack ends opponent's fast attack
+    inflict_damage(&s.p1hp, p2.fa->powertrain);
+    if(!s.p1hp){
+      ++r->p2wins;
+    }else{
+      if(s.p1energy >= -p1.ca1->energytrain){
+        s.p1energy += p1.ca1->energytrain;
+        inflict_damage(&s.p2hp, p1.ca1->powertrain);
+        if(!s.p2hp){
+          ++r->p1wins;
+        }else{
+          simulturn(&s, r);
+        }
+        s.p1energy -= p1.ca1->energytrain;
+      }
+      if(p1.ca2){
+        if(s.p1energy >= -p1.ca2->energytrain){
+          s.p1energy += p1.ca2->energytrain;
+          inflict_damage(&s.p2hp, p1.ca2->powertrain);
+          if(!s.p2hp){
+            ++r->p1wins;
+          }else{
+            simulturn(&s, r);
+          }
+          s.p1energy -= p1.ca2->energytrain;
+        }
+      }
+    }
     return 0;
   }else if(p1ongoing && !p2ongoing){ // cartesian of wait and p2
     //printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
