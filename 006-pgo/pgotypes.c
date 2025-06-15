@@ -812,6 +812,22 @@ static const attack* PACHIRISU_ATKS[] = {
   NULL
 };
 
+static const attack* GIMMIGHOUL_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Shadow_Ball,
+  NULL
+};
+
+static const attack* GHOLDENGO_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Power_Gem,
+  &ATK_Shadow_Ball,
+  &ATK_Dazzling_Gleam,
+  &ATK_Focus_Blast,
+  NULL
+};
+
 static const attack* MORELULL_ATKS[] = {
   &ATK_Astonish,
   &ATK_Seed_Bomb,
@@ -2640,6 +2656,27 @@ static const attack* GRAFAIAI_ATKS[] = {
   &ATK_Mud_Slap,
   &ATK_Poison_Fang,
   &ATK_Sludge_Bomb,
+  &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* VAROOM_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Poison_Jab,
+  &ATK_Metal_Sound,
+  &ATK_Gunk_Shot,
+  &ATK_Gyro_Ball,
+  &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* REVAVROOM_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Poison_Jab,
+  &ATK_Metal_Sound,
+  &ATK_Gunk_Shot,
+  &ATK_Gyro_Ball,
+  &ATK_Overheat,
   &ATK_Acid_Spray,
   NULL
 };
@@ -9757,8 +9794,8 @@ static const species sdex[] = {
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, WIGLETT_ATKS, false, false, },
   {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", WUGTRIO_ATKS, false, false, },
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATKS, true, false, },
-  {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, NULL, },
-  {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", NULL, },
+  {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, VAROOM_ATKS, false, false, },
+  {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", REVAVROOM_ATKS, false, false, },
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, NULL, NULL, },
   {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard", NULL, },
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, NULL, },
@@ -9769,8 +9806,8 @@ static const species sdex[] = {
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, NULL, FRIGIBAX_ATKS, true, false, },
   {  997, "Arctibax", TYPE_DRAGON, TYPE_ICE, 173, 128, 207, "Frigibax", ARCTIBAX_ATKS, true, false, },
   {  998, "Baxcalibur", TYPE_DRAGON, TYPE_ICE, 254, 168, 229, "Arctibax", BAXCALIBUR_ATKS, true, false, },
-  {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, NULL, NULL, },
-  { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202, "Gimmighoul", NULL, },
+  {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, NULL, GIMMIGHOUL_ATKS, false, false, },
+  { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202, "Gimmighoul", GHOLDENGO_ATKS, false, false, },
 };
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
