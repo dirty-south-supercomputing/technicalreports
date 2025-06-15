@@ -5830,6 +5830,38 @@ static const attack* GOLDUCK_ATKS[] = {
   NULL
 };
 
+static const attack* MAGBY_ATKS[] = {
+  &ATK_Karate_Chop,
+  &ATK_Ember,
+  &ATK_Flamethrower,
+  &ATK_Flame_Burst,
+  &ATK_Fire_Punch,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* MAGMAR_ATKS[] = {
+  &ATK_Karate_Chop,
+  &ATK_Ember,
+  &ATK_Flamethrower,
+  &ATK_Fire_Blast,
+  &ATK_Fire_Punch,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* MAGMORTAR_ATKS[] = {
+  &ATK_Karate_Chop,
+  &ATK_Fire_Spin,
+  &ATK_Thunderbolt,
+  &ATK_Fire_Blast,
+  &ATK_Psychic,
+  &ATK_Fire_Punch,
+  &ATK_Brick_Break,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
 static const attack* MANKEY_ATKS[] = {
   &ATK_Karate_Chop,
   &ATK_Scratch,
@@ -7755,7 +7787,7 @@ static const species sdex[] = {
   {  123, "Scyther", TYPE_BUG, TYPE_FLYING, 218, 170, 172, NULL, SCYTHER_ATKS, true, true, },
   {  124, "Jynx", TYPE_ICE, TYPE_PSYCHIC, 223, 151, 163, "Smoochum", JYNX_ATKS, true, false, },
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, "Elekid", ELECTABUZZ_ATKS, true, true, },
-  {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, NULL, NULL, },
+  {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, NULL, MAGMAR_ATKS, true, true, },
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, NULL, PINSIR_ATKS, true, true, },
   {  128, "Tauros", TYPE_NORMAL, TYPECOUNT, 198, 183, 181, NULL, NULL, },
   {  128, "Combat Breed Tauros", TYPE_FIGHTING, TYPECOUNT, 210, 193, 181, NULL, NULL, },
@@ -7882,7 +7914,7 @@ static const species sdex[] = {
   {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", HITMONTOP_ATKS, true, true, },
   {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, SMOOCHUM_ATKS, true, false, },
   {  239, "Elekid", TYPE_ELECTRIC, TYPECOUNT, 135, 101, 128, NULL, ELEKID_ATKS, true, true, },
-  {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, NULL, },
+  {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, MAGBY_ATKS, true, true, },
   {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, NULL, },
   {  242, "Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Chansey", BLISSEY_ATKS, true, false, },
   {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, RAIKOU_ATKS, true, true, },
@@ -8118,7 +8150,7 @@ static const species sdex[] = {
   {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon", RHYPERIOR_ATKS, true, true, },
   {  465, "Tangrowth", TYPE_GRASS, TYPECOUNT, 207, 184, 225, "Tangela", TANGROWTH_ATKS, true, true, },
   {  466, "Electivire", TYPE_ELECTRIC, TYPECOUNT, 249, 163, 181, "Electabuzz", ELECTIVIRE_ATKS, true, true, },
-  {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar", NULL, },
+  {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar", MAGMORTAR_ATKS, true, true, },
   {  468, "Togekiss", TYPE_FAIRY, TYPE_FLYING, 225, 217, 198, "Togetic", TOGEKISS_ATKS, true, false, },
   {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, "Yanma", YANMEGA_ATKS, true, false, },
   {  470, "Leafeon", TYPE_GRASS, TYPECOUNT, 216, 219, 163, "Eevee", LEAFEON_ATKS, true, false, },
