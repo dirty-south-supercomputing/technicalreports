@@ -1810,6 +1810,24 @@ static const attack* HITMONTOP_ATKS[] = {
   NULL
 };
 
+static const attack* SHROODLE_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Mud_Slap,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Bomb,
+  &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* GRAFAIAI_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Mud_Slap,
+  &ATK_Poison_Fang,
+  &ATK_Sludge_Bomb,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* SEVIPER_ATKS[] = {
   &ATK_Poison_Jab,
   &ATK_Iron_Tail,
@@ -8602,8 +8620,8 @@ static const species sdex[] = {
   {  937, "Ceruledge", TYPE_FIRE, TYPE_GHOST, 239, 189, 181, "Charcadet", CERULEDGE_ATKS, true, false, },
   {  938, "Tadbulb", TYPE_ELECTRIC, TYPECOUNT, 104, 73, 156, NULL, TADBULB_ATKS, false, false, },
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb", BELLIBOLT_ATKS, false, false, },
-  {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, NULL, NULL, },
-  {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle", NULL, },
+  {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, NULL, SHROODLE_ATKS, false, false, },
+  {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle", GRAFAIAI_ATKS, false, false, },
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, NULL, },
   {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", NULL, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", NULL, },
