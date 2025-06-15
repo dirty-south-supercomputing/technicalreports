@@ -2102,6 +2102,53 @@ static const attack* SOLROCK_ATKS[] = {
   NULL
 };
 
+static const attack* CRANIDOS_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Take_Down,
+  &ATK_Ancient_Power,
+  &ATK_Rock_Tomb,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* RAMPARDOS_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Smack_Down,
+  &ATK_Flamethrower,
+  &ATK_Rock_Slide,
+  &ATK_Outrage,
+  NULL
+};
+
+static const attack* ROGGENROLA_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Smack_Down,
+  &ATK_Stone_Edge,
+  &ATK_Bulldoze,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* BOLDORE_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Smack_Down,
+  &ATK_Stone_Edge,
+  &ATK_Rock_Slide,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* GIGALITH_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Smack_Down,
+  &ATK_Rock_Slide,
+  &ATK_Solar_Beam,
+  &ATK_Heavy_Slam,
+  &ATK_Superpower,
+  &ATK_Meteor_Beam,
+  NULL
+};
+
 static const attack* NOSEPASS_ATKS[] = {
   &ATK_Spark,
   &ATK_Rock_Throw,
@@ -9269,8 +9316,8 @@ static const species sdex[] = {
   {  405, "Luxray", TYPE_ELECTRIC, TYPECOUNT, 232, 156, 190, "Luxio", NULL, },
   {  406, "Budew", TYPE_GRASS, TYPE_POISON, 91, 109, 120, NULL, BUDEW_ATKS, true, false, },
   {  407, "Roserade", TYPE_GRASS, TYPE_POISON, 243, 185, 155, "Roselia", ROSERADE_ATKS, true, false, },
-  {  408, "Cranidos", TYPE_ROCK, TYPECOUNT, 218, 71, 167, NULL, NULL, },
-  {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, "Cranidos", NULL, },
+  {  408, "Cranidos", TYPE_ROCK, TYPECOUNT, 218, 71, 167, NULL, CRANIDOS_ATKS, true, true, },
+  {  409, "Rampardos", TYPE_ROCK, TYPECOUNT, 295, 109, 219, "Cranidos", RAMPARDOS_ATKS, true, true, },
   {  410, "Shieldon", TYPE_ROCK, TYPE_STEEL, 76, 195, 102, NULL, SHIELDON_ATKS, true, true, },
   {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, "Shieldon", BASTIODON_ATKS, true, true, },
   // plant, sandy, and trash burmy all have the same stats and attacks, but
@@ -9397,9 +9444,9 @@ static const species sdex[] = {
   {  521, "Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Tranquill", UNFEZANT_ATKS, true, true, },
   {  522, "Blitzle", TYPE_ELECTRIC, TYPECOUNT, 118, 64, 128, NULL, BLITZLE_ATKS, true, true, },
   {  523, "Zebstrika", TYPE_ELECTRIC, TYPECOUNT, 211, 136, 181, "Blitzle", ZEBSTRIKA_ATKS, true, true, },
-  {  524, "Roggenrola", TYPE_ROCK, TYPECOUNT, 121, 110, 146, NULL, NULL, },
-  {  525, "Boldore", TYPE_ROCK, TYPECOUNT, 174, 143, 172, "Roggenrola", NULL, },
-  {  526, "Gigalith", TYPE_ROCK, TYPECOUNT, 226, 201, 198, "Boldore", NULL, },
+  {  524, "Roggenrola", TYPE_ROCK, TYPECOUNT, 121, 110, 146, NULL, ROGGENROLA_ATKS, true, true, },
+  {  525, "Boldore", TYPE_ROCK, TYPECOUNT, 174, 143, 172, "Roggenrola", BOLDORE_ATKS, true, true, },
+  {  526, "Gigalith", TYPE_ROCK, TYPECOUNT, 226, 201, 198, "Boldore", GIGALITH_ATKS, true, true, },
   {  527, "Woobat", TYPE_PSYCHIC, TYPE_FLYING, 107, 85, 163, NULL, NULL, },
   {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, "Woobat", NULL, },
   {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, DRILBUR_ATKS, true, false, },
