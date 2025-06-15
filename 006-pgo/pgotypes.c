@@ -1240,6 +1240,32 @@ static const attack* KROOKODILE_ATKS[] = {
   NULL
 };
 
+static const attack* TINKATINK_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Fairy_Wind,
+  &ATK_Flash_Cannon,
+  &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* TINKATUFF_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Fairy_Wind,
+  &ATK_Flash_Cannon,
+  &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* TINKATON_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Fairy_Wind,
+  &ATK_Flash_Cannon,
+  &ATK_Play_Rough,
+  &ATK_Bulldoze,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
 static const attack* I_ENAMORUS_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Astonish,
@@ -8622,9 +8648,9 @@ static const species sdex[] = {
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb", BELLIBOLT_ATKS, false, false, },
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, NULL, SHROODLE_ATKS, false, false, },
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle", GRAFAIAI_ATKS, false, false, },
-  {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, NULL, },
-  {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", NULL, },
-  {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", NULL, },
+  {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, TINKATINK_ATKS, false, false, },
+  {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", TINKATUFF_ATKS, false, false, },
+  {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", TINKATON_ATKS, false, false, },
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, NULL, },
   {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", NULL, },
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATKS, true, false, },
