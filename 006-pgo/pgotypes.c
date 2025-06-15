@@ -803,6 +803,15 @@ static const attack* TAPUKOKO_ATKS[] = {
   NULL
 };
 
+static const attack* PACHIRISU_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Volt_Switch,
+  &ATK_Thunder_Punch,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  NULL
+};
+
 static const attack* MORELULL_ATKS[] = {
   &ATK_Astonish,
   &ATK_Seed_Bomb,
@@ -964,6 +973,60 @@ static const attack* SHIFTRY_ATKS[] = {
   &ATK_Hurricane,
   &ATK_Foul_Play,
   &ATK_Leaf_Tornado,
+  NULL
+};
+
+static const attack* PANSAGE_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Scratch,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SIMISAGE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Vine_Whip,
+  &ATK_Solar_Beam,
+  &ATK_Grass_Knot,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* PANSEAR_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Fire_Spin,
+  &ATK_Flame_Charge,
+  &ATK_Flame_Burst,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SIMISEAR_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Fire_Blast,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* PANPOUR_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Water_Gun,
+  &ATK_Water_Pulse,
+  &ATK_Crunch,
+  &ATK_Surf,
+  NULL
+};
+
+static const attack* SIMIPOUR_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Water_Gun,
+  &ATK_Hydro_Pump,
+  &ATK_Crunch,
+  &ATK_Surf,
   NULL
 };
 
@@ -2309,6 +2372,34 @@ static const attack* SEISMITOAD_ATKS[] = {
   NULL
 };
 
+static const attack* BASCULIN_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Jet,
+  &ATK_Aqua_Tail,
+  &ATK_Muddy_Water,
+  NULL
+};
+
+static const attack* BUIZEL_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Water_Gun,
+  &ATK_Aqua_Jet,
+  &ATK_Water_Pulse,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* FLOATZEL_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Waterfall,
+  &ATK_Aqua_Jet,
+  &ATK_Hydro_Pump,
+  &ATK_Swift,
+  &ATK_Liquidation,
+  NULL
+};
+
 static const attack* GOOMY_ATKS[] = {
   &ATK_Tackle,
   &ATK_Water_Gun,
@@ -3581,6 +3672,34 @@ static const attack* ROSERADE_ATKS[] = {
   &ATK_Grass_Knot,
   &ATK_Weather_Ball_Fire,
   &ATK_Leaf_Storm,
+  NULL
+};
+
+static const attack* CHERUBI_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Petal_Blizzard,
+  &ATK_Seed_Bomb,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* CHERRIM_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bullet_Seed,
+  &ATK_Hyper_Beam,
+  &ATK_Dazzling_Gleam,
+  &ATK_Solar_Beam,
+  &ATK_Weather_Ball_Fire,
+  NULL
+};
+
+static const attack* O_CHERRIM_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bullet_Seed,
+  &ATK_Hyper_Beam,
+  &ATK_Dazzling_Gleam,
+  &ATK_Solar_Beam,
   NULL
 };
 
@@ -9099,11 +9218,12 @@ static const species sdex[] = {
   {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy", MOTHIM_ATKS, true, false, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, NULL, COMBEE_ATKS, true, false, },
   {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, "Combee", VESPIQUEN_ATKS, true, false, },
-  {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, NULL, NULL, },
-  {  418, "Buizel", TYPE_WATER, TYPECOUNT, 132, 67, 146, NULL, NULL, },
-  {  419, "Floatzel", TYPE_WATER, TYPECOUNT, 221, 114, 198, "Buizel", NULL, },
-  {  420, "Cherubi", TYPE_GRASS, TYPECOUNT, 108, 92, 128, NULL, NULL, },
-  {  421, "Cherrim", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi", NULL, },
+  {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, NULL, PACHIRISU_ATKS, true, false, },
+  {  418, "Buizel", TYPE_WATER, TYPECOUNT, 132, 67, 146, NULL, BUIZEL_ATKS, true, false, },
+  {  419, "Floatzel", TYPE_WATER, TYPECOUNT, 221, 114, 198, "Buizel", FLOATZEL_ATKS, true, false, },
+  {  420, "Cherubi", TYPE_GRASS, TYPECOUNT, 108, 92, 128, NULL, CHERUBI_ATKS, true, false, },
+  {  421, "Cherrim", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi", CHERRIM_ATKS, true, false, },
+  {  421, "Cherrim (Overcast Form)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi", O_CHERRIM_ATKS, true, false, },
   {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, NULL, SHELLOS_ATKS, true, false, },
   {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", GASTRODON_ATKS, true, false, },
   {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", NULL, },
@@ -9200,12 +9320,12 @@ static const species sdex[] = {
   {  508, "Stoutland", TYPE_NORMAL, TYPECOUNT, 206, 182, 198, "Herdier", NULL, },
   {  509, "Purrloin", TYPE_DARK, TYPECOUNT, 98, 73, 121, NULL, PURRLOIN_ATKS, true, true, },
   {  510, "Liepard", TYPE_DARK, TYPECOUNT, 187, 106, 162, "Purrloin", LIEPARD_ATKS, true, true, },
-  {  511, "Pansage", TYPE_GRASS, TYPECOUNT, 104, 94, 137, NULL, NULL, },
-  {  512, "Simisage", TYPE_GRASS, TYPECOUNT, 206, 133, 181, "Pansage", NULL, },
-  {  513, "Pansear", TYPE_FIRE, TYPECOUNT, 104, 94, 137, NULL, NULL, },
-  {  514, "Simisear", TYPE_FIRE, TYPECOUNT, 206, 133, 181, "Pansear", NULL, },
-  {  515, "Panpour", TYPE_WATER, TYPECOUNT, 104, 94, 137, NULL, NULL, },
-  {  516, "Simipour", TYPE_WATER, TYPECOUNT, 206, 133, 181, "Panpour", NULL, },
+  {  511, "Pansage", TYPE_GRASS, TYPECOUNT, 104, 94, 137, NULL, PANSAGE_ATKS, true, false, },
+  {  512, "Simisage", TYPE_GRASS, TYPECOUNT, 206, 133, 181, "Pansage", SIMISAGE_ATKS, true, false, },
+  {  513, "Pansear", TYPE_FIRE, TYPECOUNT, 104, 94, 137, NULL, PANSEAR_ATKS, true, false, },
+  {  514, "Simisear", TYPE_FIRE, TYPECOUNT, 206, 133, 181, "Pansear", SIMISEAR_ATKS, true, false, },
+  {  515, "Panpour", TYPE_WATER, TYPECOUNT, 104, 94, 137, NULL, PANPOUR_ATKS, true, false, },
+  {  516, "Simipour", TYPE_WATER, TYPECOUNT, 206, 133, 181, "Panpour", SIMIPOUR_ATKS, true, false, },
   {  517, "Munna", TYPE_PSYCHIC, TYPECOUNT, 111, 92, 183, NULL, NULL, },
   {  518, "Musharna", TYPE_PSYCHIC, TYPECOUNT, 183, 166, 253, "Munna", NULL, },
   {  519, "Pidove", TYPE_NORMAL, TYPE_FLYING, 98, 80, 137, NULL, PIDOVE_ATKS, true, true, },
@@ -9239,7 +9359,7 @@ static const species sdex[] = {
   {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", NULL, },
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, NULL, },
   {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", NULL, },
-  {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, NULL, },
+  {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, BASCULIN_ATKS, true, false, },
   {  551, "Sandile", TYPE_GROUND, TYPE_DARK, 132, 69, 137, NULL, SANDILE_ATKS, true, false, },
   {  552, "Krokorok", TYPE_GROUND, TYPE_DARK, 155, 90, 155, "Sandile", KROKOROK_ATKS, true, false, },
   {  553, "Krookodile", TYPE_GROUND, TYPE_DARK, 229, 158, 216, "Krokorok", KROOKODILE_ATKS, true, false, },
