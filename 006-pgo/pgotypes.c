@@ -3092,6 +3092,15 @@ static const attack* ROSERADE_ATKS[] = {
   NULL
 };
 
+static const attack* COMFEY_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Hidden_Power,
+  &ATK_Petal_Blizzard,
+  &ATK_Draining_Kiss,
+  &ATK_Grass_Knot,
+  NULL
+};
+
 static const attack* SMOLIV_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Tackle,
@@ -4340,6 +4349,17 @@ static const attack* SALAMENCE_ATKS[] = {
   NULL
 };
 
+static const attack* TURTONATOR_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Fire_Spin,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Flash_Cannon,
+  &ATK_Dragon_Pulse,
+  &ATK_Overheat,
+  NULL
+};
+
 static const attack* REGIROCK_ATKS[] = {
   &ATK_Rock_Throw,
   &ATK_Rock_Smash,
@@ -4808,6 +4828,37 @@ static const attack* VENUSAUR_ATKS[] = {
   &ATK_Sludge_Bomb,
   &ATK_Solar_Beam,
   &ATK_Frenzy_Plant,
+  NULL
+};
+
+static const attack* FLOETTE_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Tackle,
+  &ATK_Petal_Blizzard,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* FLABEBE_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Tackle,
+  &ATK_Petal_Blizzard,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* FLORGES_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Fairy_Wind,
+  &ATK_Petal_Blizzard,
+  &ATK_Disarming_Voice,
+  &ATK_Moonblast,
+  &ATK_Psychic,
+  &ATK_Trailblaze,
   NULL
 };
 
@@ -8690,9 +8741,9 @@ static const species sdex[] = {
   {  666, "Vivillon", TYPE_BUG, TYPE_FLYING, 176, 103, 190, "Spewpa", VIVILLON_ATKS, true, false, },
   {  667, "Litleo", TYPE_FIRE, TYPE_NORMAL, 139, 112, 158, NULL, NULL, },
   {  668, "Pyroar", TYPE_FIRE, TYPE_NORMAL, 221, 149, 200, "Litleo", NULL, },
-  {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, NULL, NULL, },
-  {  670, "Floette", TYPE_FAIRY, TYPECOUNT, 136, 151, 144, "Flabébé", NULL, },
-  {  671, "Florges", TYPE_FAIRY, TYPECOUNT, 212, 244, 186, "Floette", NULL, },
+  {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, NULL, FLABEBE_ATKS, true, false, },
+  {  670, "Floette", TYPE_FAIRY, TYPECOUNT, 136, 151, 144, "Flabébé", FLOETTE_ATKS, true, false, },
+  {  671, "Florges", TYPE_FAIRY, TYPECOUNT, 212, 244, 186, "Floette", FLORGES_ATKS, true, false, },
   {  672, "Skiddo", TYPE_GRASS, TYPECOUNT, 123, 102, 165, NULL, NULL, },
   {  673, "Gogoat", TYPE_GRASS, TYPECOUNT, 196, 146, 265, "Skiddo", NULL, },
   {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, PANCHAM_ATKS, true, false, },
@@ -8793,7 +8844,7 @@ static const species sdex[] = {
   {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, BOUNSWEET_ATKS, true, false, },
   {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", STEENEE_ATKS, true, false, },
   {  763, "Tsareena", TYPE_GRASS, TYPECOUNT, 222, 195, 176, "Steenee", TSAREENA_ATKS, true, false, },
-  {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, NULL, NULL, },
+  {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, NULL, COMFEY_ATKS, false, false, },
   {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, NULL, ORANGURU_ATKS, true, false, },
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, PASSIMIAN_ATKS, true, false, },
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, NULL, WIMPOD_ATKS, true, false, },
@@ -8801,7 +8852,7 @@ static const species sdex[] = {
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, NULL, },
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast", NULL, },
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, KOMALA_ATKS, true, false, },
-  {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, NULL, },
+  {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, TURTONATOR_ATKS, true, false, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, NULL, NULL, },
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, BRUXISH_ATKS, true, false, },
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, NULL, NULL, },
