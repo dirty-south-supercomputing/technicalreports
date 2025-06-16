@@ -3363,6 +3363,16 @@ static const attack* GOLEM_ATKS[] = {
   NULL
 };
 
+static const attack* DUNSPARCE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Astonish,
+  &ATK_Rollout,
+  &ATK_Dig,
+  &ATK_Drill_Run,
+  &ATK_Rock_Slide,
+  NULL
+};
+
 static const attack* BOMBIRDIER_ATKS[] = {
   &ATK_Sucker_Punch,
   &ATK_Wing_Attack,
@@ -4047,6 +4057,51 @@ static const attack* FLAAFFY_ATKS[] = {
   &ATK_Power_Gem,
   &ATK_Thunderbolt,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* MUNNA_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Psybeam,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
+static const attack* MUSHARNA_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Charge_Beam,
+  &ATK_Psyshock,
+  &ATK_Dazzling_Gleam,
+  &ATK_Future_Sight,
+  NULL
+};
+
+static const attack* GOTHITA_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* GOTHORITA_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
+  NULL
+};
+
+static const attack* GOTHITELLE_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Charm,
+  &ATK_Rock_Slide,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
   NULL
 };
 
@@ -9320,7 +9375,7 @@ static const species sdex[] = {
   {  203, "Girafarig", TYPE_NORMAL, TYPE_PSYCHIC, 182, 133, 172, NULL, GIRAFARIG_ATKS, true, true, },
   {  204, "Pineco", TYPE_BUG, TYPECOUNT, 108, 122, 137, NULL, PINECO_ATKS, true, true, },
   {  205, "Forretress", TYPE_BUG, TYPE_STEEL, 161, 205, 181, "Pineco", FORRETRESS_ATKS, true, true, },
-  {  206, "Dunsparce", TYPE_NORMAL, TYPECOUNT, 131, 128, 225, NULL, NULL, },
+  {  206, "Dunsparce", TYPE_NORMAL, TYPECOUNT, 131, 128, 225, NULL, DUNSPARCE_ATKS, true, false, },
   {  207, "Gligar", TYPE_GROUND, TYPE_FLYING, 143, 184, 163, NULL, GLIGAR_ATKS, true, true, },
   {  208, "Steelix", TYPE_STEEL, TYPE_GROUND, 148, 272, 181, "Onix", STEELIX_ATKS, true, true, },
   {  209, "Snubbull", TYPE_FAIRY, TYPECOUNT, 137, 85, 155, NULL, NULL, },
@@ -9651,8 +9706,8 @@ static const species sdex[] = {
   {  514, "Simisear", TYPE_FIRE, TYPECOUNT, 206, 133, 181, "Pansear", SIMISEAR_ATKS, true, false, },
   {  515, "Panpour", TYPE_WATER, TYPECOUNT, 104, 94, 137, NULL, PANPOUR_ATKS, true, false, },
   {  516, "Simipour", TYPE_WATER, TYPECOUNT, 206, 133, 181, "Panpour", SIMIPOUR_ATKS, true, false, },
-  {  517, "Munna", TYPE_PSYCHIC, TYPECOUNT, 111, 92, 183, NULL, NULL, },
-  {  518, "Musharna", TYPE_PSYCHIC, TYPECOUNT, 183, 166, 253, "Munna", NULL, },
+  {  517, "Munna", TYPE_PSYCHIC, TYPECOUNT, 111, 92, 183, NULL, MUNNA_ATKS, true, false, },
+  {  518, "Musharna", TYPE_PSYCHIC, TYPECOUNT, 183, 166, 253, "Munna", MUSHARNA, true, false, },
   {  519, "Pidove", TYPE_NORMAL, TYPE_FLYING, 98, 80, 137, NULL, PIDOVE_ATKS, true, true, },
   {  520, "Tranquill", TYPE_NORMAL, TYPE_FLYING, 144, 107, 158, "Pidove", TRANQUILL_ATKS, true, true, },
   {  521, "Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Tranquill", UNFEZANT_ATKS, true, true, },
@@ -9711,9 +9766,9 @@ static const species sdex[] = {
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", ZOROARK_ATKS, true, false, },
   {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, NULL, },
   {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Cinccino", NULL, },
-  {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, NULL, },
-  {  575, "Gothorita", TYPE_PSYCHIC, TYPECOUNT, 137, 153, 155, "Gothita", NULL, },
-  {  576, "Gothitelle", TYPE_PSYCHIC, TYPECOUNT, 176, 205, 172, "Gothorita", NULL, },
+  {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, GOTHITA_ATKS, true, true, },
+  {  575, "Gothorita", TYPE_PSYCHIC, TYPECOUNT, 137, 153, 155, "Gothita", GOTHORITA_ATKS, true, true, },
+  {  576, "Gothitelle", TYPE_PSYCHIC, TYPECOUNT, 176, 205, 172, "Gothorita", GOTHITELLE_ATKS, true, true, },
   {  577, "Solosis", TYPE_PSYCHIC, TYPECOUNT, 170, 83, 128, NULL, SOLOSIS_ATKS, true, true, },
   {  578, "Duosion", TYPE_PSYCHIC, TYPECOUNT, 208, 103, 163, "Solosis", DUOSION_ATKS, true, true, },
   {  579, "Reuniclus", TYPE_PSYCHIC, TYPECOUNT, 214, 148, 242, "Duosion", REUNICLUS_ATKS, true, true, },
