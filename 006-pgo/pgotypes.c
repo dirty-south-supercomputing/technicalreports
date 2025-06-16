@@ -1763,6 +1763,24 @@ static const attack* STARMIE_ATKS[] = {
   NULL
 };
 
+static const attack* ELGYEM_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Psybeam,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* BEHEEYEM_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Rock_Slide,
+  &ATK_Psychic,
+  NULL
+};
+
 static const attack* SEEL_ATKS[] = {
   &ATK_Lick,
   &ATK_Ice_Shard,
@@ -9830,8 +9848,8 @@ static const species sdex[] = {
   {  602, "Tynamo", TYPE_ELECTRIC, TYPECOUNT, 105, 78, 111, NULL, TYNAMO_ATKS, true, false, },
   {  603, "Eelektrik", TYPE_ELECTRIC, TYPECOUNT, 156, 130, 163, "Tynamo", EELEKTRIK_ATKS, true, false, },
   {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik", EELEKTROSS_ATKS, true, false, },
-  {  605, "Elgyem", TYPE_PSYCHIC, TYPECOUNT, 148, 100, 146, NULL, NULL, },
-  {  606, "Beheeyem", TYPE_PSYCHIC, TYPECOUNT, 221, 163, 181, "Elgyem", NULL, },
+  {  605, "Elgyem", TYPE_PSYCHIC, TYPECOUNT, 148, 100, 146, NULL, ELGYEM_ATKS, true, false, },
+  {  606, "Beheeyem", TYPE_PSYCHIC, TYPECOUNT, 221, 163, 181, "Elgyem", BEHEEYEM_ATKS, true, false, },
   {  607, "Litwick", TYPE_GHOST, TYPE_FIRE, 108, 98, 137, NULL, LITWICK_ATKS, true, true, },
   {  608, "Lampent", TYPE_GHOST, TYPE_FIRE, 169, 115, 155, "Litwick", LAMPENT_ATKS, true, true, },
   {  609, "Chandelure", TYPE_GHOST, TYPE_FIRE, 271, 182, 155, "Lampent", CHANDELURE_ATKS, true, true, },
