@@ -292,6 +292,7 @@ defensive_summaries_latex(const typing* t){
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
+  printf("\\label{table:defenders}\n");
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }

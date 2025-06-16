@@ -4,9 +4,54 @@
 Let's consider the Fossil Cup of summer 2025, which began while I was writing this book.
 Like the Great League, the Fossil Cup has a CP1500 bound, and it
   restricts participants to those with Rock, Steel, or Water in their typings.
+Largely off vibes, I had been primarily playing the following team, and doing alright
+  one hundred matches in (despite having far from optimal IVs):
+\begin{center}
+  \begin{tabular}{llrrrr}
+    Pokémon & IV@Level (CP) & $Eff_A$ & $Eff_D$ & MHP & $\sqrt[3]{BP}$\\
+    Greninja & 15/14/12@20 (1500) & 142.18 & 99.17 & 112 & 115.27 \\
+    Magcargo & 15/13/12@32.5 (1497) & 115.01 & 152.35 & 111 & 124.82 \\
+    Gastrodon & 0/3/15@25.5 (1495) & 114.01 & 98.49 & 174 & 125.01 \\
+  \end{tabular}
+\end{center}
+With the following attacks:
+\begin{center}
+Water Shuriken, Hydro Cannon, Night Slash
+Incinerate, Overheat, Stone Edge
+  Mud-Slap, Earth Power, Body Slam \textbf{FIXME}
+\end{center}
+How could I improve?
+
+\section{Boosting the numbers}
+Without changing my choice of species, the following configurations were desirable when optimizing for $\sqrt[3]{BP}$:
+\begin{center}
+  \begin{tabular}{llrrrr}
+    Pokémon & IV@Level (CP) & $Eff_A$ & $Eff_D$ & MHP & $\sqrt[3]{BP}$\\
+    Greninja & 3/15/12@20 (1500) & 138.35 & 102.23 & 115 & 117.60\\
+    Magcargo & 0/15/14@38.5 (1498) & 108.67 & 161.05 & 118 & 127.34\\
+    Gastrodon & 1/15/14@24.5 (1500) & 112.41 & 104.47 & 170 & 125.92\\
+  \end{tabular}
+\end{center}
+Of course, it's impossible to modify IVs.
+Even if I could, the benefits are meager: a 2.02\% increase for Greninja,
+  2.02\% to Magcargo, and a mere 0.73\% for Gastrodon, all of it coming
+  in defense and HP at the expense of a bit of attack.
+The means themselves are unspectacular, but not bad; Gastrodon and Magcargo are up there
+  in the thick of things, and we'll see below that Greninja has a great moveset.
+
+\section{Covering the typings}
 This limits teams to 51 of the 171 typings (29.8\%): the three monotypes, seventeen dualtypes
  involving Rock, sixteen dualtypes involving Steel (we already counted Rock+Steel), and
  fifteen dualtypes involving Water (we already counted Rock+Water and Steel+Water).
 Consulting \autoref{table:defenders}, we see these 51 typings populated by 267 total Pokémon.
 The biggest typing by far is pure Water, with 66.
 Four typings are unpopulated: Fire+Water, Normal+Steel, Normal+Rock, and Ghost+Rock.
+
+As noted in \autoref{sec:typeleagues}, there exist two minimal coverings of the forty-seven
+  remaining typings, each of size six:
+\begin{center}
+\begin{tabular}{c}
+ Bug, Fairy, Fire, Grass, Ground, Rock\\
+ Bug, Dragon, Fire, Grass, Ground, Rock\\
+\end{tabular}
+\end{center}
