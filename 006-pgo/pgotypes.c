@@ -2316,6 +2316,15 @@ static const attack* G_YAMASK_ATKS[] = {
   NULL
 };
 
+static const attack* CHATOT_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Steel_Wing,
+  &ATK_Heat_Wave,
+  &ATK_Sky_Attack,
+  &ATK_Night_Shade,
+  NULL
+};
+
 static const attack* SOLOSIS_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Hidden_Power,
@@ -9532,7 +9541,7 @@ static const species sdex[] = {
   {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, BONSLY_ATKS, true, false, },
   {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", MIMEJR_ATKS, true, false, },
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATKS, true, false, },
-  {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, NULL, },
+  {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, CHATOT_ATKS, true, false, },
   {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, NULL, },
   {  443, "Gible", TYPE_DRAGON, TYPE_GROUND, 124, 84, 151, NULL, GIBLE_ATKS, true, true, },
   {  444, "Gabite", TYPE_DRAGON, TYPE_GROUND, 172, 125, 169, "Gible", GABITE_ATKS, true, true, },
