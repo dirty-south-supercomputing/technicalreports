@@ -1473,6 +1473,18 @@ static const attack* ZANGOOSE_ATKS[] = {
   NULL
 };
 
+static const attack* GIRAFARIG_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Confusion,
+  &ATK_Double_Kick,
+  &ATK_Thunderbolt,
+  &ATK_Psychic,
+  &ATK_Mirror_Coat,
+  &ATK_Psychic_Fangs,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* C_TAUROS_ATKS[] = {
   &ATK_Tackle,
   &ATK_Zen_Headbutt,
@@ -3788,6 +3800,21 @@ static const attack* GARBODOR_ATKS[] = {
   &ATK_Gunk_Shot,
   &ATK_Body_Slam,
   &ATK_Acid_Spray,
+  NULL
+};
+
+static const attack* WYNAUT_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Counter,
+  &ATK_Mirror_Coat,
+  NULL
+};
+
+static const attack* WOBBUFFET_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Counter,
+  &ATK_Charm,
+  &ATK_Mirror_Coat,
   NULL
 };
 
@@ -9289,8 +9316,8 @@ static const species sdex[] = {
   {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, "Galarian Slowpoke", G_SLOWKING_ATKS, true, true, },
   {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, NULL, MISDREAVUS_ATKS, true, true, },
   {  201, "Unown", TYPE_PSYCHIC, TYPECOUNT, 136, 91, 134, NULL, NULL, },
-  {  202, "Wobbuffet", TYPE_PSYCHIC, TYPECOUNT, 60, 106, 382, "Wynaut", NULL, },
-  {  203, "Girafarig", TYPE_NORMAL, TYPE_PSYCHIC, 182, 133, 172, NULL, NULL, },
+  {  202, "Wobbuffet", TYPE_PSYCHIC, TYPECOUNT, 60, 106, 382, "Wynaut", WOBBUFFET_ATKS, true, true, },
+  {  203, "Girafarig", TYPE_NORMAL, TYPE_PSYCHIC, 182, 133, 172, NULL, GIRAFARIG_ATKS, true, true, },
   {  204, "Pineco", TYPE_BUG, TYPECOUNT, 108, 122, 137, NULL, PINECO_ATKS, true, true, },
   {  205, "Forretress", TYPE_BUG, TYPE_STEEL, 161, 205, 181, "Pineco", FORRETRESS_ATKS, true, true, },
   {  206, "Dunsparce", TYPE_NORMAL, TYPECOUNT, 131, 128, 225, NULL, NULL, },
@@ -9452,7 +9479,7 @@ static const species sdex[] = {
   {  357, "Tropius", TYPE_GRASS, TYPE_FLYING, 136, 163, 223, NULL, TROPIUS_ATKS, true, false, },
   {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, "Chingling", CHIMECHO_ATKS, true, false, },
   {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, NULL, ABSOL_ATKS, true, true, },
-  {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, NULL, },
+  {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, WYNAUT_ATKS, true, false, },
   {  361, "Snorunt", TYPE_ICE, TYPECOUNT, 95, 95, 137, NULL, SNORUNT_ATKS, true, true, },
   {  362, "Glalie", TYPE_ICE, TYPECOUNT, 162, 162, 190, "Snorunt", GLALIE_ATKS, true, true, },
   {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, NULL, SPHEAL_ATKS, true, true, },
