@@ -10312,6 +10312,24 @@ static const attack* INFERNAPE_ATKS[] = {
   NULL
 };
 
+static const attack* PETILIL_ATKS[] = {
+  &ATK_Hidden_Power,
+  &ATK_Charm,
+  &ATK_Seed_Bomb,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* LILLIGANT_ATKS[] = {
+  &ATK_Hidden_Power,
+  &ATK_Charm,
+  &ATK_Magical_Leaf,
+  &ATK_Hyper_Beam,
+  &ATK_Petal_Blizzard,
+  &ATK_Solar_Beam,
+  NULL
+};
+
 static const attack* FENNEKIN_ATKS[] = {
   &ATK_Ember,
   &ATK_Scratch,
@@ -11360,8 +11378,8 @@ static const species sdex[] = {
   {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede", SCOLIPEDE_ATKS, true, true, },
   {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, NULL, COTTONEE_ATKS, true, false, },
   {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", WHIMSICOTT_ATKS, true, false, },
-  {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, NULL, },
-  {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", NULL, },
+  {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, PETILIL_ATKS, true, false, },
+  {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", LILLIGANT_ATKS, true, false, },
   {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, BASCULIN_ATKS, true, false, },
   {  551, "Sandile", TYPE_GROUND, TYPE_DARK, 132, 69, 137, NULL, SANDILE_ATKS, true, false, },
   {  552, "Krokorok", TYPE_GROUND, TYPE_DARK, 155, 90, 155, "Sandile", KROKOROK_ATKS, true, false, },
