@@ -1000,6 +1000,24 @@ static const attack* GOLISOPOD_ATKS[] = {
   NULL
 };
 
+static const attack* GLAMEOW_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Scratch,
+  &ATK_Aerial_Ace,
+  &ATK_Thunderbolt,
+  &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* PURUGLY_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Scratch,
+  &ATK_Aerial_Ace,
+  &ATK_Thunder,
+  &ATK_Play_Rough,
+  NULL
+};
+
 static const attack* APPLIN_ATKS[] = {
   &ATK_Astonish,
   &ATK_Struggle,
@@ -8383,6 +8401,25 @@ static const attack* BUZZWOLE_ATKS[] = {
   NULL
 };
 
+static const attack* DRIFLOON_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  &ATK_Icy_Wind,
+  NULL
+};
+
+static const attack* DRIFBLIM_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  &ATK_Icy_Wind,
+  &ATK_Mystical_Fire,
+  NULL
+};
+
 static const attack* AIPOM_ATKS[] = {
   &ATK_Scratch,
   &ATK_Astonish,
@@ -9420,14 +9457,14 @@ static const species sdex[] = {
   {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, NULL, SHELLOS_ATKS, true, false, },
   {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", GASTRODON_ATKS, true, false, },
   {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", AMBIPOM_ATKS, true, true, },
-  {  425, "Drifloon", TYPE_GHOST, TYPE_FLYING, 117, 80, 207, NULL, NULL, },
-  {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", NULL, },
+  {  425, "Drifloon", TYPE_GHOST, TYPE_FLYING, 117, 80, 207, NULL, DRIFLOON_ATKS, true, true, },
+  {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", DRIFBLIM_ATKS, true, true, },
   {  427, "Buneary", TYPE_NORMAL, TYPECOUNT, 130, 105, 146, NULL, BUNEARY_ATKS, true, false, },
   {  428, "Lopunny", TYPE_NORMAL, TYPECOUNT, 156, 194, 163, "Buneary", LOPUNNY_ATKS, true, false, },
   {  429, "Mismagius", TYPE_GHOST, TYPECOUNT, 211, 187, 155, "Misdreavus", MISMAGIUS_ATKS, true, true, },
   {  430, "Honchkrow", TYPE_DARK, TYPE_FLYING, 243, 103, 225, "Murkrow", HONCHKROW_ATKS, true, true, },
-  {  431, "Glameow", TYPE_NORMAL, TYPECOUNT, 109, 82, 135, NULL, NULL, },
-  {  432, "Purugly", TYPE_NORMAL, TYPECOUNT, 172, 133, 174, "Glameow", NULL, },
+  {  431, "Glameow", TYPE_NORMAL, TYPECOUNT, 109, 82, 135, NULL, GLAMEOW_ATKS, true, true, },
+  {  432, "Purugly", TYPE_NORMAL, TYPECOUNT, 172, 133, 174, "Glameow", PURUGLY_ATKS, true, true, },
   {  433, "Chingling", TYPE_PSYCHIC, TYPECOUNT, 114, 94, 128, NULL, NULL, },
   {  434, "Stunky", TYPE_POISON, TYPE_DARK, 121, 90, 160, NULL, NULL, },
   {  435, "Skuntank", TYPE_POISON, TYPE_DARK, 184, 132, 230, "Stunky", NULL, },
