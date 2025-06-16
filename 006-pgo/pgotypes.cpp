@@ -1545,6 +1545,26 @@ static const attack* EELEKTROSS_ATKS[] = {
   NULL
 };
 
+static const attack* A_GIRATINA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Shadow_Claw,
+  &ATK_Ancient_Power,
+  &ATK_Shadow_Sneak,
+  &ATK_Dragon_Claw,
+  &ATK_Shadow_Force,
+  NULL
+};
+
+static const attack* O_GIRATINA_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Dragon_Tail,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  &ATK_Dragon_Pulse,
+  &ATK_Shadow_Force,
+  NULL
+};
+
 static const attack* BLITZLE_ATKS[] = {
   &ATK_Spark,
   &ATK_Low_Kick,
@@ -9407,6 +9427,16 @@ static const attack* DRIFBLIM_ATKS[] = {
   NULL
 };
 
+static const attack* SPIRITOMB_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Feint_Attack,
+  &ATK_Rock_Tomb,
+  &ATK_Shadow_Sneak,
+  &ATK_Ominous_Wind,
+  &ATK_Shadow_Ball,
+  NULL
+};
+
 static const attack* AIPOM_ATKS[] = {
   &ATK_Scratch,
   &ATK_Astonish,
@@ -9967,6 +9997,37 @@ static const attack* OBSTAGOON_ATKS[] = {
   NULL
 };
 
+static const attack* LILLIPUP_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Rock_Tomb,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* HERDIER_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Take_Down,
+  &ATK_Sand_Attack,
+  &ATK_Dig,
+  &ATK_Thunderbolt,
+  &ATK_Play_Rough,
+  NULL
+};
+
+static const attack* STOUTLAND_ATKS[] = {
+  &ATK_Lick,
+  &ATK_Take_Down,
+  &ATK_Ice_Fang,
+  &ATK_Sand_Attack,
+  &ATK_Play_Rough,
+  &ATK_Wild_Charge,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* HOPPIP_ATKS[] = {
   &ATK_Tackle,
   &ATK_Bullet_Seed,
@@ -10033,6 +10094,24 @@ static const attack* SUNFLORA_ATKS[] = {
   &ATK_Sludge_Bomb,
   &ATK_Solar_Beam,
   &ATK_Leaf_Storm,
+  NULL
+};
+
+static const attack* PATRAT_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Dig,
+  &ATK_Hyper_Fang,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* WATCHOG_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Low_Kick,
+  &ATK_Hyper_Fang,
+  &ATK_Grass_Knot,
+  &ATK_Crunch,
   NULL
 };
 
@@ -10938,7 +11017,7 @@ static const species sdex[] = {
   {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", MIMEJR_ATKS, true, false, },
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATKS, true, false, },
   {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, CHATOT_ATKS, true, false, },
-  {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, NULL, },
+  {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, SPIRITOMB_ATKS, true, false, },
   {  443, "Gible", TYPE_DRAGON, TYPE_GROUND, 124, 84, 151, NULL, GIBLE_ATKS, true, true, },
   {  444, "Gabite", TYPE_DRAGON, TYPE_GROUND, 172, 125, 169, "Gible", GABITE_ATKS, true, true, },
   {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, "Gabite", GARCHOMP_ATKS, true, true, },
@@ -10990,8 +11069,8 @@ static const species sdex[] = {
   {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, O_PALKIA_ATKS, true, true, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATKS, true, true, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, REGIGIGAS_ATKS, true, true, },
-  {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, NULL, },
-  {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, NULL, },
+  {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, A_GIRATINA_ATKS, true, false, },
+  {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, O_GIRATINA_ATKS, true, false, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, CRESSELIA_ATKS, true, false, },
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, DARKRAI_ATKS, true, false, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, SHAYMIN_ATKS, true, false, },
@@ -11007,11 +11086,11 @@ static const species sdex[] = {
   {  502, "Dewott", TYPE_WATER, TYPECOUNT, 159, 116, 181, "Oshawott", DEWOTT_ATKS, true, true, },
   {  503, "Samurott", TYPE_WATER, TYPECOUNT, 212, 157, 216, "Dewott", SAMUROTT_ATKS, true, true, },
   {  503, "Hisuian Samurott", TYPE_WATER, TYPE_DARK, 218, 152, 207, NULL, H_SAMUROTT_ATKS, true, true, },
-  {  504, "Patrat", TYPE_NORMAL, TYPECOUNT, 98, 73, 128, NULL, NULL, },
-  {  505, "Watchog", TYPE_NORMAL, TYPECOUNT, 165, 139, 155, "Patrat", NULL, },
-  {  506, "Lillipup", TYPE_NORMAL, TYPECOUNT, 107, 86, 128, NULL, NULL, },
-  {  507, "Herdier", TYPE_NORMAL, TYPECOUNT, 145, 126, 163, "Lillipup", NULL, },
-  {  508, "Stoutland", TYPE_NORMAL, TYPECOUNT, 206, 182, 198, "Herdier", NULL, },
+  {  504, "Patrat", TYPE_NORMAL, TYPECOUNT, 98, 73, 128, NULL, PATRAT_ATKS, true, true, },
+  {  505, "Watchog", TYPE_NORMAL, TYPECOUNT, 165, 139, 155, "Patrat", WATCHOG_ATKS, true, true, },
+  {  506, "Lillipup", TYPE_NORMAL, TYPECOUNT, 107, 86, 128, NULL, LILLIPUP_ATKS, true, false, },
+  {  507, "Herdier", TYPE_NORMAL, TYPECOUNT, 145, 126, 163, "Lillipup", HERDIER_ATKS, true, false, },
+  {  508, "Stoutland", TYPE_NORMAL, TYPECOUNT, 206, 182, 198, "Herdier", STOUTLAND_ATKS, true, false, },
   {  509, "Purrloin", TYPE_DARK, TYPECOUNT, 98, 73, 121, NULL, PURRLOIN_ATKS, true, true, },
   {  510, "Liepard", TYPE_DARK, TYPECOUNT, 187, 106, 162, "Purrloin", LIEPARD_ATKS, true, true, },
   {  511, "Pansage", TYPE_GRASS, TYPECOUNT, 104, 94, 137, NULL, PANSAGE_ATKS, true, false, },
