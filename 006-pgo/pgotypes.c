@@ -785,6 +785,25 @@ static const attack* SAWSBUCK_ATKS[] = {
   NULL
 };
 
+static const attack* TAROUNTULA_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Struggle_Bug,
+  &ATK_XScissor,
+  &ATK_Grass_Knot,
+  &ATK_Lunge,
+  NULL
+};
+
+static const attack* SPIDOPS_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Counter,
+  &ATK_Rock_Tomb,
+  &ATK_XScissor,
+  &ATK_Grass_Knot,
+  &ATK_Lunge,
+  NULL
+};
+
 static const attack* TAPUBULU_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Bullet_Seed,
@@ -983,6 +1002,17 @@ static const attack* N_LYCANROC_ATKS[] = {
   &ATK_Crunch,
   &ATK_Psychic_Fangs,
   &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* WYRDEER_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Megahorn,
+  &ATK_Psychic,
+  &ATK_Stomp,
+  &ATK_Wild_Charge,
   NULL
 };
 
@@ -2054,6 +2084,26 @@ static const attack* CELESTEELA_ATKS[] = {
   NULL
 };
 
+static const attack* BUNNELBY_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Mud_Slap,
+  &ATK_Dig,
+  &ATK_Earthquake,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* DIGGERSBY_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Quick_Attack,
+  &ATK_Hyper_Beam,
+  &ATK_Dig,
+  &ATK_Earthquake,
+  &ATK_Fire_Punch,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
 static const attack* BINACLE_ATKS[] = {
   &ATK_Scratch,
   &ATK_Mud_Slap,
@@ -2459,6 +2509,40 @@ static const attack* CHATOT_ATKS[] = {
   &ATK_Heat_Wave,
   &ATK_Sky_Attack,
   &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* FLETCHLING_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Quick_Attack,
+  &ATK_Heat_Wave,
+  &ATK_Aerial_Ace,
+  &ATK_Swift,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* FLETCHINDER_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Peck,
+  &ATK_Steel_Wing,
+  &ATK_Heat_Wave,
+  &ATK_Aerial_Ace,
+  &ATK_Flame_Charge,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* TALONFLAME_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Steel_Wing,
+  &ATK_Fire_Spin,
+  &ATK_Incinerate,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Hurricane,
+  &ATK_Brave_Bird,
+  &ATK_Fly,
   NULL
 };
 
@@ -9286,6 +9370,33 @@ static const attack* NYMBLE_ATKS[] = {
   NULL
 };
 
+static const attack* LECHONK_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Dig,
+  &ATK_Body_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* F_OINKOLOGNE_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Dig,
+  &ATK_Body_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* M_OINKOLOGNE_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Dig,
+  &ATK_Body_Slam,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* LOKIX_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Sucker_Punch,
@@ -10037,11 +10148,11 @@ static const species sdex[] = {
   {  656, "Froakie", TYPE_WATER, TYPECOUNT, 122, 84, 121, NULL, FROAKIE_ATKS, true, false, },
   {  657, "Frogadier", TYPE_WATER, TYPECOUNT, 168, 114, 144, "Froakie", FROGADIER_ATKS, true, false, },
   {  658, "Greninja", TYPE_WATER, TYPE_DARK, 223, 152, 176, "Frogadier", GRENINJA_ATKS, true, false, },
-  {  659, "Bunnelby", TYPE_NORMAL, TYPECOUNT, 68, 72, 116, NULL, NULL, },
-  {  660, "Diggersby", TYPE_NORMAL, TYPE_GROUND, 112, 155, 198, "Bunnelby", NULL, },
-  {  661, "Fletchling", TYPE_NORMAL, TYPE_FLYING, 95, 80, 128, NULL, NULL, },
-  {  662, "Fletchinder", TYPE_FIRE, TYPE_FLYING, 145, 110, 158, "Fletchling", NULL, },
-  {  663, "Talonflame", TYPE_FIRE, TYPE_FLYING, 176, 155, 186, "Fletchinder", NULL, },
+  {  659, "Bunnelby", TYPE_NORMAL, TYPECOUNT, 68, 72, 116, NULL, BUNNELBY_ATKS, true, true, },
+  {  660, "Diggersby", TYPE_NORMAL, TYPE_GROUND, 112, 155, 198, "Bunnelby", DIGGERSBY_ATKS, true, true, },
+  {  661, "Fletchling", TYPE_NORMAL, TYPE_FLYING, 95, 80, 128, NULL, FLETCHLING_ATKS, true, false, },
+  {  662, "Fletchinder", TYPE_FIRE, TYPE_FLYING, 145, 110, 158, "Fletchling", FLETCHINDER_ATKS, true, false, },
+  {  663, "Talonflame", TYPE_FIRE, TYPE_FLYING, 176, 155, 186, "Fletchinder", TALONFLAME_ATKS, true, false, },
   {  664, "Scatterbug", TYPE_BUG, TYPECOUNT, 63, 63, 116, NULL, SCATTERBUG_ATKS, true, false, },
   {  665, "Spewpa", TYPE_BUG, TYPECOUNT, 48, 89, 128, "Scatterbug", SPEWPA_ATKS, true, false, },
   {  666, "Vivillon", TYPE_BUG, TYPE_FLYING, 176, 103, 190, "Spewpa", VIVILLON_ATKS, true, false, },
@@ -10246,7 +10357,7 @@ static const species sdex[] = {
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, NULL, ZARUDE_ATKS, true, false, },
   {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, NULL, REGIELEKI_ATKS, true, true, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, NULL, REGIDRAGO_ATKS, true, false, },
-  {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, NULL, },
+  {  899, "Wyrdeer", TYPE_NORMAL, TYPE_PSYCHIC, 206, 145, 230, NULL, WYRDEER_ATKS, true, false, },
   {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, KLEAVOR_ATKS, true, false, },
   {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, "Ursaring", URSALUNA_ATKS, true, true, },
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Hisuian Sneasel", SNEASLER_ATKS, true, true, },
@@ -10261,9 +10372,11 @@ static const species sdex[] = {
   {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, QUAXLY_ATKS, true, false, },
   {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, "Quaxly", QUAXWELL_ATKS, true, false, },
   {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false, },
-  {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, NULL, },
-  {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk", NULL, },
-  {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk", NULL, },
+  {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, LECHONK_ATKS, true, false, },
+  {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk", M_OINKOLOGNE_ATKS, true, false, },
+  {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk", F_OINKOLOGNE_ATKS, true, false, },
+  {  917, "Tarountula", TYPE_BUG, TYPECOUNT, 70, 77, 111, NULL, TAROUNTULA_ATKS, false, false, },
+  {  918, "Spidops", TYPE_BUG, TYPECOUNT, 139, 166, 155, "Tarountula", SPIDOPS_ATKS, false, false, },
   {  919, "Nymble", TYPE_BUG, TYPECOUNT, 81, 65, 107, NULL, NYMBLE_ATKS, true, false, },
   {  920, "Lokix", TYPE_BUG, TYPE_DARK, 199, 144, 174, "Nymble", LOKIX_ATKS, true, false, },
   {  921, "Pawmi", TYPE_ELECTRIC, TYPECOUNT, 95, 45, 128, NULL, NULL, },
@@ -10424,6 +10537,7 @@ static const species gigantasdex[] = {
   {  812, "Gigantamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATKS, true, false, },
   {  815, "Gigantamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, CINDERACE_ATKS, true, false, },
   {  818, "Gigantamax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, INTELEON_ATKS, false, false, },
+  {  858, "Gigantamax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
   {  849, "Gigantamax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATKS, true, false, },
   // FIXME
 };
@@ -10704,7 +10818,9 @@ has_stab_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[boxsep=0mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[boxsep=0mm,title=\\#%04u", s->idx);
+  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={");
+  print_types(s->t1, s->t2);
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%'){
       printf("%c", *curs);
@@ -10712,7 +10828,6 @@ void print_species_latex(const species* s){
       printf("\\%%");
     }
   }
-  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={");
   if(s->shadow){
     printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
   }
@@ -10723,15 +10838,20 @@ void print_species_latex(const species* s){
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
   printf("\\footnotesize\n");
   if(s->attacks){ // FIXME remove conditional once all attacks are defined
-    printf("\\begin{tabular}{lrrr}\n");
+    printf("\\begin{tabular}{lrrrrr}\n");
     for(const attack** a = s->attacks ; *a ; ++a){
       unsigned stab = has_stab_p(s, *a);
       float power = (*a)->powertrain * (stab ? 1.2 : 1);
       print_type((*a)->type);
       if((*a)->energytrain < 0){
-        printf("%s & & %g & %d\\\\\n", (*a)->name, power, (*a)->energytrain);
+        const float dpe = power / -(*a)->energytrain;
+        printf("%s & & %g & %d & %.2f & \\\\\n",
+            (*a)->name, power, (*a)->energytrain, dpe);
       }else{
-        printf("%s & %u & %g & %d\\\\\n", (*a)->name, (*a)->turns, power, (*a)->energytrain);
+        const float dpt = power / (*a)->turns;
+        const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
+        printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
+            (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
       }
     }
     printf("\\end{tabular}\n");
@@ -10748,7 +10868,6 @@ void print_species_latex(const species* s){
     }
   }
   printf(".png}\\\\\n");
-  print_types(s->t1, s->t2);
   printf("\\end{tcolorbox}\n");
 }
 
