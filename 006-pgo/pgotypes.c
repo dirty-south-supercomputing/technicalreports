@@ -828,6 +828,17 @@ static const attack* GHOLDENGO_ATKS[] = {
   NULL
 };
 
+static const attack* IGGLYBUFF_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Feint_Attack,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  &ATK_Swift,
+  &ATK_Body_Slam,
+  &ATK_Wild_Charge,
+  NULL
+};
+
 static const attack* MISDREAVUS_ATKS[] = {
   &ATK_Astonish,
   &ATK_Hex,
@@ -3975,6 +3986,14 @@ static const attack* ARBOLIVA_ATKS[] = {
   NULL
 };
 
+static const attack* PICHU_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Thunder_Punch,
+  &ATK_Thunderbolt,
+  &ATK_Disarming_Voice,
+  NULL
+};
+
 static const attack* MAREEP_ATKS[] = {
   &ATK_Thunder_Shock,
   &ATK_Tackle,
@@ -6953,18 +6972,6 @@ static const attack* ALOLAN_NINETALES_ATKS[] = {
 
 static const attack* JIGGLYPUFF_ATKS[] = {
   &ATK_Pound,
-  &ATK_Zen_Headbutt,
-  &ATK_Psyshock,
-  &ATK_Signal_Beam,
-  &ATK_Psychic,
-  &ATK_Swift,
-  &ATK_Body_Slam,
-  &ATK_Grass_Knot,
-  NULL
-};
-
-static const attack* WIGGLYTUFF_ATKS[] = {
-  &ATK_Pound,
   &ATK_Feint_Attack,
   &ATK_Disarming_Voice,
   &ATK_Dazzling_Gleam,
@@ -6972,6 +6979,20 @@ static const attack* WIGGLYTUFF_ATKS[] = {
   &ATK_Swift,
   &ATK_Body_Slam,
   &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* WIGGLYTUFF_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Feint_Attack,
+  &ATK_Charm,
+  &ATK_Hyper_Beam,
+  &ATK_Ice_Beam,
+  &ATK_Disarming_Voice,
+  &ATK_Dazzling_Gleam,
+  &ATK_Play_Rough,
+  &ATK_Icy_Wind,
+  &ATK_Swift,
   NULL
 };
 
@@ -9227,9 +9248,9 @@ static const species sdex[] = {
   {  169, "Crobat", TYPE_POISON, TYPE_FLYING, 194, 178, 198, "Golbat", CROBAT_ATKS, true, true, },
   {  170, "Chinchou", TYPE_WATER, TYPE_ELECTRIC, 106, 97, 181, NULL, CHINCHOU_ATKS, true, false, },
   {  171, "Lanturn", TYPE_WATER, TYPE_ELECTRIC, 146, 137, 268, "Chinchou", LANTURN_ATKS, true, false, },
-  {  172, "Pichu", TYPE_ELECTRIC, TYPECOUNT, 77, 53, 85, NULL, NULL, },
+  {  172, "Pichu", TYPE_ELECTRIC, TYPECOUNT, 77, 53, 85, NULL, PICHU_ATKS, true, false, },
   {  173, "Cleffa", TYPE_FAIRY, TYPECOUNT, 75, 79, 137, NULL, CLEFFA_ATKS, true, false, },
-  {  174, "Igglybuff", TYPE_NORMAL, TYPE_FAIRY, 69, 32, 207, NULL, NULL, },
+  {  174, "Igglybuff", TYPE_NORMAL, TYPE_FAIRY, 69, 32, 207, NULL, IGGLYBUFF_ATKS, true, false, },
   {  175, "Togepi", TYPE_FAIRY, TYPECOUNT, 67, 116, 111, NULL, TOGEPI_ATKS, true, false, },
   {  176, "Togetic", TYPE_FAIRY, TYPE_FLYING, 139, 181, 146, "Togepi", TOGETIC_ATKS, true, false, },
   {  177, "Natu", TYPE_PSYCHIC, TYPE_FLYING, 134, 89, 120, NULL, NATU_ATKS, true, true, },
