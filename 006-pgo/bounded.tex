@@ -142,3 +142,37 @@ I'm a fan of bringing in powerful Pokémon at low levels; their stats are
 Similarly to an unbounded contest, we can assume that a rational opponent is selecting
   according to the same rules as we are (or better), but a more powerful result is
   strong against all possible opponents.
+
+\section{Working under type restrictions}
+\label{sec:typeleagues}
+A common variation on the usual Leagues is a type restriction.
+The summer of 2025 features the ``Fossil Cup'', wherein all competing
+  Pokémon (in addition to coming in under the CP1500 bound)
+  must include Rock, Steel, or Water in their typing.
+The cover sets of \autoref{sec:coversets} make their return with a vengeance!
+
+Water is weak against Electric and Grass.
+Steel is weak against Fighting, Fire, and Ground.
+Rock is weak against Fighting, Grass, Ground, and Water.
+
+We can cover these three types with just two attack types: Fighting and Grass, or Grass and Ground.
+Indeed, all three of these types are strong against two of the target types.
+Let's look at full typings.
+There are three monotypes and 48 ($17 + 16 + 15$) dualtypes admitted under these restrictions.
+All 51 ($3 + 48$) typings are populated.
+There exist two minimal coversets, both of size six:
+
+\begin{table}[ht]
+\begin{centering}
+\begin{tabular}{c}
+ Bug, Fairy, Fire, Grass, Ground, Rock\\
+ Bug, Dragon, Fire, Grass, Ground, Rock\\
+\end{tabular}
+\end{centering}
+\end{table}
+
+We could stripe these across the two charged attacks of three Pokémon,
+  leaving our fast attacks free, or stripe them across the six total
+  attacks of two Pokémon, leaving the third free.
+Is it surprising to see e.g.\ Bug? Bug is necessary for strength
+  against typings which include Dark or Psychic.

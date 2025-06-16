@@ -5,18 +5,17 @@ digraph G {
     darkD [ image="images/dark.png" ]
     psychicD [ image="images/psychic.png" ]
     fightingD [ image="images/fighting.png" ]
-  { rank=same; normalD ghostD }
+  { rank=same; normalD fightingD }
   { rank=same; darkD psychicD }
-  { rank=same; fightingD }
+  { rank=same; ghostD }
+  darkD -> darkD [ color=red ]
   darkD -> fightingD [ color=red ]
+  darkD -> ghostD [ color=green penwidth=4 ]
+  darkD -> psychicD [ color=green penwidth=4 ]
   fightingD -> normalD [ color=green penwidth=4 ]
   fightingD -> ghostD [ color=black ]
   fightingD -> psychicD [ color=red ]
   fightingD -> darkD [ color=green penwidth=4 ]
-  psychicD -> fightingD [ color=green penwidth=4 ]
-  darkD -> ghostD [ color=green penwidth=4 ]
-  darkD -> psychicD [ color=green penwidth=4 ]
-  darkD -> darkD [ color=red ]
   ghostD -> normalD [ color=black ]
   ghostD -> ghostD [ color=green penwidth=4 ]
   ghostD -> psychicD [ color=green penwidth=4 ]
@@ -24,4 +23,5 @@ digraph G {
   psychicD -> psychicD [ color=red ]
   psychicD -> darkD [ color=black ]
   normalD -> ghostD [ color=black ]
+  psychicD -> fightingD [ color=green penwidth=4 ]
 }
