@@ -10192,6 +10192,22 @@ static const attack* MEGANIUM_ATKS[] = {
   NULL
 };
 
+static const attack* GOSSIFLEUR_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bullet_Seed,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* ELDEGOSS_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bullet_Seed,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
 static const attack* PATRAT_ATKS[] = {
   &ATK_Bite,
   &ATK_Tackle,
@@ -10636,6 +10652,29 @@ static const attack* LOKIX_ATKS[] = {
   &ATK_Counter,
   &ATK_Dark_Pulse,
   &ATK_Bug_Buzz,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* FOMANTIS_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Razor_Leaf,
+  &ATK_Leafage,
+  &ATK_Leaf_Blade,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* LURANTIS_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Razor_Leaf,
+  &ATK_Leafage,
+  &ATK_XScissor,
+  &ATK_Leaf_Blade,
+  &ATK_Superpower,
+  &ATK_Leaf_Storm,
   &ATK_Trailblaze,
   NULL
 };
@@ -11508,8 +11547,8 @@ static const species sdex[] = {
   {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", MUDSDALE_ATKS, true, false, },
   {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, NULL, DEWPIDER_ATKS, true, false, },
   {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider", ARAQUANID_ATKS, true, false, },
-  {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, NULL, NULL, },
-  {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis", NULL, },
+  {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, NULL, FOMANTIS_ATKS, true, false, },
+  {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis", LURANTIS_ATKS, true, false, },
   {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, NULL, MORELULL_ATKS, true, false, },
   {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull", SHIINOTIC_ATKS, true, false, },
   {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, SALANDIT_ATKS, true, false, },
@@ -11577,8 +11616,8 @@ static const species sdex[] = {
   {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire", CORVIKNIGHT_ATKS, true, false, },
   {  827, "Nickit", TYPE_DARK, TYPECOUNT, 85, 82, 120, NULL, NICKIT_ATKS, true, false, },
   {  828, "Thievul", TYPE_DARK, TYPECOUNT, 172, 164, 172, "Nickit", THIEVUL_ATKS, true, false, },
-  {  829, "Gossifleur", TYPE_GRASS, TYPECOUNT, 70, 104, 120, NULL, NULL, },
-  {  830, "Eldegoss", TYPE_GRASS, TYPECOUNT, 148, 211, 155, "Gossifleur", NULL, },
+  {  829, "Gossifleur", TYPE_GRASS, TYPECOUNT, 70, 104, 120, NULL, GOSSIFLEUR_ATKS, false, false, },
+  {  830, "Eldegoss", TYPE_GRASS, TYPECOUNT, 148, 211, 155, "Gossifleur", ELDEGOSS_ATKS, false, false, },
   {  831, "Wooloo", TYPE_NORMAL, TYPECOUNT, 76, 97, 123, NULL, WOOLOO_ATKS, true, false, },
   {  832, "Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Wooloo", DUBWOOL_ATKS, true, false, },
   {  835, "Yamper", TYPE_ELECTRIC, TYPECOUNT, 80, 90, 153, NULL, YAMPER_ATKS, false, false, },
@@ -11943,7 +11982,7 @@ species* create_shadow(const species* s){
 #define SHADSUFFIX " (Shadow)"
   species *news = new species(s->name + SHADSUFFIX);
 #undef SHADSUFFIX
-printf("MADE SHADOW: {%s}\n", news->name);
+printf("MADE SHADOW: {%s}\n", news->name.c_str());
   news->idx = s->idx;
   news->t1 = s->t1;
   news->t2 = s->t2;
@@ -12018,7 +12057,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
 
 const species* lookup_species(const char* name){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    if(strcasecmp(sdex[i].name, name) == 0){
+    if(strcasecmp(sdex[i].name.c_str(), name) == 0){
       return &sdex[i];
     }
   }
@@ -12027,7 +12066,7 @@ const species* lookup_species(const char* name){
 
 const species* lookup_mega(const char* name){
   for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-    if(strcasecmp(megasdex[i].name, name) == 0){
+    if(strcasecmp(megasdex[i].name.c_str(), name) == 0){
       return &megasdex[i];
     }
   }
@@ -12110,7 +12149,7 @@ void print_species_latex(const species* s){
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   print_types(s->t1, s->t2);
   printf(" ");
-  for(const char* curs = s->name ; *curs ; ++curs){
+  for(const char* curs = s->name.c_str() ; *curs ; ++curs){
     if(*curs != '%'){
       printf("%c", *curs);
     }else{
@@ -12151,7 +12190,7 @@ void print_species_latex(const species* s){
   printf("\\end{tabular}\n");
   printf("\\tcblower\n");
   printf("\\raggedleft\\includegraphics[height=1in,keepaspectratio]{images/pokédex/");
-  for(const char* curs = s->name ; *curs ; ++curs){
+  for(const char* curs = s->name.c_str() ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
     }
