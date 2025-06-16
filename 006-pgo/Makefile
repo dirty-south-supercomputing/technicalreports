@@ -10,7 +10,6 @@ TEX:=$(addsuffix .tex, pgo foreward story trainer types attacks species pokémon
 		 		stats battle damage unbounded bounded strategy simul max spawn example)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
-IMAGES:=$(wildcard images/*)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)))
 PDFVIEW:=evince
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
@@ -24,6 +23,7 @@ FORMS:=out/forms
 SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
+WEATHER:=out/weather
 ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
@@ -35,23 +35,24 @@ PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
 GIGANTATEX:=out/gigantas.tex
+WEATHERTEX:=$(WEATHER).tex
 CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
-	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX)
+	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
 all: $(PDF) $(SIMUL)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(IMAGES) $(GENTEX) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(IMAGES) $(GENTEX)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX)
 	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
