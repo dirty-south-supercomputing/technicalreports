@@ -4466,6 +4466,41 @@ static const attack* RAIKOU_ATKS[] = {
   NULL
 };
 
+static const attack* PAWMI_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Charge_Beam,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* PAWMO_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Charge_Beam,
+  &ATK_Discharge,
+  &ATK_Thunder_Punch,
+  &ATK_Thunderbolt,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* PAWMOT_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Spark,
+  &ATK_Low_Kick,
+  &ATK_Charge_Beam,
+  &ATK_Discharge,
+  &ATK_Thunder_Punch,
+  &ATK_Thunderbolt,
+  &ATK_Brick_Break,
+  &ATK_Close_Combat,
+  &ATK_Wild_Charge,
+  NULL
+};
+
 static const attack* ZAPDOS_ATKS[] = {
   &ATK_Thunder_Shock,
   &ATK_Charge_Beam,
@@ -6119,6 +6154,26 @@ static const attack* VICTREEBEL_ATKS[] = {
   &ATK_Leaf_Blade,
   &ATK_Acid_Spray,
   &ATK_Leaf_Tornado,
+  NULL
+};
+
+static const attack* TANDEMAUS_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bullet_Seed,
+  &ATK_Take_Down,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* MAUSHOLD_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Bullet_Seed,
+  &ATK_Take_Down,
+  &ATK_Play_Rough,
+  &ATK_Swift,
+  &ATK_Crunch,
   NULL
 };
 
@@ -10486,11 +10541,11 @@ static const species sdex[] = {
   {  918, "Spidops", TYPE_BUG, TYPECOUNT, 139, 166, 155, "Tarountula", SPIDOPS_ATKS, false, false, },
   {  919, "Nymble", TYPE_BUG, TYPECOUNT, 81, 65, 107, NULL, NYMBLE_ATKS, true, false, },
   {  920, "Lokix", TYPE_BUG, TYPE_DARK, 199, 144, 174, "Nymble", LOKIX_ATKS, true, false, },
-  {  921, "Pawmi", TYPE_ELECTRIC, TYPECOUNT, 95, 45, 128, NULL, NULL, },
-  {  922, "Pawmo", TYPE_ELECTRIC, TYPE_FIGHTING, 147, 82, 155, "Pawmi", NULL, },
-  {  923, "Pawmot", TYPE_ELECTRIC, TYPE_FIGHTING, 232, 141, 172, "Pawmo", NULL, },
-  {  924, "Tandemaus", TYPE_NORMAL, TYPECOUNT, 98, 90, 137, NULL, NULL, },
-  {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", NULL, },
+  {  921, "Pawmi", TYPE_ELECTRIC, TYPECOUNT, 95, 45, 128, NULL, PAWMI_ATKS, true, false, },
+  {  922, "Pawmo", TYPE_ELECTRIC, TYPE_FIGHTING, 147, 82, 155, "Pawmi", PAWMO_ATKS, true, false, },
+  {  923, "Pawmot", TYPE_ELECTRIC, TYPE_FIGHTING, 232, 141, 172, "Pawmo", PAWMOT_ATKS, true, false, },
+  {  924, "Tandemaus", TYPE_NORMAL, TYPECOUNT, 98, 90, 137, NULL, TANDEMAUS_ATKS, false, false, },
+  {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", MAUSHOLD, false, false, },
   {  926, "Fidough", TYPE_FAIRY, TYPECOUNT, 102, 126, 114, NULL, NULL, },
   {  927, "Dachsbun", TYPE_FAIRY, TYPECOUNT, 159, 212, 149, "Fidough", NULL, },
   {  928, "Smoliv", TYPE_GRASS, TYPE_NORMAL, 100, 89, 121, NULL, SMOLIV_ATKS, true, false, },
