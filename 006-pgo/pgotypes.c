@@ -1397,6 +1397,38 @@ static const attack* SWELLOW_ATKS[] = {
   NULL
 };
 
+static const attack* RUFFLET_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Rock_Tomb,
+  &ATK_Brave_Bird,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* BRAVIARY_ATKS[] = {
+  &ATK_Steel_Wing,
+  &ATK_Air_Slash,
+  &ATK_Heat_Wave,
+  &ATK_Rock_Slide,
+  &ATK_Close_Combat,
+  &ATK_Brave_Bird,
+  &ATK_Fly,
+  NULL
+};
+
+static const attack* H_BRAVIARY_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Air_Slash,
+  &ATK_Ominous_Wind,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  &ATK_Brave_Bird,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* QUAXLY_ATKS[] = {
   &ATK_Wing_Attack,
   &ATK_Water_Gun,
@@ -10290,9 +10322,9 @@ static const species sdex[] = {
   {  624, "Pawniard", TYPE_DARK, TYPE_STEEL, 154, 114, 128, NULL, PAWNIARD_ATKS, true, false, },
   {  625, "Bisharp", TYPE_DARK, TYPE_STEEL, 232, 176, 163, "Pawniard", BISHARP_ATKS, true, false, },
   {  626, "Bouffalant", TYPE_NORMAL, TYPECOUNT, 195, 182, 216, NULL, BOUFFALANT_ATKS, true, false, },
-  {  627, "Rufflet", TYPE_NORMAL, TYPE_FLYING, 150, 97, 172, NULL, NULL, },
-  {  628, "Braviary", TYPE_NORMAL, TYPE_FLYING, 232, 152, 225, "Rufflet", NULL, },
-  {  628, "Hisuian Braviary", TYPE_PSYCHIC, TYPE_FLYING, 213, 137, 242, NULL, NULL, },
+  {  627, "Rufflet", TYPE_NORMAL, TYPE_FLYING, 150, 97, 172, NULL, RUFFLET_ATKS, true, false, },
+  {  628, "Braviary", TYPE_NORMAL, TYPE_FLYING, 232, 152, 225, "Rufflet", BRAVIARY_ATKS, true, false, },
+  {  628, "Hisuian Braviary", TYPE_PSYCHIC, TYPE_FLYING, 213, 137, 242, NULL, H_BRAVIARY_ATKS, true, false, },
   {  629, "Vullaby", TYPE_DARK, TYPE_FLYING, 105, 139, 172, NULL, VULLABY_ATKS, true, false, },
   {  630, "Mandibuzz", TYPE_DARK, TYPE_FLYING, 129, 205, 242, "Vullaby", MANDIBUZZ_ATKS, true, false, },
   {  631, "Heatmor", TYPE_FIRE, TYPECOUNT, 204, 129, 198, NULL, HEATMOR_ATKS, true, false, },
