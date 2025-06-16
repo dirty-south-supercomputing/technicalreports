@@ -10699,6 +10699,26 @@ static const attack* LURANTIS_ATKS[] = {
   NULL
 };
 
+static const attack* COTTONEE_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Charm,
+  &ATK_Seed_Bomb,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* WHIMSICOTT_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Charm,
+  &ATK_Fairy_Wind,
+  &ATK_Seed_Bomb,
+  &ATK_Moonblast,
+  &ATK_Hurricane,
+  &ATK_Grass_Knot,
+  NULL
+};
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   const std::string name;
@@ -11338,8 +11358,8 @@ static const species sdex[] = {
   {  543, "Venipede", TYPE_BUG, TYPE_POISON, 83, 99, 102, NULL, VENIPEDE_ATKS, true, true, },
   {  544, "Whirlipede", TYPE_BUG, TYPE_POISON, 100, 173, 120, "Venipede", WHIRLIPEDE_ATKS, true, true, },
   {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede", SCOLIPEDE_ATKS, true, true, },
-  {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, NULL, NULL, },
-  {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", NULL, },
+  {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, NULL, COTTONEE_ATKS, true, false, },
+  {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", WHIMSICOTT_ATKS, true, false, },
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, NULL, },
   {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", NULL, },
   {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, BASCULIN_ATKS, true, false, },
