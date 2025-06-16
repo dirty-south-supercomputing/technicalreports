@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void
+/*static void
 print_vector_ints(const int rels[]){
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     printf("%2d ", rels[i]);
@@ -164,7 +164,7 @@ print_complete_coversets_duals(void){
       printf("no dual coversets of size %d\n", j);
     }
   }
-}
+}*/
 
 static void
 melt_column(int* vec, const int* col){
@@ -322,7 +322,7 @@ defensive_relations_latex(const typing* t){
   printf("\\endgroup\n");
 }
 
-static void
+/*static void
 attack_summaries(void){
   printf("Attack efficiency summaries\n");
   printf("          -2 -1  0  1  T -4 -3 -2 -1   0  1  2   T  A\n");
@@ -348,7 +348,7 @@ attack_summaries(void){
     printf("\n");
   }
   printf("\n");
-}
+}*/
 
 int main(void){
   /*printf("Attack efficiencies\n");
