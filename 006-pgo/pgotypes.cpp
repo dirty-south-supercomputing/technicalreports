@@ -9225,6 +9225,26 @@ static const attack* GLALIE_ATKS[] = {
   NULL
 };
 
+static const attack* CETODDLE_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Tackle,
+  &ATK_Powder_Snow,
+  &ATK_Body_Slam,
+  &ATK_Avalanche,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* CETITAN_ATKS[] = {
+  &ATK_Ice_Shard,
+  &ATK_Tackle,
+  &ATK_Powder_Snow,
+  &ATK_Body_Slam,
+  &ATK_Avalanche,
+  &ATK_Heavy_Slam,
+  NULL
+};
+
 static const attack* CHESPIN_ATKS[] = {
   &ATK_Vine_Whip,
   &ATK_Take_Down,
@@ -11308,8 +11328,8 @@ static const species sdex[] = {
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", REVAVROOM_ATKS, false, false, },
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, NULL, NULL, },
   {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard", NULL, },
-  {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, NULL, },
-  {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, "Cetoddle", NULL, },
+  {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, CETODDLE_ATKS, true, false, },
+  {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, "Cetoddle", CETITAN_ATKS, true, false, },
   {  979, "Annihilape", TYPE_FIGHTING, TYPE_GHOST, 220, 178, 242, "Primeape", ANNIHILAPE_ATKS, true, true, },
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper", CLODSIRE_ATKS, true, false, },
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, NULL, KINGAMBIT_ATKS, true, false, },
