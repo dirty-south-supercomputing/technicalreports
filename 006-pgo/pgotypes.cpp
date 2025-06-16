@@ -9788,6 +9788,24 @@ static const attack* UMBREON_ATKS[] = {
   NULL
 };
 
+static const attack* PHANTUMP_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Astonish,
+  &ATK_Seed_Bomb,
+  &ATK_Shadow_Ball,
+  &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* TREVENANT_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Shadow_Claw,
+  &ATK_Seed_Bomb,
+  &ATK_Shadow_Ball,
+  &ATK_Foul_Play,
+  NULL
+};
+
 static const attack* WOOPER_ATKS[] = {
   &ATK_Mud_Shot,
   &ATK_Water_Gun,
@@ -11545,8 +11563,8 @@ static const species sdex[] = {
   {  705, "Sliggoo", TYPE_DRAGON, TYPECOUNT, 159, 176, 169, "Gloomy", SLIGGOO_ATKS, true, false, },
   {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo", GOODRA_ATKS, true, false, },
   {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, NULL, KLEFKI_ATKS, false, false, },
-  {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, NULL, NULL, },
-  {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump", NULL, },
+  {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, NULL, PHANTUMP_ATKS, true, false, },
+  {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump", TREVENANT_ATKS, true, false, },
   {  710, "Pumpkaboo", TYPE_GHOST, TYPE_GRASS, 121, 123, 135, NULL, NULL, },
   {  710, "Pumpkaboo Small", TYPE_GHOST, TYPE_GRASS, 122, 124, 127, NULL, NULL, },
   {  710, "Pumpkaboo Large", TYPE_GHOST, TYPE_GRASS, 120, 122, 144, NULL, NULL, },
