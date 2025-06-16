@@ -4,6 +4,13 @@
 Let's consider the Fossil Cup of summer 2025, which began while I was writing this book.
 Like the Great League, the Fossil Cup has a CP1500 bound, and it
   restricts participants to those with Rock, Steel, or Water in their typings.
+This limits teams to 51 of the 171 typings (29.8\%): the three monotypes, seventeen dualtypes
+ involving Rock, sixteen dualtypes involving Steel (we already counted Rock+Steel), and
+ fifteen dualtypes involving Water (we already counted Rock+Water and Steel+Water).
+Consulting \autoref{table:defenders}, we see these 51 typings populated by 267 total Pokémon.
+The biggest typing by far is pure Water, with 66.
+Four typings are unpopulated: Fire+Water, Normal+Steel, Normal+Rock, and Ghost+Rock.
+
 One hundred matches in, I was doing alright (despite far from optimal IVs)
   with the following team, formed largely off vibes:
 \begin{center}
@@ -48,12 +55,15 @@ The means themselves are unspectacular, but not bad: Gastrodon and Magcargo are 
   in the thick of things, and Greninja is blasting away with that Hydro Cannon every nine turns.
 
 \section{Covering the typings}
-This limits teams to 51 of the 171 typings (29.8\%): the three monotypes, seventeen dualtypes
- involving Rock, sixteen dualtypes involving Steel (we already counted Rock+Steel), and
- fifteen dualtypes involving Water (we already counted Rock+Water and Steel+Water).
-Consulting \autoref{table:defenders}, we see these 51 typings populated by 267 total Pokémon.
-The biggest typing by far is pure Water, with 66.
-Four typings are unpopulated: Fire+Water, Normal+Steel, Normal+Rock, and Ghost+Rock.
+Remember what I said earlier: it is better to be effective against a type than for that
+  type to be ineffective against you.
+We want to maximize the number of relevant typings against which we are effective or
+  very effective, and minimize the number of types which are effective or very effective against us.
+Only as a secondary consideration need we minimize the number of relevant
+  typings against which we are ineffective, and maximize the number of types
+  which are ineffective against us.
+Ideally we want to \textit{systematically force} an effective attack from each
+  of our Pokémon against all possible typings.
 
 As noted in \autoref{sec:typeleagues}, there exist two minimal coverings of the forty-seven
   remaining typings, each of size six:
@@ -63,3 +73,59 @@ As noted in \autoref{sec:typeleagues}, there exist two minimal coverings of the 
  Bug, Dragon, Fire, Grass, Ground, Rock\\
 \end{tabular}
 \end{center}
+Bug isn't known for high DPT\@. Infestation manages two while achieving four EPT,
+ but requires three turns. Bug Bite does three on both in a single turn.
+
+Grass and Ground make up a cover of the core types, as do Fighting and Grass.
+All three of these types (and only these three types) are strong against two of the three
+  types making up the population.
+Fighting and Ground are standard against the third type (Water), while Grass is ineffective
+  against its third type (Steel).
+Due to the huge number of potential participants with Water in their typing, we pretty
+  much need Grass.
+
+It is impossible to cover Grass's ineffectiveness against Steel with either Fighting or Ground,
+  due dualtypes of Steel with any of Fighting or Ground's many weaknesses.
+Similarly, Grass's strength against Rock and Water can be undone by dualtyping them with a Grass weakness.
+We need something strong where Grass is weak.
+Something like Rock.
+Rock is ineffective against Steel, but standard against our other two cores.
+Meanwhile, it's strong against three of Grass's weaknesses outside the core (Bug, Fire, and Flying),
+  leaving only Water+Poison, Water+Grass, Water+Dragon, Rock+Poison, Rock+Grass, and Rock+Dragon
+  as standard.
+We're ineffective against anything with Steel except for Steel+Ground, Steel+Rock, and Steel+Water, which
+  Grass can hit for standard damage.
+
+  Poison+Water: 6 (Tentacool, Tenracruel, Qwilfish, Mareanie, Toxapex, Skrelp)
+  Grass+Water: 3 (Lombre, Lotad, Ludicolo)
+  Dragon+Water: 3 (Kingdra, Palkia, Origin Form Palkia)
+  Poison+Rock: 1 (Nihilego)
+  Grass+Rock: 2 (Lileep, Cradily)
+  Dragon+Rock: 2 (Tyrunt, Tyrantrum)
+  Steel+Fairy: 6
+  Steel+Flying: 3
+  Steel+Ghost: 1
+  Steel+Dragon: 2
+  Steel+Poison: 2
+  Steel: 9
+  Steel+Electric: 4
+  Steel+Fire: 1
+  Steel+Bug: 7
+  Steel+Fighting: 3
+  Steel+Normal: 0
+  Steel+Dark: 3
+  Steel+Grass: 3
+  Steel+Psychic: 8
+  Steel+Ice: 2
+
+If our three Pokémon all have one Grass and one Rock charged attack,
+  all three of them have a charged attack strong against all but
+  71 of 267 potential opponents (73.4\%).
+Typings with Grass or Rock in them will get STAB on one of the two attacks.
+We do no better than standard against 17 (6.4\%), and both attacks are
+  ineffective against 54 (20.2\%), among them most of anything involving
+  Steel.
+Rock gets us into the tournament, while Grass would have to pair with Steel,
+  Rock, or Water.
+Rock opens up weaknesses to Fighting, Grass, Ground, Steel, and Water.
+
