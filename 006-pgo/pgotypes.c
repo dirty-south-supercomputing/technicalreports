@@ -9741,6 +9741,34 @@ static const attack* TOXTRICITY_ATKS[] = {
   NULL
 };
 
+static const attack* CHIMCHAR_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flame_Wheel,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* MONFERNO_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Rock_Smash,
+  &ATK_Flame_Wheel,
+  &ATK_Flamethrower,
+  &ATK_Low_Sweep,
+  NULL
+};
+
+static const attack* INFERNAPE_ATKS[] = {
+  &ATK_Rock_Smash,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Solar_Beam,
+  &ATK_Close_Combat,
+  &ATK_Blast_Burn,
+  NULL
+};
+
 static const attack* PONYTA_ATKS[] = {
   &ATK_Ember,
   &ATK_Tackle,
@@ -10421,9 +10449,9 @@ static const species sdex[] = {
   {  387, "Turtwig", TYPE_GRASS, TYPECOUNT, 119, 110, 146, NULL, NULL, },
   {  388, "Grotle", TYPE_GRASS, TYPECOUNT, 157, 143, 181, "Turtwig", NULL, },
   {  389, "Torterra", TYPE_GRASS, TYPE_GROUND, 202, 188, 216, "Grotle", NULL, },
-  {  390, "Chimchar", TYPE_FIRE, TYPECOUNT, 113, 86, 127, NULL, NULL, },
-  {  391, "Monferno", TYPE_FIRE, TYPE_FIGHTING, 158, 105, 162, "Chimchar", NULL, },
-  {  392, "Infernape", TYPE_FIRE, TYPE_FIGHTING, 222, 151, 183, "Monferno", NULL, },
+  {  390, "Chimchar", TYPE_FIRE, TYPECOUNT, 113, 86, 127, NULL, CHIMCHAR_ATKS, true, true, },
+  {  391, "Monferno", TYPE_FIRE, TYPE_FIGHTING, 158, 105, 162, "Chimchar", MONFERNO_ATKS, true, true, },
+  {  392, "Infernape", TYPE_FIRE, TYPE_FIGHTING, 222, 151, 183, "Monferno", INFERNAPE_ATKS, true, true, },
   {  393, "Piplup", TYPE_WATER, TYPECOUNT, 112, 102, 142, NULL, PIPLUP_ATKS, true, true, },
   {  394, "Prinplup", TYPE_WATER, TYPECOUNT, 150, 139, 162, "Piplup", PRINPLUP_ATKS, true, true, },
   {  395, "Empoleon", TYPE_WATER, TYPE_STEEL, 210, 186, 197, "Prinplup", EMPOLEON_ATKS, true, true, },
