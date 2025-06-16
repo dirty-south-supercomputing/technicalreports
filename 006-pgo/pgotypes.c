@@ -10673,7 +10673,7 @@ has_stab_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[boxsep=0mm,title=");
+  printf("\\begin{tcolorbox}[boxsep=0mm,title=\\#%04u ", s->idx);
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%'){
       printf("%c", *curs);
