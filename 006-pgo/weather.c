@@ -51,7 +51,17 @@ int main(void){
   printf("\\Midrule\n");
   for(unsigned w = 0 ; w < static_cast<unsigned>(WEATHERCOUNT) ; ++w){
     printf("%s & \\includegraphics[height=1em,width=1em]{images/%s.png} & ", WNames[w], WNames[w]);
-    printf("FIXME\\\\\n");
+    bool printed = false;
+    for(unsigned t = 0 ; t < static_cast<unsigned>(TYPECOUNT) ; ++t){
+      if(wboosts[t] == w){
+        printf("%s%s", printed ? ", " : "", TNames[t]);
+        printed = true;
+      }
+    }
+    if(!printed){
+      printf("None");
+    }
+    printf("\\\\\n");
   }
   printf("\\end{tabular}\\caption{Weather-boosted types}\\label{table:weather}\\end{center}\n");
 }
