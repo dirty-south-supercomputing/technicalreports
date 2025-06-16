@@ -1156,6 +1156,16 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* DRAMPA_ATKS[] = {
+  &ATK_Dragon_Breath,
+  &ATK_Extrasensory,
+  &ATK_Dragon_Pulse,
+  &ATK_Swift,
+  &ATK_Outrage,
+  &ATK_Fly,
+  NULL
+};
+
 static const attack* ESPURR_ATKS[] = {
   &ATK_Scratch,
   &ATK_Confusion,
@@ -1914,6 +1924,17 @@ static const attack* STARMIE_ATKS[] = {
   &ATK_Hydro_Pump,
   &ATK_Psychic,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* DHELMISE_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Astonish,
+  &ATK_Metal_Sound,
+  &ATK_Wrap,
+  &ATK_Shadow_Ball,
+  &ATK_Power_Whip,
+  &ATK_Heavy_Slam,
   NULL
 };
 
@@ -7948,6 +7969,15 @@ static const attack* ALAKAZAM_ATKS[] = {
   NULL
 };
 
+static const attack* STUFFUL_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Brick_Break,
+  &ATK_Stomp,
+  &ATK_Superpower,
+  NULL
+};
+
 static const attack* BEWEAR_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Shadow_Claw,
@@ -10334,7 +10364,7 @@ static const species sdex[] = {
   {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull", SHIINOTIC_ATKS, true, false, },
   {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, SALANDIT_ATKS, true, false, },
   {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", SALAZZLE_ATKS, true, false, },
-  {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, NULL, },
+  {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, STUFFUL_ATKS, true, false, },
   {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful", BEWEAR_ATKS, true, false, },
   {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, BOUNSWEET_ATKS, true, false, },
   {  762, "Steenee", TYPE_GRASS, TYPECOUNT, 78, 94, 141, "Bounsweet", STEENEE_ATKS, true, false, },
@@ -10350,8 +10380,8 @@ static const species sdex[] = {
   {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, TURTONATOR_ATKS, true, false, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, NULL, NULL, },
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, NULL, BRUXISH_ATKS, true, false, },
-  {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, NULL, NULL, },
-  {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, NULL, NULL, },
+  {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, NULL, DRAMPA_ATKS, true, false, },
+  {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, NULL, DHELMISE_ATKS, false, false, },
   {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, NULL, JANGMO_O_ATKS, true, false, },
   {  783, "Hakamo-o", TYPE_DRAGON, TYPE_FIGHTING, 145, 162, 146, "Jangmo-o", HAKAMO_O_ATKS, true, false, },
   {  784, "Kommo-o", TYPE_DRAGON, TYPE_FIGHTING, 222, 240, 181, "Hakamo-o", KOMMO_O_ATKS, true, false, },
