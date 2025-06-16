@@ -10130,6 +10130,26 @@ static const attack* DODRIO_ATKS[] = {
   NULL
 };
 
+static const attack* WOOBAT_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Psyshock,
+  &ATK_Air_Cutter,
+  NULL
+};
+
+static const attack* SWOOBAT_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
+  &ATK_Fly,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
 static const attack* SUNKERN_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Cut,
@@ -11299,8 +11319,8 @@ static const species sdex[] = {
   {  524, "Roggenrola", TYPE_ROCK, TYPECOUNT, 121, 110, 146, NULL, ROGGENROLA_ATKS, true, true, },
   {  525, "Boldore", TYPE_ROCK, TYPECOUNT, 174, 143, 172, "Roggenrola", BOLDORE_ATKS, true, true, },
   {  526, "Gigalith", TYPE_ROCK, TYPECOUNT, 226, 201, 198, "Boldore", GIGALITH_ATKS, true, true, },
-  {  527, "Woobat", TYPE_PSYCHIC, TYPE_FLYING, 107, 85, 163, NULL, NULL, },
-  {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, "Woobat", NULL, },
+  {  527, "Woobat", TYPE_PSYCHIC, TYPE_FLYING, 107, 85, 163, NULL, WOOBAT_ATKS, true, false, },
+  {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, "Woobat", SWOOBAT_ATKS, true, false, },
   {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, NULL, DRILBUR_ATKS, true, false, },
   {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur", EXCADRILL_ATKS, true, false, },
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, NULL, AUDINO_ATKS, true, false, },
