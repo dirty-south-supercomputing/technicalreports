@@ -262,10 +262,14 @@ defensive_summaries_latex(const typing* t){
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
+  bool grey = false;
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
     unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);
     if(pcnt == 0){
       printf("\\rowcolor{Red!25}\n");
+    }
+    if( (grey = !grey) && pcnt){
+      printf("\\rowcolor{Gray!25}");
     }
     print_types(t[i].types[0], t[i].types[1]);
     printf(" & ");
@@ -303,11 +307,15 @@ defensive_relations_latex(const typing* t){
   printf("\\setlength{\\tabcolsep}{1pt}");
   printf("\\begin{longtable}{cgcgcgcgcgcgcgcgcgc}\n");
   for(int k = 0 ; k < TYPECOUNT ; ++k){
-    printf("& \\includegraphics[width=1em]{images/%s.png}", tnames[k]);
+    printf("& \\includegraphics[width=1em,keepaspectratio]{images/%s.png}", tnames[k]);
   }
   printf("\\\\\n");
   printf("\\endhead\n");
+  bool grey = false;
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+    if( (grey = !grey) ){
+      printf("\\rowcolor{Gray!25}");
+    }
     print_types(t[i].types[0], t[i].types[1]);
     for(int k = 0 ; k < TYPECOUNT ; ++k){
       if(t[i].atypes[k]){

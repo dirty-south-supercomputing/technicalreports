@@ -10961,7 +10961,7 @@ const species* lookup_mega(const char* name){
 
 void print_type(pgo_types_e t){
   if(t != TYPECOUNT){
-    printf("\\includegraphics[width=1em,height=1em]{images/%s.png}", tnames[t]);
+    printf("\\includegraphics[height=1em,keepaspectratio]{images/%s.png}", tnames[t]);
   }
 }
 
@@ -11041,10 +11041,10 @@ void print_species_latex(const species* s){
     }
   }
   if(s->shadow){
-    printf("\\includegraphics[width=1em,height=1em]{images/shadow.png}");
+    printf("\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
   }
   if(s->shiny){
-    printf("\\includegraphics[width=1em,height=1em]{images/shiny.png}");
+    printf("\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
   }
   printf("\\hfill%u %u %u %.2f}]\n",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
@@ -11073,7 +11073,7 @@ void print_species_latex(const species* s){
   print_optimal_latex(s);
   printf("\\end{tabular}\n");
   printf("\\tcblower\n");
-  printf("\\raggedleft\\includegraphics[width=1in,height=1in]{images/pokédex/");
+  printf("\\raggedleft\\includegraphics[height=1in,keepaspectratio]{images/pokédex/");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);

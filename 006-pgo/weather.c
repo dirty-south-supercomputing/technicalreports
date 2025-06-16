@@ -50,7 +50,7 @@ int main(void){
   printf("Weather & Icon & Types\\\\\n");
   printf("\\Midrule\n");
   for(unsigned w = 0 ; w < static_cast<unsigned>(WEATHERCOUNT) ; ++w){
-    printf("%s & \\includegraphics[height=1em,width=1em]{images/%s.png} & ", WNames[w], WNames[w]);
+    printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s.png} & ", WNames[w], WNames[w]);
     bool printed = false;
     for(unsigned t = 0 ; t < static_cast<unsigned>(TYPECOUNT) ; ++t){
       if(wboosts[t] == w){
