@@ -7468,6 +7468,34 @@ static const attack* FEAROW_ATKS[] = {
   NULL
 };
 
+static const attack* PIKPEK_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Rock_Smash,
+  &ATK_Drill_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Sky_Attack,
+  NULL
+};
+
+static const attack* TRUMBEAK_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Rock_Smash,
+  &ATK_Drill_Peck,
+  &ATK_Sky_Attack,
+  &ATK_Rock_Blast,
+  NULL
+};
+
+static const attack* TOUCANNON_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Rock_Smash,
+  &ATK_Bullet_Seed,
+  &ATK_Flash_Cannon,
+  &ATK_Drill_Peck,
+  &ATK_Rock_Blast,
+  NULL
+};
+
 static const attack* EKANS_ATKS[] = {
   &ATK_Acid,
   &ATK_Poison_Sting,
@@ -11097,9 +11125,9 @@ static const species sdex[] = {
   {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, POPPLIO_ATKS, true, false, },
   {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, "Popplio", BRIONNE_ATKS, true, false, },
   {  730, "Primarina", TYPE_WATER, TYPE_FAIRY, 232, 195, 190, "Brionne", PRIMARINA_ATKS, true, false, },
-  {  731, "Pikipek", TYPE_NORMAL, TYPE_FLYING, 136, 59, 111, NULL, NULL, },
-  {  732, "Trumbeak", TYPE_NORMAL, TYPE_FLYING, 159, 100, 146, "Pikipek", NULL, },
-  {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak", NULL, },
+  {  731, "Pikipek", TYPE_NORMAL, TYPE_FLYING, 136, 59, 111, NULL, PIKPEK_ATKS, false, false, },
+  {  732, "Trumbeak", TYPE_NORMAL, TYPE_FLYING, 159, 100, 146, "Pikipek", TRUMBEAK_ATKS, false, false, },
+  {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak", TOUCANNON_ATKS, false, false, },
   {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, NULL, YUNGOOS_ATKS, true, false, },
   {  735, "Gumshoos", TYPE_NORMAL, TYPECOUNT, 194, 113, 204, "Yungoos", GUMSHOOS_ATKS, true, false, },
   {  736, "Grubbin", TYPE_BUG, TYPECOUNT, 115, 85, 132, NULL, GRUBBIN_ATKS, true, false, },
