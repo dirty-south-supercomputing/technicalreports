@@ -9806,6 +9806,15 @@ static const attack* TREVENANT_ATKS[] = {
   NULL
 };
 
+static const attack* PUMPKABOO_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Astonish,
+  &ATK_Shadow_Sneak,
+  &ATK_Grass_Knot,
+  &ATK_Foul_Play,
+  NULL
+};
+
 static const attack* WOOPER_ATKS[] = {
   &ATK_Mud_Shot,
   &ATK_Water_Gun,
@@ -11583,10 +11592,10 @@ static const species sdex[] = {
   {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, NULL, KLEFKI_ATKS, false, false, },
   {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, NULL, PHANTUMP_ATKS, true, false, },
   {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump", TREVENANT_ATKS, true, false, },
-  {  710, "Pumpkaboo", TYPE_GHOST, TYPE_GRASS, 121, 123, 135, NULL, NULL, },
-  {  710, "Pumpkaboo Small", TYPE_GHOST, TYPE_GRASS, 122, 124, 127, NULL, NULL, },
-  {  710, "Pumpkaboo Large", TYPE_GHOST, TYPE_GRASS, 120, 122, 144, NULL, NULL, },
-  {  710, "Pumpkaboo Super", TYPE_GHOST, TYPE_GRASS, 118, 120, 153, NULL, NULL, },
+  {  710, "Pumpkaboo", TYPE_GHOST, TYPE_GRASS, 121, 123, 135, NULL, PUMPKABOO_ATKS, true, false, },
+  {  710, "Pumpkaboo Small", TYPE_GHOST, TYPE_GRASS, 122, 124, 127, NULL, PUMPKABOO_ATKS, true, false, },
+  {  710, "Pumpkaboo Large", TYPE_GHOST, TYPE_GRASS, 120, 122, 144, NULL, PUMPKABOO_ATKS, true, false, },
+  {  710, "Pumpkaboo Super", TYPE_GHOST, TYPE_GRASS, 118, 120, 153, NULL, PUMPKABOO_ATKS, true, false, },
   {  711, "Gourgeist", TYPE_GHOST, TYPE_GRASS, 175, 213, 163, "Pumpkaboo", GOURGEIST_ATKS, true, false, },
   {  711, "Gourgeist Small", TYPE_GHOST, TYPE_GRASS, 171, 219, 146, "Pumpkaboo Small", GOURGEIST_ATKS, true, false, },
   {  711, "Gourgeist Large", TYPE_GHOST, TYPE_GRASS, 179, 206, 181, "Pumpkaboo Large", GOURGEIST_ATKS, true, false, },
