@@ -22,6 +22,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
   printf("Attack & P & $\\times\\frac{6}{5}$ & E & T & DPT & $\\times\\frac{6}{5}$ & EPT & Pop\\\\\n");
   printf("\\Midrule\n");
+  printf("\\endhead\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
