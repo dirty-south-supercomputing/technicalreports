@@ -4690,6 +4690,27 @@ static const attack* DEDENNE_ATKS[] = {
   NULL
 };
 
+static const attack* HELIOPTILE_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Quick_Attack,
+  &ATK_Parabolic_Charge,
+  &ATK_Thunderbolt,
+  &ATK_Bulldoze,
+  NULL
+};
+
+static const attack* HELIOLISK_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Mud_Slap,
+  &ATK_Volt_Switch,
+  &ATK_Parabolic_Charge,
+  &ATK_Thunderbolt,
+  &ATK_Bulldoze,
+  &ATK_Grass_Knot,
+  &ATK_Breaking_Swipe,
+  NULL
+};
+
 static const attack* CORPHISH_ATKS[] = {
   &ATK_Bubble,
   &ATK_Rock_Smash,
@@ -9508,6 +9529,12 @@ static const attack* SWALOT_ATKS[] = {
   NULL
 };
 
+static const attack* TOXEL_ATKS[] = {
+  &ATK_Acid,
+  &ATK_Power_Up_Punch,
+  NULL
+};
+
 static const attack* TOXTRICITY_ATKS[] = {
   &ATK_Spark,
   &ATK_Poison_Jab,
@@ -10502,8 +10529,8 @@ static const species sdex[] = {
   {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp", DRAGALGE_ATKS, true, false, },
   {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, NULL, CLAUNCHER_ATKS, true, false, },
   {  693, "Clawitzer", TYPE_WATER, TYPECOUNT, 221, 171, 174, "Clauncher", CLAWITZER_ATKS, true, false, },
-  {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, NULL, NULL, },
-  {  695, "Heliolisk", TYPE_ELECTRIC, TYPE_NORMAL, 219, 168, 158, "Helioptile", NULL, },
+  {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, NULL, HELIOPTILE_ATKS, true, false, },
+  {  695, "Heliolisk", TYPE_ELECTRIC, TYPE_NORMAL, 219, 168, 158, "Helioptile", HELIOLISK_ATKS, true, false, },
   {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, NULL, TYRUNT_ATKS, true, true, },
   {  697, "Tyrantrum", TYPE_ROCK, TYPE_DRAGON, 227, 191, 193, "Tyrunt", TYRANTRUM_ATKS, true, true, },
   {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, NULL, AMAURA_ATKS, true, true, },
@@ -10650,7 +10677,7 @@ static const species sdex[] = {
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, NULL, APPLIN_ATKS, false, false, },
   {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172, "Applin", FLAPPLE_ATKS, false, false, },
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin", APPLETUN_ATKS, false, false, },
-  {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, NULL, NULL, },
+  {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, NULL, TOXEL_ATKS, true, false, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel", TOXTRICITY_ATKS, true, true, },
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, NULL, },
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede", NULL, },
