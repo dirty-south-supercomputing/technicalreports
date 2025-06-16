@@ -37,7 +37,7 @@ void print_bounded_table(int bound, float lbound){
     unsigned half;
     unsigned l = halflevel_to_level(tmp->hlevel, &half);
     if(tmp->s != lastspecies){
-      for(const char* curs = tmp->s->name ; *curs ; ++curs){
+      for(const char* curs = tmp->s->name.c_str() ; *curs ; ++curs){
         if(*curs == '%'){
           putchar('\\');
         }

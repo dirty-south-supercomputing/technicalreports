@@ -16,10 +16,10 @@ print_cpms(void){
 static void
 print_species(const species* s){
   if(s->t2 == TYPECOUNT){
-    printf("%u %u %u %u %s %s\n", s->idx, s->atk, s->def, s->sta, TNames[s->t1], s->name);
+    printf("%u %u %u %u %s %s\n", s->idx, s->atk, s->def, s->sta, TNames[s->t1], s->name.c_str());
   }else{
     printf("%u %u %u %u %s+%s %s\n", s->idx, s->atk, s->def, s->sta,
-            TNames[s->t1], TNames[s->t2], s->name);
+            TNames[s->t1], TNames[s->t2], s->name.c_str());
   }
   stats* s2500 = find_optimal_set(s, 2500, 0);
   while(s2500){
