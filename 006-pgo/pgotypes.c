@@ -2001,6 +2001,24 @@ static const attack* TINKATON_ATKS[] = {
   NULL
 };
 
+static const attack* CHINGLING_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Astonish,
+  &ATK_Wrap,
+  &ATK_Psyshock,
+  &ATK_Shadow_Ball,
+  NULL
+};
+
+static const attack* CHIMECHO_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Extrasensory,
+  &ATK_Psyshock,
+  &ATK_Shadow_Ball,
+  &ATK_Energy_Ball,
+  NULL
+};
+
 static const attack* I_ENAMORUS_ATKS[] = {
   &ATK_Zen_Headbutt,
   &ATK_Astonish,
@@ -2342,6 +2360,26 @@ static const attack* ZOROARK_ATKS[] = {
   &ATK_Sludge_Bomb,
   &ATK_Night_Shade,
   &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* STUNKY_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Sludge_Bomb,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* SKUNTANK_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Flamethrower,
+  &ATK_Sludge_Bomb,
+  &ATK_Crunch,
+  &ATK_Trailblaze,
   NULL
 };
 
@@ -9382,7 +9420,7 @@ static const species sdex[] = {
   {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, NULL, DUSKULL_ATKS, true, true, },
   {  356, "Dusclops", TYPE_GHOST, TYPECOUNT, 124, 234, 120, "Duskull", DUSCLOPS_ATKS, true, true, },
   {  357, "Tropius", TYPE_GRASS, TYPE_FLYING, 136, 163, 223, NULL, TROPIUS_ATKS, true, false, },
-  {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, "Chingling", NULL, },
+  {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, "Chingling", CHIMECHO_ATKS, true, false, },
   {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, NULL, ABSOL_ATKS, true, true, },
   {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, NULL, NULL, },
   {  361, "Snorunt", TYPE_ICE, TYPECOUNT, 95, 95, 137, NULL, SNORUNT_ATKS, true, true, },
@@ -9465,9 +9503,9 @@ static const species sdex[] = {
   {  430, "Honchkrow", TYPE_DARK, TYPE_FLYING, 243, 103, 225, "Murkrow", HONCHKROW_ATKS, true, true, },
   {  431, "Glameow", TYPE_NORMAL, TYPECOUNT, 109, 82, 135, NULL, GLAMEOW_ATKS, true, true, },
   {  432, "Purugly", TYPE_NORMAL, TYPECOUNT, 172, 133, 174, "Glameow", PURUGLY_ATKS, true, true, },
-  {  433, "Chingling", TYPE_PSYCHIC, TYPECOUNT, 114, 94, 128, NULL, NULL, },
-  {  434, "Stunky", TYPE_POISON, TYPE_DARK, 121, 90, 160, NULL, NULL, },
-  {  435, "Skuntank", TYPE_POISON, TYPE_DARK, 184, 132, 230, "Stunky", NULL, },
+  {  433, "Chingling", TYPE_PSYCHIC, TYPECOUNT, 114, 94, 128, NULL, CHINGLING_ATKS, true, false, },
+  {  434, "Stunky", TYPE_POISON, TYPE_DARK, 121, 90, 160, NULL, STUNKY_ATKS, true, true, },
+  {  435, "Skuntank", TYPE_POISON, TYPE_DARK, 184, 132, 230, "Stunky", SKUNTANK_ATKS, true, true, },
   {  436, "Bronzor", TYPE_STEEL, TYPE_PSYCHIC, 43, 154, 149, NULL, BRONZOR_ATKS, true, false, },
   {  437, "Bronzong", TYPE_STEEL, TYPE_PSYCHIC, 161, 213, 167, "Brunzong", BRONZONG_ATKS, true, false, },
   {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, BONSLY_ATKS, true, false, },
