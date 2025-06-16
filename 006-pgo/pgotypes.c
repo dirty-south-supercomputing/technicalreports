@@ -9694,6 +9694,22 @@ static const attack* TORTERRA_ATKS[] = {
   NULL
 };
 
+static const attack* SCORBUNNY_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* RABOOT_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  NULL
+};
+
 static const attack* CINDERACE_ATKS[] = {
   &ATK_Tackle,
   &ATK_Fire_Spin,
@@ -10926,7 +10942,7 @@ static const species sdex[] = {
   {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", DECIDUEYE_ATKS, true, false, },
   {  724, "Hisuian Decidueye", TYPE_GRASS, TYPE_FIGHTING, 213, 174, 204, NULL, H_DECIDUEYE_ATKS, true, false, },
   {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, LITTEN_ATKS, true, false, },
-  {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, TORRACUT_ATKS, true, false, },
+  {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, TORRACAT_ATKS, true, false, },
   {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, NULL, INCINEROAR_ATKS, true, false, },
   {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, POPPLIO_ATKS, true, false, },
   {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, "Popplio", BRIONNE_ATKS, true, false, },
@@ -11011,8 +11027,8 @@ static const species sdex[] = {
   {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, NULL, GROOKEY_ATKS, true, true, },
   {  811, "Thwackey", TYPE_GRASS, TYPECOUNT, 165, 134, 172, "Grookey", THWACKEY_ATKS, true, true, },
   {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey", RILLABOOM_ATKS, true, true, },
-  {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, NULL, NULL, },
-  {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, "Scorbunny", NULL, },
+  {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, NULL, SCORBUNNY_ATKS, false, false, },
+  {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, "Scorbunny", RABOOT_ATKS, false, false, },
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot", CINDERACE_ATKS, true, false, },
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, NULL, SOBBLE_ATKS, false, false, },
   {  817, "Drizzile", TYPE_WATER, TYPECOUNT, 186, 113, 163, "Sobble", DRIZZILE_ATKS, false, false, },
