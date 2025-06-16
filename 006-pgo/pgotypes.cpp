@@ -10578,6 +10578,24 @@ static const attack* HYPNO_ATKS[] = {
   NULL
 };
 
+static const attack* C_HOOPA_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Astonish,
+  &ATK_Psybeam,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* U_HOOPA_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
 static const attack* THROH_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Zen_Headbutt,
@@ -11584,8 +11602,8 @@ static const species sdex[] = {
   {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%", ZYGARDE50_ATKS, true, false, },
   {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%", ZYGARDE_ATKS, true, false, },
   {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, DIANCIE_ATKS, true, false, },
-  {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, NULL, },
-  {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, NULL, },
+  {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, C_HOOPA_ATKS, false, false, },
+  {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, U_HOOPA_ATKS, false, false, },
   {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, ROWLET_ATKS, true, false, },
   {  723, "Dartrix", TYPE_GRASS, TYPE_FLYING, 142, 139, 186, "Rowlet", DARTRIX_ATKS, true, false, },
   {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", DECIDUEYE_ATKS, true, false, },
