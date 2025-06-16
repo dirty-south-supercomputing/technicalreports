@@ -838,6 +838,26 @@ static const attack* TAPULELE_ATKS[] = {
   NULL
 };
 
+static const attack* PLUSLE_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Quick_Attack,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* MINUN_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Quick_Attack,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  &ATK_Grass_Knot,
+  NULL
+};
+
 static const attack* TAPUKOKO_ATKS[] = {
   &ATK_Quick_Attack,
   &ATK_Volt_Switch,
@@ -1332,6 +1352,51 @@ static const attack* LANTURN_ATKS[] = {
   &ATK_Thunderbolt,
   &ATK_Hydro_Pump,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* YAMPER_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Spark,
+  &ATK_Thunder,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* BOLTUND_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Spark,
+  &ATK_Thunder,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* SHINX_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Tackle,
+  &ATK_Discharge,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* LUXIO_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Spark,
+  &ATK_Thunderbolt,
+  &ATK_Wild_Charge,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* LUXRAY_ATKS[] = {
+  &ATK_Spark,
+  &ATK_Snarl,
+  &ATK_Hidden_Power,
+  &ATK_Hyper_Beam,
+  &ATK_Wild_Charge,
+  &ATK_Crunch,
+  &ATK_Psychic_Fangs,
   NULL
 };
 
@@ -1985,6 +2050,51 @@ static const attack* DHELMISE_ATKS[] = {
   &ATK_Shadow_Ball,
   &ATK_Power_Whip,
   &ATK_Heavy_Slam,
+  NULL
+};
+
+static const attack* ROTOM_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Astonish,
+  &ATK_Ominous_Wind,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* FAN_ROTOM_ATKS[] = {
+  &ATK_Air_Slash,
+  &ATK_Astonish,
+  &ATK_Ominous_Wind,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* FROST_ROTOM_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Astonish,
+  &ATK_Blizzard,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* MOW_ROTOM_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Astonish,
+  &ATK_Ominous_Wind,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* HEAT_ROTOM_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Astonish,
+  &ATK_Thunder,
+  &ATK_Thunderbolt,
+  &ATK_Overheat,
   NULL
 };
 
@@ -9987,8 +10097,8 @@ static const species sdex[] = {
   {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, "Meditite", MEDICHAM_ATKS, true, false, },
   {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, NULL, ELECTRIKE_ATKS, true, true, },
   {  310, "Manectric", TYPE_ELECTRIC, TYPECOUNT, 215, 127, 172, "Electrike", MANECTRIC_ATKS, true, true, },
-  {  311, "Plusle", TYPE_ELECTRIC, TYPECOUNT, 167, 129, 155, NULL, NULL, },
-  {  312, "Minun", TYPE_ELECTRIC, TYPECOUNT, 147, 150, 155, NULL, NULL, },
+  {  311, "Plusle", TYPE_ELECTRIC, TYPECOUNT, 167, 129, 155, NULL, PLUSLE_ATKS, true, false, },
+  {  312, "Minun", TYPE_ELECTRIC, TYPECOUNT, 147, 150, 155, NULL, MINUN_ATKS, true, false, },
   {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, VOLBEAT_ATKS, true, false, },
   {  314, "Illumise", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, ILLUMISE_ATKS, true, false, },
   {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, "Budew", ROSELIA_ATKS, true, false, },
@@ -10082,9 +10192,9 @@ static const species sdex[] = {
   {  400, "Bibarel", TYPE_NORMAL, TYPE_WATER, 162, 119, 188, "Bidoof", NULL, },
   {  401, "Kricketot", TYPE_BUG, TYPECOUNT, 45, 74, 114, NULL, KRICKETOT_ATKS, true, false, },
   {  402, "Kricketune", TYPE_BUG, TYPECOUNT, 160, 100, 184, "Kricketot", KRICKETUNE_ATKS, true, false, },
-  {  403, "Shinx", TYPE_ELECTRIC, TYPECOUNT, 117, 64, 128, NULL, NULL, },
-  {  404, "Luxio", TYPE_ELECTRIC, TYPECOUNT, 159, 95, 155, "Shinx", NULL, },
-  {  405, "Luxray", TYPE_ELECTRIC, TYPECOUNT, 232, 156, 190, "Luxio", NULL, },
+  {  403, "Shinx", TYPE_ELECTRIC, TYPECOUNT, 117, 64, 128, NULL, SHINX_ATKS, true, true, },
+  {  404, "Luxio", TYPE_ELECTRIC, TYPECOUNT, 159, 95, 155, "Shinx", LUXIO_ATKS, true, true, },
+  {  405, "Luxray", TYPE_ELECTRIC, TYPECOUNT, 232, 156, 190, "Luxio", LUXRAY_ATKS, true, true, },
   {  406, "Budew", TYPE_GRASS, TYPE_POISON, 91, 109, 120, NULL, BUDEW_ATKS, true, false, },
   {  407, "Roserade", TYPE_GRASS, TYPE_POISON, 243, 185, 155, "Roselia", ROSERADE_ATKS, true, false, },
   {  408, "Cranidos", TYPE_ROCK, TYPECOUNT, 218, 71, 167, NULL, CRANIDOS_ATKS, true, true, },
