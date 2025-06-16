@@ -1,8 +1,10 @@
 #include <cmath>
+#include <string>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <cstdint>
+#include <iostream>
 
 #define TYPESTART TYPE_BUG
 
@@ -9216,6 +9218,25 @@ static const attack* JELLICENT_ATKS[] = {
   NULL
 };
 
+static const attack* HOOTHOOT_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Feint_Attack,
+  &ATK_Aerial_Ace,
+  &ATK_Sky_Attack,
+  &ATK_Night_Shade,
+  NULL
+};
+
+static const attack* NOCTOWL_ATKS[] = {
+  &ATK_Wing_Attack,
+  &ATK_Extrasensory,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  &ATK_Sky_Attack,
+  &ATK_Night_Shade,
+  NULL
+};
+
 static const attack* SNORUNT_ATKS[] = {
   &ATK_Powder_Snow,
   &ATK_Hex,
@@ -9293,6 +9314,18 @@ static const attack* CHESNAUGHT_ATKS[] = {
   &ATK_Energy_Ball,
   &ATK_Frenzy_Plant,
   &ATK_Superpower,
+  NULL
+};
+
+static const attack* MILTANK_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Rollout,
+  &ATK_Ice_Beam,
+  &ATK_Thunderbolt,
+  &ATK_Stomp,
+  &ATK_Body_Slam,
+  &ATK_Gyro_Ball,
   NULL
 };
 
@@ -10028,6 +10061,25 @@ static const attack* STOUTLAND_ATKS[] = {
   NULL
 };
 
+static const attack* SKITTY_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Feint_Attack,
+  &ATK_Dig,
+  &ATK_Disarming_Voice,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* DELCATTY_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Feint_Attack,
+  &ATK_Charm,
+  &ATK_Disarming_Voice,
+  &ATK_Play_Rough,
+  &ATK_Wild_Charge,
+  NULL
+};
+
 static const attack* HOPPIP_ATKS[] = {
   &ATK_Tackle,
   &ATK_Bullet_Seed,
@@ -10094,6 +10146,49 @@ static const attack* SUNFLORA_ATKS[] = {
   &ATK_Sludge_Bomb,
   &ATK_Solar_Beam,
   &ATK_Leaf_Storm,
+  NULL
+};
+
+static const attack* CELEBI_ATKS[] = {
+  &ATK_Confusion,
+  &ATK_Charge_Beam,
+  &ATK_Magical_Leaf,
+  &ATK_Hyper_Beam,
+  &ATK_Seed_Bomb,
+  &ATK_Dazzling_Gleam,
+  &ATK_Psychic,
+  &ATK_Leaf_Storm,
+  NULL
+};
+
+static const attack* CHIKORITA_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Tackle,
+  &ATK_Magical_Leaf,
+  &ATK_Body_Slam,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* BAYLEEF_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Magical_Leaf,
+  &ATK_Ancient_Power,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* MEGANIUM_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Razor_Leaf,
+  &ATK_Magical_Leaf,
+  &ATK_Earthquake,
+  &ATK_Petal_Blizzard,
+  &ATK_Solar_Beam,
+  &ATK_Frenzy_Plant,
   NULL
 };
 
@@ -10286,6 +10381,19 @@ static const attack* G_RAPIDASH_ATKS[] = {
   &ATK_Body_Slam,
   &ATK_Wild_Charge,
   &ATK_High_Horsepower,
+  NULL
+};
+
+static const attack* STANTLER_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Zen_Headbutt,
+  &ATK_Megahorn,
+  &ATK_Stomp,
+  &ATK_Wild_Charge,
+  NULL
+};
+
+static const attack* SMEARGLE_ATKS[] = {
   NULL
 };
 
@@ -10534,7 +10642,7 @@ static const attack* LOKIX_ATKS[] = {
 
 typedef struct species {
   unsigned idx; // pokedex index, not unique
-  const char* name;
+  const std::string name;
   pgo_types_e t1, t2;
   unsigned atk;
   unsigned def;
@@ -10543,6 +10651,27 @@ typedef struct species {
   const attack** attacks;  // array of attack indices this form can learn
   bool shiny;         // is there a shiny form?
   bool shadow;        // is there a shadow form?
+
+  species(const std::string& s)
+      : name(s) {
+  }
+
+  species(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
+          unsigned A, unsigned D, unsigned S, const char *From,
+          const attack **Attacks, bool Shiny, bool Shadow)
+    : idx(i),
+    name(n),
+    t1(T1),
+    t2(T2),
+    atk(A),
+    def(D),
+    sta(S),
+    from(From),
+    attacks(Attacks),
+    shiny(Shiny),
+    shadow(Shadow) {
+  }
+
 } species;
 
 static const species sdex[] = {
@@ -10573,7 +10702,7 @@ static const species sdex[] = {
   {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, EKANS_ATKS, true, true, },
   {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, "Ekans", ARBOK_ATKS, true, true, },
   {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, PIKACHU_ATKS, true, false, },
-  {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu", RAICHU_ATKS, true, },
+  {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu", RAICHU_ATKS, true, false, },
   {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, ALOLAN_RAICHU_ATKS, true, false, },
   {   27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, NULL, SANDSHREW_ATKS, true, true, },
   {   27, "Alolan Sandshrew", TYPE_ICE, TYPE_STEEL, 125, 129, 137, NULL, ALOLAN_SANDSHREW_ATKS, true, true, },
@@ -10733,9 +10862,9 @@ static const species sdex[] = {
   {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, NULL, MEWTWO_ATKS, true, true, },
   {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, A_MEWTWO_ATKS, true, true, },
   {  151, "Mew", TYPE_PSYCHIC, TYPECOUNT, 210, 210, 225, NULL, MEW_ATKS, true, false, },
-  {  152, "Chikorita", TYPE_GRASS, TYPECOUNT, 92, 122, 128, NULL, NULL, },
-  {  153, "Bayleef", TYPE_GRASS, TYPECOUNT, 122, 155, 155, "Chikorita", NULL, },
-  {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef", NULL, },
+  {  152, "Chikorita", TYPE_GRASS, TYPECOUNT, 92, 122, 128, NULL, CHIKORITA_ATKS, true, true, },
+  {  153, "Bayleef", TYPE_GRASS, TYPECOUNT, 122, 155, 155, "Chikorita", BAYLEEF_ATKS, true, true, },
+  {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef", MEGANIUM_ATKS, true, true, },
   {  155, "Cyndaquil", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CYNDAQUIL_ATKS, true, true, },
   {  156, "Quilava", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Cyndaquil", QUILAVA_ATKS, true, true, },
   {  157, "Typhlosion", TYPE_FIRE, TYPECOUNT, 223, 173, 186, "Quilava", TYPHLOSION_ATKS, true, true, },
@@ -10745,8 +10874,8 @@ static const species sdex[] = {
   {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw", FERALIGATR_ATKS, true, true, },
   {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, NULL, SENTRET_ATKS, true, false, },
   {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret", FURRET_ATKS, true, false, },
-  {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, NULL, NULL, },
-  {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot", NULL, },
+  {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, NULL, HOOTHOOT_ATKS, true, false, },
+  {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot", NOCTOWL_ATKS, true, false, },
   {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, NULL, LEDYBA_ATKS, true, true, },
   {  166, "Ledian", TYPE_BUG, TYPE_FLYING, 107, 179, 146, "Ledyba", LEDIAN_ATKS, true, true, },
   {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, NULL, SPINARAK_ATKS, true, false, },
@@ -10821,14 +10950,14 @@ static const species sdex[] = {
   {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, NULL, PHANPY_ATKS, true, true, },
   {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, "Phanpy", DONPHAN_ATKS, true, true, },
   {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, "Porygon", PORYGON2_ATKS, true, true, },
-  {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, NULL, },
-  {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, NULL, },
+  {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, STANTLER_ATKS, true, true, },
+  {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, SMEARGLE_ATKS, true, false, },
   {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, TYROGUE_ATKS, true, false, },
   {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", HITMONTOP_ATKS, true, true, },
   {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, SMOOCHUM_ATKS, true, false, },
   {  239, "Elekid", TYPE_ELECTRIC, TYPECOUNT, 135, 101, 128, NULL, ELEKID_ATKS, true, true, },
   {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, NULL, MAGBY_ATKS, true, true, },
-  {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, NULL, },
+  {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, NULL, MILTANK_ATKS, true, false, },
   {  242, "Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Chansey", BLISSEY_ATKS, true, false, },
   {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, NULL, RAIKOU_ATKS, true, true, },
   {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, NULL, ENTEI_ATKS, true, false, },
@@ -10838,7 +10967,7 @@ static const species sdex[] = {
   {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, "Pupitar", TYRANITAR_ATKS, true, true, },
   {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, NULL, LUGIA_ATKS, true, true, },
   {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, NULL, HOOH_ATKS, true, true, },
-  {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, NULL, NULL, },
+  {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, NULL, CELEBI_ATKS, true, false, },
   {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, NULL, TREECKO_ATKS, true, true, },
   {  253, "Grovyle", TYPE_GRASS, TYPECOUNT, 172, 120, 137, "Treecko", GROVYLE_ATKS, true, true, },
   {  254, "Sceptile", TYPE_GRASS, TYPECOUNT, 223, 169, 172, "Grovyle", SCEPTILE_ATKS, true, true, },
@@ -10889,8 +11018,8 @@ static const species sdex[] = {
   {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", HARIYAMA_ATKS, true, true, },
   {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, AZURILL_ATKS, true, false, },
   {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NOSEPASS_ATKS, true, true, },
-  {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
-  {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, "Skitty", NULL, },
+  {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, SKITTY_ATKS, true, false, },
+  {  301, "Delcatty", TYPE_NORMAL, TYPECOUNT, 132, 127, 172, "Skitty", DELCATTY_ATKS, true, false, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, NULL, SABLEYE_ATKS, true, true, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, NULL, MAWILE_ATKS, true, true, },
   {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, NULL, ARON_ATKS, true, true, },
@@ -11804,10 +11933,39 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   return 0;
 }
 
+// take the provided species, and generate a new species object reflecting
+// the shadow bonus. this object will persist.
+species* create_shadow(const species* s){
+  if(!s->shadow){
+    std::cerr << "no shadow form exists for " << s->name << std::endl;
+    return NULL;
+  }
+#define SHADSUFFIX " (Shadow)"
+  species *news = new species(s->name + SHADSUFFIX);
+#undef SHADSUFFIX
+printf("MADE SHADOW: {%s}\n", news->name);
+  news->idx = s->idx;
+  news->t1 = s->t1;
+  news->t2 = s->t2;
+  news->atk = s->atk;
+  news->def = s->def;
+  news->sta = s->sta;
+  news->from = s->from;
+  news->attacks = s->attacks;
+  news->shiny = s->shiny;
+  news->shadow = false;
+  return news;
+}
+
 // returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
 // with a CP less than or equal to cpceil and harmonic mean of EffA, EffD
 // and MHP greater than or equal to gmfloor.
 stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
+  stats* shadsets = NULL;
+  if(s->shadow){
+    species *shads = create_shadow(s);
+    shadsets = find_optimal_set(shads, cpceil, gmfloor);
+  }
   stats* optsets = NULL;
   float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -11821,7 +11979,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
       }
     }
   }
-  stats* collectopt = NULL;
+  stats* collectopt = shadsets;
   stats** qopt = &collectopt;
   float maxmean = -1;
   // print the optimal frontier (large), and extract the truly optimal sets (small)
