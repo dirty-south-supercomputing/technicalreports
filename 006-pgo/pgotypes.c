@@ -10727,6 +10727,7 @@ void print_species_latex(const species* s){
     for(const attack** a = s->attacks ; *a ; ++a){
       unsigned stab = has_stab_p(s, *a);
       float power = (*a)->powertrain * (stab ? 1.2 : 1);
+      print_type((*a)->type);
       if((*a)->energytrain < 0){
         printf("%s & & %g & %d\\\\\n", (*a)->name, power, (*a)->energytrain);
       }else{
