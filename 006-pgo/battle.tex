@@ -82,18 +82,37 @@ After all three moves, they return to their normal form,
 \textbf{FIXME}
 
 \section{Potions and revives}
+Damage to your Pokémon persists after a Raid, Max Battle, or 3x3 with Team GO Rocket ends.
+Those which fainted will remain fainted until a Revive or Max Revive is applied.
+While fainted, they cannot be brought into battle.
+Powering up a fainted Pokémon will revive them with minimal HP (\autoref{sec:plevel}),
+  while evolving one restores full HP (\autoref{sec:evolution}).
+A regular Revive brings the Pokémon back with half of MHP; the Max Revive restores full HP.
+If the Pokémon isn't fainted, but merely damaged, four levels of Potion
+  restore various amounts of HP, never exceeding MHP\@.
+Hyper Potions heal up 200 HP, sufficient to restore all but the bulkiest Pokémon to MHP.
+For them, there exist Max Potions, which go all the way to MHP.
+Potions cannot be applied to fainted Pokémon; they must first be revived.
+Potions and Revives are level-gated, but once unlocked can be semi-randomly acquired
+  from Gifts (\autoref{sec:gifts}),
+  from advancing to a new Level (\autoref{table:levelitems}),
+  from spinning Pokéstops (especially at Gyms, particularly when occupied by your team, and when you have a badge for the gym),
+  in the three 7-day streak awards,
+  by completing Routes,
+  by winning Raids,
+  and in the daily free package from the Store.
 
 \begin{table}[ht]
 \begin{center}
-\begin{tabular}{lll}
-Item & Effect & How to acquire \\
+\begin{tabular}{ll}
+Item & Effect \\
 \Midrule
-Potion \includegraphics[width=1em]{images/Potion.png} & & \\
-Super Potion \includegraphics[width=1em]{images/superpotion.png} & & \\
-Hyper Potion \includegraphics[width=1em]{images/Hyper_Potion.png} & & \\
-Max Potion \includegraphics[width=1em]{images/Max_Potion.png} & &\\
-Revive \includegraphics[width=1em]{images/revive.png} & & \\
-Max Revive \includegraphics[width=1em]{images/maxrevive.png} & & \\
+Potion \includegraphics[width=1em]{images/Potion.png} & +20 HP\\
+Super Potion \includegraphics[width=1em]{images/superpotion.png} & +50 HP\\
+Hyper Potion \includegraphics[width=1em]{images/Hyper_Potion.png} & +200 HP\\
+Max Potion \includegraphics[width=1em]{images/Max_Potion.png} & MHP\\
+Revive \includegraphics[width=1em]{images/revive.png} & Revive with half MHP\\
+Max Revive \includegraphics[width=1em]{images/maxrevive.png} & Revive with MHP\\
 \end{tabular}
 \end{center}
 \caption{Potions and revives}
