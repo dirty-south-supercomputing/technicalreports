@@ -9967,6 +9967,75 @@ static const attack* OBSTAGOON_ATKS[] = {
   NULL
 };
 
+static const attack* HOPPIP_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Dazzling_Gleam,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* SKIPLOOM_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Dazzling_Gleam,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* JUMPLUFF_ATKS[] = {
+  &ATK_Infestation,
+  &ATK_Bullet_Seed,
+  &ATK_Fairy_Wind,
+  &ATK_Aerial_Ace,
+  &ATK_Dazzling_Gleam,
+  &ATK_Solar_Beam,
+  &ATK_Energy_Ball,
+  &ATK_Acrobatics,
+  NULL
+};
+
+static const attack* DODUO_ATKS[] = {
+  &ATK_Peck,
+  &ATK_Quick_Attack,
+  &ATK_Drill_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Swift,
+  &ATK_Brave_Bird,
+  NULL
+};
+
+static const attack* DODRIO_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Steel_Wing,
+  &ATK_Drill_Peck,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Brave_Bird,
+  NULL
+};
+
+static const attack* SUNKERN_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Cut,
+  &ATK_Seed_Bomb,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* SUNFLORA_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Bullet_Seed,
+  &ATK_Petal_Blizzard,
+  &ATK_Sludge_Bomb,
+  &ATK_Solar_Beam,
+  &ATK_Leaf_Storm,
+  NULL
+};
+
 static const attack* GULPIN_ATKS[] = {
   &ATK_Pound,
   &ATK_Rock_Smash,
@@ -10481,8 +10550,8 @@ static const species sdex[] = {
   {   82, "Magneton", TYPE_ELECTRIC, TYPE_STEEL, 223, 169, 137, "Magnemite", MAGNETON_ATKS, true, true, },
   {   83, "Farfetch'd", TYPE_NORMAL, TYPE_FLYING, 124, 115, 141, NULL, FARFETCHD_ATKS, true, true, },
   {   83, "Galarian Farfetch'd", TYPE_FIGHTING, TYPECOUNT, 174, 114, 141, NULL, G_FARFETCHD_ATKS, true, true, },
-  {   84, "Doduo", TYPE_NORMAL, TYPE_FLYING, 158, 83, 111, NULL, NULL, },
-  {   85, "Dodrio", TYPE_NORMAL, TYPE_FLYING, 218, 140, 155, "Doduo", NULL, },
+  {   84, "Doduo", TYPE_NORMAL, TYPE_FLYING, 158, 83, 111, NULL, DODUO_ATKS, true, false, },
+  {   85, "Dodrio", TYPE_NORMAL, TYPE_FLYING, 218, 140, 155, "Doduo", DODRIO_ATKS, true, false, },
   {   86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, NULL, SEEL_ATKS, true, false, },
   {   87, "Dewgong", TYPE_WATER, TYPE_ICE, 139, 177, 207, "Seel", DEWGONG_ATKS, true, false, },
   {   88, "Grimer", TYPE_POISON, TYPECOUNT, 135, 90, 190, NULL, GRIMER_ATKS, true, true, },
@@ -10599,12 +10668,12 @@ static const species sdex[] = {
   {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill", AZUMARILL_ATKS, true, false, },
   {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly", SUDOWOODO_ATKS, true, false, },
   {  186, "Politoed", TYPE_WATER, TYPECOUNT, 174, 179, 207, "Poliwhirl", POLITOED_ATKS, true, true, },
-  {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, NULL, },
-  {  188, "Skiploom", TYPE_GRASS, TYPE_FLYING, 91, 120, 146, "Hoppip", NULL, },
-  {  189, "Jumpluff", TYPE_GRASS, TYPE_FLYING, 118, 183, 181, "Skiploom", NULL, },
+  {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, HOPPIP_ATKS, true, true, },
+  {  188, "Skiploom", TYPE_GRASS, TYPE_FLYING, 91, 120, 146, "Hoppip", SKIPLOOM_ATKS, true, true, },
+  {  189, "Jumpluff", TYPE_GRASS, TYPE_FLYING, 118, 183, 181, "Skiploom", JUMPLUFF_ATKS, true, true, },
   {  190, "Aipom", TYPE_NORMAL, TYPECOUNT, 136, 112, 146, NULL, AIPOM_ATKS, true, true, },
-  {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, NULL, },
-  {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, "Sunkern", NULL, },
+  {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, SUNKERN_ATKS, true, false, },
+  {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, "Sunkern", SUNFLORA_ATKS, true, false, },
   {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, YANMA_ATKS, true, false, },
   {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, NULL, WOOPER_ATKS, true, true, },
   {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, NULL, P_WOOPER_ATKS, true, true, },
