@@ -9568,6 +9568,24 @@ static const attack* ESPEON_ATKS[] = {
   NULL
 };
 
+static const attack* GREAVARD_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Lick,
+  &ATK_Dig,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
+static const attack* HOUNDSTONE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Lick,
+  &ATK_Dig,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
 static const attack* MIMEJR_ATKS[] = {
   &ATK_Pound,
   &ATK_Confusion,
@@ -11326,8 +11344,8 @@ static const species sdex[] = {
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATKS, true, false, },
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, VAROOM_ATKS, false, false, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", REVAVROOM_ATKS, false, false, },
-  {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, NULL, NULL, },
-  {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard", NULL, },
+  {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, NULL, GREAVARD_ATKS, false, false, },
+  {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard", HOUNDSTONE_ATKS, false, false, },
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, CETODDLE_ATKS, true, false, },
   {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, "Cetoddle", CETITAN_ATKS, true, false, },
   {  979, "Annihilape", TYPE_FIGHTING, TYPE_GHOST, 220, 178, 242, "Primeape", ANNIHILAPE_ATKS, true, true, },
