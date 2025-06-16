@@ -9406,6 +9406,42 @@ static const attack* T_TORNADUS_ATKS[] = {
   NULL
 };
 
+static const attack* B_ORICORIO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Hurricane,
+  NULL
+};
+
+static const attack* PS_ORICORIO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Hurricane,
+  NULL
+};
+
+static const attack* S_ORICORIO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Hurricane,
+  NULL
+};
+
+static const attack* P_ORICORIO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Air_Slash,
+  &ATK_Aerial_Ace,
+  &ATK_Air_Cutter,
+  &ATK_Hurricane,
+  NULL
+};
+
 static const attack* EEVEE_ATKS[] = {
   &ATK_Quick_Attack,
   &ATK_Tackle,
@@ -10976,7 +11012,10 @@ static const species sdex[] = {
   {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, "Charjabug", VIKAVOLT_ATKS, true, false, },
   {  739, "Crabrawler", TYPE_FIGHTING, TYPECOUNT, 150, 104, 132, NULL, CRABRAWLER_ATKS, true, false, },
   {  740, "Crabominable", TYPE_FIGHTING, TYPE_ICE, 231, 138, 219, "Crabrawler", CRABOMINABLE_ATKS, true, false, },
-  {  741, "Oricorio", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, NULL, NULL, },
+  {  741, "Oricorio (Baile)", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, NULL, B_ORICORIO_ATKS, true, false, },
+  {  741, "Oricorio (Pom-Pom)", TYPE_ELECTRIC, TYPE_FLYING, 196, 145, 181, NULL, P_ORICORIO_ATKS, true, false, },
+  {  741, "Oricorio (Pa'u)", TYPE_PSYCHIC, TYPE_FLYING, 196, 145, 181, NULL, PS_ORICORIO_ATKS, true, false, },
+  {  741, "Oricorio (Sensu)", TYPE_GHOST, TYPE_FLYING, 196, 145, 181, NULL, S_ORICORIO_ATKS, true, false, },
   {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, CUTIEFLY_ATKS, true, false, },
   {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, "Cutiefly", RIBOMBEE_ATKS, true, false, },
   {  744, "Rockruff", TYPE_ROCK, TYPECOUNT, 117, 78, 128, NULL, ROCKRUFF_ATKS, true, false, },
