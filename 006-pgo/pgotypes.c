@@ -758,6 +758,12 @@ static const attack* WUGTRIO_ATKS[] = {
   NULL
 };
 
+static const attack* UNOWN_ATKS[] = {
+  &ATK_Hidden_Power,
+  &ATK_Struggle,
+  NULL
+};
+
 static const attack* TAPUBULU_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Bullet_Seed,
@@ -1085,6 +1091,34 @@ static const attack* FLAPPLE_ATKS[] = {
   &ATK_Dragon_Pulse,
   &ATK_Outrage,
   &ATK_Fly,
+  NULL
+};
+
+static const attack* SALANDIT_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Poison_Jab,
+  &ATK_Flamethrower,
+  &ATK_Poison_Fang,
+  &ATK_Dragon_Pulse,
+  NULL
+};
+
+static const attack* SALAZZLE_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Incinerate,
+  &ATK_Poison_Fang,
+  &ATK_Dragon_Pulse,
+  &ATK_Sludge_Wave,
+  &ATK_Fire_Blast,
+  NULL
+};
+
+static const attack* TOXAPEX_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Jab,
+  &ATK_Sludge_Wave,
+  &ATK_Gunk_Shot,
+  &ATK_Brine,
   NULL
 };
 
@@ -8997,6 +9031,27 @@ static const attack* OBSTAGOON_ATKS[] = {
   NULL
 };
 
+static const attack* GULPIN_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Rock_Smash,
+  &ATK_Sludge,
+  &ATK_Ice_Beam,
+  &ATK_Gunk_Shot,
+  NULL
+};
+
+static const attack* SWALOT_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Rock_Smash,
+  &ATK_Infestation,
+  &ATK_Sludge,
+  &ATK_Ice_Beam,
+  &ATK_Sludge_Bomb,
+  &ATK_Gunk_Shot,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* TOXTRICITY_ATKS[] = {
   &ATK_Spark,
   &ATK_Poison_Jab,
@@ -9115,6 +9170,29 @@ static const attack* G_SLOWKING_ATKS[] = {
   &ATK_Scald,
   &ATK_Future_Sight,
   &ATK_Surf,
+  NULL
+};
+
+static const attack* DROWZEE_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Confusion,
+  &ATK_Psybeam,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* HYPNO_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Confusion,
+  &ATK_Ice_Punch,
+  &ATK_Psyshock,
+  &ATK_Shadow_Ball,
+  &ATK_Thunder_Punch,
+  &ATK_Psychic,
+  &ATK_Fire_Punch,
+  &ATK_Focus_Blast,
+  &ATK_Future_Sight,
   NULL
 };
 
@@ -9301,8 +9379,8 @@ static const species sdex[] = {
   {   93, "Haunter", TYPE_GHOST, TYPE_POISON, 223, 107, 128, "Gastly", HAUNTER_ATKS, true, true, },
   {   94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter", GENGAR_ATKS, true, true, },
   {   95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, NULL, ONIX_ATKS, true, true, },
-  {   96, "Drowzee", TYPE_PSYCHIC, TYPECOUNT, 89, 136, 155, NULL, NULL, },
-  {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, "Drowzee", NULL, },
+  {   96, "Drowzee", TYPE_PSYCHIC, TYPECOUNT, 89, 136, 155, NULL, DROWZEE_ATKS, true, true, },
+  {   97, "Hypno", TYPE_PSYCHIC, TYPECOUNT, 144, 193, 198, "Drowzee", HYPNO_ATKS, true, true, },
   {   98, "Krabby", TYPE_WATER, TYPECOUNT, 181, 124, 102, NULL, KRABBY_ATKS, true, true, },
   {   99, "Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Krabby", KINGLER_ATKS, true, true, },
   {  100, "Voltorb", TYPE_ELECTRIC, TYPECOUNT, 109, 111, 120, NULL, VOLTORB_ATKS, true, true, },
@@ -9421,7 +9499,7 @@ static const species sdex[] = {
   {  199, "Slowking", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWKING_ATKS, true, true, },
   {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, "Galarian Slowpoke", G_SLOWKING_ATKS, true, true, },
   {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, NULL, MISDREAVUS_ATKS, true, true, },
-  {  201, "Unown", TYPE_PSYCHIC, TYPECOUNT, 136, 91, 134, NULL, NULL, },
+  {  201, "Unown", TYPE_PSYCHIC, TYPECOUNT, 136, 91, 134, NULL, UNOWN_ATKS, true, false, },
   {  202, "Wobbuffet", TYPE_PSYCHIC, TYPECOUNT, 60, 106, 382, "Wynaut", WOBBUFFET_ATKS, true, true, },
   {  203, "Girafarig", TYPE_NORMAL, TYPE_PSYCHIC, 182, 133, 172, NULL, GIRAFARIG_ATKS, true, true, },
   {  204, "Pineco", TYPE_BUG, TYPECOUNT, 108, 122, 137, NULL, PINECO_ATKS, true, true, },
@@ -9541,8 +9619,8 @@ static const species sdex[] = {
   {  313, "Volbeat", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, VOLBEAT_ATKS, true, false, },
   {  314, "Illumise", TYPE_BUG, TYPECOUNT, 143, 166, 163, NULL, ILLUMISE_ATKS, true, false, },
   {  315, "Roselia", TYPE_GRASS, TYPE_POISON, 186, 131, 137, "Budew", ROSELIA_ATKS, true, false, },
-  {  316, "Gulpin", TYPE_POISON, TYPECOUNT, 80, 99, 172, NULL, NULL, },
-  {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, "Gulpin", NULL, },
+  {  316, "Gulpin", TYPE_POISON, TYPECOUNT, 80, 99, 172, NULL, GULPIN_ATKS, true, false, },
+  {  317, "Swalot", TYPE_POISON, TYPECOUNT, 140, 159, 225, "Gulpin", SWALOT_ATKS, true, false, },
   {  318, "Carvanha", TYPE_WATER, TYPE_DARK, 171, 39, 128, NULL, CARVANHA_ATKS, true, true, },
   {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, "Carvanha", SHARPEDO_ATKS, true, true, },
   {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, NULL, WAILMER_ATKS, true, true, },
@@ -10007,7 +10085,7 @@ static const species sdex[] = {
   {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff", D_LYCANROC_ATKS, true, false, },
   {  746, "Wishiwashi", TYPE_WATER, TYPECOUNT, 46, 43, 128, NULL, WISHIWASHI_ATKS, false, false, },
   {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, NULL, MAREANIE_ATKS, true, false, },
-  {  748, "Toxapex", TYPE_POISON, TYPE_WATER, 114, 273, 137, "Mareanie", NULL, },
+  {  748, "Toxapex", TYPE_POISON, TYPE_WATER, 114, 273, 137, "Mareanie", TOXAPEX_ATKS, true, false, },
   {  749, "Mudbray", TYPE_GROUND, TYPECOUNT, 175, 121, 172, NULL, MUDBRAY_ATKS, true, false, },
   {  750, "Mudsdale", TYPE_GROUND, TYPECOUNT, 214, 174, 225, "Mudbray", MUDSDALE_ATKS, true, false, },
   {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, NULL, DEWPIDER_ATKS, true, false, },
@@ -10016,8 +10094,8 @@ static const species sdex[] = {
   {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis", NULL, },
   {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, NULL, MORELULL_ATKS, true, false, },
   {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull", SHIINOTIC_ATKS, true, false, },
-  {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, NULL, },
-  {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", NULL, },
+  {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, NULL, SALANDIT_ATKS, true, false, },
+  {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit", SALAZZLE_ATKS, true, false, },
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, NULL, NULL, },
   {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful", BEWEAR_ATKS, true, false, },
   {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, NULL, BOUNSWEET_ATKS, true, false, },
