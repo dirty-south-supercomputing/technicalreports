@@ -1016,6 +1016,24 @@ static const attack* N_LYCANROC_ATKS[] = {
   NULL
 };
 
+static const attack* FIDOUGH_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Charm,
+  &ATK_Play_Rough,
+  &ATK_Body_Slam,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
+static const attack* DACHSBUN_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Charm,
+  &ATK_Play_Rough,
+  &ATK_Body_Slam,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
 static const attack* WYRDEER_ATKS[] = {
   &ATK_Tackle,
   &ATK_Zen_Headbutt,
@@ -10545,9 +10563,9 @@ static const species sdex[] = {
   {  922, "Pawmo", TYPE_ELECTRIC, TYPE_FIGHTING, 147, 82, 155, "Pawmi", PAWMO_ATKS, true, false, },
   {  923, "Pawmot", TYPE_ELECTRIC, TYPE_FIGHTING, 232, 141, 172, "Pawmo", PAWMOT_ATKS, true, false, },
   {  924, "Tandemaus", TYPE_NORMAL, TYPECOUNT, 98, 90, 137, NULL, TANDEMAUS_ATKS, false, false, },
-  {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", MAUSHOLD, false, false, },
-  {  926, "Fidough", TYPE_FAIRY, TYPECOUNT, 102, 126, 114, NULL, NULL, },
-  {  927, "Dachsbun", TYPE_FAIRY, TYPECOUNT, 159, 212, 149, "Fidough", NULL, },
+  {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", MAUSHOLD_ATKS, false, false, },
+  {  926, "Fidough", TYPE_FAIRY, TYPECOUNT, 102, 126, 114, NULL, FIDOUGH_ATKS, false, false, },
+  {  927, "Dachsbun", TYPE_FAIRY, TYPECOUNT, 159, 212, 149, "Fidough", DACHSBUN_ATKS, false, false, },
   {  928, "Smoliv", TYPE_GRASS, TYPE_NORMAL, 100, 89, 121, NULL, SMOLIV_ATKS, true, false, },
   {  929, "Dolliv", TYPE_GRASS, TYPE_NORMAL, 137, 131, 141, "Smoliv", DOLLIV_ATKS, true, false, },
   {  930, "Arboliva", TYPE_GRASS, TYPE_NORMAL, 219, 189, 186, "Dolliv", ARBOLIVA_ATKS, true, false, },
