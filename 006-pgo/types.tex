@@ -93,35 +93,39 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
 
 \begin{figure}[h!]
   \begin{minipage}[t]{0.5\textwidth}
+    \begin{center}
     \includegraphics[scale=.25]{out/circo/nature.dot.png}
+    \end{center}
     \caption{17 Natural relations}
     \label{fig:natural}
   \end{minipage}
   \begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[scale=.25]{out/circo/phases.dot.png}
-    \caption{14 Elemental relations}
-    \label{fig:elemental}
+    \begin{center}
+    \includegraphics[scale=.25]{out/circo/rational.dot.png}
+    \end{center}
+    \caption{16 Rational relations}
+    \label{fig:rational}
   \end{minipage}
 \end{figure}
 \noindent{}Poison kills Grass, which kills Ground, which kills Poison.
 Rock is strong against Bug, which kills Grass, which is strong against Rock.
 Ground kills Rock, but is weak against Bug.
 Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
-Rock and Water kill Fire, which kills Ice, which kills nothing on this graph or any other.
-Electric is strong against Water, which is strong against Rock, which is strong against Ice,
- which on this graph is strong against nothing (\autoref{fig:elemental}).
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=.25]{out/circo/rational.dot.png}
-\caption{16 Rational relations}
-\label{fig:rational}
-\end{figure}
-\noindent{}Psychic kills Fighting, which kills Dark, which slaughters Psychic.
+Psychic kills Fighting, which kills Dark, which slaughters Psychic.
 Dark kills Ghost, which is strong against Psychic.
 Fighting (unique among all types) is strong against Normal,
   but very weak against Ghost.
 Normal and Ghost are very weak against one another (\autoref{fig:rational}).
+
+\begin{figure}[ht]
+\centering
+    \includegraphics[scale=.25]{out/circo/phases.dot.png}
+    \caption{14 Elemental relations}
+    \label{fig:elemental}
+\end{figure}
+\noindent{}Rock and Water kill Fire, which kills Ice, which kills nothing on this graph nor any other.
+Electric is strong against Water, which is strong against Rock, which is strong against Ice,
+ which on this graph is strong against nothing (\autoref{fig:elemental}).
 \clearpage
 
 \begin{figure}[t!]
