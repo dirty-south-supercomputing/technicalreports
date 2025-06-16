@@ -2966,6 +2966,28 @@ static const attack* SKUNTANK_ATKS[] = {
   NULL
 };
 
+static const attack* MAKUHITA_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Rock_Smash,
+  &ATK_Cross_Chop,
+  &ATK_Low_Sweep,
+  &ATK_Heavy_Slam,
+  &ATK_Upper_Hand,
+  NULL
+};
+
+static const attack* HARIYAMA_ATKS[] = {
+  &ATK_Bullet_Punch,
+  &ATK_Counter,
+  &ATK_Force_Palm,
+  &ATK_Close_Combat,
+  &ATK_Dynamic_Punch,
+  &ATK_Heavy_Slam,
+  &ATK_Superpower,
+  &ATK_Upper_Hand,
+  NULL
+};
+
 static const attack* SCRAGGY_ATKS[] = {
   &ATK_Feint_Attack,
   &ATK_Rock_Smash,
@@ -9790,6 +9812,26 @@ static const attack* HYPNO_ATKS[] = {
   NULL
 };
 
+static const attack* THROH_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Zen_Headbutt,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  &ATK_Body_Slam,
+  &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* SAWK_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Poison_Jab,
+  &ATK_Low_Sweep,
+  &ATK_Brick_Break,
+  &ATK_Body_Slam,
+  &ATK_Focus_Blast,
+  NULL
+};
+
 static const attack* GRUBBIN_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Spark,
@@ -10220,8 +10262,8 @@ static const species sdex[] = {
   {  293, "Whismur", TYPE_NORMAL, TYPECOUNT, 92, 42, 162, NULL, WHISMUR_ATKS, true, true, },
   {  294, "Loudred", TYPE_NORMAL, TYPECOUNT, 134, 81, 197, "Whismur", LOUDRED_ATKS, true, true, },
   {  295, "Exploud", TYPE_NORMAL, TYPECOUNT, 179, 137, 232, "Loudred", EXPLOUD_ATKS, true, true, },
-  {  296, "Makuhita", TYPE_FIGHTING, TYPECOUNT, 99, 54, 176, NULL, NULL, },
-  {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", NULL, },
+  {  296, "Makuhita", TYPE_FIGHTING, TYPECOUNT, 99, 54, 176, NULL, MAKUHITA_ATKS, true, true, },
+  {  297, "Hariyama", TYPE_FIGHTING, TYPECOUNT, 209, 114, 302, "Makuhita", HARIYAMA_ATKS, true, true, },
   {  298, "Azurill", TYPE_NORMAL, TYPE_FAIRY, 36, 71, 137, NULL, AZURILL_ATKS, true, false, },
   {  299, "Nosepass", TYPE_ROCK, TYPECOUNT, 82, 215, 102, NULL, NOSEPASS_ATKS, true, true, },
   {  300, "Skitty", TYPE_NORMAL, TYPECOUNT, 84, 79, 137, NULL, NULL, },
@@ -10477,8 +10519,8 @@ static const species sdex[] = {
   {  535, "Tympole", TYPE_WATER, TYPECOUNT, 98, 78, 137, NULL, TYMPOLE_ATKS, true, false, },
   {  536, "Palpitoad", TYPE_WATER, TYPE_GROUND, 128, 109, 181, "Tympole", PALPITOAD_ATKS, true, false, },
   {  537, "Seismitoad", TYPE_WATER, TYPE_GROUND, 188, 150, 233, "Palpitoad", SEISMITOAD_ATKS, true, false, },
-  {  538, "Throh", TYPE_FIGHTING, TYPECOUNT, 172, 160, 260, NULL, NULL, },
-  {  539, "Sawk", TYPE_FIGHTING, TYPECOUNT, 231, 153, 181, NULL, NULL, },
+  {  538, "Throh", TYPE_FIGHTING, TYPECOUNT, 172, 160, 260, NULL, THROH_ATKS, true, true, },
+  {  539, "Sawk", TYPE_FIGHTING, TYPECOUNT, 231, 153, 181, NULL, SAWK_ATKS, true, true, },
   {  540, "Sewaddle", TYPE_BUG, TYPE_GRASS, 96, 124, 128, NULL, SEWADDLE_ATKS, true, false, },
   {  541, "Swadloon", TYPE_BUG, TYPE_GRASS, 115, 162, 146, "Sewaddle", SWADLOON_ATKS, true, false, },
   {  542, "Leavanny", TYPE_BUG, TYPE_GRASS, 205, 165, 181, "Swadloon", LEAVANNY_ATKS, true, false, },
