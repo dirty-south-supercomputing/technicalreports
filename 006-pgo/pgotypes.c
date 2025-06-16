@@ -764,6 +764,27 @@ static const attack* UNOWN_ATKS[] = {
   NULL
 };
 
+static const attack* DEERLING_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Seed_Bomb,
+  &ATK_Wild_Charge,
+  &ATK_Energy_Ball,
+  &ATK_Trailblaze,
+  NULL
+};
+
+static const attack* SAWSBUCK_ATKS[] = {
+  &ATK_Feint_Attack,
+  &ATK_Take_Down,
+  &ATK_Hyper_Beam,
+  &ATK_Megahorn,
+  &ATK_Solar_Beam,
+  &ATK_Wild_Charge,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* TAPUBULU_ATKS[] = {
   &ATK_Rock_Smash,
   &ATK_Bullet_Seed,
@@ -4141,6 +4162,16 @@ static const attack* PICHU_ATKS[] = {
   &ATK_Thunder_Punch,
   &ATK_Thunderbolt,
   &ATK_Disarming_Voice,
+  NULL
+};
+
+static const attack* EMOLGA_ATKS[] = {
+  &ATK_Thunder_Shock,
+  &ATK_Quick_Attack,
+  &ATK_Discharge,
+  &ATK_Aerial_Ace,
+  &ATK_Thunderbolt,
+  &ATK_Acrobatics,
   NULL
 };
 
@@ -9925,9 +9956,9 @@ static const species sdex[] = {
   {  582, "Vanillite", TYPE_ICE, TYPECOUNT, 118, 106, 113, NULL, VANILLITE_ATKS, true, false, },
   {  583, "Vanillish", TYPE_ICE, TYPECOUNT, 151, 138, 139, "Vanillite", VANILLISH_ATKS, true, false, },
   {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanilluxe", VANILLUXE_ATKS, true, false, },
-  {  585, "Deerling", TYPE_NORMAL, TYPE_GRASS, 115, 100, 155, NULL, NULL, },
-  {  586, "Sawsbuck", TYPE_NORMAL, TYPE_GRASS, 198, 146, 190, "Deerling", NULL, },
-  {  587, "Emolga", TYPE_ELECTRIC, TYPE_FLYING, 158, 127, 146, NULL, NULL, },
+  {  585, "Deerling", TYPE_NORMAL, TYPE_GRASS, 115, 100, 155, NULL, DEERLING_ATKS, true, false, },
+  {  586, "Sawsbuck", TYPE_NORMAL, TYPE_GRASS, 198, 146, 190, "Deerling", SAWSBUCK_ATKS, true, false, },
+  {  587, "Emolga", TYPE_ELECTRIC, TYPE_FLYING, 158, 127, 146, NULL, EMOLGA_ATKS, true, false, },
   {  588, "Karrablast", TYPE_BUG, TYPECOUNT, 137, 87, 137, NULL, KARRABLAST_ATKS, true, true, },
   {  589, "Escavalier", TYPE_BUG, TYPE_STEEL, 223, 187, 172, "Karrablast", ESCAVALIER_ATKS, true, true, },
   {  590, "Foongus", TYPE_GRASS, TYPE_POISON, 97, 91, 170, NULL, FOONGUS_ATKS, true, true, },
