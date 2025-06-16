@@ -11692,10 +11692,11 @@ has_stab_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u", s->idx);
-  printf(",colbacktitle=%s,sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
-      "Bug");
+  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u ", s->idx);
+  printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
+          TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   print_types(s->t1, s->t2);
+  printf(" ");
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%'){
       printf("%c", *curs);
