@@ -4189,6 +4189,15 @@ static const attack* NIHILEGO_ATKS[] = {
   NULL
 };
 
+static const attack* MARACTUS_ATKS[] = {
+  &ATK_Poison_Jab,
+  &ATK_Bullet_Seed,
+  &ATK_Aerial_Ace,
+  &ATK_Petal_Blizzard,
+  &ATK_Solar_Beam,
+  NULL
+};
+
 static const attack* BUDEW_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Hidden_Power,
@@ -10105,7 +10114,7 @@ static const species sdex[] = {
   {  554, "Galarian Darumaka", TYPE_ICE, TYPECOUNT, 153, 86, 172, NULL, G_DARUMAKA_ATKS, true, true, },
   {  555, "Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darumaka", DARMANITAN_ATKS, true, true, },
   {  555, "Galarian Darmanitan", TYPE_ICE, TYPECOUNT, 263, 114, 233, "Galarian Darumaka", G_DARMANITAN_ATKS, true, true, },
-  {  556, "Maractus", TYPE_GRASS, TYPECOUNT, 201, 130, 181, NULL, NULL, },
+  {  556, "Maractus", TYPE_GRASS, TYPECOUNT, 201, 130, 181, NULL, MARACTUS_ATKS, true, false, },
   {  557, "Dwebble", TYPE_BUG, TYPE_ROCK, 118, 128, 137, NULL, DWEBBLE_ATKS, true, true, },
   {  558, "Crustle", TYPE_BUG, TYPE_ROCK, 188, 200, 172, "Dwebble", CRUSTLE_ATKS, true, true, },
   {  559, "Scraggy", TYPE_DARK, TYPE_FIGHTING, 132, 132, 137, NULL, SCRAGGY_ATKS, true, false, },
@@ -10122,8 +10131,8 @@ static const species sdex[] = {
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", GARBODOR_ATKS, true, true, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, ZORUA_ATKS, true, false, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", ZOROARK_ATKS, true, false, },
-  {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, NULL, },
-  {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Cinccino", NULL, },
+  {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, MINCCINO_ATKS, true, false, },
+  {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Cinccino", CINCCINO_ATKS, true, false, },
   {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, GOTHITA_ATKS, true, true, },
   {  575, "Gothorita", TYPE_PSYCHIC, TYPECOUNT, 137, 153, 155, "Gothita", GOTHORITA_ATKS, true, true, },
   {  576, "Gothitelle", TYPE_PSYCHIC, TYPECOUNT, 176, 205, 172, "Gothorita", GOTHITELLE_ATKS, true, true, },
