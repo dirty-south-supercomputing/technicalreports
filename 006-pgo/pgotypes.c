@@ -9194,6 +9194,37 @@ static const attack* GLALIE_ATKS[] = {
   NULL
 };
 
+static const attack* CHESPIN_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Take_Down,
+  &ATK_Seed_Bomb,
+  &ATK_Body_Slam,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* QUILLADIN_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Vine_Whip,
+  &ATK_Body_Slam,
+  &ATK_Gyro_Ball,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* CHESNAUGHT_ATKS[] = {
+  &ATK_Low_Kick,
+  &ATK_Vine_Whip,
+  &ATK_Smack_Down,
+  &ATK_Thunder_Punch,
+  &ATK_Solar_Beam,
+  &ATK_Gyro_Ball,
+  &ATK_Energy_Ball,
+  &ATK_Frenzy_Plant,
+  &ATK_Superpower,
+  NULL
+};
+
 static const attack* MANTYKE_ATKS[] = {
   &ATK_Tackle,
   &ATK_Bubble,
@@ -9730,6 +9761,49 @@ static const attack* TORTERRA_ATKS[] = {
   NULL
 };
 
+static const attack* SHROOMISH_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Bullet_Seed,
+  &ATK_Seed_Bomb,
+  &ATK_Grass_Knot,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* BRELOOM_ATKS[] = {
+  &ATK_Counter,
+  &ATK_Bullet_Seed,
+  &ATK_Force_Palm,
+  &ATK_Seed_Bomb,
+  &ATK_Sludge_Bomb,
+  &ATK_Dynamic_Punch,
+  &ATK_Grass_Knot,
+  NULL
+};
+
+static const attack* LITLEO_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Fire_Fang,
+  &ATK_Incinerate,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* PYROAR_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Fire_Fang,
+  &ATK_Take_Down,
+  &ATK_Incinerate,
+  &ATK_Dark_Pulse,
+  &ATK_Flame_Charge,
+  &ATK_Solar_Beam,
+  &ATK_Overheat,
+  NULL
+};
+
 static const attack* SCORBUNNY_ATKS[] = {
   &ATK_Tackle,
   &ATK_Fire_Spin,
@@ -10083,6 +10157,24 @@ static const attack* SAWK_ATKS[] = {
   &ATK_Brick_Break,
   &ATK_Body_Slam,
   &ATK_Focus_Blast,
+  NULL
+};
+
+static const attack* SKIDDO_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Rock_Smash,
+  &ATK_Seed_Bomb,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* GOGOAT_ATKS[] = {
+  &ATK_Vine_Whip,
+  &ATK_Zen_Headbutt,
+  &ATK_Rock_Smash,
+  &ATK_Seed_Bomb,
+  &ATK_Leaf_Blade,
+  &ATK_Brick_Break,
   NULL
 };
 
@@ -10524,8 +10616,8 @@ static const species sdex[] = {
   {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, "Kirlia", GARDEVOIR_ATKS, true, true, },
   {  283, "Surskit", TYPE_BUG, TYPE_WATER, 93, 87, 120, NULL, SURSKIT_ATKS, true, false, },
   {  284, "Masquerain", TYPE_BUG, TYPE_FLYING, 192, 150, 172, "Surskit", MASQUERAIN_ATKS, true, false, },
-  {  285, "Shroomish", TYPE_GRASS, TYPECOUNT, 74, 110, 155, NULL, NULL, },
-  {  286, "Breloom", TYPE_GRASS, TYPE_FIGHTING, 241, 144, 155, "Shroomish", NULL, },
+  {  285, "Shroomish", TYPE_GRASS, TYPECOUNT, 74, 110, 155, NULL, SHROOMISH_ATKS, true, false, },
+  {  286, "Breloom", TYPE_GRASS, TYPE_FIGHTING, 241, 144, 155, "Shroomish", BRELOOM_ATKS, true, false, },
   {  287, "Slakoth", TYPE_NORMAL, TYPECOUNT, 104, 92, 155, NULL, SLAKOTH_ATKS, true, true, },
   {  288, "Vigoroth", TYPE_NORMAL, TYPECOUNT, 159, 145, 190, "Slakoth", VIGOROTH_ATKS, true, true, },
   {  289, "Slaking", TYPE_NORMAL, TYPECOUNT, 290, 166, 284, "Vigoroth", SLAKING_ATKS, true, true, },
@@ -10914,9 +11006,9 @@ static const species sdex[] = {
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, KELDEO_ATKS, false, false, },
   {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, GENESECT_ATKS, true, false, },
-  {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, NULL, NULL, },
-  {  651, "Quilladin", TYPE_GRASS, TYPECOUNT, 146, 156, 156, "Chespin", NULL, },
-  {  652, "Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 201, 204, 204, "Quilladin", NULL, },
+  {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, NULL, CHESPIN_ATKS, true, false, },
+  {  651, "Quilladin", TYPE_GRASS, TYPECOUNT, 146, 156, 156, "Chespin", QUILLADIN_ATKS, true, false, },
+  {  652, "Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 201, 204, 204, "Quilladin", CHESNAUGHT_ATKS, true, false, },
   {  653, "Fennekin", TYPE_FIRE, TYPECOUNT, 116, 102, 120, NULL, FENNEKIN_ATKS, true, false, },
   {  654, "Braixen", TYPE_FIRE, TYPECOUNT, 171, 130, 153, "Fennekin", BRAIXEN_ATKS, true, false, },
   {  655, "Delphox", TYPE_FIRE, TYPE_PSYCHIC, 230, 189, 181, "Braixen", DELPHOX_ATKS, true, false, },
@@ -10931,13 +11023,13 @@ static const species sdex[] = {
   {  664, "Scatterbug", TYPE_BUG, TYPECOUNT, 63, 63, 116, NULL, SCATTERBUG_ATKS, true, false, },
   {  665, "Spewpa", TYPE_BUG, TYPECOUNT, 48, 89, 128, "Scatterbug", SPEWPA_ATKS, true, false, },
   {  666, "Vivillon", TYPE_BUG, TYPE_FLYING, 176, 103, 190, "Spewpa", VIVILLON_ATKS, true, false, },
-  {  667, "Litleo", TYPE_FIRE, TYPE_NORMAL, 139, 112, 158, NULL, NULL, },
-  {  668, "Pyroar", TYPE_FIRE, TYPE_NORMAL, 221, 149, 200, "Litleo", NULL, },
+  {  667, "Litleo", TYPE_FIRE, TYPE_NORMAL, 139, 112, 158, NULL, LITLEO_ATKS, true, false, },
+  {  668, "Pyroar", TYPE_FIRE, TYPE_NORMAL, 221, 149, 200, "Litleo", PYROAR_ATKS, true, false, },
   {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, NULL, FLABEBE_ATKS, true, false, },
   {  670, "Floette", TYPE_FAIRY, TYPECOUNT, 136, 151, 144, "Flabébé", FLOETTE_ATKS, true, false, },
   {  671, "Florges", TYPE_FAIRY, TYPECOUNT, 212, 244, 186, "Floette", FLORGES_ATKS, true, false, },
-  {  672, "Skiddo", TYPE_GRASS, TYPECOUNT, 123, 102, 165, NULL, NULL, },
-  {  673, "Gogoat", TYPE_GRASS, TYPECOUNT, 196, 146, 265, "Skiddo", NULL, },
+  {  672, "Skiddo", TYPE_GRASS, TYPECOUNT, 123, 102, 165, NULL, SKIDDO_ATKS, true, false, },
+  {  673, "Gogoat", TYPE_GRASS, TYPECOUNT, 196, 146, 265, "Skiddo", GOGOAT_ATKS, true, false, },
   {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, PANCHAM_ATKS, true, false, },
   {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham", PANGORO_ATKS, true, false, },
   {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, FURFROU_ATKS, true, false, },
