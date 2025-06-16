@@ -906,6 +906,17 @@ static const attack* MISMAGIUS_ATKS[] = {
   NULL
 };
 
+static const attack* FURFROU_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Sucker_Punch,
+  &ATK_Take_Down,
+  &ATK_Sand_Attack,
+  &ATK_Dark_Pulse,
+  &ATK_Grass_Knot,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* MORELULL_ATKS[] = {
   &ATK_Astonish,
   &ATK_Seed_Bomb,
@@ -1495,6 +1506,34 @@ static const attack* POPPLIO_ATKS[] = {
   NULL
 };
 
+static const attack* MINCCINO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Charm,
+  &ATK_Aqua_Tail,
+  &ATK_Thunderbolt,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* CINCCINO_ATKS[] = {
+  &ATK_Pound,
+  &ATK_Charm,
+  &ATK_Hyper_Beam,
+  &ATK_Aqua_Tail,
+  &ATK_Thunderbolt,
+  NULL
+};
+
+static const attack* BOUFFALANT_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Zen_Headbutt,
+  &ATK_Megahorn,
+  &ATK_Earthquake,
+  &ATK_Stomp,
+  &ATK_Skull_Bash,
+  NULL
+};
+
 static const attack* BRIONNE_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Charm,
@@ -1607,6 +1646,17 @@ static const attack* ZANGOOSE_ATKS[] = {
   &ATK_Dig,
   &ATK_Night_Slash,
   &ATK_Close_Combat,
+  NULL
+};
+
+static const attack* VIRIZION_ATKS[] = {
+  &ATK_Quick_Attack,
+  &ATK_Zen_Headbutt,
+  &ATK_Double_Kick,
+  &ATK_Stone_Edge,
+  &ATK_Leaf_Blade,
+  &ATK_Close_Combat,
+  &ATK_Sacred_Sword,
   NULL
 };
 
@@ -6680,6 +6730,24 @@ static const attack* ARCHEOPS_ATKS[] = {
   NULL
 };
 
+static const attack* YUNGOOS_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Tackle,
+  &ATK_Rock_Tomb,
+  &ATK_Hyper_Fang,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* GUMSHOOS_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Take_Down,
+  &ATK_Rock_Tomb,
+  &ATK_Hyper_Fang,
+  &ATK_Crunch,
+  NULL
+};
+
 static const attack* RATTATA_ATKS[] = {
   &ATK_Quick_Attack,
   &ATK_Tackle,
@@ -10109,7 +10177,7 @@ static const species sdex[] = {
   {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett", GOLURK_ATKS, true, true, },
   {  624, "Pawniard", TYPE_DARK, TYPE_STEEL, 154, 114, 128, NULL, PAWNIARD_ATKS, true, false, },
   {  625, "Bisharp", TYPE_DARK, TYPE_STEEL, 232, 176, 163, "Pawniard", BISHARP_ATKS, true, false, },
-  {  626, "Bouffalant", TYPE_NORMAL, TYPECOUNT, 195, 182, 216, NULL, NULL, },
+  {  626, "Bouffalant", TYPE_NORMAL, TYPECOUNT, 195, 182, 216, NULL, BOUFFALANT_ATKS, true, false, },
   {  627, "Rufflet", TYPE_NORMAL, TYPE_FLYING, 150, 97, 172, NULL, NULL, },
   {  628, "Braviary", TYPE_NORMAL, TYPE_FLYING, 232, 152, 225, "Rufflet", NULL, },
   {  628, "Hisuian Braviary", TYPE_PSYCHIC, TYPE_FLYING, 213, 137, 242, NULL, NULL, },
@@ -10124,7 +10192,7 @@ static const species sdex[] = {
   {  637, "Volcarona", TYPE_BUG, TYPE_FIRE, 264, 189, 198, "Larvesta", VOLCARONA_ATKS, true, false, },
   {  638, "Cobalion", TYPE_STEEL, TYPE_FIGHTING, 192, 229, 209, NULL, COBALION_ATKS, true, false, },
   {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, NULL, TERRAKION_ATKS, true, true, },
-  {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, NULL, },
+  {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, NULL, VIRIZION_ATKS, true, false, },
   {  641, "Incarnate Forme Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, NULL, I_TORNADUS_ATKS, true, false, },
   {  641, "Therian Forme Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, NULL, T_TORNADUS_ATKS, true, false, },
   {  642, "Incarnate Forme Thundurus", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, NULL, I_THUNDURUS_ATKS, true, false, },
@@ -10165,7 +10233,7 @@ static const species sdex[] = {
   {  673, "Gogoat", TYPE_GRASS, TYPECOUNT, 196, 146, 265, "Skiddo", NULL, },
   {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, PANCHAM_ATKS, true, false, },
   {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham", PANGORO_ATKS, true, false, },
-  {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, NULL, },
+  {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, FURFROU_ATKS, true, false, },
   {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, NULL, ESPURR_ATKS, true, false, },
   {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr", MEOWSTIC_ATKS, true, false, },
   {  682, "Spritzee", TYPE_FAIRY, TYPECOUNT, 110, 113, 186, NULL, NULL, },
@@ -10230,8 +10298,8 @@ static const species sdex[] = {
   {  731, "Pikipek", TYPE_NORMAL, TYPE_FLYING, 136, 59, 111, NULL, NULL, },
   {  732, "Trumbeak", TYPE_NORMAL, TYPE_FLYING, 159, 100, 146, "Pikipek", NULL, },
   {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak", NULL, },
-  {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, NULL, NULL, },
-  {  735, "Gumshoos", TYPE_NORMAL, TYPECOUNT, 194, 113, 204, "Yungoos", NULL, },
+  {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, NULL, YUNGOOS_ATKS, true, false, },
+  {  735, "Gumshoos", TYPE_NORMAL, TYPECOUNT, 194, 113, 204, "Yungoos", GUMSHOOS_ATKS, true, false, },
   {  736, "Grubbin", TYPE_BUG, TYPECOUNT, 115, 85, 132, NULL, GRUBBIN_ATKS, true, false, },
   {  737, "Charjabug", TYPE_BUG, TYPE_ELECTRIC, 145, 161, 149, "Grubbin", CHARJABUG_ATKS, true, false, },
   {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, "Charjabug", VIKAVOLT_ATKS, true, false, },
