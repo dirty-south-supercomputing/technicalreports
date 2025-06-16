@@ -9586,6 +9586,25 @@ static const attack* HOUNDSTONE_ATKS[] = {
   NULL
 };
 
+static const attack* SINISTEA_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Astonish,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
+static const attack* POLTEAGEIST_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Psychic,
+  NULL
+};
+
 static const attack* MIMEJR_ATKS[] = {
   &ATK_Pound,
   &ATK_Confusion,
@@ -11272,8 +11291,8 @@ static const species sdex[] = {
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel", TOXTRICITY_ATKS, true, true, },
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, SIZZLIPEDE_ATKS, false, false, },
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede", CENTISKORCH_ATKS, false, false, },
-  {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, NULL, NULL, },
-  {  855, "Polteageist", TYPE_GHOST, TYPECOUNT, 248, 189, 155, "Sinistea", NULL, },
+  {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, NULL, SINISTEA_ATKS, false, false, },
+  {  855, "Polteageist", TYPE_GHOST, TYPECOUNT, 248, 189, 155, "Sinistea", POLTEAGEIST_ATKS, false, false, },
   {  856, "Hatenna", TYPE_PSYCHIC, TYPECOUNT, 98, 93, 123, NULL, HATENNA_ATKS, true, false, },
   {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna", HATTREM_ATKS, true, false, },
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem", HATTERENE_ATKS, true, false, },
