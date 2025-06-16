@@ -10117,6 +10117,25 @@ static const attack* M_OINKOLOGNE_ATKS[] = {
   NULL
 };
 
+static const attack* SIZZLIPEDE_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Ember,
+  &ATK_Heat_Wave,
+  &ATK_Bug_Buzz,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* CENTISKORCH_ATKS[] = {
+  &ATK_Bug_Bite,
+  &ATK_Ember,
+  &ATK_Heat_Wave,
+  &ATK_Bug_Buzz,
+  &ATK_Crunch,
+  &ATK_Lunge,
+  NULL
+};
+
 static const attack* LOKIX_ATKS[] = {
   &ATK_Bug_Bite,
   &ATK_Sucker_Punch,
@@ -11051,8 +11070,8 @@ static const species sdex[] = {
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin", APPLETUN_ATKS, false, false, },
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, NULL, TOXEL_ATKS, true, false, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel", TOXTRICITY_ATKS, true, true, },
-  {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, NULL, },
-  {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede", NULL, },
+  {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, NULL, SIZZLIPEDE_ATKS, false, false, },
+  {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede", CENTISKORCH_ATKS, false, false, },
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, NULL, NULL, },
   {  855, "Polteageist", TYPE_GHOST, TYPECOUNT, 248, 189, 155, "Sinistea", NULL, },
   {  856, "Hatenna", TYPE_PSYCHIC, TYPECOUNT, 98, 93, 123, NULL, HATENNA_ATKS, true, false, },
