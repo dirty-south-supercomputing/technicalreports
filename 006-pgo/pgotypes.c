@@ -828,6 +828,27 @@ static const attack* GHOLDENGO_ATKS[] = {
   NULL
 };
 
+static const attack* MISDREAVUS_ATKS[] = {
+  &ATK_Astonish,
+  &ATK_Hex,
+  &ATK_Psywave,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Sneak,
+  &ATK_Ominous_Wind,
+  NULL
+};
+
+static const attack* MISMAGIUS_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Hex,
+  &ATK_Magical_Leaf,
+  &ATK_Psywave,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Dazzling_Gleam,
+  NULL
+};
+
 static const attack* MORELULL_ATKS[] = {
   &ATK_Astonish,
   &ATK_Seed_Bomb,
@@ -9100,7 +9121,7 @@ static const species sdex[] = {
   {  198, "Murkrow", TYPE_DARK, TYPE_FLYING, 175, 87, 155, NULL, MURKROW_ATKS, true, true, },
   {  199, "Slowking", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke", SLOWKING_ATKS, true, true, },
   {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, "Galarian Slowpoke", G_SLOWKING_ATKS, true, true, },
-  {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, NULL, NULL, },
+  {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, NULL, MISDREAVUS_ATKS, true, true, },
   {  201, "Unown", TYPE_PSYCHIC, TYPECOUNT, 136, 91, 134, NULL, NULL, },
   {  202, "Wobbuffet", TYPE_PSYCHIC, TYPECOUNT, 60, 106, 382, "Wynaut", NULL, },
   {  203, "Girafarig", TYPE_NORMAL, TYPE_PSYCHIC, 182, 133, 172, NULL, NULL, },
@@ -9342,7 +9363,7 @@ static const species sdex[] = {
   {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", NULL, },
   {  427, "Buneary", TYPE_NORMAL, TYPECOUNT, 130, 105, 146, NULL, BUNEARY_ATKS, true, false, },
   {  428, "Lopunny", TYPE_NORMAL, TYPECOUNT, 156, 194, 163, "Buneary", LOPUNNY_ATKS, true, false, },
-  {  429, "Mismagius", TYPE_GHOST, TYPECOUNT, 211, 187, 155, "Misdreavus", NULL, },
+  {  429, "Mismagius", TYPE_GHOST, TYPECOUNT, 211, 187, 155, "Misdreavus", MISMAGIUS_ATKS, true, true, },
   {  430, "Honchkrow", TYPE_DARK, TYPE_FLYING, 243, 103, 225, "Murkrow", HONCHKROW_ATKS, true, true, },
   {  431, "Glameow", TYPE_NORMAL, TYPECOUNT, 109, 82, 135, NULL, NULL, },
   {  432, "Purugly", TYPE_NORMAL, TYPECOUNT, 172, 133, 174, "Glameow", NULL, },
