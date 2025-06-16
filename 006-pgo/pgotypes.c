@@ -959,6 +959,27 @@ static const attack* N_LYCANROC_ATKS[] = {
   NULL
 };
 
+static const attack* SOLGALEO_ATKS[] = {
+  &ATK_Zen_Headbutt,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Iron_Head,
+  &ATK_Solar_Beam,
+  &ATK_Psychic_Fangs,
+  NULL
+};
+
+static const attack* LUNALA_ATKS[] = {
+  &ATK_Shadow_Claw,
+  &ATK_Confusion,
+  &ATK_Air_Slash,
+  &ATK_Shadow_Ball,
+  &ATK_Moonblast,
+  &ATK_Psychic,
+  &ATK_Future_Sight,
+  NULL
+};
+
 static const attack* CACNEA_ATKS[] = {
   &ATK_Sucker_Punch,
   &ATK_Poison_Sting,
@@ -989,6 +1010,18 @@ static const attack* BLACEPHALON_ATKS[] = {
   &ATK_Shadow_Ball,
   &ATK_Overheat,
   &ATK_Mystical_Fire,
+  NULL
+};
+
+static const attack* COSMOG_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Struggle,
+  NULL
+};
+
+static const attack* COSMOEM_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Struggle,
   NULL
 };
 
@@ -9707,7 +9740,7 @@ static const species sdex[] = {
   {  515, "Panpour", TYPE_WATER, TYPECOUNT, 104, 94, 137, NULL, PANPOUR_ATKS, true, false, },
   {  516, "Simipour", TYPE_WATER, TYPECOUNT, 206, 133, 181, "Panpour", SIMIPOUR_ATKS, true, false, },
   {  517, "Munna", TYPE_PSYCHIC, TYPECOUNT, 111, 92, 183, NULL, MUNNA_ATKS, true, false, },
-  {  518, "Musharna", TYPE_PSYCHIC, TYPECOUNT, 183, 166, 253, "Munna", MUSHARNA, true, false, },
+  {  518, "Musharna", TYPE_PSYCHIC, TYPECOUNT, 183, 166, 253, "Munna", MUSHARNA_ATKS, true, false, },
   {  519, "Pidove", TYPE_NORMAL, TYPE_FLYING, 98, 80, 137, NULL, PIDOVE_ATKS, true, true, },
   {  520, "Tranquill", TYPE_NORMAL, TYPE_FLYING, 144, 107, 158, "Pidove", TRANQUILL_ATKS, true, true, },
   {  521, "Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Tranquill", UNFEZANT_ATKS, true, true, },
@@ -9992,10 +10025,10 @@ static const species sdex[] = {
   {  786, "Tapu Lele", TYPE_PSYCHIC, TYPE_FAIRY, 259, 208, 172, NULL, TAPULELE_ATKS, true, false, },
   {  787, "Tapu Bulu", TYPE_GRASS, TYPE_FAIRY, 249, 215, 172, NULL, TAPUBULU_ATKS, true, false, },
   {  788, "Tapu Fini", TYPE_WATER, TYPE_FAIRY, 189, 254, 172, NULL, TAPUFINI_ATKS, true, false, },
-  {  789, "Cosmog", TYPE_PSYCHIC, TYPECOUNT, 54, 57, 125, NULL, NULL, },
-  {  790, "Cosmoem", TYPE_PSYCHIC, TYPECOUNT, 54, 242, 125, "Cosmog", NULL, },
-  {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem", NULL, },
-  {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem", NULL, },
+  {  789, "Cosmog", TYPE_PSYCHIC, TYPECOUNT, 54, 57, 125, NULL, COSMOG_ATKS, false, false, },
+  {  790, "Cosmoem", TYPE_PSYCHIC, TYPECOUNT, 54, 242, 125, "Cosmog", COSMOEM_ATKS, false, false, },
+  {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem", SOLGALEO_ATKS, false, false, },
+  {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem", LUNALA_ATKS, false, false, },
   {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, NULL, NIHILEGO_ATKS, true, false, },
   {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, BUZZWOLE_ATKS, true, false, },
   {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, PHEROMOSA_ATKS, true, false, },
