@@ -1103,6 +1103,47 @@ static const attack* SOLGALEO_ATKS[] = {
   NULL
 };
 
+static const attack* CYNDAQUIL_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* QUILAVA_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Tackle,
+  &ATK_Flamethrower,
+  &ATK_Dig,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* TYPHLOSION_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Shadow_Claw,
+  &ATK_Incinerate,
+  &ATK_Thunder_Punch,
+  &ATK_Fire_Blast,
+  &ATK_Solar_Beam,
+  &ATK_Overheat,
+  &ATK_Blast_Burn,
+  NULL
+};
+
+static const attack* H_TYPHLOSION_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Hex,
+  &ATK_Shadow_Ball,
+  &ATK_Fire_Punch,
+  &ATK_Wild_Charge,
+  &ATK_Night_Shade,
+  &ATK_Overheat,
+  NULL
+};
+
 static const attack* LUNALA_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Confusion,
@@ -4864,6 +4905,27 @@ static const attack* CRAWDAUNT_ATKS[] = {
   &ATK_Scald,
   &ATK_Crabhammer,
   &ATK_Razor_Shell,
+  NULL
+};
+
+static const attack* CRABRAWLER_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Rock_Smash,
+  &ATK_Brick_Break,
+  &ATK_Crabhammer,
+  &ATK_Power_Up_Punch,
+  &ATK_Payback,
+  NULL
+};
+
+static const attack* CRABOMINABLE_ATKS[] = {
+  &ATK_Bubble,
+  &ATK_Rock_Smash,
+  &ATK_Ice_Punch,
+  &ATK_Brick_Break,
+  &ATK_Crabhammer,
+  &ATK_Power_Up_Punch,
+  &ATK_Payback,
   NULL
 };
 
@@ -10113,10 +10175,10 @@ static const species sdex[] = {
   {  152, "Chikorita", TYPE_GRASS, TYPECOUNT, 92, 122, 128, NULL, NULL, },
   {  153, "Bayleef", TYPE_GRASS, TYPECOUNT, 122, 155, 155, "Chikorita", NULL, },
   {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef", NULL, },
-  {  155, "Cyndaquil", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, NULL, },
-  {  156, "Quilava", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Cyndaquil", NULL, },
-  {  157, "Typhlosion", TYPE_FIRE, TYPECOUNT, 223, 173, 186, "Quilava", NULL, },
-  {  157, "Hisuian Typhlosion", TYPE_FIRE, TYPE_GHOST, 238, 172, 177, NULL, NULL, },
+  {  155, "Cyndaquil", TYPE_FIRE, TYPECOUNT, 116, 93, 118, NULL, CYNDAQUIL_ATKS, true, true, },
+  {  156, "Quilava", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Cyndaquil", QUILAVA_ATKS, true, true, },
+  {  157, "Typhlosion", TYPE_FIRE, TYPECOUNT, 223, 173, 186, "Quilava", TYPHLOSION_ATKS, true, true, },
+  {  157, "Hisuian Typhlosion", TYPE_FIRE, TYPE_GHOST, 238, 172, 177, NULL, H_TYPHLOSION_ATKS, true, true, },
   {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, NULL, TOTODILE_ATKS, true, true, },
   {  159, "Croconaw", TYPE_WATER, TYPECOUNT, 150, 142, 163, "Totodile", CROCONAW_ATKS, true, true, },
   {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw", FERALIGATR_ATKS, true, true, },
@@ -10737,8 +10799,8 @@ static const species sdex[] = {
   {  736, "Grubbin", TYPE_BUG, TYPECOUNT, 115, 85, 132, NULL, GRUBBIN_ATKS, true, false, },
   {  737, "Charjabug", TYPE_BUG, TYPE_ELECTRIC, 145, 161, 149, "Grubbin", CHARJABUG_ATKS, true, false, },
   {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, "Charjabug", VIKAVOLT_ATKS, true, false, },
-  {  739, "Crabrawler", TYPE_FIGHTING, TYPECOUNT, 150, 104, 132, NULL, NULL, },
-  {  740, "Crabominable", TYPE_FIGHTING, TYPE_ICE, 231, 138, 219, "Crabrawler", NULL, },
+  {  739, "Crabrawler", TYPE_FIGHTING, TYPECOUNT, 150, 104, 132, NULL, CRABRAWLER_ATKS, true, false, },
+  {  740, "Crabominable", TYPE_FIGHTING, TYPE_ICE, 231, 138, 219, "Crabrawler", CRABOMINABLE_ATKS, true, false, },
   {  741, "Oricorio", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, NULL, NULL, },
   {  742, "Cutiefly", TYPE_BUG, TYPE_FAIRY, 110, 81, 120, NULL, CUTIEFLY_ATKS, true, false, },
   {  743, "Ribombee", TYPE_BUG, TYPE_FAIRY, 198, 146, 155, "Cutiefly", RIBOMBEE_ATKS, true, false, },

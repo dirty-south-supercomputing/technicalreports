@@ -75,6 +75,7 @@ typedef struct simulstate {
 
 static void
 inflict_damage(unsigned *hp, unsigned damage){
+  printf("inflicting %u damage on %u hp\n", damage, *hp);
   if(*hp < damage){
     *hp = 0;
   }else{
@@ -133,11 +134,12 @@ simulturn(const simulstate *ins, results *r){
   // run this turn then call the next turns, accumulate into r
   if(p1ongoing && p2ongoing){
     // only one option: both wait for attack to finish
-    //printf("turn %u recursing both wait %u %u\n", s.turn, s.p1turns, s.p2turns);
+    printf("turn %u recursing both wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     simulturn(&s, r);
     return 0;
-  }else if(!p1ongoing && p2ongoing){ // cartesian of p1 and wait
-    //printf("recursing p2wait\n");
+  }
+  if(!p1ongoing && p2ongoing){ // cartesian of p1 and wait
+    printf("turn %u recursing p2wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     //simulturn(&s, r); // p1 does nothing
     s.p1turns = p1.fa->turns; // p1 launches fast attack
     s.p1energy += p1.fa->energytrain;
@@ -175,8 +177,9 @@ simulturn(const simulstate *ins, results *r){
       }
     }
     return 0;
-  }else if(p1ongoing && !p2ongoing){ // cartesian of wait and p2
-    //printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
+  }
+  if(p1ongoing && !p2ongoing){ // cartesian of wait and p2
+    printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
     //simulturn(&s, r); // p2 does nothing
     s.p2turns = p2.fa->turns; // p2 launches fast attack
     s.p2energy += p2.fa->energytrain;
@@ -217,7 +220,7 @@ simulturn(const simulstate *ins, results *r){
     return 0;
   }
   // cartesian of all options
-  //printf("recursing cartesian\n");
+  printf("turn %u recursing all %u %u\n", s.turn, s.p1turns, s.p2turns);
   // first, have them both do a fast attack
   s.p1turns = p1.fa->turns;
   s.p2turns = p2.fa->turns;
