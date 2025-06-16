@@ -9821,6 +9821,37 @@ static const attack* INFERNAPE_ATKS[] = {
   NULL
 };
 
+static const attack* FENNEKIN_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Psyshock,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* BRAIXEN_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Psyshock,
+  &ATK_Flame_Charge,
+  NULL
+};
+
+static const attack* DELPHOX_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Zen_Headbutt,
+  &ATK_Fire_Spin,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Psychic,
+  &ATK_Blast_Burn,
+  &ATK_Mystical_Fire,
+  NULL
+};
+
 static const attack* PONYTA_ATKS[] = {
   &ATK_Ember,
   &ATK_Tackle,
@@ -10786,9 +10817,9 @@ static const species sdex[] = {
   {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, NULL, NULL, },
   {  651, "Quilladin", TYPE_GRASS, TYPECOUNT, 146, 156, 156, "Chespin", NULL, },
   {  652, "Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 201, 204, 204, "Quilladin", NULL, },
-  {  653, "Fennekin", TYPE_FIRE, TYPECOUNT, 116, 102, 120, NULL, NULL, },
-  {  654, "Braixen", TYPE_FIRE, TYPECOUNT, 171, 130, 153, "Fennekin", NULL, },
-  {  655, "Delphox", TYPE_FIRE, TYPE_PSYCHIC, 230, 189, 181, "Braixen", NULL, },
+  {  653, "Fennekin", TYPE_FIRE, TYPECOUNT, 116, 102, 120, NULL, FENNEKIN_ATKS, true, false, },
+  {  654, "Braixen", TYPE_FIRE, TYPECOUNT, 171, 130, 153, "Fennekin", BRAIXEN_ATKS, true, false, },
+  {  655, "Delphox", TYPE_FIRE, TYPE_PSYCHIC, 230, 189, 181, "Braixen", DELPHOX_ATKS, true, false, },
   {  656, "Froakie", TYPE_WATER, TYPECOUNT, 122, 84, 121, NULL, FROAKIE_ATKS, true, false, },
   {  657, "Frogadier", TYPE_WATER, TYPECOUNT, 168, 114, 144, "Froakie", FROGADIER_ATKS, true, false, },
   {  658, "Greninja", TYPE_WATER, TYPE_DARK, 223, 152, 176, "Frogadier", GRENINJA_ATKS, true, false, },
