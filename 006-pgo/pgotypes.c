@@ -1094,6 +1094,25 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* ESPURR_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Confusion,
+  &ATK_Psyshock,
+  &ATK_Psychic,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+// FIXME male and female have different moves
+static const attack* MEOWSTIC_ATKS[] = {
+  &ATK_Sucker_Punch,
+  &ATK_Confusion,
+  &ATK_Thunderbolt,
+  &ATK_Psychic,
+  &ATK_Energy_Ball,
+  NULL
+};
+
 static const attack* SALANDIT_ATKS[] = {
   &ATK_Ember,
   &ATK_Poison_Jab,
@@ -10005,8 +10024,8 @@ static const species sdex[] = {
   {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, NULL, PANCHAM_ATKS, true, false, },
   {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham", PANGORO_ATKS, true, false, },
   {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, NULL, },
-  {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, NULL, NULL, },
-  {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr", NULL, },
+  {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, NULL, ESPURR_ATKS, true, false, },
+  {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr", MEOWSTIC_ATKS, true, false, },
   {  682, "Spritzee", TYPE_FAIRY, TYPECOUNT, 110, 113, 186, NULL, NULL, },
   {  683, "Aromatisse", TYPE_FAIRY, TYPECOUNT, 173, 150, 226, "Spritzee", NULL, },
   {  684, "Swirlix", TYPE_FAIRY, TYPECOUNT, 109, 119, 158, NULL, NULL, },
