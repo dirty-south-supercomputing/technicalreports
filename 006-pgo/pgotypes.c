@@ -864,6 +864,27 @@ static const attack* SHIINOTIC_ATKS[] = {
   NULL
 };
 
+static const attack* SKORUPI_ATKS[] = {
+  &ATK_Poison_Sting,
+  &ATK_Infestation,
+  &ATK_Aqua_Tail,
+  &ATK_Cross_Poison,
+  &ATK_Sludge_Bomb,
+  NULL
+};
+
+static const attack* DRAPION_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Poison_Sting,
+  &ATK_Infestation,
+  &ATK_Ice_Fang,
+  &ATK_Aqua_Tail,
+  &ATK_Sludge_Bomb,
+  &ATK_Crunch,
+  &ATK_Fell_Stinger,
+  NULL
+};
+
 static const attack* ROCKRUFF_ATKS[] = {
   &ATK_Tackle,
   &ATK_Rock_Throw,
@@ -9385,8 +9406,8 @@ static const species sdex[] = {
   {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, "Riolu", LUCARIO_ATKS, true, false, },
   {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, NULL, HIPPOPOTAS_ATKS, true, true, },
   {  450, "Hippowdon", TYPE_GROUND, TYPECOUNT, 201, 191, 239, "Hippopotas", HIPPOWDON_ATKS, true, true, },
-  {  451, "Skorupi", TYPE_POISON, TYPE_BUG, 93, 151, 120, NULL, NULL, },
-  {  452, "Drapion", TYPE_POISON, TYPE_DARK, 180, 202, 172, "Skorupi", NULL, },
+  {  451, "Skorupi", TYPE_POISON, TYPE_BUG, 93, 151, 120, NULL, SKORUPI_ATKS, true, true, },
+  {  452, "Drapion", TYPE_POISON, TYPE_DARK, 180, 202, 172, "Skorupi", DRAPION_ATKS, true, true, },
   {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, NULL, },
   {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, "Croagunk", NULL, },
   {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, CARNIVINE_ATKS, true, false, },
