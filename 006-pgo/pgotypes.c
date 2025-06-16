@@ -9494,6 +9494,29 @@ static const attack* MRRIME_ATKS[] = {
   NULL
 };
 
+static const attack* BIDOOF_ATKS[] = {
+  &ATK_Tackle,
+  &ATK_Take_Down,
+  &ATK_Ice_Beam,
+  &ATK_Shadow_Ball,
+  &ATK_Thunderbolt,
+  &ATK_Hyper_Fang,
+  &ATK_Grass_Knot,
+  &ATK_Crunch,
+  &ATK_Superpower,
+  NULL
+};
+
+static const attack* BIBAREL_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Take_Down,
+  &ATK_Rollout,
+  &ATK_Hyper_Beam,
+  &ATK_Hyper_Fang,
+  &ATK_Surf,
+  NULL
+};
+
 static const attack* LEAFEON_ATKS[] = {
   &ATK_Razor_Leaf,
   &ATK_Quick_Attack,
@@ -9641,6 +9664,35 @@ static const attack* RILLABOOM_ATKS[] = {
   &ATK_Grass_Knot,
   &ATK_Energy_Ball,
   &ATK_Earth_Power,
+  NULL
+};
+
+static const attack* TURTWIG_ATKS[] = {
+  &ATK_Razor_Leaf,
+  &ATK_Tackle,
+  &ATK_Seed_Bomb,
+  &ATK_Body_Slam,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* GROTLE_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Razor_Leaf,
+  &ATK_Solar_Beam,
+  &ATK_Body_Slam,
+  &ATK_Energy_Ball,
+  NULL
+};
+
+static const attack* TORTERRA_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Razor_Leaf,
+  &ATK_Earthquake,
+  &ATK_Stone_Edge,
+  &ATK_Solar_Beam,
+  &ATK_Sand_Tomb,
+  &ATK_Frenzy_Plant,
   NULL
 };
 
@@ -10446,9 +10498,9 @@ static const species sdex[] = {
   {  386, "Deoxys Attack", TYPE_PSYCHIC, TYPECOUNT, 414, 46, 137, NULL, A_DEOXYS_ATKS, true, false, },
   {  386, "Deoxys Defense", TYPE_PSYCHIC, TYPECOUNT, 144, 330, 137, NULL, D_DEOXYS_ATKS, true, false, },
   {  386, "Deoxys Speed", TYPE_PSYCHIC, TYPECOUNT, 230, 218, 137, NULL, S_DEOXYS_ATKS, true, false, },
-  {  387, "Turtwig", TYPE_GRASS, TYPECOUNT, 119, 110, 146, NULL, NULL, },
-  {  388, "Grotle", TYPE_GRASS, TYPECOUNT, 157, 143, 181, "Turtwig", NULL, },
-  {  389, "Torterra", TYPE_GRASS, TYPE_GROUND, 202, 188, 216, "Grotle", NULL, },
+  {  387, "Turtwig", TYPE_GRASS, TYPECOUNT, 119, 110, 146, NULL, TURTWIG_ATKS, true, true, },
+  {  388, "Grotle", TYPE_GRASS, TYPECOUNT, 157, 143, 181, "Turtwig", GROTLE_ATKS, true, true, },
+  {  389, "Torterra", TYPE_GRASS, TYPE_GROUND, 202, 188, 216, "Grotle", TORTERRA_ATKS, true, true, },
   {  390, "Chimchar", TYPE_FIRE, TYPECOUNT, 113, 86, 127, NULL, CHIMCHAR_ATKS, true, true, },
   {  391, "Monferno", TYPE_FIRE, TYPE_FIGHTING, 158, 105, 162, "Chimchar", MONFERNO_ATKS, true, true, },
   {  392, "Infernape", TYPE_FIRE, TYPE_FIGHTING, 222, 151, 183, "Monferno", INFERNAPE_ATKS, true, true, },
@@ -10458,8 +10510,8 @@ static const species sdex[] = {
   {  396, "Starly", TYPE_NORMAL, TYPE_FLYING, 101, 58, 120, NULL, STARLY_ATKS, true, true, },
   {  397, "Staravia", TYPE_NORMAL, TYPE_FLYING, 142, 94, 146, "Starly", STARAVIA_ATKS, true, true, },
   {  398, "Staraptor", TYPE_NORMAL, TYPE_FLYING, 234, 140, 198, "Staravia", STARAPTOR_ATKS, true, true, },
-  {  399, "Bidoof", TYPE_NORMAL, TYPECOUNT, 80, 73, 153, NULL, NULL, },
-  {  400, "Bibarel", TYPE_NORMAL, TYPE_WATER, 162, 119, 188, "Bidoof", NULL, },
+  {  399, "Bidoof", TYPE_NORMAL, TYPECOUNT, 80, 73, 153, NULL, BIDOOF_ATKS, true, true, },
+  {  400, "Bibarel", TYPE_NORMAL, TYPE_WATER, 162, 119, 188, "Bidoof", BIBAREL_ATKS, true, true, },
   {  401, "Kricketot", TYPE_BUG, TYPECOUNT, 45, 74, 114, NULL, KRICKETOT_ATKS, true, false, },
   {  402, "Kricketune", TYPE_BUG, TYPECOUNT, 160, 100, 184, "Kricketot", KRICKETUNE_ATKS, true, false, },
   {  403, "Shinx", TYPE_ELECTRIC, TYPECOUNT, 117, 64, 128, NULL, SHINX_ATKS, true, true, },
