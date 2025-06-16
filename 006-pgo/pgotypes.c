@@ -6493,6 +6493,17 @@ static const attack* DECIDUEYE_ATKS[] = {
   NULL
 };
 
+static const attack* H_DECIDUEYE_ATKS[] = {
+  &ATK_Psycho_Cut,
+  &ATK_Magical_Leaf,
+  &ATK_Aerial_Ace,
+  &ATK_Night_Shade,
+  &ATK_Energy_Ball,
+  &ATK_Aura_Sphere,
+  &ATK_Trailblaze,
+  NULL
+};
+
 static const attack* ZARUDE_ATKS[] = {
   &ATK_Bite,
   &ATK_Vine_Whip,
@@ -7421,19 +7432,6 @@ static const attack* ALTARIA_ATKS[] = {
   &ATK_Dazzling_Gleam,
   &ATK_Moonblast,
   &ATK_Sky_Attack,
-  NULL
-};
-
-static const attack* INCINEROAR_ATKS[] = {
-  &ATK_Fire_Fang,
-  &ATK_Snarl,
-  &ATK_Double_Kick,
-  &ATK_Dark_Pulse,
-  &ATK_Flame_Charge,
-  &ATK_Fire_Blast,
-  &ATK_Blast_Burn,
-  &ATK_Blaze_Kick,
-  &ATK_Darkest_Lariat,
   NULL
 };
 
@@ -9852,6 +9850,37 @@ static const attack* DELPHOX_ATKS[] = {
   NULL
 };
 
+static const attack* LITTEN_ATKS[] = {
+  &ATK_Ember,
+  &ATK_Scratch,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* TORRACAT_ATKS[] = {
+  &ATK_Bite,
+  &ATK_Ember,
+  &ATK_Flamethrower,
+  &ATK_Flame_Charge,
+  &ATK_Crunch,
+  NULL
+};
+
+static const attack* INCINEROAR_ATKS[] = {
+  &ATK_Fire_Fang,
+  &ATK_Snarl,
+  &ATK_Double_Kick,
+  &ATK_Dark_Pulse,
+  &ATK_Flame_Charge,
+  &ATK_Fire_Blast,
+  &ATK_Blast_Burn,
+  &ATK_Blaze_Kick,
+  &ATK_Darkest_Lariat,
+  NULL
+};
+
 static const attack* PONYTA_ATKS[] = {
   &ATK_Ember,
   &ATK_Tackle,
@@ -10895,9 +10924,9 @@ static const species sdex[] = {
   {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, ROWLET_ATKS, true, false, },
   {  723, "Dartrix", TYPE_GRASS, TYPE_FLYING, 142, 139, 186, "Rowlet", DARTRIX_ATKS, true, false, },
   {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", DECIDUEYE_ATKS, true, false, },
-  {  724, "Hisuian Decidueye", TYPE_GRASS, TYPE_FIGHTING, 213, 174, 204, NULL, NULL, },
-  {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, NULL, },
-  {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, NULL, },
+  {  724, "Hisuian Decidueye", TYPE_GRASS, TYPE_FIGHTING, 213, 174, 204, NULL, H_DECIDUEYE_ATKS, true, false, },
+  {  725, "Litten", TYPE_FIRE, TYPECOUNT, 128, 79, 128, NULL, LITTEN_ATKS, true, false, },
+  {  726, "Torracat", TYPE_FIRE, TYPECOUNT, 174, 103, 163, NULL, TORRACUT_ATKS, true, false, },
   {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, NULL, INCINEROAR_ATKS, true, false, },
   {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, NULL, POPPLIO_ATKS, true, false, },
   {  729, "Brionne", TYPE_WATER, TYPECOUNT, 168, 145, 155, "Popplio", BRIONNE_ATKS, true, false, },
