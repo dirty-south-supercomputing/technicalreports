@@ -11,7 +11,7 @@ void print_bounded_table(int bound, float lbound){
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
   printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
-  printf("\\Midrule\\\\\n");
+  printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){

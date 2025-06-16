@@ -260,7 +260,7 @@ defensive_summaries_latex(const typing* t){
   // defensive typing summaries
   printf("\\begin{longtable}{crrrrrrrrr}\n");
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n");
-  printf("\\Midrule\\\\\n");
+  printf("\\Midrule\n");
   printf("\\endhead\n");
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
     unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);

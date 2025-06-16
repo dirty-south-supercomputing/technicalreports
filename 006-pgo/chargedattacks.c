@@ -21,7 +21,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrr}\n");
   printf("Attack & P & $\\times\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\times\\frac{6}{5}$ & Pop\\\\\n");
-  printf("\\Midrule\\\\\n");
+  printf("\\Midrule\n");
   int c = ccount;
   while(--c >= 0){
     const attack* a = &as[c];

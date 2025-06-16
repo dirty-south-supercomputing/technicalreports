@@ -13,7 +13,7 @@ void print_latex_table(const unsigned *acounts){
   printf("\\footnotesize\n");
   printf("\\begin{tabular}{lrrrrr}\n");
   printf("Type & 1 & 2 & 3 & 4 & 5\\\\\n");
-  printf("\\Midrule\\\\\n");
+  printf("\\Midrule\n");
   for(unsigned e = 0 ; e < TYPECOUNT ; ++e){
     printf("%s", TNames[e]);
     for(int i = 0 ; i < MAXTURNS ; ++i){
