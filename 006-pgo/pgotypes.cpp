@@ -10289,6 +10289,28 @@ static const attack* G_RAPIDASH_ATKS[] = {
   NULL
 };
 
+static const attack* SANDYGAST_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Astonish,
+  &ATK_Sand_Attack,
+  &ATK_Shadow_Ball,
+  &ATK_Sand_Tomb,
+  &ATK_Earth_Power,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
+static const attack* PALOSSAND_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Astonish,
+  &ATK_Sand_Attack,
+  &ATK_Shadow_Ball,
+  &ATK_Sand_Tomb,
+  &ATK_Earth_Power,
+  &ATK_Scorching_Sands,
+  NULL
+};
+
 static const attack* SLOWPOKE_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Confusion,
@@ -11373,8 +11395,8 @@ static const species sdex[] = {
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, NULL, PASSIMIAN_ATKS, true, false, },
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, NULL, WIMPOD_ATKS, true, false, },
   {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod", GOLISOPOD_ATKS, true, false, },
-  {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, NULL, },
-  {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast", NULL, },
+  {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, NULL, SANDYGAST_ATKS, true, false, },
+  {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast", PALOSSAND_ATKS, true, false, },
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, NULL, KOMALA_ATKS, true, false, },
   {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, NULL, TURTONATOR_ATKS, true, false, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, NULL, TOGEDEMARU_ATKS, false, false, },
