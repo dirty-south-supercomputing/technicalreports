@@ -24,11 +24,13 @@ FORMS:=out/forms
 SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
+USERS:=out/users
 WEATHER:=out/weather
 ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPES:=out/dualtypes.tex
+USERSTEX:=$(USERS).tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
 MEGATEX:=out/mega.tex
@@ -43,7 +45,8 @@ HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
-	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX)
+	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
+	$(USERSTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -96,7 +99,7 @@ $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
-$(OUT)/%: %.c pgotypes.c
+$(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)
 	g++ -o $@ -Wall -W -O2 $(<F) -lm
 

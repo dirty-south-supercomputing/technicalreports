@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cstdint>
 
 #define TYPESTART TYPE_BUG
 
@@ -739,6 +740,8 @@ static const attack* const attacks[] = {
   &ATK_XScissor,
   &ATK_Zap_Cannon,
 };
+
+const size_t ATTACKCOUNT = sizeof(attacks) / sizeof(*attacks);
 
 static const attack* WIGLETT_ATKS[] = {
   &ATK_Water_Gun,
@@ -11689,8 +11692,9 @@ has_stab_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[boxsep=0mm,title=\\#%04u", s->idx);
-  printf(",sidebyside,lower separated=false,fonttitle=\\bfseries,after title={");
+  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u", s->idx);
+  printf(",colbacktitle=%s,sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
+      "Bug");
   print_types(s->t1, s->t2);
   for(const char* curs = s->name ; *curs ; ++curs){
     if(*curs != '%'){

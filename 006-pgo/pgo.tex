@@ -18,6 +18,7 @@
 \usepackage{tabularray}
 \usepackage{longtable}
 \usepackage{tcolorbox}
+\tcbuselibrary{most}
 \usepackage{listings}
 \usepackage{makecell}
 \usepackage{varwidth}
@@ -57,6 +58,26 @@
 \renewcommand{\insertchapterspace}{}
 
 \newcommand\Midrule[0]{\midrule}
+
+\definecolor{Bug}{HTML}{A6B91A}
+\definecolor{Dark}{HTML}{EE8130}
+\definecolor{Dragon}{HTML}{705746}
+\definecolor{Electric}{HTML}{6F35FC}
+\definecolor{Fairy}{HTML}{F7D02C}
+\definecolor{Fighting}{HTML}{D685AD}
+\definecolor{Fire}{HTML}{C22E28}
+\definecolor{Flying}{HTML}{A98FF3}
+\definecolor{Ghost}{HTML}{735797}
+\definecolor{Grass}{HTML}{7AC74C}
+\definecolor{Ground}{HTML}{E2BF65}
+\definecolor{Ice}{HTML}{96D9D6}
+\definecolor{Normal}{HTML}{A8A77A}
+\definecolor{Poison}{HTML}{A33EA1}
+\definecolor{Psychic}{HTML}{F95587}
+\definecolor{Rock}{HTML}{B6A136}
+\definecolor{Steel}{HTML}{B7B7CE}
+\definecolor{Water}{HTML}{6390F0}
+
 
 \def\LOGO {
   \textbf{
@@ -165,5 +186,6 @@ Forms have been combined when distinguished only visually.
 Attacks are sorted by duration, and within duration by the product of DPT and EPT.
 
 \textbf{FIXME: need index by name}
+\input{out/users}
 \input{about}
 \end{document}

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "pgotypes.c"
+#include "pgotypes.cpp"
 
 typedef enum {
   WEATHER_CLEAR,

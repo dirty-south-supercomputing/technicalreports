@@ -1,4 +1,4 @@
-#include "pgotypes.c"
+#include "pgotypes.cpp"
 
 static int
 print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
