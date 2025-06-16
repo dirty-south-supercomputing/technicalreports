@@ -12085,7 +12085,6 @@ species* create_shadow(const species* s){
 #define SHADSUFFIX " (Shadow)"
   species *news = new species(s->name + SHADSUFFIX);
 #undef SHADSUFFIX
-printf("MADE SHADOW: {%s}\n", news->name.c_str());
   news->idx = s->idx;
   news->t1 = s->t1;
   news->t2 = s->t2;

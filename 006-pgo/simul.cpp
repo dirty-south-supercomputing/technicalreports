@@ -52,7 +52,7 @@ static void
 print_pmon(const pmon *p){
   // FIXME need attacks
   printf("%s effa: %g effd: %g mhp: %u cp %u\n",
-        p->s.s->name, p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
+        p->s.s->name.c_str(), p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
   printf(" f attack: %s\t%3u %3d %u\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
   printf(" c attack: %s\t%3u %3d\n", p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
   if(p->ca2){
@@ -331,7 +331,8 @@ lex_pmon(pmon* p, unsigned *hp, int *argc, char*** argv){
   p->ca2 = NULL;
   p->ca1 = species_charged_attack(p->s.s, (*argv)[3]);
   if(!p->fa || !p->ca1){
-    fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name, (*argv)[2], (*argv)[3]);
+    fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name.c_str(),
+            (*argv)[2], (*argv)[3]);
     return -1;
   }
   fill_stats(&p->s);
