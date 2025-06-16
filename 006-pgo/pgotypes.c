@@ -873,6 +873,28 @@ static const attack* SKORUPI_ATKS[] = {
   NULL
 };
 
+static const attack* CROAGUNK_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Low_Sweep,
+  &ATK_Sludge_Bomb,
+  &ATK_Brick_Break,
+  NULL
+};
+
+static const attack* TOXICROAK_ATKS[] = {
+  &ATK_Mud_Shot,
+  &ATK_Poison_Jab,
+  &ATK_Poison_Sting,
+  &ATK_Counter,
+  &ATK_Shadow_Ball,
+  &ATK_Sludge_Bomb,
+  &ATK_Mud_Bomb,
+  &ATK_Dynamic_Punch,
+  NULL
+};
+
 static const attack* DRAPION_ATKS[] = {
   &ATK_Bite,
   &ATK_Poison_Sting,
@@ -8361,6 +8383,24 @@ static const attack* BUZZWOLE_ATKS[] = {
   NULL
 };
 
+static const attack* AIPOM_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Astonish,
+  &ATK_Aerial_Ace,
+  &ATK_Low_Sweep,
+  &ATK_Swift,
+  NULL
+};
+
+static const attack* AMBIPOM_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Astonish,
+  &ATK_Hyper_Beam,
+  &ATK_Aerial_Ace,
+  &ATK_Low_Sweep,
+  NULL
+};
+
 static const attack* I_LANDORUS_ATKS[] = {
   &ATK_Mud_Shot,
   &ATK_Rock_Throw,
@@ -9130,7 +9170,7 @@ static const species sdex[] = {
   {  187, "Hoppip", TYPE_GRASS, TYPE_FLYING, 67, 94, 111, NULL, NULL, },
   {  188, "Skiploom", TYPE_GRASS, TYPE_FLYING, 91, 120, 146, "Hoppip", NULL, },
   {  189, "Jumpluff", TYPE_GRASS, TYPE_FLYING, 118, 183, 181, "Skiploom", NULL, },
-  {  190, "Aipom", TYPE_NORMAL, TYPECOUNT, 136, 112, 146, NULL, NULL, },
+  {  190, "Aipom", TYPE_NORMAL, TYPECOUNT, 136, 112, 146, NULL, AIPOM_ATKS, true, true, },
   {  191, "Sunkern", TYPE_GRASS, TYPECOUNT, 55, 55, 102, NULL, NULL, },
   {  192, "Sunflora", TYPE_GRASS, TYPECOUNT, 185, 135, 181, "Sunkern", NULL, },
   {  193, "Yanma", TYPE_BUG, TYPE_FLYING, 154, 94, 163, NULL, YANMA_ATKS, true, false, },
@@ -9379,7 +9419,7 @@ static const species sdex[] = {
   {  421, "Cherrim (Overcast Form)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi", O_CHERRIM_ATKS, true, false, },
   {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, NULL, SHELLOS_ATKS, true, false, },
   {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", GASTRODON_ATKS, true, false, },
-  {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", NULL, },
+  {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", AMBIPOM_ATKS, true, true, },
   {  425, "Drifloon", TYPE_GHOST, TYPE_FLYING, 117, 80, 207, NULL, NULL, },
   {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", NULL, },
   {  427, "Buneary", TYPE_NORMAL, TYPECOUNT, 130, 105, 146, NULL, BUNEARY_ATKS, true, false, },
@@ -9408,8 +9448,8 @@ static const species sdex[] = {
   {  450, "Hippowdon", TYPE_GROUND, TYPECOUNT, 201, 191, 239, "Hippopotas", HIPPOWDON_ATKS, true, true, },
   {  451, "Skorupi", TYPE_POISON, TYPE_BUG, 93, 151, 120, NULL, SKORUPI_ATKS, true, true, },
   {  452, "Drapion", TYPE_POISON, TYPE_DARK, 180, 202, 172, "Skorupi", DRAPION_ATKS, true, true, },
-  {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, NULL, },
-  {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, "Croagunk", NULL, },
+  {  453, "Croagunk", TYPE_POISON, TYPE_FIGHTING, 116, 76, 134, NULL, CROAGUNK_ATKS, true, true, },
+  {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, "Croagunk", TOXICROAK_ATKS, true, true, },
   {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, NULL, CARNIVINE_ATKS, true, false, },
   {  456, "Finneon", TYPE_WATER, TYPECOUNT, 96, 116, 135, NULL, FINNEON_ATKS, true, false, },
   {  457, "Lumineon", TYPE_WATER, TYPECOUNT, 142, 170, 170, "Finneon", LUMINEON_ATKS, true, false, },
