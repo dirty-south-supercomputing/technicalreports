@@ -141,7 +141,7 @@ simulturn(const simulstate *ins, results *r){
   }
   if(!p1ongoing && p2ongoing){ // cartesian of p1 and wait
     printf("turn %u recursing p2wait %u %u\n", s.turn, s.p1turns, s.p2turns);
-    //simulturn(&s, r); // p1 does nothing
+    simulturn(&s, r); // p1 does nothing
     s.p1turns = p1.fa->turns; // p1 launches fast attack
     s.p1energy += p1.fa->energytrain;
     simulturn(&s, r);
