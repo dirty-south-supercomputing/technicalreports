@@ -1,4 +1,6 @@
 \chapter{Spawning and catching}
+Pokémon GO is intended to be played on the move
+
 \label{chap:spawn}
 \textbf{FIXME}
 
@@ -11,49 +13,80 @@
 \textbf{FIXME}
 
 \subsection{Berries}
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/razz.png}
+    \end{center}
+    \caption[Razz berry]{Razz}
+    \label{fig:razz}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/nanab.png}
+    \end{center}
+    \caption[Nanab berry]{Nanab}
+    \label{fig:nanab}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/pinap.png}
+    \end{center}
+    \caption[Pinap berry]{Pinap}
+    \label{fig:pinap}
+  \end{minipage}
+\end{figure}
 Berries can enhance the catching process (\autoref{table:berries}).
 Only one Berry can be applied to a Pokémon at a time.
+If a Berry is active, its icon will be shown on the encounter summary.
 The Berry is consumed upon use, but persists on the Pokémon across Pokéballs
   and even encounters (i.e., you can leave the encounter, and if you return,
   the Berry will still be applied).
 If the Pokémon escapes a Pokéball, however, any applied Berry is gone forever.
 A new Berry can be used in this case.
-
 \begin{table}[ht]
 \begin{center}
-\begin{tabular}{lll}
-Berry & Effect & How to acquire \\
+  \begin{tabular}{lp{.5\textwidth}}
+Berry & Effect \\
 \Midrule
-Razz \includegraphics[width=1em]{images/razz.png} & & \\
-Nanab \includegraphics[width=1em]{images/nanab.png} & & \\
-Pinap \includegraphics[width=1em]{images/pinap.png} & & \\
-Silver Pinap \includegraphics[width=1em]{images/silverpinap.png} & &\\
-Golden Razz \includegraphics[width=1em]{images/goldenrazz.png} & & \\
+Razz \includegraphics[width=1em]{images/razz.png} & 150\% catch percentage\\
+Nanab \includegraphics[width=1em]{images/nanab.png} & Immobilizes Pokémon\\
+Pinap \includegraphics[width=1em]{images/pinap.png} & Boosts Candy rewards:\newline3→7, 5→11, 10→23\\
+Silver Pinap \includegraphics[width=1em]{images/silverpinap.png} & 180\% catch percentage\newline Boosts Candy rewards:\newline3→7, 5→11, 10→23\\
+Golden Razz \includegraphics[width=1em]{images/goldenrazz.png} & 250\% catch percentage\newline Restore full HP to Gym defender\\
 \end{tabular}
 \end{center}
 \caption{Berries and their uses}
 \label{table:berries}
 \end{table}
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/silverpinap.png}
+    \end{center}
+    \caption[Silver pinap berry]{Silver pinap}
+    \label{fig:silverpinap}
+  \end{minipage}
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/goldenrazz.png}
+    \end{center}
+    \caption[Golden razz berry]{Golden razz}
+    \label{fig:goldenrazz}
+  \end{minipage}
+\end{figure}
 
-\section{Shiny Pokémon}
+\section{Shiny Pokémon and other visual forms}
 \label{sec:shiny}
 Many Pokémon have an alternate presentation known as their ``Shiny'' form.
 These forms are collected in their own Pokédex (\autoref{sec:dexen}).
+Shadow and Purified Pokémon can be Shiny.
 Shininess is preserved across evolution, purification, and trades.
-Shininess is not determined at the level of Pokémon spawns, but for individual
-  Trainers' encounters.
-Two Trainers encountering the same spawn might disagree on the shininess.
-
-I find the fascination with Shiny Pokémon completely bizarre.
-They're very important to many players, despite offering no advantage in battle,
-  and being in no way associated with higher levels or IVs.
-Personally, I transfer them to the Professor without a second thought.
-His usual culinary magic leads to a particularly shiny feast of harvested Pokésoul.
-
-There are also special backgrounds, usually associated with events.
-That Froufrou dog's uselessness in combat is matched only by its
-  capacity for wasting Stardust taking on any number of visual forms.
-I don't intend to get into the topic any further.
+Shininess is not determined at the scope of Pokémon spawns, but for individual
+  Trainers' encounters: two Trainers encountering the same spawn might disagree
+  on whether or not it is Shiny.
+Shiny forms are fairly rare (\autoref{table:shiny}), but various events
+  enhance the probability of their generation.
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{ll}
@@ -69,4 +102,13 @@ Context & Probability of shine \\
 \label{table:shiny}
 \end{table}
 
+Despite offering no advantage in battle, and being in no way associated with
+  higher levels or IVs, Shiny forms are of great importance to many players.
+Personally, unless I expect to trade them, I transfer them to the Professor
+  without a second thought.
+His usual culinary magic leads to a particularly shiny feast of harvested Pokésoul.
 
+Events sometimes make possible special backgrounds or clothed forms.
+Froufrou's uselessness in combat is matched only by its
+  capacity for wasting Stardust taking on any number of visual forms.
+I don't intend to get into the topic any further.
