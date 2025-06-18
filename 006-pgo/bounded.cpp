@@ -30,20 +30,26 @@ create_shadow(const species* s){
 // insert list s into list pointed to by head according to s->geommean
 static void
 insert_opt_stat(stats **head, stats *s){
-    while(s){
-      stats **prev = head;
-      stats *tmp;
-      while( (tmp = *prev) ){
-        if(s->geommean > tmp->geommean){
-          break;
+  while(s){
+    stats **prev = head;
+    stats *tmp;
+    while( (tmp = *prev) ){
+      if(s->average > tmp->average){
+        break;
+      }else if(s->average == tmp->average){
+        if(s->s->name == tmp->s->name){
+          if(s->geommean > tmp->geommean){
+            break;
+          }
         }
-        prev = &tmp->next;
       }
-      stats* tmps = s->next;
-      s->next = tmp;
-      *prev = s;
-      s = tmps;
+      prev = &tmp->next;
     }
+    stats* tmps = s->next;
+    s->next = tmp;
+    *prev = s;
+    s = tmps;
+  }
 }
 
 // print optimal sets bounded by CP of |bound| above and geometric mean of |lbound| below
@@ -52,17 +58,17 @@ void print_bounded_table(int bound, float lbound){
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
-  printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
+  printf("\\begin{longtable}{lrrrrrrrrr}\n");
+  printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound);
+    stats *s = find_optimal_set(sp, bound, lbound, false);
     if(sp->shadow){
       const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, lbound);
+      stats *shadsets = find_optimal_set(shads, bound, lbound, true);
       insert_opt_stat(&sols, shadsets);
     }
     insert_opt_stat(&sols, s);
@@ -79,14 +85,21 @@ void print_bounded_table(int bound, float lbound){
         }
         putchar(*curs);
       }
-      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %4u & %.1f\\\\\n",
+      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
               l, half ? ".5" : "",
               tmp->ia, tmp->id, tmp->is,
-              tmp->mhp, tmp->effa, tmp->effd, tmp->geommean,
+              tmp->mhp, tmp->effa, tmp->effd,
+              tmp->average,
+              tmp->geommean,
               tmp->cp,
               tmp->apercent);
     }else{
-      printf(" & & %u/%u/%u & & & & & %4u\\\\\n", tmp->ia, tmp->id, tmp->is, tmp->cp);
+      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
+      //printf(" & %2u%s & %u/%u/%u & & & & & %.2f & %4u\\\\\n",
+              l, half ? ".5" : "",
+              tmp->ia, tmp->id, tmp->is,
+              tmp->mhp, tmp->effa, tmp->effd,
+              tmp->geommean, tmp->cp);
     }
     lastspecies = tmp->s;
     sols = sols->next;

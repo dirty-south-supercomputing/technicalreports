@@ -11952,8 +11952,9 @@ typedef struct stats {
   float effa, effd;         // effective attack and defense
   unsigned mhp;             // max hit points
   unsigned cp;              // combat power
+  float average;            // arithemetic mean of effa, effd, mhp
   float geommean;           // geometric mean of effa, effd, mhp
-  float apercent;           // advantage over pessimal level-maxed iv
+  float apercent;           // geommean advantage over pessimal level-maxed iv
   struct stats* next;
 } stats;
 
@@ -11966,20 +11967,33 @@ calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
 
 // provide mod_a
 static inline float
-calc_eff_a(unsigned atk, unsigned halflevel){
-  return cpm(halflevel) * atk;
+calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
+  float effa = cpm(halflevel) * atk;
+  if(isshadow){
+    effa = effa * 6 / 5;
+  }
+  return effa;
 }
 
 // provide mod_d
 static inline float
-calc_eff_d(unsigned def, unsigned halflevel){
-  return cpm(halflevel) * def;
+calc_eff_d(unsigned def, unsigned halflevel, bool isshadow){
+  float effd = cpm(halflevel) * def;
+  if(isshadow){
+    effd = effd * 5 / 6;
+  }
+  return effd;
 }
 
 // provide mod_s
 static inline unsigned
 calc_mhp(unsigned sta, unsigned halflevel){
   return floor(cpm(halflevel) * sta);
+}
+
+static inline float
+calc_avg(float effa, float effd, unsigned mhp){
+  return (effa + effd + mhp) / 3;
 }
 
 static inline float
@@ -12018,13 +12032,14 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
 
 static int
 update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float gmfloor, float* minmean){
+              unsigned is, unsigned hl, float gmfloor, float* minmean,
+              bool isshadow){
   stats **prev = osets;
   stats *cur;
   unsigned moda = s->atk + ia;
   unsigned modd = s->def + id;
-  float effa = calc_eff_a(moda, hl);
-  float effd = calc_eff_d(modd, hl);
+  float effa = calc_eff_a(moda, hl, isshadow);
+  float effd = calc_eff_d(modd, hl, isshadow);
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
   float gm = calc_fit(effa, effd, mhp);
@@ -12069,6 +12084,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   cur->effd = effd;
   cur->mhp = mhp;
   cur->cp = calccp(moda, modd, mods, cur->hlevel);
+  cur->average = calc_avg(cur->effa, cur->effd, cur->mhp);
   cur->geommean = calc_fit(cur->effa, cur->effd, cur->mhp);
   cur->next = *prev;
   *prev = cur;
@@ -12078,7 +12094,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
 // returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
 // with a CP less than or equal to cpceil and harmonic mean of EffA, EffD
 // and MHP greater than or equal to gmfloor.
-stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
+stats *find_optimal_set(const species* s, int cpceil, float gmfloor, bool isshadow){
   stats* optsets = NULL;
   float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -12086,7 +12102,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor, &minmean) < 0){
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor, &minmean, isshadow) < 0){
           return NULL;
         }
       }
@@ -12103,7 +12119,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
     cur->s = s;
     //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
-    if(cur->geommean > maxmean){ // new optimal
+    if(cur->average > maxmean){ // new optimal
       stats* c;
       // clean out existing true optimals
       while( (c = collectopt) ){
@@ -12113,8 +12129,8 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
       collectopt = cur;
       qopt = &cur->next;
       cur->next = NULL;
-      maxmean = cur->geommean;
-    }else if(cur->geommean == maxmean){ // FIXME unsafe FP comparison
+      maxmean = cur->average;
+    }else if(cur->average == maxmean){ // FIXME unsafe FP comparison
       *qopt = cur;
       qopt = &cur->next;
       cur->next = NULL;
@@ -12122,9 +12138,8 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
       free(cur);
     }
   }
-  // FIXME need we set apercent in all we return?
-  if(collectopt){
-    collectopt->apercent = (collectopt->geommean / minmean - 1.0) * 100;
+  for(stats *s = collectopt ; s ; s = s->next){
+    s->apercent = (s->average / minmean - 1.0) * 100;
   }
   return collectopt;
 }
@@ -12190,7 +12205,7 @@ unsigned learner_count(const attack* as){
 }
 
 void print_optimal_latex(const species* sp){
-  stats* s = find_optimal_set(sp, 2500, 0);
+  stats* s = find_optimal_set(sp, 2500, 0, false);
   while(s){
     stats* tmp = s->next;
     unsigned half;
@@ -12200,7 +12215,7 @@ void print_optimal_latex(const species* sp){
     s = tmp;
   }
   printf("& ");
-  s = find_optimal_set(sp, 1500, 0);
+  s = find_optimal_set(sp, 1500, 0, false);
   while(s){
     stats* tmp = s->next;
     unsigned half;

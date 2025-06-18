@@ -40,8 +40,9 @@ fill_stats(stats* s){
   s->atk = s->s->atk;
   s->def = s->s->def;
   s->sta = s->s->sta;
-  s->effa = calc_eff_a(s->atk + s->ia, s->hlevel);
-  s->effd = calc_eff_d(s->def + s->id, s->hlevel);
+  // FIXME handle shadow forms
+  s->effa = calc_eff_a(s->atk + s->ia, s->hlevel, false);
+  s->effd = calc_eff_d(s->def + s->id, s->hlevel, false);
   s->mhp = calc_mhp(s->sta + s->is, s->hlevel);
   s->geommean = calc_fit(s->effa, s->effd, s->mhp);
   s->cp = calccp(s->atk + s->ia, s->def + s->id, s->sta + s->is, s->hlevel);
