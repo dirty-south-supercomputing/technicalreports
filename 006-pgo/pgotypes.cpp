@@ -12232,24 +12232,34 @@ has_stab_p(const species *s, const attack *a){
   return a->type == s->t1 || a->type == s->t2;
 }
 
+static int
+escape_string(const char *s){
+  for(const char* curs = s ; *curs ; ++curs){
+    if(*curs != '%'){
+      if(printf("%c", *curs) < 0){
+        return -1;
+      }
+    }else{
+      if(printf("\\%%") < 0){
+        return -1;
+      }
+    }
+  }
+  return 0;
+}
+
 void print_species_latex(const species* s){
   printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u ", s->idx);
   printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
-  print_types(s->t1, s->t2);
+  escape_string(s->name.c_str());
   printf(" ");
-  for(const char* curs = s->name.c_str() ; *curs ; ++curs){
-    if(*curs != '%'){
-      printf("%c", *curs);
-    }else{
-      printf("\\%%");
-    }
-  }
+  print_types(s->t1, s->t2);
   if(s->shadow){
-    printf("\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
+    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
   }
   if(s->shiny){
-    printf("\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
   }
   printf("\\hfill%u %u %u %.2f}]\n",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
@@ -12258,7 +12268,10 @@ void print_species_latex(const species* s){
     printf("\\begin{tabular}{lrrrrr}\n");
     for(const attack** a = s->attacks ; *a ; ++a){
       unsigned stab = has_stab_p(s, *a);
-      float power = (*a)->powertrain * (stab ? 1.2 : 1);
+      float power = (*a)->powertrain;
+      if(stab){
+        power = power * 6 / 5;
+      }
       print_type((*a)->type);
       if((*a)->energytrain < 0){
         const float dpe = power / -(*a)->energytrain;
