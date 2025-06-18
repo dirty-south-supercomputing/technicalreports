@@ -43,9 +43,15 @@ int main(void){
   printf("\\begin{center}\n");
   printf("\\begin{tabular}{p{.5\\textwidth}p{.5\\textwidth}}\n");
   unsigned count = 0;
-  print_hetero_evols(sdex, SPECIESCOUNT, &count);
-  print_hetero_evols(megasdex, MEGACOUNT, &count);
-  print_hetero_evols(primalsdex, PRIMALCOUNT, &count);
+  if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
+    return EXIT_FAILURE;
+  }
+  if(print_hetero_evols(megasdex, MEGACOUNT, &count)){
+    return EXIT_FAILURE;
+  }
+  if(print_hetero_evols(primalsdex, PRIMALCOUNT, &count)){
+    return EXIT_FAILURE;
+  }
   printf("\\end{tabular}\n");
   printf("\\caption{Type-changing evolutions and form changes}\n");
   printf("\\label{table:heteroevolve}\n");
