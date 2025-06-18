@@ -359,7 +359,13 @@ attack_summaries(void){
   printf("\n");
 }*/
 
-int main(void){
+static void
+usage(const char* argv0){
+  fprintf(stderr, "usage: %s [ summary ]\n", argv0);
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, const char** argv){
   /*printf("Attack efficiencies\n");
   printf("          Bu Da Dr El Fa Fg Fi Fl Gh Gs Gd Ic No Po Py Ro St Wa\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -378,8 +384,16 @@ int main(void){
   attack_summaries();*/
 
   auto t = setup_typings();
+  if(argc == 2){
+    if(strcmp(argv[1], "summary")){
+      usage(argv[0]);
+    }
+    qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
+    defensive_summaries_latex(t.get());
+    return EXIT_SUCCESS;
+  }else if(argc != 1){
+    usage(argv[0]);
+  }
   defensive_relations_latex(t.get());
-  qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
-  defensive_summaries_latex(t.get());
   return EXIT_SUCCESS;
 }

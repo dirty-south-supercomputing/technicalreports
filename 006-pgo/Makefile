@@ -18,7 +18,7 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 UPSTREAM:=$(addsuffix .csv, moves)
 FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
-TYPES:=out/dualtypes
+DUALTYPES:=out/dualtypes
 SPECIES:=out/species
 FORMS:=out/forms
 SIMUL:=out/simul
@@ -29,7 +29,8 @@ WEATHER:=out/weather
 ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
-DUALTYPES:=out/dualtypes.tex
+DUALTYPESTEX:=out/dualtypes.tex
+DUALSUMSTEX:=out/dualsummaries.tex
 USERSTEX:=$(USERS).tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
@@ -43,10 +44,10 @@ CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
-GENTEX:=$(DUALTYPES) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
+GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(USERSTEX)
+	$(USERSTEX) $(DUALSUMSTEX)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -66,6 +67,14 @@ $(OUT)/dot/%.png: dot/%
 $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
+
+$(OUT)/dualtypes.tex: $(OUT)/dualtypes
+	@mkdir -p $(@D)
+	$(<) > $@
+
+$(OUT)/dualsummaries.tex: $(OUT)/dualtypes
+	@mkdir -p $(@D)
+	$(<) summary > $@
 
 $(OUT)/cp1500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)

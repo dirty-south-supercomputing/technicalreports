@@ -12075,38 +12075,10 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   return 0;
 }
 
-// take the provided species, and generate a new species object reflecting
-// the shadow bonus. this object will persist.
-species* create_shadow(const species* s){
-  if(!s->shadow){
-    std::cerr << "no shadow form exists for " << s->name << std::endl;
-    return NULL;
-  }
-#define SHADSUFFIX " (Shadow)"
-  species *news = new species(s->name + SHADSUFFIX);
-#undef SHADSUFFIX
-  news->idx = s->idx;
-  news->t1 = s->t1;
-  news->t2 = s->t2;
-  news->atk = s->atk;
-  news->def = s->def;
-  news->sta = s->sta;
-  news->from = s->from;
-  news->attacks = s->attacks;
-  news->shiny = s->shiny;
-  news->shadow = false;
-  return news;
-}
-
 // returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
 // with a CP less than or equal to cpceil and harmonic mean of EffA, EffD
 // and MHP greater than or equal to gmfloor.
 stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
-  stats* shadsets = NULL;
-  if(s->shadow){
-    species *shads = create_shadow(s);
-    shadsets = find_optimal_set(shads, cpceil, gmfloor);
-  }
   stats* optsets = NULL;
   float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -12120,7 +12092,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor){
       }
     }
   }
-  stats* collectopt = shadsets;
+  stats* collectopt = NULL;
   stats** qopt = &collectopt;
   float maxmean = -1;
   // print the optimal frontier (large), and extract the truly optimal sets (small)
