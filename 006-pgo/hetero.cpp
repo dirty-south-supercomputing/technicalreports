@@ -38,10 +38,9 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
 
 // print a latex table of evolutions which change types
 int main(void){
-  printf("\\begin{table}[ht]\n");
-  printf("\\footnotesize\n");
-  printf("\\begin{center}\n");
-  printf("\\begin{tabular}{p{.5\\textwidth}p{.5\\textwidth}}\n");
+  puts("\\begin{center}");
+  puts("\\footnotesize");
+  puts("\\begin{longtable}{p{.5\\textwidth}p{.5\\textwidth}}");
   unsigned count = 0;
   if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
     return EXIT_FAILURE;
@@ -52,10 +51,9 @@ int main(void){
   if(print_hetero_evols(primalsdex, PRIMALCOUNT, &count)){
     return EXIT_FAILURE;
   }
-  printf("\\end{tabular}\n");
-  printf("\\caption{Type-changing evolutions and form changes}\n");
-  printf("\\label{table:heteroevolve}\n");
-  printf("\\end{center}\n");
-  printf("\\end{table}\n");
+  puts("\\caption{Type-changing evolutions and form changes}");
+  puts("\\label{table:heteroevolve}");
+  puts("\\end{longtable}");
+  puts("\\end{center}");
   return EXIT_SUCCESS;
 }
