@@ -7549,6 +7549,7 @@ static const attack* PIKACHU_ATKS[] = {
   &ATK_Thunderbolt,
   &ATK_Wild_Charge,
   &ATK_Surf,
+  &ATK_Volt_Tackle,
   NULL
 };
 
@@ -10843,7 +10844,7 @@ static const species sdex[] = {
   {   22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, "Spearow", FEAROW_ATKS, true, false, },
   {   23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, NULL, EKANS_ATKS, true, true, },
   {   24, "Arbok", TYPE_POISON, TYPECOUNT, 167, 153, 155, "Ekans", ARBOK_ATKS, true, true, },
-  {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, NULL, PIKACHU_ATKS, true, false, },
+  {   25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, "Pichu", PIKACHU_ATKS, true, false, },
   {   26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu", RAICHU_ATKS, true, false, },
   {   26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, NULL, ALOLAN_RAICHU_ATKS, true, false, },
   {   27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, NULL, SANDSHREW_ATKS, true, true, },
@@ -12173,7 +12174,7 @@ void print_type(pgo_types_e t){
 void print_types(pgo_types_e t1, pgo_types_e t2){
   print_type(t1);
   if(t1 != t2){
-    printf(" ");
+    putc(' ', stdout);
     print_type(t2);
   }
 }
@@ -12249,11 +12250,12 @@ escape_string(const char *s){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u", s->idx);
   printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
+  putc(' ', stdout);
   escape_string(s->name.c_str());
-  printf(" ");
+  putc(' ', stdout);
   print_types(s->t1, s->t2);
   if(s->shadow){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
