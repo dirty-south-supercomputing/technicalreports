@@ -2,7 +2,7 @@
 
 static void
 print_attack_users(const attack *a){
-  printf("\\begin{tcolorbox}[title=%s,colback=%s]\n",
+  printf("\\begin{tcolorbox}[enhanced,title=%s,colbacktitle=%s]\n",
           a->name, a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   printf("\\end{tcolorbox}\n");
 }
