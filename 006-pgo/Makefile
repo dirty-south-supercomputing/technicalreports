@@ -11,7 +11,6 @@ TEX:=$(addsuffix .tex, pgo foreward story trainer types attacks species pokémon
 				about)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
-GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)))
 PDFVIEW:=evince
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 
@@ -26,6 +25,7 @@ HETERO:=out/hetero
 TRELS:=out/typerels
 USERS:=out/users
 WEATHER:=out/weather
+POPS:=out/populations
 ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
@@ -40,6 +40,7 @@ DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
 GIGANTATEX:=out/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
+POPSTEX:=$(POPS).tex
 CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
@@ -47,7 +48,11 @@ TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(USERSTEX) $(DUALSUMSTEX)
+	$(USERSTEX) $(DUALSUMSTEX) $(POPSTEX)
+GPLOTGEN:=out/gplotgen
+GPLOT:=$(addprefix out/graphs/, atkvbulk.plg)
+GRAPHS:=$(addprefix out/graphs/, atkvbulk.png) \
+	$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)))
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
@@ -103,6 +108,14 @@ $(OUT)/dynas.tex: $(OUT)/forms
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) gigantamax > $@
+
+$(OUT)/graphs/%.png: $(OUT)/graphs/%.plg
+	@mkdir -p $(@D)
+	gnuplot $(<) > $@
+
+$(OUT)/graphs/%.plg: $(GPLOTGEN)
+	@mkdir -p $(@D)
+	$(<) $(basename $(@F)) > $@
 
 $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)
