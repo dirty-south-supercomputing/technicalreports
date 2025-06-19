@@ -26,8 +26,8 @@ CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
   sublinear with $Mod_D$ and $Mod_S$.
 Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
-This suggests that $Mod_D$ is undervalued by the CP equation, which
- would seem to suggest that $Mod_A$ is divided by $\sqrt{Mod_D}$.
+This suggests that $Mod_D$ is undervalued by the CP equation, from which
+ we might expect $Mod_A$ to be divided by $\sqrt{Mod_D}$.
 MHP isn't used in the Damage equation, but knocking out a Pokémon
  requires inflicting some average Damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.
@@ -73,7 +73,7 @@ Weakness against only a single type is uncommon: only seven typings manage it, a
  of those cases it's a double weakness (\autoref{table:singleweak}.
 The only such typings with much population are Electric and Normal. 
 \begin{table}[ht]
-\begin{center}
+\centering
 \begin{tabular}{ll}
 Typing & Weakness\\
 \Midrule
@@ -85,7 +85,6 @@ Electric & Ground \\
 Ground+Water & Grass (doubly weak) \\
 Normal & Fighting \\
 \end{tabular}
-\end{center}
 \caption{Single-weakness typings}
 \label{table:singleweak}
 \end{table}
