@@ -12263,7 +12263,7 @@ escape_string(const char *s){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
   putc(' ', stdout);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
