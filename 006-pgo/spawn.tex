@@ -9,6 +9,11 @@ Pokémon GO is intended to be played on the move
 \textbf{FIXME}
 
 \subsection{Lures and incense}
+\begin{wrapfigure}{r}{.4\textwidth}
+  \center
+  \includegraphics[scale=.5]{images/incense.png}
+  \caption*{Incense}
+\end{wrapfigure}
 Spawn rates can be increased by means of Incense and Lures.
 Incense lasts for an hour, affects only the Trainer using it (i.e.\ other Trainers
   will neither see nor be able to interact with resulting spawns),
@@ -21,29 +26,83 @@ Incense will result in a spawn every five minutes for immobile Trainers.
 Otherwise, incense will result in a spawn every 200 meters moved.
 Incense is awarded at certain Trainer levels and for some Research,
   and can be bought for 40 Pokécoins (or eight for 250).
-Additionally, once unlocked, the Trainer can use Adventure Incense.
-This special incense results in a greater diversity of spawns.
-So long as it is completely used by midnight, it is automatically replenished
+
+Once unlocked, the Trainer can use Adventure incense.
+This special incense results in a greater diversity of spawns, including
+  a small chance of the ``Legendary Birds''
+  (Galarian Articuno, Galarian Zapdos, and Galarian Moltres).
+So long as it is completely consumed by midnight, it is automatically replenished
   upon the change of day.
-Adventure incense lasts fifteen minutes, so using it after 2344h will suppress
-  the next day's portion.
-There is a small chance of spawning the Legendary ``Galarian birds'' while
-  using Adventure incense.
-\textbf{FIXME}
+Adventure incense lasts fifteen minutes, so it must be applied before 2345h
+  to receive the next day's portion.
 \begin{figure}[h!]
-  \begin{minipage}[t]{0.5\textwidth}
-    \begin{center}
-    \includegraphics[scale=.4]{images/incense.png}
-    \end{center}
-    \caption*{Incense}
-    \label{fig:incense}
-  \end{minipage}
-  \begin{minipage}[t]{0.5\textwidth}
+  \begin{minipage}[t]{0.3\textwidth}
     \begin{center}
     \includegraphics[scale=.4]{images/lure.png}
     \end{center}
     \caption*{Lure module}
     \label{fig:lure}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/rainylure.png}
+    \end{center}
+    \caption*{Rainy lure}
+    \label{fig:rainylure}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/mossylure.png}
+    \end{center}
+    \caption*{Mossy lure}
+    \label{fig:mossylure}
+  \end{minipage}
+\end{figure}
+
+Six kinds of Lures can be installed into Pokéstops.
+A Pokéstop supports only one lure at a time.
+Flower petals will swirl around a Pokéstop with an active lure,
+  and also any Pokémon spawned as a result of the lure.
+Unlike incense, spawns due to lures are available to all Trainers.
+A lure is active for thirty minutes, and then consumed.
+Once installed into a Pokéstop, a lure cannot be removed nor deactivated.
+Some evolutions (\autoref{sec:evolution}) can only take place near an active lure
+ (\autoref{table:condevolutions}).
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{lp{.75\textwidth}}
+      Lure & Effects\\
+      \Midrule
+      Lure & General increase in spawns\\
+      Glacial Lure & Increased Ice and Water spawns\\
+      Magnetic Lure & Increased Electric, Rock, and Steel spawns\\
+      Mossy Lure & Increased Bug, Grass, and Poison spawns\newline Apple drops\\
+      Rainy Lure & Increased Bug, Electric, and Water spawns\\
+      Golden Lure & Attracts Roaming Form Gimmighoul\newline Gimmighoul Coins from spins \newline Extra items from spins\\
+    \end{tabular}
+  \end{center}
+\end{table}
+\begin{figure}[h!]
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/glaciallure.png}
+    \end{center}
+    \caption*{Glacial lure}
+    \label{fig:lure}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/magneticlure.png}
+    \end{center}
+    \caption*{Magnetic lure}
+    \label{fig:rainylure}
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{center}
+    \includegraphics[scale=.4]{images/goldenlure.png}
+    \end{center}
+    \caption*{Golden lure}
+    \label{fig:goldenlure}
   \end{minipage}
 \end{figure}
 
