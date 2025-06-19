@@ -215,7 +215,7 @@ First, we can simply normalize the Charged Attack as we did the Fast Attack,
 
 \[ N_{Fast} = \lceil\frac{E_{Charged}}{E_{Fast}}\rceil \]
 
-yielding the total Power of a cycle, known by the community as Total Damage Output (TDO):
+yielding the total Power of a cycle.
 
 \[ TDO = N_{Fast} \times P_{Fast} + P_{Charged} \]
 
@@ -242,6 +242,12 @@ It is tempting to ignore Charged Attacks, but when they land, they tend to
   early against a lengthy fast attack, it allows for a ``free fast attack''
   (see \autoref{chap:battle}). This needn't be taken into account, as it is
   technically imperfect play.}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{octave/greninja.png}
+  \caption[Damage cycle]{Water Shuriken + Hydro Cannon (7 round cycle, 67 turns)}
+\end{figure}
 
 If we expand over multiple cycles of Fast and Charged Attack, we can
  generalize to situations with excess Energy. We know $E_{Charged} \times

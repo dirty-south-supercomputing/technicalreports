@@ -12285,7 +12285,7 @@ escape_string(const char *s){
   return 0;
 }
 
-void print_species_latex(const species* s){
+void print_species_latex(const species* s, bool overzoom){
   printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
   putc(' ', stdout);
   escape_string(s->name.c_str());
@@ -12297,8 +12297,18 @@ void print_species_latex(const species* s){
   if(s->shiny){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
   }*/
-  printf("\\hfill%u %u %u %.2f}]\n",
+  printf("\\hfill%u %u %u %.2f}",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
+  if(overzoom){
+    printf(",interior style={fill overzoom image=images/pokédex/");
+    for(const char* curs = s->name.c_str() ; *curs ; ++curs){
+      if(*curs != '%' && *curs != '\''){
+        printf("%c", *curs);
+      }
+    }
+    printf(",fill image opacity=0.2}");
+  }
+  printf("]\n");
   printf("\\footnotesize\n");
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
@@ -12336,7 +12346,7 @@ void print_species_latex(const species* s){
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
 // pass the same type twice for only that base type. LaTeX output.
-void filter_by_types(int t1, int t2, const species* dex, unsigned count){
+void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom){
   for(unsigned i = 0 ; i < count ; ++i){
     bool printit = false;
     if(dex[i].t1 == t1){
@@ -12345,7 +12355,7 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count){
       }
     }
     if(printit){
-      print_species_latex(&dex[i]);
+      print_species_latex(&dex[i], overzoom);
     }
   }
 }
