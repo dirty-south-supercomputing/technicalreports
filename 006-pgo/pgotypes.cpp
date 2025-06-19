@@ -12291,9 +12291,7 @@ void print_species_latex(const species* s){
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
-  putc(' ', stdout);
-  /*print_types(s->t1, s->t2);
-  if(s->shadow){
+  /*if(s->shadow){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
   }
   if(s->shiny){
@@ -12331,6 +12329,7 @@ void print_species_latex(const species* s){
   }
   printf("\\end{tabular}\\end{tabularx}\n");
   printf("\\hrule\n");
+  print_types(s->t1, s->t2);
   print_optimal_latex(s);
   printf("\\end{tcolorbox}\n");
 }
