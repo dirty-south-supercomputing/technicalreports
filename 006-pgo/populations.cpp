@@ -6,12 +6,25 @@ int main(void){
   puts("\\begin{table}[ht]");
   puts("\\begin{centering}");
   puts("\\begin{tabular}{lrrr}");
+  puts("Type & Pop & Dualtypes & Pop\\\\\n");
+  puts("\\Midrule\n");
   for(int t = 0 ; t < TYPECOUNT ; ++t){
-    puts("Type & Pop & Dualtypes & Pop\\\\\n");
-    puts("\\Midrule\n");
     unsigned pop = 0;
     unsigned dts = 0;
     unsigned dtpop = 0;
+    for(auto &sd : sdexen){
+      if(sd.dex){
+        for(unsigned i = 0 ; i < sd.count ; ++i){
+          const species *s = &sd.dex[i];
+          if(s->t1 == t && (s->t2 == t || s->t2 == TYPECOUNT)){
+            ++pop;
+          }else if(s->t1 == t || s->t2 == t){
+            // FIXME handle dts
+            ++dtpop;
+          }
+        }
+      }
+    }
     printf("%s & %u & %u & %u\\\\\n", TNames[t], pop, dts, dtpop);
   }
   puts("\\end{tabular}");

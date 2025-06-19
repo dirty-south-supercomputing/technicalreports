@@ -11945,6 +11945,19 @@ static const species gigantasdex[] = {
 
 #define GIGANTACOUNT (sizeof(gigantasdex) / sizeof(*gigantasdex))
 
+static const struct {
+  const species *dex;
+  unsigned dcount;
+} sdexen[] = {
+  { sdex, SPECIESCOUNT, },
+  { megasdex, MEGACOUNT, },
+  { primalsdex, PRIMALCOUNT, },
+  { crownedsdex, CROWNEDCOUNT, },
+  { dynadex, DYNACOUNT, },
+  { gigantasdex, GIGANTACOUNT, },
+  { NULL, 0, }
+};
+
 typedef struct stats {
   const species* s;
   unsigned atk, def, sta;   // base stats for the Form
@@ -12250,11 +12263,11 @@ escape_string(const char *s){
 }
 
 void print_species_latex(const species* s){
-  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u", s->idx);
-  printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
-          TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
+  printf("\\begin{tcolorbox}[enhanced,boxsep=0mm,title=\\#%04u ", s->idx);
   putc(' ', stdout);
   escape_string(s->name.c_str());
+  printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
+          TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   putc(' ', stdout);
   print_types(s->t1, s->t2);
   if(s->shadow){
