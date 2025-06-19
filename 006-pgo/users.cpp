@@ -6,7 +6,7 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
   for(unsigned i = 0 ; i < dcount ; ++i){
     const species *s = &dex[i];
     for(const attack **sa = s->attacks ; *sa ; ++sa){
-      if(*sa == a){
+      if(strcmp((*sa)->name, a->name) == 0){
         if(*printed){
           printf(", ");
         }
@@ -34,13 +34,15 @@ print_attack_users(const attack *a){
   printf(" ");
   printf("},after title={");
   if(a->turns){
-    printf("\\hfill %u %u %d", a->turns, a->powertrain, a->energytrain);
+    printf("\\hfill T%u P%u E%d", a->turns, a->powertrain, a->energytrain);
   }else{
-    printf("\\hfill %u %d", a->powertrain, -a->energytrain);
+    printf("\\hfill P%u E%d", a->powertrain, -a->energytrain);
   }
   printf("}]\n");
-  print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
-  // FIXME handle other sdexen?
+  // we only want the main dex
+  //for(auto dex : sdexen){
+    print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
+  //}
   printf("\n\\end{tcolorbox}\n");
 }
 
@@ -50,7 +52,26 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
+static int acmp(const void *va1, const void *va2){
+  const attack *a1 = static_cast<const attack*>(va1);
+  const attack *a2 = static_cast<const attack*>(va2);
+  if(a1->turns != a2->turns){
+    return (int)a1->turns - a2->turns;
+  }
+  if(a1->energytrain < 0){ // charged, compare ppe
+    float p1 = calc_ppe(a1);
+    float p2 = calc_ppe(a2);
+    return p1 < p2 ? -1 : p2 < p1 ? 1 : 0;
+  }
+  // fast, compare EPT*PPT. we know they're the same number of turns,
+  // so we can just compare the products.
+  int p1 = a1->powertrain * a1->energytrain;
+  int p2 = a2->powertrain * a2->energytrain;
+  return p1 - p2;
+}
+
 int main(int argc, char **argv){
+  static attack acopies[ATTACKCOUNT];
   if(argc != 2){
     usage(argv[0]);
   }
@@ -63,15 +84,22 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }
   for(int t = 0 ; t < TYPECOUNT ; ++t){
+    unsigned acount = 0;
     for(unsigned aidx = 0 ; aidx < ATTACKCOUNT ; ++aidx){
       const attack *a = attacks[aidx];
       if(a->type == t){
         if(fast && a->energytrain >= 0){
-          print_attack_users(a);
+          memcpy(&acopies[acount], a, sizeof(*a));
+          ++acount;
         }else if(!fast && a->energytrain < 0){
-          print_attack_users(a);
+          memcpy(&acopies[acount], a, sizeof(*a));
+          ++acount;
         }
       }
+    }
+    qsort(acopies, acount, sizeof(*acopies), acmp);
+    for(unsigned u = 0 ; u < acount ; ++u){
+      print_attack_users(&acopies[u]);
     }
   }
   return EXIT_SUCCESS;
