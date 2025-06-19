@@ -26,6 +26,7 @@ TRELS:=out/typerels
 USERS:=out/users
 WEATHER:=out/weather
 POPS:=out/populations
+EVOLUTIONS:=out/evolutions
 ATKTYPES:=out/attacktypes
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
@@ -35,6 +36,7 @@ FUSERSTEX:=$(OUT)/fastusers.tex
 CUSERSTEX:=$(OUT)/chargedusers.tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
+EVOLUTIONSTEX:=$(EVOLUTIONS).tex
 MEGATEX:=out/mega.tex
 PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
@@ -49,7 +51,7 @@ TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX)
+	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX)
 GPLOTGEN:=out/gplotgen
 GPLOT:=$(addprefix out/graphs/, atkvbulk.plg)
 GRAPHS:=$(addprefix out/graphs/, atkvbulk.png) \
