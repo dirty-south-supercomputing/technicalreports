@@ -41,12 +41,33 @@ print_attack_users(const attack *a){
   printf("\n\\end{tcolorbox}\n");
 }
 
-int main(void){
+static void
+usage(const char *argv0){
+  fprintf(stderr, "usage: %s fast|charged\n", argv0);
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, char **argv){
+  if(argc != 2){
+    usage(argv[0]);
+  }
+  bool fast;
+  if(strcmp(argv[1], "fast") == 0){
+    fast = true;
+  }else if(strcmp(argv[1], "charged") == 0){
+    fast = false;
+  }else{
+    usage(argv[0]);
+  }
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     for(unsigned aidx = 0 ; aidx < ATTACKCOUNT ; ++aidx){
       const attack *a = attacks[aidx];
       if(a->type == t){
-        print_attack_users(a);
+        if(fast && a->energytrain >= 0){
+          print_attack_users(a);
+        }else if(!fast && a->energytrain < 0){
+          print_attack_users(a);
+        }
       }
     }
   }

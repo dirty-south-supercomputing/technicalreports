@@ -31,7 +31,8 @@ FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPESTEX:=out/dualtypes.tex
 DUALSUMSTEX:=out/dualsummaries.tex
-USERSTEX:=$(USERS).tex
+FUSERSTEX:=$(OUT)/fastusers.tex
+CUSERSTEX:=$(OUT)/chargedusers.tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
 MEGATEX:=out/mega.tex
@@ -48,7 +49,7 @@ TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(USERSTEX) $(DUALSUMSTEX) $(POPSTEX)
+	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX)
 GPLOTGEN:=out/gplotgen
 GPLOT:=$(addprefix out/graphs/, atkvbulk.plg)
 GRAPHS:=$(addprefix out/graphs/, atkvbulk.png) \
@@ -88,6 +89,14 @@ $(OUT)/cp1500.tex: $(OUT)/bounded
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) 2500 130 > $@
+
+$(CUSERSTEX): $(OUT)/users
+	@mkdir -p $(@D)
+	$(<) charged > $@
+
+$(FUSERSTEX): $(OUT)/users
+	@mkdir -p $(@D)
+	$(<) fast > $@
 
 $(OUT)/primal.tex: $(OUT)/forms
 	@mkdir -p $(@D)

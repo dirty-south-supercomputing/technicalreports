@@ -14,7 +14,7 @@ int main(void){
     unsigned dtpop = 0;
     for(auto &sd : sdexen){
       if(sd.dex){
-        for(unsigned i = 0 ; i < sd.count ; ++i){
+        for(unsigned i = 0 ; i < sd.dcount ; ++i){
           const species *s = &sd.dex[i];
           if(s->t1 == t && (s->t2 == t || s->t2 == TYPECOUNT)){
             ++pop;

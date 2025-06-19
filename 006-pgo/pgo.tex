@@ -184,13 +184,25 @@ Forms have been combined when distinguished only visually.
            cost to purify/teach, walk distance, weather boost, candy/items to evolve,
            whether mega etc. forms exist}
 \input{out/species}
-\chapter{Employers of attacks}
+\chapter{Users of attacks}
 \label{chap:attackemployers}
-Attacks are sorted by duration, and within duration by the product of DPT and EPT\@.
-A superscript minus (⁻) following the Pokémon indicates that it will \textit{not} have STAB with this attack.
+It is often useful to build a team around attacks, rather than Pokémon.
+This appendix lists the Pokémon which can learn and use a given attack.
 
-\textbf{FIXME: need index by name}
-\input{out/users}
+\textbf{FIXME: need index attacks by name}
+
+\section{Fast attacks}
+\label{sec:usersfast}
+Fast attacks are sorted by type, then duration, then by the product of DPT and EPT\@.
+A superscript minus (⁻) following the Pokémon indicates that it will \textit{not} have STAB with this attack.
+\input{out/fastusers}
+
+\section{Charged attacks}
+\label{sec:userscharged}
+Charged attacks are sorted by type, then DPE\@.
+A superscript minus (⁻) following the Pokémon indicates that it will \textit{not} have STAB with this attack.
+\input{out/chargedusers}
+
 \backmatter
 \input{about}
 \end{document}
