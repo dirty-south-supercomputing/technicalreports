@@ -37,7 +37,8 @@ So long as it is completely consumed by midnight, it is automatically replenishe
 Adventure incense lasts fifteen minutes, so it must be applied before 2345h
   to receive the next day's portion.
 Application of Adventure incense grants thirty Poké Balls if the Trainer's
-  bag holds fewer than thirty total Poké, Great, and Ultra Balls.
+  bag holds fewer than thirty total Poké, Great, and Ultra Balls (\autoref{table:balls}),
+  and can accommodate the balls.
 \begin{figure}[h!]
   \begin{minipage}[t]{0.3\textwidth}
     \begin{center}
@@ -113,7 +114,29 @@ Some evolutions (\autoref{sec:evolution}) can only take place near an active lur
 
 \section{Catching}
 \label{sec:catch}
+Each Pokémon has a catch rate and a flee rate.
 \textbf{FIXME}
+\subsection{Balls}
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{ll}
+      Ball & Effect\\
+      \Midrule
+      Poké & Standard catch rate\\
+      Great & 150\% catch percentage\\
+      Ultra & 200\% catch percentage\\
+      Master & Guaranteed catch\\
+    \end{tabular}
+  \end{center}
+  \caption{Balls and their properties}
+  \label{table:balls}
+\end{table}
+Raids, Max battles, and Team GO Rocket encounters use special ``Premier Balls''
+  rather than the standard options.
+Premier Balls cannot be saved after the encounter, and regular balls from
+  a Trainer's bag cannot be used in these encounters.
+The number of Premier Balls available for an encounter depends on a number of factors \textbf{FIXME}.
+Shiny (\autoref{sec:shiny}) raid bosses and Legendary Shadow Pokémon have a 100\% catch rate.
 
 \subsection{Berries}
 \begin{figure}[h!]
