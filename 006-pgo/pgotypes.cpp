@@ -11899,57 +11899,57 @@ static const species crownedsdex[] = {
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
-  {    3, "Dynamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATKS, true, false, },
-  {    6, "Dynamax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATKS, true, false, },
-  {    9, "Dynamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATKS, true, false, },
-  {   12, "Dynamax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, },
-  {   68, "Dynamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, },
-  {   94, "Dynamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, },
-  {   99, "Dynamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, },
-  {  144, "Dynamax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, },
-  {  145, "Dynamax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, },
-  {  146, "Dynamax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, },
-  {  242, "Dynamax Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Blissey", BLISSEY_ATKS, true, false, },
-  {  243, "Dynamax Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, "Raikou", RAIKOU_ATKS, true, false, },
-  {  244, "Dynamax Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, "Entei", ENTEI_ATKS, true, false, },
-  {  245, "Dynamax Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, "Suicune", SUICUNE_ATKS, true, false, },
-  {  302, "Dynamax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, },
-  {  376, "Dynamax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, },
-  {  521, "Dynamax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, },
-  {  530, "Dynamax Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Excadrill", EXCADRILL_ATKS, true, false, },
-  {  555, "Dynamax Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darmanitan", DARMANITAN_ATKS, true, false, },
-  {  615, "Dynamax Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, "Cryogonal", CRYOGONAL_ATKS, true, false, },
-  {  766, "Dynamax Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, "Passimian", PASSIMIAN_ATKS, true, false, },
-  {  812, "Dynamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Rillaboom", RILLABOOM_ATKS, true, false, },
-  {  815, "Dynamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Cinderace", CINDERACE_ATKS, true, false, },
-  {  818, "Dynamax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Inteleon", INTELEON_ATKS, false, false, },
-  {  820, "Dynamax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATKS, true, false, },
-  {  823, "Dynamax Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corviknight", CORVIKNIGHT_ATKS, true, false, },
-  {  832, "Dynamax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATKS, true, false, },
-  {  849, "Dynamax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxtricity", TOXTRICITY_ATKS, true, false, },
-  {  858, "Dynamax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
-  {  870, "Dynamax Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, "Falinks", FALINKS_ATKS, true, false, },
-  {  892, "Single Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
-  {  892, "Rapid Strike Style Dynamax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, },
+  {    3, "Dmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATKS, true, false, },
+  {    6, "Dmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATKS, true, false, },
+  {    9, "Dmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATKS, true, false, },
+  {   12, "Dmax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, },
+  {   68, "Dmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, },
+  {   94, "Dmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, },
+  {   99, "Dmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, },
+  {  144, "Dmax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, },
+  {  145, "Dmax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, },
+  {  146, "Dmax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, },
+  {  242, "Dmax Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Blissey", BLISSEY_ATKS, true, false, },
+  {  243, "Dmax Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, "Raikou", RAIKOU_ATKS, true, false, },
+  {  244, "Dmax Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, "Entei", ENTEI_ATKS, true, false, },
+  {  245, "Dmax Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, "Suicune", SUICUNE_ATKS, true, false, },
+  {  302, "Dmax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, },
+  {  376, "Dmax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, },
+  {  521, "Dmax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, },
+  {  530, "Dmax Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Excadrill", EXCADRILL_ATKS, true, false, },
+  {  555, "Dmax Darmanitan", TYPE_FIRE, TYPECOUNT, 263, 114, 233, "Darmanitan", DARMANITAN_ATKS, true, false, },
+  {  615, "Dmax Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, "Cryogonal", CRYOGONAL_ATKS, true, false, },
+  {  766, "Dmax Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, "Passimian", PASSIMIAN_ATKS, true, false, },
+  {  812, "Dmax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Rillaboom", RILLABOOM_ATKS, true, false, },
+  {  815, "Dmax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Cinderace", CINDERACE_ATKS, true, false, },
+  {  818, "Dmax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Inteleon", INTELEON_ATKS, false, false, },
+  {  820, "Dmax Greedent", TYPE_NORMAL, TYPECOUNT, 160, 156, 260, "Greedent", GREEDENT_ATKS, true, false, },
+  {  823, "Dmax Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corviknight", CORVIKNIGHT_ATKS, true, false, },
+  {  832, "Dmax Dubwool", TYPE_NORMAL, TYPECOUNT, 159, 198, 176, "Dubwool", DUBWOOL_ATKS, true, false, },
+  {  849, "Dmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxtricity", TOXTRICITY_ATKS, true, false, },
+  {  858, "Dmax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
+  {  870, "Dmax Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, "Falinks", FALINKS_ATKS, true, false, },
+  {  892, "Single Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, },
+  {  892, "Rapid Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, },
 };
 
 #define DYNACOUNT (sizeof(dynadex) / sizeof(*dynadex))
 
 // gigantimax forms are never shadows
 static const species gigantasdex[] = {
-  {    3, "Gigantamax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATKS, true, false, },
-  {    6, "Gigantamax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, NULL, CHARIZARD_ATKS, true, false, },
-  {    9, "Gigantamax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATKS, true, false, },
-  {   68, "Gigantamax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATKS, true, false, },
-  {   94, "Gigantamax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATKS, true, false, },
-  {   99, "Gigantamax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATKS, true, false, },
-  {  131, "Gigantamax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, false, },
-  {  143, "Gigantamax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATKS, true, false, },
-  {  812, "Gigantamax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATKS, true, false, },
-  {  815, "Gigantamax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, CINDERACE_ATKS, true, false, },
-  {  818, "Gigantamax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, INTELEON_ATKS, false, false, },
-  {  858, "Gigantamax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
-  {  849, "Gigantamax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATKS, true, false, },
+  {    3, "Gmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATKS, true, false, },
+  {    6, "Gmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, NULL, CHARIZARD_ATKS, true, false, },
+  {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATKS, true, false, },
+  {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATKS, true, false, },
+  {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATKS, true, false, },
+  {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATKS, true, false, },
+  {  131, "Gmax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, false, },
+  {  143, "Gmax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATKS, true, false, },
+  {  812, "Gmax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATKS, true, false, },
+  {  815, "Gmax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, CINDERACE_ATKS, true, false, },
+  {  818, "Gmax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, INTELEON_ATKS, false, false, },
+  {  858, "Gmax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
+  {  849, "Gmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATKS, true, false, },
   // FIXME
 };
 
@@ -12235,25 +12235,33 @@ unsigned learner_count(const attack* as){
 
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false);
+  bool printed = false;
   while(s){
     stats* tmp = s->next;
     unsigned half;
     unsigned l = halflevel_to_level(s->hlevel, &half);
+    if(!printed){
+      printf("CP2500: ");
+      printed = true;
+    }
     printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
     free(s);
     s = tmp;
   }
-  printf("& ");
   s = find_optimal_set(sp, 1500, 0, false);
+  printed = false;
   while(s){
     stats* tmp = s->next;
     unsigned half;
     unsigned l = halflevel_to_level(s->hlevel, &half);
+    if(!printed){
+      printf("CP1500: ");
+      printed = true;
+    }
     printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
     free(s);
     s = tmp;
   }
-  printf("\\\\\n");
 }
 
 static inline unsigned
@@ -12281,53 +12289,49 @@ void print_species_latex(const species* s){
   printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
   putc(' ', stdout);
   escape_string(s->name.c_str());
-  printf(",title style={left color=%s,right color=%s},sidebyside,lower separated=false,fonttitle=\\bfseries,after title={",
+  printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   putc(' ', stdout);
-  print_types(s->t1, s->t2);
+  /*print_types(s->t1, s->t2);
   if(s->shadow){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
   }
   if(s->shiny){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
-  }
+  }*/
   printf("\\hfill%u %u %u %.2f}]\n",
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
   printf("\\footnotesize\n");
-  if(s->attacks){ // FIXME remove conditional once all attacks are defined
-    printf("\\begin{tabular}{lrrrrr}\n");
-    for(const attack** a = s->attacks ; *a ; ++a){
-      unsigned stab = has_stab_p(s, *a);
-      float power = (*a)->powertrain;
-      if(stab){
-        power = power * 6 / 5;
-      }
-      print_type((*a)->type);
-      if((*a)->energytrain < 0){
-        const float dpe = power / -(*a)->energytrain;
-        printf("%s & & %g & %d & %.2f & \\\\\n",
-            (*a)->name, power, (*a)->energytrain, dpe);
-      }else{
-        const float dpt = power / (*a)->turns;
-        const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
-        printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
-            (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
-      }
-    }
-    printf("\\end{tabular}\n");
-  }
-  printf("\\hrule\n");
-  printf("\\begin{tabular}{lr}\n");
-  print_optimal_latex(s);
-  printf("\\end{tabular}\n");
-  printf("\\tcblower\n");
-  printf("\\raggedleft\\includegraphics[height=1in,keepaspectratio]{images/pokédex/");
+  printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
+  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
   for(const char* curs = s->name.c_str() ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
     }
   }
-  printf(".png}\\\\\n");
+  printf(".png} &\n");
+  printf("\\begin{tabular}{lrrrrr}\n");
+  for(const attack** a = s->attacks ; *a ; ++a){
+    unsigned stab = has_stab_p(s, *a);
+    float power = (*a)->powertrain;
+    if(stab){
+      power = power * 6 / 5;
+    }
+    print_type((*a)->type);
+    if((*a)->energytrain < 0){
+      const float dpe = power / -(*a)->energytrain;
+      printf("%s & & %g & %d & %.2f & \\\\\n",
+          (*a)->name, power, (*a)->energytrain, dpe);
+    }else{
+      const float dpt = power / (*a)->turns;
+      const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
+      printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
+          (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
+    }
+  }
+  printf("\\end{tabular}\\end{tabularx}\n");
+  printf("\\hrule\n");
+  print_optimal_latex(s);
   printf("\\end{tcolorbox}\n");
 }
 
