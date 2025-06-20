@@ -37,6 +37,7 @@ ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
 EVOLUTIONSTEX:=$(EVOLUTIONS).tex
 MEGATEX:=out/mega.tex
+FUSEDTEX:=$(OUT)/fused.tex
 PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
@@ -50,7 +51,8 @@ TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX)
+	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
+	$(FUSEDTEX)
 GPLOTGEN:=out/gplotgen
 GPLOT:=$(addprefix out/graphs/, atkvbulk.plg)
 GRAPHS:=$(addprefix out/graphs/, atkvbulk.png) \
@@ -103,6 +105,10 @@ $(FUSERSTEX): $(OUT)/users
 $(OUT)/primal.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) primal > $@
+
+$(OUT)/fused.tex: $(OUT)/forms
+	@mkdir -p $(@D)
+	$(<) fused > $@
 
 $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)

@@ -11541,8 +11541,6 @@ static const species sdex[] = {
   {  645, "Incarnate Forme Landorus", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, NULL, I_LANDORUS_ATKS, true, false, },
   {  645, "Therian Forme Landorus", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, NULL, T_LANDORUS_ATKS, true, false, },
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATKS, true, false, },
-  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATKS, true, false, },
-  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATKS, true, false, },
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, KELDEO_ATKS, false, false, },
   {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, GENESECT_ATKS, true, false, },
@@ -11705,8 +11703,6 @@ static const species sdex[] = {
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, },
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, },
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATKS, true, false, },
-  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, },
-  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, },
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, MARSHADOW_ATKS, true, false, },
   {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, POIPOLE_ATKS, true, false, },
   {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NAGANADEL_ATKS, true, false, },
@@ -11950,10 +11946,18 @@ static const species gigantasdex[] = {
   {  818, "Gmax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, INTELEON_ATKS, false, false, },
   {  858, "Gmax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, },
   {  849, "Gmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATKS, true, false, },
-  // FIXME
 };
 
 #define GIGANTACOUNT (sizeof(gigantasdex) / sizeof(*gigantasdex))
+
+static const species fusedsdex[] = {
+  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATKS, true, false, },
+  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATKS, true, false, },
+  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, },
+  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, },
+};
+
+#define FUSEDCOUNT (sizeof(fusedsdex) / sizeof(*fusedsdex))
 
 static const struct {
   const species *dex;
@@ -11965,6 +11969,7 @@ static const struct {
   { crownedsdex, CROWNEDCOUNT, },
   { dynadex, DYNACOUNT, },
   { gigantasdex, GIGANTACOUNT, },
+  { fusedsdex, FUSEDCOUNT, },
   { NULL, 0, }
 };
 
