@@ -10,11 +10,19 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
         if(*printed){
           printf(", ");
         }
-        if(!has_stab_p(s, *sa)){
+        bool stab = has_stab_p(s, *sa);
+        bool elite = exclusive_attack_p(s, *sa);
+        if(elite){
+          printf("\\textbf{");
+        }
+        if(!stab){
           printf("\\textit{");
         }
         escape_string(s->name.c_str());
-        if(!has_stab_p(s, *sa)){
+        if(!stab){
+          printf("}");
+        }
+        if(elite){
           printf("}");
         }
         *printed = true;

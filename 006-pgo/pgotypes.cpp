@@ -12333,6 +12333,16 @@ escape_string(const char *s){
   return 0;
 }
 
+static bool
+exclusive_attack_p(const species *s, const attack *a){
+  for(const auto &atk : s->elite){
+    if(strcmp(a->name, atk->name) == 0){
+      return true;
+    }
+  }
+  return false;
+}
+
 void print_species_latex(const species* s, bool overzoom){
   printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
   putc(' ', stdout);
@@ -12376,13 +12386,23 @@ void print_species_latex(const species* s, bool overzoom){
     print_type((*a)->type);
     if((*a)->energytrain < 0){
       const float dpe = power / -(*a)->energytrain;
-      printf("%s & & %g & %d & %.2f & \\\\\n",
-          (*a)->name, power, (*a)->energytrain, dpe);
+      if(exclusive_attack_p(s, *a)){
+        printf("\\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
+            (*a)->name, power, (*a)->energytrain, dpe);
+      }else{
+        printf("%s & & %g & %d & %.2f & \\\\\n",
+            (*a)->name, power, (*a)->energytrain, dpe);
+      }
     }else{
       const float dpt = power / (*a)->turns;
       const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
-      printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
-          (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
+      if(exclusive_attack_p(s, *a)){
+        printf("\\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f}\\\\\n",
+            (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
+      }else{
+        printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
+            (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
+      }
     }
   }
   printf("\\end{tabular}\\end{tabularx}\n");
