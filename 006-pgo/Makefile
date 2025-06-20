@@ -53,10 +53,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
 	$(FUSEDTEX)
-GPLOTGEN:=out/gplotgen
-GPLOT:=$(addprefix out/graphs/, atkvbulk.plg)
-GRAPHS:=$(addprefix out/graphs/, atkvbulk.png) \
-	$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
+GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 
 preview: all
@@ -129,10 +126,6 @@ $(OUT)/gigantas.tex: $(OUT)/forms
 $(OUT)/graphs/%.png: $(OUT)/graphs/%.plg
 	@mkdir -p $(@D)
 	gnuplot $(<) > $@
-
-$(OUT)/graphs/%.plg: $(GPLOTGEN)
-	@mkdir -p $(@D)
-	$(<) $(basename $(@F)) > $@
 
 $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)
