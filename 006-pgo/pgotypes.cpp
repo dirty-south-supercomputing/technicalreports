@@ -12241,6 +12241,7 @@ unsigned learner_count(const attack* as){
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false);
   bool printed = false;
+  printf("\\hfill{}");
   while(s){
     stats* tmp = s->next;
     unsigned half;
@@ -12254,6 +12255,9 @@ void print_optimal_latex(const species* sp){
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
+  if(s && s->next){
+    puts("\\\\\\hfill{}");
+  }
   printed = false;
   while(s){
     stats* tmp = s->next;
