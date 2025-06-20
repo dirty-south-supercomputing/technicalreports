@@ -167,12 +167,12 @@ typedef struct attack {
   unsigned powertrain;   // power in trainer battle context
   int energytrain;       // energy generated/consumed in trainer battle context
   unsigned turns;
-  // chance (out of 100) of having any of four buffing/debuffing effects
+  // chance (out of 1000) of having any of four buffing/debuffing effects
   unsigned chance_user_attack;
   unsigned chance_user_defense;
   unsigned chance_opp_attack;
   unsigned chance_opp_defense;
-  // four possible effects (out of [-100, 100])
+  // four possible effects (out of [-2, 2])
   int user_attack;
   int user_defense;
   int opp_attack;
@@ -258,28 +258,28 @@ static const attack ATK_Water_Shuriken = { "Water Shuriken", TYPE_WATER, 6, 14, 
 static const attack ATK_Wing_Attack = { "Wing Attack", TYPE_FLYING, 5, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Yawn = { "Yawn", TYPE_NORMAL, 0, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Zen_Headbutt = { "Zen Headbutt", TYPE_PSYCHIC, 8, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Acid_Spray = { "Acid Spray", TYPE_POISON, 20, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Acrobatics = { "Acrobatics", TYPE_FLYING, 110, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Acid_Spray = { "Acid Spray", TYPE_POISON, 20, -45, 0, 0, 0, 0, 1000, 0, 0, 0, -2, };
+static const attack ATK_Acrobatics = { "Acrobatics", TYPE_FLYING, 110, -55, 0, 125, 0, 0, 0, 2, 0, 0, 0, };
 static const attack ATK_Aerial_Ace = { "Aerial Ace", TYPE_FLYING, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Aeroblast = { "Aeroblast", TYPE_FLYING, 170, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Air_Cutter = { "Air Cutter", TYPE_FLYING, 45, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Air_Cutter = { "Air Cutter", TYPE_FLYING, 45, -35, 0, 300, 0, 0, 0, 1, 0, 0, 0, };
+static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0, 100, 0, 0, 0, 1, 0, 0, 0, };
 static const attack ATK_Aqua_Jet = { "Aqua Jet", TYPE_WATER, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Aqua_Tail = { "Aqua Tail", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Aura_Wheel = { "Aura Wheel", TYPE_ELECTRIC, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Aura_Wheel = { "Aura Wheel", TYPE_ELECTRIC, 100, -45, 0, 1000, 0, 0, 0, 1, 0, 0, 0, };
 static const attack ATK_Aurora_Beam = { "Aurora Beam", TYPE_ICE, 80, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Avalanche = { "Avalanche", TYPE_ICE, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Behemoth_Bash = { "Behemoth Bash", TYPE_STEEL, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Behemoth_Blade = { "Behemoth Blade", TYPE_STEEL, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Blast_Burn = { "Blast Burn", TYPE_FIRE, 110, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Bleakwind_Storm = { "Bleakwind Storm", TYPE_FLYING, 60, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Bleakwind_Storm = { "Bleakwind Storm", TYPE_FLYING, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0, };
 static const attack ATK_Blizzard = { "Blizzard", TYPE_ICE, 140, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Body_Slam = { "Body Slam", TYPE_NORMAL, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Boomburst = { "Boomburst", TYPE_NORMAL, 150, -70, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Bone_Club = { "Bone Club", TYPE_GROUND, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Brave_Bird = { "Brave Bird", TYPE_FLYING, 130, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Breaking_Swipe = { "Breaking Swipe", TYPE_DRAGON, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Brave_Bird = { "Brave Bird", TYPE_FLYING, 130, -55, 0, 0, 1000, 0, 0, 0, -3, 0, 0, };
+static const attack ATK_Breaking_Swipe = { "Breaking Swipe", TYPE_DRAGON, 50, -35, 0, 0, 0, 500, 0, 0, 0, -1, 0, };
 static const attack ATK_Brick_Break = { "Brick Break", TYPE_FIGHTING, 40, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Brutal_Swing = { "Brutal Swing", TYPE_DARK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Brine = { "Brine", TYPE_WATER, 60, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
@@ -11508,11 +11508,15 @@ static const species sdex[] = {
   {  471, "Glaceon", TYPE_ICE, TYPECOUNT, 238, 205, 163, "Eevee", GLACEON_ATKS, true, false,
     { &ATK_Water_Pulse, &ATK_Last_Resort, }, },
   {  472, "Gliscor", TYPE_GROUND, TYPE_FLYING, 185, 222, 181, "Gligar", GLISCOR_ATKS, true, true, {}, },
-  {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, "Piloswine", MAMOSWINE_ATKS, true, true, {}, },
-  {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATKS, true, true, {}, },
-  {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATKS, true, true, {}, },
+  {  473, "Mamoswine", TYPE_ICE, TYPE_GROUND, 247, 146, 242, "Piloswine", MAMOSWINE_ATKS, true, true,
+    { &ATK_Ancient_Power, }, },
+  {  474, "Porygon-Z", TYPE_NORMAL, TYPECOUNT, 264, 150, 198, "Porygon2", PORYGONZ_ATKS, true, true,
+    { &ATK_Tri_Attack, }, },
+  {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia", GALLADE_ATKS, true, true,
+    { &ATK_Synchronoise, }, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass", PROBOPASS_ATKS, true, true, {}, },
-  {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops", DUSKNOIR_ATKS, true, true, {}, },
+  {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops", DUSKNOIR_ATKS, true, true,
+    { &ATK_Shadow_Ball, }, },
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt", FROSLASS_ATKS, true, true, {}, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, NULL, ROTOM_ATKS, false, false, {}, },
   {  479, "Heat Rotom", TYPE_ELECTRIC, TYPE_FIRE, 204, 219, 137, NULL, HEAT_ROTOM_ATKS, false, false, {}, },
@@ -11527,10 +11531,13 @@ static const species sdex[] = {
   {  483, "Origin Forme Dialga", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, NULL, O_DIALGA_ATKS, true, true, {}, },
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, NULL, PALKIA_ATKS, true, true, {}, },
   {  484, "Origin Forme Palkia", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, NULL, O_PALKIA_ATKS, true, true, {}, },
-  {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATKS, true, true, {}, },
+  {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, NULL, HEATRAN_ATKS, true, true,
+    { &ATK_Magma_Storm, }, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, NULL, REGIGIGAS_ATKS, true, true, {}, },
-  {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, A_GIRATINA_ATKS, true, false, {}, },
-  {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, O_GIRATINA_ATKS, true, false, {}, },
+  {  487, "Altered Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, NULL, A_GIRATINA_ATKS, true, false,
+    { &ATK_Shadow_Force, }, },
+  {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, NULL, O_GIRATINA_ATKS, true, false,
+    { &ATK_Shadow_Force, }, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, NULL, CRESSELIA_ATKS, true, false, {}, },
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, NULL, DARKRAI_ATKS, true, false, {}, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, NULL, SHAYMIN_ATKS, true, false, {}, },

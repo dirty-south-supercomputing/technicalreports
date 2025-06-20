@@ -47,10 +47,25 @@ print_attack_users(const attack *a){
     printf("\\hfill P%u E%d", a->powertrain, -a->energytrain);
   }
   printf("}]\n");
-  // we only want the main dex
-  //for(auto dex : sdexen){
-    print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
-  //}
+  for(auto dex : sdexen){
+    print_attack_users_sdex(a, dex.dex, dex.dcount, &printed);
+  }
+  if(a->chance_user_attack){
+    printf("\\\\\n\\textbf{%g\\%% chance of attack %d}\n",
+          a->chance_user_attack / 10.0, a->user_attack);
+  }
+  if(a->chance_user_defense){
+    printf("\\\\\n\\textbf{%g\\%% chance of defense %d}\n",
+          a->chance_user_defense / 10.0, a->user_defense);
+  }
+  if(a->chance_opp_attack){
+    printf("\\\\\n\\textbf{%g\\%% chance of opponent attack %d}\n",
+          a->chance_opp_attack / 10.0, a->opp_attack);
+  }
+  if(a->chance_opp_defense){
+    printf("\\\\\n\\textbf{%g\\%% chance of opponent defense %d}\n",
+          a->chance_opp_defense / 10.0, a->opp_defense);
+  }
   printf("\n\\end{tcolorbox}\n");
 }
 
