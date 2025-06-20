@@ -6,7 +6,7 @@ A Pokémon GO account is synonymous with its associated Trainer.
 New Trainers start at Level 1 (of 50) with 0 XP\@.
 A new Level is conferred as soon as the Trainer's XP meets or exceeds
   that Level's XP threshold (\autoref{table:xp40}).
-It is possible to advance multiple Levels via a single reward of XP\@.
+It is possible to advance multiple Levels via a single award of XP\@.
 \begin{table}[hb]
 \begin{center}
 \begin{tabular}{r r r|r r r}
@@ -37,7 +37,7 @@ It is possible to advance multiple Levels via a single reward of XP\@.
 \label{table:xp40}
 \end{center}
 \end{table}
-Trainer Levels 41 and above have extra requirements beyond XP (\autoref{table:xp41plus}).
+Levels 41 and above have extra requirements beyond XP (\autoref{table:xp41plus}).
 \begin{table}[ht]
 \begin{center}
   \begin{tabular}{rrrp{0.65\textwidth}}
@@ -253,7 +253,38 @@ A lower bound has been established in the millions.
 It seems plausible that the limit is one less than a large power of 2:
   2,147,483,647 seems as good a guess as any\footnote{If the limit is driven by UI requirements, it's likely lower.}.
 
+\section{Pokédexen}
+\label{sec:dexen}
+The Trainer has ten Pokédexen\footnote{``Pokédexes'' to the uncultured.}:
+  ``Pokémon'', ``Shiny'', ``XXL'', ``XXS'', ``G-Max'', ``Mega'', ``Shadow'',
+  ``Purified'', ``🟉100\%'', and ``Lucky''.
+All ten start empty, and several start locked.
+\textbf{FIXME details}
+Entries are filled in as the relevant Pokémon are acquired (via any means).
+Once registered, Pokédex entries are never unregistered.
+If an entry is made in some Pokédex, the corresponding entry is also made
+  in the primary Pokédex.
+Shiny Shadow Pokémon and Shiny Purified Pokémon are registered to the
+  ``Shiny'' Pokédex along with the ``Shadow'' or ``Purified'' Pokédex.
+
+The ``Info'' and ``Battle'' tabs of filled entries provide information regarding
+  evolution (\autoref{sec:evolution}), type relations (\autoref{chap:types}), 
+  and attacks (\autoref{chap:attacks}), but the Pokédexen otherwise
+  serve little purpose beyond pointless nostalgia.
+
 \section{Grinding}
+\label{sec:grinding}
+For me, the joy of Pokémon GO is almost entirely found in its PvP League play (\autoref{sec:3x3}).
+Others take pleasure from its collection and social aspects.
+Either way, you'll be doing a good bit of slogging in order to find, develop,
+  and evolve powerful Pokémon.
+Those willing to spend money can speed the process up a bit, but there's
+  no escaping the fundamental cycles of Catch, Appraise, Transfer and
+  Catch, Appraise, Develop. 
+I began playing on 2025-03-01.
+As I write this about four months later, I have caught 20,364 Pokémon, of which
+  I have retained 441---a little less than 2.2\%.
+
 \subsection{Collecting Pokémon}
 \label{subsec:getmons}
 Pokémon can be received from other Trainers via trades (\autoref{sec:trades}),
@@ -315,12 +346,6 @@ Stardust becomes the primary bottleneck on advancement fairly early in the game:
   Pokémon at higher levels require more Stardust to power up (\autoref{table:powerups}),
   but the amount of Stardust awarded for their capture doesn't change.
 There is never enough, and one must carefully manage its use.
-
-The primary means of acquiring Stardust is catching Pokémon.
-The vast majority of Pokémon result in one of three awards based on their stage
- (\autoref{sec:evolution}), but a few offer more (\autoref{table:stardust}),
- making them excellent targets for Razz Berries.
-A Pokémon which is weather-boosted (\autoref{sec:weather}) awards 25\% more than normal.
 \begin{table}[ht]
   \begin{centering}
     \begin{tabular}{p{.75\textwidth}rr}
@@ -341,6 +366,12 @@ A Pokémon which is weather-boosted (\autoref{sec:weather}) awards 25\% more tha
   \caption{Stardust awards for capturing Pokémon}
   \label{table:stardust}
 \end{table}
+
+The primary means of acquiring Stardust is catching Pokémon.
+The vast majority of Pokémon result in one of three awards based on their stage
+ (\autoref{sec:evolution}), but a few offer more (\autoref{table:stardust}),
+ making them excellent targets for Razz Berries.
+A Pokémon which is weather-boosted (\autoref{sec:weather}) awards 25\% more than normal.
 Stardust can also be collected for wins in the GO Battle League,
   opening Gifts (\autoref{sec:gifts}),
   completing Routes,
@@ -381,6 +412,8 @@ A Pokémon can be ``transferred to the Professor'' for soul harvesting;
   Pokémon, including Kubfu, Marshadow, and Zygarde, cannot be harvested).
 Evolution consumes many Candies, but returns one when complete.
 
+Candy XL is necessary for advancing Pokédex past Level 40.
+100 Candy can be exchanged for a single Candy XL of that same flavor.
 Each Rare Candy can be converted into a Candy of arbitrary flavor, and Rare Candy XL
   can likewise take on any flavor of Candy XL.
 \begin{wrapfigure}{l}{.4\textwidth}
@@ -391,7 +424,7 @@ Each Rare Candy can be converted into a Candy of arbitrary flavor, and Rare Cand
 
 \textbf{FIXME}
 
-It is possible (through Research) to receive Candy for a genus not present in
+It is possible through Research to receive Candy for a genus not present in
   your Pokédex, i.e. one whose constituent species you have never captured.
 You'll keep this Candy, but it doesn't result in a Pokédex entry.
 Likewise, Candy is retained even if all Pokémon of that genus have been transferred.
@@ -410,19 +443,3 @@ There is a large set of Medals, each of which can be achieved at the Bronze,
 \section{Research}
 \label{sec:research}
 \textbf{FIXME}
-
-\section{Pokédexen}
-\label{sec:dexen}
-The Trainer has ten Pokédexen\footnote{``Pokédexes'' to the uncultured.}:
-  ``Pokémon'', ``Shiny'', ``XXL'', ``XXS'', ``G-Max'', ``Mega'', ``Shadow'',
-  ``Purified'', ``🟉100\%'', and ``Lucky''.
-All ten start empty, and several start locked.
-\textbf{FIXME details}
-Entries are filled in as the relevant Pokémon are acquired (via any means).
-Once registered, Pokédex entries are never unregistered.
-If an entry is made in some Pokédex, the corresponding entry is also made
-  in the primary Pokédex.
-Shiny Shadow Pokémon and Shiny Purified Pokémon are registered to the
-  ``Shiny'' Pokédex along with the ``Shadow'' or ``Purified'' Pokédex.
-
-The Pokédexen have little purpose beyond pointless nostalgia.
