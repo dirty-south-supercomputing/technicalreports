@@ -12568,20 +12568,20 @@ void print_species_latex(const species* s, bool overzoom){
     if((*a)->energytrain < 0){
       const float dpe = power / -(*a)->energytrain;
       if(exclusive_attack_p(s, *a)){
-        printf("\\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
+        printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
             (*a)->name, power, (*a)->energytrain, dpe);
       }else{
-        printf("%s & & %g & %d & %.2f & \\\\\n",
+        printf(" %s & & %g & %d & %.2f & \\\\\n",
             (*a)->name, power, (*a)->energytrain, dpe);
       }
     }else{
       const float dpt = power / (*a)->turns;
       const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
       if(exclusive_attack_p(s, *a)){
-        printf("\\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f}\\\\\n",
+        printf(" \\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f}\\\\\n",
             (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
       }else{
-        printf("%s & %u & %g & %d & %.2f & %.2f \\\\\n",
+        printf(" %s & %u & %g & %d & %.2f & %.2f \\\\\n",
             (*a)->name, (*a)->turns, power, (*a)->energytrain, dpt, ept);
       }
     }
