@@ -10618,6 +10618,17 @@ static const attack* U_HOOPA_ATKS[] = {
   NULL
 };
 
+static const attack* VOLCANION_ATKS[] = {
+  &ATK_Water_Gun,
+  &ATK_Take_Down,
+  &ATK_Incinerate,
+  &ATK_Sludge_Bomb,
+  &ATK_Hydro_Pump,
+  &ATK_Overheat,
+  &ATK_Earth_Power,
+  NULL
+};
+
 static const attack* THROH_ATKS[] = {
   &ATK_Low_Kick,
   &ATK_Zen_Headbutt,
@@ -11821,6 +11832,7 @@ static const species sdex[] = {
   {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, DIANCIE_ATKS, true, false, {}, },
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, C_HOOPA_ATKS, false, false, {}, },
   {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, U_HOOPA_ATKS, false, false, {}, },
+  {  721, "Volcanion", TYPE_FIRE, TYPE_WATER, 252, 216, 190, NULL, VOLCANION_ATKS, false, false, {}, }
   {  722, "Rowlet", TYPE_GRASS, TYPE_FLYING, 102, 99, 169, NULL, ROWLET_ATKS, true, false, {}, },
   {  723, "Dartrix", TYPE_GRASS, TYPE_FLYING, 142, 139, 186, "Rowlet", DARTRIX_ATKS, true, false, {}, },
   {  724, "Decidueye", TYPE_GRASS, TYPE_GHOST, 210, 179, 186, "Dartrix", DECIDUEYE_ATKS, true, false,
