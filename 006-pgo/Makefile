@@ -27,6 +27,7 @@ WEATHER:=out/weather
 POPS:=out/populations
 EVOLUTIONS:=out/evolutions
 ATKTYPES:=out/attacktypes
+SINDEX:=$(OUT)/sindex
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPESTEX:=out/dualtypes.tex
@@ -41,6 +42,7 @@ FUSEDTEX:=$(OUT)/fused.tex
 PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
+SINDEXTEX:=$(SINDEX).tex
 GIGANTATEX:=out/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
@@ -52,7 +54,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
-	$(FUSEDTEX)
+	$(FUSEDTEX) $(SINDEXTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 
