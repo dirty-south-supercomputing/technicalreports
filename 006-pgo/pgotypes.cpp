@@ -12511,6 +12511,18 @@ has_stab_p(const species *s, const attack *a){
 }
 
 static int
+escape_filename(const char *s){
+  for(const char* curs = s ; *curs ; ++curs){
+    if(*curs != '\'' && *curs != '%'){
+      if(printf("%c", *curs) < 0){
+        return -1;
+      }
+    } // simply drop apostrophes and percents?
+  }
+  return 0;
+}
+
+static int
 escape_string(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
     if(*curs != '%'){
@@ -12519,6 +12531,23 @@ escape_string(const char *s){
       }
     }else{
       if(printf("\\%%") < 0){
+        return -1;
+      }
+    }
+  }
+  return 0;
+}
+
+// make a string fit for a label.
+static int
+label_string(const char *s){
+  for(const char* curs = s ; *curs ; ++curs){
+    if(*curs == '%'){
+      continue;
+    /*}else if(isspace(*curs)){
+      continue;*/
+    }else{
+      if(printf("%c", *curs) < 0){
         return -1;
       }
     }
@@ -12538,7 +12567,6 @@ exclusive_attack_p(const species *s, const attack *a){
 
 void print_species_latex(const species* s, bool overzoom){
   printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
-  putc(' ', stdout);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12552,14 +12580,13 @@ void print_species_latex(const species* s, bool overzoom){
       s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
-    for(const char* curs = s->name.c_str() ; *curs ; ++curs){
-      if(*curs != '%' && *curs != '\''){
-        printf("%c", *curs);
-      }
-    }
+    escape_filename(s->name.c_str());
     printf(",fill image opacity=0.2}");
   }
   printf("]\n");
+  printf("\\label{species:");
+  label_string(s->name.c_str());
+  printf("}");
   printf("\\footnotesize\n");
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
