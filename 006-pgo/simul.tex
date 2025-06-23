@@ -12,8 +12,9 @@ The use of random numbers is minimal.
 Finally, it never diverges, instead advancing always towards a conclusion\footnote{There
   is an exception to convergence: both Trainers continuously choosing to do nothing (remember,
   even zero power attacks do one point of damage). This is pathological, and we
-  simply dismiss all choice-pairs that change no state beyond the clock, neatly sidestepping this issue.}.
-It is thus feasible to exhaustively simulate matches.
+  simply dismiss all choice-pairs that change no state beyond the clock, neatly sidestepping this issue.
+  Even if we didn't, there's a time limit on matches.}.
+We thus needn't reject exhaustive simulation out of hand.
 A naive but still viable solution is to begin at the first turn, generate the set
   of possible choices for both Trainers, and recurse on each one, performing
   a depth-first generation of the game tree.
@@ -35,27 +36,24 @@ In the case of a charged attack, the defending Trainer can opt to use a Defense
   Shield (if any remain).
 The Trainer can call for a fast attack, or do nothing for the turn.
 Each option must be pursued for an exhaustive search.
+
 In the best case, no choices are available, and the turn is handled in constant
   time and space.
 In the worst case, each Trainer has four options, for a Cartesian product
-  of sixteen choicepairs.
+  of sixteen choicepairs---we blow up to 4 billion states in eight turns,
+  and will not be going to space today.
 The growth is clearly exponential, and continuous realization of either the
   best or worst case is vanishingly rare.
 There will most often be two or three available choices for each Trainer,
   for a product of about eight.
 Nonetheless, we require $16^n$ time and space for $n$ turns in the worse case.
-One might argue that certain choices are obviously inferior, and would not be taken
-  by a reasonable player.
-We simulate them anyway, both for simplicity (we'd otherwise need logic to
-  detect such choices) and to discover those unexpected winning strategies
-  emerging only from the unreasonable or, if you will, genius.
+It's time to prune this game tree.
 
-For each state, we must preserve the HP and energy of the Pokémon (up to six),
-  the number of turns remaining in any ongoing fast attacks (up to two),
+For each state, we must preserve the HP and energy of six Pokémon,
+  the attack and defense buff level for two Pokémon,
+  the number of turns remaining in two ongoing fast attacks,
   the number of shields remaining for each Trainer,
   and the turns remaining on each Trainer's substitution timer.
-Since certain charged attacks affect active Pokémons' attack and defense,
-  these must also be maintained.
 These changes are infrequent, so rather than duplicating the stats in
   each state, it might be wise to store the sets of stats externally,
   and index into them from the states.
