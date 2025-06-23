@@ -155,25 +155,31 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
 \appendix
 \chapter{Optimal CP1500 configurations}
 \label{chap:optimal}
-Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\sqrt[3]{BP}$, the harmonic mean of $Eff_A$, $Eff_D$, and MHP\@.
-This ought not be interpreted to imply that a higher $\sqrt[3]{BP}$ ought
-  defeat a lower one; other issues, such as type effectiveness and attack
-  choice, are usually more important.
-It is possible for multiple sets of IVs to score equally due to the discrete nature
-  of MHP\@.
-In this case, both optimal sets are listed (there are never more than two).
+Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\overline{BS}$,
+  the arithmetic mean of $Eff_A$, $Eff_D$, and MHP\@.
+I chose this despite believing the geometric mean $\sqrt[3]{BP}$ a superior metric,
+  because the average usually distinguishes between standard and Shadow forms
+  (the geometric mean is always unchanged)---for better or worse.
+I include $\sqrt[3]{BP}$ and even CP.
+These rankings \textit{do not} imply that a higher $\sqrt[3]{BP}$ or $\overline{BS}$
+  will defeat a lower one.
+Other issues---type effectiveness, attack choice, strategy---are usually more important.
+It is possible for multiple sets of IVs and levels to score equally due to the discrete nature of MHP\@.
+In this case, all optimal sets are listed.
 
 $A\%$ is the optimal configuration's advantage in terms of $\sqrt[3]{BP}$
   over the pessimal ``reasonable'' configuration, i.e. some IV
   and the highest level attainable given the CP bound.
 For CP1500 (\autoref{table:cp1500}), when a form can max out, i.e. is not restricted by the CP bound,
-  the maximum advantage tends to be 12\%--15\%, with weaker Pokémon usually
-  seeing larger advantages.
+  the maximum advantage tends to be 10\%--25\%, with a few outliers around 50\%.
 It otherwise quickly drops to 4\% or less.
 In CP2500 (\autoref{table:cp2500}), the advantage available from IVs is even smaller, as we would expect.
 For maxed out Pokémon, A\% ranges from 6\%--11\%, increasing as we go down the table.
-It is otherwise generally less than 3\%.
-\textbf{FIXME: this is all invalidated by move to arithmetic mean!}
+It is otherwise generally less than 12\%.
+These numbers are larger using $\overline{BS}$ than $\sqrt[3]{BP}$; if the latter is used,
+  the maximum advantages are contained within 12\%--15\%, and everyone
+  else is below 3\%.
+
 
 \autoref{table:cp1500}
 \input{out/cp1500}
@@ -204,8 +210,6 @@ It is often useful to build a team around attacks, rather than Pokémon.
 This appendix lists the Pokémon which can learn and use a given attack.
 Pokémon in italics will \textit{not} have STAB with the attack.
 
-\textbf{FIXME: need index attacks by name}
-
 \section{Fast attacks}
 \label{sec:usersfast}
 Fast attacks are sorted by type, then duration, then by the product of DPT and EPT\@.
@@ -215,6 +219,8 @@ Fast attacks are sorted by type, then duration, then by the product of DPT and E
 \label{sec:userscharged}
 Charged attacks are sorted by type, then DPE\@.
 \input{out/chargedusers}
+
+\textbf{FIXME: need index attacks, species by name}
 
 \backmatter
 \input{about}
