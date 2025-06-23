@@ -2,11 +2,12 @@
 \label{chap:attacks}
 A Pokémon deals damage in battle via two types of attacks.
 ``Fast'' attacks generate the energy required by powerful ``charged'' attacks.
-Energy is preserved across substitution, but not across battles.
-Every attack has a single type, which may or may not be a type of the attacker.
+Energy is per-Pokémon and preserved across substitution (but not across battles).
+Every attack has a (single) type, which may or may not be a type of the attacker.
 Attacks having a type in common with the attacker enjoy a 1.2x multiplier, the Same Type Attack Bonus (STAB).
-A single attack usually has different stats for Raids/Max Battles (\autoref{sec:nx1})
-  and Trainer Battles (\autoref{sec:3x3}).
+A single attack usually has different stats for Nx1 (\autoref{sec:nx1})
+  and 3x3 (\autoref{sec:3x3}) battles.
+Unless otherwise stated, we're working with the values for 3x3.
 
 As developed in \autoref{sec:dualtypes}, an attack's type effectiveness
   against a given opponent ranges from -3 to 2, inclusive.

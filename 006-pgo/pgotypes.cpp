@@ -12489,36 +12489,48 @@ unsigned learner_count(const attack* as){
   return count;
 }
 
+static inline int
+print_halflevel(unsigned hlevel){
+  unsigned half;
+  unsigned l = halflevel_to_level(hlevel, &half);
+  return printf("%u%s", l, half ? ".5" : "");
+}
+
 void print_optimal_latex(const species* sp){
+  // we might need a newline if there's a lot of output
+  bool printnewline = false;
   stats* s = find_optimal_set(sp, 2500, 0, false);
-  bool printed = false;
   printf("\\hfill{}");
+  if(s && s->next){
+    printnewline = true;
+  }
+  bool printed = false;
   while(s){
     stats* tmp = s->next;
-    unsigned half;
-    unsigned l = halflevel_to_level(s->hlevel, &half);
     if(!printed){
       printf("CP2500: ");
       printed = true;
     }
-    printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
+    printf("%u/%u/%u@", s->ia, s->id, s->is)
+    print_halflevel(s->hlevel);
+    putc(' ', stdout);
     free(s);
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
-  if(s && s->next){
+  if(s && (printnewline || s->next)){
     puts("\\\\\n\\hfill{}");
   }
   printed = false;
   while(s){
     stats* tmp = s->next;
-    unsigned half;
-    unsigned l = halflevel_to_level(s->hlevel, &half);
     if(!printed){
       printf("CP1500: ");
       printed = true;
     }
-    printf("%u/%u/%u@%u%s ", s->ia, s->id, s->is, l, half ? ".5" : "");
+    printf("%u/%u/%u@", s->ia, s->id, s->is)
+    print_halflevel(s->hlevel);
+    putc(' ', stdout);
     free(s);
     s = tmp;
   }
