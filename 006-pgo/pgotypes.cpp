@@ -11758,7 +11758,7 @@ static const species sdex[] = {
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATKS, true, false,
     { &ATK_Glaciate, }, species::CAT_LEGENDARY, },
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, KELDEO_ATKS, false, false, {}, species::CAT_MYTHICAL, },
-  {  648, "Meloetta", TYPE_MYTHICAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, {}, species::CAT_MYTHICAL, },
+  {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, {}, species::CAT_MYTHICAL, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, GENESECT_ATKS, true, false,
     { &ATK_Techno_Blast, }, species::CAT_MYTHICAL, },
   {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, NULL, CHESPIN_ATKS, true, false, {}, species::CAT_NORMAL, },
