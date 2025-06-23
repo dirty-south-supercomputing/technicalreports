@@ -12578,12 +12578,8 @@ void print_species_latex(const species* s, bool overzoom){
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
-  /*
-  if(s->shiny){
-    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
-  }*/
-  printf("\\hfill%u %u %u %.2f}",
-      s->atk, s->def, s->sta, calc_fit(s->atk, s->def, s->sta));
+  printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
+      calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
@@ -12634,6 +12630,9 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\end{tabular}\\end{tabularx}\n");
   printf("\\hrule\n");
   print_types(s->t1, s->t2);
+  if(s->shiny){
+    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+  }
   print_optimal_latex(s);
   if(s->shadow){
     printf("\\tcbsubtitle{Shadow ");
@@ -12641,8 +12640,9 @@ void print_species_latex(const species* s, bool overzoom){
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
     const float def = s->def * 5 / 6.0;
+    const float avg = calc_avg(atk, def, s->sta);
     const float gm = calc_fit(atk, def, s->sta);
-    printf("%.2f %.2f %u %.2f}\n", atk, def, s->sta, gm);
+    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
   printf("\\end{tcolorbox}\n");
 }
