@@ -61,14 +61,23 @@ under the invariants:
 \end{table}
 
 \section{Fast Attacks}
-Every Pokémon knows exactly one Fast Attack, which can be changed with a Fast TM
- (an Elite Fast TM allows the new attack to be chosen; it is otherwise random).
-A fast attack is defined by its duration, its power, and the energy built up with each use (\autoref{table:fastattacks}).
-Each Pokémon can store up to 100 units of energy, which is preserved across substitutions.
-DPT and EPT are power and energy, respectively, normalized per turn.
+\begin{wrapfigure}{r}{.25\textwidth}
+  \center
+  \includegraphics[width=.25\textwidth]{images/elitefasttm.png}
+  \caption*{Elite Fast TM}
+\end{wrapfigure}
+Each Pokémon species (\autoref{chap:species}) is capable of learning some set of Fast Attacks, 
+  and every Pokémon knows exactly one at a time.
+Outside of battle, a Pokémon's fast attack can be persistently changed with a
+  Fast Technical Machine (TM), resulting in a random new fast attack from the set.
+An Elite Fast TM allows the new attack to be chosen.
+A fast attack is defined by its duration, its power, and the energy built up with each use (\autoref{table:fastattacks}),
+  and these values can be different between 3x3 and Nx1 battles.
 If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
   weaker than $B$ in 3x3 mode, and vice versa (i.e.\ partial ordering is maintained).
 Furthermore, no fast attack's Nx1 power is less than its 3x3 power.
+Each Pokémon can store up to 100 units of energy, which is preserved across substitutions.
+DPT and EPT are power and energy, respectively, normalized per turn.
 Incinerate is thus the most powerful fast attack in both modes.
 It is also the only five turn attack, and the only one to hit 4 with both EPT and DPT\@.
 Charm stands alone with a DPT of 5, with Razor Leaf coming in behind it at 4.5.
@@ -76,7 +85,6 @@ Lock On manages 5 EPT, with Psycho Cut, Poison Sting, Fairy Wind, Karate Chop,
   and Thunder Shock at 4.5.
 Fast attacks counts are broken down by type in \autoref{table:attacktypes},
  and \autoref{chap:attackemployers} provides lists of Pokémon which can use each attack.
-  \textbf{FIXME these are only training data, not valid for Nx1 battles!}
 \input{out/fastattacks}
 \input{out/attacktypes}
 
@@ -94,6 +102,11 @@ Fast attacks counts are broken down by type in \autoref{table:attacktypes},
 
 \section{Charged Attacks}
 \label{sec:charged}
+\begin{wrapfigure}{r}{.25\textwidth}
+  \center
+  \includegraphics[width=.25\textwidth]{images/elitechargedtm.png}
+  \caption*{Elite Charged TM}
+\end{wrapfigure}
 Every Pokémon knows at least one Charged Attack, and most can be taught a second
   Charged Attack at a cost of Stardust and Candy\footnote{Applin, Combee,
   Cosmoem, Cosmog, Ditto, Gimmighoul, Toxel, Unown, and Wimpod are exceptions;
@@ -143,7 +156,7 @@ Stat changes stack, but the absolute value will not exceed four.
     \Midrule
     -4 & -50\%\\
     -3 & -42.85\%\\
-    -2 & -33.\textoverbar{3}\%\\
+    -2 & -33.\textoverline{3}\%\\
     -1 & -20\%\\
      1 &  25\%\\
      2 &  50\%\\

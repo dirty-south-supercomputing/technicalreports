@@ -37,7 +37,7 @@ void print_latex_table(const attack* as, unsigned ccount){
            (a->powertrain * 6.0) / (a->turns * 5.0),
            a->energytrain / (float)a->turns, learner_count(a));
   }
-  printf("\\caption{Fast attacks, DPT, and EPT}\n");
+  printf("\\caption{Fast attacks, DPT, and EPT (3x3 battles)}\n");
   printf("\\label{table:fastattacks}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
