@@ -12511,7 +12511,7 @@ void print_optimal_latex(const species* sp){
       printf("CP2500: ");
       printed = true;
     }
-    printf("%u/%u/%u@", s->ia, s->id, s->is)
+    printf("%u/%u/%u@", s->ia, s->id, s->is);
     print_halflevel(s->hlevel);
     putc(' ', stdout);
     free(s);
@@ -12528,7 +12528,7 @@ void print_optimal_latex(const species* sp){
       printf("CP1500: ");
       printed = true;
     }
-    printf("%u/%u/%u@", s->ia, s->id, s->is)
+    printf("%u/%u/%u@", s->ia, s->id, s->is);
     print_halflevel(s->hlevel);
     putc(' ', stdout);
     free(s);
