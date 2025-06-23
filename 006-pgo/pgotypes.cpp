@@ -11934,19 +11934,19 @@ static const species sdex[] = {
   {  790, "Cosmoem", TYPE_PSYCHIC, TYPECOUNT, 54, 242, 125, "Cosmog", COSMOEM_ATKS, false, false, {}, species::CAT_LEGENDARY, },
   {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem", SOLGALEO_ATKS, false, false, {}, species::CAT_LEGENDARY, },
   {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem", LUNALA_ATKS, false, false, {}, species::CAT_LEGENDARY, },
-  {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, NULL, NIHILEGO_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, BUZZWOLE_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, PHEROMOSA_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, XURKITREE_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, {}, species::CAT_NORMAL, },
+  {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, NULL, NIHILEGO_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, NULL, BUZZWOLE_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, NULL, PHEROMOSA_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, NULL, XURKITREE_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, NULL, CELESTEELA_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, },
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, MARSHADOW_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, POIPOLE_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NAGANADEL_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, STAKATAKA_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, BLACEPHALON_ATKS, true, false, {}, species::CAT_NORMAL, },
+  {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, POIPOLE_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NAGANADEL_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, NULL, STAKATAKA_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
+  {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, NULL, BLACEPHALON_ATKS, true, false, {}, species::CAT_ULTRABEAST, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, NULL, MELTAN_ATKS, true, false, {}, species::CAT_NORMAL, },
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan", MELMETAL_ATKS, true, false,
     { &ATK_Double_Iron_Bash, }, species::CAT_NORMAL, },
@@ -12645,6 +12645,9 @@ void print_species_latex(const species* s, bool overzoom){
   print_types(s->t1, s->t2);
   if(s->shiny){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+  }
+  if(s->category == species::CAT_ULTRABEAST){
+    printf(" \\includegraphics[height=1em,keepaspectratio]{images/ultrahole.png}");
   }
   printf("\\raggedleft\n");
   print_optimal_latex(s);
