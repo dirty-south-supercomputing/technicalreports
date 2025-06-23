@@ -25,12 +25,16 @@ TRELS:=out/typerels
 USERS:=out/users
 WEATHER:=out/weather
 POPS:=out/populations
+DPEVSE:=out/dpevse
+PPTVST:=out/pptvst
 EVOLUTIONS:=out/evolutions
 ATKTYPES:=out/attacktypes
 SINDEX:=$(OUT)/sindex
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
 DUALTYPESTEX:=out/dualtypes.tex
+DPEVSEDAT:=$(DPEVSE).dat
+PPTVSTDAT:=$(PPTVST).dat
 DUALSUMSTEX:=out/dualsummaries.tex
 FUSERSTEX:=$(OUT)/fastusers.tex
 CUSERSTEX:=$(OUT)/chargedusers.tex
@@ -54,7 +58,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
-	$(FUSEDTEX) $(SINDEXTEX)
+	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 
@@ -130,6 +134,11 @@ $(OUT)/graphs/%.png: $(OUT)/graphs/%.plg
 	gnuplot $(<) > $@
 
 $(OUT)/%.tex: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) > $@
+
+# FIXME need to graph the output and generate image
+$(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 

@@ -34,6 +34,11 @@ typedef enum {
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 
+static uint32_t TColors[TYPECOUNT] = {
+  0xA6B91A, 0x575063, 0x6F35FC, 0xF7D02C, 0xD685AD, 0xC22E28, 0xEE8130, 0x8D87DB, 0x5066A3,
+  0x7AC74C, 0xD97A4B, 0x96D9D6, 0x9CA5AB, 0xA33EA1, 0xF95587, 0xB6A136, 0x5E91A4, 0x6390F0,
+};
+
 // each row is an attacking Type
 static const int trelations[TYPECOUNT][TYPECOUNT] = {
   // bug     dragon  fairy   fire    ghost   ground  normal  psychic steel
