@@ -7,7 +7,7 @@ OUT:=out
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo foreward story trainer types attacks species pokémon \
-		 		battle damage unbounded bounded strategy simul max spawn example about)
+		 		battle unbounded bounded strategy simul max spawn example about)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular

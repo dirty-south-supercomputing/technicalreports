@@ -142,29 +142,15 @@ Note that many of the best PPEs do not require extreme energy; these make
 \label{sec:buffs}
 Certain charged attacks have a chance of semi-persistent effects on the
   attack or defense of the user or opponent.
-These occur only in 3x3 battles, and are not affected by the use of a shield.
+These effects can be positive (``buffs'') or negative (``nerfs'').
+They occur only in 3x3 battles, and are affected by neither shields nor typing.
 Several attacks (Ancient Power, Obstruct, Ominous Wind, Signal Beam, Silver
   Wind, Superpower, Tri Attack) can have multiple effects; in this case, any
   probabilistic check is done once for all effects---either all of them
   occur, or none of them do.
 The effects apply only to the active Pokémon, and do not persist across substitution.
 Stat changes stack, but the absolute value will not exceed four.
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{ll}
-    Level & Change\\
-    \Midrule
-    -4 & -50\%\\
-    -3 & -42.85\%\\
-    -2 & -33.\textoverline{3}\%\\
-    -1 & -20\%\\
-     1 &  25\%\\
-     2 &  50\%\\
-     3 &  75\%\\
-     4 & 100\%\\
-  \end{tabular}
-  \caption{Mapping buff/debuff stages to effect}
-\end{table}
+See \autoref{sec:mbmult} for a quantitative treatment.
 
 \subsection{Adventure Effects}
 \label{sec:effects}
