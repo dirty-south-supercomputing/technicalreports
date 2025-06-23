@@ -12,18 +12,23 @@ int main(int argc, char **argv){
   }
   const species* dex;
   unsigned count;
+  bool bg = false; // background
   if(strcasecmp(argv[1], "mega") == 0){
     dex = megasdex;
     count = MEGACOUNT;
+    bg = true;
   }else if(strcasecmp(argv[1], "fused") == 0){
     dex = fusedsdex;
     count = FUSEDCOUNT;
+    bg = true;
   }else if(strcasecmp(argv[1], "primal") == 0){
     dex = primalsdex;
     count = PRIMALCOUNT;
+    bg = true;
   }else if(strcasecmp(argv[1], "crowned") == 0){
     dex = crownedsdex;
     count = CROWNEDCOUNT;
+    bg = true;
   }else if(strcasecmp(argv[1], "dynamax") == 0){
     dex = dynadex;
     count = DYNACOUNT;
@@ -37,7 +42,7 @@ int main(int argc, char **argv){
   // for forms, we just want them alphabetical, not by type
   // for now we use dex entry FIXME
   for(unsigned u = 0 ; u < count ; ++u){
-    print_species_latex(&dex[u], false);
+    print_species_latex(&dex[u], bg);
   }
   return EXIT_SUCCESS;
 }

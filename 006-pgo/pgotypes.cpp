@@ -12639,8 +12639,10 @@ void print_species_latex(const species* s, bool overzoom){
     printf("\\tcbsubtitle{Shadow ");
     escape_string(s->name.c_str());
     printf("\\hfill{}");
-    // FIXME shadow atk, def, sta, geommean
-    printf("%f %f %u %f}\n", 0.0, 0.0, s->sta, 0.0);
+    const float atk = s->atk * 6 / 5.0;
+    const float def = s->def * 5 / 6.0;
+    const float gm = calc_fit(atk, def, s->sta);
+    printf("%.2f %.2f %u %.2f}\n", atk, def, s->sta, gm);
   }
   printf("\\end{tcolorbox}\n");
 }

@@ -311,7 +311,7 @@ defensive_relations_latex(const typing* t){
   }
   printf("\\\\\n");
   printf("\\endhead\n");
-  bool grey = false;
+  bool grey = true;
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
     if( (grey = !grey) ){
       printf("\\rowcolor{Gray!25}");
