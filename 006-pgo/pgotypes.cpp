@@ -34,7 +34,7 @@ typedef enum {
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 
-static uint32_t TColors[TYPECOUNT] = {
+const uint32_t TColors[TYPECOUNT] = {
   0xA6B91A, 0x575063, 0x6F35FC, 0xF7D02C, 0xD685AD, 0xC22E28, 0xEE8130, 0x8D87DB, 0x5066A3,
   0x7AC74C, 0xD97A4B, 0x96D9D6, 0x9CA5AB, 0xA33EA1, 0xF95587, 0xB6A136, 0x5E91A4, 0x6390F0,
 };
@@ -621,7 +621,7 @@ static const attack* const attacks[] = {
   &ATK_Foul_Play,
   &ATK_Freeze_Shock,
   &ATK_Frenzy_Plant,
-  //&ATK_Frustration,
+  &ATK_Frustration,
   &ATK_Fusion_Bolt,
   &ATK_Fusion_Flare,
   &ATK_Future_Sight,
@@ -695,7 +695,7 @@ static const attack* const attacks[] = {
   &ATK_Psystrike,
   &ATK_Rage_Fist,
   &ATK_Razor_Shell,
-  //&ATK_Return,
+  &ATK_Return,
   &ATK_Roar_of_Time,
   &ATK_Rock_Blast,
   &ATK_Rock_Slide,
@@ -10813,7 +10813,7 @@ static const attack* WHIMSICOTT_ATKS[] = {
 
 typedef struct species {
   unsigned idx; // pokedex index, not unique
-  const std::string name;
+  std::string name;
   pgo_types_e t1, t2;
   unsigned atk;
   unsigned def;
@@ -10822,7 +10822,10 @@ typedef struct species {
   const attack** attacks;  // array of attack indices this form can learn
   bool shiny;         // is there a shiny form?
   bool shadow;        // is there a shadow form?
-  const std::vector<const attack*> elite; // exclusive attacks requiring an elite tm
+  std::vector<const attack*> elite; // exclusive attacks requiring an elite tm
+
+  species() {
+  }
 
   species(const std::string& s)
       : name(s) {
