@@ -146,7 +146,7 @@ $(OUT)/%.dat: $(OUT)/%
 
 $(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)
-	g++ -o $@ -Wall -W -O2 $(<F) -lm
+	g++ -std=c++23 -o $@ -Wall -W -O2 $(<F) -lm
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
