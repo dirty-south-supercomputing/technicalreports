@@ -12578,9 +12578,7 @@ void print_species_latex(const species* s, bool overzoom){
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
-  /*if(s->shadow){
-    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shadow.png}");
-  }
+  /*
   if(s->shiny){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
   }*/
@@ -12589,7 +12587,7 @@ void print_species_latex(const species* s, bool overzoom){
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
-    printf(",fill image opacity=0.2}");
+    printf(",fill image opacity=0.1}");
   }
   printf(",sharp corners=south]\n");
   printf("\\label{species:");
@@ -12637,6 +12635,13 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\hrule\n");
   print_types(s->t1, s->t2);
   print_optimal_latex(s);
+  if(s->shadow){
+    printf("\\tcbsubtitle{Shadow ");
+    escape_string(s->name.c_str());
+    printf("\\hfill{}");
+    // FIXME shadow atk, def, sta, geommean
+    printf("%f %f %u %f}\n", 0.0, 0.0, s->sta, 0.0);
+  }
   printf("\\end{tcolorbox}\n");
 }
 

@@ -232,19 +232,22 @@ They are multiplied into $Eff_A$ and $Eff_D$ in 3x3 battle contexts (\autoref{se
   \begin{tabular}{rll}
     Level & Multiplier & Comment \\
     \Midrule
-    -4 & $\frac{4}{8} = 0.5$ (-50\%) & \\
-    -3 & $\frac{4}{7} ≈ 0.5715$ (-42.85\%) & Severely fell \\
-    -2 & $\frac{4}{6} = 0.\overline{6}$ (-33.\textoverline{3}\%) & Harshly fell \\
-    -1 & $\frac{4}{5} = 0.8$ (-20\%) & Fell \\
-     0 & 1\\
-     1 & $\frac{5}{4} = 1.25$ (25\%) & Rose \\
-     2 & $\frac{6}{4} = 1.5$ (50\%) & Sharply rose\\
-     3 & $\frac{7}{4} = 1.75$ (75\%) & \\
-     4 & $\frac{8}{4} = 2$ (100\%) & \\
+    -4 & $0.5$ (-50\%) & \\
+    -3 & $\frac{4}{7} ≈ 0.5715$ (-42.85\%) & ``Severely fell'' \\
+    -2 & $0.\overline{6}$ (-33.\textoverline{3}\%) & ``Harshly fell'' \\
+    -1 & $0.8$ (-20\%) & ``Fell'' \\
+     0 & $1$ & \\
+     1 & $1.25$ (25\%) & ``Rose'' \\
+     2 & $1.5$ (50\%) & ``Sharply rose''\\
+     3 & $1.75$ (75\%) & \\
+     4 & $2$ (100\%) & \\
   \end{tabular}
   \caption{Mapping buff/nerf stages to effect}
   \label{table:buffs}
 \end{table}
+The system behind the scheme of \autoref{table:buffs} is that the negative levels $-n$
+ correspond to $\frac{4}{4 - n}$ while the positive levels $n$ correspond to
+ $\frac{4 + n}{4}$.
 \begin{align*}
  Eff_A &= Mod_A \times CPM \times M_{Shadow} \\
  Eff_D &= \frac{Mod_D \times CPM}{M_{Shadow}}
