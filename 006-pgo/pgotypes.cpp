@@ -12090,8 +12090,9 @@ static const species megasdex[] = {
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir", PINSIR_ATKS, true, false, {}, species::CAT_NORMAL, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados", GYARADOS_ATKS, true, false, {}, species::CAT_NORMAL, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, "Aerodactyl", AERODACTYL_ATKS, true, false, {}, species::CAT_NORMAL, },
-  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, "Mewtwo", MEWTWO_ATKS, false, false, {}, species::CAT_LEGENDARY, },
-  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, "Mewtwo", MEWTWO_ATKS, false, false, {}, species::CAT_LEGENDARY, },
+  // not yet released
+  //{  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, "Mewtwo", MEWTWO_ATKS, false, false, {}, species::CAT_LEGENDARY, },
+  //{  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, "Mewtwo", MEWTWO_ATKS, false, false, {}, species::CAT_LEGENDARY, },
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos", AMPHAROS_ATKS, true, false, {}, species::CAT_NORMAL, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix", STEELIX_ATKS, true, false, {}, species::CAT_NORMAL, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor", SCIZOR_ATKS, true, false, {}, species::CAT_NORMAL, },
