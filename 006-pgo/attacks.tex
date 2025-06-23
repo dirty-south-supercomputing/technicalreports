@@ -144,7 +144,9 @@ Note that many of the best PPEs do not require extreme energy; these make
 \label{sec:buffs}
 Certain charged attacks have a chance of semi-persistent effects on the
   attack or defense of the user or opponent.
-These effects can be positive (``buffs'') or negative (``nerfs'').
+These effects can be positive (``buffs'') or negative (``debuffs'')\footnote{I am unenamored of the term ``debuff'',
+  suggesting only that it can undo a buff. But this is not just community lingo; it's in the
+  game interfaces.}.
 They occur only in 3x3 battles, and are affected by neither shields nor typing.
 Several attacks (Ancient Power, Obstruct, Ominous Wind, Signal Beam, Silver
   Wind, Superpower, Tri Attack) can have multiple effects; in this case, any
@@ -156,7 +158,23 @@ See \autoref{sec:mbmult} for a quantitative treatment.
 
 \subsection{Adventure Effects}
 \label{sec:effects}
-\textbf{FIXME}
+Certain charged attacks can be employed outside of battle.
+Some Pokémon must know the attack, and that Pokémon cannot be fainted.
+Adventure effects cost Stardust and Candy appropriate to the Pokémon
+  per duration.
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{lllll}
+    Pokémon & Attack & Cost & Duration & Effect\\
+    \Midrule
+    Dialga & Roar of Time & 5k + 5x & 6 min & \\
+    Palkia & Spacial Rend & 5k + 5x & 10 min & \\
+    White Kyurem & Ice Burn & 5k + 5x & 10 min & \\
+    Black Kyurem & Freeze Shock & 5k + 5x & 10 min & \\
+    Necrozma Dusk Mane & Sunsteel Strike & 3k + 3x & 10 min & \\
+    Necrozma Dawn Wings & Moongeist Beam & 3k + 3x & 10 min & \\
+  \end{tabular}
+\end{table}
 
 \section{Cover sets}
 \label{sec:coversets}
