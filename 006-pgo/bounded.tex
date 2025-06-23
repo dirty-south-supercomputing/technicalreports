@@ -77,8 +77,8 @@ Take two things away from this:
   This is largely independent of any global fitness function.
 \item Hitting the ceiling does not guarantee optimal IVs for most fitness functions.
   More generally, under most fitness functions, higher CP does not necessarily imply superior IVs.
-    Gurdurr has numerous solutions yielding 1500 CP (Level 28 3--2--0, for instance, with geometric
-    mean 120.015), but Level 26 1--15--15 beats it at 1496 (121.968).
+    Gurdurr has numerous solutions yielding 1500 CP (3/2/0@28, for instance, with geometric
+    mean 120.015), but 1/15/15@26 beats it at 1496 (121.968).
 \end{itemize}
 There are many fitness functions. In the Gurdurr example given previously, 3--2--0 loses
     to 1--15--15 at geometric mean, but has an $Eff_A$ of 129.36, comfortably above the latter's 123.29.
@@ -107,8 +107,8 @@ In general, there is no correlation between $\sqrt[3]{BP}$ and level,
   since many species cannot reach 1500 CP at all.
 The geometric mean ($\sqrt[3]{BP}$) ranges from 51.39 (max Shedinja)
   to 147.18 (15/15/15@49.5 Chansey).
-There is a strong bimodal preference for IVs: 15-15-15 for level 49.5
-  and 50, and otherwise $n$-15-15 where $n < 2$, and $n$ usually equals 0.
+There is a strong bimodal preference for IVs: 15/15/15 for level 49.5
+  and 50, and otherwise $n$/15/15 where $n < 2$, and $n$ usually equals 0.
 This verifies that attack is highly overvalued in the CP calculation
   relative to $\sqrt[3]{BP}$ (not that we had any doubt).
 Other IVs usually correspond to low level, powerful species, where a level
@@ -119,6 +119,11 @@ In general, the top positions have relatively low $Eff_A$, rising in an
 At this point, they become more disordered, until falling at the back
   of the list.
 $MHP$ and $Eff_D$ are much less predictable.
+
+\textbf{FIXME need graph of contour plot of optimal frontier.
+plot contour3 using ATK on y axis and DEF+STA on x axis, optlevel
+then gmean contour using same
+do one of weak mon, one of even, one of strong mon}
 
 What's more important, IVs or level?
 Given the vast number of 0/15/15 IVs among the optimal sets, it
