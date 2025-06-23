@@ -12574,7 +12574,7 @@ exclusive_attack_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s, bool overzoom){
-  printf("\\begin{tcolorbox}[enhanced,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12589,7 +12589,7 @@ void print_species_latex(const species* s, bool overzoom){
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.1}");
   }
-  printf(",sharp corners=south]\n");
+  printf("]\n");
   printf("\\label{species:");
   label_string(s->name.c_str());
   printf("}");
