@@ -12496,7 +12496,7 @@ void print_optimal_latex(const species* sp){
   }
   s = find_optimal_set(sp, 1500, 0, false);
   if(s && s->next){
-    puts("\\\\\\hfill{}");
+    puts("\\\\\n\\hfill{}");
   }
   printed = false;
   while(s){
@@ -12574,7 +12574,7 @@ exclusive_attack_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s, bool overzoom){
-  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,boxsep=0mm,bottomrule=0.25mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,boxsep=0mm,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12584,6 +12584,9 @@ void print_species_latex(const species* s, bool overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.1}");
+  }
+  if(s->shadow){
+    printf(",subtitle style={colbacktitle=Shadow!50!white}");
   }
   printf("]\n");
   printf("\\label{species:");
@@ -12628,11 +12631,11 @@ void print_species_latex(const species* s, bool overzoom){
     }
   }
   printf("\\end{tabular}\\end{tabularx}\n");
-  printf("\\hrule\n");
   print_types(s->t1, s->t2);
   if(s->shiny){
     printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
   }
+  printf("\\raggedleft\n");
   print_optimal_latex(s);
   if(s->shadow){
     printf("\\tcbsubtitle{Shadow ");
