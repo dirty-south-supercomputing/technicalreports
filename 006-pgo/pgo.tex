@@ -14,7 +14,6 @@
 \selectcolormodel{rgb}
 \usepackage[labelfont=bf]{caption} % for \captionsetup
 \usepackage{polyglossia}
-\usepackage{wrapfig}
 \usepackage{pdfpages}
 \usepackage{tabularray}
 \usepackage[export]{adjustbox}
@@ -53,6 +52,16 @@
 \setlength{\headwidth}{\textwidth}       % don't go to the end of paperback
 \settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
+
+% background for species pages
+% we only want this in that appendix
+\newbool{inspeciesappendex}
+%\newcounter{speciesappendixpage}
+%\AddToHook{shipout/background}{%
+%  \ifbool{inspeciesappendex}
+%    {\put (0in,-\texpaperheight){\stepcounter{speciesappendixpage}\includegraphics[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.pdf}}}
+%    {}
+%}
 
 \makeatletter
 \newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
@@ -202,8 +211,10 @@ Forms have been combined when distinguished only visually.
            requirements to evolve, catch rate, flee rate, region, generation, shadow?, dmax?,
            cost to purify/teach, walk distance, weather boost, candy/items to evolve,
            whether mega etc. forms exist}
-
+\booltrue{inspeciesappendex}
 \input{out/species}
+\boolfalse{inspeciesappendex}
+
 \chapter{Users of attacks}
 \label{chap:attackemployers}
 It is often useful to build a team around attacks, rather than Pokémon.
