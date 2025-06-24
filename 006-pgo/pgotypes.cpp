@@ -2358,6 +2358,7 @@ static const attack* DURANT_ATKS[] = {
 static const attack* REGIDRAGO_ATKS[] = {
   &ATK_Bite,
   &ATK_Hyper_Beam,
+  &ATK_Dragon_Breath,
   &ATK_Dragon_Pulse,
   &ATK_Outrage,
   &ATK_Breaking_Swipe,
