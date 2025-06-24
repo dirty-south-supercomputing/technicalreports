@@ -309,6 +309,7 @@ static const attack ATK_Double_Iron_Bash = { "Double Iron Bash", TYPE_STEEL, 50,
 static const attack ATK_Draco_Meteor = { "Draco Meteor", TYPE_DRAGON, 150, -65, 0, 1000, 0, 0, 0, -2, 0, 0, 0, };
 static const attack ATK_Dragon_Ascent = { "Dragon Ascent", TYPE_FLYING, 150, -70, 0, 0, 1000, 0, 0, 0, -1, 0, 0, };
 static const attack ATK_Dragon_Claw = { "Dragon Claw", TYPE_DRAGON, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Dragon_Energy = { "Dragon Energy", TYPE_DRAGON, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Dragon_Pulse = { "Dragon Pulse", TYPE_DRAGON, 90, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Drain_Punch = { "Drain Punch", TYPE_FIGHTING, 20, -40, 0, 0, 1000, 0, 0, 0, 1, 0, 0, };
 static const attack ATK_Draining_Kiss = { "Draining Kiss", TYPE_FAIRY, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
@@ -2360,6 +2361,7 @@ static const attack* REGIDRAGO_ATKS[] = {
   &ATK_Hyper_Beam,
   &ATK_Dragon_Breath,
   &ATK_Dragon_Pulse,
+  &ATK_Dragon_Energy,
   &ATK_Outrage,
   &ATK_Breaking_Swipe,
   NULL
