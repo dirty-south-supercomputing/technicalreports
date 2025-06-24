@@ -7,6 +7,7 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
+// we want to graph optlevel against x axis of DEF+STA and y axis of ATK
 int main(int argc, char **argv){
   if(argc != 2){
     usage(argv[0]);
@@ -18,14 +19,14 @@ int main(int argc, char **argv){
   }
   int cpceil = 1500;
   for(int iva = 0 ; iva < 16 ; ++iva){
-    for(int ivd = 0 ; ivd < 16 ; ++ivd){
-      for(int ivs = 0 ; ivs < 16 ; ++ivs){
-        int cp;
-        unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        std::cout << hl << " ";
-        //std::cout << iva << " " << ivd << " " << ivs << " " << hl << std::endl;
-      }
-      std::cout << std::endl;
+    for(int sum = 0 ; sum < 31 ; ++sum){
+      int cp;
+      unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + sum / 2, s->sta + sum / 2, cpceil, &cp);
+      float effa = calc_eff_a(s->atk + iva, hl, false);
+      float effd = calc_eff_d(s->def + sum / 2, hl, false);
+      float mhp = calc_mhp(s->sta + sum / 2, hl);
+      float gmean = calc_fit(effa, effd, mhp);
+      std::cout << iva << " " << sum << " " << gmean << std::endl;
     }
   }
   return EXIT_SUCCESS;

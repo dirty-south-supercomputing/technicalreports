@@ -12497,13 +12497,8 @@ print_halflevel(unsigned hlevel){
 }
 
 void print_optimal_latex(const species* sp){
-  // we might need a newline if there's a lot of output
-  bool printnewline = false;
   stats* s = find_optimal_set(sp, 2500, 0, false);
   printf("\\hfill{}");
-  if(s && s->next){
-    printnewline = true;
-  }
   bool printed = false;
   while(s){
     stats* tmp = s->next;
@@ -12518,9 +12513,7 @@ void print_optimal_latex(const species* sp){
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
-  if(s && (printnewline || s->next)){
-    puts("\\\\\n\\hfill{}");
-  }
+  puts("\\\\\n\\hfill{}");
   printed = false;
   while(s){
     stats* tmp = s->next;
@@ -12597,7 +12590,7 @@ exclusive_attack_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s, bool overzoom){
-  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,boxsep=0mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12609,7 +12602,7 @@ void print_species_latex(const species* s, bool overzoom){
     printf(",fill image opacity=0.1}");
   }
   if(s->shadow){
-    printf(",subtitle style={colbacktitle=Shadow!50!white}");
+    printf(",subtitle style={colback=Shadow!50!black}");
   }
   printf("]\n");
   printf("\\label{species:");
