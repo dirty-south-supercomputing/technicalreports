@@ -137,22 +137,6 @@ Electric is strong against Water, which is strong against Rock, which is strong 
 \noindent{}Fairy famously slaughters Dragon.
 Ice is strong against Dragon.
 Fighting, Grass, Electric, Water, and Fire are all weak against it (\autoref{fig:dragon}).
-\vspace{.5in}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=.25]{out/dot/death.dot.png}
-\caption{24 relations of death}
-\label{fig:death}
-\end{figure}
-\noindent{}The Graph of Death (\autoref{fig:death}).
-Poison kills Fairy, which kills Dark.
-Fairy also kills Fighting, which kills Rock.
-Ground slaughters Electric, which kills Flying.
-Flying strikes back, raining death from above and killing Fighting, Bug, and Grass.
-Fire likewise kills Bug and Grass.
-Grass kills Water (it is the only type strong against Water besides Electric).
-\clearpage
 
 \begin{figure}[h!]
 \centering
@@ -167,6 +151,20 @@ Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kill
 Steel is weak against Water and Electric.
 Only two types have no relationships with Steel: Dark and Ghost (\autoref{fig:steel}).
 As Josef Stalin said, ``it's good to be Steel''.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.25]{out/dot/death.dot.png}
+\caption{24 relations of death}
+\label{fig:death}
+\end{figure}
+\noindent{}The Graph of Death (\autoref{fig:death}).
+Poison kills Fairy, which kills Dark.
+Fairy also kills Fighting, which kills Rock.
+Ground slaughters Electric, which kills Flying.
+Flying strikes back, raining death from above and killing Fighting, Bug, and Grass.
+Fire likewise kills Bug and Grass.
+Grass kills Water (it is the only type strong against Water besides Electric).
 
 \begin{figure}[ht]
 \centering
@@ -203,9 +201,15 @@ memorized as they are (\autoref{fig:jumble}).
 %
 Every type except Normal is killed by at least one other type.
 Bug is killed by two types (Fire and Flying), as is Fire (Water and Rock).
+Rock is killed by Steel, Fighting, and Ground.
 Grass is killed by four (Fire, Flying, Bug, and Poison).
 The killing is more concentrated: Ghost, Ice, and Normal don't kill
   any other type, while mighty Fire kills four.
+It is important to remember that an opponent of some type might
+  employ attacks of some other type, in which case the bidirectional
+  relationship doesn't apply.
+Still, recognizing and avoiding kill situations can get you
+  far in life and Pokémon GO\@.
 
 \section{Typing}
 \label{sec:dualtypes}
