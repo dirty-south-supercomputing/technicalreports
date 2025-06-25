@@ -12675,7 +12675,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\end{tabular}\\end{tabularx}\n");
 
   // the minipages with icons and cp data
-  printf("\\noindent\\begin{minipage}{0.7\\linewidth}\\centering{}");
+  printf("\\noindent\\begin{minipage}{0.7\\linewidth}");
   print_optimal_latex(s);
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\centering{}");
