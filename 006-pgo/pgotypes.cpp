@@ -12674,10 +12674,11 @@ void print_species_latex(const species* s, bool overzoom){
   }
   printf("\\end{tabular}\\end{tabularx}\n");
 
-  // the table with icons and cp data
-  printf("\\begin{tabular}{p{.65\\linewidth}c}");
+  // the minipages with icons and cp data
+  printf("\\noindent\\begin{minipage}{0.7\\linewidth}\\centering{}");
   print_optimal_latex(s);
-  printf("&");
+  printf("\\end{minipage}");
+  printf("\\begin{minipage}{0.3\\linewidth}\\centering{}");
   print_types_big(s->t1, s->t2);
   if(s->shiny){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
@@ -12685,8 +12686,7 @@ void print_species_latex(const species* s, bool overzoom){
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
-  printf("\\\\\n");
-  printf("\\end{tabular}\n");
+  printf("\\end{minipage}\n");
   printf("}");
 
   if(s->shadow){
