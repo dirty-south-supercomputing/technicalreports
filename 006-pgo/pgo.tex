@@ -18,6 +18,7 @@
 \usepackage{tabularray}
 \usepackage[export]{adjustbox}
 \usepackage{longtable}
+\usepackage{svg}
 \usepackage{tcolorbox}
 \tcbuselibrary{most}
 \usepackage{listings}
@@ -64,7 +65,7 @@
 \AddToHook{shipout/background}{%
   \ifbool{inspeciesappendex}
     {\ifbool{inspeciesappendex2}
-      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includegraphics[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.pdf}}}
+      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includesvg[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
       {}}
     {\booltrue{inspeciesappendex2}}
 }

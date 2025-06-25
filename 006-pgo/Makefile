@@ -70,10 +70,10 @@ preview: all
 all: $(PDF) $(SIMUL)
 
 $(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
-	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX)
-	$(TEXCC) -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
 	@mkdir -p $(@D)
