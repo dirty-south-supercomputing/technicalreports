@@ -464,11 +464,11 @@ static const attack ATK_V_Create = { "V-Create", TYPE_FIRE, 95, -40, 0, 0, 1000,
 static const attack ATK_Vise_Grip = { "Vise Grip", TYPE_NORMAL, 40, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0, 0, 1000, 0, 0, 0, -1, 0, 0, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Weather_Ball_Fire = { "Weather Ball (Fire)", TYPE_FIRE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Weather_Ball_Ice = { "Weather Ball (Ice)", TYPE_ICE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Weather_Ball_Rock = { "Weather Ball (Rock)", TYPE_ROCK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Weather_Ball_Normal = { "Weather Ball (Normal)", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-static const attack ATK_Weather_Ball_Water = { "Weather Ball (Water)", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Weather_Ball_Fire = { "Weather Ball", TYPE_FIRE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Weather_Ball_Ice = { "Weather Ball", TYPE_ICE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Weather_Ball_Rock = { "Weather Ball", TYPE_ROCK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Weather_Ball_Normal = { "Weather Ball", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+static const attack ATK_Weather_Ball_Water = { "Weather Ball", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 0, 0, 1000, 0, 0, 0, -2, 0, 0, };
 static const attack ATK_Wildbolt_Storm = { "Wildbolt Storm", TYPE_ELECTRIC, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0, };
 static const attack ATK_Wrap = { "Wrap", TYPE_NORMAL, 60, -45, 0, 0, 1000, 0, 0, 0, 1, 0, 0, };
@@ -12613,6 +12613,16 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\label{species:");
   label_string(s->name.c_str());
   printf("}");
+  if(s->shadow){
+    printf("\\tcbsubtitle{Shadow ");
+    escape_string(s->name.c_str());
+    printf("\\hfill{}");
+    const float atk = s->atk * 6 / 5.0;
+    const float def = s->def * 5 / 6.0;
+    const float avg = calc_avg(atk, def, s->sta);
+    const float gm = calc_fit(atk, def, s->sta);
+    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
+  }
   printf("{");
   printf("\\footnotesize\n");
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -12663,17 +12673,8 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\raggedleft\n");
   print_optimal_latex(s);
   printf("}");
-  if(s->shadow){
-    printf("\\tcbsubtitle{Shadow ");
-    escape_string(s->name.c_str());
-    printf("\\hfill{}");
-    const float atk = s->atk * 6 / 5.0;
-    const float def = s->def * 5 / 6.0;
-    const float avg = calc_avg(atk, def, s->sta);
-    const float gm = calc_fit(atk, def, s->sta);
-    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
-  }
   printf("\\end{tcolorbox}\n");
+  printf("\\vfill\n");
 }
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
