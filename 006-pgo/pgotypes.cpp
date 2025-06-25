@@ -12468,6 +12468,20 @@ void print_types(pgo_types_e t1, pgo_types_e t2){
   }
 }
 
+void print_type_big(pgo_types_e t){
+  if(t != TYPECOUNT){
+    printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png}", tnames[t]);
+  }
+}
+
+void print_types_big(pgo_types_e t1, pgo_types_e t2){
+  print_type_big(t1);
+  if(t1 != t2){
+    putc(' ', stdout);
+    print_type_big(t2);
+  }
+}
+
 static unsigned
 learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
   unsigned count = 0;
@@ -12663,12 +12677,12 @@ void print_species_latex(const species* s, bool overzoom){
     }
   }
   printf("\\end{tabular}\\end{tabularx}\n");
-  print_types(s->t1, s->t2);
+  print_types_big(s->t1, s->t2);
   if(s->shiny){
-    printf(" \\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
   }
   if(s->category == species::CAT_ULTRABEAST){
-    printf(" \\includegraphics[height=1em,keepaspectratio]{images/ultrahole.png}");
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
   printf("\\raggedleft\n");
   print_optimal_latex(s);
