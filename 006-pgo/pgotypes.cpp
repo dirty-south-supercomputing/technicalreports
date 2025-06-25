@@ -10498,6 +10498,8 @@ static const attack* STANTLER_ATKS[] = {
 };
 
 static const attack* SMEARGLE_ATKS[] = {
+  &ATK_Splash,
+  &ATK_Struggle,
   NULL
 };
 
