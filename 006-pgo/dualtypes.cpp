@@ -313,19 +313,21 @@ defensive_relations_latex(const typing* t){
   printf("\\endhead\n");
   bool grey = true;
   for(int i = 0 ; i < TYPINGCOUNT ; ++i){
-    if( (grey = !grey) ){
-      printf("\\rowcolor{Gray!25}");
-    }
     // already have monotypes in another table
-    //print_types(t[i].types[0], t[i].types[1]);
-    for(int k = 0 ; k < TYPECOUNT ; ++k){
-      if(t[i].atypes[k]){
-        printf("& %d", t[i].atypes[k]);
-      }else{
-        printf("& ");
+    if(t[i].types[0] != t[i].types[1]){
+      if( (grey = !grey) ){
+        printf("\\rowcolor{Gray!25}");
       }
+      print_types(t[i].types[0], t[i].types[1]);
+      for(int k = 0 ; k < TYPECOUNT ; ++k){
+        if(t[i].atypes[k]){
+          printf("& %d", t[i].atypes[k]);
+        }else{
+          printf("& ");
+        }
+      }
+      printf("\\\\\n");
     }
-    printf("\\\\\n");
   }
   printf("\\caption{Defender typing effectiveness}\n");
   printf("\\end{longtable}\n");
