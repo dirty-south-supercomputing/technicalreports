@@ -12517,7 +12517,6 @@ print_halflevel(unsigned hlevel){
 
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false);
-  printf("\\hfill{}");
   bool printed = false;
   while(s){
     stats* tmp = s->next;
@@ -12532,7 +12531,7 @@ void print_optimal_latex(const species* sp){
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
-  puts("\\\\\n\\hfill{}");
+  printf("\\newline{}");
   printed = false;
   while(s){
     stats* tmp = s->next;
@@ -12620,25 +12619,15 @@ void print_species_latex(const species* s, bool overzoom){
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.1}");
   }
-  if(s->shadow){
-    printf(",subtitle style={colback=Shadow!50!black}");
-  }
+  printf(",subtitle style={colback=Shadow!50!black}");
   printf("]\n");
   printf("\\label{species:");
   label_string(s->name.c_str());
   printf("}");
-  if(s->shadow){
-    printf("\\tcbsubtitle{Shadow ");
-    escape_string(s->name.c_str());
-    printf("\\hfill{}");
-    const float atk = s->atk * 6 / 5.0;
-    const float def = s->def * 5 / 6.0;
-    const float avg = calc_avg(atk, def, s->sta);
-    const float gm = calc_fit(atk, def, s->sta);
-    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
-  }
   printf("{");
   printf("\\footnotesize\n");
+
+  // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
   for(const char* curs = s->name.c_str() ; *curs ; ++curs){
@@ -12677,6 +12666,11 @@ void print_species_latex(const species* s, bool overzoom){
     }
   }
   printf("\\end{tabular}\\end{tabularx}\n");
+
+  // the table with icons and cp data
+  printf("\\begin{tabular}{p{.6\\linewidth}c}");
+  print_optimal_latex(s);
+  printf("&");
   print_types_big(s->t1, s->t2);
   if(s->shiny){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
@@ -12684,10 +12678,19 @@ void print_species_latex(const species* s, bool overzoom){
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
-  printf("\\raggedleft\n");
-  print_optimal_latex(s);
-  printf("}");
-  printf("\\end{tcolorbox}\n");
+  printf("\\\\\n");
+  printf("\\end{tabular}\n");
+  if(s->shadow){
+    printf("\\tcbsubtitle{Shadow ");
+    escape_string(s->name.c_str());
+    printf("\\hfill{}");
+    const float atk = s->atk * 6 / 5.0;
+    const float def = s->def * 5 / 6.0;
+    const float avg = calc_avg(atk, def, s->sta);
+    const float gm = calc_fit(atk, def, s->sta);
+    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
+  }
+  printf("}\\end{tcolorbox}\n");
   printf("\\vfill\n");
 }
 

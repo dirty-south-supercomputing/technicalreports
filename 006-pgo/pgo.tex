@@ -57,13 +57,16 @@
 % we only want this in that appendix
 \newbool{inspeciesappendex}
 \newbool{inspeciesappendex2}
+
+\booltrue{inspeciesappendex2}
+
 \newcounter{speciesappendixpage}
 \AddToHook{shipout/background}{%
   \ifbool{inspeciesappendex}
     {\ifbool{inspeciesappendex2}
-        {\put (0in,-\texpaperheight){\stepcounter{speciesappendixpage}\includegraphics[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.pdf}}}
-        {\booltrue{inspeciesappendex2}}}
-    {}
+      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includegraphics[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.pdf}}}
+      {}}
+    {\booltrue{inspeciesappendex2}}
 }
 
 \makeatletter
