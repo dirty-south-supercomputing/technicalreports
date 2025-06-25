@@ -12613,6 +12613,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\label{species:");
   label_string(s->name.c_str());
   printf("}");
+  printf("{");
   printf("\\footnotesize\n");
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
@@ -12661,6 +12662,7 @@ void print_species_latex(const species* s, bool overzoom){
   }
   printf("\\raggedleft\n");
   print_optimal_latex(s);
+  printf("}");
   if(s->shadow){
     printf("\\tcbsubtitle{Shadow ");
     escape_string(s->name.c_str());
