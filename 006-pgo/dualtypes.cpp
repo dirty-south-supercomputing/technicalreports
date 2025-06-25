@@ -279,14 +279,39 @@ defensive_summaries_latex(const typing* t){
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n");
   printf("\\endhead\n");
   bool grey = false;
+  enum {
+    UNCOMBINED,
+    COMBINE_FIRST,
+    COMBINE_SECOND,
+  } combine = UNCOMBINED;
   for(int i = 0 ; i < TYPECOUNTSQUARED ; ++i){
     unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);
     if(pcnt == 0){
     //  printf("\\rowcolor{Red!25}\n");
+      combine = UNCOMBINED;
       continue;
     }
-    if( (grey = !grey) && pcnt){
-      printf("\\rowcolor{Gray!25}");
+    // if we just finished a combined row, check to see if this ought start one
+    if(combine == COMBINE_SECOND){
+      combine = UNCOMBINED;
+    }
+    if(combine == UNCOMBINED){
+      if( (grey = !grey) ){
+        printf("\\rowcolor{Gray!25}");
+      }
+      // if we're the reverse typing of the next one, combine into one row
+      if(i + 1 < TYPECOUNTSQUARED && t[i].types[0] == t[i + 1].types[1] && t[i].types[1] == t[i + 1].types[0]){
+        // but don't combine if the reverse typing isn't populated
+        if(typing_popcount(t[i + 1].types[0], t[i + 1].types[1])){
+          combine = COMBINE_FIRST;
+        }
+      }
+    }else if(combine == COMBINE_FIRST){
+      // we already did the top row, now do the second
+      combine = COMBINE_SECOND;
+      if(grey){ // use the same color as the first row
+        printf("\\rowcolor{Gray!25}");
+      }
     }
     print_types(t[i].types[0], t[i].types[1]);
     printf(" & ");
@@ -300,16 +325,23 @@ defensive_summaries_latex(const typing* t){
       }
       dra += pow(1.6, (offset + (int)j)) * totals[j];
       if(totals[j]){ // don't print zeroes
-        printf("%d &", totals[j]);
-      }else{
-        printf("&");
+        if(combine == COMBINE_FIRST){
+          printf("\\multirow{2}{*}{%d}", totals[j]);
+        }else if(combine == UNCOMBINED){
+          printf("%d", totals[j]);
+        }
       }
+      printf("&");
     }
-    printf("%.3f & %u & ", dra / 18, pcnt);
-    //if(pcnt){ // no page if no population
-      printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
-              t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
-    //}
+    if(combine == COMBINE_FIRST){
+      printf("\\multirow{2}{*}{%.3f} & \\multirow{2}{*}{%u} & ", dra / 18, pcnt);
+    }else if(combine == COMBINE_SECOND){
+      printf(" & & ");
+    }else{
+      printf("%.3f & %u & ", dra / 18, pcnt);
+    }
+    printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
+            t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
