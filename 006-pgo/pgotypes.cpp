@@ -12615,7 +12615,7 @@ exclusive_attack_p(const species *s, const attack *a){
 }
 
 void print_species_latex(const species* s, bool overzoom){
-  printf("\\begin{tcolorbox}[enhanced,bottom=0mm,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,bottom=0pt,boxsep=0pt,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12678,7 +12678,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\noindent\\begin{minipage}{0.7\\linewidth}");
   print_optimal_latex(s);
   printf("\\end{minipage}");
-  printf("\\begin{minipage}{0.3\\linewidth}\\centering{}");
+  printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
   print_types_big(s->t1, s->t2);
   if(s->shiny){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
