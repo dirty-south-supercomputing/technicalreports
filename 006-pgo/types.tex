@@ -202,29 +202,29 @@ memorized as they are (\autoref{fig:jumble}).
 Every type except Normal is killed by at least one other type.
 Bug is killed by two types (Fire and Flying), as is Fire (Water and Rock).
 Rock is killed by Steel, Fighting, and Ground.
-Grass is killed by four (Fire, Flying, Bug, and Poison).
+Grass is killed by Fire, Flying, Bug, and Poison.
 The killing is more concentrated: Ghost, Ice, and Normal don't kill
   any other type, while mighty Fire kills four.
 It is important to remember that an opponent of some type might
   employ attacks of some other type, in which case the bidirectional
   relationship doesn't apply.
-Still, recognizing and avoiding kill situations can get you
+Still, recognizing kill situations can get you
   far in life and Pokémon GO\@.
 
 \section{Typing}
 \label{sec:dualtypes}
 A species of Pokémon may be singly or doubly typed.
 It is not possible to dual type using a single type, and ordering of the types has no impact on function.
-There are thus 153 dual types in addition to the 18 base types, for a total of 171.
 \[ C(18, 2) = \binom{18}{2} = \frac{18!}{2! \times 16!} = 153 \]
-\[ 153 + 18 = 171 \]
+%\[ 153 + 18 = 171 \]
+There are thus 153 dual types in addition to the 18 base types, for a total of 171.
 We could also arrive at this number by summing 1 through 18:
 \[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
 Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
  Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
  leaving 162 defender typings to consider.
-
-Dual typing expands the type relation range, adding the possibilities
+\input{out/dualtypes.tex}
+Dual typing widens the type relation range, adding the possibilities
  of -3 and 2 (-4 is not possible, because no type is very ineffective against
  two different types).
 It furthermore vastly expands the type effectiveness matrix,
@@ -232,15 +232,12 @@ It furthermore vastly expands the type effectiveness matrix,
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
 
-\input{out/dualtypes.tex}
+Given $E_{n}, -3 \le n \le 2$ where $E_n$ is the number of types with
+  a net relation of $n$ against a typing, we define DRA\@:
+\[  DRA = \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{18} \]
 
-Completely unexpectedly, the best defensive typings include Steel, with the top 16 spots all making use of it.
-One thing to take away from \autoref{table:defenders} is that the largest
-  typings by population are the monotypes, representing 485 forms.
-A majority of Pokédex have dual typing, but their diversity of typing means few dual types have much of a population.
-Only Ground+Water, Flying+Normal, Bug+Poison, Grass+Ghost, Grass+Poison, Rock+Water, and Bug+Flying
-  have more than ten members.
-All monotypes have at least ten members except for Steel (9) and Flying (4).
+Completely unexpectedly, the defensive typings with highest DRA include Steel,
+  with the top 16 spots all making use of it.
 
 \input{out/dualsummaries.tex}
 
