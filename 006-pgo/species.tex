@@ -18,14 +18,13 @@ Common forms include \textit{Mega}, a temporary form with greater ATK and DEF (s
   \textit{Dynamax} and \textit{Gigantamax}, temporary forms with the ability to use
   powerful attacks (see \autoref{sec:dmax} and \autoref{sec:gmax}),
   and \textit{Shiny}, a visually distinctive and rare form (see \autoref{sec:shiny}).
-Regional forms are also seen: Alolan, Galarian, Hisuian, and Paldean.
+Regional variants are also seen: Alolan, Galarian, Hisuian, and Paldean.
 Gender, if differentiated at all, is usually a small change to
- appearance or call, but it (like other forms) also affects a few evolutionary
- paths.
+ appearance or call, but it affects a few evolutionary paths.
 
 \section{Evolution}
 \label{sec:evolution}
-Some species can, under the correct conditions, evolve into others.
+Under the correct conditions, some species can evolve into others.
 We call the set of Pokémon related by evolution operations a genus.
 Change of form is not an evolution, since the species remains the same.
 We call a Pokémon that has undergone $N$ evolutions a Stage $N+1$ Pokémon.
@@ -36,9 +35,12 @@ Evolution does not necessarily preserve typing, i.e.\ typing is not always
   that Sharpedo changes from Water+Dark to Mega Sharpedo's Dark+Water,
   a functionally equivalent typing. When this kind of thing happens,
   I assume it due to conformance with other Pokémon games, but never
-  rule out simple fuckups.}.
+  rule out simple fuckups. ALSO, no species lose Dark in an evolution,
+  though several gain it. Is Nintendo hinting at the inevitable triumph of
+  evil over good, or commenting on the blasphemies central to evolutionary theory?
+  Impossible to know, but I'm pretty sure it's one of those things.}.
 \input{out/hetero}
-Almost all evolutions require that Candy of that genus (Zygarde is an exception),
+Almost all evolutions require Candy of that genus (Zygarde is an exception),
   and some evolutions depend upon some condition (\autoref{table:condevolutions})
   or catalyzing item, which is consumed (\autoref{table:itemevolutions})
 Evolution generally improves base stats \textbf{(FIXME: are there exceptions?)},
@@ -51,6 +53,9 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
   \begin{tabular}{lll}
     Base & Requirements & Result \\
     \Midrule
+    Magneton & 100 Magnemite candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Magnezone \\
+    Nosepass & 50 Nosepass candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Probopass \\
+    \textbf{FIXME} & \textbf{FIXME} & \textbf{FIXME}\\
   \end{tabular}
 \end{center}
 \caption{Evolutions dependent upon a condition}
@@ -93,8 +98,8 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
     Roselia & 100 Budew Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Roserade	\\
     Applin & 200 Applin Candy + 20 \includegraphics[width=1em,height=1em]{images/tartapple.png} & Flapple \\
     Applin & 200 Applin Candy + 20 \includegraphics[width=1em,height=1em]{images/sweetapple.png} & Appletun \\
-    Zygarde 10\% & 50 Zygarde Cubes & Zygarde 50\% \\
-    Zygarde 50\% & 200 Zygarde Cubes & Zygarde Complete \\
+    Zygarde 10\% & 50 \includegraphics[width=1em,height=1em]{images/zygardecell.png} & Zygarde 50\% \\
+    Zygarde 50\% & 200 \includegraphics[width=1em,height=1em]{images/zygardecell.png} & Zygarde Complete \\
   \end{tabular}
 \end{center}
 \caption{Evolutions dependent upon items}
@@ -169,22 +174,27 @@ Purified Pokémon can be traded, but constitute a Special Trade (\autoref{sec:tr
 \label{sec:regions}
 Each Pokémon is associated with one of eleven regions.
 The region can be determined by their Pokédex index (\autoref{table:regions}).
+Additionally, regions correspond to ``generations''.
+Whether Meltan and Melmetal (of the ``Unknown'' region) are Generation VII
+  or Generation VIII is a raging and utterly inconsequential debate.
+I place them in Generation VII because it is one less keystroke when using Roman numerals.
+If you disagree, I encourage you to FAX your senator.
 \begin{table}[ht]
   \begin{center}
-    \begin{tabular}{lrr}
-      Region & Start & End\\
+    \begin{tabular}{lcrr}
+      Region & Generation & Start & End\\
       \Midrule
-      Kanto & \#0001 & \#0151\\
-      Johto & \#0152 & \#0251\\
-      Hoenn & \#0252 & \#0386\\
-      Sinnoh & \#0387 & \#0493\\
-      Unova & \#0494 & \#0649\\
-      Kalos & \#0650 & \#0721\\
-      Alola & \#0722 & \#0807\\
-      Unknown & \#0808 & \#0809\\
-      Galar & \#0810 & \#0898\\
-      Hisui & \#0899 & \#0905\\
-      Paldea & \#0906 & \#1025\\
+      Kanto & I & \#0001 & \#0151\\
+      Johto & II & \#0152 & \#0251\\
+      Hoenn & III & \#0252 & \#0386\\
+      Sinnoh & IV & \#0387 & \#0493\\
+      Unova & V & \#0494 & \#0649\\
+      Kalos & VI & \#0650 & \#0721\\
+      Alola & VII & \#0722 & \#0807\\
+      Unknown & VII & \#0808 & \#0809\\
+      Galar & VIII & \#0810 & \#0898\\
+      Hisui & VIII & \#0899 & \#0905\\
+      Paldea & IX & \#0906 & \#1025\\
     \end{tabular}
   \end{center}
   \caption{The regions of the Pokémon world (\textjapanese{ポケモンの世界})}
@@ -286,6 +296,10 @@ Morpeko changes its form between ``Full Belly Mode'' and ``Hangry Mode''
 Upon becoming active, Morpeko is in Full Belly Mode, and Aura Wheel is an Electric attack.
 In Hangry Mode, Aura Wheel is a Dark attack.
 Morpeko cannot defend gyms, assault gyms, or participate in raids.
+
+\subsection{Meltan}
+\label{subsec:meltan}
+\textbf{FIXME}
 
 \subsection{Smeargle}
 \label{subsec:smeargle}

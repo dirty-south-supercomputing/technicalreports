@@ -12675,7 +12675,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\end{tabular}\\end{tabularx}\n");
 
   // the table with icons and cp data
-  printf("\\begin{tabular}{p{.6\\linewidth}c}");
+  printf("\\begin{tabular}{p{.65\\linewidth}c}");
   print_optimal_latex(s);
   printf("&");
   print_types_big(s->t1, s->t2);
@@ -12687,6 +12687,8 @@ void print_species_latex(const species* s, bool overzoom){
   }
   printf("\\\\\n");
   printf("\\end{tabular}\n");
+  printf("}");
+
   if(s->shadow){
     printf("\\tcbsubtitle{Shadow ");
     escape_string(s->name.c_str());
@@ -12697,7 +12699,7 @@ void print_species_latex(const species* s, bool overzoom){
     const float gm = calc_fit(atk, def, s->sta);
     printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
-  printf("}\\end{tcolorbox}\n");
+  printf("\\end{tcolorbox}\n");
   printf("\\vfill\n");
 }
 
