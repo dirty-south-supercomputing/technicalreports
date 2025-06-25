@@ -348,24 +348,35 @@ While in the Gym, the Pokémon still counts against the Trainer's storage,
   but it cannot be interacted with in any way save feeding it Berries.
 Berries can be fed to any Pokémon defending a coaligned Gym, though
   each defender can consume only ten berries per thirty minutes.
+While the gym is controlled by a Raid Boss, the defenders cannot be challenged,
+  nor fed berries.
+
+Pokémon defending the gym steadily lose HP (``motivation'') at a rate
+  based on their CP (\autoref{sec:cp}).
 \textbf{FIXME}
 
 \subsection{Raids}
 \label{sec:raids}
 Mysterious eggs sometimes appear in gyms, together with countdowns.
-While the egg is present, the gym cannot be assaulted.
 When the countdown expires, the egg hatches, revealing a powerful Boss Pokémon.
 This Pokémon will hold the gym for some amount of time (displayed as another countdown), usually 45 minutes.
 During this time, up to twenty Trainers can come together to ``raid'' the gym.
-If further Trainers show up, they will enter a new lobby, and fight their own instance of the boss.
 Each trainer provides a team of six Pokémon.
 If all six are defeated, their Trainer can optionally continue with another team of six.
 Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution within the team.
 These raids have their own time limits, and the raid ends when the Pokémon is defeated, no more Pokémon remain fighting,
   or the timer expires.
+
+A raid gym has zero or more associated lobbies, each capable of holding twenty Trainers.
+Empty lobbies are immediately destroyed.
+Upon entering a raid gym, a Trainer is placed in an existing lobby if there is space.
+A new lobby is otherwise created for the Trainer, and a 120 second timer starts.
+At the end of this timer, any Trainers in the lobby will begin the raid.
+Different lobbies will each fight their own instance of the boss.
 Taking part in a local raid requires a Raid Pass or a Premium Battle Pass,
   and a remote raid requires a Remote Raid Pass.
-The pass is consumed once the raid starts, but involved Trainers can reattempt a failed raid without a second pass.
+Showing a pass is required to enter the lobby, but the pass is only consumed when the raid starts.
+Involved Trainers can reattempt a failed raid without a second pass.
 
 Shadow raids are backed by Team GO Rocket, and feature Shadowed bosses.
 Shadow bosses ranked 3🟉 or more will enter a dangerous ``enraged'' state after losing about ⅓ of their HP.
