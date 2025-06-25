@@ -325,18 +325,18 @@ defensive_summaries_latex(const typing* t){
       }
       dra += pow(1.6, (offset + (int)j)) * totals[j];
       if(totals[j]){ // don't print zeroes
-        if(combine == COMBINE_FIRST){
-          printf("\\multirow{2}{*}{%d}", totals[j]);
+        if(combine == COMBINE_SECOND){
+          printf("\\multirow{-2}{*}{%d}", totals[j]);
         }else if(combine == UNCOMBINED){
           printf("%d", totals[j]);
         }
       }
       printf("&");
     }
-    if(combine == COMBINE_FIRST){
-      printf("\\multirow{2}{*}{%.3f} & \\multirow{2}{*}{%u} & ", dra / 18, pcnt);
-    }else if(combine == COMBINE_SECOND){
-      printf(" & & ");
+    if(combine == COMBINE_SECOND){
+      printf("\\multirow{-2}{*}{%.3f} & %u & ", dra / 18, pcnt);
+    }else if(combine == COMBINE_FIRST){
+      printf(" & %u & ", pcnt);
     }else{
       printf("%.3f & %u & ", dra / 18, pcnt);
     }
