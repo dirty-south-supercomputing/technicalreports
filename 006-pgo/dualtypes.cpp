@@ -212,22 +212,43 @@ typing_compare(const void* a, const void* b){
 static std::unique_ptr<typing[]>
 setup_typings(void){
   auto dtypes = std::make_unique<typing[]>(TYPINGCOUNT);
-  if(dtypes){
-    int pos = 0;
-    for(int i = 0 ; i < TYPECOUNT ; ++i){
-      for(int j = i ; j < TYPECOUNT ; ++j){
-        dtypes[pos].types[0] = static_cast<pgo_types_e>(i);
-        dtypes[pos].types[1] = static_cast<pgo_types_e>(j);
-        melt_column(dtypes[pos].atypes, &trelations[0][i]);
-        if(i != j){
-          int vec[TYPECOUNT];
-          melt_column(vec, &trelations[0][j]);
-          for(int k = 0 ; k < TYPECOUNT ; ++k){
-            dtypes[pos].atypes[k] += vec[k];
-          }
+  int pos = 0;
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    for(int j = i ; j < TYPECOUNT ; ++j){
+      dtypes[pos].types[0] = static_cast<pgo_types_e>(i);
+      dtypes[pos].types[1] = static_cast<pgo_types_e>(j);
+      melt_column(dtypes[pos].atypes, &trelations[0][i]);
+      if(i != j){
+        int vec[TYPECOUNT];
+        melt_column(vec, &trelations[0][j]);
+        for(int k = 0 ; k < TYPECOUNT ; ++k){
+          dtypes[pos].atypes[k] += vec[k];
         }
-        ++pos;
       }
+      ++pos;
+    }
+  }
+  return dtypes;
+}
+
+// create an array of TYPECOUNTSQUARED partially redundant typings, sorted by DRA
+static std::unique_ptr<typing[]>
+setup_redundant_typings(void){
+  auto dtypes = std::make_unique<typing[]>(TYPECOUNTSQUARED);
+  int pos = 0;
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    for(int j = 0 ; j < TYPECOUNT ; ++j){
+      dtypes[pos].types[0] = static_cast<pgo_types_e>(i);
+      dtypes[pos].types[1] = static_cast<pgo_types_e>(j);
+      melt_column(dtypes[pos].atypes, &trelations[0][i]);
+      if(i != j){
+        int vec[TYPECOUNT];
+        melt_column(vec, &trelations[0][j]);
+        for(int k = 0 ; k < TYPECOUNT ; ++k){
+          dtypes[pos].atypes[k] += vec[k];
+        }
+      }
+      ++pos;
     }
   }
   return dtypes;
@@ -236,16 +257,12 @@ setup_typings(void){
 static unsigned
 typing_popcount(pgo_types_e t1, pgo_types_e t2){
   unsigned pcnt = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species* s = &sdex[u];
-    if((s->t1 == t1 && s->t2 == t2) || (s->t2 == t1 && s->t1 == t2)){
-      ++pcnt;
-    }
-  }
-  for(unsigned u = 0 ; u < MEGACOUNT ; ++u){
-    const species* s = &megasdex[u];
-    if((s->t1 == t1 && s->t2 == t2) || (s->t2 == t1 && s->t1 == t2)){
-      ++pcnt;
+  for(const auto &sd : sdexen){
+    for(unsigned u = 0 ; u < sd.dcount ; ++u){
+      const species* s = &sd.dex[u];
+      if((s->t1 == t1 && s->t2 == t2)){// || (s->t2 == t1 && s->t1 == t2)){
+        ++pcnt;
+      }
     }
   }
   return pcnt;
@@ -262,10 +279,11 @@ defensive_summaries_latex(const typing* t){
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n");
   printf("\\endhead\n");
   bool grey = false;
-  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+  for(int i = 0 ; i < TYPECOUNTSQUARED ; ++i){
     unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);
     if(pcnt == 0){
-      printf("\\rowcolor{Red!25}\n");
+    //  printf("\\rowcolor{Red!25}\n");
+      continue;
     }
     if( (grey = !grey) && pcnt){
       printf("\\rowcolor{Gray!25}");
@@ -288,10 +306,10 @@ defensive_summaries_latex(const typing* t){
       }
     }
     printf("%.3f & %u & ", dra / 18, pcnt);
-    if(pcnt){ // no page if no population
+    //if(pcnt){ // no page if no population
       printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
               t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
-    }
+    //}
     printf("\\\\\n");
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
@@ -385,17 +403,18 @@ int main(int argc, const char** argv){
 
   attack_summaries();*/
 
-  auto t = setup_typings();
   if(argc == 2){
     if(strcmp(argv[1], "summary")){
       usage(argv[0]);
     }
-    qsort(t.get(), TYPINGCOUNT, sizeof(typing), typing_compare);
+    auto t = setup_redundant_typings();
+    qsort(t.get(), TYPECOUNTSQUARED, sizeof(typing), typing_compare);
     defensive_summaries_latex(t.get());
     return EXIT_SUCCESS;
   }else if(argc != 1){
     usage(argv[0]);
   }
+  auto t = setup_typings();
   defensive_relations_latex(t.get());
   return EXIT_SUCCESS;
 }

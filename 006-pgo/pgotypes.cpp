@@ -33,6 +33,8 @@ typedef enum {
 
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
+// but there are 324 if one considers ordering, which one generally oughtn't
+#define TYPECOUNTSQUARED 324
 
 const uint32_t TColors[TYPECOUNT] = {
   0xA6B91A, 0x575063, 0x6F35FC, 0xF7D02C, 0xD685AD, 0xC22E28, 0xEE8130, 0x8D87DB, 0x5066A3,
