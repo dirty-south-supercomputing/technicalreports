@@ -316,7 +316,8 @@ defensive_relations_latex(const typing* t){
     if( (grey = !grey) ){
       printf("\\rowcolor{Gray!25}");
     }
-    print_types(t[i].types[0], t[i].types[1]);
+    // already have monotypes in another table
+    //print_types(t[i].types[0], t[i].types[1]);
     for(int k = 0 ; k < TYPECOUNT ; ++k){
       if(t[i].atypes[k]){
         printf("& %d", t[i].atypes[k]);
