@@ -352,13 +352,44 @@ Berries can be fed to any Pokémon defending a coaligned Gym, though
 
 \subsection{Raids}
 \label{sec:raids}
-A powerful Pokémon, sometimes backed by Team GO Rocket, will seize a gym for an hour.
-Assaulting this Pokémon is a raid, or a shadow raid if occupied by a Shadow Pokémon.
-Up to twenty Trainers can come together for a raid, with each providing a team of six Pokémon.
-If all six are defeated, their Trainer can throw in another team of six.
-Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution.
-The raid ends when the Pokémon is defeated, no more Pokémon remain fighting,
+Mysterious eggs sometimes appear in gyms, together with countdowns.
+While the egg is present, the gym cannot be assaulted.
+When the countdown expires, the egg hatches, revealing a powerful Boss Pokémon.
+This Pokémon will hold the gym for some amount of time (displayed as another countdown), usually 45 minutes.
+During this time, up to twenty Trainers can come together to ``raid'' the gym.
+Each trainer provides a team of six Pokémon.
+If all six are defeated, their Trainer can optionally continue with another team of six.
+Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution within the team.
+These raids have their own time limits, and the raid ends when the Pokémon is defeated, no more Pokémon remain fighting,
   or the timer expires.
+
+Shadow raids are backed by Team GO Rocket, and feature Shadowed bosses.
+Shadow bosses ranked 3🟉 or more will enter a dangerous ``enraged'' state after losing about ⅓ of their HP.
+While enraged, the Pokémon enjoys higher attack and defense, regenerates HP, and is surrounded by a purple aura.
+Eight purified gems will subdue an enraged boss, as will falling to about 15\% of original HP.
+Each Trainer can use up to five purified gems, with a five second delay between uses.
+Transitions into the enraged and subdued states are noted with messages.
+
+Boss Pokémon share base ATK and DEF with their normal brethren, with a 15/15/0 IV.
+Their MHP is greatly augmented (\autoref{table:raidmhp}).
+Shadow bosses sometimes get a further boost to MHP\@.
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+    Tier & MHP & Shadow MHP\\
+    \Midrule
+    1🟉 & 600 & 600\\
+    2🟉 & 1,800 & n/a\\
+    3🟉 & 3,600 & 4,000\\
+    4🟉 & 9,000 & n/a\\
+    5🟉 & 15,000 & 15,000\\
+    Elite & 20,000 & n/a\\
+     & 20,000 & n/a\\
+  \end{tabular}
+  \caption{MHP for raid bosses}
+  \label{table:raidmhp}
+\end{table}
+
 \textbf{FIXME}
 
 \begin{figure}[hb]
