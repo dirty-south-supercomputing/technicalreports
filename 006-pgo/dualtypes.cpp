@@ -342,7 +342,11 @@ defensive_summaries_latex(const typing* t){
     }
     printf("\\pageref{types:%s%s}", tnames[t[i].types[0]],
             t[i].types[1] == t[i].types[0] ? "" : tnames[t[i].types[1]]);
-    printf("\\\\\n");
+    if(combine == COMBINE_FIRST){
+      printf("\\\\*\n"); // don't allow a page break after this row
+    }else{
+      printf("\\\\\n");
+    }
   }
   printf("\\caption[Defender effectiveness summaries]{Defender effectiveness summaries (lower is better)}\n");
   printf("\\label{table:defenders}\n");
