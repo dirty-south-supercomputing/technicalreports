@@ -24,6 +24,18 @@ static const char* WNames[WEATHERCOUNT] = {
   "Extreme"
 };
 
+// secondary names
+static const char* WSNames[WEATHERCOUNT] = {
+  "Clear Night",
+  NULL,
+  "Partly Cloudy Night",
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL
+};
+
 static pgo_weather_t wboosts[TYPECOUNT] = {
   WEATHER_RAIN,   // bug
   WEATHER_FOG,    // dark
@@ -46,11 +58,15 @@ static pgo_weather_t wboosts[TYPECOUNT] = {
 };
 
 int main(void){
-  printf("\\begin{center}\\begin{tabular}{lcl}\n");
+  printf("\\centering\\begin{tabular}{lcl}");
   printf("Weather & Icon & Types\\\\\n");
   printf("\\Midrule\n");
   for(unsigned w = 0 ; w < static_cast<unsigned>(WEATHERCOUNT) ; ++w){
-    printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s.png} & ", WNames[w], WNames[w]);
+    printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s.png}", WNames[w], WNames[w]);
+    if(WSNames[w]){
+      printf("\\includegraphics[height=1em,keepaspectratio]{images/%s.png}", WSNames[w]);
+    }
+    printf(" & ");
     bool printed = false;
     for(unsigned t = 0 ; t < static_cast<unsigned>(TYPECOUNT) ; ++t){
       if(wboosts[t] == w){
@@ -63,5 +79,5 @@ int main(void){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{Weather-boosted types}\\label{table:weather}\\end{center}\n");
+  printf("\\end{tabular}\\caption{Weather-boosted types}\\label{table:weather}");
 }

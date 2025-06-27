@@ -20,7 +20,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
-  printf("Attack & P & $\\times\\frac{6}{5}$ & E & T & DPT & $\\times\\frac{6}{5}$ & EPT & Pop\\\\\n");
+  printf("Attack & P & $\\times\\frac{6}{5}$ & E & T & PPT & $\\times\\frac{6}{5}$ & EPT & Pop\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
@@ -37,7 +37,7 @@ void print_latex_table(const attack* as, unsigned ccount){
            (a->powertrain * 6.0) / (a->turns * 5.0),
            a->energytrain / (float)a->turns, learner_count(a));
   }
-  printf("\\caption{Fast attacks, DPT, and EPT (3x3 battles)}\n");
+  printf("\\caption{Fast attacks, PPT, and EPT (3x3 battles)}\n");
   printf("\\label{table:fastattacks}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
