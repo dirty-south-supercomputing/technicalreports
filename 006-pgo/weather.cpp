@@ -1,62 +1,6 @@
 #include <stdio.h>
 #include "pgotypes.cpp"
 
-typedef enum {
-  WEATHER_CLEAR,
-  WEATHER_RAIN,
-  WEATHER_PARTLY_CLOUDY,
-  WEATHER_CLOUDY,
-  WEATHER_WINDY,
-  WEATHER_SNOW,
-  WEATHER_FOG,
-  WEATHER_EXTREME,
-  WEATHERCOUNT
-} pgo_weather_t;
-
-static const char* WNames[WEATHERCOUNT] = {
-  "Clear",
-  "Rainy",
-  "Partly Cloudy",
-  "Cloudy",
-  "Windy",
-  "Snow",
-  "Fog",
-  "Extreme"
-};
-
-// secondary names
-static const char* WSNames[WEATHERCOUNT] = {
-  "Clear Night",
-  NULL,
-  "Partly Cloudy Night",
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-};
-
-static pgo_weather_t wboosts[TYPECOUNT] = {
-  WEATHER_RAIN,   // bug
-  WEATHER_FOG,    // dark
-  WEATHER_WINDY,  // dragon
-  WEATHER_RAIN,   // electric
-  WEATHER_CLOUDY, // fairy
-  WEATHER_CLOUDY, // fighting
-  WEATHER_CLEAR,  // fire
-  WEATHER_WINDY,  // flying
-  WEATHER_FOG,    // ghost
-  WEATHER_CLEAR,  // grass
-  WEATHER_CLEAR,  // ground
-  WEATHER_SNOW,   // ice
-  WEATHER_PARTLY_CLOUDY,  // normal
-  WEATHER_CLOUDY, // poison
-  WEATHER_WINDY,  // psychic
-  WEATHER_PARTLY_CLOUDY,  // rock
-  WEATHER_SNOW,   // steel
-  WEATHER_RAIN,   // water
-};
-
 int main(void){
   printf("\\centering\\begin{tabular}{lcl}");
   printf("Weather & Icon & Types\\\\\n");
