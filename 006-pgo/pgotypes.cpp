@@ -12660,6 +12660,20 @@ const species *get_persistent_evolution(const species *s){
   return NULL;
 }
 
+const species *get_previous_evolution(const species *s){
+  if(s->from == NULL){
+    return NULL;
+  }
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *t = &sdex[i];
+    if(!strcmp(s->from, t->name.c_str())){
+      return t;
+    }
+  }
+  fprintf(stderr, "COULDN'T FIND PREVIOUS FORM FOR %s\n", s->name.c_str());
+  return NULL;
+}
+
 void print_species_latex(const species* s, bool overzoom){
   printf("\\begin{tcolorbox}[enhanced,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
@@ -12670,15 +12684,13 @@ void print_species_latex(const species* s, bool overzoom){
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
-    printf(",fill image opacity=0.1}");
+    puts(",fill image opacity=0.1}");
   }
-  printf(",subtitle style={colback=Shadow!50!black}");
-  printf("]\n");
-  printf("\\label{species:");
+  puts(",subtitle style={colback=Shadow!50!black}");
+  puts("]\\label{species:");
   label_string(s->name.c_str());
-  printf("}");
-  printf("{");
-  printf("\\footnotesize\n");
+  puts("}{");
+  printf("\\footnotesize\\centering{}");
 
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -12688,8 +12700,7 @@ void print_species_latex(const species* s, bool overzoom){
       printf("%c", *curs);
     }
   }
-  printf(".png} &\n");
-  printf("\\begin{tabular}{lrrrrr}\n");
+  puts(".png} &\n\\begin{tabular}{lrrrrr}\n");
   for(const attack** a = s->attacks ; *a ; ++a){
     unsigned stab = has_stab_p(s, *a);
     float power = (*a)->powertrain;
@@ -12742,9 +12753,28 @@ void print_species_latex(const species* s, bool overzoom){
   }
   print_types_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
-  printf("}");
 
-  // shadow and evolution are implemented as subtitles
+  // evolutionary lineage (only for main forms)
+  if(overzoom){
+    const species *devol = get_previous_evolution(s);
+    const species *evol = get_persistent_evolution(s);
+    if(devol || evol){
+      if(devol){
+        escape_string(devol->name.c_str());
+        puts(" → ");
+      }
+      puts("\\textbf{");
+      escape_string(s->name.c_str());
+      puts("}");
+      if(evol){
+        puts(" → ");
+        escape_string(evol->name.c_str());
+      }
+      puts("\\\\");
+    }
+  }
+
+  // shadow is implemented as subtitle
   if(s->shadow){
     printf("\\tcbsubtitle[before skip=0pt]{Shadow ");
     escape_string(s->name.c_str());
@@ -12755,12 +12785,9 @@ void print_species_latex(const species* s, bool overzoom){
     const float gm = calc_fit(atk, def, s->sta);
     printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
-  const species *evol = get_persistent_evolution(s);
-  if(evol){
-    printf("\\tcbsubtitle[before skip=0pt]{Evolves to ");
-    escape_string(evol->name.c_str());
-    printf("}");
-  }
+
+  // end footnotesize
+  printf("}");
   printf("\\end{tcolorbox}\n");
   if(overzoom){
     printf("\\vfill\n");

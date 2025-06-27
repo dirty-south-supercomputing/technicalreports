@@ -15,12 +15,17 @@ We then select a team using the strategies of that chapter. Since
   League, none of which employ CP bounds.}
 
 \section{Optimal IVs and Levels under a CP bound}
-For a given CP bound and Form, there is some optimal set of Pokémon Levels
- and Individual Vectors.
+We require a fitness function that takes as input a Pokémon's form, level, and IV,
+  and emits a comparable output.
+Common functions include CP itself, the arithmetic mean ($\frac{Mod_A + Mod_D + MHP}{3}$),
+  and the geometric mean ($\sqrt[3]{Mod_A \ctimes Mod_D \ctimes MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
+  mechanics, but there is no true ``best'' fitness function---optimal IVs are
+  strongly dependent upon the base stats, and weakly dependent upon the
+  opponent.}.
+For a given CP bound, fitness function, and form, there is some optimal set of Pokémon levels
+ and individual vectors.
 Higher IV components might require a lower level than lower components to
  come in under the same ceiling.
-It is not possible to provide a global rule; optimal IVs are strongly
- dependent upon the base stats, and weakly dependent upon the opponent.
 What can be said is that IVs add less value to a high base stat than a low
  base stat, and that higher levels provide diminishing returns.
 For a base stat of 100, a corresponding IV component of 15 represents a
@@ -96,6 +101,7 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
 \section{Optimal League forms}
 Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
    the Ultra League (CP 2500).
+\textbf{FIXME: update this for new lists}
 \autoref{table:cp1500} lists species' optimal level and IVs for the Great League
   as evaluated using the geometric mean of $Eff_A$, $Eff_D$, and $MHP$.
 Species which can't manage a geometric mean of 95 have been left out.
