@@ -308,10 +308,13 @@ Of course, our chance of being knocked out is usually not constant across
 \label{sec:3x3}
 Two teams of three Pokémon each are locked in mortal combat.
 Each team has one champion fighting at any given time.
-The team is ordered: the first Pokémon will emerge first, and should that Pokémon
+The team is ordered: the first Pokémon will lead, and should that Pokémon
   faint, the second Pokémon will come in unless the Trainer specifies otherwise.
 An active Pokémon can be substituted, but the Trainer cannot perform another
   such substitution for fifty seconds.
+Each Trainer has two shields, and will be given the option to use one each time
+  the opponent uses a charged attack (assuming one is left).
+The decision must be made before the attack is identified.
 There is a four minute (240 second) timer on Trainer Battles, which is not displayed
   until there are twenty seconds remaining or less.
 If this timer expires, the Trainer with the most Pokémon remaining wins.
@@ -319,12 +322,22 @@ If they have an equal number of Pokémon, the Trainer with less damage to their
   Pokémon (by percentage) wins.
 
 Charged attacks are purchased with energy, fast attacks with time.
-
-\textbf{FIXME: mention cmp}
-
+Each turn can be split into two halves, a ``top half'' and ``bottom half''.
+Attacks are launched and substitutions are made in the top half, and damage is accounted in the bottom half.
+Once a fast attack is started, the Trainer cannot do anything until it is complete.
+Launching a charged attack brings the opponent's ongoing fast attack to its conclusion.
+Damage from charged attacks is inflicted before damage from fast attacks,
+  but damage from fast attacks can be inflicted simultaneously.
+Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
+  on the same turn, one goes first,and can knock out the opponent before it
+  launches its attack.
+The Pokémon that goes first (``Charged Move Priority'') is the one with the
+  higher $Mod_A$ (recall that this is base attack plus $IV_A$).
+Shadow status does not factor into consideration, nor do any active buffs.
 
 \subsection{Team GO Rocket}
 \label{sec:rocket}
+
 \textbf{FIXME}
 
 \section{Nx1 battles}
