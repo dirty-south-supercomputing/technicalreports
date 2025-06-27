@@ -51,7 +51,6 @@ fill_stats(stats* s){
 
 static void
 print_pmon(const pmon *p){
-  // FIXME need attacks
   printf("%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name.c_str(), p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
   printf(" f attack: %s\t%3u %3d %u\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
@@ -107,11 +106,21 @@ static void tophalf(const simulstate *s, results *r);
 static inline void
 bottomhalf(simulstate *s, results *r, pgo_move_e m1, pgo_move_e m2){
   if(charged_move_p(m1) && charged_move_p(m2)){
-    // FIXME determine CMP
-    // FIXME launch CMP winner's charged move
-    // did loser die? if so return
-    // launch loser's charged move
-    // did winner die? if so return
+    float moda0 = pmons[0].s.atk + pmons[0].s.ia;
+    float moda1 = pmons[1].s.atk + pmons[1].s.ia;
+    bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
+    if(cmp0){
+      // FIXME launch pmon[0]'s charged move
+    }else{
+      // FIXME launch pmon[1]'s charged move
+    }
+    // FIXME did loser die? if so return
+    if(cmp0){
+      // FIXME launch pmon[1]'s charged move
+    }else{
+      // FIXME launch pmon[0]'s charged move
+    }
+    // FIXME did winner die? if so return
   }else if(charged_move_p(m1)){
     // FIXME run p1's charged move
     // FIXME did p2 die? if so return
@@ -120,6 +129,9 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m1, pgo_move_e m2){
     }
   }else if(charged_move_p(m2)){
     // FIXME run p2's charged move
+    if(m1 == MOVE_FAST){
+      // FIXME set up p1's fast move
+    }
   }
   // FIXME account for fast moves (decrement turns by 1, inflict damage if 0)
   // FIXME did anyone die? return if so

@@ -12759,7 +12759,7 @@ print_previous_species(const species *s){
   printf(" → ");
 }
 
-void print_species_latex(const species* s, bool overzoom){
+void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\begin{tcolorbox}[enhanced,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
@@ -12821,7 +12821,6 @@ void print_species_latex(const species* s, bool overzoom){
   print_optimal_latex(s);
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
-  printf("{\\large %d}", s->a2cost == 100 ? 4 : s->a2cost == 75 ? 3 : s->a2cost == 50 ? 2 : 1);
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
@@ -12838,6 +12837,8 @@ void print_species_latex(const species* s, bool overzoom){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
   }
   print_weathers_big(s->t1, s->t2);
+  printf(" \\includegraphics[height=2em,keepaspectratio]{images/%d.png}",
+          s->a2cost == 100 ? 4 : s->a2cost == 75 ? 3 : s->a2cost == 50 ? 2 : 1);
   print_types_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
 
@@ -12876,7 +12877,7 @@ void print_species_latex(const species* s, bool overzoom){
   // end footnotesize
   printf("}");
   printf("\\end{tcolorbox}\n");
-  if(overzoom){
+  if(vfill){
     printf("\\vfill\n");
   }
 }
@@ -12892,7 +12893,7 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool ov
       }
     }
     if(printit){
-      print_species_latex(&dex[i], overzoom);
+      print_species_latex(&dex[i], overzoom, true);
     }
   }
 }
