@@ -8,7 +8,7 @@ typedef struct pmon {
   const attack *fa, *ca1, *ca2;
 } pmon;
 
-static pmon p1, p2;
+static pmon pmons[2];
 
 static void
 usage(const char *argv0){
@@ -68,10 +68,11 @@ typedef struct results {
 // those parts which change over the course of the simulation
 typedef struct simulstate {
   unsigned turn;
-  unsigned p1hp, p2hp;
-  int p1energy, p2energy;
+  unsigned hp[2];
+  unsigned energy[2];
   // number of turns remaining in an ongoing fast attack, can be 0
-  unsigned p1turns, p2turns;
+  unsigned turns[2];
+  unsigned subtimer[2];
 } simulstate;
 
 static void
@@ -84,6 +85,89 @@ inflict_damage(unsigned *hp, unsigned damage){
   }
 }
 
+// the various things each side can do on a turn. MOVE_WAIT can mean either
+// a mandatory wait while the ongoing fast attack completes, or an optional
+// wait while doing nothing.
+typedef enum {
+  MOVE_WAIT,
+  MOVE_FAST,
+  MOVE_CHARGED1,
+  MOVE_CHARGED2,
+  MOVE_SUBSTITUTION,
+  MOVEMAX
+} pgo_move_e;
+
+static inline bool
+charged_move_p(pgo_move_e m){
+  return m == MOVE_CHARGED1 || m == MOVE_CHARGED2;
+}
+
+static void tophalf(const simulstate *s, results *r);
+
+static void
+bottomhalf(simulstate *s, results *r, pgo_move_e m1, pgo_move_e m2){
+  if(charged_move_p(m1) && charged_move_p(m2)){
+    // FIXME determine CMP
+    // FIXME launch CMP winner's charged move
+    // did loser die? if so return
+    // launch loser's charged move
+    // did winner die? if so return
+  }else if(charged_move_p(m1)){
+    // FIXME run p1's charged move
+    // FIXME did p2 die? if so return
+    if(m2 == MOVE_FAST){
+      // FIXME set up p2's fast move
+    }
+  }else if(charged_move_p(m2)){
+    // FIXME run p2's charged move
+  }
+  // FIXME account for fast moves (decrement turns by 1, inflict damage if 0)
+  // FIXME did anyone die? return if so
+  tophalf(s, r);
+}
+
+// determine which of the moves can be taken this turn by this player
+static void
+sift_choices(const simulstate *s, bool *m, int player){
+  if(s->turns[player]){ // if we're in a fast move, we can only wait
+    m[MOVE_WAIT] = true;
+    return;
+  }
+  m[MOVE_FAST] = true; // we can launch a fast move
+  if(s->energy[player] >= -pmons[player].ca1->energytrain){
+    m[MOVE_CHARGED1] = true;
+  }
+  if(pmons[player].ca2){
+    if(s->energy[player] >= -pmons[player].ca2->energytrain){
+      m[MOVE_CHARGED2] = true;
+    }
+  }
+  if(s->subtimer[player] == 0){
+    m[MOVE_SUBSTITUTION] = true;
+  }
+}
+
+// each turn has a top half and bottom halves.
+// in the top half we determine which choice-pairs can be performed.
+// in the bottom halves, we simulate a choice-pair.
+static void
+tophalf(const simulstate *s, results *r){
+  bool m1[MOVEMAX] = {};
+  bool m2[MOVEMAX] = {};
+  sift_choices(s, m1, 0);
+  sift_choices(s, m2, 1);
+  for(int c1 = 0 ; c1 < MOVEMAX ; ++c1){
+    if(m1[c1]){
+      for(int c2 = 0 ; c2 < MOVEMAX ; ++c2){
+        if(m2[c2]){
+          simulstate cs = *s;
+          bottomhalf(&cs, r, static_cast<pgo_move_e>(c1), static_cast<pgo_move_e>(c2));
+        }
+      }
+    }
+  }
+}
+
 // must simulate cartesian of p1 options and p2 options.
 // options include:
 //  - continue fast attack if one is ongoing
@@ -92,7 +176,7 @@ inflict_damage(unsigned *hp, unsigned damage){
 //  - charged attack (with sufficient energy)
 //  - do nothing
 // but we do not simulate both doing nothing in the same turn
-static int
+static void
 simulturn(const simulstate *ins, results *r){
   bool p1ongoing = false;
   bool p2ongoing = false;
@@ -301,7 +385,6 @@ simulturn(const simulstate *ins, results *r){
   }
   s.p1hp = p1hppreserve;
   printf("p1: %8u p2:%8u t: %8u\n", r->p1wins, r->p2wins, r->ties);
-  return 0;
 }
 
 static int
