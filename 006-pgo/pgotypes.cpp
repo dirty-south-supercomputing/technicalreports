@@ -12158,9 +12158,9 @@ static const species crownedsdex[] = {
 
 // dynamax forms are never shadows
 static const species dynadex[] = {
-  {    3, "Dmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {    6, "Dmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {    9, "Dmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {    3, "Dmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {    6, "Dmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charizard", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {    9, "Dmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Blastoise", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {   12, "Dmax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {   68, "Dmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {   94, "Dmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
@@ -12732,7 +12732,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("}");
 
   if(s->shadow){
-    printf("\\tcbsubtitle{Shadow ");
+    printf("\\tcbsubtitle[before skip=0pt]{Shadow ");
     escape_string(s->name.c_str());
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
