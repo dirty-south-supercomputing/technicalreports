@@ -12742,7 +12742,9 @@ void print_species_latex(const species* s, bool overzoom){
     printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
   printf("\\end{tcolorbox}\n");
-  printf("\\vfill\n");
+  if(!overzoom){
+    printf("\\vfill\n");
+  }
 }
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
