@@ -12647,6 +12647,19 @@ has_gmax(const species *s){
   return false;
 }
 
+// return its evolution target, if there is one
+// FIXME what if there are multiple?
+const species *get_persistent_evolution(const species *s){
+  const char *cstr = s->name.c_str();
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *t = &sdex[i];
+    if(t->from && !strcmp(t->from, cstr)){
+      return t;
+    }
+  }
+  return NULL;
+}
+
 void print_species_latex(const species* s, bool overzoom){
   printf("\\begin{tcolorbox}[enhanced,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
@@ -12731,6 +12744,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("\\end{minipage}\n");
   printf("}");
 
+  // shadow and evolution are implemented as subtitles
   if(s->shadow){
     printf("\\tcbsubtitle[before skip=0pt]{Shadow ");
     escape_string(s->name.c_str());
@@ -12740,6 +12754,12 @@ void print_species_latex(const species* s, bool overzoom){
     const float avg = calc_avg(atk, def, s->sta);
     const float gm = calc_fit(atk, def, s->sta);
     printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
+  }
+  const species *evol = get_persistent_evolution(s);
+  if(evol){
+    printf("\\tcbsubtitle[before skip=0pt]{Evolves to ");
+    escape_string(evol->name.c_str());
+    printf("}");
   }
   printf("\\end{tcolorbox}\n");
   if(overzoom){
