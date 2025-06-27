@@ -11489,7 +11489,7 @@ static const species sdex[] = {
   {  423, "Gastrodon", TYPE_WATER, TYPE_GROUND, 169, 143, 244, "Shellos", GASTRODON_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  424, "Ambipom", TYPE_NORMAL, TYPECOUNT, 205, 143, 181, "Aipom", AMBIPOM_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  425, "Drifloon", TYPE_GHOST, TYPE_FLYING, 117, 80, 207, NULL, DRIFLOON_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
-  {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifblim", DRIFBLIM_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
+  {  426, "Drifblim", TYPE_GHOST, TYPE_FLYING, 180, 102, 312, "Drifloon", DRIFBLIM_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
   {  427, "Buneary", TYPE_NORMAL, TYPECOUNT, 130, 105, 146, NULL, BUNEARY_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  428, "Lopunny", TYPE_NORMAL, TYPECOUNT, 156, 194, 163, "Buneary", LOPUNNY_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  429, "Mismagius", TYPE_GHOST, TYPECOUNT, 211, 187, 155, "Misdreavus", MISMAGIUS_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
@@ -11502,7 +11502,7 @@ static const species sdex[] = {
   {  436, "Bronzor", TYPE_STEEL, TYPE_PSYCHIC, 43, 154, 149, NULL, BRONZOR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  437, "Bronzong", TYPE_STEEL, TYPE_PSYCHIC, 161, 213, 167, "Bronzor", BRONZONG_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  438, "Bonsly", TYPE_ROCK, TYPECOUNT, 124, 133, 137, NULL, BONSLY_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, "Mr. Mime", MIMEJR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {  439, "Mime Jr.", TYPE_PSYCHIC, TYPE_FAIRY, 125, 142, 85, NULL, MIMEJR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  440, "Happiny", TYPE_NORMAL, TYPECOUNT, 25, 77, 225, NULL, HAPPINY_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  441, "Chatot", TYPE_NORMAL, TYPE_FLYING, 183, 91, 183, NULL, CHATOT_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  442, "Spiritomb", TYPE_GHOST, TYPE_DARK, 169, 199, 137, NULL, SPIRITOMB_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
@@ -11670,7 +11670,7 @@ static const species sdex[] = {
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, ZORUA_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", ZOROARK_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, MINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Cinccino", CINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Minccino", CINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, GOTHITA_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  575, "Gothorita", TYPE_PSYCHIC, TYPECOUNT, 137, 153, 155, "Gothita", GOTHORITA_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  576, "Gothitelle", TYPE_PSYCHIC, TYPECOUNT, 176, 205, 172, "Gothorita", GOTHITELLE_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
@@ -11681,7 +11681,7 @@ static const species sdex[] = {
   {  581, "Swanna", TYPE_WATER, TYPE_FLYING, 182, 132, 181, "Ducklett", SWANNA_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  582, "Vanillite", TYPE_ICE, TYPECOUNT, 118, 106, 113, NULL, VANILLITE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  583, "Vanillish", TYPE_ICE, TYPECOUNT, 151, 138, 139, "Vanillite", VANILLISH_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanilluxe", VANILLUXE_ATKS, true, false,
+  {  584, "Vanilluxe", TYPE_ICE, TYPECOUNT, 218, 184, 174, "Vanillish", VANILLUXE_ATKS, true, false,
     { &ATK_Avalanche, }, species::CAT_NORMAL, 50, },
   {  585, "Deerling", TYPE_NORMAL, TYPE_GRASS, 115, 100, 155, NULL, DEERLING_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  586, "Sawsbuck", TYPE_NORMAL, TYPE_GRASS, 198, 146, 190, "Deerling", SAWSBUCK_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
@@ -12670,8 +12670,17 @@ const species *get_previous_evolution(const species *s){
       return t;
     }
   }
-  fprintf(stderr, "COULDN'T FIND PREVIOUS FORM FOR %s\n", s->name.c_str());
   return NULL;
+}
+
+static void
+print_previous_species(const species *s){
+  const species *devol = get_previous_evolution(s);
+  if(devol){
+    print_previous_species(devol);
+  }
+  escape_string(s->name.c_str());
+  printf(" → ");
 }
 
 void print_species_latex(const species* s, bool overzoom){
@@ -12684,12 +12693,12 @@ void print_species_latex(const species* s, bool overzoom){
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
-    puts(",fill image opacity=0.1}");
+    printf(",fill image opacity=0.1}");
   }
-  puts(",subtitle style={colback=Shadow!50!black}");
-  puts("]\\label{species:");
+  printf(",subtitle style={colback=Shadow!50!black}");
+  printf("]\\label{species:");
   label_string(s->name.c_str());
-  puts("}{");
+  printf("}{");
   printf("\\footnotesize\\centering{}");
 
   // the table containing image and attack data
@@ -12700,7 +12709,7 @@ void print_species_latex(const species* s, bool overzoom){
       printf("%c", *curs);
     }
   }
-  puts(".png} &\n\\begin{tabular}{lrrrrr}\n");
+  printf(".png} &\n\\begin{tabular}{lrrrrr}\n");
   for(const attack** a = s->attacks ; *a ; ++a){
     unsigned stab = has_stab_p(s, *a);
     float power = (*a)->powertrain;
@@ -12760,17 +12769,16 @@ void print_species_latex(const species* s, bool overzoom){
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
       if(devol){
-        escape_string(devol->name.c_str());
-        puts(" → ");
+        print_previous_species(devol);
       }
-      puts("\\textbf{");
+      printf("\\textbf{");
       escape_string(s->name.c_str());
-      puts("}");
+      printf("}");
       if(evol){
-        puts(" → ");
+        printf(" → ");
         escape_string(evol->name.c_str());
       }
-      puts("\\\\");
+      printf("\\\\");
     }
   }
 
