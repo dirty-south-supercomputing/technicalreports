@@ -104,7 +104,7 @@ charged_move_p(pgo_move_e m){
 
 static void tophalf(const simulstate *s, results *r);
 
-static void
+static inline void
 bottomhalf(simulstate *s, results *r, pgo_move_e m1, pgo_move_e m2){
   if(charged_move_p(m1) && charged_move_p(m2)){
     // FIXME determine CMP
@@ -170,8 +170,9 @@ tophalf(const simulstate *s, results *r){
 
 static void
 simul(simulstate *s, results *r){
-  s->turns[0] = s->turns[1] = 0;
+  s->turns[0] = s->turns[1] = 0u;
   s->energy[0] = s->energy[1] = 0;
+  s->subtimer[0] = s->subtimer[1] = 0u;
   s->turn = 0;
   tophalf(s, r);
 }
