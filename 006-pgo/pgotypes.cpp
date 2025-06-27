@@ -12699,7 +12699,7 @@ void print_species_latex(const species* s, bool overzoom){
   printf("]\\label{species:");
   label_string(s->name.c_str());
   printf("}{");
-  printf("\\footnotesize\\centering{}");
+  printf("\\footnotesize");
 
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -12768,6 +12768,7 @@ void print_species_latex(const species* s, bool overzoom){
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
+      printf("\\raggedleft{}");
       if(devol){
         print_previous_species(devol);
       }
