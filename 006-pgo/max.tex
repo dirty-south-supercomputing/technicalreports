@@ -35,25 +35,34 @@ Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
   forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks?}.
 \input{out/crowned}
 
-\section{Dynamax forms}
-\label{sec:dmax}
-Dynamax forms have access to three Max Moves: Max Attack, Max Guard, and Max Spirit.
+\section{Dynamax and Gigantamax forms}
+\label{sec:dmaxgmax}
+Dynamax and Gigantamax forms can participate in Max Battles \autoref{sec:maxbattles}.
+They can be acquired through Research, by winning Max Battles, and via trade.
+These forms have access to three Max Moves: Max Attack, Max Guard, and Max Spirit.
 Max Moves have four levels: Locked, 1, 2, and 3.
-A freshly acquired (via capture or trade) Dynamax Pokémon has Max Attack at level 1,
-  while Max Guard and Max Spirit are both locked.
-The Max Attack known depends on the Pokémon's fast attack.
+A freshly acquired Dynamax or Gigantamax Pokémon has Max Attack at level 1, while Max Guard and Max Spirit are both locked.
+Unlocking and upgrading moves costs Max Particles and Candy of the Pokémon's genus (\autoref{table:maxupgrades});
+ the amount of Candy depends on the Pokémon's cost group (\autoref{sec:costgroups}).
+There are eighteen Max Attacks, one for each type, and the Max Attack known by a Dynamax Pokémon matches its fast attack.
+Gigantamax Pokémon instead know a species-specific G-Max attack which cannot change.
 Max Move levels persist across evolution and use of Fast TMs.
-Full details on Max Battles can be found in \autoref{sec:maxbattles}.
+Max Attacks of level 1, 2, and 3 have power 250, 300, and 350
+  respectively.
+G-Max attacks have power of 350, 400, and 450, 100 more than Dynamax attacks of the same level.
+\begin{table}[ht]
+\centering
+\begin{tabular}{llll}
+  Level & Max Particles & Candy & Candy XL\\
+  \Midrule
+  1 (Unlock) & 400 & 50--80 &\\
+  2          & 600 & 100--130 &\\
+  3          & 800 & & 40--55\\
+\end{tabular}
+\caption{Upgrade costs for Dynamax and Gigantamax moves}
+\label{table:maxupgrades}
+\end{table}
 \input{out/dynas}
-
-\section{Gigantamax forms}
-\label{sec:gmax}
-Gigantamax forms are similar to Dynamax forms to the degree that they can
-  employ Max Moves in Max Battles.
-Unlike Dynamax forms, each Gigantamax knows a species-specific attack
-  called a G-Max Move, which does not change to match the fast attack.
-G-Max attacks of level 1, 2, and 3 have power of 350, 400, and 450
-  respectively, 100 more than Dynamax attacks of the same level.
 \input{out/gigantas}
 
 \section{Fused forms}
@@ -64,7 +73,8 @@ The fusion process requires 1,000 units of Fusion Energy particular to the outpu
 There is no cost to undo the fusion.
 Any powering up that is performed on the fused form will apply only to the primary
   Pokémon if the fusion is undone.
-\begin{table}[ht]
+Fusion replaces the first charged attack of the primary Pokémon (\autoref{table:fusionattacks}).
+\begin{table}[hb]
 \centering
 \begin{tabular}{llll}
   Primary & Secondary & Energy & Output\\
@@ -77,7 +87,7 @@ Any powering up that is performed on the fused form will apply only to the prima
   \caption{Fusion paths}
   \label{table:fusion}
 \end{table}
-Fusion replaces the first charged attack of the primary Pokémon (\autoref{table:fusionattacks}).
+\input{out/fused}
 \begin{table}[hb]
 \centering
 \begin{tabular}{ll}
@@ -91,4 +101,3 @@ Fusion replaces the first charged attack of the primary Pokémon (\autoref{table
   \caption{Special fused attacks}
   \label{table:fusionattacks}
 \end{table}
-\input{out/fused}

@@ -12712,22 +12712,22 @@ void print_species_latex(const species* s, bool overzoom){
   print_optimal_latex(s);
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
-  print_types_big(s->t1, s->t2);
-  if(s->shiny){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
-  }
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
-  }
-  if(has_mega(s)){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
-  }
-  if(has_dmax(s)){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
   }
   if(has_gmax(s)){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}");
   }
+  if(has_dmax(s)){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
+  }
+  if(has_mega(s)){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
+  }
+  if(s->shiny){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
+  }
+  print_types_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
   printf("}");
 
@@ -12742,7 +12742,7 @@ void print_species_latex(const species* s, bool overzoom){
     printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
   printf("\\end{tcolorbox}\n");
-  if(!overzoom){
+  if(overzoom){
     printf("\\vfill\n");
   }
 }

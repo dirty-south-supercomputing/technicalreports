@@ -16,7 +16,7 @@ These statistics are always positive integers.
 
 Common forms include \textit{Mega}, a temporary form with greater ATK and DEF (see \autoref{sec:mega}),
   \textit{Dynamax} and \textit{Gigantamax}, temporary forms with the ability to use
-  powerful attacks (see \autoref{sec:dmax} and \autoref{sec:gmax}),
+  powerful attacks (see \autoref{sec:dmaxgmax}),
   and \textit{Shiny}, a visually distinctive and rare form (see \autoref{sec:shiny}).
 Regional variants are also seen: Alolan, Galarian, Hisuian, and Paldean.
 Gender, if differentiated at all, is usually a small change to
@@ -280,6 +280,27 @@ Now we scatter stamina (max 500) against attack (max 420):
 \caption{Stamina vs Attack, all species}
 \label{figure:alldva}
 \end{figure}
+
+\section{Cost groups}
+\label{sec:costgroups}
+Each species is in one of four cost groups.
+Group membership determines the cost of teaching Pokémon a second charged move,
+  upgrading Max Moves (\autoref{sec:dmaxgmax}),
+  walk distance for Candy,
+  and purification.
+All Legendary and Mythical Pokémon are in group 4 (the most expensive group).
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{lrrrrrr}
+    Group & 2nd move & Max 1 & Max 2 & Max 3 & Km & Purification\\
+        1 & 10k + 25 & 50    & 100   & 40 XL & 1  & 1k + 1\\
+        2 & 50k + 50 & 60    & 110   & 45 XL & 3  & 3k + 3\\
+        3 & 75k + 75 & 70    & 120   & 50 XL & 5  & 5k + 5\\
+        4 & 100k + 100 & 80  & 130   & 55 XL & 20 & 20k + 20\\
+  \end{tabular}
+\end{table}
+In species summary cards, the cost group is indicated by a large Arabic
+  numeral to the right of the typing.
 
 \section{Freak Pokémon}
 \label{sec:freaks}
