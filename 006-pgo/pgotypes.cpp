@@ -12196,19 +12196,19 @@ static const species dynadex[] = {
 
 // gigantimax forms are never shadows
 static const species gigantasdex[] = {
-  {    3, "Gmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, NULL, VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {    6, "Gmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, NULL, CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, NULL, BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, NULL, MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, NULL, GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, NULL, KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {  131, "Gmax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
-  {  143, "Gmax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, NULL, SNORLAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
-  {  812, "Gmax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, NULL, RILLABOOM_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {  815, "Gmax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, NULL, CINDERACE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {  818, "Gmax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, NULL, INTELEON_ATKS, false, false, {}, species::CAT_NORMAL, 10, },
+  {    3, "Gmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {    6, "Gmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charizard", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Blastoise", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingsler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {  131, "Gmax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, "Lapras", LAPRAS_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  143, "Gmax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Snorlax", SNORLAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  812, "Gmax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Rillaboom", RILLABOOM_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {  815, "Gmax Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Cinderace", CINDERACE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  {  818, "Gmax Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Inteleon", INTELEON_ATKS, false, false, {}, species::CAT_NORMAL, 10, },
   {  858, "Gmax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {  849, "Gmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, NULL, TOXTRICITY_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  849, "Gmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxtricity", TOXTRICITY_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
 };
 
 #define GIGANTACOUNT (sizeof(gigantasdex) / sizeof(*gigantasdex))
@@ -12360,7 +12360,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
       }else if(effa >= cur->effa && effd >= cur->effd && mhp >= cur->mhp){
         // we're strictly better than something on the list; remove it and continue
         *prev = cur->next;
-        free(cur);
+        delete cur;
       }else{
         // we're not comparable; continue
         prev = &cur->next;
@@ -12421,7 +12421,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor, bool isshad
       // clean out existing true optimals
       while( (c = collectopt) ){
         collectopt = c->next;
-        free(c);
+        delete c;
       }
       collectopt = cur;
       qopt = &cur->next;
@@ -12432,7 +12432,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor, bool isshad
       qopt = &cur->next;
       cur->next = NULL;
     }else{
-      free(cur);
+      delete cur;
     }
   }
   for(stats *s = collectopt ; s ; s = s->next){
@@ -12534,7 +12534,7 @@ void print_optimal_latex(const species* sp){
     printf("%u/%u/%u@", s->ia, s->id, s->is);
     print_halflevel(s->hlevel);
     putc(' ', stdout);
-    free(s);
+    delete s;
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
@@ -12549,7 +12549,7 @@ void print_optimal_latex(const species* sp){
     printf("%u/%u/%u@", s->ia, s->id, s->is);
     print_halflevel(s->hlevel);
     putc(' ', stdout);
-    free(s);
+    delete s;
     s = tmp;
   }
 }
@@ -12608,6 +12608,39 @@ static bool
 exclusive_attack_p(const species *s, const attack *a){
   for(const auto &atk : s->elite){
     if(strcmp(a->name, atk->name) == 0){
+      return true;
+    }
+  }
+  return false;
+}
+
+// does this species have a mega form?
+static bool
+has_mega(const species *s){
+  for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
+    if(strcmp(megasdex[i].from, s->name.c_str()) == 0){
+      return true;
+    }
+  }
+  return false;
+}
+
+// does this species have a Dynamax form?
+static bool
+has_dmax(const species *s){
+  for(unsigned i = 0 ; i < DYNACOUNT ; ++i){
+    if(strcmp(dynadex[i].from, s->name.c_str()) == 0){
+      return true;
+    }
+  }
+  return false;
+}
+
+// does this species have a Gigantamax form?
+static bool
+has_gmax(const species *s){
+  for(unsigned i = 0 ; i < GIGANTACOUNT ; ++i){
+    if(strcmp(gigantasdex[i].from, s->name.c_str()) == 0){
       return true;
     }
   }
@@ -12685,6 +12718,15 @@ void print_species_latex(const species* s, bool overzoom){
   }
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
+  }
+  if(has_mega(s)){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
+  }
+  if(has_dmax(s)){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
+  }
+  if(has_gmax(s)){
+    printf(" \\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}");
   }
   printf("\\end{minipage}\n");
   printf("}");
