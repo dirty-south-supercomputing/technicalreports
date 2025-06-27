@@ -12077,7 +12077,7 @@ static const species sdex[] = {
     { &ATK_Rage_Fist, }, species::CAT_NORMAL, 50, },
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper", CLODSIRE_ATKS, true, false,
     { &ATK_Megahorn, }, species::CAT_NORMAL, 50, },
-  {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, NULL, KINGAMBIT_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp", KINGAMBIT_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, NULL, FRIGIBAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  997, "Arctibax", TYPE_DRAGON, TYPE_ICE, 173, 128, 207, "Frigibax", ARCTIBAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  998, "Baxcalibur", TYPE_DRAGON, TYPE_ICE, 254, 168, 229, "Arctibax", BAXCALIBUR_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
