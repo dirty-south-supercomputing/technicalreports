@@ -68,8 +68,8 @@ typedef struct results {
 // those parts which change over the course of the simulation
 typedef struct simulstate {
   unsigned turn;
-  unsigned hp[2];
-  unsigned energy[2];
+  int hp[2];
+  int energy[2];
   // number of turns remaining in an ongoing fast attack, can be 0
   unsigned turns[2];
   unsigned subtimer[2];
@@ -168,236 +168,17 @@ tophalf(const simulstate *s, results *r){
   }
 }
 
-// must simulate cartesian of p1 options and p2 options.
-// options include:
-//  - continue fast attack if one is ongoing
-//  - substitution (if timer has not expired)
-//  - fast attack
-//  - charged attack (with sufficient energy)
-//  - do nothing
-// but we do not simulate both doing nothing in the same turn
 static void
-simulturn(const simulstate *ins, results *r){
-  bool p1ongoing = false;
-  bool p2ongoing = false;
-  simulstate s = *ins;
-  ++s.turn;
-  //printf("Turn %u HP: %u %u Energy: %d %d wait: %u %u\n", s.turn, ins->p1hp, ins->p2hp, ins->p1energy, ins->p2energy, ins->p1turns, ins->p2turns);
-  if(s.p1turns){
-    // p1 needs make a choice
-    if(!--s.p1turns){
-      // deal damage to p2
-      inflict_damage(&s.p2hp, p1.fa->powertrain);
-    }else{
-      // p1's ongoing fast attack has not yet ended
-      p1ongoing = true;
-    }
-  }
-  if(s.p2turns){
-    // p2 needs make a choice
-    if(--s.p2turns == 0){
-      // deal damage to p1
-      inflict_damage(&s.p1hp, p2.fa->powertrain);
-    }else{
-      // p2's ongoing fast attack has not yet ended
-      p2ongoing = true;
-    }
-  }
-  if(s.p1hp == 0 && s.p2hp == 0){
-    //printf("tie!\n");
-    ++r->ties;
-    return 0;
-  }else if(s.p1hp == 0){
-    //printf("p2 wins!\n");
-    ++r->p2wins;
-    return 0;
-  }else if(s.p2hp == 0){
-    //printf("p1 wins!\n");
-    ++r->p1wins;
-    return 0;
-  }
-  // run this turn then call the next turns, accumulate into r
-  if(p1ongoing && p2ongoing){
-    // only one option: both wait for attack to finish
-    printf("turn %u recursing both wait %u %u\n", s.turn, s.p1turns, s.p2turns);
-    simulturn(&s, r);
-    return 0;
-  }
-  if(!p1ongoing && p2ongoing){ // cartesian of p1 and wait
-    printf("turn %u recursing p2wait %u %u\n", s.turn, s.p1turns, s.p2turns);
-    simulturn(&s, r); // p1 does nothing
-    s.p1turns = p1.fa->turns; // p1 launches fast attack
-    s.p1energy += p1.fa->energytrain;
-    simulturn(&s, r);
-    s.p1energy -= p1.fa->energytrain;
-    s.p1turns = 0;
-    s.p2turns = 0; // charged attack ends opponent's fast attack
-    inflict_damage(&s.p1hp, p2.fa->powertrain);
-    if(!s.p1hp){
-      ++r->p2wins;
-    }else{
-      unsigned p2hppreserve = s.p2hp;
-      if(s.p1energy >= -p1.ca1->energytrain){
-        s.p1energy += p1.ca1->energytrain;
-        inflict_damage(&s.p2hp, p1.ca1->powertrain);
-        if(!s.p2hp){
-          ++r->p1wins;
-        }else{
-          simulturn(&s, r);
-        }
-        s.p1energy -= p1.ca1->energytrain;
-      }
-      s.p2hp = p2hppreserve;
-      if(p1.ca2){
-        if(s.p1energy >= -p1.ca2->energytrain){
-          s.p1energy += p1.ca2->energytrain;
-          inflict_damage(&s.p2hp, p1.ca2->powertrain);
-          if(!s.p2hp){
-            ++r->p1wins;
-          }else{
-            simulturn(&s, r);
-          }
-          s.p1energy -= p1.ca2->energytrain;
-        }
-      }
-    }
-    return 0;
-  }
-  if(p1ongoing && !p2ongoing){ // cartesian of wait and p2
-    printf("turn %u recursing p1wait %u %u\n", s.turn, s.p1turns, s.p2turns);
-    //simulturn(&s, r); // p2 does nothing
-    s.p2turns = p2.fa->turns; // p2 launches fast attack
-    s.p2energy += p2.fa->energytrain;
-    simulturn(&s, r);
-    s.p2energy -= p2.fa->energytrain;
-    s.p2turns = 0;
-    // now try p2 charged attacks
-    s.p1turns = 0; // charged attack ends opponent's fast attack
-    inflict_damage(&s.p2hp, p1.fa->powertrain);
-    if(!s.p2hp){
-      ++r->p1wins;
-    }else{
-      unsigned p1hppreserve = s.p1hp;
-      if(s.p2energy >= -p2.ca1->energytrain){
-        s.p2energy += p2.ca1->energytrain;
-        inflict_damage(&s.p1hp, p2.ca1->powertrain);
-        if(!s.p1hp){
-          ++r->p2wins;
-        }else{
-          simulturn(&s, r);
-        }
-        s.p2energy -= p2.ca1->energytrain;
-      }
-      s.p1hp = p1hppreserve;
-      if(p2.ca2){
-        if(s.p2energy >= -p2.ca2->energytrain){
-          s.p2energy += p2.ca2->energytrain;
-          inflict_damage(&s.p1hp, p2.ca2->powertrain);
-          if(!s.p1hp){
-            ++r->p2wins;
-          }else{
-            simulturn(&s, r);
-          }
-          s.p2energy -= p2.ca2->energytrain;
-        }
-      }
-    }
-    return 0;
-  }
-  // cartesian of all options
-  printf("turn %u recursing all %u %u\n", s.turn, s.p1turns, s.p2turns);
-  // first, have them both do a fast attack
-  s.p1turns = p1.fa->turns;
-  s.p2turns = p2.fa->turns;
-  s.p1energy += p1.fa->energytrain;
-  s.p2energy += p2.fa->energytrain;
-  simulturn(&s, r);
-  // now, p1 fast while p2 does nothing
-  s.p1turns = p1.fa->turns;
-  s.p2turns = 0;
-  s.p2energy -= p2.fa->energytrain;
-  simulturn(&s, r);
-  // now, p2 fast while p1 does nothing
-  s.p2turns = p2.fa->turns;
-  s.p1turns = 0;
-  s.p2energy += p2.fa->energytrain;
-  s.p1energy -= p1.fa->energytrain;
-  simulturn(&s, r);
-  s.p2energy -= p2.fa->energytrain;
-  if(s.p1energy >= -p1.ca1->energytrain){
-    s.p1energy += p1.ca1->energytrain;
-    inflict_damage(&s.p2hp, p1.ca1->powertrain);
-    if(!s.p2hp){
-      ++r->p1wins;
-    }else{
-      simulturn(&s, r);
-    }
-    s.p1energy -= p1.ca1->energytrain;
-  }
-  unsigned p2hppreserve = s.p2hp;
-  if(s.p1energy >= -p1.ca1->energytrain){
-    s.p1energy += p1.ca1->energytrain;
-    inflict_damage(&s.p2hp, p1.ca1->powertrain);
-    if(!s.p2hp){
-      ++r->p1wins;
-    }else{
-      simulturn(&s, r);
-    }
-    s.p1energy -= p1.ca1->energytrain;
-  }
-  s.p2hp = p2hppreserve;
-  if(p1.ca2){
-    if(s.p1energy >= -p1.ca2->energytrain){
-      s.p1energy += p1.ca2->energytrain;
-      inflict_damage(&s.p2hp, p1.ca2->powertrain);
-      if(!s.p2hp){
-        ++r->p1wins;
-      }else{
-        simulturn(&s, r);
-      }
-      s.p1energy -= p1.ca2->energytrain;
-    }
-  }
-  s.p2hp = p2hppreserve;
-  unsigned p1hppreserve = s.p1hp;
-  if(s.p2energy >= -p2.ca1->energytrain){
-    s.p2energy += p2.ca1->energytrain;
-    inflict_damage(&s.p1hp, p2.ca1->powertrain);
-    if(!s.p1hp){
-      ++r->p2wins;
-    }else{
-      simulturn(&s, r);
-    }
-    s.p2energy -= p2.ca1->energytrain;
-  }
-  s.p1hp = p1hppreserve;
-  if(p2.ca2){
-    if(s.p2energy >= -p2.ca2->energytrain){
-      s.p2energy += p2.ca2->energytrain;
-      inflict_damage(&s.p1hp, p2.ca2->powertrain);
-      if(!s.p1hp){
-        ++r->p2wins;
-      }else{
-        simulturn(&s, r);
-      }
-      s.p2energy -= p2.ca2->energytrain;
-    }
-  }
-  s.p1hp = p1hppreserve;
-  printf("p1: %8u p2:%8u t: %8u\n", r->p1wins, r->p2wins, r->ties);
-}
-
-static int
 simul(simulstate *s, results *r){
-  s->p1turns = s->p2turns = 0;
-  s->p1energy = s->p2energy = 0;
+  s->turns[0] = s->turns[1] = 0;
+  s->energy[0] = s->energy[1] = 0;
   s->turn = 0;
-  return simulturn(s, r);
+  tophalf(s, r);
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
-lex_pmon(pmon* p, unsigned *hp, int *argc, char*** argv){
+lex_pmon(pmon* p, int *hp, int *argc, char*** argv){
   if(*argc < 4){
     fprintf(stderr, "expected 4 arguments, %d left\n", (*argc) - 1);
     return -1;
@@ -431,14 +212,14 @@ int main(int argc, char** argv){
   simulstate sstate;
   --argc;
   ++argv;
-  if(lex_pmon(&p1, &sstate.p1hp, &argc, &argv)){
+  if(lex_pmon(&pmons[0], &sstate.hp[0], &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&p1);
-  if(lex_pmon(&p2, &sstate.p2hp, &argc, &argv)){
+  print_pmon(&pmons[0]);
+  if(lex_pmon(&pmons[1], &sstate.hp[1], &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&p2);
+  print_pmon(&pmons[1]);
   if(argc){
     fprintf(stderr, "unexpected argument: %s\n", *argv);
     usage(argv0);
