@@ -12760,7 +12760,7 @@ print_previous_species(const species *s){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool vfill){
-  printf("\\begin{tcolorbox}[enhanced,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
+  printf("\\begin{tcolorbox}[enhanced,before skip=0pt,after skip=0pt,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
