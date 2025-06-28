@@ -47,8 +47,17 @@ print_attack_users(const attack *a){
     printf("\\hfill P%u E%d", a->powertrain, -a->energytrain);
   }
   printf("}]\n");
-  for(auto dex : sdexen){
-    print_attack_users_sdex(a, dex.dex, dex.dcount, &printed);
+  if(!strcmp(a->name.c_str(), "Return")){
+    printf("Return replaces the Frustration charged attack whenever a Shadow Pokémon is purified. "
+        "It cannot be reacquired if replaced via Charged TM.");
+  }else if(!strcmp(a->name.c_str(), "Frustration")){
+    printf("All Shadow Pokémon know Frustration (and only Frustration) when captured. "
+        "It cannot generally be replaced using a Charged TM, though this is not true during certain events. "
+        "Purifying the Shadow Pokémon replaces this attack with Return.");
+  }else{
+    for(auto dex : sdexen){
+      print_attack_users_sdex(a, dex.dex, dex.dcount, &printed);
+    }
   }
   if(a->chance_user_attack){
     printf("\\\\\n\\textbf{%g\\%% chance of attack %d}\n",
