@@ -61,7 +61,8 @@ print_pmon(const pmon *p){
 }
 
 typedef struct results {
-  unsigned p1wins, p2wins, ties;
+  unsigned wins[2];
+  unsigned ties;
 } results;
 
 // those parts which change over the course of the simulation
@@ -69,18 +70,29 @@ typedef struct simulstate {
   unsigned turn;
   int hp[2];
   int energy[2];
-  // number of turns remaining in an ongoing fast attack, can be 0
-  unsigned turns[2];
+  int shields[2]; // number of shields available, [0..2]
+  unsigned turns[2]; // number of turns remaining in an ongoing fast attack, can be 0
   unsigned subtimer[2];
 } simulstate;
 
-static void
-inflict_damage(unsigned *hp, unsigned damage){
-  printf("inflicting %u damage on %u hp\n", damage, *hp);
+// returns true on a KO
+static bool
+inflict_damage(int *hp, int damage){
+  printf("inflicting %d damage on %d hp\n", damage, *hp);
   if(*hp < damage){
     *hp = 0;
   }else{
     *hp -= damage;
+  }
+  return !*hp;
+}
+
+static void
+accumulate_energy(int *e, int energy){
+  printf("accumulating %d energy\n", energy);
+  const int ENERGY_MAX = 100;
+  if((*e += energy) > ENERGY_MAX){
+    *e = ENERGY_MAX;
   }
 }
 
@@ -93,49 +105,125 @@ typedef enum {
   MOVE_CHARGED1,
   MOVE_CHARGED2,
   MOVE_SUBSTITUTION,
+  MOVE_WAIT_SHIELD,
+  MOVE_FAST_SHIELD,
+  MOVE_CHARGED1_SHIELD,
+  MOVE_CHARGED2_SHIELD,
   MOVEMAX
 } pgo_move_e;
 
 static inline bool
 charged_move_p(pgo_move_e m){
-  return m == MOVE_CHARGED1 || m == MOVE_CHARGED2;
+  return m == MOVE_CHARGED1 || m == MOVE_CHARGED2 ||
+          m == MOVE_CHARGED1_SHIELD || m == MOVE_CHARGED2_SHIELD;
+}
+
+static inline bool
+fast_move_p(pgo_move_e m){
+  return m == MOVE_FAST || m == MOVE_FAST_SHIELD;
+}
+
+static inline bool
+shielded_move_p(pgo_move_e m){
+  return m == MOVE_WAIT_SHIELD || m == MOVE_FAST_SHIELD ||
+          m == MOVE_CHARGED1_SHIELD || m == MOVE_CHARGED2_SHIELD;
 }
 
 static void tophalf(const simulstate *s, results *r);
 
-static inline void
-bottomhalf(simulstate *s, results *r, pgo_move_e m1, pgo_move_e m2){
-  if(charged_move_p(m1) && charged_move_p(m2)){
-    float moda0 = pmons[0].s.atk + pmons[0].s.ia;
-    float moda1 = pmons[1].s.atk + pmons[1].s.ia;
-    bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
-    if(cmp0){
-      // FIXME launch pmon[0]'s charged move
-    }else{
-      // FIXME launch pmon[1]'s charged move
-    }
-    // FIXME did loser die? if so return
-    if(cmp0){
-      // FIXME launch pmon[1]'s charged move
-    }else{
-      // FIXME launch pmon[0]'s charged move
-    }
-    // FIXME did winner die? if so return
-  }else if(charged_move_p(m1)){
-    // FIXME run p1's charged move
-    // FIXME did p2 die? if so return
-    if(m2 == MOVE_FAST){
-      // FIXME set up p2's fast move
-    }
-  }else if(charged_move_p(m2)){
-    // FIXME run p2's charged move
-    if(m1 == MOVE_FAST){
-      // FIXME set up p1's fast move
+static inline int
+other_player(int player){
+  return !player; // player is always 0 or 1
+}
+
+// returns true if we KO the opponent
+// mt must be a charged move, and the player must have sufficient energy
+// mt and mo can be shielded moves only if the appropriate player has a shield
+static inline bool
+throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
+  const attack *a;
+  if(mt == MOVE_CHARGED1 || mt == MOVE_CHARGED1_SHIELD){
+    a = pmons[player].ca1;
+  }else{
+    a = pmons[player].ca2;
+  }
+  accumulate_energy(&s->energy[player], a->energytrain);
+  if(shielded_move_p(mo)){
+    --s->shields[other_player(player)];
+    return inflict_damage(&s->hp[other_player(player)], 1);
+  }
+  // FIXME adjust for STAB, shadow, buffs, and typing!
+  return inflict_damage(&s->hp[other_player(player)], a->powertrain);
+}
+
+// if player has an ongoing fast move, decrement turns by one. if the fast
+// attack concludes as a result, inflict damage and add energy. returns true
+// in the case of a KO.
+static bool
+account_fast_move(simulstate *s, int player){
+  if(s->turns[player]){
+    if(!--s->turns[player]){
+      accumulate_energy(&s->energy[player], pmons[player].fa->energytrain);
+      // FIXME adjust for STAB, shadow, buffs, and typing!
+      return inflict_damage(&s->hp[other_player(player)], pmons[player].fa->powertrain);
     }
   }
-  // FIXME account for fast moves (decrement turns by 1, inflict damage if 0)
-  // FIXME did anyone die? return if so
-  tophalf(s, r);
+  return false;
+}
+
+// return true iff p0 wins cmp; false indicates p1 won it
+static bool
+p0_wins_cmp(void){
+  float moda0 = pmons[0].s.atk + pmons[0].s.ia;
+  float moda1 = pmons[1].s.atk + pmons[1].s.ia;
+  bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
+  return cmp0;
+}
+
+// run a single choice-pair, which ought be known to be viable (i.e. if we
+// request a shielded move, that player ought have a shield). we ought receive
+// out own simulstate in which we can scribble. corecurses back into tophalf().
+static inline void
+bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
+  if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
+    if(p0_wins_cmp()){
+      if(throw_charged_move(s, 0, m0, m1)){
+        ++r->wins[0]; return;
+      }else if(throw_charged_move(s, 1, m1, m0)){
+        ++r->wins[1]; return;
+      }
+    }else{
+      if(throw_charged_move(s, 1, m1, m0)){
+        ++r->wins[1]; return;
+      }else if(throw_charged_move(s, 0, m0, m1)){
+        ++r->wins[0]; return;
+      }
+    }
+  }else if(charged_move_p(m0)){ // only player 0 is throwing a charged attack
+    if(throw_charged_move(s, 0, m0, m1)){
+      ++r->wins[0]; return;
+    }
+  }else if(charged_move_p(m1)){ // only player 1 is throwing a charged attack
+    if(throw_charged_move(s, 1, m1, m0)){
+      ++r->wins[1]; return;
+    }
+  }
+  if(fast_move_p(m0)){
+    s->turns[0] = pmons[0].fa->turns;
+  }
+  if(fast_move_p(m1)){
+    s->turns[1] = pmons[1].fa->turns;
+  }
+  bool k0 = account_fast_move(s, 0);
+  bool k1 = account_fast_move(s, 1);
+  if(k0 && k1){
+    ++r->ties; return;
+  }else if(k0){
+    ++r->wins[0]; return;
+  }else if(k1){
+    ++r->wins[1]; return;
+  }
+  tophalf(s, r); // no one got knocked out; recurse to next turn
 }
 
 // determine which of the moves can be taken this turn by this player
@@ -185,6 +273,7 @@ simul(simulstate *s, results *r){
   s->turns[0] = s->turns[1] = 0u;
   s->energy[0] = s->energy[1] = 0;
   s->subtimer[0] = s->subtimer[1] = 0u;
+  s->shields[0] = s->shields[1] = 2;
   s->turn = 0;
   tophalf(s, r);
 }
@@ -238,10 +327,10 @@ int main(int argc, char** argv){
     usage(argv0);
   }
   results r;
-  r.p1wins = r.p2wins = r.ties = 0;
+  r.wins[0] = r.wins[1] = r.ties = 0;
   simul(&sstate, &r);
-  unsigned long total = r.p1wins + r.p2wins + r.ties;
-  printf("p1 wins: %u p2 wins: %u ties: %u total: %lu\n",
-         r.p1wins, r.p2wins, r.ties, total);
+  unsigned long total = r.wins[0] + r.wins[1] + r.ties;
+  printf("p0 wins: %u p1 wins: %u ties: %u total: %lu\n",
+         r.wins[0], r.wins[1], r.ties, total);
   return EXIT_SUCCESS;
 }
