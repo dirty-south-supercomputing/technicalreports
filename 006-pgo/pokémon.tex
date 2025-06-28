@@ -26,36 +26,35 @@ A Trainer can ``power up'' their Pokémon in single level increments,
 Each increase has a cost in Stardust and the Candy of that genus; beyond level 40, there
   is a further cost in Candy XL (\autoref{table:powerups}).
 \begin{table}
-  \begin{center}
-    \begin{tabular}[ht]{rrrr|rrrr}
-      Level &
-        \includegraphics[width=1em,height=1em]{images/stardust.png} &
-        \includegraphics[width=1em,height=1em]{images/rarecandy.png} &
-        \includegraphics[width=1em,height=1em]{images/rarecandyxl.png} &
-      Level &
-        \includegraphics[width=1em,height=1em]{images/stardust.png} &
-        \includegraphics[width=1em,height=1em]{images/rarecandy.png} &
-        \includegraphics[width=1em,height=1em]{images/rarecandyxl.png} \\
-      \Midrule
-      1.5--3 &   200 & 1 & & 31.5--33 &  6,000 &  6 & \\
-      3.5--5 &   400 & 1 & & 33.5--35 &  7,000 &  8 & \\
-      5.5--7 &   600 & 1 & & 35.5--37 &  8,000 & 10 & \\
-      7.5--9 &   800 & 1 & & 37.5--39 &  9,000 & 12 & \\
-     9.5--11 & 1,000 & 1 & & 39.5--40 & 10,000 & 15 & \\
-    11.5--13 & 1,300 & 2 & & 40.5--41 & 10,000 &    & 10 \\
-    13.5--15 & 1,600 & 2 & & 41.5--42 & 11,000 &    & 10 \\
-    15.5--17 & 1,900 & 2 & & 42.5--43 & 11,000 &    & 12 \\
-    17.5--19 & 2,200 & 2 & & 43.5--44 & 12,000 &    & 12 \\
-    19.5--21 & 2,500 & 2 & & 44.5--45 & 12,000 &    & 15 \\
-    21.5--23 & 3,000 & 3 & & 45.5--46 & 13,000 &    & 15 \\
-    23.5--25 & 3,500 & 3 & & 46.5--47 & 13,000 &    & 17 \\
-    25.5--27 & 4,000 & 3 & & 47.5--48 & 14,000 &    & 17 \\ 
-    27.5--29 & 4,500 & 4 & & 48.5--49 & 14,000 &    & 20 \\
-    29.5--31 & 5,000 & 4 & & 49.5--50 & 15,000 &    & 20 \\
-    \end{tabular}
-  \end{center}
-  \caption{Power-up costs for Pokémon levels}
-  \label{table:powerups}
+\centering
+\begin{tabular}[ht]{rrrr|rrrr}
+Level &
+\includegraphics[width=1em,height=1em]{images/stardust.png} &
+\includegraphics[width=1em,height=1em]{images/rarecandy.png} &
+\includegraphics[width=1em,height=1em]{images/rarecandyxl.png} &
+Level &
+\includegraphics[width=1em,height=1em]{images/stardust.png} &
+\includegraphics[width=1em,height=1em]{images/rarecandy.png} &
+\includegraphics[width=1em,height=1em]{images/rarecandyxl.png} \\
+\Midrule
+1.5--3 &   200 & 1 & & 31.5--33 &  6,000 &  6 & \\
+3.5--5 &   400 & 1 & & 33.5--35 &  7,000 &  8 & \\
+5.5--7 &   600 & 1 & & 35.5--37 &  8,000 & 10 & \\
+7.5--9 &   800 & 1 & & 37.5--39 &  9,000 & 12 & \\
+9.5--11 & 1,000 & 1 & & 39.5--40 & 10,000 & 15 & \\
+11.5--13 & 1,300 & 2 & & 40.5--41 & 10,000 &    & 10 \\
+13.5--15 & 1,600 & 2 & & 41.5--42 & 11,000 &    & 10 \\
+15.5--17 & 1,900 & 2 & & 42.5--43 & 11,000 &    & 12 \\
+17.5--19 & 2,200 & 2 & & 43.5--44 & 12,000 &    & 12 \\
+19.5--21 & 2,500 & 2 & & 44.5--45 & 12,000 &    & 15 \\
+21.5--23 & 3,000 & 3 & & 45.5--46 & 13,000 &    & 15 \\
+23.5--25 & 3,500 & 3 & & 46.5--47 & 13,000 &    & 17 \\
+25.5--27 & 4,000 & 3 & & 47.5--48 & 14,000 &    & 17 \\ 
+27.5--29 & 4,500 & 4 & & 48.5--49 & 14,000 &    & 20 \\
+29.5--31 & 5,000 & 4 & & 49.5--50 & 15,000 &    & 20 \\
+\end{tabular}
+\caption{Power-up costs for Pokémon levels}
+\label{table:powerups}
 \end{table}
 An increase in level improves the Pokémon's attack and defense, and
   will sometimes increase MHP\@.
@@ -116,29 +115,30 @@ The probability of a random Pokémon being a hundo is actually
   (e.g. the chance of a 15/15/15 for a lucky trade is 1 in 256, whereas
   a 0/0/0 is impossible).
 \begin{table}
-  \begin{center}
-    \begin{tabular}{lcc}
-      Context & IV floors & Level \\
-      \Midrule
-      \multirow{2}{*}{Wild catch} & 0 & 1--max(TL, 30) \\
-      & 4 w/ weather boost & 1--max(TL, 30) + 5 \\
-      Hatch & 10 & max(TL, 20) \\
-      \multirow{2}{*}{Raid} & 10 & 20 \\
-      & 6 (shadow) & 25 w/ weather boost \\
-      Max Battle & 10 & 20 \\
-      Research & 10 & 15 \\
-      Team GO Rocket & 0 & 8 \\
-      Grunts and Leaders & 4 w/ weather boost & 13 w/ weather boost \\
-      \multirow{2}{*}{Giovanni} & \multirow{2}{*}{6} & 8\\
-       & & 13 w/ weather boost\\
-      GBL & 10 & 20\\
-      \multirow{5}{*}{Trade} & 1 w/ Good Friend & \multirow{5}{*}{See \autoref{sec:trades}} \\
-       & 2 w/ Great Friend & \\
-       & 3 w/ Ultra Friend & \\
-       & 5 w/ Best Friend & \\
-       & 12 (lucky trade) & \\
-    \end{tabular}
-  \end{center}
+\centering
+\begin{tabular}{lcc}
+Context & IV floors & Level \\
+\Midrule
+\multirow{2}{*}{Wild catch} & 0 & 1--max(TL, 30) \\
+& 4 w/ weather boost & 1--max(TL, 30) + 5 \\
+Hatch & 10 & max(TL, 20) \\
+\multirow{2}{*}{Raid} & 10 & 20 \\
+& 6 (shadow) & 25 w/ weather boost \\
+Max Battle & 10 & 20 \\
+Research & 10 & 15 \\
+Team GO Rocket & 0 & 8 \\
+Grunts and Leaders & 4 w/ weather boost & 13 w/ weather boost \\
+\multirow{2}{*}{Giovanni} & \multirow{2}{*}{6} & 8\\
+& & 13 w/ weather boost\\
+GBL & 10 & 20\\
+\multirow{5}{*}{Trade} & 1 w/ Good Friend & \multirow{5}{*}{See \autoref{sec:trades}} \\
+& 2 w/ Great Friend & \\
+& 3 w/ Ultra Friend & \\
+& 5 w/ Best Friend & \\
+& 12 (lucky trade) & \\
+\end{tabular}
+\caption{IV and level floors for acquired Pokémon}
+\label{table:ivfloors}
 \end{table}
 
 \section{Lucky Pokémon}
@@ -175,7 +175,7 @@ At Level 34, CPM is 0.7557, about 90\% of its maximum value.
 The extremal ratios are 0.1119 (L1 / L50) and 8.9394 (L50 / L1).
 
 \begin{table}
-\begin{center}
+\centering
 \begin{tabular}{l l|l l|l l}
 Level & CPM & Level & CPM & Level & CPM \\
 \Midrule
@@ -215,7 +215,6 @@ Level & CPM & Level & CPM & Level & CPM \\
 \end{tabular}
 \caption{Combat Power Multiplier for Pokémon Levels}
 \label{table:cpm}
-\end{center}
 \end{table}
 
 \section{Effective stats}
