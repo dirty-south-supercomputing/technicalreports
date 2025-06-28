@@ -1,36 +1,51 @@
 \chapter{Spawning and catching}
-Pokémon GO is intended to be played on the move
-
 \label{chap:spawn}
+Pokémon GO is intended to be played on the move.
+Trainers primarily interface with the Map screen, onto which is projected
+  some approximation of the local geography.
+Pokémon spawning on this map will be a Trainer's major source of raw materials.
+
 \textbf{FIXME}
 
 \section{Wild spawns}
 \label{sec:spawns}
-\textbf{FIXME}
+Decorations around a Pokémon indicate how it spawned (\autoref{table:spawnreasons}).
+\begin{table}[ht]
+\centering
+\begin{tabular}{lll}
+  Decoration & Reason for spawn & Visible to\\
+\Midrule
+  Single white circle & Daily spawn & Trainer\\
+  Three white circles & Spawn point & All\\
+  Rotating blue spiral & Weather-boosted & All\\
+  Pink circles & Incense & Trainer\\
+  \textbf{FIXME} & Adventure effect & Trainer\\
+  \textbf{FIXME} & Lure & All\\
+\end{tabular}
+\caption{Spawn decorations}
+\label{table:spawnreasons}
+\end{table}
+Weather-boosted (\autoref{sec:weather}) types enjoy higher spawn rates,
+  in addition to higher levels and IVs (\autoref{table:ivfloors}).
 
 \subsection{Lures and incense}
 \begin{figure}[h]
-  \begin{minipage}[t]{0.3\textwidth}
-    \begin{center}
-    \includegraphics[width=\textwidth]{images/incense.png}
-    \end{center}
-    \caption*{Incense}
-    \label{fig:incense}
-  \end{minipage}
-  \begin{minipage}[t]{0.3\textwidth}
-    \begin{center}
-    \includegraphics[width=\textwidth]{images/adventureincense.png}
-    \end{center}
-    \caption*{Adventure incense}
-    \label{fig:advincense}
-  \end{minipage}
-  \begin{minipage}[t]{0.3\textwidth}
-    \begin{center}
-    \includegraphics[width=\textwidth]{images/lure.png}
-    \end{center}
-    \caption*{Lure module}
-    \label{fig:lure}
-  \end{minipage}
+\centering
+\begin{minipage}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{images/incense.png}
+\caption*{Incense}
+\label{fig:incense}
+\end{minipage}
+\begin{minipage}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{images/adventureincense.png}
+\caption*{Adventure incense}
+\label{fig:advincense}
+\end{minipage}
+\begin{minipage}[t]{0.3\textwidth}
+\includegraphics[width=\textwidth]{images/lure.png}
+\caption*{Lure module}
+\label{fig:lure}
+\end{minipage}
 \end{figure}
 Spawn rates can be increased by means of Incense and Lures.
 Incense lasts for an hour, affects only the Trainer using it (i.e.\ other Trainers
@@ -57,29 +72,6 @@ Adventure incense lasts fifteen minutes, so it must be applied before 2345h
 Application of Adventure incense grants thirty Poké Balls if the Trainer's
   bag holds fewer than thirty total Poké, Great, and Ultra Balls (\autoref{table:balls}),
   and can accommodate the balls.
-%\begin{figure}[h!]
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/lure.png}
-%    \end{center}
-%    \caption*{Lure module}
-%    \label{fig:lure}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/rainylure.png}
-%    \end{center}
-%    \caption*{Rainy lure}
-%    \label{fig:rainylure}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/mossylure.png}
-%    \end{center}
-%    \caption*{Mossy lure}
-%    \label{fig:mossylure}
-%  \end{minipage}
-%\end{figure}
 
 Six kinds of Lures (\autoref{table:lures}) can be installed into Pokéstops.
 A Pokéstop supports only one lure at a time.
@@ -106,29 +98,6 @@ Some evolutions (\autoref{sec:evolution}) can only take place near an active lur
 \caption{Lures and their effects}
 \label{table:lures}
 \end{table}
-%\begin{figure}[h!]
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/glaciallure.png}
-%    \end{center}
-%    \caption*{Glacial lure}
-%    \label{fig:lure}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/magneticlure.png}
-%    \end{center}
-%    \caption*{Magnetic lure}
-%    \label{fig:rainylure}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/goldenlure.png}
-%    \end{center}
-%    \caption*{Golden lure}
-%    \label{fig:goldenlure}
-%  \end{minipage}
-%\end{figure}
 
 \section{Catching}
 \label{sec:catch}
