@@ -20,7 +20,22 @@ Common forms include \textit{Mega}, a temporary form with greater ATK and DEF (s
   and \textit{Shiny}, a visually distinctive and rare form (see \autoref{sec:shiny}).
 Regional variants are also seen: Alolan, Galarian, Hisuian, and Paldean.
 Gender, if differentiated at all, is usually a small change to
- appearance or call, but it affects a few evolutionary paths.
+ appearance or call, but it affects a few evolutionary paths (\autoref{table:sexevolutions}).
+\begin{table}[ht]
+\footnotesize
+\centering
+\begin{tabular}{lll}
+Base & Requirements & Result \\
+\Midrule
+Female Combee	& 50 Combee Candy & Vespiquen\\
+Female Salandit & 50 Salandit Candy & Salazzle\\
+Female Snorunt & 100 Snorunt Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Froslass\\
+Male Snorunt & 100 Snorunt Candy & Glalie\\
+Male Kirlia & 100 Ralts Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Gallade\\
+\end{tabular}
+\caption{Gender-dependent evolutions}
+\label{table:sexevolutions}
+\end{table}
 
 \section{Evolution}
 \label{sec:evolution}
@@ -49,38 +64,35 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
 
 \begin{table}[ht]
 \footnotesize
-\begin{center}
-  \begin{tabular}{lll}
-    Base & Requirements & Result \\
-    \Midrule
-    Magneton & 100 Magnemite candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Magnezone\\
-    Nosepass & 50 Nosepass candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Probopass\\
-    Charjabug & 100 Grubbin candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Probopass\\
-    Sliggoo	& 100 Goomy Candy + active \includegraphics[width=1em,height=1em]{images/rainylure.png}& Goodra\\
-    Bisharp	& 100 Pawniard Candy + defeat 15 Dark- or Steel-type raids & Kingambit\\
-    Primeape & 100 Mankey Candy + defeat 30 Psychic- or Ghost-type& Annihilape\\
-    Floette	& 100 Flabébé Candy + earn 20 hearts & Florges\\
-    Charcadet	& 50 Charcadet Candy + defeat 30 Psychic-type& Armarouge\\
-    Charcadet	& 50 Charcadet Candy + defeat 30 Ghost-type& Ceruledge\\
-    Hisuian Qwilfish & 50 Qwilfish Candy + win 10 raids & Overqwil\\
-    Kubfu	& 200 Kubfu Candy + defeat 30 Water raids/Max battles & Rapid Strike Urshifu\\
-    Kubfu	& 200 Kubfu Candy + defeat 30 Dark raids/Max battles & Single Strike Urshifu\\
-    Inkay	& 50 Inkay Candy + rotating the mobile device & Malamar\\
-    Female Combee	& 50 Combee Candy & Vespiquen\\
-    Amaura & 50 Amaura Candy, and evolve at night & Aurorus\\
-    Tyrunt & 50 Tyrunt Candy, and evolve during the day & Tyrantrum\\
-    Pancham	& 50 Pancham Candy + capture 32 Dark-type & Pangoro\\
-    Ursaring & 100 Teddiursa Candy during full moon & Ursaluna\\ 
-    \textbf{FIXME} & \textbf{FIXME} & \textbf{FIXME}\\
-  \end{tabular}
-\end{center}
+\centering
+\begin{tabular}{lll}
+  Base & Requirements & Result \\
+  \Midrule
+  Magneton & 100 Magnemite candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Magnezone\\
+  Nosepass & 50 Nosepass candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Probopass\\
+  Charjabug & 100 Grubbin candy + active \includegraphics[width=1em,height=1em]{images/magneticlure.png} & Probopass\\
+  Sliggoo	& 100 Goomy Candy + active \includegraphics[width=1em,height=1em]{images/rainylure.png}& Goodra\\
+  Bisharp	& 100 Pawniard Candy + defeat 15 Dark- or Steel-type raids & Kingambit\\
+  Primeape & 100 Mankey Candy + defeat 30 Psychic- or Ghost-type& Annihilape\\
+  Floette	& 100 Flabébé Candy + earn 20 hearts & Florges\\
+  Charcadet	& 50 Charcadet Candy + defeat 30 Psychic-type& Armarouge\\
+  Charcadet	& 50 Charcadet Candy + defeat 30 Ghost-type& Ceruledge\\
+  Hisuian Qwilfish & 50 Qwilfish Candy + win 10 raids & Overqwil\\
+  Kubfu	& 200 Kubfu Candy + defeat 30 Water raids/Max battles & Rapid Strike Urshifu\\
+  Kubfu	& 200 Kubfu Candy + defeat 30 Dark raids/Max battles & Single Strike Urshifu\\
+  Inkay	& 50 Inkay Candy + rotating the mobile device & Malamar\\
+  Amaura & 50 Amaura Candy, and evolve at night & Aurorus\\
+  Tyrunt & 50 Tyrunt Candy, and evolve during the day & Tyrantrum\\
+  Pancham	& 50 Pancham Candy + capture 32 Dark-type & Pangoro\\
+  Ursaring & 100 Teddiursa Candy during full moon & Ursaluna\\ 
+\end{tabular}
 \caption{Evolutions dependent upon a condition}
 \label{table:condevolutions}
 \end{table}
 
 \begin{table}[ht]
 \footnotesize
-\begin{center}
+\centering
   \begin{tabular}{lll}
     Base & Requirements & Result \\
     \Midrule
@@ -105,11 +117,9 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
     Yanma & 100 Yanma Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Yanmega	\\
     Gligar & 100 Gligar Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Gliscor	\\
     Murkrow & 100 Murkrow Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Honchkrow	\\
-    Male Kirlia & 100 Ralts Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Gallade	\\
     Misdreavus & 100 Misdreavus Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Mismagius	\\
     Piloswine & 100 Swinub Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Mamoswine	\\
     Dusclops & 100 Duskull Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Dusknoir	\\
-    Female Snorunt & 100 Snorunt Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Froslass	\\
     Aipom & 100 Aipom Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Ambipom	\\
     Roselia & 100 Budew Candy + \includegraphics[width=1em,height=1em]{images/sinnohstone.png} & Roserade	\\
     Applin & 200 Applin Candy + 20 \includegraphics[width=1em,height=1em]{images/tartapple.png} & Flapple \\
@@ -117,7 +127,6 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
     Zygarde 10\% & 50 \includegraphics[width=1em,height=1em]{images/zygardecell.png} & Zygarde 50\% \\
     Zygarde 50\% & 200 \includegraphics[width=1em,height=1em]{images/zygardecell.png} & Zygarde Complete \\
   \end{tabular}
-\end{center}
 \caption{Evolutions dependent upon items}
 \label{table:itemevolutions}
 \end{table}
@@ -142,22 +151,21 @@ Eevee's evolutions are often strong Pokémon early in the game.
 For the nickname-based mechanic, give the Eevee you wish to evolve the nickname
   specified for the desired target from \autoref{table:eevee}.
 \begin{table}
-  \begin{center}
-    \begin{tabular}{lrp{.5\textwidth}}
-      Target & Nickname & Condition\\
-      \Midrule
-      Vaporeon & Rainer & Random\\
-      Jolteon & Sparky & Random\\
-      Flareon & Pyro & Random\\
-      Sylveon & Kira & Earn 70 buddy hearts \\
-      Espeon & Sakura & Walk 10 km with it as buddy,\newline Evolve during the day\\
-      Umbreon & Tamao & Walk 10 km with it as buddy,\newline Evolve during the night\\
-      Leafeon & Linnea & Evolve near an active \includegraphics[width=1em,height=1em]{images/rainylure.png} \\
-      Glacion & Rea & Evolve near an active \includegraphics[width=1em,height=1em]{images/glaciallure.png} \\\\
-    \end{tabular}
-  \end{center}
-  \caption{Eevolution}
-  \label{table:eevee}
+\centering
+\begin{tabular}{lrp{.5\textwidth}}
+  Target & Nickname & Condition\\
+  \Midrule
+  Vaporeon & Rainer & Random\\
+  Jolteon & Sparky & Random\\
+  Flareon & Pyro & Random\\
+  Sylveon & Kira & Earn 70 buddy hearts \\
+  Espeon & Sakura & Walk 10 km with it as buddy,\newline Evolve during the day\\
+  Umbreon & Tamao & Walk 10 km with it as buddy,\newline Evolve during the night\\
+  Leafeon & Linnea & Evolve near an active \includegraphics[width=1em,height=1em]{images/rainylure.png} \\
+  Glacion & Rea & Evolve near an active \includegraphics[width=1em,height=1em]{images/glaciallure.png} \\\\
+\end{tabular}
+\caption{Eevolution}
+\label{table:eevee}
 \end{table}
 
 \section{Shadow and Purified Pokémon}
@@ -196,25 +204,24 @@ Whether Meltan and Melmetal (of the ``Unknown'' region) are Generation VII
 I place them in Generation VII because it is one less keystroke when using Roman numerals.
 If you disagree, I encourage you to FAX your senator.
 \begin{table}[ht]
-  \begin{center}
-    \begin{tabular}{lcrr}
-      Region & Generation & Start & End\\
-      \Midrule
-      Kanto & I & \#0001 & \#0151\\
-      Johto & II & \#0152 & \#0251\\
-      Hoenn & III & \#0252 & \#0386\\
-      Sinnoh & IV & \#0387 & \#0493\\
-      Unova & V & \#0494 & \#0649\\
-      Kalos & VI & \#0650 & \#0721\\
-      Alola & VII & \#0722 & \#0807\\
-      Unknown & VII & \#0808 & \#0809\\
-      Galar & VIII & \#0810 & \#0898\\
-      Hisui & VIII & \#0899 & \#0905\\
-      Paldea & IX & \#0906 & \#1025\\
-    \end{tabular}
-  \end{center}
-  \caption{The regions of the Pokémon world (\textjapanese{ポケモンの世界})}
-  \label{table:regions}
+\centering
+\begin{tabular}{lcrr}
+  Region & Generation & Start & End\\
+  \Midrule
+  Kanto & I & \#0001 & \#0151\\
+  Johto & II & \#0152 & \#0251\\
+  Hoenn & III & \#0252 & \#0386\\
+  Sinnoh & IV & \#0387 & \#0493\\
+  Unova & V & \#0494 & \#0649\\
+  Kalos & VI & \#0650 & \#0721\\
+  Alola & VII & \#0722 & \#0807\\
+  Unknown & VII & \#0808 & \#0809\\
+  Galar & VIII & \#0810 & \#0898\\
+  Hisui & VIII & \#0899 & \#0905\\
+  Paldea & IX & \#0906 & \#1025\\
+\end{tabular}
+\caption{The regions of the Pokémon world (\textjapanese{ポケモンの世界})}
+\label{table:regions}
 \end{table}
 
 \section{Myths, Legends, and Beasts}
