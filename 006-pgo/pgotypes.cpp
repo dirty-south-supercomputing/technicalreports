@@ -12821,6 +12821,9 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   print_optimal_latex(s);
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
+  print_types_big(s->t1, s->t2);
+  printf(" \\includegraphics[height=2em,keepaspectratio]{images/%d.png}",
+          s->a2cost == 100 ? 4 : s->a2cost == 75 ? 3 : s->a2cost == 50 ? 2 : 1);
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
@@ -12837,9 +12840,6 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
   }
   print_weathers_big(s->t1, s->t2);
-  printf(" \\includegraphics[height=2em,keepaspectratio]{images/%d.png}",
-          s->a2cost == 100 ? 4 : s->a2cost == 75 ? 3 : s->a2cost == 50 ? 2 : 1);
-  print_types_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
 
   // evolutionary lineage (only for main forms)
