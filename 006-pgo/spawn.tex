@@ -113,15 +113,18 @@ Pokémon spawned due to incense or lures do not show up in the matrix
 
 \section{Catching}
 \label{sec:catch}
+Catching a Pokémon requires throwing a ball close enough to capture it,
+ and that the Pokémon not escape from the ball.
 Each species has a catch rate and a flee rate.
 The catch rate determines likelihood of the Pokémon escaping a ball,
   while the flee rate determines likelihood of the Pokémon leaving the encounter altogether.
-Pokémon which flee will not reappear on the map.
+Pokémon flee only immediately following an escape; they will not flee after a throw which
+  does not result in capture.
+Pokémon that flee do not reappear on the map\footnote{The Trainer does receive 25 consolation XP points.}.
 While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
 Its color (red, orange, or green) is an indicator of the Pokémon's catch rate, as modified by any berry in effect.
-If you throw your ball too directly at Tyrunt, he'll eat it.
 \textbf{FIXME}
-\subsection{Balls}
+If you throw your ball too directly at Tyrunt, he'll eat it.
 \begin{table}[ht]
   \begin{center}
     \begin{tabular}{ll}
