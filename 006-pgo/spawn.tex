@@ -6,6 +6,13 @@ Trainers primarily interface with the Map screen, onto which is projected
 Pokémon spawning on this map will be a Trainer's major source of raw materials.
 In addition to the Map, encounters follow victories against Team GO Rocket,
   wins in raids and Max Battles, and completion of certain research.
+Encounters feature a summary display including the Pokémon's CP (\autoref{sec:cp}),
+  and icons indicating any weather leading to boosting (\autoref{sec:weather}),
+  any type of lure that led to the spawn,
+  Shiny status,
+  and that the species has been previously captured\footnote{These traits are stored along with the Pokémon, and can be seen when browsing inventory.}.
+The CP will be replaced with ``???'' if the species has never been seen, or if
+  the CP exceeds that of any owned Pokémon.
 
 \section{Wild spawns}
 \label{sec:spawns}
@@ -103,7 +110,12 @@ Some evolutions (\autoref{sec:evolution}) can only take place near an active lur
 
 \section{Catching}
 \label{sec:catch}
-Each Pokémon has a catch rate and a flee rate.
+Each species has a catch rate and a flee rate.
+The catch rate determines likelihood of the Pokémon escaping a ball,
+  while the flee rate determines likelihood of the Pokémon leaving the encounter altogether.
+Pokémon which flee will not reappear on the map.
+While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
+Its color (red, orange, or green) is an indicator of the Pokémon's catch rate, as modified by any berry in effect.
 \textbf{FIXME}
 \subsection{Balls}
 \begin{table}[ht]
