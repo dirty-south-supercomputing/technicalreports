@@ -4,7 +4,7 @@
 // with defenders on rows, attackers on columns
 int main(void){
   printf("\\begin{table}[ht]\n");
-  printf("\\begin{center}\n");
+  printf("\\centering{}");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{tabular}{c g c g c g c g c g c g c g c g c g c}\n");
   printf("&\n");
@@ -44,7 +44,6 @@ int main(void){
   printf("\\end{tabular}\n");
   printf("\\caption[Type relations]{Type relations. Rows defend, columns attack.}\n");
   printf("\\label{table:relations}\n");
-  printf("\\end{center}\n");
   printf("\\end{table}\n");
   return EXIT_SUCCESS;
 }

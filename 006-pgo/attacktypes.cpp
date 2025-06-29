@@ -10,8 +10,7 @@
 // gooddpt and goodept are counts of strong moves, vectors of TYPECOUNT size
 void print_latex_table(const unsigned *acounts, const unsigned *gooddpt, const unsigned *goodept){
   printf("\\begin{table}[ht]\n");
-  printf("\\begin{center}\n");
-  printf("\\footnotesize\n");
+  printf("\\centering{}\\footnotesize{}");
   printf("\\begin{tabular}{lrrrrrrr}\n");
   printf("Type & 1 & 2 & 3 & 4 & 5 & PPT>3 & EPT>3\\\\\n");
   printf("\\Midrule\n");
@@ -29,7 +28,6 @@ void print_latex_table(const unsigned *acounts, const unsigned *gooddpt, const u
     acounts += 5;
   }
   printf("\\end{tabular}\n");
-  printf("\\end{center}\n");
   printf("\\caption{Fast attacks by duration by type}\n");
   printf("\\label{table:attacktypes}\n");
   printf("\\end{table}\n");
