@@ -20,8 +20,7 @@ We require a fitness function that takes as input a Pokémon's form, level, and 
 Common functions include CP itself, the arithmetic mean ($\frac{Mod_A + Mod_D + MHP}{3}$),
   and the geometric mean ($\sqrt[3]{Mod_A \times Mod_D \times MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
   mechanics, but there is no true ``best'' fitness function---optimal IVs are
-  strongly dependent upon the base stats, and weakly dependent upon the
-  opponent.}.
+  dependent upon both the base stats and the opponent.}.
 For a given CP bound, fitness function, and form, there is some optimal set of Pokémon levels
  and individual vectors.
 Higher IV components might require a lower level than lower components to
@@ -115,8 +114,7 @@ The geometric mean ($\sqrt[3]{BP}$) ranges from 51.39 (max Shedinja)
   to 147.18 (15/15/15@49.5 Chansey).
 There is a strong bimodal preference for IVs: 15/15/15 for level 49.5
   and 50, and otherwise $n$/15/15 where $n < 2$, and $n$ usually equals 0.
-This verifies that attack is highly overvalued in the CP calculation
-  relative to $\sqrt[3]{BP}$ (not that we had any doubt).
+This verifies (not that we had any doubt) that attack is highly overvalued in the CP calculation relative to $\sqrt[3]{BP}$.
 Other IVs usually correspond to low level, powerful species, where a level
   raises CP by a large amount, leaving more room for beneficial IVs.
 $Eff_A$ ranges from 63.02 (Chansey) to tremendous outlier 254.05 (Deoxys Attack).
@@ -125,15 +123,18 @@ In general, the top positions have relatively low $Eff_A$, rising in an
 At this point, they become more disordered, until falling at the back
   of the list.
 $MHP$ and $Eff_D$ are much less predictable.
-
+\begin{figure}[h]
+\centering
 \includegraphics[width=.5\textwidth,keepaspectratio]{octave/greninjalevels.png}
 \includegraphics[width=.5\textwidth,keepaspectratio]{octave/greninjagmeans.png}
-
-\textbf{FIXME need graph of contour plot of optimal frontier.
-plot contour3 using ATK on y axis and DEF+STA on x axis, optlevel
-then gmean contour using same
-do one of weak mon, one of even, one of strong mon}
-
+\caption{Contours of optimal Greninja levels and resulting arithmetic means.\\
+  (X axis is $IV_A$, Y axis is $IV_D + IV_S$)}
+\label{fig:contours}
+\end{figure}
+%\textbf{FIXME need graph of contour plot of optimal frontier.
+%plot contour3 using ATK on y axis and DEF+STA on x axis, optlevel
+%then gmean contour using same
+%do one of weak mon, one of even, one of strong mon}
 What's more important, IVs or level?
 Given the vast number of 0/15/15 IVs among the optimal sets, it
   would seem to be $IV_D$ and $IV_S$ (and that it is equally
