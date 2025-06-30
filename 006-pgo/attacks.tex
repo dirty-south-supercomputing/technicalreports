@@ -31,7 +31,7 @@ under the invariants:
     \sum_{i=-2}^{1} R_i &= 18\\
    \sum_{i=-3}^{2} E_i + 18 &= \binom{18}{2} + 18  = 171
 \end{align*}
-\begin{table}[ht]
+\begin{table}
   \centering
   \begin{tabular}{l r r r r|r r r r r r r}
     & \multicolumn{4}{c}{Type → Type} & \multicolumn{6}{c}{Type → Typing} & \\
@@ -177,7 +177,7 @@ Certain charged attacks can be employed outside of battle.
 Some Pokémon must know the attack, and that Pokémon cannot be fainted.
 Adventure effects cost Stardust and Candy appropriate to the Pokémon
   per duration.
-\begin{table}[ht]
+\begin{table}
   \centering
   \begin{tabular}{llll}
     Pokémon & Attack & Cost & Duration\\
@@ -205,8 +205,8 @@ The smallest cover of all eighteen types is achieved with seven attacking types 
   ten different collections (\autoref{table:coversetsmono}).
 Fighting is always necessary to gain advantage over Normal, and Ground is required for Electric.
 No other types show up in all covering sets.
-\begin{table}[ht]
-\begin{centering}
+\begin{table}
+  \centering
   \begin{tabular}{c}
  Dark, Electric, Fighting, Flying, Ground, Ice, Poison\\
  Dark, Electric, Fighting, Flying, Ground, Ice, Steel\\
@@ -221,7 +221,6 @@ No other types show up in all covering sets.
   \end{tabular}
   \caption{Monotypes are minimally covered by 10 sets of 7}
   \label{table:coversetsmono}
-\end{centering}
 \end{table}
 
 It's interesting to look at how these sets change if we ignore one target type.
@@ -229,8 +228,8 @@ Dropping Fairy, Normal, or Water results in coverage using only six attacking ty
   and can thus be handled with only charged attacks.
 Dropping Dark, Fire, Ice, Poison, Psychic, Rock, or Steel doesn't change the solution space at all.
 The remaining eight elisions merely enable more septuples (\autoref{table:partialcovers}).
-\begin{table}[ht]
-\begin{centering}
+\begin{table}
+\centering
   \begin{tabular}{lrr|lrr}
     Ignored type & Cover size & Sets & Ignored type & Cover size & Sets\\
     \Midrule
@@ -243,15 +242,14 @@ The remaining eight elisions merely enable more septuples (\autoref{table:partia
   \end{tabular}
   \caption{Partial covers are comparable in size to a full cover}
   \label{table:partialcovers}
-\end{centering}
 \end{table}
 
 Of course, what we're really interested in covering is the full set
   of possible target typings, including all dualtypes.
 Unfortunately, this requires no fewer than ten attacking types,
   which can be selected in nine different ways (\autoref{table:coversetsdual}).
-\begin{table}[ht]
-\begin{centering}
+\begin{table}
+  \centering
   \begin{tabular}{c}
  Dark, Fairy, Fighting, Fire, Grass, Ground, Poison, Rock, Steel, Water\\
  Dark, Fairy, Fighting, Fire, Grass, Ground, Ice, Poison, Rock, Steel\\
@@ -265,7 +263,6 @@ Unfortunately, this requires no fewer than ten attacking types,
   \end{tabular}
   \caption{Full typing is minimally covered by 9 sets of 10}
   \label{table:coversetsdual}
-\end{centering}
 \end{table}
 
 Even assuming unlimited substitution, this demonstrates the
