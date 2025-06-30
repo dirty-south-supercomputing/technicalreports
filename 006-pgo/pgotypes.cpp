@@ -12143,7 +12143,7 @@ static const species sdex[] = {
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
 
-// mega forms are never shadows
+// mega and primal forms are never shadows
 static const species megasdex[] = {
   {    3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {    6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, "Charizard", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
@@ -12184,6 +12184,8 @@ static const species megasdex[] = {
   {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, "Salamence", SALAMENCE_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, "Latias", LATIAS_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, },
   {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, "Latios", LATIOS_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, },
+  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, "Kyogre", KYOGRE_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
+  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, "Groudon", GROUDON_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
   {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, "Rayquaza", RAYQUAZA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, },
   {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, "Lopunny", LOPUNNY_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, "Garchomp", GARCHOMP_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
@@ -12195,14 +12197,6 @@ static const species megasdex[] = {
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
-
-// primal forms are never shadows
-static const species primalsdex[] = {
-  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, "Kyogre", KYOGRE_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
-  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, "Groudon", GROUDON_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
-};
-
-#define PRIMALCOUNT (sizeof(primalsdex) / sizeof(*primalsdex))
 
 // crowned forms are never shadows
 static const species crownedsdex[] = {
@@ -12284,7 +12278,6 @@ static const struct {
 } sdexen[] = {
   { sdex, SPECIESCOUNT, },
   { megasdex, MEGACOUNT, },
-  { primalsdex, PRIMALCOUNT, },
   { crownedsdex, CROWNEDCOUNT, },
   { dynadex, DYNACOUNT, },
   { gigantasdex, GIGANTACOUNT, },
