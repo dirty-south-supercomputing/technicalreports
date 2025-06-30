@@ -67,10 +67,13 @@
     %{\ifbool{inspeciesappendex2}
       {\put (0in,-\paperheight){
       \ifthenelse{\isodd{\value{page}}}%
-      {\adjustbox{trim=\paperwidth 0pt}{\includesvg[width=2\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
-      {\stepcounter{speciesappendixpage}\adjustbox{trim=\paperwidth 0pt}{\includesvg[width=2\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      % this seems correct
+      {\adjustbox{viewport=\paperwidth \paperheight 2\paperwidth 0pt}{\includesvg[width=2\paperwidth]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      % places it too low FIXME
+      %{\adjustbox{viewport=0pt \paperheight \paperwidth 0pt}{\includesvg[width=2\paperwidth]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      {\stepcounter{speciesappendixpage}}
       }}
-    %  {\booltrue{inspeciesappendex2}}}
+    %  \booltrue{inspeciesappendex2}}
     {}
 }
 
@@ -105,6 +108,9 @@
 \definecolor{Steel}{HTML}{5E91A4}
 \definecolor{Water}{HTML}{6390F0}
 
+\copypagestyle{dankpanion}{companion}
+\makeoddhead{dankpanion}{{\textbf{\leftmark}}}{}{\textbf{\thepage}}
+\makeevenhead{dankpanion}{{\large \TITLE}}{}{\textbf{\thepage}}
 
 \def\LOGO {
   \textbf{
@@ -156,8 +162,9 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
   \fi
 \input{foreward}
 %--------------------------main text------------------------------------------%
-%\pagestyle{companion}
-%\input{story}
+\mainmatter
+\pagestyle{dankpanion}
+\input{objectives}
 \input{trainer}
 \input{friends}
 \input{spawn}
@@ -219,6 +226,9 @@ Type, cost group, weather boosting, and existence of a Shiny form are indicated 
 Below them is the Pokémon's evolutionary line.
 Finally, if there is a Shadow form, that is indicated, along with the same stats
   provided for the regular form.
+
+Due to statistically insignificant encounters, I am unable to verify catch and flee
+  rates, which were taken from the Pokémon GO Database.
 
 \textbf{infobox for each species still needs: requirements to evolve, catch rate, flee rate, region, generation}
 \booltrue{inspeciesappendex}
