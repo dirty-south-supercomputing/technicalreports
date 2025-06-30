@@ -61,11 +61,16 @@
 \newbool{inspeciesappendex2}
 
 \newcounter{speciesappendixpage}
+\stepcounter{speciesappendixpage}
 \AddToHook{shipout/background}{%
   \ifbool{inspeciesappendex}
-    {\ifbool{inspeciesappendex2}
-      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includesvg[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
-      {\booltrue{inspeciesappendex2}}}
+    %{\ifbool{inspeciesappendex2}
+      {\put (0in,-\paperheight){
+      \ifthenelse{\isodd{\value{page}}}%
+      {\adjustbox{trim=\paperwidth 0pt}{\includesvg[width=2\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      {\stepcounter{speciesappendixpage}\adjustbox{trim=\paperwidth 0pt}{\includesvg[width=2\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      }}
+    %  {\booltrue{inspeciesappendex2}}}
     {}
 }
 
