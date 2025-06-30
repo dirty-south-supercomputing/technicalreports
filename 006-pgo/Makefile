@@ -6,7 +6,7 @@ PAPERBACK:=pgo-pb
 OUT:=out
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
-TEX:=$(addsuffix .tex, pgo foreward story trainer types attacks species pokémon \
+TEX:=$(addsuffix .tex, pgo foreward objectives trainer types attacks species pokémon \
 		 		battle unbounded bounded strategy simul max spawn example about)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
@@ -152,3 +152,4 @@ clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
+	@rm -vrf svg-inkscape
