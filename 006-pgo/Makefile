@@ -45,7 +45,6 @@ SPECIESTEX:=out/species.tex
 EVOLUTIONSTEX:=$(EVOLUTIONS).tex
 MEGATEX:=out/mega.tex
 FUSEDTEX:=$(OUT)/fused.tex
-PRIMALTEX:=out/primal.tex
 DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
 SINDEXTEX:=$(SINDEX).tex
@@ -58,7 +57,7 @@ HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
-	$(GIGANTATEX) $(PRIMALTEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
+	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
 	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
@@ -106,10 +105,6 @@ $(CUSERSTEX): $(OUT)/users
 $(FUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
 	$(<) fast > $@
-
-$(OUT)/primal.tex: $(OUT)/forms
-	@mkdir -p $(@D)
-	$(<) primal > $@
 
 $(OUT)/fused.tex: $(OUT)/forms
 	@mkdir -p $(@D)

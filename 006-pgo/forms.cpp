@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv){
   if(argc != 2){
-    fprintf(stderr, "usage: %s mega|fused|primal|crowned|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   const species* dex;
@@ -21,10 +21,6 @@ int main(int argc, char **argv){
     dex = fusedsdex;
     count = FUSEDCOUNT;
     bg = true;
-  }else if(strcasecmp(argv[1], "primal") == 0){
-    dex = primalsdex;
-    count = PRIMALCOUNT;
-    bg = true;
   }else if(strcasecmp(argv[1], "crowned") == 0){
     dex = crownedsdex;
     count = CROWNEDCOUNT;
@@ -36,7 +32,7 @@ int main(int argc, char **argv){
     dex = gigantasdex;
     count = GIGANTACOUNT;
   }else{
-    fprintf(stderr, "usage: %s mega|fused|primal|crowned|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   // for forms, we just want them alphabetical, not by type
