@@ -38,8 +38,9 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
 
 // print a latex table of evolutions which change types
 int main(void){
-  puts("\\centering\\footnotesize");
-  puts("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
+  printf("\\begingroup");
+  printf("\\centering\\footnotesize");
+  printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
   unsigned count = 0;
   puts("Evolution & Evolution\\\\\\Midrule");
   for(const auto &dex : sdexen){
@@ -47,8 +48,9 @@ int main(void){
       return EXIT_FAILURE;
     }
   }
-  puts("\\caption{Type-changing evolutions and form changes}");
-  puts("\\label{table:heteroevolve}");
-  puts("\\end{longtable}");
+  printf("\\caption{Type-changing evolutions and form changes}");
+  printf("\\label{table:heteroevolve}");
+  printf("\\end{longtable}");
+  printf("\\endgroup");
   return EXIT_SUCCESS;
 }
