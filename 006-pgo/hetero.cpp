@@ -38,23 +38,17 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
 
 // print a latex table of evolutions which change types
 int main(void){
-  puts("\\begin{center}");
-  puts("\\footnotesize");
+  puts("\\centering\\footnotesize");
   puts("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
   unsigned count = 0;
   puts("Evolution & Evolution\\\\\\Midrule");
-  if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
-    return EXIT_FAILURE;
-  }
-  if(print_hetero_evols(megasdex, MEGACOUNT, &count)){
-    return EXIT_FAILURE;
-  }
-  if(print_hetero_evols(primalsdex, PRIMALCOUNT, &count)){
-    return EXIT_FAILURE;
+  for(const auto &dex : sdexen){
+    if(print_hetero_evols(dex.dex, dex.dcount, &count)){
+      return EXIT_FAILURE;
+    }
   }
   puts("\\caption{Type-changing evolutions and form changes}");
   puts("\\label{table:heteroevolve}");
   puts("\\end{longtable}");
-  puts("\\end{center}");
   return EXIT_SUCCESS;
 }
