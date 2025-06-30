@@ -264,3 +264,39 @@ MHP is defined such that it is always a positive integer:
  Eff_S &= Mod_S \times CPM \\
  MHP &= \min{1, \lfloor Eff_S \rfloor}
 \end{align*}
+
+\section{Searching the Pokédex}
+\label{sec:searching}
+The search interface for Pokédexen and storage is surprisingly capable.
+Most strings are matched as substrings in both nicknames and species names,
+ but there are a number of keywords (\autoref{table:searchterms}).
+Most are self-evident: \texttt{lucky}, \texttt{shiny}, \texttt{traded}, \texttt{purified},
+  \texttt{shadow}, \texttt{mythical}, and \texttt{legendary} do exactly
+  what you'd think.
+Identify Pokémon in gyms with \texttt{defender}.
+\texttt{hatched} matches Pokémon originally hatched from eggs,
+ and \texttt{eggsonly} those Pokémon that can only be found
+ as hatchlings.
+Costumed Pokémon from special events are matched by \texttt{costume}.
+Searching for a type will show any Pokémon with that type in their typing.
+\texttt{x*} for \texttt{x} between 0 and 4 matches Pokémon with that appraisal.
+\texttt{favorite} matches those marked ``favorite'' using a star system that
+ seems like it could have handled in the general tagging system just fine
+ but whatever.
+Speaking of, \texttt{#TAG} searches the tag space.
+Several terms cover evolutions: \texttt{evolvenew} for evolutions that will
+  fill a Pokédex entry, \texttt{item} for evolutions that require an item,
+  \texttt{tradeevolve} for Pokémon with the trade discount on evolution,
+  and \texttt{evolve} for Pokémon whose evolution criteria are met.
+\texttt{@weather} shows Pokémon with at least one attack boosted by current
+ weather, \texttt{@ATTACK} shows Pokémon who know \texttt{ATTACK}, and \texttt{@TYPE}
+ any who know some attack of type \texttt{TYPE}.
+Be more specific with \texttt{@xTYPE} for \texttt{x} between 1 and 3 to check
+  for a fast, first charged, or second charged attack of the specified type.
+\texttt{cpNUM} and \texttt{hpNUM} match exactly \texttt{NUM} CP and HP\footnote{Niantic's claim
+  that these can be suffixed with '-' to do a ceiling match seems false.};
+  \texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support.
+Union over searches is accomplished with the infix ';' operator,
+ and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND.}.
+It does not seem possible to search for regional forms using substrings,
+ e.g.\ a search for ``alolan'' does not bring up my Alolan Exeggutor.
