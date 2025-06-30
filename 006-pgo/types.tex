@@ -149,7 +149,7 @@ Most everything else is weak against Steel, especially
  Poison, which is very ineffective against it.
 Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
 Steel is weak against Water and Electric.
-Only two types have no relationships with Steel: Dark and Ghost (\autoref{fig:steel}).
+Only two types have no relationship with Steel: Dark and Ghost (\autoref{fig:steel}).
 As Josef Stalin said, ``it's good to be Steel''.
 
 \begin{figure}[h!]
@@ -220,10 +220,6 @@ It is not possible to dual type using a single type, and ordering of the types h
 There are thus 153 dual types in addition to the 18 base types, for a total of 171.
 We could also arrive at this number by summing 1 through 18:
 \[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
-Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
- Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
- leaving 162 defender typings to consider.
-\input{out/dualtypes.tex}
 Dual typing widens the type relation range, adding the possibilities
  of -3 and 2 (-4 is not possible, because no type is very ineffective against
  two different types).
@@ -231,7 +227,10 @@ It furthermore vastly expands the type effectiveness matrix,
  with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
-
+\input{out/dualtypes.tex}
+Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
+ Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
+ leaving 162 defender typings to consider.
 Given $E_{n}, -3 \le n \le 2$ where $E_n$ is the number of types with
   a net relation of $n$ against a typing, we define DRA\@:
 \[  DRA = \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{18} \]
@@ -240,12 +239,10 @@ Completely unexpectedly, the defensive typings with highest DRA include Steel,
 Don't be fooled by a metric like DRA, though; you will not be seeing
   randomly typed attacks.
 Opposing Trainers will build their teams and make substitutions based on
-  expected and demonstrated type weaknesses.
+  expected and demonstrated typing.
 None of Steel's resistances matter when you're being hit by one of its
   weaknesses.
-
 \input{out/dualsummaries.tex}
-
 There are twenty triple resistances, five of which are against Fighting attacks (\autoref{table:triples}).
 Two of the typings exhibiting such resistances are unpopulated
   (Electricity+Ground\footnote{Sandy Shocks, Pokédex \#0989, is a Generation IX
