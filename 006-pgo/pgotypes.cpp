@@ -12272,7 +12272,7 @@ static const species fusedsdex[] = {
 
 #define FUSEDCOUNT (sizeof(fusedsdex) / sizeof(*fusedsdex))
 
-static const struct {
+static const struct spokedex {
   const species *dex;
   unsigned dcount;
 } sdexen[] = {

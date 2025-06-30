@@ -61,8 +61,8 @@
 \AddToHook{shipout/background}{%
   \ifbool{inspeciesappendex}
     {\put (0in,-\paperheight){\ifthenelse{\isodd{\value{page}}}%
-    {\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}\stepcounter{speciesappendixpage}}
-    {\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}\stepcounter{speciesappendixpage}}
+    {\stepcounter{speciesappendixpage}\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}}
+    {\stepcounter{speciesappendixpage}\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}}
     }}
 }
 
@@ -152,7 +152,7 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
 \input{foreward}
 %--------------------------main text------------------------------------------%
 \mainmatter
-\pagestyle{companion}
+%\pagestyle{companion}
 \input{objectives}
 \input{trainer}
 \input{friends}
