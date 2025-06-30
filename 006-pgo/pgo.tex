@@ -60,16 +60,14 @@
 \newbool{inspeciesappendex}
 \newbool{inspeciesappendex2}
 
-\booltrue{inspeciesappendex2}
-
-%\newcounter{speciesappendixpage}
-%\AddToHook{shipout/background}{%
-%  \ifbool{inspeciesappendex}
-%    {\ifbool{inspeciesappendex2}
-%      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includesvg[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
-%      {}}
-%    {\booltrue{inspeciesappendex2}}
-%}
+\newcounter{speciesappendixpage}
+\AddToHook{shipout/background}{%
+  \ifbool{inspeciesappendex}
+    {\ifbool{inspeciesappendex2}
+      {\put (0in,-\paperheight){\stepcounter{speciesappendixpage}\includesvg[scale=2,width=\paperwidth,height=\paperheight]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
+      {\booltrue{inspeciesappendex2}}}
+    {}
+}
 
 \makeatletter
 \newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
