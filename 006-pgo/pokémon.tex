@@ -61,8 +61,25 @@ An increase in level improves the Pokémon's attack and defense, and
 See \autoref{sec:staticstats} for a quantitative treatment.
 
 Powering up a fainted Pokémon will revive it, but with minimal HP\@:
-
 \[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
+Advancing a normal Pokémon from level 1 to level 50 is not a cheap endeavor (\autoref{table:sumcosts}),
+  though Shadow Pokémon of course have a minimum level of eight, purified Pokémon are always
+  at least level 25, and most captures will be well above level 1.
+Note that pushing level 40 to 50 requires more Stardust than going from 1 to 40.
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrr}
+  Type & Candy & Candy XL & Stardust\\
+\Midrule
+        Normal & 304 & 296 & 520,000\\
+        Shadow & 406 & 360 & 624,000\\
+      Purified & 294 & 272 & 468,000\\
+         Lucky & 304 & 296 & 260,000\\
+Lucky purified & 294 & 272 & 234,000\\
+\end{tabular}
+\caption{Total costs for powering up from level 1 to 50}
+\label{table:sumcosts}
+\end{table}
 
 \section{Individual Vectors}
 \label{sec:ivs}
