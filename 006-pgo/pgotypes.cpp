@@ -12251,7 +12251,7 @@ static const species gigantasdex[] = {
   {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Blastoise", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
-  {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingsler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kinsler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  131, "Gmax Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, "Lapras", LAPRAS_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  143, "Gmax Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Snorlax", SNORLAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  812, "Gmax Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Rillaboom", RILLABOOM_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
