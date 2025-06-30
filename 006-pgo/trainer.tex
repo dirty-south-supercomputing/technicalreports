@@ -292,7 +292,7 @@ I began playing on 2025-03-01.
 As I write this about four months later, I have caught 20,364 Pokémon, of which
   I have retained 441---a little less than 2.2\%.
 
-\subsection{Collecting Pokémon}
+\subsection{Grinding Pokémon}
 \label{subsec:getmons}
 Pokémon can be received from other Trainers via trades (\autoref{sec:trades}),
   but most are captured with Pokéballs in encounters.
@@ -318,16 +318,37 @@ Leaving wild encounters might see the Pokémon disappear from the Map, especiall
 Encounters following battle wins are one-and-done; if you exit the encounter,
   that Pokémon is gone.
 
-\subsection{Collecting XP}
+\subsection{Grinding XP}
 \label{subsec:getxp}
 Gaining sufficient XP advances the Trainer's level.
 It is most regularly received for capturing Pokémon, but large awards are
   available by other means, and can be the source of a majority of a Trainer's XP.
-  \textbf{FIXME}
+The Gifts system is essentially a machine for converting
+  time into experience points (\autoref{sec:gifts}).
+Raids and Max Battles, especially 4🟉 or higher, are munificent with the XP (\autoref{table:raidawards}).
 Using a Lucky Egg doubles all XP awards for thirty minutes.
 During this time, a timer appears on the upper right of the map screen.
 Lucky Eggs can be bought from the Shop (one for 80 Pokécoins or eight for 500),
   and are sometimes awarded for completing Research.
+Routes and showcases can also be good sources of XP\footnote{I recently placed 159th in a Zacian showcase.
+  This dubious accomplishment netted 1000 XP\@.}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+Action & XP\\
+\Midrule
+  Feed berry to Gym defender & 50\\
+  Spin Pokéstop & 50\\
+  Sending a Gift & 200\\
+  Spin new Pokéstop & 250\\
+  New main Pokédex registration & 1000\\
+  Pokémon evolution & 1000\\
+  Research breakthrough & 3000\\
+\end{tabular}
+\caption{XP awards not captured elsewhere}
+\label{table:xpawards}
+\end{table}
 
 %\begin{figure}[h]
 %  \begin{minipage}[t]{0.3\textwidth}
@@ -353,7 +374,7 @@ Lucky Eggs can be bought from the Shop (one for 80 Pokécoins or eight for 500),
 %  \end{minipage}
 %\end{figure}
 %
-\subsection{Collecting Stardust}
+\subsection{Grinding Stardust}
 \label{subsec:getdust}
 Trainers pay a cost (partially) in Stardust
   to level up their Pokémon (\autoref{sec:plevel}),
@@ -406,7 +427,7 @@ Using a Star Piece increases all Stardust awards by 50\% for thirty minutes.
 During this time, a timer appears on the upper right of the map screen.
 Star Pieces can be bought from the Shop (one for 100 Pokécoins or eight for 640),
   and are sometimes awarded for completing Research.
-\subsection{Collecting Candy}
+\subsection{Grinding Candy}
 \label{subsec:getcandy}
 Each genus (\autoref{sec:evolution}) has its own flavor of Candy and Candy XL.
 Along with Stardust, most Pokémon enhancement is driven by Candy.
@@ -434,7 +455,7 @@ It is possible through Research to receive Candy for a genus not present in
   your Pokédex, i.e. one whose constituent species you have never captured.
 You'll keep this Candy, but it doesn't result in a Pokédex entry.
 Likewise, Candy is retained even if all Pokémon of that genus have been transferred.
-\subsection{Collecting Energies}
+\subsection{Grinding Energies}
 Form-changing Energies (Mega, Primal, Fusion, and Crown) can be acquired by winning a raid of that type
   (faster victories yield more energy) or completing certain research tasks.
 If a Buddy Pokémon is of an evolutionary line where any member of that line has undergone Mega evolution
@@ -442,12 +463,13 @@ If a Buddy Pokémon is of an evolutionary line where any member of that line has
 This rate is constant across all species, but the energy is awarded only when the Buddy finds Candy,
   as determined by its cost group (\autoref{sec:costgroups}).
 Walking cannot earn Fusion or Crown energies.
+Very rarely, spinning Pokéstops will result in Beedrill Mega energy.
 
 Note that Mega and Primal evolutions are temporary, while Fusion and Crowning is persistent
   until explicitly undone.
-\subsection{Collecting Pokécoins (and F2P vs. P2P)}
+\subsection{Grinding Pokécoins (and F2P vs. P2P)}
 \label{subsec:getcoins}
-Pokémon GO is free to download, with optional microtransactions through the ingame
+Pokémon GO is free to download, with optional microtransactions through the in-game
   Shop and the Pokémon GO web store.
 Pokécoins can be used to purchase most items\footnote{Event passes generally require cash,
   as does anything specific to the web store.}, and local currency can purchase Pokécoins.
@@ -497,6 +519,39 @@ Collecting the maximum 50 from Gyms eleven out of every fourteen days, you can d
 You will initially be at a definite disadvantage in PvP, but one that can
   be largely overcome with cunning, and eliminated in a year's tenacious
   and savvy play.
+
+\subsection{Grinding items}
+\label{subsec:grinditems}
+A calendar day's first spin of a gym disc wins a Premium Battle Pass.
+Basic berries, low-grade potions, and balls are the constant output of spun Pokéstops.
+Gym discs tend to output more potions and revives.
+On rare occasions, spins can output evolution items (\autoref{table:itemevolutions}).
+Opening a gift can yield items and Stardust.
+A sack of items is presented following victories in Team GO Rocket encounters, raids, and Max battles.
+
+The most important items to carry are Pokeballs.
+Berries are useless without them\footnote{Aside from the strange choice of throwing a berry before leaving the encounter,
+ encounters always consume at least as many balls as berries, and can easily consume more.}.
+Encounters are much more frequent than battles; battle rewards almost always
+ include potions and revives sufficient to cover damage suffered therein.
+I never carry more than about twenty Max Potions and Max Revives, yet keep my Pokémon fully healed at all times.
+Once Golden Razz berries are unlocked, there's no point in carrying Razz berries;
+  use them immediately in encounters, or feed them to gym defenders.
+Nenab berries are only marginally useful (primarily with Shadow Pokémon); I try to carry five.
+Pinap berries are great; I like to set out with about half as many Pinaps as I do balls,
+  and I let them fly almost by default.
+Rare and valuable Silver Pinaps are worth hanging onto for considered use.
+Otherwise, Berries are for feeding Pokémon, not filling up your bag.
+
+Rare Candy is great when you make active use of it, but more than a hundred
+  probably means you've got some underachieving Pokémon.
+Though it's not made obvious by the UI, large amounts of Rare Candy can be
+  used for evolution (select Items from the relevant Pokémon, select
+  the Rare Candy, and convert arbitrarily many).
+Rare Candy XL is worth carrying around until you have a Pokémon you really
+  want to push above level 40, or whose Max Moves you want at level 3.
+
+Even with the default Bag, this ought leave space for at least one hundred balls.
 
 \section{Medals}
 \label{sec:medals}
