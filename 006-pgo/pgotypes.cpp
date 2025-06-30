@@ -12753,7 +12753,7 @@ print_previous_species(const species *s){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool vfill){
-  printf("\\begin{tcolorbox}[enhanced,before skip=0pt,after skip=0pt,top=0pt,bottom=0pt,boxsep=0pt,middle=0pt,title=\\#%04u ", s->idx);
+  printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -12764,7 +12764,6 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.1}");
   }
-  printf(",subtitle style={colback=Shadow!50!black}");
   printf("]\\label{species:");
   label_string(s->name.c_str());
   printf("}{");
@@ -12869,7 +12868,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
 
   // end footnotesize
   printf("}");
-  printf("\\end{tcolorbox}\n");
+  printf("\\end{speciesbox}\n");
   if(vfill){
     printf("\\vfill\n");
   }

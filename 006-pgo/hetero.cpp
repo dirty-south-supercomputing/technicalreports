@@ -39,7 +39,7 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
 // print a latex table of evolutions which change types
 int main(void){
   printf("\\begingroup");
-  printf("\\centering\\footnotesize");
+  printf("\\footnotesize");
   printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
   unsigned count = 0;
   puts("Evolution & Evolution\\\\\\Midrule");
