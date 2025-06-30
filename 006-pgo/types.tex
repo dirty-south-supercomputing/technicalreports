@@ -220,6 +220,9 @@ It is not possible to dual type using a single type, and ordering of the types h
 There are thus 153 dual types in addition to the 18 base types, for a total of 171.
 We could also arrive at this number by summing 1 through 18:
 \[ \sum_{i=1}^{18} i = \frac{18 \times 19}{2} = 171 \]
+Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
+ Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
+ leaving 162 defender typings to consider.
 Dual typing widens the type relation range, adding the possibilities
  of -3 and 2 (-4 is not possible, because no type is very ineffective against
  two different types).
@@ -228,9 +231,6 @@ It furthermore vastly expands the type effectiveness matrix,
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
 \input{out/dualtypes.tex}
-Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock,
- Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
- leaving 162 defender typings to consider.
 Given $E_{n}, -3 \le n \le 2$ where $E_n$ is the number of types with
   a net relation of $n$ against a typing, we define DRA\@:
 \[  DRA = \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{18} \]
