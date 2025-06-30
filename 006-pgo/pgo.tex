@@ -55,26 +55,15 @@
 \settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
-% background for species pages
-% we only want this in that appendix
+% background for species pages---we only want this in that appendix
 \newbool{inspeciesappendex}
-\newbool{inspeciesappendex2}
-
 \newcounter{speciesappendixpage}
-\stepcounter{speciesappendixpage}
 \AddToHook{shipout/background}{%
   \ifbool{inspeciesappendex}
-    %{\ifbool{inspeciesappendex2}
-      {\put (0in,-\paperheight){
-      \ifthenelse{\isodd{\value{page}}}%
-      % this seems correct
-      {\adjustbox{viewport=\paperwidth \paperheight 2\paperwidth 0pt}{\includesvg[width=2\paperwidth]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
-      % places it too low FIXME
-      %{\adjustbox{viewport=0pt \paperheight \paperwidth 0pt}{\includesvg[width=2\paperwidth]{images/backgrounds/\arabic{speciesappendixpage}.svg}}}
-      {\stepcounter{speciesappendixpage}}
-      }}
-    %  \booltrue{inspeciesappendex2}}
-    {}
+    {\put (0in,-\paperheight){\ifthenelse{\isodd{\value{page}}}%
+    {\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}\stepcounter{speciesappendixpage}}
+    {\includesvg[width=1.5\paperwidth,keepaspectratio]{images/backgrounds/\arabic{speciesappendixpage}.svg}\stepcounter{speciesappendixpage}}
+    }}
 }
 
 \makeatletter
@@ -108,9 +97,9 @@
 \definecolor{Steel}{HTML}{5E91A4}
 \definecolor{Water}{HTML}{6390F0}
 
-\copypagestyle{dankpanion}{companion}
-\makeoddhead{dankpanion}{{\textbf{\leftmark}}}{}{\textbf{\thepage}}
-\makeevenhead{dankpanion}{{\large \TITLE}}{}{\textbf{\thepage}}
+%\copypagestyle{dankpanion}{companion}
+%\makeoddhead{dankpanion}{{\textbf{\leftmark}}}{}{\textbf{\thepage}}
+%\makeevenhead{dankpanion}{{\large \TITLE}}{}{\textbf{\thepage}}
 
 \def\LOGO {
   \textbf{
@@ -163,7 +152,7 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
 \input{foreward}
 %--------------------------main text------------------------------------------%
 \mainmatter
-\pagestyle{dankpanion}
+\pagestyle{companion}
 \input{objectives}
 \input{trainer}
 \input{friends}
