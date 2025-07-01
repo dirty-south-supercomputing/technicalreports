@@ -233,5 +233,5 @@ Collection of possible moves is handled in the top half, which loops through the
   filters invalid ones, then calls the bottom half on each.
 Should we want to parallelize, this loop is an obvious target.
 \inputminted{cpp}{s/top.h}
-The bottom half implements a choice-pair, recursing unless the match ends.
+The bottom half implements a choice-pair, recursing unless done.
 \inputminted{cpp}{s/bottom.h}
