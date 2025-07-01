@@ -40,8 +40,7 @@ If the active Pokémon is in the middle of a multiturn fast attack, the
 Otherwise, if more than one Pokémon is present, and the substitution timer is
   inactive, the Trainer may call for a substitution.
 If there is sufficient energy, the Trainer may call for a charged attack.
-In the case of a charged attack, the defending Trainer can opt to use a Defense
-  Shield (if any remain).
+In the case of a charged attack, the defending Trainer can opt to use a shield (if any remain).
 The Trainer can call for a fast attack, or do nothing for the turn.
 Each option must be pursued for an exhaustive search.
 
@@ -78,11 +77,11 @@ Even better would be a closed form analytic treatment of the endgame,
   which seems like it ought be possible.
 Let's restrict ourselves to the case of one Pokémon remaining per Trainer.
 We dispense with charged attacks entirely (at least initially) by considering
-  only those states where the possible turns remaining times EPT plus current
+  only those states where the possible turns remaining times EPT plus
   energy is less than the energy required for a charged attack.
 This restriction means we can ignore shields, as they're only relevant
   when charged attacks are used.
-We will call these subgraphs ``death marches''.
+We call these subgraphs ``death marches''.
 
 How do we put an upper bound on turns?
 Remember that we don't consider rounds which effect no change in state.

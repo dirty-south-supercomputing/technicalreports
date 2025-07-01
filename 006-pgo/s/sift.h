@@ -8,19 +8,21 @@ sift_choices(const simulstate *s, bool *m, int player){
     }
     return;
   }
-  // FIXME we might want to do nothing if opponent is in the middle of a fast move
+  // FIXME might want to do nothing if opp is in media fastmove
   m[MOVE_FAST] = true; // we can launch a fast move
   if(s->shields[player]){
     m[MOVE_FAST_SHIELD] = true;
   }
-  if(s->e[player][s->active[player]] >= -pmons[player][s->active[player]].ca1->energytrain){
+  if(s->e[player][s->active[player]] >=
+      -pmons[player][s->active[player]].ca1->energytrain){
     m[MOVE_CHARGED1] = true;
     if(s->shields[player]){
       m[MOVE_CHARGED1_SHIELD] = true;
     }
   }
   if(pmons[player][s->active[player]].ca2){
-    if(s->e[player][s->active[player]] >= -pmons[player][s->active[player]].ca2->energytrain){
+    if(s->e[player][s->active[player]] >=
+        -pmons[player][s->active[player]].ca2->energytrain){
       m[MOVE_CHARGED2] = true;
       if(s->shields[player]){
         m[MOVE_CHARGED2_SHIELD] = true;
