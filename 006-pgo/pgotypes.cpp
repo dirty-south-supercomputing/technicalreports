@@ -11306,7 +11306,7 @@ static const species sdex[] = {
   {  232, "Donphan", TYPE_GROUND, TYPECOUNT, 214, 185, 207, "Phanpy", DONPHAN_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  233, "Porygon2", TYPE_NORMAL, TYPECOUNT, 198, 180, 198, "Porygon", PORYGON2_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  234, "Stantler", TYPE_NORMAL, TYPECOUNT, 192, 131, 177, NULL, STANTLER_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
-  {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, SMEARGLE_ATKS, true, false, {}, species::CAT_NORMAL, -1, },
+  {  235, "Smeargle", TYPE_NORMAL, TYPECOUNT, 40, 83, 146, NULL, SMEARGLE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  236, "Tyrogue", TYPE_FIGHTING, TYPECOUNT, 64, 64, 111, NULL, TYROGUE_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue", HITMONTOP_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
   {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, NULL, SMOOCHUM_ATKS, true, false,
