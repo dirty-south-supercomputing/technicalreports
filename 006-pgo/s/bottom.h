@@ -5,9 +5,11 @@ static bool
 account_fast_move(simulstate *s, int player){
   if(s->turns[player]){
     if(!--s->turns[player]){
-      accumulate_energy(&s->e[player][s->active[player]], pmons[player][s->active[player]].fa->energytrain);
+      accumulate_energy(&s->e[player][s->active[player]],
+          pmons[player][s->active[player]].fa->energytrain);
       // FIXME adjust for STAB, shadow, buffs, and typing!
-      return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]],
+      int op = other_player(player);
+      return inflict_damage(&s->hp[op][s->active[op]],
               pmons[player][s->active[player]].fa->powertrain);
     }
   }
