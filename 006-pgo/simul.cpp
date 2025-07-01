@@ -238,15 +238,27 @@ static void
 sift_choices(const simulstate *s, bool *m, int player){
   if(s->turns[player]){ // if we're in a fast move, we can only wait
     m[MOVE_WAIT] = true;
+    if(s->shields[player]){
+      m[MOVE_WAIT_SHIELD] = true;
+    }
     return;
   }
   m[MOVE_FAST] = true; // we can launch a fast move
+  if(s->shields[player]){
+    m[MOVE_FAST_SHIELD] = true;
+  }
   if(s->energy[player] >= -pmons[player].ca1->energytrain){
     m[MOVE_CHARGED1] = true;
+    if(s->shields[player]){
+      m[MOVE_CHARGED1_SHIELD] = true;
+    }
   }
   if(pmons[player].ca2){
     if(s->energy[player] >= -pmons[player].ca2->energytrain){
       m[MOVE_CHARGED2] = true;
+      if(s->shields[player]){
+        m[MOVE_CHARGED2_SHIELD] = true;
+      }
     }
   }
   if(s->subtimer[player] == 0){
@@ -260,19 +272,31 @@ sift_choices(const simulstate *s, bool *m, int player){
 static void
 tophalf(const simulstate *s, results *r){
   //printf("tophalf turn %u %u %u %u\n", s->turn, r->wins[0], r->wins[1], r->ties);
+  bool m0[MOVEMAX] = {};
   bool m1[MOVEMAX] = {};
-  bool m2[MOVEMAX] = {};
-  sift_choices(s, m1, 0);
-  sift_choices(s, m2, 1);
-  for(int c1 = 0 ; c1 < MOVEMAX ; ++c1){
-    if(m1[c1]){
-      for(int c2 = 0 ; c2 < MOVEMAX ; ++c2){
-        if(m2[c2]){
+  sift_choices(s, m0, 0);
+  sift_choices(s, m1, 1);
+  for(int c0 = 0 ; c0 < MOVEMAX ; ++c0){
+    if(m0[c0]){
+      for(int c1 = 0 ; c1 < MOVEMAX ; ++c1){
+        if(m1[c1]){
+          // if c0 is a shielded move, it's only relevant if c1 is a charged
+          // move, and vice versa
+          if(shielded_move_p(static_cast<pgo_move_e>(c0))){
+            if(!charged_move_p(static_cast<pgo_move_e>(c1))){
+              continue;
+            }
+          }
+          if(shielded_move_p(static_cast<pgo_move_e>(c1))){
+            if(!charged_move_p(static_cast<pgo_move_e>(c0))){
+              continue;
+            }
+          }
           auto cs = std::make_unique<simulstate>();
           *cs.get() = *s;
           ++cs->turn;
           //printf("calling bottomhalf with moves %d %d hp %d %d turn %u %u\n", c1, c2, cs->hp[0], cs->hp[1], s->turn, cs->turn);
-          bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c1), static_cast<pgo_move_e>(c2));
+          bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c0), static_cast<pgo_move_e>(c1));
         }
       }
     }
