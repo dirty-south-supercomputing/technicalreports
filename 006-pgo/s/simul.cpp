@@ -80,6 +80,14 @@ simul(simulstate *s, results *r){
   tophalf(s, r);
 }
 
+static const attack *
+lex_species_charged_attacks(const species *s, const char *spec, const attack **ca2){
+  *ca2 = NULL;
+  // FIXME handle two charged attacks delimited by '/'
+  const attack *ca1 = species_charged_attack(s, spec);
+  return ca1;
+}
+
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
 lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
@@ -110,9 +118,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
     return -1;
   }
   p->fa = species_fast_attack(p->s.s, (*argv)[2]);
-  // FIXME handle two charged attacks delimited by '/'
-  p->ca2 = NULL;
-  p->ca1 = species_charged_attack(p->s.s, (*argv)[3]);
+  p->ca1 = lex_species_charged_attacks(p->s.s, (*argv)[3], &p->ca2);
   if(!p->fa || !p->ca1){
     fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name.c_str(),
             (*argv)[2], (*argv)[3]);
