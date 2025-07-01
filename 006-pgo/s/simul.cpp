@@ -1,17 +1,12 @@
 #include "../pgotypes.cpp"
+#include "simul.h"
 #include "moves.h"
 #include "sift.h"
 #include <cstdio>
 #include <memory>
 #include <cstdlib>
 
-// holds only those elements which don't change over the course of the simulation
-typedef struct pmon {
-  struct stats s;
-  const attack *fa, *ca1, *ca2;
-} pmon;
-
-static pmon pmons[2];
+pmon pmons[2][TEAMSIZE];
 
 static void
 usage(const char *argv0){
@@ -63,21 +58,6 @@ print_pmon(const pmon *p){
   }
 }
 
-typedef struct results {
-  unsigned wins[2];
-  unsigned ties;
-} results;
-
-// those parts which change over the course of the simulation
-typedef struct simulstate {
-  unsigned turn;
-  int hp[2];
-  int energy[2];
-  int shields[2]; // number of shields available, [0..2]
-  unsigned turns[2]; // number of turns remaining in an ongoing fast attack, can be 0
-  unsigned subtimer[2];
-} simulstate;
-
 // returns true on a KO
 static bool
 inflict_damage(int *hp, int damage){
@@ -113,17 +93,17 @@ static inline bool
 throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
   const attack *a;
   if(mt == MOVE_CHARGED1 || mt == MOVE_CHARGED1_SHIELD){
-    a = pmons[player].ca1;
+    a = pmons[player][s->active[player]].ca1;
   }else{
-    a = pmons[player].ca2;
+    a = pmons[player][s->active[player]].ca2;
   }
-  accumulate_energy(&s->energy[player], a->energytrain);
+  accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
   if(shielded_move_p(mo)){
     --s->shields[other_player(player)];
-    return inflict_damage(&s->hp[other_player(player)], 1);
+    return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]], 1);
   }
   // FIXME adjust for STAB, shadow, buffs, and typing!
-  return inflict_damage(&s->hp[other_player(player)], a->powertrain);
+  return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]], a->powertrain);
 }
 
 // if player has an ongoing fast move, decrement turns by one. if the fast
@@ -133,9 +113,10 @@ static bool
 account_fast_move(simulstate *s, int player){
   if(s->turns[player]){
     if(!--s->turns[player]){
-      accumulate_energy(&s->energy[player], pmons[player].fa->energytrain);
+      accumulate_energy(&s->e[player][s->active[player]], pmons[player][s->active[player]].fa->energytrain);
       // FIXME adjust for STAB, shadow, buffs, and typing!
-      return inflict_damage(&s->hp[other_player(player)], pmons[player].fa->powertrain);
+      return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]],
+              pmons[player][s->active[player]].fa->powertrain);
     }
   }
   return false;
@@ -143,9 +124,9 @@ account_fast_move(simulstate *s, int player){
 
 // return true iff p0 wins cmp; false indicates p1 won it
 static bool
-p0_wins_cmp(void){
-  float moda0 = pmons[0].s.atk + pmons[0].s.ia;
-  float moda1 = pmons[1].s.atk + pmons[1].s.ia;
+p0_wins_cmp(const simulstate *s){
+  float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
+  float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
   bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
   return cmp0;
 }
@@ -161,7 +142,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   }
   //printf("bottom hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
   if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
-    if(p0_wins_cmp()){
+    if(p0_wins_cmp(s)){
       if(throw_charged_move(s, 0, m0, m1)){
         ++r->wins[0]; return;
       }else if(throw_charged_move(s, 1, m1, m0)){
@@ -184,10 +165,10 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
     }
   }
   if(fast_move_p(m0)){
-    s->turns[0] = pmons[0].fa->turns;
+    s->turns[0] = pmons[0][s->active[0]].fa->turns;
   }
   if(fast_move_p(m1)){
-    s->turns[1] = pmons[1].fa->turns;
+    s->turns[1] = pmons[1][s->active[1]].fa->turns;
   }
   bool k0 = account_fast_move(s, 0);
   bool k1 = account_fast_move(s, 1);
@@ -242,9 +223,12 @@ tophalf(const simulstate *s, results *r){
 static void
 simul(simulstate *s, results *r){
   s->turns[0] = s->turns[1] = 0u;
-  s->energy[0] = s->energy[1] = 0;
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    s->e[0][i] = s->e[1][i] = 0;
+  }
   s->subtimer[0] = s->subtimer[1] = 0u;
   s->shields[0] = s->shields[1] = 2;
+  s->active[0] = s->active[1] = 0;
   s->turn = 0;
   tophalf(s, r);
 }
@@ -285,14 +269,14 @@ int main(int argc, char** argv){
   simulstate sstate;
   --argc;
   ++argv;
-  if(lex_pmon(&pmons[0], &sstate.hp[0], &argc, &argv)){
+  if(lex_pmon(&pmons[0][0], &sstate.hp[0][0], &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&pmons[0]);
-  if(lex_pmon(&pmons[1], &sstate.hp[1], &argc, &argv)){
+  print_pmon(&pmons[0][0]);
+  if(lex_pmon(&pmons[1][0], &sstate.hp[1][0], &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&pmons[1]);
+  print_pmon(&pmons[1][0]);
   if(argc){
     fprintf(stderr, "unexpected argument: %s\n", *argv);
     usage(argv0);

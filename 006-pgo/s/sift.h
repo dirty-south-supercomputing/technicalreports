@@ -13,14 +13,14 @@ sift_choices(const simulstate *s, bool *m, int player){
   if(s->shields[player]){
     m[MOVE_FAST_SHIELD] = true;
   }
-  if(s->energy[player] >= -pmons[player].ca1->energytrain){
+  if(s->e[player][s->active[player]] >= -pmons[player][s->active[player]].ca1->energytrain){
     m[MOVE_CHARGED1] = true;
     if(s->shields[player]){
       m[MOVE_CHARGED1_SHIELD] = true;
     }
   }
-  if(pmons[player].ca2){
-    if(s->energy[player] >= -pmons[player].ca2->energytrain){
+  if(pmons[player][s->active[player]].ca2){
+    if(s->e[player][s->active[player]] >= -pmons[player][s->active[player]].ca2->energytrain){
       m[MOVE_CHARGED2] = true;
       if(s->shields[player]){
         m[MOVE_CHARGED2_SHIELD] = true;
