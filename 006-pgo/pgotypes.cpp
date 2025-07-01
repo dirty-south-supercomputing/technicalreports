@@ -12757,6 +12757,33 @@ a2cost_to_cgroup(int a2cost){
   return -1;
 }
 
+static const char *
+idx_to_generation(int idx){
+  if(idx <= 151){
+    return "I";
+  }else if(idx <= 251){
+    return "II";
+  }else if(idx <= 386){
+    return "III";
+  }else if(idx <= 493){
+    return "IV";
+  }else if(idx <= 649){
+    return "V";
+  }else if(idx <= 721){
+    return "VI";
+  }else if(idx <= 809){
+    return "VII";
+  }else if(idx <= 898){
+    return "VIII";
+  }else if(idx <= 905){
+    return "IX";
+  }else if(idx <= 1025){
+    return "X";
+  }
+  std::cerr << "no generation known for idx " << idx << std::endl;
+  return "unknown";
+}
+
 static void
 print_previous_species(const species *s){
   const species *devol = get_previous_evolution(s);
@@ -12847,7 +12874,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   print_weathers_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
 
-  printf("\\raggedleft{}");
+  printf("CG %d Gen %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx));
   if(overzoom){ // evolutionary lineage (only for main forms)
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
@@ -12864,7 +12891,6 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       }
     }
   }
-  printf(" \\textit{CG %d}\\\\", a2cost_to_cgroup(s->a2cost));
 
   // shadow is implemented as subtitle
   if(s->shadow){
