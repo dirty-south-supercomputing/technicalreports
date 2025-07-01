@@ -1,4 +1,5 @@
 #include "../pgotypes.cpp"
+#include "moves.h"
 #include <cstdio>
 #include <memory>
 #include <cstdlib>
@@ -97,39 +98,6 @@ accumulate_energy(int *e, int energy){
 //  printf("accumulated %d energy -> %d\n", energy, *e);
 }
 
-// the various things each side can do on a turn. MOVE_WAIT can mean either
-// a mandatory wait while the ongoing fast attack completes, or an optional
-// wait while doing nothing.
-typedef enum {
-  MOVE_WAIT,
-  MOVE_FAST,
-  MOVE_CHARGED1,
-  MOVE_CHARGED2,
-  MOVE_SUBSTITUTION,
-  MOVE_WAIT_SHIELD,
-  MOVE_FAST_SHIELD,
-  MOVE_CHARGED1_SHIELD,
-  MOVE_CHARGED2_SHIELD,
-  MOVEMAX
-} pgo_move_e;
-
-static inline bool
-charged_move_p(pgo_move_e m){
-  return m == MOVE_CHARGED1 || m == MOVE_CHARGED2 ||
-          m == MOVE_CHARGED1_SHIELD || m == MOVE_CHARGED2_SHIELD;
-}
-
-static inline bool
-fast_move_p(pgo_move_e m){
-  return m == MOVE_FAST || m == MOVE_FAST_SHIELD;
-}
-
-static inline bool
-shielded_move_p(pgo_move_e m){
-  return m == MOVE_WAIT_SHIELD || m == MOVE_FAST_SHIELD ||
-          m == MOVE_CHARGED1_SHIELD || m == MOVE_CHARGED2_SHIELD;
-}
-
 static void tophalf(const simulstate *s, results *r);
 
 static inline int
@@ -186,7 +154,7 @@ p0_wins_cmp(void){
 // out own simulstate in which we can scribble. corecurses back into tophalf().
 static inline void
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
-  if(m0 == MOVE_SUBSTITUTION || m1 == MOVE_SUBSTITUTION){
+  if(sub_move_p(m0) || sub_move_p(m1)){
     std::cout << "substitution is not yet handled!" << std::endl;
     return;
   }
@@ -243,6 +211,7 @@ sift_choices(const simulstate *s, bool *m, int player){
     }
     return;
   }
+  // FIXME we might want to do nothing if opponent is in the middle of a fast move
   m[MOVE_FAST] = true; // we can launch a fast move
   if(s->shields[player]){
     m[MOVE_FAST_SHIELD] = true;
@@ -262,7 +231,9 @@ sift_choices(const simulstate *s, bool *m, int player){
     }
   }
   if(s->subtimer[player] == 0){
-    m[MOVE_SUBSTITUTION] = true;
+    // FIXME need check that they've not fainted
+    m[MOVE_SUB1] = true;
+    m[MOVE_SUB2] = true;
   }
 }
 
