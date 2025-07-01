@@ -12742,6 +12742,21 @@ const species *get_previous_evolution(const species *s){
   return NULL;
 }
 
+static int
+a2cost_to_cgroup(int a2cost){
+  if(a2cost == 100){
+    return 4;
+  }else if(a2cost == 75){
+    return 3;
+  }else if(a2cost == 50){
+    return 2;
+  }else if(a2cost == 10){
+    return 1;
+  }
+  std::cerr << "invalid a2cost: " << a2cost << std::endl;
+  return -1;
+}
+
 static void
 print_previous_species(const species *s){
   const species *devol = get_previous_evolution(s);
@@ -12757,6 +12772,9 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
+  if(s->shiny){
+    printf("\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+  }
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
       calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
   if(overzoom){
@@ -12814,8 +12832,6 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
   print_types_big(s->t1, s->t2);
-  printf(" \\includegraphics[height=2em,keepaspectratio]{images/%d.png}",
-          s->a2cost == 100 ? 4 : s->a2cost == 75 ? 3 : s->a2cost == 50 ? 2 : 1);
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
@@ -12828,18 +12844,14 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   if(has_mega(s)){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
   }
-  if(s->shiny){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/shiny.png}");
-  }
   print_weathers_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
 
-  // evolutionary lineage (only for main forms)
-  if(overzoom){
+  printf("\\raggedleft{}");
+  if(overzoom){ // evolutionary lineage (only for main forms)
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
-      printf("\\raggedleft{}");
       if(devol){
         print_previous_species(devol);
       }
@@ -12850,9 +12862,9 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
         printf(" → ");
         escape_string(evol->name.c_str());
       }
-      printf("\\\\");
     }
   }
+  printf(" \\textit{CG %d}\\\\", a2cost_to_cgroup(s->a2cost));
 
   // shadow is implemented as subtitle
   if(s->shadow){
