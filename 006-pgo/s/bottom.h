@@ -7,7 +7,6 @@ account_fast_move(simulstate *s, int player){
     if(!--s->turns[player]){
       accumulate_energy(&s->e[player][s->active[player]],
           pmons[player][s->active[player]].fa->energytrain);
-      // FIXME adjust for STAB, shadow, buffs, and typing!
       int op = other_player(player);
       return inflict_damage(&s->hp[op][s->active[op]],
               calc_damage(s, player, pmons[player][s->active[player]].fa));
