@@ -222,7 +222,16 @@ Finally, assuming other Pokémon have not fainted and the cooldown period is not
 
 \inputminted{cpp}{s/moves.h}
 
+Define types for basic state.
+\texttt{results} is shared across all nodes (and will need be protected should we go parallel).
+State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
+Finally, we need a three-vector for each team pointing into our database of Pokémon and attacks.
+These are readonly following initialization, and global.
+
+\inputminted{cpp}{s/simul.h}
+
 Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
 \texttt{sift\_choices()} sets members of a fixed-size boolean array high if they're allowed.
 
 \inputminted{cpp}{s/sift.h}
+
