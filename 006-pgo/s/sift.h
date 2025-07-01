@@ -1,0 +1,36 @@
+// determine which of the moves can be taken this turn by this player
+static void
+sift_choices(const simulstate *s, bool *m, int player){
+  if(s->turns[player]){ // if we're in a fast move, we can only wait
+    m[MOVE_WAIT] = true;
+    if(s->shields[player]){
+      m[MOVE_WAIT_SHIELD] = true;
+    }
+    return;
+  }
+  // FIXME we might want to do nothing if opponent is in the middle of a fast move
+  m[MOVE_FAST] = true; // we can launch a fast move
+  if(s->shields[player]){
+    m[MOVE_FAST_SHIELD] = true;
+  }
+  if(s->energy[player] >= -pmons[player].ca1->energytrain){
+    m[MOVE_CHARGED1] = true;
+    if(s->shields[player]){
+      m[MOVE_CHARGED1_SHIELD] = true;
+    }
+  }
+  if(pmons[player].ca2){
+    if(s->energy[player] >= -pmons[player].ca2->energytrain){
+      m[MOVE_CHARGED2] = true;
+      if(s->shields[player]){
+        m[MOVE_CHARGED2_SHIELD] = true;
+      }
+    }
+  }
+  if(s->subtimer[player] == 0){
+    // FIXME need check that they've not fainted
+    m[MOVE_SUB1] = true;
+    m[MOVE_SUB2] = true;
+  }
+}
+
