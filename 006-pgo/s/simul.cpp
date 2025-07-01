@@ -131,58 +131,6 @@ p0_wins_cmp(const simulstate *s){
   return cmp0;
 }
 
-// run a single choice-pair, which ought be known to be viable (i.e. if we
-// request a shielded move, that player ought have a shield). we ought receive
-// out own simulstate in which we can scribble. corecurses back into tophalf().
-static inline void
-bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
-  if(sub_move_p(m0) || sub_move_p(m1)){
-    std::cout << "substitution is not yet handled!" << std::endl;
-    return;
-  }
-  //printf("bottom hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
-  if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
-    if(p0_wins_cmp(s)){
-      if(throw_charged_move(s, 0, m0, m1)){
-        ++r->wins[0]; return;
-      }else if(throw_charged_move(s, 1, m1, m0)){
-        ++r->wins[1]; return;
-      }
-    }else{
-      if(throw_charged_move(s, 1, m1, m0)){
-        ++r->wins[1]; return;
-      }else if(throw_charged_move(s, 0, m0, m1)){
-        ++r->wins[0]; return;
-      }
-    }
-  }else if(charged_move_p(m0)){ // only player 0 is throwing a charged attack
-    if(throw_charged_move(s, 0, m0, m1)){
-      ++r->wins[0]; return;
-    }
-  }else if(charged_move_p(m1)){ // only player 1 is throwing a charged attack
-    if(throw_charged_move(s, 1, m1, m0)){
-      ++r->wins[1]; return;
-    }
-  }
-  if(fast_move_p(m0)){
-    s->turns[0] = pmons[0][s->active[0]].fa->turns;
-  }
-  if(fast_move_p(m1)){
-    s->turns[1] = pmons[1][s->active[1]].fa->turns;
-  }
-  bool k0 = account_fast_move(s, 0);
-  bool k1 = account_fast_move(s, 1);
-  if(k0 && k1){
-    ++r->ties; return;
-  }else if(k0){
-    ++r->wins[0]; return;
-  }else if(k1){
-    ++r->wins[1]; return;
-  }
-  //printf("MUST RECURSE hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
-  tophalf(s, r); // no one got knocked out; recurse to next turn
-}
-
 static void
 simul(simulstate *s, results *r){
   s->turns[0] = s->turns[1] = 0u;

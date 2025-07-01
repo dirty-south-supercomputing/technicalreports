@@ -3,7 +3,6 @@
 // in the bottom halves, we simulate a choice-pair.
 static void
 tophalf(const simulstate *s, results *r){
-  //printf("tophalf turn %u %u %u %u\n", s->turn, r->wins[0], r->wins[1], r->ties);
   bool m0[MOVEMAX] = {};
   bool m1[MOVEMAX] = {};
   sift_choices(s, m0, 0);
@@ -27,8 +26,8 @@ tophalf(const simulstate *s, results *r){
           auto cs = std::make_unique<simulstate>();
           *cs.get() = *s;
           ++cs->turn;
-          //printf("calling bottomhalf with moves %d %d hp %d %d turn %u %u\n", c1, c2, cs->hp[0], cs->hp[1], s->turn, cs->turn);
-          bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c0), static_cast<pgo_move_e>(c1));
+          bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c0),
+                      static_cast<pgo_move_e>(c1));
         }
       }
     }
