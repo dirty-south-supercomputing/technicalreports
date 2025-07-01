@@ -143,7 +143,7 @@ $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
-$(SIMUL): s/simul.cpp
+$(SIMUL): s/simul.cpp s/moves.h pgotypes.cpp
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<) -lm
 
