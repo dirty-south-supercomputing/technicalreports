@@ -133,7 +133,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
 
 int main(int argc, char** argv){
   const char* argv0 = *argv;
-  simulstate sstate;
+  simulstate sstate = {};
   --argc;
   ++argv;
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
@@ -150,7 +150,7 @@ int main(int argc, char** argv){
     print_pmon(&pmons[1][i]);
   }
   if(argc){
-    fprintf(stderr, "unexpected argument: %s\n", *argv);
+    std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);
   }
   results r;

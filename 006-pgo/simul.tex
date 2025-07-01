@@ -29,10 +29,10 @@ A naive but still viable solution is to begin at the first turn, generate the se
 When done, we'll know how each choice affects the universe of possible outcomes,
   and how the teams ought fare for random choices.
 
-Let's examine the computational requirements.
+Let's examine computational requirements.
 What choices are available on a given turn?
 If either Trainer has no Pokémon remaining, the match is over, and no choice
-  need be made---we have our result, and can begin rolling up our recursion.
+  need be made---we have our result, and can roll up our recursion.
 A Trainer otherwise has between one and three Pokémon, one of which is active
   in the arena.
 If the active Pokémon is in the middle of a multiturn fast attack, the
@@ -64,15 +64,12 @@ For each state, we must preserve the HP and energy of six Pokémon,
 These changes are infrequent, so rather than duplicating the stats in
   each state, it might be wise to store the sets of stats externally,
   and index into them from the states.
-In many matches, there will be no such changes, and we'll require
-  only constant state.
 
 \section{Closed form of the endgame}
-Game simulation is friendly to the technique of memoization, i.e.\ storing
-  and recognizing equivalent game states.
+Game simulation is friendly to memoization, i.e.\ storing and recognizing equivalent game states.
 The easiest place to apply this is the endgame.
 More correctly, this is the easiest way to choose states to memoize,
-  such that we can effectively look them up and don't blow up memory.
+  such that we can efficiently look them up without blowing up memory.
 Even better would be a closed form analytic treatment of the endgame,
   which seems like it ought be possible.
 Let's restrict ourselves to the case of one Pokémon remaining per Trainer.
@@ -96,7 +93,7 @@ The ``worst'' case (most turns) would take the form of two Pokémon
   inflicting equal damage.
 This is bounded by $T_{max}$ turns.
 
-\[ T_{max} = \lceil\frac{HP_1}{D_2 * T_2}\rceil + \lceil\frac{HP_2}{D_1 * T_1}\rceil \]
+\[ T_{max} = \left\lceil\frac{HP_1}{D_2 * T_2}\right\rceil + \left\lceil\frac{HP_2}{D_1 * T_1}\right\rceil \]
 
 $D$ is the damage inflicted per fast attack, and $T$ is the number of turns per fast attack.
 This equation is well-defined for all attacks, since damage (unlike power,
