@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview clean
+.PHONY: all preview testsimul clean
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -15,12 +15,12 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 
 UPSTREAM:=$(addsuffix .csv, moves)
+SIMUL:=out/s/simul
 FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
 DUALTYPES:=out/dualtypes
 SPECIES:=out/species
 FORMS:=out/forms
-SIMUL:=out/simul
 HETERO:=out/hetero
 TRELS:=out/typerels
 USERS:=out/users
@@ -143,9 +143,16 @@ $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
+$(SIMUL): s/simul.cpp
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<) -lm
+
 $(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
+
+testsimul: $(SIMUL)
+	$(<) clodsire 15-15-15@50 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast" 
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof
