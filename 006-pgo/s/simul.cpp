@@ -14,7 +14,7 @@ pmon pmons[2][TEAMSIZE];
 
 static void
 usage(const char *argv0){
-  fprintf(stderr, "usage: %s pokémon1 iv@level fast charged pokémon2 iv@level fast charged\n", argv0);
+  std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -92,7 +92,7 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
 static int
 lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
   if(*argc < 4){
-    fprintf(stderr, "expected 4 arguments, %d left\n", (*argc) - 1);
+    std::cerr << "expected 4 arguments, " << *argc << " left" << std::endl;
     return -1;
   }
 #define SHADOWSTR "shadow "
@@ -105,7 +105,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
     spstr = **argv;
   }
   if((p->s.s = lookup_species(spstr)) == NULL){
-    fprintf(stderr, "no such species: %s\n", spstr);
+    std::cerr << "no such species: " << spstr << std::endl;
     return -1;
   }
   if(p->shadow){
@@ -114,7 +114,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
     }
   }
   if(lex_ivlevel((*argv)[1], &p->s)){
-    fprintf(stderr, "invalid IV@level in %s\n", (*argv)[1]);
+    std::cerr << "invalid IV@level in " << (*argv)[1] << std::endl;
     return -1;
   }
   p->fa = species_fast_attack(p->s.s, (*argv)[2]);
