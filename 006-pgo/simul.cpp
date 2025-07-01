@@ -190,7 +190,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
     std::cout << "substitution is not yet handled!" << std::endl;
     return;
   }
-  printf("bottom hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
+  //printf("bottom hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
   if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
     if(p0_wins_cmp()){
       if(throw_charged_move(s, 0, m0, m1)){
@@ -229,7 +229,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   }else if(k1){
     ++r->wins[1]; return;
   }
-  printf("MUST RECURSE hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
+  //printf("MUST RECURSE hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
   tophalf(s, r); // no one got knocked out; recurse to next turn
 }
 
@@ -271,7 +271,7 @@ tophalf(const simulstate *s, results *r){
           auto cs = std::make_unique<simulstate>();
           *cs.get() = *s;
           ++cs->turn;
-          printf("calling bottomhalf with moves %d %d hp %d %d turn %u %u\n", c1, c2, cs->hp[0], cs->hp[1], s->turn, cs->turn);
+          //printf("calling bottomhalf with moves %d %d hp %d %d turn %u %u\n", c1, c2, cs->hp[0], cs->hp[1], s->turn, cs->turn);
           bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c1), static_cast<pgo_move_e>(c2));
         }
       }
