@@ -219,19 +219,17 @@ Finally, assuming other Pokémon have not fainted and the cooldown period is not
 \item Substitute in Pokémon one down: \texttt{MOVE\_SUB1}
 \item Substitute in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
-
 \inputminted{cpp}{s/moves.h}
-
 Define types for basic state.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
 State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
 Finally, we need a three-vector for each team pointing into our database of Pokémon and attacks.
 These are readonly following initialization, and global.
-
 \inputminted{cpp}{s/simul.h}
-
 Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
 \texttt{sift\_choices()} sets members of a fixed-size boolean array high if they're allowed.
-
 \inputminted{cpp}{s/sift.h}
-
+Collection of possible moves is handled in the top half, which loops through the choice pairs,
+  filters invalid ones, then calls the bottom half on each.
+Should we want to parallelize, this loop is an obvious target.
+\inputminted{cpp}{s/top.h}
