@@ -199,14 +199,17 @@ These will also be allowed (per the decision above) if the opponent has not conc
 We can otherwise always throw a new fast attack:
 \begin{itemize}
 \item Fast attack, and do not shield: \texttt{MOVE\_FAST}
-\item Fast attack, and shield (if we have one): \texttt{MOVE\_FAST\_SHIELD}
+\item Fast attack, and shield (if we have one):\\
+  \texttt{MOVE\_FAST\_SHIELD}
 \end{itemize}
 With sufficient energy, one or both charged attacks enter the picture:
 \begin{itemize}
 \item Charged attack one, no shield: \texttt{MOVE\_CHARGED1}
-\item Charged attack one, and shield (if we have one): \texttt{MOVE\_CHARGED1\_SHIELD}
+\item Charged attack one, and shield (if we have one):\\
+  \texttt{MOVE\_CHARGED1\_SHIELD}
 \item Charged attack two, no shield: \texttt{MOVE\_CHARGED2}
-\item Charged attack two, and shield (if we have one): \texttt{MOVE\_CHARGED2\_SHIELD}
+\item Charged attack two, and shield (if we have one):\\
+  \texttt{MOVE\_CHARGED2\_SHIELD}
 \end{itemize}
 Finally, assuming other Pokémon have not fainted and the cooldown period is not active,
  we can call for up to two substitutions (we can't sub in the active Pokémon!):
@@ -218,6 +221,4 @@ Finally, assuming other Pokémon have not fainted and the cooldown period is not
 \item Substitute in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
 
-\begin{tcblisting}{title=moves.h,listing options={language=C++}}
-\input{s/moves.h}
-\end{tcblisting}
+\inputminted{cpp}{s/moves.h}

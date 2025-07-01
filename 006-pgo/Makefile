@@ -66,16 +66,17 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(PAIRSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
+SIMULSRC:=$(addprefix s/, simul.cpp moves.h)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
 all: $(PDF) $(SIMUL)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX) $(SIMULSRC)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -143,7 +144,7 @@ $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
-$(SIMUL): s/simul.cpp s/moves.h pgotypes.cpp
+$(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<) -lm
 
