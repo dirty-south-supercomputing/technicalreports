@@ -1,10 +1,14 @@
+#include <cstdio>
+#include <memory>
+#include <cstdlib>
 #include "../pgotypes.cpp"
 #include "simul.h"
 #include "moves.h"
 #include "sift.h"
-#include <cstdio>
-#include <memory>
-#include <cstdlib>
+#include "charged.h"
+static void tophalf(const simulstate *s, results *r);
+#include "bottom.h"
+#include "top.h"
 
 pmon pmons[2][TEAMSIZE];
 
@@ -56,79 +60,6 @@ print_pmon(const pmon *p){
   if(p->ca2){
     printf(" c attack: %s\t%3u %3d\n", p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
   }
-}
-
-// returns true on a KO
-static bool
-inflict_damage(int *hp, int damage){
-  //printf("inflicting %d damage on %d hp\n", damage, *hp);
-  if(*hp < damage){
-    *hp = 0;
-  }else{
-    *hp -= damage;
-  }
-  return !*hp;
-}
-
-static void
-accumulate_energy(int *e, int energy){
-  const int ENERGY_MAX = 100;
-  if((*e += energy) > ENERGY_MAX){
-    *e = ENERGY_MAX;
-  }
-//  printf("accumulated %d energy -> %d\n", energy, *e);
-}
-
-static void tophalf(const simulstate *s, results *r);
-
-static inline int
-other_player(int player){
-  return !player; // player is always 0 or 1
-}
-
-// returns true if we KO the opponent
-// mt must be a charged move, and the player must have sufficient energy
-// mt and mo can be shielded moves only if the appropriate player has a shield
-static inline bool
-throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
-  const attack *a;
-  if(mt == MOVE_CHARGED1 || mt == MOVE_CHARGED1_SHIELD){
-    a = pmons[player][s->active[player]].ca1;
-  }else{
-    a = pmons[player][s->active[player]].ca2;
-  }
-  accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
-  if(shielded_move_p(mo)){
-    --s->shields[other_player(player)];
-    return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]], 1);
-  }
-  // FIXME adjust for STAB, shadow, buffs, and typing!
-  return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]], a->powertrain);
-}
-
-// if player has an ongoing fast move, decrement turns by one. if the fast
-// attack concludes as a result, inflict damage and add energy. returns true
-// in the case of a KO.
-static bool
-account_fast_move(simulstate *s, int player){
-  if(s->turns[player]){
-    if(!--s->turns[player]){
-      accumulate_energy(&s->e[player][s->active[player]], pmons[player][s->active[player]].fa->energytrain);
-      // FIXME adjust for STAB, shadow, buffs, and typing!
-      return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]],
-              pmons[player][s->active[player]].fa->powertrain);
-    }
-  }
-  return false;
-}
-
-// return true iff p0 wins cmp; false indicates p1 won it
-static bool
-p0_wins_cmp(const simulstate *s){
-  float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
-  float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
-  bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
-  return cmp0;
 }
 
 static void

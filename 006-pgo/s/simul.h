@@ -23,3 +23,7 @@ typedef struct pmon {
 } pmon;
 
 extern pmon pmons[2][TEAMSIZE];
+
+static inline int other_player(int player){
+  return !player; // player is always 0 or 1
+}
