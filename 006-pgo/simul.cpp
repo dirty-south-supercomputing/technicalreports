@@ -1,5 +1,6 @@
 #include "pgotypes.cpp"
 #include <cstdio>
+#include <memory>
 #include <cstdlib>
 
 // holds only those elements which don't change over the course of the simulation
@@ -78,7 +79,7 @@ typedef struct simulstate {
 // returns true on a KO
 static bool
 inflict_damage(int *hp, int damage){
-  printf("inflicting %d damage on %d hp\n", damage, *hp);
+  //printf("inflicting %d damage on %d hp\n", damage, *hp);
   if(*hp < damage){
     *hp = 0;
   }else{
@@ -89,11 +90,11 @@ inflict_damage(int *hp, int damage){
 
 static void
 accumulate_energy(int *e, int energy){
-  printf("accumulating %d energy\n", energy);
   const int ENERGY_MAX = 100;
   if((*e += energy) > ENERGY_MAX){
     *e = ENERGY_MAX;
   }
+//  printf("accumulated %d energy -> %d\n", energy, *e);
 }
 
 // the various things each side can do on a turn. MOVE_WAIT can mean either
@@ -185,6 +186,11 @@ p0_wins_cmp(void){
 // out own simulstate in which we can scribble. corecurses back into tophalf().
 static inline void
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
+  if(m0 == MOVE_SUBSTITUTION || m1 == MOVE_SUBSTITUTION){
+    std::cout << "substitution is not yet handled!" << std::endl;
+    return;
+  }
+  printf("bottom hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
   if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
     if(p0_wins_cmp()){
       if(throw_charged_move(s, 0, m0, m1)){
@@ -223,6 +229,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   }else if(k1){
     ++r->wins[1]; return;
   }
+  printf("MUST RECURSE hp %d %d moves %d %d\n", s->hp[0], s->hp[1], m0, m1);
   tophalf(s, r); // no one got knocked out; recurse to next turn
 }
 
@@ -252,6 +259,7 @@ sift_choices(const simulstate *s, bool *m, int player){
 // in the bottom halves, we simulate a choice-pair.
 static void
 tophalf(const simulstate *s, results *r){
+  //printf("tophalf turn %u %u %u %u\n", s->turn, r->wins[0], r->wins[1], r->ties);
   bool m1[MOVEMAX] = {};
   bool m2[MOVEMAX] = {};
   sift_choices(s, m1, 0);
@@ -260,8 +268,11 @@ tophalf(const simulstate *s, results *r){
     if(m1[c1]){
       for(int c2 = 0 ; c2 < MOVEMAX ; ++c2){
         if(m2[c2]){
-          simulstate cs = *s;
-          bottomhalf(&cs, r, static_cast<pgo_move_e>(c1), static_cast<pgo_move_e>(c2));
+          auto cs = std::make_unique<simulstate>();
+          *cs.get() = *s;
+          ++cs->turn;
+          printf("calling bottomhalf with moves %d %d hp %d %d turn %u %u\n", c1, c2, cs->hp[0], cs->hp[1], s->turn, cs->turn);
+          bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c1), static_cast<pgo_move_e>(c2));
         }
       }
     }
