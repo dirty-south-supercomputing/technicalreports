@@ -125,8 +125,8 @@ While holding a ball, a target ring will encircle the Pokémon, looping from a m
 Its color (red, orange, or green) is an indicator of the Pokémon's catch rate, as modified by any berry in effect.
 \textbf{FIXME}
 If you throw your ball too directly at Tyrunt, he'll eat it.
-\begin{table}[ht]
-  \begin{center}
+\begin{table}
+  \centering
     \begin{tabular}{ll}
       Ball & Effect\\
       \Midrule
@@ -135,7 +135,6 @@ If you throw your ball too directly at Tyrunt, he'll eat it.
       Ultra & 200\% catch percentage\\
       Master & Guaranteed catch\\
     \end{tabular}
-  \end{center}
   \caption{Balls and their properties}
   \label{table:balls}
 \end{table}
@@ -148,29 +147,6 @@ Shiny (\autoref{sec:shiny}) raid bosses and Legendary Shadow Pokémon have a 100
 
 \subsection{Berries}
 \label{sec:berries}
-%\begin{figure}[h!]
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/razz.png}
-%    \end{center}
-%    \caption*{Razz berry}
-%    \label{fig:razz}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/nanab.png}
-%    \end{center}
-%    \caption*{Nanab berry}
-%    \label{fig:nanab}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/pinap.png}
-%    \end{center}
-%    \caption*{Pinap berry}
-%    \label{fig:pinap}
-%  \end{minipage}
-%\end{figure}
 Berries can enhance the catching process (\autoref{table:berries}).
 Only one Berry can be applied to a Pokémon at a time.
 If a Berry is active, its icon will be shown on the encounter summary.
@@ -179,8 +155,8 @@ The Berry is consumed upon use, but persists on the Pokémon across Pokéballs
   the Berry will still be applied).
 If the Pokémon escapes a Pokéball, however, any applied Berry is gone forever.
 A new Berry can be used in this case.
-\begin{table}[ht]
-\begin{center}
+\begin{table}
+  \centering
   \begin{tabular}{lp{.75\textwidth}}
 Berry & Effect \\
 \Midrule
@@ -190,26 +166,9 @@ Pinap & Boosts Candy rewards: 3→7, 5→11, 10→23\\
 Silver pinap & 180\% catch percentage\newline Boosts Candy rewards: 3→7, 5→11, 10→23\\
 Golden razz & 250\% catch percentage\newline Restore full HP to Gym defender\\
 \end{tabular}
-\end{center}
 \caption{Berries and their uses}
 \label{table:berries}
 \end{table}
-%\begin{figure}[h!]
-%  \begin{minipage}[t]{0.5\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/silverpinap.png}
-%    \end{center}
-%    \caption*{Silver pinap berry}
-%    \label{fig:silverpinap}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.5\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/goldenrazz.png}
-%    \end{center}
-%    \caption*{Golden razz berry}
-%    \label{fig:goldenrazz}
-%  \end{minipage}
-%\end{figure}
 No aiming is necessary for berries\footnote{Aiming \textit{is} necessary when feeding berries to a Buddy Pokémon.
 If you miss, the Pokémon will gaze forlornly at the berry as it disappears into nothingness.}.
 Note that the berry control always displays a Razz berry, even if the Trainer
@@ -230,8 +189,8 @@ Shininess is not determined at the scope of Pokémon spawns, but for individual
   on whether or not it is Shiny.
 Shiny forms are fairly rare (\autoref{table:shiny}), but various events
   enhance the probability of their generation\footnote{Due to statistically insignificant catches, I have been unable to validate these rates myself; they are taken from the Fandom wiki and Reddit.}.
-\begin{table}[ht]
-\begin{center}
+\begin{table}
+\centering
 \begin{tabular}{ll}
 Context & Probability of shine \\
 \Midrule
@@ -242,8 +201,7 @@ Context & Probability of shine \\
   Ditto & 1/64 (1.56\%)\\
   5🟉 raid & 1/20 (5\%) \\
 \end{tabular}
-\end{center}
-  \caption{Likelihood of Shiny Pokémon}
+\caption{Likelihood of Shiny Pokémon}
 \label{table:shiny}
 \end{table}
 Shiny Galarian birds never flee (unlike their dull counterparts, which flee all too readily).
