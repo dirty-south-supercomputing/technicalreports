@@ -136,15 +136,19 @@ int main(int argc, char** argv){
   simulstate sstate;
   --argc;
   ++argv;
-  // FIXME need read three per team
-  if(lex_pmon(&pmons[0][0], &sstate.hp[0][0], &argc, &argv)){
-    usage(argv0);
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    if(!argc && i){
+      break;
+    }
+    if(lex_pmon(&pmons[0][i], &sstate.hp[0][i], &argc, &argv)){
+      usage(argv0);
+    }
+    print_pmon(&pmons[0][i]);
+    if(lex_pmon(&pmons[1][i], &sstate.hp[1][i], &argc, &argv)){
+      usage(argv0);
+    }
+    print_pmon(&pmons[1][i]);
   }
-  print_pmon(&pmons[0][0]);
-  if(lex_pmon(&pmons[1][0], &sstate.hp[1][0], &argc, &argv)){
-    usage(argv0);
-  }
-  print_pmon(&pmons[1][0]);
   if(argc){
     fprintf(stderr, "unexpected argument: %s\n", *argv);
     usage(argv0);
