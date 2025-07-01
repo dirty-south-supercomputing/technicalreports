@@ -81,5 +81,37 @@ See \autoref{sec:lucky} for more information.
 
 \section{Buddy Pokémon}
 \label{sec:buddies}
-\textbf{FIXME}
-
+Any Pokémon neither defending a gym nor posted at a Power Stop can be designated your Buddy Pokémon.
+Once so designated, it cannot be left at gyms or Power Stops, and cannot be transferred,
+  until replaced by another Pokémon.
+A Trainer's Buddy may be swapped twenty times per calendar day.
+It is not possible to return to a Buddyless state after designating a Buddy Pokémon.
+If fed three berries or a Poffin, the Pokémon will become ``active'',
+  joining its Trainer on the map and becoming visible to any party members.
+Three berries result in three hours of activation; a Poffin leads to six.
+Like the friends system, interactions with a Buddy contribute to a Buddy level (\autoref{table:buddy}).
+Interactions are indicated with hearts.
+Walking will cause the Buddy to regularly find Candy; it might also find Candy XL
+  and/or Mega Energy (\autoref{table:costs}).
+If the Buddy is active, the walking distance is reduced.
+\begin{table}
+\centering
+\begin{tabular}{lrr}
+Level & Hearts & Perks
+\Midrule
+Good & 1 & Adventuring Buddy, Readable Mood\\
+Great & 70 & Catch Assist, Finding Presents\\
+Ultra & 150 & Finding Souvenirs, Finding Locations\\
+Best & 300 & CPM boost, Ribbon\\
+\end{tabular}
+\caption{Buddy level requirements and perks}
+\label{table:buddy}
+\end{table}
+The CPM boost only applies while the Pokémon is designated Buddy,
+  and is worth two halflevels' worth of CPM (\autoref{sec:cpm}).
+A Best Buddy at level 20 will thus enjoy $Eff_A$, $Eff_D$, and $Eff_S$ values
+  as if it was at level 21 (\autoref{sec:effectivestats}).
+This holds even at levels 49.5 and 50: the CPM for these unattainable
+  pseudolevels 50.5 and 51 are 0.8428 and 0.8453.
+This boost \textit{is} carried into League 3x3 play (\autoref{sec:league}),
+  and counts against any CP bound.
