@@ -42,7 +42,6 @@ fill_stats(stats* s){
   s->atk = s->s->atk;
   s->def = s->s->def;
   s->sta = s->s->sta;
-  // FIXME handle shadow forms
   s->effa = calc_eff_a(s->atk + s->ia, s->hlevel, false);
   s->effd = calc_eff_d(s->def + s->id, s->hlevel, false);
   s->mhp = calc_mhp(s->sta + s->is, s->hlevel);
@@ -53,12 +52,16 @@ fill_stats(stats* s){
 
 static void
 print_pmon(const pmon *p){
-  printf("%s effa: %g effd: %g mhp: %u cp %u\n",
-        p->s.s->name.c_str(), p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
-  printf(" f attack: %s\t%3u %3d %u\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
-  printf(" c attack: %s\t%3u %3d\n", p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
+  printf("%s %seffa: %g effd: %g mhp: %u cp %u\n",
+        p->s.s->name.c_str(), p->shadow ? "(shadow) " : "",
+        p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
+  printf(" f attack: %s \t%3u %3d %u%s\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns,
+          has_stab_p(p->s.s, p->fa) ? " (*)" : "");
+  printf(" c attack: %s \t%3u %3d%s\n", p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain,
+          has_stab_p(p->s.s, p->ca1) ? " (*)" : "");
   if(p->ca2){
-    printf(" c attack: %s\t%3u %3d\n", p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
+    printf(" c attack: %s \t%3u %3d%s\n", p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain,
+          has_stab_p(p->s.s, p->ca2) ? " (*)" : "");
   }
 }
 
@@ -68,6 +71,8 @@ simul(simulstate *s, results *r){
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
     s->e[0][i] = s->e[1][i] = 0;
   }
+  s->buffleva[0] = s->buffleva[1] = 0;
+  s->bufflevd[0] = s->bufflevd[1] = 0;
   s->subtimer[0] = s->subtimer[1] = 0u;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
@@ -77,15 +82,29 @@ simul(simulstate *s, results *r){
 
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
-lex_pmon(pmon* p, int *hp, int *argc, char*** argv){
+lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
   if(*argc < 4){
     fprintf(stderr, "expected 4 arguments, %d left\n", (*argc) - 1);
     return -1;
   }
-  if((p->s.s = lookup_species(**argv)) == NULL){
-    fprintf(stderr, "no such species: %s\n", **argv);
+#define SHADOWSTR "shadow "
+  const char *spstr;
+  if(!strncasecmp(**argv, SHADOWSTR, strlen(SHADOWSTR))){
+    p->shadow = true;
+    spstr = **argv + strlen(SHADOWSTR);
+  }else{
+    p->shadow = false;
+    spstr = **argv;
+  }
+  if((p->s.s = lookup_species(spstr)) == NULL){
+    fprintf(stderr, "no such species: %s\n", spstr);
     return -1;
-  };
+  }
+  if(p->shadow){
+    if(!p->s.s->shadow){ // still allow it, but warn
+      std::cerr << "warning: " << spstr << " does not have a shadow form" << std::endl;
+    }
+  }
   if(lex_ivlevel((*argv)[1], &p->s)){
     fprintf(stderr, "invalid IV@level in %s\n", (*argv)[1]);
     return -1;

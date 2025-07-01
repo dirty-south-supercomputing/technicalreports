@@ -12628,6 +12628,12 @@ has_stab_p(const species *s, const attack *a){
   return a->type == s->t1 || a->type == s->t2;
 }
 
+// apply the 1.2x stab multiplier to a damage calculation
+static inline float
+calc_stab(float d){
+  return d * 6 / 5;
+}
+
 static int
 escape_filename(const char *s){
   for(const char* curs = s ; *curs ; ++curs){

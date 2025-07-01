@@ -10,7 +10,7 @@ account_fast_move(simulstate *s, int player){
       // FIXME adjust for STAB, shadow, buffs, and typing!
       int op = other_player(player);
       return inflict_damage(&s->hp[op][s->active[op]],
-              pmons[player][s->active[player]].fa->powertrain);
+              calc_damage(s, player, pmons[player][s->active[player]].fa));
     }
   }
   return false;
@@ -31,7 +31,7 @@ p0_wins_cmp(const simulstate *s){
 static inline void
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   if(sub_move_p(m0) || sub_move_p(m1)){
-    std::cout << "substitution is not yet handled!" << std::endl;
+    //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return;
   }
   if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
