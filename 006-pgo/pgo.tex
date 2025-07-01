@@ -84,6 +84,8 @@
 
 \chapterstyle{crosshead}
 
+\setminted{fontsize=\footnotesize}
+
 \renewcommand{\insertchapterspace}{}
 
 \newcommand\Midrule[0]{\midrule}
@@ -150,11 +152,11 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
 \clearpage
 \ifdefined\epub
 \else
-  %\hypertarget{toc}{}%
+  \hypertarget{toc}{}%
   \bookmark[dest=toc]{Contents}
   \tableofcontents*
   %\clearpage
-  %\hypertarget{lot}{}%
+  \hypertarget{lot}{}%
   \bookmark[dest=lot]{List of Tables}
   \listoftables*
   %\hypertarget{lof}{}%
