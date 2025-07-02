@@ -141,21 +141,22 @@ Evolution revives a Pokémon if it is fainted, and always fully restores HP\@.
 \begin{figure}
 \end{figure}
 Evolution within the Eevee genus is a complicated and unique affair.
-Eevee (the species) can evolve into eight different species.
-Five of these targets require some condition, and are deterministic.
+Eevee (the species) can evolve along eight different paths.
+Evolution can be driven by nicknames, deterministic across all eight targets,
+  but this can be done only once per target per Trainer.
+Otherwise, five targets require some condition, and are deterministic.
 If none of the conditions are met, the evolution is nondeterministic,
   with three possible results.
-A second mechanism exists based on nicknames, deterministic across all eight targets,
-  but it can only be used once per target per Trainer.
-\textbf{FIXME: how do the two affect one another, which has priority?}
-If the evolution is deterministic, the ``Evolve'' button will show the
-  unique target.
-It will otherwise show a question mark.
-\textbf{FIXME: screenshot(s)}
-Eevee's evolutions are often strong Pokémon early in the game.
-
 For the nickname-based mechanic, give the Eevee you wish to evolve the nickname
   specified for the desired target from \autoref{table:eevee}.
+This technique takes precedence over the conditional mechanisms, i.e.\ an
+  Eevee near an active Glacial Lure will typically evolve into Glacion,
+  but if that Eevee is nicknamed Rainer (with whom the nickname technique
+  was not previously used), it will evolve into Vaporeon.
+When in doubt, check---if the evolution is deterministic, the ``Evolve'' button
+  will show the unique target.
+It will otherwise show a question mark.
+Eevee's evolutions are strong Pokémon in the early game.
 \begin{table}
 \centering
 \begin{tabular}{lrp{.5\textwidth}}
