@@ -8,6 +8,10 @@ static inline int mons_left(const simulstate *s, int player){
   return alive;
 }
 
+static void subin(const simulstate *s, int player, int pos){
+  // FIXME
+}
+
 // at least one and possibly both mons were knocked out at the end of the
 // previous turn. simulate all possible replacement configurations (four in
 // the worst case of a dual-ko of the first mons to fall). returns true if
@@ -25,12 +29,12 @@ static void handle_ko(const simulstate *s, results *r){
     }else if(l1 == 0){
       ++r->wins[0]; return;
     }
-    for(int hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
+    for(unsigned hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
       // FIXME switch to team 0's replacement
       if(s->hp[0][hi0]){
-        subin(s, 1, hi1);
+        subin(s, 0, hi0);
       }
-      for(int hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
+      for(unsigned hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
         // FIXME switch to team 1's replacement
         if(s->hp[1][hi1]){
           subin(s, 1, hi1);
@@ -42,17 +46,23 @@ static void handle_ko(const simulstate *s, results *r){
     if(l0 == 0){
       ++r->wins[1]; return;
     }
-    for(int hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
-      // FIXME switch to team 0's replacement
-      tophalf(s, r);
+    for(unsigned hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
+      if(s->hp[0][hi0]){
+        subin(s, 0, hi0);
+        // FIXME switch to team 0's replacement
+        tophalf(s, r);
+      }
     }
   }else if(!hp1){
     if(l1 == 0){
       ++r->wins[0]; return;
     }
-    for(int hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
-      // FIXME switch to team 1's replacement
-      tophalf(s, r);
+    for(unsigned hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
+      if(s->hp[1][hi1]){
+        subin(s, 1, hi1);
+        // FIXME switch to team 1's replacement
+        tophalf(s, r);
+      }
     }
   }
   return;
