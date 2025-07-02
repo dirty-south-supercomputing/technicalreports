@@ -382,7 +382,7 @@ defensive_relations_latex(const typing* t){
       printf("\\\\\n");
     }
   }
-  printf("\\caption{Defender typing effectiveness}\n");
+  //printf("\\caption{Defender typing effectiveness}\n");
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }

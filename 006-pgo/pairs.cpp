@@ -11,8 +11,23 @@ class attackpair {
 };
 
 static void
+get_pairs(const species *s, const attack *fast, std::vector<attackpair> &pairs){
+  for(const attack **as = s->attacks ; *as ; ++as){
+    const attack *a = *as;
+    if(a->energytrain < 0){
+      std::cout << fast->name << ":" << a->name << std::endl;
+    }
+  }
+}
+
+static void
 get_attack_pairs(const species *s, std::vector<attackpair> &pairs){
-  // FIXME
+  for(const attack **as = s->attacks ; *as ; ++as){
+    const attack *a = *as;
+    if(a->energytrain > 0){
+      get_pairs(s, a, pairs);
+    }
+  }
 }
 
 static void
