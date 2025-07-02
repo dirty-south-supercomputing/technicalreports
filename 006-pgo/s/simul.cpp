@@ -56,13 +56,13 @@ print_pmon(const pmon *p){
   printf("%s %seffa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name.c_str(), p->shadow ? "(shadow) " : "",
         p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
-  printf(" f attack: %s \t%3u %3d %u%s\n", p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns,
-          has_stab_p(p->s.s, p->fa) ? " (*)" : "");
-  printf(" c attack: %s \t%3u %3d%s\n", p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain,
-          has_stab_p(p->s.s, p->ca1) ? " (*)" : "");
+  printf(" f %s%20s %3u %3d %u\n", has_stab_p(p->s.s, p->fa) ? "(*)" : "   ",
+          p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
+  printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca1) ? "(*)" : "   ",
+          p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
   if(p->ca2){
-    printf(" c attack: %s \t%3u %3d%s\n", p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain,
-          has_stab_p(p->s.s, p->ca2) ? " (*)" : "");
+    printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca2) ? "(*)" : "   ",
+          p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
   }
 }
 
