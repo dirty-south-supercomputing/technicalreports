@@ -78,6 +78,27 @@ simul(simulstate *s, results *r){
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
   s->turn = 0;
+  // precalculate damage 2 teams * 3 members * 3 attacks * 3 opponents = 54 floats total
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    if(!pmons[0][i].s.s){
+      continue;
+    }
+    for(unsigned j = 0 ; j < TEAMSIZE ; ++j){
+      if(!pmons[1][j].s.s){
+        continue;
+      }
+      pmons[0][i].damage[0][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].fa);
+      pmons[0][i].damage[1][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca1);
+      if(pmons[0][i].ca2){
+        pmons[0][i].damage[2][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca2);
+      }
+      pmons[1][j].damage[0][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].fa);
+      pmons[1][j].damage[1][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca1);
+      if(pmons[1][j].ca2){
+        pmons[1][j].damage[2][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca2);
+      }
+    }
+  }
   tophalf(s, r);
 }
 

@@ -11,12 +11,8 @@ static bool inflict_damage(int *hp, int damage){
 
 // calculate the damage inflicted by player on other_player(player) using an
 // attack having the specified power, with no shield in play.
-static int calc_damage(const simulstate *s, int player, const attack *a){
-  const int opp = other_player(player);
-  const pmon *p = &pmons[player][s->active[player]];
-  const pmon *o = &pmons[opp][s->active[opp]];
+static float calc_damage(const pmon *p, const pmon *o, const attack *a){
   float d = calc_eff_a(p->s.s->atk + p->s.ia, p->s.hlevel, p->shadow);
-  // FIXME handle active buffs
   d *= a->powertrain;
   d *= 13; // first half of the 0.65 multiplier
   if(has_stab_p(p->s.s, a)){
@@ -26,6 +22,11 @@ static int calc_damage(const simulstate *s, int player, const attack *a){
   d /= 20; // second half of the 0.65 multiplier
   d *= o->s.s->type_effectiveness(a);
   //printf("damage: %f\n", d);
+  return d;
+}
+
+// calculate real damage given precalc + buffs
+static int calc_buffed_damage(float d, float abuff, float dbuff){
   return floor(d);
 }
 
@@ -42,16 +43,20 @@ static void accumulate_energy(int *e, int energy){
 static inline bool
 throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
   const attack *a;
+  int didx;
   if(mt == MOVE_CHARGED1 || mt == MOVE_CHARGED1_SHIELD){
     a = pmons[player][s->active[player]].ca1;
+    didx = 1;
   }else{
     a = pmons[player][s->active[player]].ca2;
+    didx = 2;
   }
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
+  int op = other_player(player);
   if(shielded_move_p(mo)){
     --s->shields[other_player(player)];
-    return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]], 1);
+    return inflict_damage(&s->hp[op][s->active[op]], 1);
   }
-  return inflict_damage(&s->hp[other_player(player)][s->active[other_player(player)]],
-          calc_damage(s, player, a));
+  return inflict_damage(&s->hp[op][s->active[op]],
+          calc_buffed_damage(pmons[player][s->active[player]].damage[didx][s->active[op]], 1, 1));
 }

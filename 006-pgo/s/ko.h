@@ -9,7 +9,8 @@ static inline int mons_left(const simulstate *s, int player){
 }
 
 static void subin(const simulstate *s, int player, int pos){
-  // FIXME
+  //s->active[player] = pos;
+  // FIXME other crap?
 }
 
 // at least one and possibly both mons were knocked out at the end of the

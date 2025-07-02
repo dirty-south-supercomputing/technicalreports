@@ -8,7 +8,7 @@ static bool account_fast_move(simulstate *s, int player){
           pmons[player][s->active[player]].fa->energytrain);
       int op = other_player(player);
       return inflict_damage(&s->hp[op][s->active[op]],
-              calc_damage(s, player, pmons[player][s->active[player]].fa));
+              calc_buffed_damage(pmons[player][s->active[player]].damage[0][s->active[op]], 1, 1));
     }
   }
   return false;
@@ -34,7 +34,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   }*/
   if(sub_move_p(m0) || sub_move_p(m1)){
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
-    return true;
+    return false;
   }
   bool p0cmp = p0_wins_cmp(s);
   if(p0cmp){
