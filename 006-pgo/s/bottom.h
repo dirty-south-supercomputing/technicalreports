@@ -30,6 +30,7 @@ p0_wins_cmp(const simulstate *s){
 // return true if anyone was ko'd.
 static inline bool
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
+  ++r->nodes;
   if(sub_move_p(m0) || sub_move_p(m1)){
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return true;

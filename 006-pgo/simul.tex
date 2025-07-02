@@ -234,7 +234,7 @@ The bottom half implements a choice-pair, and reports whether
   any Pokémon have been knocked out.
 \inputminted{cpp}{s/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
-This is the only function that actually records results.
+This is the only function that actually records results, and its loops are opportunities for further parallelism.
 Right now we're only handling a single Pokémon per team, but we
  go ahead and implement this so that it'll work properly
  with arbitrarily many Pokémon.

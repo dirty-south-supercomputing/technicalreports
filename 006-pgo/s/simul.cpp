@@ -165,11 +165,12 @@ int main(int argc, char** argv){
   }
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
+  r.nodes = 0;
   simul(&sstate, &r);
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0 wins: %u p1 wins: %u ties: %u total: %lu\n",
+  printf("p0 wins: %lu p1 wins: %lu ties: %lu total: %lu\n",
         r.wins[0], r.wins[1], r.ties, total);
-  printf("p0 %.04f%% p1 %.04f%% t %.04f%%\n", r.wins[0] * 100.0 / total,
-        r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
+  printf("p0 %.04f%% p1 %.04f%% t %.04f%% nodes %lu\n", r.wins[0] * 100.0 / total,
+        r.wins[1] * 100.0 / total, r.ties * 100.0 / total, r.nodes);
   return EXIT_SUCCESS;
 }
