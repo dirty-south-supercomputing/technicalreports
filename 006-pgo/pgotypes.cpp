@@ -121,6 +121,22 @@ static const int trelations[TYPECOUNT][TYPECOUNT] = {
   {  0,  0, -1,  0,  0,  0,  1,  0,  0, -1,  1,  0,  0,  0,  0,  1,  0, -1 }  // water
 };
 
+// look up the type relation of atype upon ttype
+static inline int
+type_relation(pgo_types_e atype, pgo_types_e ttype){
+  return trelations[atype][ttype];
+}
+
+static inline int
+typing_relation(pgo_types_e atype, pgo_types_e ttype1, pgo_types_e ttype2){
+  int r1 = type_relation(atype, ttype1);
+  if(ttype2 == ttype1 || ttype2 == TYPECOUNT){
+    return r1;
+  }
+  int r2 = type_relation(atype, ttype2);
+  return r1 + r2;
+}
+
 const char* tnames[TYPECOUNT] = {
   "bug",
   "dark",
@@ -10920,6 +10936,10 @@ typedef struct species {
     elite(Elite),
     category(Category),
     a2cost(A2Cost) {
+  }
+
+  float type_effectiveness(const attack *a) const {
+    return typing_relation(a->type, t1, t2);
   }
 
 } species;
