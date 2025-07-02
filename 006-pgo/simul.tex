@@ -185,36 +185,32 @@ Given the timing advice provided in \autoref{chap:strategy}, we will permit
  a do-nothing turn if the opponent is in the middle of a fast attack.
 This turns out to be the only case we need allow.
 
-We'll need enumerate the set of choices a single Trainer can make in a turn.
 When in the middle of a fast attack, there are only two options:
 \begin{itemize}
-\item Wait, and do not shield: \texttt{MOVE\_WAIT}
-\item Wait, and shield (if we have one): \texttt{MOVE\_WAIT\_SHIELD}
+\item Wait, no shield: \texttt{MOVE\_WAIT}
+\item Wait and shield: \texttt{MOVE\_WAIT\_SHIELD}
 \end{itemize}
-These will also be allowed (per the decision above) if the opponent has not concluded an ongoing fast move.
-We can otherwise always throw a new fast attack:
+We can wait (per above) if the opponent has an ongoing fast attack.
+We can otherwise always throw our own:
 \begin{itemize}
-\item Fast attack, and do not shield: \texttt{MOVE\_FAST}
-\item Fast attack, and shield (if we have one):\\
-  \texttt{MOVE\_FAST\_SHIELD}
+\item Fast attack, no shield: \texttt{MOVE\_FAST}
+\item Fast attack and shield: \texttt{MOVE\_FAST\_SHIELD}
 \end{itemize}
 With sufficient energy, one or both charged attacks enter the picture:
 \begin{itemize}
 \item Charged attack one, no shield: \texttt{MOVE\_CHARGED1}
-\item Charged attack one, and shield (if we have one):\\
-  \texttt{MOVE\_CHARGED1\_SHIELD}
+\item Charged attack one and shield: \texttt{MOVE\_CHARGED1\_SHIELD}
 \item Charged attack two, no shield: \texttt{MOVE\_CHARGED2}
-\item Charged attack two, and shield (if we have one):\\
-  \texttt{MOVE\_CHARGED2\_SHIELD}
+\item Charged attack two and shield: \texttt{MOVE\_CHARGED2\_SHIELD}
 \end{itemize}
 Finally, assuming other Pokémon have not fainted and the cooldown period is not active,
- we can call for up to two substitutions (we can't sub in the active Pokémon!):
+ we can call in a substitution.
 ``One'' and ``two down'' here are taken modulo 3,
  i.e. if the third Pokémon is active, the first Pokémon is one down,
  and the second Pokémon is two down.
 \begin{itemize}
-\item Substitute in Pokémon one down: \texttt{MOVE\_SUB1}
-\item Substitute in Pokémon two down: \texttt{MOVE\_SUB2}
+\item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
+\item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
 \inputminted{cpp}{s/moves.h}
 Define types for basic state.
