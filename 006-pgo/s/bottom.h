@@ -29,31 +29,35 @@ static bool p0_wins_cmp(const simulstate *s){
 static inline bool
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   ++r->nodes;
+  /*if(++r->nodes % 10000000 == 0){
+    std::cout << "node " << r->nodes << " " << r->wins[0] << " " << r->wins[1] << " " << r->ties << std::endl;
+  }*/
   if(sub_move_p(m0) || sub_move_p(m1)){
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return true;
   }
-  if(charged_move_p(m0) && charged_move_p(m1)){ // both throw charged attacks
-    if(p0_wins_cmp(s)){
+  bool p0cmp = p0_wins_cmp(s);
+  if(p0cmp){
+    if(charged_move_p(m0)){
       if(throw_charged_move(s, 0, m0, m1)){
         return true;
-      }else if(throw_charged_move(s, 1, m1, m0)){
-        return true;
       }
-    }else{
+    }
+    if(charged_move_p(m1)){
       if(throw_charged_move(s, 1, m1, m0)){
         return true;
-      }else if(throw_charged_move(s, 0, m0, m1)){
+      }
+    }
+  }else{
+    if(charged_move_p(m1)){
+      if(throw_charged_move(s, 1, m1, m0)){
         return true;
       }
     }
-  }else if(charged_move_p(m0)){ // only player 0 is throwing a charged attack
-    if(throw_charged_move(s, 0, m0, m1)){
-      return true;
-    }
-  }else if(charged_move_p(m1)){ // only player 1 is throwing a charged attack
-    if(throw_charged_move(s, 1, m1, m0)){
-      return true;
+    if(charged_move_p(m0)){
+      if(throw_charged_move(s, 0, m0, m1)){
+        return true;
+      }
     }
   }
   if(fast_move_p(m0)){

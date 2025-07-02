@@ -3,14 +3,13 @@
 // in the bottom halves, we simulate a choice-pair.
 static void
 tophalf(const simulstate *s, results *r){
-  bool m0[MOVEMAX] = {};
-  bool m1[MOVEMAX] = {};
-  sift_choices(s, m0, 0);
-  sift_choices(s, m1, 1);
-  for(int c0 = 0 ; c0 < MOVEMAX ; ++c0){
-    if(m0[c0]){
-      for(int c1 = 0 ; c1 < MOVEMAX ; ++c1){
-        if(m1[c1]){
+  unsigned m0mask, m1mask;
+  sift_choices(s, &m0mask, 0);
+  sift_choices(s, &m1mask, 1);
+  for(unsigned c0 = 1 ; c0 < MOVEMAX ; c0 <<= 1){
+    if(m0mask & c0){
+      for(unsigned c1 = 1 ; c1 < MOVEMAX ; c1 <<= 1){
+        if(m1mask & c1){
           // if c0 is a shielded move, it's only relevant if c1 is a charged
           // move, and vice versa
           if(shielded_move_p(static_cast<pgo_move_e>(c0))){
