@@ -88,6 +88,17 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
   return ca1;
 }
 
+static int
+mons_left(const simulstate *s, int player){
+  int alive = 0;
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    if(s->hp[player][i] > 0){
+      ++alive;
+    }
+  }
+  return alive;
+}
+
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
 lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
