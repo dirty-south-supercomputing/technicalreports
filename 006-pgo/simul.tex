@@ -237,4 +237,16 @@ The presented code simulates all possible meaningful exchanges of two fully spec
 
 \section{Simulating 3x3}
 \label{sec:simul3x3}
+Simulating a full Trainer Battle requires supporting three Pokémon per Trainer,
+  simulating replacement paths when a Pokémon faints,
+  and handling substitutions.
+Substitutions are a greater threat to our complexity, since they can happen
+  on any turn (unless there has been a recent substitution).
+Handling replacement is easier.
+When a Pokémon goes down, three things can happen:
+\begin{itemize}
+  \item If there are no more Pokémon, the match is over.
+  \item If there is one more Pokémon, it becomes active, and we continue the simulation.
+  \item If there are two more Pokémon, we must simulate both replacements.
+\end{itemize}
 \textbf{FIXME}
