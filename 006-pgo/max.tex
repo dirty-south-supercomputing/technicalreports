@@ -38,21 +38,6 @@ Level & Evols & Rest days & Cost & Bonuses\\
 \end{table}
 \input{out/mega}
 
-\section{Crowned forms}
-\label{sec:crowned}
-Crowning is a reversible, persistent evolution available to Zacian and Zamazenta
- so long as they know the charged attack Iron Head.
-Upon coronation, stats are modified, and Iron Head is replaced with Behemoth Blade (Zacian)
-  or Behemoth Bash (Zamazenta).
-This new attack cannot be changed with even an Elite Charged TM\@.
-A Crowned form can fight in Max Battles, with Behemoth Blade as its Max Attack.
-This Max Attack follows the same rules for leveling and power as any other.
-Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
-  that Pokémon can freely change between the base and crowned
-  forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks,
-    or more likely to trade the Pokémon.}.
-\input{out/crowned}
-
 \section{Dynamax and Gigantamax forms}
 \label{sec:dmaxgmax}
 Dynamax and Gigantamax forms can participate in Max Battles \autoref{sec:maxbattles}.
@@ -68,6 +53,12 @@ Max Move levels persist across evolution and use of Fast TMs.
 Max Attacks of level 1, 2, and 3 have power 250, 300, and 350
   respectively.
 G-Max attacks have power of 350, 400, and 450, 100 more than Dynamax attacks of the same level.
+Max Guard bestows a protective shield (the Guard) on all active Pokémon
+  with fewer than three Guards.
+This Guard will absorb 20, 40, or 60 points of damage, depending on Max Guard's level.
+Max Spirit restores HP to active Pokémon.
+The amount restored is a percentage of each affected Pokémon's MHP;
+  the percentage (8\%, 10\%, or 12\%) is based on Max Spirit's level.
 \begin{table}
 \centering
 \begin{tabular}{lrrr}
@@ -82,6 +73,23 @@ G-Max attacks have power of 350, 400, and 450, 100 more than Dynamax attacks of 
 \end{table}
 \input{out/dynas}
 \input{out/gigantas}
+
+\section{Crowned forms}
+\label{sec:crowned}
+Crowning is a reversible, persistent evolution available to Zacian and Zamazenta
+ so long as they know the charged attack Iron Head.
+Upon coronation, stats are modified, and Iron Head is replaced with Behemoth Blade (Zacian)
+  or Behemoth Bash (Zamazenta).
+This new attack cannot be changed with even an Elite Charged TM\@.
+A Crowned form can fight in Max Battles, with Behemoth Blade as its Max Attack.
+This Max Attack follows the same rules for leveling, power, and use as any other Dynamax attack.
+Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
+  that Pokémon can freely change between the base and crowned
+  forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks,
+    or more likely to trade the Pokémon.}, even if traded.
+Additionally, Crowned Shield Zamazenta starts Max Battles with a Guard
+  in place, and can stack four as opposed to the usual three.
+\input{out/crowned}
 
 \section{Fused forms}
 \label{sec:fusion}
