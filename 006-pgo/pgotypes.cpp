@@ -10939,7 +10939,7 @@ typedef struct species {
   }
 
   float type_effectiveness(const attack *a) const {
-    return typing_relation(a->type, t1, t2);
+    return pow(1.6, typing_relation(a->type, t1, t2));
   }
 
 } species;

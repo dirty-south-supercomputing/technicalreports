@@ -10,7 +10,7 @@ static void tophalf(const simulstate *s, results *r);
 #include "bottom.h"
 #include "top.h"
 
-pmon pmons[2][TEAMSIZE];
+pmon pmons[2][TEAMSIZE] = {};
 
 static void
 usage(const char *argv0){
@@ -142,6 +142,15 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
   return 0;
 }
 
+static void
+print_team(int player){
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    if(pmons[player][i].s.s){
+      print_pmon(&pmons[player][i]);
+    }
+  }
+}
+
 int main(int argc, char** argv){
   const char* argv0 = *argv;
   simulstate sstate = {};
@@ -154,12 +163,12 @@ int main(int argc, char** argv){
     if(lex_pmon(&pmons[0][i], &sstate.hp[0][i], &argc, &argv)){
       usage(argv0);
     }
-    print_pmon(&pmons[0][i]);
     if(lex_pmon(&pmons[1][i], &sstate.hp[1][i], &argc, &argv)){
       usage(argv0);
     }
-    print_pmon(&pmons[1][i]);
   }
+  print_team(0);
+  print_team(1);
   if(argc){
     std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);

@@ -17,7 +17,6 @@ static int calc_damage(const simulstate *s, int player, const attack *a){
   const pmon *o = &pmons[opp][s->active[opp]];
   float d = calc_eff_a(p->s.s->atk + p->s.ia, p->s.hlevel, p->shadow);
   // FIXME handle active buffs
-  // FIXME handle typing
   d *= a->powertrain;
   d *= 13; // first half of the 0.65 multiplier
   if(has_stab_p(p->s.s, a)){
@@ -25,6 +24,7 @@ static int calc_damage(const simulstate *s, int player, const attack *a){
   }
   d /= calc_eff_d(o->s.s->def + o->s.id, o->s.hlevel, o->shadow);
   d /= 20; // second half of the 0.65 multiplier
+  d *= o->s.s->type_effectiveness(a);
   //printf("damage: %f\n", d);
   return floor(d);
 }
