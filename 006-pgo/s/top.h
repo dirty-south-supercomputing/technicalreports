@@ -32,7 +32,7 @@ handle_ko(const simulstate *s, results *r){
       ++r->wins[0]; return;
     }
   }
-  std::cout << "we make holes in teeth FIXME" << std::endl;
+  //std::cout << "we make holes in teeth FIXME" << std::endl;
   // FIXME recurse with new mons
 }
 
