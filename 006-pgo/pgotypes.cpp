@@ -1398,6 +1398,31 @@ static const attack* MEOWSTIC_ATKS[] = {
   NULL
 };
 
+static const attack* HONEDGE_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Tackle,
+  &ATK_Iron_Head,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* DOUBLADE_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Psycho_Cut,
+  &ATK_Iron_Head,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
+static const attack* AEGISLASH_ATKS[] = {
+  &ATK_Fury_Cutter,
+  &ATK_Psycho_Cut,
+  &ATK_Flash_Cannon,
+  &ATK_Shadow_Ball,
+  &ATK_Gyro_Ball,
+  NULL
+};
+
 static const attack* SALANDIT_ATKS[] = {
   &ATK_Ember,
   &ATK_Poison_Jab,
@@ -11882,6 +11907,10 @@ static const species sdex[] = {
   {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, NULL, FURFROU_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, NULL, ESPURR_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr", MEOWSTIC_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  {  679, "Honedge", TYPE_STEEL, TYPE_GHOST, 135, 139, 128, NULL, HONEDGE_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
+  {  680, "Doublade", TYPE_STEEL, TYPE_GHOST, 188, 206, 153, NULL, DOUBLADE_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
+  {  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 291, 97, 155, NULL, AEGISLASH_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
+  {  681, "Aegislash (Shield)", TYPE_STEEL, TYPE_GHOST, 97, 291, 155, NULL, AEGISLASH_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
   {  682, "Spritzee", TYPE_FAIRY, TYPECOUNT, 110, 113, 186, NULL, SPRITZEE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  683, "Aromatisse", TYPE_FAIRY, TYPECOUNT, 173, 150, 226, "Spritzee", AROMATISSE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  684, "Swirlix", TYPE_FAIRY, TYPECOUNT, 109, 119, 158, NULL, SWIRLIX_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
@@ -12412,8 +12441,9 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
   float gm = calc_fit(effa, effd, mhp);
-  if(gm < *minmean || *minmean <= 0){
-    *minmean = gm;
+  float am = calc_avg(effa, effd, mhp);
+  if(am < *minmean || *minmean <= 0){
+    *minmean = am;
   }
   if(gm < gmfloor){
     return 0;
