@@ -23,14 +23,13 @@ tophalf(const simulstate *s, results *r){
               continue;
             }
           }
-          auto cs = std::make_unique<simulstate>();
-          *cs.get() = *s;
-          ++cs->turn;
-          if(bottomhalf(cs.get(), r, static_cast<pgo_move_e>(c0),
+          simulstate cs = *s;
+          ++cs.turn;
+          if(bottomhalf(&cs, r, static_cast<pgo_move_e>(c0),
                           static_cast<pgo_move_e>(c1))){
             // a ko brings in a new mon, if there are any on that side. we'll
             // need recurse in the case of two remaining.
-            handle_ko(cs.get(), r); // pass the modified state
+            handle_ko(&cs, r); // pass the modified state
           }
         }
       }
