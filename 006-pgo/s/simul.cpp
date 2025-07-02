@@ -84,6 +84,17 @@ simul(simulstate *s, results *r){
 static const attack *
 lex_species_charged_attacks(const species *s, const char *spec, const attack **ca2){
   *ca2 = NULL;
+  const char *sep = strchr(spec, '/');
+  if(sep){
+    char *fspec = strndup(spec, sep - spec);
+    const attack *ca1 = species_charged_attack(s, fspec);
+    *ca2 = species_charged_attack(s, sep + 1);
+    free(fspec);
+    if(ca2 == NULL){
+      return NULL;
+    }
+    return ca1;
+  }
   // FIXME handle two charged attacks delimited by '/'
   const attack *ca1 = species_charged_attack(s, spec);
   return ca1;
