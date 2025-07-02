@@ -230,8 +230,21 @@ Collection of possible moves is handled in the top half, which loops through the
   filters invalid ones, then calls the bottom half on each.
 Should we want to parallelize, this loop is an obvious target.
 \inputminted{cpp}{s/top.h}
-The bottom half implements a choice-pair, recursing unless done.
+The bottom half implements a choice-pair, and reports whether
+  any Pokémon have been knocked out.
 \inputminted{cpp}{s/bottom.h}
+On a knockout, the top half calls \texttt{handle\_ko()}.
+This is the only function that actually records results.
+Right now we're only handling a single Pokémon per team, but we
+ go ahead and implement this so that it'll work properly
+ with arbitrarily many Pokémon.
+When a Pokémon goes down, three things can happen:
+\begin{itemize}
+  \item No more Pokémon: the match is over.
+  \item One more Pokémon: it becomes active. Continue the simulation.
+  \item Two more Pokémon: simulate both replacements.
+\end{itemize}
+\inputminted{cpp}{s/ko.h}
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
   with full HP, two shields, and no energy.
 
@@ -242,11 +255,6 @@ Simulating a full Trainer Battle requires supporting three Pokémon per Trainer,
   and handling substitutions.
 Substitutions are a greater threat to our complexity, since they can happen
   on any turn (unless there has been a recent substitution).
-Handling replacement is easier.
-When a Pokémon goes down, three things can happen:
-\begin{itemize}
-  \item If there are no more Pokémon, the match is over.
-  \item If there is one more Pokémon, it becomes active, and we continue the simulation.
-  \item If there are two more Pokémon, we must simulate both replacements.
-\end{itemize}
+Handling replacement is easier: all we need do is amend our frontend to
+  seed all three positions, and implement switchover.
 \textbf{FIXME}

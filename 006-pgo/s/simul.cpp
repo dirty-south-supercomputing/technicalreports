@@ -8,6 +8,7 @@
 #include "charged.h"
 static void tophalf(const simulstate *s, results *r);
 #include "bottom.h"
+#include "ko.h"
 #include "top.h"
 
 pmon pmons[2][TEAMSIZE] = {};

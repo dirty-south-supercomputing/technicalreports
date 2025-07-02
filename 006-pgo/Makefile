@@ -66,7 +66,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(PAIRSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h moves.h sift.h simul.h top.h)
+SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
 
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
