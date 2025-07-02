@@ -223,7 +223,7 @@ Integrating Charged Attacks is more complex.
 First, we can simply normalize the Charged Attack as we did the Fast Attack,
  determine the number of Fast Attacks necessary to launch it:
 
-\[ N_{Fast} = \lceil\frac{E_{Charged}}{E_{Fast}}\rceil \]
+\[ N_{Fast} = \left\lceil\frac{E_{Charged}}{E_{Fast}}\right\rceil \]
 
 yielding the total Power of a cycle.
 
@@ -265,7 +265,7 @@ If we expand over multiple cycles of Fast and Charged Attack, we can
  simply consider $E_{Charged}$ cycles, each of which throws an average of
  $\frac{E_{Charged}}{E_{Fast}}$ Fast Attacks followed by one Charged Attack.
 
-\[ P_{cycles} = E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times P_{Fast} + P_{Charged}) \]
+\[ P_{cycles} = E_{Charged} \times \left(\frac{E_{Charged}}{E_{Fast}} \times P_{Fast} + P_{Charged}\right) \]
 
  The number of Fast Attacks in a cycle is actually always either
  $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
@@ -273,7 +273,7 @@ If we expand over multiple cycles of Fast and Charged Attack, we can
  $E_{Fast}$, these two expressions are equal, and the number of Fast Attacks
  per Charged Attack is constant). Normalize for the total time:
 
-\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \times (\frac{E_{Charged}}{E_{Fast}} \times T_{Fast} + T_{Charged})} \]
+\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \times \left(\frac{E_{Charged}}{E_{Fast}} \times T_{Fast} + T_{Charged}\right)} \]
 
 This has only exacerbated one of the problems we mentioned before: we may
   not get to throw all these Attacks!
@@ -329,7 +329,7 @@ Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
   on the same turn, one goes first,and can knock out the opponent before it
   launches its attack.
 The Pokémon that goes first (``Charged Move Priority'') is the one with the
-  higher $Mod_A$ (recall that this is base attack plus $IV_A$).
+  higher $Eff_A$ (recall that this is base attack plus $IV_A$, times CPM).
 Shadow status does not factor into consideration, nor do any active buffs.
 
 \subsection{GO Battle League}
@@ -477,29 +477,9 @@ Berries can be used, and have the same effects as they do in normal encounters.
 \label{subsec:raidachievements}
 \textbf{FIXME}
 
-%\begin{figure}[hb]
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/raidpass.png}
-%    \end{center}
-%    \caption*{Raid pass}
-%    \label{fig:raidpass}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/remoteraidpass.png}
-%    \end{center}
-%    \caption*{Remote raid pass}
-%    \label{fig:remotepass}
-%  \end{minipage}
-%  \begin{minipage}[t]{0.3\textwidth}
-%    \begin{center}
-%    \includegraphics[width=\textwidth]{images/battlepass.png}
-%    \end{center}
-%    \caption*{Premium battle pass}
-%    \label{fig:battlepass}
-%  \end{minipage}
-%\end{figure}
+\subsection{Raid rewards}
+\label{subsec:raidawards}
+\textbf{FIXME}
 
 \subsection{Max battles}
 \label{sec:maxbattles}

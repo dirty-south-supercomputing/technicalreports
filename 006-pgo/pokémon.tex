@@ -1,6 +1,6 @@
 \chapter{Pokémon}
 \label{chap:pokemon}
-For purposes of battle\footnote{Attributes not directly relevant to battle include size, weight, region,
+For purposes of battle\footnote{Attributes not directly relevant to battle include height, weight, region,
 generation, Shiny status, Purified status, Lucky status, Legendary status, Mythological status, spawn
 reason, capture method, capture location, and capture time.}, a Pokémon $P$ is defined as having:
 \begin{itemize}
@@ -315,6 +315,11 @@ Be more specific with \texttt{@xTYPE} for \texttt{x} between 1 and 3 to check
   that these can be suffixed with '-' to do a ceiling match seems false.};
   \texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support.
 Union over searches is accomplished with the infix ';' operator,
- and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND.}.
+  and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND. I say ``oddly'' because it means OR everywhere else.
+  Except the UNIX shell, where it means ``pipe''.
+  And set theory for intensional comprehensions.
+  And number theory for ``divides''.
+  And the bra-ket notation of quantum mechanics.
+  OK, it doesn't mean OR everywhere, but that doesn't mean you start using it for goddamn intersection.}.
 It does not seem possible to search for regional forms using substrings,
  e.g.\ a search for ``alolan'' does not bring up my Alolan Exeggutor.

@@ -5,7 +5,7 @@ Several Leagues (and some Research tasks) place a ceiling on the CP of
 We have established that CP is a poor proxy for PvP performance, and thus
  expect that we might find strong candidates based on where CP fails.
 If CP does not accurately represent a given Pokémon's chance to win, we ought
- be able to exploit this by assembling teams using undervalued Pokémon\footnote{Michael Lewis might call it ``moneymon''.}.
+ be able to exploit this by assembling teams using undervalued Pokémon\footnote{Michael Lewis might call it ``Moneymon''.}.
 We first take the sorted list of Pokémon developed in \autoref{chap:unbounded},
  and remove all entries not in the optimal sets generated below.
 We then select a team using the strategies of that chapter. Since
@@ -17,8 +17,8 @@ We then select a team using the strategies of that chapter. Since
 \section{Optimal IVs and Levels under a CP bound}
 We require a fitness function that takes as input a Pokémon's form, level, and IV,
   and emits a comparable output.
-Common functions include CP itself, the arithmetic mean ($\frac{Mod_A + Mod_D + MHP}{3}$),
-  and the geometric mean ($\sqrt[3]{Mod_A \times Mod_D \times MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
+Common functions include CP itself, the arithmetic mean ($\frac{Eff_A +Eff_D + MHP}{3}$),
+  and the geometric mean ($\sqrt[3]{Eff_A \times Eff_D \times MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
   mechanics, but there is no true ``best'' fitness function---optimal IVs are
   dependent upon both the base stats and the opponent.}.
 For a given CP bound, fitness function, and form, there is some optimal set of Pokémon levels
@@ -89,9 +89,9 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
  Does this compensate for six fewer hit points (145 vs 139) and lower $Eff_D$ (101.49 vs 96.136)?
  Let's pit them against one another, using Low Kick (Power of 4, neutral type effectiveness, STAB bonus).
  Our Level 28 competitor strikes for six damage with each attack:
-    \[ \lfloor \frac{129.36 \times 4 \times 1.2}{101.49} \rfloor = \lfloor 6.118 \rfloor = 6 \]
+    \[ \left\lfloor \frac{129.36 \times 4 \times 1.2}{101.49} \right\rfloor = \lfloor 6.118 \rfloor = 6 \]
  The supposedly optimal Gurdurr strikes for six as well:
-    \[ \lfloor \frac{123.29 \times 4 \times 1.2}{96.136} \rfloor = \lfloor 6.156 \rfloor = 6 \]
+    \[ \left\lfloor \frac{123.29 \times 4 \times 1.2}{96.136} \right\rfloor = \lfloor 6.156 \rfloor = 6 \]
  At 145 HP, Gurdurr goes down on the 25th attack.
  Its opponent's 139 HP absorbs 23 attacks before falling to the 24th, but this could
     have easily gone the other way.

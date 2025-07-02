@@ -2,13 +2,13 @@
 // attack concludes as a result, inflict damage and add energy. returns true
 // in the case of a KO.
 static bool account_fast_move(simulstate *s, int player){
+  const pmon *p = &pmons[player][s->active[player]];
   if(s->turns[player]){
     if(!--s->turns[player]){
-      accumulate_energy(&s->e[player][s->active[player]],
-          pmons[player][s->active[player]].fa->energytrain);
+      accumulate_energy(&s->e[player][s->active[player]], p->fa->energytrain);
       int op = other_player(player);
       return inflict_damage(&s->hp[op][s->active[op]],
-              calc_buffed_damage(pmons[player][s->active[player]].damage[0][s->active[op]], 1, 1));
+              calc_buffed_damage(p->damage[0][s->active[op]], 1, 1));
     }
   }
   return false;
@@ -29,9 +29,6 @@ static bool p0_wins_cmp(const simulstate *s){
 static inline bool
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   ++r->nodes;
-  /*if(++r->nodes % 10000000 == 0){
-    std::cout << "node " << r->nodes << " " << r->wins[0] << " " << r->wins[1] << " " << r->ties << std::endl;
-  }*/
   if(sub_move_p(m0) || sub_move_p(m1)){
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return false;

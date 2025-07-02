@@ -218,7 +218,7 @@ Finally, we need a three-vector for each team pointing into our database of Pok√
 These are readonly following initialization, and global.
 \inputminted{cpp}{s/simul.h}
 Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
-\texttt{sift\_choices()} sets members of a fixed-size boolean array high if they're allowed.
+\texttt{sift\_choices()} sets bits of a mask high if they're allowed.
 \inputminted{cpp}{s/sift.h}
 Collection of possible moves is handled in the top half, which loops through the choice-pairs,
   filters invalid ones, then calls the bottom half on each.

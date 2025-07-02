@@ -1,8 +1,7 @@
 // each turn has a top half and bottom halves.
 // in the top half we determine which choice-pairs can be performed.
 // in the bottom halves, we simulate a choice-pair.
-static void
-tophalf(const simulstate *s, results *r){
+static void tophalf(const simulstate *s, results *r){
   unsigned m0mask, m1mask;
   sift_choices(s, &m0mask, 0);
   sift_choices(s, &m1mask, 1);
