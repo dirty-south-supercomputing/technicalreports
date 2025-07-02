@@ -183,8 +183,7 @@ A naive implementation will blow up, but we make the problem manageable
  the Pokémon must do something.
 Given the timing advice provided in \autoref{chap:strategy}, we will permit
  a do-nothing turn if the opponent is in the middle of a fast attack.
-This turns out to be the only case we need allow.
-In the middle of a fast attack, there are only two options:
+This turns out to be the only time we need allow unforced waits.
 \begin{itemize}
 \item Wait, no shield: \texttt{MOVE\_WAIT}
 \item Wait and shield: \texttt{MOVE\_WAIT\_SHIELD}

@@ -25,18 +25,24 @@ static void handle_ko(const simulstate *s, results *r){
     }else if(l1 == 0){
       ++r->wins[0]; return;
     }
-    for(int hi0 = 0 ; hi0 < l0 ; ++hi0){
+    for(int hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
       // FIXME switch to team 0's replacement
-      for(int hi1 = 0 ; hi1 < l1 ; ++hi1){
+      if(s->hp[0][hi0]){
+        subin(s, 1, hi1);
+      }
+      for(int hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
         // FIXME switch to team 1's replacement
-        tophalf(s, r);
+        if(s->hp[1][hi1]){
+          subin(s, 1, hi1);
+          tophalf(s, r);
+        }
       }
     }
   }else if(!hp0){
     if(l0 == 0){
       ++r->wins[1]; return;
     }
-    for(int hi0 = 0 ; hi0 < l0 ; ++hi0){
+    for(int hi0 = 0 ; hi0 < TEAMSIZE ; ++hi0){
       // FIXME switch to team 0's replacement
       tophalf(s, r);
     }
@@ -44,7 +50,7 @@ static void handle_ko(const simulstate *s, results *r){
     if(l1 == 0){
       ++r->wins[0]; return;
     }
-    for(int hi1 = 0 ; hi1 < l1 ; ++hi1){
+    for(int hi1 = 0 ; hi1 < TEAMSIZE ; ++hi1){
       // FIXME switch to team 1's replacement
       tophalf(s, r);
     }

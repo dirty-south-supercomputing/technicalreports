@@ -1,8 +1,7 @@
 // if player has an ongoing fast move, decrement turns by one. if the fast
 // attack concludes as a result, inflict damage and add energy. returns true
 // in the case of a KO.
-static bool
-account_fast_move(simulstate *s, int player){
+static bool account_fast_move(simulstate *s, int player){
   if(s->turns[player]){
     if(!--s->turns[player]){
       accumulate_energy(&s->e[player][s->active[player]],
@@ -15,9 +14,8 @@ account_fast_move(simulstate *s, int player){
   return false;
 }
 
-// return true iff p0 wins cmp; false indicates p1 won it
-static bool
-p0_wins_cmp(const simulstate *s){
+// return true iff p0 wins cmp (false indicates p1 won it)
+static bool p0_wins_cmp(const simulstate *s){
   float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
   float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
   bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
