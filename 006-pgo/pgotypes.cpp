@@ -10938,8 +10938,11 @@ typedef struct species {
     a2cost(A2Cost) {
   }
 
+  // effectiveness of attack a on our typing
   float type_effectiveness(const attack *a) const {
-    return pow(1.6, typing_relation(a->type, t1, t2));
+    static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+    int tr = typing_relation(a->type, t1, t2);
+    return pow16[tr + 3];
   }
 
 } species;
