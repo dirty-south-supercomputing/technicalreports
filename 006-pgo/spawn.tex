@@ -38,24 +38,6 @@ Weather-boosted (\autoref{sec:weather}) types enjoy higher spawn rates,
 
 \subsection{Lures and incense}
 \label{subsec:lures}
-%\begin{figure}[h]
-%\centering
-%\begin{minipage}[t]{0.3\textwidth}
-%\includegraphics[width=\textwidth]{images/incense.png}
-%\caption*{Incense}
-%\label{fig:incense}
-%\end{minipage}
-%\begin{minipage}[t]{0.3\textwidth}
-%\includegraphics[width=\textwidth]{images/adventureincense.png}
-%\caption*{Adventure incense}
-%\label{fig:advincense}
-%\end{minipage}
-%\begin{minipage}[t]{0.3\textwidth}
-%\includegraphics[width=\textwidth]{images/lure.png}
-%\caption*{Lure module}
-%\label{fig:lure}
-%\end{minipage}
-%\end{figure}
 Spawn rates can be increased by means of Incense and Lures.
 Incense lasts for an hour, affects only the Trainer using it (i.e.\ other Trainers
   will neither see nor be able to interact with resulting spawns),
@@ -115,29 +97,61 @@ Pokémon spawned due to incense or lures do not show up in the matrix
 \label{sec:catch}
 Catching a Pokémon requires throwing a ball close enough to capture it,
  and that the Pokémon not escape from the ball.
-Each species has a catch rate and a flee rate.
+Each species has dodge, movement, and attack characteristics, a distance, a catch rate $C$, and a flee rate $F$.
+Attacks during encounters cannot hurt the Trainer, but the Pokémon cannot be caught
+  while attacking (the ball will bounce away, and might be saved by a Great Buddy).
+Catching can still occur during a dodge or move.
 The catch rate determines likelihood of the Pokémon escaping a ball,
   while the flee rate determines likelihood of the Pokémon leaving the encounter altogether.
 Pokémon flee only immediately following an escape; they will not flee after a throw which
   does not result in capture.
 Pokémon that flee do not reappear on the map\footnote{The Trainer does receive 25 consolation XP points.}.
 While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
-Its color (red, orange, or green) is an indicator of the Pokémon's catch rate, as modified by any berry in effect.
-\textbf{FIXME}
-If you throw your ball too directly at Tyrunt, he'll eat it.
-\begin{table}
-  \centering
-    \begin{tabular}{ll}
-      Ball & Effect\\
-      \Midrule
-      Poké & Standard catch rate\\
-      Great & 150\% catch percentage\\
-      Ultra & 200\% catch percentage\\
-      Master & Guaranteed catch\\
-    \end{tabular}
-  \caption{Balls and their properties}
-  \label{table:balls}
+Its color (red, orange, or green) is an indicator of the capture probability $P_C$:
+\begin{align}
+  P_C &= 1-(1 - \frac{C}{2\times{}CPM}^{M_C})\\
+  M_C &= M_{Ball} \times M_{Berry} \times M_{Throw} \times M_{Medal} \times M_{AdvEff} \times M_{Enc}
+\end{align}
+\begin{itemize}
+  \item $CPM$ is the Combat Power Multiplier (\autoref{sec:cpm})
+  \item $M_{Ball}$ is the multiplier due the ball:
+\begin{table}[h!]
+\centering
+\begin{tabular}{lr}
+Ball & Multiplier\\
+\Midrule
+Poké & 1\\
+Great & 1.5\\
+Ultra & 2\\
+Master & ∞\\
+\end{tabular}
+\caption{Balls and their capture multipliers}
+\label{table:balls}
 \end{table}
+\item $M_{Berry}$ is the multiplier due a berry (\autoref{table:berries})
+\item $M_{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
+   with ``Excellent!'', ``Great!'', ``Nice!'', or silence.
+    This summary is a low-resolution signal of $M_{Throw}$, with a range over [1.0, 2.0].
+\begin{table}[h!]
+\centering
+\begin{tabular}{lr}
+Summary & $M_{Throw}$ range\\
+\Midrule
+``Excellent!'' & [1.7, 2.0]\\
+``Great!'' & [1.3, 1.7)\\
+``Nice!'' & [1.0, 1.3)\\
+No summary & 1\\
+\end{tabular}
+\caption{The throw summary is an indication of $M_{Throw}$}
+\label{table:throw}
+\end{table}
+$M_{Throw}$ is multiplied by 1.7 for a curveball.
+\item $M_{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
+\item $M_{AdvEff}$ is 1.5 for Ice Burn, 1.25 for Freeze Shock, and 1 otherwise.
+\item $M_{Enc}$ is 2 for research encounters, and 1 otherwise.
+\end{itemize}
+If you throw your ball too directly at Tyrunt, it'll eat it.
+
 Raids, Max battles, and Team GO Rocket encounters use special ``Premier Balls''
   rather than the standard options.
 Premier Balls cannot be saved after the encounter, and regular balls from
