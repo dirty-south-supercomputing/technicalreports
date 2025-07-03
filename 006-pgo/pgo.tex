@@ -10,7 +10,7 @@
 \defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
 \usepackage{microtype}
 \usepackage{bookmark}
-\usepackage{ninecolors}
+\usepackage{transparent}
 \usepackage[svgnames,HSB,table]{xcolor}
 \selectcolormodel{rgb}
 \usepackage[labelfont=bf]{caption} % for \captionsetup
@@ -61,13 +61,12 @@
 \newcounter{speciesappendixpage}
 %\AddToHook{shipout/background}{%
 %  \ifbool{inspeciesappendex}
-%    {}
 %    {\put (0in,-\paperheight){\ifthenelse{\isodd{\value{page}}}%
 %    {\stepcounter{speciesappendixpage}\includesvg{images/backgrounds/\arabic{speciesappendixpage}.svg}}
 %    {\stepcounter{speciesappendixpage}\includesvg{images/backgrounds/\arabic{speciesappendixpage}.svg}}
 %    }}
 %}
-%
+
 \NewTColorBox{speciesbox}{!O{}}{%
   enhanced,
   before skip=0pt,
@@ -164,6 +163,7 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
   %\bookmark[dest=lof]{list of figures} % if we use 3, it changes to i instead of iii [shrug]
   %\listoffigures*
   \fi
+\booltrue{inspeciesappendex}
 \input{foreward}
 %--------------------------main text------------------------------------------%
 \mainmatter
@@ -182,8 +182,10 @@ Thanks! {\textbf{{\symbolfont♥} nick}}
 \input{bounded}
 \input{example}
 \input{strategy}
+\boolfalse{inspeciesappendex}
 \input{simul}
 \appendix
+\booltrue{inspeciesappendex}
 \chapter{Optimal CP1500 configurations}
 \label{chap:optimal}
 Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\frac{BS}{3}$,
@@ -215,6 +217,7 @@ These numbers are larger using $\overline{BS}$ than $\sqrt[3]{BP}$; if the latte
 \chapter{Optimal CP2500 configurations}
 See \autoref{chap:optimal} for important notes.
 \input{out/cp2500}
+\boolfalse{inspeciesappendex}
 
 \chapter{Species by typings}
 \label{chap:speciesbytype}
@@ -235,9 +238,7 @@ Due to statistically insignificant encounters, I am unable to verify catch and f
   rates, which were taken from the Pokémon GO Database.
 
 \textbf{infobox for each species still needs: requirements to evolve, catch rate, flee rate, dodge rate, region}
-\booltrue{inspeciesappendex}
 \input{out/species}
-\boolfalse{inspeciesappendex}
 
 \chapter{Users of attacks}
 \label{chap:attackemployers}
