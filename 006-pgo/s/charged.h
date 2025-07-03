@@ -39,12 +39,12 @@ static void accumulate_energy(int *e, int energy){
 
 // returns true if we KO the opponent
 // mt must be a charged move, and the player must have sufficient energy
-// mt and mo can be shielded moves only if the appropriate player has a shield
+// oshield may only be set if the opponent has a shield.
 static inline bool
-throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
+throw_charged_move(simulstate *s, int player, pgo_move_e mt, bool oshield){
   const attack *a;
   int didx;
-  if(mt == MOVE_CHARGED1 || mt == MOVE_CHARGED1_SHIELD){
+  if(mt == MOVE_CHARGED1){
     a = pmons[player][s->active[player]].ca1;
     didx = 1;
   }else{
@@ -53,7 +53,7 @@ throw_charged_move(simulstate *s, int player, pgo_move_e mt, pgo_move_e mo){
   }
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
   int op = other_player(player);
-  if(shielded_move_p(mo)){
+  if(oshield){
     --s->shields[other_player(player)];
     return inflict_damage(&s->hp[op][s->active[op]], 1);
   }

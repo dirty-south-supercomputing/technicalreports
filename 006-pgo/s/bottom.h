@@ -27,7 +27,7 @@ static bool p0_wins_cmp(const simulstate *s){
 // out own simulstate in which we can scribble. corecurses back into tophalf().
 // return true if anyone was ko'd.
 static inline bool
-bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
+bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shield, bool m1shield){
   ++r->nodes;
   if(sub_move_p(m0) || sub_move_p(m1)){
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
@@ -36,23 +36,23 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1){
   bool p0cmp = p0_wins_cmp(s);
   if(p0cmp){
     if(charged_move_p(m0)){
-      if(throw_charged_move(s, 0, m0, m1)){
+      if(throw_charged_move(s, 0, m0, m1shield)){
         return true;
       }
     }
     if(charged_move_p(m1)){
-      if(throw_charged_move(s, 1, m1, m0)){
+      if(throw_charged_move(s, 1, m1, m0shield)){
         return true;
       }
     }
   }else{
     if(charged_move_p(m1)){
-      if(throw_charged_move(s, 1, m1, m0)){
+      if(throw_charged_move(s, 1, m1, m0shield)){
         return true;
       }
     }
     if(charged_move_p(m0)){
-      if(throw_charged_move(s, 0, m0, m1)){
+      if(throw_charged_move(s, 0, m0, m1shield)){
         return true;
       }
     }
