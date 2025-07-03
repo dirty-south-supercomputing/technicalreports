@@ -6,7 +6,6 @@ typedef struct results {
 } results;
 
 typedef struct simulstate { // dynamic elements
-  unsigned turn;
   int hp[2][TEAMSIZE]; // hp of pokemon
   int e[2][TEAMSIZE];  // energy of pokemon         [0..100]
   int buffleva[2];     // active attack buff levels  [-4..4]

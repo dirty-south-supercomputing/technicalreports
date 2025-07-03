@@ -22,7 +22,6 @@ static void tophalf(const simulstate *s, results *r){
             }
           }
           simulstate cs = *s;
-          ++cs.turn;
           if(bottomhalf(&cs, r, static_cast<pgo_move_e>(c0),
                           static_cast<pgo_move_e>(c1))){
             // a ko brings in a new mon, if there are any on that side. we'll
