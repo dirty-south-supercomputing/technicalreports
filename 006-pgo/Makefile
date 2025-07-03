@@ -30,7 +30,6 @@ DPEVSE:=out/dpevse
 PPTVST:=out/pptvst
 PAIRS:=out/pairs
 EPTVST:=out/eptvst
-EVOLUTIONS:=out/evolutions
 ATKTYPES:=out/attacktypes
 SINDEX:=$(OUT)/sindex
 FATTACKTEX:=out/fastattacks.tex
@@ -44,7 +43,6 @@ FUSERSTEX:=$(OUT)/fastusers.tex
 CUSERSTEX:=$(OUT)/chargedusers.tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
-EVOLUTIONSTEX:=$(EVOLUTIONS).tex
 PAIRSTEX:=$(PAIRS).tex
 MEGATEX:=out/mega.tex
 FUSEDTEX:=$(OUT)/fused.tex
@@ -61,9 +59,8 @@ TRELSTEX:=out/typerels.tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(EVOLUTIONSTEX) \
-	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
-	$(PAIRSTEX)
+	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(PAIRSTEX) \
+	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
