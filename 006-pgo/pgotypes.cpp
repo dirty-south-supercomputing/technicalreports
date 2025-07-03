@@ -12189,8 +12189,8 @@ static const species sdex[] = {
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, NULL, FRIGIBAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  997, "Arctibax", TYPE_DRAGON, TYPE_ICE, 173, 128, 207, "Frigibax", ARCTIBAX_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  998, "Baxcalibur", TYPE_DRAGON, TYPE_ICE, 254, 168, 229, "Arctibax", BAXCALIBUR_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
-  {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, NULL, GIMMIGHOUL_ATKS, false, false, {}, species::CAT_NORMAL, 10, },
-  { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202, "Gimmighoul", GHOLDENGO_ATKS, false, false, {}, species::CAT_NORMAL, 10, },
+  {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, NULL, GIMMIGHOUL_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202, "Gimmighoul", GHOLDENGO_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
 };
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
