@@ -1369,6 +1369,16 @@ static const attack* FLAPPLE_ATKS[] = {
   NULL
 };
 
+static const attack* TATSUGIRI_ATKS[] = {
+  &ATK_Take_Down,
+  &ATK_Water_Gun,
+  &ATK_Outrage,
+  &ATK_Surf,
+  &ATK_Hydro_Pump,
+  &ATK_Muddy_Water,
+  NULL
+};
+
 static const attack* DRAMPA_ATKS[] = {
   &ATK_Dragon_Breath,
   &ATK_Extrasensory,
@@ -12182,6 +12192,8 @@ static const species sdex[] = {
   {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard", HOUNDSTONE_ATKS, false, false, {}, species::CAT_NORMAL, 50, },
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, NULL, CETODDLE_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, "Cetoddle", CETITAN_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
+  // released 2025-07-03
+  {  978, "Tatsugiri", TYPE_DRAGON, TYPE_WATER, 226, 166, 169, NULL, TATSUGIRI_ATKS, false, false, {}, species::CAT_NORMAL, -1},
   {  979, "Annihilape", TYPE_FIGHTING, TYPE_GHOST, 220, 178, 242, "Primeape", ANNIHILAPE_ATKS, true, true,
     { &ATK_Rage_Fist, }, species::CAT_NORMAL, 50, },
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper", CLODSIRE_ATKS, true, false,
