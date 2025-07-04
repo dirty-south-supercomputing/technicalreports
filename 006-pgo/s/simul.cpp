@@ -20,26 +20,6 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-// lex out iv and level in the form iva-ivd-ivs@l
-static int
-lex_ivlevel(const char* ivl, stats* s){
-  int r;
-  // FIXME unreliable, accepts garbage inputs for level
-  if((r = sscanf(ivl, "%u-%u-%u@%u", &s->ia, &s->id, &s->is, &s->hlevel)) != 4){
-    fprintf(stderr, "error lexing A-D-S@L from %s (got %d)\n", ivl, r);
-    return -1;
-  }
-  if(s->hlevel < 1 || s->hlevel > 99){
-    fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
-    return -1;
-  }
-  if(s->ia > 15 || s->id > 15 || s->is > 15){
-    fprintf(stderr, "invalid iv %u-%u-%u\n", s->ia, s->id, s->is);
-    return -1;
-  }
-  return 0;
-}
-
 // fill in a stats structure given only species, IVs, and level
 static void
 fill_stats(stats* s){
@@ -81,7 +61,7 @@ simul(simulstate *s, results *r){
   }
   s->buffleva[0] = s->buffleva[1] = 0;
   s->bufflevd[0] = s->bufflevd[1] = 0;
-  s->subtimer[0] = s->subtimer[1] = 0u;
+  s->subtimer[0] = s->subtimer[1] = 1;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
   // precalculate damage 2 teams * 3 members * 3 attacks * 3 opponents = 54 floats total

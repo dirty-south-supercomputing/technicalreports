@@ -1,4 +1,5 @@
 constexpr unsigned TEAMSIZE = 3;
+constexpr int ENERGY_MAX = 100;
 
 typedef struct results {
   unsigned long wins[2], ties; // win/tie counts

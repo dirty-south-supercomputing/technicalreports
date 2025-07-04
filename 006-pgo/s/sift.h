@@ -15,13 +15,13 @@ static inline void sift_choices(const simulstate *s, unsigned *m, int player){
         *m |= MOVE_CHARGED2;
       }
     }
-    /*if(s->subtimer[player] == 0){
+    if(s->subtimer[player] == 0){
       if(s->hp[player][(s->active[player] + 1) % 3]){
         *m |= MOVE_SUB1;
       }
       if(s->hp[player][(s->active[player] + 2) % 3]){
         *m |= MOVE_SUB2;
       }
-    }*/
+    }
   }
 }

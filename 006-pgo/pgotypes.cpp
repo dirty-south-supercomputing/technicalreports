@@ -13058,3 +13058,22 @@ const attack *species_fast_attack(const species *s, const char *aname){
   }
   return NULL;
 }
+
+// lex out iv and level in the form iva-ivd-ivs@l
+int lex_ivlevel(const char* ivl, stats* s){
+  int r;
+  // FIXME unreliable, accepts garbage inputs for level
+  if((r = sscanf(ivl, "%u-%u-%u@%u", &s->ia, &s->id, &s->is, &s->hlevel)) != 4){
+    fprintf(stderr, "error lexing A-D-S@L from %s (got %d)\n", ivl, r);
+    return -1;
+  }
+  if(s->hlevel < 1 || s->hlevel > 99){
+    fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
+    return -1;
+  }
+  if(s->ia > 15 || s->id > 15 || s->is > 15){
+    fprintf(stderr, "invalid iv %u-%u-%u\n", s->ia, s->id, s->is);
+    return -1;
+  }
+  return 0;
+}

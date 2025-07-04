@@ -31,7 +31,6 @@ static int calc_buffed_damage(float d, float abuff, float dbuff){
 }
 
 static void accumulate_energy(int *e, int energy){
-  const int ENERGY_MAX = 100;
   if((*e += energy) > ENERGY_MAX){
     *e = ENERGY_MAX;
   }

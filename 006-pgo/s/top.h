@@ -17,8 +17,8 @@ static void tophalf(const simulstate *s, results *r){
       innercharged(s, r, MOVE_CHARGED2, m1mask);
     }
   }
-  /*if(s->subtimer[0] == 0){
+  if(s->subtimer[0] == 0){
     innerhalf(s, r, MOVE_SUB1, m1mask);
     innerhalf(s, r, MOVE_SUB2, m1mask);
-  }*/
+  }
 }
