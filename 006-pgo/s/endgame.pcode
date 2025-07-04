@@ -1,0 +1,41 @@
+deathmarch (T1, T2, D1, D2, H1, H2)
+               → {p1wins, p2wins, ties}
+if T1 < T2
+  if T1 > 0 // conclude p1's attack
+    H2 -= D1
+    if H2 <= 0
+      return 1, 0, 0  // p1 wins
+    T2 -= T1
+    T1 = 0
+  else // p1 wasn't doing anything
+    --T2
+else if T2 < T1
+  if T2 > 0 // conclude p2's attack
+    H1 -= D2
+    if H1 <= 0
+      return 0, 1, 0 // p2 wins
+    T1 -= T2
+    T2 = 0
+  else // p2 wasn't doing anything
+    --T1
+else // they're equal
+  if T1 // conclude both attacks
+    H2 -= D1
+    H1 -= D2
+    if H2 <= 0 and H1 <= 0
+      return 0, 0, 1 // tie
+    else if H2 <= 0
+      return 1, 0, 0 // p1 wins
+    else if H1 <= 0
+      return 0, 1, 0 // p2 wins
+    T1 = T2 = 0
+if T2 // p1 attacks or does nothing
+    return deathmarch (FT1, T2, D1, D2, H1, H2) +
+           deathmatch (0, T2, D1, D2, H1, H2)
+else if T1 // p2 attacks or does nothing
+    return deathmarch (T1, FT2, D1, D2, H1, H2) +
+           deathmatch (T1, 0, D1, D2, H1, H2)
+else // p1 attacks, p2 attacks, or both attack
+    return deathmarch (FT1, 0, D1, D2, H1, H2) +
+           deathmatch (0, FT2, D1, D2, H1, H2) +
+           deathmatch (FT1, FT2, D1, D2, H1, H2)

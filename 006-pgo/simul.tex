@@ -148,7 +148,7 @@ Collection of possible moves is handled in the top half, which determines
 The inner halves implement possible choices of the first player (each with all possible
   second player moves), and reports whether any Pokémon have been knocked out.
 If appropriate, they call the bottom half with shields enabled.
-Should we want to parallelize, these loops are obvious target.
+Should we reach for task parallelism, these loops are obvious targets.
 \inputminted{cpp}{s/inner.h}
 The bottom half implements and accounts for a choicepair using its own copy of the state.
 \inputminted{cpp}{s/bottom.h}

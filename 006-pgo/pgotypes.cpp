@@ -12961,6 +12961,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\end{minipage}");
   printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
   print_types_big(s->t1, s->t2);
+  printf("\\\\");
   if(s->category == species::CAT_ULTRABEAST){
     printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
   }
