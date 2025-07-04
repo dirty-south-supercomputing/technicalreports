@@ -115,7 +115,6 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
     }
     return ca1;
   }
-  // FIXME handle two charged attacks delimited by '/'
   const attack *ca1 = species_charged_attack(s, spec);
   return ca1;
 }
