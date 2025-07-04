@@ -186,8 +186,8 @@ int main(int argc, char** argv){
   if(lex_pmon(&pm[1], &hp1, &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&pm[0]);
-  print_pmon(&pm[1]);
+  //print_pmon(&pm[0]);
+  //print_pmon(&pm[1]);
   print_dbreaks(&pm[1], &pm[0]);
   // FIXME print damage for iv[a] 0..15 and opposing iv[d] 0..15
   if(argc){
