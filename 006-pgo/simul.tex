@@ -1,7 +1,8 @@
 \chapter{Simulation}
 \label{chap:simul}
-This chapter is somewhat technical, and can be skipped by readers
- uninterested in building and evaluating simulation systems.
+\textit{This chapter is somewhat technical, and can be skipped by readers
+ uninterested in building and evaluating simulation systems.}
+\vspace{1cm}
 
 I'd love to be able to ask questions like, ``how often does team A win against
   team B when team A subs out their lead?''
@@ -35,7 +36,7 @@ This selection might be informed by an expert system, or take the form of a Mark
 Either way, each run takes exactly one path through the game tree, concluding with a single result.
 This process is repeated many times, with more repetitions required for more
  diverse paths through the game tree\footnote{A pure expert system merits only
- one run, since it ought generate the same path every time. As the number of
+ one run---it generates the same path every time. As the number of
  probabilistic choices increases, so must the number of runs.}.
 The output is an estimate of victory for each team (and ties).
 This method is used by \href{https://pvpoke.com}{PvPoke} and, so far as I'm aware,
