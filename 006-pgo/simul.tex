@@ -1,5 +1,8 @@
 \chapter{Simulation}
 \label{chap:simul}
+This chapter is somewhat technical, and can be skipped by readers
+ uninterested in building and evaluating simulation systems.
+
 I'd love to be able to ask questions like, ``how often does team A win against
   team B when team A subs out their lead?''
   and ``how does burning both shields on the lead affect chances of victory?''
@@ -22,10 +25,44 @@ Finally, it never diverges, instead advancing always towards a conclusion\footno
   even zero power attacks do one point of damage). This is pathological, and we
   simply dismiss all choice-pairs that change no state beyond the clock, neatly sidestepping this issue.
   Even if we didn't, there's a time limit on matches.}.
-We thus needn't reject exhaustive simulation out of hand.
+
+\section{Probabilistic methods}
+\label{sec:probsimul}
+The easiest approach is similar to Monte Carlo integration.
+At each turn, we evaluate the space of possibilities, and select one action for each Trainer.
+This selection might be informed by an expert system, or take the form of a Markov chain,
+ or combine these approaches.
+Either way, each run takes exactly one path through the game tree, concluding with a single result.
+This process is repeated many times, with more repetitions required for more
+ diverse paths through the game tree\footnote{A pure expert system merits only
+ one run, since it ought generate the same path every time. As the number of
+ probabilistic choices increases, so must the number of runs.}.
+The output is an estimate of victory for each team (and ties).
+This method is used by \href{https://pvpoke.com}{PvPoke} and, so far as I'm aware,
+ all other simulation engines.
+Runs are perfectly parallel, and trivially implemented in $\mathcal{O}(N)$ time
+ and $\mathcal{O}(1)$ space on $N$ turns.
+
+It has some shortcomings.
+The results will only ever be as good as the model.
+To the degree the model fails to reflect reality (i.e.\ when Trainers act outside
+ its expectations), so will its predictions.
+With that said, the ``right'' choice for a Trainer typically seems obvious,
+ and easily described with a few simple rules.
+They can likely be made quite accurate; widespread use by the community speaks to their predictive power.
+Ideally, the output would be constantly evaluated against real battle results.
+Automatic use of feedback would cause predictions to reflect the play of random Trainers,
+ which might be undesirable (I presume an expert system would attempt to play like, well, an expert).
+Still, \textit{without comparison against real results, we cannot meaningfully speak of the validity of predictions}.
+Furthermore, questions like those earlier in this chapter become harder to answer,
+ as we have less knowledge of paths considered unlikely by our model.
+
+\section{Exhaustive methods}
+\label{sec:exhaustive}
+We needn't reject exhaustive simulation out of hand.
 A naive but still viable solution is to begin at the first turn, generate the set
   of possible choices for both Trainers, and recurse on each one, performing
-  a depth-first generation of the game tree.
+  a depth-first generation of the full game tree.
 When done, we'll know how each choice affects the universe of possible outcomes,
   and how the teams ought fare for random choices.
 
