@@ -123,7 +123,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
 // print the d breakpoints for p
 static void
 print_dbreaks(pmon *p, pmon *atk){
-  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
   printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   for(int ivd = 0 ; ivd < 16 ; ++ivd){
@@ -137,7 +137,7 @@ print_dbreaks(pmon *p, pmon *atk){
     printf("\\\\\n");
   }
   printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
-  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
   printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   for(int ivd = 0 ; ivd < 16 ; ++ivd){
@@ -151,7 +151,7 @@ print_dbreaks(pmon *p, pmon *atk){
     printf("\\\\\n");
   }
   printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
-  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
   printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   if(atk->ca2){
