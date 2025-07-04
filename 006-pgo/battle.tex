@@ -331,17 +331,16 @@ Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
 The Pokémon that goes first (``Charged Move Priority'') is the one with the
   higher $Eff_A$ (recall that this is base attack plus $IV_A$, times CPM).
 Shadow status does not factor into consideration, nor do any active buffs.
-
-\subsection{GO Battle League}
-\label{subsec:league}
-\textbf{FIXME}
+3x3 battles take place four ways: with other Trainers via the friends list,
+ with Team Leaders via the Battle screen, the GO Battle League,
+ and encounters with Team GO Rocket.
+In only the last case does damage suffered in 3x3 battles persist past the battle's end.
 
 \subsection{Team GO Rocket}
 \label{subsec:rocket}
-Pokéstops will sometimes go black, indicating takeover by a Team GO Rocket Grunt.
-There are two: Female Grunt and Male Grunt.
-Trainers can engage in a 3x3 battle with the Grunt (it is not necessary to battle to
-  spin the Pokéstop).
+Pokéstops will sometimes go black, indicating takeover by Team GO Rocket.
+The most common offenders are nameless lackeys: the smarmy Male Grunt, and the disturbingly sexy Female Grunt.
+Upon reaching Level 8, Trainers can challenge these Grunts to a 3x3 battle (it is not necessary to battle to spin the Pokéstop).
 The Grunt will employ three Shadow Pokémon, and will usually have a theme type.
 This type is indicated by their dialogue (\autoref{table:taunts}).
 \begin{table}
@@ -374,6 +373,7 @@ Type & Taunt\\
 Other taunts indicate mixed teams.
 Grunts make use of neither shields nor substitution.
 Their teams are static across the course of a month.
+In encounters, Shadow Pokémon move, dodge, and attack frequently; employing a Nanab berry is not unreasonable.
 
 Defeating a Grunt will award one-sixth of a Rocket Radar.
 Once the Rocket Radar is assembled and equipped, the Trainer can meet Leaders.
@@ -387,18 +387,59 @@ After winning against a Grunt or Leader, you will have an encounter with their f
 Grunts and Leaders sometimes fly around in a gaudy Team GO Rocket balloon,
   and can be fought there.
 
+Team GO Rocket is overseen by the enigmatic Giovanni.
+Certain Special Researches award a Super Rocket Radar, the only way to discover
+ the dapper chief's hideout.
+The Super Rocket Radar is fallible, sometimes identifying Grunts as Giovanni
+ (your SRR will not be consumed in this case).
+Giovanni's team will employ at least one Shadow Legendary Pokémon, which
+ will be encountered following a victory.
+This Pokémon will have a 100\% catch rate.
+
+\subsection{GO Battle League}
+\label{subsec:league}
+Ahhh, the best part of Pokémon GO: for me, the rest of the game is mindlessly farming Pokémon for GBL.
+Assemble a team from your Pokémon, and compete with Trainers around the world.
+Battle League operates on three-month seasons, divided into twelve weeks.
+Each week offers participation in two or three formats.
+Most common are the Great League (1500 CP maximum), Ultra League (2500 CP maximum),
+ and Master League (anything goes).
+There are variations on the Leagues (\textit{Mega} allows Mega evolved Pokémon;
+ \textit{Premier} prohibits Legendary and Mythical Pokémon),
+ plus assorted Cups with sundry restrictions.
+Only one Pokémon of a given species can play on a team.
+
+Each win results in an award.
+There are two reward tiers, Basic and Premium.
+Trainers can play five Basic sets per day at no cost.
+Each Premium set requires a Premium Battle Pass.
+Sets consist of five Trainer Battles.
+At the end of a set, a Trainer can be promoted to a higher rank (rank does not
+ go down over the course of a season), and their rating is adjusted.
+Stardust is rewarded at the end of each set based on the Trainer's rank,
+ even if all matches were lost.
+
+Rating is based on an Elo-like system, and resets each season.
+A Trainer's rank and rating are shared across all that season's Leagues and Cups.
+Trainers will be matched against Trainers with similar ratings.
+The self-correcting system rewards upset wins and penalizes upset losses.
+The world's 500 top-rated Trainers are shown on Niantic's leaderboard webpage.
+This opt-out page is updated daily using Trainers' ranking from the end of the previous day,
+ and displays their Trainer name, team, rank, rating, and total battles fought that season.
+
 \section{Nx1 battles}
 \label{sec:nx1}
 One Pokémon fends off a number of simultaneously attacking Trainers,
   each of whom has one Pokémon active at a time.
-There is a timer of 180 seconds for raids below the 5🟉 difficulty level,
-  and a timer of 300 seconds for 5🟉 raids.
 \textbf{FIXME}
 
 \subsection{Gyms}
 \label{sec:gyms}
 A team occupies an open gym by leaving a defender there.
 All defenders must belong to Trainers from the same team.
+Only one Pokémon of a given species can be left in a gym; there is no
+  such restriction on attacking teams.
+These Pokémon fight in the order they were left at the gym.
 Up to six defenders can be left in a gym at once, but only one
   may be left per Trainer, and that Pokémon must have full health.
 A Trainer cannot leave their Buddy Pokémon, nor any Mythical nor Legendary
@@ -415,6 +456,9 @@ Pokémon defending the gym steadily lose HP (``motivation'') at a rate
   based on their CP (\autoref{sec:cp}).
 \textbf{FIXME}
 
+Each gym has an associated badge, with Basic, Bronze, Silver and Gold levels.
+\textbf{FIXME}
+
 \subsection{Raids}
 \label{sec:raids}
 Mysterious eggs sometimes appear in gyms, together with countdowns.
@@ -424,8 +468,8 @@ During this time, up to twenty Trainers can come together to ``raid'' the gym.
 Each trainer provides a team of six Pokémon.
 If all six are defeated, their Trainer can optionally continue with another team of six.
 Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution within the team.
-These raids have their own time limits, and the raid ends when the Pokémon is defeated, no more Pokémon remain fighting,
-  or the timer expires.
+These raids have their own time limits, and the raid ends when the boss is defeated, no more Pokémon remain fighting,
+  or the timer (180 seconds for raids below the 5🟉 difficulty level, and 300 seconds otherwise) expires.
 
 A raid gym has zero or more associated lobbies, each capable of holding twenty Trainers.
 Empty lobbies are immediately destroyed.
@@ -472,6 +516,11 @@ This Pokémon will have its own IVs, and the same base stats as any other member
 The encounter uses a fixed number of Premier balls, though the Trainer can also
   use a Master ball if one is available.
 Berries can be used, and have the same effects as they do in normal encounters.
+
+While in the lobby, invitations can be sent to selected friends.
+Additionally, other Trainers can see friends in lobbies, and join without an invitation.
+Remote Raid Passes will still be necessary in either case.
+Remote raiders cannot send invites.
 
 \subsection{Raid Achievements}
 \label{subsec:raidachievements}
