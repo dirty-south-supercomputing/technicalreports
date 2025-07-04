@@ -22,43 +22,6 @@ fill_stats(stats* s){
   s->next = NULL;
 }
 
-static void
-print_pmon(const pmon *p){
-  unsigned hl;
-  unsigned l = halflevel_to_level(p->s.hlevel, &hl);
-  printf("%s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
-        p->s.s->name.c_str(),
-        p->shadow ? "(shadow) " : "",
-        l, hl ? ".5" : "",
-        p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
-  printf(" f %s%20s %3u %3d %u\n", has_stab_p(p->s.s, p->fa) ? "(*)" : "   ",
-          p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
-  printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca1) ? "(*)" : "   ",
-          p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
-  if(p->ca2){
-    printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca2) ? "(*)" : "   ",
-          p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
-  }
-}
-
-/*
-      if(!pm[1][j].s.s){
-        continue;
-      }
-      pm[0][i].damage[0][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].fa);
-      pm[0][i].damage[1][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].ca1);
-      if(pm[0][i].ca2){
-        pm[0][i].damage[2][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].ca2);
-      }
-      pm[1][j].damage[0][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].fa);
-      pm[1][j].damage[1][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].ca1);
-      if(pm[1][j].ca2){
-        pm[1][j].damage[2][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].ca2);
-      }
-    }
-  }
-  */
-
 static const attack *
 lex_species_charged_attacks(const species *s, const char *spec, const attack **ca2){
   *ca2 = NULL;
@@ -186,8 +149,6 @@ int main(int argc, char** argv){
   if(lex_pmon(&pm[1], &hp1, &argc, &argv)){
     usage(argv0);
   }
-  //print_pmon(&pm[0]);
-  //print_pmon(&pm[1]);
   print_dbreaks(&pm[1], &pm[0]);
   // FIXME print damage for iv[a] 0..15 and opposing iv[d] 0..15
   if(argc){
