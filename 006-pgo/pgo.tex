@@ -23,7 +23,7 @@
 \usepackage[listingsutf8]{tcolorbox}
 \tcbuselibrary{most}
 \usepackage{listings}
-\usepackage{minted}
+\usepackage[newfloat]{minted}
 \usepackage{makecell}
 \usepackage{varwidth}
 \usepackage{ifthen}
@@ -128,6 +128,9 @@
 \definecolor{ORock}{HTML}{495ec9}
 \definecolor{OSteel}{HTML}{a16e5b}
 \definecolor{OWater}{HTML}{9c6f0f}
+
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Source Code}
 
 %\copypagestyle{dankpanion}{companion}
 %\makeoddhead{dankpanion}{{\textbf{\leftmark}}}{}{\textbf{\thepage}}
