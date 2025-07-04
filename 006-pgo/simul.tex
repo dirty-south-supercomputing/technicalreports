@@ -96,7 +96,8 @@ We'll need prune the game tree using limited expert methods\footnote{We remain e
 
 \subsection{Common state}
 \label{subsec:commonstate}
-We need a three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
+Whatever our method, implementing the trainer battle mechanics requires a
+  three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
 State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
 \inputminted{cpp}{s/simul.h}
