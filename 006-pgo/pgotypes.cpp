@@ -12932,7 +12932,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       power = power * 6 / 5;
     }
     print_type((*a)->type);
-    if((*a)->energytrain < 0){
+    if((*a)->energytrain < 0){ // charged attacks
       const float dpe = power / -(*a)->energytrain;
       if(exclusive_attack_p(s, *a)){
         printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
@@ -12941,7 +12941,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
         printf(" %s & & %g & %d & %.2f & \\\\\n",
             (*a)->name, power, (*a)->energytrain, dpe);
       }
-    }else{
+    }else{ // fast attacks
       const float dpt = power / (*a)->turns;
       const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
       if(exclusive_attack_p(s, *a)){
