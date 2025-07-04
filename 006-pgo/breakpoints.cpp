@@ -122,13 +122,13 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
 
 // print the d breakpoints for p
 static void
-print_dbreaks(const pmon *p, pmon *atk){
-  printf("\\begin{table}\\centering\\begin{tabular}{lcccccccccccccccc}\\\\");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\");
+print_dbreaks(pmon *p, pmon *atk){
+  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   for(int ivd = 0 ; ivd < 16 ; ++ivd){
-    float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
     printf("%d", ivd);
+    p->s.id = ivd;
     for(int iva = 0 ; iva < 16 ; ++iva){
       atk->s.ia = iva;
       float d = calc_damage(atk, p, atk->fa);
@@ -136,37 +136,37 @@ print_dbreaks(const pmon *p, pmon *atk){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\end{table}\n");
-  printf("\\begin{table}\\centering\\begin{tabular}{lcccccccccccccccc}\\\\");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\");
+  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
+  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   for(int ivd = 0 ; ivd < 16 ; ++ivd){
-    float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
+    p->s.id = ivd;
     printf("%d", ivd);
     for(int iva = 0 ; iva < 16 ; ++iva){
       atk->s.ia = iva;
       float d = calc_damage(atk, p, atk->ca1);
-      printf(" %d", static_cast<int>(d));
+      printf(" & %d", static_cast<int>(d));
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\end{table}\n");
-  printf("\\begin{table}\\centering\\begin{tabular}{lcccccccccccccccc}\\\\");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\");
+  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
+  printf("\\begin{table}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   if(atk->ca2){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
-      float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
+      p->s.id = ivd;
       printf("%d", ivd);
       for(int iva = 0 ; iva < 16 ; ++iva){
         atk->s.ia = iva;
         float d = calc_damage(atk, p, atk->ca2);
-        printf(" %d", static_cast<int>(d));
+        printf(" & %d", static_cast<int>(d));
       }
       printf("\\\\\n");
     }
   }
-  printf("\\end{tabular}\\end{table}\n");
+  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
 }
 
 static void
