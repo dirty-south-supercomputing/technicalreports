@@ -94,6 +94,13 @@ This is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
 We'll need prune the game tree using limited expert methods\footnote{We remain exhaustive, rather than
  stochastic, just within a limited space.}.
 
+\subsection{Common state}
+\label{subsec:commonstate}
+We need a three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
+\texttt{results} is shared across all nodes (and will need be protected should we go parallel).
+State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
+\inputminted{cpp}{s/simul.h}
+
 \section{Simulating 1x1}
 \label{sec:simul1x1}
 Let's start with exhaustive simulation of a 1x1 contest,
@@ -130,10 +137,6 @@ And while we won't be implementing them yet, assuming other Pokémon have not
 \item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
 \inputminted{cpp}{s/moves.h}
-We need a three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
-\texttt{results} is shared across all nodes (and will need be protected should we go parallel).
-State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
-\inputminted{cpp}{s/simul.h}
 Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
 \texttt{sift\_choices()} sets bits of a mask high if they're allowed.
 \inputminted{cpp}{s/sift.h}
