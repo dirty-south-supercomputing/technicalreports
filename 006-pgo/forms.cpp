@@ -38,7 +38,7 @@ int main(int argc, char **argv){
   // for forms, we just want them alphabetical, not by type
   // for now we use dex entry FIXME
   for(unsigned u = 0 ; u < count ; ++u){
-    print_species_latex(&dex[u], bg, true);
+    print_species_latex(&dex[u], bg, false);
   }
   return EXIT_SUCCESS;
 }
