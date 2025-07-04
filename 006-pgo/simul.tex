@@ -138,15 +138,19 @@ And while we won't be implementing them yet, assuming other Pokémon have not
 \item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
 \inputminted{cpp}{s/moves.h}
-Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
+Now we'll need a function to determine which moves are viable for a Trainer on a given turn.
 \texttt{sift\_choices()} sets bits of a mask high if they're allowed.
+We use this method for the second player, manually building a control for the first player.
 \inputminted{cpp}{s/sift.h}
-Collection of possible moves is handled in the top half, which loops through the choice-pairs,
-  filters invalid ones, then calls the bottom half on each.
-Should we want to parallelize, this loop is an obvious target.
+Collection of possible moves is handled in the top half, which determines
+  available first player moves and calls the appropriate inner half on each.
 \inputminted{cpp}{s/top.h}
-The bottom half implements a choice-pair, and reports whether
-  any Pokémon have been knocked out.
+The inner halves implement possible choices of the first player (each with all possible
+  second player moves), and reports whether any Pokémon have been knocked out.
+If appropriate, they call the bottom half with shields enabled.
+Should we want to parallelize, these loops are obvious target.
+\inputminted{cpp}{s/inner.h}
+The bottom half implements and accounts for a choicepair using its own copy of the state.
 \inputminted{cpp}{s/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
 This is the only function that actually records results, and its loops are opportunities for further parallelism.

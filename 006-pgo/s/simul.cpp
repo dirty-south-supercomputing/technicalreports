@@ -9,6 +9,7 @@
 static void tophalf(const simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
+#include "inner.h"
 #include "top.h"
 
 pmon pmons[2][TEAMSIZE] = {};
@@ -20,8 +21,10 @@ usage(const char *argv0){
 }
 
 // lex out iv and level in the form iva-ivd-ivs@l
-int lex_ivlevel(const char* ivl, stats* s){
+static int
+lex_ivlevel(const char* ivl, stats* s){
   int r;
+  // FIXME unreliable, accepts garbage inputs for level
   if((r = sscanf(ivl, "%u-%u-%u@%u", &s->ia, &s->id, &s->is, &s->hlevel)) != 4){
     fprintf(stderr, "error lexing A-D-S@L from %s (got %d)\n", ivl, r);
     return -1;
@@ -53,8 +56,12 @@ fill_stats(stats* s){
 
 static void
 print_pmon(const pmon *p){
-  printf("%s %seffa: %g effd: %g mhp: %u cp %u\n",
-        p->s.s->name.c_str(), p->shadow ? "(shadow) " : "",
+  unsigned hl;
+  unsigned l = halflevel_to_level(p->s.hlevel, &hl);
+  printf("%s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
+        p->s.s->name.c_str(),
+        p->shadow ? "(shadow) " : "",
+        l, hl ? ".5" : "",
         p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
   printf(" f %s%20s %3u %3d %u\n", has_stab_p(p->s.s, p->fa) ? "(*)" : "   ",
           p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);

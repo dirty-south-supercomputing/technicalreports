@@ -68,6 +68,5 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shiel
   if(k0 || k1){
     return true;
   }
-  tophalf(s, r); // no one got knocked out; recurse to next turn
   return false;
 }
