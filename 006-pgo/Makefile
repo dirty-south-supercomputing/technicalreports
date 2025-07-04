@@ -150,7 +150,7 @@ $(OUT)/%: %.cpp pgotypes.cpp
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
 
 testsimul: $(SIMUL)
-	time $(<) clodsire 15-15-15@50 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast"
+	time $(<) clodsire 15-15-15@50 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast"
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof

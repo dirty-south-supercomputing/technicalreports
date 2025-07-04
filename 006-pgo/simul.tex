@@ -88,7 +88,10 @@ In the worst case, each has twelve, for a Cartesian product of 144 choicepairs--
 There will most often be two or three available choices for each Trainer,
   for a product of about eight.
 Nonetheless, this is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
-If we want to do this, we'd better prune this game tree.
+If we want to do this, we'd better prune this game tree using
+ limited expert methods\footnote{We remain exhaustive, rather than
+ stochastic, just within a limited space. Our output remains
+ the same across runs.}.
 
 For each state, we must preserve the HP and energy of six Pokémon,
   the attack and defense buff level for two Pokémon,
@@ -98,6 +101,79 @@ For each state, we must preserve the HP and energy of six Pokémon,
 These changes are infrequent, so rather than duplicating the stats in
   each state, it might be wise to store the sets of stats externally,
   and index into them from the states.
+
+\section{Simulating 1x1}
+\label{sec:simul1x1}
+Let's start with exhaustive simulation of a 1x1 contest,
+ where substitution is not in play.
+A naive implementation blows up almost immediately: the Trainer can choose to do nothing
+ whenever they're not busy, and doing nothing consumes only one turn,
+ meaning we almost always have at least four choicepairs:
+ \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
+Our first restriction, then: if there's no good reason to do nothing,
+ the Pokémon must do something.
+Given the timing advice provided in \autoref{chap:strategy}, we will permit
+ a do-nothing turn only if the opponent is in the middle of a fast attack,
+ \textit{and} the Pokémon's fast attack cannot fit within the opponent's
+  remaining turns throwing said fast attack,
+ \textit{and} the Pokémon has sufficient energy to use a charged attack.
+\begin{itemize}
+\item Wait, no shield: \texttt{MOVE\_WAIT}
+\item Wait and shield: \texttt{MOVE\_WAIT\_SHIELD}
+\end{itemize}
+We can wait (per above) if the opponent has an ongoing fast attack.
+We can otherwise always throw our own:
+\begin{itemize}
+\item Fast attack, no shield: \texttt{MOVE\_FAST}
+\item Fast attack and shield: \texttt{MOVE\_FAST\_SHIELD}
+\end{itemize}
+With sufficient energy, one or both charged attacks enter the picture:
+\begin{itemize}
+\item Charged attack one, no shield: \texttt{MOVE\_CHARGED1}
+\item Charged attack one and shield: \texttt{MOVE\_CHARGED1\_SHIELD}
+\item Charged attack two, no shield: \texttt{MOVE\_CHARGED2}
+\item Charged attack two and shield: \texttt{MOVE\_CHARGED2\_SHIELD}
+\end{itemize}
+Finally, assuming other Pokémon have not fainted and the cooldown period is not active,
+ we can call in a substitution.
+``One'' and ``two down'' here are taken modulo 3,
+ i.e. if the third Pokémon is active, the first Pokémon is one down,
+ and the second Pokémon is two down.
+\begin{itemize}
+\item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
+\item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
+\end{itemize}
+\inputminted{cpp}{s/moves.h}
+Define types for basic state.
+\texttt{results} is shared across all nodes (and will need be protected should we go parallel).
+State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
+Finally, we need a three-vector for each team pointing into our database of Pokémon and attacks.
+These are readonly following initialization, and global.
+\inputminted{cpp}{s/simul.h}
+Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
+\texttt{sift\_choices()} sets bits of a mask high if they're allowed.
+\inputminted{cpp}{s/sift.h}
+Collection of possible moves is handled in the top half, which loops through the choice-pairs,
+  filters invalid ones, then calls the bottom half on each.
+Should we want to parallelize, this loop is an obvious target.
+\inputminted{cpp}{s/top.h}
+The bottom half implements a choice-pair, and reports whether
+  any Pokémon have been knocked out.
+\inputminted{cpp}{s/bottom.h}
+On a knockout, the top half calls \texttt{handle\_ko()}.
+This is the only function that actually records results, and its loops are opportunities for further parallelism.
+Right now we're only handling a single Pokémon per team, but we
+ go ahead and implement this so that it'll work properly
+ with arbitrarily many Pokémon.
+When a Pokémon goes down, three things can happen:
+\begin{itemize}
+  \item No more Pokémon: the match is over.
+  \item One more Pokémon: it becomes active. Continue the simulation.
+  \item Two more Pokémon: simulate both replacements.
+\end{itemize}
+\inputminted{cpp}{s/ko.h}
+The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
+  with full HP, two shields, and no energy.
 
 \section{Closed form of the endgame}
 \label{sec:endgame}
@@ -169,74 +245,6 @@ Pseudocode for simulating a death march is given in \autoref{listing:deathmarch}
 \end{code}
 
 \textbf{FIXME so construct it then...}
-
-\section{Simulating 1x1}
-\label{sec:simul1x1}
-It's not difficult to do an exhaustive simulation of a 1x1 contest,
- where substitution is not in play.
-A naive implementation will blow up, but we make the problem manageable
- via one simple restriction: if there's no good reason to do nothing,
- the Pokémon must do something.
-Given the timing advice provided in \autoref{chap:strategy}, we will permit
- a do-nothing turn if the opponent is in the middle of a fast attack.
-This turns out to be the only time we need allow unforced waits.
-\begin{itemize}
-\item Wait, no shield: \texttt{MOVE\_WAIT}
-\item Wait and shield: \texttt{MOVE\_WAIT\_SHIELD}
-\end{itemize}
-We can wait (per above) if the opponent has an ongoing fast attack.
-We can otherwise always throw our own:
-\begin{itemize}
-\item Fast attack, no shield: \texttt{MOVE\_FAST}
-\item Fast attack and shield: \texttt{MOVE\_FAST\_SHIELD}
-\end{itemize}
-With sufficient energy, one or both charged attacks enter the picture:
-\begin{itemize}
-\item Charged attack one, no shield: \texttt{MOVE\_CHARGED1}
-\item Charged attack one and shield: \texttt{MOVE\_CHARGED1\_SHIELD}
-\item Charged attack two, no shield: \texttt{MOVE\_CHARGED2}
-\item Charged attack two and shield: \texttt{MOVE\_CHARGED2\_SHIELD}
-\end{itemize}
-Finally, assuming other Pokémon have not fainted and the cooldown period is not active,
- we can call in a substitution.
-``One'' and ``two down'' here are taken modulo 3,
- i.e. if the third Pokémon is active, the first Pokémon is one down,
- and the second Pokémon is two down.
-\begin{itemize}
-\item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
-\item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
-\end{itemize}
-\inputminted{cpp}{s/moves.h}
-Define types for basic state.
-\texttt{results} is shared across all nodes (and will need be protected should we go parallel).
-State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
-Finally, we need a three-vector for each team pointing into our database of Pokémon and attacks.
-These are readonly following initialization, and global.
-\inputminted{cpp}{s/simul.h}
-Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
-\texttt{sift\_choices()} sets bits of a mask high if they're allowed.
-\inputminted{cpp}{s/sift.h}
-Collection of possible moves is handled in the top half, which loops through the choice-pairs,
-  filters invalid ones, then calls the bottom half on each.
-Should we want to parallelize, this loop is an obvious target.
-\inputminted{cpp}{s/top.h}
-The bottom half implements a choice-pair, and reports whether
-  any Pokémon have been knocked out.
-\inputminted{cpp}{s/bottom.h}
-On a knockout, the top half calls \texttt{handle\_ko()}.
-This is the only function that actually records results, and its loops are opportunities for further parallelism.
-Right now we're only handling a single Pokémon per team, but we
- go ahead and implement this so that it'll work properly
- with arbitrarily many Pokémon.
-When a Pokémon goes down, three things can happen:
-\begin{itemize}
-  \item No more Pokémon: the match is over.
-  \item One more Pokémon: it becomes active. Continue the simulation.
-  \item Two more Pokémon: simulate both replacements.
-\end{itemize}
-\inputminted{cpp}{s/ko.h}
-The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
-  with full HP, two shields, and no energy.
 
 \section{Simulating 3x3}
 \label{sec:simul3x3}

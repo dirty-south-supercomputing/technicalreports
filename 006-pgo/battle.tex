@@ -419,13 +419,34 @@ At the end of a set, a Trainer can be promoted to a higher rank (rank does not
 Stardust is rewarded at the end of each set based on the Trainer's rank,
  even if all matches were lost.
 
-Rating is based on an Elo-like system, and resets each season.
+Each Trainer's rank and rating reset each season.
+Rank cannot go down over the season's course.
 A Trainer's rank and rating are shared across all that season's Leagues and Cups.
-Trainers will be matched against Trainers with similar ratings.
-The self-correcting system rewards upset wins and penalizes upset losses.
+A Trainer advances through rank 20 by winning (or sometimes simply playing) a certain number of matches.
+Rating is based on an Elo-like system\footnote{A self-correcting ordered score.
+Players with the same rating are expected to split their games.
+Victory, especially upsets, increases the winner's rating.
+Losses, especially against lower-rated players, decreases it.}; the Trainer's rating is displayed upon promotion to rank 20, and at the end of every set thereafter.
+At the twentieth rank and above, Trainers will be matched against Trainers with similar ratings.
+Past 20, there are four named ranks (\autoref{table:gblranks}).
+The highest, Legend, requires attaining a rating of at least 3000;
+ Trainers reaching this rank receive an encounter with the
+ fabulous Pikachu Libre. \textit{¡Es algo rudo pero viril!}
 The world's 500 top-rated Trainers are shown on Niantic's leaderboard webpage.
 This opt-out page is updated daily using Trainers' ranking from the end of the previous day,
  and displays their Trainer name, team, rank, rating, and total battles fought that season.
+\begin{table}
+\begin{tabular}{llr}
+Rank & Name & Requirement\\
+\Midrule
+  21 & Ace & Achieve a rating of 2000+\\
+  22 & Veteran & Achieve a rating of 2500+\\
+  23 & Expert & Achieve a rating of 2750+\\
+  24 & Legend & Achieve a rating of 3000+\\
+\end{tabular}
+\caption{GO Battle League named ranks}
+\label{table:gblranks}
+\end{table}
 
 \section{Nx1 battles}
 \label{sec:nx1}

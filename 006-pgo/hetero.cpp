@@ -18,12 +18,15 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
     print_types(from->t1, from->t2);
     printf(" %s", from->name.c_str());
     #define GLAR "Galarian"
-    if(!strncmp(from->name.c_str(), GLAR, strlen(GLAR)) || !strncmp(s->name.c_str(), GLAR, strlen(GLAR))){
+    #define CROW "Crowned Shield"
+    if(!strncmp(from->name.c_str(), GLAR, strlen(GLAR)) || !strncmp(s->name.c_str(), GLAR, strlen(GLAR))
+        || !strncmp(s->name.c_str(), CROW, strlen(CROW))){
       // FIXME need indentation here
-      printf("\\newline → ");
+      printf("\\newline\\hspace{\\parskip}→ ");
     }else{
       printf(" → ");
     }
+    #undef CROW
     #undef GLAR
     print_types(s->t1, s->t2);
     printf(" %s ", s->name.c_str());
