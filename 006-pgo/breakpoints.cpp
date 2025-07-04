@@ -99,7 +99,8 @@ print_dbreaks(pmon *p, pmon *atk){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
+  printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
+          atk->s.s->name.c_str(), atk->fa->name, p->s.s->name.c_str());
   printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
   printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
@@ -113,11 +114,12 @@ print_dbreaks(pmon *p, pmon *atk){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
-  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
-  printf("\\Midrule\n");
+  printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
+      atk->s.s->name.c_str(), atk->ca1->name, p->s.s->name.c_str());
   if(atk->ca2){
+    printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
+    printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
+    printf("\\Midrule\n");
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       p->s.id = ivd;
       printf("%d", ivd);
@@ -128,8 +130,9 @@ print_dbreaks(pmon *p, pmon *atk){
       }
       printf("\\\\\n");
     }
+    printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
+        atk->s.s->name.c_str(), atk->ca2->name, p->s.s->name.c_str());
   }
-  printf("\\end{tabular}\\caption{FIXME graph}\\end{table}\n");
 }
 
 static void
