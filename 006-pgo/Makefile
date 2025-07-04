@@ -141,7 +141,7 @@ $(OUT)/%.tex: $(OUT)/%
 
 $(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
 	@mkdir -p $(@D)
-	$(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep"
+	$(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
 
 # FIXME need to graph the output and generate image
 $(OUT)/%.dat: $(OUT)/%

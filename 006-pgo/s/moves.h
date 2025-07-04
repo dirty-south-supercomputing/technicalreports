@@ -19,6 +19,6 @@ static inline bool fast_move_p(pgo_move_e m){
   return m & MOVE_FAST;
 }
 
-static bool sub_move_p(pgo_move_e m){
+static inline bool sub_move_p(pgo_move_e m){
   return m & (MOVE_SUB1 | MOVE_SUB2);
 }

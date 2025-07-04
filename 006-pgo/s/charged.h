@@ -22,7 +22,7 @@ static float calc_damage(const pmon *p, const pmon *o, const attack *a){
   d /= 20; // second half of the 0.65 multiplier
   d *= o->s.s->type_effectiveness(a);
   //printf("damage: %f\n", d);
-  return d;
+  return floor(d);
 }
 
 // calculate real damage given precalc + buffs

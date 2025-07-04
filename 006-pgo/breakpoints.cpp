@@ -2,15 +2,11 @@
 #include <memory>
 #include <cstdlib>
 #include "pgotypes.cpp"
+#include "s/moves.h"
+#include "s/simul.h"
+#include "s/charged.h"
 
-typedef struct pmon { // static elements
-  struct stats s;
-  bool shadow;
-  const attack *fa, *ca1, *ca2;
-  float damage[3];
-} pmon;
-
-static pmon pmons[2];
+static pmon pm[2];
 
 // fill in a stats structure given only species, IVs, and level
 static void
@@ -46,18 +42,18 @@ print_pmon(const pmon *p){
 }
 
 /*
-      if(!pmons[1][j].s.s){
+      if(!pm[1][j].s.s){
         continue;
       }
-      pmons[0][i].damage[0][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].fa);
-      pmons[0][i].damage[1][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca1);
-      if(pmons[0][i].ca2){
-        pmons[0][i].damage[2][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca2);
+      pm[0][i].damage[0][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].fa);
+      pm[0][i].damage[1][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].ca1);
+      if(pm[0][i].ca2){
+        pm[0][i].damage[2][j] = calc_damage(&pm[0][i], &pm[1][j], pm[0][i].ca2);
       }
-      pmons[1][j].damage[0][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].fa);
-      pmons[1][j].damage[1][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca1);
-      if(pmons[1][j].ca2){
-        pmons[1][j].damage[2][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca2);
+      pm[1][j].damage[0][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].fa);
+      pm[1][j].damage[1][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].ca1);
+      if(pm[1][j].ca2){
+        pm[1][j].damage[2][i] = calc_damage(&pm[1][j], &pm[0][i], pm[1][j].ca2);
       }
     }
   }
@@ -124,6 +120,43 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
   return 0;
 }
 
+// print the d breakpoints for p
+static void
+print_dbreaks(const pmon *p, pmon *atk){
+  for(int ivd = 0 ; ivd < 16 ; ++ivd){
+    float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
+    printf("%d %f", ivd, effd);
+    for(int iva = 0 ; iva < 16 ; ++iva){
+      atk->s.ia = iva;
+      float d = calc_damage(atk, p, atk->fa);
+      printf(" %d", static_cast<int>(d));
+    }
+    printf("\n");
+  }
+  for(int ivd = 0 ; ivd < 16 ; ++ivd){
+    float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
+    printf("%d %f", ivd, effd);
+    for(int iva = 0 ; iva < 16 ; ++iva){
+      atk->s.ia = iva;
+      float d = calc_damage(atk, p, atk->ca1);
+      printf(" %d", static_cast<int>(d));
+    }
+    printf("\n");
+  }
+  if(atk->ca2){
+    for(int ivd = 0 ; ivd < 16 ; ++ivd){
+      float effd = calc_eff_d(p->s.s->def + ivd, p->s.hlevel, p->shadow);
+      printf("%d %f", ivd, effd);
+      for(int iva = 0 ; iva < 16 ; ++iva){
+        atk->s.ia = iva;
+        float d = calc_damage(atk, p, atk->ca2);
+        printf(" %d", static_cast<int>(d));
+      }
+      printf("\n");
+    }
+  }
+}
+
 static void
 usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
@@ -135,14 +168,16 @@ int main(int argc, char** argv){
   --argc;
   ++argv;
   int hp0, hp1;
-  if(lex_pmon(&pmons[0], &hp0, &argc, &argv)){
+  if(lex_pmon(&pm[0], &hp0, &argc, &argv)){
     usage(argv0);
   }
-  if(lex_pmon(&pmons[1], &hp1, &argc, &argv)){
+  if(lex_pmon(&pm[1], &hp1, &argc, &argv)){
     usage(argv0);
   }
-  print_pmon(&pmons[0]);
-  print_pmon(&pmons[1]);
+  print_pmon(&pm[0]);
+  print_pmon(&pm[1]);
+  print_dbreaks(&pm[1], &pm[0]);
+  // FIXME print damage for iv[a] 0..15 and opposing iv[d] 0..15
   if(argc){
     std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);
