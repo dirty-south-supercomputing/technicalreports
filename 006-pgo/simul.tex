@@ -90,13 +90,9 @@ Each option must be pursued for an exhaustive search.
 In the best case, neither Trainer has any options.
 In the worst case, each has twelve, for a Cartesian product of 144 choicepairs---we
   blow up to 62 billion states in five turns, and will not be going to space today.
-There will most often be two or three available choices for each Trainer,
-  for a product of about eight.
-Nonetheless, this is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
-If we want to do this, we'd better prune this game tree using
- limited expert methods\footnote{We remain exhaustive, rather than
- stochastic, just within a limited space. Our output remains
- the same across runs.}.
+This is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
+We'll need prune the game tree using limited expert methods\footnote{We remain exhaustive, rather than
+ stochastic, just within a limited space.}.
 
 \section{Simulating 1x1}
 \label{sec:simul1x1}
