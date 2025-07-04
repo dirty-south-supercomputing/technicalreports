@@ -12989,9 +12989,10 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       printf("\\textbf{");
       escape_string(s->name.c_str());
       printf("}");
-      if(evol){
+      while(evol){
         printf(" → ");
         escape_string(evol->name.c_str());
+        evol = get_persistent_evolution(evol);
       }
     }
   }
