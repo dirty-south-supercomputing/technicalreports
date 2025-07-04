@@ -64,6 +64,11 @@ Furthermore, questions like those earlier in this chapter become harder to answe
 A naive solution begins at the first turn, generates the set of possible
   choices for both Trainers, and recurses across the Cartesian product
   of these sets: depth-first generation of the full game tree.
+For each state, we must preserve the HP and energy of six Pokémon,
+  the attack and defense buff level for two Pokémon,
+  the number of turns remaining in two ongoing fast attacks,
+  the number of shields remaining for each Trainer,
+  and the turns remaining on each Trainer's substitution timer.
 When done, we'll know how each choice affects the universe of possible outcomes,
   and how the teams ought fare for random choices.
 Growth is clearly exponential: $\mathcal{O}(C^N)$ time for Cartesian products of size $C$ over $N$ turns.
@@ -93,15 +98,6 @@ If we want to do this, we'd better prune this game tree using
  stochastic, just within a limited space. Our output remains
  the same across runs.}.
 
-For each state, we must preserve the HP and energy of six Pokémon,
-  the attack and defense buff level for two Pokémon,
-  the number of turns remaining in two ongoing fast attacks,
-  the number of shields remaining for each Trainer,
-  and the turns remaining on each Trainer's substitution timer.
-These changes are infrequent, so rather than duplicating the stats in
-  each state, it might be wise to store the sets of stats externally,
-  and index into them from the states.
-
 \section{Simulating 1x1}
 \label{sec:simul1x1}
 Let's start with exhaustive simulation of a 1x1 contest,
@@ -118,37 +114,30 @@ Given the timing advice provided in \autoref{chap:strategy}, we will permit
   remaining turns throwing said fast attack,
  \textit{and} the Pokémon has sufficient energy to use a charged attack.
 \begin{itemize}
-\item Wait, no shield: \texttt{MOVE\_WAIT}
-\item Wait and shield: \texttt{MOVE\_WAIT\_SHIELD}
+\item Wait: \texttt{MOVE\_WAIT}
 \end{itemize}
 We can wait (per above) if the opponent has an ongoing fast attack.
 We can otherwise always throw our own:
 \begin{itemize}
-\item Fast attack, no shield: \texttt{MOVE\_FAST}
-\item Fast attack and shield: \texttt{MOVE\_FAST\_SHIELD}
+\item Fast attack: \texttt{MOVE\_FAST}
 \end{itemize}
-With sufficient energy, one or both charged attacks enter the picture:
+With sufficient energy, charged attacks enter the picture:
 \begin{itemize}
-\item Charged attack one, no shield: \texttt{MOVE\_CHARGED1}
-\item Charged attack one and shield: \texttt{MOVE\_CHARGED1\_SHIELD}
-\item Charged attack two, no shield: \texttt{MOVE\_CHARGED2}
-\item Charged attack two and shield: \texttt{MOVE\_CHARGED2\_SHIELD}
+\item Charged attack one: \texttt{MOVE\_CHARGED1}
+\item Charged attack two: \texttt{MOVE\_CHARGED2}
 \end{itemize}
-Finally, assuming other Pokémon have not fainted and the cooldown period is not active,
- we can call in a substitution.
-``One'' and ``two down'' here are taken modulo 3,
- i.e. if the third Pokémon is active, the first Pokémon is one down,
- and the second Pokémon is two down.
+And while we won't be implementing them yet, assuming other Pokémon have not
+  fainted and the cooldown period is not active, we can call in a substitution.
+``One'' and ``two down'' here are taken modulo 3, i.e. if the third Pokémon is
+  active, the first Pokémon is one down, and the second Pokémon is two down.
 \begin{itemize}
 \item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
 \item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
 \end{itemize}
 \inputminted{cpp}{s/moves.h}
-Define types for basic state.
+We need a three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
 State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
-Finally, we need a three-vector for each team pointing into our database of Pokémon and attacks.
-These are readonly following initialization, and global.
 \inputminted{cpp}{s/simul.h}
 Now we'll need a function to determine which moves are viable for each Trainer on a given turn.
 \texttt{sift\_choices()} sets bits of a mask high if they're allowed.
