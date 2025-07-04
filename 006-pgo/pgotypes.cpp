@@ -12830,6 +12830,35 @@ a2cost_to_cgroup(int a2cost){
 }
 
 static const char *
+idx_to_region(int idx){
+  if(idx <= 151){
+    return "Kanto";
+  }else if(idx <= 251){
+    return "Johto";
+  }else if(idx <= 386){
+    return "Hoenn";
+  }else if(idx <= 493){
+    return "Sinnoh";
+  }else if(idx <= 649){
+    return "Unova";
+  }else if(idx <= 721){
+    return "Kalos";
+  }else if(idx <= 807){
+    return "Alola";
+  }else if(idx <= 809){
+    return "Unknown"; // meltan and melmetal
+  }else if(idx <= 898){
+    return "Galar";
+  }else if(idx <= 905){
+    return "Hisui";
+  }else if(idx <= 1025){
+    return "Paldea";
+  }
+  std::cerr << "no region known for idx " << idx << std::endl;
+  return "unknown";
+}
+
+static const char *
 idx_to_generation(int idx){
   if(idx <= 151){
     return "I";
@@ -12845,12 +12874,10 @@ idx_to_generation(int idx){
     return "VI";
   }else if(idx <= 809){
     return "VII";
-  }else if(idx <= 898){
-    return "VIII";
   }else if(idx <= 905){
-    return "IX";
+    return "VIII";
   }else if(idx <= 1025){
-    return "X";
+    return "IX";
   }
   std::cerr << "no generation known for idx " << idx << std::endl;
   return "unknown";
@@ -12867,6 +12894,9 @@ print_previous_species(const species *s){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool vfill){
+  if(vfill){
+    printf("\\pagecolor{O%s}", TNames[s->t1]);
+  }
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
@@ -12946,7 +12976,8 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   print_weathers_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
 
-  printf("CG %d Gen %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx));
+  printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
+          idx_to_region(s->idx));
   if(overzoom){ // evolutionary lineage (only for main forms)
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
