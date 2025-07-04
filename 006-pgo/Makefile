@@ -15,6 +15,7 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 
 UPSTREAM:=$(addsuffix .csv, moves)
+BREAKPOINTS:=out/breakpoints
 SIMUL:=out/s/simul
 FATTACKS:=out/fastattacks
 CATTACKS:=out/chargedattacks
@@ -56,11 +57,13 @@ CP1500:=out/cp1500.tex
 CP2500:=out/cp2500.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
+BREAKPOINTSDAT:=$(BREAKPOINTS).dat
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(PAIRSTEX) \
-	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT)
+	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
+	$(BREAKPOINTSDAT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
