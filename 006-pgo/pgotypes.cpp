@@ -12209,9 +12209,24 @@ static const species sdex[] = {
   //{ 1003, "Ting-Lu", TYPE_DARK, TYPE_GROUND, 194, 203, 321, },
   //{ 1004, "Chi-Yu", TYPE_DARK, TYPE_FIRE, 269, 221, 146, },
   //{ 1005, "Roaring Moon", TYPE_DRAGON, TYPE_DARK, 280, 196, 233, },
-  //{ 1006, "Iron Valiant", TYPE_FAIRY, TYPE_FIGHTING, 279, 171, 179, }
-  //{ 1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, }
+  //{ 1006, "Iron Valiant", TYPE_FAIRY, TYPE_FIGHTING, 279, 171, 179, },
+  //{ 1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, },
+  //{ 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, },
+  //{ 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, },
+  //{ 1010, "Iron Leaves", TYPE_GRASS, TYPE_PSYCHIC, },
+  //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, },
+  //{ 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, },
+  //{ 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, },
+  //{ 1014, "Okidogi", TYPE_POISON, TYPE_FIGHTING, },
+  //{ 1015, "Munkidori", TYPE_POISON, TYPE_PSYCHIC, },
+  //{ 1016, "Fezandipti", TYPE_POISON, TYPE_FAIRY, },
+  //{ 1018, "Archaludon", TYPE_STEEL, TYPE_DRAGON, },
+  //{ 1019, "Hydrapple", TYPE_GRASS, TYPE_DRAGON, },
+  //{ 1020, "Gouging Fire", TYPE_FIRE, TYPE_DRAGON, },
   //{ 1021, "Raging Bolt", TYPE_ELECTRIC, TYPE_DRAGON, },
+  //{ 1022, "Iron Boulder", TYPE_ROCK, TYPE_PSYCHIC, },
+  //{ 1023, "Iron Crown", TYPE_STEEL, TYPE_PSYCHIC, },
+  //{ 1025, "Pecharunt", TYPE_POISON, TYPE_GHOST, },
 };
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
