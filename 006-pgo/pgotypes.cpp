@@ -1,3 +1,4 @@
+#include <map>
 #include <cmath>
 #include <vector>
 #include <string>
@@ -262,6 +263,24 @@ typedef struct attack {
   int energyraid;
   int animdur;           // nx1 animation duration
 } attack;
+
+// either a fast attack with all charged attacks it can be paired with (on some
+// form or another), or a charged attack with all fast attacks yadda yadda.
+class attackset {
+ public:
+  attackset(const attack *a) :
+   A(a) {}
+
+  // add if not already present
+  void add(const attack *paired) {
+    As.try_emplace(paired->name, paired);
+  }
+
+  const attack *A;
+  std::map<std::string, const attack *> As;
+};
+
+using pairmap = std::map<std::string, attackset>;
 
 static const attack ATK_Acid = { "Acid", TYPE_POISON, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };

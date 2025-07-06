@@ -2,24 +2,6 @@
 #include <map>
 #include <iostream>
 
-// either a fast attack with all charged attacks it can be paired with (on some
-// form or another), or a charged attack with all fast attacks yadda yadda.
-class attackset {
- public:
-  attackset(const attack *a) :
-   A(a) {}
-
-  // add if not already present
-  void add(const attack *paired) {
-    As.try_emplace(paired->name, paired);
-  }
-
-  const attack *A;
-  std::map<std::string, const attack *> As;
-};
-
-using pairmap = std::map<std::string, attackset>;
-
 static void
 get_fast_pairs(const species *s, attackset &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
