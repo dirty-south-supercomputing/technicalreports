@@ -83,55 +83,36 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
   return 0;
 }
 
+static void
+print_dbreak_table(pmon *p, pmon *atk, const attack *a){
+  printf("\\begin{table}\\setlength{\\tabcolsep}{.5em}\\footnotesize\\centering\\begin{tabular}{rcccccccccccccccc}\n");
+  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
+  printf("\\Midrule\n");
+  int firstd = -1;
+  for(int ivd = 0 ; ivd < 16 ; ++ivd){
+    printf("%d", ivd);
+    p->s.id = ivd;
+    for(int iva = 0 ; iva < 16 ; ++iva){
+      atk->s.ia = iva;
+      int d = static_cast<int>(calc_damage(atk, p, a));
+      if(firstd < 0){
+        firstd = d;
+      }
+      printf(" & \\textcolor[RGB]{%d,%d,%d}{%d}", 128 + 10 * (d - firstd), 128 + 10 * (firstd - d), 0, d);
+    }
+    printf("\\\\\n");
+  }
+  printf("\\end{tabular}\\caption{%s using %s against %s}\\end{table}\n",
+          atk->s.s->name.c_str(), a->name, p->s.s->name.c_str());
+}
+
 // print the d breakpoints for p
 static void
 print_dbreaks(pmon *p, pmon *atk){
-  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
-  printf("\\Midrule\n");
-  for(int ivd = 0 ; ivd < 16 ; ++ivd){
-    printf("%d", ivd);
-    p->s.id = ivd;
-    for(int iva = 0 ; iva < 16 ; ++iva){
-      atk->s.ia = iva;
-      float d = calc_damage(atk, p, atk->fa);
-      printf(" & %d", static_cast<int>(d));
-    }
-    printf("\\\\\n");
-  }
-  printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
-          atk->s.s->name.c_str(), atk->fa->name, p->s.s->name.c_str());
-  printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
-  printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
-  printf("\\Midrule\n");
-  for(int ivd = 0 ; ivd < 16 ; ++ivd){
-    p->s.id = ivd;
-    printf("%d", ivd);
-    for(int iva = 0 ; iva < 16 ; ++iva){
-      atk->s.ia = iva;
-      float d = calc_damage(atk, p, atk->ca1);
-      printf(" & %d", static_cast<int>(d));
-    }
-    printf("\\\\\n");
-  }
-  printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
-      atk->s.s->name.c_str(), atk->ca1->name, p->s.s->name.c_str());
+  print_dbreak_table(p, atk, atk->fa);
+  print_dbreak_table(p, atk, atk->ca1);
   if(atk->ca2){
-    printf("\\begin{table}\\setlength{\\tabcolsep}{1pt}\\footnotesize\\centering\\begin{tabular}{lcccccccccccccccc}\n");
-    printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
-    printf("\\Midrule\n");
-    for(int ivd = 0 ; ivd < 16 ; ++ivd){
-      p->s.id = ivd;
-      printf("%d", ivd);
-      for(int iva = 0 ; iva < 16 ; ++iva){
-        atk->s.ia = iva;
-        float d = calc_damage(atk, p, atk->ca2);
-        printf(" & %d", static_cast<int>(d));
-      }
-      printf("\\\\\n");
-    }
-    printf("\\end{tabular}\\caption{%s (%s) vs %s}\\end{table}\n",
-        atk->s.s->name.c_str(), atk->ca2->name, p->s.s->name.c_str());
+    print_dbreak_table(p, atk, atk->ca2);
   }
 }
 

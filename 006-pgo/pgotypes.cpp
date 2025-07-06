@@ -13237,7 +13237,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       printf("%c", *curs);
     }
   }
-  printf(".png} &\n\\begin{tabular}{lrrrrr}\n");
+  printf(".png} &\\begingroup\\setlength{\\tabcolsep}{1pt}\\begin{tabular}{lrrrrr}\n");
   for(const attack** a = s->attacks ; *a ; ++a){
     unsigned stab = has_stab_p(s, *a);
     float power = (*a)->powertrain;
@@ -13266,7 +13266,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       }
     }
   }
-  printf("\\end{tabular}\\end{tabularx}\n");
+  printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
   printf("\\noindent\\begin{minipage}{0.7\\linewidth}");
