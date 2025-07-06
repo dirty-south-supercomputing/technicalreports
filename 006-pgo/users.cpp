@@ -33,6 +33,9 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
 
 static void
 print_attack_users(const attack *a){
+  if(a->type != TYPECOUNT){
+    printf("\\pagecolor{%s!50}", TNames[a->type]);
+  }
   bool printed = false;
   printf("\\begin{tcolorbox}[enhanced,title=");
   escape_string(a->name);
@@ -115,7 +118,7 @@ int main(int argc, char **argv){
   }else{
     usage(argv[0]);
   }
-  for(int t = 0 ; t < TYPECOUNT ; ++t){
+  for(int t = 0 ; t <= TYPECOUNT ; ++t){
     unsigned acount = 0;
     for(unsigned aidx = 0 ; aidx < ATTACKCOUNT ; ++aidx){
       const attack *a = attacks[aidx];
