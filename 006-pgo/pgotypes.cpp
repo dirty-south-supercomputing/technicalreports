@@ -12895,7 +12895,7 @@ print_previous_species(const species *s){
 
 void print_species_latex(const species* s, bool overzoom, bool vfill){
   if(vfill){
-    printf("\\pagecolor{O%s}", TNames[s->t1]);
+    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
   }
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
