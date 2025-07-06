@@ -51,7 +51,7 @@ static void type_heterotable(void){
     }
   }
   if(count % 2){
-    printf("&\\\\\n");
+    printf("\\\\\n");
   }
   printf("\\caption{Type-changing evolutions and form changes}");
   printf("\\label{table:heteroevolve}");

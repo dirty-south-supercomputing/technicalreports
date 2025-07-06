@@ -12115,7 +12115,7 @@ static const species sdex[] = {
   {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, NULL, TRUBBISH_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", GARBODOR_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, ZORUA_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
-  {  570, "Hisuian Zorua", TYPE_GHOST, TYPE_NORMAL, 162, 79, 111, NULL, HZORUA_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
+  {  570, "Hisuian Zorua", TYPE_NORMAL, TYPE_GHOST, 162, 79, 111, NULL, HZORUA_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", ZOROARK_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  571, "Hisuian Zoroark", TYPE_NORMAL, TYPE_GHOST, 261, 128, 146, "Hisuian Zorua", HZOROARK_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
   {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, MINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
