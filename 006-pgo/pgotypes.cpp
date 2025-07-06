@@ -12917,9 +12917,6 @@ print_previous_species(const species *s){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool vfill){
-  if(vfill){
-    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
-  }
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
@@ -13035,6 +13032,9 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   // end footnotesize
   printf("}");
   printf("\\end{speciesbox}\n");
+  if(vfill){
+    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
+  }
   if(vfill){
     printf("\\vfill\n");
   }
