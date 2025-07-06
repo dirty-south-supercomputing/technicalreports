@@ -84,8 +84,8 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
 }
 
 static void
-print_dbreak_table(pmon *p, pmon *atk, const attack *a){
-  printf("\\begin{table}\\setlength{\\tabcolsep}{.5em}\\footnotesize\\centering\\begin{tabular}{rcccccccccccccccc}\n");
+print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
+  printf("\\begin{table}\\setlength{\\tabcolsep}{6pt}\\footnotesize\\centering\\begin{tabular}{rcccccccccccccccc}\n");
   printf("$IV_D$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\\\\n");
   printf("\\Midrule\n");
   int firstd = -1;
@@ -102,17 +102,16 @@ print_dbreak_table(pmon *p, pmon *atk, const attack *a){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{%s using %s against %s}\\end{table}\n",
-          atk->s.s->name.c_str(), a->name, p->s.s->name.c_str());
+  printf("\\end{tabular}\\caption{%s using %s against %s}\\label{table:bpoints%d}\\end{table}\n",
+          atk->s.s->name.c_str(), a->name, p->s.s->name.c_str(), tableno);
 }
 
 // print the d breakpoints for p
 static void
 print_dbreaks(pmon *p, pmon *atk){
-  print_dbreak_table(p, atk, atk->fa);
-  print_dbreak_table(p, atk, atk->ca1);
+  print_dbreak_table(p, atk, atk->ca1, 1);
   if(atk->ca2){
-    print_dbreak_table(p, atk, atk->ca2);
+    print_dbreak_table(p, atk, atk->ca2, 2);
   }
 }
 

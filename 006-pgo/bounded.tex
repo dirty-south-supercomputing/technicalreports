@@ -169,14 +169,24 @@ Similarly to an unbounded contest, we can assume that a rational opponent is sel
 \label{sec:breakpoints}
 Should you have (or believe you have) a good idea of what you'll be going up against,
  breakpoint analysis is a powerful tool.
-Essentially, we want to model the relationship between opponents' potential $Eff_D$
- stats and our potential $Eff_A$ \textbf{FIXME exact stat from earlier equations}.
-Due to the floor function used in the damage equation, damage inflicted is typically
- staggered across these values.
+Essentially, we want to model the relationship between two Pokémons' $Eff_D$
+ and $Eff_A$ \textbf{FIXME exact stat from earlier equations}.
+Alternately, we want to model damage inflicted against MHP.
+Using this information, we can perhaps choose more optimal IVs and levels for a given CP bound.
+Of course, this is only as useful as the accuracy of our information, and how narrow a set of opponents it specifies.
+
+In \autoref{table:bpoints1} and \autoref{table:bpoints2}, we see level 50 Clodsire
+  employing two charged attacks against level 50 Sawk.
+Columns correspond to different $IV_A$ for Clodsire, and rows to different $IV_D$ for Sawk.
+The spread of damage is greater for Earthquake than Megahorn (16 versus 9), a ratio
+  of 1.\textoverline{7}, significantly more than the ratio of Earthquake (with STAB)
+  to Megahorn (1.2).
+I haven't included a table for fast attack, as it deals damage of 2 for all combinations of IVs.
+
 \textbf{FIXME}
 \input{out/breakpoints}
 
-\section{Working under type restrictions}
+\section{Type restrictions}
 \label{sec:typeleagues}
 A common variation on the usual Leagues is a type restriction.
 The summer of 2025 features the ``Fossil Cup'', wherein all competing
