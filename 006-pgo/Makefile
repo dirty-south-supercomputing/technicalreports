@@ -44,7 +44,8 @@ FUSERSTEX:=$(OUT)/fastusers.tex
 CUSERSTEX:=$(OUT)/chargedusers.tex
 ATKTYPESTEX:=out/attacktypes.tex
 SPECIESTEX:=out/species.tex
-PAIRSTEX:=$(PAIRS).tex
+FPAIRSTEX:=$(OUT)/fpairs.tex
+CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=out/mega.tex
 FUSEDTEX:=$(OUT)/fused.tex
 DYNATEX:=out/dynas.tex
@@ -61,9 +62,9 @@ BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
-	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(PAIRSTEX) \
+	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
-	$(BREAKPOINTSDAT)
+	$(BREAKPOINTSDAT) $(FPAIRSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
@@ -130,6 +131,14 @@ $(OUT)/dynas.tex: $(OUT)/forms
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) gigantamax > $@
+
+$(FPAIRSTEX): $(PAIRS)
+	@mkdir -p $(@D)
+	$(<) fast > $@
+
+$(CPAIRSTEX): $(PAIRS)
+	@mkdir -p $(@D)
+	$(<) charged > $@
 
 $(OUT)/graphs/%.png: $(OUT)/graphs/%.plg
 	@mkdir -p $(@D)
