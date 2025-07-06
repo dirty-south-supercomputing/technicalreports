@@ -1,5 +1,4 @@
-deathmarch (T1, T2, D1, D2, H1, H2)
-               → {p1wins, p2wins, ties}
+deathmarch (T1, T2, D1, D2, H1, H2) → {p1wins, p2wins, ties}
 if T1 < T2
   if T1 > 0 // conclude p1's attack
     H2 -= D1

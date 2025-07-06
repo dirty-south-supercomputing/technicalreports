@@ -36,7 +36,7 @@ print_attack_users(const attack *a){
   bool printed = false;
   printf("\\begin{tcolorbox}[enhanced,title=");
   escape_string(a->name);
-  printf(",colbacktitle=%s,fonttitle=\\bfseries,before title={",
+  printf(",colbacktitle=%s!50!white,fonttitle=\\bfseries,before title={",
           a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   print_type(a->type);
   printf(" ");

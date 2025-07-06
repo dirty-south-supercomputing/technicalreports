@@ -98,7 +98,8 @@ print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
       if(firstd < 0){
         firstd = d;
       }
-      printf(" & \\textcolor[RGB]{%d,%d,%d}{%d}", 128 + 10 * (d - firstd), 128 + 10 * (firstd - d), 0, d);
+      printf(" & \\textcolor[RGB]{%d,%d,%d}{%d}", 128 + 14 * (d - firstd),
+              128 + 14 * (firstd - d), 128 + 14 * (firstd - d), d);
     }
     printf("\\\\\n");
   }
