@@ -1,7 +1,6 @@
 #include "pgotypes.cpp"
-#include <vector>
+#include <map>
 #include <iostream>
-#include <unordered_map>
 
 // either a fast attack with all charged attacks it can be paired with (on some
 // form or another), or a charged attack with all fast attacks yadda yadda.
@@ -12,20 +11,17 @@ class attackset {
 
   // add if not already present
   void add(const attack *paired) {
-    if(std::find(As.begin(), As.end(), paired) == As.end()){
-      std::cout << "adding " << paired->name << std::endl;
-      As.emplace_back(paired);
-    }
+    As.try_emplace(paired->name, paired);
   }
 
   const attack *A;
-  std::vector<const attack *> As;
+  std::map<std::string, const attack *> As;
 };
 
-using pairmap = std::unordered_map<const char *, attackset>;
+using pairmap = std::map<std::string, attackset>;
 
 static void
-get_fast_pairs(const species *s, const attack *fast, attackset &pairs){
+get_fast_pairs(const species *s, attackset &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain < 0){
@@ -40,7 +36,7 @@ get_fast_attack_pairs(const species *s, pairmap &pairs){
     const attack *a = *as;
     if(a->energytrain > 0){ // fast attack
       auto &p = *pairs.try_emplace(a->name, a).first;
-      get_fast_pairs(s, a, p.second);
+      get_fast_pairs(s, p.second);
     }
   }
 }
@@ -54,7 +50,7 @@ get_fast_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
 }
 
 static void
-get_charged_pairs(const species *s, const attack *charged, attackset &pairs){
+get_charged_pairs(const species *s, attackset &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain > 0){
@@ -69,7 +65,7 @@ get_charged_attack_pairs(const species *s, pairmap &pairs){
     const attack *a = *as;
     if(a->energytrain < 0){ // charged attack
       auto &p = *pairs.try_emplace(a->name, a).first;
-      get_charged_pairs(s, a, p.second);
+      get_charged_pairs(s, p.second);
     }
   }
 }
@@ -105,9 +101,10 @@ int main(int argc, const char **argv){
   }
   for(const auto &a : pairs){
     std::cout << a.second.A->name << ": " << a.second.As.size() << std::endl;
-    for(const auto p : a.second.As){
-      std::cout << " " << p->name << std::endl;
+    for(const auto &p : a.second.As){
+      std::cout << " " << p.second->name;
     }
+    std::cout << std::endl;
   }
   return EXIT_SUCCESS;
 }
