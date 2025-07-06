@@ -13269,10 +13269,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
-  printf("\\noindent\\begin{minipage}{0.7\\linewidth}");
-  print_optimal_latex(s);
-  printf("\\end{minipage}");
-  printf("\\begin{minipage}{0.3\\linewidth}\\raggedleft{}");
+  printf("\\noindent\\begin{minipage}{0.3\\linewidth}");
   print_types_big(s->t1, s->t2);
   printf("\\\\");
   if(s->category == species::CAT_ULTRABEAST){
@@ -13289,6 +13286,10 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   }
   print_weathers_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
+  printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
+  printf("\\vfill{}");
+  print_optimal_latex(s);
+  printf("\\end{minipage}");
 
   printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
           idx_to_region(s->idx));

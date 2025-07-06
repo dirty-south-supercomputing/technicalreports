@@ -30,15 +30,15 @@ void print_latex_table(const attack* as, unsigned ccount){
     if(a->type != TYPECOUNT){
       printf("\\includegraphics[width=1em,height=1em]{images/%s.png} ", TNames[a->type]);
     }
-    printf("%s & %u & %g & %d & %.2f & %.3g & ", a->name,
+    printf("%s & %u & %g & %d & %.2f & %.3g &", a->name,
             a->powertrain, (a->powertrain * 6.0) / 5,
             -a->energytrain,
             a->powertrain / (float)-a->energytrain,
             (a->powertrain * 6.0) / (-a->energytrain * 5.0));
     if(!strcmp(a->name, "Frustration")){
-      printf("\\footnote{Frustration is known by default to all Shadow Pokémon.}");
-    }if(!strcmp(a->name, "Return")){
-      printf("\\footnote{Return is known by default to all Purified Pokémon.}");
+      printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
+    }else if(!strcmp(a->name, "Return")){
+      printf("*\\footnote{Return is known by default to all Purified Pokémon.}");
     }else{
       printf("%u", learner_count(a));
     }

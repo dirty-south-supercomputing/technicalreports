@@ -1,17 +1,29 @@
 #include "pgotypes.cpp"
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 
-// get all viable pairs of fast attack + charged attack
-// (i.e., someone can learn both)
-// and calculate those pairs' properties
+// either a fast attack with all charged attacks it can be paired with (on some
+// form or another), or a charged attack with all fast attacks yadda yadda.
 class attackpair {
-  attackpair() {
+  attackpair(const attack *a) :
+   A(a) {}
+
+  // add if not already present
+  void add(const attack *paired) {
+    if(std::find(As.begin(), As.end(), paired) == As.end()){
+      As.emplace_back(paired);
+    }
   }
+
+  const attack *A;
+  std::vector<const attack *> As;
 };
 
+using pairmap = std::unordered_map<const char *, std::vector<attackpair>>;
+
 static void
-get_pairs(const species *s, const attack *fast, std::vector<attackpair> &pairs){
+get_fast_pairs(const species *s, const attack *fast, std::vector<attackpair> &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain < 0){
@@ -21,28 +33,75 @@ get_pairs(const species *s, const attack *fast, std::vector<attackpair> &pairs){
 }
 
 static void
-get_attack_pairs(const species *s, std::vector<attackpair> &pairs){
+get_fast_attack_pairs(const species *s, pairmap &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
-    if(a->energytrain > 0){
-      get_pairs(s, a, pairs);
+    if(a->energytrain > 0){ // fast attack
+      std::vector<attackpair> ap;
+      auto &p = *pairs.try_emplace(a->name, ap).first;
+      get_fast_pairs(s, a, p.second);
     }
   }
 }
 
 static void
-get_attack_pairs_dex(const spokedex &sd, std::vector<attackpair> &pairs){
+get_fast_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
   for(unsigned i = 0 ; i < sd.dcount ; ++i){
     const species *s = &sd.dex[i];
-    get_attack_pairs(s, pairs);
+    get_fast_attack_pairs(s, pairs);
   }
 }
 
-int main(void){
-  std::vector<attackpair> pairs;
-  for(const auto &sdex : sdexen){
-    get_attack_pairs_dex(sdex, pairs);
+static void
+get_charged_pairs(const species *s, const attack *charged, std::vector<attackpair> &pairs){
+  for(const attack **as = s->attacks ; *as ; ++as){
+    const attack *a = *as;
+    if(a->energytrain > 0){
+      std::cout << charged->name << ":" << a->name << std::endl;
+    }
   }
-  // FIXME
+}
+
+static void
+get_charged_attack_pairs(const species *s, pairmap &pairs){
+  for(const attack **as = s->attacks ; *as ; ++as){
+    const attack *a = *as;
+    if(a->energytrain < 0){ // charged attack
+      std::vector<attackpair> ap;
+      auto &p = *pairs.try_emplace(a->name, ap).first;
+      get_charged_pairs(s, a, p.second);
+    }
+  }
+}
+
+static void
+get_charged_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
+  for(unsigned i = 0 ; i < sd.dcount ; ++i){
+    const species *s = &sd.dex[i];
+    get_charged_attack_pairs(s, pairs);
+  }
+}
+
+static void usage(const char *argv0){
+  std::cerr << "usage: " << argv0 << " fast | charged" << std::endl;
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, const char **argv){
+  pairmap pairs;
+  if(argc != 2){
+    usage(argv[0]);
+  }
+  if(!strcmp(argv[1], "fast")){
+    for(const auto &sdex : sdexen){
+      get_fast_attack_pairs_dex(sdex, pairs);
+    }
+  }else if(!strcmp(argv[1], "charged")){
+    for(const auto &sdex : sdexen){
+      get_charged_attack_pairs_dex(sdex, pairs);
+    }
+  }else{
+    usage(argv[0]);
+  }
   return EXIT_SUCCESS;
 }
