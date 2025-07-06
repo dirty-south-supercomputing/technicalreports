@@ -12204,6 +12204,14 @@ static const species sdex[] = {
   {  998, "Baxcalibur", TYPE_DRAGON, TYPE_ICE, 254, 168, 229, "Arctibax", BAXCALIBUR_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, NULL, GIMMIGHOUL_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   { 1000, "Gholdengo", TYPE_STEEL, TYPE_GHOST, 252, 190, 202, "Gimmighoul", GHOLDENGO_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
+  //{ 1001, "Wo-Chien", TYPE_DARK, TYPE_GRASS, 186, 242, 198, },
+  //{ 1002, "Chien-Pao", TYPE_DARK, TYPE_ICE, 261, 167, 190, },
+  //{ 1003, "Ting-Lu", TYPE_DARK, TYPE_GROUND, 194, 203, 321, },
+  //{ 1004, "Chi-Yu", TYPE_DARK, TYPE_FIRE, 269, 221, 146, },
+  //{ 1005, "Roaring Moon", TYPE_DRAGON, TYPE_DARK, 280, 196, 233, },
+  //{ 1006, "Iron Valiant", TYPE_FAIRY, TYPE_FIGHTING, 279, 171, 179, }
+  //{ 1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, }
+  //{ 1021, "Raging Bolt", TYPE_ELECTRIC, TYPE_DRAGON, },
 };
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
