@@ -38,7 +38,7 @@ void print_latex_table(const attack* as, unsigned ccount){
     if(!strcmp(a->name, "Frustration")){
       printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
-      printf("*\\footnote{Return is known by default to all Purified Pokémon.}");
+      printf("*\\footnote{Return is known by default to all Purified Pokémon (it's OK).}");
     }else{
       printf("%u", learner_count(a));
     }

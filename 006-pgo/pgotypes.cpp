@@ -12976,6 +12976,7 @@ print_halflevel(unsigned hlevel){
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false);
   bool printed = false;
+  printf("\\hfill{}");
   while(s){
     stats* tmp = s->next;
     if(!printed){
@@ -12989,7 +12990,7 @@ void print_optimal_latex(const species* sp){
     s = tmp;
   }
   s = find_optimal_set(sp, 1500, 0, false);
-  printf("\\newline{}");
+  printf("\\newline{}\\hfill{}");
   printed = false;
   while(s){
     stats* tmp = s->next;
@@ -13237,7 +13238,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       printf("%c", *curs);
     }
   }
-  printf(".png} &\\begingroup\\setlength{\\tabcolsep}{1pt}\\begin{tabular}{lrrrrr}\n");
+  printf(".png} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
   for(const attack** a = s->attacks ; *a ; ++a){
     unsigned stab = has_stab_p(s, *a);
     float power = (*a)->powertrain;
@@ -13289,7 +13290,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
   printf("\\vfill{}");
   print_optimal_latex(s);
-  printf("\\end{minipage}");
+  printf("\\end{minipage}\\\\");
 
   printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
           idx_to_region(s->idx));
@@ -13308,6 +13309,8 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
         escape_string(evol->name.c_str());
         evol = get_persistent_evolution(evol);
       }
+    }else{
+      printf("No evolution");
     }
   }
 
