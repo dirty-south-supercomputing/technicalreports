@@ -3443,11 +3443,31 @@ static const attack* ZORUA_ATKS[] = {
   NULL
 };
 
+static const attack* HZORUA_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
+  &ATK_Night_Shade,
+  &ATK_Foul_Play,
+  NULL
+};
+
 static const attack* ZOROARK_ATKS[] = {
   &ATK_Shadow_Claw,
   &ATK_Snarl,
   &ATK_Flamethrower,
   &ATK_Sludge_Bomb,
+  &ATK_Night_Shade,
+  &ATK_Foul_Play,
+  NULL
+};
+
+static const attack* HZOROARK_ATKS[] = {
+  &ATK_Scratch,
+  &ATK_Snarl,
+  &ATK_Dark_Pulse,
+  &ATK_Shadow_Ball,
   &ATK_Night_Shade,
   &ATK_Foul_Play,
   NULL
@@ -12095,7 +12115,9 @@ static const species sdex[] = {
   {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, NULL, TRUBBISH_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish", GARBODOR_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, NULL, ZORUA_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  570, "Hisuian Zorua", TYPE_GHOST, TYPE_NORMAL, 162, 79, 111, NULL, HZORUA_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua", ZOROARK_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  571, "Hisuian Zoroark", TYPE_NORMAL, TYPE_GHOST, 261, 128, 146, "Hisuian Zorua", HZOROARK_ATKS, false, false, {}, species::CAT_NORMAL, 75, },
   {  572, "Minccino", TYPE_NORMAL, TYPECOUNT, 98, 80, 146, NULL, MINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  573, "Cinccino", TYPE_NORMAL, TYPECOUNT, 198, 130, 181, "Minccino", CINCCINO_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
   {  574, "Gothita", TYPE_PSYCHIC, TYPECOUNT, 98, 112, 128, NULL, GOTHITA_ATKS, true, true, {}, species::CAT_NORMAL, 50, },
