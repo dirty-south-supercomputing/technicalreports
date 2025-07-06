@@ -36,9 +36,6 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
       printf("\\\\\n");
     }
   }
-  if(*pcount % 2){
-    printf("&\\\\\n");
-  }
   return 0;
 }
 
@@ -52,6 +49,9 @@ static void type_heterotable(void){
     if(print_hetero_evols(dex.dex, dex.dcount, &count)){
       exit(EXIT_FAILURE);
     }
+  }
+  if(count % 2){
+    printf("&\\\\\n");
   }
   printf("\\caption{Type-changing evolutions and form changes}");
   printf("\\label{table:heteroevolve}");
@@ -83,9 +83,6 @@ print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
       printf("\\\\\n");
     }
   }
-  if(*pcount % 2){
-    printf("&\\\\\n");
-  }
   return 0;
 }
 
@@ -99,6 +96,9 @@ static void cost_heterotable(void){
     if(print_hetero_costs(dex.dex, dex.dcount, &count)){
       exit(EXIT_FAILURE);
     }
+  }
+  if(count % 2){
+    printf("&\\\\\n");
   }
   printf("\\caption{Evolutions that change cost group}");
   printf("\\label{table:heterocost}");
