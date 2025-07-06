@@ -5,13 +5,15 @@
 
 // either a fast attack with all charged attacks it can be paired with (on some
 // form or another), or a charged attack with all fast attacks yadda yadda.
-class attackpair {
-  attackpair(const attack *a) :
+class attackset {
+ public:
+  attackset(const attack *a) :
    A(a) {}
 
   // add if not already present
   void add(const attack *paired) {
     if(std::find(As.begin(), As.end(), paired) == As.end()){
+      std::cout << "adding " << paired->name << std::endl;
       As.emplace_back(paired);
     }
   }
@@ -20,14 +22,14 @@ class attackpair {
   std::vector<const attack *> As;
 };
 
-using pairmap = std::unordered_map<const char *, std::vector<attackpair>>;
+using pairmap = std::unordered_map<const char *, attackset>;
 
 static void
-get_fast_pairs(const species *s, const attack *fast, std::vector<attackpair> &pairs){
+get_fast_pairs(const species *s, const attack *fast, attackset &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain < 0){
-      std::cout << fast->name << ":" << a->name << std::endl;
+      pairs.add(a);
     }
   }
 }
@@ -37,8 +39,7 @@ get_fast_attack_pairs(const species *s, pairmap &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain > 0){ // fast attack
-      std::vector<attackpair> ap;
-      auto &p = *pairs.try_emplace(a->name, ap).first;
+      auto &p = *pairs.try_emplace(a->name, a).first;
       get_fast_pairs(s, a, p.second);
     }
   }
@@ -53,11 +54,11 @@ get_fast_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
 }
 
 static void
-get_charged_pairs(const species *s, const attack *charged, std::vector<attackpair> &pairs){
+get_charged_pairs(const species *s, const attack *charged, attackset &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain > 0){
-      std::cout << charged->name << ":" << a->name << std::endl;
+      pairs.add(a);
     }
   }
 }
@@ -67,8 +68,7 @@ get_charged_attack_pairs(const species *s, pairmap &pairs){
   for(const attack **as = s->attacks ; *as ; ++as){
     const attack *a = *as;
     if(a->energytrain < 0){ // charged attack
-      std::vector<attackpair> ap;
-      auto &p = *pairs.try_emplace(a->name, ap).first;
+      auto &p = *pairs.try_emplace(a->name, a).first;
       get_charged_pairs(s, a, p.second);
     }
   }
@@ -102,6 +102,12 @@ int main(int argc, const char **argv){
     }
   }else{
     usage(argv[0]);
+  }
+  for(const auto &a : pairs){
+    std::cout << a.second.A->name << ": " << a.second.As.size() << std::endl;
+    for(const auto p : a.second.As){
+      std::cout << " " << p->name << std::endl;
+    }
   }
   return EXIT_SUCCESS;
 }
