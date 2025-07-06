@@ -13212,7 +13212,7 @@ print_previous_species(const species *s){
 void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
-  printf(",title style={color=%s!50!%s},fonttitle=\\bfseries,after title={",
+  printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   if(s->shiny){
     printf("\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
@@ -13326,8 +13326,7 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   printf("}");
   printf("\\end{speciesbox}\n");
   if(vfill){
-    printf("\\pagecolor{%s!50!%s!50!white}",
-          TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
+    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
   }
   if(vfill){
     printf("\\vfill\n");
