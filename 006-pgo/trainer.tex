@@ -80,7 +80,9 @@ Level & MXP & ΔMXP & Special requirements \\
                         3 GO Rocket Leader wins with CP2500-bounded teams,
                         Rank 10 in GO Battle League\\
 \end{tabular}
-\caption{Requirements for Trainer Levels 41--50}
+\caption[Requirements for Trainer Levels 41--50]{Requirements for Trainer Levels 41--50.
+   Only the medal requirements take prior achievements into account; everything else
+   must be accomplished after the challenge has been unlocked.}
 \label{table:xp41plus}
 \end{table}
 Certain elements of gameplay are gated by Trainer Level (\autoref{table:levelgates}),
@@ -299,8 +301,8 @@ Those willing to spend money can speed the process up a bit, but there's
   no escaping the fundamental cycles of Catch, Appraise, Transfer and
   Catch, Appraise, Develop. 
 I began playing on 2025-03-01.
-As I write this about four months later, I have caught 20,364 Pokémon, of which
-  I have retained 441---a little less than 2.2\%.
+As I write this about four months later, I have caught 24,545 Pokémon, of which
+  I have retained 441---a little less than 1.8\%.
 
 \subsection{Grinding Pokémon}
 \label{subsec:getmons}
@@ -568,8 +570,58 @@ I like to have at least a third of my Bag and Pokémon storage free.
 
 \section{Medals}
 \label{sec:medals}
-A large set of Medals can be achieved at the Bronze, Silver, Gold, or Platinum level.
-Most are functionally useless.
+A large set of Medals can be achieved at the Bronze, Silver, Gold, or Platinum level (\autoref{table:medals}).
+The vast majority are functionally useless, though several levels beyond 40 require earning
+  Platinum medals (\autoref{table:xp41plus}).
+The ``Hero'' and ``Purifier'' medals result in additional Premier Balls (\autoref{sec:catch})
+  when rescuing Shadow Pokémon---1, 2, 3, or 4 extra balls for each tier of each medal.
+Medals associated with catching Pokémon of a type give capture rate bonuses of 10\%, 20\%, 30\%, and 40\%.
+Catching a dualtyped Pokémon advances both associated medals.
+When encountering a dualtyped Pokémon, the catch bonus is averaged between the two relevant medals.
+Bronze requires 10 catches, silver 50, gold 200, and platinum 2,500.
+\begin{table}
+\centering
+\begin{tabular}{ll|ll}
+  Medal & Type & Medal & Type\\
+  \Midrule
+  Bug Catcher & Bug & Gardener & Grass\\
+  Delinquent & Dark & Ruin Maniac & Ground\\
+  Dragon Tamer & Dragon & Skier & Ice\\
+  Rocker & Electric & Schoolkid & Normal\\
+  Fairy-Tale Girl & Fairy & Punk Girl & Poison\\
+  Black Belt & Fighting & Psychic & Psychic\\
+  Kindler & Fire & Hiker & Rock\\
+  Bird Keeper & Flying & Rail Staff & Steel\\
+  Hex Maniac & Ghost & Swimmer & Water\\
+\end{tabular}
+\caption{Medals with catch bonuses}
+\label{table:medalcatch}
+\end{table}
+The ``Elite Collector'' medal is inscribed with the number of Collection
+  Challenges completed (\autoref{sec:research}), and is always gold.
+Each region (\autoref{sec:regions}) has an associated medal (\autoref{table:regionmedals}) for filling
+  in its primary Pokédex (\autoref{sec:dexen}).
+\begin{table}
+\centering
+\begin{tabular}{lrrrr}
+  Region & Bronze & Silver & Gold & Platinum\\
+  \Midrule
+  Kanto & 5 & 50 & 100 & 151\\
+  Johto & 5 & 30 & 70 & 100\\
+  Hoenn & 5 & 40 & 90 & 135\\
+  Sinnoh & 5 & 30 & 80 & 107\\
+  Unova & 5 & 50 & 100 & 156\\
+  Kalos & 5 & 25 & 50 & 72\\
+  Alola & 5 & 25 & 50 & 86\\
+  Galar & 5 & 25 & 50 & 89\\
+  Hisui & 1 & 3 & 5 & 7\\
+  Paldea & 5 & 30 & 80 & 103\\
+\end{tabular}
+\caption{Regional Pokédex medals}
+\label{table:regionmedals}
+\end{table}
+For Vivillon medal details, see \autoref{subsec:vivillon}.
+There are a great many event-specific medals, which I won't cover here.
 \begingroup
 \setlength{\tabcolsep}{1pt}
 \footnotesize
@@ -625,55 +677,6 @@ Life of the Party & Party challenges completed & 10 & 50 & 100 & 200\\
 \label{table:medals}
 \end{longtable}
 \endgroup
-The ``Hero'' and ``Purifier'' medals result in additional Premier Balls (\autoref{sec:catch})
-  when rescuing Shadow Pokémon---1, 2, 3, or 4 extra balls for each tier of each medal.
-The ``Elite Collector'' medal is inscribed with the number of Collection
-  Challenges completed (\autoref{sec:research}), and is always gold.
-Each region (\autoref{sec:regions}) has an associated medal (\autoref{table:regionmedals}) for filling
-  in its primary Pokédex (\autoref{sec:dexen}).
-\begin{table}
-\centering
-\begin{tabular}{lrrrr}
-  Region & Bronze & Silver & Gold & Platinum\\
-  \Midrule
-  Kanto & 5 & 50 & 100 & 151\\
-  Johto & 5 & 30 & 70 & 100\\
-  Hoenn & 5 & 40 & 90 & 135\\
-  Sinnoh & 5 & 30 & 80 & 107\\
-  Unova & 5 & 50 & 100 & 156\\
-  Kalos & 5 & 25 & 50 & 72\\
-  Alola & 5 & 25 & 50 & 86\\
-  Galar & 5 & 25 & 50 & 89\\
-  Hisui & 1 & 3 & 5 & 7\\
-  Paldea & 5 & 30 & 80 & 103\\
-\end{tabular}
-\caption{Regional Pokédex medals}
-\label{table:regionmedals}
-\end{table}
-Certain medals associated with catching Pokémon of a type give capture rate bonuses of 10\%, 20\%, 30\%, and 40\%.
-Catching a dualtyped Pokémon advances both associated medals.
-When encountering a dualtyped Pokémon, the catch bonus is averaged between the two relevant medals.
-Bronze requires 10 catches, silver 50, gold 200, and platinum 2,500.
-\begin{table}
-\centering
-\begin{tabular}{ll|ll}
-  Medal & Type & Medal & Type\\
-  \Midrule
-  Bug Catcher & Bug & Gardener & Grass\\
-  Delinquent & Dark & Ruin Maniac & Ground\\
-  Dragon Tamer & Dragon & Skier & Ice\\
-  Rocker & Electric & Schoolkid & Normal\\
-  Fairy-Tale Girl & Fairy & Punk Girl & Poison\\
-  Black Belt & Fighting & Psychic & Psychic\\
-  Kindler & Fire & Hiker & Rock\\
-  Bird Keeper & Flying & Rail Staff & Steel\\
-  Hex Maniac & Ghost & Swimmer & Water\\
-\end{tabular}
-\caption{Medals with catch bonuses}
-\label{table:medalcatch}
-\end{table}
-For Vivillon medal details, see \autoref{subsec:vivillon}.
-There are a great many event-specific medals, which I won't cover here.
 
 \section{Research}
 \label{sec:research}
