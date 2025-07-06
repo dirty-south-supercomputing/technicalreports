@@ -33,14 +33,11 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
 
 static void
 print_attack_users(const attack *a){
-  if(a->type != TYPECOUNT){
-    printf("\\pagecolor{%s!50}", TNames[a->type]);
-  }
   bool printed = false;
   printf("\\begin{tcolorbox}[enhanced,title=");
   escape_string(a->name);
   printf(",colbacktitle=%s,fonttitle=\\bfseries,before title={",
-          a->type == TYPECOUNT ? "White" : TNames[a->type]);
+          a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   print_type(a->type);
   printf(" ");
   printf("},after title={");
@@ -79,6 +76,9 @@ print_attack_users(const attack *a){
           a->chance_opp_defense / 10.0, a->opp_defense);
   }
   printf("\n\\end{tcolorbox}\n");
+  if(a->type != TYPECOUNT){
+    printf("\\pagecolor{%s!50}", TNames[a->type]);
+  }
 }
 
 static void
