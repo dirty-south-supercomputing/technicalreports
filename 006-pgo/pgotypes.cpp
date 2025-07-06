@@ -13226,10 +13226,12 @@ print_previous_species(const species *s){
     print_previous_species(devol);
   }
   escape_string(s->name.c_str());
-  printf(" → ");
+  printf(" (\\pageref{species:");
+  label_string(s->name.c_str());
+  printf("}) → ");
 }
 
-void print_species_latex(const species* s, bool overzoom, bool vfill){
+void print_species_latex(const species* s, bool overzoom, bool bg){
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},fonttitle=\\bfseries,after title={",
@@ -13306,14 +13308,14 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   }
   print_weathers_big(s->t1, s->t2);
   printf("\\end{minipage}\n");
-  printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
-  printf("\\vfill{}");
-  print_optimal_latex(s);
-  printf("\\end{minipage}\\\\");
+  if(bg){ // evolutionary lineage (only for main forms)
+    printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
+    printf("\\vfill{}");
+    print_optimal_latex(s);
+    printf("\\end{minipage}\\\\");
 
-  printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
-          idx_to_region(s->idx));
-  if(overzoom){ // evolutionary lineage (only for main forms)
+    printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
+            idx_to_region(s->idx));
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
@@ -13326,6 +13328,9 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
       while(evol){
         printf(" → ");
         escape_string(evol->name.c_str());
+        printf(" (\\pageref{species:");
+        label_string(s->name.c_str());
+        printf("})");
         evol = get_persistent_evolution(evol);
       }
     }else{
@@ -13348,12 +13353,10 @@ void print_species_latex(const species* s, bool overzoom, bool vfill){
   // end footnotesize
   printf("}");
   printf("\\end{speciesbox}\n");
-  if(vfill){
-    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
+  if(bg){
+    printf("\\pagecolor{%s!75!white}", TNames[s->t1]);
   }
-  if(vfill){
-    printf("\\vfill\n");
-  }
+  printf("\\vfill\n");
 }
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
