@@ -74,9 +74,8 @@ print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
     if(from->a2cost == s->a2cost){
       continue;
     }
-    printf(" %s", from->name.c_str());
-    printf(" → ");
-    printf(" %s ", s->name.c_str());
+    printf("%s → %s & %d → %d", from->name.c_str(), s->name.c_str(),
+        a2cost_to_cgroup(from->a2cost), a2cost_to_cgroup(s->a2cost));
     if(++*pcount % 2){
       printf(" & ");
     }else{
@@ -87,11 +86,10 @@ print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
 }
 
 static void cost_heterotable(void){
-  printf("\\begingroup");
-  printf("\\footnotesize");
-  printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
+  printf("\\begin{table}\\footnotesize");
+  printf("\\begin{tabular}{lr|lr}");
   unsigned count = 0;
-  puts("Evolution & Evolution\\\\\\Midrule");
+  puts("Evolution & Change & Evolution & Change\\\\\\Midrule");
   for(const auto &dex : sdexen){
     if(print_hetero_costs(dex.dex, dex.dcount, &count)){
       exit(EXIT_FAILURE);
@@ -100,10 +98,10 @@ static void cost_heterotable(void){
   if(count % 2){
     printf("&\\\\\n");
   }
+  printf("\\end{tabular}");
   printf("\\caption{Evolutions that change cost group}");
   printf("\\label{table:heterocost}");
-  printf("\\end{longtable}");
-  printf("\\endgroup");
+  printf("\\end{table}");
 }
 
 // print a latex table of evolutions which change types
