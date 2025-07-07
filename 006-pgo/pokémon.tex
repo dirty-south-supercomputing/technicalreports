@@ -281,15 +281,10 @@ MHP is defined such that it is always a positive integer:
 The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).
-Most are self-evident: \texttt{lucky}, \texttt{shiny}, \texttt{traded}, \texttt{purified},
-  \texttt{shadow}, \texttt{mythical}, and \texttt{legendary} do exactly
-  what you'd think.
-Identify Pokémon in gyms with \texttt{defender}.
-\texttt{hatched} matches Pokémon originally hatched from eggs,
- and \texttt{eggsonly} those Pokémon that can only be found
- as hatchlings.
-Costumed Pokémon from special events are matched by \texttt{costume}.
-Searching for a type will show any Pokémon with that type in their typing.
+Most are self-evident.
+Searching for a type will show any Pokémon with that type in their typing,
+ \texttt{<type} matches Pokémon weak against \texttt{type},
+ and \texttt{>type} those strong against it.
 \texttt{x*} for \texttt{x} between 0 and 4 matches Pokémon with that appraisal.
 \texttt{favorite} matches those marked ``favorite'' using a star system that
  seems like it could have handled in the general tagging system just fine
@@ -307,7 +302,7 @@ Be more specific with \texttt{@xTYPE} for \texttt{x} between 1 and 3 to check
 \texttt{cpNUM} and \texttt{hpNUM} match exactly \texttt{NUM} CP and HP\footnote{Niantic's claim
   that these can be suffixed with '-' to do a ceiling match seems false.};
   \texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support.
-Union over searches is accomplished with the infix ';' operator,
+Union over searches is accomplished with the infix ';' operator (',' and ':' are synonyms),
   and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND. I say ``oddly'' because it means OR everywhere else.
   Except the UNIX shell, where it means ``pipe''.
   And set theory for intensional comprehensions.
@@ -315,4 +310,38 @@ Union over searches is accomplished with the infix ';' operator,
   And the bra-ket notation of quantum mechanics.
   OK, it doesn't mean OR everywhere, but that doesn't mean you start using it for goddamn intersection.}.
 It does not seem possible to search for regional forms using substrings,
- e.g.\ a search for ``alolan'' does not bring up my Alolan Exeggutor.
+ e.g.\ a search for ``alolan'' does not bring up my Alolan Exeggutor,
+ but each region is itself a search keyword.
+\begin{table}
+\centering
+\begin{tabular}{ll|ll}
+  Keyword & Matches & Keyword & Matches\\
+\Midrule
+background & Special background\\
+candyxl & Level 40 and above\\
+costume & Costumed event form\\
+defender & In a gym\\
+eggsonly & Baby Pokémon\\
+female & Females\\
+genderunknown & Ungendered\\
+hatched & Obtained from egg\\
+legendary & Legendary\\
+lucky & Lucky Pokémon\\
+male & Males\\
+mythical & Mythical\\
+purified & Purified Pokémon\\
+research & Obtained in research\\
+rocket & Rescued from Team GO Rocket\\
+shadow & Unpurified Shadow Pokémon\\
+shiny & Shiny Pokémon\\
+special & Elite move(s)\\
+traded & Acquired via trade\\
+ultra beasts & Ultra Beasts\\
+xl & Extra large\\
+xs & Extra small\\
+xxl & Extra extra large\\
+xxs & Extra extra small\\
+\end{tabular}
+\caption{Search terms for Pokémon storage/Pokédex}
+\label{table:searchterms}
+\end{table}
