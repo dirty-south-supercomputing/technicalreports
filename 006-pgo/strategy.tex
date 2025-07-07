@@ -12,10 +12,10 @@ A Pokémon can only know two charged attacks at a time, but if
  chosen from a move pool of three or more charged, even an informed opponent
  can't know what's coming until it's thrown.
 
-\begin{tcolorbox}[enhanced,title=A tip regarding battle UI,halign title=flush center]
+\begin{tipbox}[title=A tip regarding battle UI]
 Without sufficient energy, pressing the charged attack control employs a fast attack.
 If you know you want to throw a charged attack as soon as possible, press its control until thrown.
-\end{tcolorbox}
+\end{tipbox}
 
 Take two charged attacks having equal power-per-energy and type, but different power.
 The attack delivering more power (and requiring more energy) is beneficial
@@ -63,3 +63,27 @@ A downside is that an incoming charged attack will probably inflict more total
 \textbf{shield baiting}
 
 \textbf{optimal charged move timing}
+
+\section{Substitutions}
+\label{sec:substitutions}
+When the active Pokémon is knocked out, the Trainer selects which unfainted
+  Pokémon will replace it (if there is only one such Pokémon, it comes in
+  automatically; if there are none, the match is over).
+Before a knockout, the Trainer can call for a substitution using any
+  unfainted Pokémon.
+This starts a substitution cooldown timer of fifty seconds; the Trainer
+  cannot perform an early substitution during this time.
+Under what circumstances ought early substitutions be made?
+
+``Super Effective!'' over one's Pokémon is a frightening message.
+It is natural to want to pull them out, ideally bringing in a teammate resistant
+  to the revealed opponent's attacks and effective against their typing.
+This will initiate the cooldown period.
+If the opponent can freely substitute, and has a counter to the Pokémon brought in,
+  the first Trainer is in a world of shit.
+Their substituted Pokémon is going to get cooked, and it
+ is unlikely to inflict much damage on the countering Pokémon.
+Furthermore, the original threat is still lurking, and our original Pokémon is still at a disadvantage.
+There's no faster way to lose a match.
+
+\textbf{FIXME}
