@@ -98,7 +98,7 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 
 $(OUT)/cp1500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 1500 128.83 > $@
+	$(<) 1500 128.91 > $@
 
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
