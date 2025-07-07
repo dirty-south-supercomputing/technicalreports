@@ -12800,7 +12800,7 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
 
 static int
 update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float gmfloor, float* minmean,
+              unsigned is, unsigned hl, float amfloor, float* minmean,
               bool isshadow){
   stats **prev = osets;
   stats *cur;
@@ -12810,12 +12810,11 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   float effd = calc_eff_d(modd, hl, isshadow);
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
-  float gm = calc_fit(effa, effd, mhp);
   float am = calc_avg(effa, effd, mhp);
   if(am < *minmean || *minmean <= 0){
     *minmean = am;
   }
-  if(gm < gmfloor){
+  if(am < amfloor){
     return 0;
   }
   while( (cur = *prev) ){
@@ -12860,10 +12859,10 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   return 0;
 }
 
-// returns the optimal levels+ivs (using harmonic mean of effA, effD, and MHP)
-// with a CP less than or equal to cpceil and harmonic mean of EffA, EffD
-// and MHP greater than or equal to gmfloor.
-stats *find_optimal_set(const species* s, int cpceil, float gmfloor, bool isshadow){
+// returns the optimal levels+ivs (using arithmetic mean of effA, effD, and MHP)
+// with a CP less than or equal to cpceil and arithmetic mean of EffA, EffD
+// and MHP greater than or equal to amfloor.
+stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshadow){
   stats* optsets = NULL;
   float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -12871,7 +12870,7 @@ stats *find_optimal_set(const species* s, int cpceil, float gmfloor, bool isshad
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl, gmfloor, &minmean, isshadow) < 0){
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, amfloor, &minmean, isshadow) < 0){
           return NULL;
         }
       }

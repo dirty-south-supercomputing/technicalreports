@@ -53,7 +53,7 @@ insert_opt_stat(stats **head, stats *s){
 }
 
 // print optimal sets bounded by CP of |bound| above and geometric mean of |lbound| below
-void print_bounded_table(int bound, float lbound){
+void print_bounded_table(int bound, float labound){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
@@ -65,10 +65,10 @@ void print_bounded_table(int bound, float lbound){
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false);
+    stats *s = find_optimal_set(sp, bound, labound, false);
     if(sp->shadow){
       const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, lbound, true);
+      stats *shadsets = find_optimal_set(shads, bound, labound, true);
       insert_opt_stat(&sols, shadsets);
     }
     insert_opt_stat(&sols, s);
@@ -105,20 +105,28 @@ void print_bounded_table(int bound, float lbound){
     sols = sols->next;
     free(tmp);
   }
-  printf("\\caption{Optimal solutions bounded by %d CP}\n", bound);
+  printf("\\captionlistentry{Optimal solutions bounded by %d CP}\n", bound);
   printf("\\label{table:cp%d}\n", bound);
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }
 
+static void usage(const char *argv0){
+  fprintf(stderr, "usage: %s highcp lowAM\n", argv0);
+  exit(EXIT_FAILURE);
+}
+
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations
 int main(int argc, char** argv){
   if(argc != 3){
-    fprintf(stderr, "usage: highcp lowGM\n");
-    return EXIT_FAILURE;
+    usage(argv[0]);
   }
   int hcp = atoi(argv[1]);
-  int lgm = atoi(argv[2]);
-  print_bounded_table(hcp, lgm);
+  float lam; // lower arithmetic mean bound
+  if(sscanf(argv[2], "%f", &lam) != 1){
+    fprintf(stderr, "couldn't get float from [%s]\n", argv[2]);
+    usage(argv[0]);
+  }
+  print_bounded_table(hcp, lam);
   return EXIT_SUCCESS;
 }

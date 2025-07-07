@@ -98,11 +98,11 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 
 $(OUT)/cp1500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 1500 95 > $@
+	$(<) 1500 128.83 > $@
 
 $(OUT)/cp2500.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 2500 130 > $@
+	$(<) 2500 161.98 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
