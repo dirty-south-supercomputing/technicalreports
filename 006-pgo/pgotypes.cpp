@@ -12474,6 +12474,7 @@ static const species sdex[] = {
   {  900, "Kleavor", TYPE_BUG, TYPE_ROCK, 253, 174, 172, NULL, KLEAVOR_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  901, "Ursaluna", TYPE_GROUND, TYPE_NORMAL, 243, 181, 277, "Ursaring", URSALUNA_ATKS, true, true,
     { &ATK_High_Horsepower, }, species::CAT_NORMAL, 50, },
+  //{  902, "Basculegion", TYPE_WATER, TYPE_GHOST, },
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Hisuian Sneasel", SNEASLER_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Qwilfish", OVERQWIL_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  905, "Incarnate Forme Enamorus", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, NULL, I_ENAMORUS_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
@@ -13427,7 +13428,6 @@ const attack *species_fast_attack(const species *s, const char *aname){
 // lex out iv and level in the form iva-ivd-ivs@l
 int lex_ivlevel(const char* ivl, stats* s){
   int r;
-  // FIXME unreliable, accepts garbage inputs for level
   if((r = sscanf(ivl, "%u-%u-%u@%u", &s->ia, &s->id, &s->is, &s->hlevel)) != 4){
     fprintf(stderr, "error lexing A-D-S@L from %s (got %d)\n", ivl, r);
     return -1;
