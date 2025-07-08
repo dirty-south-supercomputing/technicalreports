@@ -134,7 +134,6 @@ int main(int argc, char** argv){
     usage(argv0);
   }
   print_dbreaks(&pm[1], &pm[0]);
-  // FIXME print damage for iv[a] 0..15 and opposing iv[d] 0..15
   if(argc){
     std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);
