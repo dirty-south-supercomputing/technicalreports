@@ -1,9 +1,10 @@
 #include "pgotypes.cpp"
+#include <map>
 #include <memory>
 #include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 int main(int argc, char **argv){
   if(argc != 2){
@@ -35,10 +36,14 @@ int main(int argc, char **argv){
     fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
+  std::map<std::string, const species *> amap;
   // for forms, we just want them alphabetical, not by type
   // for now we use dex entry FIXME
   for(unsigned u = 0 ; u < count ; ++u){
-    print_species_latex(&dex[u], bg, false);
+    amap.emplace(dex[u].name, &dex[u]);
+  }
+  for(const auto &s : amap){
+    print_species_latex(s.second, bg, false);
   }
   return EXIT_SUCCESS;
 }
