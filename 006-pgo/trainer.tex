@@ -568,6 +568,29 @@ Even with the default capacities, this discipline ought leave space for at least
 Storage constantly under pressure is not sustainable.
 I like to have at least a third of my Bag and Pokémon storage free.
 
+\section{Research}
+\label{sec:research}
+Research is a diverse set of challenges, each with its own reward.
+The Research screen is summoned up with the binoculars logo in the lower right of the Map screen.
+It is broken into three tabs:
+\begin{itemize}
+  \item \textbf{Events:} Research and bonuses related to the calendar year, including ticketed research.
+  \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Pokéstops.
+            Field research tasks can be dismissed without completion.
+            Up to four field research tasks can be active at a time.
+  \item \textbf{Special:} Longer-term research structuring the game's plot, so far as one exists.
+    Tasks and rewards are of greater magnitude.
+    Special research comes in multipart stories, where each part consists of multiple tasks.
+    All tasks within a part must be completed to advance within the story.
+\end{itemize}
+The rewards of field research are generally on the order of Pokéstop items---berries, balls,
+ etc.---but also include encounters.
+Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
+Pokémon met in research encounters have a higher IV floor than most spawns (\autoref{table:ivfloors}),
+  and are thus disproportionately powerful for their species.
+Event research includes Collection Challenges, which require the capture of a set of Pokémon
+  within a time period, and are associated with their own medal.
+
 \section{Medals}
 \label{sec:medals}
 A large set of Medals can be achieved at the Bronze, Silver, Gold, or Platinum level (\autoref{table:medals}).
@@ -585,33 +608,6 @@ Each region (\autoref{sec:regions}) has an associated medal (\autoref{table:regi
   in its primary Pokédex (\autoref{sec:dexen}).
 For Vivillon medal details, see \autoref{subsec:vivillon}.
 There are a great many event-specific medals; I shan't cover them here.
-\begin{table}
-\centering
-\begin{tabular}{lc|lc|lc}
-  Medal & Type & Medal & Type & Medal & Type\\
-  \Midrule
-  Bug Catcher & \includegraphics[width=1em,keepaspectratio]{images/bug.png} &
-   Kindler & \includegraphics[width=1em,keepaspectratio]{images/fire.png} &
-   Schoolkid &\includegraphics[width=1em,keepaspectratio]{images/normal.png} \\
-  Delinquent & \includegraphics[width=1em,keepaspectratio]{images/dark.png} &
-   Bird Keeper & \includegraphics[width=1em,keepaspectratio]{images/flying.png} &
-   Punk Girl & \includegraphics[width=1em,keepaspectratio]{images/poison.png} \\
-  Dragon Tamer & \includegraphics[width=1em,keepaspectratio]{images/dragon.png} &
-   Hex Maniac &\includegraphics[width=1em,keepaspectratio]{images/ghost.png} &
-   Psychic &\includegraphics[width=1em,keepaspectratio]{images/psychic.png} \\
-  Rocker & \includegraphics[width=1em,keepaspectratio]{images/electric.png} &
-   Gardener &\includegraphics[width=1em,keepaspectratio]{images/grass.png} &
-   Hiker &\includegraphics[width=1em,keepaspectratio]{images/rock.png} \\
-  Fairy-Tale Girl &\includegraphics[width=1em,keepaspectratio]{images/fairy.png} &
-   Ruin Maniac &\includegraphics[width=1em,keepaspectratio]{images/ground.png} &
-   Rail Staff &\includegraphics[width=1em,keepaspectratio]{images/steel.png} \\
-  Black Belt & \includegraphics[width=1em,keepaspectratio]{images/fighting.png} &
-   Skier & \includegraphics[width=1em,keepaspectratio]{images/ice.png} &
-   Swimmer &\includegraphics[width=1em,keepaspectratio]{images/water.png}\\
-\end{tabular}
-\caption{Medals with catch bonuses}
-\label{table:medalcatch}
-\end{table}
 \begin{table}
 \centering
 \begin{tabular}{lrrrr}
@@ -686,26 +682,30 @@ Life of the Party & Party challenges completed & 10 & 50 & 100 & 200\\
 \label{table:medals}
 \end{longtable}
 \endgroup
-
-\section{Research}
-\label{sec:research}
-Research is a diverse set of challenges, each with its own reward.
-The Research screen is summoned up with the binoculars logo in the lower right of the Map screen.
-It is broken into three tabs:
-\begin{itemize}
-  \item \textbf{Events:} Research and bonuses related to the calendar year, including ticketed research.
-  \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Pokéstops.
-            Field research tasks can be dismissed without completion.
-            Up to four field research tasks can be active at a time.
-  \item \textbf{Special:} Longer-term research structuring the game's plot, so far as one exists.
-    Tasks and rewards are of greater magnitude.
-    Special research comes in multipart stories, where each part consists of multiple tasks.
-    All tasks within a part must be completed to advance within the story.
-\end{itemize}
-The rewards of field research are generally on the order of Pokéstop items---berries, balls,
- etc.---but also include encounters.
-Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
-Pokémon met in research encounters have a higher IV floor than most spawns (\autoref{table:ivfloors}),
-  and are thus disproportionately powerful for their species.
-Event research includes Collection Challenges, which require the capture of a set of Pokémon
-  within a time period, and are associated with their own medal.
+\begin{table}
+\centering
+\begin{tabular}{lc|lc|lc}
+  Medal & Type & Medal & Type & Medal & Type\\
+  \Midrule
+  Bug Catcher & \includegraphics[width=1em,keepaspectratio]{images/bug.png} &
+   Kindler & \includegraphics[width=1em,keepaspectratio]{images/fire.png} &
+   Schoolkid &\includegraphics[width=1em,keepaspectratio]{images/normal.png} \\
+  Delinquent & \includegraphics[width=1em,keepaspectratio]{images/dark.png} &
+   Bird Keeper & \includegraphics[width=1em,keepaspectratio]{images/flying.png} &
+   Punk Girl & \includegraphics[width=1em,keepaspectratio]{images/poison.png} \\
+  Dragon Tamer & \includegraphics[width=1em,keepaspectratio]{images/dragon.png} &
+   Hex Maniac &\includegraphics[width=1em,keepaspectratio]{images/ghost.png} &
+   Psychic &\includegraphics[width=1em,keepaspectratio]{images/psychic.png} \\
+  Rocker & \includegraphics[width=1em,keepaspectratio]{images/electric.png} &
+   Gardener &\includegraphics[width=1em,keepaspectratio]{images/grass.png} &
+   Hiker &\includegraphics[width=1em,keepaspectratio]{images/rock.png} \\
+  Fairy-Tale Girl &\includegraphics[width=1em,keepaspectratio]{images/fairy.png} &
+   Ruin Maniac &\includegraphics[width=1em,keepaspectratio]{images/ground.png} &
+   Rail Staff &\includegraphics[width=1em,keepaspectratio]{images/steel.png} \\
+  Black Belt & \includegraphics[width=1em,keepaspectratio]{images/fighting.png} &
+   Skier & \includegraphics[width=1em,keepaspectratio]{images/ice.png} &
+   Swimmer &\includegraphics[width=1em,keepaspectratio]{images/water.png}\\
+\end{tabular}
+\caption{Medals with catch bonuses}
+\label{table:medalcatch}
+\end{table}
