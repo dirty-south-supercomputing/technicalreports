@@ -176,3 +176,4 @@ clean:
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
+	@rm -vrf _minted

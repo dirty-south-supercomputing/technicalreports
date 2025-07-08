@@ -464,20 +464,29 @@ Up to six defenders can be left in a gym at once, but only one
   may be left per Trainer, and that Pokémon must have full health.
 A Trainer cannot leave their Buddy Pokémon, nor any Mythical nor Legendary
   Pokémon (Meltan and Melmetal excepted).
-The Pokémon will remain in the Gym until defeated; it cannot be recalled.
 While in the Gym, the Pokémon still counts against the Trainer's storage,
   but it cannot be interacted with in any way save feeding it Berries.
 Berries can be fed to any Pokémon defending a coaligned Gym, though
   each defender can consume only ten berries per thirty minutes.
+Pokémon defending the gym steadily lose HP (``motivation'') at a rate
+  based on their CP (\autoref{sec:cp}).
+The first and second loss both cut 28\% of max motivation, while
+  a third loss always knocks the defender out of the gym;
+  even a victory cuts 1.6\% of max motivation\footnote{I was unable to personally verify these rates (though they seem plausible); they are taken from the GamePress wiki.}.
+Higher CP results in a more rapid decay of motivation.
+Defenders remain in the Gym until their motivation drops to zero; they cannot be recalled.
+A single Golden Razz berry will fully restore motivation.
 While the gym is controlled by a Raid Boss, the defenders cannot be challenged,
   nor fed berries.
 
-Pokémon defending the gym steadily lose HP (``motivation'') at a rate
-  based on their CP (\autoref{sec:cp}).
-\textbf{FIXME}
-
 Each gym has an associated badge, with Basic, Bronze, Silver and Gold levels.
-\textbf{FIXME}
+The first interaction secures a basic badge.
+Bronze, Silver, and Gold require 500, 4,000, and 30,000 gym points respectively.
+Each victory in the gym awards points equal to 1\% of the defeated Pokémon's CP.
+Losing or retreating results in a consolation prize of five gym points.
+Installing a defender yields 100; feeding a berry to a defender nets 10,
+ and a point is awarded for each minute's occupancy.
+Winning a raid at the gym is worth a cool thousand points.
 
 \subsection{Raids}
 \label{sec:raids}
