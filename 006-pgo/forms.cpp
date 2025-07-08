@@ -37,8 +37,6 @@ int main(int argc, char **argv){
     return EXIT_FAILURE;
   }
   std::map<std::string, const species *> amap;
-  // for forms, we just want them alphabetical, not by type
-  // for now we use dex entry FIXME
   for(unsigned u = 0 ; u < count ; ++u){
     amap.emplace(dex[u].name, &dex[u]);
   }
