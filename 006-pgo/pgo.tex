@@ -244,6 +244,25 @@ Finally, if there is a Shadow form, that is indicated, along with the same stats
   provided for the regular form.
 Due to statistically insignificant encounters, I am unable to verify catch and flee
   rates, which were taken from the Pokémon GO Database.
+In this example card, the form is ``OV-099 Challenger'', with typing Flying+Ghost.
+The base stats are an ATK of 200, DEF of 120, and STA of 100.
+These have an arithmetic mean (average) of 140, and a geometric mean of 133.89.
+Challenger has two fast attacks, Astonish and Incinerate.
+Astonish normally brings a power of 12 to bear in its three turns, but since
+  it enjoys STAB, the power is 14.4.
+Incinerate's power of 20 is unaffected by STAB.
+They generate 10 and 20 energy, respectively.
+DPT is 4.8 for Astonish (again, this includes STAB), and 4 for Incinerate.
+EPT is 3.3 and 4---EPT is unaffected by typing.
+Both charged attacks benefit from STAB, taking 130 to 156 and 170 to 204 while consuming 55 and 75 energy.
+DPE is a straightforward division, yielding 2.84 and 2.72.
+Icons reinforce the typing, and show that Challenger is weather boosted by wind and fog.
+Its optimal configuration at a CP2500 bound is maxed out aka 15/15/15@50,
+ but under a CP1500 bound, optimizing for arithmetic mean, it wants 0/14/1@42.5.
+Finally, we see that it has a Shadow form, with expected higher attack (240),
+ lower defense (100), and unchanged stamina (100).
+This has boosted its arithmetic mean, but the geometric mean is unchanged, as is always
+ the case for a Shadow Pokémon.
 \bigskip
 \begin{speciesbox}[title=OV-099 Challenger,title style={left color=Flying,right color=Ghost},after title={\hfill 200 120 100 140.00 133.89}]
 \footnotesize
