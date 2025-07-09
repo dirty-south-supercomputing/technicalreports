@@ -75,6 +75,7 @@
   bottom=0pt,
   boxsep=0pt,
   middle=0pt,
+  fonttitle=\bfseries,
   subtitle style={colback=Shadow!50!black},
   #1}
 
@@ -238,6 +239,21 @@ Due to statistically insignificant encounters, I am unable to verify catch and f
   rates, which were taken from the Pokémon GO Database.
 
 \textbf{infobox for each species still needs: requirements to evolve, catch rate, flee rate, dodge rate, stardust}
+
+Interpreting a form card:
+\begin{speciesbox}[title=Space Shuttle Challenger,title style={left color=red,right color=blue},after title={\hfill 200 120 100 140.00 133.89}]
+\footnotesize
+\begin{tabularx}{\linewidth}{@{}c X @{}}
+\includegraphics[width=0.3\linewidth,valign=c,keepaspectratio]{images/challenger.png} &
+\begingroup
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
+ & 0 & 0 & 0 & 0 & 0\\
+\includegraphics[height=1em,keepaspectratio]{images/flying.png} Brave Bird & & 156 & -55 & 2.84 & \\
+\end{tabular}
+\endgroup
+\end{tabularx}
+\end{speciesbox}
 \clearpage
 \input{out/species}
 
