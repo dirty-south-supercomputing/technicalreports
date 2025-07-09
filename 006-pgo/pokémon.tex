@@ -279,27 +279,32 @@ The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).
 Most are self-evident.
-Prefix a species with '+' to search for its genus.
+Prefix a species with \texttt{+} to search for its genus.
 Searching for a type will show any Pokémon with that type in their typing,
  \texttt{<type} matches Pokémon weak against \texttt{type},
  and \texttt{>type} those strong against it.
 \texttt{x*} for \texttt{x} between 0 and 4 matches Pokémon with that appraisal.
+\texttt{buddy0} matches Pokémon which have never been your Buddy,
+ \texttt{buddy1} those made your Buddy but having earned zero hearts,
+ and \texttt{buddyx} for \texttt{x} between 2 and 5 to match buddy
+ levels \texttt{x} - 1.
 \texttt{favorite} matches those marked ``favorite'' using a star system that
  seems like it could have handled in the general tagging system just fine
  but whatever.
-Speaking of, \texttt{\#TAG} searches the tag space.
-Several terms cover evolutions: \texttt{evolvenew} for evolutions that will
-  fill a Pokédex entry, \texttt{item} for evolutions that require an item,
-  \texttt{tradeevolve} for Pokémon with the trade discount on evolution,
-  and \texttt{evolve} for Pokémon whose evolution criteria are met.
+Speaking of, \texttt{\#TAG} searches the tag space, and \texttt{#} by itself
+ matches anything tagged.
 \texttt{@weather} shows Pokémon with at least one attack boosted by current
  weather, \texttt{@ATTACK} shows Pokémon who know \texttt{ATTACK}, and \texttt{@TYPE}
  any who know some attack of type \texttt{TYPE}.
 Be more specific with \texttt{@xTYPE} for \texttt{x} between 1 and 3 to check
   for a fast, first charged, or second charged attack of the specified type.
-\texttt{cpNUM} and \texttt{hpNUM} match exactly \texttt{NUM} CP and HP;
-\texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support, and
-\texttt{cp-NUM} and \texttt{hp-NUM} inclusive ceilings.
+Range suffixes take the form \texttt{NUM} for an exact match of \texttt{NUM},
+  \texttt{NUMX-NUMY} for an inclusive match between \texttt{NUMX} and \texttt{NUMY},
+  and \texttt{-NUM} for an inclusive ceiling.
+\texttt{cpRANGE} and \texttt{hpRANGE} match Combat Power and hit points.
+Use \texttt{distanceRANGE} and \texttt{ageRANGE} to match catch location
+  distance in kilometers and catch age in days.
+\texttt{yearRANGE} matches the catch year.
 Union over searches is accomplished with the infix ';' operator (',' and ':' are synonyms),
   and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND. I say ``oddly'' because it means OR everywhere else.
   Except the UNIX shell, where it means ``pipe''.
@@ -319,20 +324,32 @@ background & Special background \\
 candyxl & Level 40 and above \\
 costume & Costumed event form \\
 defender & In a gym \\
+dynamax & Can Dynamax\\
 eggsonly & Baby Pokémon \\
+evolve & Can evolve now\\
+evolvenew & Evolution will fill a Pokédex entry\\
 female & Females \\
+gbl & Acquired via GO Battle League rewards\\
 genderunknown & Ungendered \\
+gigantamax & Can Gigantamax\\
 hatched & Obtained from egg \\
+item & Evolution requires an item\\
 legendary & Legendary \\
 lucky & Lucky Pokémon \\
 male & Males\\
+megaevolve & Can Mega or Primal evolve\\
+megaraid & Caught in Mega raid\\
 mythical & Mythical\\
+primalraid & Caught in Primal raid\\
 purified & Purified Pokémon\\
+raid & Caught in any kind of raid\\
+remoteraid & Caught in remote raid\\
 research & Obtained in research\\
 rocket & Rescued from Team GO Rocket\\
 shadow & Unpurified Shadow Pokémon\\
 shiny & Shiny Pokémon\\
 special & Elite move(s)\\
+tradeevolve & Evolution discount if traded\\
 traded & Acquired via trade\\
 ultra beasts & Ultra Beasts\\
 xl & Extra large\\
