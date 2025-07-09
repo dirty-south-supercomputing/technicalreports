@@ -8,24 +8,12 @@ int main(void){
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{tabular}{c g c g c g c g c g c g c g c g c g c}\n");
   printf("&\n");
-  printf("\\includegraphics[width=1em]{images/bug.png} &\n");
-  printf("\\includegraphics[width=1em]{images/dark.png} &\n");
-  printf("\\includegraphics[width=1em]{images/dragon.png} &\n");
-  printf("\\includegraphics[width=1em]{images/electric.png} &\n");
-  printf("\\includegraphics[width=1em]{images/fairy.png} &\n");
-  printf("\\includegraphics[width=1em]{images/fighting.png} &\n");
-  printf("\\includegraphics[width=1em]{images/fire.png} &\n");
-  printf("\\includegraphics[width=1em]{images/flying.png} &\n");
-  printf("\\includegraphics[width=1em]{images/ghost.png} &\n");
-  printf("\\includegraphics[width=1em]{images/grass.png} &\n");
-  printf("\\includegraphics[width=1em]{images/ground.png} &\n");
-  printf("\\includegraphics[width=1em]{images/ice.png} &\n");
-  printf("\\includegraphics[width=1em]{images/normal.png} &\n");
-  printf("\\includegraphics[width=1em]{images/poison.png} &\n");
-  printf("\\includegraphics[width=1em]{images/psychic.png} &\n");
-  printf("\\includegraphics[width=1em]{images/rock.png} &\n");
-  printf("\\includegraphics[width=1em]{images/steel.png} &\n");
-  printf("\\includegraphics[width=1em]{images/water.png}\n");
+  for(int i = 0 ; i < TYPECOUNT ; ++i){
+    print_type(static_cast<pgo_types_e>(i));
+    if(i + 1 < TYPECOUNT){
+      printf("&");
+    }
+  }
   printf("\\\\\n");
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     if(i % 2 == 0){
