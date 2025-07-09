@@ -30,7 +30,7 @@ void print_latex_table(const attack* as, unsigned ccount){
     if(a->type != TYPECOUNT){
       print_type(a->type);
     }
-    printf("%s & %u & %g & %d & %.2f & %.3g &", a->name,
+    printf(" %s & %u & %g & %d & %.2f & %.3g &", a->name,
             a->powertrain, (a->powertrain * 6.0) / 5,
             -a->energytrain,
             a->powertrain / (float)-a->energytrain,

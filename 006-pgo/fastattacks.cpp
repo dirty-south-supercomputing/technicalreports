@@ -30,7 +30,7 @@ void print_latex_table(const attack* as, unsigned ccount){
     }else{
       printf("\\hspace{1em}");
     }
-    printf("%s & %u & %g & %d & %u & %.3g & %g & %.3g & %u\\\\\n",
+    printf(" %s & %u & %g & %d & %u & %.3g & %g & %.3g & %u\\\\\n",
            a->name, a->powertrain, (a->powertrain * 6.0) / 5,
            a->energytrain, a->turns,
            a->powertrain / (float)a->turns,
