@@ -175,3 +175,51 @@ Examples include EmpoleonDynamite's ``\href{https://pvpoke.com/articles/strategy
  avrip's ``\href{https://pokemongohub.net/post/pvp/mastering-the-turn-system-in-pokemon-go-pvp/}{Mastering the Turn System in Pokémon GO PVP}'' on GOHub (2024),
  and Wallower's YouTube video ``\href{https://www.youtube.com/watch?v=pAtCo8xg700}{GBL Advanced Mechanics 1: Charged Move Timing}'' (2021).
 Fine people, all, and far more accomplished than I will ever be.
+But this claim is (mostly) false, and has been cargo culted for years.
+Following the rule has no costs if done correctly, but it brings no advantage, either.
+
+Suppose that Pokémon B is running Incinerate, a five-turn fast move with twenty power and twenty energy.
+At the start of turn $T_1$, Pokémon B has ten energy and 70 HP\@.
+Pokémon A has fifty energy and 100 HP\@.
+Pokémon B throws Incinerate.
+It will normally conclude on $T_5$, leaving Pokémon B with thirty energy, and Pokémon A with 80 HP\@.
+On $T_2$, Pokémon A throws a charged attack (violating the rule) costing 45 energy, hitting Pokémon B for 40 HP\@.
+Incinerate is brought to an early conclusion.
+At the end of $T_2$, Pokémon B has 30 HP and 30 energy, Pokémon A has 5 energy and 80 HP, and both are ready to throw a new attack.
+
+The rule mandates that Pokémon A not throw the charged attack until $T_5$.
+In that case, the fast attack concludes on $T_5$, uninterrupted by the charged attack.
+The charged attack's damage still takes precedence---not that it matters in this case---and at the
+  end of $T_5$, Pokémon A has 5 energy and 80 HP, while Pokémon B has 30 HP and 30 energy.
+Both are ready to select a new attack at $T_6$.
+The two situations are \textit{exactly the same} except that five turns have expired instead of two.
+Both Pokémon end up with the same energy as they had above, the same HP, the same number of shields,
+  the same number of Pokémon remaining, and both are free to launch a new attack.
+Aside from the absolute clock and possibly the substitution timer, an observer cannot distinguish
+  between the two resulting states.
+Pokémon B has not emerged with more energy, has not thrown any more attacks, and is not in a better
+  position to throw its next attack.
+Where is this ``free attack'' it was to gain?
+There is no such thing.
+
+I said the claim was ``mostly false'', because there is a relevant case:
+  if Pokémon A has a fast attack that fits within the turns required by Pokémon B's attack,
+  it absolutely ought be employed before the charged attack.
+Let's assume Pokémon A employs Poison Jab, a two-turn fast attack.
+When Pokémon B throws Incinerate at $T_1$, Pokémon A can throw Poison Jab.
+It concludes on $T_2$, dealing damage and charging energy, without interrupting Incinerate.
+On $T_3$, Pokémon A can launch Poison Jab a second time, concluding on $T_4$.
+Finally, at $T_5$, Pokémon A throws its charged attack.
+The result when $T_6$ rolls around is that both stand ready to throw new attacks, like before,
+  but Pokémon A has the benefit of two extra fast attacks.
+Compared to throwing the charged attack at $T_2$, or waiting until $T_5$,
+  Pokémon A has inflicted more damage and built up more energy.
+
+Now, if Pokémon A has a three-turn attack like Astonish, its options are more limited.
+It can (and should) throw Astonish at $T_1$, concluding at $T_3$.
+Throwing Astonish a second time won't see it conclude until $T_6$.
+Assume Pokémon B throws a second Incinerate at $T_6$.
+If Pokémon A throws its charged attack at $T_7$, Pokémon B has indeed landed two Incinerates going into $T_8$,
+  doubling inflicted damage and energy charged.
+Of course, Pokémon A has landed two Astonish attacks in addition to its charged attack, so the
+  second Incinerate wasn't quite ``free''.
