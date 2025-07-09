@@ -1,5 +1,4 @@
-\chapter{Spawning and catching}
-\label{chap:spawn}
+\chapter{Spawning and catching\label{chap:spawn}}
 Pokémon GO is intended to be played on the move.
 Trainers primarily interface with the Map screen, onto which is projected
   some approximation of the local geography.
@@ -14,8 +13,7 @@ Encounters feature a summary display including the Pokémon's CP (\autoref{sec:c
 The CP will be replaced with ``???'' if the species has never been seen, or if
   the CP exceeds that of any owned Pokémon.
 
-\section{Wild spawns}
-\label{sec:spawns}
+\section{Wild spawns\label{sec:spawns}}
 Decorations around a Pokémon indicate how it spawned (\autoref{table:spawnreasons}).
 \begin{table}
 \centering
@@ -31,14 +29,12 @@ Decorations around a Pokémon indicate how it spawned (\autoref{table:spawnreaso
   Orange circles & Sunsteel Strike & Trainer\\
   Dark blue circles & Moongeist Beam & Trainer\\
 \end{tabular}
-\caption{Spawn decorations}
-\label{table:spawnreasons}
+  \caption{Spawn decorations\label{table:spawnreasons}}
 \end{table}
 Weather-boosted (\autoref{sec:weather}) types enjoy higher spawn rates,
   in addition to higher levels and IVs (\autoref{table:ivfloors}).
 
-\subsection{Lures and incense}
-\label{subsec:lures}
+\subsection{Lures and incense\label{subsec:lures}}
 Spawn rates can be increased by means of incense and lures.
 Incense lasts for an hour, affects only the Trainer using it (i.e.\ other Trainers
   will neither see nor be able to interact with resulting spawns),
@@ -90,14 +86,12 @@ Some evolutions (\autoref{sec:evolution}) can only take place near an active lur
   Moongeist Beam & Nighttime spawns\newline{}Perform nighttime evolutions any time\\
   Sunsteel Strike & Daytime spawns\newline{}Perform daytime evolutions any time\\
 \end{tabular}
-\caption{Lures and their effects}
-\label{table:lures}
+  \caption{Lures and their effects\label{table:lures}}
 \end{table}
 Pokémon spawned due to incense or lures do not show up in the matrix
   of nearby Pokémon.
 
-\section{Catching}
-\label{sec:catch}
+\section{Catching\label{sec:catch}}
 Catching a Pokémon requires throwing a ball close enough to capture it,
  and that the Pokémon not escape from the ball.
 Each species has dodge, movement, and attack characteristics, a distance, a catch rate $C$, and a flee rate $F$.
@@ -128,8 +122,7 @@ Great & 1.5\\
 Ultra & 2\\
 Master & ∞\\
 \end{tabular}
-\caption{Balls and their capture multipliers}
-\label{table:balls}
+  \caption{Balls and their capture multipliers\label{table:balls}}
 \end{table}
 \item $M_{Berry}$ is the multiplier due a berry (\autoref{table:berries}).
 \item $M_{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
@@ -145,8 +138,7 @@ Summary & $M_{Throw}$ range\\
 ``Nice!'' & [1.0, 1.3)\\
 No summary & 1\\
 \end{tabular}
-\caption{The throw summary is an indication of $M_{Throw}$}
-\label{table:throw}
+  \caption{The throw summary is an indication of $M_{Throw}$\label{table:throw}}
 \end{table}
 $M_{Throw}$ is multiplied by 1.7 for a curveball.
 \item $M_{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
@@ -176,8 +168,7 @@ Remaining Pokémon & 1--3\\
 Hero medal & 0--4\\
 Purifier medal & 0--4\\
 \end{tabular}
-\caption{Premier balls for Team GO Rocket encounters}
-\label{table:premierrocket}
+  \caption{Premier balls for Team GO Rocket encounters\label{table:premierrocket}}
 \end{table}
 \begin{table}
 \centering
@@ -191,8 +182,7 @@ Criterion & Balls\\
   Friendship bonus & 0--4\\
   Speed bonus & 2--8\\
 \end{tabular}
-\caption{Premier balls for raid bonus challenges}
-\label{table:premierraid}
+  \caption{Premier balls for raid bonus challenges\label{table:premierraid}}
 \end{table}
 Any capture, whether a result of spawns, battles, or research, awards XP (\autoref{table:catchxp}),
  Stardust (\autoref{table:stardust}), and Candy (\autoref{subsec:getcandy}).
@@ -213,12 +203,10 @@ First capture of the day bonus, unless\ldots & 1500\\
 First capture of the 7th day of streak & 6000\\
 Master Ball bonus & 1000\\
 \end{tabular}
-\caption{XP awards for captures}
-\label{table:catchxp}
+  \caption{XP awards for captures\label{table:catchxp}}
 \end{table}
 
-\subsection{Berries}
-\label{sec:berries}
+\subsection{Berries\label{sec:berries}}
 Berries can enhance the catching process (\autoref{table:berries}).
 Only one Berry can be applied to a Pokémon at a time.
 If a Berry is active, its icon will be shown on the encounter summary.
@@ -238,16 +226,14 @@ Pinap & Boosts Candy rewards: 3→7, 5→11, 10→23\\
 Silver pinap & 180\% catch percentage\newline Boosts Candy rewards: 3→7, 5→11, 10→23\\
 Golden razz & 250\% catch percentage\newline Restore full HP to Gym defender\\
 \end{tabular}
-\caption{Berries and their uses}
-\label{table:berries}
+  \caption{Berries and their uses\label{table:berries}}
 \end{table}
 No aiming is necessary for berries\footnote{Aiming \textit{is} necessary when feeding berries to a Buddy Pokémon.
 If you miss, the Pokémon will gaze forlornly at the berry as it disappears into nothingness.}.
 Note that the berry control always displays a Razz berry, even if the Trainer
   has no Razz berries in inventory---don't get tricked!
 
-\section{Eggs}
-\label{sec:eggs}
+\section{Eggs\label{sec:eggs}}
 Eggs can be received from gifts, spinning Pokéstops, Adventure Sync rewards,
   and defeating Team GO Rocket leaders.
 Eggs placed in an incubator will hatch after sufficient travel.
@@ -278,12 +264,10 @@ Km & Source & XP & Stardust & Candy\\
   10 & Pokéstops, gyms, Adventure Sync & 2000 & 1600--3200 & 16--32\\
   12 & Team GO Rocket leaders & 4000 & 3200--6400 & 16--32\\
 \end{tabular}
-\caption{Eggs}
-\label{table:eggrewards}
+  \caption{Eggs\label{table:eggrewards}}
 \end{table}
 
-\section{Shiny Pokémon and other visual forms}
-\label{sec:shiny}
+\section{Shiny Pokémon and other visual forms\label{sec:shiny}}
 Many Pokémon have an alternate presentation known as their ``Shiny'' form.
 These forms are collected in their own Pokédex (\autoref{sec:dexen}).
 Shadow and Purified Pokémon can be Shiny.
@@ -304,8 +288,7 @@ Context & Probability of shine \\
   Ditto & 1/64 (1.56\%)\\
   5🟉 raid & 1/20 (5\%) \\
 \end{tabular}
-\caption{Likelihood of Shiny Pokémon}
-\label{table:shiny}
+  \caption{Likelihood of Shiny Pokémon\label{table:shiny}}
 \end{table}
 Shiny Galarian birds never flee (unlike their dull counterparts, which flee all too readily).
 Premier Balls have 100\% catch rates against shiny raid bosses and Legendary Shadow Pokémon.
