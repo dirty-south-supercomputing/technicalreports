@@ -26,7 +26,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   for(unsigned c = 0 ; c < ccount ; ++c){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
-      printf("\\includegraphics[width=1em,height=1em]{images/%s.png} ", TNames[a->type]);
+      print_type(a->type);
     }else{
       printf("\\hspace{1em}");
     }

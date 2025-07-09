@@ -28,7 +28,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   while(--c >= 0){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
-      printf("\\includegraphics[width=1em,height=1em]{images/%s.png} ", TNames[a->type]);
+      print_type(a->type);
     }
     printf("%s & %u & %g & %d & %.2f & %.3g &", a->name,
             a->powertrain, (a->powertrain * 6.0) / 5,
