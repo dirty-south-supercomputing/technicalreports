@@ -18,6 +18,7 @@ UPSTREAM:=$(addsuffix .csv, moves)
 BREAKPOINTS:=out/breakpoints
 SIMUL:=out/s/simul
 FATTACKS:=out/fastattacks
+CARDEXAMPLE:=out/cardexample
 CATTACKS:=out/chargedattacks
 DUALTYPES:=out/dualtypes
 SPECIES:=out/species
@@ -35,6 +36,7 @@ ATKTYPES:=out/attacktypes
 SINDEX:=$(OUT)/sindex
 FATTACKTEX:=out/fastattacks.tex
 CATTACKTEX:=out/chargedattacks.tex
+CARDEXAMPLETEX:=$(CARDEXAMPLE).tex
 DUALTYPESTEX:=out/dualtypes.tex
 DPEVSEDAT:=$(DPEVSE).dat
 PPTVSTDAT:=$(PPTVST).dat
@@ -64,7 +66,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
-	$(BREAKPOINTSDAT) $(FPAIRSTEX)
+	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
