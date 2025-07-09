@@ -12933,7 +12933,7 @@ const species* lookup_mega(const char* name){
 
 void print_type(pgo_types_e t){
   if(t != TYPECOUNT){
-    printf("\\includegraphics[height=1em,keepaspectratio]{images/%s.png}", tnames[t]);
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", tnames[t]);
   }
 }
 
@@ -12949,7 +12949,7 @@ void print_types(pgo_types_e t1, pgo_types_e t2){
 
 void print_type_big(pgo_types_e t){
   if(t != TYPECOUNT){
-    printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png}", tnames[t]);
+    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", tnames[t]);
   }
 }
 
@@ -13259,7 +13259,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   printf(",title style={left color=%s,right color=%s},after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   if(s->shiny){
-    printf("\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}");
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
       calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
