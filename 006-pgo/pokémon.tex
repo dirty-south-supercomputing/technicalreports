@@ -86,17 +86,28 @@ Each Pokémon has three associated integers, each ranging from 0--15.
 Once a Trainer has joined a team (\autoref{sec:levels}), the ``Appraise'' function can be used to
   get a visual representation of these three numbers (this representation,
   while annoying, is sufficient to determine the actual numbers).
-Additionally, the Pokémon will be given a rating of 0--4, represented as
-  one, two, or three stars (0 shows one star; 4 shows three, albeit in a different color).
+Additionally, the Pokémon will be given a rating of 0--4 (\autoref{table:appraisal}), represented as
+  zero, one, two, or three stars (4 shows three, albeit in a different color).
 A Pokémon rated 4 has an IV of 15/15/15, and is colloquially known as a ``hundo'' or ``100\%er''.
-Such Pokémon have their own Pokédex (\autoref{sec:dexen}).
-A Pokémon rated 0 has an IV of 0/0/0, and is colloquially known as a ``nundo'' or ``0\%er''.
-They have no unique Pokédex, because they are worthless pieces of shit,
-  and don't let anyone tell you otherwise\footnote{Consult \autoref{chap:optimal}
-  to see that 0/0/0 is never an optimal IV.}.
+Such Pokémon have their own Pokédex (\autoref{sec:dexen})\footnote{A Pokémon with an IV of 0/0/0
+ is colloquially known as a ``nundo'' or ``0\%er''. They have no unique Pokédex, because they are worthless pieces of shit,
+  and don't let anyone tell you otherwise. Consult \autoref{chap:optimal} to see that 0/0/0 is never an optimal IV.}.
 While 15/15/15 is generally the optimal IV, this is not always true in CP-bounded
   competition; see \autoref{chap:bounded} for more information,
   and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
+\begin{table}
+\centering
+\begin{tabular}{ll}
+Appraisal & Minimum sum of IVs\\
+\Midrule
+4🟉 & 45\\
+3🟉 & 37\\
+2🟉 & 30\\
+1🟉 & 23\\
+0🟉 & 0\\
+\end{tabular}
+\caption{Appraisals for various IVs\label{table:appraisal}}
+\end{table}
 
 Three things can change a Pokémon's IV, which is otherwise constant across its existence.
 Purification (\autoref{sec:shadow}) raises each component by two, not to exceed fifteen.
@@ -282,6 +293,7 @@ The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).
 Most are self-evident.
+Prefix a species with '+' to search for its genus.
 Searching for a type will show any Pokémon with that type in their typing,
  \texttt{<type} matches Pokémon weak against \texttt{type},
  and \texttt{>type} those strong against it.
@@ -299,9 +311,9 @@ Several terms cover evolutions: \texttt{evolvenew} for evolutions that will
  any who know some attack of type \texttt{TYPE}.
 Be more specific with \texttt{@xTYPE} for \texttt{x} between 1 and 3 to check
   for a fast, first charged, or second charged attack of the specified type.
-\texttt{cpNUM} and \texttt{hpNUM} match exactly \texttt{NUM} CP and HP\footnote{Niantic's claim
-  that these can be suffixed with '-' to do a ceiling match seems false.};
-  \texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support.
+\texttt{cpNUM} and \texttt{hpNUM} match exactly \texttt{NUM} CP and HP;
+\texttt{cpNUM-NUM} and \texttt{hpNUM-NUM} provide range support, and
+\texttt{cp-NUM} and \texttt{hp-NUM} inclusive ceilings.
 Union over searches is accomplished with the infix ';' operator (',' and ':' are synonyms),
   and intersection with '\&'\footnote{Oddly, '|' also seems to function as AND. I say ``oddly'' because it means OR everywhere else.
   Except the UNIX shell, where it means ``pipe''.
