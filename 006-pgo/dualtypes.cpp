@@ -359,7 +359,8 @@ defensive_relations_latex(const typing* t){
   printf("\\setlength{\\tabcolsep}{1pt}");
   printf("\\begin{longtable}{cgcgcgcgcgcgcgcgcgc}\n");
   for(int k = 0 ; k < TYPECOUNT ; ++k){
-    printf("& \\includegraphics[width=1em,keepaspectratio]{images/%s.png}", tnames[k]);
+    putc('&', stdout);
+    print_type(static_cast<pgo_types_e>(k));
   }
   printf("\\\\\n");
   printf("\\endhead\n");
