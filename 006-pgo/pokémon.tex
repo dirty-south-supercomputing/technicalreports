@@ -1,5 +1,4 @@
-\chapter{Pokémon}
-\label{chap:pokemon}
+\chapter{Pokémon\label{chap:pokemon}}
 For purposes of battle\footnote{Attributes not directly relevant to battle include height, weight, region,
 generation, Shiny status, Purified status, Lucky status, Legendary status, Mythological status, spawn
 reason, capture method, capture location, and capture time.}, a Pokémon $P$ is defined as having:
@@ -17,8 +16,7 @@ A Pokémon with zero hit points has ``fainted''.
 Fainted Pokémon cannot be used in battles of any kind, nor can they be left in
  Power Stops (see \autoref{sec:maxbattles}).
 
-\section{Pokémon Level}
-\label{sec:plevel}
+\section{Pokémon Level\label{sec:plevel}}
 Each Pokémon has its own level, taking one of the 99 integer and half-integer
  values between 0--50, inclusive.
 A Trainer can ``power up'' their Pokémon in single level increments,
@@ -52,8 +50,7 @@ Level &
 27.5--29 & 4,500 & 4 & 48.5--49 & 14,000 &    & 20 \\
 29.5--31 & 5,000 & 4 & 49.5--50 & 15,000 &    & 20 \\
 \end{tabular}
-\caption{Power-up costs for Pokémon levels}
-\label{table:powerups}
+\caption{Power-up costs for Pokémon levels\label{table:powerups}}
 \end{table}
 An increase in level improves the Pokémon's attack and defense, and
   will sometimes increase MHP\@.
@@ -76,12 +73,10 @@ Note that pushing level 40 to 50 requires more Stardust than going from 1 to 40.
          Lucky & 304 & 296 & 260,000\\
 Lucky purified & 294 & 272 & 234,000\\
 \end{tabular}
-\caption{Total costs for powering up from level 1 to 50}
-\label{table:sumcosts}
+\caption{Total costs for powering up from level 1 to 50\label{table:sumcosts}}
 \end{table}
 
-\section{Individual Vectors}
-\label{sec:ivs}
+\section{Individual Vectors\label{sec:ivs}}
 Each Pokémon has three associated integers, each ranging from 0--15.
 Once a Trainer has joined a team (\autoref{sec:levels}), the ``Appraise'' function can be used to
   get a visual representation of these three numbers (this representation,
@@ -118,8 +113,7 @@ The Trainer specifies a new, higher IV, and is assigned a set of Research-like t
 If they are completed within the specified time, the Pokémon acquires the new IV.
 At the time of this writing, Gold Bottle Caps have been available only through paid Research.
 
-\section{Generation of IV and level}
-\label{sec:ivgeneration}
+\section{Generation of IV and level\label{sec:ivgeneration}}
 IVs and levels are generated when the Pokémon is ``created'', not when it is captured.
 It is thus possible to glean information from the CP displayed for a Pokémon;
   one can sometimes even uniquely determine the IV\@.
@@ -158,20 +152,17 @@ GBL & 10 & 20\\
 & 5 w/ Best Friend & \\
 & 12 (lucky trade) & \\
 \end{tabular}
-\caption{IV and level floors for acquired Pokémon}
-\label{table:ivfloors}
+\caption{IV and level floors for acquired Pokémon\label{table:ivfloors}}
 \end{table}
 
-\section{Lucky Pokémon}
-\label{sec:lucky}
+\section{Lucky Pokémon\label{sec:lucky}}
 Trades sometimes result in both Pokémon becoming ``Lucky''.
 Lucky Pokémon have an IV floor of 12/12/12, and enjoy a 50\% discount on Stardust for power-ups
   (this does not extend to learning second charged attacks).
 This discount stacks with the 10\% purification discount, so costs for
   powering up Lucky Purified Pokémon run 45\% of normal.
 
-\section{Static stats}
-\label{sec:staticstats}
+\section{Static stats\label{sec:staticstats}}
 We'll define some statistics for each Pokémon.
 These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
@@ -182,8 +173,7 @@ First, sum the Species's ATK, DEF, and STA with the Pokémon's
    Mod_S &= STA + IV_S
 \end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
-\section{Combat Power Multiplier}
-\label{sec:cpm}
+\section{Combat Power Multiplier\label{sec:cpm}}
 Recall that each Pokémon has its own Level, ranging from 1.0
  to 50.0, defined on half integers\footnote{I would rather they
  simply be integer Levels 1--99, but this is settled terminology.}.
@@ -234,12 +224,10 @@ Level & CPM & Level & CPM & Level & CPM \\
 16.5 & 0.5426 & 33.0 & 0.7498 & 49.5 & 0.8378 \\
 17.0 & 0.5508 & 33.5 & 0.7527 & 50.0 & 0.8403 \\
 \end{tabular}
-\caption{Combat Power Multiplier for Pokémon Levels}
-\label{table:cpm}
+\caption{Combat Power Multiplier for Pokémon Levels\label{table:cpm}}
 \end{table}
 
-\section{Effective stats}
-\label{sec:effectivestats}
+\section{Effective stats\label{sec:effectivestats}}
 We multiply each of the $Mod$ values by the Pokémon's CPM to generate
  its $Eff_A$, $Eff_D$, and $Eff_S$.
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
@@ -251,22 +239,21 @@ Recall that the stat effect levels take the values -4--4, inclusive.
 They are multiplied into $Eff_A$ and $Eff_D$ in 3x3 battle contexts (\autoref{sec:3x3})
   according to \autoref{table:buffs}.
 \begin{table}[ht]
-  \centering
-  \begin{tabular}{rll}
-    Level & Multiplier & Comment \\
-    \Midrule
-    -4 & 0.5 (-50\%) & \\
-    -3 & $\frac{4}{7}$ ≈ 0.5715 (-42.85\%) & ``Severely fell!'' \\
-    -2 & 0.\textoverline{6} (-33.\textoverline{3}\%) & ``Harshly fell!'' \\
-    -1 & 0.8 (-20\%) & ``Fell!'' \\
-     0 & 1 & \\
-     1 & 1.25 (25\%) & ``Rose!'' \\
-     2 & 1.5 (50\%) & ``Rose sharply!''\\
-     3 & 1.75 (75\%) & ``Rose drastically!'' \\
-     4 & 2 (100\%) & \\
-  \end{tabular}
-  \caption{Mapping buff/nerf stages to effect}
-  \label{table:buffs}
+\centering
+\begin{tabular}{rll}
+Level & Multiplier & Comment \\
+\Midrule
+-4 & 0.5 (-50\%) & \\
+-3 & $\frac{4}{7}$ ≈ 0.5715 (-42.85\%) & ``Severely fell!'' \\
+-2 & 0.\textoverline{6} (-33.\textoverline{3}\%) & ``Harshly fell!'' \\
+-1 & 0.8 (-20\%) & ``Fell!'' \\
+0 & 1 & \\
+1 & 1.25 (25\%) & ``Rose!'' \\
+2 & 1.5 (50\%) & ``Rose sharply!''\\
+3 & 1.75 (75\%) & ``Rose drastically!'' \\
+4 & 2 (100\%) & \\
+\end{tabular}
+\caption{Mapping buff/nerf stages to effect\label{table:buffs}}
 \end{table}
 The system behind the scheme of \autoref{table:buffs} is that the negative levels $-n$
  correspond to $\frac{4}{4 - n}$ while the positive levels $n$ correspond to
@@ -287,8 +274,7 @@ MHP is defined such that it is always a positive integer:
  MHP &= \min{1, \lfloor Eff_S \rfloor}
 \end{align*}
 
-\section{Searching the Pokédex}
-\label{sec:searching}
+\section{Searching the Pokédex\label{sec:searching}}
 The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).
@@ -354,6 +340,5 @@ xs & Extra small\\
 xxl & Extra extra large\\
 xxs & Extra extra small\\
 \end{tabular}
-\caption{Search terms for Pokémon storage/Pokédex}
-\label{table:searchterms}
+  \caption{Search terms for Pokémon storage/Pokédex\label{table:searchterms}}
 \end{table}
