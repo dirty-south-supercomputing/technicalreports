@@ -1,6 +1,5 @@
-\chapter{Battle mechanics}
+\chapter{Battle mechanics\label{chap:battle}}
 \nopagecolor
-\label{chap:battle}
 Pokémon GO features two major modes of battle: Nx1 and 3x3\footnote{These are commonly called PvE and PvP
  respectively. I don't like these terms, because Team GO Rocket encounters use the PvP format (despite involving
  a single Trainer), and Gyms use the PvE format (despite involving two Trainers).}.
@@ -19,8 +18,7 @@ The fundamental ``damage equation'' is likewise calculated differently.
 Each Attack reduces the opponent's Hit Points by some positive integer.
 This integer is called (inflicted) damage $D$, and calculated as a product of several factors.
 
-\section{The typing multiplier}
-\label{sec:typemult}
+\section{The typing multiplier\label{sec:typemult}}
 Determine $M_C$, the common multiplier due typing:
 
 \[ M_C = M_{STAB} \times 1.6^{T} \]
@@ -45,8 +43,7 @@ I have included a $T$ of -4 in \autoref{table:typemult} for completeness,
   1 & 1.6 & 60 & 1.92 & 92 \\
   2 & 2.56 & 156 & 3.072 & 207.2 \\
 \end{tabular}
-\caption{Typing multipliers with and without STAB}
-\label{table:typemult}
+  \caption{Typing multipliers with and without STAB\label{table:typemult}}
 \end{center}
 \end{table}
 
@@ -67,8 +64,7 @@ The two effectiveness relationships must be added, and this value used to
  calculate $1.6^T$.
 Exponential functions are not linear functions, and must not be treated as such.
 
-\section{The context-specific multiplier}
-\label{sec:mbmult}
+\section{The context-specific multiplier\label{sec:mbmult}}
 In Raids and Max battles, a number of effects come into play.
 \[ M_B = 0.5 \times M_D \times M_F \times M_W \times M_M \]
 \begin{itemize}
@@ -150,8 +146,7 @@ If a shield is used, $M_G$ is 0, no matter the minigame performance.
 The effect is equivalent to raising the defender's DEF to infinity for the
   duration of the Attack.
 
-\section{The damage equation}
-\label{sec:damage}
+\section{The damage equation\label{sec:damage}}
 
 $D_A$ is what we can calculate using only the attacker's knowledge, i.e.
  it is that component of $D$ which is independent of the defender.
@@ -257,7 +252,7 @@ It is tempting to ignore Charged Attacks, but when they land, they tend to
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{octave/greninja.png}
-  \caption[Damage cycle]{Water Shuriken + Hydro Cannon (7 round cycle, 67 turns)}
+  \caption[Power over time]{Power over time (Water Shuriken + Hydro Cannon---7 round cycle, 67 turns)}
 \end{figure}
 
 If we expand over multiple cycles of Fast and Charged Attack, we can
@@ -298,8 +293,7 @@ Of course, our chance of being knocked out is usually not constant across
  Attacks, but rather an immediate function of our remaining HP and any
  damage we are about to absorb.
 
-\section{3x3 battles}
-\label{sec:3x3}
+\section{3x3 battles\label{sec:3x3}}
 Two teams of three Pokémon each are locked in mortal combat.
 Each team has one champion fighting at any given time.
 The team is ordered: the first Pokémon will lead, and should that Pokémon
@@ -333,8 +327,7 @@ Shadow status does not factor into consideration, nor do any active buffs.
  and encounters with Team GO Rocket.
 In only the last case does damage suffered in 3x3 battles persist past the battle's end.
 
-\subsection{Team GO Rocket}
-\label{subsec:rocket}
+\subsection{Team GO Rocket\label{subsec:rocket}}
 Pokéstops will sometimes go black, indicating takeover by Team GO Rocket.
 The most common offenders are nameless lackeys: the smarmy Male Grunt, and the disturbingly sexy Female Grunt.
 Upon reaching Level 8, Trainers can challenge these Grunts to a 3x3 battle (it is not necessary to battle to spin the Pokéstop).
@@ -364,8 +357,7 @@ Type & Taunt\\
   Steel & You're no match for my iron will!\\
   Water & These waters are treacherous!\\
 \end{tabular}
-\caption{Team GO Rocket Grunt taunts and typings}
-\label{table:taunts}
+  \caption{Team GO Rocket Grunt taunts and typings\label{table:taunts}}
 \end{table}
 Other taunts indicate mixed teams.
 Grunts make use of neither shields nor substitution.
@@ -393,8 +385,7 @@ Giovanni's team will employ at least one Shadow Legendary Pokémon, which
  will be encountered following a victory.
 This Pokémon will have a 100\% catch rate.
 
-\subsection{GO Battle League}
-\label{subsec:league}
+\subsection{GO Battle League\label{subsec:league}}
 Ahhh, the best part of Pokémon GO: for me, the rest of the game is mindlessly farming Pokémon for GBL.
 Assemble a team from your Pokémon, and compete with Trainers around the world.
 Battle League operates on three-month seasons, divided into twelve weeks.
@@ -445,8 +436,7 @@ Rank & Name & Requirement\\
   \caption{GO Battle League named ranks\label{table:gblranks}}
 \end{table}
 
-\section{Nx1 battles}
-\label{sec:nx1}
+\section{Nx1 battles\label{sec:nx1}}
 One Pokémon fends off a number of simultaneously attacking Trainers, each of whom has one Pokémon active at a time.
 Damage and fainting suffered persist beyond the battle.
 A Trainer's Pokémon can dodge, reducing absorbed damage.
