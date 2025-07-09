@@ -103,7 +103,7 @@ print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{%s using %s against %s}\\label{table:bpoints%d}\\end{table}\n",
+  printf("\\end{tabular}\\caption{%s using %s against %s\\label{table:bpoints%d}}\\end{table}\n",
           atk->s.s->name.c_str(), a->name, p->s.s->name.c_str(), tableno);
 }
 

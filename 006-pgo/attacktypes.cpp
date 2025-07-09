@@ -28,8 +28,7 @@ void print_latex_table(const unsigned *acounts, const unsigned *gooddpt, const u
     acounts += 5;
   }
   printf("\\end{tabular}\n");
-  printf("\\caption{Fast attacks by duration by type}\n");
-  printf("\\label{table:attacktypes}\n");
+  printf("\\caption{Fast attacks by duration by type\\label{table:attacktypes}}");
   printf("\\end{table}\n");
 }
 

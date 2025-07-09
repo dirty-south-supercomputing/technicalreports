@@ -52,8 +52,7 @@ static void type_heterotable(void){
   if(count % 2){
     printf("\\\\\n");
   }
-  printf("\\caption{Type-changing evolutions and form changes}");
-  printf("\\label{table:heteroevolve}");
+  printf("\\caption{Type-changing evolutions and form changes\\label{table:heteroevolve}}");
   printf("\\end{longtable}");
   printf("\\endgroup");
 }
@@ -98,8 +97,7 @@ static void cost_heterotable(void){
     printf("&\\\\\n");
   }
   printf("\\end{tabular}");
-  printf("\\caption{Evolutions that change cost group}");
-  printf("\\label{table:heterocost}");
+  printf("\\caption{Evolutions that change cost group\\label{table:heterocost}}");
   printf("\\end{table}");
 }
 

@@ -44,8 +44,7 @@ void print_latex_table(const attack* as, unsigned ccount){
     }
     puts("\\\\");
   }
-  printf("\\caption{Charged attacks and power-per-energy (3x3 battles)}\n");
-  printf("\\label{table:chargedattacks}\n");
+  printf("\\caption{Charged attacks and power-per-energy (3x3 battles)\\label{table:chargedattacks}}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
 }

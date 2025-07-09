@@ -23,5 +23,5 @@ int main(void){
     }
     printf("\\\\\n");
   }
-  printf("\\end{tabular}\\caption{Weather-boosted types}\\label{table:weather}");
+  printf("\\end{tabular}\\caption{Weather-boosted types\\label{table:weather}}");
 }
