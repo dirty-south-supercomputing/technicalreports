@@ -1,5 +1,4 @@
-\chapter{Simulation}
-\label{chap:simul}
+\chapter{Simulation\label{chap:simul}}
 \textit{This chapter is somewhat technical, and can be skipped by readers
  uninterested in building and evaluating simulation systems.}
  \bigskip
@@ -27,8 +26,7 @@ Finally, it never diverges, instead advancing always towards a conclusion\footno
   simply dismiss all choice-pairs that change no state beyond the clock, neatly sidestepping this issue.
   Even if we didn't, there's a time limit on matches.}.
 
-\section{Probabilistic methods}
-\label{sec:probsimul}
+\section{Probabilistic methods\label{sec:probsimul}}
 The easiest approach is similar to Monte Carlo integration.
 At each turn, we evaluate the space of possibilities, and select one action for each Trainer.
 This selection might be informed by an expert system, or take the form of a Markov chain,
@@ -59,8 +57,7 @@ Furthermore, questions like those earlier in this chapter become harder to answe
  as we have less knowledge of paths considered unlikely by our model,
  and it is unlikely to bring unorthodox, new strategies to light.
 
-\section{Exhaustive methods}
-\label{sec:exhaustive}
+\section{Exhaustive methods\label{sec:exhaustive}}
 A naive solution begins at the first turn, generates the set of possible
   choices for both Trainers, and recurses across the Cartesian product
   of these sets: depth-first generation of the full game tree.
@@ -94,16 +91,14 @@ This is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
 We'll need prune the game tree using limited expert methods\footnote{We remain exhaustive, rather than
  stochastic, just within a limited space.}.
 
-\subsection{Common state}
-\label{subsec:commonstate}
+\subsection{Common state\label{subsec:commonstate}}
 Whatever our method, implementing the trainer battle mechanics requires a
   three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
 State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
 \inputminted{cpp}{s/simul.h}
 
-\section{Simulating 1x1}
-\label{sec:simul1x1}
+\section{Simulating 1x1\label{sec:simul1x1}}
 Let's start with exhaustive simulation of a 1x1 contest,
  where substitution is not in play.
 A naive implementation blows up almost immediately: the Trainer can choose to do nothing
@@ -131,7 +126,7 @@ With sufficient energy, charged attacks enter the picture:
 \end{itemize}
 And while we won't be implementing them yet, assuming other Pokémon have not
   fainted and the cooldown period is not active, we can call in a substitution.
-``One'' and ``two down'' here are taken modulo 3, i.e. if the third Pokémon is
+``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
 \begin{itemize}
 \item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
@@ -167,8 +162,7 @@ When a Pokémon goes down, three things can happen:
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
   with full HP, two shields, and no energy.
 
-\section{Closed form of the endgame}
-\label{sec:endgame}
+\section{Closed forms in the endgame\label{sec:endgame}}
 Game simulation is friendly to memoization, i.e.\ storing and recognizing equivalent game states.
 The easiest place to apply this is the endgame.
 More correctly, this is the easiest way to choose states to memoize,
@@ -184,67 +178,26 @@ This restriction means we can ignore shields, as they're only relevant
 We call these subgraphs ``death marches''.
 
 How do we put an upper bound on turns?
-Remember that we don't consider rounds which effect no change in state.
-There are thus five possible choice-pairs:
-  \{ ongoing, ongoing \},
-  \{ ongoing, noop \},
-  \{ noop, ongoing \},
-  \{ ongoing, fast \},
-  \{ fast, ongoing \}.
-The ``worst'' case (most turns) would take the form of two Pokémon
-  with roughly equal HP taking turns executing fast attacks
-  inflicting equal damage.
-This is bounded by $T_{max}$ turns.
+Remember that we don't allow doing nothing except in the service of optimal move timing.
+Since that only applies to charged attacks, it's irrelevant here.
 
-\[ T_{max} = \left\lceil\frac{HP_1}{D_2 * T_2}\right\rceil + \left\lceil\frac{HP_2}{D_1 * T_1}\right\rceil \]
+\[ T_{max} = \min \left\lceil\frac{HP_1}{D_2}\right\rceil T_2,\left\lceil\frac{HP_2}{D_1}\right\rceil T_1 \]
 
 $D$ is the damage inflicted per fast attack, and $T$ is the number of turns per fast attack.
 This equation is well-defined for all attacks, since damage (unlike power,
   which can be zero) is always at least 1.
 So, knowing $T_{max}$, we can determine those cases where no charged attack
   can be used: whenever $T_{max} * EPT + E_{current} < E_{charged}$ for both Pokémon.
-In this case, we can easily construct a closed form for the number of wins
-  possible for each Trainer, and evaluate it in constant time, eliding
-  a large tree of explicit (stateful) simulation.
-The outputs ought be the same as our general problem: the number of paths
-  concluding in a victory for Trainer 1, the number concluding in victory for
-  Trainer 2, and the number concluding in a tie\footnote{In the realized world,
-  such a death march will usually see both Trainers spamming their fast attack,
-  and a given context will always result in the same winner. We need account
-  for all paths so the math works for overall analysis.}.
-We ought be able to check this closed form with our simulation infrastructure,
-  since recognizing and calculating the form adds complexity to
-  already necessary code.
+There is only one possible path through such a subtree, with one answer:
+  whichever Pokémon has a lower $T$ wins.
 
-A tie requires that both Pokémon are reduced to 0 HP on the same turn.
-This is the set of paths where each Pokémon launches exactly $\lceil\frac{HP}{D}\rceil$
-  attacks, and the final damages are inflicted on the same turn.
-Otherwise, all paths where a Trainer inflicts $\lceil\frac{HP}{D}\rceil$ fast attacks
-  represent a victory for that Trainer.
-We enter the death march state with neither, one, or both remaining Pokémon having
-  turns outstanding on their fast attack.
-Call these turns remaining $T_1$ and $T_2$, and the HP remaining $H_1$ and $H_2$.
-Call the turns required by the fast attacks $FT_1$ and $FT_2$.
-Call the damage inflicted $D_1$ and $D_2$.
-Given our restriction on null states, all turns must see at least one Pokémon engaged
-  in a fast attack.
-Pseudocode for simulating a death march is given in \autoref{listing:deathmarch}; it
-  makes it obvious that all nodes will have either zero, two, or three children.
-\begin{code}
-\captionof{listing}{Death march simulation pseudocode}
-\label{listing:deathmarch}
-\inputminted{cpp}{s/endgame.pcode}
-\end{code}
-
-\textbf{FIXME so construct it then...}
-
-\section{Simulating 3x3}
-\label{sec:simul3x3}
+\section{Simulating 3x3\label{sec:simul3x3}}
 Simulating a full Trainer Battle requires supporting three Pokémon per Trainer,
   simulating replacement paths when a Pokémon faints,
   and handling substitutions.
-Substitutions are a greater threat to our complexity, since they can happen
-  on any turn (unless there has been a recent substitution).
+The increase in state is negligible, but substitutions have substantial impact on time complexity,
+  since they can happen on any turn (unless there has been a recent substitution).
+It furthermore represents two branches early, when a team has all three Pokémon.
+Our death march closed form cannot be applied when a Pokémon remains.
 Handling replacement is easier: all we need do is amend our frontend to
   seed all three positions, and implement switchover.
-\textbf{FIXME}
