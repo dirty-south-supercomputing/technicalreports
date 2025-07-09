@@ -1,5 +1,4 @@
-\chapter{Attacks}
-\label{chap:attacks}
+\chapter{Attacks\label{chap:attacks}}
 A Pokémon deals damage in battle via two types of attacks.
 ``Fast'' attacks generate the energy required by powerful ``charged'' attacks.
 Energy is per-Pokémon and preserved across substitution (but not across battles).
@@ -57,8 +56,7 @@ under the invariants:
 \includegraphics[height=1em,keepaspectratio]{images/poison.png} & 1 & 4 & 11 & 2 & 4 & 18 & 50 & 74 & 24 & 1 & -4 \\
     \includegraphics[height=1em,keepaspectratio]{images/normal.png} & 1 & 2 & 15 & 0 & 2 & 17 & 34 & 118 & 0 & 0 & -4.\textoverline{1} \\
 \end{tabular}
-    \caption[Attack Type effectiveness summaries]{Attack Type effectiveness summaries (higher is better)}
-    \label{table:attackeff}
+    \caption[Attack Type effectiveness summaries]{Attack Type effectiveness summaries (higher is better)\label{table:attackeff}}
 \end{table}
 
 \section{Fast Attacks}
@@ -86,18 +84,15 @@ Fast attacks counts are broken down by type in \autoref{table:attacktypes},
 
 \begin{figure}[ht]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/pptvst.png}
-\caption{PPT vs turns for fast attacks}
-\label{fig:pptvst}
+  \caption{PPT vs turns for fast attacks\label{fig:pptvst}}
 \end{figure}
 
 \begin{figure}[hb]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/eptvst.png}
-\caption{EPT vs turns for fast attacks}
-\label{fig:eptvst}
+  \caption{EPT vs turns for fast attacks\label{fig:eptvst}}
 \end{figure}
 
-\section{Charged Attacks}
-\label{sec:charged}
+\section{Charged Attacks\label{sec:charged}}
 Every Pokémon knows at least one Charged Attack, and most can be taught a second
   Charged Attack at a cost of Stardust and Candy\footnote{Applin, Combee,
   Cosmoem, Cosmog, Ditto, Gimmighoul, Toxel, Unown, and Wimpod are exceptions;
@@ -128,12 +123,10 @@ Note that many of the best PPEs do not require extreme energy; these make
 
 \begin{figure}[ht]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/dpevse.png}
-\caption{PPE vs energy for charged attacks}
-\label{fig:dpevse}
+  \caption{PPE vs energy for charged attacks\label{fig:dpevse}}
 \end{figure}
 
-\section{Buffs and debuffs}
-\label{sec:buffs}
+\section{Buffs and debuffs\label{sec:buffs}}
 Certain charged attacks have a chance of semi-persistent effects on the
   attack or defense of the user or opponent.
 These effects can be positive (``buffs'') or negative (``debuffs''\footnote{I am unenamored of the term ``debuff'',
@@ -148,8 +141,7 @@ The effects apply only to the active Pokémon, and do not persist across substit
 Stat changes stack, but the absolute value will not exceed four.
 See \autoref{sec:mbmult} for a quantitative treatment.
 
-\subsection{Adventure Effects}
-\label{sec:effects}
+\subsection{Adventure Effects\label{sec:effects}}
 Certain charged attacks can be employed outside of battle.
 Some Pokémon must know the attack, and that Pokémon cannot be fainted.
 Adventure effects cost Stardust and Candy appropriate to the Pokémon
@@ -168,12 +160,10 @@ Adventure effects cost Stardust and Candy appropriate to the Pokémon
     Crowned Sword Zacian & Behemoth Blade & 5k + 5x & 6 min\\
     Crowned Shield Zamazenta & Behemoth Bash & 5k + 5x & 6 min\\
   \end{tabular}
-  \caption{Adventure effects of charged attacks}
-  \label{table:adveffects}
+  \caption{Adventure effects of charged attacks\label{table:adveffects}}
 \end{table}
 
-\section{Cover sets}
-\label{sec:coversets}
+\section{Cover sets\label{sec:coversets}}
 It is a fine thing to have supremacy against any typing an opponent might bring onto the field.
 With one fast and two charged attacks per Pokémon, a team of three can boast nine distinct attack types.
 Can we achieve coverage of the defenders' typing with this limited repertoire?
@@ -196,8 +186,7 @@ No other types show up in all covering sets.
  Fighting, Flying, Ghost, Grass, Ground, Ice, Poison\\
  Fighting, Flying, Ghost, Grass, Ground, Ice, Steel\\
   \end{tabular}
-  \caption{Monotypes are minimally covered by 10 sets of 7}
-  \label{table:coversetsmono}
+  \caption{Monotypes are minimally covered by 10 sets of 7\label{table:coversetsmono}}
 \end{table}
 
 It's interesting to look at how these sets change if we ignore one target type.
@@ -217,8 +206,7 @@ The remaining eight elisions merely enable more septuples (\autoref{table:partia
     Ground & 7 & 24 & Normal & 6 & 2\\
     Water & 6 & 4 & & & \\
   \end{tabular}
-  \caption{Partial covers are comparable in size to a full cover}
-  \label{table:partialcovers}
+  \caption{Partial covers are comparable in size to a full cover\label{table:partialcovers}}
 \end{table}
 
 Of course, what we're really interested in covering is the full set
@@ -238,8 +226,7 @@ Unfortunately, this requires no fewer than ten attacking types,
  Bug, Dark, Fairy, Fighting, Fire, Grass, Ground, Rock, Steel, Water\\
  Bug, Dark, Fairy, Fighting, Fire, Grass, Ground, Ice, Rock, Steel\\
   \end{tabular}
-  \caption{Full typing is minimally covered by 9 sets of 10}
-  \label{table:coversetsdual}
+  \caption{Full typing is minimally covered by 9 sets of 10\label{table:coversetsdual}}
 \end{table}
 
 Even assuming unlimited substitution, this demonstrates the
@@ -248,8 +235,7 @@ Even assuming unlimited substitution, this demonstrates the
 However, \autoref{sec:typeleagues} explores situations where typing is restricted.
 In such cases, the minimum set concept is extremely powerful.
 
-\section{Relative strength of fast and charged attacks}
-\label{sec:fastvchaged}
+\section{Relative strength of fast and charged attacks\label{sec:fastvchaged}}
 It's sometimes useful to delay use of a charged attack, but is it ever wise to forgo
   charged attacks entirely?
 Fast attack power ranges from 1 (Locked On) to 20 (Incinerate), but we need look at
