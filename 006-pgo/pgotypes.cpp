@@ -12953,25 +12953,27 @@ void print_type_big(pgo_types_e t){
   }
 }
 
-void print_types_big(pgo_types_e t1, pgo_types_e t2){
+int print_types_big(pgo_types_e t1, pgo_types_e t2){
   print_type_big(t1);
   if(t1 != t2){
     putc(' ', stdout);
     print_type_big(t2);
+    return 2;
   }
+  return 1;
 }
 
 int print_weather_big(pgo_weather_t w, bool doprint){
   int count = 1;
   const char *ws = WNames[w];
   if(doprint){
-    printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png} ", ws);
+    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}} ", ws);
   }
   ws = WSNames[w];
   if(ws){
     ++count;
     if(doprint){
-      printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png} ", ws);
+      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}} ", ws);
     }
   }
   return count;
@@ -13264,32 +13266,19 @@ print_previous_species(const species *s){
 
 int print_icons(const species *s, bool doprint){
   int count = 0;
-
   if(s->category == species::CAT_ULTRABEAST){
     ++count;
     if(doprint){
-      printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
-    }
-  }
-  if(has_gmax(s)){
-    ++count;
-    if(doprint){
-      printf(" \\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}");
-    }
-  }
-  if(has_dmax(s)){
-    ++count;
-    if(doprint){
-      printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
+      printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}}");
     }
   }
   if(has_mega(s)){
     ++count;
     if(doprint){
-      printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
+      printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
     }
   }
-  count += print_weathers_big(s->t1, s->t2, false);
+  count += print_weathers_big(s->t1, s->t2, doprint);
   return count;
 }
 
@@ -13354,8 +13343,19 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
 
   // the minipages with icons and cp data
   printf("\\noindent\\begin{minipage}{0.3\\linewidth}");
-  print_types_big(s->t1, s->t2);
-  if(print_icons(s, false) > 2){
+  int largeicons = print_types_big(s->t1, s->t2);
+  if(has_gmax(s)){
+    ++largeicons;
+    printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}}");
+  }
+  if(has_dmax(s)){
+    ++largeicons;
+    printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}}");
+  }
+  // we never want some small icons on both lines if we have to have two lines,
+  // but we want only one line if we can get away with it. three small icons
+  // are too many to put with two large icons.
+  if(largeicons + print_icons(s, false) > 4){
     printf("\\\\");
   }
   print_icons(s, true);
