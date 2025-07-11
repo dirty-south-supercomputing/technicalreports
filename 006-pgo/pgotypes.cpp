@@ -13033,7 +13033,7 @@ void print_optimal_latex(const species* sp){
   while(s){
     stats* tmp = s->next;
     cp = s->cp;
-    if(++printed < 4){
+    if(++printed < 3){
       printf("%u/%u/%u@", s->ia, s->id, s->is);
       print_halflevel(s->hlevel);
       printf(" (%u) ", s->cp);
@@ -13041,13 +13041,16 @@ void print_optimal_latex(const species* sp){
     delete s;
     s = tmp;
   }
+  if(printed >= 3){
+    printf("(%u more)", printed - 2);
+  }
   printed = 0;
   if(cp >= 1500){
     s = find_optimal_set(sp, 1500, 0, false);
     printf("\\newline{}\\hfill{}");
     while(s){
       stats* tmp = s->next;
-      if(++printed < 4){
+      if(++printed < 3){
         printf("%u/%u/%u@", s->ia, s->id, s->is);
         print_halflevel(s->hlevel);
         printf(" (%u) ", s->cp);
@@ -13055,6 +13058,9 @@ void print_optimal_latex(const species* sp){
       delete s;
       s = tmp;
     }
+  }
+  if(printed >= 3){
+    printf("(%u more)", printed - 2);
   }
 }
 
@@ -13262,6 +13268,10 @@ print_previous_species(const species *s){
   printf(" (\\pageref{species:");
   label_string(s->name.c_str());
   printf("}) → ");
+  // ugh, special case -- this line occupies too much space
+  if(s->name == "Galarian Zigzagoon"){
+    printf("\\\n");
+  }
 }
 
 int print_icons(const species *s, bool doprint){
