@@ -105,17 +105,9 @@ A naive implementation blows up almost immediately: the Trainer can choose to do
  whenever they're not busy, and doing nothing consumes only one turn,
  meaning we almost always have at least four choicepairs:
  \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
-Our first restriction, then: if there's no good reason to do nothing,
- the Pokémon must do something.
-Given the timing advice provided in \autoref{chap:strategy}, we will permit
- a do-nothing turn only if the opponent is in the middle of a fast attack,
- \textit{and} the Pokémon's fast attack cannot fit within the opponent's ongoing fast attack,
- \textit{and} the Pokémon has sufficient energy to use a charged attack.
-\begin{itemize}
-\item Wait: \texttt{MOVE\_WAIT}
-\end{itemize}
-We can wait (per above) if the opponent has an ongoing fast attack.
-We can otherwise always throw our own:
+Our first restriction, then: there's no good reason to do nothing,
+ so the Pokémon must do something.
+On every turn, we're either waiting for our fast attack to conclude, or we can throw a fast attack:
 \begin{itemize}
 \item Fast attack: \texttt{MOVE\_FAST}
 \end{itemize}
@@ -178,8 +170,6 @@ This restriction means we can ignore shields, as they're only relevant
 We call these subgraphs ``death marches''.
 
 How do we put an upper bound on turns?
-Remember that we don't allow doing nothing except in the service of optimal move timing.
-Since that only applies to charged attacks, it's irrelevant here.
 
 \[ T_{max} = \min \left\lceil\frac{HP_1}{D_2}\right\rceil T_2,\left\lceil\frac{HP_2}{D_1}\right\rceil T_1 \]
 
