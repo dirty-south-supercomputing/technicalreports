@@ -194,7 +194,7 @@
 \appendix
 \booltrue{inspeciesappendex}
 \chapter{Optimal CP-bound configurations\label{chap:optimal}}
-\section{CP1500 bound (Great League)}
+\section{CP1500 bound (Great League)\label{sec:cp1500}}
 Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\frac{BS}{3}$,
   the arithmetic mean of $Eff_A$, $Eff_D$, and MHP\@.
 Despite personally believing the geometric mean $\sqrt[3]{BP}$ a superior metric,
@@ -221,7 +221,7 @@ These numbers are larger using $\overline{BS}$ than $\sqrt[3]{BP}$; if the latte
   else is below 3\%.
 \input{out/cp1500}
 \section{CP2500 bound (Ultra League)}
-See \autoref{chap:optimal} for important notes.
+See \autoref{sec:cp1500} for important notes.
 \input{out/cp2500}
 \boolfalse{inspeciesappendex}
 
@@ -278,9 +278,10 @@ CP1500: 0/14/1@42.5
 CG 4 Gen X Atlantic\hfill{}Columbia → \textbf{Challenger} → Discovery
 \tcbsubtitle[before skip=0pt]{Shadow OV-099 Challenger\hfill{240 100 100 146.67 133.89}}
 \end{speciesbox}
-\bigskip
-We see here that OV-099 Challenger is a Ghost+Flying form, with base ATK, DEF, and STA
-of 200, 120, and 100, respectively. It has a Shadow form, but not a Shiny form.
+\bigskip\noindent{}We see here that OV-099 Challenger is a Ghost+Flying form, with base ATK, DEF, and STA
+of 200, 120, and 100, respectively. Its $\frac{BS}{3}$ is 140, and its $\sqrt[3]{BP}$ is 133.89.
+It has a Shadow form, but not a Shiny form. The Shadow form has higher ATK and lower DEF, changing
+its $\frac{BS}{3}$ to 146.67.
 \clearpage
 \input{out/species}
 

@@ -154,6 +154,35 @@ Of course, the Pokémon you would have knocked out might get a charged attack of
 On this note, when deciding whether to shield, be sure to account for built up energy on the opponent's bench.
 
 \subsection{Charged move timing\label{subsec:cmt}}
+Recall from \autoref{chap:battle} that charged attacks:
+\begin{itemize}
+\item inflict damage on the turn thrown,
+\item conclude an opponent's fast attack, and
+\item inflict damage prior to said fast attack.
+\end{itemize}
+A result of these mechanics is that on the turn following a charged attack,
+ both Pokémon are ready to throw a new attack.
+
+Pokémon A concludes a fast attack, and has sufficient energy to throw a charged attack.
+Pokémon B is in the middle of a multiturn fast attack, with $R$ turns remaining.
+Pokémon A's fast attack requires $T$ turns.
+If $T < R-1$, throwing the charged attack constitutes a blunder\footnote{Unless it wins the match.}.
+It brings Pokémon B's fast attack to an early conclusion, leaving the opponent ready to start a new attack.
+If instead Pokémon A runs a fast attack, that attack completes before Pokémon B's, inflicting damage and generating energy.
+The charged attack can then be thrown.
+In the extreme case of facing an attack of five turns while using one of a single turn,
+  you can get four attacks in before optimally launching the charged attack.
+
+Let's assume Pokémon A employs Poison Jab, a two-turn fast attack.
+When Pokémon B throws Incinerate at $T_1$, Pokémon A can throw Poison Jab.
+It concludes on $T_2$, dealing damage and charging energy, without interrupting Incinerate.
+On $T_3$, Pokémon A can launch Poison Jab a second time, concluding on $T_4$.
+Finally, at $T_5$, Pokémon A throws its charged attack.
+The result when $T_6$ rolls around is that both stand ready to throw new attacks, like before,
+  but Pokémon A has the benefit of two extra fast attacks.
+Compared to throwing the charged attack at $T_2$, or waiting until $T_5$,
+  Pokémon A has inflicted more damage and built up more energy.
+
 \begin{tipbox}[title=Warning! Achtung! \begin{chinese}危险！\end{chinese} ¡Peligro! \begin{japanese}危険!\end{japanese} \textit{Tulaga faigata!}]
 This subsection contradicts longstanding claims of the Pokémon GO community, repeated by
   people far more experienced than me, whom I will probably never defeat in PvP.
@@ -161,14 +190,7 @@ Nonetheless, I'm pretty sure they're all wrong, and I'm right.
 You'll have to decide for yourself.
 Then again, that's always the case.
 \end{tipbox}
-Recall from \autoref{chap:battle} the mechanics of charged moves: if Pokémon A has a fast move ongoing,
- and Pokémon B throws a charged attack, the charged attack brings the fast attack to early completion.
-Assuming Pokémon A isn't knocked out by the charged attack, the damage due their fast attack is
- immediately inflicted, and the energy immediately built up.
-On the next turn, both Pokémon can throw a new attack.
-This much is accepted by everyone.
-
-Over and over, one will hear that ``charged moves ought be thrown on the natural last turn of an
+\noindent{}Over and over, one hears that ``charged moves ought be thrown on the natural last turn of an
  opponent's fast move, or the opponent gains free turns.''
 Examples include EmpoleonDynamite's ``\href{https://pvpoke.com/articles/strategy/guide-to-fast-move-registration/}{Guide to Fast Move Mechanics}''
  on \href{https://pvpoke.com}{pvpoke.com} (2022), FlarkeFiasco's r/TheSilphArena post ``\href{reddit.com/r/TheSilphArena/comments/fvu62a/charge\_move\_timing\_yes\_it\_really\_does\_matter/}{Charge Move Timing---Yes, it *really* does matter}'' (2020),
@@ -185,7 +207,8 @@ Pokémon B throws Incinerate.
 It will normally conclude on $T_5$, leaving Pokémon B with thirty energy, and Pokémon A with 80 HP\@.
 On $T_2$, Pokémon A throws a charged attack (violating the rule) costing 45 energy, hitting Pokémon B for 40 HP\@.
 Incinerate is brought to an early conclusion.
-At the end of $T_2$, Pokémon B has 30 HP and 30 energy, Pokémon A has 5 energy and 80 HP, and both are ready to throw a new attack.
+At the end of $T_2$, Pokémon B has 30 HP and 30 energy, Pokémon A has 5 energy and 80 HP.
+Both are ready to throw an attack.
 
 The rule mandates that Pokémon A not throw the charged attack until $T_5$.
 In that case, the fast attack concludes on $T_5$, uninterrupted by the charged attack.
@@ -202,19 +225,6 @@ Pokémon B has not emerged with more energy, has not thrown any more attacks, an
 Where is this ``free attack'' it was to gain?
 There is no such thing.
 
-I said the claim was ``mostly false'', because there is a relevant case:
-  if Pokémon A has a fast attack that fits within the turns required by Pokémon B's attack,
-  it absolutely ought be employed before the charged attack.
-Let's assume Pokémon A employs Poison Jab, a two-turn fast attack.
-When Pokémon B throws Incinerate at $T_1$, Pokémon A can throw Poison Jab.
-It concludes on $T_2$, dealing damage and charging energy, without interrupting Incinerate.
-On $T_3$, Pokémon A can launch Poison Jab a second time, concluding on $T_4$.
-Finally, at $T_5$, Pokémon A throws its charged attack.
-The result when $T_6$ rolls around is that both stand ready to throw new attacks, like before,
-  but Pokémon A has the benefit of two extra fast attacks.
-Compared to throwing the charged attack at $T_2$, or waiting until $T_5$,
-  Pokémon A has inflicted more damage and built up more energy.
-
 Now, if Pokémon A has a three-turn attack like Astonish, its options are more limited.
 It can (and should) throw Astonish at $T_1$, concluding at $T_3$.
 Throwing Astonish a second time won't see it conclude until $T_6$.
@@ -223,3 +233,7 @@ If Pokémon A throws its charged attack at $T_7$, Pokémon B has indeed landed t
   doubling inflicted damage and energy charged.
 Of course, Pokémon A has landed two Astonish attacks in addition to its charged attack, so the
   second Incinerate wasn't quite ``free''.
+Instead, if it throws its charged attack on either $T_4$ or $T_5$ (there is no difference),
+ the next turn starts with one Incinerate against one Astonish plus one charged move.
+It can now throw Astonish, and when it completes, Pokémon B will still be in the middle of its second Incinerate.
+In this case, the charged attack ought be thrown immediately (assuming you want to throw it at all).
