@@ -57,5 +57,6 @@ throw_charged_move(simulstate *s, int player, pgo_move_e mt, bool oshield){
     return inflict_damage(&s->hp[op][s->active[op]], 1);
   }
   return inflict_damage(&s->hp[op][s->active[op]],
-          calc_buffed_damage(pmons[player][s->active[player]].damage[didx][s->active[op]], 1, 1));
+          calc_buffed_damage(pmons[player][s->active[player]].damage[didx][s->active[op]],
+            s->buffleva[player], s->bufflevd[op]));
 }
