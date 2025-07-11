@@ -8,7 +8,10 @@ static bool account_fast_move(simulstate *s, int player){
       accumulate_energy(&s->e[player][s->active[player]], p->fa->energytrain);
       int op = other_player(player);
       return inflict_damage(&s->hp[op][s->active[op]],
-              calc_buffed_damage(p->damage[0][s->active[op]], 1, 1));
+              calc_buffed_damage(
+                calc_damage(&pmons[player][s->active[player]], &pmons[op][s->active[op]],
+                            pmons[player][s->active[player]].fa),
+                s->buffleva[player], s->bufflevd[op]));
     }
   }
   return false;

@@ -12476,7 +12476,7 @@ static const species sdex[] = {
     { &ATK_High_Horsepower, }, species::CAT_NORMAL, 50, },
   //{  902, "Basculegion", TYPE_WATER, TYPE_GHOST, },
   {  903, "Sneasler", TYPE_FIGHTING, TYPE_POISON, 259, 158, 190, "Hisuian Sneasel", SNEASLER_ATKS, true, true, {}, species::CAT_NORMAL, 75, },
-  {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Qwilfish", OVERQWIL_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Hisuian Qwilfish", OVERQWIL_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  905, "Incarnate Forme Enamorus", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, NULL, I_ENAMORUS_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, },
   {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, NULL, SPRIGATITO_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  907, "Floragato", TYPE_GRASS, TYPECOUNT, 157, 128, 156, "Sprigatito", FLORAGATO_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
@@ -13305,6 +13305,7 @@ int print_icons(const species *s, bool doprint){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool bg){
+  printf("\\vfill\n");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},after title={",
@@ -13433,7 +13434,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   if(bg){
     printf("\\pagecolor{%s!25!white}", TNames[s->t1]);
   }
-  printf("\\vfill\n");
 }
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.

@@ -41,22 +41,21 @@ static void accumulate_energy(energy *e, int addend){
 // oshield may only be set if the opponent has a shield.
 static inline bool
 throw_charged_move(simulstate *s, int player, pgo_move_e mt, bool oshield){
+  int op = other_player(player);
   const attack *a;
-  int didx;
   if(mt == MOVE_CHARGED1){
     a = pmons[player][s->active[player]].ca1;
-    didx = 1;
   }else{
     a = pmons[player][s->active[player]].ca2;
-    didx = 2;
   }
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
-  int op = other_player(player);
   if(oshield){
     --s->shields[other_player(player)];
     return inflict_damage(&s->hp[op][s->active[op]], 1);
   }
   return inflict_damage(&s->hp[op][s->active[op]],
-          calc_buffed_damage(pmons[player][s->active[player]].damage[didx][s->active[op]],
+          calc_buffed_damage(
+            calc_damage(&pmons[player][s->active[player]],
+             &pmons[op][s->active[op]], a),
             s->buffleva[player], s->bufflevd[op]));
 }

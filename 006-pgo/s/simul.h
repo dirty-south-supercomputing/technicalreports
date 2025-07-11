@@ -24,10 +24,6 @@ typedef struct pmon { // static elements
   struct stats s;
   bool shadow;
   const attack *fa, *ca1, *ca2;
-  // we precalculate the damage its (up to) three attacks will inflict upon
-  // the (up to) three opponents, except for buffs (which change across the
-  // match). then all we need do is multiply cached damage by ratio of buffs.
-  float damage[3][TEAMSIZE];
 } pmon;
 
 extern pmon pmons[2][TEAMSIZE];

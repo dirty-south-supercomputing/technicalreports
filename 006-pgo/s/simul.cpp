@@ -73,16 +73,6 @@ simul(simulstate *s, results *r){
       if(!pmons[1][j].s.s){
         continue;
       }
-      pmons[0][i].damage[0][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].fa);
-      pmons[0][i].damage[1][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca1);
-      if(pmons[0][i].ca2){
-        pmons[0][i].damage[2][j] = calc_damage(&pmons[0][i], &pmons[1][j], pmons[0][i].ca2);
-      }
-      pmons[1][j].damage[0][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].fa);
-      pmons[1][j].damage[1][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca1);
-      if(pmons[1][j].ca2){
-        pmons[1][j].damage[2][i] = calc_damage(&pmons[1][j], &pmons[0][i], pmons[1][j].ca2);
-      }
     }
   }
   tophalf(s, r);
