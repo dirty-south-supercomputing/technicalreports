@@ -1,5 +1,5 @@
 // returns true on a KO
-static bool inflict_damage(int *hp, int damage){
+static bool inflict_damage(hpoints *hp, int damage){
   //printf("inflicting %d damage on %d hp\n", damage, *hp);
   if(*hp < damage){
     *hp = 0;
@@ -30,8 +30,8 @@ static int calc_buffed_damage(float d, float abuff, float dbuff){
   return floor(d);
 }
 
-static void accumulate_energy(int *e, int energy){
-  if((*e += energy) > ENERGY_MAX){
+static void accumulate_energy(energy *e, int addend){
+  if((*e += addend) > ENERGY_MAX){
     *e = ENERGY_MAX;
   }
 }

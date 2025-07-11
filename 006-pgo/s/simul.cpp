@@ -108,7 +108,7 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
 
 // pass in argv at the start of the pmon spec with argc downadjusted
 static int
-lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
+lex_pmon(pmon* p, hpoints *hp, int *argc, char ***argv){
   if(*argc < 4){
     std::cerr << "expected 4 arguments, " << *argc << " left" << std::endl;
     return -1;
