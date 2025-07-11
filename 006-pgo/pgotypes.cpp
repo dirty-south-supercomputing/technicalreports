@@ -12961,24 +12961,33 @@ void print_types_big(pgo_types_e t1, pgo_types_e t2){
   }
 }
 
-void print_weather_big(pgo_weather_t w){
+int print_weather_big(pgo_weather_t w, bool doprint){
+  int count = 1;
   const char *ws = WNames[w];
-  printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png} ", ws);
-  ws = WSNames[w];
-  if(ws){
+  if(doprint){
     printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png} ", ws);
   }
+  ws = WSNames[w];
+  if(ws){
+    ++count;
+    if(doprint){
+      printf("\\includegraphics[height=2em,keepaspectratio]{images/%s.png} ", ws);
+    }
+  }
+  return count;
 }
 
-void print_weathers_big(pgo_types_e t1, pgo_types_e t2){
+int print_weathers_big(pgo_types_e t1, pgo_types_e t2, bool doprint){
+  int count = 0;
   pgo_weather_t w1 = wboosts[t1];
   if(t2 != TYPECOUNT){
     pgo_weather_t w2 = wboosts[t2];
     if(w2 != w1){
-      print_weather_big(w2);
+      count += print_weather_big(w2, doprint);
     }
   }
-  print_weather_big(w1);
+  count += print_weather_big(w1, doprint);
+  return count;
 }
 
 static unsigned
@@ -13253,6 +13262,37 @@ print_previous_species(const species *s){
   printf("}) → ");
 }
 
+int print_icons(const species *s, bool doprint){
+  int count = 0;
+
+  if(s->category == species::CAT_ULTRABEAST){
+    ++count;
+    if(doprint){
+      printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
+    }
+  }
+  if(has_gmax(s)){
+    ++count;
+    if(doprint){
+      printf(" \\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}");
+    }
+  }
+  if(has_dmax(s)){
+    ++count;
+    if(doprint){
+      printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
+    }
+  }
+  if(has_mega(s)){
+    ++count;
+    if(doprint){
+      printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
+    }
+  }
+  count += print_weathers_big(s->t1, s->t2, false);
+  return count;
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg){
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
@@ -13315,20 +13355,10 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   // the minipages with icons and cp data
   printf("\\noindent\\begin{minipage}{0.3\\linewidth}");
   print_types_big(s->t1, s->t2);
-  printf("\\\\");
-  if(s->category == species::CAT_ULTRABEAST){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}");
+  if(print_icons(s, false) > 2){
+    printf("\\\\");
   }
-  if(has_gmax(s)){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}");
-  }
-  if(has_dmax(s)){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}");
-  }
-  if(has_mega(s)){
-    printf(" \\includegraphics[height=2em,keepaspectratio]{images/mega.png}");
-  }
-  print_weathers_big(s->t1, s->t2);
+  print_icons(s, true);
   printf("\\end{minipage}\n");
   if(bg){ // evolutionary lineage (only for main forms)
     printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
