@@ -96,6 +96,8 @@ Whatever our method, implementing the trainer battle mechanics requires a
   three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
 State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
+Whenever an active Pokémon changes, or a buff/debuff takes effect, we compute
+  the damage each attack will inflict.
 \inputminted{cpp}{s/simul.h}
 
 \section{Simulating 1x1\label{sec:simul1x1}}
