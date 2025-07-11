@@ -11588,7 +11588,7 @@ static const species sdex[] = {
     { &ATK_Draco_Meteor, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 75, },
   {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, NULL, MEWTWO_ATKS, true, true,
     { &ATK_Hyper_Beam, &ATK_Psystrike, &ATK_Shadow_Ball, }, species::CAT_LEGENDARY, 100, },
-  {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, A_MEWTWO_ATKS, true, true,
+  {  150, "Armored Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 182, 278, 214, NULL, A_MEWTWO_ATKS, false, false,
     { &ATK_Psystrike, }, species::CAT_LEGENDARY, 100, },
   {  151, "Mew", TYPE_PSYCHIC, TYPECOUNT, 210, 210, 225, NULL, MEW_ATKS, true, false, {}, species::CAT_MYTHICAL, 100, },
   {  152, "Chikorita", TYPE_GRASS, TYPECOUNT, 92, 122, 128, NULL, CHIKORITA_ATKS, true, true, {}, species::CAT_NORMAL, 10, },
