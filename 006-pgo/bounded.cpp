@@ -27,18 +27,22 @@ create_shadow(const species* s){
   return news;
 }
 
-// insert list s into list pointed to by head according to s->geommean
+// insert list s into list pointed to by head according to s->geommean or s->average
 static void
-insert_opt_stat(stats **head, stats *s){
+insert_opt_stat(stats **head, stats *s, bool amean){
   while(s){
     stats **prev = head;
     stats *tmp;
     while( (tmp = *prev) ){
-      if(s->average > tmp->average){
+      float m = amean ? s->average : s->geommean;
+      float om = amean ? s->geommean : s->average;
+      float t = amean ? tmp->average : tmp->geommean;
+      float ot = amean ? tmp->geommean : tmp->average;
+      if(m > tmp->average){
         break;
-      }else if(s->average == tmp->average){
+      }else if(m == t){
         if(s->s->name == tmp->s->name){
-          if(s->geommean > tmp->geommean){
+          if(om > ot){
             break;
           }
         }
@@ -52,8 +56,8 @@ insert_opt_stat(stats **head, stats *s){
   }
 }
 
-// print optimal sets bounded by CP of |bound| above and geometric mean of |lbound| below
-void print_bounded_table(int bound, float labound){
+// print optimal sets bounded by CP of |bound| above and mean of |lbound| below
+void print_bounded_table(int bound, float lbound, bool amean){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
@@ -65,13 +69,13 @@ void print_bounded_table(int bound, float labound){
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, labound, false);
+    stats *s = find_optimal_set(sp, bound, lbound, false, amean);
     if(sp->shadow){
       const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, labound, true);
-      insert_opt_stat(&sols, shadsets);
+      stats *shadsets = find_optimal_set(shads, bound, lbound, true, amean);
+      insert_opt_stat(&sols, shadsets, amean);
     }
-    insert_opt_stat(&sols, s);
+    insert_opt_stat(&sols, s, amean);
   }
   const species* lastspecies = NULL;
   while(sols){
@@ -127,6 +131,6 @@ int main(int argc, char** argv){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[2]);
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam);
+  print_bounded_table(hcp, lam, true);
   return EXIT_SUCCESS;
 }

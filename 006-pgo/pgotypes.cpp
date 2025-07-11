@@ -12799,10 +12799,11 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   return lastgood;
 }
 
+// optimize on arithmetic or geometric mean subject to floor
 static int
 update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float amfloor, float* minmean,
-              bool isshadow){
+              unsigned is, unsigned hl, float floor, float* minmean,
+              bool isshadow, bool amean){
   stats **prev = osets;
   stats *cur;
   unsigned moda = s->atk + ia;
@@ -12812,11 +12813,21 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   unsigned mods = s->sta + is;
   unsigned mhp = calc_mhp(s->sta + is, hl);
   float am = calc_avg(effa, effd, mhp);
-  if(am < *minmean || *minmean <= 0){
-    *minmean = am;
-  }
-  if(am < amfloor){
-    return 0;
+  float gm = calc_fit(effa, effd, mhp);
+  if(amean){
+    if(am < *minmean || *minmean <= 0){
+      *minmean = am;
+    }
+    if(am < floor){
+      return 0;
+    }
+  }else{
+    if(gm < *minmean || *minmean <= 0){
+      *minmean = gm;
+    }
+    if(gm < floor){
+      return 0;
+    }
   }
   while( (cur = *prev) ){
     if(hl < cur->hlevel){
@@ -12853,17 +12864,17 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   cur->effd = effd;
   cur->mhp = mhp;
   cur->cp = calccp(moda, modd, mods, cur->hlevel);
-  cur->average = calc_avg(cur->effa, cur->effd, cur->mhp);
-  cur->geommean = calc_fit(cur->effa, cur->effd, cur->mhp);
+  cur->average = am;
+  cur->geommean = gm;
   cur->next = *prev;
   *prev = cur;
   return 0;
 }
 
-// returns the optimal levels+ivs (using arithmetic mean of effA, effD, and MHP)
-// with a CP less than or equal to cpceil and arithmetic mean of EffA, EffD
-// and MHP greater than or equal to amfloor.
-stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshadow){
+// returns the optimal levels+ivs (using arithmetic or geometric mean of effA,
+// effD, and MHP) with a CP less than or equal to cpceil and arithmetic or
+// geometric mean of EffA, EffD and MHP greater than or equal to floor.
+stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, bool amean){
   stats* optsets = NULL;
   float minmean = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -12871,7 +12882,7 @@ stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshad
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl, amfloor, &minmean, isshadow) < 0){
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, floor, &minmean, isshadow, amean) < 0){
           return NULL;
         }
       }
@@ -12886,9 +12897,10 @@ stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshad
     cur = optsets;
     optsets = cur->next;
     cur->s = s;
+    float m = amean ? cur->average : cur->geommean;
     //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
-    if(cur->average > maxmean){ // new optimal
+    if(m > maxmean){ // new optimal
       stats* c;
       // clean out existing true optimals
       while( (c = collectopt) ){
@@ -12898,8 +12910,8 @@ stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshad
       collectopt = cur;
       qopt = &cur->next;
       cur->next = NULL;
-      maxmean = cur->average;
-    }else if(cur->average == maxmean){ // FIXME unsafe FP comparison
+      maxmean = m;
+    }else if(m == maxmean){ // FIXME unsafe FP comparison
       *qopt = cur;
       qopt = &cur->next;
       cur->next = NULL;
@@ -12907,8 +12919,8 @@ stats *find_optimal_set(const species* s, int cpceil, float amfloor, bool isshad
       delete cur;
     }
   }
-  for(stats *s = collectopt ; s ; s = s->next){
-    s->apercent = (s->average / minmean - 1.0) * 100;
+  for(stats *ss = collectopt ; ss ; ss = ss->next){
+    ss->apercent = ((amean ? ss->average : ss->geommean) / minmean - 1.0) * 100;
   }
   return collectopt;
 }
@@ -13026,7 +13038,7 @@ print_halflevel(unsigned hlevel){
 }
 
 void print_optimal_latex(const species* sp){
-  stats* s = find_optimal_set(sp, 2500, 0, false);
+  stats* s = find_optimal_set(sp, 2500, 0, false, false);
   printf("\\hfill{}");
   unsigned cp = 0;
   unsigned printed = 0;
@@ -13046,7 +13058,7 @@ void print_optimal_latex(const species* sp){
   }
   printed = 0;
   if(cp >= 1500){
-    s = find_optimal_set(sp, 1500, 0, false);
+    s = find_optimal_set(sp, 1500, 0, false, false);
     printf("\\newline{}\\hfill{}");
     while(s){
       stats* tmp = s->next;
@@ -13269,8 +13281,8 @@ print_previous_species(const species *s){
   label_string(s->name.c_str());
   printf("}) → ");
   // ugh, special case -- this line occupies too much space
-  if(s->name == "Galarian Zigzagoon"){
-    printf("\\\n");
+  if(!s->name.compare("Galarian Zigzagoon")){
+    printf("\\\\\\hfill\n");
   }
 }
 
@@ -13387,6 +13399,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       printf("\\textbf{");
       escape_string(s->name.c_str());
       printf("}");
+      if(!s->name.compare("Galarian Zigzagoon")){
+        printf("\\\\\\hfill\n");
+      }
       while(evol){
         printf(" → ");
         escape_string(evol->name.c_str());

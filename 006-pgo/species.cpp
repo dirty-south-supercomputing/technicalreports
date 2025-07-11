@@ -21,7 +21,7 @@ print_species(const species* s){
     printf("%u %u %u %u %s+%s %s\n", s->idx, s->atk, s->def, s->sta,
             TNames[s->t1], TNames[s->t2], s->name.c_str());
   }
-  stats* s2500 = find_optimal_set(s, 2500, 0, false);
+  stats* s2500 = find_optimal_set(s, 2500, 0, false, false);
   while(s2500){
     stats* tmp = s2500->next;
     // print s2500
