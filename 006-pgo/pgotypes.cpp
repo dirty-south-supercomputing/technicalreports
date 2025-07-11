@@ -13016,34 +13016,34 @@ print_halflevel(unsigned hlevel){
 
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false);
-  bool printed = false;
   printf("\\hfill{}");
+  unsigned cp = 0;
+  unsigned printed = 0;
   while(s){
     stats* tmp = s->next;
-    if(!printed){
-      printf("CP2500: ");
-      printed = true;
+    cp = s->cp;
+    if(++printed < 4){
+      printf("%u/%u/%u@", s->ia, s->id, s->is);
+      print_halflevel(s->hlevel);
+      printf(" (%u) ", s->cp);
     }
-    printf("%u/%u/%u@", s->ia, s->id, s->is);
-    print_halflevel(s->hlevel);
-    putc(' ', stdout);
     delete s;
     s = tmp;
   }
-  s = find_optimal_set(sp, 1500, 0, false);
-  printf("\\newline{}\\hfill{}");
-  printed = false;
-  while(s){
-    stats* tmp = s->next;
-    if(!printed){
-      printf("CP1500: ");
-      printed = true;
+  printed = 0;
+  if(cp >= 1500){
+    s = find_optimal_set(sp, 1500, 0, false);
+    printf("\\newline{}\\hfill{}");
+    while(s){
+      stats* tmp = s->next;
+      if(++printed < 4){
+        printf("%u/%u/%u@", s->ia, s->id, s->is);
+        print_halflevel(s->hlevel);
+        printf(" (%u) ", s->cp);
+      }
+      delete s;
+      s = tmp;
     }
-    printf("%u/%u/%u@", s->ia, s->id, s->is);
-    print_halflevel(s->hlevel);
-    putc(' ', stdout);
-    delete s;
-    s = tmp;
   }
 }
 
