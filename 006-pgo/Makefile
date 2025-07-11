@@ -56,17 +56,19 @@ SINDEXTEX:=$(SINDEX).tex
 GIGANTATEX:=out/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
-CP1500:=out/cp1500.tex
-CP2500:=out/cp2500.tex
+CP1500A:=out/cp1500a.tex
+CP2500A:=out/cp2500a.tex
+CP1500G:=out/cp1500g.tex
+CP2500G:=out/cp2500g.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
-GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500) $(CP2500) \
+GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
-	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX)
+	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
@@ -98,13 +100,21 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
 
-$(OUT)/cp1500.tex: $(OUT)/bounded
+$(OUT)/cp1500a.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 1500 128.94 > $@
+	$(<) a 1500 128.94 > $@
 
-$(OUT)/cp2500.tex: $(OUT)/bounded
+$(OUT)/cp1500g.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) 2500 161.98 > $@
+	$(<) g 1500 128.94 > $@
+
+$(OUT)/cp2500a.tex: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) a 2500 161.98 > $@
+
+$(OUT)/cp2500g.tex: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) g 2500 161.98 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)

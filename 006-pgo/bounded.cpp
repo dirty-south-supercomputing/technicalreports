@@ -116,21 +116,29 @@ void print_bounded_table(int bound, float lbound, bool amean){
 }
 
 static void usage(const char *argv0){
-  fprintf(stderr, "usage: %s highcp lowAM\n", argv0);
+  fprintf(stderr, "usage: %s a|g highcp lowAM\n", argv0);
   exit(EXIT_FAILURE);
 }
 
 // print LaTeX longtables of all species' 2500 and 1500 optimal configurations
 int main(int argc, char** argv){
-  if(argc != 3){
+  if(argc != 4){
     usage(argv[0]);
   }
-  int hcp = atoi(argv[1]);
+  bool amean;
+  if(strcmp(argv[1], "g") == 0){
+    amean = false;
+  }else if(strcmp(argv[1], "a") == 0){
+    amean = true;
+  }else{
+    usage(argv[0]);
+  }
+  int hcp = atoi(argv[2]);
   float lam; // lower arithmetic mean bound
-  if(sscanf(argv[2], "%f", &lam) != 1){
-    fprintf(stderr, "couldn't get float from [%s]\n", argv[2]);
+  if(sscanf(argv[3], "%f", &lam) != 1){
+    fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam, true);
+  print_bounded_table(hcp, lam, amean);
   return EXIT_SUCCESS;
 }
