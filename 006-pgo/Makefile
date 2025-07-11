@@ -50,7 +50,7 @@ FPAIRSTEX:=$(OUT)/fpairs.tex
 CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=out/mega.tex
 FUSEDTEX:=$(OUT)/fused.tex
-DYNATEX:=out/dynas.tex
+#DYNATEX:=out/dynas.tex
 CROWNEDTEX:=out/crowned.tex
 SINDEXTEX:=$(SINDEX).tex
 GIGANTATEX:=out/gigantas.tex
@@ -64,7 +64,7 @@ HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
-	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) $(DYNATEX) \
+	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
@@ -136,9 +136,9 @@ $(OUT)/crowned.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) crowned > $@
 
-$(OUT)/dynas.tex: $(OUT)/forms
-	@mkdir -p $(@D)
-	$(<) dynamax > $@
+#$(OUT)/dynas.tex: $(OUT)/forms
+#	@mkdir -p $(@D)
+#	$(<) dynamax > $@
 
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)

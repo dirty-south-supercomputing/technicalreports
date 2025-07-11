@@ -58,17 +58,6 @@
 \settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
-% background for species pages---we only want this in that appendix
-\newbool{inspeciesappendex}
-\newcounter{speciesappendixpage}
-%\AddToHook{shipout/background}{%
-%  \ifbool{inspeciesappendex}
-%    {\put (0in,-\paperheight){\ifthenelse{\isodd{\value{page}}}%
-%    {\stepcounter{speciesappendixpage}\includesvg{images/backgrounds/\arabic{speciesappendixpage}.svg}}
-%    {\stepcounter{speciesappendixpage}\includesvg{images/backgrounds/\arabic{speciesappendixpage}.svg}}
-%    }}
-%}
-
 \newcommand\calign[1]{\raisebox{-0.25\height}{#1}}
 
 \NewTColorBox{speciesbox}{!O{}}{%
@@ -169,7 +158,6 @@
   \bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
   \listoffigures*
   \fi
-\booltrue{inspeciesappendex}
 \input{foreward}
 %--------------------------main text------------------------------------------%
 \mainmatter
@@ -189,17 +177,13 @@
 \input{unbounded}
 \input{bounded}
 \input{example}
-\boolfalse{inspeciesappendex}
 \input{simul}
 \appendix
-\booltrue{inspeciesappendex}
 \chapter{Optimal CP-bound configurations\label{chap:optimal}}
-\section{CP1500 bound (Great League)\label{sec:cp1500}}
+\section{CP1500 bound (Great League)\label{sec:cp1500a}}
 Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\frac{BS}{3}$,
   the arithmetic mean of $Eff_A$, $Eff_D$, and MHP\@.
-Despite personally believing the geometric mean $\sqrt[3]{BP}$ a superior metric,
-  I chose this because the average---for better or worse---usually
-  distinguishes between standard and Shadow forms (the geometric mean is always unchanged)
+This metric usually distinguishes between standard and Shadow forms (the geometric mean is always unchanged).
 I include $\sqrt[3]{BP}$ and even CP\@.
 These rankings \textit{do not} imply that a higher $\sqrt[3]{BP}$ or $\overline{BS}$
   will defeat a lower one.
@@ -207,10 +191,10 @@ Other issues---type effectiveness, attack choice, strategy---are usually more im
 Multiple sets of IVs and levels can score equally due to the discrete nature of MHP\@.
 In this case, all optimal sets are listed.
 
-$A\%$ is the optimal configuration's advantage in terms of $\sqrt[3]{BP}$
+$A\%$ is the optimal configuration's advantage in terms of $\frac{BS}{3}$
   over the pessimal ``reasonable'' configuration, i.e. some IV
   and the highest level attainable given the CP bound.
-For CP1500 (\autoref{table:cp1500}), when a form can max out, i.e. is not restricted by the CP bound,
+For CP1500 (\autoref{table:cp1500}), when a form can max out, i.e.\ is not restricted by the CP bound,
   the maximum advantage tends to be 10\%--25\%, with a few outliers around 50\%.
 It otherwise quickly drops to 4\% or less.
 In CP2500 (\autoref{table:cp2500}), the advantage available from IVs is even smaller, as we would expect.
@@ -219,11 +203,20 @@ It is otherwise generally less than 12\%.
 These numbers are larger using $\overline{BS}$ than $\sqrt[3]{BP}$; if the latter is used,
   the maximum advantages are contained within 12\%--15\%, and everyone
   else is below 3\%.
-\input{out/cp1500}
+\input{out/cp1500a}
 \section{CP2500 bound (Ultra League)}
 See \autoref{sec:cp1500} for important notes.
-\input{out/cp2500}
-\boolfalse{inspeciesappendex}
+\input{out/cp2500a}
+\section{CP1500 bound (Great League)\label{sec:cp1500g}}
+See \autoref{sec:cp1500} for important notes.
+This table uses the geometric mean $\sqrt[3]{BP}$ instead of the arithmetic mean.
+Since Shadow forms don't change under the geometric mean, they have been elided.
+\input{out/cp1500g}
+\section{CP2500 bound (Great League)\label{sec:cp2500g}}
+See \autoref{sec:cp1500g} for important notes.
+This table uses the geometric mean $\sqrt[3]{BP}$ instead of the arithmetic mean.
+Since Shadow forms don't change under the geometric mean, they have been elided.
+\input{out/cp2500g}
 
 \chapter{Species by typings\label{chap:speciesbytype}}
 Forms are sorted by typing, and within typing by Pokédex number.
