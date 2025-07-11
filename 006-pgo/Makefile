@@ -106,7 +106,7 @@ $(OUT)/cp1500a.tex: $(OUT)/bounded
 
 $(OUT)/cp1500g.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) g 1500 124.93 > $@
+	$(<) g 1500 124.66 > $@
 
 $(OUT)/cp2500a.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
@@ -114,7 +114,7 @@ $(OUT)/cp2500a.tex: $(OUT)/bounded
 
 $(OUT)/cp2500g.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) g 2500 150 > $@
+	$(<) g 2500 156.78 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
