@@ -4,11 +4,10 @@
 static void tophalf(const simulstate *s, results *r){
   unsigned m1mask;
   sift_choices(s, &m1mask, 1);
+  innerhalf(s, r, MOVE_FAST, m1mask);
   if(s->turns[0]){
-    innerhalf(s, r, MOVE_WAIT, m1mask);
     return;
   }
-  innerhalf(s, r, MOVE_FAST, m1mask);
   if(s->e[0][s->active[0]] >= -pmons[0][s->active[0]].ca1->energytrain){
     innercharged(s, r, MOVE_CHARGED1, m1mask);
   }

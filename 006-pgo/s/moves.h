@@ -1,22 +1,17 @@
-// the various things each side can do on a turn. MOVE_WAIT can mean either
-// a mandatory wait while the ongoing fast attack completes, or an optional
-// wait while doing nothing.
+// we always do something related to a fast attack (either launch it, or wait
+// for it to complete, based on ->turns on tophalf entry). these are other
+// things we can do.
 enum pgo_move_e {
-  MOVE_WAIT             = 0x001,
-  MOVE_FAST             = 0x002,
-  MOVE_CHARGED1         = 0x004,
-  MOVE_CHARGED2         = 0x008,
-  MOVE_SUB1             = 0x010, // sub in pokémon one down
-  MOVE_SUB2             = 0x020, // sub in pokémon two down
-  MOVEMAX               = 0x040
+  MOVE_FAST     = 0x001,
+  MOVE_CHARGED1 = 0x002,
+  MOVE_CHARGED2 = 0x004,
+  MOVE_SUB1     = 0x008, // sub in pokémon one down
+  MOVE_SUB2     = 0x010, // sub in pokémon two down
+  MOVEMAX       = 0x020
 };
 
 static inline bool charged_move_p(pgo_move_e m){
   return m & (MOVE_CHARGED1 | MOVE_CHARGED2);
-}
-
-static inline bool fast_move_p(pgo_move_e m){
-  return m & MOVE_FAST;
 }
 
 static inline bool sub_move_p(pgo_move_e m){

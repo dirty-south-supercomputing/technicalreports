@@ -36,7 +36,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shiel
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return false;
   }
-  bool p0cmp = p0_wins_cmp(s);
+  bool p0cmp = p0_wins_cmp(s); // FIXME precompute
   if(p0cmp){
     if(charged_move_p(m0)){
       if(throw_charged_move(s, 0, m0, m1shield)){
@@ -60,10 +60,10 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shiel
       }
     }
   }
-  if(fast_move_p(m0)){
+  if(s->turns[0] == 0){
     s->turns[0] = pmons[0][s->active[0]].fa->turns;
   }
-  if(fast_move_p(m1)){
+  if(s->turns[1] == 0){
     s->turns[1] = pmons[1][s->active[1]].fa->turns;
   }
   bool k0 = account_fast_move(s, 0);
