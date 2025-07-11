@@ -12814,20 +12814,12 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
   unsigned mhp = calc_mhp(s->sta + is, hl);
   float am = calc_avg(effa, effd, mhp);
   float gm = calc_fit(effa, effd, mhp);
-  if(amean){
-    if(am < *minmean || *minmean <= 0){
-      *minmean = am;
-    }
-    if(am < floor){
-      return 0;
-    }
-  }else{
-    if(gm < *minmean || *minmean <= 0){
-      *minmean = gm;
-    }
-    if(gm < floor){
-      return 0;
-    }
+  float m = amean ? am : gm;
+  if(m < *minmean || *minmean <= 0){
+    *minmean = m;
+  }
+  if(m < floor){
+    return 0;
   }
   while( (cur = *prev) ){
     if(hl < cur->hlevel){

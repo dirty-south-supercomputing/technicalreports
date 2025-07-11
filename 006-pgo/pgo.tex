@@ -79,6 +79,8 @@
   fonttitle=\bfseries,
   #1}
 
+\renewcommand{\printtoctitle}[1]{}
+
 \makeatletter
 \newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
 \makeatother
@@ -205,10 +207,10 @@ These numbers are larger using $\overline{BS}$ than $\sqrt[3]{BP}$; if the latte
   else is below 3\%.
 \input{out/cp1500a}
 \section{CP2500 bound (Ultra League)}
-See \autoref{sec:cp1500} for important notes.
+See \autoref{sec:cp1500a} for important notes.
 \input{out/cp2500a}
 \section{CP1500 bound (Great League)\label{sec:cp1500g}}
-See \autoref{sec:cp1500} for important notes.
+See \autoref{sec:cp1500a} for important notes.
 This table uses the geometric mean $\sqrt[3]{BP}$ instead of the arithmetic mean.
 Since Shadow forms don't change under the geometric mean, they have been elided.
 \input{out/cp1500g}

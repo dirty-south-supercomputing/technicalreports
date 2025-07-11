@@ -211,7 +211,7 @@ A charged attack at $T_{n+3}$ would lead to one Incinerate against one Astonish
   and a charged attack.
 Pokémon A catches up at $T_{n+9}$, when it has thrown three attacks, and Pokémon B is
   completing its second.
-This 3:2 ratio is as good as it gets for Pokémon A.
+This 3:2 ratio seems as good as it gets for Pokémon A.
 At $T_{n+12}$, we're down to 4:3, and $T_{n+15}$ is 5:4.
 
 \begin{tipbox}[title=Warning! Achtung! \begin{chinese}危险！\end{chinese} ¡Peligro! \begin{japanese}危険!\end{japanese} \textit{Tulaga faigata!}]
@@ -236,11 +236,67 @@ The rule considers $T_{n+9+15c}$ for non-negative integers $c$ optimal times to 
  ($T_{n+9}, T_{n+24}, \dots$), and these are indeed \textit{locally} optimal.
 At $T_{n+18}$, the ratio is 6:4, the same as 3:2, despite \textit{not} being the last turn of Pokémon B's attack.
 And at $T_{n+24}$, the ratio is 8:5, \textit{better} than $T_{n+9}$!
-The ratio is globally maximized at \textbf{FIXME}
+The maxima converge to 5:3.
+
+\begin{figure}
+\begin{minipage}{0.5\textwidth}\centering
+\includegraphics[width=\textwidth,keepaspectratio]{octave/3vs5fastcharged.png}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}\centering
+\includegraphics[width=\textwidth,keepaspectratio]{octave/5vs3fastcharged.png}
+\end{minipage}
+\caption{Ratios of 3- and 5-turn fast moves (200 turns)\label{figure:35ratios}}
+\end{figure}
 
 What about Pokémon B\@?
 Ideally they get their charged move out at $T_{n+5}$, for a 1:1 ratio.
-At $T_{n+10}$ the ratio is 2:4, but at $T_{n+15}$ 
+At $T_{n+10}$ the ratio is 2:4, but at $T_{n+15}$ it is 3:6, despite landing on the first turn of the sixth fast attack.
+At $T_{n+20}$ the ratio is 4:7, but it falls back to 5:9 at $T_{n+25}$.
+These maxima of course converge to 3:5.
+
+Simply postponing a charged move can be just as or more effective than timing with
+  respect to the opponent's fast attack.
+Why is this important?
+It can be useful to delay a charged attack for any number of reasons.
+If Pokémon A was willing to accept a 1.5 ratio, throwing after three Astonish
+  attacks suffices, but six works as well, despite not being the last turn of an Incinerate.
+No efficiency is lost relative to the three case, though neither three nor six are as
+  efficient as 24.
+The true maximum efficiency cannot be reached.
+
+\begin{tabular}{lrrrr}
+  Turn A throws & $R$ & A fast attacks & B fast attacks & Ratio \\
+\Midrule
+  0 & 5 & 0 & 1 & 0 \\
+  3 & 2 & 1 & 1 & 1\\
+  6 & 4 & 2 & 2 & 1\\
+  9 & 1 & 3 & 2 & 1.5 \\
+  12 & 3 & 4 & 3 & 1.\textoverline{3} \\
+  15 & 5 & 5 & 4 & 1.2 \\
+  18 & 2 & 6 & 4 & 1.5 \\
+  21 & 4 & 7 & 5 & 1.4 \\
+  24 & 1 & 8 & 5 & 1.6 \\
+  27 & 3 & 9 & 6 & 1.5 \\
+  30 & 5 & 10 & 7 & ~1.429 \\
+  33 & 2 & 11 & 7 & ~1.571 \\
+  36 & 4 & 12 & 8 & 1.5 \\
+  39 & 1 & 13 & 8 & 1.625 \\
+  $\infty$ & 0 & 5n & 3n & 1.\textoverline{6} \\
+\end{tabular}
+
+\begin{tabular}{lrrrr}
+  Turn B throws & $R$ & A fast attacks & B fast attacks & Ratio\\
+\Midrule
+  0 & 3 & 1 & 0 & 0 \\
+  5 & 1 & 1 & 2 & 0.5\\
+  10 & 2 & 2 & 4 & 0.5\\
+  15 & 3 & 3 & 6 & 0.5\\
+  20 & 1 & 4 & 7 & ~0.571\\
+  25 & 2 & 5 & 9 & 0.\textoverline{5}\\
+  30 & 3 & 6 & 11 & 0.\textoverline{54}\\
+  35 & 1 & 7 & 12 & 0.58\textoverline{3}\\
+  $\infty$ & 0 & 3n & 5n & 0.6 \\
+\end{tabular}
 
 If your opponent still has both shields very late in the match, avoid charged attacks entirely.
 Two are going to do the minimum single point of damage, and possibly give the opponent a gift of tempo.

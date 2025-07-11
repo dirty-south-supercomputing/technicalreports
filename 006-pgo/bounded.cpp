@@ -38,7 +38,7 @@ insert_opt_stat(stats **head, stats *s, bool amean){
       float om = amean ? s->geommean : s->average;
       float t = amean ? tmp->average : tmp->geommean;
       float ot = amean ? tmp->geommean : tmp->average;
-      if(m > tmp->average){
+      if(m > t){
         break;
       }else if(m == t){
         if(s->s->name == tmp->s->name){
@@ -70,7 +70,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
     stats *s = find_optimal_set(sp, bound, lbound, false, amean);
-    if(sp->shadow){
+    if(sp->shadow && amean){
       const species *shads = create_shadow(sp);
       stats *shadsets = find_optimal_set(shads, bound, lbound, true, amean);
       insert_opt_stat(&sols, shadsets, amean);
@@ -110,7 +110,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
     free(tmp);
   }
   printf("\\captionlistentry{Optimal solutions bounded by %d CP}\n", bound);
-  printf("\\label{table:cp%d}\n", bound);
+  printf("\\label{table:cp%d%c}\n", bound, amean ? 'a' : 'g');
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }
