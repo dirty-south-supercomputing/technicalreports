@@ -12090,7 +12090,7 @@ static const species sdex[] = {
   {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee", WHIMSICOTT_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, NULL, PETILIL_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  549, "Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, "Petilil", LILLIGANT_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
-  {  549, "Hisuian Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, NULL, LILLIGANT_ATKS, false, false, {}, species::CAT_NORMAL, 10, },
+  {  549, "Hisuian Lilligant", TYPE_GRASS, TYPECOUNT, 214, 155, 172, NULL, LILLIGANT_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  550, "Basculin", TYPE_WATER, TYPECOUNT, 189, 129, 172, NULL, BASCULIN_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  551, "Sandile", TYPE_GROUND, TYPE_DARK, 132, 69, 137, NULL, SANDILE_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  552, "Krokorok", TYPE_GROUND, TYPE_DARK, 155, 90, 155, "Sandile", KROKOROK_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
