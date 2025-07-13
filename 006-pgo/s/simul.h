@@ -22,8 +22,8 @@ typedef struct simulstate { // dynamic elements
 
 typedef struct pmon { // static elements
   struct stats s;
-  bool shadow;
   const attack *fa, *ca1, *ca2;
+  bool shadow;
 } pmon;
 
 extern pmon pmons[2][TEAMSIZE];
