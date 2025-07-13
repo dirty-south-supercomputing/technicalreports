@@ -12646,6 +12646,7 @@ static const species dynadex[] = {
   {  244, "Dmax Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, "Entei", ENTEI_ATKS, true, false, {}, species::CAT_NORMAL, 100, },
   {  245, "Dmax Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, "Suicune", SUICUNE_ATKS, true, false, {}, species::CAT_NORMAL, 100, },
   {  302, "Dmax Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye", SABLEYE_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
+  {  321, "Dmax Wailord", TYPE_WATER, TYPECOUNT, 175, 87, 347, "Wailord", WAILORD_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  376, "Dmax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, {}, species::CAT_NORMAL, 75, },
   {  521, "Dmax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, {}, species::CAT_NORMAL, 10, },
   {  530, "Dmax Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Excadrill", EXCADRILL_ATKS, true, false, {}, species::CAT_NORMAL, 50, },
