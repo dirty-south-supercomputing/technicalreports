@@ -84,10 +84,10 @@ The Trainer can call for a fast attack, or do nothing for the turn.
 In combination with these choices, a shield might or might not be used in response to a charged attack.
 Each option must be pursued for an exhaustive search.
 
-In the best case, neither Trainer has any options.
-In the worst case, each has twelve, for a Cartesian product of 144 choicepairs---we
-  blow up to 62 billion states in five turns, and will not be going to space today.
-This is $\mathcal{O}(144^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
+In the best case, each Trainer is waiting for an attack to complete.
+In the worst case, each has ten choices, for a Cartesian product of 100 choicepairs---we
+  blow up to ten billion states in five turns, and will not be going to space today.
+This is $\mathcal{O}(100^N)$ time and $\mathcal{O}(N)$ state for $N$ turns.
 We'll need prune the game tree using limited expert methods\footnote{We remain exhaustive, rather than
  stochastic, just within a limited space.}.
 
@@ -95,7 +95,7 @@ We'll need prune the game tree using limited expert methods\footnote{We remain e
 Whatever our method, implementing the trainer battle mechanics requires a
   three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
-State-dependent context in \texttt{simulstate} is duplicated each time we recurse.
+Context in \texttt{simulstate} is duplicated each time we recurse; we need keep it tight.
 \inputminted{cpp}{s/simul.h}
 
 \section{Simulating 1x1\label{sec:simul1x1}}
@@ -107,37 +107,30 @@ A naive implementation blows up almost immediately: the Trainer can choose to do
  \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
 Our first restriction, then: there's no good reason to do nothing,
  so the Pokémon must do something.
-On every turn, we're either waiting for our fast attack to conclude, or we can throw a fast attack:
-\begin{itemize}
-\item Fast attack: \texttt{MOVE\_FAST}
-\end{itemize}
-With sufficient energy, charged attacks enter the picture:
-\begin{itemize}
-\item Charged attack one: \texttt{MOVE\_CHARGED1}
-\item Charged attack two: \texttt{MOVE\_CHARGED2}
-\end{itemize}
-And while we won't be implementing them yet, assuming other Pokémon have not
-  fainted and the cooldown period is not active, we can call in a substitution.
+On every turn, we either wait for our fast attack to conclude, or can throw a fast attack (\texttt{MOVE\_FAST}).
+With sufficient energy, charged attacks enter the picture (\texttt{MOVE\_CHARGED1}, \texttt{MOVE\_CHARGED2}).
+While we won't be implementing them yet, assuming other Pokémon have not
+  fainted and the cooldown period is not active, we can substitute (\texttt{MOVE\_SUB1}, \texttt{MOVE\_SUB2}).
 ``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
-\begin{itemize}
-\item Sub in Pokémon one down: \texttt{MOVE\_SUB1}
-\item Sub in Pokémon two down: \texttt{MOVE\_SUB2}
-\end{itemize}
 \inputminted{cpp}{s/moves.h}
-Now we'll need a function to determine which moves are viable for a Trainer on a given turn.
-\texttt{sift\_choices()} sets bits of a mask high if they're allowed.
-We use this method for the second player, manually building a control for the first player.
-\inputminted{cpp}{s/sift.h}
-Collection of possible moves is handled in the top half, which determines
-  available first player moves and calls the appropriate inner half on each.
-\inputminted{cpp}{s/top.h}
-The inner halves implement possible choices of the first player (each with all possible
-  second player moves), and reports whether any Pokémon have been knocked out.
-If appropriate, they call the bottom half with shields enabled.
+Each turn is implemented in two halves.
+The top half dispatches possible moves, determining choices available to
+ the first player and invoking the appropriate inner half for each---it is our primary fan-out.
+We need a function to determine which moves are viable for a Trainer on a given turn:
+ \texttt{sift\_choices()} sets bits of a mask high if they're allowed\footnote{This minimizes
+  code complexity, but we end up with twice the necessary branches, since the dispatched
+  code varies wildly depending on the move type; these aren't exactly array indexes.
+  Eh, let the branch predictor worry about that.}.
 Should we reach for task parallelism, these loops are obvious targets.
-\inputminted{cpp}{s/inner.h}
-The bottom half implements and accounts for a choicepair using its own copy of the state.
+\inputminted{cpp}{s/sift.h}
+The inner half performs additional fan-out for charged attacks.
+Each charged attack can break into shielded and unshielded paths.
+Furthermore, we must simulate both paths in the event of a CMP tie---the tiebreaker
+ might be nondeterministic, but we are not!
+The result of \texttt{p0\_wins\_cmp()} is constant across a pair of Pokémon;
+ we could cache it in the simulation state, recomputing on substitution or knockout.
+The bottom half is invoked along each path, using its own copy of the state.
 \inputminted{cpp}{s/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
 This is the only function that actually records results, and its loops are opportunities for further parallelism.
