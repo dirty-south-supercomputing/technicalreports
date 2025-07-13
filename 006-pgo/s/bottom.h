@@ -17,13 +17,11 @@ static bool account_fast_move(simulstate *s, int player){
   return false;
 }
 
-// return true iff p0 wins cmp (false indicates p1 won it). called whenever
-// players change, and at initialization. use player0cmp for calculations.
-static bool p0_wins_cmp(const simulstate *s){
+// return -1 iff p0 wins cmp, 1 for p1, 0 for tie (coin flip: simul both paths)
+static int p0_wins_cmp(const simulstate *s){
   float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
   float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
-  bool cmp0 = moda0 > moda1 ? true : moda1 > moda0 ? false : rand() % 2;
-  return cmp0;
+  return moda0 > moda1 ? -1 : moda1 > moda0 ? 1 : 0;
 }
 
 // run a single choice-pair, which ought be known to be viable (i.e. if we
@@ -34,10 +32,10 @@ static inline bool
 bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shield, bool m1shield){
   ++r->nodes;
   if(sub_move_p(m0) || sub_move_p(m1)){
-    //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return false;
   }
-  if(s->player0cmp){
+  int cmp = p0_wins_cmp(s);
+  if(cmp < 0){
     if(charged_move_p(m0)){
       if(throw_charged_move(s, 0, m0, m1shield)){
         return true;
@@ -48,7 +46,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shiel
         return true;
       }
     }
-  }else{
+  }else{ // FIXME: if cmp == 0, simulate both paths
     if(charged_move_p(m1)){
       if(throw_charged_move(s, 1, m1, m0shield)){
         return true;
