@@ -13357,11 +13357,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       }
     }
   }
-  if(s->gmax){
-    print_type(s->t1);
-    // we always have STAB on gmax attacks, 350 * 6 / 5 = 420
-    printf(" %s & & %g & & & \\\\\n", s->gmax, 420.0);
-  }
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
@@ -13413,6 +13408,12 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       }
     }else{
       printf("No evolution");
+    }
+  }else{
+    if(s->gmax){
+      printf("\\hfill");
+      print_type(s->t1);
+      printf(" %s", s->gmax);
     }
   }
 
