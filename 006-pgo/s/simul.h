@@ -18,6 +18,7 @@ typedef struct simulstate { // dynamic elements
   uint8_t bufflevd[2];     // active defense buff levels [-4..4]
   uint8_t shields[2];      // number of shields available [0..2]
   uint8_t active[2];       // indexes of active pokémon   [0..2]
+  bool player0cmp;         // true iff p0 wins cmp
 } simulstate;
 
 typedef struct pmon { // static elements

@@ -17,7 +17,8 @@ static bool account_fast_move(simulstate *s, int player){
   return false;
 }
 
-// return true iff p0 wins cmp (false indicates p1 won it)
+// return true iff p0 wins cmp (false indicates p1 won it). called whenever
+// players change, and at initialization. use player0cmp for calculations.
 static bool p0_wins_cmp(const simulstate *s){
   float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
   float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
@@ -36,8 +37,7 @@ bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1, bool m0shiel
     //std::cout << "substitution is not yet handled!" << std::endl; FIXME
     return false;
   }
-  bool p0cmp = p0_wins_cmp(s); // FIXME precompute
-  if(p0cmp){
+  if(s->player0cmp){
     if(charged_move_p(m0)){
       if(throw_charged_move(s, 0, m0, m1shield)){
         return true;

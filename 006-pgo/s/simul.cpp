@@ -64,6 +64,7 @@ simul(simulstate *s, results *r){
   s->subtimer[0] = s->subtimer[1] = 1;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
+  s->player0cmp = p0_wins_cmp(s);
   // precalculate damage 2 teams * 3 members * 3 attacks * 3 opponents = 54 floats total
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
     if(!pmons[0][i].s.s){
