@@ -49,7 +49,7 @@ int main(void){
   unsigned fcount = 0;
   for(unsigned i = 0 ; i < acount ; ++i){
     const attack* a = attacks[i];
-    if(a->energytrain >= 0){
+    if(a->energytrain > 0){
       memcpy(&fast[fcount], a, sizeof(*a));
       ++fcount;
     }
