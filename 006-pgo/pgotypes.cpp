@@ -13426,7 +13426,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     const float def = s->def * 5 / 6.0;
     const float avg = calc_avg(atk, def, s->sta);
     const float gm = calc_fit(atk, def, s->sta);
-    printf("%.2f %.2f %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
+    printf("%g %g %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
 
   // end footnotesize
