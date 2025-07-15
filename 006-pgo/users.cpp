@@ -60,19 +60,19 @@ print_attack_users(const attack *a){
     }
   }
   if(a->chance_user_attack){
-    printf("\\\\\n\\textbf{%g\\%% chance of attack %d}\n",
+    printf("\\\\\n\\textbf{%g\\%% chance of attack %+d}\n",
           a->chance_user_attack / 10.0, a->user_attack);
   }
   if(a->chance_user_defense){
-    printf("\\\\\n\\textbf{%g\\%% chance of defense %d}\n",
+    printf("\\\\\n\\textbf{%g\\%% chance of defense %+d}\n",
           a->chance_user_defense / 10.0, a->user_defense);
   }
   if(a->chance_opp_attack){
-    printf("\\\\\n\\textbf{%g\\%% chance of opponent attack %d}\n",
+    printf("\\\\\n\\textbf{%g\\%% chance of opponent attack %+d}\n",
           a->chance_opp_attack / 10.0, a->opp_attack);
   }
   if(a->chance_opp_defense){
-    printf("\\\\\n\\textbf{%g\\%% chance of opponent defense %d}\n",
+    printf("\\\\\n\\textbf{%g\\%% chance of opponent defense %+d}\n",
           a->chance_opp_defense / 10.0, a->opp_defense);
   }
   printf("\n\\end{tcolorbox}\n");
