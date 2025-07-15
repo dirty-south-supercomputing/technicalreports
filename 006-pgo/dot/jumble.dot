@@ -37,7 +37,6 @@ digraph G {
   fighting -> poison [ color=red ]
   fighting -> ice [ color=green penwidth=4 ]
   ground -> flying [ color=black ]
-  rock -> flying [ color=green penwidth=4 ]
   psychic -> poison [ color=green penwidth=4 ]
   water -> ground [ color=green penwidth=4 ]
   bug -> ghost [ color=red ]
