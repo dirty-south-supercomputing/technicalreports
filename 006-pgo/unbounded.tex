@@ -1,11 +1,11 @@
 \chapter{Unbounded team selection\label{chap:unbounded}}
 Trainer Battles make very little use of random numbers (to the best of my
- knowledge, they only show up when checking for a Charged Attack side
+ knowledge, they only show up when checking for a charged attack side
  effect, and breaking CMP ties).
 Their intrigue is rooted instead in ignorance: ignorance of
  the Pokémon you'll face, the order in which you'll face them,
  their statistics (beyond the static properties of the Species),
- their Attacks, and how their Trainer will employ them.
+ their attacks, and how their Trainer will employ them.
 
 We've established that Pokémon battle fitness is dependent on opponent details.
 We cannot name a globally superior Pokémon.
@@ -30,16 +30,16 @@ A Pokémon's CP is defined as:
 \[ CP = \max{10, \frac{Mod_A \times \sqrt{Mod_D} \times \sqrt{Mod_S} \times CPM^2}{10}} \]
 CP growth is quadratic with respect to $CPM$, linear with $Mod_A$, and
   sublinear with $Mod_D$ and $Mod_S$.
-Remember from our Damage equation that $Mod_A$ is divided by $Mod_D$
+Remember from our damage equation that $Mod_A$ is divided by $Mod_D$
  to generate one of the factors.
 This suggests that $Mod_D$ is undervalued by the CP equation, from which
  we might expect $Mod_A$ to be divided by $\sqrt{Mod_D}$.
-MHP isn't used in the Damage equation, but knocking out a Pokémon
- requires inflicting some average Damage $D$ $n$ times,
+MHP isn't used in the damage equation, but knocking out a Pokémon
+ requires inflicting some average damage $D$ $n$ times,
  where $n = \lceil\frac{MHP}{D}\rceil$.
 It is thus similarly undervalued by CP\@.
-The quadratic term for CPM makes sense from the perspective of the Damage
- equation, since CPM is used as a factor when calculating Damage in the
+The quadratic term for CPM makes sense from the perspective of the damage
+ equation, since CPM is used as a factor when calculating damage in the
  case of both the attacker and defender.
 But since CPM is also used to calculate MHP from $Mod_S$, an argument
  can be made that it ought be raised to the third power.
@@ -57,14 +57,14 @@ Despite being exactly the same on the field, one is allowed in Great League,
 Why would the game use such a flawed measure of power?
 Clearly, a single stat was desired to cover both modes of Pokémon GO battling.
 Since Raids allow substitution of defeated Pokémon, but are subject to a timer,
-  the ability to defend and absorb Damage is less important than being able to
+  the ability to defend and absorb damage is less important than being able to
   quickly inflict damage.
 Furthermore, when two Pokémon launch charged attacks on the same turn in a Trainer
   Battle, $Eff_A$ determines which goes first (\autoref{sec:3x3}).
 Perhaps this explains the emphasis on attack, but some of the most important
-  factors in the Damage equation are left out of CP entirely!
-The Power and timing of the Pokémon's Attacks are not present, despite
-  dominating the inflicted Damage and overall flow of the battle.
+  factors in the damage equation are left out of CP entirely!
+The power and timing of the Pokémon's attacks are not present, despite
+  dominating the inflicted damage and overall flow of the battle.
 Type effectiveness and STAB have been likewise ignored, as have the
   properties of Shadow Pokémon.
 It ought be clear that we must look beyond CP in our selection of Pokémon.
