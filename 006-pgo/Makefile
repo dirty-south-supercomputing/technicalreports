@@ -178,3 +178,4 @@ clean:
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
 	@rm -vrf _minted
+	@rm -vf tags
