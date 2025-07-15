@@ -39,7 +39,7 @@ int main(void){
   static unsigned goodept[TYPECOUNT] = {};
   for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
     const attack* a = attacks[i];
-    if(a->energytrain >= 0){
+    if(fast_attack_p(a)){
       ++acounts[a->type * MAXTURNS + (a->turns - 1)];
       if(a->energytrain / a->turns >= 3){
         ++goodept[a->type];
