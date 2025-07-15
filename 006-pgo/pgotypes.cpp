@@ -280,6 +280,16 @@ class attackset {
   std::map<std::string, const attack *> As;
 };
 
+static inline bool
+fast_attack_p(const attack *a){
+  return a->energytrain >= 0; // need 0 to pick up Transform
+}
+
+static inline bool
+charged_attack_p(const attack *a){
+  return a->energytrain < 0;
+}
+
 using pairmap = std::map<std::string, attackset>;
 
 static const attack ATK_Acid = { "Acid", TYPE_POISON, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -423,6 +433,8 @@ static const attack ATK_Take_Down = { "Take Down", TYPE_NORMAL, 5, 8, 3, 0, 0, 0
 static const attack ATK_Thunder_Fang = { "Thunder Fang", TYPE_ELECTRIC, 8, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
 static const attack ATK_Thunder_Shock = { "Thunder Shock", TYPE_ELECTRIC, 4, 9, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+	-1, -1, -1, };
+static const attack ATK_Transform = { "Transform", TYPE_NORMAL, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
 static const attack ATK_Vine_Whip = { "Vine Whip", TYPE_GRASS, 5, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
@@ -931,6 +943,7 @@ static const attack* const attacks[] = {
   &ATK_Take_Down,
   &ATK_Thunder_Fang,
   &ATK_Thunder_Shock,
+  &ATK_Transform,
   &ATK_Vine_Whip,
   &ATK_Volt_Switch,
   &ATK_Water_Gun,
@@ -1164,6 +1177,12 @@ static const attack* WUGTRIO_ATKS[] = {
   &ATK_Dig,
   &ATK_Surf,
   &ATK_Liquidation,
+  NULL
+};
+
+static const attack* DITTO_ATKS[] = {
+  &ATK_Transform,
+  &ATK_Struggle,
   NULL
 };
 
@@ -11555,6 +11574,7 @@ static const species sdex[] = {
     { &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 10, nullptr, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, NULL, LAPRAS_ATKS, true, true,
     { &ATK_Ice_Shard, &ATK_Dragon_Pulse, &ATK_Ice_Beam, }, species::CAT_NORMAL, 75, nullptr, },
+  {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, NULL, DITTO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, NULL, EEVEE_ATKS, true, false,
     { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, nullptr, },
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee", VAPOREON_ATKS, true, false,
@@ -13323,7 +13343,10 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       power = power * 6 / 5;
     }
     print_type((*a)->type);
-    if((*a)->energytrain < 0){ // charged attacks
+    if((*a)->type == TYPECOUNT){
+      printf("\\hspace{1em}");
+    }
+    if(charged_attack_p(*a)){
       const float dpe = power / -(*a)->energytrain;
       if(exclusive_attack_p(s, *a)){
         printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
