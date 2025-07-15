@@ -1,13 +1,11 @@
 digraph G {
   node [shape=circle fixedsize=true width=1 height=1 style=filled label="" ]
     { rank=same;
-      normal [ image="images/normal.png" ]
       electric [ image="images/electric.png" ]
       fighting [ image="images/fighting.png" ]
       bug [ image="images/bug.png" ]
     }
     { rank=same;
-      rock [ image="images/rock.png" ]
       dark [ image="images/dark.png" ]
       ice [ image="images/ice.png" ]
       fairy [ image="images/fairy.png" ]
@@ -33,12 +31,13 @@ digraph G {
   fighting -> bug [ color=red ]
   bug -> fighting [ color=red ]
   poison -> ghost [ color=red ]
-  normal -> rock [ color=red ]
   fighting -> poison [ color=red ]
   fighting -> ice [ color=green penwidth=4 ]
   ground -> flying [ color=black ]
   psychic -> poison [ color=green penwidth=4 ]
   water -> ground [ color=green penwidth=4 ]
+  dark -> ghost [ style=invis ]
+  psychic -> ghost [ style=invis ]
   bug -> ghost [ color=red ]
   bug -> psychic [ color=green penwidth=4 ]
   bug -> dark [ color=green penwidth=4 ]
