@@ -20,7 +20,11 @@ struct timetofirst {
     { }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
-    return l.turns < r.turns ? true : l.powerfast < r.powerfast ? true : false;
+    unsigned ltdam = l.powerfast + l.ca->powertrain;
+    unsigned rtdam = r.powerfast + r.ca->powertrain;
+    return l.turns < r.turns ? true : // least to most turns
+      (l.turns == r.turns && ltdam > rtdam) ? true : // most to least powerful
+      (l.turns == r.turns && ltdam == rtdam && l.name < r.name) ? true : false;
   }
 };
 
@@ -36,6 +40,7 @@ fastest_attack(const species &s, unsigned e, unsigned *minturns){
       continue;
     }
     unsigned t = (e + (a->energytrain - 1)) / a->energytrain * a->turns;
+
     if(!fastest || t < turns){
       turns = t;
       fastest = a;
@@ -44,7 +49,7 @@ fastest_attack(const species &s, unsigned e, unsigned *minturns){
   if(!fastest){
     return nullptr;
   }
-  *minturns = turns * fastest->powertrain;
+  *minturns = turns;
   return fastest;
 }
 
@@ -70,24 +75,26 @@ calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
     const auto &s = sd.dex[si];
     unsigned ttf;
     auto ca = lowest_energy_attack(s);
-    auto fa = fastest_attack(s, ca->energytrain, &ttf);
+    auto fa = fastest_attack(s, -ca->energytrain, &ttf);
     if(!fa){
       continue;
     }
     unsigned pfast = ttf / fa->turns * fa->powertrain; 
-    std::cout << "adding " << ttf << " " << pfast << std::endl;
-    ttfs.emplace(ttfs.end(), s.name, ttf, pfast, fa, ca);
+    ttfs.emplace_back(s.name, ttf, pfast, fa, ca);
   }
 }
 
 int main(void){
   std::vector<timetofirst> ttfs;
-  for(const auto &sdex : sdexen){
-    calctimetofirst(sdex, ttfs);
+  for(const auto &sd : sdexen){
+    calctimetofirst(sd, ttfs);
   }
   std::sort(ttfs.begin(), ttfs.end());
   for(const auto &t : ttfs){
-    std::cout << t.name << ": " << t.turns << " " << t.powerfast << std::endl;
+    std::cout << t.name << ": " << t.turns << " " << t.powerfast << " "
+      << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
+      << t.powerfast + t.ca->powertrain << ")"
+      << std::endl;
   }
   return EXIT_SUCCESS;
 }
