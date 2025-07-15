@@ -1,18 +1,21 @@
 \chapter{Species and forms\label{chap:species}}
 Pokémon are partitioned into species.
 Each species is identified by its own Pokédex number.
-We will see that this number is the only thing guaranteed to be shared among all the population of a species.
+We will see that this number is the only thing guaranteed to be shared among all the population of a species.\\
+\\
+\autoref{chap:speciesbytype} has instructions for interpreting form cards.
 
 \section{Forms\label{sec:forms}}
 Some species boast multiple forms and genders, all sharing one common Pokédex entry.
-Form can be a mere visual distinction, but it is sometimes reflected in stats or even typing.
+Form can be a mere visual distinction, but it is sometimes reflected in different stats,
+ attacks, and/or typing.
 All Pokémon of a form share Attack (ATK), Defense (DEF), and Stamina (STA) base statistics.
 These statistics are always positive integers.
 
-Common forms include \textit{Mega}, a temporary form with greater ATK and DEF (\autoref{sec:mega}),
-  \textit{Dynamax} and \textit{Gigantamax}, temporary forms with the ability to use
-  powerful attacks (\autoref{sec:dmaxgmax}),
-  and \textit{Shiny}, a visually distinctive and rare form (\autoref{sec:shiny}).
+Mysterious energies power temporary and persistent changes of form.
+Dynamax and Gigantamax forms operate on the scale of attacks (\autoref{sec:dmaxgmax}).
+Mega and Primal forms are assumed for hours (\autoref{sec:mega}).
+Fused and Crowned forms persist until explicitly undone.
 Regional variants are also seen: Alolan, Galarian, Hisuian, and Paldean.
 Gender differentiation is typically small changes to appearance or call,
  but it affects a few evolutionary paths (\autoref{table:sexevolutions}).
@@ -36,6 +39,142 @@ Male Burmy & 50 Burmy Candy & Mothim\\
 \end{tabular}
 \caption[Gender-dependent evolutions]{Certain evolution paths depend on gender. Note that male Combees and male Salandits cannot evolve.\label{table:sexevolutions}}
 \end{table}
+
+\subsection{Mega and Primal forms\label{sec:mega}\label{sec:primal}}
+\nopagecolor
+Mega Evolution and Primal Reversion are almost equivalent; where I write Mega,
+ read ``Mega (evolution) or Primal (reversion)'' unless otherwise noted.
+Species with corresponding Mega or Primal Energy (no species has both) can take on the relevant form for eight hours.
+Only one of a Trainer's Pokémon can be in its Mega form at any given time---Mega
+  evolving Pokémon will cause any existing Mega forms to revert.
+Mega evolution revives and fully heals the evolved Pokémon, and persists across
+  fainting (i.e. the evolved Pokémon can be revived into the Mega form).
+Fainting does not stop the eight hour counter.
+When the evolution expires, the Pokémon has a rest period before it can Mega evolve again.
+Mega Pokémon cannot be used in Max Battles, cannot defend gyms, and cannot be traded while in Mega form.
+The first evolution of a Pokémon per calendar day counts towards its Mega level,
+  which affects the cost to evolve, the downtime, and bonuses (\autoref{table:megalevels}).
+Mega levels are reset upon a trade.
+When actively battling in a raid, Mega Pokémon provide a 30\% boost to attacks of aligned
+  type by \textit{other Trainers' Pokémon}, and 10\% to unaligned attacks,
+  \textit{except for} Mega Rayquaza and Primal forms, which provide the boost just
+  by being in the raiding party (i.e.\ they needn't be active)\footnote{Just
+  for fun, Mega Rayquaza provides this bonus to Psychic attacks in addition to
+  Flying and Dragon. Don't blame me, man; I didn't do it.}.
+This boost is never applied to the Trainer's own Pokémon, and they do not stack.
+\begin{table}
+\centering
+\begin{tabular}{lrrrp{.4\textwidth}}
+Level & Evols & Rest days & Cost & Bonuses\\
+\Midrule
+0 &  0 & 14 & 100\% & 1 Candy\\
+1 &  1 &  7 & 20\% & 1 Candy\\
+2 &  7 &  5 & 10\% & 1 Candy\newline{}10\% Candy XL chance\newline{}50 XP\\
+3 & 30 &  3 &  5\% & 2 Candy\newline{}25\% Candy XL chance\newline{}100 XP\\
+\end{tabular}
+\caption{Mega evolution and Primal reversion levels\label{table:megalevels}}
+\end{table}
+\input{out/mega}
+%\vfill\includegraphics[width=.9\linewidth,keepaspectratio]{images/kyogre.png}
+\subsection{Dynamax and Gigantamax forms\label{sec:dmaxgmax}}
+Dynamax and Gigantamax Pokémon can participate in Max Battles (\autoref{sec:maxbattles}).
+There are no stat or type changes.
+Normally acquired in Research, Max Battles, or via trade,
+ Dynamax Pokémon also spawn around Power Stops with installed Gigantamax Pokémon.
+They have access to three Max Moves: Max Attack, Max Guard, and Max Spirit.
+Max Moves have four levels: Locked, 1, 2, and 3.
+A freshly acquired Dynamax or Gigantamax Pokémon has Max Attack at level 1, while Max Guard and Max Spirit are both locked.
+Unlocking and upgrading moves costs Max Particles and Candy of the Pokémon's genus (\autoref{table:maxupgrades});
+ the amount of Candy depends on the Pokémon's cost group (\autoref{sec:costgroups}).
+There are eighteen Max Attacks, one for each type, and the Max Attack known by a Dynamax Pokémon matches its fast attack
+ (Hidden Power always matches up with Max Strike).
+Max Attacks of level 1, 2, and 3 have power 250, 300, and 350 respectively.
+Gigantamax Pokémon instead know a species-specific G-Max attack which cannot change.
+Max Move levels persist across evolution and use of Fast TMs.
+G-Max attacks have power of 350, 400, and 450, 100 more than Dynamax attacks of the same level.
+Max Guard bestows a protective shield (the Guard) on all active Pokémon
+  with fewer than three Guards.
+This Guard will absorb 20, 40, or 60 points of damage, depending on Max Guard's level.
+Max Spirit restores HP to active Pokémon.
+The amount restored is a percentage of each affected Pokémon's MHP\@;
+  the percentage (8\%, 12\%, or 16\%) is based on Max Spirit's level.
+\begin{table}
+\centering
+\begin{tabular}{lrrr}
+Level & Max Particles & Candy & Candy XL\\
+\Midrule
+1 (Unlock) & 400 & 50--80 &\\
+2          & 600 & 100--130 &\\
+3          & 800 & & 40--55\\
+\end{tabular}
+\caption{Upgrade costs for Dynamax and Gigantamax moves\label{table:maxupgrades}}
+\end{table}
+
+\input{out/gigantas}
+
+\subsection{Crowned forms\label{sec:crowned}}
+\nopagecolor
+Crowning is a reversible, persistent evolution available to Zacian and Zamazenta
+ so long as they know the charged attack Iron Head.
+Upon coronation, stats are modified, and Iron Head is replaced with Behemoth Blade (Zacian)
+  or Behemoth Bash (Zamazenta).
+This new attack cannot be changed with even an Elite Charged TM\@.
+A Crowned form can fight in Max Battles (though it \textit{cannot} be left at Power Stops), with Behemoth Blade/Bash as its Max Attack.
+This Max Attack follows the same rules for leveling, power, and use as any other Dynamax attack.
+Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
+  that Pokémon can freely change between the base and crowned
+  forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks?
+    Eliminate Steel typing? Most likely to trade the Pokémon.}, even if traded.
+Crowned Shield Zamazenta can stack four Guards rather than the typical three.
+If it has Max Guard unlocked, it starts Max Battles with one Guard already in place.
+
+\subsection{Fused forms\label{sec:fusion}}
+Certain Pokémon can be reversibly fused, yielding a new form.
+The fusion process requires 1,000 units of Fusion Energy particular to the output\footnote{They all kinda sound like Mountain Dew flavors.},
+ and 30 Candy of each input species (\autoref{table:fusion}).
+There is no cost to undo the fusion, but subsequent fusions cost the same amount as the initial fusion.
+Any powering up performed on the fused form will apply only to the primary
+  Pokémon if the fusion is undone, the fused form's IV is taken from the primary Pokémon,
+  and fusion replaces the first charged attack of the primary Pokémon (\autoref{table:fusionattacks}).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llll}
+Primary & Secondary & Energy & Output\\
+\Midrule
+Kyurem & Zekrom & Volt & Black Kyurem \\
+Kyurem & Reshiram & Blaze & White Kyurem \\
+Necrozma & Solgaleo & Solar & Dusk Mane Necrozma \\
+Necrozma & Lunala & Lunar & Dawn Wings Necrozma \\
+\end{tabular}
+\caption{Fusion paths\label{table:fusion}}
+\end{table}
+\begin{table}
+\centering
+\begin{tabular}{ll}
+Fused form & Attack\\
+\Midrule
+Black Kyurem & Freeze Shock \\
+White Kyurem & Ice Burn\\
+Dusk Mane Necrozma & Sunsteel Strike\\
+Dawn Wings Necrozma & Moongeist Beam\\
+\end{tabular}
+\caption{Special fused attacks\label{table:fusionattacks}}
+\end{table}
+
+\subsection{Zygarde\label{sec:zygarde}}
+Zygarde is received from research in its ``10\%'' form.
+``Zygarde Cells'' are found on Routes, and can be stored in the Zygarde Cube
+ (received at the same time as Zygarde 10\%).
+The Cube can hold up to 300 cells, and cannot be removed from the bag.
+Neither the Cube nor Cells count against bag limits.
+Up to three cells can be collected per calendar day (more than three can spawn).
+A route will not necessarily present a cell.
+Cells are only generated the first time a route is taken each day, and more than one per route is very rare.
+Cells usually show up near the end of a route, and disappear if the route is marked complete.
+It can change to a ``50\%'' form for 50 Cells, and a subsequent ``Complete''
+ form for 200 more Cells, all with different stats (but the same attacks).
+Both forms are reversible, at the cost of 10 Zygarde Candy and 2,000 Stardust each.
 
 \section{Evolution\label{sec:evolution}}
 Under the correct conditions, some species can evolve into others.
@@ -401,70 +540,6 @@ Purified& 80k + 80 &   &    &   & 20 & \\
 \end{tabular}
   \caption{Costs for the four groups\label{table:costs}}
 \end{table}
-
-\section{Crowned forms\label{sec:crowned}}
-\nopagecolor
-Crowning is a reversible, persistent evolution available to Zacian and Zamazenta
- so long as they know the charged attack Iron Head.
-Upon coronation, stats are modified, and Iron Head is replaced with Behemoth Blade (Zacian)
-  or Behemoth Bash (Zamazenta).
-This new attack cannot be changed with even an Elite Charged TM\@.
-A Crowned form can fight in Max Battles (though it \textit{cannot} be left at Power Stops), with Behemoth Blade/Bash as its Max Attack.
-This Max Attack follows the same rules for leveling, power, and use as any other Dynamax attack.
-Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
-  that Pokémon can freely change between the base and crowned
-  forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks?
-    Eliminate Steel typing? Most likely to trade the Pokémon.}, even if traded.
-Crowned Shield Zamazenta can stack four Guards rather than the typical three.
-If it has Max Guard unlocked, it starts Max Battles with one Guard already in place.
-
-\section{Fused forms\label{sec:fusion}}
-Certain Pokémon can be reversibly fused, yielding a new form.
-The fusion process requires 1,000 units of Fusion Energy particular to the output\footnote{They all kinda sound like Mountain Dew flavors.},
- and 30 Candy of each input species (\autoref{table:fusion}).
-There is no cost to undo the fusion, but subsequent fusions cost the same amount as the initial fusion.
-Any powering up performed on the fused form will apply only to the primary
-  Pokémon if the fusion is undone, the fused form's IV is taken from the primary Pokémon,
-  and fusion replaces the first charged attack of the primary Pokémon (\autoref{table:fusionattacks}).
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{llll}
-Primary & Secondary & Energy & Output\\
-\Midrule
-Kyurem & Zekrom & Volt & Black Kyurem \\
-Kyurem & Reshiram & Blaze & White Kyurem \\
-Necrozma & Solgaleo & Solar & Dusk Mane Necrozma \\
-Necrozma & Lunala & Lunar & Dawn Wings Necrozma \\
-\end{tabular}
-\caption{Fusion paths\label{table:fusion}}
-\end{table}
-\begin{table}
-\centering
-\begin{tabular}{ll}
-Fused form & Attack\\
-\Midrule
-Black Kyurem & Freeze Shock \\
-White Kyurem & Ice Burn\\
-Dusk Mane Necrozma & Sunsteel Strike\\
-Dawn Wings Necrozma & Moongeist Beam\\
-\end{tabular}
-\caption{Special fused attacks\label{table:fusionattacks}}
-\end{table}
-
-\section{Zygarde\label{sec:zygarde}}
-Zygarde is received from research in its ``10\%'' form.
-``Zygarde Cells'' are found on Routes, and can be stored in the Zygarde Cube
- (received at the same time as Zygarde 10\%).
-The Cube can hold up to 300 cells, and cannot be removed from the bag.
-Neither the Cube nor Cells count against bag limits.
-Up to three cells can be collected per calendar day (more than three can spawn).
-A route will not necessarily present a cell.
-Cells are only generated the first time a route is taken each day, and more than one per route is very rare.
-Cells usually show up near the end of a route, and disappear if the route is marked complete.
-It can change to a ``50\%'' form for 50 Cells, and a subsequent ``Complete''
- form for 200 more Cells, all with different stats (but the same attacks).
-Both forms are reversible, at the cost of 10 Zygarde Candy and 2,000 Stardust each.
 
 \section{Freak Pokémon\label{sec:freaks}}
 A few Pokémon have unique behaviors or mechanics.
