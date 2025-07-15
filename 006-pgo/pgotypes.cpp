@@ -13322,7 +13322,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.1}");
   }
-  printf("]\\label{species:");
+  printf("]\\phantomsection\\label{species:");
   label_string(s->name.c_str());
   printf("}{");
   printf("\\footnotesize");
