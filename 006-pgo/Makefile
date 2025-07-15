@@ -49,9 +49,7 @@ SPECIESTEX:=out/species.tex
 FPAIRSTEX:=$(OUT)/fpairs.tex
 CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=out/mega.tex
-FUSEDTEX:=$(OUT)/fused.tex
 #DYNATEX:=out/dynas.tex
-CROWNEDTEX:=out/crowned.tex
 SINDEXTEX:=$(SINDEX).tex
 GIGANTATEX:=out/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
@@ -65,9 +63,9 @@ TRELSTEX:=out/typerels.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
-	$(GIGANTATEX) $(CROWNEDTEX) $(ATKTYPESTEX) $(WEATHERTEX) \
+	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
-	$(FUSEDTEX) $(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
+	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
@@ -124,17 +122,9 @@ $(FUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
 	$(<) fast > $@
 
-$(OUT)/fused.tex: $(OUT)/forms
-	@mkdir -p $(@D)
-	$(<) fused > $@
-
 $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) mega > $@
-
-$(OUT)/crowned.tex: $(OUT)/forms
-	@mkdir -p $(@D)
-	$(<) crowned > $@
 
 #$(OUT)/dynas.tex: $(OUT)/forms
 #	@mkdir -p $(@D)

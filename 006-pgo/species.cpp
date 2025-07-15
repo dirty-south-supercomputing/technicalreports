@@ -25,8 +25,15 @@ print_species(const species* s){
   while(s2500){
     stats* tmp = s2500->next;
     // print s2500
-    free(s2500);
+    delete s2500;
     s2500 = tmp;
+  }
+  stats* s1500 = find_optimal_set(s, 1500, 0, false, false);
+  while(s1500){
+    stats* tmp = s1500->next;
+    // print s2500
+    delete s1500;
+    s1500 = tmp;
   }
 }
 

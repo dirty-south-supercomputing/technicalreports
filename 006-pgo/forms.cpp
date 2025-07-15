@@ -18,14 +18,6 @@ int main(int argc, char **argv){
     dex = megasdex;
     count = MEGACOUNT;
     bg = true;
-  }else if(strcasecmp(argv[1], "fused") == 0){
-    dex = fusedsdex;
-    count = FUSEDCOUNT;
-    bg = true;
-  }else if(strcasecmp(argv[1], "crowned") == 0){
-    dex = crownedsdex;
-    count = CROWNEDCOUNT;
-    bg = true;
   }else if(strcasecmp(argv[1], "dynamax") == 0){
     dex = dynadex;
     count = DYNACOUNT;
@@ -33,7 +25,7 @@ int main(int argc, char **argv){
     dex = gigantasdex;
     count = GIGANTACOUNT;
   }else{
-    fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   std::map<std::string, const species *> amap;

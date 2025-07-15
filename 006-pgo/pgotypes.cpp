@@ -12217,6 +12217,8 @@ static const species sdex[] = {
     { &ATK_Sandsear_Storm, }, species::CAT_LEGENDARY, 100, nullptr, },
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, NULL, KYUREM_ATKS, true, false,
     { &ATK_Glaciate, }, species::CAT_LEGENDARY, 100, nullptr, },
+  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, NULL, KELDEO_ATKS, false, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
   {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, NULL, MELOETTA_ATKS, true, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, NULL, GENESECT_ATKS, true, false,
@@ -12408,6 +12410,8 @@ static const species sdex[] = {
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, NULL, KARTANA_ATKS, true, false, {}, species::CAT_ULTRABEAST, 100, nullptr, },
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, NULL, GUZZLORD_ATKS, true, false, {}, species::CAT_ULTRABEAST, 100, nullptr, },
   {  800, "Necrozma", TYPE_PSYCHIC, TYPECOUNT, 251, 195, 219, NULL, NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, NULL, MARSHADOW_ATKS, true, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
   {  803, "Poipole", TYPE_POISON, TYPECOUNT, 145, 133, 167, NULL, POIPOLE_ATKS, true, false, {}, species::CAT_ULTRABEAST, 100, nullptr, },
   {  804, "Naganadel", TYPE_POISON, TYPE_DRAGON, 263, 159, 177, "Poipole", NAGANADEL_ATKS, true, false, {}, species::CAT_ULTRABEAST, 100, nullptr, },
@@ -12465,7 +12469,9 @@ static const species sdex[] = {
   {  886, "Drakloak", TYPE_DRAGON, TYPE_GHOST, 163, 105, 169, "Dreepy", DRAKLOAK_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  887, "Dragapult", TYPE_DRAGON, TYPE_GHOST, 266, 170, 204, "Drakloak", DRAGAPULT_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  888, "Zacian", TYPE_FAIRY, TYPECOUNT, 254, 236, 192, NULL, ZACIAN_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  888, "Crowned Sword Zacian", TYPE_FAIRY, TYPE_STEEL, 332, 240, 192, "Zacian", C_ZACIAN_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  889, "Zamazenta", TYPE_FIGHTING, TYPECOUNT, 254, 236, 192, NULL, ZAMAZENTA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  889, "Crowned Shield Zamazenta", TYPE_FIGHTING, TYPE_STEEL, 250, 292, 192, "Zamazenta", C_ZAMAZENTA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, NULL, KUBFU_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  892, "Single Strike Style Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Kubfu", S_URSHIFU_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  892, "Rapid Strike Style Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu", R_URSHIFU_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
@@ -12623,14 +12629,6 @@ static const species megasdex[] = {
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
 
-// crowned forms are never shadows
-static const species crownedsdex[] = {
-  {  888, "Crowned Sword Zacian", TYPE_FAIRY, TYPE_STEEL, 332, 240, 192, "Zacian", C_ZACIAN_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  889, "Crowned Shield Zamazenta", TYPE_FIGHTING, TYPE_STEEL, 250, 292, 192, "Zamazenta", C_ZAMAZENTA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-};
-
-#define CROWNEDCOUNT (sizeof(crownedsdex) / sizeof(*crownedsdex))
-
 // dynamax forms are never shadows
 static const species dynadex[] = {
   {    3, "Dmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
@@ -12689,25 +12687,14 @@ static const species gigantasdex[] = {
 
 #define GIGANTACOUNT (sizeof(gigantasdex) / sizeof(*gigantasdex))
 
-static const species fusedsdex[] = {
-  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, W_KYUREM_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, NULL, B_KYUREM_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, NULL, DUSK_NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, NULL, DAWN_NECROZMA_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-};
-
-#define FUSEDCOUNT (sizeof(fusedsdex) / sizeof(*fusedsdex))
-
 static const struct spokedex {
   const species *dex;
   unsigned dcount;
 } sdexen[] = {
   { sdex, SPECIESCOUNT, },
   { megasdex, MEGACOUNT, },
-  { crownedsdex, CROWNEDCOUNT, },
   { dynadex, DYNACOUNT, },
   { gigantasdex, GIGANTACOUNT, },
-  { fusedsdex, FUSEDCOUNT, },
   { NULL, 0, }
 };
 
@@ -13384,7 +13371,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
+    printf("\\scriptsize{}CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
             idx_to_region(s->idx));
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
