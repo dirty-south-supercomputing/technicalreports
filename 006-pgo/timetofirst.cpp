@@ -40,7 +40,6 @@ fastest_attack(const species &s, unsigned e, unsigned *minturns){
       continue;
     }
     unsigned t = (e + (a->energytrain - 1)) / a->energytrain * a->turns;
-
     if(!fastest || t < turns){
       turns = t;
       fastest = a;
@@ -62,7 +61,7 @@ lowest_energy_attack(const species &s){
     if(fast_attack_p(a)){
       continue;
     }
-    if(!mine || a->energytrain < mine->energytrain){
+    if(!mine || -a->energytrain < -mine->energytrain){
       mine = a;
     }
   }
@@ -91,9 +90,12 @@ int main(void){
   }
   std::sort(ttfs.begin(), ttfs.end());
   for(const auto &t : ttfs){
+    unsigned dam = t.powerfast + t.ca->powertrain;
     std::cout << t.name << ": " << t.turns << " " << t.powerfast << " "
-      << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
-      << t.powerfast + t.ca->powertrain << ")"
+      << " " << t.fa->energytrain << " " << t.fa->turns << " " << " "
+      << t.ca->energytrain << " " << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
+      << dam << ")"
+      << " dpt: " << dam / (float)t.turns
       << std::endl;
   }
   return EXIT_SUCCESS;
