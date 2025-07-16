@@ -16,12 +16,12 @@ int main(void){
     }
     ++genpop[gen];
   }
-  printf("\\begin{table}\\centering\\begin{tabular}{lcrr}");
+  printf("\\begin{table}\\centering\\begin{tabular}{lcrrr}");
   printf("Region & Generation & Start & End\\\\\\Midrule\n");
-  for(int i = 0 ; i < GENERATION_COUNT ; ++i){
-    int first = generation_idx_first(i);
-    int last = generation_idx_last(i);
-    printf("%s & %s & \\#%04d & \\#%04d & %d\\\\",
+  for(int i = 0 ; i < REGION_COUNT ; ++i){
+    int first = region_idx_first(i);
+    int last = region_idx_last(i);
+    printf("%s & %s & \\#%04d & \\#%04d & %d\\\\\n",
         idx_to_region(first), idx_to_generation(first), first, last, genpop[i]);
   }
   printf("\\end{tabular}\\caption[Regions of the Pokémon world]{Regions of the Pokémon world (\\textjapanese{ポケモンの世界})\\label{table:regions}}");
