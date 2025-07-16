@@ -3978,6 +3978,24 @@ static const attack* GRAFAIAI_ATKS[] = {
   NULL
 };
 
+static const attack* TOEDSCOOL_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Mud_Shot,
+  &ATK_Earth_Power,
+  &ATK_Seed_Bomb,
+  &ATK_Wrap,
+  NULL
+};
+
+static const attack* TOEDSCRUEL_ATKS[] = {
+  &ATK_Mud_Slap,
+  &ATK_Mud_Shot,
+  &ATK_Earth_Power,
+  &ATK_Seed_Bomb,
+  &ATK_Acid_Spray,
+  NULL
+};
+
 static const attack* VAROOM_ATKS[] = {
   &ATK_Lick,
   &ATK_Poison_Jab,
@@ -12543,6 +12561,9 @@ static const species sdex[] = {
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb", BELLIBOLT_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, NULL, SHROODLE_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle", GRAFAIAI_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
+  // released 2025-07-29
+  {  948, "Toedscool", TYPE_GRASS, TYPE_GROUND, 97, 149, 120, nullptr, TOEDSCOOL_ATKS, false, false, {}, species::CAT_NORMAL, 50,  nullptr, },
+  {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, nullptr, TOEDSCRUEL_ATKS, false, false, {}, species::CAT_NORMAL, 50,  nullptr, },
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, NULL, TINKATINK_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", TINKATUFF_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", TINKATON_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
@@ -13230,6 +13251,14 @@ region_idx_first(unsigned region){
     throw std::invalid_argument("bad region");
   }
   return regfirst[region];
+}
+
+static inline int
+region_idx_last(unsigned region){
+  if(region == 9){
+    return 1025;
+  }
+  return region_idx_last(region + 1) - 1;
 }
 
 // FIXME rewrite using region_idx_first()
