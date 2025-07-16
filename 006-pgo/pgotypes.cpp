@@ -13243,10 +13243,10 @@ a2cost_to_cgroup(int a2cost){
 
 static inline int
 region_idx_first(unsigned region){
-  static const int regfirst[REGION_COUNT] = {
+  static const int regfirst[] = {
     0, 152, 252, 387, 494, 650, 722, 808, 810, 899, 906
   };
-  if(region >= sizeof(regfirst) / sizeof(*regfirst)){
+  if(region > sizeof(regfirst) / sizeof(*regfirst)){
     std::cerr << "don't know region " << region << std::endl;
     throw std::invalid_argument("bad region");
   }
@@ -13255,10 +13255,10 @@ region_idx_first(unsigned region){
 
 static inline int
 region_idx_last(unsigned region){
-  if(region == 9){
+  if(region == REGION_COUNT - 1){
     return 1025;
   }
-  return region_idx_last(region + 1) - 1;
+  return region_idx_first(region + 1) - 1;
 }
 
 // FIXME rewrite using region_idx_first()
@@ -13298,7 +13298,7 @@ generation_idx_last(unsigned gen){
   static const int genlast[GENERATION_COUNT] = {
     151, 251, 386, 493, 649, 721, 809, 905, 1025
   };
-  if(gen >= sizeof(genlast) / sizeof(*genlast)){
+  if(gen > sizeof(genlast) / sizeof(*genlast)){
     std::cerr << "don't know generation " << gen << std::endl;
     throw std::invalid_argument("bad generation");
   }
