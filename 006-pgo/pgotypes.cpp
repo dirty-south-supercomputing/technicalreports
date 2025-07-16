@@ -12547,7 +12547,7 @@ static const species sdex[] = {
   {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink", TINKATUFF_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff", TINKATON_ATKS, false, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, NULL, WIGLETT_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
-  {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", WUGTRIO_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
+  {  961, "Wugtrio", TYPE_WATER, TYPECOUNT, 205, 136, 111, "Wiglett", WUGTRIO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, NULL, BOMBIRDIER_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, NULL, VAROOM_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom", REVAVROOM_ATKS, false, false, {}, species::CAT_NORMAL, 50, nullptr, },
