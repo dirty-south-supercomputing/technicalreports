@@ -13218,6 +13218,21 @@ a2cost_to_cgroup(int a2cost){
   return -1;
 }
 
+#define REGION_COUNT 11
+
+static inline int
+region_idx_first(unsigned region){
+  static const int regfirst[REGION_COUNT] = {
+    0, 152, 252, 387, 494, 650, 722, 808, 810, 899, 906
+  };
+  if(region >= sizeof(regfirst) / sizeof(*regfirst)){
+    std::cerr << "don't know region " << region << std::endl;
+    throw std::invalid_argument("bad region");
+  }
+  return regfirst[region];
+}
+
+// FIXME rewrite using region_idx_first()
 static const char *
 idx_to_region(int idx){
   if(idx <= 151){
@@ -13247,29 +13262,50 @@ idx_to_region(int idx){
   return "unknown";
 }
 
-static const char *
-idx_to_generation(int idx){
-  if(idx <= 151){
-    return "I";
-  }else if(idx <= 251){
-    return "II";
-  }else if(idx <= 386){
-    return "III";
-  }else if(idx <= 493){
-    return "IV";
-  }else if(idx <= 649){
-    return "V";
-  }else if(idx <= 721){
-    return "VI";
-  }else if(idx <= 809){
-    return "VII";
-  }else if(idx <= 905){
-    return "VIII";
-  }else if(idx <= 1025){
-    return "IX";
+#define GENERATION_COUNT 9
+
+static inline int
+generation_idx_last(unsigned gen){
+  static const int genlast[GENERATION_COUNT] = {
+    151, 251, 386, 493, 649, 721, 809, 905, 1025
+  };
+  if(gen >= sizeof(genlast) / sizeof(*genlast)){
+    std::cerr << "don't know generation " << gen << std::endl;
+    throw std::invalid_argument("bad generation");
   }
-  std::cerr << "no generation known for idx " << idx << std::endl;
-  return "unknown";
+  return genlast[gen];
+}
+
+static inline int
+generation_idx_first(int gen){
+  if(gen == 0){
+    return 0;
+  }
+  return generation_idx_last(gen - 1) + 1;
+}
+
+// determine generation from pokédex entry. return -1 on failure.
+// returns 0..GENERATION_COUNT - 1, which map to 1..GENERATION_COUNT.
+static inline int
+idx_to_generation_int(int idx){
+  for(int i = 0 ; i < GENERATION_COUNT ; ++i){
+    if(idx <= generation_idx_last(i)){
+      return i;
+    }
+  }
+  throw std::invalid_argument("bad idx");
+}
+
+static inline const char *
+idx_to_generation(int idx){
+  int g = idx_to_generation_int(idx);
+  if(g >= 0 && g < GENERATION_COUNT){
+    static const char *genstrs[GENERATION_COUNT] = {
+      "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
+    };
+    return genstrs[g];
+  }
+  return nullptr;
 }
 
 static void
