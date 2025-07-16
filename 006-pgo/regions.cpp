@@ -17,7 +17,7 @@ int main(void){
     ++genpop[gen];
   }
   printf("\\begin{table}\\centering\\begin{tabular}{lcrr}");
-  printf("Region & Generation & Start & End\\\\\\Midrule");
+  printf("Region & Generation & Start & End\\\\\\Midrule\n");
   for(int i = 0 ; i < GENERATION_COUNT ; ++i){
     int first = generation_idx_first(i);
     int last = generation_idx_last(i);
