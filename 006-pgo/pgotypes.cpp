@@ -13074,8 +13074,9 @@ void print_optimal_latex(const species* sp){
     stats* tmp = s->next;
     cp = s->cp;
     if(++printed < 3){
-      printf("%u/%u/%u@", s->ia, s->id, s->is);
-      print_halflevel(s->hlevel);
+      unsigned half;
+      unsigned l = halflevel_to_level(s->hlevel, &half);
+      printf("\\ivlev{%u,%u,%u,%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
       printf(" (%u) ", s->cp);
     }
     delete s;
@@ -13091,7 +13092,9 @@ void print_optimal_latex(const species* sp){
     while(s){
       stats* tmp = s->next;
       if(++printed < 3){
-        printf("%u/%u/%u@", s->ia, s->id, s->is);
+        unsigned half;
+        unsigned l = halflevel_to_level(s->hlevel, &half);
+        printf("\\ivlev{%u,%u,%u,%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
         print_halflevel(s->hlevel);
         printf(" (%u) ", s->cp);
       }
