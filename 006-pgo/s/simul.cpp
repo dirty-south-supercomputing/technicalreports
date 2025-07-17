@@ -9,7 +9,6 @@
 static void tophalf(const simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
-#include "inner.h"
 #include "top.h"
 
 pmon pmons[2][TEAMSIZE] = {};
@@ -64,15 +63,16 @@ simul(simulstate *s, results *r){
   s->subtimer[0] = s->subtimer[1] = 1;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
-  // precalculate damage 2 teams * 3 members * 3 attacks * 3 opponents = 54 floats total
+  // calculate eff_a for all players
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
-    if(!pmons[0][i].s.s){
-      continue;
+    const species *s;
+    pmon *p = &pmons[0][i];
+    if( (s = p->s.s) ){
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
     }
-    for(unsigned j = 0 ; j < TEAMSIZE ; ++j){
-      if(!pmons[1][j].s.s){
-        continue;
-      }
+    p = &pmons[1][i];
+    if( (s = p->s.s) ){
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
     }
   }
   tophalf(s, r);
@@ -172,12 +172,11 @@ int main(int argc, char** argv){
   }
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
-  r.nodes = 0;
   simul(&sstate, &r);
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
   printf("p0 wins: %lu p1 wins: %lu ties: %lu total: %lu\n",
         r.wins[0], r.wins[1], r.ties, total);
-  printf("p0 %.04f%% p1 %.04f%% t %.04f%% nodes %lu\n", r.wins[0] * 100.0 / total,
-        r.wins[1] * 100.0 / total, r.ties * 100.0 / total, r.nodes);
+  printf("p0 %.04f%% p1 %.04f%% t %.04f%%\n", r.wins[0] * 100.0 / total,
+        r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
   return EXIT_SUCCESS;
 }

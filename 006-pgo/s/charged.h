@@ -40,14 +40,8 @@ static void accumulate_energy(energy *e, int addend){
 // mt must be a charged move, and the player must have sufficient energy
 // oshield may only be set if the opponent has a shield.
 static inline bool
-throw_charged_move(simulstate *s, int player, pgo_move_e mt, bool oshield){
+throw_charged_move(simulstate *s, int player, const attack *a, bool oshield){
   int op = other_player(player);
-  const attack *a;
-  if(mt == MOVE_CHARGED1){
-    a = pmons[player][s->active[player]].ca1;
-  }else{
-    a = pmons[player][s->active[player]].ca2;
-  }
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
   if(oshield){
     --s->shields[other_player(player)];

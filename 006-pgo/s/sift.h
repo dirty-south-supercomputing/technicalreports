@@ -1,24 +1,41 @@
-// determine which of the moves can be taken this turn by this player
-static inline void sift_choices(const simulstate *s, unsigned *m, int player){
-  *m = MOVE_FAST;
-  if(s->turns[player] == 0){ // if we're in a fast move, we can only wait
-    if(s->e[player][s->active[player]] >=
-        -pmons[player][s->active[player]].ca1->energytrain){
-      *m |= MOVE_CHARGED1;
-    }
-    if(pmons[player][s->active[player]].ca2){
-      if(s->e[player][s->active[player]] >=
-          -pmons[player][s->active[player]].ca2->energytrain){
-        *m |= MOVE_CHARGED2;
-      }
-    }
-    if(s->subtimer[player] == 0){
-      if(s->hp[player][(s->active[player] + 1) % 3]){
-        *m |= MOVE_SUB1;
-      }
-      if(s->hp[player][(s->active[player] + 2) % 3]){
-        *m |= MOVE_SUB2;
-      }
-    }
+static inline bool can_charged(const simulstate *s, int player, const attack *c){
+  if(!c){
+    return false;
   }
+  if(s->turns[player]){
+    return false; // if we're in a fast move, we can only wait
+  }
+  if(s->e[player][s->active[player]] < -c->energytrain){
+    return false;
+  }
+  return true;
+}
+
+static inline bool can_charged1(const simulstate *s, int player){
+  return can_charged(s, player, pmons[player][s->active[player]].ca1);
+}
+
+static inline bool can_charged2(const simulstate *s, int player){
+  return can_charged(s, player, pmons[player][s->active[player]].ca2);
+}
+
+static inline bool can_sub(const simulstate *s, int player, int offset){
+  if(s->turns[player]){
+    return false; // if we're in a fast move, we can only wait
+  }
+  if(s->subtimer[player]){
+    return false; // we've subbed too recently
+  }
+  if(s->hp[player][(s->active[player] + offset) % 3] == 0){
+    return false; // desired sub is not available
+  }
+  return true;
+}
+
+static inline bool can_sub1(const simulstate *s, int player){
+  return can_sub(s, player, 1);
+}
+
+static inline bool can_sub2(const simulstate *s, int player){
+  return can_sub(s, player, 2);
 }

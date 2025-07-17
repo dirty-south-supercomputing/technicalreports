@@ -3,7 +3,6 @@ constexpr int ENERGY_MAX = 100;
 
 typedef struct results {
   unsigned long wins[2], ties; // win/tie counts
-  unsigned long nodes;         // total turns evaluated
 } results;
 
 using hpoints = uint16_t;
@@ -23,6 +22,7 @@ typedef struct simulstate { // dynamic elements
 typedef struct pmon { // static elements
   struct stats s;
   const attack *fa, *ca1, *ca2;
+  float effa;  // effective attack, cpm * (atk + iva)
   bool shadow;
 } pmon;
 

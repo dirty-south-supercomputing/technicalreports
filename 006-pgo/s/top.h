@@ -1,23 +1,51 @@
 // each turn has a top half and bottom halves.
 // in the top half we determine which choice-pairs can be performed.
 // in the bottom halves, we simulate a choice-pair.
-static void tophalf(const simulstate *s, results *r){
-  unsigned m1mask;
-  sift_choices(s, &m1mask, 1);
-  innerhalf(s, r, MOVE_FAST, m1mask);
-  if(s->turns[0]){
-    return;
-  }
-  if(s->e[0][s->active[0]] >= -pmons[0][s->active[0]].ca1->energytrain){
-    innercharged(s, r, MOVE_CHARGED1, m1mask);
-  }
-  if(pmons[0][s->active[0]].ca2){
-    if(s->e[0][s->active[0]] >= -pmons[0][s->active[0]].ca2->energytrain){
-      innercharged(s, r, MOVE_CHARGED2, m1mask);
+static void tophalf(simulstate *s, results *r){
+  const auto shielded0 = s->shields[0];
+  const auto shielded1 = s->shields[1];
+  const auto p0c1 = can_charged1(s, 0);
+  const auto p1c1 = can_charged1(s, 1);
+  const auto p0ca1 = pmons[0][s->active[0]].ca1;
+  const auto p1ca1 = pmons[1][s->active[1]].ca1;
+  const auto p0c2 = can_charged2(s, 0);
+  const auto p1c2 = can_charged2(s, 1);
+  const auto p0ca2 = pmons[0][s->active[0]].ca2;
+  const auto p1ca2 = pmons[1][s->active[1]].ca2;
+  simulstate scopy = *s;
+  // each bottomhalf_charged_charged() might FO up to 4 ways
+  // (simulate both sides of CMP tie, simulate shields)
+  if(p0c1){
+    bottomhalf_charged_fast(&scopy, r, 0, p0ca1, shielded1);
+    scopy = *s;
+    if(p1c1){
+      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca1, shielded0, shielded1);
+      scopy = *s;
+    }
+    if(p1c2){
+      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca2, shielded0, shielded1);
+      scopy = *s;
     }
   }
-  if(s->subtimer[0] == 0){
-    innerhalf(s, r, MOVE_SUB1, m1mask);
-    innerhalf(s, r, MOVE_SUB2, m1mask);
+  if(p0c2){
+    bottomhalf_charged_fast(&scopy, r, 0, p0ca2, shielded1);
+    scopy = *s;
+    if(p1c1){
+      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca1, shielded0, shielded1);
+      scopy = *s;
+    }
+    if(p1c2){
+      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca2, shielded0, shielded1);
+      scopy = *s;
+    }
   }
+  if(p1c1){
+    bottomhalf_charged_fast(&scopy, r, 1, p1ca1, shielded0);
+    scopy = *s;
+  }
+  if(p1c2){
+    bottomhalf_charged_fast(&scopy, r, 1, p1ca2, shielded0);
+    scopy = *s;
+  }
+  bottomhalf_allfast(s, r);
 }
