@@ -2107,8 +2107,10 @@ static const attack* QUAQUAVAL_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Aerial_Ace,
   &ATK_Aqua_Jet,
+  &ATK_Aqua_Step,
   &ATK_Close_Combat,
   &ATK_Liquidation,
+  &ATK_Hydro_Cannon,
   NULL
 };
 
@@ -12536,7 +12538,8 @@ static const species sdex[] = {
     { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, },
   {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, QUAXLY_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, "Quaxly", QUAXWELL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
-  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
+  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false,
+    { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, },
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, LECHONK_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk", M_OINKOLOGNE_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk", F_OINKOLOGNE_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
