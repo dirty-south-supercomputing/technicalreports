@@ -259,8 +259,8 @@ The system behind the scheme of \autoref{table:buffs} is that the negative level
  correspond to $\frac{4}{4 - n}$ while the positive levels $n$ correspond to
  $\frac{4 + n}{4}$.
 \begin{align*}
- Eff_A &= Mod_A \cdot CPM \cdot M_{Shadow} \\
- Eff_D &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
+ \mathit{Eff_A} &= Mod_A \cdot CPM \cdot M_{Shadow} \\
+ \mathit{Eff_D} &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
 \end{align*}
 $\mathit{Eff_S}$ determines the Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
@@ -270,8 +270,8 @@ Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  than those with Team Rocket) always start with full HP.}.
 MHP is defined such that it is always a positive integer:
 \begin{align*}
- Eff_S &= Mod_S \cdot CPM \\
- MHP &= \min{1, \lfloor Eff_S \rfloor}
+ \mathit{Eff_S} &= Mod_S \cdot CPM \\
+ MHP &= \min{1, \lfloor \mathit{Eff_S} \rfloor}
 \end{align*}
 
 \section{Searching the Pokédex\label{sec:searching}}
