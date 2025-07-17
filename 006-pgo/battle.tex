@@ -151,7 +151,7 @@ The effect is equivalent to raising the defender's DEF to infinity for the
 $D_A$ is what we can calculate using only the attacker's knowledge, i.e.
  it is that component of $D$ which is independent of the defender.
 
-\[ D_A = P \times Eff_A \times M_{STAB} \times M_B \]
+\[ D_A = P \times \mathit{Eff_A} \times M_{STAB} \times M_B \]
 
 Since this is a product, a proportional increase in any factor leads to
  the same change.
@@ -165,15 +165,15 @@ Increasing power to 12,
  all yield a 20\% increase in $D_A$, 505.3776.
 Note that this is all independent of the opponent.
 
-$D_A$ is divided by $Eff_D$ and scaled by $1.6^T$:
+$D_A$ is divided by $\mathit{Eff_D}$ and scaled by $1.6^T$:
 
-\[ D_D = \frac{D_A}{Eff_D} \times 1.6^T \]
+\[ D_D = \frac{D_A}{\mathit{Eff_D}} \times 1.6^T \]
 
 We can recover our defined multipliers:
 
-\[ D_D = P \times \frac{Eff_A}{Eff_D} \times M_C \times M_B \]
+\[ D_D = P \times \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \times M_C \times M_B \]
 
-Using the definitions of $Eff_A$ and $Eff_D$, this can be rewritten as:
+Using the definitions of $\mathit{Eff_A}$ and $\mathit{Eff_D}$, this can be rewritten as:
 
 \[ D_D = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M_C \times M_B \]
 
@@ -184,19 +184,19 @@ which can of course be rewritten as:
 A floor function is applied to ensure an integer,
  followed by a min function to ensure at least 1 point of damage is always inflicted:
 
-\[ D = \min{1, \left\lfloor P \times \frac{Eff_A}{Eff_D} \times M_C \times M_B \right\rfloor } \]
+\[ D = \min{1, \left\lfloor P \times \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \times M_C \times M_B \right\rfloor } \]
 
 If $D$ equals or exceeds the opponent's HP, it will fight no more.
 
 \section{Opponent-independent damage}
 We can break the damage equation into those parts dependent upon opponents, and those which are independent.
-Looking at the damage equation, power, $Eff_A$, and STAB do not depend upon an attacker's opponent.
-Likewise $Eff_D$ and MHP for the defender.
-The attacker knows neither $Eff_D$ nor MHP, while the defender doesn't know $Eff_A$.
+Looking at the damage equation, power, $\mathit{Eff_A}$, and STAB do not depend upon an attacker's opponent.
+Likewise $\mathit{Eff_D}$ and MHP for the defender.
+The attacker knows neither $\mathit{Eff_D}$ nor MHP, while the defender doesn't know $\mathit{Eff_A}$.
 Knowing type effectiveness always requires knowing the opposing typing.
 We can thus define an independent core fitness evaluation:
 
-\[ F = Eff_A \times P \times M_{STAB} \times Eff_D \times MHP \]
+\[ F = \mathit{Eff_A} \times P \times M_{STAB} \times \mathit{Eff_D} \times MHP \]
 
 Note that CPM is implicitly cubed in this function.
 
@@ -211,7 +211,7 @@ As only one fast attack can be known at a time, it's easy enough to define one
 All we need do is normalize the power of the fast attack, using the number of
   Turns it requires.
 
-\[ F = Eff_A \times \frac{P_{Fast}}{T_{Fast}} \times M_{STAB-Fast} \times Eff_D \times Eff_S \]
+\[ F = \mathit{Eff_A} \times \frac{P_{Fast}}{T_{Fast}} \times M_{STAB-Fast} \times \mathit{Eff_D} \times \mathit{Eff_S} \]
 
 Integrating charged attacks is more complex.
 First, we can simply normalize the charged attack as we did the fast attack,
@@ -314,7 +314,7 @@ Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
   on the same turn, one goes first,and can knock out the opponent before it
   launches its attack.
 The Pokémon that goes first (``Charged Move Priority'') is the one with the
-  higher $Eff_A$ (recall that this is base attack plus $IV_A$, times CPM).
+  higher $\mathit{Eff_A}$ (recall that this is base attack plus $IV_A$, times CPM).
 Shadow status does not factor into consideration, nor do any active buffs.
 3x3 battles take place four ways: with other Trainers via the friends list,
  with Team Leaders via the Battle screen, the GO Battle League,
@@ -482,7 +482,7 @@ If all six are defeated, their Trainer can optionally continue with another team
 Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution within the team.
 These raids have their own time limits, and the raid ends when the boss is defeated, no more Pokémon remain fighting,
   or the timer (180 seconds for raids below the 5🟉 difficulty level, and 300 seconds otherwise) expires.
-The contest is primarily against this timer, so prioritize Shadow Pokémon and high $Eff_A$.
+The contest is primarily against this timer, so prioritize Shadow Pokémon and high $\mathit{Eff_A}$.
 
 A raid gym has zero or more associated lobbies, each capable of holding twenty Trainers.
 Empty lobbies are immediately destroyed.

@@ -44,8 +44,8 @@ The quadratic term for CPM makes sense from the perspective of the damage
 But since CPM is also used to calculate MHP from $Mod_S$, an argument
  can be made that it ought be raised to the third power.
 Since $CPM < 1$ for all Levels, $CPM^3 < CPM^2$, and thus it seems \textit{overvalued} by CP\@.
-Finally, recall that $MHP = \lfloor Eff_S \rfloor$.
-Since the observable $MHP$ increases only stepwise with respect to $Eff_S$,
+Finally, recall that $MHP = \lfloor \mathit{Eff_S} \rfloor$.
+Since the observable $MHP$ increases only stepwise with respect to $\mathit{Eff_S}$,
   there is a stepwise overvaluation of $Mod_S$.
 This doesn't correct the undervaluation due the square root, but it does
   have effects: a 0/14/13 level 30.5 Clodsire has the same MHP
@@ -60,7 +60,7 @@ Since Raids allow substitution of defeated Pokémon, but are subject to a timer,
   the ability to defend and absorb damage is less important than being able to
   quickly inflict damage.
 Furthermore, when two Pokémon launch charged attacks on the same turn in a Trainer
-  Battle, $Eff_A$ determines which goes first (\autoref{sec:3x3}).
+  Battle, $\mathit{Eff_A}$ determines which goes first (\autoref{sec:3x3}).
 Perhaps this explains the emphasis on attack, but some of the most important
   factors in the damage equation are left out of CP entirely!
 The power and timing of the Pokémon's attacks are not present, despite
@@ -156,7 +156,7 @@ Attacks of longer duration allow the opponent to blunder with regard to the
 Short attacks credit damage more quickly than long ones.
 There's no general rule: fast attack selection comes down to attack type
   (both for effectiveness and STAB), the Pokémon's charged attacks,
-  and even the $\frac{P \times Eff_A}{Eff_D}$ of expected opponents.
+  and even the $\frac{P \times \mathit{Eff_A}}{\mathit{Eff_D}}$ of expected opponents.
 Some Pokémon can learn two fast attacks of the same type and duration,
   where one is strictly inferior to the other in terms of power and
   energy.
