@@ -45,5 +45,12 @@ int main(void){
   std::vector<typeset> tsets;
   build_tsets(tsets);
   std::sort(tsets.begin(), tsets.end());
-  // FIXME dump it
+  printf("\\begin{longtable}{crrrrrrr}\\footnotesize");
+  printf("& -2 & -1 & 0 & 1 & 2 & ARA & Pop\\\\\\Midrule\\endhead\n");
+  for(const auto &ts : tsets){
+    print_types(ts.t0, ts.t1);
+    putc(' ', stdout);
+    printf("& 0 & 0 & 0 & 0 & 0 & 0.0 & 0\\\\");
+  }
+  printf("\\end{longtable}\n");
 }
