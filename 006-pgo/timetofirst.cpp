@@ -28,6 +28,12 @@ struct timetofirst {
   }
 };
 
+// find the number of turns necessary to reach e energy
+static inline unsigned
+turns_until_e(const attack *a, unsigned e){
+  return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
+}
+
 // find the attack which reaches e energy in the fewest turns, returning the
 // total number of turns in *minturns.
 static const attack *
@@ -39,7 +45,7 @@ fastest_attack(const species &s, unsigned e, unsigned *minturns){
     if(charged_attack_p(a) || !a->energytrain){
       continue;
     }
-    unsigned t = (e + (a->energytrain - 1)) / a->energytrain * a->turns;
+    unsigned t = turns_until_e(a, e);
     if(!fastest || t < turns){
       turns = t;
       fastest = a;
@@ -68,6 +74,7 @@ lowest_energy_attack(const species &s){
   return mine;
 }
 
+// get time to first and damage for fastest fast+charged pair
 static void
 calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
   for(unsigned si = 0 ; si < sd.dcount ; ++si){
@@ -78,16 +85,39 @@ calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
     if(!fa){
       continue;
     }
-    unsigned pfast = ttf / fa->turns * fa->powertrain; 
+    unsigned pfast = ttf / fa->turns * fa->powertrain;
     ttfs.emplace_back(s.name, ttf, pfast, fa, ca);
   }
 }
 
-int main(void){
-  std::vector<timetofirst> ttfs;
-  for(const auto &sd : sdexen){
-    calctimetofirst(sd, ttfs);
+// get time to first and damage for all fast+charged pairs
+static void
+calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
+  for(unsigned si = 0 ; si < sd.dcount ; ++si){
+    const auto &s = sd.dex[si];
+    const attack *f;
+    for(unsigned af = 0 ; (f = s.attacks[af]) ; ++af){
+      if(f->energytrain <= 0){
+        continue;
+      }
+      const attack *c;
+      for(unsigned ac = 0 ; (c = s.attacks[ac]) ; ++ac){
+        if(c->energytrain >= 0){
+          continue;
+        }
+        unsigned t = turns_until_e(f, -c->energytrain);
+        unsigned pfast = t / f->turns * f->powertrain;
+        ttfs.emplace_back(s.name, t, pfast, f, c);
+      }
+    }
   }
+}
+
+int main(int argc, char **argv){
+  std::vector<timetofirst> ttfs;
+  // we don't want max nor mega
+  struct spokedex smain = { sdex, SPECIESCOUNT, };
+  calctimetoall(smain, ttfs);
   std::sort(ttfs.begin(), ttfs.end());
   for(const auto &t : ttfs){
     unsigned dam = t.powerfast + t.ca->powertrain;

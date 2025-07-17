@@ -261,7 +261,7 @@ typedef struct attack {
   // nx1 context
   int powerraid;         // power in nx1 battle context
   int energyraid;
-  int animdur;           // nx1 animation duration
+  int animdur;           // nx1 animation duration in half-seconds
 } attack;
 
 // either a fast attack with all charged attacks it can be paired with (on some
@@ -466,6 +466,8 @@ static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0
 	-1, -1, -1, };
 static const attack ATK_Aqua_Jet = { "Aqua Jet", TYPE_WATER, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
+static const attack ATK_Aqua_Step = { "Aqua Step", TYPE_WATER, 55, -40, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
+	55, -40, 7, };
 static const attack ATK_Aqua_Tail = { "Aqua Tail", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
 static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2105,8 +2107,10 @@ static const attack* QUAQUAVAL_ATKS[] = {
   &ATK_Water_Gun,
   &ATK_Aerial_Ace,
   &ATK_Aqua_Jet,
+  &ATK_Aqua_Step,
   &ATK_Close_Combat,
   &ATK_Liquidation,
+  &ATK_Hydro_Cannon,
   NULL
 };
 
@@ -11294,6 +11298,14 @@ static const attack* WHIMSICOTT_ATKS[] = {
   NULL
 };
 
+// calculate type relation of at on dt0 + dt1
+static inline float
+type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
+  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  int tr = typing_relation(at, dt0, dt1);
+  return pow16[tr + 3];
+}
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
@@ -11346,9 +11358,7 @@ typedef struct species {
 
   // effectiveness of attack a on our typing
   float type_effectiveness(const attack *a) const {
-    static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
-    int tr = typing_relation(a->type, t1, t2);
-    return pow16[tr + 3];
+    return ::type_effectiveness(a->type, t1, t2);
   }
 
 } species;
@@ -12534,7 +12544,8 @@ static const species sdex[] = {
     { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, },
   {  912, "Quaxly", TYPE_WATER, TYPECOUNT, 120, 86, 146, NULL, QUAXLY_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  913, "Quaxwell", TYPE_WATER, TYPECOUNT, 162, 123, 172, "Quaxly", QUAXWELL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
-  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
+  {  914, "Quaquaval", TYPE_WATER, TYPE_FIGHTING, 236, 159, 198, "Quaxwell", QUAQUAVAL_ATKS, true, false,
+    { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, },
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, NULL, LECHONK_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk", M_OINKOLOGNE_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk", F_OINKOLOGNE_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
@@ -13069,8 +13080,9 @@ void print_optimal_latex(const species* sp){
     stats* tmp = s->next;
     cp = s->cp;
     if(++printed < 3){
-      printf("%u/%u/%u@", s->ia, s->id, s->is);
-      print_halflevel(s->hlevel);
+      unsigned half;
+      unsigned l = halflevel_to_level(s->hlevel, &half);
+      printf("\\ivlev{%u}{%u}{%u}{%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
       printf(" (%u) ", s->cp);
     }
     delete s;
@@ -13086,7 +13098,9 @@ void print_optimal_latex(const species* sp){
     while(s){
       stats* tmp = s->next;
       if(++printed < 3){
-        printf("%u/%u/%u@", s->ia, s->id, s->is);
+        unsigned half;
+        unsigned l = halflevel_to_level(s->hlevel, &half);
+        printf("\\ivlev{%u}{%u}{%u}{%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
         print_halflevel(s->hlevel);
         printf(" (%u) ", s->cp);
       }
