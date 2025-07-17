@@ -29,7 +29,7 @@ typedef enum {
   TYPE_ROCK,
   TYPE_STEEL,
   TYPE_WATER,
-  TYPECOUNT
+  TYPECOUNT = 18
 } pgo_types_e;
 
 // there are 171 distinct species types (18 + C(18, 2))
@@ -11298,12 +11298,19 @@ static const attack* WHIMSICOTT_ATKS[] = {
   NULL
 };
 
+static inline float
+type_effectiveness_mult(int te){
+  if(te < -3 || te > 2){
+    throw std::invalid_argument("bad type effectiveness");
+  }
+  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  return pow16[te + 3];
+}
+
 // calculate type relation of at on dt0 + dt1
 static inline float
 type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
-  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
-  int tr = typing_relation(at, dt0, dt1);
-  return pow16[tr + 3];
+  return type_effectiveness_mult(typing_relation(at, dt0, dt1));
 }
 
 typedef struct species {

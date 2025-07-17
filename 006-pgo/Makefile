@@ -158,6 +158,10 @@ $(OUT)/%.tex: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
+$(DUALCHARGEDTEX): $(DUALCHARGED)
+	@mkdir -p $(@D)
+	$(<) d > $@
+
 $(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
 	@mkdir -p $(@D)
 	$(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
