@@ -261,7 +261,7 @@ typedef struct attack {
   // nx1 context
   int powerraid;         // power in nx1 battle context
   int energyraid;
-  int animdur;           // nx1 animation duration
+  int animdur;           // nx1 animation duration in half-seconds
 } attack;
 
 // either a fast attack with all charged attacks it can be paired with (on some
@@ -466,6 +466,8 @@ static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0
 	-1, -1, -1, };
 static const attack ATK_Aqua_Jet = { "Aqua Jet", TYPE_WATER, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
+static const attack ATK_Aqua_Step = { "Aqua Step", TYPE_WATER, 55, -40, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
+	55, -40, 7, };
 static const attack ATK_Aqua_Tail = { "Aqua Tail", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	-1, -1, -1, };
 static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
