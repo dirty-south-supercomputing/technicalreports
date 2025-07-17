@@ -13244,7 +13244,7 @@ a2cost_to_cgroup(int a2cost){
 static inline int
 region_idx_first(unsigned region){
   static const int regfirst[] = {
-    0, 152, 252, 387, 494, 650, 722, 808, 810, 899, 906
+    1, 152, 252, 387, 494, 650, 722, 808, 810, 899, 906
   };
   if(region > sizeof(regfirst) / sizeof(*regfirst)){
     std::cerr << "don't know region " << region << std::endl;
@@ -13300,7 +13300,7 @@ generation_idx_last(unsigned gen){
 static inline int
 generation_idx_first(int gen){
   if(gen == 0){
-    return 0;
+    return 1;
   }
   return generation_idx_last(gen - 1) + 1;
 }
