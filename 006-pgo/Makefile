@@ -26,6 +26,7 @@ SPECIES:=out/species
 FORMS:=out/forms
 HETERO:=out/hetero
 TRELS:=out/typerels
+TIMETOFIRST:=out/timetofirst
 USERS:=out/users
 REGIONS:=out/regions
 WEATHER:=out/weather
@@ -63,13 +64,15 @@ CP1500G:=out/cp1500g.tex
 CP2500G:=out/cp2500g.tex
 HETEROTEX:=out/hetero.tex
 TRELSTEX:=out/typerels.tex
+TIMETOFIRSTTEX:=$(TIMETOFIRSTTEX).tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
-	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G)
+	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G) \
+	$(TIMETOFIRSTTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)

@@ -85,9 +85,9 @@ calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
 
 int main(void){
   std::vector<timetofirst> ttfs;
-  for(const auto &sd : sdexen){
-    calctimetofirst(sd, ttfs);
-  }
+  // we don't want max nor mega
+  struct spokedex smain = { sdex, SPECIESCOUNT, };
+  calctimetofirst(smain, ttfs);
   std::sort(ttfs.begin(), ttfs.end());
   for(const auto &t : ttfs){
     unsigned dam = t.powerfast + t.ca->powertrain;
