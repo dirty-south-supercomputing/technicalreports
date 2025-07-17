@@ -23,7 +23,7 @@ int main(void){
     int last = region_idx_last(i);
     printf("%s & %s & \\#%04d & \\#%04d & %d/%d\\\\\n",
         idx_to_region(first), idx_to_generation(first),
-        first, last, regpop[i], first - last + 1);
+        first, last, regpop[i], last - first + 1);
   }
   printf("\\end{tabular}\\caption[Regions of the Pokémon world]{Regions of the Pokémon world (\\textjapanese{ポケモンの世界}). Populations do not count multiple forms.\\label{table:regions}}");
   printf("\\end{table}");
