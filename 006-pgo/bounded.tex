@@ -18,8 +18,8 @@ We then select a team using the strategies of that chapter. Since
 \section{Optimal IVs and Levels under a CP bound}
 We require a fitness function that takes as input a Pokémon's form, level, and IV,
   and emits a comparable output.
-Common functions include CP itself, the arithmetic mean ($\frac{\mathit{Eff_A} +\mathit{Eff_D} + MHP}{3}$),
-  and the geometric mean ($\sqrt[3]{\mathit{Eff_A} \times \mathit{Eff_D} \times MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
+Common functions include CP itself, the arithmetic mean ($\frac{Eff_A +Eff_D + MHP}{3}$),
+  and the geometric mean ($\sqrt[3]{Eff_A \cdot Eff_D \cdot MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
   mechanics, but there is no true ``best'' fitness function---optimal IVs are
   dependent upon both the base stats and the opponent.}.
 Optimizing for maximum minimum stat is also intriguing.
@@ -91,9 +91,9 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
  Does this compensate for six fewer hit points (145 vs 139) and lower $\mathit{Eff_D}$ (101.49 vs 96.136)?
  Let's pit them against one another, using Low Kick (Power of 4, neutral type effectiveness, STAB bonus).
  Our Level 28 competitor strikes for six damage with each attack:
-    \[ \left\lfloor \frac{129.36 \times 4 \times 1.2}{101.49} \right\rfloor = \lfloor 6.118 \rfloor = 6 \]
+    \[ \left\lfloor \frac{129.36 \cdot 4 \cdot 1.2}{101.49} \right\rfloor = \lfloor 6.118 \rfloor = 6 \]
  The supposedly optimal Gurdurr strikes for six as well:
-    \[ \left\lfloor \frac{123.29 \times 4 \times 1.2}{96.136} \right\rfloor = \lfloor 6.156 \rfloor = 6 \]
+    \[ \left\lfloor \frac{123.29 \cdot 4 \cdot 1.2}{96.136} \right\rfloor = \lfloor 6.156 \rfloor = 6 \]
  At 145 HP, Gurdurr goes down on the 25th attack.
  Its opponent's 139 HP absorbs 23 attacks before falling to the 24th, but this could
     have easily gone the other way.

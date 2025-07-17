@@ -21,7 +21,7 @@ This integer is called (inflicted) damage $D$, and calculated as a product of se
 \section{The typing multiplier\label{sec:typemult}}
 Determine $M_C$, the common multiplier due typing:
 
-\[ M_C = M_{STAB} \times 1.6^{T} \]
+\[ M_C = M_{STAB} \cdot 1.6^{T} \]
 
 $M_{STAB}$ is the STAB bonus, equal to 1.2 when the attack's type matches any
   type of the attacker, and 1 otherwise.
@@ -66,7 +66,7 @@ Exponential functions are not linear functions, and must not be treated as such.
 
 \section{The context-specific multiplier\label{sec:mbmult}}
 In Raids and Max battles, a number of effects come into play.
-\[ M_B = 0.5 \times M_D \times M_F \times M_W \times M_M \]
+\[ M_B = 0.5 \cdot M_D \cdot M_F \cdot M_W \cdot M_M \]
 \begin{itemize}
  \item $M_D$ is 0.25 if the attack is dodged (dodging is only possible in Raids/Max battles),
  and 1 otherwise. Note that this seems to have been subject to recent changes.
@@ -121,7 +121,7 @@ In Raids and Max battles, a number of effects come into play.
    \end{table}
 \end{itemize}
 The calculation for Trainer Battles is simpler:
-\[ M_B = 0.65 \times M_G \]
+\[ M_B = 0.65 \cdot M_G \]
 For fast attacks, $M_G$ is 1.
 When throwing a charged attack, the attacking Trainer plays a short minigame.
 Performance on this minigame is summarized with ``Excellent!'', ``Great!'',
@@ -151,7 +151,7 @@ The effect is equivalent to raising the defender's DEF to infinity for the
 $D_A$ is what we can calculate using only the attacker's knowledge, i.e.
  it is that component of $D$ which is independent of the defender.
 
-\[ D_A = P \times \mathit{Eff_A} \times M_{STAB} \times M_B \]
+\[ D_A = P \cdot Eff_A \cdot M_{STAB} \cdot M_B \]
 
 Since this is a product, a proportional increase in any factor leads to
  the same change.
@@ -167,24 +167,24 @@ Note that this is all independent of the opponent.
 
 $D_A$ is divided by $\mathit{Eff_D}$ and scaled by $1.6^T$:
 
-\[ D_D = \frac{D_A}{\mathit{Eff_D}} \times 1.6^T \]
+\[ D_D = \frac{D_A}{Eff_D} \cdot 1.6^T \]
 
 We can recover our defined multipliers:
 
-\[ D_D = P \times \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \times M_C \times M_B \]
+\[ D_D = P \cdot \frac{Eff_A}{Eff_D} \cdot M_C \cdot M_B \]
 
 Using the definitions of $\mathit{Eff_A}$ and $\mathit{Eff_D}$, this can be rewritten as:
 
-\[ D_D = P \times \frac{Mod_A \times CPM_A}{Mod_D \times CPM_D} \times M_C \times M_B \]
+\[ D_D = P \cdot \frac{Mod_A \cdot CPM_A}{Mod_D \cdot CPM_D} \cdot M_C \cdot M_B \]
 
 which can of course be rewritten as:
 
-\[ D_D = P \times \frac{Mod_A}{Mod_D} \times \frac{CPM_A}{CPM_D} \times M_C \times M_B \]
+\[ D_D = P \cdot \frac{Mod_A}{Mod_D} \cdot \frac{CPM_A}{CPM_D} \cdot M_C \cdot M_B \]
 
 A floor function is applied to ensure an integer,
  followed by a min function to ensure at least 1 point of damage is always inflicted:
 
-\[ D = \min{1, \left\lfloor P \times \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \times M_C \times M_B \right\rfloor } \]
+\[ D = \min{1, \left\lfloor P \cdot \frac{Eff_A}{Eff_D} \cdot M_C \cdot M_B \right\rfloor } \]
 
 If $D$ equals or exceeds the opponent's HP, it will fight no more.
 
@@ -196,7 +196,7 @@ The attacker knows neither $\mathit{Eff_D}$ nor MHP, while the defender doesn't 
 Knowing type effectiveness always requires knowing the opposing typing.
 We can thus define an independent core fitness evaluation:
 
-\[ F = \mathit{Eff_A} \times P \times M_{STAB} \times \mathit{Eff_D} \times MHP \]
+\[ F = Eff_A \cdot P \cdot M_{STAB} \cdot Eff_D \cdot MHP \]
 
 Note that CPM is implicitly cubed in this function.
 
@@ -211,7 +211,7 @@ As only one fast attack can be known at a time, it's easy enough to define one
 All we need do is normalize the power of the fast attack, using the number of
   Turns it requires.
 
-\[ F = \mathit{Eff_A} \times \frac{P_{Fast}}{T_{Fast}} \times M_{STAB-Fast} \times \mathit{Eff_D} \times \mathit{Eff_S} \]
+\[ F = Eff_A \cdot \frac{P_{Fast}}{T_{Fast}} \cdot M_{STAB-Fast} \cdot Eff_D \cdot Eff_S \]
 
 Integrating charged attacks is more complex.
 First, we can simply normalize the charged attack as we did the fast attack,
@@ -221,11 +221,11 @@ First, we can simply normalize the charged attack as we did the fast attack,
 
 yielding the total power of a cycle.
 
-\[ TDO = N_{Fast} \times P_{Fast} + P_{Charged} \]
+\[ TDO = N_{Fast} \cdot P_{Fast} + P_{Charged} \]
 
 We normalize this by the turns of a full cycle:
 
-\[ F_{cycle} = \frac{TDO}{N_{Fast} \times T_{Fast} + T_{Charged}} \]
+\[ F_{cycle} = \frac{TDO}{N_{Fast} \cdot T_{Fast} + T_{Charged}} \]
 
 There are two turns per second.
 Multiplying $F_{cycle}$ by two yields a stat the community calls Damage Per Second (DPS).
@@ -250,12 +250,12 @@ We can hardly ignore charged attacks: they tend to dominate our total inflicted 
 \end{figure}
 
 If we expand over multiple cycles of fast and charged attacks, we can
- generalize to situations with excess energy. We know $E_{Charged} \times
+ generalize to situations with excess energy. We know $E_{Charged} \cdot
  E_{Fast}$ will be a multiple of both the generated and consumed energy, so
  simply consider $E_{Charged}$ cycles, each of which throws an average of
  $\frac{E_{Charged}}{E_{Fast}}$ fast attacks followed by one charged attack.
 
-\[ P_{cycles} = E_{Charged} \times \left(\frac{E_{Charged}}{E_{Fast}} \times P_{Fast} + P_{Charged}\right) \]
+\[ P_{cycles} = E_{Charged} \cdot \left(\frac{E_{Charged}}{E_{Fast}} \cdot P_{Fast} + P_{Charged}\right) \]
 
  The number of fast attacks in a cycle is actually always either
  $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
@@ -263,7 +263,7 @@ If we expand over multiple cycles of fast and charged attacks, we can
  $E_{Fast}$, these two expressions are equal, and the number of fast attacks
  per charged attack is constant). Normalize for the total time:
 
-\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \times \left(\frac{E_{Charged}}{E_{Fast}} \times T_{Fast} + T_{Charged}\right)} \]
+\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \cdot \left(\frac{E_{Charged}}{E_{Fast}} \cdot T_{Fast} + T_{Charged}\right)} \]
 
 This has only exacerbated one of the problems we mentioned before: we may
   not get to throw all these attacks!
@@ -272,16 +272,16 @@ Suppose we have some constant chance $0 < L_{KO} \leq 1$ of being knocked out or
  in to throw the $N$th attack is $(1 - L_{KO})^{N-1}$.
 We could thus define an expected damage from attack $N$:
 
-\[ E_D(N) = \overline{P} \times (1 - L_{KO})^{N-1} \]
+\[ E_D(N) = \overline{P} \cdot (1 - L_{KO})^{N-1} \]
 
 and a cumulative expected damage through $N$ attacks:
 
-\[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \times (1 - L_{KO})^{i-1} \]
+\[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \cdot (1 - L_{KO})^{i-1} \]
 
 This is a geometric series where $a = \overline{P}$ and $r = 1 - L_{KO}$.
 Since $0 \leq r < 1$, this series converges to
 
-\[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \times r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
+\[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \cdot r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
 
 Of course, our chance of being knocked out is usually not constant across
  attacks, but rather an immediate function of our remaining HP and any
