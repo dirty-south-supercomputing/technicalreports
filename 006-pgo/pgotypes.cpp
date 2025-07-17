@@ -1192,6 +1192,15 @@ type_effectiveness_mult(int te){
   return pow16[te + 3];
 }
 
+static inline float
+type_effectiveness_mult(int te){
+  if(te < -3 || te > 2){
+    throw std::invalid_argument("bad type effectiveness");
+  }
+  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  return pow16[te + 3];
+}
+
 // calculate type relation of at on dt0 + dt1
 static inline float
 type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
