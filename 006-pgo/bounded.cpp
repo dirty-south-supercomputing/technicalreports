@@ -62,8 +62,8 @@ void print_bounded_table(int bound, float lbound, bool amean){
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
-  printf("\\begin{longtable}{lrrrrrrrrr}\n");
-  printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
+  printf("\\begin{longtable}{lrrrrrrrr}\n");
+  printf("Species & IV@L & HP & $Eff_A$ & $Eff_D$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
@@ -89,19 +89,15 @@ void print_bounded_table(int bound, float lbound, bool amean){
         }
         putchar(*curs);
       }
-      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
-              l, half ? ".5" : "",
-              tmp->ia, tmp->id, tmp->is,
+      printf(" & \\ivlev{%u,%u,%u,%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
+              tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
               tmp->mhp, tmp->effa, tmp->effd,
-              tmp->average,
-              tmp->geommean,
-              tmp->cp,
-              tmp->apercent);
+              tmp->average, tmp->geommean,
+              tmp->cp, tmp->apercent);
     }else{
-      printf(" & %2u%s & %u/%u/%u & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
+      printf(" & \\ivlev{%u,%u,%u,%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
       //printf(" & %2u%s & %u/%u/%u & & & & & %.2f & %4u\\\\\n",
-              l, half ? ".5" : "",
-              tmp->ia, tmp->id, tmp->is,
+              tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
               tmp->mhp, tmp->effa, tmp->effd,
               tmp->geommean, tmp->cp);
     }
