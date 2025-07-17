@@ -88,7 +88,11 @@ int main(void){
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   printf("\\begin{longtable}{crrrrrrrr}\\footnotesize");
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & ARA & Pop\\\\\\Midrule\\endhead\n");
+  bool grey = true;
   for(const auto &ts : tsets){
+    if( (grey = !grey) ){
+      printf("\\rowcolor{Gray!25}");
+    }
     print_types(ts.t0, ts.t1);
     putc(' ', stdout);
     for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
@@ -100,5 +104,6 @@ int main(void){
     }
     printf("& %.3f & %u\\\\\n", ts.ara, ts.pop);
   }
+  printf("\\caption{Type efficiency summaries for charged attack sets\\label{table:dualcharged}}");
   printf("\\end{longtable}\n");
 }
