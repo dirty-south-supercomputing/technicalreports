@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview testsimul clean
+.PHONY: all preview testsimul clean test testdb
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -16,6 +16,7 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 
 UPSTREAM:=$(addsuffix .csv, moves)
+TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
 SIMUL:=$(OUT)/s/simul
 FATTACKS:=$(OUT)/fastattacks
@@ -84,10 +85,10 @@ preview: all
 
 all: $(PDF) $(SIMUL)
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc testdb
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) testdb
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -177,6 +178,11 @@ $(SIMUL): $(SIMULSRC) pgotypes.cpp
 $(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
+
+test: testsimul testdb
+
+testdb: $(TESTDB)
+	$(<)
 
 testsimul: $(SIMUL)
 	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast"
