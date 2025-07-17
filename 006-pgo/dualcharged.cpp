@@ -32,11 +32,35 @@ struct typeset {
 
 };
 
+static unsigned
+dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
+  unsigned pop = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    bool b0 = false;
+    bool b1 = false;
+    for(const attack **a = sdex[u].attacks ; *a ; ++a){
+      if((*a)->energytrain >= 0){
+        continue;
+      }
+      if((*a)->type == t0){
+        b0 = true;
+      }
+      if((*a)->type == t1){
+        b1 = true;
+      }
+    }
+    if(b0 && (b1 || t1 == TYPECOUNT)){
+      ++pop;
+    }
+  }
+  return pop;
+}
+
 // build the 171 typesets
 static void
 build_tsets(std::vector<typeset> &tsets){
   for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
-    for(int t1 = t0 ; t1 < TYPECOUNT ; ++t1){
+    for(int t1 = t0 + 1 ; t1 < TYPECOUNT ; ++t1){
       int totals[6] = {};
       for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
         for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
@@ -51,7 +75,7 @@ build_tsets(std::vector<typeset> &tsets){
         ara += (static_cast<int>(i) - 3) * totals[i];
       }
       ara /= 18;
-      unsigned pop = 0;
+      unsigned pop = dualcharge_pop(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
       tsets.emplace(tsets.end(), static_cast<pgo_types_e>(t0),
           static_cast<pgo_types_e>(t1), totals, pop, ara);
     }
@@ -68,7 +92,11 @@ int main(void){
     print_types(ts.t0, ts.t1);
     putc(' ', stdout);
     for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
-      printf("& %d ", ts.totals[i]);
+      if(ts.totals[i]){
+        printf("& %d ", ts.totals[i]);
+      }else{
+        printf("& ");
+      }
     }
     printf("& %.3f & %u\\\\\n", ts.ara, ts.pop);
   }
