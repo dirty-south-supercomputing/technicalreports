@@ -13,6 +13,7 @@ CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
+MAKEFILE:=Makefile
 
 UPSTREAM:=$(addsuffix .csv, moves)
 BREAKPOINTS:=out/breakpoints
@@ -78,10 +79,10 @@ preview: all
 
 all: $(PDF) $(SIMUL)
 
-$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX) $(SIMULSRC)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -114,7 +115,7 @@ $(OUT)/cp2500a.tex: $(OUT)/bounded
 
 $(OUT)/cp2500g.tex: $(OUT)/bounded
 	@mkdir -p $(@D)
-	$(<) g 2500 156.78 > $@
+	$(<) g 2500 156.80 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
