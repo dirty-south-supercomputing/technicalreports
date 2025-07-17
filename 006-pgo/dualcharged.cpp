@@ -25,6 +25,11 @@ struct typeset {
             r.t0 < l.t0 ? false :
             l.t1 < r.t1 ? true : false;
   }
+
+  friend bool operator>(const typeset &l, const typeset &r) {
+    return !(l < r);
+  }
+
 };
 
 // build the 171 typesets
@@ -33,7 +38,6 @@ build_tsets(std::vector<typeset> &tsets){
   for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
     for(int t1 = t0 ; t1 < TYPECOUNT ; ++t1){
       int totals[6] = {};
-      unsigned pop = 0;
       for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
         for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
           int e0 = typing_relation(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
@@ -44,9 +48,10 @@ build_tsets(std::vector<typeset> &tsets){
       }
       float ara = 0;
       for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
-        ara += (i - 3) * totals[i];
+        ara += (static_cast<int>(i) - 3) * totals[i];
       }
       ara /= 18;
+      unsigned pop = 0;
       tsets.emplace(tsets.end(), static_cast<pgo_types_e>(t0),
           static_cast<pgo_types_e>(t1), totals, pop, ara);
     }
@@ -56,9 +61,9 @@ build_tsets(std::vector<typeset> &tsets){
 int main(void){
   std::vector<typeset> tsets;
   build_tsets(tsets);
-  std::sort(tsets.begin(), tsets.end());
-  printf("\\begin{longtable}{crrrrrrr}\\footnotesize");
-  printf("& -2 & -1 & 0 & 1 & 2 & ARA & Pop\\\\\\Midrule\\endhead\n");
+  std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
+  printf("\\begin{longtable}{crrrrrrrr}\\footnotesize");
+  printf("-3 & -2 & -1 & 0 & 1 & 2 & ARA & Pop\\\\\\Midrule\\endhead\n");
   for(const auto &ts : tsets){
     print_types(ts.t0, ts.t1);
     putc(' ', stdout);
