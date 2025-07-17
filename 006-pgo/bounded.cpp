@@ -89,13 +89,13 @@ void print_bounded_table(int bound, float lbound, bool amean){
         }
         putchar(*curs);
       }
-      printf(" & \\ivlev{%u,%u,%u,%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
+      printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
               tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
               tmp->mhp, tmp->effa, tmp->effd,
               tmp->average, tmp->geommean,
               tmp->cp, tmp->apercent);
     }else{
-      printf(" & \\ivlev{%u,%u,%u,%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
+      printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
       //printf(" & %2u%s & %u/%u/%u & & & & & %.2f & %4u\\\\\n",
               tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
               tmp->mhp, tmp->effa, tmp->effd,
