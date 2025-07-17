@@ -126,6 +126,7 @@ int main(int argc, char **argv){
       << t.ca->energytrain << " " << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
       << dam << ")"
       << " dpt: " << dam / (float)t.turns
+      << " c%: " << t.ca->powertrain * 100 / static_cast<float>(dam)
       << std::endl;
   }
   return EXIT_SUCCESS;
