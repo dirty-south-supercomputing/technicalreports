@@ -85,7 +85,7 @@ print_sol_set(stats *sols){
     }
     sols->next = ki;
     if(more){
-      printf("\\hspace{\\parindent}\\textit{%u more not shown\\ldots}", more);
+      printf("\\hspace{1em}\\textit{%u more not shown\\ldots}", more);
     }
     printf("& \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
             sols->ia, sols->id, sols->is, l, half ? ".5" : "",

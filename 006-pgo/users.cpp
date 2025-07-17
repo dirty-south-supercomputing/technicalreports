@@ -39,7 +39,6 @@ print_attack_users(const attack *a){
   printf(",colbacktitle=%s,fonttitle=\\bfseries,before title={",
           a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   print_type(a->type);
-  printf(" ");
   printf("},after title={");
   if(a->turns){
     printf("\\hfill T%u P%u E%d", a->turns, a->powertrain, a->energytrain);
@@ -123,10 +122,10 @@ int main(int argc, char **argv){
     for(unsigned aidx = 0 ; aidx < ATTACKCOUNT ; ++aidx){
       const attack *a = attacks[aidx];
       if(a->type == t){
-        if(fast && a->energytrain >= 0){
+        if(fast && fast_attack_p(a)){
           memcpy(&acopies[acount], a, sizeof(*a));
           ++acount;
-        }else if(!fast && a->energytrain < 0){
+        }else if(!fast && charged_attack_p(a)){
           memcpy(&acopies[acount], a, sizeof(*a));
           ++acount;
         }
