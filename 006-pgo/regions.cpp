@@ -9,9 +9,9 @@ int main(void){
       continue;
     }
     lastpdex = s->idx;
-    const int gen = idx_to_generation_int(s->idx);
+    const int gen = idx_to_region_int(s->idx);
     if(gen < 0){
-      std::cerr << "couldn't get generation for " << s->idx << std::endl;
+      std::cerr << "couldn't get region for " << s->idx << std::endl;
       return EXIT_FAILURE;
     }
     ++regpop[gen];

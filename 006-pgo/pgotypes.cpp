@@ -13261,34 +13261,26 @@ region_idx_last(unsigned region){
   return region_idx_first(region + 1) - 1;
 }
 
-// FIXME rewrite using region_idx_first()
-static const char *
-idx_to_region(int idx){
-  if(idx <= 151){
-    return "Kanto";
-  }else if(idx <= 251){
-    return "Johto";
-  }else if(idx <= 386){
-    return "Hoenn";
-  }else if(idx <= 493){
-    return "Sinnoh";
-  }else if(idx <= 649){
-    return "Unova";
-  }else if(idx <= 721){
-    return "Kalos";
-  }else if(idx <= 807){
-    return "Alola";
-  }else if(idx <= 809){
-    return "Unknown"; // meltan and melmetal
-  }else if(idx <= 898){
-    return "Galar";
-  }else if(idx <= 905){
-    return "Hisui";
-  }else if(idx <= 1025){
-    return "Paldea";
+// determine generation from pokédex entry. return -1 on failure.
+// returns 0..GENERATION_COUNT - 1, which map to 1..GENERATION_COUNT.
+static inline int
+idx_to_region_int(int idx){
+  for(int i = 0 ; i < REGION_COUNT ; ++i){
+    if(idx <= region_idx_last(i)){
+      return i;
+    }
   }
-  std::cerr << "no region known for idx " << idx << std::endl;
-  return "unknown";
+  throw std::invalid_argument("bad idx");
+}
+
+static inline const char *
+idx_to_region(int idx){
+  static const char *regions[] = {
+    "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos",
+    "Alola", "Unknown", "Galar", "Hisui", "Paldea",
+  };
+  int r = idx_to_region_int(idx);
+  return regions[r];
 }
 
 #define GENERATION_COUNT 9
