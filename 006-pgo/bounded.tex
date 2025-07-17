@@ -19,7 +19,7 @@ We then select a team using the strategies of that chapter. Since
 We require a fitness function that takes as input a Pokémon's form, level, and IV,
   and emits a comparable output.
 Common functions include CP itself, the arithmetic mean ($\frac{Eff_A +Eff_D + MHP}{3}$),
-  and the geometric mean ($\sqrt[3]{Eff_A \cdot Eff_D \cdot MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
+  and the geometric mean ($\sqrt[3]{\mathit{Eff_A} \cdot \mathit{Eff_D} \cdot MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
   mechanics, but there is no true ``best'' fitness function---optimal IVs are
   dependent upon both the base stats and the opponent.}.
 Optimizing for maximum minimum stat is also intriguing.
@@ -30,10 +30,10 @@ Higher IV components might require a lower level than lower components to
 What can be said is that IVs add less value to a high base stat than a low
  base stat, and that higher levels provide diminishing returns.
 For a base stat of 100, a corresponding IV component of 15 represents a
- 15\% improvement to $Eff_A$.
+ 15\% improvement to $\mathit{Eff_A}$.
 For a base stat of 300, the same IV represents only a 5\% improvement.
 A Level 10 Pokémon advancing to level 10.5 enjoys a 2.47\% improvement to
- $Eff_A$ (and also $Eff_D$ and $Eff_S$), paying a price of 5\% increase
+ $\mathit{Eff_A}$ (and also $\mathit{Eff_D}$ and $\mathit{Eff_S}$), paying a price of 5\% increase
  in CP.
 Advancing from 30 to 30.5 represents only a 0.42\% improvement (and a
  0.83\% increase in CP).
@@ -46,7 +46,7 @@ The maximum level for which a 0--0--0 IV comes in under the bound is the
  while remaining within the bound.
 Any IV with all three components less than or equal to another IV, but bounded
  by the same level, is strictly inferior to the second IV, and can be discarded.
-Compute $Eff_A$, $Eff_D$, and $MHP$ using the IVs and corresponding levels.
+Compute $\mathit{Eff_A}$, $\mathit{Eff_D}$, and $MHP$ using the IVs and corresponding levels.
 Any resulting set with all three components less than or equal to some other set's
  is strictly inferior to the second, and can be discarded.
 This captures $MHP$'s floor function.
@@ -57,7 +57,7 @@ What remains is an optimal frontier of at least one solution (usually
 
 Before taking Power and Type into the question, let's examine the optimal
  solutions for a genus using the 1500 and 2500 CP bounds, using the
- geometric mean of $Eff_A$, $Eff_D$, and $MHP$ as our global fit function.
+ geometric mean of $\mathit{Eff_A}$, $\mathit{Eff_D}$, and $MHP$ as our global fit function.
 Timburr (134 ATK, 87 DEF, and 181 STA) evolves into
   Gurdurr (180 ATK, 134 DEF, and 198 STA), which evolves into
   Conkeldurr (243 ATK, 158 DEF, 233 STA).
@@ -87,8 +87,8 @@ Take two things away from this:
     mean 120.015), but 1/15/15@26 beats it at 1496 (121.968).
 \end{itemize}
 There are many fitness functions. In the Gurdurr example given previously, 3--2--0 loses
-    to 1--15--15 at geometric mean, but has an $Eff_A$ of 129.36, comfortably above the latter's 123.29.
- Does this compensate for six fewer hit points (145 vs 139) and lower $Eff_D$ (101.49 vs 96.136)?
+    to 1--15--15 at geometric mean, but has an $\mathit{Eff_A}$ of 129.36, comfortably above the latter's 123.29.
+ Does this compensate for six fewer hit points (145 vs 139) and lower $\mathit{Eff_D}$ (101.49 vs 96.136)?
  Let's pit them against one another, using Low Kick (Power of 4, neutral type effectiveness, STAB bonus).
  Our Level 28 competitor strikes for six damage with each attack:
     \[ \left\lfloor \frac{129.36 \cdot 4 \cdot 1.2}{101.49} \right\rfloor = \lfloor 6.118 \rfloor = 6 \]
@@ -103,7 +103,7 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
 Pokémon GO offers two CP-bounded PvP leagues, the Great League (CP 1500) and
    the Ultra League (CP 2500).
 \autoref{table:cp1500g} lists species' optimal level and IVs for the Great League
-  as evaluated using the geometric mean of $Eff_A$, $Eff_D$, and $MHP$.
+  as evaluated using the geometric mean of $\mathit{Eff_A}$, $\mathit{Eff_D}$, and $MHP$.
 Species which can't manage a geometric mean of 124.66 have been left out.
 \autoref{table:cp2500g} does the same for the Ultra League, eliding those species which
   can't hit a $\sqrt[3]{BP}$ of 156.78.
@@ -118,12 +118,12 @@ There is a strong bimodal preference for IVs: 15/15/15 for level 49.5
 This verifies (not that we had any doubt) that attack is highly overvalued in the CP calculation relative to $\sqrt[3]{BP}$.
 Other IVs usually correspond to low level, powerful species, where a level
   raises CP by a large amount, leaving more room for beneficial IVs.
-$Eff_A$ ranges from 63.02 (Chansey) to tremendous outlier 254.05 (Deoxys Attack).
-In general, the top positions have relatively low $Eff_A$, rising in an
+$\mathit{Eff_A}$ ranges from 63.02 (Chansey) to tremendous outlier 254.05 (Deoxys Attack).
+In general, the top positions have relatively low $\mathit{Eff_A}$, rising in an
   orderly fashion to about 145 as we go down the list.
 At this point, they become more disordered, until falling at the back
   of the list.
-$MHP$ and $Eff_D$ are much less predictable.
+$MHP$ and $\mathit{Eff_D}$ are much less predictable.
 \begin{figure}
 \begin{minipage}{0.5\textwidth}\begin{center}
 \includegraphics[width=\textwidth,keepaspectratio]{octave/greninjalevels.png}
@@ -165,8 +165,8 @@ One has to be careful choosing, though; most end up woefully underpowered
 \section{Breakpoints\label{sec:breakpoints}}
 Should you have (or believe you have) a good idea of what you'll be going up against,
  breakpoint analysis is a powerful tool.
-Essentially, we want to model the relationship between two Pokémons' $Eff_D$
- and $Eff_A$.
+Essentially, we want to model the relationship between two Pokémons' $\mathit{Eff_D}$
+ and $\mathit{Eff_A}$.
 Alternately, we want to model damage inflicted against MHP\@.
 Using this information, we can perhaps choose more optimal IVs and levels for a given CP bound.
 This is only as useful as the accuracy of our information, and how narrow a set of opponents it specifies.

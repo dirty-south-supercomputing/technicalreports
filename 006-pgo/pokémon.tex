@@ -236,8 +236,8 @@ Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  than those with Team Rocket) always start with full HP.}.
 MHP is defined such that it is always an integer not less than ten:
 \begin{align*}
- Eff_S &= Mod_S \cdot CPM \\
- MHP &= \min{10, \lfloor Eff_S \rfloor}
+ \mathit{Eff_S} &= \mathit{Mod_S} \cdot CPM \\
+ MHP &= \min{10, \lfloor \mathit{Eff_S} \rfloor}
 \end{align*}
 Multiplying $Mod_S$ by CPM yields $Eff_{ARaw}$, used to determine charged move priority (\autoref{sec:3x3}).
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
