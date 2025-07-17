@@ -63,7 +63,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
-  printf("Species & L & IVs & HP & $Eff_A$ & $Eff_D$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
+  printf("Species & L & IVs & HP & $\\mathit{Eff_A}$ & $\\mathit{Eff_D}$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;

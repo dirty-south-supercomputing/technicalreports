@@ -229,14 +229,14 @@ Level & CPM & Level & CPM & Level & CPM \\
 
 \section{Effective stats\label{sec:effectivestats}}
 We multiply each of the $Mod$ values by the Pokémon's CPM to generate
- its $Eff_A$, $Eff_D$, and $Eff_S$.
+ its $\mathit{Eff_A}$, $\mathit{Eff_D}$, and $\mathit{Eff_S}$.
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
   and 1 otherwise.
-We multiply $Eff_A$ by this Shadow bonus, and divide $Eff_D$ by it.
-This manifests a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
+We multiply $\mathit{Eff_A}$ by this Shadow bonus, and divide $\mathit{Eff_D}$ by it.
+This manifests a 20\% bonus to $\mathit{Eff_A}$ and a 16.7\% penalty to $\mathit{Eff_D}$.
 $M_{ASE}$ and $M_{DSE}$ are the Pokémon's attack and defense multipliers due any active stat effect (\autoref{sec:buffs}).
 Recall that the stat effect levels take the values -4--4, inclusive.
-They are multiplied into $Eff_A$ and $Eff_D$ in 3x3 battle contexts (\autoref{sec:3x3})
+They are multiplied into $\mathit{Eff_A}$ and $\mathit{Eff_D}$ in 3x3 battle contexts (\autoref{sec:3x3})
   according to \autoref{table:buffs}.
 \begin{table}[ht]
 \centering
@@ -259,10 +259,10 @@ The system behind the scheme of \autoref{table:buffs} is that the negative level
  correspond to $\frac{4}{4 - n}$ while the positive levels $n$ correspond to
  $\frac{4 + n}{4}$.
 \begin{align*}
- Eff_A &= Mod_A \times CPM \times M_{Shadow} \\
- Eff_D &= \frac{Mod_D \times CPM}{M_{Shadow}}
+ \mathit{Eff_A} &= Mod_A \times CPM \times M_{Shadow} \\
+ \mathit{Eff_D} &= \frac{Mod_D \times CPM}{M_{Shadow}}
 \end{align*}
-$Eff_S$ determines the Pokémon's Maximum Hit Points (MHP).
+$\mathit{Eff_S}$ determines the Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
@@ -270,8 +270,8 @@ Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  than those with Team Rocket) always start with full HP.}.
 MHP is defined such that it is always a positive integer:
 \begin{align*}
- Eff_S &= Mod_S \times CPM \\
- MHP &= \min{1, \lfloor Eff_S \rfloor}
+ \mathit{Eff_S} &= Mod_S \times CPM \\
+ MHP &= \min{1, \lfloor \mathit{Eff_S} \rfloor}
 \end{align*}
 
 \section{Searching the Pokédex\label{sec:searching}}
