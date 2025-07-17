@@ -20,7 +20,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
-  printf("Attack & P & $\\times\\frac{6}{5}$ & E & T & PPT & $\\times\\frac{6}{5}$ & EPT & Pop\\\\\n");
+  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & T & PPT & $\\cdot\\frac{6}{5}$ & EPT & Pop\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
