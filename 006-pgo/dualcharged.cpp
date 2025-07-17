@@ -34,7 +34,19 @@ build_tsets(std::vector<typeset> &tsets){
     for(int t1 = t0 ; t1 < TYPECOUNT ; ++t1){
       int totals[6] = {};
       unsigned pop = 0;
+      for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
+        for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
+          int e0 = typing_relation(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
+          int e1 = typing_relation(static_cast<pgo_types_e>(t1), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
+          int e = e0 > e1 ? e0 : e1;
+          ++totals[e + 3];
+        }
+      }
       float ara = 0;
+      for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
+        ara += (i - 3) * totals[i];
+      }
+      ara /= 18;
       tsets.emplace(tsets.end(), static_cast<pgo_types_e>(t0),
           static_cast<pgo_types_e>(t1), totals, pop, ara);
     }
@@ -50,7 +62,10 @@ int main(void){
   for(const auto &ts : tsets){
     print_types(ts.t0, ts.t1);
     putc(' ', stdout);
-    printf("& 0 & 0 & 0 & 0 & 0 & 0.0 & 0\\\\");
+    for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
+      printf("& %d ", ts.totals[i]);
+    }
+    printf("& %.3f & %u\\\\\n", ts.ara, ts.pop);
   }
   printf("\\end{longtable}\n");
 }

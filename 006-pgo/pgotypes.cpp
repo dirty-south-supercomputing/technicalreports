@@ -11298,6 +11298,14 @@ static const attack* WHIMSICOTT_ATKS[] = {
   NULL
 };
 
+// calculate type relation of at on dt0 + dt1
+static inline float
+type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
+  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  int tr = typing_relation(at, dt0, dt1);
+  return pow16[tr + 3];
+}
+
 typedef struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
@@ -11350,9 +11358,7 @@ typedef struct species {
 
   // effectiveness of attack a on our typing
   float type_effectiveness(const attack *a) const {
-    static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
-    int tr = typing_relation(a->type, t1, t2);
-    return pow16[tr + 3];
+    return ::type_effectiveness(a->type, t1, t2);
   }
 
 } species;
