@@ -105,7 +105,7 @@ calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
         if(c->energytrain >= 0){
           continue;
         }
-        unsigned t = turns_until_e(f, -c->energytrain);
+        unsigned t = turns_until_e(f, -c->energytrain) + 1; // 1 for charged attack
         unsigned pfast = t / f->turns * f->powertrain;
         ttfs.emplace_back(s.name, t, pfast, f, c);
       }
