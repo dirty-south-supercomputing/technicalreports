@@ -104,19 +104,19 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
 
-$(OUT)/cp1500a.tex: $(OUT)/bounded
+$(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 128.80 > $@
+	$(<) a 1500 128.75 > $@
 
-$(OUT)/cp1500g.tex: $(OUT)/bounded
+$(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) g 1500 124.66 > $@
 
-$(OUT)/cp2500a.tex: $(OUT)/bounded
+$(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 2500 161.98 > $@
+	$(<) a 2500 161.80 > $@
 
-$(OUT)/cp2500g.tex: $(OUT)/bounded
+$(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) g 2500 156.80 > $@
 
