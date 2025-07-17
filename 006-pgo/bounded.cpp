@@ -83,12 +83,10 @@ void print_bounded_table(int bound, float lbound, bool amean){
     unsigned half;
     unsigned l = halflevel_to_level(tmp->hlevel, &half);
     if(tmp->s != lastspecies){
-      for(const char* curs = tmp->s->name.c_str() ; *curs ; ++curs){
-        if(*curs == '%'){
-          putchar('\\');
-        }
-        putchar(*curs);
-      }
+
+      print_types(tmp->s->t1, tmp->s->t2);
+      putc(' ', stdout);
+      escape_string(tmp->s->name.c_str());
       printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
               tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
               tmp->mhp, tmp->effa, tmp->effd,
