@@ -13064,13 +13064,6 @@ unsigned learner_count(const attack* as){
   return count;
 }
 
-static inline int
-print_halflevel(unsigned hlevel){
-  unsigned half;
-  unsigned l = halflevel_to_level(hlevel, &half);
-  return printf("%u%s", l, half ? ".5" : "");
-}
-
 void print_optimal_latex(const species* sp){
   stats* s = find_optimal_set(sp, 2500, 0, false, false);
   printf("\\hfill{}");
@@ -13101,7 +13094,6 @@ void print_optimal_latex(const species* sp){
         unsigned half;
         unsigned l = halflevel_to_level(s->hlevel, &half);
         printf("\\ivlev{%u}{%u}{%u}{%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
-        print_halflevel(s->hlevel);
         printf(" (%u) ", s->cp);
       }
       delete s;
