@@ -56,6 +56,48 @@ insert_opt_stat(stats **head, stats *s, bool amean){
   }
 }
 
+static stats *
+print_sol_set(stats *sols){
+  unsigned half;
+  unsigned l = halflevel_to_level(sols->hlevel, &half);
+  print_types(sols->s->t1, sols->s->t2);
+  putc(' ', stdout);
+  escape_string(sols->s->name.c_str());
+  printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
+          sols->ia, sols->id, sols->is, l, half ? ".5" : "",
+          sols->mhp, sols->effa, sols->effd,
+          sols->average, sols->geommean,
+          sols->cp, sols->apercent);
+  const species *last = sols->s;
+  stats *tmp = sols;
+  sols = sols->next;
+  delete tmp;
+  if(sols && sols->s == last){
+    unsigned more = 0;
+    auto *ki = sols->next;
+    while( (tmp = ki) ){
+      if(tmp->s != last){
+        break;
+      }
+      ++more;
+      ki = tmp->next;
+      delete tmp;
+    }
+    sols->next = ki;
+    if(more){
+      printf("\\hspace{\\parindent}\\textit{%u more not shown\\ldots}", more);
+    }
+    printf("& \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
+            sols->ia, sols->id, sols->is, l, half ? ".5" : "",
+            sols->mhp, sols->effa, sols->effd,
+            sols->geommean, sols->cp);
+    tmp = sols->next;
+    delete sols;
+    sols = tmp;
+  }
+  return sols;
+}
+
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
 void print_bounded_table(int bound, float lbound, bool amean){
   printf("\\begingroup\n");
@@ -77,31 +119,8 @@ void print_bounded_table(int bound, float lbound, bool amean){
     }
     insert_opt_stat(&sols, s, amean);
   }
-  const species* lastspecies = NULL;
-  while(sols){
-    stats *tmp = sols;
-    unsigned half;
-    unsigned l = halflevel_to_level(tmp->hlevel, &half);
-    if(tmp->s != lastspecies){
-
-      print_types(tmp->s->t1, tmp->s->t2);
-      putc(' ', stdout);
-      escape_string(tmp->s->name.c_str());
-      printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
-              tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
-              tmp->mhp, tmp->effa, tmp->effd,
-              tmp->average, tmp->geommean,
-              tmp->cp, tmp->apercent);
-    }else{
-      printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
-      //printf(" & %2u%s & %u/%u/%u & & & & & %.2f & %4u\\\\\n",
-              tmp->ia, tmp->id, tmp->is, l, half ? ".5" : "",
-              tmp->mhp, tmp->effa, tmp->effd,
-              tmp->geommean, tmp->cp);
-    }
-    lastspecies = tmp->s;
-    sols = sols->next;
-    free(tmp);
+  while( (sols = print_sol_set(sols)) ){
+    ;
   }
   printf("\\captionlistentry{Optimal solutions bounded by %d CP}\n", bound);
   printf("\\label{table:cp%d%c}\n", bound, amean ? 'a' : 'g');
