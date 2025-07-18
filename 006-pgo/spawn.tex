@@ -105,12 +105,12 @@ Pokémon that flee do not reappear on the map\footnote{The Trainer does receive 
 While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
 Its color (red, orange, or green) is an indicator of the capture probability $P_C$:
 \begin{align*}
-  P_C &= 1-\left(1 - \frac{C}{2\cdot{}CPM}\right)^{M_C}\\
-  M_C &= M_{Ball} \cdot M_{Berry} \cdot M_{Throw} \cdot M_{Medal} \cdot M_{Adv} \cdot M_{Enc}
+  P_C &= 1-\left(1 - \frac{C}{2\cdot{}\mathit{CPM}}\right)^{M_C}\\
+  M_C &= M_\mathrm{Ball} \cdot M_\mathrm{Berry} \cdot M_\mathrm{Throw} \cdot M_\mathrm{Medal} \cdot M_\mathrm{Adv} \cdot M_\mathrm{Enc}
 \end{align*}
 \begin{itemize}
-  \item $CPM$ is the Combat Power Multiplier (\autoref{sec:cpm}).
-  \item $M_{Ball}$ is the multiplier due the ball:
+  \item $\mathit{CPM}$ is the Combat Power Multiplier (\autoref{sec:cpm}).
+  \item $M_\mathrm{Ball}$ is the multiplier due the ball:
 \begin{table}[h!]
 \centering
 \begin{tabular}{lr}
@@ -123,26 +123,26 @@ Master & ∞\\
 \end{tabular}
   \caption{Balls and their capture multipliers\label{table:balls}}
 \end{table}
-\item $M_{Berry}$ is the multiplier due a berry (\autoref{table:berries}).
-\item $M_{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
+\item $M_\mathrm{Berry}$ is the multiplier due a berry (\autoref{table:berries}).
+\item $M_\mathrm{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
    with ``Excellent!'', ``Great!'', ``Nice!'', or silence.
-    This summary is a low-resolution signal of $M_{Throw}$, with a range over [1.0, 2.0].
+    This summary is a low-resolution signal of $M_\mathrm{Throw}$, with a range over [1.0, 2.0].
 \begin{table}[h!]
 \centering
 \begin{tabular}{lr}
-Summary & $M_{Throw}$ range\\
+Summary & $M_\mathrm{Throw}$ range\\
 \Midrule
 ``Excellent!'' & [1.7, 2.0]\\
 ``Great!'' & [1.3, 1.7)\\
 ``Nice!'' & [1.0, 1.3)\\
 No summary & 1\\
 \end{tabular}
-  \caption{The throw summary is an indication of $M_{Throw}$\label{table:throw}}
+  \caption{The throw summary is an indication of $M_\mathrm{Throw}$\label{table:throw}}
 \end{table}
-$M_{Throw}$ is multiplied by 1.7 for a curveball.
-\item $M_{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
-\item $M_{Adv}$ is 1.5 for Ice Burn, 1.25 for Freeze Shock, and 1 otherwise.
-\item $M_{Enc}$ is 2 for research encounters, and 1 otherwise.
+$M_\mathrm{Throw}$ is multiplied by 1.7 for a curveball.
+\item $M_\mathrm{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
+\item $M_\mathrm{Adv}$ is 1.5 for Ice Burn, 1.25 for Freeze Shock, and 1 otherwise.
+\item $M_\mathrm{Enc}$ is 2 for research encounters, and 1 otherwise.
 \end{itemize}
 If you throw your ball too directly at Tyrunt, it'll eat it.
 If a response is not received from the server in a timely fashion, the Pokémon will escape.
