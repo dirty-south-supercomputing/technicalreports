@@ -105,11 +105,11 @@ Pokémon that flee do not reappear on the map\footnote{The Trainer does receive 
 While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
 Its color (red, orange, or green) is an indicator of the capture probability $P_C$:
 \begin{align*}
-  P_C &= 1-\left(1 - \frac{C}{2\cdot{}\mathit{CPM}}\right)^{M_C}\\
+  P_C &= 1-\left(1 - \frac{C}{2\cdot{}\CPM}\right)^{M_C}\\
   M_C &= M_\mathrm{Ball} \cdot M_\mathrm{Berry} \cdot M_\mathrm{Throw} \cdot M_\mathrm{Medal} \cdot M_\mathrm{Adv} \cdot M_\mathrm{Enc}
 \end{align*}
 \begin{itemize}
-  \item $\mathit{CPM}$ is the Combat Power Multiplier (\autoref{sec:cpm}).
+  \item \CPM{} is the Combat Power Multiplier (\autoref{sec:cpm}).
   \item $M_\mathrm{Ball}$ is the multiplier due the ball:
 \begin{table}[h!]
 \centering
@@ -347,7 +347,7 @@ Put another way, if you have a 5\% chance of an outcome, and do tests in sets of
 Put yet another way, over the long run, you can expect a little over two Shiny
  Pokémon for every thousand wild spawns.\\
 
-The probability of an outcome with probability $P$ never being seen in $N$ independent
+The probability of an outcome with probability $P$\, never being seen in $N$ independent
   events is ${(1 - P)}^N$. For a 5\% likelihood, $1 - P = 0.95$. For thirteen events,
 
   \[ 0.95^{13} ≈ 0.513 \]
