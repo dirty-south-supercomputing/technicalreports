@@ -1,17 +1,17 @@
 \chapter{Pokémon\label{chap:pokemon}}
 For purposes of battle\footnote{Attributes not directly relevant to battle include height, weight, region,
 generation, Shiny status, Purified status, Lucky status, Legendary status, Mythological status, spawn
-reason, capture method, capture location, and capture time.}, a Pokémon $P$ is defined as having:
+reason, capture method, capture location, and capture time.}, a Pokémon $P$\, is defined as having:
 \begin{itemize}
 \item A species and form (and thus a typing and base stats)
 \item An Individual Vector (IV) (\autoref{sec:ivs}) and level (\autoref{sec:plevel})
 \item A set of two or three attacks, one of which is a fast attack
 \item Modifiers to attack and defense due charged attacks' stat effects (\autoref{sec:buffs})
 \item Shadow status, or the absence thereof
-\item Some number of hit points not exceeding MHP
+\item Some number of hit points not exceeding \MHP
 \end{itemize}
 Hit Points are carried across PvE battles (including encounters with
-  Team GO Rocket and Gym battles), but Trainer Battles always start with full HP\@.
+  Team GO Rocket and Gym battles), but Trainer Battles always start with full \HP\@.
 A Pokémon with zero hit points has ``fainted''.
 Fainted Pokémon cannot be used in battles of any kind, nor can they be left in
  Power Stops (see \autoref{sec:maxbattles}).
@@ -53,11 +53,11 @@ Level &
 \caption{Power-up costs for Pokémon levels\label{table:powerups}}
 \end{table}
 An increase in level improves the Pokémon's attack and defense, and
-  will sometimes increase MHP\@.
+  will sometimes increase \MHP\@.
 See \autoref{sec:staticstats} for a quantitative treatment.
 
-Powering up a fainted Pokémon will revive it, but with minimal HP\@:
-\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
+Powering up a fainted Pokémon will revive it, but with minimal \HP\@:
+\[ \HP = \min{1, \MHP_\mathrm{New} - \MHP_\mathrm{Old} } \]
 Advancing a normal Pokémon from level 1 to level 50 is not a cheap endeavor (\autoref{table:sumcosts}),
   though Shadow Pokémon of course have a minimum level of eight, purified Pokémon are always
   at least level 25, and most captures will be well above level 1.
@@ -166,11 +166,11 @@ This discount stacks with the 10\% purification discount, so costs for
 We'll define some statistics for each Pokémon.
 These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
- IVs to generate $Mod_A$, $Mod_D$, and $Mod_S$:
+IVs to generate \Mod{A}, \Mod{D}, and \Mod{S}:
 \begin{align*}
-   Mod_A &= ATK + IV_A \\
-   Mod_D &= DEF + IV_D \\
-   Mod_S &= STA + IV_S
+ \Mod{A} &= \mathit{ATK} + \mathit{IV_\mathrm{A}} \\
+ \Mod{D} &= \mathit{DEF} + \mathit{IV_\mathrm{D}} \\
+ \Mod{S} &= \mathit{STA} + \mathit{IV_\mathrm{S}}
 \end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier\label{sec:cpm}}
@@ -178,17 +178,17 @@ Recall that each Pokémon has its own Level, ranging from 1.0
  to 50.0, defined on half integers\footnote{I would rather they
  simply be integer Levels 1--99, but this is settled terminology.}.
 This Level is used as an index into a table of positive rational constants.
-The value accessed is that Pokémon's Combat Power Multiplier (CPM).
-CPM maxes out at Level 50 with a value of 0.8403, and takes its 
+The value accessed is that Pokémon's Combat Power Multiplier (\CPM).
+\CPM{} maxes out at Level 50 with a value of 0.8403, and takes its
   0.094 minimum at Level 1.
-At Level 10, CPM is 0.4225, almost half of its maximum value.
-At Level 34, CPM is 0.7557, about 90\% of its maximum value.
+At Level 10, \CPM{} is 0.4225, almost half of its maximum value.
+At Level 34, \CPM{} is 0.7557, about 90\% of its maximum value.
 The extremal ratios are 0.1119 (L1 / L50) and 8.9394 (L50 / L1).
 
 \begin{table}
 \centering
 \begin{tabular}{l l|l l|l l}
-Level & CPM & Level & CPM & Level & CPM \\
+Level & \CPM & Level & \CPM & Level & \CPM \\
 \Midrule
 1.0 & 0.0940 & 17.5 & 0.5588 & 34.0 & 0.7557 \\ 
 1.5 & 0.1351 & 18.0 & 0.5668 & 34.5 & 0.7586 \\
