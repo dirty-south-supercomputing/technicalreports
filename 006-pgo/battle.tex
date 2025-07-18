@@ -10,7 +10,7 @@ Aside from Trainer Battles, Trainers can make use of items in the screen before
   battle is entered (called the ``lobby'', especially in an Nx1 context), and
   likewise engage Mega evolutions.
 Pokémon exchange fast attacks (and, when enough energy has been built up, charged attacks)
-  until one side is entirely reduced to zero HP (or surrenders).
+  until one side is entirely reduced to zero \HP{} (or surrenders).
 
 Remember that attacks typically have different power and energy stats depending on
   whether it's a 3x3 or Nx1 context (\autoref{chap:attacks}).
@@ -21,9 +21,9 @@ This integer is called (inflicted) damage $D$, and calculated as a product of se
 \section{The typing multiplier\label{sec:typemult}}
 Determine $M_C$, the common multiplier due typing:
 
-\[ M_C = M_{STAB} \cdot 1.6^{T} \]
+\[ M_\mathrm{C} = M_\mathrm{STAB} \cdot 1.6^{T} \]
 
-$M_{STAB}$ is the STAB bonus, equal to 1.2 when the attack's type matches any
+$M_\mathrm{STAB}$ is the STAB bonus, equal to 1.2 when the attack's type matches any
   type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the attack type
  and the defender's type.
@@ -46,7 +46,7 @@ $T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
 \caption{Typing multipliers with and without STAB\label{table:typemult}}
 \end{table}
 
-Leaving out the hideous −4 case, we see that $M_C$ ranges
+Leaving out the hideous −4 case, we see that $M_\mathrm{C}$ ranges
  from 0.2441 (a 75.59\% reduction in damage) to 3.072
  (a 207.2\% increase).
 Considered another way, for an effectiveness of −3 with no STAB bonus,
@@ -55,7 +55,7 @@ Considered another way, for an effectiveness of −3 with no STAB bonus,
 With an effectiveness of 2 with STAB, it takes about one-third as many attacks.
 
 Note that the change due to a $T$ of 1 (60\%) is similar in magnitude to the change
- when $T$ is −2 (−60.94\%). A $T$ of −1 is a smaller loss (−37.5\%).
+ when $T$ is −2 (−60.94\%). A $T$ of −1 is a smaller loss (\hbox{−37.5\%}).
 This does not mean that an attack ineffective against one of the defender's types and
  effective against the other enjoys a 22.5\% gain (as one would see from $1.6^{−1} + 1.6^{1})$!
 The multiplier is 1, and results in no change ($1.6^{−1+1}$).
@@ -65,11 +65,11 @@ Exponential functions are not linear functions, and must not be treated as such.
 
 \section{The context-specific multiplier\label{sec:mbmult}}
 In Raids and Max battles, a number of effects come into play.
-\[ M_B = 0.5 \cdot M_D \cdot M_F \cdot M_W \cdot M_M \]
+\[ M_\mathrm{B} = 0.5 \cdot M_\mathrm{D} \cdot M_\mathrm{F} \cdot M_\mathrm{W} \cdot M_\mathrm{M} \]
 \begin{itemize}
- \item $M_D$ is 0.25 if the attack is dodged (dodging is only possible in Raids/Max battles),
+ \item $M_\mathrm{D}$ is 0.25 if the attack is dodged (dodging is only possible in Raids/Max battles),
  and 1 otherwise. Note that this seems to have been subject to recent changes.
- \item The friendship bonus $M_F$:
+ \item The friendship bonus $M_\mathrm{F}$:
    \begin{table}[h!]
 \centering
        \begin{tabular}{lc}
@@ -83,15 +83,15 @@ In Raids and Max battles, a number of effects come into play.
        \end{tabular}
      \caption{Bonus due the presence of friends}
    \end{table}
- \item $M_W$ is 1.2 if the attack is weather-boosted, and 1 otherwise.
- \item $M_M$ from Mega Pokémon \textit{actively} involved in a Raid (i.e. they
+ \item $M_\mathrm{W}$ is 1.2 if the attack is weather-boosted, and 1 otherwise.
+ \item $M_\mathrm{M}$ from Mega Pokémon \textit{actively} involved in a Raid (i.e. they
    must be fighting, not just on the team), or Primal Pokémon \textit{present}
    (even knocked out) at a Raid or Gym. The Primal bonus is not awarded to the Trainer who brought
    that Primal Pokémon, but they can receive it from some other Trainer's Pokémon.
    \begin{table}[h!]
      \centering
        \begin{tabular}{p{.7\textwidth}c}
-         Situation & $M_M$ \\
+         Situation & $M_\mathrm{M}$ \\
          \Midrule
          No active Mega Pokémon, and no Primal Pokémon brought
           by other Trainers present, \textit{unless…} & 1 \\
@@ -103,12 +103,12 @@ In Raids and Max battles, a number of effects come into play.
        \end{tabular}
      \caption{Bonus due the presence of Mega and Primal Pokémon}
    \end{table}
-   In a Max battle, $M_M$ is based on the number of Pokémon left at that Power Stop
+   In a Max battle, $M_\mathrm{M}$ is based on the number of Pokémon left at that Power Stop
      (see \autoref{sec:maxbattles}).
    \begin{table}[h!]
      \centering
        \begin{tabular}{lc}
-         Pokémon present at Power Stop & $M_M$ \\
+         Pokémon present at Power Stop & $M_\mathrm{M}$ \\
          \Midrule
          0 & 1 \\
          1 & 1.1 \\
@@ -143,11 +143,11 @@ Level & Multiplier & Comment \\
 \end{tabular}
 \caption{Mapping buff/nerf stages to effect\label{table:buffs}}
 \end{table}
-For fast attacks, $M_G$ is 1.
+For fast attacks, $M_\mathrm{G}$ is 1.
 When throwing a charged attack, the attacking Trainer plays a short minigame.
 Performance on this minigame is summarized with ``Excellent!'', ``Great!'',
 ``Nice!'', or silence.
-This summary is a low-resolution signal of $M_G$, with a range over [0.25, 1].
+This summary is a low-resolution signal of $M_\mathrm{G}$, with a range over [0.25, 1].
 ``Excellent!'' is necessary and sufficient for a 1, and should always be obtainable.
 \begin{table}
 \centering
@@ -159,48 +159,48 @@ Summary & $M_G$ range (no Shield) \\
 ``Nice!'' & [0.5, 0.75) \\
 No summary & [0.25, 0.5) \\
 \end{tabular}
-\caption{The minigame summary is an indication of $M_G$}
+\caption{The minigame summary is an indication of $M_\mathrm{G}$}
 \end{table}
 Each Trainer gets two shields in a battle, each of which can be used
  to block a single charged attack.
-If a shield is used, $M_G$ is 0, no matter the minigame performance.
+If a shield is used, $M_\mathrm{G}$ is 0, no matter the minigame performance.
 The effect is equivalent to raising the defender's DEF to infinity for the
   duration of the attack.
 
 \section{The damage equation\label{sec:damage}}
 
-$D_A$ is what we can calculate using only the attacker's knowledge, i.e.
+$D_\mathrm{A}$ is what we can calculate using only the attacker's knowledge, i.e.
  it is that component of $D$ which is independent of the defender.
 
-\[ D_A = P \cdot \mathit{Eff_A} \cdot M_{STAB} \cdot M_B \]
+\[ D_\mathrm{A} = P \cdot \Eff{A} \cdot M_\mathrm{STAB} \cdot M_\mathrm{B} \]
 
 Since this is a product, a proportional increase in any factor leads to
  the same change.
-Suppose a Level 12 Pokémon (CPM: 0.4628) with $Mod_A$ of 140 runs
+Suppose a Level 12 Pokémon (\CPM: 0.4628) with \Mod{A} of 140 runs
   a fast attack with a power of 10 and no STAB bonus.
-The resulting $D_A$ is 421.148.
+The resulting $D_\mathrm{A}$ is 421.148.
 Increasing power to 12,
- increasing $Mod_A$ to 168,
+ increasing \Mod{A} to 168,
  acquiring the STAB bonus,
- or increasing CPM 20\% to 0.55536 (somewhere between Levels 17 and 17.5; this exact change is not possible)
- all yield a 20\% increase in $D_A$, 505.3776.
+ or increasing \CPM{} 20\% to 0.55536 (somewhere between Levels 17 and 17.5; this exact change is not possible)
+ all yield a 20\% increase in $D_\mathrm{A}$, 505.3776.
 Note that this is all independent of the opponent.
 
-$D_A$ is divided by $\mathit{Eff_D}$ and scaled by $1.6^T$:
+$D_\mathrm{A}$ is divided by \Eff{D} and scaled by $1.6^T$:
 
-\[ D_D = \frac{D_A}{\mathit{Eff_D}} \cdot 1.6^T \]
+\[ D_\mathrm{D} = \frac{D_\mathrm{A}}{\Eff{D}} \cdot 1.6^T \]
 
 We can recover our defined multipliers:
 
-\[ D_D = P \cdot \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \cdot M_C \cdot M_B \]
+\[ D_\mathrm{D} = P \cdot \frac{\Eff{A}}{\Eff{D}} \cdot M_\mathrm{C} \cdot M_\mathrm{B} \]
 
-Using the definitions of $\mathit{Eff_A}$ and $\mathit{Eff_D}$, this can be rewritten as:
+Using the definitions of \Eff{A} and \Eff{D}, this can be rewritten as:
 
-\[ D_D = P \cdot \frac{Mod_A \cdot CPM_A}{Mod_D \cdot CPM_D} \cdot M_C \cdot M_B \]
+\[ D_\mathrm{D} = P \cdot \frac{\Mod{A} \cdot \CPM_\mathrm{A}}{\Mod{D} \cdot \CPM_\mathrm{D}} \cdot M_\mathrm{C} \cdot M_\mathrm{B} \]
 
 which can of course be rewritten as:
 
-\[ D_D = P \cdot \frac{Mod_A}{Mod_D} \cdot \frac{CPM_A}{CPM_D} \cdot M_C \cdot M_B \]
+\[ D_\mathrm{D} = P \cdot \frac{\Mod{A}}{\Mod{D}} \cdot \frac{\CPM_\mathrm{A}}{\CPM_\mathrm{D}} \cdot M_\mathrm{C} \cdot M_\mathrm{B} \]
 
 This is always a positive rational.
 A floor function is applied (ensuring a non-negative integer),
@@ -208,54 +208,54 @@ A floor function is applied (ensuring a non-negative integer),
 
 \[ D = \left\lfloor P \cdot \frac{\mathit{Eff_A}}{\mathit{Eff_D}} \cdot M_C \cdot M_B \right\rfloor + 1 \]
 
-If $D$ equals or exceeds the opponent's HP, it will fight no more.
+If $D$ equals or exceeds the opponent's \HP, it will fight no more.
 
 \section{Opponent-independent damage}
 We can break the damage equation into those parts dependent upon opponents, and those which are independent.
-Looking at the damage equation, power, $\mathit{Eff_A}$, and STAB do not depend upon an attacker's opponent.
-Likewise $\mathit{Eff_D}$ and MHP for the defender.
-The attacker knows neither $\mathit{Eff_D}$ nor MHP, while the defender doesn't know $\mathit{Eff_A}$.
+Looking at the damage equation, power, \Eff{A}, and STAB do not depend upon an attacker's opponent.
+Likewise \Eff{D} and \MHP{} for the defender.
+The attacker knows neither \Eff{D} nor \MHP, while the defender doesn't know \Eff{A}.
 Knowing type effectiveness always requires knowing the opposing typing.
 We can thus define an independent core fitness evaluation:
 
-\[ F = \mathit{Eff_A} \cdot P \cdot M_{STAB} \cdot \mathit{Eff_D} \cdot MHP \]
+\[ F = \Eff{A} \cdot P \cdot M_\mathrm{STAB} \cdot \Eff{D} \cdot \MHP \]
 
-Note that CPM is implicitly cubed in this function.
+Note that \CPM{} is implicitly cubed in this function.
 
 Of course, a given Pokémon can generally select from multiple fast and charged attacks,
   knowing up to two of the latter at a given time.
 Furthermore, fast and charged attacks are not used in equal ratio (there will
   always be multiple fast attacks per charged attack), and a shield can
   nullify a charged attack.
-How do we define $P$ and $M_{STAB}$?
+How do we define $P$ and $M_\mathrm{STAB}$?
 As only one fast attack can be known at a time, it's easy enough to define one
   fitness for each possible fast attack, leaving out charged attacks for now.
 All we need do is normalize the power of the fast attack, using the number of
   Turns it requires.
 
-\[ F = \mathit{Eff_A} \cdot \frac{P_{Fast}}{T_{Fast}} \cdot M_{STAB-Fast} \cdot \mathit{Eff_D} \cdot \mathit{Eff_S} \]
+  \[ F = \Eff{A} \cdot \frac{P_\mathrm{Fast}}{T_\mathrm{Fast}} \cdot M_\mathrm{STAB-Fast} \cdot \Eff{D} \cdot \Eff{S} \]
 
 Integrating charged attacks is more complex.
 First, we can simply normalize the charged attack as we did the fast attack,
  determine the number of fast attacks necessary to launch it:
 
-\[ N_{Fast} = \left\lceil\frac{E_{Charged}}{E_{Fast}}\right\rceil \]
+\[ N_\mathrm{Fast} = \left\lceil\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}}\right\rceil \]
 
 yielding the total power of a cycle.
 
-\[ TDO = N_{Fast} \cdot P_{Fast} + P_{Charged} \]
+\[ \mathit{TDO} = N_\mathrm{Fast} \cdot P_\mathrm{Fast} + P_\mathrm{Charged} \]
 
 We normalize this by the turns of a full cycle:
 
-\[ F_{cycle} = \frac{TDO}{N_{Fast} \cdot T_{Fast} + T_{Charged}} \]
+\[ F_\mathrm{cycle} = \frac{\mathit{TDO}}{N_\mathrm{Fast} \cdot T_\mathrm{Fast} + T_\mathrm{Charged}} \]
 
 There are two turns per second.
-Multiplying $F_{cycle}$ by two yields a stat the community calls Damage Per Second (DPS).
+Multiplying $F_\mathrm{cycle}$ by two yields a stat the community calls Damage Per Second (DPS).
 
 This has several problems, almost all related to charged attacks.
 It doesn't account for the possibility of knowing two charged attacks.
 It doesn't account for leftover energy, which will sometimes be present if
-  $E_{Charged}$ is not a multiple of $E_{Fast}$ (i.e. $N_{Fast}$
+  $E_\mathrm{Charged}$ is not a multiple of $E_\mathrm{Fast}$ (i.e. $N_\mathrm{Fast}$
   might fluctuate from one cycle to the next).
 It ignores the possibility that the attacker might not use its charged attack
   immediately (and it is often unwise to throw charged attacks as quickly as
@@ -272,41 +272,41 @@ We can hardly ignore charged attacks: they tend to dominate our total inflicted 
 \end{figure}
 
 If we expand over multiple cycles of fast and charged attacks, we can
- generalize to situations with excess energy. We know $E_{Charged} \cdot
- E_{Fast}$ will be a multiple of both the generated and consumed energy, so
- simply consider $E_{Charged}$ cycles, each of which throws an average of
- $\frac{E_{Charged}}{E_{Fast}}$ fast attacks followed by one charged attack.
+ generalize to situations with excess energy. We know $E_\mathrm{Charged} \cdot
+ E_\mathrm{Fast}$ will be a multiple of both the generated and consumed energy, so
+ simply consider $E_\mathrm{Charged}$ cycles, each of which throws an average of
+ $\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}}$ fast attacks followed by one charged attack.
 
-\[ P_{cycles} = E_{Charged} \cdot \left(\frac{E_{Charged}}{E_{Fast}} \cdot P_{Fast} + P_{Charged}\right) \]
+\[ P_\mathrm{cycles} = E_\mathrm{Charged} \cdot \left(\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}} \cdot P_\mathrm{Fast} + P_\mathrm{Charged}\right) \]
 
- The number of fast attacks in a cycle is actually always either
- $\lfloor\frac{E_{Charged}}{E_{Fast}}\rfloor$
- or $\lceil\frac{E_{Charged}}{E_{Fast}}\rceil$ (iff $E_{Charged}$ is a multiple of
- $E_{Fast}$, these two expressions are equal, and the number of fast attacks
+The number of fast attacks in a cycle is actually always either
+ $\lfloor\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}}\rfloor$
+ or $\lceil\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}}\rceil$ (iff $E_\mathrm{Charged}$ is a multiple of
+ $E_\mathrm{Fast}$, these two expressions are equal, and the number of fast attacks
  per charged attack is constant). Normalize for the total time:
 
-\[ F_{cycles} = \frac{P_{cycles}}{E_{Charged} \cdot \left(\frac{E_{Charged}}{E_{Fast}} \cdot T_{Fast} + T_{Charged}\right)} \]
+\[ F_\mathrm{cycles} = \frac{P_\mathrm{cycles}}{E_\mathrm{Charged} \cdot \left(\frac{E_\mathrm{Charged}}{E_\mathrm{Fast}} \cdot T_\mathrm{Fast} + T_\mathrm{Charged}\right)} \]
 
 This has only exacerbated one of the problems we mentioned before: we may
   not get to throw all these attacks!
-Suppose we have some constant chance $0 < L_{KO} \leq 1$ of being knocked out or
+Suppose we have some constant chance $0 < L_\mathrm{KO} \leq 1$ of being knocked out or
  substituted following each attack we launch, the probability of being
- in to throw the $N$th attack is $(1 - L_{KO})^{N-1}$.
+ in to throw the $N$th attack is $(1 - L_\mathrm{KO})^{N-1}$.
 We could thus define an expected damage from attack $N$:
 
-\[ E_D(N) = \overline{P} \cdot (1 - L_{KO})^{N-1} \]
+\[ E_\mathrm{D}(N) = \overline{P} \cdot (1 - L_\mathrm{KO})^{N-1} \]
 
 and a cumulative expected damage through $N$ attacks:
 
-\[ E_{TD}(N) = \sum^N_{i=1} \overline{P} \cdot (1 - L_{KO})^{i-1} \]
+\[ E_\mathrm{TD}(N) = \sum^N_{i=1} \overline{P} \cdot (1 - L_\mathrm{KO})^{i-1} \]
 
-This is a geometric series where $a = \overline{P}$ and $r = 1 - L_{KO}$.
+This is a geometric series where $a = \overline{P}$ and $r = 1 - L_\mathrm{KO}$.
 Since $0 \leq r < 1$, this series converges to
 
-\[ E_{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \cdot r^{i-1} = \frac{\overline{P}}{1 - L_{KO}} \]
+\[ E_\mathrm{TD}(\infty) = \sum^\infty_{i=1} \overline{P} \cdot r^{i-1} = \frac{\overline{P}}{1 - L_\mathrm{KO}} \]
 
 Of course, our chance of being knocked out is usually not constant across
- attacks, but rather an immediate function of our remaining HP and any
+ attacks, but rather an immediate function of our remaining \HP{} and any
  damage we are about to absorb.
 
 \section{3x3 battles\label{sec:3x3}}
@@ -336,7 +336,7 @@ Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
   on the same turn, one goes first,and can knock out the opponent before it
   launches its attack.
 The Pokémon that goes first (``Charged Move Priority'') is the one with the
-  higher $\mathit{Eff_{ARaw}}$ (recall that this is base attack plus $IV_A$, times CPM, but does not reflect the Shadow bonus).
+  higher $\mathit{Eff_{ARaw}}$ (recall that this is base attack plus $\mathit{IV_A}$, times CPM, but does not reflect the Shadow bonus).
 Shadow status does not factor into consideration, nor do any active buffs.
 3x3 battles take place four ways: with other Trainers via the friends list,
  with Team Leaders via the Battle screen, the GO Battle League,
@@ -471,7 +471,7 @@ While in the Gym, the Pokémon still counts against the Trainer's storage,
   but it cannot be interacted with in any way save feeding it Berries.
 Berries can be fed to any Pokémon defending a coaligned Gym, though
   each defender can consume only ten berries per thirty minutes.
-Pokémon defending the gym steadily lose HP (``motivation'') at a rate
+Pokémon defending the gym steadily lose \HP{} (``motivation'') at a rate
   based on their CP (\autoref{sec:cp}).
 The first and second loss both cut 28\% of max motivation, while
   a third loss always knocks the defender out of the gym;
@@ -502,7 +502,7 @@ If all six are defeated, their Trainer can optionally continue with another team
 Only one Pokémon of each Trainer is active at a time, but there is unlimited substitution within the team.
 These raids have their own time limits, and the raid ends when the boss is defeated, no more Pokémon remain fighting,
   or the timer (180 seconds for raids below the 5🟉 difficulty level, and 300 seconds otherwise) expires.
-The contest is primarily against this timer, so prioritize Shadow Pokémon and high $\mathit{Eff_A}$.
+The contest is primarily against this timer, so prioritize Shadow Pokémon and high \Eff{A}.
 
 A raid gym has zero or more associated lobbies, each capable of holding twenty Trainers.
 Empty lobbies are immediately destroyed.
@@ -516,21 +516,21 @@ Showing a pass is required to enter the lobby, but the pass is only consumed whe
 Involved Trainers can reattempt a failed raid without a second pass.
 
 Shadow raids are backed by Team GO Rocket, and feature Shadowed bosses.
-Shadow bosses ranked 3🟉 or more will enter a dangerous ``enraged'' state after losing about ⅓ of their HP.
-While enraged, the Pokémon enjoys higher attack and defense, regenerates HP, and is surrounded by a purple aura.
-Eight purified gems will subdue an enraged boss, as will falling to about 15\% of original HP.
+Shadow bosses ranked 3🟉 or more will enter a dangerous ``enraged'' state after losing about ⅓ of their \HP.
+While enraged, the Pokémon enjoys higher attack and defense, regenerates \HP, and is surrounded by a purple aura.
+Eight purified gems will subdue an enraged boss, as will falling to about 15\% of original \HP.
 Each Trainer can use up to five purified gems, with a five second delay between uses
  (note that this is insufficient to subdue the boss, making 3🟉+ shadow raids
  very difficult for solo Trainers).
 Transitions into the enraged and subdued states are noted with messages.
 
 Boss Pokémon share base ATK and DEF with their normal brethren, with a 15/15/0 IV\@.
-Their MHP is greatly augmented (\autoref{table:raidmhp}).
-Shadow bosses sometimes get a further boost to MHP\@.
+Their \MHP is greatly augmented (\autoref{table:raidmhp}).
+Shadow bosses sometimes get a further boost to \MHP\@.
 \begin{table}
 \centering
 \begin{tabular}{llll}
-  Tier & MHP & Shadow MHP & Time (min)\\
+  Tier & \MHP & Shadow \MHP & Time (min)\\
   \Midrule
   1🟉 & 600 & 600 & 3 \\
   2🟉 & 1,800 & n/a & 3\\
@@ -541,7 +541,7 @@ Shadow bosses sometimes get a further boost to MHP\@.
   Primal & 22,500 & n/a & 5\\
   6🟉 & 22,500 & n/a & 5\\
 \end{tabular}
-\caption{MHP for raid bosses\label{table:raidmhp}}
+\caption{\MHP for raid bosses\label{table:raidmhp}}
 \end{table}
 A successful raid is followed by a ``Bonus challenge'', an encounter with the Boss Pokémon.
 This Pokémon will have its own IVs, and the same base stats as any other member of its species.
@@ -596,7 +596,7 @@ Trainers whose Pokémon have all fainted can cheer along their teammates,
 The majority of damage is likely to be dealt while in Max form.
 Filling the Max Meter is essential, as is keeping elite Max forms alive.
 A basic strategy for Max battles is thus to do most attacking with a Pokémon having
-  high defense and MHP, employing moves of low duration.
+  high defense and \MHP, employing moves of low duration.
 Single-turn fast attacks are ideal.
 Each will advance the Max Meter, and flurries of fast attacks are likely to
  fill it faster than lengthy charged attacks.
@@ -659,13 +659,13 @@ When the Power Stop expires, installed Pokémon immediately return to their Trai
 Damage to your Pokémon persists after a Raid, Max Battle, or 3x3 with Team GO Rocket ends.
 Those which fainted will remain fainted until a Revive or Max Revive is applied.
 While fainted, they cannot be brought into battle.
-Powering up a fainted Pokémon will revive them with minimal HP (\autoref{sec:plevel}),
-  while evolving one restores full HP (\autoref{sec:evolution}).
-A regular Revive brings the Pokémon back with half of MHP; the Max Revive restores full HP.
+Powering up a fainted Pokémon will revive them with minimal \HP{} (\autoref{sec:plevel}),
+  while evolving one restores full \HP{} (\autoref{sec:evolution}).
+A regular Revive brings the Pokémon back with half of \MHP; the Max Revive restores full \HP.
 If the Pokémon isn't fainted, but merely damaged, four levels of Potion
-  restore various amounts of HP, never exceeding MHP\@.
-Hyper Potions heal up 200 HP, sufficient to restore all but the bulkiest Pokémon to MHP.
-For them, there exist Max Potions, which go all the way to MHP.
+  restore various amounts of \HP, never exceeding \MHP\@.
+Hyper Potions heal up 200 \HP, sufficient to restore all but the bulkiest Pokémon to \MHP.
+For them, there exist Max Potions, which go all the way to \MHP.
 Potions cannot be applied to fainted Pokémon; they must first be revived.
 Potions and Revives are level-gated, but once unlocked can be semi-randomly acquired
   from Gifts (\autoref{sec:gifts}),
@@ -680,12 +680,12 @@ Potions and Revives are level-gated, but once unlocked can be semi-randomly acqu
 \begin{tabular}{ll}
 Item & Effect \\
 \Midrule
-Potion & Restore 20 HP, not to exceed MHP\\
-Super Potion & Restore 50 HP, not to exceed MHP\\
-Hyper Potion & Restore 200 HP, not to exceed MHP\\
-Max Potion & Restore to full MHP\\
-Revive & Revive with half of MHP\\
-Max Revive & Revive with full MHP\\
+Potion & Restore 20 \HP, not to exceed \MHP\\
+Super Potion & Restore 50 \HP, not to exceed \MHP\\
+Hyper Potion & Restore 200 \HP, not to exceed \MHP\\
+Max Potion & Restore to full \MHP\\
+Revive & Revive with half of \MHP\\
+Max Revive & Revive with full \MHP\\
 \end{tabular}
 \caption{Potions and revives\label{table:potions}}
 \end{table}
