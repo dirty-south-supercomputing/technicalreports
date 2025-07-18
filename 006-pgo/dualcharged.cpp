@@ -114,7 +114,7 @@ int main(int argc, char **argv){
   build_tsets(tsets, monomode);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   printf("\\begin{longtable}{crrrrrrrr}\\footnotesize");
-  printf("& -3 & -2 & -1 & 0 & 1 & 2 & ARA & Pop\\\\\\endhead\n");
+  printf("& -3 & -2 & -1 & 0 & 1 & 2 & \\ARA & Pop\\\\\\endhead\n");
   bool grey = true;
   for(const auto &ts : tsets){
     if( (grey = !grey) ){
