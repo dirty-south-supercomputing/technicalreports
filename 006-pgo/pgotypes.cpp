@@ -12735,6 +12735,7 @@ static const species gigantasdex[] = {
   {    3, "Gmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Vine Lash", },
   {    6, "Gmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charizard", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Wildfire", },
   {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Blastoise", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Cannonade", },
+  {   12, "Gmax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Befuddle", },
   {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Chi Strike", },
   {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Terror", },
   {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Foam Burst", },
