@@ -1,5 +1,5 @@
 constexpr unsigned TEAMSIZE = 3;
-constexpr int ENERGY_MAX = 100;
+constexpr unsigned ENERGY_MAX = 100;
 
 typedef struct results {
   unsigned long wins[2], ties; // win/tie counts
@@ -18,6 +18,7 @@ typedef struct simulstate { // dynamic elements
   uint8_t shields[2];      // number of shields available [0..2]
   uint8_t active[2];       // indexes of active pokémon   [0..2]
   uint16_t dam[2][3];      // precalc damage for attacks
+  int cmp;                 // <=> for charged move prio
 } simulstate;
 
 typedef struct pmon { // static elements

@@ -10,13 +10,6 @@ static bool account_fast_move(simulstate *s, int player){
   return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
 }
 
-// return -1 iff p0 wins cmp, 1 for p1, 0 for tie (coin flip: simul both paths)
-static int p0_wins_cmp(const simulstate *s){
-  const float a0 = pmons[0][s->active[0]].effa;
-  const float a1 = pmons[1][s->active[1]].effa;
-  return a0 > a1 ? -1 : a1 > a0 ? 1 : 0;
-}
-
 static inline void
 bottomhalf_allfast(simulstate *s, results *r){
   if(s->turns[0] == 0){ // launch new fast attack p0
@@ -53,7 +46,6 @@ static inline void
 bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
                            const attack *p1c, int aid0, int aid1,
                            int p0shield, int p1shield){
-  const int cmp = p0_wins_cmp(s);
   int ps[2], ss[2], aids[2];
   const attack *as[2];
 
@@ -61,11 +53,11 @@ bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
   aids[0] = aid0; aids[1] = aid1;
   ss[0] = p1shield; ss[1] = p0shield;
   ps[0] = 0; ps[1] = 1;
-  if(cmp == 0){ // simulate both paths
+  if(s->cmp == 0){ // simulate both paths
     simulstate s2 = *s;
     bottomhalf_cc_ordered(&s2, r, ps, as, aids, ss);
   }
-  if(cmp >= 0){
+  if(s->cmp >= 0){
     as[0] = p1c; as[1] = p0c;
     aids[0] = aid1; aids[1] = aid0;
     ss[0] = p0shield; ss[1] = p1shield;

@@ -8,20 +8,20 @@ static inline int mons_left(const simulstate *s, int player){
   return alive;
 }
 
-static inline void subin(const simulstate *s, simulstate *snew, int player, int pos){
-  *snew = *s;
-  snew->active[player] = pos;
-  calculate_damages(snew);
+static inline void subin(simulstate *s, int player, int pos){
+  s->active[player] = pos;
+  s->buffleva[player] = 0;
+  s->bufflevd[player] = 0;
+  calculate_damages(s);
 }
 
 // handle the case where one and only one player was knocked out.
-static void handle_one_ko(const simulstate *s, results *r, int player){
+static void handle_one_ko(simulstate *s, results *r, int player){
   bool replaced = false;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[player][p]){
-      simulstate snew;
-      subin(s, &snew, 0, p);
-      tophalf(&snew, r);
+      subin(s, 0, p);
+      tophalf(s, r);
       replaced = true;
     }
   }
@@ -31,13 +31,14 @@ static void handle_one_ko(const simulstate *s, results *r, int player){
 }
 
 // both players just got knocked out, but both have another pokémon.
-static void handle_dual_kos(const simulstate *s, results *r){
+static void handle_dual_kos(simulstate *s, results *r){
+  s->buffleva[0] = s->buffleva[1] = 0;
+  s->bufflevd[0] = s->buffleva[1] = 0;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[0][p]){
       for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
         if(s->hp[1][q]){
-          simulstate snew;
-          snew = *s;
+          simulstate snew = *s;
           snew.active[0] = p;
           snew.active[1] = q;
           calculate_damages(&snew);
@@ -52,7 +53,7 @@ static void handle_dual_kos(const simulstate *s, results *r){
 // or the match is over. this can split up to four ways, depending on how many
 // pokémon each side has left. if it returns true, someone was ko'd: the
 // tophalf must not run, and we update the results table.
-static bool handle_ko(const simulstate *s, results *r){
+static bool handle_ko(simulstate *s, results *r){
   int hp0 = s->hp[0][s->active[0]];
   int hp1 = s->hp[1][s->active[1]];
   if(hp0 && hp1){

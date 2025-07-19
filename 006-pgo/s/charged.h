@@ -24,9 +24,19 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
   if(has_stab_p(p->s.s, a)){
     d = calc_stab(d);
   }
+  if(p->shadow && !o->shadow){
+    d *= 6;
+  }else if(o->shadow && !p->shadow){
+    d *= 5;
+  }
+  d *= o->s.s->type_effectiveness(a);
   d /= p->effd * mapbuff(dbuff);
   d /= 20; // second half of the 0.65 multiplier
-  d *= o->s.s->type_effectiveness(a);
+  if(p->shadow && !o->shadow){
+    d /= 5;
+  }else if(o->shadow && !p->shadow){
+    d /= 6;
+  }
   //printf("damage: %f\n", d);
   return static_cast<unsigned>(floor(d)) + 1;
 }
@@ -66,4 +76,7 @@ static void calculate_damages(simulstate *s){
   if(p1->ca2){
     s->dam[1][2] = calc_damage(p1, p0, p1->ca2, s->buffleva[1], s->bufflevd[0]);
   }
+  const float a0 = p0->effa;
+  const float a1 = p1->effa;
+  s->cmp = a0 > a1 ? -1 : a1 > a0 ? 1 : 0;
 }
