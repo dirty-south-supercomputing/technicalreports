@@ -20,7 +20,7 @@ static void handle_one_ko(simulstate *s, results *r, int player){
   }
 }
 
-// both players just got knocked out, but both have another pokémon.
+// both active contestants just got knocked out
 static void handle_dual_kos(simulstate *s, results *r){
   s->buffleva[0] = s->buffleva[1] = 0;
   s->bufflevd[0] = s->buffleva[1] = 0;
@@ -41,18 +41,18 @@ static void handle_dual_kos(simulstate *s, results *r){
       }
     }
   }
-  if(foundp){
-    if(!foundq){
+  if(foundp){ // player 0 had more
+    if(!foundq){ // player 1 did not; p0 wins
       ++r->wins[0];
-    }
-  }else{
+    } // player 1 also had more, no result
+  }else{ // need check to see if p1 had more
     for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
-      if(s->hp[1][q]){
+      if(s->hp[1][q]){ // p1 did, they win
         ++r->wins[1];
         return;
       }
     }
-    ++r->ties;
+    ++r->ties; // zorn, all dead
   }
 }
 
