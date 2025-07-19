@@ -38,7 +38,9 @@
 \setmainfont{Gentium Book}
 \setdefaultlanguage{american}
 \setmathrm{lmroman10-regular.otf}[
-  ItalicFont = lmroman10-italic.otf]
+  ItalicFont = lmroman10-italic.otf,
+  BoldItalicFont = lmroman10-bolditalic.otf,
+  BoldFont = lmroman10-bold.otf]
 \newfontfamily\japanesefont[Script=CJK]{Noto Serif CJK JP}
 \newfontfamily\chinesefont[Script=CJK]{Noto Serif CJK SC}
 \setotherlanguages{japanese,chinese}
@@ -95,6 +97,8 @@
 \newcommand*{\CPM}{\mbox{$\mathit{CPM}$}}
 \newcommand*{\ARA}{\mbox{$\mathit{ARA}$}}
 \newcommand*{\MHP}{\mbox{$\mathit{MHP}$}}
+\newcommand*{\EPT}{\mbox{$\mathit{EPT}$}}
+\newcommand*{\PPT}{\mbox{$\mathit{PPT}$}}
 \newcommand*{\HP}{\mbox{$\mathit{HP}$}}
 \newcommand*{\CP}{\mbox{$\mathit{CP}$}}
 \newcommand*{\BP}{\mbox{$\mathit{BP}$}}
@@ -206,15 +210,15 @@ Forms are sorted by typing, and within typing by Pokédex number.
 The title displays the form name on the left.
 If a Shiny form exists, the shiny icon (\calign{\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}) is displayed.
 The form's base ATK, DEF, and STA appear on the right, followed by the arithmetic and geometric means
- ($\frac{BS}{3}$ and $\sqrt[3]{BP}$).
+ ($\frac{BS}{3}$ and $\sqrt[3]{\BP\,}$).
 The colors of the title bar indicate the typing.
 To the right of a picture is a table of fast and charged attacks.
 I have factored STAB into applicable attacks.
-Fast attacks show turns, power, energy generated, PPT, and EPT\@.
+Fast attacks show turns, power, energy generated, \PPT{}, and \EPT{}\@.
 Charged attacks show power, energy consumed, and PPE\@.
 Attacks in italics cannot be acquired without an Elite TM or special circumstances.
 Type, cost group, weather boosting, and existence of a Shiny form are indicated with icons.
-The optimal configurations for CP2500 and CP1500-bounded play are specified below the attack table.
+The optimal configurations for \CP2500 and \CP1500-bounded play are specified below the attack table.
 The last line of the card shows cost group, generation, and region on the left,
  and evolutionary line on the right.
 Finally, if there is a Shadow form, that is indicated, along with the same stats
@@ -249,10 +253,10 @@ CG 4 Gen X Atlantic\hfill{}Columbia → \textbf{Challenger} → Discovery
 \tcbsubtitle[before skip=0pt]{Shadow OV-099 Challenger\hfill{240 100 100 146.67 133.89}}
 \end{speciesbox}
 \bigskip\noindent{}We see here that OV-099 Challenger has Ghost+Flying typing, with base ATK, DEF, and STA
-of 200, 120, and 100, respectively. Its $\frac{BS}{3}$ is 140, and its $\sqrt[3]{BP}$ is 133.89.
+of 200, 120, and 100, respectively. Its $\frac{BS}{3}$ is 140, and its $\sqrt[3]{\BP\,}$ is 133.89.
 It has a Shadow form, but not a Shiny form. The Shadow form has higher ATK and lower DEF, changing
-its $\frac{BS}{3}$ to 146.67. Its optimal configuration for a CP1500 bound is 0/14/1 at level 42.5.
-It is poorly suited for CP2500 bounds and liftoffs in low temperatures.
+its $\frac{BS}{3}$ to 146.67. Its optimal configuration for a \CP1500 bound is 0/14/1 at level 42.5.
+It is poorly suited for \CP2500 bounds and liftoffs in low temperatures.
 \clearpage
 \input{out/species}
 %\vfill\includegraphics[width=\linewidth,keepaspectratio]{images/carnivine.png}
@@ -263,7 +267,7 @@ This appendix lists the Pokémon which can learn and use a given attack.
 Pokémon in italics will \textit{not} have STAB with the attack.
 Pokémon in boldface require an Elite TM (or special circumstances) to acquire the move.
 \section{Fast attacks\label{sec:usersfast}}
-Fast attacks are sorted by type, then duration, then by the product of PPT and EPT\@.
+Fast attacks are sorted by type, then duration, then by the product of \PPT{} and \EPT{}\@.
 \input{out/fastusers}
 \section{Charged attacks\label{sec:userscharged}}
 Charged attacks are sorted by type, then PPE\@.

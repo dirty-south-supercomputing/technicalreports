@@ -61,7 +61,7 @@ Furthermore, questions like those earlier in this chapter become harder to answe
 A naive solution begins at the first turn, generates the set of possible
   choices for both Trainers, and recurses across the Cartesian product
   of these sets: depth-first generation of the full game tree.
-For each state, we must preserve the HP and energy of six Pokémon,
+For each state, we must preserve the \HP{} and energy of six Pokémon,
   the attack and defense buff level for two Pokémon,
   the number of turns remaining in two ongoing fast attacks,
   the number of shields remaining for each Trainer,
@@ -104,7 +104,7 @@ Let's start with exhaustive simulation of a 1x1 contest,
 A naive implementation blows up almost immediately: the Trainer can choose to do nothing
  whenever they're not busy, and doing nothing consumes only one turn,
  meaning we almost always have at least four choicepairs:
- \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
+ \{\,noop, noop\,\}, \{\,noop, fast\,\}, \{\,fast, noop\,\}, and \{\,fast, fast\,\}.
 Our first restriction, then: there's no good reason to do nothing,
  so the Pokémon must do something.
 On every turn, we either wait for our fast attack to conclude, or can throw a fast attack (\texttt{MOVE\_FAST}).
@@ -145,7 +145,7 @@ When a Pokémon goes down, three things can happen:
 \end{itemize}
 \inputminted{cpp}{s/ko.h}
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
-  with full HP, two shields, and no energy.
+  with full \HP{}, two shields, and no energy.
 
 \lstinputlisting[basicstyle=\scriptsize]{output.lst}
 
@@ -158,7 +158,7 @@ Even better would be a closed form analytic treatment of the endgame,
   which seems like it ought be possible.
 Let's restrict ourselves to the case of one Pokémon remaining per Trainer.
 We dispense with charged attacks entirely (at least initially) by considering
-  only those states where the possible turns remaining times EPT plus
+  only those states where the possible turns remaining times \EPT{} plus
   energy is less than the energy required for a charged attack.
 This restriction means we can ignore shields, as they're only relevant
   when charged attacks are used.
@@ -166,13 +166,13 @@ We call these subgraphs ``death marches''.
 
 How do we put an upper bound on turns?
 
-\[ T_{max} = \min \left\lceil\frac{HP_1}{D_2}\right\rceil T_2,\left\lceil\frac{HP_2}{D_1}\right\rceil T_1 \]
+\[ T_\mathrm{max} = \min \left\lceil\frac{\HP_1}{D_2}\right\rceil T_2,\left\lceil\frac{\HP_2}{D_1}\right\rceil T_1 \]
 
 $D$ is the damage inflicted per fast attack, and $T$ is the number of turns per fast attack.
 This equation is well-defined for all attacks, since damage (unlike power,
   which can be zero) is always at least 1.
-So, knowing $T_{max}$, we can determine those cases where no charged attack
-  can be used: whenever $T_{max} * EPT + E_{current} < E_{charged}$ for both Pokémon.
+So, knowing $T_\mathrm{max}$, we can determine those cases where no charged attack
+  can be used: whenever $T_\mathrm{max} * \mathit{\EPT{}} + E_\mathrm{current} < E_\mathrm{charged}$ for both Pokémon.
 There is only one possible path through such a subtree, with one answer:
   whichever Pokémon has a lower $T$ wins.
 

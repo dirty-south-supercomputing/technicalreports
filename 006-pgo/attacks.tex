@@ -71,11 +71,11 @@ If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
   weaker than $B$ in 3x3 mode, and vice versa (i.e.\ partial ordering is maintained).
 Furthermore, no fast attack's Nx1 power is less than its 3x3 power.
 Each Pokémon can store up to 100 units of energy, which is preserved across substitutions.
-PPT and EPT are power and energy, respectively, normalized per turn.
+\PPT{} and \EPT{} are power and energy, respectively, normalized per turn.
 Incinerate is thus the most powerful fast attack in both modes.
-It is also the only five turn attack, and the only one to hit 4 with both EPT and PPT\@.
-Charm stands alone with a PPT of 5, with Razor Leaf coming in behind it at 4.5.
-Lock On manages 5 EPT, with Psycho Cut, Poison Sting, Fairy Wind, Karate Chop,
+It is also the only five turn attack, and the only one to hit 4 with both \EPT{} and \PPT{}\@.
+Charm stands alone with a \PPT{} of 5, with Razor Leaf coming in behind it at 4.5.
+Lock On manages 5 \EPT{}, with Psycho Cut, Poison Sting, Fairy Wind, Karate Chop,
   and Thunder Shock at 4.5.
 Fast attack counts are broken down by type in \autoref{table:attacktypes},
  and \autoref{chap:attackemployers} provides lists of Pokémon which can use each attack.
@@ -87,12 +87,12 @@ The type is persisted across trades, but not across evolution,
 
 \begin{figure}[ht]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/pptvst.png}
-  \caption{PPT vs turns for fast attacks\label{fig:pptvst}}
+  \caption{\PPT{} vs turns for fast attacks\label{fig:pptvst}}
 \end{figure}
 
 \begin{figure}[hb]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/eptvst.png}
-  \caption{EPT vs turns for fast attacks\label{fig:eptvst}}
+  \caption{\EPT{} vs turns for fast attacks\label{fig:eptvst}}
 \end{figure}
 
 \section{Charged Attacks\label{sec:charged}}
@@ -242,8 +242,8 @@ It's sometimes useful to delay use of a charged attack, but is it ever wise to f
   charged attacks entirely?
 Fast attack power ranges from 1 (Locked On) to 20 (Incinerate), but we need look at
   the power per turn (charged attacks operate in a single turn in Trainer Battles).
-Using normalized power, Charm takes the lead with 5 PPT\@.
-Assume STAB and type effectiveness of 2 for Charm, boosting it to 15.36 PPT\@.
+Using normalized power, Charm takes the lead with 5 \PPT{}\@.
+Assume STAB and type effectiveness of 2 for Charm, boosting it to 15.36 \PPT{}\@.
 This is the best case for fast attacks.
 
 Charged attack power ranges from 10 (Frustration) to 170 (Sunsteel Strike).
@@ -264,7 +264,7 @@ Due to charged attacks immediately concluding opponents' fast attacks,
  a fast attack might have knocked out the opponent.
 
 It is true that a charged attack requires energy built up over a number of turns.
-Were these considered, and used to calculate PPT for the charged attack,
+Were these considered, and used to calculate \PPT{} for the charged attack,
   it might well fall below that of the fast attack.
 Such a comparison is invalid; the energy is built up as a result of the fast attack.
 The question is whether the charged attack ought be used, presuming sufficient energy present.
