@@ -12669,7 +12669,8 @@ static const species megasdex[] = {
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", MANECTRIC_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
-  {  319, "Mega Sharpedo", TYPE_DARK, TYPE_WATER, 289, 144, 172, "Sharpedo", SHARPEDO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
+  // not yet released
+  // {  319, "Mega Sharpedo", TYPE_DARK, TYPE_WATER, 289, 144, 172, "Sharpedo", SHARPEDO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", ALTARIA_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", BANETTE_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", ABSOL_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
