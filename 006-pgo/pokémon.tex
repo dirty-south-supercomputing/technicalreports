@@ -87,9 +87,9 @@ A Pokémon rated 4 has an IV of 15/15/15, and is colloquially known as a ``hundo
 Such Pokémon have their own Pokédex (\autoref{sec:dexen})\footnote{A Pokémon with an IV of 0/0/0
  is colloquially known as a ``nundo'' or ``0\%er''. They have no unique Pokédex, because they are worthless pieces of shit,
   and don't let anyone tell you otherwise. Consult \autoref{chap:optimal} to see that 0/0/0 is never an optimal IV.}.
-While 15/15/15 is generally the optimal IV, this is not always true in CP-bounded
+While 15/15/15 is generally the optimal IV, this is not always true in \CP-bounded
   competition; see \autoref{chap:bounded} for more information,
-  and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
+  and \autoref{chap:optimal} for tables of optimal IVs under different \CP{} bounds.
 \begin{table}
 \centering
 \begin{tabular}{ll}
@@ -115,11 +115,11 @@ At the time of this writing, Gold Bottle Caps have been available only through p
 
 \section{Generation of IV and level\label{sec:ivgeneration}}
 IVs and levels are generated when the Pokémon is ``created'', not when it is captured.
-It is thus possible to glean information from the CP displayed for a Pokémon;
+It is thus possible to glean information from the \CP{} displayed for a Pokémon;
   one can sometimes even uniquely determine the IV\@.
-The equation for CP is provided in \autoref{chap:unbounded}; reverse it and
+The equation for \CP{} is provided in \autoref{chap:unbounded}; reverse it and
   use \autoref{table:cpm} plus the base stats of the species to determine
-  the set of IV+level pairs yielding that CP\@.
+  the set of IV+level pairs yielding that \CP\@.
 Various applications and websites can perform this analysis automatically.
 Depending on the situation, there might be a floor for IVs.
 Beyond that, they are uniformly randomly generated.
@@ -168,9 +168,9 @@ These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
 IVs to generate \Mod{A}, \Mod{D}, and \Mod{S}:
 \begin{align*}
- \Mod{A} &= \mathit{ATK} + \mathit{IV_\mathrm{A}} \\
- \Mod{D} &= \mathit{DEF} + \mathit{IV_\mathrm{D}} \\
- \Mod{S} &= \mathit{STA} + \mathit{IV_\mathrm{S}}
+ \Mod{A} &= \mathit{ATK} + \mathit{\IV{A}} \\
+ \Mod{D} &= \mathit{DEF} + \mathit{\IV{D}} \\
+ \Mod{S} &= \mathit{STA} + \mathit{\IV{S}}
 \end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier\label{sec:cpm}}
