@@ -15,7 +15,8 @@ We then select a team using the strategies of that chapter. Since
  that list was sorted according to a general strength function, it
  ought apply in this reduced context.
 
-\section{Optimal IVs and Levels under a \CP{} bound}
+\section[Optimal IVs and Levels under a \CP{} bound]%
+{Optimal IVs and Levels under a $\mathbfit{C\kern -1ptP}$\, bound}
 We require a fitness function that takes as input a Pokémon's form, level, and IV,
   and emits a comparable output.
   Common functions include \CP{} itself, the arithmetic mean ($\frac{\mathit{Eff_\mathrm{A}} +\mathit{Eff_\mathrm{D}} + \mathit{MHP}}{3}$),
@@ -94,8 +95,8 @@ There are many fitness functions. In the Gurdurr example given previously, 3--2-
     \[ \left\lfloor \frac{129.36 \cdot 4 \cdot 1.2}{101.49} \right\rfloor = \lfloor 6.118 \rfloor = 6 \]
  The supposedly optimal Gurdurr strikes for six as well:
     \[ \left\lfloor \frac{123.29 \cdot 4 \cdot 1.2}{96.136} \right\rfloor = \lfloor 6.156 \rfloor = 6 \]
- At 145 HP, Gurdurr goes down on the 25th attack.
- Its opponent's 139 HP absorbs 23 attacks before falling to the 24th, but this could
+ At 145 \HP, Gurdurr goes down on the 25th attack.
+ Its opponent's 139 \HP{} absorbs 23 attacks before falling to the 24th, but this could
     have easily gone the other way.
  If the attack's Power were 10, both hit for nine damage, and both fall after nine attacks.
 
