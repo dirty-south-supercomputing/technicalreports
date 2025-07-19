@@ -11,10 +11,10 @@ static inline int mons_left(const simulstate *s, int player){
 static inline void subin(const simulstate *s, simulstate *snew, int player, int pos){
   *snew = *s;
   snew->active[player] = pos;
+  calculate_damages(snew);
 }
 
-// handle the case where one and only one was knocked out. pleft is the number
-// of pokémon remaining to that player [0..2]. if it is 0, the match is over.
+// handle the case where one and only one player was knocked out.
 static void handle_one_ko(const simulstate *s, results *r, int player){
   bool replaced = false;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
@@ -27,6 +27,24 @@ static void handle_one_ko(const simulstate *s, results *r, int player){
   }
   if(!replaced){
     ++r->wins[other_player(player)];
+  }
+}
+
+// both players just got knocked out, but both have another pokémon.
+static void handle_dual_kos(const simulstate *s, results *r){
+  for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
+    if(s->hp[0][p]){
+      for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
+        if(s->hp[1][q]){
+          simulstate snew;
+          snew = *s;
+          snew.active[0] = p;
+          snew.active[1] = q;
+          calculate_damages(&snew);
+          tophalf(&snew, r);
+        }
+      }
+    }
   }
 }
 
@@ -44,17 +62,18 @@ static bool handle_ko(const simulstate *s, results *r){
     handle_one_ko(s, r, 0);
   }else if(hp0){ // must replace player 1
     handle_one_ko(s, r, 1);
-  }else{ // must replace both
+  }else{ // must replace both, if we can
     int l0 = mons_left(s, 0);
     int l1 = mons_left(s, 1);
     if(l0 == 0 && l1 == 0){
-      ++r->ties; return true;
+      ++r->ties;
     }else if(l0 == 0){
-      ++r->wins[1]; return true;
+      ++r->wins[1];
     }else if(l1 == 0){
-      ++r->wins[0]; return true;
+      ++r->wins[0];
+    }else{
+      handle_dual_kos(s, r);
     }
-    // FIXME handle up to FO4
   }
   return true;
 }
