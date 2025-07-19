@@ -9,9 +9,10 @@ static bool inflict_damage(hpoints *hp, int damage){
   return !*hp;
 }
 
-// calculate the damage inflicted by player on other_player(player) using an
-// attack having the specified power, with no shield in play.
-static float calc_damage(const pmon *p, const pmon *o, const attack *a){
+// calculate the damage inflicted by p with attack buff abuff on o with defense
+// buff dbuff using a, with no shield in play.
+static float calc_damage(const pmon *p, const pmon *o, const attack *a,
+                          float abuff, float dbuff){
   float d = calc_eff_a(p->s.s->atk + p->s.ia, p->s.hlevel, p->shadow);
   d *= a->powertrain;
   d *= 13; // first half of the 0.65 multiplier

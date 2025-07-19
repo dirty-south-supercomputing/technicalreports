@@ -148,6 +148,11 @@ print_team(int player){
   }
 }
 
+static void
+print_intro(void){
+  printf("pokémon exhaustive simulator state is %zuB\n", sizeof(simulstate));
+}
+
 int main(int argc, char** argv){
   const char* argv0 = *argv;
   simulstate sstate = {};
@@ -164,6 +169,7 @@ int main(int argc, char** argv){
       usage(argv0);
     }
   }
+  print_intro();
   print_team(0);
   print_team(1);
   if(argc){
