@@ -63,7 +63,7 @@ throw_charged_move(simulstate *s, int player, const attack *a, int aid, bool osh
 
 // whenever players change or a buff/debuff takes effect we must recalculate
 // the damages of the [4..6] attacks currently in play.
-static void calculate_damages(simulstate *s){
+static inline void calculate_damages(simulstate *s){
   const pmon *p0 = &pmons[0][s->active[0]];
   const pmon *p1 = &pmons[1][s->active[1]];
   s->dam[0][0] = calc_damage(p0, p1, p0->fa, s->buffleva[0], s->bufflevd[1]);
