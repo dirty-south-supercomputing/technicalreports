@@ -63,18 +63,21 @@ simul(simulstate *s, results *r){
   s->subtimer[0] = s->subtimer[1] = 1;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
-  // calculate eff_a for all players
+  // calculate eff_a and eff_d for all players
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
     const species *s;
     pmon *p = &pmons[0][i];
     if( (s = p->s.s) ){
       p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
     }
     p = &pmons[1][i];
     if( (s = p->s.s) ){
       p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
     }
   }
+  calculate_damages(s);
   tophalf(s, r);
 }
 
