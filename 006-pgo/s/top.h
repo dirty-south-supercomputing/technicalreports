@@ -1,6 +1,3 @@
-// each turn has a top half and bottom halves.
-// in the top half we determine which choice-pairs can be performed.
-// in the bottom halves, we simulate a choice-pair.
 static void tophalf(simulstate *s, results *r){
   if(handle_ko(s, r)){
     return;
@@ -16,8 +13,6 @@ static void tophalf(simulstate *s, results *r){
   const auto p0ca2 = pmons[0][s->active[0]].ca2;
   const auto p1ca2 = pmons[1][s->active[1]].ca2;
   simulstate scopy = *s;
-  // each bottomhalf_charged_charged() might FO up to 4 ways
-  // (simulate both sides of CMP tie, simulate shields)
   if(p0c1){
     bottomhalf_charged_fast(&scopy, r, 0, p0ca1, 1, shielded1);
     if(p1c1){
