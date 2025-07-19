@@ -70,13 +70,14 @@ DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 SIMULOUT:=$(OUT)/simulout.lst
+SIMUL3OUT:=$(OUT)/simul3out.lst
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G) \
-	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX)
+	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h sift.h simul.h top.h)
@@ -86,10 +87,10 @@ preview: $(PAPERBACK).pdf
 
 all: $(PDF) $(SIMUL) testdb testsimul
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULOUT) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULOUT)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -166,7 +167,8 @@ $(DUALCHARGEDTEX): $(DUALCHARGED)
 
 $(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
 	@mkdir -p $(@D)
-	$(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
+	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
+  	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
 
 $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
@@ -174,8 +176,15 @@ $(OUT)/%.dat: $(OUT)/%
 
 $(SIMULOUT): $(SIMUL)
 	@mkdir -p $(@D)
-	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
-  	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
+	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
+				sawk 15-14-14@50 "low kick" "focus blast" > $@
+
+$(SIMUL3OUT): $(SIMUL)
+	@mkdir -p $(@D)
+	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
+				sawk 15-14-14@50 "low kick" "focus blast" \
+				feebas 15-15-15@80 tackle "mirror coat" \
+				milotic 15-15-15@20 waterfall surf > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
