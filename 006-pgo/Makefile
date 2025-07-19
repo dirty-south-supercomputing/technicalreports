@@ -83,12 +83,12 @@ SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul
 preview: all
 	$(PDFVIEW) $(PAPERBACK).pdf
 
-all: $(PDF) $(SIMUL)
+all: $(PDF) $(SIMUL) testdb testsimul
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc testdb
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) testdb
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
