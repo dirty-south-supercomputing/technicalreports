@@ -107,35 +107,26 @@ A naive implementation blows up almost immediately: the Trainer can choose to do
  \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
 Our first restriction, then: there's no good reason to do nothing,
  so the Pokémon must do something.
-On every turn, we either wait for our fast attack to conclude, or can throw a fast attack (\texttt{MOVE\_FAST}).
-With sufficient energy, charged attacks enter the picture (\texttt{MOVE\_CHARGED1}, \texttt{MOVE\_CHARGED2}).
+On every turn, we either wait for our fast attack to conclude, or can throw a fast attack.
+With sufficient energy, charged attacks enter the picture.
 While we won't be implementing them yet, assuming other Pokémon have not
-  fainted and the cooldown period is not active, we can substitute (\texttt{MOVE\_SUB1}, \texttt{MOVE\_SUB2}).
+  fainted and the cooldown period is not active, we can substitute.
 ``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
-\inputminted{cpp}{s/moves.h}
 Each turn is implemented in two halves.
-The top half dispatches possible moves, determining choices available to
- the first player and invoking the appropriate inner half for each---it is our primary fan-out.
-We need a function to determine which moves are viable for a Trainer on a given turn:
- \texttt{sift\_choices()} sets bits of a mask high if they're allowed\footnote{This minimizes
-  code complexity, but we end up with twice the necessary branches, since the dispatched
-  code varies wildly depending on the move type; these aren't exactly array indexes.
-  Eh, let the branch predictor worry about that.}.
-Should we reach for task parallelism, these loops are obvious targets.
+The top half dispatches possible moves, determining available choices
+ and invoking the appropriate bottom half for each---it is our primary fan-out.
 \inputminted{cpp}{s/sift.h}
-The inner half performs additional fan-out for charged attacks.
-Each charged attack can break into shielded and unshielded paths.
+\inputminted{cpp}{s/top.h}
 Furthermore, we must simulate both paths in the event of a CMP tie---the tiebreaker
  might be nondeterministic, but we are not!
-The result of \texttt{p0\_wins\_cmp()} is constant across a pair of Pokémon;
- we could cache it in the simulation state, recomputing on substitution or knockout.
+The result of \texttt{p0\_wins\_cmp()} is constant across a pair of Pokémon; we cache it.
+Damage calculations are constant across a pair of Pokémon and a set of buff states; cache them, too.
 The bottom half is invoked along each path, using its own copy of the state.
 \inputminted{cpp}{s/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
-This is the only function that actually records results, and its loops are opportunities for further parallelism.
-Right now we're only handling a single Pokémon per team, but we
- go ahead and implement this so that it'll work properly
+This is the only function that actually records results.
+Right now we're only handling a single Pokémon per team, but we go ahead and implement this so that it'll work properly
  with arbitrarily many Pokémon.
 When a Pokémon goes down, three things can happen:
 \begin{itemize}

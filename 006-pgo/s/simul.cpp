@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include "../pgotypes.cpp"
 #include "simul.h"
-#include "moves.h"
 #include "sift.h"
 #include "charged.h"
 static void tophalf(simulstate *s, results *r);

@@ -1,33 +1,30 @@
-static inline bool can_charged(const simulstate *s, int player, const attack *c){
-  if(s->turns[player]){
+static inline bool can_charged(const simulstate *s, int p, const attack *c){
+  if(s->turns[p]){
     return false; // if we're in a fast move, we can only wait
   }
-  if(s->e[player][s->active[player]] < -c->energytrain){
+  if(s->e[p][s->active[p]] < -c->energytrain){
     return false;
   }
   return true;
 }
 
-static inline bool can_charged1(const simulstate *s, int player){
-  return can_charged(s, player, pmons[player][s->active[player]].ca1);
+static inline bool can_charged1(const simulstate *s, int p){
+  return can_charged(s, p, pmons[p][s->active[p]].ca1);
 }
 
-static inline bool can_charged2(const simulstate *s, int player){
-  if(!pmons[player][s->active[player]].ca2){
+static inline bool can_charged2(const simulstate *s, int p){
+  if(!pmons[p][s->active[p]].ca2){
     return false;
   }
-  return can_charged(s, player, pmons[player][s->active[player]].ca2);
+  return can_charged(s, p, pmons[p][s->active[p]].ca2);
 }
 
 // can the specified player sub in the pokémon offset mod 3 down?
-static inline bool can_sub(const simulstate *s, int player, int offset){
-  if(s->turns[player]){
-    return false; // if we're in a fast move, we can only wait
+static inline bool can_sub(const simulstate *s, int p, int offset){
+  if(s->turns[p] || s->subtimer[p]){
+    return false; // need wait out fast move / timer
   }
-  if(s->subtimer[player]){
-    return false; // we've subbed too recently
-  }
-  if(s->hp[player][(s->active[player] + offset) % 3] == 0){
+  if(s->hp[p][(s->active[p] + offset) % 3] == 0){
     return false; // desired sub is not available
   }
   return true;
