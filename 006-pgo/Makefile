@@ -69,26 +69,28 @@ TRELSTEX:=$(OUT)/typerels.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
+SIMULOUT:=$(OUT)/simulout.lst
+SIMUL3OUT:=$(OUT)/simul3out.lst
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CARDEXAMPLETEX) $(CP1500G) $(CP2500G) \
-	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX)
+	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
+SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h sift.h simul.h top.h)
 
-preview: all
-	$(PDFVIEW) $(PAPERBACK).pdf
+preview: $(PAPERBACK).pdf
+	$(PDFVIEW) $<
 
-all: $(PDF) $(SIMUL)
+all: $(PDF) $(SIMUL) testdb testsimul
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc testdb
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) testdb
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -165,15 +167,28 @@ $(DUALCHARGEDTEX): $(DUALCHARGED)
 
 $(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
 	@mkdir -p $(@D)
-	$(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
+	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
+  	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
 
 $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
+$(SIMULOUT): $(SIMUL)
+	@mkdir -p $(@D)
+	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
+				sawk 15-14-14@50 "low kick" "focus blast" > $@
+
+$(SIMUL3OUT): $(SIMUL)
+	@mkdir -p $(@D)
+	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
+				sawk 15-14-14@50 "low kick" "focus blast" \
+				feebas 15-15-15@80 tackle "mirror coat" \
+				milotic 15-15-15@20 waterfall surf > $@
+
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
-	g++ -std=c++23 -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm
+	g++ -std=c++23 -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm
 
 $(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)
@@ -186,9 +201,10 @@ testdb: $(TESTDB)
 
 testsimul: $(SIMUL)
 	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast"
-	time $(<) clodsire 15-15-15@70 "poison sting" "earthquake" sawk 15-14-14@50 "low kick" "low sweep"
-	time $(<) clodsire 15-15-15@50 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
+	time $(<) clodsire 15-15-15@99 "poison sting" "earthquake" sawk 15-14-14@99 "low kick" "low sweep"
+	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
 	time $(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep"
+	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast" feebas 15-15-15@80 tackle "mirror coat" milotic 15-15-15@20 waterfall surf
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing

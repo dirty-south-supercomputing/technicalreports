@@ -3,13 +3,11 @@
 #include <cstdlib>
 #include "../pgotypes.cpp"
 #include "simul.h"
-#include "moves.h"
 #include "sift.h"
 #include "charged.h"
-static void tophalf(const simulstate *s, results *r);
+static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
-#include "inner.h"
 #include "top.h"
 
 pmon pmons[2][TEAMSIZE] = {};
@@ -17,6 +15,7 @@ pmon pmons[2][TEAMSIZE] = {};
 static void
 usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
+  std::cerr << " both teams must have the same number of pokémon (not more than 3)" << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -64,17 +63,21 @@ simul(simulstate *s, results *r){
   s->subtimer[0] = s->subtimer[1] = 1;
   s->shields[0] = s->shields[1] = 2;
   s->active[0] = s->active[1] = 0;
-  // precalculate damage 2 teams * 3 members * 3 attacks * 3 opponents = 54 floats total
+  // calculate eff_a and eff_d for all players
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
-    if(!pmons[0][i].s.s){
-      continue;
+    const species *s;
+    pmon *p = &pmons[0][i];
+    if( (s = p->s.s) ){
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
     }
-    for(unsigned j = 0 ; j < TEAMSIZE ; ++j){
-      if(!pmons[1][j].s.s){
-        continue;
-      }
+    p = &pmons[1][i];
+    if( (s = p->s.s) ){
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
     }
   }
+  calculate_damages(s);
   tophalf(s, r);
 }
 
@@ -148,6 +151,11 @@ print_team(int player){
   }
 }
 
+static void
+print_intro(void){
+  printf("pokémon exhaustive simulator state is %zuB\n", sizeof(simulstate));
+}
+
 int main(int argc, char** argv){
   const char* argv0 = *argv;
   simulstate sstate = {};
@@ -164,6 +172,7 @@ int main(int argc, char** argv){
       usage(argv0);
     }
   }
+  print_intro();
   print_team(0);
   print_team(1);
   if(argc){
@@ -172,12 +181,11 @@ int main(int argc, char** argv){
   }
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
-  r.nodes = 0;
   simul(&sstate, &r);
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
   printf("p0 wins: %lu p1 wins: %lu ties: %lu total: %lu\n",
         r.wins[0], r.wins[1], r.ties, total);
-  printf("p0 %.04f%% p1 %.04f%% t %.04f%% nodes %lu\n", r.wins[0] * 100.0 / total,
-        r.wins[1] * 100.0 / total, r.ties * 100.0 / total, r.nodes);
+  printf("p0 %.04f%% p1 %.04f%% t %.04f%%\n", r.wins[0] * 100.0 / total,
+        r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
   return EXIT_SUCCESS;
 }

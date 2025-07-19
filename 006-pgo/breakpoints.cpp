@@ -94,7 +94,7 @@ print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
     p->s.id = ivd;
     for(int iva = 0 ; iva < 16 ; ++iva){
       atk->s.ia = iva;
-      int d = static_cast<int>(calc_damage(atk, p, a));
+      int d = static_cast<int>(calc_damage(atk, p, a, 0, 0));
       if(firstd < 0){
         firstd = d;
       }

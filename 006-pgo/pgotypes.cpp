@@ -12669,7 +12669,8 @@ static const species megasdex[] = {
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron", AGGRON_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham", MEDICHAM_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric", MANECTRIC_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
-  {  319, "Mega Sharpedo", TYPE_DARK, TYPE_WATER, 289, 144, 172, "Sharpedo", SHARPEDO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
+  // not yet released
+  // {  319, "Mega Sharpedo", TYPE_DARK, TYPE_WATER, 289, 144, 172, "Sharpedo", SHARPEDO_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria", ALTARIA_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette", BANETTE_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol", ABSOL_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
@@ -12735,6 +12736,7 @@ static const species gigantasdex[] = {
   {    3, "Gmax Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Venusaur", VENUSAUR_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Vine Lash", },
   {    6, "Gmax Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charizard", CHARIZARD_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Wildfire", },
   {    9, "Gmax Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Blastoise", BLASTOISE_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Cannonade", },
+  {   12, "Gmax Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Butterfree", BUTTERFREE_ATKS, true, false, {}, species::CAT_NORMAL, 10, "G-Max Befuddle", },
   {   68, "Gmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Chi Strike", },
   {   94, "Gmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Terror", },
   {   99, "Gmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, "G-Max Foam Burst", },
@@ -12781,24 +12783,31 @@ calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   return cand < 10 ? 10 : floor(cand);
 }
 
-// provide mod_a
+static inline float
+calc_eff_a_raw(unsigned atk, unsigned halflevel){
+  return cpm(halflevel) * atk;
+}
+
+// calculate eff_a and apply the shadow bonus, if appropriate.
+// provide mod_a as atk.
 static inline float
 calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
-  float effa = cpm(halflevel) * atk;
+  float effa = calc_eff_a_raw(atk, halflevel);
   if(isshadow){
     effa = effa * 6 / 5;
   }
   return effa;
 }
 
-// provide mod_d
+// calculate eff_d and apply the shadow penalty, if appropriate.
+// provide mod_d as def.
 static inline float
 calc_eff_d(unsigned def, unsigned halflevel, bool isshadow){
-  float effd = cpm(halflevel) * def;
+  float s = cpm(halflevel) * def;
   if(isshadow){
-    effd = effd * 5 / 6;
+    s = s * 5 / 6;
   }
-  return effd;
+  return s;
 }
 
 // provide mod_s

@@ -234,30 +234,6 @@ $M_\mathrm{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
   and 1 otherwise.
 We multiply \Eff{A} by this Shadow bonus, and divide \Eff{D} by it.
 This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
-$M_\mathrm{ASE}$ and $M_\mathrm{DSE}$ are the Pokémon's attack and defense multipliers due any active stat effect (\autoref{sec:buffs}).
-Recall that the stat effect levels take the values -4--4, inclusive.
-They are multiplied into \Eff{A} and \Eff{D} in 3x3 battle contexts (\autoref{sec:3x3})
-  according to \autoref{table:buffs}.
-\begin{table}[ht]
-\centering
-\begin{tabular}{rll}
-Level & Multiplier & Comment \\
-\Midrule
--4 & 0.5 (-50\%) & \\
--3 & $\frac{4}{7}$ ≈ 0.5715 (-42.85\%) & ``Severely fell!'' \\
--2 & 0.\textoverline{6} (-33.\textoverline{3}\%) & ``Harshly fell!'' \\
--1 & 0.8 (-20\%) & ``Fell!'' \\
-0 & 1 & \\
-1 & 1.25 (25\%) & ``Rose!'' \\
-2 & 1.5 (50\%) & ``Rose sharply!''\\
-3 & 1.75 (75\%) & ``Rose drastically!'' \\
-4 & 2 (100\%) & \\
-\end{tabular}
-\caption{Mapping buff/nerf stages to effect\label{table:buffs}}
-\end{table}
-The system behind the scheme of \autoref{table:buffs} is that the negative levels $-n$
- correspond to $\frac{4}{4 - n}$ while the positive levels $n$ correspond to
- $\frac{4 + n}{4}$.
 \begin{align*}
  \Eff{A} &= \Mod{A} \cdot \CPM \cdot M_\mathrm{Shadow} \\
  \Eff{D} &= \frac{\Mod{D} \cdot \CPM}{M_\mathrm{Shadow}}

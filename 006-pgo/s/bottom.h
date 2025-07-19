@@ -1,74 +1,67 @@
-// if player has an ongoing fast move, decrement turns by one. if the fast
-// attack concludes as a result, inflict damage and add energy. returns true
-// in the case of a KO.
+// decrement fast move turns by one. if the attack concludes as a result,
+// inflict damage and add energy. returns true in the case of a KO.
 static bool account_fast_move(simulstate *s, int player){
-  const pmon *p = &pmons[player][s->active[player]];
-  if(s->turns[player]){
-    if(!--s->turns[player]){
-      accumulate_energy(&s->e[player][s->active[player]], p->fa->energytrain);
-      int op = other_player(player);
-      return inflict_damage(&s->hp[op][s->active[op]],
-              calc_buffed_damage(calc_damage(&pmons[player][s->active[player]],
-                                  &pmons[op][s->active[op]],
-                                  pmons[player][s->active[player]].fa),
-                                 s->buffleva[player], s->bufflevd[op]));
-    }
-  }
-  return false;
-}
-
-// return -1 iff p0 wins cmp, 1 for p1, 0 for tie (coin flip: simul both paths)
-static int p0_wins_cmp(const simulstate *s){
-  float moda0 = pmons[0][s->active[0]].s.atk + pmons[0][s->active[0]].s.ia;
-  float moda1 = pmons[1][s->active[1]].s.atk + pmons[1][s->active[1]].s.ia;
-  return moda0 > moda1 ? -1 : moda1 > moda0 ? 1 : 0;
-}
-
-// run a single choice-pair, which ought be known to be viable (i.e. if we
-// request a shielded move, that player ought have a shield). we ought receive
-// out own simulstate in which we can scribble. corecurses back into tophalf().
-// return true if anyone was ko'd.
-static inline bool
-bottomhalf(simulstate *s, results *r, pgo_move_e m0, pgo_move_e m1,
-            bool m0shield, bool m1shield){
-  ++r->nodes;
-  if(sub_move_p(m0) || sub_move_p(m1)){
+  if(--s->turns[player]){
     return false;
   }
-  int cmp = p0_wins_cmp(s);
-  if(cmp < 0){
-    if(charged_move_p(m0)){
-      if(throw_charged_move(s, 0, m0, m1shield)){
-        return true;
-      }
-    }
-    if(charged_move_p(m1)){
-      if(throw_charged_move(s, 1, m1, m0shield)){
-        return true;
-      }
-    }
-  }else{ // FIXME: if cmp == 0, simulate both paths
-    if(charged_move_p(m1)){
-      if(throw_charged_move(s, 1, m1, m0shield)){
-        return true;
-      }
-    }
-    if(charged_move_p(m0)){
-      if(throw_charged_move(s, 0, m0, m1shield)){
-        return true;
-      }
-    }
-  }
-  if(s->turns[0] == 0){
+  const pmon *p = &pmons[player][s->active[player]];
+  accumulate_energy(&s->e[player][s->active[player]], p->fa->energytrain);
+  int op = other_player(player);
+  return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
+}
+
+static inline void
+bottomhalf_allfast(simulstate *s, results *r){
+  if(s->turns[0] == 0){ // launch new fast attack p0
     s->turns[0] = pmons[0][s->active[0]].fa->turns;
   }
-  if(s->turns[1] == 0){
+  if(s->turns[1] == 0){ // launch new fast attack p1
     s->turns[1] = pmons[1][s->active[1]].fa->turns;
   }
-  bool k0 = account_fast_move(s, 0);
-  bool k1 = account_fast_move(s, 1);
-  if(k0 || k1){
-    return true;
+  account_fast_move(s, 0);
+  account_fast_move(s, 1);
+  tophalf(s, r);
+}
+
+static inline void
+bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
+                        int aid, int shielded){
+  if(!throw_charged_move(s, player, c, aid, shielded)){
+    account_fast_move(s, other_player(player));
   }
-  return false;
+  tophalf(s, r);
+}
+
+// pass three 2-vectors of player id, attacks used/aids, and shield state
+static inline void
+bottomhalf_cc_ordered(simulstate *s, results *r, const int *ps,
+                      const attack **as, const int *aids, const int *ss){
+  if(!throw_charged_move(s, ps[0], as[0], aids[0], ss[0])){
+    throw_charged_move(s, ps[1], as[1], aids[1], ss[1]);
+  }
+  tophalf(s, r);
+}
+
+static inline void
+bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
+                           const attack *p1c, int aid0, int aid1,
+                           int p0shield, int p1shield){
+  int ps[2], ss[2], aids[2];
+  const attack *as[2];
+
+  as[0] = p0c; as[1] = p1c;
+  aids[0] = aid0; aids[1] = aid1;
+  ss[0] = p1shield; ss[1] = p0shield;
+  ps[0] = 0; ps[1] = 1;
+  if(s->cmp == 0){ // simulate both paths
+    simulstate s2 = *s;
+    bottomhalf_cc_ordered(&s2, r, ps, as, aids, ss);
+  }
+  if(s->cmp >= 0){
+    as[0] = p1c; as[1] = p0c;
+    aids[0] = aid1; aids[1] = aid0;
+    ss[0] = p0shield; ss[1] = p1shield;
+    ps[0] = 1; ps[1] = 0;
+  }
+  bottomhalf_cc_ordered(s, r, ps, as, aids, ss);
 }
