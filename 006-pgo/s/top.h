@@ -20,35 +20,33 @@ static void tophalf(simulstate *s, results *r){
   // (simulate both sides of CMP tie, simulate shields)
   if(p0c1){
     bottomhalf_charged_fast(&scopy, r, 0, p0ca1, shielded1);
-    scopy = *s;
     if(p1c1){
-      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca1, shielded0, shielded1);
       scopy = *s;
+      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca1, shielded0, shielded1);
     }
     if(p1c2){
-      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca2, shielded0, shielded1);
       scopy = *s;
+      bottomhalf_charged_charged(&scopy, r, p0ca1, p1ca2, shielded0, shielded1);
     }
   }
   if(p0c2){
     bottomhalf_charged_fast(&scopy, r, 0, p0ca2, shielded1);
-    scopy = *s;
     if(p1c1){
-      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca1, shielded0, shielded1);
       scopy = *s;
+      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca1, shielded0, shielded1);
     }
     if(p1c2){
-      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca2, shielded0, shielded1);
       scopy = *s;
+      bottomhalf_charged_charged(&scopy, r, p0ca2, p1ca2, shielded0, shielded1);
     }
   }
   if(p1c1){
-    bottomhalf_charged_fast(&scopy, r, 1, p1ca1, shielded0);
     scopy = *s;
+    bottomhalf_charged_fast(&scopy, r, 1, p1ca1, shielded0);
   }
   if(p1c2){
-    bottomhalf_charged_fast(&scopy, r, 1, p1ca2, shielded0);
     scopy = *s;
+    bottomhalf_charged_fast(&scopy, r, 1, p1ca2, shielded0);
   }
   bottomhalf_allfast(s, r);
 }

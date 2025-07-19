@@ -1,9 +1,6 @@
 // decrement fast move turns by one. if the attack concludes as a result,
 // inflict damage and add energy. returns true in the case of a KO.
 static bool account_fast_move(simulstate *s, int player){
-  if(s->turns[player] == 0){
-    return false;
-  }
   if(--s->turns[player]){
     return false;
   }
