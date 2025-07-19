@@ -1,13 +1,3 @@
-static inline int mons_left(const simulstate *s, int player){
-  int alive = 0;
-  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
-    if(s->hp[player][i] > 0){
-      ++alive;
-    }
-  }
-  return alive;
-}
-
 static inline void subin(simulstate *s, int player, int pos){
   s->active[player] = pos;
   s->buffleva[player] = 0;
@@ -34,10 +24,14 @@ static void handle_one_ko(simulstate *s, results *r, int player){
 static void handle_dual_kos(simulstate *s, results *r){
   s->buffleva[0] = s->buffleva[1] = 0;
   s->bufflevd[0] = s->buffleva[1] = 0;
+  bool foundq = false;
+  bool foundp = false;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[0][p]){
+      foundp = true;
       for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
         if(s->hp[1][q]){
+          foundq = true;
           simulstate snew = *s;
           snew.active[0] = p;
           snew.active[1] = q;
@@ -46,6 +40,19 @@ static void handle_dual_kos(simulstate *s, results *r){
         }
       }
     }
+  }
+  if(foundp){
+    if(!foundq){
+      ++r->wins[0];
+    }
+  }else{
+    for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
+      if(s->hp[1][q]){
+        ++r->wins[1];
+        return;
+      }
+    }
+    ++r->ties;
   }
 }
 
@@ -64,17 +71,7 @@ static bool handle_ko(simulstate *s, results *r){
   }else if(hp0){ // must replace player 1
     handle_one_ko(s, r, 1);
   }else{ // must replace both, if we can
-    int l0 = mons_left(s, 0);
-    int l1 = mons_left(s, 1);
-    if(l0 == 0 && l1 == 0){
-      ++r->ties;
-    }else if(l0 == 0){
-      ++r->wins[1];
-    }else if(l1 == 0){
-      ++r->wins[0];
-    }else{
-      handle_dual_kos(s, r);
-    }
+    handle_dual_kos(s, r);
   }
   return true;
 }
