@@ -121,7 +121,29 @@ In Raids and Max battles, a number of effects come into play.
    \end{table}
 \end{itemize}
 The calculation for Trainer Battles is simpler:
-\[ M_B = 0.65 \cdot M_G \]
+\[ M_B = 0.65 \cdot M_G \cdot M_E \]
+Recall that the stat effect levels take the values −4--4, inclusive.
+Their effects are determined via \autoref{table:buffs}.
+$M_E$ is the ratio of the attacking Pokémon's offensive buff effect to that of the opponent's defensive one (\autoref{sec:buffs}).
+The system behind the scheme of \autoref{table:buffs} is that negative levels $-n$
+ correspond to $\frac{4}{4 - n}$, while positive levels $n$ correspond to $\frac{4 + n}{4}$.
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+Level & Multiplier & Comment \\
+\Midrule
+−4 & 0.5 (−50\%) & \\
+−3 & $\frac{4}{7}$ ≈ 0.5715 (−42.85\%) & ``Severely fell!'' \\
+−2 & 0.\textoverline{6} (−33.\textoverline{3}\%) & ``Harshly fell!'' \\
+−1 & 0.8 (−20\%) & ``Fell!'' \\
+0 & 1 & \\
+1 & 1.25 (25\%) & ``Rose!'' \\
+2 & 1.5 (50\%) & ``Rose sharply!''\\
+3 & 1.75 (75\%) & ``Rose drastically!'' \\
+4 & 2 (100\%) & \\
+\end{tabular}
+\caption{Mapping buff/nerf stages to effect\label{table:buffs}}
+\end{table}
 For fast attacks, $M_G$ is 1.
 When throwing a charged attack, the attacking Trainer plays a short minigame.
 Performance on this minigame is summarized with ``Excellent!'', ``Great!'',
