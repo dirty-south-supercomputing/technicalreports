@@ -175,7 +175,7 @@ $(OUT)/%.dat: $(OUT)/%
 $(SIMULOUT): $(SIMUL)
 	@mkdir -p $(@D)
 	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
-  	sawk 15-14-14@70 "low kick" "focus blast/low sweep" > $@
+  	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
