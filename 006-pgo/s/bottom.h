@@ -39,7 +39,10 @@ bottomhalf_allfast(simulstate *s, results *r){
 
 static inline void
 bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c, int shielded){
-  // FIXME
+  if(!throw_charged_move(s, player, c, shielded)){
+    account_fast_move(s, other_player(player));
+  }
+  tophalf(s, r);
 }
 
 // pass three 2-vectors of player id, attacks used, and shield state
