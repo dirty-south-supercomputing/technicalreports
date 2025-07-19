@@ -12782,24 +12782,31 @@ calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   return cand < 10 ? 10 : floor(cand);
 }
 
-// provide mod_a
+static inline float
+calc_eff_a_raw(unsigned atk, unsigned halflevel){
+  return cpm(halflevel) * atk;
+}
+
+// calculate eff_a and apply the shadow bonus, if appropriate.
+// provide mod_a as atk.
 static inline float
 calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
-  float effa = cpm(halflevel) * atk;
+  float effa = calc_eff_a_raw(atk, halflevel);
   if(isshadow){
     effa = effa * 6 / 5;
   }
   return effa;
 }
 
-// provide mod_d
+// calculate eff_d and apply the shadow penalty, if appropriate.
+// provide mod_d as def.
 static inline float
 calc_eff_d(unsigned def, unsigned halflevel, bool isshadow){
-  float effd = cpm(halflevel) * def;
+  float s = cpm(halflevel) * def;
   if(isshadow){
-    effd = effd * 5 / 6;
+    s = s * 5 / 6;
   }
-  return effd;
+  return s;
 }
 
 // provide mod_s
