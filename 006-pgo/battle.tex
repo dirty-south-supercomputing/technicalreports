@@ -203,10 +203,11 @@ which can of course be rewritten as:
 
 \[ D_D = P \cdot \frac{Mod_A}{Mod_D} \cdot \frac{CPM_A}{CPM_D} \cdot M_C \cdot M_B \]
 
-A floor function is applied to ensure an integer,
- followed by a min function to ensure at least 1 point of damage is always inflicted:
+This is always a positive rational.
+A floor function is applied (ensuring a non-negative integer),
+ and one is added (ensuring a positive integer):
 
-\[ D = \min{1, \left\lfloor P \cdot \frac{Eff_A}{Eff_D} \cdot M_C \cdot M_B \right\rfloor } \]
+\[ D = \left\lfloor P \cdot \frac{Eff_A}{Eff_D} \cdot M_C \cdot M_B \right\rfloor + 1 \]
 
 If $D$ equals or exceeds the opponent's HP, it will fight no more.
 
