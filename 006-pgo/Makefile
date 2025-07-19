@@ -80,8 +80,8 @@ GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h moves.h sift.h simul.h top.h)
 
-preview: all
-	$(PDFVIEW) $(PAPERBACK).pdf
+preview: $(PAPERBACK).pdf
+	$(PDFVIEW) $<
 
 all: $(PDF) $(SIMUL) testdb testsimul
 
