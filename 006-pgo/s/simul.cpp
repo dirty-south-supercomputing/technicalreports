@@ -15,6 +15,7 @@ pmon pmons[2][TEAMSIZE] = {};
 static void
 usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
+  std::cerr << " both teams must have the same number of pokémon (not more than 3)" << std::endl;
   exit(EXIT_FAILURE);
 }
 

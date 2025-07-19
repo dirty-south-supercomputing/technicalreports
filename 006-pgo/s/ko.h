@@ -10,7 +10,7 @@ static void handle_one_ko(simulstate *s, results *r, int player){
   bool replaced = false;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[player][p]){
-      subin(s, 0, p);
+      subin(s, player, p);
       tophalf(s, r);
       replaced = true;
     }
