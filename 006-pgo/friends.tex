@@ -53,6 +53,11 @@ Unless I need the items, I try to open my twenty gifts late in the evening,
 When browsing your list of friends, Trainers with a blue halo have already interacted with you:
   opening their gift will not advance the friendship state.
 
+\begin{tipbox}[title=A tip regarding gift UI]
+Pressing the ⓧ  element immediately after pressing ``Open Gift'' or ``Send Gift''
+ skips the animation without affecting function.
+\end{tipbox}
+
 \section{Parties\label{sec:parties}}
 Trainers can play as a party, with party-specific challenges and rewards.
 They need not be friends, but will require a code and relative proximity.
@@ -78,7 +83,7 @@ A Pokémon can be traded only once across its lifetime.
 A Best Friend can sometimes become ``lucky'', guaranteeing that the next trade with
   them will result in Lucky Pokémon (\autoref{sec:lucky}).
 Trading a Pokémon results in Candy of the \textit{departing} Pokémon's genus,
-  and possibly Candy XL.
+  and possibly Candy XL\@.
 The chance of Candy XL depends on how far apart the Pokémon were captured.
 A Trainer cannot typically make more than 100 trades per calendar day, nor more
  than a single Special Trade.
@@ -87,7 +92,6 @@ All trades have a cost in Stardust (\autoref{table:tradecosts}).
 ``Special'' trades are those involving Legendary, Mythical, Ultra Beast (\autoref{sec:regions}),
   Shiny, Purified, or Gigantamax (\autoref{sec:dmaxgmax}) Pokémon.
 If either Pokémon qualifies, the trade is Special.
-Aside from special events, only one Special trade can be made per calendar day.
 Forms (\autoref{sec:forms}) present in the receiving Trainer's Pokédex are
   ``registered trades'', and can be made at the bargain price of 100 Stardust
   (both Pokémon must be registered).
@@ -105,14 +109,16 @@ Registered & 100 & 100 & 100 & 100\\
 Unregistered, reg.\ Special & 20,000 & 16,000 & 1,600 & 800\\
 Unregistered Special & 1,000,000 & 800,000 & 80,000 & 40,000\\
 \end{tabular}
-  \caption{Trade costs in Stardust\label{table:tradecosts}}
+\caption{Trade costs in Stardust\label{table:tradecosts}}
 \end{table}
 
 A non-obvious application of trading is the ``mirror trade'', where the
- two Pokémon exchanged are of the same form, effectively rerolling the IV of each Trainer's Pokémon.
+ two Pokémon exchanged are of the same form, generating large amounts
+ of the relevant Candy while rerolling the IV of each Trainer's Pokémon.
 This can take advantage of a high IV floor in the quest for higher IVs, or
  a low IV floor to reduce the naturally high IVs from upper tier raids\footnote{Why might this be desirable? See \autoref{chap:bounded}.}.
-This technique is particularly apt for Legendaries such as the Galarian Birds.
+This technique is particularly apt for Legendaries caught outside of raids,
+ such as the Galarian Birds.
 
 \section{Buddy Pokémon\label{sec:buddies}}
 Any Pokémon neither defending a gym nor posted at a Power Stop can be designated your Buddy Pokémon.
@@ -138,7 +144,7 @@ Great & 70 & Catch Assist, Finding Presents\\
 Ultra & 150 & Finding Souvenirs, Finding Locations\\
 Best & 300 & CPM boost, Ribbon\\
 \end{tabular}
-  \caption{Buddy level requirements and perks\label{table:buddy}}
+\caption{Buddy level requirements and perks\label{table:buddy}}
 \end{table}
 The CPM boost only applies while the Pokémon is designated Buddy,
   and is worth two halflevels (\autoref{sec:cpm}).
@@ -148,5 +154,3 @@ This holds true even at levels 49.5 and 50: the CPMs for these unattainable
   pseudolevels 50.5 and 51 are 0.8428 and 0.8453.
 This boost \textit{is} carried into League 3x3 play (\autoref{subsec:league}),
   and counts against any CP bound.
-\vfill
-\includegraphics[width=.9\linewidth,keepaspectratio]{images/metagross.png}
