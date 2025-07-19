@@ -182,7 +182,9 @@ Simulating a full Trainer Battle requires supporting three Pokémon per Trainer,
   and handling substitutions.
 The increase in state is negligible, but substitutions have substantial impact on time complexity,
   since they can happen on any turn (unless there has been a recent substitution).
-It furthermore represents two branches early, when a team has all three Pokémon.
+They furthermore represent two branches early, when a team has all three Pokémon.
 Our death march closed form cannot be applied when a Pokémon remains.
 Handling replacement is easier: all we need do is amend our frontend to
   seed all three positions, and implement switchover.
+Skirting past a combinatorial explosion requires effective memoization combined with
+ identification of commutative transitions.
