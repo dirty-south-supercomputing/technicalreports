@@ -1,7 +1,7 @@
 \chapter{A worked example of team selection\label{chap:example}}
 
 Let's consider the Fossil Cup of summer 2025, which began and ended while I was writing this book.
-Like the Great League, the Fossil Cup had a CP1500 bound, and further
+Like the Great League, the Fossil Cup had a \CP1500 bound, and further
   restricted participants to those with Rock, Steel, or Water in their typings.
 This limits teams to 51 of the 171 typings (29.8\%): the three monotypes, seventeen dualtypes
  involving Rock, sixteen dualtypes involving Steel (we already counted Rock+Steel), and
@@ -13,7 +13,7 @@ One hundred matches in, I was doing alright (despite far from optimal IVs)
   with the following team, assembled largely off vibes:
 \begin{center}
   \begin{tabular}{llrrrr}
-    Pokémon & IV@Level & $\mathit{Eff_A}$ & $\mathit{Eff_D}$ & MHP & $\sqrt[3]{BP}$\\
+    Pokémon & IV@Level & \Eff{A} & \Eff{D} & \MHP & $\sqrt[3]{\BP\,}$\\
     \Midrule
     Greninja & \ivlev{15}{14}{12}{20} & 142.18 & 99.17 & 112 & 115.27 \\
     Magcargo & \ivlev{15}{13}{12}{32.5} & 115.01 & 152.35 & 111 & 124.82 \\
@@ -46,11 +46,11 @@ I hardly needed more Water strength, so I threw on Body Slam for opponents stron
 
 \section{Boosting the numbers}
 Without changing my choice of species, the following configurations are desirable
-  in the context of optimizing for $\sqrt[3]{BP}$\footnote{If we optimized for $\frac{BS}{3}$,
+  in the context of optimizing for $\sqrt[3]{\mathit{\BP\,}}$\footnote{If we optimized for $\frac{\mathit{BS}}{3}$,
    as done in \autoref{chap:optimal}, we'd see different ideals.}:
 \begin{center}
 \begin{tabular}{llrrrr}
-  Pokémon & IV@Level & $\mathit{Eff_A}$ & $\mathit{Eff_D}$ & MHP & $\sqrt[3]{BP}$\\
+  Pokémon & IV@Level & \Eff{A} & \Eff{D} & \MHP & $\sqrt[3]{\BP\,}$\\
   \Midrule
   Greninja &\ivlev{3}{15}{12}{20} & 138.35 & 102.23 & 115 & 117.60\\
   Magcargo &\ivlev{0}{15}{14}{38.5} & 108.67 & 161.05 & 118 & 127.34\\
