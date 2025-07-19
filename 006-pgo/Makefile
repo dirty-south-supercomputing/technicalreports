@@ -186,8 +186,8 @@ testdb: $(TESTDB)
 
 testsimul: $(SIMUL)
 	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast"
-	time $(<) clodsire 15-15-15@70 "poison sting" "earthquake" sawk 15-14-14@50 "low kick" "low sweep"
-	time $(<) clodsire 15-15-15@50 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
+	time $(<) clodsire 15-15-15@99 "poison sting" "earthquake" sawk 15-14-14@99 "low kick" "low sweep"
+	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
 	time $(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep"
 
 clean:
