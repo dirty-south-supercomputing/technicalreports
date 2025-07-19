@@ -195,6 +195,7 @@ testsimul: $(SIMUL)
 	time $(<) clodsire 15-15-15@99 "poison sting" "earthquake" sawk 15-14-14@99 "low kick" "low sweep"
 	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
 	time $(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep"
+	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast" feebas 15-15-15@80 tackle "mirror coat" milotic 15-15-15@20 waterfall surf
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
