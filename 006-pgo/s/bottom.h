@@ -24,7 +24,7 @@ static int p0_wins_cmp(const simulstate *s){
   return a0 > a1 ? -1 : a1 > a0 ? 1 : 0;
 }
 
-static inline bool
+static inline void
 bottomhalf_allfast(simulstate *s, results *r){
   if(s->turns[0] == 0){ // launch new fast attack p0
     s->turns[0] = pmons[0][s->active[0]].fa->turns;
@@ -32,31 +32,24 @@ bottomhalf_allfast(simulstate *s, results *r){
   if(s->turns[1] == 0){ // launch new fast attack p1
     s->turns[1] = pmons[1][s->active[1]].fa->turns;
   }
-  bool k0 = account_fast_move(s, 0);
-  bool k1 = account_fast_move(s, 1);
-  if(k0 || k1){
-    return true;
-  }
-  return false;
+  account_fast_move(s, 0);
+  account_fast_move(s, 1);
+  tophalf(s, r);
 }
 
-static inline bool
+static inline void
 bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c, int shielded){
   // FIXME
-  return false;
 }
 
 // pass three 2-vectors of player id, attacks used, and shield state
-static inline bool
+static inline void
 bottomhalf_cc_ordered(simulstate *s, results *r, const int *ps,
                       const attack **as, const int *ss){
-  if(throw_charged_move(s, ps[0], as[0], ss[0])){
-    return true;
+  if(!throw_charged_move(s, ps[0], as[0], ss[0])){
+    throw_charged_move(s, ps[1], as[1], ss[1]);
   }
-  if(throw_charged_move(s, ps[1], as[1], ss[1])){
-    return true;
-  }
-  return false;
+  tophalf(s, r);
 }
 
 static inline void
