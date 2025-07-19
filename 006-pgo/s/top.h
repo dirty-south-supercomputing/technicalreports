@@ -2,6 +2,9 @@
 // in the top half we determine which choice-pairs can be performed.
 // in the bottom halves, we simulate a choice-pair.
 static void tophalf(simulstate *s, results *r){
+  if(handle_ko(s, r)){
+    return;
+  }
   const auto shielded0 = s->shields[0];
   const auto shielded1 = s->shields[1];
   const auto p0c1 = can_charged1(s, 0);

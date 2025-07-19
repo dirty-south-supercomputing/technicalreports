@@ -1,7 +1,4 @@
 static inline bool can_charged(const simulstate *s, int player, const attack *c){
-  if(!c){
-    return false;
-  }
   if(s->turns[player]){
     return false; // if we're in a fast move, we can only wait
   }
@@ -16,9 +13,13 @@ static inline bool can_charged1(const simulstate *s, int player){
 }
 
 static inline bool can_charged2(const simulstate *s, int player){
+  if(!pmons[player][s->active[player]].ca2){
+    return false;
+  }
   return can_charged(s, player, pmons[player][s->active[player]].ca2);
 }
 
+// can the specified player sub in the pokémon offset mod 3 down?
 static inline bool can_sub(const simulstate *s, int player, int offset){
   if(s->turns[player]){
     return false; // if we're in a fast move, we can only wait

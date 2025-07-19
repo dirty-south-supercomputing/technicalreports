@@ -6,7 +6,7 @@
 #include "moves.h"
 #include "sift.h"
 #include "charged.h"
-static void tophalf(const simulstate *s, results *r);
+static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
 #include "top.h"
