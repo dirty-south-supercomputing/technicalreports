@@ -105,7 +105,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & HP & $\\mathit{Eff_A}$ & $\\mathit{Eff_D}$ & $\\frac{BS}{3}$ & $\\sqrt[3]{BP}$ & CP & A\\%% \\\\\n");
+  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & $A\\%%$ \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
@@ -122,7 +122,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
   while( (sols = print_sol_set(sols)) ){
     ;
   }
-  printf("\\captionlistentry{Optimal solutions bounded by %d CP}\n", bound);
+  printf("\\captionlistentry{Optimal solutions bounded by %d \\CP}\n", bound);
   printf("\\label{table:cp%d%c}\n", bound, amean ? 'a' : 'g');
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
