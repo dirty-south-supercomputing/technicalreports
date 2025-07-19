@@ -69,6 +69,7 @@ TRELSTEX:=$(OUT)/typerels.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
+SIMULOUT:=$(OUT)/simulout.lst
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
@@ -85,10 +86,10 @@ preview: $(PAPERBACK).pdf
 
 all: $(PDF) $(SIMUL) testdb testsimul
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULOUT) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULOUT)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -170,6 +171,11 @@ $(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
 $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
+
+$(SIMULOUT): $(SIMUL)
+	@mkdir -p $(@D)
+	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
+  	sawk 15-14-14@70 "low kick" "focus blast/low sweep" > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
