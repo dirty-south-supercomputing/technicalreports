@@ -4,15 +4,15 @@
 #include <algorithm>
 
 struct timetofirst {
-  std::string name;
-  unsigned turns;     // turns until first charged attack
-  unsigned powerfast; // cumulative power delivered by fast attacks
+  const species *s;
+  unsigned turns;  // turns until first charged attack
+  float powerfast; // cumulative power delivered by fast attacks (includes STAB)
   const attack *fa;
   const attack *ca;
 
-  timetofirst(const std::string &Name, unsigned Turns, unsigned Powerfast,
+  timetofirst(const species *S, unsigned Turns, float Powerfast,
               const attack *FA, const attack *CA) :
-    name(Name),
+    s(S),
     turns(Turns),
     powerfast(Powerfast),
     fa(FA),
@@ -20,11 +20,11 @@ struct timetofirst {
     { }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
-    unsigned ltdam = l.powerfast + l.ca->powertrain;
-    unsigned rtdam = r.powerfast + r.ca->powertrain;
+    float ltdam = l.powerfast + has_stab_p(l.s, l.ca) ? calc_stab(l.ca->powertrain) : l.ca->powertrain;
+    float rtdam = r.powerfast + has_stab_p(r.s, r.ca) ? calc_stab(r.ca->powertrain) : r.ca->powertrain;
     return l.turns < r.turns ? true : // least to most turns
       (l.turns == r.turns && ltdam > rtdam) ? true : // most to least powerful
-      (l.turns == r.turns && ltdam == rtdam && l.name < r.name) ? true : false;
+      (l.turns == r.turns && ltdam == rtdam && l.s->name < r.s->name) ? true : false;
   }
 };
 
@@ -85,8 +85,12 @@ calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
     if(!fa){
       continue;
     }
-    unsigned pfast = ttf / fa->turns * fa->powertrain;
-    ttfs.emplace_back(s.name, ttf, pfast, fa, ca);
+    float power = fa->powertrain;
+    if(has_stab_p(&s, fa)){
+      power = calc_stab(power);
+    }
+    float pfast = ttf / fa->turns * power;
+    ttfs.emplace_back(&s, ttf, pfast, fa, ca);
   }
 }
 
@@ -106,8 +110,12 @@ calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
           continue;
         }
         unsigned t = turns_until_e(f, -c->energytrain) + 1; // 1 for charged attack
-        unsigned pfast = t / f->turns * f->powertrain;
-        ttfs.emplace_back(s.name, t, pfast, f, c);
+        float power = f->powertrain;
+        if(has_stab_p(&s, f)){
+          power = calc_stab(power);
+        }
+        float pfast = t / f->turns * power;
+        ttfs.emplace_back(&s, t, pfast, f, c);
       }
     }
   }
@@ -120,13 +128,19 @@ int main(int argc, char **argv){
   calctimetoall(smain, ttfs);
   std::sort(ttfs.begin(), ttfs.end());
   for(const auto &t : ttfs){
-    unsigned dam = t.powerfast + t.ca->powertrain;
-    std::cout << t.name << ": " << t.turns << " " << t.powerfast << " "
+    float cpower = t.ca->powertrain;
+    if(has_stab_p(t.s, t.ca)){
+      cpower = calc_stab(cpower);
+    }
+    float dam = t.powerfast + cpower;
+    std::cout << t.s->name << ": " << t.turns << " "
+      << (has_stab_p(t.s, t.fa) ? calc_stab(t.fa->powertrain) : t.fa->powertrain) << " "
+      << t.powerfast << " "
       << " " << t.fa->energytrain << " " << t.fa->turns << " " << " "
-      << t.ca->energytrain << " " << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
+      << t.ca->energytrain << " " << cpower << " (" << t.fa->name << " + " << t.ca->name << " = "
       << dam << ")"
       << " dpt: " << dam / (float)t.turns
-      << " c%: " << t.ca->powertrain * 100 / static_cast<float>(dam)
+      << " c%: " << cpower * 100 / static_cast<float>(dam)
       << std::endl;
   }
   return EXIT_SUCCESS;
