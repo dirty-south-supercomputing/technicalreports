@@ -34,66 +34,6 @@ turns_until_e(const attack *a, unsigned e){
   return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
 }
 
-// find the attack which reaches e energy in the fewest turns, returning the
-// total number of turns in *minturns.
-static const attack *
-fastest_attack(const species &s, unsigned e, unsigned *minturns){
-  const attack *fastest = nullptr;
-  unsigned turns = 0;
-  for(unsigned ai = 0 ; s.attacks[ai] ; ++ai){
-    const attack *a = s.attacks[ai];
-    if(charged_attack_p(a) || !a->energytrain){
-      continue;
-    }
-    unsigned t = turns_until_e(a, e);
-    if(!fastest || t < turns){
-      turns = t;
-      fastest = a;
-    }
-  }
-  if(!fastest){
-    return nullptr;
-  }
-  *minturns = turns;
-  return fastest;
-}
-
-// find the charged attack requiring the minimum energy
-static const attack *
-lowest_energy_attack(const species &s){
-  const attack *mine = NULL;
-  for(unsigned ai = 0 ; s.attacks[ai] ; ++ai){
-    const attack *a = s.attacks[ai];
-    if(fast_attack_p(a)){
-      continue;
-    }
-    if(!mine || -a->energytrain < -mine->energytrain){
-      mine = a;
-    }
-  }
-  return mine;
-}
-
-// get time to first and damage for fastest fast+charged pair
-static void
-calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
-  for(unsigned si = 0 ; si < sd.dcount ; ++si){
-    const auto &s = sd.dex[si];
-    unsigned ttf;
-    auto ca = lowest_energy_attack(s);
-    auto fa = fastest_attack(s, -ca->energytrain, &ttf);
-    if(!fa){
-      continue;
-    }
-    float power = fa->powertrain;
-    if(has_stab_p(&s, fa)){
-      power = calc_stab(power);
-    }
-    float pfast = ttf / fa->turns * power;
-    ttfs.emplace_back(&s, ttf, pfast, fa, ca);
-  }
-}
-
 // get time to first and damage for all fast+charged pairs
 static void
 calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
@@ -114,7 +54,7 @@ calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
         if(has_stab_p(&s, f)){
           power = calc_stab(power);
         }
-        float pfast = t / f->turns * power;
+        float pfast = (t - 1) / f->turns * power;
         ttfs.emplace_back(&s, t, pfast, f, c);
       }
     }
