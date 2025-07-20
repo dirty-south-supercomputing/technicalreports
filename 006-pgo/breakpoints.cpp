@@ -2,7 +2,6 @@
 #include <memory>
 #include <cstdlib>
 #include "pgotypes.cpp"
-#include "s/moves.h"
 #include "s/simul.h"
 #include "s/charged.h"
 
