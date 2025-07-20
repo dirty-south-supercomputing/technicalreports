@@ -245,12 +245,12 @@ Shadow Shards cannot be collected while holding ten gems, though any extras
  following the tenth gem's purification will be retained (this can only
  happen when receiving multiple shards in a single award).
 
-A trainer can hold no more than 1,500 Max Particles, and can collect no more than 800 per calendar day.
+A trainer cannot collect Max Particles while in possession of 1,500 or more.
 The Trainer can collect no more than 9,999 units of any Mega Energy,
  Primal Energy, or Fusion Energy.
 A limit on Crown Energy is not yet known, but seems likely to be 9,999.
 
-No limit is known for Candy nor Candy XL.
+No limit is known for Candy nor Candy XL\@.
 A lower bound has been established in the millions.
 It seems plausible that the limit is one less than a large power of 2:
   2,147,483,647 seems as good a guess as any\footnote{If the limit is driven by UI requirements, it's likely lower.}.
@@ -431,9 +431,22 @@ The distance that must be walked depends on the Buddy's cost group (\autoref{sec
 Giving berries to gym defenders rarely results in Candy (in addition to guaranteed XP and Stardust).
 Hatching an egg yields substantial Candy of the hatched genus, depending on the egg type (\autoref{sec:eggs}).
 It is possible through Research to receive Candy for a genus not present in
-  your Pokédex, i.e. one whose constituent species you have never captured.
+  your Pokédex, i.e.\ one whose constituent species you have never captured.
 You'll keep this Candy, but it doesn't result in a Pokédex entry.
 Likewise, Candy is retained even if all Pokémon of that genus have been transferred.
+\subsection{Grinding particles}
+Interacting with Power Stops awards Max Particles once per day per Stop.
+Each Stop awards 120 the first time, and 100 subsequently.
+Walking 2km makes available 300 MP\@.
+Claiming them resets the pedometer, which does not track walking while they're unclaimed.
+Once 800 or more MP have been collected on a calendar day via these methods, no
+ more can be collected\footnote{Note that this allows up to 1080 MP per day.
+ Claim a walk award and interact with four new Power Stops for 780 MP, then
+ close it out with a walk award.}.
+This timer resets at 0500h local time.
+Max Particles from Research are not subject to this restriction, nor are Max Particle Packs.
+Available from the Shop (individually, or in packs of three), each contains 800 MP\@.
+
 \subsection{Grinding energies}
 Form-changing energies (Mega, Primal, Fusion, and Crown) can be acquired by
  winning a raid of that type or completing certain research tasks.
