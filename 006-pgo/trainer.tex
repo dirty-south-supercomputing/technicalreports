@@ -444,8 +444,8 @@ Once 800 or more MP have been collected on a calendar day via these methods, no
  Claim a walk award and interact with four new Power Stops for 780 MP, then
  close it out with a walk award.}.
 This timer resets at 0500h local time.
-Max Particles from Research are not subject to this restriction, nor are Max Particle Packs.
-Available from the Shop (individually, or in packs of three), each contains 800 MP\@.
+Max Particles from Research are not subject to this restriction, nor are Max Particle Packs---available
+ from the Shop (individually, or in packs of three), each contains 800 MP\@.
 
 \subsection{Grinding energies}
 Form-changing energies (Mega, Primal, Fusion, and Crown) can be acquired by
@@ -552,9 +552,11 @@ The Research screen is summoned up with the binoculars logo in the lower right o
 It is broken into three tabs:
 \begin{itemize}
   \item \textbf{Events:} Research and bonuses related to the calendar year, including ticketed research.
+    Timed research is also shown here, despite acting more like Special research.
   \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Pokéstops.
-            Field research tasks can be dismissed without completion.
-            Up to four field research tasks can be active at a time.
+    A Pokéstop will not assign more than one per day.
+    Up to four field research tasks can be active at a time.
+    Field research tasks can be dismissed without completion.
   \item \textbf{Special:} Longer-term research structuring the game's plot, so far as one exists.
     Tasks and rewards are of greater magnitude.
     Special research comes in multipart stories, where each part consists of multiple tasks.
@@ -562,11 +564,19 @@ It is broken into three tabs:
 \end{itemize}
 The rewards of field research are generally on the order of Pokéstop items---berries, balls,
  etc.---but also include encounters.
-Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
 Pokémon met in research encounters have a higher IV floor than most spawns (\autoref{table:ivfloors}),
   and are thus disproportionately powerful for their species.
+Individual field research items can be dismissed if you don't want to complete them.
+Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
 Event research includes Collection Challenges, which require the capture of a set of Pokémon
   within a time period, and are associated with their own medal.
+
+The Special Research ``A Troubling Situation'' brings Team GO Rocket into the game.
+There are typically several Special Researches per year related to Team GO Rocket,
+ but are unlocked only if there is no TGR-related research outstanding.
+These researches are furthermore timelocked, and thus can be missed entirely.
+Only during these researches can the charged attack ``Frustration'' be removed
+ from a Shadow Pokémon (\autoref{sec:charged}, \autoref{sec:shadow}).
 
 \section{Medals\label{sec:medals}}
 A large set of Medals can be achieved at the Bronze, Silver, Gold, or Platinum level (\autoref{table:medals}).
@@ -585,27 +595,22 @@ Each region (\autoref{sec:regions}) has an associated medal (\autoref{table:regi
 For Vivillon medal details, see \autoref{subsec:vivillon}.
 There are a great many event-specific medals; I shan't cover them here.
 \begin{table}[t]
-\centering
-\footnotesize
-\begin{tabular}{lrrrr}
-  Region & Bronze & Silver & Gold & Platinum\\
-  \Midrule
-  Kanto & 5 & 50 & 100 & 151\\
-  Johto & 5 & 30 & 70 & 100\\
-  Hoenn & 5 & 40 & 90 & 135\\
-  Sinnoh & 5 & 30 & 80 & 107\\
-  Unova & 5 & 50 & 100 & 156\\
-  Kalos & 5 & 25 & 50 & 72\\
-  Alola & 5 & 25 & 50 & 86\\
-  Galar & 5 & 25 & 50 & 89\\
-  Hisui & 1 & 3 & 5 & 7\\
-  Paldea & 5 & 30 & 80 & 103\\
-\end{tabular}
-  \caption{Regional Pokédex medals\label{table:regionmedals}}
-\end{table}
+\centering\begin{tabular}{lrrrr}
+Region & Bronze & Silver & Gold & Platinum\\
+\Midrule
+Kanto & 5 & 50 & 100 & 151\\
+Johto & 5 & 30 & 70 & 100\\
+Hoenn & 5 & 40 & 90 & 135\\
+Sinnoh & 5 & 30 & 80 & 107\\
+Unova & 5 & 50 & 100 & 156\\
+Kalos & 5 & 25 & 50 & 72\\
+Alola & 5 & 25 & 50 & 86\\
+Galar & 5 & 25 & 50 & 89\\
+Hisui & 1 & 3 & 5 & 7\\
+Paldea & 5 & 30 & 80 & 103\\
+\end{tabular}\caption{Regional Pokédex medals\label{table:regionmedals}}\end{table}
 \begin{table}[t]
-\centering
-\begin{tabular}{lc|lc|lc}
+\centering\begin{tabular}{lc|lc|lc}
   Medal & Type & Medal & Type & Medal & Type\\
   \Midrule
   Bug Catcher & \includegraphics[width=1em,keepaspectratio]{images/bug.png} &
@@ -626,9 +631,7 @@ There are a great many event-specific medals; I shan't cover them here.
   Black Belt & \includegraphics[width=1em,keepaspectratio]{images/fighting.png} &
    Skier & \includegraphics[width=1em,keepaspectratio]{images/ice.png} &
    Swimmer &\includegraphics[width=1em,keepaspectratio]{images/water.png}\\
-\end{tabular}
-  \caption{Medals with catch bonuses\label{table:medalcatch}}
-\end{table}
+\end{tabular}\caption{Medals with catch bonuses\label{table:medalcatch}}\end{table}
 \clearpage
 \begingroup
 \setlength{\tabcolsep}{1pt}
