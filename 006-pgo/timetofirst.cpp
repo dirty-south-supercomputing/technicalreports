@@ -49,12 +49,13 @@ calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
         if(c->energytrain >= 0){
           continue;
         }
-        unsigned t = turns_until_e(f, -c->energytrain) + 1; // 1 for charged attack
+        unsigned t = turns_until_e(f, -c->energytrain);
         float power = f->powertrain;
         if(has_stab_p(&s, f)){
           power = calc_stab(power);
         }
-        float pfast = (t - 1) / f->turns * power;
+        float pfast = t / f->turns * power;
+        ++t; // account for the charged attack
         ttfs.emplace_back(&s, t, pfast, f, c);
       }
     }
