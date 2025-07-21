@@ -1,6 +1,9 @@
 // decrement fast move turns by one. if the attack concludes as a result,
 // inflict damage and add energy. returns true in the case of a KO.
 static bool account_fast_move(simulstate *s, int player){
+  if(!s->turns[player]){
+    s->turns[player] = activemon(s, player)->fa->turns;
+  }
   if(--s->turns[player]){
     return false;
   }
@@ -12,12 +15,6 @@ static bool account_fast_move(simulstate *s, int player){
 
 static inline void
 bottomhalf_allfast(simulstate *s, results *r){
-  if(s->turns[0] == 0){ // launch new fast attack p0
-    s->turns[0] = pmons[0][s->active[0]].fa->turns;
-  }
-  if(s->turns[1] == 0){ // launch new fast attack p1
-    s->turns[1] = pmons[1][s->active[1]].fa->turns;
-  }
   account_fast_move(s, 0);
   account_fast_move(s, 1);
   tophalf(s, r);
