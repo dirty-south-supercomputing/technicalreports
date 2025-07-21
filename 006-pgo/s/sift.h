@@ -2,10 +2,7 @@ static inline bool can_charged(const simulstate *s, int p, const attack *c){
   if(s->turns[p]){
     return false; // if we're in a fast move, we can only wait
   }
-  if(s->e[p][s->active[p]] < -c->energytrain){
-    return false;
-  }
-  return true;
+  return s->e[p][s->active[p]] >= -c->energytrain;
 }
 
 static inline bool can_charged1(const simulstate *s, int p){
@@ -24,10 +21,7 @@ static inline bool can_sub(const simulstate *s, int p, int offset){
   if(s->turns[p] || s->subtimer[p]){
     return false; // need wait out fast move / timer
   }
-  if(s->hp[p][(s->active[p] + offset) % 3] == 0){
-    return false; // desired sub is not available
-  }
-  return true;
+  return !!s->hp[p][(s->active[p] + offset) % 3];
 }
 
 static inline bool can_sub1(const simulstate *s, int player){

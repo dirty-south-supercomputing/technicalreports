@@ -124,7 +124,7 @@ lex_pmon(pmon* p, hpoints *hp, int *argc, char ***argv){
       std::cerr << "warning: " << spstr << " does not have a shadow form" << std::endl;
     }
   }
-  if(lex_ivlevel((*argv)[1], &p->s)){
+  if(lex_ivlevel((*argv)[1], &p->s, p->shadow)){
     std::cerr << "invalid IV@level in " << (*argv)[1] << std::endl;
     return -1;
   }

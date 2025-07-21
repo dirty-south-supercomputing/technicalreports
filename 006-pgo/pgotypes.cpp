@@ -13569,11 +13569,37 @@ const attack *species_fast_attack(const species *s, const char *aname){
   return NULL;
 }
 
-// lex out iv and level in the form iva-ivd-ivs@l
-int lex_ivlevel(const char* ivl, stats* s){
+// lex out iv and level in the form iva-ivd-ivs@l or optCP
+int lex_ivlevel(const char* ivl, stats* s, bool shadow){
   int r;
+  unsigned cp;
   // allow leading whitespace
-  if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) != 3){
+  if((r = sscanf(ivl, " opt%u", &cp)) == 1){
+    stats *st = find_optimal_set(s->s, cp, 0, shadow, false);
+    if(st == NULL){
+      fprintf(stderr, "couldn't find optimal config for cp %u\n", cp);
+      return -1;
+    }
+    s->ia = st->ia;
+    s->id = st->id;
+    s->is = st->is;
+    s->hlevel = st->hlevel;
+  }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
+    ivl = strchr(ivl, '@') + 1;
+    if(!isdigit(*ivl)){
+      fprintf(stderr, "error lexing L from %s\n", ivl);
+      return -1;
+    }
+    char *endptr;
+    s->hlevel = strtoul(ivl, &endptr, 10);
+    while(*endptr){
+      if(!isspace(*endptr)){
+        fprintf(stderr, "invalid characters after level %s\n", endptr);
+        return -1;
+      }
+      ++endptr;
+    }
+  }else{
     fprintf(stderr, "error lexing A-D-S from %s (got %d)\n", ivl, r);
     return -1;
   }
@@ -13581,23 +13607,9 @@ int lex_ivlevel(const char* ivl, stats* s){
     fprintf(stderr, "invalid iv %u-%u-%u\n", s->ia, s->id, s->is);
     return -1;
   }
-  ivl = strchr(ivl, '@') + 1;
-  if(!isdigit(*ivl)){
-    fprintf(stderr, "error lexing L from %s\n", ivl);
-    return -1;
-  }
-  char *endptr;
-  s->hlevel = strtoul(ivl, &endptr, 10);
   if(s->hlevel < 1 || s->hlevel > 99){
     fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
     return -1;
-  }
-  while(*endptr){
-    if(!isspace(*endptr)){
-      fprintf(stderr, "invalid characters after level %s\n", endptr);
-      return -1;
-    }
-    ++endptr;
   }
   return 0;
 }
