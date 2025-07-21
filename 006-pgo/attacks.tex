@@ -114,7 +114,7 @@ No, I don't know why they spelled ``Spacial'' Rend like that.
 \input{out/chargedattacks}
 
 In 3x3, each side starts with two Damage Shields.
-The Trainer can deploy a Shield whenever the opponent prepares a charged attack,
+The Trainer can deploy a shield whenever the opponent prepares a charged attack,
    and the decision must be made before the particular attack is revealed.
 Shields reduce the incoming damage to a single point, and each can be used only once.
 
@@ -224,6 +224,12 @@ Even assuming unlimited substitution, this demonstrates the
   hit every possible opposing Pokémon with some attack.
 However, \autoref{sec:typeleagues} explores situations where typing is restricted.
 In such cases, the minimum set concept is extremely powerful.
+It can furthermore be put to good use analyzing your own teams.
+Every typing is weak to at least one attack type, so the minimum
+ cover will never be greater than three.
+A number below that indicates types that are effective against
+ multiple members of your team.
+That's not necessarily a bad thing, but you'll want to know about it.
 
 \begin{table}
   \centering
@@ -291,4 +297,13 @@ More than 72\% of dual charged attack setups beat this coverage,
 Only one pair can be forced into a dreaded effectiveness of -3:
  Normal with Poison, when matched against Steel+Ghost.
 \input{out/dualcharged}
-\vfill\includegraphics[width=\linewidth,keepaspectratio]{images/kyogre.png}
+
+\section{Minimum attack cycles}
+For each combination of fast attack and charged attack, there is some minimum number
+ $F$ of fast attacks sufficient to launch the charged attack.
+The shortest attack cycles require nine turns (\autoref{table:fastcycles}),
+ while the longest take forty-three---time for the fastest opponents to
+ throw four full cycles, with headway on the fifth.
+\input{out/timetofirst}
+
+%\vfill\includegraphics[width=\linewidth,keepaspectratio]{images/kyogre.png}
