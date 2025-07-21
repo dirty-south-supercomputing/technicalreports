@@ -9,14 +9,14 @@ static inline bool can_charged(const simulstate *s, int p, const attack *c){
 }
 
 static inline bool can_charged1(const simulstate *s, int p){
-  return can_charged(s, p, pmons[p][s->active[p]].ca1);
+  return can_charged(s, p, activemon(s, p)->ca1);
 }
 
 static inline bool can_charged2(const simulstate *s, int p){
   if(!pmons[p][s->active[p]].ca2){
     return false;
   }
-  return can_charged(s, p, pmons[p][s->active[p]].ca2);
+  return can_charged(s, p, activemon(s, p)->ca2);
 }
 
 // can the specified player sub in the pokémon offset mod 3 down?
