@@ -13507,7 +13507,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
 
   // shadow is implemented as subtitle
   if(s->shadow){
-    printf("\\tcbsubtitle[before skip=0pt]{Shadow ");
+    printf("\\tcbsubtitle[before skip=1pt,bottomrule=0pt]{Shadow ");
     escape_string(s->name.c_str());
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
