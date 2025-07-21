@@ -12835,11 +12835,7 @@ calc_ppe(const attack *a){
 // (aren't guaranteed exact representation with floats)
 static inline unsigned
 halflevel_to_level(unsigned hl, unsigned* half){
-  if(hl % 2 == 0){
-    *half = 1;
-  }else{
-    *half = 0;
-  }
+  *half = !(hl % 2);
   return (hl + 1) / 2;
 }
 
@@ -13576,17 +13572,32 @@ const attack *species_fast_attack(const species *s, const char *aname){
 // lex out iv and level in the form iva-ivd-ivs@l
 int lex_ivlevel(const char* ivl, stats* s){
   int r;
-  if((r = sscanf(ivl, "%u-%u-%u@%u", &s->ia, &s->id, &s->is, &s->hlevel)) != 4){
-    fprintf(stderr, "error lexing A-D-S@L from %s (got %d)\n", ivl, r);
-    return -1;
-  }
-  if(s->hlevel < 1 || s->hlevel > 99){
-    fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
+  // allow leading whitespace
+  if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) != 3){
+    fprintf(stderr, "error lexing A-D-S from %s (got %d)\n", ivl, r);
     return -1;
   }
   if(s->ia > 15 || s->id > 15 || s->is > 15){
     fprintf(stderr, "invalid iv %u-%u-%u\n", s->ia, s->id, s->is);
     return -1;
+  }
+  ivl = strchr(ivl, '@') + 1;
+  if(!isdigit(*ivl)){
+    fprintf(stderr, "error lexing L from %s\n", ivl);
+    return -1;
+  }
+  char *endptr;
+  s->hlevel = strtoul(ivl, &endptr, 10);
+  if(s->hlevel < 1 || s->hlevel > 99){
+    fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
+    return -1;
+  }
+  while(*endptr){
+    if(!isspace(*endptr)){
+      fprintf(stderr, "invalid characters after level %s\n", endptr);
+      return -1;
+    }
+    ++endptr;
   }
   return 0;
 }

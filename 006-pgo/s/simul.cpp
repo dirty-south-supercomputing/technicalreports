@@ -128,6 +128,7 @@ lex_pmon(pmon* p, hpoints *hp, int *argc, char ***argv){
     std::cerr << "invalid IV@level in " << (*argv)[1] << std::endl;
     return -1;
   }
+  std::cerr << "HLEVEL: " << p->s.hlevel << std::endl;
   p->fa = species_fast_attack(p->s.s, (*argv)[2]);
   p->ca1 = lex_species_charged_attacks(p->s.s, (*argv)[3], &p->ca2);
   if(!p->fa || !p->ca1){
