@@ -113,6 +113,7 @@ int main(int argc, char **argv){
   std::vector<typeset> tsets;
   build_tsets(tsets, monomode);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
+  printf("\\begingroup\\footnotesize");
   printf("\\begin{longtable}{crrrrrrrr}\\footnotesize");
   printf("& -3 & -2 & -1 & 0 & 1 & 2 & \\ARA & Pop\\\\\\endhead\n");
   bool grey = true;
@@ -132,5 +133,5 @@ int main(int argc, char **argv){
     printf("& %.3f & %u\\\\\n", ts.ara, ts.pop);
   }
   printf("\\caption{Type efficiency summaries for charged attack sets\\label{table:dualcharged}}");
-  printf("\\end{longtable}\n");
+  printf("\\end{longtable}\\endgroup\n");
 }

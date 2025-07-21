@@ -49,7 +49,6 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\end{center}\n");
 }
 
-// emit table of fast attacks by duration x energy x power
 int main(void){
   const size_t acount = sizeof(attacks) / sizeof(*attacks);
   auto charged = std::make_unique<attack[]>(acount);

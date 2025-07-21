@@ -337,7 +337,7 @@ Charged attacks cannot be simultaneous; if both Trainers launch a charged attack
   on the same turn, one goes first,and can knock out the opponent before it
   launches its attack.
 The Pokémon that goes first (``Charged Move Priority'') is the one with the
-  higher \Eff{A} (recall that this is base attack plus $\mathit{IV}_\mathrm{A}$, times \CPM).
+  higher \Eff{ARaw} (recall that this is base attack plus $\mathit{IV}_\mathrm{A}$, times \CPM, but does not reflect the Shadow bonus).
 Shadow status does not factor into consideration, nor do any active buffs.
 3x3 battles take place four ways: with other Trainers via the friends list,
  with Team Leaders via the Battle screen, the GO Battle League,
@@ -352,7 +352,7 @@ The Grunt will employ three Shadow Pokémon, and will usually have a theme type.
 This type is indicated by their dialogue (\autoref{table:taunts}).
 \begin{table}
 \centering
-\begin{tabular}{lr}
+\begin{tabular}{ll}
 Type & Taunt\\
 \Midrule
   Bug & Go, my super bug Pokémon!\\

@@ -2,7 +2,6 @@
 #include <memory>
 #include <cstdlib>
 #include "pgotypes.cpp"
-#include "s/moves.h"
 #include "s/simul.h"
 #include "s/charged.h"
 
@@ -65,7 +64,7 @@ lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
       std::cerr << "warning: " << spstr << " does not have a shadow form" << std::endl;
     }
   }
-  if(lex_ivlevel((*argv)[1], &p->s)){
+  if(lex_ivlevel((*argv)[1], &p->s, p->shadow)){
     std::cerr << "invalid IV@level in " << (*argv)[1] << std::endl;
     return -1;
   }

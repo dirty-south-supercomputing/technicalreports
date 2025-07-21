@@ -95,7 +95,6 @@ We'll need prune the game tree using limited expert methods\footnote{We remain e
 Whatever our method, implementing the trainer battle mechanics requires a
   three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
-Context in \texttt{simulstate} is duplicated each time we recurse; we need keep it tight.
 \inputminted{cpp}{s/simul.h}
 
 \section{Simulating 1x1\label{sec:simul1x1}}

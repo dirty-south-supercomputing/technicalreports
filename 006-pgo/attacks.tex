@@ -114,7 +114,7 @@ No, I don't know why they spelled ``Spacial'' Rend like that.
 \input{out/chargedattacks}
 
 In 3x3, each side starts with two Damage Shields.
-The Trainer can deploy a Shield whenever the opponent prepares a charged attack,
+The Trainer can deploy a shield whenever the opponent prepares a charged attack,
    and the decision must be made before the particular attack is revealed.
 Shields reduce the incoming damage to a single point, and each can be used only once.
 
@@ -128,6 +128,10 @@ Note that many of the best PPEs do not require extreme energy; these make
 \includegraphics[keepaspectratio,width=\textwidth]{octave/dpevse.png}
   \caption{PPE vs energy for charged attacks\label{fig:dpevse}}
 \end{figure}
+
+\begin{tipbox}[title=Did you notice?]
+Every charged attack's power is a multiple of five, and thus multiplying it by 1.2 or 1.6 always results in an integer.
+\end{tipbox}
 
 \section{Buffs and debuffs\label{sec:buffs}}
 Certain charged attacks have a chance of semi-persistent effects on the
@@ -220,6 +224,12 @@ Even assuming unlimited substitution, this demonstrates the
   hit every possible opposing Pokémon with some attack.
 However, \autoref{sec:typeleagues} explores situations where typing is restricted.
 In such cases, the minimum set concept is extremely powerful.
+It can furthermore be put to good use analyzing your own teams.
+Every typing is weak to at least one attack type, so the minimum
+ cover will never be greater than three.
+A number below that indicates types that are effective against
+ multiple members of your team.
+That's not necessarily a bad thing, but you'll want to know about it.
 
 \begin{table}
   \centering
@@ -237,7 +247,7 @@ In such cases, the minimum set concept is extremely powerful.
   \caption{Full typing is minimally covered by 9 sets of 10\label{table:coversetsdual}}
 \end{table}
 
-\section{Relative strength of fast and charged attacks\label{sec:fastvchaged}}
+\section{Relative strength of fast and charged attacks\label{sec:fastvcharged}}
 It's sometimes useful to delay use of a charged attack, but is it ever wise to forgo
   charged attacks entirely?
 Fast attack power ranges from 1 (Locked On) to 20 (Incinerate), but we need look at
@@ -281,10 +291,46 @@ For each target typing, we can apply the better of the two type relations.
 Two charged attacks of different type have coverage at least as good as,
   and usually much better than, a single type.
 There is no pair of distinct attack types forced into a -3 relation.
-Recall that our best \ARA{}s was Ground with 1.173.
+Recall that our best \ARA{} was Ground with 1.173.
 More than 72\% of dual charged attack setups beat this coverage,
  with Ground+Ice posting an outstanding 1.468.
 Only one pair can be forced into a dreaded effectiveness of -3:
  Normal with Poison, when matched against Steel+Ghost.
 \input{out/dualcharged}
-\vfill\includegraphics[width=\linewidth,keepaspectratio]{images/kyogre.png}
+
+\section{Minimum attack cycles}
+9,379 combinations of fast and charged attack are currently in play.
+For each combination of fast attack and charged attack, there is some minimum number
+ $F$ of fast attacks sufficient to launch the charged attack.
+The shortest attack cycles require nine turns (\autoref{table:fastcycles}),
+ while the longest take forty-three---time for the fastest opponents to
+ throw four full cycles, with headway on the fifth.
+The ``\%c'' column in \autoref{table:fastcycles} indicates the percentage of total
+ power delivered by the charged attack.
+The minimum is 15.62\%, when Victreebel employs Razor Leaf together with Acid Spray.
+Outside of fast attacks which deal no damage (Yawn and Splash), \%c is maximized (91.84\%)
+ by Regieleki when Lock On is followed by Zap Cannon
+ (in fact, all pairs with \%c over 90\% are Lock On with some heavy charged attack).
+Nothing with \%c below 27\% manages to achieve even 7 PPT, while
+ those with \%c above 90\% all exceed 9.75 PPT; this shouldn't surprise
+ us, given the results of \autoref{sec:fastvcharged}.
+PPT of 5 or below is a wasteland of fast attacks like Tackle, Take Down, Pound, and Bug Bite,
+ and charged attacks like Struggle, Acid Spray, Fell Stinger, and of course the dreadful Frustration.
+Most of these combinations aren't even fast; they're just pathologically bad attacks.
+The maximum PPT is 14.25, achieved by Incinerate together with Overheat or Brave Bird, all with STAB.
+Both of these charged attacks have deleterious effects on their user.
+This is a trend: among the 1,188 pairs ($\sim$12.7\%) with PPT of at least ten,
+ many come with a mandatory negative status effect.
+The exceptions on the high end tend to involve high-power, high-energy Poltergeist, Solar Beam, Fire Blast, or Zap Cannon,
+ tending towards twenty turns per cycle.
+Blast Burn is faster; Frenzy Plant is faster than Blast Burn; Dynamic Punch is faster than Frenzy Plant.
+But fastest of them all is Morpeko wielding Thunder Shock and Aura Wheel, pumping out 13.09 PPT
+ in eleven turns, \textit{while getting a buff to attack}.
+If Electric and Dark had better type coverage, Morpeko would be unstoppable.
+None of the fastest cycles break a PPT ceiling of 10, all of them employing Karate Chop with Cross Chop.
+Primeape can switch this combo up with the equally speedy Rage Fist (sadly without STAB)
+ when Fighting is ineffective.
+
+\input{out/timetofirst}
+
+%\vfill\includegraphics[width=\linewidth,keepaspectratio]{images/kyogre.png}

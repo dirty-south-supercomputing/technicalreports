@@ -137,6 +137,15 @@
 \definecolor{Steel}{HTML}{5E91A4}
 \definecolor{Water}{HTML}{6390F0}
 
+% combined list of tables and figures, to save space
+\makeatletter
+\renewcommand*{\ext@figure}{lot}
+\let\c@figure\c@table
+\let\ftype@figure\ftype@table
+\let\listoftableandfigures\listoftables
+\renewcommand*\listtablename{List of tables and figures}
+\makeatother
+
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
 
@@ -172,15 +181,15 @@
 \ifdefined\epub
 \else
   \hypertarget{toc}{}%
-  \bookmark[dest=toc]{Contents}
+  \bookmark[dest=toc]{Organization}
   \tableofcontents*
   %\clearpage
   \hypertarget{lot}{}%
-  \bookmark[dest=lot]{List of Tables}
+  \bookmark[dest=lot]{Tables and figures}
   \listoftables*
-  \hypertarget{lof}{}%
-  \bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
-  \listoffigures*
+  %\hypertarget{lof}{}%
+  %\bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
+  %\listoffigures*
   \fi
 \input{foreward}
 %--------------------------main text------------------------------------------%
@@ -251,7 +260,7 @@ Finally, if there is a Shadow form, that is indicated, along with the same stats
   0/14/1@42.5 (1499)
 \end{minipage}\\
 CG 4 Gen X Atlantic\hfill{}Columbia → \textbf{Challenger} → Discovery
-\tcbsubtitle[before skip=0pt]{Shadow OV-099 Challenger\hfill{240 100 100 146.67 133.89}}
+\tcbsubtitle[before skip=1pt,bottomrule=0pt]{Shadow OV-099 Challenger\hfill{240 100 100 146.67 133.89}}
 \end{speciesbox}
 \bigskip\noindent{}We see here that OV-099 Challenger has Ghost+Flying typing, with base ATK, DEF, and STA
 of 200, 120, and 100, respectively. Its $\frac{BS}{3}$ is 140, and its $\sqrt[3]{\BP\,}$ is 133.89.

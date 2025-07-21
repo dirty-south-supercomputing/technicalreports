@@ -80,7 +80,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp bottom.h charged.h ko.h sift.h simul.h top.h)
+SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h simul.h top.h)
 
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
@@ -165,10 +165,14 @@ $(DUALCHARGEDTEX): $(DUALCHARGED)
 	@mkdir -p $(@D)
 	$(<) d > $@
 
-$(BREAKPOINTSDAT): $(basename $(BREAKPOINTS))
+$(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 	@mkdir -p $(@D)
 	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
   	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
+
+$(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
+	@mkdir -p $(@D)
+	$(<) extrema > $@
 
 $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
@@ -181,10 +185,10 @@ $(SIMULOUT): $(SIMUL)
 
 $(SIMUL3OUT): $(SIMUL)
 	@mkdir -p $(@D)
-	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
-				sawk 15-14-14@50 "low kick" "focus blast" \
-				feebas 15-15-15@80 tackle "mirror coat" \
-				milotic 15-15-15@20 waterfall surf > $@
+	$(<) clodsire opt1500 "poison sting" "megahorn" \
+				sawk opt1500 "low kick" "focus blast" \
+				feebas opt1500 tackle "mirror coat" \
+				milotic opt1500 waterfall surf > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)

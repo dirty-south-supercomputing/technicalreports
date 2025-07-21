@@ -228,27 +228,38 @@ Level & \CPM & Level & \CPM & Level & \CPM \\
 \end{table}
 
 \section{Effective stats\label{sec:effectivestats}}
-We multiply each of the $\mathit{Mod}$ values by the Pokémon's \CPM{} to generate
-  its \Eff{A}, \Eff{D}, and \Eff{S}.
-$M_\mathrm{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
-  and 1 otherwise.
-We multiply \Eff{A} by this Shadow bonus, and divide \Eff{D} by it.
-This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
-\begin{align*}
- \Eff{A} &= \Mod{A} \cdot \CPM \cdot M_\mathrm{Shadow} \\
- \Eff{D} &= \frac{\Mod{D} \cdot \CPM}{M_\mathrm{Shadow}}
-\end{align*}
-\Eff{S} determines the Pokémon's Maximum Hit Points (\MHP).
+Multiplying $\Mod{S}$ by \CPM{} yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (\MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  and can be restored (up to \MHP) with Potions\footnote{Trainer Battles (other
  than those with Team Rocket) always start with full \HP.}.
-\MHP is defined such that it is always a positive integer:
+\MHP{} is defined such that it is always an integer not less than ten:
 \begin{align*}
  \Eff{S} &= \Mod{S} \cdot \CPM \\
- \MHP &= \min{1, \lfloor \Eff{S} \rfloor}
+ \MHP &= \min{10, \lfloor \Eff{S} \rfloor}
 \end{align*}
+Multiplying \Mod{S} by \CPM{} yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
+$M_\mathrm{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
+Multiplying \Eff{ARaw} by $M_\mathrm{Shadow}$ yields \Eff{A}.
+Multiplying \Mod{D} by \CPM{} and dividing by $M_\mathrm{Shadow}$ gives us \Eff{D}.
+This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
+\begin{align*}
+  \Eff{ARaw} &= \Mod{A} \cdot \CPM\\
+  \Eff{A} &= \Eff{ARaw} \cdot M_\mathrm{Shadow} \\
+  \Eff{D} &= \frac{\Mod{D} \cdot \CPM}{M_\mathrm{Shadow}}
+\end{align*}
+Is a Shadow Pokémon superior to its unshadowed equivalent, all else being equal?
+Evaluating using a product function such as the geometric mean will show no difference;
+ the two multipliers cancel one another.
+\begin{align*}
+  P &= \Eff{A} \cdot \Eff{D}\\
+  &= \frac{6}{5}\Mod{A} \cdot \frac{5}{6}\Mod{D} \cdot \CPM^2
+\end{align*}
+Using a sum function such as the arithmetic mean will usually show a difference.
+When $Mod_A < \frac{5}{6}Mod_D$, the average goes down.
+When $Mod_A = \frac{5}{6}Mod_D$, the average is unchanged,
+ and the average increases if $Mod_A > \frac{5}{6}Mod_D$.
 
 \section{Searching the Pokédex\label{sec:searching}}
 The search interface for Pokédexen and storage is surprisingly capable.

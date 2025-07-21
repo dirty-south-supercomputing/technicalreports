@@ -85,7 +85,7 @@ print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
 }
 
 static void cost_heterotable(void){
-  printf("\n\n\\begin{table}\\centering\\footnotesize");
+  printf("\n\n\\begin{table}[b]\\centering\\footnotesize");
   printf("\\begin{tabular}{lr|lr}");
   unsigned count = 0;
   puts("Evolution & Change & Evolution & Change\\\\\\Midrule");

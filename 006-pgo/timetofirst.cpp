@@ -1,30 +1,36 @@
 // determine number of turns before first charged attack
 #include "pgotypes.cpp"
 #include <vector>
+#include <cassert>
 #include <algorithm>
 
 struct timetofirst {
-  std::string name;
-  unsigned turns;     // turns until first charged attack
-  unsigned powerfast; // cumulative power delivered by fast attacks
+  const species *s;
+  unsigned turns;  // turns until first charged attack
+  float powerfast; // cumulative power delivered by fast attacks (includes STAB)
+  float powercharged; // power of charged attack (includes STAB)
+  float dam;       // total power of cycle (includes STAB)
   const attack *fa;
   const attack *ca;
+  unsigned excesse;// excess energy following charged move
 
-  timetofirst(const std::string &Name, unsigned Turns, unsigned Powerfast,
+  timetofirst(const species *S, unsigned Turns, float Powerfast,
               const attack *FA, const attack *CA) :
-    name(Name),
+    s(S),
     turns(Turns),
     powerfast(Powerfast),
     fa(FA),
     ca(CA)
-    { }
+    {
+        excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
+        powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
+        dam = powerfast + powercharged;
+    }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
-    unsigned ltdam = l.powerfast + l.ca->powertrain;
-    unsigned rtdam = r.powerfast + r.ca->powertrain;
     return l.turns < r.turns ? true : // least to most turns
-      (l.turns == r.turns && ltdam > rtdam) ? true : // most to least powerful
-      (l.turns == r.turns && ltdam == rtdam && l.name < r.name) ? true : false;
+      (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
+      (l.turns == r.turns && l.dam == r.dam && l.s->name < r.s->name) ? true : false;
   }
 };
 
@@ -32,62 +38,6 @@ struct timetofirst {
 static inline unsigned
 turns_until_e(const attack *a, unsigned e){
   return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
-}
-
-// find the attack which reaches e energy in the fewest turns, returning the
-// total number of turns in *minturns.
-static const attack *
-fastest_attack(const species &s, unsigned e, unsigned *minturns){
-  const attack *fastest = nullptr;
-  unsigned turns = 0;
-  for(unsigned ai = 0 ; s.attacks[ai] ; ++ai){
-    const attack *a = s.attacks[ai];
-    if(charged_attack_p(a) || !a->energytrain){
-      continue;
-    }
-    unsigned t = turns_until_e(a, e);
-    if(!fastest || t < turns){
-      turns = t;
-      fastest = a;
-    }
-  }
-  if(!fastest){
-    return nullptr;
-  }
-  *minturns = turns;
-  return fastest;
-}
-
-// find the charged attack requiring the minimum energy
-static const attack *
-lowest_energy_attack(const species &s){
-  const attack *mine = NULL;
-  for(unsigned ai = 0 ; s.attacks[ai] ; ++ai){
-    const attack *a = s.attacks[ai];
-    if(fast_attack_p(a)){
-      continue;
-    }
-    if(!mine || -a->energytrain < -mine->energytrain){
-      mine = a;
-    }
-  }
-  return mine;
-}
-
-// get time to first and damage for fastest fast+charged pair
-static void
-calctimetofirst(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
-  for(unsigned si = 0 ; si < sd.dcount ; ++si){
-    const auto &s = sd.dex[si];
-    unsigned ttf;
-    auto ca = lowest_energy_attack(s);
-    auto fa = fastest_attack(s, -ca->energytrain, &ttf);
-    if(!fa){
-      continue;
-    }
-    unsigned pfast = ttf / fa->turns * fa->powertrain;
-    ttfs.emplace_back(s.name, ttf, pfast, fa, ca);
-  }
 }
 
 // get time to first and damage for all fast+charged pairs
@@ -105,29 +55,104 @@ calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
         if(c->energytrain >= 0){
           continue;
         }
-        unsigned t = turns_until_e(f, -c->energytrain) + 1; // 1 for charged attack
-        unsigned pfast = t / f->turns * f->powertrain;
-        ttfs.emplace_back(s.name, t, pfast, f, c);
+        unsigned t = turns_until_e(f, -c->energytrain);
+        float power = f->powertrain;
+        if(has_stab_p(&s, f)){
+          power = calc_stab(power);
+        }
+        float pfast = t / f->turns * power;
+        ++t; // account for the charged attack
+        ttfs.emplace_back(&s, t, pfast, f, c);
       }
     }
   }
 }
 
+static void usage(const char *argv0){
+  std::cerr << "usage: " << argv0 << " [ extrema ]" << std::endl;
+  exit(EXIT_FAILURE);
+}
+
+// don't want a turns column if extrema
+static void header(bool extrema){
+  std::cout << "\\begin{table}\\raggedright\\footnotesize\\centering\\begin{tabular}{lp{.4\\textwidth}";
+  if(!extrema){
+    std::cout << "rr";
+  }
+  std::cout << "rrr}Pokémon & Attacks & " << std::endl;
+  if(!extrema){
+    std::cout << "Turns & ";
+  }
+  std::cout << "Power & ";
+  if(!extrema){
+    std::cout << "\\textit{e} & ";
+  }
+  std::cout << "PPT & \\\%c \\\\" << std::endl;
+  std::cout << "\\Midrule" << std::endl;
+}
+
+static void emit_line(bool extrema, const timetofirst &t, const std::string &prevname){
+  std::cout << (prevname == t.s->name ? "" : t.s->name) << " & "
+    << t.fa->name << " + " << t.ca->name << " & ";
+  if(!extrema){
+    std::cout << t.turns << " & ";
+  }
+  std::cout << t.dam << " & ";
+  if(!extrema){
+    if(t.excesse){
+      std::cout << t.excesse << " & ";
+    }
+  }else{
+    // we remove this column from the output because all 9 turn cycles
+    // have the same excess energy: 1. so check that.
+    assert(1 == t.excesse);
+  }
+  std::cout << t.dam / static_cast<float>(t.turns) << " & "
+    << t.powercharged * 100 / t.dam
+    << "\\\\" << std::endl;
+}
+
+static void footer(bool extrema, unsigned fastest){
+  if(extrema){
+    std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
+  }else{
+    std::cout << "\\end{tabular}\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{table}" << std::endl;
+  }
+}
+
+// if given the argument "extrema", generate table of only the fastest
+// cycles, otherwise a table of all cycles.
 int main(int argc, char **argv){
+  bool extrema = false;
+  if(argc != 1){
+    if(argc != 2){
+      usage(argv[0]);
+    }
+    if(strcmp(argv[1], "extrema")){
+      usage(argv[0]);
+    }
+    extrema = true;
+  }
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
+  header(extrema);
   calctimetoall(smain, ttfs);
   std::sort(ttfs.begin(), ttfs.end());
+  std::cout.setf(std::ios::fixed, std::ios::floatfield);
+  std::cout.precision(2);
+  std::cout << std::noshowpoint;
+  std::string prevname;
+  unsigned fastest = 0;
   for(const auto &t : ttfs){
-    unsigned dam = t.powerfast + t.ca->powertrain;
-    std::cout << t.name << ": " << t.turns << " " << t.powerfast << " "
-      << " " << t.fa->energytrain << " " << t.fa->turns << " " << " "
-      << t.ca->energytrain << " " << t.ca->powertrain << " (" << t.fa->name << " + " << t.ca->name << " = "
-      << dam << ")"
-      << " dpt: " << dam / (float)t.turns
-      << " c%: " << t.ca->powertrain * 100 / static_cast<float>(dam)
-      << std::endl;
+    if(extrema && fastest && t.turns > fastest){
+      break;
+    }else if(!fastest){
+      fastest = t.turns;
+    }
+    emit_line(extrema, t, prevname);
+    prevname = t.s->name;
   }
+  footer(extrema, fastest);
   return EXIT_SUCCESS;
 }
