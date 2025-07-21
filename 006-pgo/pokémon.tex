@@ -228,26 +228,26 @@ Level & CPM & Level & CPM & Level & CPM \\
 \end{table}
 
 \section{Effective stats\label{sec:effectivestats}}
-We multiply each of the $Mod$ values by the Pokémon's CPM to generate
- its $Eff_A$, $Eff_D$, and $Eff_S$.
-$M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon,
-  and 1 otherwise.
-We multiply $Eff_A$ by this Shadow bonus, and divide $Eff_D$ by it.
-This manifests a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
-\begin{align*}
- Eff_A &= Mod_A \cdot CPM \cdot M_{Shadow} \\
- Eff_D &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
-\end{align*}
-$Eff_S$ determines the Pokémon's Maximum Hit Points (MHP).
+Multiplying $Mod_S$ by CPM yields $Eff_S$, which determines a Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  and can be restored (up to MHP) with Potions\footnote{Trainer Battles (other
  than those with Team Rocket) always start with full HP.}.
-MHP is defined such that it is always a positive integer:
+MHP is defined such that it is always an integer not less than ten:
 \begin{align*}
  Eff_S &= Mod_S \cdot CPM \\
- MHP &= \min{1, \lfloor Eff_S \rfloor}
+ MHP &= \min{10, \lfloor Eff_S \rfloor}
+\end{align*}
+Multiplying $Mod_S$ by CPM yields $Eff_{ARaw}$, used to determine charged move priority (\autoref{sec:3x3}).
+$M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
+Multiplying $Eff_{ARaw}$ by $M_{Shadow}$ yields $Eff_A$.
+Multiplying $Mod_D$ by CPM and dividing by $M_{Shadow}$ gives us $Eff_D$.
+This manifests a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
+\begin{align*}
+  Eff_{ARaw} &= Mod_A \cdot CPM
+  Eff_A &= Eff_{ARaw} \cdot M_{Shadow} \\
+ Eff_D &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
 \end{align*}
 
 \section{Searching the Pokédex\label{sec:searching}}
