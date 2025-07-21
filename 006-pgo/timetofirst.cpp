@@ -93,7 +93,7 @@ static void header(bool extrema){
 
 static void emit_line(bool extrema, const timetofirst &t, const std::string &prevname){
   std::cout << (prevname == t.s->name ? "" : t.s->name) << " & "
-    << t.fa->name << "+" << t.ca->name << " & ";
+    << t.fa->name << " + " << t.ca->name << " & ";
   if(!extrema){
     std::cout << t.turns << " & ";
   }
