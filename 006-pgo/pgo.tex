@@ -118,6 +118,15 @@
 \definecolor{Steel}{HTML}{5E91A4}
 \definecolor{Water}{HTML}{6390F0}
 
+% combined list of tables and figures, to save space
+\makeatletter
+\renewcommand*{\ext@figure}{lot}
+\let\c@figure\c@table
+\let\ftype@figure\ftype@table
+\let\listoftableandfigures\listoftables
+\renewcommand*\listtablename{List of tables and figures}
+\makeatother
+
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
 
@@ -153,15 +162,15 @@
 \ifdefined\epub
 \else
   \hypertarget{toc}{}%
-  \bookmark[dest=toc]{Contents}
+  \bookmark[dest=toc]{Organization}
   \tableofcontents*
   %\clearpage
   \hypertarget{lot}{}%
-  \bookmark[dest=lot]{List of Tables}
+  \bookmark[dest=lot]{Tables and figures}
   \listoftables*
-  \hypertarget{lof}{}%
-  \bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
-  \listoffigures*
+  %\hypertarget{lof}{}%
+  %\bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
+  %\listoffigures*
   \fi
 \input{foreward}
 %--------------------------main text------------------------------------------%
