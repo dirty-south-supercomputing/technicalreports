@@ -13494,7 +13494,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
         printf(" → ");
         escape_string(evol->name.c_str());
         printf(" (\\pageref{species:");
-        label_string(s->name.c_str());
+        label_string(evol->name.c_str());
         printf("})");
         evol = get_persistent_evolution(evol);
       }
