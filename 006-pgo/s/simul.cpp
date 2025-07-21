@@ -4,7 +4,8 @@
 #include "../pgotypes.cpp"
 #include "simul.h"
 #include "sift.h"
-#include "charged.h"
+#include "damage.h"
+#include "in.h"
 static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
@@ -17,6 +18,33 @@ usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
   std::cerr << " both teams must have the same number of pokémon (not more than 3)" << std::endl;
   exit(EXIT_FAILURE);
+}
+
+static int
+ucode_type(pgo_types_e t){
+  const char *u;
+  switch(t){
+    case TYPE_BUG: u = "🐛"; break;
+    case TYPE_DARK: u = "🌒"; break;
+    case TYPE_DRAGON: u = "🐉"; break;
+    case TYPE_ELECTRIC: u = "⚡"; break;
+    case TYPE_FAIRY: u = "🧚"; break;
+    case TYPE_FIGHTING: u = "✋"; break;
+    case TYPE_FIRE: u = "🔥"; break;
+    case TYPE_FLYING: u = "✈"; break;
+    case TYPE_GHOST: u = "👻"; break;
+    case TYPE_GRASS: u = "󱔐"; break;
+    case TYPE_GROUND: u = "⛰"; break;
+    case TYPE_ICE: u = "❄"; break;
+    case TYPE_NORMAL: u = "⭘"; break;
+    case TYPE_POISON: u = "󰯆"; break;
+    case TYPE_PSYCHIC: u = "🧠"; break;
+    case TYPE_ROCK: u = "🪨"; break;
+    case TYPE_STEEL: u = "󰋙"; break;
+    case TYPE_WATER: u = "🌊"; break;
+    default: return -1;
+  }
+  return printf("%s", u);
 }
 
 // fill in a stats structure given only species, IVs, and level
@@ -37,17 +65,27 @@ static void
 print_pmon(const pmon *p){
   unsigned hl;
   unsigned l = halflevel_to_level(p->s.hlevel, &hl);
-  printf("%s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
+  ucode_type(p->s.s->t1);
+  if(p->s.s->t2 != p->s.s->t1){
+    ucode_type(p->s.s->t2);
+  }
+  printf(" %s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name.c_str(),
         p->shadow ? "(shadow) " : "",
         l, hl ? ".5" : "",
         p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
-  printf(" f %s%20s %3u %3d %u\n", has_stab_p(p->s.s, p->fa) ? "(*)" : "   ",
+  printf(" ");
+  ucode_type(p->fa->type);
+  printf(" %s%20s %3u %3d %u\n", has_stab_p(p->s.s, p->fa) ? "(*)" : "   ",
           p->fa->name, p->fa->powertrain, p->fa->energytrain, p->fa->turns);
-  printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca1) ? "(*)" : "   ",
+  printf(" ");
+  ucode_type(p->ca1->type);
+  printf(" %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca1) ? "(*)" : "   ",
           p->ca1->name, p->ca1->powertrain, -p->ca1->energytrain);
   if(p->ca2){
-    printf(" c %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca2) ? "(*)" : "   ",
+    printf(" ");
+    ucode_type(p->ca2->type);
+    printf(" %s%20s %3u %3d\n", has_stab_p(p->s.s, p->ca2) ? "(*)" : "   ",
           p->ca2->name, p->ca2->powertrain, -p->ca2->energytrain);
   }
 }
@@ -78,6 +116,11 @@ simul(simulstate *s, results *r){
     }
   }
   calculate_damages(s);
+  /*for(int p = 0 ; p < 2 ; ++p){
+    for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+      printf("dam[%d][%u] = %d\n", p, i, s->dam[p][i]);
+    }
+  }*/
   tophalf(s, r);
 }
 

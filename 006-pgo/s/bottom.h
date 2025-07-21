@@ -7,10 +7,23 @@ static bool account_fast_move(simulstate *s, int player){
   if(--s->turns[player]){
     return false;
   }
-  const pmon *p = &pmons[player][s->active[player]];
-  accumulate_energy(&s->e[player][s->active[player]], p->fa->energytrain);
+  accumulate_energy(&s->e[player][s->active[player]], activemon(s, player)->fa->energytrain);
   int op = other_player(player);
   return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
+}
+
+// returns true if we KO the opponent. a must be a charged move, and the
+// player must have sufficient energy. oshield may only be set if the
+// opponent has a shield. aid is index into s->dam[player].
+static inline bool
+throw_charged_move(simulstate *s, int player, const attack *a, int aid, bool oshield){
+  int op = other_player(player);
+  accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
+  if(oshield){
+    --s->shields[other_player(player)];
+    return inflict_damage(&s->hp[op][s->active[op]], 1);
+  }
+  return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][aid]);
 }
 
 static inline void
@@ -23,6 +36,10 @@ bottomhalf_allfast(simulstate *s, results *r){
 static inline void
 bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
                         int aid, int shielded){
+  if(shielded){
+    simulstate scopy = *s;
+    bottomhalf_charged_fast(&scopy, r, player, c, aid, 0);
+  }
   if(!throw_charged_move(s, player, c, aid, shielded)){
     account_fast_move(s, other_player(player));
   }
@@ -33,6 +50,11 @@ bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
 static inline void
 bottomhalf_cc_ordered(simulstate *s, results *r, const int *ps,
                       const attack **as, const int *aids, const int *ss){
+  if(ss[0]){
+    simulstate scopy = *s;
+    int sss[2] = { 0, ss[1] };
+    bottomhalf_cc_ordered(&scopy, r, ps, as, aids, sss);
+  }
   if(!throw_charged_move(s, ps[0], as[0], aids[0], ss[0])){
     throw_charged_move(s, ps[1], as[1], aids[1], ss[1]);
   }

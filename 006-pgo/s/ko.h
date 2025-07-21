@@ -1,10 +1,3 @@
-static inline void subin(simulstate *s, int player, int pos){
-  s->active[player] = pos;
-  s->buffleva[player] = 0;
-  s->bufflevd[player] = 0;
-  calculate_damages(s);
-}
-
 // handle the case where one and only one player was knocked out.
 static void handle_one_ko(simulstate *s, results *r, int player){
   bool replaced = false;
