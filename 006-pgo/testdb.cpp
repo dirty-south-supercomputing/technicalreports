@@ -59,11 +59,9 @@ test_attack(const attack *a){
     throw std::exception();
   }
   // check attack power
-  if(charged_attack_p(a)){ // FIXME
-    if(a->powerraid <= 0){
-      std::cerr << "invalid Nx1 power for attack " << a->name << std::endl;
-      throw std::exception();
-    }
+  if(a->powerraid < 0){
+    std::cerr << "invalid Nx1 power for attack " << a->name << std::endl;
+    throw std::exception();
   }
   return true;
 }
