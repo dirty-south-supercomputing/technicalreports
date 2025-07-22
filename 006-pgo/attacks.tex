@@ -23,7 +23,7 @@ To calculate the number of typings $E_n$ against which $A$ has some effectivenes
    E_{0} &= R_0 + \binom{R_0}{2} + R_{1}R_{-1}\\
    E_{1} &= R_{1}(R_0 + 1)\\
    E_{2} &= \binom{R_1}{2}\\
-   ARA &= \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{171}
+   \ARA &= \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{171}
 \end{align*}
 under the invariants:
 \begin{align*}
@@ -34,8 +34,8 @@ under the invariants:
   \centering
   \begin{tabular}{l r r r r|r r r r r r r}
     & \multicolumn{4}{c}{Type → Type} & \multicolumn{6}{c}{Type → Typing} & \\
-    & \multicolumn{4}{c}{\downbracefill} & \multicolumn{6}{c}{\downbracefill} & \\
-    $A$ & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
+    & \multicolumn{4}{c}{\raisebox{-4pt}{$\overbrace{\hspace{2cm}}$}} & \multicolumn{6}{c}{\raisebox{-4pt}{$\overbrace{\hspace{4cm}}$}} & \\
+    $A$ & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & \ARA \\
     \Midrule
 \calign{\includegraphics[height=1em,keepaspectratio]{images/ground.png}} & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1.173 \\
 \calign{\includegraphics[height=1em,keepaspectratio]{images/rock.png}} & 0 & 3 & 11 & 4 & 0 & 3 & 36 & 78 & 48 & 6 & 1.134 \\
@@ -71,11 +71,11 @@ If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
   weaker than $B$ in 3x3 mode, and vice versa (i.e.\ partial ordering is maintained).
 Furthermore, no fast attack's Nx1 power is less than its 3x3 power.
 Each Pokémon can store up to 100 units of energy, which is preserved across substitutions.
-PPT and EPT are power and energy, respectively, normalized per turn.
+\PPT{} and \EPT{} are power and energy, respectively, normalized per turn.
 Incinerate is thus the most powerful fast attack in both modes.
-It is also the only five turn attack, and the only one to hit 4 with both EPT and PPT\@.
-Charm stands alone with a PPT of 5, with Razor Leaf coming in behind it at 4.5.
-Lock On manages 5 EPT, with Psycho Cut, Poison Sting, Fairy Wind, Karate Chop,
+It is also the only five turn attack, and the only one to hit 4 with both \EPT{} and \PPT{}\@.
+Charm stands alone with a \PPT{} of 5, with Razor Leaf coming in behind it at 4.5.
+Lock On manages 5 \EPT{}, with Psycho Cut, Poison Sting, Fairy Wind, Karate Chop,
   and Thunder Shock at 4.5.
 Fast attack counts are broken down by type in \autoref{table:attacktypes},
  and \autoref{chap:attackemployers} provides lists of Pokémon which can use each attack.
@@ -87,12 +87,12 @@ The type is persisted across trades, but not across evolution,
 
 \begin{figure}[ht]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/pptvst.png}
-  \caption{PPT vs turns for fast attacks\label{fig:pptvst}}
+  \caption{\PPT{} vs turns for fast attacks\label{fig:pptvst}}
 \end{figure}
 
 \begin{figure}[hb]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/eptvst.png}
-  \caption{EPT vs turns for fast attacks\label{fig:eptvst}}
+  \caption{\EPT{} vs turns for fast attacks\label{fig:eptvst}}
 \end{figure}
 
 \section{Charged Attacks\label{sec:charged}}
@@ -252,8 +252,8 @@ It's sometimes useful to delay use of a charged attack, but is it ever wise to f
   charged attacks entirely?
 Fast attack power ranges from 1 (Locked On) to 20 (Incinerate), but we need look at
   the power per turn (charged attacks operate in a single turn in Trainer Battles).
-Using normalized power, Charm takes the lead with 5 PPT\@.
-Assume STAB and type effectiveness of 2 for Charm, boosting it to 15.36 PPT\@.
+Using normalized power, Charm takes the lead with 5 \PPT{}\@.
+Assume STAB and type effectiveness of 2 for Charm, boosting it to 15.36 \PPT{}\@.
 This is the best case for fast attacks.
 
 Charged attack power ranges from 10 (Frustration) to 170 (Sunsteel Strike).
@@ -277,7 +277,7 @@ Due to charged attacks immediately concluding opponents' fast attacks,
  a fast attack might have knocked out the opponent.
 
 It is true that a charged attack requires energy built up over a number of turns.
-Were these considered, and used to calculate PPT for the charged attack,
+Were these considered, and used to calculate \PPT{} for the charged attack,
   it might well fall below that of the fast attack.
 Such a comparison is invalid; the energy is built up as a result of the fast attack.
 The question is whether the charged attack ought be used, presuming sufficient energy present.
@@ -296,7 +296,7 @@ For each target typing, we can apply the better of the two type relations.
 Two charged attacks of different type have coverage at least as good as,
   and usually much better than, a single type.
 There is no pair of distinct attack types forced into a -3 relation.
-Recall that our best ARA was Ground with 1.173.
+Recall that our best \ARA{} was Ground with 1.173.
 More than 72\% of dual charged attack setups beat this coverage,
  with Ground+Ice posting an outstanding 1.468.
 Only one pair can be forced into a dreaded effectiveness of -3:

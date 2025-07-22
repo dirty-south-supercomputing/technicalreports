@@ -5,13 +5,13 @@ Trainers primarily interface with the Map screen, onto which is projected
 Pokémon spawning on this map will be a Trainer's major source of raw materials.
 In addition to the Map, encounters follow victories against Team GO Rocket,
   wins in raids and Max Battles, and completion of certain research.
-Encounters feature a summary display including the Pokémon's CP (\autoref{sec:cp}),
+Encounters feature a summary display including the Pokémon's \CP{} (\autoref{sec:cp}),
   and icons indicating any weather leading to boosting (\autoref{sec:weather}),
   any type of lure that led to the spawn,
   Shiny status,
   and that the species has been previously captured\footnote{These traits are stored, and can be seen when browsing inventory.}.
-The CP will be replaced with ``???'' if the species has never been seen, or if
-  the CP exceeds that of any owned Pokémon.
+The \CP{} will be replaced with ``???'' if the species has never been seen, or if
+  the \CP{} exceeds that of any owned Pokémon.
 
 \section{Wild spawns\label{sec:spawns}}
 Decorations around a Pokémon indicate how it spawned (\autoref{table:spawnreasons}).
@@ -105,12 +105,12 @@ Pokémon that flee do not reappear on the map\footnote{The Trainer does receive 
 While holding a ball, a target ring will encircle the Pokémon, looping from a maximum to a minimum size.
 Its color (red, orange, or green) is an indicator of the capture probability $P_C$:
 \begin{align*}
-  P_C &= 1-\left(1 - \frac{C}{2\cdot{}CPM}\right)^{M_C}\\
-  M_C &= M_{Ball} \cdot M_{Berry} \cdot M_{Throw} \cdot M_{Medal} \cdot M_{Adv} \cdot M_{Enc}
+  P_\mathrm{C} &= 1-\left(1 - \frac{C}{2\cdot{}\CPM}\right)^{M_\mathrm{C}}\\
+  M_\mathrm{C} &= M_\mathrm{Ball} \cdot M_\mathrm{Berry} \cdot M_\mathrm{Throw} \cdot M_\mathrm{Medal} \cdot M_\mathrm{Adv} \cdot M_\mathrm{Enc}
 \end{align*}
 \begin{itemize}
-  \item $CPM$ is the Combat Power Multiplier (\autoref{sec:cpm}).
-  \item $M_{Ball}$ is the multiplier due the ball:
+  \item \CPM{} is the Combat Power Multiplier (\autoref{sec:cpm}).
+  \item $M_\mathrm{Ball}$ is the multiplier due the ball:
 \begin{table}[h!]
 \centering
 \begin{tabular}{lr}
@@ -123,26 +123,26 @@ Master & ∞\\
 \end{tabular}
   \caption{Balls and their capture multipliers\label{table:balls}}
 \end{table}
-\item $M_{Berry}$ is the multiplier due a berry (\autoref{table:berries}).
-\item $M_{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
+\item $M_\mathrm{Berry}$ is the multiplier due a berry (\autoref{table:berries}).
+\item $M_\mathrm{Throw}$ is the multiplier due throw accuracy. Throw accuracy is summarized
    with ``Excellent!'', ``Great!'', ``Nice!'', or silence.
-    This summary is a low-resolution signal of $M_{Throw}$, with a range over [1.0, 2.0].
+    This summary is a low-resolution signal of $M_\mathrm{Throw}$, with a range over [1.0, 2.0].
 \begin{table}[h!]
 \centering
 \begin{tabular}{lr}
-Summary & $M_{Throw}$ range\\
+Summary & $M_\mathrm{Throw}$ range\\
 \Midrule
 ``Excellent!'' & [1.7, 2.0]\\
 ``Great!'' & [1.3, 1.7)\\
 ``Nice!'' & [1.0, 1.3)\\
 No summary & 1\\
 \end{tabular}
-  \caption{The throw summary is an indication of $M_{Throw}$\label{table:throw}}
+  \caption{The throw summary is an indication of $M_\mathrm{Throw}$\label{table:throw}}
 \end{table}
-$M_{Throw}$ is multiplied by 1.7 for a curveball.
-\item $M_{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
-\item $M_{Adv}$ is 1.5 for Ice Burn, 1.25 for Freeze Shock, and 1 otherwise.
-\item $M_{Enc}$ is 2 for research encounters, and 1 otherwise.
+$M_\mathrm{Throw}$ is multiplied by 1.7 for a curveball.
+\item $M_\mathrm{Medal}$ is the multiplier due medals (\autoref{sec:medals}).
+\item $M_\mathrm{Adv}$ is 1.5 for Ice Burn, 1.25 for Freeze Shock, and 1 otherwise.
+\item $M_\mathrm{Enc}$ is 2 for research encounters, and 1 otherwise.
 \end{itemize}
 If you throw your ball too directly at Tyrunt, it'll eat it.
 If a response is not received from the server in a timely fashion, the Pokémon will escape.
@@ -223,7 +223,7 @@ Razz  & 150\% catch percentage\\
 Nanab & Immobilizes Pokémon\\
 Pinap & Boosts Candy rewards: 3→7, 5→11, 10→23\\
 Silver pinap & 180\% catch percentage\newline Boosts Candy rewards: 3→7, 5→11, 10→23\\
-Golden razz & 250\% catch percentage\newline Restore full HP to Gym defender\\
+Golden razz & 250\% catch percentage\newline Restore full \HP{} to Gym defender\\
 \end{tabular}
   \caption{Berries and their uses\label{table:berries}}
 \end{table}
@@ -347,7 +347,7 @@ Put another way, if you have a 5\% chance of an outcome, and do tests in sets of
 Put yet another way, over the long run, you can expect a little over two Shiny
  Pokémon for every thousand wild spawns.\\
 
-The probability of an outcome with probability $P$ never being seen in $N$ independent
+The probability of an outcome with probability $P$\, never being seen in $N$ independent
   events is ${(1 - P)}^N$. For a 5\% likelihood, $1 - P = 0.95$. For thirteen events,
 
   \[ 0.95^{13} ≈ 0.513 \]

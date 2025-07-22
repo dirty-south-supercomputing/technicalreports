@@ -1,7 +1,7 @@
 \chapter{A worked example of team selection\label{chap:example}}
 
 Let's consider the Fossil Cup of summer 2025, which began and ended while I was writing this book.
-Like the Great League, the Fossil Cup had a CP1500 bound, and further
+Like the Great League, the Fossil Cup had a \CP1500 bound, and further
   restricted participants to those with Rock, Steel, or Water in their typings.
 This limits teams to 51 of the 171 typings (29.8\%): the three monotypes, seventeen dualtypes
  involving Rock, sixteen dualtypes involving Steel (we already counted Rock+Steel), and
@@ -13,7 +13,7 @@ One hundred matches in, I was doing alright (despite far from optimal IVs)
   with the following team, assembled largely off vibes:
 \begin{center}
   \begin{tabular}{llrrrr}
-    Pokémon & IV@Level & $Eff_A$ & $Eff_D$ & MHP & $\sqrt[3]{BP}$\\
+    Pokémon & IV@Level & \Eff{A} & \Eff{D} & \MHP & $\sqrt[3]{\BP\,}$\\
     \Midrule
     Greninja & \ivlev{15}{14}{12}{20} & 142.18 & 99.17 & 112 & 115.27 \\
     Magcargo & \ivlev{15}{13}{12}{32.5} & 115.01 & 152.35 & 111 & 124.82 \\
@@ -46,11 +46,11 @@ I hardly needed more Water strength, so I threw on Body Slam for opponents stron
 
 \section{Boosting the numbers}
 Without changing my choice of species, the following configurations are desirable
-  in the context of optimizing for $\sqrt[3]{BP}$\footnote{If we optimized for $\frac{BS}{3}$,
+  in the context of optimizing for $\sqrt[3]{\mathit{\BP\,}}$\footnote{If we optimized for $\frac{\mathit{BS}}{3}$,
    as done in \autoref{chap:optimal}, we'd see different ideals.}:
 \begin{center}
 \begin{tabular}{llrrrr}
-  Pokémon & IV@Level & $Eff_A$ & $Eff_D$ & MHP & $\sqrt[3]{BP}$\\
+  Pokémon & IV@Level & \Eff{A} & \Eff{D} & \MHP & $\sqrt[3]{\BP\,}$\\
   \Midrule
   Greninja &\ivlev{3}{15}{12}{20} & 138.35 & 102.23 & 115 & 117.60\\
   Magcargo &\ivlev{0}{15}{14}{38.5} & 108.67 & 161.05 & 118 & 127.34\\
@@ -60,7 +60,7 @@ Without changing my choice of species, the following configurations are desirabl
 Of course, it is not generally possible to change IVs.
 Even if I could, the benefits would be meager: a 2.02\% increase for Greninja,
   2.02\% to Magcargo, and a mere 0.73\% for Gastrodon, all of it coming
-  in defense and HP at the expense of a bit of attack.
+  in defense and \HP{} at the expense of a bit of attack.
 The means themselves are unspectacular, but not bad: Gastrodon and Magcargo are up there
   in the thick of things, and Greninja is blasting away with that Hydro Cannon every nine turns.
 
@@ -83,7 +83,7 @@ As noted in \autoref{sec:typeleagues}, there exist two minimal coverings of the 
  Bug, Dragon, Fire, Grass, Ground, Rock\\
 \end{tabular}
 \end{center}
-Bug isn't known for high PPT\@. Infestation manages two while achieving four EPT,
+Bug isn't known for high \PPT{}\@. Infestation manages two while achieving four \EPT{},
  but requires three turns. Bug Bite does three on both in a single turn.
 
 Grass and Ground make up a cover of the core types, as do Fighting and Grass.
@@ -149,13 +149,13 @@ Magcargo could handle Grass (especially Steel+Grass Ferrothorn), but
  without switch advantage, there was usually a Water Pokémon to come
  in and put out its fire.
 Looking at the three Pokémon, there are no Grass attacks to learn.
-Despite that awesome 4.67 EPT from Water Shuriken, Greninja was probably
+Despite that awesome 4.67 \EPT{} from Water Shuriken, Greninja was probably
   the weakest link due to its lack of bulk.
 If it goes in with shield disadvantage, it has a bad time.
 No other fast attack achieves 4.67, but we get 4.5 from several---Psycho
   Cut, Fairy Wind, Poison Sting, Thunder Shock, and Karate Chop,
   all of which are fewer turns than Shuriken's 3.
-Karate Chop (2.5) and Hex or Rollout (2.33) even beat its PPT of 2.
+Karate Chop (2.5) and Hex or Rollout (2.33) even beat its \PPT{} of 2.
 The first two don't seem available from any useful Pokémon, but
   Rollout is available from Blastoise, and we'd even be able to
   keep Hydro Cannon!

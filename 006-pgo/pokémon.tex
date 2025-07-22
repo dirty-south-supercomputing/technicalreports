@@ -1,17 +1,17 @@
 \chapter{Pokémon\label{chap:pokemon}}
 For purposes of battle\footnote{Attributes not directly relevant to battle include height, weight, region,
 generation, Shiny status, Purified status, Lucky status, Legendary status, Mythological status, spawn
-reason, capture method, capture location, and capture time.}, a Pokémon $P$ is defined as having:
+reason, capture method, capture location, and capture time.}, a Pokémon $P$\, is defined as having:
 \begin{itemize}
 \item A species and form (and thus a typing and base stats)
 \item An Individual Vector (IV) (\autoref{sec:ivs}) and level (\autoref{sec:plevel})
 \item A set of two or three attacks, one of which is a fast attack
 \item Modifiers to attack and defense due charged attacks' stat effects (\autoref{sec:buffs})
 \item Shadow status, or the absence thereof
-\item Some number of hit points not exceeding MHP
+\item Some number of hit points not exceeding \MHP
 \end{itemize}
 Hit Points are carried across PvE battles (including encounters with
-  Team GO Rocket and Gym battles), but Trainer Battles always start with full HP\@.
+  Team GO Rocket and Gym battles), but Trainer Battles always start with full \HP\@.
 A Pokémon with zero hit points has ``fainted''.
 Fainted Pokémon cannot be used in battles of any kind, nor can they be left in
  Power Stops (see \autoref{sec:maxbattles}).
@@ -53,11 +53,11 @@ Level &
 \caption{Power-up costs for Pokémon levels\label{table:powerups}}
 \end{table}
 An increase in level improves the Pokémon's attack and defense, and
-  will sometimes increase MHP\@.
+  will sometimes increase \MHP\@.
 See \autoref{sec:staticstats} for a quantitative treatment.
 
-Powering up a fainted Pokémon will revive it, but with minimal HP\@:
-\[ HP = \min{1, MHP_{New} - MHP_{Old} } \]
+Powering up a fainted Pokémon will revive it, but with minimal \HP\@:
+\[ \HP = \min{1, \MHP_\mathrm{New} - \MHP_\mathrm{Old} } \]
 Advancing a normal Pokémon from level 1 to level 50 is not a cheap endeavor (\autoref{table:sumcosts}),
   though Shadow Pokémon of course have a minimum level of eight, purified Pokémon are always
   at least level 25, and most captures will be well above level 1.
@@ -87,9 +87,9 @@ A Pokémon rated 4 has an IV of 15/15/15, and is colloquially known as a ``hundo
 Such Pokémon have their own Pokédex (\autoref{sec:dexen})\footnote{A Pokémon with an IV of 0/0/0
  is colloquially known as a ``nundo'' or ``0\%er''. They have no unique Pokédex, because they are worthless pieces of shit,
   and don't let anyone tell you otherwise. Consult \autoref{chap:optimal} to see that 0/0/0 is never an optimal IV.}.
-While 15/15/15 is generally the optimal IV, this is not always true in CP-bounded
+While 15/15/15 is generally the optimal IV, this is not always true in \CP-bounded
   competition; see \autoref{chap:bounded} for more information,
-  and \autoref{chap:optimal} for tables of optimal IVs under different CP bounds.
+  and \autoref{chap:optimal} for tables of optimal IVs under different \CP{} bounds.
 \begin{table}
 \centering
 \begin{tabular}{ll}
@@ -115,11 +115,11 @@ At the time of this writing, Gold Bottle Caps have been available only through p
 
 \section{Generation of IV and level\label{sec:ivgeneration}}
 IVs and levels are generated when the Pokémon is ``created'', not when it is captured.
-It is thus possible to glean information from the CP displayed for a Pokémon;
+It is thus possible to glean information from the \CP{} displayed for a Pokémon;
   one can sometimes even uniquely determine the IV\@.
-The equation for CP is provided in \autoref{chap:unbounded}; reverse it and
+The equation for \CP{} is provided in \autoref{chap:unbounded}; reverse it and
   use \autoref{table:cpm} plus the base stats of the species to determine
-  the set of IV+level pairs yielding that CP\@.
+  the set of IV+level pairs yielding that \CP\@.
 Various applications and websites can perform this analysis automatically.
 Depending on the situation, there might be a floor for IVs.
 Beyond that, they are uniformly randomly generated.
@@ -166,11 +166,11 @@ This discount stacks with the 10\% purification discount, so costs for
 We'll define some statistics for each Pokémon.
 These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
- IVs to generate $Mod_A$, $Mod_D$, and $Mod_S$:
+IVs to generate \Mod{A}, \Mod{D}, and \Mod{S}:
 \begin{align*}
-   Mod_A &= ATK + IV_A \\
-   Mod_D &= DEF + IV_D \\
-   Mod_S &= STA + IV_S
+ \Mod{A} &= \mathit{ATK} + \mathit{\IV{A}} \\
+ \Mod{D} &= \mathit{DEF} + \mathit{\IV{D}} \\
+ \Mod{S} &= \mathit{STA} + \mathit{\IV{S}}
 \end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier\label{sec:cpm}}
@@ -178,17 +178,17 @@ Recall that each Pokémon has its own Level, ranging from 1.0
  to 50.0, defined on half integers\footnote{I would rather they
  simply be integer Levels 1--99, but this is settled terminology.}.
 This Level is used as an index into a table of positive rational constants.
-The value accessed is that Pokémon's Combat Power Multiplier (CPM).
-CPM maxes out at Level 50 with a value of 0.8403, and takes its 
+The value accessed is that Pokémon's Combat Power Multiplier (\CPM).
+\CPM{} maxes out at Level 50 with a value of 0.8403, and takes its
   0.094 minimum at Level 1.
-At Level 10, CPM is 0.4225, almost half of its maximum value.
-At Level 34, CPM is 0.7557, about 90\% of its maximum value.
+At Level 10, \CPM{} is 0.4225, almost half of its maximum value.
+At Level 34, \CPM{} is 0.7557, about 90\% of its maximum value.
 The extremal ratios are 0.1119 (L1 / L50) and 8.9394 (L50 / L1).
 
 \begin{table}
 \centering
 \begin{tabular}{l l|l l|l l}
-Level & CPM & Level & CPM & Level & CPM \\
+Level & \CPM & Level & \CPM & Level & \CPM \\
 \Midrule
 1.0 & 0.0940 & 17.5 & 0.5588 & 34.0 & 0.7557 \\ 
 1.5 & 0.1351 & 18.0 & 0.5668 & 34.5 & 0.7586 \\
@@ -228,33 +228,33 @@ Level & CPM & Level & CPM & Level & CPM \\
 \end{table}
 
 \section{Effective stats\label{sec:effectivestats}}
-Multiplying $Mod_S$ by CPM yields $Eff_S$, which determines a Pokémon's Maximum Hit Points (MHP).
+Multiplying $\Mod{S}$ by \CPM{} yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (\MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
- and can be restored (up to MHP) with Potions\footnote{Trainer Battles (other
- than those with Team Rocket) always start with full HP.}.
-MHP is defined such that it is always an integer not less than ten:
+ and can be restored (up to \MHP) with Potions\footnote{Trainer Battles (other
+ than those with Team Rocket) always start with full \HP.}.
+\MHP{} is defined such that it is always an integer not less than ten:
 \begin{align*}
- Eff_S &= Mod_S \cdot CPM \\
- MHP &= \min{10, \lfloor Eff_S \rfloor}
+ \Eff{S} &= \Mod{S} \cdot \CPM \\
+ \MHP &= \min{10, \lfloor \Eff{S} \rfloor}
 \end{align*}
-Multiplying $Mod_S$ by CPM yields $Eff_{ARaw}$, used to determine charged move priority (\autoref{sec:3x3}).
-$M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
-Multiplying $Eff_{ARaw}$ by $M_{Shadow}$ yields $Eff_A$.
-Multiplying $Mod_D$ by CPM and dividing by $M_{Shadow}$ gives us $Eff_D$.
-This manifests a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
+Multiplying \Mod{S} by \CPM{} yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
+$M_\mathrm{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
+Multiplying \Eff{ARaw} by $M_\mathrm{Shadow}$ yields \Eff{A}.
+Multiplying \Mod{D} by \CPM{} and dividing by $M_\mathrm{Shadow}$ gives us \Eff{D}.
+This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
 \begin{align*}
-  Eff_{ARaw} &= Mod_A \cdot CPM\\
-  Eff_A &= Eff_{ARaw} \cdot M_{Shadow} \\
- Eff_D &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
+  \Eff{ARaw} &= \Mod{A} \cdot \CPM\\
+  \Eff{A} &= \Eff{ARaw} \cdot M_\mathrm{Shadow} \\
+  \Eff{D} &= \frac{\Mod{D} \cdot \CPM}{M_\mathrm{Shadow}}
 \end{align*}
 Is a Shadow Pokémon superior to its unshadowed equivalent, all else being equal?
 Evaluating using a product function such as the geometric mean will show no difference;
  the two multipliers cancel one another.
 \begin{align*}
-  P &= Eff_A \cdot Eff_D\\
-  &= \frac{6}{5}Mod_A \cdot \frac{5}{6}Mod_D \cdot CPM^2
+  P &= \Eff{A} \cdot \Eff{D}\\
+  &= \frac{6}{5}\Mod{A} \cdot \frac{5}{6}\Mod{D} \cdot \CPM^2
 \end{align*}
 Using a sum function such as the arithmetic mean will usually show a difference.
 When $Mod_A < \frac{5}{6}Mod_D$, the average goes down.
