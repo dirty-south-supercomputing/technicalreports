@@ -185,10 +185,10 @@ $(SIMULOUT): $(SIMUL)
 
 $(SIMUL3OUT): $(SIMUL)
 	@mkdir -p $(@D)
-	$(<) clodsire opt1500 "poison sting" "megahorn" \
-				sawk opt1500 "low kick" "focus blast" \
-				feebas opt1500 tackle "mirror coat" \
-				milotic opt1500 waterfall surf > $@
+	$(<) clodsire opt500 "poison sting" "megahorn" \
+				sawk opt500 "low kick" "focus blast" \
+				feebas opt500 tackle "mirror coat" \
+				milotic opt500 waterfall surf > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
