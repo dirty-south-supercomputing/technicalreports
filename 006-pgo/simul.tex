@@ -113,8 +113,7 @@ While we won't be implementing them yet, assuming other Pokémon have not
 ``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
 Each turn is implemented in two halves.
-The top half dispatches possible moves, determining available choices
- and invoking the appropriate bottom half for each---it is our primary fan-out.
+The top half determines available choices and invokes the appropriate bottom half for each.
 \inputminted{cpp}{s/sift.h}
 \inputminted{cpp}{s/top.h}
 Furthermore, we must simulate both paths in the event of a CMP tie---the tiebreaker
