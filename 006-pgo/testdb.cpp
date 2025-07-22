@@ -42,10 +42,42 @@ test_sdex(const spokedex &sd){
   return true;
 }
 
+static bool
+test_attack(const attack *a){
+  if(charged_attack_p(a)){
+    if(a->energytrain >= 0){
+      std::cerr << "invalid 3x3 energy for charged attack " << a->name << std::endl;
+      throw std::exception();
+    }
+  }else if(fast_attack_p(a)){
+    if(a->energytrain < 0){ // transform builds zero energy
+      std::cerr << "invalid 3x3 energy for fast attack " << a->name << std::endl;
+      throw std::exception();
+    }
+  }else{
+    std::cerr << "uncategorized attack " << a->name << std::endl;
+    throw std::exception();
+  }
+  // check attack power
+  if(charged_attack_p(a)){ // FIXME
+    if(a->powerraid <= 0){
+      std::cerr << "invalid Nx1 power for attack " << a->name << std::endl;
+      throw std::exception();
+    }
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
   for(const auto &sd : sdexen){
     if(!test_sdex(sd)){
+      exit(EXIT_FAILURE);
+    }
+  }
+  for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
+    const attack *a = attacks[i];
+    if(!test_attack(a)){
       exit(EXIT_FAILURE);
     }
   }
