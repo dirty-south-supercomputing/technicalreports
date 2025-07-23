@@ -1,8 +1,5 @@
 static inline bool can_charged(const simulstate *s, int p, const attack *c){
-  if(s->turns[p]){
-    return false; // if we're in a fast move, we can only wait
-  }
-  return s->e[p][s->active[p]] >= -c->energytrain;
+  return s->turns[p] && s->e[p][s->active[p]] >= -c->energytrain;
 }
 
 static inline bool can_charged1(const simulstate *s, int p){
