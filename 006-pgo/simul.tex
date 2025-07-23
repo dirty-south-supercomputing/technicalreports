@@ -117,22 +117,20 @@ While we won't be implementing them yet, assuming other Pokémon have not
 Each turn is implemented in two halves.
 The top half determines available choices and invokes the appropriate bottom half for each.
 \inputminted{cpp}{s/top.h}
-Furthermore, we must simulate both paths in the event of a CMP tie---the tiebreaker
- might be nondeterministic, but we are not!
 The result of \texttt{p0\_wins\_cmp()} is constant across a pair of Pokémon; we cache it.
 Damage calculations are constant across a pair of Pokémon and a set of buff states; cache them, too.
-The bottom half is invoked along each path, using its own copy of the state.
+\inputminted{cpp}{s/in.h}
+A bottom half is invoked along each path, mutating its own copy of the state and recursing back.
+We must simulate both paths in the event of a CMP tie---the tiebreaker might be nondeterministic, but we are not!
 \inputminted{cpp}{s/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
 This is the only function that actually records results.
 Right now we're only handling a single Pokémon per team, but we go ahead and implement this so that it'll work properly
  with arbitrarily many Pokémon.
-When a Pokémon goes down, three things can happen:
-\begin{itemize}
-  \item No more Pokémon: the match is over.
-  \item One more Pokémon: it becomes active. Continue the simulation.
-  \item Two more Pokémon: simulate both replacements.
-\end{itemize}
+When a Pokémon goes down, three things can happen.
+If it was the last on its team, the match is over (possibly in a tie).
+If there is one Pokémon remaining, bring it in and continue simulating.
+If two more Pokémon remain, we must simulate both replacements.
 \inputminted{cpp}{s/ko.h}
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
   with full HP, two shields, and no energy.
@@ -178,5 +176,13 @@ Handling replacement is easier: all we need do is amend our frontend to
   seed all three positions, and implement switchover.
 Skirting past a combinatorial explosion requires effective memoization combined with
  identification of commutative transitions.
+
+Our state object is small enough to hash its entirety.
+Since our simulation is deterministic and exhaustive, any equivalent states
+ are guaranteed to have the same subtree.
+By simply keeping a fixed-sized LRU cache of previous states and the net results they
+ generated, we can hash in $\mathcal{O}(N)$ on the state size, match in $\mathcal{O}(1)$
+ time, and replace an exponential time computation with one of constant time---when we hit cache, anyway.
+Our LRU can be global or at the level of a set association.
 
 \lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}

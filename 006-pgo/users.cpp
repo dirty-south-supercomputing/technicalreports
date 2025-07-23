@@ -41,9 +41,13 @@ print_attack_users(const attack *a){
   print_type(a->type);
   printf("},after title={");
   if(a->turns){
-    printf("\\hfill T%u P%u E%d", a->turns, a->powertrain, a->energytrain);
+    printf("\\hfill{}%.1gs P%u E%u\\hfill{}T%u P%u E%d",
+        a->animdur / 2.0, a->powerraid, a->energyraid,
+        a->turns, a->powertrain, a->energytrain);
   }else{
-    printf("\\hfill P%u E%d", a->powertrain, -a->energytrain);
+    printf("\\hfill{}%.1gs P%u E%u\\hfill{}P%u E%d",
+        a->animdur / 2.0, a->powerraid, a->energyraid,
+        a->powertrain, -a->energytrain);
   }
   printf("}]\n");
   if(!strcmp(a->name, "Return")){

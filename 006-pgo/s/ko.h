@@ -48,23 +48,3 @@ static void handle_dual_kos(simulstate *s, results *r){
     ++r->ties; // zorn, all dead
   }
 }
-
-// if a player was ko'd coming into the top half, we must substitute for them,
-// or the match is over. this can split up to four ways, depending on how many
-// pokémon each side has left. if it returns true, someone was ko'd: the
-// tophalf must not run, and we update the results table.
-static bool handle_ko(simulstate *s, results *r){
-  int hp0 = s->hp[0][s->active[0]];
-  int hp1 = s->hp[1][s->active[1]];
-  if(hp0 && hp1){
-    return false;
-  }
-  if(hp1){ // must replace player 0
-    handle_one_ko(s, r, 0);
-  }else if(hp0){ // must replace player 1
-    handle_one_ko(s, r, 1);
-  }else{ // must replace both, if we can
-    handle_dual_kos(s, r);
-  }
-  return true;
-}

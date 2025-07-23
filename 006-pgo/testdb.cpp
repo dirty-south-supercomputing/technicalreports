@@ -28,6 +28,26 @@ test_species(const species *s){
     std::cerr << "missing on " << s->name << std::endl;
     throw std::exception();
   }
+  switch(s->category){
+    case species::CAT_NORMAL:
+      break;
+    case species::CAT_BABY:
+      if(s->from){
+        std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
+        throw std::exception();
+      }
+      break;
+    case species::CAT_LEGENDARY:
+    case species::CAT_MYTHICAL:
+    case species::CAT_ULTRABEAST:
+      if(s->a2cost != 100){ // all ought be in cost group 4
+        std::cerr << s->name << " has invalid costgroup" << std::endl;
+        throw std::exception();
+      }
+      break;
+    default:
+      break;
+  }
   return true;
 }
 
@@ -47,6 +67,59 @@ test_attack(const attack *a){
   if(charged_attack_p(a)){
     if(a->energytrain >= 0){
       std::cerr << "invalid 3x3 energy for charged attack " << a->name << std::endl;
+      throw std::exception();
+    }
+    if(a->chance_opp_attack){
+      if(!a->opp_attack){
+        std::cerr << "chance opp attack without opp attack buff " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->chance_opp_defense){
+      if(!a->opp_defense){
+        std::cerr << "chance opp defense without opp defense buff " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->chance_user_attack){
+      if(!a->user_attack){
+        std::cerr << "chance user attack without user attack buff " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->chance_user_defense){
+      if(!a->user_defense){
+        std::cerr << "chance user defense without user defense buff " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->opp_attack){
+      if(!a->chance_opp_attack){
+        std::cerr << "opp attack buff without chance " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->user_attack){
+      if(!a->chance_user_attack){
+        std::cerr << "user attack buff without chance " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->opp_defense){
+      if(!a->chance_opp_defense){
+        std::cerr << "opp defense buff without chance " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->user_defense){
+      if(!a->chance_user_defense){
+        std::cerr << "user defense buff without chance " << a->name << std::endl;
+        throw std::exception();
+      }
+    }
+    if(a->chance_opp_attack > 1000 || a->chance_opp_defense > 1000
+        || a->chance_user_attack > 1000 || a->chance_user_defense > 1000){
+      std::cerr << "invalid chance of buff " << a->name << std::endl;
       throw std::exception();
     }
   }else if(fast_attack_p(a)){
