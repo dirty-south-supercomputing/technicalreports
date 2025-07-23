@@ -39,13 +39,13 @@ print_attack_users(const attack *a){
   printf(",colbacktitle=%s,fonttitle=\\bfseries,before title={",
           a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   print_type(a->type);
-  printf(" },after title={");
+  printf("},after title={");
   if(a->turns){
-    printf("\\hfill{}%.1fs P%u E%u\\hfill{}T%u P%u E%d",
+    printf("\\hfill{}%.1gs P%u E%u\\hfill{}T%u P%u E%d",
         a->animdur / 2.0, a->powerraid, a->energyraid,
         a->turns, a->powertrain, a->energytrain);
   }else{
-    printf("\\hfill{}%.1fs P%u E%u\\hfill{}P%u E%d",
+    printf("\\hfill{}%.1gs P%u E%u\\hfill{}P%u E%d",
         a->animdur / 2.0, a->powerraid, a->energyraid,
         a->powertrain, -a->energytrain);
   }
