@@ -3,8 +3,9 @@ static void handle_one_ko(simulstate *s, results *r, int player){
   bool replaced = false;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[player][p]){
-      subin(s, player, p);
-      tophalf(s, r);
+      simulstate snew = *s;
+      subin(&snew, player, p);
+      tophalf(&snew, r);
       replaced = true;
     }
   }
@@ -26,9 +27,8 @@ static void handle_dual_kos(simulstate *s, results *r){
         if(s->hp[1][q]){
           foundq = true;
           simulstate snew = *s;
-          snew.active[0] = p;
-          snew.active[1] = q;
-          calculate_damages(&snew);
+          subin(&snew, 0, p);
+          subin(&snew, 1, q); // runs calculate_damages twice =[
           tophalf(&snew, r);
         }
       }
