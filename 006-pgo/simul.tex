@@ -104,7 +104,8 @@ A naive implementation blows up almost immediately: the Trainer can choose to do
  whenever they're not busy, and doing nothing consumes only one turn,
  meaning we almost always have at least four choicepairs:
  \{ noop, noop \}, \{ noop, fast \}, \{ fast, noop \}, and \{ fast, fast \}.
-Our first restriction, then: there's no good reason to do nothing,
+Our first restriction: we assume perfect play of minigames.
+Our second restriction: there's no (quantifiably) good reason to do nothing,
  so the Pokémon must do something.
 On every turn, we either wait for our fast attack to conclude, or can throw a fast attack.
 With sufficient energy, charged attacks enter the picture.
