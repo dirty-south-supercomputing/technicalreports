@@ -276,7 +276,7 @@ defensive_summaries_latex(const typing* t){
   const int offset = -3;
   // defensive typing summaries
   printf("\\begin{longtable}{crrrrrrrrr}\n");
-  printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n");
+  printf("& -3 & -2 & -1 & 0 & 1 & 2 & DRA & Pop & Page\\\\\n\\Midrule\n");
   printf("\\endhead\n");
   bool grey = false;
   enum {
