@@ -12735,9 +12735,9 @@ static const species dynadex[] = {
   {   68, "Dmax Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machamp", MACHAMP_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {   94, "Dmax Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Gengar", GENGAR_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {   99, "Dmax Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Kingler", KINGLER_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
-  {  144, "Dmax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, {}, species::CAT_NORMAL, 100, nullptr, },
-  {  145, "Dmax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, {}, species::CAT_NORMAL, 100, nullptr, },
-  {  146, "Dmax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, {}, species::CAT_NORMAL, 100, nullptr, },
+  {  144, "Dmax Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, "Articuno", ARTICUNO_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  145, "Dmax Zapdos", TYPE_ELECTRIC, TYPE_FLYING, 253, 185, 207, "Zapdos", ZAPDOS_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  146, "Dmax Moltres", TYPE_FIRE, TYPE_FLYING, 251, 181, 207, "Moltres", MOLTRES_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  242, "Dmax Blissey", TYPE_NORMAL, TYPECOUNT, 129, 169, 496, "Blissey", BLISSEY_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  243, "Dmax Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, "Raikou", RAIKOU_ATKS, true, false, {}, species::CAT_NORMAL, 100, nullptr, },
   {  244, "Dmax Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, "Entei", ENTEI_ATKS, true, false, {}, species::CAT_NORMAL, 100, nullptr, },
@@ -12759,8 +12759,8 @@ static const species dynadex[] = {
   {  849, "Dmax Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxtricity", TOXTRICITY_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  858, "Dmax Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hatterene", HATTERENE_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  870, "Dmax Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, "Falinks", FALINKS_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
-  {  892, "Single Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, {}, species::CAT_NORMAL, 100, nullptr, },
-  {  892, "Rapid Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, {}, species::CAT_NORMAL, 100, nullptr, },
+  {  892, "Single Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Single Strike Style Urshifu", S_URSHIFU_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  892, "Rapid Strike Style Dmax Urshifu", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Rapid Strike Style Urshifu", R_URSHIFU_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
 };
 
 #define DYNACOUNT (sizeof(dynadex) / sizeof(*dynadex))
