@@ -184,5 +184,11 @@ By simply keeping a fixed-sized LRU cache of previous states and the net results
  generated, we can hash in $\mathcal{O}(N)$ on the state size, match in $\mathcal{O}(1)$
  time, and replace an exponential time computation with one of constant time---when we hit cache, anyway.
 Our LRU can be global or at the level of a set association.
+\texttt{simulstate} is currently less than 64 bytes, and \texttt{results} less than 32, but
+ let's call it 96 bytes per stashed state to be safe.
+At 96 bytes, assuming we don't need tag information, we could keep 134M ($2^{27} = 134,217,728$) states
+ in 12GB ($\frac{96\cdot2^{27}}{2^{30}} = 12$) of RAM\@.
+Of course, full utilization with $\mathcal{O}(1)$ lookup requires perfect associativity---can this
+ be engineered?
 
 \lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}
