@@ -25,37 +25,41 @@ static int
 ucode_type(pgo_types_e t){
   const char *u;
   switch(t){
-    case TYPE_BUG: u = "🐛"; break;
-    case TYPE_DARK: u = "🌒"; break;
-    case TYPE_DRAGON: u = "🐉"; break;
-    case TYPE_ELECTRIC: u = "⚡"; break;
-    case TYPE_FAIRY: u = "🧚"; break;
-    case TYPE_FIGHTING: u = "✋"; break;
-    case TYPE_FIRE: u = "🔥"; break;
-    case TYPE_FLYING: u = "✈"; break;
-    case TYPE_GHOST: u = "👻"; break;
-    case TYPE_GRASS: u = "󱔐"; break;
-    case TYPE_GROUND: u = "⛰"; break;
-    case TYPE_ICE: u = "❄"; break;
-    case TYPE_NORMAL: u = "⭘"; break;
-    case TYPE_POISON: u = "󰯆"; break;
-    case TYPE_PSYCHIC: u = "🧠"; break;
-    case TYPE_ROCK: u = "🪨"; break;
-    case TYPE_STEEL: u = "󰋙"; break;
-    case TYPE_WATER: u = "🌊"; break;
-    default: return -1;
+    case TYPE_BUG: u = "Bu"; break;
+    case TYPE_DARK: u = "Da"; break;
+    case TYPE_DRAGON: u = "Dr"; break;
+    case TYPE_ELECTRIC: u = "El"; break;
+    case TYPE_FAIRY: u = "Fa"; break;
+    case TYPE_FIGHTING: u = "Fg"; break;
+    case TYPE_FIRE: u = "Fr"; break;
+    case TYPE_FLYING: u = "Fl"; break;
+    case TYPE_GHOST: u = "Gh"; break;
+    case TYPE_GRASS: u = "Gs"; break;
+    case TYPE_GROUND: u = "Go"; break;
+    case TYPE_ICE: u = "Ic"; break;
+    case TYPE_NORMAL: u = "No"; break;
+    case TYPE_POISON: u = "Po"; break;
+    case TYPE_PSYCHIC: u = "Ps"; break;
+    case TYPE_ROCK: u = "Ro"; break;
+    case TYPE_STEEL: u = "St"; break;
+    case TYPE_WATER: u = "Wa"; break;
+    default: throw std::invalid_argument("invalid ptype"); return -1;
   }
   return printf("%s", u);
 }
 
 static void
 print_pmon(const pmon *p){
+  if(p->s.s->t2 != p->s.s->t1 && p->s.s->t2 != TYPECOUNT){
+    ucode_type(p->s.s->t1);
+    ucode_type(p->s.s->t2);
+  }else{
+    printf(" ");
+    ucode_type(p->s.s->t1);
+    printf(" ");
+  }
   unsigned hl;
   unsigned l = halflevel_to_level(p->s.hlevel, &hl);
-  ucode_type(p->s.s->t1);
-  if(p->s.s->t2 != p->s.s->t1){
-    ucode_type(p->s.s->t2);
-  }
   printf(" %s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name.c_str(),
         p->shadow ? "(shadow) " : "",
