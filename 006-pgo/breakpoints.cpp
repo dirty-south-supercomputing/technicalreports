@@ -39,49 +39,6 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
   return ca1;
 }
 
-// pass in argv at the start of the pmon spec with argc downadjusted
-static int
-lex_pmon(pmon* p, int *hp, int *argc, char ***argv){
-  if(*argc < 4){
-    std::cerr << "expected 4 arguments, " << *argc << " left" << std::endl;
-    return -1;
-  }
-#define SHADOWSTR "shadow "
-  const char *spstr;
-  if(!strncasecmp(**argv, SHADOWSTR, strlen(SHADOWSTR))){
-    p->shadow = true;
-    spstr = **argv + strlen(SHADOWSTR);
-  }else{
-    p->shadow = false;
-    spstr = **argv;
-  }
-  if((p->s.s = lookup_species(spstr)) == NULL){
-    std::cerr << "no such species: " << spstr << std::endl;
-    return -1;
-  }
-  if(p->shadow){
-    if(!p->s.s->shadow){ // still allow it, but warn
-      std::cerr << "warning: " << spstr << " does not have a shadow form" << std::endl;
-    }
-  }
-  if(lex_ivlevel((*argv)[1], &p->s, p->shadow)){
-    std::cerr << "invalid IV@level in " << (*argv)[1] << std::endl;
-    return -1;
-  }
-  p->fa = species_fast_attack(p->s.s, (*argv)[2]);
-  p->ca1 = lex_species_charged_attacks(p->s.s, (*argv)[3], &p->ca2);
-  if(!p->fa || !p->ca1){
-    fprintf(stderr, "invalid attacks for %s: '%s' '%s'\n", p->s.s->name.c_str(),
-            (*argv)[2], (*argv)[3]);
-    return -1;
-  }
-  fill_stats(&p->s);
-  *hp = p->s.mhp;
-  (*argv) += 4;
-  *argc -= 4;
-  return 0;
-}
-
 static void
 print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
   printf("\\begin{table}\\setlength{\\tabcolsep}{2pt}\\footnotesize\\centering\\begin{tabular}{rcccccccccccccccc}\n");
