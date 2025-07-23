@@ -10,6 +10,9 @@
 
 #define TYPESTART TYPE_BUG
 
+constexpr unsigned MAXIVELEM = 15;
+constexpr unsigned MAX_HALFLEVEL = 99;
+
 typedef enum {
   TYPE_BUG,
   TYPE_DARK,
@@ -205,8 +208,6 @@ float cpm(int halflevel){
   return nextcpm(cpm(halflevel - 1), step);
 }
 */
-
-#define MAX_HALFLEVEL 99
 
 float cpm(int halflevel){
   static const float cpms[] = {
@@ -13605,6 +13606,9 @@ int lex_ivlevel(const char* ivl, stats* s, bool shadow){
     s->id = st->id;
     s->is = st->is;
     s->hlevel = st->hlevel;
+  }else if((r = sscanf(ivl, " max ")) == 0){
+    s->ia = s->id = s->is = MAXIVELEM;
+    s->hlevel = MAX_HALFLEVEL;
   }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
     ivl = strchr(ivl, '@') + 1;
     if(!isdigit(*ivl)){
@@ -13624,11 +13628,11 @@ int lex_ivlevel(const char* ivl, stats* s, bool shadow){
     fprintf(stderr, "error lexing A-D-S from %s (got %d)\n", ivl, r);
     return -1;
   }
-  if(s->ia > 15 || s->id > 15 || s->is > 15){
+  if(s->ia > MAXIVELEM || s->id > MAXIVELEM || s->is > MAXIVELEM){
     fprintf(stderr, "invalid iv %u-%u-%u\n", s->ia, s->id, s->is);
     return -1;
   }
-  if(s->hlevel < 1 || s->hlevel > 99){
+  if(s->hlevel < 1 || s->hlevel > MAX_HALFLEVEL){
     fprintf(stderr, "invalid hlevel %u\n", s->hlevel);
     return -1;
   }

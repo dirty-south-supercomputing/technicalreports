@@ -167,7 +167,7 @@ $(DUALCHARGEDTEX): $(DUALCHARGED)
 
 $(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 	@mkdir -p $(@D)
-	$< clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" \
+	$< clodsire max "poison sting" "megahorn/earthquake" \
   	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
 
 $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
@@ -208,10 +208,12 @@ testsimul: $(SIMUL)
 	time $(<) sawk opt1500 "low kick" "focus blast" clodsire opt1500 "poison sting" "megahorn"
 
 testsimullong: $(SIMUL)
-	time $(<) clodsire 15-15-15@99 "poison sting" "earthquake" sawk 15-14-14@99 "low kick" "low sweep"
-	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn/earthquake" sawk 15-14-14@50 "low kick" "focus blast/low sweep"
-	time $(<) clodsire 15-15-15@99 "poison sting" "megahorn/earthquake" sawk 15-14-14@99 "low kick" "focus blast/low sweep"
-	time $(<) clodsire 15-15-15@70 "poison sting" "megahorn" sawk 15-14-14@50 "low kick" "focus blast" feebas 15-15-15@80 tackle "mirror coat" milotic 15-15-15@20 waterfall surf
+	time $(<) clodsire opt1500 "poison sting" "earthquake" sawk opt1500 "low kick" "low sweep"
+	time $(<) clodsire max "poison sting" "megahorn/earthquake" sawk max "low kick" "focus blast/low sweep"
+	time $(<) clodsire opt1500 "poison sting" "megahorn" sawk opt1500 "low kick" "focus blast" \
+						feebas opt1500 tackle "mirror coat" milotic opt1500 waterfall surf
+	time $(<) clodsire max "poison sting" "megahorn" sawk max "low kick" "focus blast" \
+						feebas max tackle "mirror coat" milotic max waterfall surf
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
