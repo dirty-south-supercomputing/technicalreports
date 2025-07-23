@@ -13428,9 +13428,15 @@ print_buff(unsigned chance, int buff, const char *sig){
   }
   printf("%s", sig);
   if(buff > 0){ // FIXME need indicate magnitude of buff
-    printf("↑ ");
+    printf("↑");
+    if(buff > 1){
+      printf("%d", buff);
+    }
   }else{
-    printf("↓ ");
+    printf("↓");
+    if(buff < -1){
+      printf("%d", -buff);
+    }
   }
 }
 
@@ -13483,9 +13489,23 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
         printf(" %s & & %g & %d & %.2f &",
             (*a)->name, power, (*a)->energytrain, dpe);
       }
-      print_buff((*a)->chance_user_attack, (*a)->user_attack, "A");
-      print_buff((*a)->chance_user_defense, (*a)->user_defense, "D");
-      // FIXME need handle opponent buffs
+      if((*a)->chance_user_attack || (*a)->chance_user_defense ||
+          (*a)->chance_opp_attack || (*a)->chance_opp_defense){
+        printf("{\\scriptsize{}");
+        if((*a)->chance_user_attack){
+          print_buff((*a)->chance_user_attack, (*a)->user_attack, "A");
+        }
+        if((*a)->chance_user_defense){
+          print_buff((*a)->chance_user_defense, (*a)->user_defense, "D");
+        }
+        if((*a)->chance_opp_attack){
+          print_buff((*a)->chance_opp_attack, (*a)->opp_attack, "OA");
+        }
+        if((*a)->chance_opp_defense){
+          print_buff((*a)->chance_opp_defense, (*a)->opp_defense, "OD");
+        }
+        printf("}");
+      }
       printf("\\\\\n");
     }else{ // fast attacks
       const float dpt = power / (*a)->turns;
