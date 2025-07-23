@@ -49,7 +49,7 @@ To the degree the model fails to reflect reality (i.e.\ when Trainers act outsid
 With that said, the ``right'' choice for a Trainer typically seems obvious,
  and easily described with a few simple rules.
 They can likely be made quite accurate (widespread use by the community speaks to their predictive power).
-Ideally, the output would be constantly evaluated against real battle results.
+Ideally, the output would be constantly evaluated against real battle results\footnote{PvPoke does something like this via \href{https://gobattlelog.com}{GO Battle Log}.}.
 Automatic use of feedback would cause predictions to reflect the play of random Trainers,
  which might be undesirable (I presume an expert system would attempt to play like, well, an expert).
 Still, \textit{without comparison against real results, we cannot meaningfully speak of the validity of predictions}.
@@ -109,13 +109,13 @@ Our second restriction: there's no (quantifiably) good reason to do nothing,
  so the Pokémon must do something.
 On every turn, we either wait for our fast attack to conclude, or can throw a fast attack.
 With sufficient energy, charged attacks enter the picture.
+\inputminted{cpp}{s/sift.h}
 While we won't be implementing them yet, assuming other Pokémon have not
   fainted and the cooldown period is not active, we can substitute.
 ``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
 Each turn is implemented in two halves.
 The top half determines available choices and invokes the appropriate bottom half for each.
-\inputminted{cpp}{s/sift.h}
 \inputminted{cpp}{s/top.h}
 Furthermore, we must simulate both paths in the event of a CMP tie---the tiebreaker
  might be nondeterministic, but we are not!
