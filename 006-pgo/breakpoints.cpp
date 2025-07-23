@@ -3,41 +3,10 @@
 #include <cstdlib>
 #include "pgotypes.cpp"
 #include "s/simul.h"
+#include "s/lex.cpp"
 #include "s/damage.h"
 
 static pmon pm[2];
-
-// fill in a stats structure given only species, IVs, and level
-static void
-fill_stats(stats* s){
-  s->atk = s->s->atk;
-  s->def = s->s->def;
-  s->sta = s->s->sta;
-  s->effa = calc_eff_a(s->atk + s->ia, s->hlevel, false);
-  s->effd = calc_eff_d(s->def + s->id, s->hlevel, false);
-  s->mhp = calc_mhp(s->sta + s->is, s->hlevel);
-  s->geommean = calc_fit(s->effa, s->effd, s->mhp);
-  s->cp = calccp(s->atk + s->ia, s->def + s->id, s->sta + s->is, s->hlevel);
-  s->next = NULL;
-}
-
-static const attack *
-lex_species_charged_attacks(const species *s, const char *spec, const attack **ca2){
-  *ca2 = NULL;
-  const char *sep = strchr(spec, '/');
-  if(sep){
-    char *fspec = strndup(spec, sep - spec);
-    const attack *ca1 = species_charged_attack(s, fspec);
-    *ca2 = species_charged_attack(s, sep + 1);
-    free(fspec);
-    if(ca2 == NULL){
-      return NULL;
-    }
-    return ca1;
-  }
-  const attack *ca1 = species_charged_attack(s, spec);
-  return ca1;
-}
 
 static void
 print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
@@ -82,7 +51,7 @@ int main(int argc, char** argv){
   const char* argv0 = *argv;
   --argc;
   ++argv;
-  int hp0, hp1;
+  uint16_t hp0, hp1;
   if(lex_pmon(&pm[0], &hp0, &argc, &argv)){
     usage(argv0);
   }

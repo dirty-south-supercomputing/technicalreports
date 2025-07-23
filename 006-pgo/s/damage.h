@@ -1,4 +1,4 @@
-static bool inflict_damage(uint16_t *hp, unsigned damage){
+static inline bool inflict_damage(uint16_t *hp, unsigned damage){
   *hp -= (*hp < damage ? *hp : damage);
   return !!*hp; // return true iff hp > 0
 }
@@ -35,7 +35,7 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
   return static_cast<unsigned>(floor(d)) + 1;
 }
 
-static void accumulate_energy(uint16_t *e, int addend){
+static inline void accumulate_energy(uint16_t *e, int addend){
   if((*e += addend) > ENERGY_MAX){
     *e = ENERGY_MAX;
   }
