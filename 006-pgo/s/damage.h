@@ -1,10 +1,6 @@
-static bool inflict_damage(hpoints *hp, unsigned damage){
-  if(*hp <= damage){
-    *hp = 0;
-    return true; // return true on a KO
-  }
-  *hp -= damage;
-  return false;
+static bool inflict_damage(uint16_t *hp, unsigned damage){
+  *hp -= (*hp < damage ? *hp : damage);
+  return !!*hp; // return true iff hp > 0
 }
 
 static inline float mapbuff(int bufflevel){
@@ -39,7 +35,7 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
   return static_cast<unsigned>(floor(d)) + 1;
 }
 
-static void accumulate_energy(energy *e, int addend){
+static void accumulate_energy(uint16_t *e, int addend){
   if((*e += addend) > ENERGY_MAX){
     *e = ENERGY_MAX;
   }
