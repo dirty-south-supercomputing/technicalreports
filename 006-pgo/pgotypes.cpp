@@ -11392,6 +11392,17 @@ typedef struct species {
     return ::type_effectiveness(a->type, t1, t2);
   }
 
+  const char *categorystr() const {
+    switch(category){
+      case CAT_NORMAL: return "";
+      case CAT_MYTHICAL: return " Mythical";
+      case CAT_LEGENDARY: return " Legendary";
+      case CAT_ULTRABEAST: return " Ultra Beast";
+      case CAT_BABY: return " Baby";
+      default: throw std::exception();
+    }
+  }
+
 } species;
 
 static const species sdex[] = {
@@ -13495,8 +13506,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}CG %d Gen %s %s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
-            idx_to_region(s->idx));
+    printf("\\scriptsize{}CG %d Gen %s %s%s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
+            idx_to_region(s->idx), s->categorystr());
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
