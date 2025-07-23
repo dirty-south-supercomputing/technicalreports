@@ -177,4 +177,12 @@ Handling replacement is easier: all we need do is amend our frontend to
 Skirting past a combinatorial explosion requires effective memoization combined with
  identification of commutative transitions.
 
+Our state object is small enough to hash its entirety.
+Since our simulation is deterministic and exhaustive, any equivalent states
+ are guaranteed to have the same subtree.
+By simply keeping a fixed-sized LRU cache of previous states and the net results they
+ generated, we can hash in $\mathcal{O}(N)$ on the state size, match in $\mathcal{O}(1)$
+ time, and replace an exponential time computation with one of constant time---when we hit cache, anyway.
+Our LRU can be global or at the level of a set association.
+
 \lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}
