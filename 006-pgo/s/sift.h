@@ -1,5 +1,5 @@
 static inline bool can_charged(const simulstate *s, int p, const attack *c){
-  return s->turns[p] && s->e[p][s->active[p]] >= -c->energytrain;
+  return !s->turns[p] && s->e[p][s->active[p]] >= -c->energytrain;
 }
 
 static inline bool can_charged1(const simulstate *s, int p){
