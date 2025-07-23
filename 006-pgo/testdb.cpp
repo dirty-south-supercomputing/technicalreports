@@ -28,6 +28,25 @@ test_species(const species *s){
     std::cerr << "missing on " << s->name << std::endl;
     throw std::exception();
   }
+  switch(s->category){
+    case species::CAT_NORMAL:
+      break;
+    case species::CAT_BABY:
+      if(s->from){
+        std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
+        throw std::exception();
+      }
+      break;
+    case species::CAT_LEGENDARY:
+    case species::CAT_MYTHICAL:
+    case species::CAT_ULTRABEAST:
+      if(s->a2cost != 100){ // all ought be in cost group 4
+        std::cerr << s->name << " has invalid costgroup" << std::endl;
+      }
+      break;
+    default:
+      break;
+  }
   return true;
 }
 
