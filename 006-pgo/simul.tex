@@ -127,12 +127,10 @@ On a knockout, the top half calls \texttt{handle\_ko()}.
 This is the only function that actually records results.
 Right now we're only handling a single Pokémon per team, but we go ahead and implement this so that it'll work properly
  with arbitrarily many Pokémon.
-When a Pokémon goes down, three things can happen:
-\begin{itemize}
-  \item No more Pokémon: the match is over.
-  \item One more Pokémon: it becomes active. Continue the simulation.
-  \item Two more Pokémon: simulate both replacements.
-\end{itemize}
+When a Pokémon goes down, three things can happen.
+If it was the last on its team, the match is over (possibly in a tie).
+If there is one Pokémon remaining, bring it in and continue simulating.
+If two more Pokémon remain, we must simulate both replacements.
 \inputminted{cpp}{s/ko.h}
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
   with full HP, two shields, and no energy.
