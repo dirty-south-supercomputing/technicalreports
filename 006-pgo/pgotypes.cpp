@@ -565,7 +565,7 @@ static const attack ATK_Dynamic_Punch = { "Dynamic Punch", TYPE_FIGHTING, 90, -4
 	85, 50, 5, };
 static const attack ATK_Earthquake = { "Earthquake", TYPE_GROUND, 110, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	140, 100, 7, };
-static const attack ATK_Earth_Power = { "Earth Power", TYPE_GROUND, 90, -55, 0, 0, 0, 0, 0, 100, 0, 0, -1,
+static const attack ATK_Earth_Power = { "Earth Power", TYPE_GROUND, 90, -55, 0, 0, 0, 0, 100, 0, 0, 0, -1,
 	100, 50, 7, };
 static const attack ATK_Energy_Ball = { "Energy Ball", TYPE_GRASS, 90, -55, 0, 0, 0, 0, 100, 0, 0, 0, -1,
 	90, 50, 8, };
@@ -13418,6 +13418,22 @@ int print_icons(const species *s, bool doprint){
   return count;
 }
 
+static void
+print_buff(unsigned chance, int buff, const char *sig){
+  if(!chance){
+    return;
+  }
+  if(chance != 1000){ // don't print chance if it's 100%
+    printf("%g\\%%", chance / 10.0);
+  }
+  printf("%s", sig);
+  if(buff > 0){ // FIXME need indicate magnitude of buff
+    printf("↑ ");
+  }else{
+    printf("↓ ");
+  }
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg){
   printf("\\vfill\n");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
@@ -13461,12 +13477,16 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     if(charged_attack_p(*a)){
       const float dpe = power / -(*a)->energytrain;
       if(exclusive_attack_p(s, *a)){
-        printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\\\\n",
+        printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} &",
             (*a)->name, power, (*a)->energytrain, dpe);
       }else{
-        printf(" %s & & %g & %d & %.2f & \\\\\n",
+        printf(" %s & & %g & %d & %.2f &",
             (*a)->name, power, (*a)->energytrain, dpe);
       }
+      print_buff((*a)->chance_user_attack, (*a)->user_attack, "A");
+      print_buff((*a)->chance_user_defense, (*a)->user_defense, "D");
+      // FIXME need handle opponent buffs
+      printf("\\\\\n");
     }else{ // fast attacks
       const float dpt = power / (*a)->turns;
       const float ept = static_cast<float>((*a)->energytrain) / (*a)->turns;
