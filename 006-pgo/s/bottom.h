@@ -1,15 +1,14 @@
-// decrement fast move turns by one. if the attack concludes as a result,
-// inflict damage and add energy. returns true in the case of a KO.
-static bool account_fast_move(simulstate *s, int player){
+// if no fast attack is ongoing, launch one. either way, decrement turns. if
+// the attack concludes as a result, inflict damage and add energy.
+static void account_fast_move(simulstate *s, int player){
   if(!s->turns[player]){
     s->turns[player] = activemon(s, player)->fa->turns;
   }
-  if(--s->turns[player]){
-    return false;
+  if(--s->turns[player] == 0){
+    accumulate_energy(&s->e[player][s->active[player]], activemon(s, player)->fa->energytrain);
+    int op = other_player(player);
+    inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
   }
-  accumulate_energy(&s->e[player][s->active[player]], activemon(s, player)->fa->energytrain);
-  int op = other_player(player);
-  return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
 }
 
 // returns true if we KO the opponent. a must be a charged move, and the
@@ -41,6 +40,7 @@ bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
     bottomhalf_charged_fast(&scopy, r, player, c, aid, 0);
   }
   if(!throw_charged_move(s, player, c, aid, shielded)){
+    s->turns[other_player(player)] = 1; // charged move concludes opposing fast move
     account_fast_move(s, other_player(player));
   }
   tophalf(s, r);
