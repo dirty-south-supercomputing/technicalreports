@@ -16,7 +16,7 @@ static void tophalf(simulstate *s, results *r);
 pmon pmons[2][TEAMSIZE] = {};
 
 // we have 26 bits of discriminant
-static constexpr unsigned long CACHEELEMS = 1u << 25u;
+static constexpr unsigned long CACHEELEMS = 1u << 26u;
 
 struct cacheelem {
   simulstate s;
@@ -43,6 +43,10 @@ static uint64_t cache_fails;  // was open when we looked it up
 
 int check_cache(const simulstate *s, results *r, uint32_t *h){
   *h = hash_simulstate(s);
+  if(*h >= CACHEELEMS){
+    std::cerr << "specified element " << *h << " of " << CACHEELEMS << std::endl;
+    throw std::exception();
+  }
   cacheelem &elem = elems[*h];
   if(elem.state == cacheelem::ELEMINIT){
     memcpy(&elem.s, s, sizeof(*s));
