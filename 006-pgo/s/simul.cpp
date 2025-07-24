@@ -5,6 +5,7 @@
 #include "simul.h"
 #include "sift.h"
 #include "damage.h"
+#include "memo.h"
 #include "in.h"
 static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
@@ -13,6 +14,81 @@ static void tophalf(simulstate *s, results *r);
 #include "lex.cpp"
 
 pmon pmons[2][TEAMSIZE] = {};
+
+// we have 26 bits of discriminant
+static constexpr unsigned long CACHEELEMS = 1u << 25u;
+
+struct cacheelem {
+  simulstate s;
+  results r;
+  enum {
+    ELEMINIT, // element has never been touched
+    ELEMOPEN, // element is open and waiting to be closed
+    ELEMSET,  // element is fully prepared for use
+  } state;
+};
+
+static cacheelem *elems;
+
+int init_cache(void){
+  elems = new cacheelem[CACHEELEMS];
+  memset(elems, 0, sizeof(*elems) * CACHEELEMS);
+  return 0;
+}
+
+static uint64_t cache_opens;  // opened a cache element
+static uint64_t cache_hits;   // was set and valid for us
+static uint64_t cache_misses; // was set but not us
+static uint64_t cache_fails;  // was open when we looked it up
+
+int check_cache(const simulstate *s, results *r, uint32_t *h){
+  *h = hash_simulstate(s);
+  cacheelem &elem = elems[*h];
+  if(elem.state == cacheelem::ELEMINIT){
+    memcpy(&elem.s, s, sizeof(*s));
+    memcpy(&elem.r, r, sizeof(*r));
+    elem.state = cacheelem::ELEMOPEN;
+    ++cache_opens;
+    return -1;
+  }
+  if(elem.state == cacheelem::ELEMOPEN){
+    ++cache_fails;
+    return 1;
+  }
+  // if we got here, element must be set. check if it's valid for us.
+  // FIXME don't need check the entire struct (no need to do damage cache, etc).
+  if(memcmp(&elem.s, s, sizeof(*s))){
+    ++cache_misses;
+    return 1;
+  }
+  r->wins[0] += elem.r.wins[0];
+  r->wins[1] += elem.r.wins[1];
+  r->ties += elem.r.ties;
+  ++cache_hits;
+  return 0;
+}
+
+void update_cache(uint32_t h, const results *r){
+  cacheelem &elem = elems[h];
+  if(elem.state != cacheelem::ELEMOPEN){
+    std::cerr << "error: state was " << elem.state << " for " << h << std::endl;
+    throw std::exception();
+  }
+  elem.r.wins[0] = r->wins[0] - elem.r.wins[0];
+  elem.r.wins[1] = r->wins[1] - elem.r.wins[1];
+  elem.r.ties = r->ties - elem.r.ties;
+  elem.state = cacheelem::ELEMSET;
+}
+
+int stop_cache(void){
+  std::cout << "hits: " << cache_hits
+    << " misses: " << cache_misses
+    << " opens: " << cache_opens
+    << " fails: " << cache_fails
+    << std::endl;
+  delete[] elems;
+  return 0;
+}
 
 static void
 usage(const char *argv0){
@@ -153,11 +229,15 @@ int main(int argc, char** argv){
     std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);
   }
+  if(init_cache()){
+    exit(EXIT_FAILURE);
+  }
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
   simul(&sstate, &r);
+  stop_cache();
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0 wins: %lu p1 wins: %lu ties: %lu total: %lu\n",
+  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu total: %'lu\n",
         r.wins[0], r.wins[1], r.ties, total);
   printf("p0 %.04f%% p1 %.04f%% t %.04f%%\n", r.wins[0] * 100.0 / total,
         r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
