@@ -16,6 +16,27 @@ struct simulstate { // dynamic elements
   uint8_t shields[2];       // number of shields available [0..2]
   uint8_t active[2];        // indexes of active pokémon   [0..2]
   int cmp;                  // <=> for charged move prio
+
+  inline bool operator==(const simulstate& r) {
+    for(unsigned p = 0 ; p < 2 ; ++p){
+      if(turns[p] != r.turns[p] ||
+          subtimer[p] != r.subtimer[p] ||
+          buffleva[p] != r.buffleva[p] ||
+          bufflevd[p] != r.bufflevd[p] ||
+          shields[p] != r.shields[p] ||
+          active[p] != r.active[p]){
+        return false;
+      }
+      for(unsigned t = 0 ; t < TEAMSIZE ; ++t){
+        if(hp[p][t] != r.hp[p][t] ||
+            e[p][t] != r.e[p][t]){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
 };
 
 struct pmon { // static elements
