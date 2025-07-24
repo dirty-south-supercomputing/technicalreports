@@ -37,9 +37,10 @@ int init_cache(void){
 }
 
 static uint64_t cache_opens;  // opened a cache element
+static uint64_t cache_close;  // set a cache element
 static uint64_t cache_hits;   // was set and valid for us
 static uint64_t cache_misses; // was set but not us
-static uint64_t cache_fails;  // was open when we looked it up
+static uint64_t cache_late;   // was open when we looked it up
 
 int check_cache(const simulstate *s, results *r, uint32_t *h){
   *h = hash_simulstate(s);
@@ -56,12 +57,12 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
     return -1;
   }
   if(elem.state == cacheelem::ELEMOPEN){
-    ++cache_fails;
+    ++cache_late;
     return 1;
   }
   // if we got here, element must be set. check if it's valid for us.
   // FIXME don't need check the entire struct (no need to do damage cache, etc).
-  if(memcmp(&elem.s, s, sizeof(*s))){
+  if(elem.s != *s){
     ++cache_misses;
     return 1;
   }
@@ -82,13 +83,15 @@ void update_cache(uint32_t h, const results *r){
   elem.r.wins[1] = r->wins[1] - elem.r.wins[1];
   elem.r.ties = r->ties - elem.r.ties;
   elem.state = cacheelem::ELEMSET;
+  ++cache_close;
 }
 
 int stop_cache(void){
   std::cout << "hits: " << cache_hits
     << " misses: " << cache_misses
     << " opens: " << cache_opens
-    << " fails: " << cache_fails
+    << " close: " << cache_close
+    << " late: " << cache_late
     << std::endl;
   delete[] elems;
   return 0;

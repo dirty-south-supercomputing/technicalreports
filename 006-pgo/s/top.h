@@ -15,13 +15,8 @@
 }while(0);
 
 static void tophalf(simulstate *s, results *r){
-  static unsigned depth = 0;
   const int hp0 = s->hp[0][s->active[0]];
   const int hp1 = s->hp[1][s->active[1]];
-  ++depth;
-  if((r->wins[0] + r->wins[1] + r->ties) % 10000000 == 0){
-    printf("%'lu %'lu %'lu %d %d %u\n", r->wins[0], r->wins[1], r->ties, hp0, hp1, depth);
-  }
   if(!hp0){
     if(hp1){
       handle_one_ko(s, r, 0);
@@ -59,5 +54,4 @@ static void tophalf(simulstate *s, results *r){
       }
     }
   }
-  --depth;
 }
