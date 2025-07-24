@@ -130,7 +130,7 @@ print_intro(void){
 }
 
 int main(int argc, char** argv){
-  setlocale(LC_ALL, NULL);
+  setlocale(LC_ALL, "");
   const char* argv0 = *argv;
   simulstate sstate = {};
   --argc;
