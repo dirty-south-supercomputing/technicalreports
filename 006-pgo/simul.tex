@@ -201,5 +201,7 @@ Let's use the lower two bits of both fast attack counters\footnote{This exposes 
  the lower 5 bits from each active energy tally, the lower 6 bits from each
  active HP, and we'll do $2^{26}$ states in 6GB\@.
 This aliases on 64 hit points and 32 units of energy.
+To improve the hit rate, we add logic to the fast-fast bottom half to advance directly
+ to the end of the shorter fast attack when both are in play.
 \textbf{FIXME}
 \lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}
