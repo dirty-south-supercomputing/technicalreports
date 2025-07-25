@@ -12399,9 +12399,9 @@ static const species sdex[] = {
     { &ATK_Geomancy, }, species::CAT_LEGENDARY, 100, nullptr, },
   {  717, "Yveltal", TYPE_DARK, TYPE_FLYING, 250, 185, 246, NULL, YVELTAL_ATKS, true, false,
     { &ATK_Oblivion_Wing, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, NULL, ZYGARDE10_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%", ZYGARDE50_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
-  {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%", ZYGARDE_ATKS, true, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, NULL, ZYGARDE10_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%", ZYGARDE50_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
+  {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%", ZYGARDE_ATKS, false, false, {}, species::CAT_LEGENDARY, 100, nullptr, },
   {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, NULL, DIANCIE_ATKS, true, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, NULL, C_HOOPA_ATKS, false, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
   {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, NULL, U_HOOPA_ATKS, false, false, {}, species::CAT_MYTHICAL, 100, nullptr, },
@@ -13499,11 +13499,17 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
         if((*a)->chance_user_defense){
           print_buff((*a)->chance_user_defense, (*a)->user_defense, "D");
         }
-        if((*a)->chance_opp_attack){
-          print_buff((*a)->chance_opp_attack, (*a)->opp_attack, "OA");
-        }
-        if((*a)->chance_opp_defense){
-          print_buff((*a)->chance_opp_defense, (*a)->opp_defense, "OD");
+        // need special case this as it takes too much space otherwise
+        if((*a)->chance_opp_attack && (*a)->chance_opp_attack == (*a)->chance_opp_defense
+            && (*a)->opp_attack == (*a)->opp_defense){
+          print_buff((*a)->chance_opp_attack, (*a)->opp_attack, "OA+D");
+        }else{
+          if((*a)->chance_opp_attack){
+            print_buff((*a)->chance_opp_attack, (*a)->opp_attack, "OA");
+          }
+          if((*a)->chance_opp_defense){
+            print_buff((*a)->chance_opp_defense, (*a)->opp_defense, "OD");
+          }
         }
         printf("}");
       }
@@ -13543,7 +13549,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   printf("\\end{minipage}\n");
   if(bg){ // evolutionary lineage (only for main forms)
     printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
-    printf("\\vfill{}");
+    printf("\\vfill{}\\scriptsize{}");
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
@@ -13592,7 +13598,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     printf("%g %g %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
 
-  // end footnotesize
   printf("}");
   printf("\\end{speciesbox}\n");
   if(bg){
