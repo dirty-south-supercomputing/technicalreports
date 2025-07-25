@@ -78,6 +78,9 @@ print_attack_users(const attack *a){
     printf("\\\\\n\\textbf{%g\\%% chance of opponent defense %+d}\n",
           a->chance_opp_defense / 10.0, a->opp_defense);
   }
+  if(a->adveffect){
+    printf("\\\\\n\\textbf{%s has an Adventure Effect}\n", a->name);
+  }
   printf("\n\\end{tcolorbox}\n");
   if(a->type != TYPECOUNT){
     printf("\\pagecolor{%s!25!white}", TNames[a->type]);
