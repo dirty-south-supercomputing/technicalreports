@@ -5,31 +5,30 @@ In trainer battles, the types of active Pokémon are indicated
 It is absolutely necessary that you immediately recognize them.
 
 \begin{table}[ht!]
-  \begin{center}
-  \begin{tabular}{c c c c c c c c c}
-  \includegraphics[scale=.25]{images/bug.png} &
-  \includegraphics[scale=.25]{images/dark.png} &
-  \includegraphics[scale=.25]{images/dragon.png} &
-  \includegraphics[scale=.25]{images/electric.png} &
-  \includegraphics[scale=.25]{images/fairy.png} &
-  \includegraphics[scale=.25]{images/fighting.png} \\
-  Bug & Dark & Dragon & Electric & Fairy & Fighting \\
-  \includegraphics[scale=.25]{images/fire.png} &
-  \includegraphics[scale=.25]{images/flying.png} &
-  \includegraphics[scale=.25]{images/ghost.png} &
-  \includegraphics[scale=.25]{images/grass.png} &
-  \includegraphics[scale=.25]{images/ground.png} &
-  \includegraphics[scale=.25]{images/ice.png} \\
-  Fire & Flying & Ghost & Grass & Ground & Ice \\
-  \includegraphics[scale=.25]{images/normal.png} &
-  \includegraphics[scale=.25]{images/poison.png} &
-  \includegraphics[scale=.25]{images/psychic.png} &
-  \includegraphics[scale=.25]{images/rock.png} &
-  \includegraphics[scale=.25]{images/steel.png} &
-  \includegraphics[scale=.25]{images/water.png} \\
-  Normal & Poison & Psychic & Rock & Steel & Water \\
+\centering
+\begin{tabular}{c c c c c c c c c}
+\includegraphics[scale=.25]{images/bug.png} &
+\includegraphics[scale=.25]{images/dark.png} &
+\includegraphics[scale=.25]{images/dragon.png} &
+\includegraphics[scale=.25]{images/electric.png} &
+\includegraphics[scale=.25]{images/fairy.png} &
+\includegraphics[scale=.25]{images/fighting.png} \\
+Bug & Dark & Dragon & Electric & Fairy & Fighting \\
+\includegraphics[scale=.25]{images/fire.png} &
+\includegraphics[scale=.25]{images/flying.png} &
+\includegraphics[scale=.25]{images/ghost.png} &
+\includegraphics[scale=.25]{images/grass.png} &
+\includegraphics[scale=.25]{images/ground.png} &
+\includegraphics[scale=.25]{images/ice.png} \\
+Fire & Flying & Ghost & Grass & Ground & Ice \\
+\includegraphics[scale=.25]{images/normal.png} &
+\includegraphics[scale=.25]{images/poison.png} &
+\includegraphics[scale=.25]{images/psychic.png} &
+\includegraphics[scale=.25]{images/rock.png} &
+\includegraphics[scale=.25]{images/steel.png} &
+\includegraphics[scale=.25]{images/water.png} \\
+Normal & Poison & Psychic & Rock & Steel & Water \\
 \end{tabular}
-\end{center}
 \caption{The 18 base types\label{table:basetypes}}
 \end{table}
 
@@ -88,18 +87,16 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
   and Ground → Electric.
 
 \begin{figure}[h!]
-  \begin{minipage}[t]{0.5\textwidth}
-    \begin{center}
-    \includegraphics[scale=.25]{out/circo/nature.dot.png}
-    \end{center}
-    \caption{17 natural relations\label{fig:natural}}
-  \end{minipage}
-  \begin{minipage}[t]{0.5\textwidth}
-    \begin{center}
-    \includegraphics[scale=.25]{out/circo/rational.dot.png}
-    \end{center}
-    \caption{16 rational relations\label{fig:rational}}
-  \end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\includegraphics[scale=.25]{out/circo/nature.dot.png}
+\caption{17 natural relations\label{fig:natural}}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\includegraphics[scale=.25]{out/circo/rational.dot.png}
+\caption{16 rational relations\label{fig:rational}}
+\end{minipage}
 \end{figure}
 \noindent{}Poison kills Grass, which kills Ground, which kills Poison.
 Rock is strong against Bug, which kills Grass, which is strong against Rock.
@@ -208,25 +205,22 @@ None of Steel's resistances matter when you're being hit by one of its
   weaknesses.
 \input{out/dualsummaries.tex}
 There are twenty triple resistances, five of which are against Fighting attacks (\autoref{table:triples}).
-Two of the typings exhibiting such resistances are unpopulated
-  (Electricity+Ground\footnote{Sandy Shocks, Pokédex \#0989, is a Generation IX
-  Electricity+Ground, but is not at this time present in Pokémon GO.} and Ghost+Rock).
+Ghost/Rock, triply resistant against Normal, is currently unpopulated.
 \begin{table}
-  \begin{center}
-    \begin{tabular}{cc}
-Dragon → Fairy+Steel & Ground → Bug+Flying \\
-Electric → Dragon+Ground & Ground → Flying+Grass \\
-Electric → Electric+Ground & Psychic → Dark+Psychic \\
-Electric → Grass+Ground & Psychic → Dark+Steel \\
-Fighting → Bug+Ghost & Normal → Ghost+Rock \\
-Fighting → Fairy+Ghost & Normal → Ghost+Steel \\
-Fighting → Flying+Ghost & Poison → Ghost+Steel \\
-Fighting → Ghost+Poison & Poison → Ground+Steel \\
-Fighting → Ghost+Psychic & Poison → Poison+Steel \\
-Ghost → Dark+Normal & Poison → Rock+Steel \\
-    \end{tabular}
-    \caption{The twenty triple resistances\label{table:triples}}
-  \end{center}
+\centering
+\begin{tabular}{cc}
+Dragon → Fairy/Steel & Ground → Bug/Flying \\
+Electric → Dragon/Ground & Ground → Flying/Grass \\
+Electric → Electric/Ground & Psychic → Dark/Psychic \\
+Electric → Grass/Ground & Psychic → Dark/Steel \\
+Fighting → Bug/Ghost & Normal → Ghost/Rock \\
+Fighting → Fairy/Ghost & Normal → Ghost/Steel \\
+Fighting → Flying/Ghost & Poison → Ghost/Steel \\
+Fighting → Ghost/Poison & Poison → Ground/Steel \\
+Fighting → Ghost/Psychic & Poison → Poison/Steel \\
+Ghost → Dark/Normal & Poison → Rock/Steel \\
+\end{tabular}
+\caption{The twenty triple resistances\label{table:triples}}
 \end{table}
 
 \section{Weather boosting\label{sec:weather}}
