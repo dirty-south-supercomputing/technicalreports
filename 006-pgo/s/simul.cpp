@@ -41,6 +41,14 @@ static uint64_t cache_hits;   // was set and valid for us
 static uint64_t cache_misses; // was set but not us
 static uint64_t cache_late;   // was open when we looked it up
 
+static void
+init_elem(cacheelem &elem, const simulstate *s, const results *r){
+  memcpy(&elem.s, s, sizeof(*s));
+  memcpy(&elem.r, r, sizeof(*r));
+  elem.state = cacheelem::ELEMOPEN;
+  ++cache_opens;
+}
+
 int check_cache(const simulstate *s, results *r, uint32_t *h){
   *h = hash_simulstate(s);
   if(*h >= CACHEELEMS){
@@ -49,10 +57,7 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
   }
   cacheelem &elem = elems[*h];
   if(elem.state == cacheelem::ELEMINIT){
-    memcpy(&elem.s, s, sizeof(*s));
-    memcpy(&elem.r, r, sizeof(*r));
-    elem.state = cacheelem::ELEMOPEN;
-    ++cache_opens;
+    init_elem(elem, s, r);
     return -1;
   }
   if(elem.state == cacheelem::ELEMOPEN){
@@ -60,10 +65,10 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
     return 1;
   }
   // if we got here, element must be set. check if it's valid for us.
-  // FIXME don't need check the entire struct (no need to do damage cache, etc).
   if(elem.s != *s){
     ++cache_misses;
-    return 1;
+    init_elem(elem, s, r);
+    return -1;
   }
   r->wins[0] += elem.r.wins[0];
   r->wins[1] += elem.r.wins[1];
