@@ -216,6 +216,12 @@ testsimullong: $(SIMUL)
 						talonflame opt1500 incinerate "brave bird/fire blast" \
 						jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
 						dusknoir opt1500 astonish "shadow ball/dynamic punch"
+	time $(<) clodsire opt1500 "poison sting" "earthquake/megahorn" \
+						talonflame opt1500 incinerate "brave bird/fire blast" \
+						quagsire opt1500 "water gun" "earthquake/sludge bomb" \
+						jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
+						dusknoir opt1500 astonish "shadow ball/dynamic punch" \
+						gallade opt1500 confusion "synchronoise/leaf blade"
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
