@@ -188,11 +188,11 @@ $(SIMUL3OUT): $(SIMUL)
 				feebas opt500 tackle "mirror coat" \
 				milotic opt500 waterfall surf > $@
 
-$(SIMUL): $(SIMULSRC) pgotypes.cpp
+$(SIMUL): $(SIMULSRC) pgotypes.cpp Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm -lmurmurhash
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.cpp
+$(OUT)/%: %.cpp pgotypes.cpp Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
 
