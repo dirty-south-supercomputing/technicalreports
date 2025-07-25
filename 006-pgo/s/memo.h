@@ -1,18 +1,17 @@
 #ifndef PSIMUL_MEMO
 #define PSIMUL_MEMO
 
+#include <murmurhash.h>
+
 // We use the lower two bits of both fast attack turn counters, the
 // lower five bits of each energy tally, and the lower six bits of
 // each HP to get a lookup. We must then verify that the full state matches.
 static inline uint32_t
 hash_simulstate(const simulstate *s){
-  const uint32_t hp0 = s->hp[0][s->active[0]] % 64u;
-  const uint32_t hp1 = (s->hp[1][s->active[1]] % 64u) << 6u;
-  const uint32_t e0 = (s->e[0][s->active[0]] % 32u) << 12u;
-  const uint32_t e1 = (s->e[1][s->active[1]] % 32u) << 17u;
-  const uint32_t f0 = (s->turns[0] % 4u) << 22u;
-  const uint32_t f1 = (s->turns[1] % 4u) << 24u;
-  return f1 | f0 | e1 | e0 | hp1 | hp0;
+  uint32_t h;
+  lmmh_x86_32(s, sizeof(*s), 0, &h);
+  h &= 0x3ffffff;
+  return h;
 }
 
 int init_cache(void);

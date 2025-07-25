@@ -190,7 +190,7 @@ $(SIMUL3OUT): $(SIMUL)
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm
+	g++ -std=c++23 -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm -lmurmurhash
 
 $(OUT)/%: %.cpp pgotypes.cpp
 	@mkdir -p $(@D)

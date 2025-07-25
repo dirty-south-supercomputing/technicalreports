@@ -40,6 +40,7 @@ static uint64_t cache_opens;  // opened a cache element
 static uint64_t cache_hits;   // was set and valid for us
 static uint64_t cache_misses; // was set but not us
 static uint64_t cache_late;   // was open when we looked it up
+static uint64_t cache_used;   // elements used
 
 static void
 init_elem(cacheelem &elem, const simulstate *s, const results *r){
@@ -58,6 +59,7 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
   cacheelem &elem = elems[*h];
   if(elem.state == cacheelem::ELEMINIT){
     init_elem(elem, s, r);
+    ++cache_used;
     return -1;
   }
   if(elem.state == cacheelem::ELEMOPEN){
@@ -94,6 +96,7 @@ int stop_cache(void){
     << " misses: " << cache_misses
     << " opens: " << cache_opens
     << " late: " << cache_late
+    << " used: " << cache_used << " / " << CACHEELEMS
     << std::endl;
   delete[] elems;
   return 0;
@@ -202,6 +205,7 @@ simul(simulstate *s, results *r){
 
 static void
 print_team(int player){
+  printf("TEAM %d\n", player + 1);
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
     if(pmons[player][i].s.s){
       print_pmon(&pmons[player][i]);
