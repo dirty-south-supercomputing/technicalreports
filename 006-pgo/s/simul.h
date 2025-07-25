@@ -25,13 +25,11 @@ struct simulstate { // dynamic elements
           bufflevd[p] != r.bufflevd[p] ||
           shields[p] != r.shields[p] ||
           active[p] != r.active[p]){
-        //printf("clash active: %u %u\n", active[p], r.active[p]);
         return false;
       }
       for(unsigned t = 0 ; t < TEAMSIZE ; ++t){
         if(hp[p][t] != r.hp[p][t] ||
             e[p][t] != r.e[p][t]){
-          //printf("clash hp: %u %u e: %u %u\n", hp[p][t], r.hp[p][t], e[p][t], r.e[p][t]);
           return false;
         }
       }

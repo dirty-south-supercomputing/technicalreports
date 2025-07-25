@@ -1,14 +1,14 @@
 #define bottomhalf_p0charged(cnum, cond, a) do{ \
   if(cond){ \
     const auto c = pmons[0][s->active[0]].a; \
-    scopy = *s; \
+    memcpy(&scopy, s, sizeof(*s)); \
     bottomhalf_charged_fast(&scopy, r, 0, c, cnum, sh1); \
     if(p1c1){ \
-      scopy = *s; \
+      memcpy(&scopy, s, sizeof(*s)); \
       bottomhalf_charged_charged(&scopy, r, c, p1ca1, cnum, 1, sh0, sh1); \
     } \
     if(p1c2){ \
-      scopy = *s; \
+      memcpy(&scopy, s, sizeof(*s)); \
       bottomhalf_charged_charged(&scopy, r, c, p1ca2, cnum, 2, sh0, sh1); \
     } \
   } \
@@ -41,11 +41,11 @@ static void tophalf(simulstate *s, results *r){
       bottomhalf_p0charged(1, p0c1, ca1);
       bottomhalf_p0charged(2, p0c2, ca2);
       if(p1c1){ // now p1c1 and p0 fast, if p1c1 can happen
-        scopy = *s;
+        memcpy(&scopy, s, sizeof(*s)); \
         bottomhalf_charged_fast(&scopy, r, 1, p1ca1, 1, sh0);
       }
       if(p1c2){ // now p1c2 and p0 fast, if p1c2 can happen
-        scopy = *s;
+        memcpy(&scopy, s, sizeof(*s)); \
         bottomhalf_charged_fast(&scopy, r, 1, p1ca2, 2, sh0);
       } // always handle the fast-fast case
       bottomhalf_allfast(s, r);

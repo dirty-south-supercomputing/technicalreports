@@ -5213,7 +5213,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   // but we want only one line if we can get away with it. four small icons
   // are too many to put with two large icons.
   if(largeicons + print_icons(s, false) > 5){
-    printf("\\\\\\noindent{}");
+    printf("\\\\");
   }
   print_icons(s, true);
   printf("\\end{minipage}\n");
