@@ -13397,7 +13397,7 @@ print_previous_species(const species *s){
   printf("}) → ");
   // ugh, special case -- this line occupies too much space
   if(!s->name.compare("Galarian Zigzagoon")){
-    printf("\\\\\\hfill\n");
+    printf("\\\\\\strut\\hfill{}");
   }
 }
 
@@ -13565,7 +13565,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       escape_string(s->name.c_str());
       printf("}");
       if(!s->name.compare("Galarian Zigzagoon")){
-        printf("\\\\\\hfill\n");
+        printf("\\\\\\strut\\hfill{}");
       }
       while(evol){
         printf(" → ");
