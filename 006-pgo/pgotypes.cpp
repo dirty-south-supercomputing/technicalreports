@@ -13084,7 +13084,7 @@ void print_types(pgo_types_e t1, pgo_types_e t2){
 
 void print_type_big(pgo_types_e t){
   if(t != TYPECOUNT){
-    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", tnames[t]);
+    printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", tnames[t]);
   }
 }
 
@@ -13102,13 +13102,13 @@ int print_weather_big(pgo_weather_t w, bool doprint){
   int count = 1;
   const char *ws = WNames[w];
   if(doprint){
-    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}} ", ws);
+    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", ws);
   }
   ws = WSNames[w];
   if(ws){
     ++count;
     if(doprint){
-      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}} ", ws);
+      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", ws);
     }
   }
   return count;
@@ -13445,13 +13445,13 @@ int print_icons(const species *s, bool doprint){
   if(s->category == species::CAT_ULTRABEAST){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}}");
+      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}}");
     }
   }
   if(has_mega(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
+      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
     }
   }
   count += print_weathers_big(s->t1, s->t2, doprint);
@@ -13494,7 +13494,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
-    printf(",fill image opacity=0.1}");
+    printf(",fill image opacity=0.2}");
   }
   printf("]\\phantomsection\\label{species:");
   label_string(s->name.c_str());
@@ -13579,9 +13579,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}}");
   }
   // we never want some small icons on both lines if we have to have two lines,
-  // but we want only one line if we can get away with it. three small icons
+  // but we want only one line if we can get away with it. four small icons
   // are too many to put with two large icons.
-  if(largeicons + print_icons(s, false) > 4){
+  if(largeicons + print_icons(s, false) > 5){
     printf("\\\\");
   }
   print_icons(s, true);
