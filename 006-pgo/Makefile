@@ -212,6 +212,10 @@ testsimullong: $(SIMUL)
 						feebas opt1500 tackle "mirror coat" milotic opt1500 waterfall surf
 	time $(<) clodsire max "poison sting" "megahorn" sawk max "low kick" "focus blast" \
 						feebas max tackle "mirror coat" milotic max waterfall surf
+	time $(<) clodsire opt1500 "poison sting" "earthquake/megahorn" \
+						talonflame opt1500 incinerate "brave bird/fire blast" \
+						jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
+						dusknoir opt1500 astonish "shadow ball/dynamic punch"
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
