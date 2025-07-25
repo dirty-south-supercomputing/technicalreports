@@ -12770,7 +12770,7 @@ static const species dynadex[] = {
   {  375, "Dmax Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Metang", METANG_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  376, "Dmax Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metagross", METAGROSS_ATKS, true, false, {}, species::CAT_NORMAL, 75, nullptr, },
   {  519, "Dmax Pidove", TYPE_NORMAL, TYPE_FLYING, 98, 80, 137, "Pidove", PIDOVE_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
-  {  520, "Dmax Tranquill", TYPE_NORMAL, TYPE_FLYING, 144, 107, 158, "Transquill", TRANQUILL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
+  {  520, "Dmax Tranquill", TYPE_NORMAL, TYPE_FLYING, 144, 107, 158, "Tranquill", TRANQUILL_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  521, "Dmax Unfezant", TYPE_NORMAL, TYPE_FLYING, 226, 146, 190, "Unfezant", UNFEZANT_ATKS, true, false, {}, species::CAT_NORMAL, 10, nullptr, },
   {  529, "Dmax Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, "Drilbur", DRILBUR_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
   {  530, "Dmax Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Excadrill", EXCADRILL_ATKS, true, false, {}, species::CAT_NORMAL, 50, nullptr, },
