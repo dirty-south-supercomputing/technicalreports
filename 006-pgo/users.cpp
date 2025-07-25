@@ -5,13 +5,13 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
                         bool *printed){
   for(unsigned i = 0 ; i < dcount ; ++i){
     const species *s = &dex[i];
-    for(const attack **sa = s->attacks ; *sa ; ++sa){
-      if(strcmp((*sa)->name, a->name) == 0){
+    for(const auto &sa : s->attacks){
+      if(strcmp(sa->name, a->name) == 0){
         if(*printed){
           printf(", ");
         }
-        bool stab = has_stab_p(s, *sa);
-        bool elite = exclusive_attack_p(s, *sa);
+        bool stab = has_stab_p(s, sa);
+        bool elite = exclusive_attack_p(s, sa);
         if(elite){
           printf("\\textbf{");
         }

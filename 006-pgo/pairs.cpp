@@ -4,8 +4,8 @@
 
 static void
 get_fast_pairs(const species *s, attackset &pairs){
-  for(const attack **as = s->attacks ; *as ; ++as){
-    const attack *a = *as;
+  for(const auto &as : s->attacks){
+    const attack *a = as;
     if(a->energytrain < 0){
       pairs.add(a);
     }
@@ -14,8 +14,8 @@ get_fast_pairs(const species *s, attackset &pairs){
 
 static void
 get_fast_attack_pairs(const species *s, pairmap &pairs){
-  for(const attack **as = s->attacks ; *as ; ++as){
-    const attack *a = *as;
+  for(const auto &as : s->attacks){
+    const attack *a = as;
     if(a->energytrain > 0){ // fast attack
       auto &p = *pairs.try_emplace(a->name, a).first;
       get_fast_pairs(s, p.second);
@@ -33,8 +33,8 @@ get_fast_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
 
 static void
 get_charged_pairs(const species *s, attackset &pairs){
-  for(const attack **as = s->attacks ; *as ; ++as){
-    const attack *a = *as;
+  for(const auto &as : s->attacks){
+    const attack *a = as;
     if(a->energytrain > 0){
       pairs.add(a);
     }
@@ -43,8 +43,8 @@ get_charged_pairs(const species *s, attackset &pairs){
 
 static void
 get_charged_attack_pairs(const species *s, pairmap &pairs){
-  for(const attack **as = s->attacks ; *as ; ++as){
-    const attack *a = *as;
+  for(const auto &as : s->attacks){
+    const attack *a = as;
     if(a->energytrain < 0){ // charged attack
       auto &p = *pairs.try_emplace(a->name, a).first;
       get_charged_pairs(s, p.second);

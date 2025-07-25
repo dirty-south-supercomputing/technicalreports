@@ -38,14 +38,14 @@ dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     bool b0 = false;
     bool b1 = false;
-    for(const attack **a = sdex[u].attacks ; *a ; ++a){
-      if((*a)->energytrain >= 0){
+    for(const auto &a : sdex[u].attacks){
+      if(a->energytrain >= 0){
         continue;
       }
-      if((*a)->type == t0){
+      if(a->type == t0){
         b0 = true;
       }
-      if((*a)->type == t1){
+      if(a->type == t1){
         b1 = true;
       }
     }

@@ -45,13 +45,11 @@ static void
 calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
   for(unsigned si = 0 ; si < sd.dcount ; ++si){
     const auto &s = sd.dex[si];
-    const attack *f;
-    for(unsigned af = 0 ; (f = s.attacks[af]) ; ++af){
+    for(const auto &f : s.attacks){
       if(f->energytrain <= 0){
         continue;
       }
-      const attack *c;
-      for(unsigned ac = 0 ; (c = s.attacks[ac]) ; ++ac){
+      for(const auto &c : s.attacks){
         if(c->energytrain >= 0){
           continue;
         }

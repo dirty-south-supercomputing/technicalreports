@@ -6,21 +6,21 @@ test_species(const species *s){
   // one fast attack and one charged attack.
   bool sawf = false;
   bool sawc = false;
-  for(const attack **a = s->attacks ; *a ; ++a){
-    if(fast_attack_p(*a)){
+  for(const auto &a : s->attacks){
+    if(fast_attack_p(a)){
       sawf = true;
-    }else if(charged_attack_p(*a)){
+    }else if(charged_attack_p(a)){
       sawc = true;
     }
     bool atkingtable = false;
     for(unsigned ai = 0 ; ai < ATTACKCOUNT ; ++ai){
-      if(attacks[ai] == *a){
+      if(attacks[ai] == a){
         atkingtable = true;
         break;
       }
     }
     if(!atkingtable){
-    std::cerr << "missing on " << s->name << " " << (*a)->name << std::endl;
+    std::cerr << "missing on " << s->name << " " << a->name << std::endl;
       throw std::exception();
     }
   }
