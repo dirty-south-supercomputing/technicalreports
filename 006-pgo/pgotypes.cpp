@@ -5203,11 +5203,11 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   int largeicons = print_types_big(s->t1, s->t2);
   if(has_gmax(s)){
     ++largeicons;
-    printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/gigantamax.png}}");
+    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/gigantamax.png}}");
   }
   if(has_dmax(s)){
     ++largeicons;
-    printf(" \\calign{\\includegraphics[height=2em,keepaspectratio]{images/dynamax.png}}");
+    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/dynamax.png}}");
   }
   // we never want some small icons on both lines if we have to have two lines,
   // but we want only one line if we can get away with it. four small icons
