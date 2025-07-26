@@ -15,6 +15,8 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 
+BIGLIST:=list.pdf
+
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
@@ -54,6 +56,7 @@ CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
 #DYNATEX:=$(OUT)/dynas.tex
 SINDEXTEX:=$(SINDEX).tex
+STATTEX:=$(OUT)/stat.tex
 GIGANTATEX:=$(OUT)/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
@@ -83,13 +86,16 @@ SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h m
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(PDF) $(SIMUL) testdb testsimul
+all: $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
+
+$(BIGLIST): list.tex $(STATTEX)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
 	@mkdir -p $(@D)
@@ -216,12 +222,12 @@ testsimullong: $(SIMUL)
 						talonflame opt1500 incinerate "brave bird/fire blast" \
 						jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
 						dusknoir opt1500 astonish "shadow ball/dynamic punch"
-	time $(<) clodsire opt1500 "poison sting" "earthquake/megahorn" \
-						talonflame opt1500 incinerate "brave bird/fire blast" \
-						quagsire opt1500 "water gun" "earthquake/sludge bomb" \
-						jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
-						dusknoir opt1500 astonish "shadow ball/dynamic punch" \
-						gallade opt1500 confusion "synchronoise/leaf blade"
+	time $(<) clodsire opt750 "poison sting" "earthquake/megahorn" \
+						talonflame opt750 incinerate "brave bird/fire blast" \
+						quagsire opt750 "water gun" "earthquake/sludge bomb" \
+						jumpluff opt750 "bullet seed" "acrobatics/solar beam" \
+						dusknoir opt750 astonish "shadow ball/dynamic punch" \
+						gallade opt750 confusion "synchronoise/leaf blade"
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
