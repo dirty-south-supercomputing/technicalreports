@@ -56,7 +56,9 @@ CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
 #DYNATEX:=$(OUT)/dynas.tex
 SINDEXTEX:=$(SINDEX).tex
-STATTEX:=$(OUT)/stat.tex
+STAT1500TEX:=$(OUT)/stat1500.tex
+STAT2500TEX:=$(OUT)/stat2500.tex
+STATMAXTEX:=$(OUT)/statmax.tex
 GIGANTATEX:=$(OUT)/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
@@ -94,7 +96,7 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(BIGLIST): list.tex $(STATTEX)
+$(BIGLIST): list.tex $(STAT1500TEX) $(STAT2500TEX) $(STATMAXTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/dot/%.png: dot/%
@@ -105,9 +107,17 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
-$(OUT)/stat.tex: $(OUT)/stat
+$(OUT)/stat1500.tex: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) 1500 > $@
+
+$(OUT)/stat2500.tex: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) 2500 > $@
+
+$(OUT)/statmax.tex: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) > $@
 
 $(OUT)/dualtypes.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
