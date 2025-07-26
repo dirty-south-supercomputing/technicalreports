@@ -17,6 +17,7 @@ struct timetofirst {
   const attack *ca;
   unsigned ia, id, is, hlevel;
   float effa;
+  float aprod; // effa * dam
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
@@ -35,12 +36,13 @@ struct timetofirst {
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       dam = powerfast + powercharged;
+      aprod = dam * effa;
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
     return l.turns < r.turns ? true : // least to most turns
-      (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
-      (l.turns == r.turns && l.dam == r.dam && l.s->name < r.s->name) ? true : false;
+      (l.turns == r.turns && l.aprod > r.aprod) ? true : // most to least powerful
+      (l.turns == r.turns && l.aprod == r.aprod && l.s->name < r.s->name) ? true : false;
   }
 };
 
@@ -135,11 +137,11 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
   std::cout << t.effa << " & ";
-  std::cout << t.dam * t.effa << " & ";
+  std::cout << t.aprod << " & ";
   if(t.excesse){
     std::cout << t.excesse;
   }
-  std::cout << " & " << t.dam / static_cast<float>(t.turns) << " & "
+  std::cout << " & " << t.aprod / t.turns << " & "
     << t.powercharged * 100 / t.dam
     << "\\\\" << std::endl;
 }
