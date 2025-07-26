@@ -18,6 +18,8 @@ struct timetofirst {
   unsigned ia, id, is, hlevel;
   float effa;
   float aprod; // effa * dam
+  float pppt;  // aprod / 2*T
+  unsigned mhp;
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
@@ -37,12 +39,17 @@ struct timetofirst {
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       dam = powerfast + powercharged;
       aprod = dam * effa;
+      pppt = aprod / (2 * turns);
+      mhp = calc_mhp(s->sta + is, hlevel);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
-    return l.turns < r.turns ? true : // least to most turns
+    return l.pppt > r.pppt ? true
+      : (l.pppt == r.pppt && l.s->name < r.s->name) ? true
+      : false;
+    /*return l.turns < r.turns ? true : // least to most turns
       (l.turns == r.turns && l.aprod > r.aprod) ? true : // most to least powerful
-      (l.turns == r.turns && l.aprod == r.aprod && l.s->name < r.s->name) ? true : false;
+      (l.turns == r.turns && l.aprod == r.aprod && l.s->name < r.s->name) ? true : false;*/
   }
 };
 
@@ -101,8 +108,8 @@ static void usage(const char *argv0){
 }
 
 static void header(void){
-  std::cout << "\\begin{longtable}{lllrrrrrrr}" << std::endl;
-  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{Attacks} & \\textbf{Turns} & ";
+  std::cout << "\\begin{longtable}{lllrrrrrrrr}" << std::endl;
+  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{HP} & \\textbf{Attacks} & \\textbf{Turns} & ";
   std::cout << "\\textbf{Power} & $Eff_A$ & \\textbf{Prod} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
   std::cout << "\\textbf{PPT} & \\textbf{\\\%c} \\\\" << std::endl;
@@ -130,6 +137,7 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
     emit_name(t.s->name);
   }
   std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << t.hlevel << "}&";
+  std::cout << t.mhp << " & ";
   out_type(t.fa->type);
   std::cout << t.fa->name << " + ";
   out_type(t.ca->type);
@@ -141,13 +149,13 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
   if(t.excesse){
     std::cout << t.excesse;
   }
-  std::cout << " & " << t.aprod / t.turns << " & "
+  std::cout << " & " << t.pppt << " & "
     << t.powercharged * 100 / t.dam
     << "\\\\" << std::endl;
 }
 
 static void footer(void){
-  std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}" << std::endl;
+  std::cout << "\\end{longtable}" << std::endl;
 }
 
 int main(int argc, char **argv){
