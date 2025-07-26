@@ -89,17 +89,30 @@ static void header(bool extrema){
   std::cout << "\\Midrule" << std::endl;
 }
 
+static void emit_name(const std::string &s){
+  for(char c : s){
+    if(c == '%'){
+      std::cout << "\\%";
+    }else{
+      std::cout << c;
+    }
+  }
+}
+
 static void emit_line(bool extrema, const timetofirst &t, const std::string &prevname){
-  std::cout << (prevname == t.s->name ? "" : t.s->name) << " & "
-    << t.fa->name << " + " << t.ca->name << " & ";
+  if(prevname != t.s->name){
+    emit_name(t.s->name);
+  }
+  std::cout << " & " << t.fa->name << " + " << t.ca->name << " & ";
   if(!extrema){
     std::cout << t.turns << " & ";
   }
   std::cout << t.dam << " & ";
   if(!extrema){
     if(t.excesse){
-      std::cout << t.excesse << " & ";
+      std::cout << t.excesse;
     }
+    std::cout << " & ";
   }else{
     // we remove this column from the output because all 9 turn cycles
     // have the same excess energy: 1. so check that.
