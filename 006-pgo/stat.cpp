@@ -16,10 +16,11 @@ struct timetofirst {
   const attack *fa;
   const attack *ca;
   unsigned ia, id, is, hlevel;
-  float effa;
+  float effa, effd;
   float aprod; // effa * dam
-  float pppt;  // aprod / 2*T
+  float pppt;  // aprod / (T*T/bulk)
   unsigned mhp;
+  float bulk;  // mhp * effd / 100
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
@@ -35,12 +36,14 @@ struct timetofirst {
       is = St->is;
       hlevel = St->hlevel;
       effa = calc_eff_a(s->atk + ia, hlevel, false);
+      effd = calc_eff_d(s->def + id, hlevel, false);
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       dam = powerfast + powercharged;
-      aprod = dam * effa;
-      pppt = aprod / (2 * turns);
+      aprod = dam * effa / 100;
       mhp = calc_mhp(s->sta + is, hlevel);
+      bulk = effd * mhp / 100;
+      pppt = aprod / (turns * turns / (bulk));
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -108,11 +111,11 @@ static void usage(const char *argv0){
 }
 
 static void header(void){
-  std::cout << "\\begin{longtable}{lllrrrrrrrr}" << std::endl;
-  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{HP} & \\textbf{Attacks} & \\textbf{Turns} & ";
+  std::cout << "\\begin{longtable}{llrrrlrrrrrrr}" << std::endl;
+  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{HP} & $Eff_D$ & \\textbf{Bulk} & \\textbf{Attacks} & \\textbf{T} & ";
   std::cout << "\\textbf{Power} & $Eff_A$ & \\textbf{Prod} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
-  std::cout << "\\textbf{PPT} & \\textbf{\\\%c} \\\\" << std::endl;
+  std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
   std::cout << "\\endhead" << std::endl;
 }
 
@@ -138,6 +141,8 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
   }
   std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << t.hlevel << "}&";
   std::cout << t.mhp << " & ";
+  std::cout << t.effd << " & ";
+  std::cout << t.bulk << " & ";
   out_type(t.fa->type);
   std::cout << t.fa->name << " + ";
   out_type(t.ca->type);
@@ -164,7 +169,7 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }else if(argc < 2){
     bound = 0;
-    std::cout << "No CP bound." << std::endl;
+    std::cout << "\\textbf{No CP bound.}" << std::endl;
   }else{
     bound = atoi(argv[1]);
     if(bound <= 0){
@@ -187,5 +192,6 @@ int main(int argc, char **argv){
     prevname = t.s->name;
   }
   footer();
+  std::cout << "\\clearpage" << std::endl;
   return EXIT_SUCCESS;
 }
