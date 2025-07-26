@@ -16,6 +16,7 @@ struct timetofirst {
   const attack *fa;
   const attack *ca;
   unsigned ia, id, is, hlevel;
+  float effa;
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
@@ -30,6 +31,7 @@ struct timetofirst {
       id = St->id;
       is = St->is;
       hlevel = St->hlevel;
+      effa = calc_eff_a(s->atk + ia, hlevel, false);
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       dam = powerfast + powercharged;
@@ -97,11 +99,11 @@ static void usage(const char *argv0){
 }
 
 static void header(void){
-  std::cout << "\\begin{longtable}{lllrrrrr}Pokémon & Config & Attacks & ";
-  std::cout << "Turns & ";
-  std::cout << "Power & ";
-  std::cout << "\\textit{e} & ";
-  std::cout << "PPT & \\\%c \\\\" << std::endl;
+  std::cout << "\\begin{longtable}{lllrrrrrrr}" << std::endl;
+  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{Attacks} & \\textbf{Turns} & ";
+  std::cout << "\\textbf{Power} & $Eff_A$ & \\textbf{Prod} & ";
+  std::cout << "\\textbf{\\textit{e}} & ";
+  std::cout << "\\textbf{PPT} & \\textbf{\\\%c} \\\\" << std::endl;
   std::cout << "\\endhead" << std::endl;
 }
 
@@ -118,7 +120,6 @@ static void emit_name(const std::string &s){
 static void out_type(pgo_types_e t){
   if(t != TYPECOUNT){
     std::cout << "\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" << tnames[t] << ".png}}";
-    //std::cout << "\\includegraphics{images/" << tnames[t] << ".png}";
   }
 }
 
@@ -133,6 +134,8 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
   std::cout << t.ca->name << " & ";
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
+  std::cout << t.effa << " & ";
+  std::cout << t.dam * t.effa << " & ";
   if(t.excesse){
     std::cout << t.excesse;
   }
