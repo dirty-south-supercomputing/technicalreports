@@ -102,6 +102,7 @@ static void header(void){
   std::cout << "Power & ";
   std::cout << "\\textit{e} & ";
   std::cout << "PPT & \\\%c \\\\" << std::endl;
+  std::cout << "\\endhead" << std::endl;
 }
 
 static void emit_name(const std::string &s){
@@ -114,12 +115,22 @@ static void emit_name(const std::string &s){
   }
 }
 
+static void out_type(pgo_types_e t){
+  if(t != TYPECOUNT){
+    std::cout << "\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" << tnames[t] << ".png}}";
+    //std::cout << "\\includegraphics{images/" << tnames[t] << ".png}";
+  }
+}
+
 static void emit_line(const timetofirst &t, const std::string &prevname){
   if(prevname != t.s->name){
     emit_name(t.s->name);
   }
   std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << t.hlevel << "}&";
-  std::cout << t.fa->name << " + " << t.ca->name << " & ";
+  out_type(t.fa->type);
+  std::cout << t.fa->name << " + ";
+  out_type(t.ca->type);
+  std::cout << t.ca->name << " & ";
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
   if(t.excesse){
