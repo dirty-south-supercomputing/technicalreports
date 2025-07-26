@@ -1,0 +1,17 @@
+% oneside ought not be used for printed, bound material!
+\documentclass[ebook,10pt,openany,oneside]{memoir}
+\title{the big list}
+\author{nick black}
+\usepackage{longtable}
+\usepackage[letterpaper, landscape, margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
+\usepackage{microtype}
+\setmainfont{Gentium Book}
+\newcommand{\ivlev}[4]{#1/#2/#3·#4}
+
+\begin{document}
+\centering
+\footnotesize
+\input{out/stat}
+\end{document}

@@ -105,6 +105,10 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
+$(OUT)/stat.tex: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) 1500 > $@
+
 $(OUT)/dualtypes.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) > $@
