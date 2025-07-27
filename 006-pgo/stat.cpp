@@ -7,6 +7,16 @@
 //
 // MHP * Eff_D * Eff_A * D_cycle / T_cycle
 
+static inline float halfbuff(int bufflevel){
+  float b = mapbuff(bufflevel);
+  if(b > 1){
+    b = 1 + ((b - 1) / 2);
+  }else{
+    b = 1 - ((1 - b) / 2);
+  }
+  return b;
+}
+
 struct timetofirst {
   const species *s;
   unsigned turns;  // turns until first charged attack
@@ -19,6 +29,7 @@ struct timetofirst {
   float effa, effd;
   float aprod; // effa * dam
   float pppt;  // aprod / (T*T/bulk)
+  float abuff, dbuff; // multiplier, half of any buff due charged attack
   unsigned mhp;
   float bulk;  // geommean(mhp, effd)
   unsigned excesse;// excess energy following charged move
@@ -39,10 +50,12 @@ struct timetofirst {
       effd = calc_eff_d(s->def + id, hlevel, false);
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
+      abuff = ca->user_attack;
+      dbuff = ca->user_defense;
       dam = powerfast + powercharged;
-      aprod = sqrt(dam * effa);
+      aprod = sqrt(dam * effa * halfbuff(ca->user_attack));
       mhp = calc_mhp(s->sta + is, hlevel);
-      bulk = sqrt(effd * mhp);
+      bulk = sqrt(mhp * effd * halfbuff(ca->user_defense));
       pppt = (aprod * aprod * bulk * bulk) / (turns * turns * 100);
     }
 
