@@ -56,7 +56,7 @@ struct timetofirst {
       aprod = sqrt(dam * effa * halfbuff(ca->user_attack));
       mhp = calc_mhp(s->sta + is, hlevel);
       bulk = sqrt(mhp * effd * halfbuff(ca->user_defense));
-      pppt = (aprod * aprod * bulk * bulk) / (turns * turns * 100);
+      pppt = (aprod * aprod * bulk * bulk) / (turns * turns * 10000);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
