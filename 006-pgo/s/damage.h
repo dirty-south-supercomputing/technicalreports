@@ -3,11 +3,6 @@ static inline bool inflict_damage(uint16_t *hp, unsigned damage){
   return !!*hp; // return true iff hp > 0
 }
 
-static inline float mapbuff(int bufflevel){
-  static const float buffmap[9] = { 4/8, 4/7, 4/6, 4/5, 1, 5/4, 6/4, 7/4, 8/4 };
-  return buffmap[bufflevel + 4];
-}
-
 // calculate the damage inflicted by p with attack buff abuff on o with defense
 // buff dbuff using a, with no shield in play.
 static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,

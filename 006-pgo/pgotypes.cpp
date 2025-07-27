@@ -241,6 +241,11 @@ float cpm(int halflevel){
   return cpms[halflevel - 1];
 }
 
+static inline float mapbuff(int bufflevel){
+  static const float buffmap[9] = { 4/8, 4/7, 4/6, 4/5, 1, 5/4, 6/4, 7/4, 8/4 };
+  return buffmap[bufflevel + 4];
+}
+
 // currently only have trainer battle stats; need to add raid
 typedef struct attack {
   const char *name;
