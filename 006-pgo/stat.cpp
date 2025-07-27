@@ -20,7 +20,7 @@ struct timetofirst {
   float aprod; // effa * dam
   float pppt;  // aprod / (T*T/bulk)
   unsigned mhp;
-  float bulk;  // mhp * effd / 100
+  float bulk;  // geommean(mhp, effd)
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
@@ -40,10 +40,10 @@ struct timetofirst {
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
       powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       dam = powerfast + powercharged;
-      aprod = dam * effa / 100;
+      aprod = sqrt(dam * effa);
       mhp = calc_mhp(s->sta + is, hlevel);
-      bulk = effd * mhp / 100;
-      pppt = aprod / (turns * turns / (bulk));
+      bulk = sqrt(effd * mhp);
+      pppt = (aprod * aprod * bulk * bulk) / (turns * turns * 100);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -111,8 +111,8 @@ static void usage(const char *argv0){
 }
 
 static void header(void){
-  std::cout << "\\begin{longtable}{llrrrlrrrrrrr}" << std::endl;
-  std::cout << "\\textbf{Pokémon} & \\textbf{Config} & \\textbf{HP} & $Eff_D$ & \\textbf{Bulk} & \\textbf{Attacks} & \\textbf{T} & ";
+  std::cout << "\\begin{longtable}{cllrrrlrrrrrrr}" << std::endl;
+  std::cout << "& \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & $Eff_D$ & \\textbf{Bulk} & \\textbf{Attack pair} & \\textbf{T} & ";
   std::cout << "\\textbf{Power} & $Eff_A$ & \\textbf{Prod} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
   std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
@@ -135,18 +135,42 @@ static void out_type(pgo_types_e t){
   }
 }
 
-static void emit_line(const timetofirst &t, const std::string &prevname){
-  if(prevname != t.s->name){
-    emit_name(t.s->name);
-  }
+static void emit_line(const timetofirst &t){
+  out_type(t.s->t1);
+  out_type(t.s->t2);
   std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << t.hlevel << "}&";
+  emit_name(t.s->name);
+  std::cout << " & ";
   std::cout << t.mhp << " & ";
   std::cout << t.effd << " & ";
   std::cout << t.bulk << " & ";
   out_type(t.fa->type);
   std::cout << t.fa->name << " + ";
   out_type(t.ca->type);
-  std::cout << t.ca->name << " & ";
+  std::cout << t.ca->name;
+  if(t.ca->user_attack < 0){
+    std::cout << " A↓";
+    if(t.ca->user_attack < -1){
+      std::cout << -t.ca->user_attack;
+    }
+  }else if(t.ca->user_attack > 0){
+    std::cout << " A↑";
+    if(t.ca->user_attack > 1){
+      std::cout << t.ca->user_attack;
+    }
+  }
+  if(t.ca->user_defense < 0){
+    std::cout << " D↓";
+    if(t.ca->user_defense < -1){
+      std::cout << -t.ca->user_defense;
+    }
+  }else if(t.ca->user_defense > 0){
+    std::cout << " D↑";
+    if(t.ca->user_defense > 1){
+      std::cout << t.ca->user_defense;
+    }
+  }
+  std::cout << " & ";
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
   std::cout << t.effa << " & ";
@@ -186,10 +210,8 @@ int main(int argc, char **argv){
   std::cout.setf(std::ios::fixed, std::ios::floatfield);
   std::cout.precision(1);
   std::cout << std::noshowpoint;
-  std::string prevname;
   for(const auto &t : ttfs){
-    emit_line(t, prevname);
-    prevname = t.s->name;
+    emit_line(t);
   }
   footer();
   std::cout << "\\clearpage" << std::endl;

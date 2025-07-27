@@ -3,8 +3,9 @@
 \title{the big list}
 \author{nick black}
 \usepackage{graphics}
+\usepackage{hyperref}
 \usepackage[export]{adjustbox}
-\usepackage[letterpaper, landscape, margin=1in]{geometry}
+\usepackage[letterpaper, landscape, margin=1cm]{geometry}
 \usepackage{fontspec}
 \defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
 \usepackage{microtype}
@@ -14,8 +15,26 @@
 \newcommand\calign[1]{#1}%{\raisebox{-0.25\height}{#1}}
 
 \begin{document}
-\centering
+\noindent{}\today\\
+Dankstats for Pokémon GO\\
+nick black (\href{mailto:nickblack@linux.com}{nickblack@linux.com}, r/sosodank, pgo: americanpion)\\
+\bigskip
+
+A cycle is the minimum number of fast attacks sufficient to launch the charged attack, plus the charged attack itself.
+The configuration is that which maximizes the geometric mean of attack, defense, and MHP, where attack and defense are STA and DEF, augmented by $IV_A$ and $IV_D$ respectively, and scaled by CPM.
+$Eff_D$ is defense as defined above, scaled by half of any buff the charged attack has on the user's defense.
+Bulk is the geometric mean of $Eff_D$ and MHP.
+$Eff_A$ is attack as defined above, scaled by half of any buff the charged attack has on the user's attack.
+Prod is the geometric mean of $Eff_A$ and attack power over a cycle,
+\textit{e} is the energy left after the first cycle, and is not further incorporated (but probably should be).
+\%c is the percentage of the first cycle's power delivered by the charged attack, and is not further incorporated.
+Dank is the product of the squares of Prod and Bulk divided by the square of turns in the first cycle; it values speed more than most such stats.
+Dank+ scales power by the square root of the attack type's ARA, and defense by the square root of the Pokémon's DRA (see \textit{\href{https://nick-black.com/pgo-quantitative.pdf}{Pokémon GO: A Quantitative Approach}}).
+STAB is factored into calculations, when applicable.
+\bigskip
+
 \footnotesize
+\setlength{\tabcolsep}{2pt}
 \input{out/stat1500}
 \input{out/stat2500}
 \input{out/statmax}
