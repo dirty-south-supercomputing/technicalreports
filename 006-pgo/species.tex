@@ -41,7 +41,6 @@ Male Burmy & 50 Burmy Candy & Mothim\\
 \end{table}
 
 \subsection{Mega and Primal forms\label{sec:mega}\label{sec:primal}}
-\nopagecolor
 Mega Evolution and Primal Reversion are almost equivalent; where I write Mega,
  read ``Mega (evolution) or Primal (reversion)'' unless otherwise noted.
 Species with corresponding Mega or Primal Energy (no species has both) can take on the relevant form for eight hours.
@@ -75,8 +74,10 @@ Level & Evols & Rest days & Cost & Bonuses\\
 \end{tabular}
 \caption{Mega evolution and Primal reversion levels\label{table:megalevels}}
 \end{table}
+\clearpage
+\nopagecolor
 \input{out/mega}
-\pagecolor{white}
+\nopagecolor
 \subsection{Dynamax and Gigantamax forms\label{sec:dmaxgmax}}
 Dynamax and Gigantamax Pokémon can participate in Max Battles (\autoref{sec:maxbattles}),
  as can Eternatus and the Crowned forms of Zacian and Zamazenta.
@@ -103,22 +104,11 @@ This Guard will absorb 20, 40, or 60 points of damage, depending on Max Guard's 
 Max Spirit restores HP to active Pokémon.
 The amount restored is a percentage of each affected Pokémon's MHP\@;
   the percentage (8\%, 12\%, or 16\%) is based on Max Spirit's level.
-\begin{table}[b]
-\centering
-\begin{tabular}{lrrr}
-Level & Max Particles & Candy & Candy XL\\
-\Midrule
-1 (Unlock) & 400 & 50--80 &\\
-2          & 600 & 100--130 &\\
-3          & 800 & & 40--55\\
-\end{tabular}
-\caption{Upgrade costs for Dynamax and Gigantamax moves\label{table:maxupgrades}}
-\end{table}
-
+\clearpage
 \input{out/gigantas}
-
-\subsection{Crowned forms\label{sec:crowned}}
+\clearpage
 \nopagecolor
+\subsection{Crowned forms\label{sec:crowned}}
 Crowning is a reversible, persistent evolution available to Zacian and Zamazenta
  so long as they know the charged attack Iron Head.
 Upon coronation, stats are modified, and Iron Head is replaced with Behemoth Blade (Zacian)
@@ -130,7 +120,7 @@ This Max Attack follows the same rules for leveling, power, and other Dynamax at
 Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
   that Pokémon can freely change between the base and crowned
   forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks?
-    Eliminate Steel typing? Most likely to trade the Pokémon.}, even if traded.
+    Eliminate Steel typing? Drop CP under a limit? Most likely to trade the Pokémon.}, even if traded.
 Crowned Shield Zamazenta can stack four Guards rather than the typical three.
 If it has Max Guard unlocked, it starts Max Battles with one Guard already in place.
 
@@ -626,7 +616,11 @@ All have the fast attack Tackle, and the appropriate variant of the charged atta
 Each also has its own attacks.
 
 \subsection{Deoxys\label{subsec:deoxys}}
-The three alternative forms of Deoxys (Attack, Defense, and Speed) each take a stat to the extreme.
+Deoxys has three alternate forms: Defense, Attack, and Speed.
+The Defense and Attack forms are heavily weighted towards DEF and ATK, respectively.
+The normal form is also ATK-heavy, but not so much as Attack.
+The Speed form is the most balanced of the four.
+All can learn Zen Headbutt and Psycho Boost, but their attacks are otherwise somewhat distinct.
 
 \subsection{Gimmighoul\label{subsec:gimmighoul}}
 Another one requiring interaction with the wider Pokémon empire, this time
