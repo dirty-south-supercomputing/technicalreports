@@ -3,6 +3,8 @@
 
 #include <murmurhash.h>
 
+constexpr uint32_t MEMOMASK = 0xfffffff;
+
 // We use the lower two bits of both fast attack turn counters, the
 // lower five bits of each energy tally, and the lower six bits of
 // each HP to get a lookup. We must then verify that the full state matches.
@@ -10,7 +12,7 @@ static inline uint32_t
 hash_simulstate(const simulstate *s){
   uint32_t h;
   lmmh_x86_32(s, sizeof(*s), 0, &h);
-  h &= 0x3ffffff;
+  h &= MEMOMASK;
   return h;
 }
 

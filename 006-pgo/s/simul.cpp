@@ -16,7 +16,7 @@ static void tophalf(simulstate *s, results *r);
 pmon pmons[2][TEAMSIZE] = {};
 
 // we have 26 bits of discriminant
-static constexpr unsigned long CACHEELEMS = 1u << 26u;
+static constexpr unsigned long CACHEELEMS = MEMOMASK + 1;
 
 struct cacheelem {
   simulstate s;
