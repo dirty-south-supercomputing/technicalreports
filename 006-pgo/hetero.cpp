@@ -1,20 +1,34 @@
 #include "pgotypes.cpp"
+#include <algorithm>
+#include <vector>
+
+static bool
+hetero_p(const species *s){
+  if(s->from == NULL){
+    return false;
+  }
+  const species* from = lookup_species(s->from);
+  if(from->t1 == s->t1 && from->t2 == s->t2){
+    return false;
+  }
+  return true;
+}
 
 static int
 print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
+  std::vector<const species *> hetero;
   for(unsigned u = 0 ; u < dexcount ; ++u){
     const species* s = &dex[u];
-    if(s->from == NULL){
-      continue;
+    if(hetero_p(s)){
+      hetero.emplace_back(s);
     }
+  }
+  std::sort(hetero.begin(), hetero.end(),
+      [](const species *l, const species *r){
+        return lookup_species(l->from)->name < lookup_species(r->from)->name;
+      });
+  for(const auto &s : hetero){
     const species* from = lookup_species(s->from);
-    if(from == NULL){
-      fprintf(stderr, "Bad ancestor (%s) for %s, exiting\n", s->from, s->name.c_str());
-      return -1;
-    }
-    if(from->t1 == s->t1 && from->t2 == s->t2){
-      continue;
-    }
     print_types(from->t1, from->t2);
     printf(" %s", from->name.c_str());
     #define GLAR "Galarian"
@@ -22,12 +36,11 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
     if(!strncmp(from->name.c_str(), GLAR, strlen(GLAR))
         || !strncmp(s->name.c_str(), GLAR, strlen(GLAR))
         || !strncmp(s->name.c_str(), CROW, strlen(CROW))){
-      printf("\\newline\\hspace{\\parskip}→ ");
-    }else{
-      printf(" → ");
+      printf("\\newline");
     }
     #undef CROW
     #undef GLAR
+    printf(" → ");
     print_types(s->t1, s->t2);
     printf(" %s ", s->name.c_str());
     if(++*pcount % 2){
