@@ -9,7 +9,7 @@ A single attack usually has different stats for Nx1 (\autoref{sec:nx1})
 Unless otherwise stated, we're working with the values for 3x3.
 
 As developed in \autoref{sec:dualtypes}, an attack's type effectiveness
-  against a given opponent ranges from -3 to 2, inclusive.
+  against a given opponent ranges from −3 to 2, inclusive.
 See \autoref{sec:typemult} for the quantitative impact of type effectiveness.
 Using \autoref{table:relations}, we assign each attacking type $A$ four values
   $R_{-2}\cdots{}R_1$, where $R_n$ is the number of types against which $A$ has a
@@ -17,25 +17,25 @@ Using \autoref{table:relations}, we assign each attacking type $A$ four values
 To calculate the number of typings $E_n$ against which $A$ has some effectiveness $n$,
   use the following relations (\autoref{table:attackeff}):
 \begin{align*}
-  E_{-3} &= R_{-2}R_{-1}\\
-  E_{-2} &= R_{-2}(R_0 + 1) + \binom{R_{-1}}{2}\\
-  E_{-1} &= R_{-1}(R_0 + 1) + R_{-2}R_1\\
-   E_{0} &= R_0 + \binom{R_0}{2} + R_{1}R_{-1}\\
+  E_{−3} &= R_{−2}R_{−1}\\
+  E_{−2} &= R_{−2}(R_0 + 1) + \binom{R_{−1}}{2}\\
+  E_{−1} &= R_{−1}(R_0 + 1) + R_{−2}R_1\\
+   E_{0} &= R_0 + \binom{R_0}{2} + R_{1}R_{−1}\\
    E_{1} &= R_{1}(R_0 + 1)\\
    E_{2} &= \binom{R_1}{2}\\
    ARA &= \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{171}
 \end{align*}
 under the invariants:
 \begin{align*}
-    \sum_{i=-2}^{1} R_i &= 18\\
-   \sum_{i=-3}^{2} E_i + 18 &= \binom{18}{2} + 18  = 171
+    \sum_{i=−2}^{1} R_i &= 18\\
+   \sum_{i=−3}^{2} E_i + 18 &= \binom{18}{2} + 18  = 171
 \end{align*}
 \begin{table}
   \centering
   \begin{tabular}{l r r r r|r r r r r r r}
     & \multicolumn{4}{c}{Type → Type} & \multicolumn{6}{c}{Type → Typing} & \\
     & \multicolumn{4}{c}{\downbracefill} & \multicolumn{6}{c}{\downbracefill} & \\
-    $A$ & -2 & -1 & 0 & 1 & -3 & -2 & -1 & 0 & 1 & 2 & ARA \\
+    $A$ & −2 & −1 & 0 & 1 & −3 & −2 & −1 & 0 & 1 & 2 & ARA \\
     \Midrule
 \calign{\includegraphics[height=1em,keepaspectratio]{images/ground.png}} & 1 & 2 & 10 & 5 & 2 & 12 & 27 & 65 & 55 & 10 & 1.173 \\
 \calign{\includegraphics[height=1em,keepaspectratio]{images/rock.png}} & 0 & 3 & 11 & 4 & 0 & 3 & 36 & 78 & 48 & 6 & 1.134 \\
@@ -269,9 +269,9 @@ Assume STAB and type effectiveness of 2 for Charm, boosting it to 15.36 PPT\@.
 This is the best case for fast attacks.
 
 Charged attack power ranges from 10 (Frustration) to 170 (Sunsteel Strike).
-Assuming no STAB and type effectiveness of -1 for Frustration, it is reduced to 6.25,
+Assuming no STAB and type effectiveness of −1 for Frustration, it is reduced to 6.25,
   and in this pathological case will inflict less damage per turn than the fast attack.
-At even the meager 20 of Acid Spray and friends, however, the -1 type relation only
+At even the meager 20 of Acid Spray and friends, however, the −1 type relation only
   drives power down to 12.5.
 Unless you're making use of Frustration or Obstruct,
   or in a situation of at least double ineffectiveness or effectiveness,
@@ -307,11 +307,11 @@ Unlike typing with regard to defense, where we must take the sum of each type's
 For each target typing, we can apply the better of the two type relations.
 Two charged attacks of different type have coverage at least as good as,
   and usually much better than, a single type.
-There is no pair of distinct attack types forced into a -3 relation.
+There is no pair of distinct attack types forced into a −3 relation.
 Recall that our best ARA was Ground with 1.173.
 More than 72\% of dual charged attack setups beat this coverage,
  with Ground+Ice posting an outstanding 1.468.
-Only one pair can be forced into a dreaded effectiveness of -3:
+Only one pair can be forced into a dreaded effectiveness of −3:
  Normal with Poison, when matched against Steel+Ghost.
 \input{out/dualcharged}
 
