@@ -40,7 +40,7 @@ The attacker benefits if it has a type in common with the attack being used:
 The relationship between attack type and defender typing is more complex.
 For each type, the attack type can be \textit{very ineffective},
   \textit{ineffective}, \textit{standard}, or \textit{effective}.
-These are mapped to -2, -1, 0, and 1.
+These are mapped to −2, −1, 0, and 1.
 Going the other way, a type is \textit{very weak}, \textit{weak},
   \textit{standard}, or \textit{strong} against each attack type;
   we will see that a typing can also be \textit{extremely weak} or
@@ -185,16 +185,16 @@ Nine dual types are currently unpopulated (Normal/Steel, Normal/Ice, Normal/Rock
  Normal/Bug, Poison/Ice, Ground/Fairy, Rock/Ghost, Bug/Dragon, Fire/Fairy),
  leaving 162 defender typings to consider.
 Dual typing widens the type relation range, adding the possibilities
- of -3 and 2 (-4 is not possible, because no type is very ineffective against
+ of −3 and 2 (−4 is not possible, because no type is very ineffective against
  two different types).
 It furthermore vastly expands the type effectiveness matrix,
  with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
 \input{out/dualtypes.tex}
-Given $E_{n}, -3 \le n \le 2$ where $E_n$ is the number of types with
+Given $E_{n}, −3 \le n \le 2$ where $E_n$ is the number of types with
   a net relation of $n$ against a typing, we define DRA\@:
-\[  DRA = \sum_{n=-3}^{2} \frac{E_{n}1.6^n}{18} \]
+\[  DRA = \sum_{n=−3}^{2} \frac{E_{n}1.6^n}{18} \]
 Completely unexpectedly, the defensive typings with highest DRA include Steel,
   with the top fiften spots all making use of it.
 Don't be fooled by a metric like DRA, though; you will not be seeing
