@@ -11,10 +11,10 @@ int main(int argc, char **argv){
     fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
-  bool bg = false; // background
+  bool zoom = false; // light card inset
   std::map<std::string, const species *> amap;
   if(strcasecmp(argv[1], "mega") == 0){
-    bg = true;
+    zoom = true;
     for(unsigned u = 0 ; u < MEGACOUNT ; ++u){
       amap.emplace(megasdex[u].name, &megasdex[u]);
     }
@@ -37,7 +37,7 @@ int main(int argc, char **argv){
     return EXIT_FAILURE;
   }
   for(const auto &s : amap){
-    print_species_latex(s.second, bg, false);
+    print_species_latex(s.second, zoom, true);
   }
   return EXIT_SUCCESS;
 }
