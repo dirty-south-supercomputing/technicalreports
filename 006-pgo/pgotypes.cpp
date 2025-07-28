@@ -4204,7 +4204,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Brick_Break, }, species::CAT_NORMAL, 75, nullptr, },
   {  924, "Tandemaus", TYPE_NORMAL, TYPECOUNT, 98, 90, 137, nullptr, 
 		{ &ATK_Mud_Shot, &ATK_Bullet_Seed, &ATK_Take_Down, &ATK_Play_Rough, &ATK_Swift, &ATK_Crunch, },
-		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, },
+		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, },
   {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus", 
 		{ &ATK_Mud_Shot, &ATK_Bullet_Seed, &ATK_Take_Down, &ATK_Play_Rough, &ATK_Swift, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, },
