@@ -4076,7 +4076,7 @@ static const species sdex[] = {
   {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 02, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  873, "Frosmoth", TYPE_BUG, TYPE_ICE, 230, 155, 172, nullptr,
+  {  873, "Frosmoth", TYPE_BUG, TYPE_ICE, 230, 155, 172, "Snom",
     { &ATK_Powder_Snow, &ATK_Bug_Bite, &ATK_Icy_Wind, &ATK_Bug_Buzz, &ATK_Ice_Beam, &ATK_Hurricane, },
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, nullptr, 
