@@ -5117,6 +5117,7 @@ print_buff(unsigned chance, int buff, const char *sig){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool bg){
+  bool gmax = !bg && s->gmax;
   printf("\\vfill\n");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
@@ -5140,6 +5141,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
+  if(gmax){ // get the gmax image
+    printf("Gmax ");
+  }
   for(const char* curs = s->name.c_str() ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\''){
       printf("%c", *curs);
@@ -5254,7 +5258,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
       printf("No evolution");
     }
   }else{
-    if(s->gmax){
+    if(gmax){
       printf("\\hfill");
       print_type(s->t1);
       printf(" %s", s->gmax);
