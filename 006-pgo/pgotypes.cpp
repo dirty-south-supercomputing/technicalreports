@@ -5103,7 +5103,7 @@ print_buff(unsigned chance, int buff, const char *sig){
     printf("%g\\%%", chance / 10.0);
   }
   printf("%s", sig);
-  if(buff > 0){ // FIXME need indicate magnitude of buff
+  if(buff > 0){
     printf("↑");
     if(buff > 1){
       printf("%d", buff);
@@ -5116,13 +5116,16 @@ print_buff(unsigned chance, int buff, const char *sig){
   }
 }
 
-void print_species_latex(const species* s, bool overzoom, bool bg){
-  bool gmax = !bg && s->gmax;
+void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
+  bool gmax = !overzoom && s->gmax;
   printf("\\vfill\n");
   printf("\\phantomsection\\label{species:");
   label_string(s->name.c_str());
   printf("}");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
+  if(gmax){
+    printf("Gmax ");
+  }
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
@@ -5231,7 +5234,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   }
   print_icons(s, true);
   printf("\\end{minipage}\n");
-  if(bg){ // evolutionary lineage (only for main forms)
+  if(mainform){ // evolutionary lineage (only for main forms)
     printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
     printf("\\vfill{}\\scriptsize{}");
     print_optimal_latex(s);
@@ -5262,7 +5265,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     }else{
       printf("No evolution");
     }
-  }else{
+  }else{ // other than main forms
     if(gmax){
       printf("\\hfill");
       print_type(s->t1);
@@ -5291,7 +5294,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
 // pass the same type twice for only that base type. LaTeX output.
-void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom){
+void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom, bool mainform){
   for(unsigned i = 0 ; i < count ; ++i){
     bool printit = false;
     if(dex[i].t1 == t1){
@@ -5300,7 +5303,7 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool ov
       }
     }
     if(printit){
-      print_species_latex(&dex[i], overzoom, true);
+      print_species_latex(&dex[i], overzoom, true, mainform);
     }
   }
 }

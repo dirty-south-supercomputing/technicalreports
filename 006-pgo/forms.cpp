@@ -37,7 +37,7 @@ int main(int argc, char **argv){
     return EXIT_FAILURE;
   }
   for(const auto &s : amap){
-    print_species_latex(s.second, zoom, true);
+    print_species_latex(s.second, zoom, true, false);
   }
   return EXIT_SUCCESS;
 }
