@@ -5119,6 +5119,9 @@ print_buff(unsigned chance, int buff, const char *sig){
 void print_species_latex(const species* s, bool overzoom, bool bg){
   bool gmax = !bg && s->gmax;
   printf("\\vfill\n");
+  printf("\\phantomsection\\label{species:");
+  label_string(s->name.c_str());
+  printf("}");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   escape_string(s->name.c_str());
   printf(",title style={left color=%s,right color=%s},after title={",
@@ -5133,10 +5136,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.2}");
   }
-  printf("]\\phantomsection\\label{species:");
-  label_string(s->name.c_str());
-  printf("}{");
-  printf("\\footnotesize");
+  printf("]{\\footnotesize");
 
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -5208,26 +5208,31 @@ void print_species_latex(const species* s, bool overzoom, bool bg){
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
-  printf("\\noindent\\begin{minipage}{0.3\\linewidth}");
+  // left side is larger for gmax/mega, which don't show evolutionary lines
+  printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
   int largeicons = print_types_big(s->t1, s->t2);
-  if(has_gmax(s)){
-    ++largeicons;
-    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/gigantamax.png}}");
-  }
-  if(has_dmax(s)){
-    ++largeicons;
-    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/dynamax.png}}");
-  }
-  // we never want some small icons on both lines if we have to have two lines,
-  // but we want only one line if we can get away with it. four small icons
-  // are too many to put with two large icons.
-  if(largeicons + print_icons(s, false) > 5){
-    printf("\\\\");
+  // for the gmax cards, don't print the max icons --- we know it's max-capable
+  if(!gmax){
+    if(has_gmax(s)){
+      ++largeicons;
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/gigantamax.png}}");
+    }
+    if(has_dmax(s)){
+      ++largeicons;
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/dynamax.png}}");
+    }
+    // we never want some small icons on both lines if we have to have two lines,
+    // but we want only one line if we can get away with it. four small icons
+    // are too many to put with two large icons.
+    // we never need split the line for gmax cards.
+    if(largeicons + print_icons(s, false) > 5){
+      printf("\\\\");
+    }
   }
   print_icons(s, true);
   printf("\\end{minipage}\n");
   if(bg){ // evolutionary lineage (only for main forms)
-    printf("\\begin{minipage}{0.7\\linewidth}\\raggedleft{}");
+    printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
     printf("\\vfill{}\\scriptsize{}");
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
