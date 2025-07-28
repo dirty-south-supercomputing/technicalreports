@@ -27,24 +27,23 @@ $M_{STAB}$ is the STAB bonus, equal to 1.2 when the attack's type matches any
   type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the attack type
  and the defender's type.
-I have included a $T$ of -4 in \autoref{table:typemult} for completeness,
+I have included a $T$ of −4 in \autoref{table:typemult} for completeness,
  but remember that this is not currently realizable.
 
 \begin{table}
-\begin{center}
+\centering
 \begin{tabular}{c r r r r}
-  $T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
+$T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
 \Midrule
-  -4 & 0.1526 & -84.74 & 0.1831 & -81.69 \\
-  -3 & 0.2441 & -75.59 & 0.2930 & -70.7 \\
-  -2 & 0.3906 & -60.94 & 0.4688 & -53.12 \\
-  -1 & 0.625 & -37.5 & 0.75 & -25 \\
-  0 & 1 & 0 & 1.2 & 20 \\
-  1 & 1.6 & 60 & 1.92 & 92 \\
-  2 & 2.56 & 156 & 3.072 & 207.2 \\
+−4 & 0.1526 & −84.74 & 0.1831 & −81.69 \\
+−3 & 0.2441 & −75.59 & 0.2930 & −70.7 \\
+−2 & 0.3906 & −60.94 & 0.4688 & −53.12 \\
+−1 & 0.625 & −37.5 & 0.75 & −25 \\
+0 & 1 & 0 & 1.2 & 20 \\
+1 & 1.6 & 60 & 1.92 & 92 \\
+2 & 2.56 & 156 & 3.072 & 207.2 \\
 \end{tabular}
-  \caption{Typing multipliers with and without STAB\label{table:typemult}}
-\end{center}
+\caption{Typing multipliers with and without STAB\label{table:typemult}}
 \end{table}
 
 Leaving out the hideous −4 case, we see that $M_C$ ranges
@@ -56,10 +55,10 @@ Considered another way, for an effectiveness of −3 with no STAB bonus,
 With an effectiveness of 2 with STAB, it takes about one-third as many attacks.
 
 Note that the change due to a $T$ of 1 (60\%) is similar in magnitude to the change
- when $T$ is -2 (-60.94\%). A $T$ of -1 is a smaller loss (-37.5\%).
+ when $T$ is −2 (−60.94\%). A $T$ of −1 is a smaller loss (−37.5\%).
 This does not mean that an attack ineffective against one of the defender's types and
- effective against the other enjoys a 22.5\% gain (as one would see from $1.6^{-1} + 1.6^{1})$!
-The multiplier is 1, and results in no change ($1.6^{-1+1}$).
+ effective against the other enjoys a 22.5\% gain (as one would see from $1.6^{−1} + 1.6^{1})$!
+The multiplier is 1, and results in no change ($1.6^{−1+1}$).
 The two effectiveness relationships must be added, and this value used to
  calculate $1.6^T$.
 Exponential functions are not linear functions, and must not be treated as such.
@@ -125,7 +124,7 @@ The calculation for Trainer Battles is simpler:
 Recall that the stat effect levels take the values −4--4, inclusive.
 Their effects are determined via \autoref{table:buffs}.
 $M_E$ is the ratio of the attacking Pokémon's offensive buff effect to that of the opponent's defensive one (\autoref{sec:buffs}).
-The system behind the scheme of \autoref{table:buffs} is that negative levels $-n$
+The system behind the scheme of \autoref{table:buffs} is that negative levels $−n$
  correspond to $\frac{4}{4 - n}$, while positive levels $n$ correspond to $\frac{4 + n}{4}$.
 \begin{table}[ht]
 \centering
