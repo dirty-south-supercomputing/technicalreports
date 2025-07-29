@@ -239,11 +239,11 @@ MHP is defined such that it is always an integer not less than ten:
  \mathit{Eff_S} &= \mathit{Mod_S} \cdot CPM \\
  MHP &= \min{10, \lfloor \mathit{Eff_S} \rfloor}
 \end{align*}
-Multiplying $Mod_S$ by CPM yields $Eff_{ARaw}$, used to determine charged move priority (\autoref{sec:3x3}).
+Multiplying \Mod{S} by CPM yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
-Multiplying $Eff_{ARaw}$ by $M_{Shadow}$ yields $Eff_A$.
-Multiplying $Mod_D$ by CPM and dividing by $M_{Shadow}$ gives us $Eff_D$.
-This manifests a 20\% bonus to $Eff_A$ and a 16.7\% penalty to $Eff_D$.
+Multiplying \Eff{ARaw} by $M_{Shadow}$ yields \Eff{A}.
+Multiplying \Mod{D} by CPM and dividing by $M_{Shadow}$ gives us \Eff{D}.
+This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
 \begin{align*}
   Eff_{ARaw} &= Mod_A \cdot CPM\\
   Eff_A &= Eff_{ARaw} \cdot M_{Shadow} \\
