@@ -297,6 +297,20 @@ charged_attack_p(const attack *a){
   return a->energytrain < 0;
 }
 
+static inline int
+print_fast_attack_rowcolor(const attack *a){
+  float ppt = a->powertrain / (float)a->turns;
+  float ept = a->energytrain / (float)a->turns;
+  if(ppt * ept >= 12){
+    return printf("\\rowcolor{Green!25}");
+  }else if(ppt >= 3 && ept >= 3){
+    return printf("\\rowcolor{Green!50}");
+  }else if(ppt * ept >= 9){
+    return printf("\\rowcolor{Green!75}");
+  }
+  return 0;
+}
+
 using pairmap = std::map<std::string, attackset>;
 
 static const attack ATK_Acid = { "Acid", TYPE_POISON, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,

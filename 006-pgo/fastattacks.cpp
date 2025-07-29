@@ -25,6 +25,9 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\endhead\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
     const attack* a = &as[c];
+    float ppt = a->powertrain / (float)a->turns;
+    float ept = a->energytrain / (float)a->turns;
+    print_fast_attack_rowcolor(a);
     if(a->type != TYPECOUNT){
       print_type(a->type);
     }else{
@@ -32,12 +35,10 @@ void print_latex_table(const attack* as, unsigned ccount){
     }
     printf(" %s & %u & %g & %d & %u & %.3g & %g & %.3g & %u\\\\\n",
            a->name, a->powertrain, (a->powertrain * 6.0) / 5,
-           a->energytrain, a->turns,
-           a->powertrain / (float)a->turns,
-           (a->powertrain * 6.0) / (a->turns * 5.0),
-           a->energytrain / (float)a->turns, learner_count(a));
+           a->energytrain, a->turns, ppt,
+           (a->powertrain * 6.0) / (a->turns * 5.0), ept, learner_count(a));
   }
-  printf("\\caption{Fast attacks, \\PPT, and \\EPT (3x3 battles)\\label{table:fastattacks}}\n");
+  printf("\\caption[Fast attacks, \\PPT, and \\EPT (3x3 battles)]{Fast attacks, \\PPT, and \\EPT{} (3x3 battles. Attacks with $EPT \\cdot PPT \\ge 9$ are highlighted in green)\\label{table:fastattacks}}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
 }
