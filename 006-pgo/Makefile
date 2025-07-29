@@ -3,6 +3,7 @@
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
+HARDBACK:=pgo-hb
 OUT:=out
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
@@ -92,6 +93,9 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul
+
+$(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
+	pdftk $^ cat output $@
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc testdb
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
@@ -249,6 +253,7 @@ testsimullong: $(SIMUL)
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
+	@rm -vrf $(HARDBACK).pdf
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
