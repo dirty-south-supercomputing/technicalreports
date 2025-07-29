@@ -29,7 +29,6 @@ SPECIES:=$(OUT)/species
 FORMS:=$(OUT)/forms
 HETERO:=$(OUT)/hetero
 TRELS:=$(OUT)/typerels
-GOODMOVES:=$(OUT)/goodmoves
 TIMETOFIRST:=$(OUT)/timetofirst
 DUALCHARGED:=$(OUT)/dualcharged
 USERS:=$(OUT)/users
@@ -58,7 +57,6 @@ CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
 #DYNATEX:=$(OUT)/dynas.tex
 SINDEXTEX:=$(SINDEX).tex
-GOODMOVESTEX:=$(GOODMOVES).tex
 STAT1500TEX:=$(OUT)/stat1500.tex
 STAT2500TEX:=$(OUT)/stat2500.tex
 STATMAXTEX:=$(OUT)/statmax.tex
@@ -83,8 +81,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
-	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
-	$(GOODMOVESTEX)
+	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
