@@ -56,8 +56,18 @@ insert_opt_stat(stats **head, stats *s, bool amean){
   }
 }
 
+static float
+get_apercent(const stats *s){
+  return s->apercent;
+}
+
+static float
+get_bulk(const stats *s){
+  return sqrt(s->effd * s->mhp);
+}
+
 static stats *
-print_sol_set(stats *sols){
+print_sol_set(stats *sols, float(*afxn)(const stats *s)){
   unsigned half;
   unsigned l = halflevel_to_level(sols->hlevel, &half);
   print_types(sols->s->t1, sols->s->t2);
@@ -67,7 +77,7 @@ print_sol_set(stats *sols){
           sols->ia, sols->id, sols->is, l, half ? ".5" : "",
           sols->mhp, sols->effa, sols->effd,
           sols->average, sols->geommean,
-          sols->cp, sols->apercent);
+          sols->cp, afxn(sols));
   const species *last = sols->s;
   stats *tmp = sols;
   sols = sols->next;
@@ -98,8 +108,56 @@ print_sol_set(stats *sols){
   return sols;
 }
 
+static void
+print_bounded_bulktable(int bound, float lbound){
+  printf("\\begingroup\n");
+  printf("\\nohyphenation\n");
+  printf("\\footnotesize\n");
+  printf("\\setlength{\\tabcolsep}{1pt}\n");
+  printf("\\begin{longtable}{lrrrrrrrr}\n");
+  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & Bulk\\\\\n");
+  printf("\\Midrule\n");
+  printf("\\endhead\n");
+  stats *sols = NULL;
+  // FIXME want to maximize bulk, not geometric mean!
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *sp = &sdex[i];
+    stats *s = find_optimal_set(sp, bound, lbound, false, false);
+    s->next = sols;
+    sols = s;
+  }
+  // FIXME horrible o(n^2) sort
+  stats *head = nullptr;
+  stats **q = &head;
+  while(sols){
+    float maxbulk = 0;
+    stats **candq, **prev;
+    for(prev = &sols ; *prev ; prev = &(*prev)->next){
+      stats *cand = *prev;
+      float bulk = cand->effd * cand->mhp;
+      if(bulk > maxbulk){
+        maxbulk = bulk;
+        candq = prev;
+      }
+    }
+    stats *cand = *candq;
+    *candq = cand->next;
+    cand->next = nullptr;
+    *q = cand;
+    q = &cand->next;
+  }
+  while( (head = print_sol_set(head, get_bulk)) ){
+    ;
+  }
+  printf("\\captionlistentry{Optimal solutions bounded by %d \\CP, sorted by bulk}\n", bound);
+  printf("\\label{table:cp%db}\n", bound);
+  printf("\\end{longtable}\n");
+  printf("\\endgroup\n");
+}
+
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
-void print_bounded_table(int bound, float lbound, bool amean){
+static void
+print_bounded_table(int bound, float lbound, bool amean){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
@@ -119,7 +177,7 @@ void print_bounded_table(int bound, float lbound, bool amean){
     }
     insert_opt_stat(&sols, s, amean);
   }
-  while( (sols = print_sol_set(sols)) ){
+  while( (sols = print_sol_set(sols, get_apercent)) ){
     ;
   }
   printf("\\captionlistentry{Optimal solutions bounded by %d \\CP}\n", bound);
@@ -129,7 +187,10 @@ void print_bounded_table(int bound, float lbound, bool amean){
 }
 
 static void usage(const char *argv0){
-  fprintf(stderr, "usage: %s a|g highcp lowAM\n", argv0);
+  fprintf(stderr, "usage: %s a|b|g highcp lowAM\n", argv0);
+  fprintf(stderr, "\ta: arithemetic mean\n");
+  fprintf(stderr, "\tb: bulk\n");
+  fprintf(stderr, "\tg: geometric mean\n");
   exit(EXIT_FAILURE);
 }
 
@@ -138,18 +199,21 @@ int main(int argc, char** argv){
   if(argc != 4){
     usage(argv[0]);
   }
+  int hcp = atoi(argv[2]);
+  float lam; // lower arithmetic mean bound
+  if(sscanf(argv[3], "%f", &lam) != 1){
+    fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
+    usage(argv[0]);
+  }
   bool amean;
   if(strcmp(argv[1], "g") == 0){
     amean = false;
   }else if(strcmp(argv[1], "a") == 0){
     amean = true;
+  }else if(strcmp(argv[1], "b") == 0){
+    print_bounded_bulktable(hcp, lam);
+    return EXIT_SUCCESS;
   }else{
-    usage(argv[0]);
-  }
-  int hcp = atoi(argv[2]);
-  float lam; // lower arithmetic mean bound
-  if(sscanf(argv[3], "%f", &lam) != 1){
-    fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
   print_bounded_table(hcp, lam, amean);

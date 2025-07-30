@@ -13,7 +13,7 @@ TEX:=$(addsuffix .tex, pgo foreward objectives trainer friends types attacks \
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
-PDF:=$(addsuffix .pdf, $(PAPERBACK))
+PDF:=$(addsuffix .pdf, $(PAPERBACK) $(HARDBACK))
 MAKEFILE:=Makefile
 
 BIGLIST:=list.pdf
@@ -74,6 +74,7 @@ TRELSTEX:=$(OUT)/typerels.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
+BULKTEX:=$(OUT)/bulk.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
@@ -82,7 +83,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
-	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT)
+	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
+	$(BULKTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -132,6 +134,10 @@ $(OUT)/dualtypes.tex: $(OUT)/dualtypes
 $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
+
+$(BULKTEX): $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) b 1500 0 > $@
 
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
