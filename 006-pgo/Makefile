@@ -31,6 +31,7 @@ HETERO:=$(OUT)/hetero
 TRELS:=$(OUT)/typerels
 TIMETOFIRST:=$(OUT)/timetofirst
 DUALCHARGED:=$(OUT)/dualcharged
+COVERSETS:=$(OUT)/coversets
 USERS:=$(OUT)/users
 REGIONS:=$(OUT)/regions
 WEATHER:=$(OUT)/weather
@@ -89,7 +90,7 @@ SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h m
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul
+all: $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul $(COVERSETS)
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@

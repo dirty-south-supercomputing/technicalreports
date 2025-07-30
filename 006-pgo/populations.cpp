@@ -1,8 +1,47 @@
 #include "pgotypes.cpp"
 
+static int
+print_populations(const char **types){
+  int t[TYPECOUNT] = {};
+  std::cout << "Looking at types:";
+  while(*types){
+    std::cout << "*****" << *types << "*****";
+    pgo_types_e e = lookup_type(*types);
+    if(e == TYPECOUNT){
+      std::cerr << "couldn't find type " << *types << std::endl;
+      return -1;
+    }
+    if(t[e]){
+      std::cerr << "provided type twice: " << *types << std::endl;
+      return -1;
+    }
+    t[e] = 1;
+    ++types;
+    std::cout << " " << tnames[e];
+  }
+  std::cout << std::endl;
+  int total = 0;
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species &s = sdex[i];
+    if(t[s.t1] || (s.t2 != TYPECOUNT && t[s.t2])){
+      std::cout << s.name << std::endl;
+      ++total;
+    }
+  }
+  std::cout << total << " total" << std::endl;
+  return 0;
+}
+
 // generate table showing populations of monotypes and types in which they
-// have a presence
-int main(void){
+// have a presence, or if provided arguments, print numbers of typings
+// including those types.
+int main(int argc, const char **argv){
+  if(argc >= 2){
+    if(print_populations(argv + 1)){
+      return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+  }
   puts("\\begin{table}[ht]");
   puts("\\begin{center}");
   puts("\\begin{tabular}{lrrrr}");
