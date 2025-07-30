@@ -123,8 +123,10 @@ print_bounded_bulktable(int bound, float lbound){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
     stats *s = find_optimal_set(sp, bound, lbound, false, false);
-    s->next = sols;
-    sols = s;
+    if(s){
+      s->next = sols;
+      sols = s;
+    }
   }
   // FIXME horrible o(n^2) sort
   stats *head = nullptr;
