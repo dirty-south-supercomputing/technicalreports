@@ -4203,7 +4203,7 @@ static const species sdex[] = {
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, nullptr, 
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Megahorn, &ATK_Brick_Break, &ATK_Superpower, },
 		true, false, true, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 02, nullptr,
+  {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 102, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
   {  873, "Frosmoth", TYPE_BUG, TYPE_ICE, 230, 155, 172, "Snom",
