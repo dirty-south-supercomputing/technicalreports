@@ -1,11 +1,11 @@
 \chapter{Optimal $\mathbfit{C\kern -1pt P}$-bound configurations\label{chap:optimal}}
-\section[\CP1500 bound sorted by $\frac{\mathit{BS}}{3}$ (Great League)]%
+\subsection[\CP1500 bound sorted by $\frac{\mathit{BS}}{3}$ (Great League)]%
 {$\mathbfit{C\kern -1ptP}$\,1500 bound sorted by $\frac{\mathbfit{BS}}{\mathbf3}$ (Great League)\label{sec:cp1500a}}
 
 Forms\footnote{Forms disallowed in League play are not listed.} are sorted by $\frac{\mathit{BS}}{3}$,
   the arithmetic mean of \Eff{A}, \Eff{D}, and \MHP\@.
 This metric usually distinguishes between standard and Shadow forms (the geometric mean is always unchanged).
-I include $\sqrt[3]{\BP\,}$ and even \CP\@.
+I include $\sqrt[3]{\BP\,}$ and even CP\@.
 These rankings \textit{do not} imply that a higher $\sqrt[3]{\BP\,}$ or $\frac{\mathit{BS}}{3}$
   will defeat a lower one.
 Other issues---type effectiveness, attack choice, strategy---are usually more important.
@@ -14,31 +14,34 @@ In this case, all optimal sets are listed.
 
 $A\%$ is the optimal configuration's advantage in terms of $\frac{BS}{3}$
   over the pessimal ``reasonable'' configuration, i.e. some IV
-  and the highest level attainable given the \CP{} bound.
-For \CP1500 (\autoref{table:cp1500a}, \autoref{table:cp1500g}), when a form can max out, i.e.\ is not restricted by the \CP{} bound,
+  and the highest level attainable given the CP bound.
+For CP1500 (\autoref{table:cp1500a}, \autoref{table:cp1500g}), when a form can max out, i.e.\ is not restricted by the CP bound,
   the maximum advantage tends to be 10\%--25\%, with a few outliers around 50\%.
 It otherwise quickly drops to 4\% or less.
-In \CP2500 (\autoref{table:cp2500a}, \autoref{table:cp2500g}), the advantage available from IVs is even smaller, as we would expect.
+In CP2500 (\autoref{table:cp2500a}, \autoref{table:cp2500g}), the advantage available from IVs is even smaller, as we would expect.
 For maxed out Pokémon, A\% ranges from 6\%--11\%, increasing as we go down the table.
 It is otherwise generally less than 12\%.
 These numbers are larger using $\frac{\mathit{BS}}{3}$ than $\sqrt[3]{\BP}$.
-With the latter, maximum advantages are contained within 12\%--15\%, and everyone else is below 3\%.
+With the latter, maximum advantages are contained within 12\%--15\%; everyone else is below 3\%.
 \input{out/cp1500a}
-\section[\CP2500 bound sorted by $\frac{\mathit{BS}}{3}$ (Ultra League)]%
-{$\mathbfit{C\kern -1ptP}$\,2500 bound sorted by $\frac{\mathbfit{BS}}{\mathbf3}$ (Ultra League)}
+\subsection[CP2500 bound sorted by $\frac{\mathit{BS}}{3}$ (Ultra League)]%
+{CP2500 bound sorted by $\frac{\mathbfit{BS}}{\mathbf3}$ (Ultra League)}
 See \autoref{sec:cp1500a} for important notes.
 \input{out/cp2500a}
-\section[\CP1500 bound sorted by \protect{$\sqrt[3]{\BP\,}$} (Great League)]%
-{$\mathbfit{C\kern -1ptP}$\,1500 bound sorted by $\sqrt[3]{\mathbfit{BP}\;}$ (Great League)\label{sec:cp1500g}}
+\subsection[CP1500 bound sorted by \protect{$\sqrt[3]{\BP\,}$} (Great League)]%
+{CP1500 bound sorted by $\sqrt[3]{\mathbfit{BP}\;}$ (Great League)\label{sec:cp1500g}}
 See \autoref{sec:cp1500a} for important notes.
 This table uses the geometric mean $\sqrt[3]{\BP\,}$ instead of the arithmetic mean.
 Since Shadow forms don't change under the geometric mean, they have been elided.
 \input{out/cp1500g}
-\section[\CP2500 bound sorted by \protect{$\sqrt[3]{\BP\,}$} (Ultra League)]%
-{$\mathbfit{C\kern -1ptP}$\,2500 bound sorted by $\sqrt[3]{\mathbfit{BP}\;}$ (Ultra League)\label{sec:cp2500g}}
+\subsection[CP2500 bound sorted by \protect{$\sqrt[3]{\BP\,}$} (Ultra League)]%
+{CP2500 bound sorted by $\sqrt[3]{\mathbfit{BP}\;}$ (Ultra League)\label{sec:cp2500g}}
 See \autoref{sec:cp1500g} for important notes.
 This table uses the geometric mean $\sqrt[3]{\BP{}\,}$ instead of the arithmetic mean.
 Since Shadow forms don't change under the geometric mean, they have been elided.
 \input{out/cp2500g}
-
+\subsection[CP1500 bounded sorted by bulk (Great League)]
+{CP1500 bound sorted by bulk (Great League)\label{subsec:cp1500b}}
+Configurations of forms are selected to maximize $\sqrt[3]{\BP}$, and these
+ configurations are sorted by bulk (geometric mean of \MHP and \Eff{D}).
 \input{out/bulk}
