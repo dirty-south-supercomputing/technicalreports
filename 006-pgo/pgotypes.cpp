@@ -4642,6 +4642,10 @@ struct stats {
   float apercent;           // geommean advantage over pessimal level-maxed iv
   struct stats* next;
 
+  stats(){
+    s = nullptr;
+  }
+
   stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS)
     : s(S),
     atk(s->atk),
