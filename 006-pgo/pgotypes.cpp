@@ -5281,8 +5281,8 @@ print_buff(unsigned chance, int buff, const char *sig){
 }
 
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
-  bool gmax = !overzoom && s->gmax;
   printf("\\vfill\n");
+  bool gmax = !overzoom && s->gmax;
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   if(gmax){
     printf("Gmax ");
@@ -5309,6 +5309,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   printf("]{\\footnotesize");
 
+  if(bg){
+    printf("\\pagecolor{%s!25!white}", TNames[s->t1]);
+  }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
   printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
@@ -5455,9 +5458,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
   printf("}");
   printf("\\end{speciesbox}\n");
-  if(bg){
-    printf("\\pagecolor{%s!25!white}", TNames[s->t1]);
-  }
 }
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
