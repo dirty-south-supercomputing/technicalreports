@@ -10,10 +10,11 @@
 
 #define TYPESTART TYPE_BUG
 
-constexpr unsigned MAXIVELEM = 15;
+constexpr int MAXIVELEM = 15;
+constexpr unsigned MINCP = 10; // minimum combat power
 constexpr unsigned MAX_HALFLEVEL = 99;
 
-typedef enum {
+enum pgo_types_e {
   TYPE_BUG,
   TYPE_DARK,
   TYPE_DRAGON,
@@ -33,14 +34,14 @@ typedef enum {
   TYPE_STEEL,
   TYPE_WATER,
   TYPECOUNT = 18
-} pgo_types_e;
+};
 
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 // but there are 324 if one considers ordering, which one generally oughtn't
 #define TYPECOUNTSQUARED 324
 
-typedef enum {
+enum pgo_weather_t {
   WEATHER_CLEAR,
   WEATHER_RAIN,
   WEATHER_PARTLY_CLOUDY,
@@ -50,7 +51,7 @@ typedef enum {
   WEATHER_FOG,
   WEATHER_EXTREME,
   WEATHERCOUNT
-} pgo_weather_t;
+};
 
 static const char* WNames[WEATHERCOUNT] = {
   "Clear",
@@ -247,7 +248,7 @@ static inline float mapbuff(int bufflevel){
 }
 
 // currently only have trainer battle stats; need to add raid
-typedef struct attack {
+struct attack {
   const char *name;
   pgo_types_e type;
   // 3x3 context
@@ -269,7 +270,7 @@ typedef struct attack {
   int energyraid;
   int animdur;           // nx1 animation duration in half-seconds
   bool adveffect;        // does it have an Adventure Effect?
-} attack;
+};
 
 // either a fast attack with all charged attacks it can be paired with (on some
 // form or another), or a charged attack with all fast attacks yadda yadda.
@@ -1212,7 +1213,7 @@ type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
   return type_effectiveness_mult(typing_relation(at, dt0, dt1));
 }
 
-typedef struct species {
+struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
   pgo_types_e t1, t2;
@@ -1282,7 +1283,7 @@ typedef struct species {
     }
   }
 
-} species;
+};
 
 static const species sdex[] = {
   // the Seed Pokemon
@@ -4628,7 +4629,7 @@ static const struct spokedex {
   { NULL, 0, }
 };
 
-typedef struct stats {
+struct stats {
   const species* s;
   unsigned atk, def, sta;   // base stats for the Form
   unsigned hlevel;          // halflevel 1..99
@@ -4640,7 +4641,19 @@ typedef struct stats {
   float geommean;           // geometric mean of effa, effd, mhp
   float apercent;           // geommean advantage over pessimal level-maxed iv
   struct stats* next;
-} stats;
+
+  stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS)
+    : s(S),
+    atk(s->atk),
+    def(s->def),
+    sta(s->sta),
+    hlevel(Hlevel),
+    ia(IA),
+    id(ID),
+    is(IS)
+  {}
+
+};
 
 // atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
 static int
@@ -4767,14 +4780,7 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
       prev = &cur->next;
     }
   }
-  cur = new(stats);
-  cur->atk = s->atk;
-  cur->def = s->def;
-  cur->sta = s->sta;
-  cur->hlevel = hl;
-  cur->ia = ia;
-  cur->id = id;
-  cur->is = is;
+  cur = new stats(s, hl, ia, id, is);
   cur->effa = effa;
   cur->effd = effd;
   cur->mhp = mhp;
