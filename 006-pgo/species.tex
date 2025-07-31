@@ -90,7 +90,7 @@ Normally acquired in Research, Max Battles, or via trade,
 They have access to three Max Moves: Max Attack, Max Guard, and Max Spirit.
 Max Moves have four levels: Locked, 1, 2, and 3.
 A freshly acquired Maxable Pokémon has Max Attack at level 1, while Max Guard and Max Spirit are both locked.
-Unlocking and upgrading moves costs Max Particles and Candy of the Pokémon's genus (\autoref{table:maxupgrades});
+Unlocking and upgrading moves costs Max Particles and Candy of the Pokémon's family (\autoref{table:maxupgrades});
  the amount of Candy depends on the Pokémon's cost group (\autoref{sec:costgroups}).
 Eternatus has its own cost schedule; the Max Particles required is the same,
  but unlocking costs 400 Candy, Level 2 runs 1200 Candy, and
@@ -177,12 +177,12 @@ Conversion between forms is 25 Shaymin Candy and 10,000 Stardust either way.
 
 \section{Evolution\label{sec:evolution}}
 Under the correct conditions, some species can evolve into others.
-We call the set of Pokémon related by evolution operations a genus.
+We call the set of Pokémon related by evolution operations a family.
 Change of form is not an evolution, since the species and Pokédex number remain the same.
 We call a Pokémon that has undergone $N$ evolutions a Stage $N+1$ Pokémon.
 No Pokémon of Stage 4 or higher exist.
 Evolution (unlike some form changes) is irreversible.
-Evolution does not necessarily preserve typing, i.e.\ typing is not always constant within a genus (\autoref{table:heteroevolve})\footnote{It is interesting
+Evolution does not necessarily preserve typing, i.e.\ typing is not always constant within a family (\autoref{table:heteroevolve})\footnote{It is interesting
   that Sharpedo changes from Water+Dark to Mega Sharpedo's Dark+Water,
   a functionally equivalent typing. When this kind of thing happens,
   I assume it due to conformance with other Pokémon games, but never
@@ -193,7 +193,7 @@ Evolution does not necessarily preserve typing, i.e.\ typing is not always const
 Evolution infrequently changes the cost group---always in the more expensive direction\footnote{Most
   cost-changing evolutions involve Baby Pokémon.} (\autoref{table:heterocost}).
 \input{out/hetero}
-Almost all evolutions require Candy of that genus (Gimmighoul is an exception),
+Almost all evolutions require Candy of that family (Gimmighoul is an exception),
   and some evolutions depend upon some condition (\autoref{table:condevolutions}),
   or walking the Pokémon while your Buddy (\autoref{table:walkevolutions}),
   or a catalyzing item, which is consumed (\autoref{table:itemevolutions}).
@@ -316,7 +316,7 @@ Machoke & 100 Machop candy & Machamp\\
 \subsection{Eevolution}
 \begin{figure}
 \end{figure}
-Evolution within the Eevee genus is a complicated and unique affair.
+Evolution within the Eevee family is a complicated and unique affair.
 Eevee (the species) can evolve eight different ways.
 Evolution can be driven by nicknames, deterministic across all eight targets,
   but this can be done only once per target per Trainer.

@@ -133,7 +133,8 @@ print_bounded_bulktable(int bound, float lbound){
   stats **q = &head;
   while(sols){
     float maxbulk = 0;
-    stats **candq, **prev;
+    stats **candq = nullptr;
+    stats **prev;
     for(prev = &sols ; *prev ; prev = &(*prev)->next){
       stats *cand = *prev;
       float bulk = cand->effd * cand->mhp;
