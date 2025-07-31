@@ -5273,15 +5273,19 @@ print_buff(unsigned chance, int buff, const char *sig){
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   bool gmax = !overzoom && s->gmax;
   printf("\\vfill\n");
-  printf("\\phantomsection\\label{species:");
-  label_string(s->name.c_str());
-  printf("}");
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   if(gmax){
     printf("Gmax ");
   }
-  escape_string(s->name.c_str());
-  printf(",title style={left color=%s,right color=%s},after title={",
+  // have to special case this or it runs two lines =[
+  if(s->name == "Crowned Shield Zamazenta"){
+    escape_string("Crowned Zamazenta");
+  }else{
+    escape_string(s->name.c_str());
+  }
+  printf(",before title={\\phantomsection\\label{species:");
+  label_string(s->name.c_str());
+  printf("}},title style={left color=%s,right color=%s},after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   if(s->shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
