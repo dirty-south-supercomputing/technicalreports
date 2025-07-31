@@ -3038,7 +3038,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, nullptr, },
   {  487, "Origin Forme Giratina", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, nullptr, 
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Ominous_Wind, &ATK_Shadow_Ball, &ATK_Dragon_Pulse, &ATK_Shadow_Force, },
-		true, false, false, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, nullptr, },
+		true, true, false, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, nullptr, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr, 
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, },
