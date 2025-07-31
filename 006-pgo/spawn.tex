@@ -146,7 +146,7 @@ $M_\mathrm{Throw}$ is multiplied by 1.7 for a curveball.
 \end{itemize}
 If you throw your ball too directly at Tyrunt, it'll eat it.
 If a response is not received from the server in a timely fashion, the Pokémon will escape.
-If GPS indicates determines sustained travel over a certain speed, the Pokémon will escape.
+If GPS indicates determines sustained travel over a certain speed, the Pokémon will escape, and probably flee.
 In neither case is there an indication of the escape's irregular cause.
 
 Raids and Team GO Rocket encounters use special ``Premier Balls'' rather than your inventory.
@@ -273,7 +273,7 @@ Shadow and Purified Pokémon can be Shiny.
 Shininess is preserved across evolution, purification, and trades.
 Shininess is determined for individual Trainers' encounters: two Trainers might disagree on whether the same spawn is Shiny.
 Shiny forms are fairly rare (\autoref{table:shiny}), but various events
-  enhance the probability of their generation\footnote{Between statistically insignificant catches and server-side decisions, I have been unable to validate these rates myself; they are taken from the Fandom wiki and Reddit.
+  enhance the probability of their generation\footnote{I have been unable to validate these rates myself; they are taken from the Fandom wiki and Reddit.
   Strong evidence exists that certain forms enjoy persistently boosted Shiny rates, but---as far as I can tell---Niantic
   has never confirmed this. Check out \href{https://shinyrates.com}{shinyrates.com}.}.
 \begin{table}
@@ -291,16 +291,14 @@ Context & Probability of shine \\
 \end{tabular}
   \caption{Likelihood of Shiny Pokémon\label{table:shiny}}
 \end{table}
-Shiny Galarian birds never flee (unlike their dull counterparts, which flee all too readily).
-Premier Balls have 100\% catch rates against shiny Legendary raid bosses and Legendary Shadow Pokémon (this does \textit{not}
- apply to shiny raid bosses in general).
+Premier Balls have 100\% catch rates against shiny Legendary raid bosses and Legendary Shadow Pokémon (but \textit{not} shiny raid bosses in general).
+Shiny Legendaries encountered in the wild (in particular, the Galarian Birds) do not typically flee\footnote{They \textit{will} flee if the speed limit is exceeded.}.
 Zorua and Ditto (\autoref{subsec:ditto}) do not indicate Shiny status until revealed (an encounter
   with a bare Zorua \textit{will} immediately indicate Shiny status).
 Despite offering no advantage in battle, and being in no way associated with
   higher levels or IVs, Shiny forms are of great importance to many players.
-Personally, unless I expect to trade them, I transfer them to the Professor
-  without a second thought.
-His usual culinary magic leads to a particularly shiny feast of harvested Pokésoul.
+Personally, unless I expect to trade them, I transfer them to the Professor;
+his usual culinary magic leads to a particularly shiny feast of harvested Pokésoul.
 For those determined to collect Shiny forms, the recommended technique
   is to enter as many encounters as possible, check the Pokémon summary
   for the Shiny icon (\calign{\includegraphics[width=1em,keepaspectratio]{images/shiny.png}}),
@@ -309,11 +307,10 @@ For those determined to collect Shiny forms, the recommended technique
 Events sometimes make possible special backgrounds or clothed forms.
 Pikachu gets dressed up in something every few months.
 ``Costumed'' Pokémon often cannot be evolved (\autoref{sec:evolution}).
-\clearpage
+
+\vfill
 \begin{tipbox}[title=An aside regarding independent events,title style={color=Green!50!black}]
 \addcontentsline{toc}{section}{An aside regarding independent events}
-Let's say a desired result has a 5\% chance of happening, and each event is independent of previous events (like rolls of a fair die, or Shiny status of a 5🟉 raid bonus).\\
-
 \textbf{Q:} How many raids need I do to guarantee at least one Shiny?
 
 \textbf{A:} No finite number of events guarantees the desired result.
@@ -357,4 +354,3 @@ There is about a 51.3\% chance that thirteen raids generate no Shiny Pokémon,
   so please don't go on Reddit claiming conspiracies on the part of
   random number generators or Niantic, looking like an innumerate dumbass.
 \end{tipbox}
-\pagecolor{black}
