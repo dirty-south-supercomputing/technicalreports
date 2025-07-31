@@ -77,7 +77,8 @@ turns_until_e(const attack *a, unsigned e){
 
 static void
 calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
-  stats *st, maxstat;
+  stats maxstat(&s, MAX_HALFLEVEL, MAXIVELEM, MAXIVELEM, MAXIVELEM);
+  stats *st;
   if(bound){
     st = find_optimal_set(&s, bound, 0, false, false);
     if(!st){
@@ -85,8 +86,6 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
       throw std::exception();
     }
   }else{
-    maxstat.ia = maxstat.id = maxstat.is = MAXIVELEM;
-    maxstat.hlevel = MAX_HALFLEVEL;
     st = &maxstat;
   }
   for(const auto &f : s.attacks){
