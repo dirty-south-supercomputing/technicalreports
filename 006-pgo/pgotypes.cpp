@@ -324,9 +324,9 @@ static const attack ATK_Bite = { "Bite", TYPE_DARK, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0
 	6, 4, 1, false, };
 static const attack ATK_Bubble = { "Bubble", TYPE_WATER, 8, 11, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 12, 2, false, };
-static const attack ATK_Bug_Bite = { "Bug Bite", TYPE_BUG, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Bug_Bite = { "Bug Bite", TYPE_BUG, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	5, 6, 1, false, };
-static const attack ATK_Bullet_Punch = { "Bullet Punch", TYPE_STEEL, 6, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Bullet_Punch = { "Bullet Punch", TYPE_STEEL, 8, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 11, 2, false, };
 static const attack ATK_Bullet_Seed = { "Bullet Seed", TYPE_GRASS, 5, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 13, 2, false, };
@@ -362,7 +362,7 @@ static const attack ATK_Force_Palm = { "Force Palm", TYPE_FIGHTING, 13, 10, 3, 0
 	10, 16, 2, false, };
 static const attack ATK_Frost_Breath = { "Frost Breath", TYPE_ICE, 7, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 9, 2, false, };
-static const attack ATK_Fury_Cutter = { "Fury Cutter", TYPE_BUG, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Fury_Cutter = { "Fury Cutter", TYPE_BUG, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 8, 1, false, };
 static const attack ATK_Geomancy = { "Geomancy", TYPE_FAIRY, 4, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	20, 14, 3, false, };
@@ -396,7 +396,7 @@ static const attack ATK_Magical_Leaf = { "Magical Leaf", TYPE_GRASS, 10, 10, 3, 
 	17, 17, 3, false, };
 static const attack ATK_Metal_Claw = { "Metal Claw", TYPE_STEEL, 5, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 5, 1, false, };
-static const attack ATK_Metal_Sound = { "Metal Sound", TYPE_STEEL, 3, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Metal_Sound = { "Metal Sound", TYPE_STEEL, 5, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
 static const attack ATK_Mud_Shot = { "Mud Shot", TYPE_GROUND, 4, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
@@ -558,9 +558,9 @@ static const attack ATK_Disarming_Voice = { "Disarming Voice", TYPE_FAIRY, 70, -
 	70, 33, 8, false, };
 static const attack ATK_Discharge = { "Discharge", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 5, false, };
-static const attack ATK_Doom_Desire = { "Doom Desire", TYPE_STEEL, 75, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Doom_Desire = { "Doom Desire", TYPE_STEEL, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 3, false, };
-static const attack ATK_Double_Iron_Bash = { "Double Iron Bash", TYPE_STEEL, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Double_Iron_Bash = { "Double Iron Bash", TYPE_STEEL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 4, false, };
 static const attack ATK_Draco_Meteor = { "Draco Meteor", TYPE_DRAGON, 150, -65, 0, 1000, 0, 0, 0, -2, 0, 0, 0,
 	150, 100, 7, false, };
