@@ -2,7 +2,9 @@
 #include <climits>
 
 static void usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " form cp [iv]" << std::endl;
+  std::cerr << "usage: " << argv0 << " form iv | cp [iv]" << std::endl;
+  std::cerr << " form iv: dump config at all levels for this iv" << std::endl;
+  std::cerr << " form cp [iv]: reverse configurations for this cp and optionally iv" << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -46,6 +48,28 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
 }
 
 static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int *is){
+  if(cp < 0){
+    for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
+      unsigned half;
+      unsigned l = halflevel_to_level(hlevel, &half);
+      if(l < 10){
+        std::cout << " ";
+      }
+      if(half){
+        std::cout << l;
+        std::cout << ".5";
+      }else{
+        std::cout << "  " << l;
+      }
+      cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
+      std::cout << ": " << cp << "\t";
+      if(hlevel % 4 == 0){
+        std::cout << std::endl;
+      }
+    }
+    std::cout << std::endl;
+    return nullptr;
+  }
   if(*ia >= 0 && *id >= 0 && *is >= 0){
     auto st = solve_hlevel(s, cp, *ia, *id, *is);
     return st;
@@ -84,19 +108,22 @@ int main(int argc, const char **argv){
     usage(argv[0]);
   }
   std::cout << argv[1] << " atk: " << s->atk << " def: " << s->def << " sta: " << s->sta << std::endl;
-  int cp = lex_cp(argv[2]);
-  if(cp < 0){
-    usage(argv[0]);
-  }
-  int ia = -1, id = -1, is = -1;
-  if(argc > 3){
+  int ia = -1, id = -1, is = -1, cp = -1;
+  if(argc == 3){
+    if(lex_iv(argv[2], &ia, &id, &is)){
+      if((cp = lex_cp(argv[2])) < 0){
+        usage(argv[0]);
+      }
+    }
+  }else if(argc == 4){
+    if((cp = lex_cp(argv[2])) < 0){
+      usage(argv[0]);
+    }
     if(lex_iv(argv[3], &ia, &id, &is)){
       usage(argv[0]);
     }
-    std::cout << "cp: " << cp << " ia: " << ia << " id: " << id << " is: " << is << std::endl;
-  }else{
-    std::cout << "cp: " << cp << std::endl;
   }
+  std::cout << "cp: " << cp << " ia: " << ia << " id: " << id << " is: " << is << std::endl;
   auto st = reverse_ivs_level(s, cp, &ia, &id, &is);
   if(!st){
     std::cerr << "couldn't match cp " << cp << std::endl;
