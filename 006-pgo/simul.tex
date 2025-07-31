@@ -188,8 +188,7 @@ Our LRU can be global or at the level of a set association.
  let's call it 96 bytes per stashed state to be safe.
 At 96 bytes, assuming we don't need tag information, we could keep 134M ($2^{27} = 134,217,728$) states
  in 12GB ($\frac{96\cdot2^{27}}{2^{30}} = 12$) of RAM\@.
-Of course, full utilization with $\mathcal{O}(1)$ lookup requires perfect associativity---can this
- be engineered?
+Of course, full utilization with $\mathcal{O}(1)$ lookup requires perfect associativity.
 
 If we're distinguishing 134M states, we need 27 bits of discriminant from our hash function.
 Can we completely distinguish states in 27 bits?
@@ -203,5 +202,14 @@ Let's use the lower two bits of both fast attack counters\footnote{This exposes 
 This aliases on 64 hit points and 32 units of energy.
 To improve the hit rate, we add logic to the fast-fast bottom half to advance directly
  to the end of the shorter fast attack when both are in play.
-\textbf{FIXME}
+We are able to hit nearly full utilization and achieve an impressive hit rate that
+ increases with greater cache capacity.
+
+We achieve almost perfect task parallelism by placing states to be simulated---stack frames,
+ essentially---onto a work queue, and protecting the cache with granular mutexes.
+Together with batched retrieval from the queue, this manages to keep all sixty-four
+ cores of my AMD 3970X doing useful work with 98\%+ of their cycles.
+The result is exhaustive simulation of a full 3x3 scenario, using Pokémon of arbitrary power,
+ in less a ten minute worst case.
+Great League-level teams (CP of 1500 or less) are usually simulated in less than a minute.
 %\lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}
