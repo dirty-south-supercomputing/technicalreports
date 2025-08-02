@@ -58,9 +58,8 @@ print_attack_users(const attack *a){
         "It cannot generally be replaced using a Charged TM, though this is not true during certain events. "
         "Purifying the Shadow Pokémon replaces this attack with Return.");
   }else{
-    for(auto dex : sdexen){
-      print_attack_users_sdex(a, dex.dex, dex.dcount, &printed);
-    }
+    // we don't want to list mega/primal forms
+    print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
   }
   if(a->chance_user_attack){
     printf("\\\\\n\\textbf{%g\\%% chance of attack %+d}\n",
