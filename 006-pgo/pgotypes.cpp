@@ -3654,10 +3654,10 @@ static const species sdex[] = {
   {  680, "Doublade", TYPE_STEEL, TYPE_GHOST, 188, 206, 153, nullptr, 
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Iron_Head, &ATK_Gyro_Ball, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 291, 97, 155, nullptr, 
+  /*{  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 291, 97, 155, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  681, "Aegislash (Shield)", TYPE_STEEL, TYPE_GHOST, 97, 291, 155, nullptr, 
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },*/
+  {  681, "Aegislash", TYPE_STEEL, TYPE_GHOST, 97, 291, 155, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
   {  682, "Spritzee", TYPE_FAIRY, TYPECOUNT, 110, 113, 186, nullptr, 
