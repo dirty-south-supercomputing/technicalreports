@@ -22,35 +22,58 @@ Each will advance the Max Meter, and flurries of fast attacks are likely to
  fill it faster than lengthy charged attacks.
 While transitioning to Max form, swap in your most powerful attacker.
 Swap them back out upon detransition, so that they are not exposed to damage.
-This is a useful technique when battling Dynamax Pokémon; with Gigantamax Pokémon it is practically a necessity.
+This is a useful technique when battling Dynamax Pokémon; with Gigantamax it is practically a necessity.
 
 This chapter's remainder addresses 3x3 Trainer Battles.
 Three subsequent chapters cover team selection, but the topics are intertwined.
-A Trainer's Pokémon enable tactics, and tactics guide Pokémon selection.
+Pokémon enable tactics, and tactics guide Pokémon selection.
 \begin{tipbox}[title=A tip regarding battle UI]
 Without sufficient energy, pressing the charged attack control employs a fast attack.
 If you know you want to throw a charged attack as soon as possible, press its control until thrown.
 \end{tipbox}
 One of the greatest advantages one can gain is knowledge.
 Know Pokémon well, especially those on your team and those you regularly see.
-Know what moves they can learn, and how hard they throw them (Power and \Eff{A}).
+Know what moves they can and are likely to learn, and how hard they throw them (Power and \Eff{A}).
 Knowing their bulk (\Eff{D} times \MHP) can help decide which charged attack to use.
 Know type relations cold, and be able to calculate type effectiveness on the fly.
 The flipside of this is exploitation of ignorance.
 Opposing Trainers are less likely to know Pokémon outside the ``meta'',
  especially those with uncommon typings.
-A Pokémon can only know two charged attacks at a time, but if
- chosen from a move pool of three or more charged, even an informed opponent
- can't know what's coming until it's thrown.
+A Pokémon can only know two charged attacks at a time, but if chosen from a
+ move pool of three or more, even an informed opponent can't know what's coming until it's thrown.
+
+Having two charged attacks is a tremendous advantage over only one.
+If they are different types, you can gain type advantage over a wide range of opponents.
+Since you choose which one to throw on the fly, resistances are much less of a concern.
+Their only disadvantage is expense.
+A second attack costing 50,000 Stardust is the equivalent of powering up from level 27.5 to 31,
+ eleven half-levels.
+A 100,000 Stardust second attack is about one-fifth the cost of going from level 1 to 50.
+
+Take two charged attacks having equal power-per-energy and type, but different power.
+The attack delivering more power (and requiring more energy) is beneficial
+ when it can achieve a knockout in one hit, but the attack with less power cannot.
+This can happen when a new opponent is subbed in, or when the Pokémon is brought back
+ after having been subbed out with significant charge.
+It also benefits from only one application of the floor function.
+Otherwise, the cheaper attack deals comparable damage over time, but deals a portion
+ of it earlier, while being less vulnerable to shielding.
+
+Change to Damage inflicted by an effective Attack is at least 60\%.
+Change to Damage inflicted by an ineffective Attack may be as
+ low as 37.5\%.
+It is probably worth accepting an ineffective Fast Attack if it
+ enables an effective Charged Attack, so long as you actually
+ get that Charged Attack off.
 
 Pokémon GO Trainer Battles don't offer many degrees of freedom.
 Team selection is a complex topic, but once the teams are locked in, there's
  some truth to the claim that battles are a mere game of ``tap tap tap.''
 There are three major classes of tactic:
 \begin{itemize}
-\item when to throw charged attacks,
-\item when to shield against charged attacks, and
-\item when to substitute the active Pokémon.
+\item when to shield against charged attacks,
+\item when to substitute the active Pokémon, and
+\item when to throw charged attacks.
 \end{itemize}
 
 \section{Shielding}
@@ -63,7 +86,7 @@ The tactical situation of both teams is greatly simplified once a team has
  whereas the opponent enjoys a permissive simplification (their space of useful actions is enlarged).
 We can easily define the utility of a shield: how much damage can be inflicted when the shield is used,
  versus the maximum amount of damage inflicted when it is not?
-Precisely answering this question is impossible without full information
+Precisely answering this question is impossible without full information.
 
 The decision is most complex early in a match, when the game space is at its largest,
  but the question can always be reduced to: how much ability to inflict damage
@@ -72,40 +95,28 @@ A Pokémon that is knocked out can inflict no damage---but if there are Pokémon
  left on the team, they can.
 A charged attack that inflicts more damage than hit points remaining on the
  active Pokémon is partially wasted.
-The following questions ought be considered, usually with imperfect information:
+The following questions ought be considered, and give rise to heuristics:
 \begin{itemize}
 \item How much damage is the active Pokémon capable of inflicting if it eats the
    charged attack? If it does not?
-\item How much damage are remaining Pokémon capable of inflicting if one fewer
+\item How much less damage are remaining Pokémon capable of inflicting if one fewer
   shield is available to them?
 \item How much damage is expected from this charged attack?
 \item How much energy is lost if the active Pokémon is knocked out?
 \end{itemize}
-\textbf{FIXME}
-
-Take two charged attacks having equal power-per-energy and type, but different power.
-The attack delivering more power (and requiring more energy) is beneficial
- when it can achieve a knockout in one hit, but the attack with less power cannot.
-This can happen when a new opponent is subbed in, or when the Pokémon is brought back
- after having been subbed out with significant charge.
-It also benefits from only one application of the floor function.
-Otherwise, the cheaper attack deals comparable damage over time, but deals a portion
- of it earlier, while being less vulnerable to shielding.
-
-Having two charged attacks is a tremendous advantage over only one.
-If they are different types, you can gain type advantage over a wide range of opponents.
-Since you choose which one to throw on the fly, resistances are much less of a concern.
-Their only disadvantage is expense.
-A second attack costing 50,000 Stardust is the equivalent of powering up from level 27.5 to 31,
- eleven half-levels.
-A 100,000 Stardust second attack is about one-fifth the cost of going from level 1 to 50.
-
-Change to Damage inflicted by an effective Attack is at least 60\%.
-Change to Damage inflicted by an ineffective Attack may be as
- low as 37.5\%.
-It is probably worth accepting an ineffective Fast Attack if it
- enables an effective Charged Attack, so long as you actually
- get that Charged Attack off.
+A charged attack that delivers more damage than the recipient has hit points is incompletely utilized.
+Shielding a Pokémon whose hit points are very low is reasonable only when that Pokémon
+ is the last standing (or all others are similarly damaged), or it is expected
+ to inflict substantial damage (or at least consume a shield) in its final turns.
+This is just another way of asking our basic question: \textit{how much
+ potential inflicted damage is preserved by this shield?}
+If the Pokémon that would replace our active player are weak to known or suspected attacks,
+ it makes more sense to shield.
+If they would be strong, it makes less sense to shield.
+Allowing a Pokémon to be knocked out allows the Trainer to put in a new Pokémon independently
+ of the substitution timer; if that Pokémon can quickly eliminate the attacker,
+ it can probably make better use of a shield than a weakened Pokémon
+ (and possibly even gain an energy advantage).
 
 \subsection{Catching charged attacks}
 When a Pokémon drops to very low health (one or two more fast attacks will knock
@@ -143,7 +154,7 @@ A shield is deployed, with the reasoning that the attacked Pokémon can
 Instead, a second attack comes almost immediately; the Pokémon goes
   down by necessity, and no shields remain.
 
-\subsection{Substitutions\label{subsec:substitutions}}
+\section{Substitutions\label{sec:substitutions}}
 When the active Pokémon is knocked out, the Trainer selects an unfainted
   Pokémon to replace it (if there is only one such Pokémon, it comes in
   automatically; if there are none, the match is over).
