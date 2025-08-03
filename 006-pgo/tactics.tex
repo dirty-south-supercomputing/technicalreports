@@ -1,9 +1,36 @@
 \chapter{Tactics\label{chap:strategy}}
-For Nx1, press the charged attack button when it's full, and try not to get hit.
-This chapter's remainder addresses 3x3.
+There's not much in the way of tactics for raids: press the charged attack
+ button when it's full, and try not to get hit.
+Full information is available to the raiding Trainers regarding the raid boss.
+It's trivial to calculate the exact damage each of your Pokémon can inflict,
+ the time required to inflict it, how much damage they'll take from various
+ possible attacks, and how powering up might affect the situation.
+If a Pokémon is not strong against a charged attack, it's usually worthwhile to dodge
+ (dodging takes time during which you can't throw attacks).
+Each Trainer typically throws in a squad of six Pokémon, but it can be advantageous to use fewer when
+ they are much stronger than any others---fight with these top-tier
+ Pokémon, revive them in the lobby, and return to the raid.
+It has been conjectured that all raids can be won by a pair of Trainers, assuming
+ proper Pokémon.
+
+Regarding Max Battles, the majority of damage is likely to be dealt while in Max form.
+Filling the Max Meter is essential, as is keeping elite Max forms alive.
+A basic strategy is thus to do most attacking with a Pokémon having
+  high defense and \MHP, employing moves of low duration.
+Single-turn fast attacks are ideal.
+Each will advance the Max Meter, and flurries of fast attacks are likely to
+ fill it faster than lengthy charged attacks.
+While transitioning to Max form, swap in your most powerful attacker.
+Swap them back out upon detransition, so that they are not exposed to damage.
+This is a useful technique when battling Dynamax Pokémon; with Gigantamax Pokémon it is practically a necessity.
+
+This chapter's remainder addresses 3x3 Trainer Battles.
 Three subsequent chapters cover team selection, but the topics are intertwined.
 A Trainer's Pokémon enable tactics, and tactics guide Pokémon selection.
-
+\begin{tipbox}[title=A tip regarding battle UI]
+Without sufficient energy, pressing the charged attack control employs a fast attack.
+If you know you want to throw a charged attack as soon as possible, press its control until thrown.
+\end{tipbox}
 One of the greatest advantages one can gain is knowledge.
 Know Pokémon well, especially those on your team and those you regularly see.
 Know what moves they can learn, and how hard they throw them (Power and \Eff{A}).
@@ -16,10 +43,45 @@ A Pokémon can only know two charged attacks at a time, but if
  chosen from a move pool of three or more charged, even an informed opponent
  can't know what's coming until it's thrown.
 
-\begin{tipbox}[title=A tip regarding battle UI]
-Without sufficient energy, pressing the charged attack control employs a fast attack.
-If you know you want to throw a charged attack as soon as possible, press its control until thrown.
-\end{tipbox}
+Pokémon GO Trainer Battles don't offer many degrees of freedom.
+Team selection is a complex topic, but once the teams are locked in, there's
+ some truth to the claim that battles are a mere game of ``tap tap tap.''
+There are three major classes of tactic:
+\begin{itemize}
+\item when to throw charged attacks,
+\item when to shield against charged attacks, and
+\item when to substitute the active Pokémon.
+\end{itemize}
+
+\section{Shielding}
+Each team starts a 3x3 battle with two shields.
+A team is almost certain to see more than two charged attacks, so some will be
+ blocked, and others will not.
+Optimal shielding can easily decide a match.
+The tactical situation of both teams is greatly simplified once a team has
+ used both shields, but for that team it is a restrictive simplification (their space of action is reduced),
+ whereas the opponent enjoys a permissive simplification (their space of useful actions is enlarged).
+We can easily define the utility of a shield: how much damage can be inflicted when the shield is used,
+ versus the maximum amount of damage inflicted when it is not?
+Precisely answering this question is impossible without full information
+
+The decision is most complex early in a match, when the game space is at its largest,
+ but the question can always be reduced to: how much ability to inflict damage
+ is removed by the opponent's charged attack?
+A Pokémon that is knocked out can inflict no damage---but if there are Pokémon
+ left on the team, they can.
+A charged attack that inflicts more damage than hit points remaining on the
+ active Pokémon is partially wasted.
+The following questions ought be considered, usually with imperfect information:
+\begin{itemize}
+\item How much damage is the active Pokémon capable of inflicting if it eats the
+   charged attack? If it does not?
+\item How much damage are remaining Pokémon capable of inflicting if one fewer
+  shield is available to them?
+\item How much damage is expected from this charged attack?
+\item How much energy is lost if the active Pokémon is knocked out?
+\end{itemize}
+\textbf{FIXME}
 
 Take two charged attacks having equal power-per-energy and type, but different power.
 The attack delivering more power (and requiring more energy) is beneficial
