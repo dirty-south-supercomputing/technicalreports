@@ -346,7 +346,7 @@ static const attack ATK_Dragon_Breath = { "Dragon Breath", TYPE_DRAGON, 4, 3, 1,
 	6, 4, 1, false, };
 static const attack ATK_Dragon_Tail = { "Dragon Tail", TYPE_DRAGON, 13, 9, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	14, 8, 2, false, };
-static const attack ATK_Ember = { "Ember", TYPE_FIRE, 7, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Ember = { "Ember", TYPE_FIRE, 7, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 10, 2, false, };
 static const attack ATK_Extrasensory = { "Extrasensory", TYPE_PSYCHIC, 8, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 11, 2, false, };
