@@ -62,7 +62,10 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
         std::cout << "  " << l;
       }
       cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
-      std::cout << ": " << cp << "\t";
+      auto gmean = calc_fit(calc_eff_a(s->atk + *ia, hlevel, false),
+                            calc_eff_d(s->def + *id, hlevel, false),
+                            calc_mhp(s->sta + *is, hlevel));
+      std::cout << ": " << cp << " (" << gmean << ") " << "\t";
       if(hlevel % 4 == 0){
         std::cout << std::endl;
       }
