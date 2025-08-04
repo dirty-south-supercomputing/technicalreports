@@ -4,7 +4,7 @@ static void
 print_cpms(void){
   std::cout.precision(4);
   std::cout << "\\begin{table}\\centering\\begin{tabular}{ll|ll|ll}" << std::endl;
-  std::cout << "Level & \\CPM & Level & \\CPM & Level & \\CPM\\" << std::endl;
+  std::cout << "Level & \\CPM & Level & \\CPM & Level & \\CPM\\\\" << std::endl;
   std::cout << "\\Midrule" << std::endl;
   for(int i = 1 ; i < 34 ; ++i){
     unsigned half;
