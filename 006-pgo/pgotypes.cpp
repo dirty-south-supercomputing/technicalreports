@@ -237,8 +237,7 @@ float cpm(int halflevel){
     0.8478, 0.8503
   };
   if(halflevel <= 0 || (unsigned)halflevel > sizeof(cpms) / sizeof(*cpms)){
-    fprintf(stderr, "INVALID HALFLEVEL %d\n", halflevel);
-    return NAN;
+    throw std::invalid_argument("invalid halflevel");
   }
   return cpms[halflevel - 1];
 }

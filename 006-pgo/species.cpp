@@ -5,14 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*static void
-print_cpms(void){
-  printf("cpms:\n");
-  for(int i = 1 ; i < 100 ; ++i){
-    printf("%2d %f\n", i, cpm(i));
-  }
-}*/
-
 static void
 print_species(const species* s){
   if(s->t2 == TYPECOUNT){
