@@ -34,7 +34,7 @@ print_cpms(void){
     }
     std::cout << " & " << cpm(i + 66) << "\\\\" << std::endl;
   }
-  std::cout << "\\end{tabular}\\caption{Idealized combat power multipliers\\label{table:cpm}\\end{table}" << std::endl;
+  std::cout << "\\end{tabular}\\caption{Idealized combat power multipliers\\label{table:cpm}}\\end{table}" << std::endl;
 }
 
 int main(void){
