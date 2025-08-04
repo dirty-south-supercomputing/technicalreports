@@ -125,7 +125,7 @@ int main(int argc, const char **argv){
   }
   std::cout << "cp: " << cp << " ia: " << ia << " id: " << id << " is: " << is << std::endl;
   auto st = reverse_ivs_level(s, cp, &ia, &id, &is);
-  if(!st){
+  if(!st && cp > 0){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
   }
