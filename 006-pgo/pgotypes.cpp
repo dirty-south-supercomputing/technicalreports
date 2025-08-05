@@ -534,6 +534,9 @@ static const attack ATK_Bug_Buzz = { "Bug Buzz", TYPE_BUG, 100, -60, 0, 0, 0, 0,
 	95, 50, 7, false, };
 static const attack ATK_Bulldoze = { "Bulldoze", TYPE_GROUND, 45, -45, 0, 0, 0, 0, 500, 0, 0, 0, -1,
 	80, 50, 7, false, };
+// FIXME need energy costs and Nx1 duration, these are placeholders
+static const attack ATK_Chilling_Water = { "Chilling Water", TYPE_WATER, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+	65, 33, 7, false, };
 static const attack ATK_Clanging_Scales = { "Clanging Scales", TYPE_DRAGON, 120, -45, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
 	120, 100, 7, false, };
 static const attack ATK_Close_Combat = { "Close Combat", TYPE_FIGHTING, 100, -45, 0, 0, 1000, 0, 0, 0, -2, 0, 0,
@@ -1013,6 +1016,7 @@ static const attack* const attacks[] = {
   &ATK_Bubble_Beam,
   &ATK_Bug_Buzz,
   &ATK_Bulldoze,
+  &ATK_Chilling_Water,
   &ATK_Close_Combat,
   &ATK_Crabhammer,
   &ATK_Cross_Chop,
@@ -3619,8 +3623,8 @@ static const species sdex[] = {
 		{ &ATK_Ember, &ATK_Fire_Fang, &ATK_Take_Down, &ATK_Incinerate, &ATK_Dark_Pulse, &ATK_Flame_Charge, &ATK_Solar_Beam, &ATK_Overheat, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, },
   {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, nullptr,
-		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
+		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Chilling_Water, },
+		true, false, false, { &ATK_Chilling_Water, }, species::CAT_NORMAL, 50, nullptr, },
   {  670, "Floette", TYPE_FAIRY, TYPECOUNT, 136, 151, 144, "Flabébé",
 		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },

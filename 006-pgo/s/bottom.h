@@ -21,11 +21,11 @@ static void inflict_charged_effect(unsigned chance, int eff, int8_t *lev){
   }
 }
 
-static void inflict_effect(simulstate *s, int player, const attack *a){
-  inflict_charged_effect(a->chance_user_attack, a->user_attack, &s->buffleva[player]);
-  inflict_charged_effect(a->chance_user_defense, a->user_defense, &s->bufflevd[player]);
-  inflict_charged_effect(a->chance_opp_attack, a->opp_attack, &s->buffleva[other_player(player)]);
-  inflict_charged_effect(a->chance_opp_defense, a->opp_defense, &s->bufflevd[other_player(player)]);
+static void inflict_effect(simulstate *s, int p, const attack *a, int op){
+  inflict_charged_effect(a->chance_user_attack, a->user_attack, &s->buffleva[p]);
+  inflict_charged_effect(a->chance_user_defense, a->user_defense, &s->bufflevd[p]);
+  inflict_charged_effect(a->chance_opp_attack, a->opp_attack, &s->buffleva[op]);
+  inflict_charged_effect(a->chance_opp_defense, a->opp_defense, &s->bufflevd[op]);
 }
 
 // returns true if we KO the opponent. a must be a charged move, and the
@@ -35,7 +35,7 @@ static inline bool
 throw_charged_move(simulstate *s, int player, const attack *a, int aid, bool oshield){
   int op = other_player(player);
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
-  inflict_effect(s, player, a);
+  inflict_effect(s, player, a, op);
   if(oshield){
     --s->shields[other_player(player)];
     return inflict_damage(&s->hp[op][s->active[op]], 1);
