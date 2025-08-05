@@ -4973,12 +4973,12 @@ learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
   return count;
 }
 
-// how many species can learn this attack?
+// how many species can learn this attack? we don't count mega/primal forms.
 unsigned learner_count(const attack* as){
   unsigned count = 0;
-  for(auto &sd : sdexen){
-    count += learner_count_sdex(as, sd.dex, sd.dcount);
-  }
+  //for(auto &sd : sdexen){
+    count += learner_count_sdex(as, sdex, SPECIESCOUNT);
+  //}
   return count;
 }
 
