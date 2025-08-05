@@ -17,6 +17,13 @@ A Pokémon with zero hit points has ``fainted''.
 Fainted Pokémon cannot be used in battles of any kind, nor can they be left in
  Power Stops (see \autoref{sec:maxbattles}).
 
+Each Pokémon has a height and weight, randomly generated according to a Gaussian
+ parameterized for each form.
+Four or more standard deviations from the mean qualify a Pokémon as XXS or XXL,
+ each with its own Pokédex and associated medal.
+Proportional deviation from the mean is maintained across evolution and trade.
+Size and height are the criteria for winning Showcases, have no effects otherwise.
+
 \section{Pokémon level\label{sec:plevel}}
 Each Pokémon has its own level, taking one of the 99 integer and half-integer
  values between 0--50, inclusive.
