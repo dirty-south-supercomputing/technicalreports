@@ -1,0 +1,43 @@
+\chapter{Time and space\label{chap:timespace}}
+Pokémon GO is played on a representation of the Earth's surface.
+The game's horizon is sufficiently close that curvature of this two-manifold
+ cannot be discerned, facilitating simple projection onto Euclidean mobile devices.
+The Trainer is localized using the device's location services, which typically
+ combine signals from GPS, WiFi radio, cellular radio, and sensors.
+Flaky location services or networking will have a highly deleterious effect on your game,
+ and substantial functionality is unavailable when moving at high speed\footnote{A common
+ claim is 10.5 km/h, but I've seen no evidence.}.
+
+\section{The world of Pokémon GO\label{sec:world}}\footnote{None of this information has been confirmed, but it has solid evidence.}
+The planet's surface is partitioned into S2 cells, a hierarchy (typically using
+ quadtrees) of geodesic quadrilaterals (their boundaries are straight lines on the curved
+ surface) numbered along a set of Hilbert curves (preserving spatial locality as index locality)\footnote{The
+ canonical reference seems to be Octavian Propcopiuc's ``Geometry on the Sphere: Google's S2 Library''.}.
+\begin{tipbox}[title=If that meant nothing to you…]
+It's carved up into rectangles.
+\end{tipbox}
+The smallest S2 cell thought to be used is level 20, with a maximum of ten meters to a side.
+The center of such a cell is a potential spawn point \autoref{sec:spawns}, and there are over seven trillion level 20 cells.
+Spawning seems at least influenced by Trainer activity and input from OpenStreetMap, but this is speculative at best.
+A level 17 cell contains zero or one ``point of interest'' (Pokéstop, Power Stop, Gym),
+ sourced from Niantic's \textit{Ingress} game and Wayfarer community.
+Gyms are distributed among level 14 cells according to the number of contained points of interest (\autoref{table:pois}),
+ and usually involve automatic conversion of a Pokéstop.
+\begin{table}
+\centering
+\begin{tabular}{lr}
+\Midrule
+1 & 0 \\
+2--5 & 1\\
+6--19 & 2\\
+20--34 & 3\\
+\end{tabular}
+\caption[Gym allocation in level 14 S2 cells]{Gym allocation in level 14 S2 cells (source: \label{table:pois}}
+\end{table}
+A level 14 cell also seems capable of containing two Power Stops (note that Power Stops are not always visible).
+ Weather (thought to be sourced from AccuWeather) seems a property of level 11 cells.
+Pokémon are tagged with a capture location associated with level 10 cells.
+Everything geographical in the game---the matrix of nearby Pokémon, the lists
+ of raids and Max Battles, the rendered map, egg location---is based on some level of S2 cells.
+
+\section{The timeline of Pokémon GO\label{sec:timeline}}
