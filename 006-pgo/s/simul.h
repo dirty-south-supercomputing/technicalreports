@@ -1,4 +1,5 @@
 constexpr unsigned TEAMSIZE = 3;
+constexpr int MAXCHARGEDBUFF = 4;
 constexpr unsigned ENERGY_MAX = 100;
 
 struct results {

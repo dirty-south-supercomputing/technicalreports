@@ -11,6 +11,23 @@ static void account_fast_move(simulstate *s, int player){
   }
 }
 
+static void inflict_charged_effect(unsigned chance, int eff, int8_t *lev){
+  if(chance){ // if 0 < chance < 1000, we need simulate both paths FIXME
+    if((*lev += eff) > MAXCHARGEDBUFF){
+      *lev = MAXCHARGEDBUFF;
+    }else if(*lev < -MAXCHARGEDBUFF){
+      *lev = -MAXCHARGEDBUFF;
+    }
+  }
+}
+
+static void inflict_effect(simulstate *s, int player, const attack *a){
+  inflict_charged_effect(a->chance_user_attack, a->user_attack, &s->buffleva[player]);
+  inflict_charged_effect(a->chance_user_defense, a->user_defense, &s->bufflevd[player]);
+  inflict_charged_effect(a->chance_opp_attack, a->opp_attack, &s->buffleva[other_player(player)]);
+  inflict_charged_effect(a->chance_opp_defense, a->opp_defense, &s->bufflevd[other_player(player)]);
+}
+
 // returns true if we KO the opponent. a must be a charged move, and the
 // player must have sufficient energy. oshield may only be set if the
 // opponent has a shield. aid is index into s->dam[player].
@@ -18,6 +35,7 @@ static inline bool
 throw_charged_move(simulstate *s, int player, const attack *a, int aid, bool oshield){
   int op = other_player(player);
   accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
+  inflict_effect(s, player, a);
   if(oshield){
     --s->shields[other_player(player)];
     return inflict_damage(&s->hp[op][s->active[op]], 1);
