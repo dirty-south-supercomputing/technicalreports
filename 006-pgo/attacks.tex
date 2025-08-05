@@ -133,21 +133,6 @@ Note that many of the best PPEs do not require extreme energy; these make
 Every charged attack's power is a multiple of five, and thus multiplying it by 1.2 or 1.6 always results in an integer.
 \end{tipbox}
 
-\section{Buffs and debuffs\label{sec:buffs}}
-Certain charged attacks have a chance of semi-persistent effects on the
-  attack or defense of the user or opponent.
-These effects can be positive (``buffs'') or negative (``debuffs''\footnote{I am unenamored of the term ``debuff'',
-  suggesting only that it can undo a buff. But this is not just community lingo---it's in the
-  game's interfaces.}).
-They occur only in 3x3 battles, and are affected by neither shields nor typing.
-Several attacks (Ancient Power, Obstruct, Ominous Wind, Signal Beam, Silver
-  Wind, Superpower, Tri Attack) can have multiple effects; in this case, any
-  probabilistic check is done once for all effects---either all of them
-  occur, or none of them do.
-The effects apply only to the active Pokémon, and do not persist across substitution.
-Stat changes stack, but the absolute value will not exceed four.
-See \autoref{sec:mbmult} for a quantitative treatment.
-
 \subsection{Adventure Effects\label{sec:effects}}
 Certain charged attacks can be employed outside of battle.
 Some Pokémon must know the attack, and that Pokémon cannot be fainted.
@@ -181,6 +166,21 @@ Dynamax Cannon & Eternatus & 5/30 & 10\\
 \end{table}
 Dynamax Cannon's effect does not affect the Max Moves of Zacian nor Zamazenta,
  and costs a painful 30 Eternatus Candy.
+
+\section{Buffs and debuffs\label{sec:buffs}}
+Certain charged attacks have a chance of semi-persistent effects on the
+  attack or defense of the user or opponent.
+These effects can be positive (``buffs'') or negative (``debuffs''\footnote{I am unenamored of the term ``debuff'',
+  suggesting only that it can undo a buff. But this is not just community lingo---it's in the
+  game's interfaces.}).
+They occur only in 3x3 battles, and are affected by neither shields nor typing.
+Several attacks (Ancient Power, Obstruct, Ominous Wind, Signal Beam, Silver
+  Wind, Superpower, Tri Attack) can have multiple effects; in this case, any
+  probabilistic check is done once for all effects---either all of them
+  occur, or none of them do.
+The effects apply only to the active Pokémon, and do not persist across substitution.
+Stat changes stack, but the absolute value will not exceed four.
+See \autoref{sec:mbmult} for a quantitative treatment.
 
 \section{Cover sets\label{sec:coversets}}
 With one fast and two charged attacks per Pokémon, a team of three can boast nine distinct attack types.
