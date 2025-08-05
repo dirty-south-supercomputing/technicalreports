@@ -36,6 +36,12 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
       if(half){
         std::cout << ".5";
       }
+      auto effa = calc_eff_a(s->atk + ia, hlevel, false);
+      auto effd = calc_eff_d(s->def + id, hlevel, false);
+      auto hp = calc_mhp(s->sta + is, hlevel);
+      std::cout << " EffA: " << effa << " EffD: " << effd << " HP: " << hp;
+      std::cout << " gm: " << calc_fit(effa, effd, hp);
+      std::cout << " am: " << calc_avg(effa, effd, hp);
       std::cout << std::endl;
       break;
     }
