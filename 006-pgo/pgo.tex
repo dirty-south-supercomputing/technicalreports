@@ -212,79 +212,8 @@
 \input{simul}
 \appendix
 \input{optimal}
-\chapter{Species by typings\label{chap:speciesbytype}}
-Forms are sorted by typing, and within typing by Pokédex number.
-Historically, base statistics are rarely manipulated from season to season, but
- various Pokémon gain the ability to learn new attacks.
-\vfill
-\begin{center}\textbf{Interpreting form cards}\end{center}
-
-The title displays the form name on the left.
-If a Shiny form exists, the shiny icon (\calign{\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}) is displayed.
-The form's base ATK, DEF, and STA appear on the right, followed by the arithmetic and geometric means
- ($\frac{BS}{3}$ and $\sqrt[3]{\BP\,}$).
-The colors of the title bar indicate the typing.
-To the right of a picture is a table of fast and charged attacks.
-I have factored STAB into applicable attacks.
-Fast attacks show turns, power, energy generated, \PPT{}, and \EPT{}\@.
-Charged attacks show power, energy consumed, and PPE\@.
-Attacks in italics cannot be acquired without an Elite TM or special circumstances.
-Type, cost group, weather boosting, and existence of a Shiny form are indicated with icons.
-The optimal configurations for \CP2500 and \CP1500-bounded play are specified below the attack table.
-The last line of the card shows cost group, generation, and region on the left,
- and evolutionary line on the right.
-Finally, if there is a Shadow form, that is indicated, along with the same stats
-  provided for the regular form.
-\vfill
-\begin{speciesbox}[title=OV-099 Challenger,title style={left color=Flying,right color=Ghost},after title={\hfill 200 120 100 140.00 133.89}]
-\footnotesize
-\begin{tabularx}{\linewidth}{@{}c X @{}}
-\includegraphics[width=0.3\linewidth,valign=c,keepaspectratio]{images/challenger.png} &
-\begingroup
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lrrrrr}
-\includegraphics[height=1em,keepaspectratio]{images/ghost.png} Astonish & 3 & 14.4 & 10 & 4.8 & 3.3 \\
-\includegraphics[height=1em,keepaspectratio]{images/fire.png} Incinerate & 5 & 20 & 20 & 4 & 4 \\
-\includegraphics[height=1em,keepaspectratio]{images/flying.png} Brave Bird & & 156 & -55 & 2.84 & \\
-\includegraphics[height=1em,keepaspectratio]{images/flying.png} Aeroblast & & 204 & -75 & 2.72 & \\
-\end{tabular}
-\endgroup
-\end{tabularx}
-\noindent\begin{minipage}{0.3\linewidth}
-\includegraphics[height=1.5em,keepaspectratio]{images/flying.png}
-\includegraphics[height=1.5em,keepaspectratio]{images/ghost.png}
-\includegraphics[height=2em,keepaspectratio]{images/windy.png}
-\includegraphics[height=2em,keepaspectratio]{images/fog.png}
-\end{minipage}
-\begin{minipage}{0.7\linewidth}\raggedleft{}
-\vfill{}
-  15/15/15@50 (1891)\\
-  0/14/1@42.5 (1499)
-\end{minipage}\\
-CG 4 Gen X Atlantic\hfill{}Columbia → \textbf{Challenger} → Discovery
-\tcbsubtitle[before skip=1pt,bottomrule=0pt]{Shadow OV-099 Challenger\hfill{240 100 100 146.67 133.89}}
-\end{speciesbox}
-\bigskip\noindent{}We see here that OV-099 Challenger has Ghost+Flying typing, with base ATK, DEF, and STA
-of 200, 120, and 100, respectively. Its $\frac{BS}{3}$ is 140, and its $\sqrt[3]{\BP\,}$ is 133.89.
-It has a Shadow form, but not a Shiny form. The Shadow form has higher ATK and lower DEF, changing
-its $\frac{BS}{3}$ to 146.67. Its optimal configuration for a \CP1500 bound is 0/14/1 at level 42.5.
-It is poorly suited for \CP2500 bounds and liftoffs in low temperatures.
-\clearpage
-\input{out/species}
-\vfill\begin{center}\includegraphics[width=.8\linewidth,keepaspectratio]{images/tentacruel.png}\end{center}
-\chapter{Users of attacks\label{chap:attackemployers}}
-It is often useful to build a team around attacks, rather than Pokémon.
-This appendix lists the Pokémon which can learn and use a given attack.
-Pokémon in italics will \textit{not} have STAB with the attack.
-Pokémon in boldface require an Elite TM (or special circumstances) to acquire the move.
-Attack cards display Nx1 stats in the middle of the title, and 3x3 stats on the right.
-Stats are not infrequently tweaked between seasons.
-\subsection{Fast attacks\label{sec:usersfast}}
-Fast attacks are sorted by type, then duration, then by the product of \PPT{} and \EPT{}\@.
-\input{out/fastusers}
-\subsection{Charged attacks\label{sec:userscharged}}
-Charged attacks are sorted by type, then PPE\@.
-\input{out/chargedusers}
+\input{speciescards}
+\input{attackcards}
 \backmatter
 \input{about}
 \end{document}
