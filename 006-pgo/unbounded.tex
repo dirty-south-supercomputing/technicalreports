@@ -60,7 +60,7 @@ Since Raids allow substitution of defeated Pokémon, but are subject to a timer,
   the ability to defend and absorb damage is less important than being able to
   quickly inflict damage.
 Furthermore, when two Pokémon launch charged attacks on the same turn in a Trainer
-  Battle, \Eff{A} determines which goes first (\autoref{sec:3x3}).
+  Battle, \Eff{ARaw} determines which goes first (\autoref{sec:3x3}).
 Perhaps this explains the emphasis on attack, but some of the most important
   factors in the damage equation are left out of \CP{} entirely!
 The power and timing of the Pokémon's attacks are not present, despite
@@ -92,6 +92,20 @@ Normal & Fighting \\
 \end{tabular}
   \caption{Single-weakness typings\label{table:singleweak}}
 \end{table}
+
+\subsection{Scaling\label{subsec:scaling}}
+Hit points obviously scale.
+At first glance, \Eff{A} scales arbitrarily, while \Eff{D} yields diminishing returns.
+After all, damage suffered can only be reduced to one, while damage inflicted
+ can arbitrarily grow.
+Is this really the case?
+Damage greater than the opponent's hit points is wasted, and thus can't meaningfully scale
+ beyond the 429 hit points of a \ivlev{15}{15}{15}{50} Blissey.
+Meanwhile, an \Eff{D} even four times \Eff{A} is still a factor an order of magnitude
+ less than the power of a charged attack.
+With that said, each increase in \Mod{A} is worth a constant increase in
+ damage (leaving aside the floor function), whereas each increase in \Mod{D}
+ is worth $\frac{1}{\Mod{D}}$.
 
 \section{How important are IVs?}
 Well, how important are attack, defense, and stamina?
@@ -211,4 +225,3 @@ Consider how your team would play against a team of the same or similar composit
 Perturb your selections, replacing them with ideal counters.
 Develop an ideal team for facing your team, then an ideal team for facing that team.
 Does this process converge?
-\vfill\begin{center}\includegraphics[width=.8\linewidth,keepaspectratio]{images/tentacruel.png}\end{center}
