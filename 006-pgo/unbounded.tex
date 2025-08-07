@@ -110,11 +110,19 @@ With that said, each increase in \Mod{A} is worth a constant increase in
 \section{How important are IVs?}
 Well, how important are attack, defense, and stamina?
 Every calculation that makes use of a Pokémon's base stats also uses the IVs.
-In no universe will you benefit from paying IVs more attention than species statistics.
+Indeed, it's quite reasonable to consider each form to be 4,096 different forms,
+ and dispense with IVs altogether.
+A Beedrill has base stats of 169, 130, and 163.
+An Ariados has 161, 124, and 172.
+For the purposes of \Eff{A}, \Eff{D}, \MHP, and CMP, a \ivlev{0}{0}{9}{N} Beedrill
+ and a \ivlev{8}{6}{0}{N} Ariados are the exact same thing, and will have equal CP.
+
 In bounded competition (see \autoref{chap:bounded}), higher IVs---just like higher
-  base stats---are automatically counterbalanced.
-This chapter is concerned with unbounded competition, and there IVs are more directly
-  relevant, especially for CMP in mirror matches.
+  base stats---are automatically counterbalanced, and subject to various fitness functions.
+In unbounded raids, Max Battles, Team GO Rocket battles, and the Master League,
+  \ivlev{15}{15}{15}{N} is always optimal, though it is possible for \ivlev{15}{15}{M}{N} to tie.
+As an example, a Sigilyph (base STA 176) at level 22 has an \MHP{} of 119 with
+  either a 15 or a 14 \IV{S}: there is literally no difference between the two values.
 
 As with most such questions, we could answer ``the details are opponent-dependent'',
   declare the day done, and close up shop.
@@ -134,46 +142,42 @@ In general, \IV{A} adds a percentage boost of
 
 \noindent{}to attack, and \IV{D} lends the same (of course using DEF) to defense.
 
-This might not lead to any change in actual damage, depending on
-  an opponent's own attack and defense.
-We can see this null effect in an opponent-independent way: it is quite possible
-  for two different IVs to yield the exact same \MHP\@.
-As an example, a Sigilyph (base STA 176) at level 22 has an \MHP{} of 119 with
-  either a 15 or a 14 \IV{S}: there is literally no difference between the
-  two values.
-In short, IVs (usually) have real effects, but (especially for more powerful species)
-  the difference between 0/0/0 and 15/15/15 is often less than that due to
-  attack selection, type effectiveness, and strategy.
+This might not lead to any change in actual damage, depending on an opponent's own attack and defense.
+
+A higher level amplifies the impact of IVs.
+At level 50, an \IV{A} of 15 boosts \Mod{A} by 12.6045.
+At level 1, it adds 1.41.
+With unbounded competition fought best by Pokémon of the highest level, it is
+ sensible to power only those with close to maximum IVs beyond level 25 or so.
+At this point, they are getting almost 80\% of the potential benefit from leveling.
+My (soft) rule is to only level up so long as the \CPM fraction exceeds the IV fraction:
+ \ivlev{14}{14}{14} is 93.3\% of \ivlev{15}{15}{15}, so I don't level that Pokémon
+ past 38.5, where CPM of 0.7817 is 93.04\% of level 50's 0.8403.
+Given sufficient Stardust and Candy XL, of course, you can do whatever you want.
 
 \section{Team assembly}
-Does this extend to teams?
-At first, it seems that it might: after all, a team's overall fitness
- depends on the entire opposing team, involving still more unknowns.
-We will see that the team mechanism actually allows us to mitigate certain
- unknowns, while adding new ones.
+A team's overall fitness depends on the entire opposing team, involving many unknowns.
 Comparing teams is highly nontrivial, and this greater complexity admits
  further opportunities for strategy and cunning.
-
 It's generally very bad if all three team members are weak to the same type.
 Ideally, no two members share a type weakness.
 Lead with a species having few/uncommon weaknesses, to avoid having to make the first switch.
 
-You'll use fast attacks more than anything else, so their quality is critical.
-There is little use for a Pokémon with bad fast attacks.
+You'll use fast attacks more than anything else, so choose wisely.
+I lean towards attacks that build energy quickly, at the expense of power,
+ because of the power of charged attacks (remember \autoref{sec:fastvcharged})
+ and the fact that the floor function is applied to a volley of fast attacks multiple times.
 Attacks of shorter duration might be thought preferable to those requiring
   several turns, due to greater responsiveness.
-In truth, experienced players ought comprehend the universe of possibilities
-  within the timescale of a single fast attack.
-Attacks of longer duration allow the opponent to blunder with regard to the
-  timing of their charged attacks, but experienced players will avoid
-  such errors.
+Attacks of longer duration can foster opponents' blunders with regard to the
+  timing of their charged attacks, but experienced players will avoid such errors.
 Short attacks credit damage more quickly than long ones.
 There's no general rule: fast attack selection comes down to attack type
   (both for effectiveness and STAB), the Pokémon's charged attacks,
   and even the $\frac{P \cdot \mathit{Eff_\mathrm{A}}}{\mathit{Eff_\mathrm{D}}}$ of expected opponents.
 Some Pokémon can learn two fast attacks of the same type and duration,
-  where one is strictly inferior to the other in terms of power and
-  energy.
+  where one is strictly inferior to the other in terms of power and energy
+  (for instance, Annihilape's Counter is strictly superior to Low Kick).
 Such garbage attacks ought be immediately changed with a Fast TM\@.
 
 \begin{tipbox}[title=Dubwool+Wooloo+Mareep is a BAA team]
@@ -225,3 +229,4 @@ Consider how your team would play against a team of the same or similar composit
 Perturb your selections, replacing them with ideal counters.
 Develop an ideal team for facing your team, then an ideal team for facing that team.
 Does this process converge?
+\vfill{\centering\includegraphics[width=\textwidth,keepaspectratio]{images/greninja.png}}\vfill
