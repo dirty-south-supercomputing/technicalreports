@@ -39,10 +39,10 @@ A Level 10 Pokémon advancing to level 10.5 enjoys a 2.47\% improvement to
 Advancing from 30 to 30.5 represents only a 0.42\% improvement (and a
  0.83\% increase in \CP{}).
 
-The maximum level for which a 15--15--15 IV comes in under the bound is the
+The maximum level for which \ivlev{15}{15}{15} comes in under the bound is the
  minimum possible optimal level, since any lesser level would be strictly less
  powerful.
-The maximum level for which a 0--0--0 IV comes in under the bound is the
+The maximum level for which \ivlev{0}{0}{0} comes in under the bound is the
  maximum possible optimal level, as it is not possible to gain another level
  while remaining within the bound.
 Any IV with all three components less than or equal to another IV, but bounded
@@ -55,6 +55,18 @@ What remains is an optimal frontier of at least one solution (usually
  many solutions), where arguments can be made for each depending on how one
  values attack, defense, and stamina, especially in the context of different
  opponents.
+
+Does increasing \IV{A} under a bound always increase \Eff{A}? No.
+Under a CP 1500 bound, a \ivlev{15}{15}{15}{17.5} Golem (CP of 1474) has an \Eff{A} of 126.296.
+The same Golem with \ivlev{12}{15}{15}{18} (CP of 1496) has an \Eff{A} of 126.386.
+The latter's \Eff{D} is of course also higher (120.719 vs 119.031), and it
+ has 116 vs 114 hit points.
+Going down to \ivlev{0}{15}{15}{19} (CP of 1494) drops all the way to 122.861,
+ while \ivlev{1}{14}{15}---optimal according to $\sqrt[3]{BP}$---comes back to 123.443.
+For a CP 2500 bound, the \ivlev{15}{15}{15}{29.5} pulls ahead on \Eff{A} (its \Eff{D} and \MHP of course remain inferior),
+ reflecting the rapidly diminishing returns of leveling.
+High IVs are normally critical for Pokémon with lower base stats, but under a bound, the importance of perfect IVs
+ is greatest for Pokémon with high base stats, as they will be at lower levels.
 
 Before taking Power and Type into the question, let's examine the optimal
  solutions for a family using the 1500 and 2500 \CP{} bounds, using the
