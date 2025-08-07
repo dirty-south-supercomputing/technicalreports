@@ -92,12 +92,9 @@ void update_cache(uint32_t h, const results *r){
 }
 
 int stop_cache(void){
-  std::cout << "hits: " << cache_hits
-    << " misses: " << cache_misses
-    << " opens: " << cache_opens
-    << " late: " << cache_late
-    << " used: " << cache_used << " / " << CACHEELEMS
-    << std::endl;
+  printf("hits: %'lu misses: %'lu opens: %'lu late: %'lu\n",
+          cache_hits, cache_misses, cache_opens, cache_late);
+  printf(" used: %'lu/%'lu\n", cache_used, CACHEELEMS);
   delete[] elems;
   return 0;
 }
@@ -250,9 +247,8 @@ int main(int argc, char** argv){
   simul(&sstate, &r);
   stop_cache();
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu total: %'lu\n",
-        r.wins[0], r.wins[1], r.ties, total);
-  printf("p0 %.04f%% p1 %.04f%% t %.04f%%\n", r.wins[0] * 100.0 / total,
-        r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
+  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
+  printf(" total: %'lu p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
+        r.wins[0] * 100.0 / total, r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
   return EXIT_SUCCESS;
 }

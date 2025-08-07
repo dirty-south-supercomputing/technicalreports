@@ -219,10 +219,10 @@ $(SIMULOUT): $(SIMUL)
 
 $(SIMUL3OUT): $(SIMUL)
 	@mkdir -p $(@D)
-	$(<) clodsire opt500 "poison sting" "megahorn" \
-				sawk opt500 "low kick" "focus blast" \
-				feebas opt500 tackle "mirror coat" \
-				milotic opt500 waterfall surf > $@
+	$(<) clodsire opt1500 "poison sting" megahorn \
+				talonflame opt1500 incinerate "brave bird" \
+				quagsire opt1500 "water gun" earthquake \
+				milotic opt1500 waterfall surf > $@
 
 $(SIMUL): $(SIMULSRC) pgotypes.cpp Makefile
 	@mkdir -p $(@D)
