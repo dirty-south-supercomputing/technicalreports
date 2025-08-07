@@ -19,7 +19,7 @@ We then select a team using the strategies of that chapter. Since
 {Optimal IVs and Levels under a $\mathbfit{C\kern -1ptP}$\, bound}
 We require a fitness function that takes as input a Pokémon's form, level, and IV,
   and emits a comparable output.
-  Common functions include \CP{} itself, the arithmetic mean ($\frac{\mathit{Eff_\mathrm{A}} +\mathit{Eff_\mathrm{D}} + \mathit{MHP}}{3}$),
+  Common functions include \CP{} itself, the arithmetic mean ($\frac{\Eff{A} + \Eff{D} + \MHP}{3}$),
   and the geometric mean ($\sqrt[3]{\Eff{A} \cdot \Eff{D} \cdot \MHP}$)\footnote{I personally believe the geometric mean to best match Pokémon GO's
   mechanics, but there is no true ``best'' fitness function---optimal IVs are
   dependent upon both the base stats and the opponent.}.
