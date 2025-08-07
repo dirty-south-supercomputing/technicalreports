@@ -19,7 +19,7 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
     d *= 5;
   }
   d *= o->s.s->type_effectiveness(a);
-  d /= p->effd * mapbuff(dbuff);
+  d /= o->effd * mapbuff(dbuff);
   d /= 20; // second half of the 0.65 multiplier
   if(p->shadow && !o->shadow){
     d /= 5;
