@@ -93,9 +93,12 @@ Pokémon spawned due to incense or lures do not show up in the matrix
 \section{Catching\label{sec:catch}}
 Catching a Pokémon requires throwing a ball close enough to capture it,
  and that the Pokémon not escape from the ball.
-Each species has dodge, movement, and attack characteristics, a distance, a catch rate $C$, and a flee rate $F$.
+Each form has a \texttt{CollisionRadiusM} and \texttt{CollisionHeightM}; this (possibly scaled by
+ the individual Pokémon's height) defines the size of the hitbox.
+Each species has dodge, movement, and attack characteristics, a distance, a catch rate $C$, and a flee rate
+ $F$\footnote{See the \texttt{PokemonEncounterAttributes} protobuf.}.
 Attacks during encounters cannot hurt the Trainer, but the Pokémon cannot be caught
-  while attacking (the ball will bounce away, and might be saved by a Great Buddy).
+  while attacking (the ball will bounce away, though it might be saved by a Great Buddy).
 Catching can still occur during a dodge or move.
 The catch rate determines likelihood of the Pokémon escaping a ball,
   while the flee rate determines likelihood of the Pokémon leaving the encounter altogether.
@@ -259,12 +262,20 @@ Km & Source & XP & Stardust & Candy\\
 \Midrule
   2 & Pokéstops and gyms & 500 & 400--800 & 5--15\\
   5 & Pokéstops, gyms, Adventure Sync & 1000 & 800--1600 & 10--21\\
-  7 & Gifts & 1000 & 800--1600 & 10--21\\
+  7 & Gifts (friends and Mateo) & 1000 & 800--1600 & 10--21\\
   10 & Pokéstops, gyms, Adventure Sync & 2000 & 1600--3200 & 16--32\\
   12 & Team GO Rocket leaders & 4000 & 3200--6400 & 16--32\\
 \end{tabular}
-  \caption{Eggs\label{table:eggrewards}}
+\caption{Eggs\label{table:eggrewards}}
 \end{table}
+There is sufficient storage for nine eggs of any type, plus three ``bonus''
+ spots for eggs won from Team GO Rocket Leaders or as Adventure Sync rewards.
+Whatever their origin, eggs will first fill up the main storage.
+Different classes of egg source from different pools of potential Pokémon.
+Pools are divided into multiple tiers according to rarity.
+A tier is selected using a weighted random number, and the particular hatchling
+ is randomly chosen from that tier.
+Egg pools change on a seasonal basis, and are often changed for events (\autoref{sec:timeline}).
 
 \section{Shiny Pokémon and other visual forms\label{sec:shiny}}
 Many Pokémon have an alternate presentation known as their ``Shiny'' form (\autoref{chap:species}).

@@ -17,6 +17,9 @@
 static void tophalf(simulstate *s, results *r){
   const int hp0 = s->hp[0][s->active[0]];
   const int hp1 = s->hp[1][s->active[1]];
+
+  s->subtimer[0] = s->subtimer[0] ? s->subtimer[0] - 1 : 0;
+  s->subtimer[1] = s->subtimer[1] ? s->subtimer[1] - 1 : 0;
   if(!hp0){
     if(hp1){
       handle_one_ko(s, r, 0);
