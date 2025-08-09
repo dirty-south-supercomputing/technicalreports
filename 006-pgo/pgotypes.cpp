@@ -4259,9 +4259,9 @@ static const species sdex[] = {
   {  890, "Eternatus", TYPE_DRAGON, TYPE_POISON, 278, 192, 268, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Poison_Jab, &ATK_Sludge_Bomb, &ATK_Dragon_Pulse, &ATK_Flamethrower, &ATK_Dynamax_Cannon, },
 		false, false, false, { &ATK_Dynamax_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  890, "Eternamax Eternatus", TYPE_DRAGON, TYPE_POISON, 251, 505, 452, nullptr,
+  /* {  890, "Eternamax Eternatus", TYPE_DRAGON, TYPE_POISON, 251, 505, 452, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Poison_Jab, &ATK_Sludge_Bomb, &ATK_Dragon_Pulse, &ATK_Flamethrower, &ATK_Hyper_Beam, &ATK_Dynamax_Cannon, },
-		false, false, false, { &ATK_Dynamax_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, },
+		false, false, false, { &ATK_Dynamax_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, },*/
   {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Dynamic_Punch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, },
