@@ -55,6 +55,7 @@ FUSERSTEX:=$(OUT)/fastusers.tex
 CUSERSTEX:=$(OUT)/chargedusers.tex
 ATKTYPESTEX:=$(OUT)/attacktypes.tex
 CPMSTEX:=$(OUT)/cpms.tex
+ELITETEX:=$(OUT)/elite.tex
 SPECIESTEX:=$(OUT)/species.tex
 FPAIRSTEX:=$(OUT)/fpairs.tex
 CPAIRSTEX:=$(OUT)/cpairs.tex
@@ -88,7 +89,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
-	$(BULKTEX) $(EVENENERGYTEX) $(CPMSTEX)
+	$(BULKTEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
