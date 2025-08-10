@@ -37,14 +37,16 @@ lex_pmon(pmon* p, uint16_t *hp, int *argc, char ***argv){
     std::cerr << "expected 4 arguments, " << *argc << " left" << std::endl;
     return -1;
   }
+  const char *spstr = **argv;
+  while(isspace(*spstr)){
+    ++spstr;
+  }
 #define SHADOWSTR "shadow "
-  const char *spstr;
-  if(!strncasecmp(**argv, SHADOWSTR, strlen(SHADOWSTR))){
+  if(!strncasecmp(spstr, SHADOWSTR, strlen(SHADOWSTR))){
     p->shadow = true;
-    spstr = **argv + strlen(SHADOWSTR);
+    spstr += strlen(SHADOWSTR);
   }else{
     p->shadow = false;
-    spstr = **argv;
   }
   if((p->s.s = lookup_species(spstr)) == NULL){
     std::cerr << "no such species: " << spstr << std::endl;
