@@ -4517,153 +4517,90 @@ static const species sdex[] = {
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
 
+struct mega {
+  unsigned idx; // pokedex index, not unique
+  std::string name;
+  pgo_types_e t1, t2;
+  unsigned atk;
+  unsigned def;
+  unsigned sta;
+
+  mega() {
+  }
+
+  mega(const std::string& s)
+      : name(s) {
+  }
+
+  mega(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
+          unsigned A, unsigned D, unsigned S)
+    : idx(i),
+    name(n),
+    t1(T1),
+    t2(T2),
+    atk(A),
+    def(D),
+    sta(S)
+  { }
+};
+
 // mega and primal forms are never shadows
-static const species megasdex[] = {
-  {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, "Venusaur",
-		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Petal_Blizzard, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
-		true, false, false, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, nullptr, },
-  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, "Charizard",
-		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Blast_Burn, },
-		true, false, false, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, nullptr, },
-  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, "Charizard",
-		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Blast_Burn, },
-		true, false, false, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, nullptr, },
-  {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, "Blastoise",
-		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Rollout, &ATK_Flash_Cannon, &ATK_Ice_Beam, &ATK_Hydro_Pump, &ATK_Hydro_Cannon, &ATK_Skull_Bash, },
-		true, false, false, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, },
-  {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, "Beedrill",
-		{ &ATK_Bug_Bite, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Infestation, &ATK_Aerial_Ace, &ATK_Drill_Run, &ATK_Sludge_Bomb, &ATK_X_Scissor, &ATK_Fell_Stinger, },
-		true, false, false, { &ATK_Bug_Bite, &ATK_Drill_Run, }, species::CAT_NORMAL, 10, nullptr, },
-  {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, "Pidgeot",
-		{ &ATK_Wing_Attack, &ATK_Steel_Wing, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Air_Cutter, &ATK_Hurricane, &ATK_Brave_Bird, &ATK_Feather_Dance, },
-		true, false, false, { &ATK_Gust, &ATK_Wing_Attack, &ATK_Air_Cutter, }, species::CAT_NORMAL, 10, nullptr, },
-  {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, "Alakazam",
-		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Counter, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Focus_Blast, &ATK_Future_Sight, },
-		true, false, false, { &ATK_Counter, &ATK_Dazzling_Gleam, &ATK_Psychic, }, species::CAT_NORMAL, 50, nullptr, },
-  {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, "Slowbro",
-		{ &ATK_Water_Gun, &ATK_Confusion, &ATK_Ice_Beam, &ATK_Water_Pulse, &ATK_Scald, &ATK_Psychic, &ATK_Surf, },
-		true, false, false, { &ATK_Surf, }, species::CAT_NORMAL, 50, nullptr, },
-  {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, "Gengar",
-		{ &ATK_Sucker_Punch, &ATK_Lick, &ATK_Shadow_Claw, &ATK_Hex, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Sludge_Wave, &ATK_Psychic, &ATK_Focus_Blast, },
-		true, false, false, { &ATK_Lick, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Shadow_Punch, &ATK_Sludge_Wave,  }, species::CAT_NORMAL, 50, nullptr, },
-  {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, "Kangaskhan",
-		{ &ATK_Low_Kick, &ATK_Mud_Slap, &ATK_Earthquake, &ATK_Brick_Break, &ATK_Stomp, &ATK_Outrage, &ATK_Crunch, &ATK_Power_Up_Punch, },
-		true, false, false, { &ATK_Brick_Break, &ATK_Stomp, }, species::CAT_NORMAL, 50, nullptr, },
-  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, "Pinsir",
-		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Rock_Smash, &ATK_Vise_Grip, &ATK_Submission, &ATK_X_Scissor, &ATK_Close_Combat, &ATK_Superpower, },
-		true, false, false, { &ATK_Submission, }, species::CAT_NORMAL, 75, nullptr, },
-  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, "Gyarados",
-		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dragon_Tail, &ATK_Waterfall, &ATK_Aqua_Tail, &ATK_Twister, &ATK_Dragon_Pulse, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Crunch, },
-		true, false, false, { &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse,  }, species::CAT_NORMAL, 10, nullptr, },
-  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, "Aerodactyl",
-		{ &ATK_Bite, &ATK_Rock_Throw, &ATK_Steel_Wing, &ATK_Hyper_Beam, &ATK_Ancient_Power, &ATK_Rock_Slide, &ATK_Iron_Head, &ATK_Earth_Power, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, "Ampharos",
-		{ &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Power_Gem, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Zap_Cannon, &ATK_Brutal_Swing, &ATK_Trailblaze, },
-		true, false, false, { &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 75, nullptr, },
-  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, "Steelix",
-		{ &ATK_Dragon_Tail, &ATK_Iron_Tail, &ATK_Thunder_Fang, &ATK_Earthquake, &ATK_Heavy_Slam, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Breaking_Swipe, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, "Scizor",
-		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Night_Slash, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Trailblaze, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, "Heracross",
-		{ &ATK_Counter, &ATK_Struggle_Bug, &ATK_Megahorn, &ATK_Earthquake, &ATK_Close_Combat, &ATK_Rock_Blast, &ATK_Upper_Hand, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, "Houndoom",
-		{ &ATK_Fire_Fang, &ATK_Snarl, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Crunch, &ATK_Foul_Play, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, "Tyranitar",
-		{ &ATK_Bite, &ATK_Iron_Tail, &ATK_Smack_Down, &ATK_Stone_Edge, &ATK_Fire_Blast, &ATK_Crunch, &ATK_Brutal_Swing, },
-		true, false, false, { &ATK_Smack_Down, }, species::CAT_NORMAL, 75, nullptr, },
-  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, "Sceptile",
-		{ &ATK_Fury_Cutter, &ATK_Bullet_Seed, &ATK_Earthquake, &ATK_Aerial_Ace, &ATK_Dragon_Claw, &ATK_Leaf_Blade, &ATK_Frenzy_Plant, &ATK_Breaking_Swipe, },
-		true, false, false, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, nullptr, },
-  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, "Blaziken",
-		{ &ATK_Counter, &ATK_Fire_Spin, &ATK_Stone_Edge, &ATK_Focus_Blast, &ATK_Brave_Bird, &ATK_Overheat, &ATK_Blast_Burn, &ATK_Blaze_Kick, },
-		true, false, false, { &ATK_Stone_Edge, &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, },
-  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, "Swampert",
-		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Sludge, &ATK_Earthquake, &ATK_Sludge_Wave, &ATK_Surf, &ATK_Hydro_Cannon, &ATK_Muddy_Water, },
-		true, false, false, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, },
-  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, "Gardevoir",
-		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Charm, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Synchronoise, &ATK_Triple_Axel, },
-		true, false, false, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, nullptr, },
-  {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, "Sableye",
-		{ &ATK_Shadow_Claw, &ATK_Feint_Attack, &ATK_Power_Gem, &ATK_Shadow_Sneak, &ATK_Dazzling_Gleam, &ATK_Foul_Play, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, "Mawile",
-		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Astonish, &ATK_Ice_Fang, &ATK_Fairy_Wind, &ATK_Vise_Grip, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Power_Up_Punch, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, },
-  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, "Aggron",
-		{ &ATK_Dragon_Tail, &ATK_Iron_Tail, &ATK_Smack_Down, &ATK_Stone_Edge, &ATK_Rock_Tomb, &ATK_Thunder, &ATK_Heavy_Slam, &ATK_Meteor_Beam, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, },
-  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, "Medicham",
-		{ &ATK_Psycho_Cut, &ATK_Counter, &ATK_Ice_Punch, &ATK_Psychic, &ATK_Dynamic_Punch, &ATK_Power_Up_Punch, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, "Manectric",
-		{ &ATK_Charge_Beam, &ATK_Snarl, &ATK_Thunder_Fang, &ATK_Thunder, &ATK_Flame_Burst, &ATK_Wild_Charge, &ATK_Overheat, &ATK_Psychic_Fangs, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, "Altaria",
-		{ &ATK_Dragon_Breath, &ATK_Peck, &ATK_Dragon_Pulse, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Sky_Attack, },
-		true, false, false, { &ATK_Moonblast, }, species::CAT_NORMAL, 10, nullptr, },
-  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, "Banette",
-		{ &ATK_Shadow_Claw, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Thunder, &ATK_Dazzling_Gleam, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, "Absol",
-		{ &ATK_Psycho_Cut, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Megahorn, &ATK_Thunder, &ATK_Payback, &ATK_Brutal_Swing, },
-		true, false, false, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, nullptr, },
-  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, "Glalie",
-		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Rollout, &ATK_Shadow_Ball, &ATK_Avalanche, &ATK_Gyro_Ball, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, "Salamence",
-		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Dragon_Tail, &ATK_Fire_Blast, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Fly, },
-		true, false, false, { &ATK_Outrage, }, species::CAT_NORMAL, 75, nullptr, },
-  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, "Latias",
-		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
-		true, false, false, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, "Latios",
-		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
-		true, false, false, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, "Kyogre",
-		{ &ATK_Waterfall, &ATK_Blizzard, &ATK_Thunder, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Origin_Pulse, },
-		false, false, false, { &ATK_Origin_Pulse, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, "Groudon",
-		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Earthquake, &ATK_Fire_Blast, &ATK_Fire_Punch, &ATK_Solar_Beam, &ATK_Precipice_Blades, },
-		false, false, false, { &ATK_Fire_Punch, &ATK_Precipice_Blades, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, "Rayquaza",
-		{ &ATK_Dragon_Tail, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Ancient_Power, &ATK_Hurricane, &ATK_Outrage, &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, },
-		true, false, false, { &ATK_Hurricane, &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, }, species::CAT_LEGENDARY, 100, nullptr, },
-  {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, "Lopunny",
-		{ &ATK_Low_Kick, &ATK_Pound, &ATK_Double_Kick, &ATK_Hyper_Beam, &ATK_Fire_Punch, &ATK_Focus_Blast, &ATK_Triple_Axel, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, "Garchomp",
-		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Earthquake, &ATK_Fire_Blast, &ATK_Sand_Tomb, &ATK_Outrage, &ATK_Earth_Power, },
-		true, false, false, { &ATK_Earth_Power, }, species::CAT_NORMAL, 75, nullptr, },
-  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, "Lucario",
-		{ &ATK_Bullet_Punch, &ATK_Counter, &ATK_Force_Palm, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Thunder_Punch, &ATK_Close_Combat, &ATK_Blaze_Kick, &ATK_Power_Up_Punch, &ATK_Aura_Sphere, },
-		true, false, false, { &ATK_Force_Palm, }, species::CAT_NORMAL, 75, nullptr, },
-  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, "Abomasnow",
-		{ &ATK_Razor_Leaf, &ATK_Powder_Snow, &ATK_Leafage, &ATK_Blizzard, &ATK_Icy_Wind, &ATK_Energy_Ball, &ATK_Outrage, &ATK_Weather_Ball_Ice, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, "Gallade",
-		{ &ATK_Low_Kick, &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psychic, &ATK_Leaf_Blade, &ATK_Close_Combat, &ATK_Synchronoise, },
-		true, false, false, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, nullptr, },
-  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, "Audino",
-		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Hyper_Beam, &ATK_Disarming_Voice, &ATK_Dazzling_Gleam, &ATK_Body_Slam, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, },
-  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, "Diancie",
-		{ &ATK_Tackle, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Power_Gem, &ATK_Moonblast, },
-		true, false, false, { }, species::CAT_NORMAL, 100, nullptr, },
+static const mega megasdex[] = {
+  {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, },
+  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
+  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
+  {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, },
+  {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, },
+  {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, },
+  {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, },
+  {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, },
+  {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, },
+  {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, },
+  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, },
+  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, },
+  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, },
+  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, },
+  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, },
+  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, },
+  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, },
+  {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, },
+  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, },
+  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, },
+  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, },
+  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, },
+  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, },
+  {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, },
+  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, },
+  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, },
+  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, },
+  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, },
+  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, },
+  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, },
+  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, },
+  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, },
+  {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, },
+  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, },
+  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, },
+  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, },
+  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, },
+  {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, },
+  {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, },
+  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, },
+  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, },
+  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, },
+  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, },
+  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, },
+  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
 
+// FIXME get rid of this
 static const struct spokedex {
   const species *dex;
   unsigned dcount;
 } sdexen[] = {
   { sdex, SPECIESCOUNT, },
-  { megasdex, MEGACOUNT, },
   { NULL, 0, }
 };
 
@@ -4907,10 +4844,23 @@ const species* lookup_species(const char* name){
   return NULL;
 }
 
-const species* lookup_mega(const char* name){
-  for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-    if(strcasecmp(megasdex[i].name.c_str(), name) == 0){
-      return &megasdex[i];
+const species* lookup_species(unsigned idx){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    if(sdex[i].idx == idx){
+      return &sdex[i];
+    }
+  }
+  return NULL;
+}
+
+// FIXME there can be more than one mega form! (e.g. charizard x and y)
+const mega* lookup_mega(const char* name){
+  const species *s = lookup_species(name);
+  if(s){
+    for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
+      if(megasdex[i].idx == s->idx){
+        return &megasdex[i];
+      }
     }
   }
   return NULL;
@@ -5112,7 +5062,7 @@ exclusive_attack_p(const species *s, const attack *a){
 static bool
 has_mega(const species *s){
   for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-    if(strcmp(megasdex[i].from, s->name.c_str()) == 0){
+    if(megasdex[i].idx == s->idx){
       return true;
     }
   }
