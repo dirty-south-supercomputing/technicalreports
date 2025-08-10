@@ -52,16 +52,55 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
   return 0;
 }
 
+static bool
+hetero_p(const mega *m){
+  const species* from = lookup_species(m->idx);
+  if(from->t1 == m->t1 && from->t2 == m->t2){
+    return false;
+  }
+  return true;
+}
+
+static int
+print_hetero_evols(const mega* dex, unsigned dexcount, unsigned* pcount){
+  std::vector<const mega *> hetero;
+  for(unsigned u = 0 ; u < dexcount ; ++u){
+    const mega* m = &dex[u];
+    if(hetero_p(m)){
+      hetero.emplace_back(m);
+    }
+  }
+  std::sort(hetero.begin(), hetero.end(),
+      [](const mega *l, const mega *r){
+        return lookup_species(l->idx)->name < lookup_species(r->idx)->name;
+      });
+  for(const auto &m : hetero){
+    const species* from = lookup_species(m->idx);
+    print_types(from->t1, from->t2);
+    printf(" %s", from->name.c_str());
+    printf(" → ");
+    print_types(m->t1, m->t2);
+    printf(" %s ", m->name.c_str());
+    if(++*pcount % 2){
+      printf(" & ");
+    }else{
+      printf("\\\\\n");
+    }
+  }
+  return 0;
+}
+
 static void type_heterotable(void){
   printf("\\begingroup");
   printf("\\footnotesize");
   printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
   unsigned count = 0;
   puts("Evolution & Evolution\\\\\\Midrule");
-  for(const auto &dex : sdexen){
-    if(print_hetero_evols(dex.dex, dex.dcount, &count)){
-      exit(EXIT_FAILURE);
-    }
+  if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
+    exit(EXIT_FAILURE);
+  }
+  if(print_hetero_evols(megasdex, MEGACOUNT, &count)){
+    exit(EXIT_FAILURE);
   }
   if(count % 2){
     printf("\\\\\n");
@@ -115,9 +154,23 @@ static void cost_heterotable(void){
   printf("\\end{table}");
 }
 
+static void
+usage(const char *a0){
+  std::cerr << "usage: " << a0 << " cost | type" << std::endl;
+  exit(EXIT_FAILURE);
+}
+
 // print a latex table of evolutions which change types
-int main(void){
-  type_heterotable();
-  cost_heterotable();
+int main(int argc, const char **argv){
+  if(argc != 2){
+    usage(argv[0]);
+  }
+  if(strcmp(argv[1], "cost") == 0){
+    cost_heterotable();
+  }else if(strcmp(argv[1], "type") == 0){
+    type_heterotable();
+  }else{
+    usage(argv[0]);
+  }
   return EXIT_SUCCESS;
 }

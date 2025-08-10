@@ -73,7 +73,8 @@ CP1500A:=$(OUT)/cp1500a.tex
 CP2500A:=$(OUT)/cp2500a.tex
 CP1500G:=$(OUT)/cp1500g.tex
 CP2500G:=$(OUT)/cp2500g.tex
-HETEROTEX:=$(OUT)/hetero.tex
+HETEROCOSTTEX:=$(OUT)/heterocost.tex
+HETEROTYPETEX:=$(OUT)/heterotype.tex
 TRELSTEX:=$(OUT)/typerels.tex
 EVENENERGYTEX:=$(OUT)/evenenergy.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
@@ -83,7 +84,7 @@ BULKTEX:=$(OUT)/bulk.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
-	$(FATTACKTEX) $(CATTACKTEX) $(HETEROTEX) $(TRELSTEX) \
+	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
@@ -179,6 +180,14 @@ $(OUT)/mega.tex: $(OUT)/forms
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) gigantamax > $@
+
+$(HETEROTYPETEX): $(HETERO)
+	@mkdir -p $(@D)
+	$(<) type > $@
+
+$(HETEROCOSTTEX): $(HETERO)
+	@mkdir -p $(@D)
+	$(<) cost > $@
 
 $(FPAIRSTEX): $(PAIRS)
 	@mkdir -p $(@D)
