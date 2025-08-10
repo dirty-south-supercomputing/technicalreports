@@ -5268,6 +5268,33 @@ print_buff(unsigned chance, int buff, const char *sig){
   }
 }
 
+static void
+summarize_buffs(const attack *a){
+  // need special case A+D as it takes too much space otherwise
+  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
+      && a->user_attack == a->user_defense){
+    print_buff(a->chance_user_attack, a->user_attack, "A+D");
+  }else{
+    if(a->chance_user_attack){
+      print_buff(a->chance_user_attack, a->user_attack, "A");
+    }
+    if(a->chance_user_defense){
+      print_buff(a->chance_user_defense, a->user_defense, "D");
+    }
+  }
+  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
+      && a->opp_attack == a->opp_defense){
+    print_buff(a->chance_opp_attack, a->opp_attack, "OA+D");
+  }else{
+    if(a->chance_opp_attack){
+      print_buff(a->chance_opp_attack, a->opp_attack, "OA");
+    }
+    if(a->chance_opp_defense){
+      print_buff(a->chance_opp_defense, a->opp_defense, "OD");
+    }
+  }
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   bool gmax = !overzoom && s->gmax;
@@ -5334,24 +5361,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
       if(a->chance_user_attack || a->chance_user_defense ||
           a->chance_opp_attack || a->chance_opp_defense){
         printf("{\\scriptsize{}");
-        if(a->chance_user_attack){
-          print_buff(a->chance_user_attack, a->user_attack, "A");
-        }
-        if(a->chance_user_defense){
-          print_buff(a->chance_user_defense, a->user_defense, "D");
-        }
-        // need special case this as it takes too much space otherwise
-        if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
-            && a->opp_attack == a->opp_defense){
-          print_buff(a->chance_opp_attack, a->opp_attack, "OA+D");
-        }else{
-          if(a->chance_opp_attack){
-            print_buff(a->chance_opp_attack, a->opp_attack, "OA");
-          }
-          if(a->chance_opp_defense){
-            print_buff(a->chance_opp_defense, a->opp_defense, "OD");
-          }
-        }
+        summarize_buffs(a);
         printf("}");
       }
       printf("\\\\\n");

@@ -32,6 +32,7 @@ static void elite_fast_table(const species *dex, unsigned scount){
   std::cout << "\\end{table}" << std::endl;
 }
 
+/*
 static void elite_charged_table(const species *dex, unsigned scount){
   std::cout << "\\begin{table}\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{ll|ll}";
@@ -63,9 +64,10 @@ static void elite_charged_table(const species *dex, unsigned scount){
   std::cout << "\\caption{Elite charged moves\\label{table:elitecharged}}";
   std::cout << "\\end{table}" << std::endl;
 }
+*/
 
 int main(void){
   elite_fast_table(sdex, SPECIESCOUNT);
-  elite_charged_table(sdex, SPECIESCOUNT);
+  //elite_charged_table(sdex, SPECIESCOUNT);
   return EXIT_SUCCESS;
 }

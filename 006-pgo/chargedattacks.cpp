@@ -20,8 +20,8 @@ static int cmpatk(const void* va1, const void* va2){
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
-  printf("\\begin{longtable}{lrrrrrr}\n");
-  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Pop\\\\\n");
+  printf("\\begin{longtable}{lrrrrrrr}\n");
+  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   int c = ccount;
@@ -35,6 +35,8 @@ void print_latex_table(const attack* as, unsigned ccount){
             -a->energytrain,
             a->powertrain / (float)-a->energytrain,
             (a->powertrain * 6.0) / (-a->energytrain * 5.0));
+    summarize_buffs(a);
+    printf(" & ");
     if(!strcmp(a->name, "Frustration")){
       printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
