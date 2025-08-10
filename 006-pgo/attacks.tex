@@ -62,9 +62,6 @@ under the invariants:
 \section{Fast Attacks}
 Each Pokémon species (\autoref{chap:species}) is capable of learning some set of Fast Attacks, 
   and every Pokémon knows exactly one at a time (except Smeargle---see \autoref{subsec:smeargle}).
-Outside of battle, a Pokémon's fast attack can be persistently changed with a
-  Fast Technical Machine (TM), resulting in a random new fast attack from the set.
-An Elite Fast TM allows the new attack to be chosen.
 A fast attack is defined by its duration, its power, and the energy built up with each use (\autoref{table:fastattacks}),
   and these values can be different between 3x3 and Nx1 battles.
 If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
@@ -100,9 +97,6 @@ Every Pokémon knows at least one Charged Attack, and most can be taught a secon
   Charged Attack at a cost of Stardust and Candy\footnote{Applin, Combee,
   Cosmoem, Cosmog, Ditto, Gimmighoul, Toxel, Unown, and Wimpod are exceptions;
   none of them have a second charged attack to learn.}.
-A Charged TM allows a charged attack to be changed (the Trainer can select
-  which charged attack is replaced if the Pokémon knows two);
-  an Elite Charged TM allows the Trainer to select the new charged attack.
 The Dragon Ascent attack of Rayquaza cannot be learned via any method other
   than a rare Meteorite.
 A charged attack is defined by its power and the energy it consumes (\autoref{table:chargedattacks}).
@@ -123,8 +117,6 @@ A higher PPE makes more efficient use of the energy built up by fast attacks.
 A lower energy requires fewer fast attacks to build up its charge.
 Note that many of the best PPEs do not require extreme energy; these make
  for excellent charged attacks.
-Certain attacks, both fast and charged, are ``exclusive'' moves, and require
- an Elite TM of the proper type to learn outside of special events.
 \begin{figure}[ht]
 \includegraphics[keepaspectratio,width=\textwidth]{octave/dpevse.png}
   \caption{PPE vs energy for charged attacks\label{fig:dpevse}}
@@ -168,7 +160,7 @@ Dynamax Cannon & Eternatus & 5/30 & 10\\
 Dynamax Cannon's effect does not affect the Max Moves of Zacian nor Zamazenta,
  and costs a painful 30 Eternatus Candy.
 
-\section{Buffs and debuffs\label{sec:buffs}}
+\subsection{Buffs and debuffs\label{sec:buffs}}
 Certain charged attacks have a chance of semi-persistent effects on the
   attack or defense of the user or opponent.
 These effects can be positive (``buffs'') or negative (``debuffs''\footnote{I am unenamored of the term ``debuff'',
@@ -182,6 +174,21 @@ Several attacks (Ancient Power, Obstruct, Ominous Wind, Signal Beam, Silver
 The effects apply only to the active Pokémon, and do not persist across substitution.
 Stat changes stack, but the absolute value will not exceed four.
 See \autoref{sec:mbmult} for a quantitative treatment.
+
+\subsection{The type advantages of two charged attacks\label{sec:dualcharged}}
+Two charged attacks can yield tremendous improvements in type effectiveness.
+Unlike typing with regard to defense, where we must take the sum of each type's
+ weaknesses and strengths, we choose a single charged attack.
+For each target typing, we can apply the better of the two type relations.
+Two charged attacks of different type have coverage at least as good as,
+  and usually much better than, a single type.
+There is no pair of distinct attack types forced into a −3 relation.
+Recall that our best \ARA{} was Ground with 1.173.
+More than 72\% of dual charged attack setups beat this coverage,
+ with Ground+Ice posting an outstanding 1.468.
+Only one pair can be forced into a dreaded effectiveness of −3:
+ Normal with Poison, when matched against Steel+Ghost.
+\input{out/dualcharged}
 
 \section{Cover sets\label{sec:coversets}}
 With one fast and two charged attacks per Pokémon, a team of three can boast nine distinct attack types.
@@ -301,22 +308,7 @@ In Gigantamax battles, it can be beneficial to eschew charged attacks completely
  more total power is delivered by filling up the Max Meter as quickly as possible,
  and throwing Max attacks more frequently (\autoref{sec:maxbattles}).
 
-\section{The type advantages of two charged attacks\label{sec:dualcharged}}
-Two charged attacks can yield tremendous improvements in type effectiveness.
-Unlike typing with regard to defense, where we must take the sum of each type's
- weaknesses and strengths, we choose a single charged attack.
-For each target typing, we can apply the better of the two type relations.
-Two charged attacks of different type have coverage at least as good as,
-  and usually much better than, a single type.
-There is no pair of distinct attack types forced into a −3 relation.
-Recall that our best \ARA{} was Ground with 1.173.
-More than 72\% of dual charged attack setups beat this coverage,
- with Ground+Ice posting an outstanding 1.468.
-Only one pair can be forced into a dreaded effectiveness of −3:
- Normal with Poison, when matched against Steel+Ghost.
-\input{out/dualcharged}
-
-\section{Minimum attack cycles}
+\section{Minimal attack cycles\label{sec:minimalcycles}}
 9,379 combinations of fast and charged attack are currently in play.
 For each combination of fast attack and charged attack, there is some minimum number
  $F$ of fast attacks sufficient to launch the charged attack.
@@ -347,5 +339,18 @@ If Electric and Dark had better type coverage, Morpeko would be unstoppable.
 None of the fastest cycles break a PPT ceiling of 10, all of them employing Karate Chop with Cross Chop.
 Primeape can switch this combo up with the equally speedy Rage Fist (sadly without STAB)
  when Fighting is ineffective.
-
 \input{out/timetofirst}
+
+\section{Technical Machines\label{sec:tms}}
+Four kinds of Technical Machines (TMs) allow a Pokémon to change its attacks outside of battle.
+There are fast and charged TMs, and Elite variants of each.
+The normal version of TMs select a random new move from the Pokémon's attack set (though a charged TM will not replace
+ a charged attack with one the Pokémon already knows).
+If the Pokémon knows two charged attacks, the Trainer can choose which attack is replaced.
+The Elite variants allow the new attack to be chosen, and allow learning (most) elite moves.
+Elite attacks can otherwise be acquired only during special events.
+Outside of Team GO Rocket ``Taken Over'' events, the Frustration charged attack cannot be
+ changed, even with an Elite TM.
+During these events, a regular charged TM will suffice to replace Frustration.
+Purified Pokémon can change Return at any time, but it can never be learned again.
+\input{out/elite}
