@@ -78,29 +78,27 @@ Their base products are 2,110,098 (Timburr), 4,775,760 (Gurdurr),
   and 8,945,802 (Conkeldurr).
 The geometric means are 128.263, 168.402, and 207.590.
 Poor Timburr isn't really suited for the common PvP Leagues,
-  and does best with a 15--15--15 at Level 50 (\CP{} 1487).
+  and does best at \ivlev{15}{15}{15}{50} (\CP{} 1487).
 Gurdurr can hold its own under a 1500 \CP{} ceiling, and its
-  optimal IVs are 1--15--15 at Level 26 (\CP{} 1496).
+  optimal configuration is \ivlev{1}{15}{15}{26} (\CP{} 1496).
 It falls short of the Ultra League's 2500, though, where
-  15--15--15 and 15--15--14 are functionally equivalent
-  at Level 50 (both result in \MHP{} of 178) despite
-  respective \CP{}s of 2452 and 2447.
-It is impossible to distinguish between a Level 16.5 Conkeldurr at
-  3--15--15 or 3--15--14 (134 \MHP{} either way), though
+  \ivlev{15}{15}{15}{50} and \ivlev{15}{15}{14}{50} are functionally equivalent
+  (both result in \MHP{} of 178) despite respective \CP{}s of 2452 and 2447.
+It is impossible to distinguish between Conkeldurr at
+  \ivlev{3}{15}{15}{16.5} or \ivlev{3}{15}{14}{16.5} (134 \MHP{} either way), though
   the \CP{}s are 1500 and 1497.
-In the Ultra League, Conkeldurr wants Level 28 0--15--12 with
-  a \CP{} of 2499.
+In the Ultra League, Conkeldurr wants \ivlev{0}{15}{12}{28} with a \CP{} of 2499.
 Take two things away from this:
 \begin{itemize}
 \item The optimal IVs, and even the number of equivalent optimal IVs, can change across evolution.
   This is largely independent of any global fitness function.
 \item Hitting the ceiling does not guarantee optimal IVs for most fitness functions.
   More generally, under most fitness functions, higher \CP{} does not necessarily imply superior IVs.
-    Gurdurr has numerous solutions yielding 1500 \CP{} (3/2/0@28, for instance, with geometric
-    mean 120.015), but 1/15/15@26 beats it at 1496 (121.968).
+    Gurdurr has numerous solutions yielding 1500 \CP{} (\ivlev{3}{2}{0}{28}, for instance, with geometric
+    mean 120.015), but \ivlev{1}{15}{15}{26} beats it at 1496 (121.968).
 \end{itemize}
-There are many fitness functions. In the Gurdurr example given previously, 3--2--0 loses
-    to 1--15--15 at geometric mean, but has an \Eff{A} of 129.36, comfortably above the latter's 123.29.
+There are many fitness functions. In the Gurdurr example given previously, \ivlev{3}{2}{0} loses
+    to \ivlev{1}{15}{15} at geometric mean, but has an \Eff{A} of 129.36, comfortably above the latter's 123.29.
  Does this compensate for six fewer hit points (145 vs 139) and lower \Eff{D} (101.49 vs 96.136)?
  Let's pit them against one another, using Low Kick (Power of 4, neutral type effectiveness, STAB bonus).
  Our Level 28 competitor strikes for six damage with each attack:
@@ -122,12 +120,12 @@ Species which can't manage a geometric mean of 124.66 have been left out.
   can't hit a $\sqrt[3]{\BP\,}$ of 156.78.
 A few observations from the \CP{}1500 table:
 In general, there is no correlation between $\sqrt[3]{\BP\,}$ and level,
-  save that everything at the bottom of the list is maxed (15/15/15@50),
+  save that everything at the bottom of the list is maxed (\ivlev{15}{15}{15}{50}),
   since many species cannot reach 1500 \CP{} at all.
 The geometric mean ($\sqrt[3]{\BP\,}$) ranges from 51.39 (max Shedinja)
-  to 147.18 (15/15/15@49.5 Chansey).
-There is a strong bimodal preference for IVs: 15/15/15 for level 49.5
-  and 50, and otherwise $n$/15/15 where $n < 2$, and $n$ usually equals 0.
+  to 147.18 (\ivlev{15}{15}{15}{49.5} Chansey).
+There is a strong bimodal preference for IVs: \ivlev{15}{15}{15} for levels 49.5
+  and 50, and otherwise \ivlev{$n$}{15}{15} where $n < 2$, and $n$ usually equals 0.
 This verifies (not that we had any doubt) that attack is highly overvalued in the \CP{} calculation relative to $\sqrt[3]{\BP\,}$.
 Other IVs usually correspond to low level, powerful species, where a level
   raises \CP{} by a large amount, leaving more room for beneficial IVs.
@@ -148,7 +146,7 @@ At this point, they become more disordered, until falling at the back
   (X axis is \IV{A}, Y axis is $\IV{D} + \IV{S}$).\label{fig:contours}}
 \end{figure}
 What's more important, IVs or level?
-Given the vast number of 0/15/15 IVs among the optimal sets, it
+Given the vast number of \ivlev{0}{15}{15} IVs among the optimal sets, it
   would seem to be \IV{D} and \IV{S} (and that it is equally
   important to minimize \IV{A}).
 This is true for levels below 30 or so, but more powerful Pokémon
@@ -158,7 +156,7 @@ The IVs are being pushed lower to allow for higher levels.
 This reflects the diminishing returns on \CPM{} as level increases.
 The real answer is: equal importance until level 30 or so, and IVs beyond that,
   though the Attack component is always less important than level
-  (as evidenced by the large number of x/15/15@50 configurations).
+  (as evidenced by the large number of \ivlev{$x$}{15}{15}{50} configurations).
 I like to go one above the optimal attack, if possible, so that I
   win CMP in mirror matchups against ideal configurations.
 As the CP ceiling falls, the importance of configuration rises,

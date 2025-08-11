@@ -5521,7 +5521,6 @@ int lex_ivlevel(const char* ivl, stats* s, bool shadow){
     s->is = st->is;
     s->hlevel = st->hlevel;
   }else if(strcmp(ivl, "max") == 0){
-    printf("I'M THE GINGERBREAD MAN!\n");
     s->ia = s->id = s->is = MAXIVELEM;
     s->hlevel = MAX_HALFLEVEL;
   }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
