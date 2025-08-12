@@ -122,6 +122,12 @@ test_attack(const attack *a){
       std::cerr << "invalid chance of buff " << a->name << std::endl;
       throw std::exception();
     }
+    // we claim in attacks.tex that no attack buffs the opponent; if this
+    // changes, we need remove that claim.
+    if(a->opp_defense > 0 || a->opp_attack > 0){
+      std::cerr << a->name << " buffs opponent" << std::endl;
+      throw std::exception();
+    }
   }else if(fast_attack_p(a)){
     if(a->energytrain < 0){ // transform builds zero energy
       std::cerr << "invalid 3x3 energy for fast attack " << a->name << std::endl;
