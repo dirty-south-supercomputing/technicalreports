@@ -5443,7 +5443,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
 
   // shadow is implemented as subtitle
-  if(s->shadow){
+  if(mainform && s->shadow){
     printf("\\tcbsubtitle[before skip=1pt,bottomrule=0pt]{Shadow ");
     escape_string(s->name.c_str());
     printf("\\hfill{}");
