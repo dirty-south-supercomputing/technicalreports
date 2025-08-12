@@ -55,7 +55,7 @@ Level &
 19.5--21 & 2,500 & 2 & 44.5--45 & 12,000 &    & 15 \\
 21.5--23 & 3,000 & 3 & 45.5--46 & 13,000 &    & 15 \\
 23.5--25 & 3,500 & 3 & 46.5--47 & 13,000 &    & 17 \\
-25.5--27 & 4,000 & 3 & 47.5--48 & 14,000 &    & 17 \\ 
+25.5--27 & 4,000 & 3 & 47.5--48 & 14,000 &    & 17 \\
 27.5--29 & 4,500 & 4 & 48.5--49 & 14,000 &    & 20 \\
 29.5--31 & 5,000 & 4 & 49.5--50 & 15,000 &    & 20 \\
 \end{tabular}
@@ -116,7 +116,7 @@ Appraisal & Minimum sum of IVs\\
 Three things can change a Pokémon's IV, which is otherwise constant across its existence.
 Purification (\autoref{sec:shadow}) raises each component by two, not to exceed fifteen.
 Trades (\autoref{sec:trades}) reroll the IV entirely.
-Finally, Gold Bottle Caps allow a Pokémon of at least Best Buddy status (\autoref{sec:buddies}) 
+Finally, Gold Bottle Caps allow a Pokémon of at least Best Buddy status (\autoref{sec:buddies})
   to enter ``hypertraining''.
 The Trainer specifies a new, higher IV, and is assigned a set of Research-like tasks.
 If they are completed within the specified time, the Pokémon acquires the new IV.
@@ -244,6 +244,22 @@ Using a sum function such as the arithmetic mean will usually show a difference.
 When $Mod_A < \frac{5}{6}Mod_D$, the average goes down.
 When $Mod_A = \frac{5}{6}Mod_D$, the average is unchanged,
  and the average increases if $Mod_A > \frac{5}{6}Mod_D$.
+
+Let's compare the impact of levels and IVs on effective stats.
+A Pokémon has base ATK and DEF $A$ and $D$, and level $L$ with corresponding \CPM{} $C_0$.
+Raising \IV{A} by one raises \Eff{A} by $C$.
+Raising \IV{D} by one raises \Eff{D} by $C$.
+Raising \IV{S} by one raises \Eff{S} by $C$, raising MHP by either zero or one.
+Raising $L$ by 0.5 results in a new \CPM{} $C_{0.5}$; define $C_Δ = C_{0.5} - C_0$.
+At its maximum, $C_Δ$ is 0.0411; it is 0.0025 from level 40 on.
+Leveling up thus raises \Eff{A} by $Mod_A \cdot C_Δ$,
+ \Eff{D} by $Mod_D \cdot C_Δ$,
+ and \Eff{S} by $Mod_S \cdot C_Δ$.
+Note that $C_Δ$ becomes smaller as $C$ becomes larger,
+ and the impact of leveling increases as the base stat increases.
+For typical base stats, leveling up improves the effective stat more through
+ about level 30, at which point IVs have more impact.
+A base stat of 100 is improved more by \IV{} at level 25.5.
 
 \section{Searching the Pokédex\label{sec:searching}}
 The search interface for Pokédexen and storage is surprisingly capable.
