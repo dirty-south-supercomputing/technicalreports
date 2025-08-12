@@ -93,7 +93,7 @@ They have access to three Max Moves: Max Attack, Max Guard, and Max Spirit.
 Max Moves have four levels: Locked, 1, 2, and 3.
 A freshly acquired Maxable Pokémon has Max Attack at level 1, while Max Guard and Max Spirit are both locked.
 Unlocking and upgrading moves costs Max Particles and Candy of the Pokémon's family (\autoref{table:maxupgrades});
- the amount of Candy depends on the Pokémon's cost group (\autoref{sec:costgroups}).
+ the amount of Candy depends on the Pokémon's cost group (\autoref{subsec:costgroups}).
 Eternatus has its own cost schedule; the Max Particles required is the same,
  but unlocking costs 400 Candy, Level 2 runs 1200 Candy, and
  Level 3 is an absolutely punishing 1200 Candy plus 320 Candy XL.
@@ -173,6 +173,36 @@ Confining is a relative bargain at 10 Hoopa Candy and 2,000 Stardust.
 \subsection{Shaymin}
 Shaymin's Sky form has the same attacks as its Land form, but adds Flying to its typing.
 Conversion between forms is 25 Shaymin Candy and 10,000 Stardust either way.
+
+\subsection{Cost groups\label{subsec:costgroups}}
+Each species is in one of four cost groups.
+Group membership determines the cost of
+  learning a second charged move,
+  upgrading Max Moves (\autoref{sec:dmaxgmax}),
+  walk distance for Candy,
+  and purification.
+All Legendary and Mythical Pokémon are in group 4 (the most expensive group).
+Evolution requirements are more complex.
+\begin{table}
+\centering
+\begin{tabular}{lrrrrrr}
+  Group & 2nd move   & Max 1 & Max 2 & Max 3 & Km & Purify\\
+\Midrule
+      1 & 10k + 25   & 50    & 100   & 40 XL & 1  &       \\
+  Shadow& 12k + 30   &       &       &       & 1  & 1k + 1\\
+Purified& 8k + 8   &       &       &       & 1  &         \\
+      2 & 50k + 50   & 60    & 110   & 45 XL & 3  &       \\
+  Shadow& 60k + 60   &       &       &       & 3  & 3k + 3\\
+  Purified& 48k + 48   &       &       &       & 3  &     \\
+      3 & 75k + 75   & 70    & 120   & 50 XL & 5  &       \\
+  Shadow& 90k + 90   &       &       &       & 5  & 5k + 5\\
+  Purified & 60k + 60 &   &    &   & 5 &                  \\
+      4 & 100k + 100 & 80    & 130   & 55 XL & 20 &       \\
+  Shadow& 120k + 120 &       &       &       & 20 & 20k + 20\\
+Purified& 80k + 80 &   &    &   & 20 & \\
+\end{tabular}
+  \caption{Costs for the four groups\label{table:costs}}
+\end{table}
 
 \section{Evolution\label{sec:evolution}}
 Under the correct conditions, some species can evolve into others.
@@ -497,34 +527,6 @@ Now we scatter stamina (max 500) against attack (max 420):
   \caption{Stamina vs Attack, all species\label{figure:allsva}}
 \end{figure}
 
-\section{Cost groups\label{sec:costgroups}}
-Each species is in one of four cost groups.
-Group membership determines the cost of teaching Pokémon a second charged move,
-  upgrading Max Moves (\autoref{sec:dmaxgmax}),
-  walk distance for Candy,
-  and purification.
-All Legendary and Mythical Pokémon are in group 4 (the most expensive group).
-\begin{table}
-\centering
-\begin{tabular}{lrrrrrr}
-  Group & 2nd move   & Max 1 & Max 2 & Max 3 & Km & Purify\\
-\Midrule
-      1 & 10k + 25   & 50    & 100   & 40 XL & 1  &       \\
-  Shadow& 12k + 30   &       &       &       & 1  & 1k + 1\\
-Purified& 8k + 8   &       &       &       & 1  &         \\
-      2 & 50k + 50   & 60    & 110   & 45 XL & 3  &       \\
-  Shadow& 60k + 60   &       &       &       & 3  & 3k + 3\\
-  Purified& 48k + 48   &       &       &       & 3  &     \\
-      3 & 75k + 75   & 70    & 120   & 50 XL & 5  &       \\
-  Shadow& 90k + 90   &       &       &       & 5  & 5k + 5\\
-  Purified & 60k + 60 &   &    &   & 5 &                  \\
-      4 & 100k + 100 & 80    & 130   & 55 XL & 20 &       \\
-  Shadow& 120k + 120 &       &       &       & 20 & 20k + 20\\
-Purified& 80k + 80 &   &    &   & 20 & \\
-\end{tabular}
-  \caption{Costs for the four groups\label{table:costs}}
-\end{table}
-
 \section{Freak Pokémon a/k/a Freakémonics\label{sec:freaks}}
 A few Pokémon have unique behaviors or mechanics.
 
@@ -595,17 +597,17 @@ The Vivillon into which this Scatterbug evolves (via Spewpa) takes that region's
 \caption{Munda est omnis divisia in partes duodeviginti\label{figure:vivillonregions}}
 \end{figure}
 
-\subsection{Gimmighoul\label{subsec:gimmighoul}}
-Another one requiring interaction with the wider Pokémon empire, this time
- the Nintendo Switch games \textit{Pokémon Scarlet} or \textit{Pokémon Violet}.
-Sending postcards to one of these games (whatever that means) earns you the Coin Bag,
- which functions as a Gimmighoul-specific incense for half an hour.
+\subsection{Gimmighoul and Gholdengo\label{subsec:gimmighoul}}
+Pairing with the Nintendo Switch games \textit{Pokémon Scarlet} or \textit{Pokémon Violet}
+ allows sending postcards to the Switch.
+Doing so earns you the Coin Bag, which functions as a Gimmighoul-specific incense for half an hour.
 The Gimmighoul coins necessary to evolve into Gholdengo can be acquired by capturing
  Gimmighoul, or spinning Golden Pokéstops.
 Pokéstops become golden with active Golden Lures.
 Golden Lures are acquired by sending multiple postcards to these same games.
 
 \subsection{Meltan\label{subsec:meltan}}
+Another one requiring interaction with the wider Pokémon empire.
 Meltan only appears when the Mystery Box is in use\footnote{Though a Meltan encounter ends the ``Let's GO, Meltan'' Special Research.}.
 Charging the Mystery Box requires linking a Pokémon HOME account and transporting
   a Pokémon to it.
