@@ -190,7 +190,7 @@ print_bounded_table(int bound, float lbound, bool amean){
 }
 
 static void usage(const char *argv0){
-  fprintf(stderr, "usage: %s a|b|g highcp lowAM\n", argv0);
+  fprintf(stderr, "usage: %s a|b|g highcp lowbound\n", argv0);
   fprintf(stderr, "\ta: arithemetic mean\n");
   fprintf(stderr, "\tb: bulk\n");
   fprintf(stderr, "\tg: geometric mean\n");
