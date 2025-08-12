@@ -38,21 +38,31 @@ This suggests that \Mod{D} is undervalued by the \CP{} equation, from which
  requires inflicting some average damage $D$ $n$ times,
  where $n = \lceil\frac{\MHP}{D}\rceil$.
 It is thus similarly undervalued by \CP\@.
-The quadratic term for \CPM{} makes sense from the perspective of the damage
- equation, since \CPM{} is used as a factor when calculating damage in the
- case of both the attacker and defender.
-But since \CPM{} is also used to calculate \MHP{} from \Mod{S}, an argument
- can be made that it ought be raised to the third power.
-Since $\CPM < 1$ for all Levels, $\CPM^3 < \CPM^2$, and thus it seems \textit{overvalued} by \CP\@.
 Finally, recall that $\MHP = \lfloor \Eff{S} \rfloor$.
 Since the observable \MHP{} increases only stepwise with respect to \Eff{S},
-  there is a stepwise overvaluation of \Mod{S}.
-This doesn't correct the undervaluation due the square root, but it does
-  have effects: a 0/14/13 level 30.5 Clodsire has the same \MHP{}
-  as a 0/14/14 at the same level (213), but a \CP{} of 1499 as
+  there is a stepwise overvaluation of \Mod{S}: a \ivlev{0}{14}{13}{30.5} Clodsire has the same \MHP{}
+  as a \ivlev{0}{14}{14}{30.5} at the same level (213), but a \CP{} of 1499 as
   opposed to the latter's 1502.
 Despite being exactly the same on the field, one is allowed in Great League,
   and the other is prohibited.
+
+The quadratic term for \CPM{} makes sense from the perspective of the damage
+ equation, since \CPM{} is used as a factor when calculating damage in the
+ case of both the attacker and defender.
+Since \CPM{} is also used to calculate \MHP{} from \Mod{S}, one might
+ expect it to be raised to the third power.
+Since $\CPM < 1$ for all Levels, $\CPM^3 < \CPM^2$, and thus it would seem \textit{overvalued} by \CP\@.
+But rewrite:
+\begin{align}
+  \CPM^2 &= \CPM \cdot \CPM\\
+  &= \CPM \cdot \sqrt{\CPM} \cdot \sqrt{\CPM}
+\end{align}
+…and distribute…
+\begin{align}
+  \CP &= \max{10, \frac{\Mod{A}\CPM \cdot \sqrt{\Mod{D}}\sqrt{\CPM} \cdot \sqrt{\Mod{S}}\sqrt{\CPM}}{10}}\\
+  &= \max{10, \frac{\Eff{ARaw} \cdot \sqrt{\Eff{DRaw}} \cdot \sqrt{\Eff{S}}}{10}}
+\end{align}
+and recover our old friends the effective statistics.
 
 Why would the game use such a flawed measure of power?
 Clearly, a single stat was desired to cover both modes of Pokémon GO battling.
@@ -67,7 +77,7 @@ The power and timing of the Pokémon's attacks are not present, despite
   dominating the inflicted damage and overall flow of the battle.
 Type effectiveness and STAB have been likewise ignored, as have the
   properties of Shadow Pokémon.
-It ought be clear that we must look beyond \CP{} in our selection of Pokémon.
+We must look beyond \CP{} in our selection of Pokémon.
 
 Remember that a type advantage is more impactful than a type
   disadvantage (60\% vs -37.5\%):
