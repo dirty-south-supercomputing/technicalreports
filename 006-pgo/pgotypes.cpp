@@ -4563,8 +4563,8 @@ struct mega {
 // mega and primal forms are never shadows
 static const mega megasdex[] = {
   {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, },
-  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
-  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
+  {  6, "Mega X Charizard", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
+  {  6, "Mega Y Charizard", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
   {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, },
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, },
@@ -5333,11 +5333,11 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
       calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
-  if(overzoom){
+  //if(overzoom){
     printf(",interior style={fill overzoom image=images/pokédex/");
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.2}");
-  }
+  //}
   printf("]{\\footnotesize");
 
   if(bg){
@@ -5345,7 +5345,11 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
+  if(!mainform){ // FIXME terrible. we only want non-mainforms FOR NOW
+    printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/");
+  }else{
+    printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
+  }
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
