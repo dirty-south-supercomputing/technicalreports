@@ -86,8 +86,6 @@
   fonttitle=\bfseries,
   #1}
 
-%\renewcommand{\printtoctitle}[1]{}
-
 \makeatletter
 \newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
 \makeatother
@@ -136,21 +134,8 @@
 \definecolor{Steel}{HTML}{5E91A4}
 \definecolor{Water}{HTML}{6390F0}
 
-% combined list of tables and figures, to save space
-\makeatletter
-\renewcommand*{\ext@figure}{lot}
-\let\c@figure\c@table
-\let\ftype@figure\ftype@table
-\let\listoftableandfigures\listoftables
-\renewcommand*\listtablename{List of tables and figures}
-\makeatother
-
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
-
-%\copypagestyle{dankpanion}{companion}
-%\makeoddhead{dankpanion}{{\textbf{\leftmark}}}{}{\textbf{\thepage}}
-%\makeevenhead{dankpanion}{{\large \TITLE}}{}{\textbf{\thepage}}
 
 \def\LOGO {
   \textbf{
@@ -182,13 +167,9 @@
   \hypertarget{toc}{}%
   \bookmark[dest=toc]{Organization}
   \tableofcontents*
-  %\clearpage
   \hypertarget{lot}{}%
-  \bookmark[dest=lot]{Tables and figures}
+  \bookmark[dest=lot]{List of tables}
   \listoftables*
-  %\hypertarget{lof}{}%
-  %\bookmark[dest=lof]{List of Figures} % if we use 3, it changes to i instead of iii [shrug]
-  %\listoffigures*
   \fi
 \input{foreward}
 %--------------------------main text------------------------------------------%
