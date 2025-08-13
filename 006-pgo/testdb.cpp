@@ -28,6 +28,14 @@ test_species(const species *s){
     std::cerr << "missing on " << s->name << std::endl;
     throw std::exception();
   }
+  // we claim in the typing chapter that ghost/rock is unpopulated when
+  // discussing typings with triple resistances
+  if(s->t1 == TYPE_GHOST || s->t2 == TYPE_GHOST){
+    if(s->t1 == TYPE_ROCK || s->t2 == TYPE_ROCK){
+      std::cerr << "ghost/rock became populated!" << std::endl;
+      throw std::exception();
+    }
+  }
   switch(s->category){
     case species::CAT_NORMAL:
       break;
