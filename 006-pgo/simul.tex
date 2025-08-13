@@ -212,3 +212,14 @@ Together with batched retrieval from the queue, this manages to keep all sixty-f
 The result is exhaustive simulation of a full 3x3 scenario, using Pokémon of arbitrary power,
  in less a ten minute worst case, and often less than a minute.
 \lstinputlisting[basicstyle=\scriptsize]{out/simul3out.lst}
+Interpreting these results is non-trivial.
+Adding a second charged attack strengthens a Pokémon, but can easily cause its
+ win percentage to drop in exhaustive simulation.
+Take Clodsire with Earthquake against Bellibolt.
+Adding Stone Edge as a second attack to Clodsire will create new paths that are all
+ more favorable to Bellibolt than the Earthquake paths.
+In real play, competent Trainers will not be throwing Stone Edge at Bellibolt when Earthquake is available,
+ so these new paths are somewhat irrelevant.
+I expect the full power of exhaustive simulation to emerge when coupled with automated
+ inflection point analysis, etc.
+Watch this space.
