@@ -4478,6 +4478,11 @@ static const species sdex[] = {
   {  975, "Cetitan", TYPE_ICE, TYPECOUNT, 208, 123, 347, "Cetoddle",
 		{ &ATK_Ice_Shard, &ATK_Tackle, &ATK_Powder_Snow, &ATK_Body_Slam, &ATK_Avalanche, &ATK_Heavy_Slam, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 976 is veluza
+  // the Big Catfish
+  {  977, "Dondozo", TYPE_WATER, TYPECOUNT, 176, 178, 312, nullptr,
+		{ &ATK_Water_Gun, &ATK_Waterfall, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Surf, &ATK_Liquidation, },
+    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  978, "Tatsugiri", TYPE_DRAGON, TYPE_WATER, 226, 166, 169, nullptr,
 		{ &ATK_Take_Down, &ATK_Water_Gun, &ATK_Outrage, &ATK_Surf, &ATK_Hydro_Pump, &ATK_Muddy_Water, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
