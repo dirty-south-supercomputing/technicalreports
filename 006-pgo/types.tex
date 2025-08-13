@@ -85,7 +85,12 @@ When one type $V$ is ineffective against type $K$, but $K$ is strong
 There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
   introduced in Generation VI in large part to balance Dragon.}, Dark → Psychic,
   and Ground → Electric.
+\clearpage
 
+\noindent{}Poison kills Grass, which kills Ground, which kills Poison.
+Rock is strong against Bug, which kills Grass, which is strong against Rock.
+Ground kills Rock, but is weak against Bug.
+Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
 \begin{figure}[h!]
 \begin{minipage}[t]{0.5\textwidth}
 \centering
@@ -98,16 +103,23 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
 \caption{16 rational relations\label{fig:rational}}
 \end{minipage}
 \end{figure}
-\noindent{}Poison kills Grass, which kills Ground, which kills Poison.
-Rock is strong against Bug, which kills Grass, which is strong against Rock.
-Ground kills Rock, but is weak against Bug.
-Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
-Psychic kills Fighting, which kills Dark, which slaughters Psychic.
+
+\noindent{}Psychic kills Fighting, which kills Dark, which slaughters Psychic.
 Dark kills Ghost, which is strong against Psychic.
 Fighting (unique among all types) is strong against Normal,
   but very weak against Ghost.
 Normal and Ghost are very weak against one another (\autoref{fig:rational}).
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=.25]{out/circo/dragon.dot.png}
+\caption{The 8 Dragon relations\label{fig:dragon}}
+\end{figure}
+\noindent{}Fairy famously slaughters Dragon.
+Ice is strong against Dragon.
+Grass, Electric, Water, and Fire are all weak against it (\autoref{fig:dragon}).
+
+\clearpage
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/circo/phases.dot.png}
@@ -117,16 +129,6 @@ Normal and Ghost are very weak against one another (\autoref{fig:rational}).
 Rock and Water kill Fire, which kills Ice, which kills nothing on this graph nor any other.
 Electric is strong against Water, which is strong against Rock, which is strong against Ice,
  which on \autoref{fig:elemental} is strong against nothing.
-\clearpage
-
-\begin{figure}[t!]
-\centering
-\includegraphics[scale=.25]{out/circo/dragon.dot.png}
-\caption{The 8 Dragon relations\label{fig:dragon}}
-\end{figure}
-\noindent{}Fairy famously slaughters Dragon.
-Ice is strong against Dragon.
-Grass, Electric, Water, and Fire are all weak against it (\autoref{fig:dragon}).
 
 \begin{figure}[h!]
 \centering
@@ -141,6 +143,7 @@ Steel is weak against Water and Electric.
 Only two types have no relationship with Steel: Dark and Ghost (\autoref{fig:steel}).
 As Josef Stalin said, ``it's good to be Steel''.
 
+\clearpage
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.25]{out/dot/death.dot.png}
