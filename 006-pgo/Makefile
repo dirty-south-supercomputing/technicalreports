@@ -73,6 +73,7 @@ CP1500A:=$(OUT)/cp1500a.tex
 CP2500A:=$(OUT)/cp2500a.tex
 CP1500G:=$(OUT)/cp1500g.tex
 CP2500G:=$(OUT)/cp2500g.tex
+NOSECONDCHARGEDTEX:=$(OUT)/nosecondcharged.tex
 HETEROCOSTTEX:=$(OUT)/heterocost.tex
 HETEROTYPETEX:=$(OUT)/heterotype.tex
 TRELSTEX:=$(OUT)/typerels.tex
@@ -91,7 +92,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
-	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX)
+	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
+	$(NOSECONDCHARGEDTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
