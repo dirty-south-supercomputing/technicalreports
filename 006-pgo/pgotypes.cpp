@@ -5362,11 +5362,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  if(!mainform){ // FIXME terrible. we only want non-mainforms FOR NOW
-    printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/");
-  }else{
-    printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/pokédex/");
-  }
+  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/");
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
