@@ -3062,6 +3062,8 @@ static const species sdex[] = {
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // 489 is phione
+  // 490 is manaphy
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, nullptr,
 		{ &ATK_Feint_Attack, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Focus_Blast, },
 		true, false, false, { &ATK_Sludge_Bomb, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -3071,6 +3073,7 @@ static const species sdex[] = {
   {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Magical_Leaf, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  // 493 is arceus
   {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Confusion, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Overheat, &ATK_V_Create, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
