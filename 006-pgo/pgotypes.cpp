@@ -4453,6 +4453,10 @@ static const species sdex[] = {
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb",
 		{ &ATK_Sucker_Punch, &ATK_Thunder_Shock, &ATK_Water_Gun, &ATK_Discharge, &ATK_Parabolic_Charge, &ATK_Zap_Cannon, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 940 wattrel
+  // 941 kilowattrel
+  // 942 maschiff
+  // 943 mabosstiff
   // the Toxic Mouse
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, },
@@ -4461,6 +4465,8 @@ static const species sdex[] = {
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle",
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 946 bramblin
+  // 947 brambleghast
   // the Woodear
   {  948, "Toedscool", TYPE_GRASS, TYPE_GROUND, 97, 149, 120, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Wrap, },
@@ -4468,6 +4474,13 @@ static const species sdex[] = {
   {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, "Toedscool",
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 950 klawf
+  // 951 capsakid
+  // 952 scovillain
+  // 953 rellor
+  // 954 rabsca
+  // 955 flittle
+  // 956 espathra
   // the Metalsmith
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
@@ -4489,18 +4502,25 @@ static const species sdex[] = {
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Wing_Attack, &ATK_Rock_Throw, &ATK_Aerial_Ace, &ATK_Rock_Tomb, &ATK_Payback, &ATK_Fly, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 963 finizen
+  // 964 palafin
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, nullptr,
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom",
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Overheat, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 967 cyclizar
+  // 968 orthworm
+  // 969 glimmet
+  // 970 glimmora
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, nullptr,
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard",
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 973 flamigo
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Tackle, &ATK_Powder_Snow, &ATK_Body_Slam, &ATK_Avalanche, &ATK_Heavy_Slam, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4522,6 +4542,8 @@ static const species sdex[] = {
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper",
 		{ &ATK_Mud_Shot, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Sludge_Bomb, &ATK_Water_Pulse, &ATK_Acid_Spray, },
 		true, false, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 981 farigiraf
+  // 982 dudunsparce
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
 		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
