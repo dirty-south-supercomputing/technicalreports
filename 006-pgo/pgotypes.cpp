@@ -3998,6 +3998,7 @@ static const species sdex[] = {
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 771 is pyukumuku
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4222,6 +4223,9 @@ static const species sdex[] = {
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Power_Whip, },
 		true, false, true, { }, species::CAT_NORMAL, 50, "G-Max Smite", },
+  // 859 impidimp
+  // 860 morgrem
+  // 861 grimmsnarl
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone",
 		{ &ATK_Lick, &ATK_Counter, &ATK_Hyper_Beam, &ATK_Cross_Chop, &ATK_Night_Slash, &ATK_Gunk_Shot, &ATK_Obstruct, },
 		true, true, false, { &ATK_Obstruct, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
@@ -4244,6 +4248,7 @@ static const species sdex[] = {
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Megahorn, &ATK_Brick_Break, &ATK_Superpower, },
 		true, false, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 871 pincurchin
   {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 102, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4253,9 +4258,13 @@ static const species sdex[] = {
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Slide, &ATK_Stomp, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 875 eiscue
+  // 876 indeedee
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 878 cufant
+  // 879 copperajah
   // 880 is dracozolt
   // 881 is arctozolt
   // 882 is dracovish
