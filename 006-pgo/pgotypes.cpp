@@ -4082,6 +4082,7 @@ static const species sdex[] = {
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, "Necrozma",
 		{ &ATK_Shadow_Claw, &ATK_Psycho_Cut, &ATK_Metal_Claw, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_Future_Sight, &ATK_Outrage, &ATK_Moongeist_Beam, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // 801 is magearna
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Poison_Jab, &ATK_Counter, &ATK_Ice_Punch, &ATK_Rock_Slide, &ATK_Thunder_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4097,6 +4098,7 @@ static const species sdex[] = {
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, },
 		true, false, false, { }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, },
+  // 807 zeraora, the thunderclap
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4254,6 +4256,11 @@ static const species sdex[] = {
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 880 is dracozolt
+  // 881 is arctozolt
+  // 882 is dracovish
+  // 883 is arctovish
+  // 884 is duraludon
   {  885, "Dreepy", TYPE_DRAGON, TYPE_GHOST, 117, 61, 99, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4499,6 +4506,18 @@ static const species sdex[] = {
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
 		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 984 is great tusk
+  // 985 is scream tail
+  // 986 is brute bonnet
+  // 987 is flutter mane
+  // 988 is slither wing
+  // 989 is sandy shocks
+  // 990 is iron treads
+  // 991 is iron bundle
+  // 992 is iron hands
+  // 993 is iron jugulis
+  // 994 is iron moth
+  // 995 is iron thorns
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Ice_Fang, &ATK_Dragon_Claw, &ATK_Icy_Wind, &ATK_Avalanche, &ATK_Outrage, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
