@@ -4187,6 +4187,9 @@ static const species sdex[] = {
   {  836, "Boltund", TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170, nullptr,
 		{ &ATK_Bite, &ATK_Spark, &ATK_Thunder, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 837 rolycoly
+  // 838 carkol
+  // 839 coalossal
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4196,6 +4199,11 @@ static const species sdex[] = {
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin",
 		{ &ATK_Astonish, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Energy_Ball, &ATK_Outrage, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SWEETAPPLE, },
+  // 843 silcobra
+  // 844 sandaconda
+  // 845 cramorant
+  // 846 arrokuda
+  // 847 barraskewda
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, nullptr,
 		{ &ATK_Acid, &ATK_Power_Up_Punch, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4208,6 +4216,8 @@ static const species sdex[] = {
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede",
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 852 clobbopus
+  // 853 grapploct
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Astonish, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Psychic, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
