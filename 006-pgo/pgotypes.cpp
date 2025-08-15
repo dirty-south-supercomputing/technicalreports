@@ -3062,6 +3062,8 @@ static const species sdex[] = {
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // 489 is phione
+  // 490 is manaphy
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, nullptr,
 		{ &ATK_Feint_Attack, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Focus_Blast, },
 		true, false, false, { &ATK_Sludge_Bomb, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -3071,6 +3073,7 @@ static const species sdex[] = {
   {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Magical_Leaf, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  // 493 is arceus
   {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Confusion, &ATK_Psyshock, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Overheat, &ATK_V_Create, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -3995,6 +3998,7 @@ static const species sdex[] = {
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 771 is pyukumuku
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4079,6 +4083,7 @@ static const species sdex[] = {
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, "Necrozma",
 		{ &ATK_Shadow_Claw, &ATK_Psycho_Cut, &ATK_Metal_Claw, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_Future_Sight, &ATK_Outrage, &ATK_Moongeist_Beam, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // 801 is magearna
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Poison_Jab, &ATK_Counter, &ATK_Ice_Punch, &ATK_Rock_Slide, &ATK_Thunder_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4094,6 +4099,7 @@ static const species sdex[] = {
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, },
 		true, false, false, { }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, },
+  // 807 zeraora, the thunderclap
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4181,6 +4187,9 @@ static const species sdex[] = {
   {  836, "Boltund", TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170, nullptr,
 		{ &ATK_Bite, &ATK_Spark, &ATK_Thunder, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 837 rolycoly
+  // 838 carkol
+  // 839 coalossal
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4190,6 +4199,11 @@ static const species sdex[] = {
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin",
 		{ &ATK_Astonish, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Energy_Ball, &ATK_Outrage, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SWEETAPPLE, },
+  // 843 silcobra
+  // 844 sandaconda
+  // 845 cramorant
+  // 846 arrokuda
+  // 847 barraskewda
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, nullptr,
 		{ &ATK_Acid, &ATK_Power_Up_Punch, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4202,6 +4216,8 @@ static const species sdex[] = {
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede",
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 852 clobbopus
+  // 853 grapploct
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Astonish, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Psychic, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4217,6 +4233,9 @@ static const species sdex[] = {
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Power_Whip, },
 		true, false, true, { }, species::CAT_NORMAL, 50, "G-Max Smite", },
+  // 859 impidimp
+  // 860 morgrem
+  // 861 grimmsnarl
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone",
 		{ &ATK_Lick, &ATK_Counter, &ATK_Hyper_Beam, &ATK_Cross_Chop, &ATK_Night_Slash, &ATK_Gunk_Shot, &ATK_Obstruct, },
 		true, true, false, { &ATK_Obstruct, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
@@ -4239,6 +4258,7 @@ static const species sdex[] = {
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Megahorn, &ATK_Brick_Break, &ATK_Superpower, },
 		true, false, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 871 pincurchin
   {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 102, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4248,9 +4268,18 @@ static const species sdex[] = {
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Slide, &ATK_Stomp, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 875 eiscue
+  // 876 indeedee
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 878 cufant
+  // 879 copperajah
+  // 880 is dracozolt
+  // 881 is arctozolt
+  // 882 is dracovish
+  // 883 is arctovish
+  // 884 is duraludon
   {  885, "Dreepy", TYPE_DRAGON, TYPE_GHOST, 117, 61, 99, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4424,6 +4453,10 @@ static const species sdex[] = {
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb",
 		{ &ATK_Sucker_Punch, &ATK_Thunder_Shock, &ATK_Water_Gun, &ATK_Discharge, &ATK_Parabolic_Charge, &ATK_Zap_Cannon, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 940 wattrel
+  // 941 kilowattrel
+  // 942 maschiff
+  // 943 mabosstiff
   // the Toxic Mouse
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, },
@@ -4432,6 +4465,8 @@ static const species sdex[] = {
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle",
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 946 bramblin
+  // 947 brambleghast
   // the Woodear
   {  948, "Toedscool", TYPE_GRASS, TYPE_GROUND, 97, 149, 120, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Wrap, },
@@ -4439,6 +4474,13 @@ static const species sdex[] = {
   {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, "Toedscool",
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 950 klawf
+  // 951 capsakid
+  // 952 scovillain
+  // 953 rellor
+  // 954 rabsca
+  // 955 flittle
+  // 956 espathra
   // the Metalsmith
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
@@ -4460,18 +4502,25 @@ static const species sdex[] = {
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Wing_Attack, &ATK_Rock_Throw, &ATK_Aerial_Ace, &ATK_Rock_Tomb, &ATK_Payback, &ATK_Fly, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 963 finizen
+  // 964 palafin
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, nullptr,
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom",
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Overheat, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 967 cyclizar
+  // 968 orthworm
+  // 969 glimmet
+  // 970 glimmora
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, nullptr,
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  972, "Houndstone", TYPE_GHOST, TYPECOUNT, 186, 195, 176, "Greavard",
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 973 flamigo
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Tackle, &ATK_Powder_Snow, &ATK_Body_Slam, &ATK_Avalanche, &ATK_Heavy_Slam, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4493,9 +4542,23 @@ static const species sdex[] = {
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper",
 		{ &ATK_Mud_Shot, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Sludge_Bomb, &ATK_Water_Pulse, &ATK_Acid_Spray, },
 		true, false, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 981 farigiraf
+  // 982 dudunsparce
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
 		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // 984 is great tusk
+  // 985 is scream tail
+  // 986 is brute bonnet
+  // 987 is flutter mane
+  // 988 is slither wing
+  // 989 is sandy shocks
+  // 990 is iron treads
+  // 991 is iron bundle
+  // 992 is iron hands
+  // 993 is iron jugulis
+  // 994 is iron moth
+  // 995 is iron thorns
   {  996, "Frigibax", TYPE_DRAGON, TYPE_ICE, 134, 86, 163, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Ice_Fang, &ATK_Dragon_Claw, &ATK_Icy_Wind, &ATK_Avalanche, &ATK_Outrage, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
