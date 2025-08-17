@@ -5391,6 +5391,82 @@ summarize_buffs(const attack *a){
   }
 }
 
+static inline unsigned
+get_stage(const species *s){
+  const species *devol = get_previous_evolution(s);
+  if(!devol){
+    return 1;
+  }
+  return get_stage(devol) + 1;
+}
+
+static inline unsigned
+stardust_reward(const species *s){
+  if(s->name == "Audino"){
+    return 2100;
+  }else if(s->name == "Cloyster"){
+    return 1200;
+  }else if(s->name == "Shellder" || s->name == "Chimecho"){
+    return 1000;
+  }
+  static const char *sd950s[] = {
+    "Alolan Persian",
+    "Starmie",
+    "Vespiquen",
+    "Garbodor",
+    nullptr
+  };
+  for(const char **n = sd950s ; *n ; ++n){
+    if(strcmp(s->name.c_str(), *n) == 0){
+      return 950;
+    }
+  }
+  static const char *sd750s[] = {
+    "Alolan Meowth",
+    "Staryu",
+    "Sableye",
+    "Combee",
+    "Trubbish",
+  };
+  for(const char **n = sd750s ; *n ; ++n){
+    if(strcmp(s->name.c_str(), *n) == 0){
+      return 750;
+    }
+  }
+  static const char *sd700s[] = {
+    "Parasect",
+    "Persian",
+    "Breloom",
+    "Amoonguss",
+    "Shiinotic",
+  };
+  for(const char **n = sd700s ; *n ; ++n){
+    if(strcmp(s->name.c_str(), *n) == 0){
+      return 700;
+    }
+  }
+  static const char *sd500s[] = {
+    "Paras",
+    "Meowth",
+    "Delibird",
+    "Shroomish",
+    "Foongus",
+    "Morelull",
+  };
+  for(const char **n = sd500s ; *n ; ++n){
+    if(strcmp(s->name.c_str(), *n) == 0){
+      return 500;
+    }
+  }
+  auto stage = get_stage(s);
+  if(stage == 3){
+    return 500;
+  }else if(stage == 2){
+    return 300;
+  }
+  return 100;
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   bool gmax = !overzoom && s->gmax;
@@ -5505,7 +5581,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}CG %d Gen %s %s%s\\hfill{}", a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
+    printf("\\scriptsize{}%u CG %d Gen %s %s%s\\hfill{}",
+            stardust_reward(s),
+            a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
             idx_to_region(s->idx), s->categorystr());
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
