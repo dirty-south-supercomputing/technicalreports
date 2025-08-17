@@ -27,6 +27,6 @@ int main(void){
     std::cerr << "didn't have any matches!" << std::endl;
     throw std::exception();
   }
-  std::cout << "and " << prevs->name << " are exceptions" << std::endl;
+  std::cout << "and " << prevs->name << " are exceptions," << std::endl;
   return EXIT_SUCCESS;
 }
