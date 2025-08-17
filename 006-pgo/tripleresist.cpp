@@ -2,7 +2,7 @@
 
 // generate table with the typings having a triple resistance
 int main(void){
-  std::cout << "\\begin{table}\\centering\\begin{tabular}{lp{.65\\textwidth}}" << std::endl;
+  std::cout << "\\begin{table}\\centering\\begin{tabular}{lp{.6\\textwidth}}" << std::endl;
   int lasti = -1, lastj = -1;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
