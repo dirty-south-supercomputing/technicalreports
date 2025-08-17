@@ -150,7 +150,13 @@ static void out_type(pgo_types_e t){
 static void emit_line(const timetofirst &t){
   out_type(t.s->t1);
   out_type(t.s->t2);
-  std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << t.hlevel << "}&";
+  unsigned hl;
+  unsigned l = halflevel_to_level(t.hlevel, &hl);
+  std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << l;
+  if(hl){
+    std::cout << ".5";
+  }
+  std::cout << "}&";
   emit_name(t.s->name);
   std::cout << " & ";
   std::cout << t.mhp << " & ";
