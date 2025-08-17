@@ -20,7 +20,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
-  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & T & \\PPT & $\\cdot\\frac{6}{5}$ & \\EPT & Pop\\\\\n");
+  printf("Attack & T & E & \\EPT & P & $\\cdot\\frac{6}{5}$ & \\PPT & $\\cdot\\frac{6}{5}$ & Pop\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   for(unsigned c = 0 ; c < ccount ; ++c){
@@ -33,12 +33,13 @@ void print_latex_table(const attack* as, unsigned ccount){
     }else{
       printf("\\hspace{1em}");
     }
-    printf(" %s & %u & %g & %d & %u & %.3g & %g & %.3g & %u\\\\\n",
-           a->name, a->powertrain, (a->powertrain * 6.0) / 5,
-           a->energytrain, a->turns, ppt,
-           (a->powertrain * 6.0) / (a->turns * 5.0), ept, learner_count(a));
+    printf(" %s & %u & %d & %.3g & %u & %g & %.3g & %g & %u\\\\\n",
+           a->name, a->turns, a->energytrain, ept,
+           a->powertrain, (a->powertrain * 6.0) / 5,
+           ppt, (a->powertrain * 6.0) / (a->turns * 5.0),
+           learner_count(a));
   }
-  printf("\\caption[Fast attacks, \\PPT, and \\EPT (3x3 battles)]{Fast attacks, \\PPT, and \\EPT{} (3x3 battles. Attacks with $EPT \\cdot PPT \\ge 9$ are highlighted in green)\\label{table:fastattacks}}\n");
+  printf("\\caption[Fast attacks, \\PPT, and \\EPT (3x3 stats)]{Fast attacks, \\PPT, and \\EPT{} (3x3 stats. Attacks with \\EPT·\\PPT 󰥮 9 are highlighted in green)\\label{table:fastattacks}}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
 }

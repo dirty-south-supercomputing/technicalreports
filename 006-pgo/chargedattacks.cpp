@@ -40,13 +40,13 @@ void print_latex_table(const attack* as, unsigned ccount){
     if(!strcmp(a->name, "Frustration")){
       printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
-      printf("*\\footnote{Return is known by default to all Purified Pokémon (it's OK).}");
+      printf("*\\footnote{Return is known by default to all Purified Pokémon (it's mid at best).}");
     }else{
       printf("%u", learner_count(a));
     }
     puts("\\\\");
   }
-  printf("\\caption{Charged attacks and power-per-energy (3x3 battles)\\label{table:chargedattacks}}\n");
+  printf("\\caption{Charged attacks and power-per-energy (3x3 stats)\\label{table:chargedattacks}}\n");
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
 }

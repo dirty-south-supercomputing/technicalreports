@@ -5052,7 +5052,7 @@ escape_string(const char *s){
   return 0;
 }
 
-static int
+static inline int
 escape_cpp_string(const std::string &s){
   for(char c : s){
     if(c != '%'){
