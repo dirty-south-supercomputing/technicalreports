@@ -3,6 +3,7 @@
 // generate table with the typings having a triple resistance
 int main(void){
   std::cout << "\\begin{table}\\centering\\begin{tabular}{lp{.5\\textwidth}}" << std::endl;
+  int lasti = -1, lastj = -1;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       // test t on i+j
@@ -10,21 +11,26 @@ int main(void){
         if(typing_relation(static_cast<pgo_types_e>(t), static_cast<pgo_types_e>(i), static_cast<pgo_types_e>(j)) == -3){
           std::cout << TNames[t] << " → " << TNames[i] << "/" << TNames[j];
           std::cout << " & ";
-          bool firstprint = true;
-          for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-            const auto &s = sdex[u];
-            if(s.t1 == i || s.t2 == i){
-              if(s.t1 == j || s.t2 == j){
-                if(firstprint){
-                  firstprint = false;
-                }else{
-                  std::cout << ", ";
+          if(lasti != i || lastj != j){
+            bool firstprint = true;
+            for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+              const auto &s = sdex[u];
+              if(s.t1 == i || s.t2 == i){
+                if(s.t1 == j || s.t2 == j){
+                  if(firstprint){
+                    firstprint = false;
+                  }else{
+                    std::cout << ", ";
+                  }
+                  escape_cpp_string(s.name);
                 }
-                std::cout << "\\mbox{";
-                escape_cpp_string(s.name);
-                std::cout << "}";
               }
             }
+            if(firstprint){
+              std::cout << "Unpopulated";
+            }
+            lasti = i;
+            lastj = j;
           }
           // FIXME list mega mons
           std::cout << "\\\\" << std::endl;

@@ -5052,6 +5052,18 @@ escape_string(const char *s){
   return 0;
 }
 
+static int
+escape_cpp_string(const std::string &s){
+  for(char c : s){
+    if(c != '%'){
+      std::cout << c;
+    }else{
+      std::cout << "\\%";
+    }
+  }
+  return 0;
+}
+
 // make a string fit for a label.
 static int
 label_string(const char *s){

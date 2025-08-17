@@ -39,10 +39,10 @@ The attacker benefits if it has a type in common with the attack being used:
   the Same Type Attack Bonus (STAB).
 The relationship between attack type and defender typing is more complex.
 For each type, the attack type can be \textit{very ineffective},
-  \textit{ineffective}, \textit{standard}, or \textit{effective}.
+  \textit{ineffective}, \textit{neutral}, or \textit{effective}.
 These are mapped to −2, −1, 0, and 1.
 Going the other way, a type is \textit{very weak}, \textit{weak},
-  \textit{standard}, or \textit{strong} against each attack type;
+  \textit{neutral}, or \textit{strong} against each attack type;
   we will see that a typing can also be \textit{extremely weak} or
   \textit{very strong}.
 For each member of the defender's typing, determine the attack type's effectiveness
@@ -50,7 +50,7 @@ For each member of the defender's typing, determine the attack type's effectiven
 See \autoref{sec:typemult} for a quantitative treatment of the effects.
 
 There are 324 (18 × 18) total type relationships (\autoref{table:relations}),
-  of which 204 (63\%) are standard.
+  of which 204 (63\%) are neutral.
 That leaves 120 type relations giving either attacker or defender an advantage,
   one that can easily decide a battle\footnote{It has been said that Pokémon GO PvP is ``essentially Rock, Paper, Scissors.''}.
 These relationships must also be memorized.
@@ -190,7 +190,7 @@ Dual typing widens the type relation range, adding the possibilities
  of −3 and 2 (−4 is not possible, because no type is very ineffective against
  two different types).
 It furthermore vastly expands the type effectiveness matrix,
- with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are standard.
+ with 3,078 (18 × 171) relations of which only 1,490 (48.4\%) are neutral.
 Thankfully, these needn't be memorized, as they can all be calculated
  using the base relations matrix.
 \input{out/dualtypes.tex}
@@ -207,32 +207,24 @@ None of Steel's resistances matter when you're being hit by one of its
   weaknesses.
 \input{out/dualsummaries.tex}
 There are twenty triple resistances, five of which are against Fighting attacks (\autoref{table:triples}).
+Ghost/Steel is unique in having two triple resistances (Normal and Poison).
 Ghost/Rock, triply resistant against Normal, is currently unpopulated.
-There are sixty double weaknesses, including eight types with two such weaknesses (\autoref{table:doubledoubles}).
-\begin{table}
-\centering
-\begin{tabular}{cc}
-Dragon → Fairy/Steel & Ground → Bug/Flying \\
-Electric → Dragon/Ground & Ground → Flying/Grass \\
-Electric → Electric/Ground & Psychic → Dark/Psychic \\
-Electric → Grass/Ground & Psychic → Dark/Steel \\
-Fighting → Bug/Ghost & Normal → Ghost/Rock \\
-Fighting → Fairy/Ghost & Normal → Ghost/Steel \\
-Fighting → Flying/Ghost & Poison → Ghost/Steel \\
-Fighting → Ghost/Poison & Poison → Ground/Steel \\
-Fighting → Ghost/Psychic & Poison → Poison/Steel \\
-Ghost → Dark/Normal & Poison → Rock/Steel \\
-\end{tabular}
-\caption{The twenty triple resistances\label{table:triples}}
-\end{table}
+There are sixty double weaknesses, including eight typings with two such weaknesses (\autoref{table:doubledoubles}).
+%\begin{table}
+%\centering
+%\begin{tabular}{cc}
+%Dragon → Fairy/Steel & Ground → Bug/Flying \\
+%Electric → Dragon/Ground & Ground → Flying/Grass \\
+%Electric → Electric/Ground & Psychic → Dark/Psychic \\
+%Electric → Grass/Ground & Psychic → Dark/Steel \\
+%Fighting → Bug/Ghost & Normal → Ghost/Rock \\
+%Fighting → Fairy/Ghost & Normal → Ghost/Steel \\
+%Fighting → Flying/Ghost & Poison → Ghost/Steel \\
+%Fighting → Ghost/Poison & Poison → Ground/Steel \\
+%Fighting → Ghost/Psychic & Poison → Poison/Steel \\
+%Ghost → Dark/Normal & Poison → Rock/Steel \\
+%\end{tabular}
+%\caption{The twenty triple resistances\label{table:triples}}
+%\end{table}
+\input{out/tripleresist}
 \input{out/doubledoubles}
-\section{Weather boosts\label{sec:weather}}
-Local weather ``boosts'' associated types (\autoref{table:weather}),
-  affecting attack strength in PvE (\autoref{sec:mbmult}),
-  raid boss strength (\autoref{sec:raids}),
-  spawn rates (\autoref{sec:spawns}) and the levels of those spawns,
-  and catching (\autoref{sec:catch}).
-The game's assessment of your weather is communicated via an icon on the Map View.
-\begin{table}
-\input{out/weather}
-\end{table}

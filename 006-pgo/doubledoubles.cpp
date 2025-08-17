@@ -24,7 +24,7 @@ int main(void){
                   }else{
                     std::cout << ", ";
                   }
-                  std::cout << s.name;
+                  escape_cpp_string(s.name);
                 }
               }
             }
