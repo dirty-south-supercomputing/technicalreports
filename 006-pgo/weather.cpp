@@ -2,8 +2,8 @@
 #include "pgotypes.cpp"
 
 int main(void){
-  printf("\\centering\\begin{tabular}{lcl}");
-  printf("Weather & Icon & Types\\\\\n");
+  printf("\\centering\\begin{tabular}{lcl|lcl}");
+  printf("Weather & Icons & Types & Weather & Icons & Types\\\\\n");
   printf("\\Midrule\n");
   for(unsigned w = 0 ; w < static_cast<unsigned>(WEATHERCOUNT) ; ++w){
     printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s.png}", WNames[w], WNames[w]);
@@ -14,14 +14,19 @@ int main(void){
     bool printed = false;
     for(unsigned t = 0 ; t < static_cast<unsigned>(TYPECOUNT) ; ++t){
       if(wboosts[t] == w){
-        printf("%s%s", printed ? ", " : "", TNames[t]);
+        print_type(static_cast<pgo_types_e>(t));
+        printf(" ");
         printed = true;
       }
     }
     if(!printed){
       printf("None");
     }
-    printf("\\\\\n");
+    if(w % 2){
+      printf("\\\\\n");
+    }else{
+      printf(" & ");
+    }
   }
   printf("\\end{tabular}\\caption{Weather-boosted types\\label{table:weather}}");
 }
