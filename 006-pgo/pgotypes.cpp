@@ -332,7 +332,7 @@ static const attack ATK_Bullet_Seed = { "Bullet Seed", TYPE_GRASS, 5, 13, 3, 0, 
 	7, 13, 2, false, };
 static const attack ATK_Charge_Beam = { "Charge Beam", TYPE_ELECTRIC, 5, 11, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 14, 2, false, };
-static const attack ATK_Charm = { "Charm", TYPE_FAIRY, 15, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Charm = { "Charm", TYPE_FAIRY, 13, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	20, 11, 3, false, };
 static const attack ATK_Confusion = { "Confusion", TYPE_PSYCHIC, 16, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0,
 	19, 14, 3, false, };
@@ -342,11 +342,11 @@ static const attack ATK_Cut = { "Cut", TYPE_NORMAL, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0
 	5, 5, 1, false, };
 static const attack ATK_Double_Kick = { "Double Kick", TYPE_FIGHTING, 8, 12, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 13, 2, false, };
-static const attack ATK_Dragon_Breath = { "Dragon Breath", TYPE_DRAGON, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Dragon_Breath = { "Dragon Breath", TYPE_DRAGON, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
-static const attack ATK_Dragon_Tail = { "Dragon Tail", TYPE_DRAGON, 13, 9, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Dragon_Tail = { "Dragon Tail", TYPE_DRAGON, 9, 9, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	14, 8, 2, false, };
-static const attack ATK_Ember = { "Ember", TYPE_FIRE, 7, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Ember = { "Ember", TYPE_FIRE, 4, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 10, 2, false, };
 static const attack ATK_Extrasensory = { "Extrasensory", TYPE_PSYCHIC, 8, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 11, 2, false, };
@@ -434,7 +434,7 @@ static const attack ATK_Scratch = { "Scratch", TYPE_NORMAL, 4, 2, 1, 0, 0, 0, 0,
 	6, 4, 1, false, };
 static const attack ATK_Shadow_Claw = { "Shadow Claw", TYPE_GHOST, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
-static const attack ATK_Smack_Down = { "Smack Down", TYPE_ROCK, 11, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Smack_Down = { "Smack Down", TYPE_ROCK, 12, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	13, 7, 2, false, };
 static const attack ATK_Snarl = { "Snarl", TYPE_DARK, 5, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 13, 2, false, };
@@ -460,7 +460,7 @@ static const attack ATK_Transform = { "Transform", TYPE_NORMAL, 0, 0, 1, 0, 0, 0
 	0, 0, 4, false, };
 static const attack ATK_Vine_Whip = { "Vine Whip", TYPE_GRASS, 5, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 5, 1, false, };
-static const attack ATK_Volt_Switch = { "Volt Switch", TYPE_ELECTRIC, 12, 16, 4, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Volt_Switch = { "Volt Switch", TYPE_ELECTRIC, 14, 16, 4, 0, 0, 0, 0, 0, 0, 0, 0,
 	13, 20, 3, false, };
 static const attack ATK_Water_Gun = { "Water Gun", TYPE_WATER, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	5, 5, 1, false, };
@@ -478,7 +478,7 @@ static const attack ATK_Acid_Spray = { "Acid Spray", TYPE_POISON, 20, -45, 0, 0,
 	20, 50, 6, false, };
 static const attack ATK_Acrobatics = { "Acrobatics", TYPE_FLYING, 110, -55, 0, 125, 0, 0, 0, 2, 0, 0, 0,
 	100, 100, 4, false, };
-static const attack ATK_Aerial_Ace = { "Aerial Ace", TYPE_FLYING, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Aerial_Ace = { "Aerial Ace", TYPE_FLYING, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 5, false, };
 static const attack ATK_Aeroblast = { "Aeroblast", TYPE_FLYING, 170, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	200, 100, 7, false, };
@@ -492,7 +492,7 @@ static const attack ATK_Aqua_Step = { "Aqua Step", TYPE_WATER, 55, -40, 0, 1000,
 	55, -40, 7, false, };
 static const attack ATK_Aqua_Tail = { "Aqua Tail", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
-static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 80, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 4, false, };
 static const attack ATK_Aura_Wheel = { "Aura Wheel", TYPE_ELECTRIC, 100, -45, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
 	100, 45, 5, false, };
@@ -512,7 +512,7 @@ static const attack ATK_Bleakwind_Storm = { "Bleakwind Storm", TYPE_FLYING, 60, 
 	150, 100, 5, false, };
 static const attack ATK_Blizzard = { "Blizzard", TYPE_ICE, 140, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	130, 100, 6, false, };
-static const attack ATK_Body_Slam = { "Body Slam", TYPE_NORMAL, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Body_Slam = { "Body Slam", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
 static const attack ATK_Boomburst = { "Boomburst", TYPE_NORMAL, 150, -70, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	150, 100, 5, false, };
@@ -569,7 +569,7 @@ static const attack ATK_Draco_Meteor = { "Draco Meteor", TYPE_DRAGON, 150, -65, 
 	150, 100, 7, false, };
 static const attack ATK_Dragon_Ascent = { "Dragon Ascent", TYPE_FLYING, 150, -70, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
 	140, 50, 7, false, };
-static const attack ATK_Dragon_Claw = { "Dragon Claw", TYPE_DRAGON, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Dragon_Claw = { "Dragon Claw", TYPE_DRAGON, 80, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 3, false, };
 static const attack ATK_Dragon_Energy = { "Dragon Energy", TYPE_DRAGON, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	155, 50, 7, false, };
@@ -579,7 +579,7 @@ static const attack ATK_Drain_Punch = { "Drain Punch", TYPE_FIGHTING, 20, -40, 0
 	50, 33, 5, false, };
 static const attack ATK_Draining_Kiss = { "Draining Kiss", TYPE_FAIRY, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
-static const attack ATK_Drill_Peck = { "Drill Peck", TYPE_FLYING, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Drill_Peck = { "Drill Peck", TYPE_FLYING, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 5, false, };
 static const attack ATK_Drill_Run = { "Drill Run", TYPE_GROUND, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 6, false, };
@@ -605,7 +605,7 @@ static const attack ATK_Flame_Burst = { "Flame Burst", TYPE_FIRE, 70, -55, 0, 0,
 	70, 50, 5, false, };
 static const attack ATK_Flame_Charge = { "Flame Charge", TYPE_FIRE, 65, -50, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
 	70, 33, 8, false, };
-static const attack ATK_Flame_Wheel = { "Flame Wheel", TYPE_FIRE, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Flame_Wheel = { "Flame Wheel", TYPE_FIRE, 80, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 50, 5, false, };
 static const attack ATK_Flamethrower = { "Flamethrower", TYPE_FIRE, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 4, false, };
@@ -782,7 +782,7 @@ static const attack ATK_Roar_of_Time = { "Roar of Time", TYPE_DRAGON, 150, -65, 
 	160, 100, 4, true, };
 static const attack ATK_Rock_Blast = { "Rock Blast", TYPE_ROCK, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
-static const attack ATK_Rock_Slide = { "Rock Slide", TYPE_ROCK, 65, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Rock_Slide = { "Rock Slide", TYPE_ROCK, 75, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	75, 50, 5, false, };
 static const attack ATK_Rock_Tomb = { "Rock Tomb", TYPE_ROCK, 80, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	65, 50, 6, false, };
@@ -803,7 +803,7 @@ static const attack ATK_Scald = { "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0,
 	75, 50, 7, false, };
 static const attack ATK_Scorching_Sands = { "Scorching Sands", TYPE_GROUND, 80, -50, 0, 0, 0, 300, 0, 0, 0, -1, 0,
 	90, 50, 6, false, };
-static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 65, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 55, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 4, false, };
 static const attack ATK_Seed_Flare = { "Seed Flare", TYPE_GRASS, 130, -75, 0, 0, 0, 0, 400, 0, 0, 0, -2,
 	115, 100, 5, false, };
@@ -823,7 +823,7 @@ static const attack ATK_Silver_Wind = { "Silver Wind", TYPE_BUG, 60, -45, 0, 100
 	65, 33, 7, false, };
 static const attack ATK_Skull_Bash = { "Skull Bash", TYPE_NORMAL, 130, -75, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	130, 100, 6, false, };
-static const attack ATK_Sky_Attack = { "Sky Attack", TYPE_FLYING, 85, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Sky_Attack = { "Sky Attack", TYPE_FLYING, 75, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 4, false, };
 static const attack ATK_Sludge = { "Sludge", TYPE_POISON, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
@@ -885,15 +885,15 @@ static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0
 	90, 33, 7, false, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
-static const attack ATK_Weather_Ball_Fire = { "Weather Ball (Fire)", TYPE_FIRE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	55, 33, 3, false, };
-static const attack ATK_Weather_Ball_Ice = { "Weather Ball (Ice)", TYPE_ICE, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	55, 33, 3, false, };
-static const attack ATK_Weather_Ball_Rock = { "Weather Ball (Rock)", TYPE_ROCK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	55, 33, 4, false, };
-static const attack ATK_Weather_Ball_Normal = { "Weather Ball (Normal)", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	55, 33, 3, false, };
-static const attack ATK_Weather_Ball_Water = { "Weather Ball (Water)", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Fire = { "Weather Ball (Fire)", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	60, 33, 3, false, };
+static const attack ATK_Weather_Ball_Ice = { "Weather Ball (Ice)", TYPE_ICE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	60, 33, 3, false, };
+static const attack ATK_Weather_Ball_Rock = { "Weather Ball (Rock)", TYPE_ROCK, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	60, 33, 4, false, };
+static const attack ATK_Weather_Ball_Normal = { "Weather Ball (Normal)", TYPE_NORMAL, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	60, 33, 3, false, };
+static const attack ATK_Weather_Ball_Water = { "Weather Ball (Water)", TYPE_WATER, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 3, false, };
 static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 0, 0, 1000, 0, 0, 0, -2, 0, 0,
 	90, 50, 5, false, };
@@ -1314,7 +1314,7 @@ static const species sdex[] = {
 		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Power_Whip, },
 		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur",
-		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Petal_Blizzard, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
+		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Petal_Blizzard, &ATK_Sludge, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
 		true, true, true, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, "G-Max Vine Lash", },
   // the Lizard
   {  4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, nullptr,
@@ -1325,7 +1325,7 @@ static const species sdex[] = {
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Fire_Fang, &ATK_Flamethrower, &ATK_Flame_Burst, &ATK_Fire_Punch, },
 		true, false, true, { &ATK_Scratch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon",
-		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Blast_Burn, },
+		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Air_Cutter, &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Blast_Burn, },
 		true, false, true, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, "G-Max Wildfire", },
   // the Tiny Turtle
   {  7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, nullptr,
@@ -1394,7 +1394,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Twister, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   // the Beak
   {  22, "Fearow", TYPE_NORMAL, TYPE_FLYING, 182, 133, 163, "Spearow",
-		{ &ATK_Peck, &ATK_Steel_Wing, &ATK_Aerial_Ace, &ATK_Drill_Run, &ATK_Twister, &ATK_Sky_Attack, &ATK_Fly, },
+		{ &ATK_Peck, &ATK_Steel_Wing, &ATK_Aerial_Ace, &ATK_Drill_Peck, &ATK_Drill_Run, &ATK_Twister, &ATK_Sky_Attack, &ATK_Fly, },
 		true, false, false, { &ATK_Twister, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   // the Snake
   {  23, "Ekans", TYPE_POISON, TYPECOUNT, 110, 97, 111, nullptr,
@@ -1412,7 +1412,7 @@ static const species sdex[] = {
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Charm, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Brick_Break, &ATK_Wild_Charge, &ATK_Surf, &ATK_Skull_Bash, &ATK_Trailblaze, },
 		true, false, false, { &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, nullptr,
-		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Psychic, &ATK_Wild_Charge, &ATK_Grass_Knot, &ATK_Surf, &ATK_Trailblaze, },
+		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Psyshock, &ATK_Psychic, &ATK_Wild_Charge, &ATK_Grass_Knot, &ATK_Surf, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  27, "Sandshrew", TYPE_GROUND, TYPECOUNT, 126, 120, 137, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Scratch, &ATK_Sand_Attack, &ATK_Dig, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Sand_Tomb, },
@@ -1435,7 +1435,7 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Drill
   {  31, "Nidoqueen", TYPE_POISON, TYPE_GROUND, 180, 173, 207, "Nidorina",
-		{ &ATK_Bite, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Poison_Fang, &ATK_Sludge_Wave, &ATK_Earth_Power, },
+		{ &ATK_Bite, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Mud_Slap, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Poison_Fang, &ATK_Sludge_Wave, &ATK_Earth_Power, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  32, "Nidoran♂", TYPE_POISON, TYPECOUNT, 105, 76, 130, nullptr,
 		{ &ATK_Peck, &ATK_Poison_Sting, &ATK_Sludge_Bomb, &ATK_Horn_Attack, &ATK_Body_Slam, },
@@ -1653,10 +1653,10 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Hermit Crab
   {  80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke",
-		{ &ATK_Water_Gun, &ATK_Confusion, &ATK_Ice_Beam, &ATK_Water_Pulse, &ATK_Scald, &ATK_Psychic, &ATK_Surf, },
+		{ &ATK_Water_Gun, &ATK_Confusion, &ATK_Drain_Punch, &ATK_Ice_Beam, &ATK_Water_Pulse, &ATK_Scald, &ATK_Psychic, &ATK_Surf, },
 		true, true, false, { &ATK_Surf, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  80, "Galarian Slowbro", TYPE_POISON, TYPE_PSYCHIC, 182, 156, 216, "Galarian Slowpoke",
-		{ &ATK_Poison_Jab, &ATK_Confusion, &ATK_Sludge_Bomb, &ATK_Scald, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Surf, &ATK_Brutal_Swing, },
+		{ &ATK_Poison_Jab, &ATK_Confusion, &ATK_Drain_Punch, &ATK_Sludge_Bomb, &ATK_Scald, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Surf, &ATK_Brutal_Swing, },
 		true, true, false, { &ATK_Surf, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Magnet
   {  81, "Magnemite", TYPE_ELECTRIC, TYPE_STEEL, 165, 121, 93, nullptr,
@@ -1678,7 +1678,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Swift, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Triple Bird
   {  85, "Dodrio", TYPE_NORMAL, TYPE_FLYING, 218, 140, 155, "Doduo",
-		{ &ATK_Feint_Attack, &ATK_Steel_Wing, &ATK_Drill_Peck, &ATK_Aerial_Ace, &ATK_Air_Cutter, &ATK_Brave_Bird, },
+		{ &ATK_Feint_Attack, &ATK_Steel_Wing, &ATK_Peck, &ATK_Trailblaze, &ATK_Drill_Peck, &ATK_Aerial_Ace, &ATK_Air_Cutter, &ATK_Brave_Bird, },
 		true, false, false, { &ATK_Air_Cutter, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Sea Lion
   {  86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, nullptr,
@@ -1716,7 +1716,7 @@ static const species sdex[] = {
 		true, true, true, { &ATK_Lick, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Shadow
   {  94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter",
-		{ &ATK_Sucker_Punch, &ATK_Lick, &ATK_Shadow_Claw, &ATK_Hex, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Sludge_Wave, &ATK_Psychic, &ATK_Focus_Blast, },
+		{ &ATK_Sucker_Punch, &ATK_Lick, &ATK_Shadow_Claw, &ATK_Hex, &ATK_Drain_Punch, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Sludge_Wave, &ATK_Psychic, &ATK_Focus_Blast, },
 		true, true, true, { &ATK_Lick, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Shadow_Punch, &ATK_Sludge_Wave, }, species::CAT_NORMAL, 50, "G-Max Terror", },
   // the Rock Snake
   {  95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, nullptr,
@@ -1945,7 +1945,7 @@ static const species sdex[] = {
 		{ &ATK_Dragon_Breath, &ATK_Iron_Tail, &ATK_Wrap, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, &ATK_Body_Slam, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  149, "Dragonite", TYPE_DRAGON, TYPE_FLYING, 263, 198, 209, "Dragonair",
-		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Hurricane, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Superpower, },
+		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Thunder_Punch, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Hurricane, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Superpower, },
 		true, true, false, { &ATK_Draco_Meteor, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  150, "Mewtwo", TYPE_PSYCHIC, TYPECOUNT, 300, 182, 214, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Hyper_Beam, &ATK_Flamethrower, &ATK_Ice_Beam, &ATK_Shadow_Ball, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Psystrike, &ATK_Focus_Blast, },
@@ -2038,7 +2038,7 @@ static const species sdex[] = {
 		{ &ATK_Peck, &ATK_Quick_Attack, &ATK_Drill_Peck, &ATK_Psyshock, &ATK_Night_Shade, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  178, "Xatu", TYPE_PSYCHIC, TYPE_FLYING, 192, 146, 163, "Natu",
-		{ &ATK_Feint_Attack, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Ominous_Wind, &ATK_Future_Sight, },
+		{ &ATK_Feint_Attack, &ATK_Air_Slash, &ATK_Peck, &ATK_Psyshock, &ATK_Aerial_Ace, &ATK_Ominous_Wind, &ATK_Future_Sight, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  179, "Mareep", TYPE_ELECTRIC, TYPECOUNT, 114, 79, 146, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Tackle, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Body_Slam, &ATK_Trailblaze, },
@@ -2093,7 +2093,7 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Dig, &ATK_Sludge_Wave, &ATK_Body_Slam, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper",
-		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Aqua_Tail, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, &ATK_Acid_Spray, },
+		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Drain_Punch, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Aqua_Tail, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, &ATK_Acid_Spray, },
 		true, true, false, { &ATK_Aqua_Tail, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, "Eevee",
 		{ &ATK_Zen_Headbutt, &ATK_Confusion, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Future_Sight, &ATK_Last_Resort, &ATK_Psychic_Fangs, },
@@ -2109,7 +2109,7 @@ static const species sdex[] = {
 		{ &ATK_Water_Gun, &ATK_Confusion, &ATK_Blizzard, &ATK_Fire_Blast, &ATK_Scald, &ATK_Psychic, &ATK_Surf, },
 		true, true, false, { &ATK_Surf, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_KINGSROCK, },
   {  199, "Galarian Slowking", TYPE_POISON, TYPE_PSYCHIC, 190, 180, 216, "Galarian Slowpoke",
-		{ &ATK_Acid, &ATK_Confusion, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Sludge_Wave, &ATK_Scald, &ATK_Future_Sight, &ATK_Surf, },
+		{ &ATK_Acid, &ATK_Confusion, &ATK_Hex, &ATK_Psyshock, &ATK_Shadow_Ball, &ATK_Sludge_Wave, &ATK_Scald, &ATK_Future_Sight, &ATK_Surf, },
 		true, true, false, { &ATK_Surf, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  200, "Misdreavus", TYPE_GHOST, TYPECOUNT, 167, 154, 155, nullptr,
 		{ &ATK_Astonish, &ATK_Hex, &ATK_Psywave, &ATK_Dark_Pulse, &ATK_Shadow_Sneak, &ATK_Ominous_Wind, },
@@ -2213,7 +2213,7 @@ static const species sdex[] = {
 		{ &ATK_Fire_Fang, &ATK_Snarl, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Crunch, &ATK_Foul_Play, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, "Seadra",
-		{ &ATK_Dragon_Breath, &ATK_Water_Gun, &ATK_Waterfall, &ATK_Blizzard, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Octazooka, },
+		{ &ATK_Dragon_Breath, &ATK_Water_Gun, &ATK_Swift, &ATK_Waterfall, &ATK_Blizzard, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Octazooka, },
 		true, true, false, { &ATK_Water_Gun, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_DRAGONSCALE, },
   {  231, "Phanpy", TYPE_GROUND, TYPECOUNT, 107, 98, 207, nullptr,
 		{ &ATK_Tackle, &ATK_Rock_Smash, &ATK_Rock_Slide, &ATK_Bulldoze, &ATK_Body_Slam, &ATK_Trailblaze, },
@@ -2260,7 +2260,7 @@ static const species sdex[] = {
 		true, false, true, { &ATK_Wild_Charge, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   // the Thunder
   {  243, "Raikou", TYPE_ELECTRIC, TYPECOUNT, 241, 195, 207, nullptr,
-		{ &ATK_Thunder_Shock, &ATK_Volt_Switch, &ATK_Shadow_Ball, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Wild_Charge, },
+		{ &ATK_Thunder_Shock, &ATK_Volt_Switch, &ATK_Aura_Sphere, &ATK_Shadow_Ball, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Wild_Charge, },
 		true, true, true, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   // the Volcano
   {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, nullptr,
@@ -2292,7 +2292,7 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Earthquake, &ATK_Sacred_Fire, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   // the Time Travel
   {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, nullptr,
-		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Magical_Leaf, &ATK_Hyper_Beam, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Leaf_Storm, },
+		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Aura_Sphere, &ATK_Magical_Leaf, &ATK_Hyper_Beam, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Leaf_Storm, },
 		true, false, false, { &ATK_Magical_Leaf, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   // the Wood Gecko
   {  252, "Treecko", TYPE_GRASS, TYPECOUNT, 124, 94, 120, nullptr,
@@ -2458,7 +2458,7 @@ static const species sdex[] = {
 		{ &ATK_Zen_Headbutt, &ATK_Feint_Attack, &ATK_Charm, &ATK_Disarming_Voice, &ATK_Play_Rough, &ATK_Wild_Charge, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, nullptr,
-		{ &ATK_Shadow_Claw, &ATK_Feint_Attack, &ATK_Power_Gem, &ATK_Shadow_Sneak, &ATK_Dazzling_Gleam, &ATK_Foul_Play, },
+		{ &ATK_Shadow_Claw, &ATK_Feint_Attack, &ATK_Drain_Punch, &ATK_Power_Gem, &ATK_Shadow_Sneak, &ATK_Dazzling_Gleam, &ATK_Foul_Play, },
 		true, true, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, nullptr,
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Astonish, &ATK_Ice_Fang, &ATK_Fairy_Wind, &ATK_Vise_Grip, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Power_Up_Punch, },
@@ -2524,7 +2524,7 @@ static const species sdex[] = {
 		{ &ATK_Ember, &ATK_Rock_Smash, &ATK_Incinerate, &ATK_Earthquake, &ATK_Solar_Beam, &ATK_Overheat, &ATK_Earth_Power, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  324, "Torkoal", TYPE_FIRE, TYPECOUNT, 151, 203, 172, nullptr,
-		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Earthquake, &ATK_Solar_Beam, &ATK_Overheat, },
+		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Flame_Wheel, &ATK_Earthquake, &ATK_Solar_Beam, &ATK_Overheat, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  325, "Spoink", TYPE_PSYCHIC, TYPECOUNT, 125, 122, 155, nullptr,
 		{ &ATK_Splash, &ATK_Zen_Headbutt, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Mirror_Coat, },
@@ -2542,7 +2542,7 @@ static const species sdex[] = {
 		{ &ATK_Dragon_Breath, &ATK_Mud_Shot, &ATK_Sand_Attack, &ATK_Bug_Buzz, &ATK_Bulldoze, &ATK_Sand_Tomb, &ATK_Scorching_Sands, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  330, "Flygon", TYPE_GROUND, TYPE_DRAGON, 205, 168, 190, "Vibrava",
-		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Sand_Attack, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Dragon_Claw, &ATK_Earth_Power, &ATK_Boomburst, &ATK_Scorching_Sands, },
+		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Sand_Tomb, &ATK_Sand_Attack, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Dragon_Claw, &ATK_Earth_Power, &ATK_Boomburst, &ATK_Scorching_Sands, },
 		true, true, false, { &ATK_Earth_Power, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  331, "Cacnea", TYPE_GRASS, TYPECOUNT, 156, 74, 137, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Poison_Sting, &ATK_Sand_Attack, &ATK_Seed_Bomb, &ATK_Brick_Break, &ATK_Grass_Knot, &ATK_Payback, &ATK_Trailblaze, },
@@ -2554,7 +2554,7 @@ static const species sdex[] = {
 		{ &ATK_Peck, &ATK_Astonish, &ATK_Ice_Beam, &ATK_Aerial_Ace, &ATK_Disarming_Voice, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, "Swablu",
-		{ &ATK_Dragon_Breath, &ATK_Peck, &ATK_Dragon_Pulse, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Sky_Attack, },
+		{ &ATK_Dragon_Breath, &ATK_Peck, &ATK_Flamethrower, &ATK_Dragon_Pulse, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Sky_Attack, },
 		true, false, false, { &ATK_Moonblast, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Shadow_Claw, &ATK_Dig, &ATK_Night_Slash, &ATK_Close_Combat, },
@@ -2668,10 +2668,10 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Ember, &ATK_Flamethrower, &ATK_Twister, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  372, "Shelgon", TYPE_DRAGON, TYPECOUNT, 172, 155, 163, "Bagon",
-		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Flamethrower, &ATK_Twister, &ATK_Dragon_Pulse, },
+		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Crunch, &ATK_Flamethrower, &ATK_Twister, &ATK_Dragon_Pulse, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon",
-		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Dragon_Tail, &ATK_Fire_Blast, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Fly, },
+		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Dragon_Tail, &ATK_Crunch, &ATK_Fire_Blast, &ATK_Brutal_Swing, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Fly, },
 		true, true, false, { &ATK_Outrage, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, nullptr,
 		{ &ATK_Take_Down, &ATK_Iron_Head, },
@@ -2692,10 +2692,10 @@ static const species sdex[] = {
 		{ &ATK_Metal_Claw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
 		true, true, false, { &ATK_Zap_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, nullptr,
-		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
+		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Aura_Sphere, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
 		true, true, false, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, nullptr,
-		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
+		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Aura_Sphere, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
 		true, true, false, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, nullptr,
 		{ &ATK_Waterfall, &ATK_Blizzard, &ATK_Thunder, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Origin_Pulse, },
@@ -2707,7 +2707,7 @@ static const species sdex[] = {
 		{ &ATK_Dragon_Tail, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Ancient_Power, &ATK_Hurricane, &ATK_Outrage, &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, },
 		true, false, false, { &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, &ATK_Hurricane, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, nullptr,
-		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Doom_Desire, },
+		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Aura_Sphere, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Doom_Desire, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   {  386, "Deoxys", TYPE_PSYCHIC, TYPECOUNT, 345, 115, 137, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Charge_Beam, &ATK_Hyper_Beam, &ATK_Thunderbolt, &ATK_Psycho_Boost, },
@@ -2728,7 +2728,7 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Razor_Leaf, &ATK_Solar_Beam, &ATK_Body_Slam, &ATK_Energy_Ball, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  389, "Torterra", TYPE_GRASS, TYPE_GROUND, 202, 188, 216, "Grotle",
-		{ &ATK_Bite, &ATK_Razor_Leaf, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Solar_Beam, &ATK_Sand_Tomb, &ATK_Frenzy_Plant, },
+		{ &ATK_Bite, &ATK_Razor_Leaf, &ATK_Earthquake, &ATK_Mud_Slap, &ATK_Stone_Edge, &ATK_Solar_Beam, &ATK_Sand_Tomb, &ATK_Frenzy_Plant, },
 		true, true, false, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  390, "Chimchar", TYPE_FIRE, TYPECOUNT, 113, 86, 127, nullptr,
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Flame_Wheel, &ATK_Flamethrower, &ATK_Flame_Charge, },
@@ -2746,7 +2746,7 @@ static const species sdex[] = {
 		{ &ATK_Metal_Claw, &ATK_Bubble, &ATK_Bubble_Beam, &ATK_Hydro_Pump, &ATK_Icy_Wind, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  395, "Empoleon", TYPE_WATER, TYPE_STEEL, 210, 186, 197, "Prinplup",
-		{ &ATK_Metal_Claw, &ATK_Steel_Wing, &ATK_Waterfall, &ATK_Flash_Cannon, &ATK_Drill_Peck, &ATK_Blizzard, &ATK_Hydro_Pump, &ATK_Hydro_Cannon, },
+		{ &ATK_Metal_Claw, &ATK_Steel_Wing, &ATK_Waterfall, &ATK_Metal_Sound, &ATK_Flash_Cannon, &ATK_Drill_Peck, &ATK_Blizzard, &ATK_Hydro_Pump, &ATK_Hydro_Cannon, },
 		true, true, false, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  396, "Starly", TYPE_NORMAL, TYPE_FLYING, 101, 58, 120, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Tackle, &ATK_Sand_Attack, &ATK_Aerial_Ace, &ATK_Brave_Bird, &ATK_Fly, },
@@ -2818,7 +2818,7 @@ static const species sdex[] = {
 		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Air_Slash, &ATK_Bug_Buzz, &ATK_Power_Gem, &ATK_Signal_Beam, &ATK_X_Scissor, &ATK_Fell_Stinger, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, nullptr,
-		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, },
+		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Hyper_Fang, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  418, "Buizel", TYPE_WATER, TYPECOUNT, 132, 67, 146, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Water_Gun, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Swift, },
@@ -2906,7 +2906,7 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Take_Down, &ATK_Flamethrower, &ATK_Dig, &ATK_Twister, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, "Gabite",
-		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Earthquake, &ATK_Fire_Blast, &ATK_Sand_Tomb, &ATK_Outrage, &ATK_Earth_Power, },
+		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Earthquake, &ATK_Breaking_Swipe, &ATK_Fire_Blast, &ATK_Sand_Tomb, &ATK_Outrage, &ATK_Earth_Power, },
 		true, true, false, { &ATK_Earth_Power, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, nullptr,
 		{ &ATK_Lick, &ATK_Tackle, &ATK_Gunk_Shot, &ATK_Bulldoze, &ATK_Heavy_Slam, },
@@ -2933,7 +2933,7 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Low_Sweep, &ATK_Sludge_Bomb, &ATK_Brick_Break, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  454, "Toxicroak", TYPE_POISON, TYPE_FIGHTING, 211, 133, 195, "Croagunk",
-		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Counter, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, &ATK_Dynamic_Punch, },
+		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Counter, &ATK_Drain_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, &ATK_Dynamic_Punch, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  455, "Carnivine", TYPE_GRASS, TYPECOUNT, 187, 136, 179, nullptr,
 		{ &ATK_Bite, &ATK_Vine_Whip, &ATK_Power_Whip, &ATK_Energy_Ball, &ATK_Crunch, },
@@ -2976,7 +2976,7 @@ static const species sdex[] = {
 		{ &ATK_Karate_Chop, &ATK_Fire_Spin, &ATK_Thunderbolt, &ATK_Fire_Blast, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Brick_Break, &ATK_Scorching_Sands, },
 		true, true, false, { &ATK_Thunderbolt, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, },
   {  468, "Togekiss", TYPE_FAIRY, TYPE_FLYING, 225, 217, 198, "Togetic",
-		{ &ATK_Air_Slash, &ATK_Hidden_Power, &ATK_Charm, &ATK_Flamethrower, &ATK_Aerial_Ace, &ATK_Psyshock, &ATK_Ancient_Power, &ATK_Dazzling_Gleam, &ATK_Aura_Sphere, },
+		{ &ATK_Air_Slash, &ATK_Hidden_Power, &ATK_Charm, &ATK_Peck, &ATK_Flamethrower, &ATK_Aerial_Ace, &ATK_Psyshock, &ATK_Ancient_Power, &ATK_Dazzling_Gleam, &ATK_Aura_Sphere, },
 		true, false, false, { &ATK_Aura_Sphere, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SINNOHSTONE, },
   {  469, "Yanmega", TYPE_BUG, TYPE_FLYING, 231, 156, 200, "Yanma",
 		{ &ATK_Bug_Bite, &ATK_Wing_Attack, &ATK_Aerial_Ace, &ATK_Bug_Buzz, &ATK_Ancient_Power, },
@@ -3072,7 +3072,7 @@ static const species sdex[] = {
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Magical_Leaf, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   {  494, "Victini", TYPE_PSYCHIC, TYPE_FIRE, 210, 210, 225, nullptr,
-		{ &ATK_Quick_Attack, &ATK_Confusion, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Overheat, &ATK_V_Create, },
+		{ &ATK_Quick_Attack, &ATK_Confusion, &ATK_Psyshock, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Overheat, &ATK_V_Create, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   {  495, "Snivy", TYPE_GRASS, TYPECOUNT, 88, 107, 128, nullptr,
 		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Wrap, &ATK_Seed_Bomb, &ATK_Energy_Ball, },
@@ -3255,7 +3255,7 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Mud_Slap, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Crunch, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  553, "Krookodile", TYPE_GROUND, TYPE_DARK, 229, 158, 216, "Krokorok",
-		{ &ATK_Mud_Slap, &ATK_Snarl, &ATK_Earthquake, &ATK_Brick_Break, &ATK_Outrage, &ATK_Crunch, },
+		{ &ATK_Mud_Slap, &ATK_Snarl, &ATK_Sand_Tomb, &ATK_Earthquake, &ATK_Brick_Break, &ATK_Outrage, &ATK_Crunch, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  554, "Darumaka", TYPE_FIRE, TYPECOUNT, 153, 86, 172, nullptr,
 		{ &ATK_Tackle, &ATK_Fire_Fang, &ATK_Flame_Charge, &ATK_Fire_Punch, },
@@ -3276,7 +3276,7 @@ static const species sdex[] = {
 		{ &ATK_Cut, &ATK_Smack_Down, &ATK_Rock_Tomb, &ATK_X_Scissor, &ATK_Rock_Blast, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  558, "Crustle", TYPE_BUG, TYPE_ROCK, 188, 200, 172, "Dwebble",
-		{ &ATK_Fury_Cutter, &ATK_Smack_Down, &ATK_Rock_Slide, &ATK_X_Scissor, &ATK_Rock_Blast, },
+		{ &ATK_Fury_Cutter, &ATK_Smack_Down, &ATK_Rock_Wrecker, &ATK_Rock_Slide, &ATK_X_Scissor, &ATK_Rock_Blast, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  559, "Scraggy", TYPE_DARK, TYPE_FIGHTING, 132, 132, 137, nullptr,
 		{ &ATK_Feint_Attack, &ATK_Rock_Smash, &ATK_Thunder_Punch, &ATK_Brick_Break, &ATK_Foul_Play, &ATK_Acid_Spray, &ATK_Upper_Hand, },
@@ -3471,13 +3471,13 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Metal_Claw, &ATK_Earthquake, &ATK_Flash_Cannon, &ATK_Rock_Slide, &ATK_Muddy_Water, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  619, "Mienfoo", TYPE_FIGHTING, TYPECOUNT, 160, 98, 128, nullptr,
-		{ &ATK_Low_Kick, &ATK_Pound, &ATK_Low_Sweep, &ATK_Brick_Break, &ATK_Focus_Blast, &ATK_High_Jump_Kick, },
+		{ &ATK_Low_Kick, &ATK_Pound, &ATK_Low_Sweep, &ATK_Drain_Punch, &ATK_Brick_Break, &ATK_Focus_Blast, &ATK_High_Jump_Kick, },
 		true, false, false, { &ATK_High_Jump_Kick, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  620, "Mienshao", TYPE_FIGHTING, TYPECOUNT, 258, 127, 163, "Mienfoo",
-		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Force_Palm, &ATK_Stone_Edge, &ATK_Brick_Break, &ATK_Grass_Knot, &ATK_Blaze_Kick, &ATK_Brutal_Swing, },
+		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Force_Palm, &ATK_Drain_Punch, &ATK_Stone_Edge, &ATK_Brick_Break, &ATK_Grass_Knot, &ATK_Blaze_Kick, &ATK_Brutal_Swing, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  621, "Druddigon", TYPE_DRAGON, TYPECOUNT, 213, 170, 184, nullptr,
-		{ &ATK_Bite, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Night_Slash, &ATK_Dragon_Claw, },
+		{ &ATK_Bite, &ATK_Dragon_Tail, &ATK_Rock_Tomb, &ATK_Hyper_Beam, &ATK_Night_Slash, &ATK_Dragon_Claw, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  622, "Golett", TYPE_GROUND, TYPE_GHOST, 127, 92, 153, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Astonish, &ATK_Shadow_Punch, &ATK_Brick_Break, &ATK_Night_Shade, },
@@ -3597,7 +3597,7 @@ static const species sdex[] = {
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Flamethrower, &ATK_Psyshock, &ATK_Flame_Charge, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  655, "Delphox", TYPE_FIRE, TYPE_PSYCHIC, 230, 189, 181, "Braixen",
-		{ &ATK_Scratch, &ATK_Zen_Headbutt, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Fire_Blast, &ATK_Psychic, &ATK_Blast_Burn, &ATK_Mystical_Fire, },
+		{ &ATK_Scratch, &ATK_Zen_Headbutt, &ATK_Fire_Spin, &ATK_Psyshock, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Fire_Blast, &ATK_Psychic, &ATK_Blast_Burn, &ATK_Mystical_Fire, },
 		true, false, false, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  656, "Froakie", TYPE_WATER, TYPECOUNT, 122, 84, 121, nullptr,
 		{ &ATK_Pound, &ATK_Bubble, &ATK_Aerial_Ace, &ATK_Water_Pulse, &ATK_Surf, },
@@ -3684,7 +3684,7 @@ static const species sdex[] = {
 		{ &ATK_Charge_Beam, &ATK_Charm, &ATK_Thunderbolt, &ATK_Draining_Kiss, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  683, "Aromatisse", TYPE_FAIRY, TYPECOUNT, 173, 150, 226, "Spritzee",
-		{ &ATK_Charge_Beam, &ATK_Charm, &ATK_Thunderbolt, &ATK_Draining_Kiss, &ATK_Moonblast, &ATK_Psychic, },
+		{ &ATK_Charge_Beam, &ATK_Charm, &ATK_Thunderbolt, &ATK_Psyshock, &ATK_Draining_Kiss, &ATK_Moonblast, &ATK_Psychic, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  684, "Swirlix", TYPE_FAIRY, TYPECOUNT, 109, 119, 158, nullptr,
 		{ &ATK_Tackle, &ATK_Draining_Kiss, &ATK_Energy_Ball, },
@@ -3723,10 +3723,10 @@ static const species sdex[] = {
 		{ &ATK_Quick_Attack, &ATK_Mud_Slap, &ATK_Volt_Switch, &ATK_Parabolic_Charge, &ATK_Thunderbolt, &ATK_Bulldoze, &ATK_Grass_Knot, &ATK_Breaking_Swipe, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SUNSTONE, },
   {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, nullptr,
-		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Ancient_Power, &ATK_Dragon_Claw, &ATK_Stomp, },
+		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Rock_Tomb, &ATK_Ancient_Power, &ATK_Dragon_Claw, &ATK_Stomp, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  697, "Tyrantrum", TYPE_ROCK, TYPE_DRAGON, 227, 191, 193, "Tyrunt",
-		{ &ATK_Rock_Throw, &ATK_Dragon_Tail, &ATK_Charm, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Outrage, &ATK_Crunch, &ATK_Meteor_Beam, },
+		{ &ATK_Rock_Throw, &ATK_Dragon_Tail, &ATK_Charm, &ATK_Rock_Tomb, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Outrage, &ATK_Crunch, &ATK_Meteor_Beam, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  698, "Amaura", TYPE_ROCK, TYPE_ICE, 124, 109, 184, nullptr,
 		{ &ATK_Frost_Breath, &ATK_Powder_Snow, &ATK_Ancient_Power, &ATK_Thunderbolt, &ATK_Aurora_Beam, &ATK_Weather_Ball_Ice, },
@@ -3849,7 +3849,7 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Ember, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Crunch, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  727, "Incineroar", TYPE_FIRE, TYPE_DARK, 214, 175, 216, nullptr,
-		{ &ATK_Fire_Fang, &ATK_Snarl, &ATK_Double_Kick, &ATK_Dark_Pulse, &ATK_Flame_Charge, &ATK_Fire_Blast, &ATK_Blast_Burn, &ATK_Blaze_Kick, &ATK_Darkest_Lariat, },
+		{ &ATK_Fire_Fang, &ATK_Snarl, &ATK_Double_Kick, &ATK_Dark_Pulse, &ATK_Drain_Punch, &ATK_Brutal_Swing, &ATK_Flame_Charge, &ATK_Fire_Blast, &ATK_Blast_Burn, &ATK_Blaze_Kick, &ATK_Darkest_Lariat, },
 		true, false, false, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  728, "Popplio", TYPE_WATER, TYPECOUNT, 120, 103, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Aqua_Jet, &ATK_Aqua_Tail, &ATK_Water_Pulse, },
@@ -3981,7 +3981,7 @@ static const species sdex[] = {
 		{ &ATK_Zen_Headbutt, &ATK_Confusion, &ATK_Yawn, &ATK_Psychic, &ATK_Future_Sight, &ATK_Foul_Play, &ATK_Brutal_Swing, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, nullptr,
-		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Take_Down, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Superpower, &ATK_Brutal_Swing, },
+		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Take_Down, &ATK_Drain_Punch, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Superpower, &ATK_Brutal_Swing, },
 		true, false, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, nullptr,
 		{ &ATK_Struggle_Bug, &ATK_Bug_Buzz, },
@@ -3999,7 +3999,7 @@ static const species sdex[] = {
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  776, "Turtonator", TYPE_FIRE, TYPE_DRAGON, 165, 215, 155, nullptr,
-		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Incinerate, &ATK_Flamethrower, &ATK_Flash_Cannon, &ATK_Dragon_Pulse, &ATK_Overheat, },
+		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Incinerate, &ATK_Dragon_Claw, &ATK_Brutal_Swing, &ATK_Flamethrower, &ATK_Flash_Cannon, &ATK_Dragon_Pulse, &ATK_Overheat, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Wild_Charge, &ATK_Gyro_Ball, &ATK_Fell_Stinger, },
@@ -4020,10 +4020,10 @@ static const species sdex[] = {
 		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Brick_Break, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  783, "Hakamo-o", TYPE_DRAGON, TYPE_FIGHTING, 145, 162, 146, "Jangmo-o",
-		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Brick_Break, },
+		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Rock_Tomb, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Brick_Break, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  784, "Kommo-o", TYPE_DRAGON, TYPE_FIGHTING, 222, 240, 181, "Hakamo-o",
-		{ &ATK_Poison_Jab, &ATK_Dragon_Tail, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Boomburst, },
+		{ &ATK_Poison_Jab, &ATK_Dragon_Tail, &ATK_Upper_Hand, &ATK_Flamethrower, &ATK_Metal_Sound, &ATK_Dragon_Claw, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Boomburst, },
 		true, false, false, { &ATK_Clanging_Scales, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  785, "Tapu Koko", TYPE_ELECTRIC, TYPE_FAIRY, 250, 181, 172, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Volt_Switch, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Dazzling_Gleam, &ATK_Brave_Bird, &ATK_Natures_Madness, },
