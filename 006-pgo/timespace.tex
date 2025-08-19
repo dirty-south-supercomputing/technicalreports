@@ -6,9 +6,16 @@ The Trainer is localized using the device's location services, which typically
  combine signals from GPS, WiFi radio, cellular radio, and sensors.
 Flaky location services or networking will have a highly deleterious effect on your game,
  and substantial functionality is unavailable when moving at high speed\footnote{Common
- claims include 10.5 km/h and 15 km/h, but I've seen no evidence.}.
+ claims include 10.5 km/h and 15 km/h, but I've seen no evidence.}---in particular,
+ Pokémon cannot usually be caught while ``speed locked''.
 
 \section{The worldline of Pokémon GO\label{sec:world}}
+The Map view always shows the Trainer.
+It can be zoomed up to some limits; I \textit{highly} recommend keeping it
+ maximally zoomed out most of the time (zoom in if you're having trouble
+ distinguishing between proximate Map elements).
+Real world surface elements are drawn, but do not affect Trainer movement
+ (though they might have effects on spawns---\autoref{sec:spawns}).
 The planet's surface is partitioned into S2 cells\footnote{None of this information has been confirmed, but it has solid evidence.}, a hierarchy (typically using
  quadtrees) of geodesic quadrilaterals (their boundaries are straight lines on the curved
  surface) numbered along a set of Hilbert curves (preserving spatial locality as index locality)\footnote{Octavian Propcopiuc's ``Geometry on the Sphere: Google's S2 Library''.}.
@@ -17,7 +24,7 @@ The world is carved into chunks. You can see the ones nearby.
 \end{tipbox}
 The smallest S2 cell thought to be used is level 20, with a maximum of ten meters to a side.
 The center of such a cell is a potential spawn point \autoref{sec:spawns}, and there are over seven trillion level 20 cells.
-Spawning seems at least influenced by Trainer activity and input from OpenStreetMap, but this is speculative at best.
+Spawning seems influenced at least by Trainer activity and input from OpenStreetMap, but this is speculative at best.
 A level 17 cell contains zero or one ``point of interest'' (Pokéstop, Power Stop, Gym),
  sourced from Niantic's \textit{Ingress} game and Wayfarer community.
 Gyms are distributed among level 14 cells according to the number of contained points of interest (\autoref{table:pois}),

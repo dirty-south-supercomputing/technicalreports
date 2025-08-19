@@ -123,29 +123,31 @@
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
 
+\newcommand{\mcrot}[1]{\multicolumn{1}{l}{\rlap{\rotatebox{60}{#1}~}}}
 
 \begin{document}
 \begin{table}
 \scriptsize
 \centering
+%\setlength{\tabcolsep}{2pt}
 \begin{tabular}{p{.2\textwidth}cccccccccccc}
-Item              & S%hop
-                         & L%evel up
-                             & S%howcases
-                                   & R%oute
-                                        & G%ifts
-                                             & P%okéstop
-                                                   & G%runt
-                                                         & L%eader
-                                                               & B%reakthrough
-                                                                   & G%BL
-                                                                       & S%.\ Research
-                                                                           & G\\%round \\
+  Item              & \mcrot{Shop}
+                         & \mcrot{Level up}
+                             & \mcrot{Showcases}
+                                   & \mcrot{Route}
+                                        & \mcrot{Gifts}
+                                             & \mcrot{Pokéstop}
+                                                   & \mcrot{TGR Grunt}
+                                                         & \mcrot{Leader}
+                                                               & \mcrot{Breakthrough}
+                                                                   & \mcrot{GBL}
+                                                                       & \mcrot{Research}
+                                                                           & \mcrot{Map} \\
 \Midrule
 Lure              & 100  & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
 %Lure x8          & 680  &   &     &    &    &     &     &     &   &   &   &   \\
-Other lures       & 180  &   & ✓   &    &    &     &     &     &   &   &   &   \\
 Golden lure       &      &   &     &    &    &     &     &     &   &   & ✓ &   \\
+Other lures       & 180  &   & ✓   &    &    &     &     &     &   &   &   &   \\
 Incubator         & 150  & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
 Super Inc.        & 200  & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
 Incense           & 40   & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
@@ -159,23 +161,21 @@ Nanab             &      & ✓ &     & 3x &    &     &     &     &   &   &   &  
 Pinap             &      & ✓ &     & 3x &  ✓ &     &     &     &   &   &   &   \\
 Golden Razz       &      & ✓ & ✓   & ✓  &    &     &     &     &   &   &   &   \\
 Silver Pinap      &      & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
-Fast TM           &      & ✓ & ✓   & ✓  &    &     &     &     &   &   &   &   \\
-Charged TM        &      & ✓ & ✓   &    &    &     &     &     &   &   &   &   \\
-E. Fast           &      & ✓ &     & ✓  &    &     &     &     &   & ✓ &   &   \\
-E. Charged        &      & ✓ &     &    &    &     &     &     &   & ✓ &   &   \\
-Pokéball          & Yes  & ✓ &     &    &  ✓ &     &     &     &   &   &   &   \\
-Great Ball        &      & ✓ & 3x  &    &  ✓ &     &     &     &   &   &   &   \\
-Ultra Ball        &      & ✓ & 3x  & 3x &  ✓ &     &     &     &   &   &   &   \\
-Rare Candy        &      &   &     & 2x &    &     &     &     &   &   &   &   \\
-Rare XL           &      & ✓ &     & ✓  &    &     &     &     &   &   &   &   \\
-Potion            &      & ✓ &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
-Super Potion      &      & ✓ &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
-Hyper Potion      &      & ✓ & 3x  & 3x &  ✓ &  ✓  &     &     &   &   &   &   \\
-Max Potion        &      & ✓ &     &    &    &  ✓  &     & ✓   &   &   &   &   \\
-%Max Potion x10   & 200  &   &     &    &    &     &     &     &   &   &   &   \\
-Revive            &      & ✓ &     & 3x &    &  ✓  &     &  ✓  &   &   &   &   \\
-Max Revive        &      & ✓ &     &    &  ✓ &  ✓  &     &  ✓  &   &   &   &   \\
-%Max Revive x6    & 180  &   &     &    &    &     &     &     &   &   &   &   \\
+Fast TM           &      & ✓ & ✓   & ✓  &    &     &     &     &   &   & ✓ &   \\
+Charged TM        &      & ✓ & ✓   &    &    &     &     &     &   &   & ✓ &   \\
+E. Fast           &      & ✓ &     & ✓  &    &     &     &     &   & ✓ & ✓ &   \\
+E. Charged        &      & ✓ &     &    &    &     &     &     &   & ✓ & ✓ &   \\
+Pokéball          & Yes  & ✓ &     &    &  ✓ &     &     &     &   &   & ✓ &   \\
+Great Ball        &      & ✓ & 3x  &    &  ✓ &     &     &     &   &   & ✓ &   \\
+Ultra Ball        &      & ✓ & 3x  & 3x &  ✓ &     &     &     &   &   & ✓ &   \\
+Rare Candy        &      &   &     & 2x &    &     &     &     &   &   & ✓ &   \\
+Rare XL           &      & ✓ &     & ✓  &    &     &     &     &   &   & ✓ &   \\
+Potion            &      & ✓ &     &    &  ✓ &  ✓  &     &     &   &   & ✓ &   \\
+Super Potion      &      & ✓ &     &    &  ✓ &  ✓  &     &     &   &   & ✓ &   \\
+Hyper Potion      &      & ✓ & 3x  & 3x &  ✓ &  ✓  &     &     &   &   & ✓ &   \\
+Max Potion        &10@200& ✓ &     &    &    &  ✓  &     & ✓   &   &   & ✓ &   \\
+Revive            &      & ✓ &     & 3x &    &  ✓  &     &  ✓  &   &   & ✓ &   \\
+Max Revive        & 6@180& ✓ &     &    &  ✓ &  ✓  &     &  ✓  &   &   & ✓ &   \\
 Sun Stone         &      &   &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
 King's Rock       &      &   &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
 Metal Coat        &      &   &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
@@ -183,29 +183,28 @@ Dragon Scale      &      &   &     &    &  ✓ &  ✓  &     &     &   &   &   &
 Upgrade           &      &   &     &    &  ✓ &  ✓  &     &     &   &   &   &   \\
 Unova Stone       &      &   &     &    &    &     &     &  ✓  & ✓ &   &   &   \\
 Sinnoh Stone      &      &   &     &    &    &     &     &  ✓  & ✓ & ✓ &   &   \\
-Tart Apple        &      &   &     &    &    &     &     &     &   &   &   & ✓ \\ % more frequent with a mossy lure
-Sweet Apple       &      &   &     &    &    &     &     &     &   &   &   & ✓ \\ % more frequent with a mossy lure
-Zygarde Cell      &      &   &     &    &    &     &     &     &   &   &   & ✓ \\ % on routes, up to 3 per day
+Tart Apple        & \multicolumn{11}{r}{Appear more frequently around Mossy Lures} & ✓ \\
+Sweet Apple       & \multicolumn{11}{r}{Appear more frequently around Mossy Lures} & ✓ \\
+Zygarde Cell      & \multicolumn{11}{r}{Three collectible per diem on Routes} & ✓ \\
 Max Particle Pack & 150  &   &     &    &    &     &     &     &   &   &   &   \\
 %MPP x3           & 425  &   &     &    &    &     &     &     &   &   &   &   \\
 Max Mushroom      & 400  &   &     &    &    &     &     &     &   &   &   &   \\
 %Max Mushroom x3  & 1000 &   &     &    &    &     &     &     &   &   &   &   \\
-Raid pass         &      & ✓ &     &    &    &  ✓  &     &     &   &   &   &   \\ % once per day from gym if not holding one
+Raid pass         &      & ✓ &     &    &    &  ✓  & \multicolumn{6}{l}{First gym spin per diem} \\
 Remote raid pass  & 195  &   &     &    &    &     &     &     &   &   &   &   \\
 %RRP x3           & 525  &   &     &    &    &     &     &     &   &   &   &   \\
-Prem battle pass  & 100  & ✓ &     &    &    &     &     &     &   &   &   &   \\
+Battle pass       & 100  & ✓ &     &    &    &     &     &     &   &   &   &   \\
 %PBP x3           & 250  &   &     &    &    &     &     &     &   &   &   &   \\
 Poffin            & 100  &   &     &    &    &     &     &     &   &   &   &   \\
-Meteorite         &      &   &     &    &    &     &     &     &   &   & ✓ & ✓ \\ % mega rayquaza raids
-Gift              &      &   &     &    &    &  ✓  &     &     &   &   &   &   \\ % up to 20, up to 100 per day
-Mysterious comp.  &      &   &     &    &    &     &  ✓  &     &   &   & ✓ & ✓ \\
-Rocket Radar      &      &   &     &    &    &     &     &     &   &   & ✓ & ✓ \\ % assemble six components
-Sup Rocket Radar  &      &   &     &    &    &     &     &     &   &   & ✓ & ✓ \\
+Gift              &      &   &     &    &    &  ✓  & \multicolumn{6}{l}{Up to 100 per diem} \\
+Mysterious comp.  &      &   &     &    &    &     &  ✓  &     &   &   & ✓ &   \\
+Rocket Radar      & \multicolumn{10}{c}{Assembled from six Mysterious Components} & ✓ &   \\ % assemble six components
+Sup Rocket Radar  &      &   &     &    &    &     &     &     &   &   & ✓ &   \\
 Team Medallion    & 1000 &   &     &    &    &     &     &     &   &   &   &   \\
 Shadow Shard      &      &   &     &    &    &     &     &     &   &   &   &   \\
 Purify Gem        &      &   &     &    &    &     &     &     &   &   &   &   \\
-Lucky Trinket     &      &   &     &    &    &     &     &     &   &   & ✓ & ✓ \\
-Gold Bottle Cap   &      &   &     &    &    &     &     &     &   &   & ✓ & ✓ \\
+Lucky Trinket     &      &   &     &    &    &     &     &     &   &   & ✓ &   \\
+Gold Bottle Cap   &      &   &     &    &    &     &     &     &   &   & ✓ &   \\
 \end{tabular}
 \caption{Bag items and where to score them\label{table:items}}
 \end{table}

@@ -5490,7 +5490,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
       calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
   //if(overzoom){
-    printf(",interior style={fill overzoom image=images/pokédex/");
+    printf(",interior style={fill overzoom image=images/highres/");
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.2}");
   //}
