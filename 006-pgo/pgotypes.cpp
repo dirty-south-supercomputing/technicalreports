@@ -4753,18 +4753,20 @@ struct stats {
   float average;            // arithemetic mean of effa, effd, mhp
   float geommean;           // geometric mean of effa, effd, mhp
   float apercent;           // geommean advantage over pessimal level-maxed iv
+  bool shadow;              // is this the shadow variant?
   struct stats* next;
 
   stats(){
     s = nullptr;
   }
 
-  stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow)
-    : s(S),
+  stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow) :
+    s(S),
     hlevel(Hlevel),
     ia(IA),
     id(ID),
-    is(IS)
+    is(IS),
+    shadow(Shadow)
   {
     unsigned moda = s->atk + ia;
     unsigned modd = s->def + id;

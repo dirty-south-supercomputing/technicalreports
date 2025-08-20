@@ -13,7 +13,6 @@ create_shadow(const species* s){
   }
 #define SHADPREFIX "Shadow "
   species *news = new species(SHADPREFIX + s->name);
-#undef SHADPREFIX
   news->idx = s->idx;
   news->t1 = s->t1;
   news->t2 = s->t2;
@@ -72,7 +71,19 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s)){
   unsigned l = halflevel_to_level(sols->hlevel, &half);
   print_types(sols->s->t1, sols->s->t2);
   putc(' ', stdout);
-  escape_string(sols->s->name.c_str());
+  const char *name = sols->s->name.c_str();
+  if(sols->shadow){
+    if(strncmp(name, SHADPREFIX, strlen(SHADPREFIX))){
+      std::cerr << "marked shadow but name was " << name << std::endl;
+      throw std::exception();
+    }
+    name += strlen(SHADPREFIX);
+  }
+#undef SHADPREFIX
+  escape_string(name);
+  if(sols->shadow){
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}}");
+  }
   printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
           sols->ia, sols->id, sols->is, l, half ? ".5" : "",
           sols->mhp, sols->effa, sols->effd,
@@ -166,7 +177,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & $A\\%%$ \\\\\n");
+  printf("Species & IV·L & \\HP & Eff\\textsubscript{A} & Eff\\textsubscript{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & A\\%% \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
