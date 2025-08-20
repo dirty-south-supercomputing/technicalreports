@@ -111,11 +111,8 @@ lex_iv(const char *arg, int *ia, int *id, int *is){
 static constexpr unsigned IVLEVVEC =
   (MAXIVELEM + 1) * (MAXIVELEM + 1) * (MAXIVELEM + 1);
 
-// generate the stats for each of 4,096 possible IVs at their maximum level
-// subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
-static stats *
-order_ivs(const species *s, int cpceil, bool shadow, int(*cmpfxn)(const void*, const void*)){
-  stats *svec = new stats[IVLEVVEC];
+static void
+order_ivs_internal(const species *s, int cpceil, stats *svec, bool shadow){
   unsigned idx = 0;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
@@ -132,13 +129,30 @@ order_ivs(const species *s, int cpceil, bool shadow, int(*cmpfxn)(const void*, c
         st.ia = iva;
         st.id = ivd;
         st.is = ivs;
+        st.shadow = shadow;
         st.geommean = calc_pok_gmean(&st);
         st.average = calc_pok_amean(&st);
         ++idx;
       }
     }
   }
-  qsort(svec, IVLEVVEC, sizeof(*svec), cmpfxn);
+}
+
+// generate the stats for each of 4,096 possible IVs at their maximum level
+// subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
+static stats *
+order_ivs(const species *s, int cpceil, int(*cmpfxn)(const void*, const void*),
+          unsigned *vcount){
+  *vcount = IVLEVVEC;
+  if(s->shadow){
+    *vcount *= 2;
+  }
+  stats *svec = new stats[*vcount];
+  order_ivs_internal(s, cpceil, svec, false);
+  if(s->shadow){
+    order_ivs_internal(s, cpceil, svec + IVLEVVEC, true);
+  }
+  qsort(svec, *vcount, sizeof(*svec), cmpfxn);
   return svec;
 }
 
@@ -182,26 +196,41 @@ statscmp_mhp(const void *vst1, const void *vst2){
           st1->mhp > st2->mhp ? 1 : 0;
 }
 
+static int
+statscmp_bulk(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  const float b1 = st1->mhp * st1->effd;
+  const float b2 = st2->mhp * st2->effd;
+  return b1 < b2 ? -1 : b1 > b2 ? 1 : 0;
+}
+
 static void
 summarize_stat(const stats &st){
   std::cout << st.geommean << " " << st.average << " ";
+  std::cout << st.cp;
+  std::cout << " " << st.effa << " " << st.effd << " " << st.mhp << " ";
   unsigned half;
   unsigned l = halflevel_to_level(st.hlevel, &half);
-  std::cout << st.cp << " " << l;
+  std::cout << "\\ivlev{" << st.ia << "}{" << st.id << "}{" << st.is << "}{" << l;
   if(half){
     std::cout << ".5";
   }
-  std::cout << " " << st.effa << " " << st.effd << " " << st.mhp << " ";
-  std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+  std::cout << "}";
+  if(st.shadow){
+    std::cout << " \\shadow";
+  }
+  std::cout << std::endl;
 }
 
 static void
 summarize_fxn(const species *s, int cpceil, const char *str,
               int(*cmpfxn)(const void*, const void*), int items){
-  auto opts = order_ivs(s, cpceil, false, cmpfxn);
+  unsigned vcount;
+  auto opts = order_ivs(s, cpceil, cmpfxn, &vcount);
   std::cout << str << std::endl;
   for(int i = 0 ; i < items ; ++i){
-    const stats &st = opts[IVLEVVEC - i - 1];
+    const stats &st = opts[vcount - i - 1];
     summarize_stat(st);
   }
   std::cout << "..." << std::endl;
@@ -213,15 +242,16 @@ summarize_fxn(const species *s, int cpceil, const char *str,
   delete[] opts;
 }
 
-// top 5 / bottom 5 for various fitness functions
+// top n + bottom n for various fitness functions
 static void
 summarize(const species *s, int cpceil){
-  constexpr int items = 5;
+  constexpr int items = 4;
   summarize_fxn(s, cpceil, "Geometric mean", statscmp_gmean, items);
   summarize_fxn(s, cpceil, "Arithmetic mean", statscmp_amean, items);
   summarize_fxn(s, cpceil, "Attack", statscmp_atk, items);
   summarize_fxn(s, cpceil, "Defense", statscmp_def, items);
   summarize_fxn(s, cpceil, "MHP", statscmp_mhp, items);
+  summarize_fxn(s, cpceil, "Bulk", statscmp_bulk, items);
 }
 
 int main(int argc, const char **argv){
