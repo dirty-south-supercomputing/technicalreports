@@ -183,22 +183,31 @@ statscmp_mhp(const void *vst1, const void *vst2){
 }
 
 static void
+summarize_stat(const stats &st){
+  std::cout << st.geommean << " " << st.average << " ";
+  unsigned half;
+  unsigned l = halflevel_to_level(st.hlevel, &half);
+  std::cout << st.cp << " " << l;
+  if(half){
+    std::cout << ".5";
+  }
+  std::cout << " " << st.effa << " " << st.effd << " " << st.mhp << " ";
+  std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+}
+
+static void
 summarize_fxn(const species *s, int cpceil, const char *str,
               int(*cmpfxn)(const void*, const void*), int items){
   auto opts = order_ivs(s, cpceil, false, cmpfxn);
   std::cout << str << std::endl;
   for(int i = 0 ; i < items ; ++i){
     const stats &st = opts[IVLEVVEC - i - 1];
-    std::cout << st.geommean << " ";
-    std::cout << st.cp << " " << st.hlevel << " ";
-    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+    summarize_stat(st);
   }
   std::cout << "..." << std::endl;
   for(int i = 0 ; i < items ; ++i){
     const stats &st = opts[items - i];
-    std::cout << st.geommean << " ";
-    std::cout << st.cp << " " << st.hlevel << " ";
-    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+    summarize_stat(st);
   }
   std::cout << std::endl;
   delete[] opts;
