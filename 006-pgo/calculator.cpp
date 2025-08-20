@@ -132,12 +132,14 @@ int main(int argc, const char **argv){
       usage(argv[0]);
     }
   }
-  std::cout << "cp: " << cp << " ia: " << ia << " id: " << id << " is: " << is << std::endl;
+  if(cp > 0){
+    std::cout << "cp: " << cp << " ";
+  }
+  std::cout << "ia: " << ia << " id: " << id << " is: " << is << std::endl;
   auto st = reverse_ivs_level(s, cp, &ia, &id, &is);
   if(!st && cp > 0){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
   }
-  // FIXME walk st
   return EXIT_SUCCESS;
 }
