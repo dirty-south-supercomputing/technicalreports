@@ -4688,36 +4688,6 @@ static const struct spokedex {
   { NULL, 0, }
 };
 
-struct stats {
-  const species* s;
-  unsigned atk, def, sta;   // base stats for the Form
-  unsigned hlevel;          // halflevel 1..99
-  unsigned ia, id, is;      // individual vector components
-  float effa, effd;         // effective attack and defense
-  unsigned mhp;             // max hit points
-  unsigned cp;              // combat power
-  float average;            // arithemetic mean of effa, effd, mhp
-  float geommean;           // geometric mean of effa, effd, mhp
-  float apercent;           // geommean advantage over pessimal level-maxed iv
-  struct stats* next;
-
-  stats(){
-    s = nullptr;
-  }
-
-  stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS)
-    : s(S),
-    atk(s->atk),
-    def(s->def),
-    sta(s->sta),
-    hlevel(Hlevel),
-    ia(IA),
-    id(ID),
-    is(IS)
-  {}
-
-};
-
 // atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
 static int
 calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
@@ -4759,18 +4729,64 @@ calc_mhp(unsigned sta, unsigned halflevel){
 }
 
 static inline float
-calc_avg(float effa, float effd, unsigned mhp){
+calc_amean(float effa, float effd, unsigned mhp){
   return (effa + effd + mhp) / 3;
 }
 
 static inline float
-calc_fit(float effa, float effd, unsigned mhp){
+calc_gmean(float effa, float effd, unsigned mhp){
   return cbrt(effa * effd * mhp);
 }
 
 static inline float
 calc_ppe(const attack *a){
   return a->powertrain / (float)-a->energytrain;
+}
+
+struct stats {
+  const species* s;
+  unsigned hlevel;          // halflevel 1..99
+  unsigned ia, id, is;      // individual vector components
+  float effa, effd;         // effective attack and defense
+  unsigned mhp;             // max hit points
+  unsigned cp;              // combat power
+  float average;            // arithemetic mean of effa, effd, mhp
+  float geommean;           // geometric mean of effa, effd, mhp
+  float apercent;           // geommean advantage over pessimal level-maxed iv
+  struct stats* next;
+
+  stats(){
+    s = nullptr;
+  }
+
+  stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow)
+    : s(S),
+    hlevel(Hlevel),
+    ia(IA),
+    id(ID),
+    is(IS)
+  {
+    unsigned moda = s->atk + ia;
+    unsigned modd = s->def + id;
+    unsigned mods = s->sta + is;
+    effa = calc_eff_a(moda, hlevel, Shadow);
+    effd = calc_eff_d(modd, hlevel, Shadow);
+    mhp = calc_mhp(mods, hlevel);
+    cp = calccp(moda, modd, mods, hlevel);
+    average = calc_amean(effa, effd, mhp);
+    geommean = calc_gmean(effa, effd, mhp);
+  }
+
+};
+
+static inline float
+calc_pok_amean(const stats *s){
+  return calc_amean(s->effa, s->effd, s->mhp);
+}
+
+static inline float
+calc_pok_gmean(const stats *s){
+  return calc_gmean(s->effa, s->effd, s->mhp);
 }
 
 // returns integer part, sets *half to 1 if it's a +0.5
@@ -4798,24 +4814,31 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   return lastgood;
 }
 
-// optimize on arithmetic or geometric mean subject to floor
+static inline float
+calc_fitfxn(float (*fitfxn)(const stats *), const species *s,
+            unsigned ia, unsigned id, unsigned is, unsigned hl,
+            bool shadow){
+  stats st{s, hl, ia, id, is, shadow};
+//std::cerr << s->name << " " << ia << " " << id << " " << is << " " << hl << std::endl;
+  return fitfxn(&st);
+}
+
+// optimize on comparable fitness function subject to floor
 static int
 update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float floor, float* minmean,
-              bool isshadow, bool amean){
+              unsigned is, unsigned hl, float floor, float* minfit,
+              bool isshadow, float (*fitfxn)(const stats *)){
   stats **prev = osets;
   stats *cur;
+  float m = calc_fitfxn(fitfxn, s, ia, id, is, hl, isshadow);
   unsigned moda = s->atk + ia;
   unsigned modd = s->def + id;
   float effa = calc_eff_a(moda, hl, isshadow);
   float effd = calc_eff_d(modd, hl, isshadow);
   unsigned mods = s->sta + is;
-  unsigned mhp = calc_mhp(s->sta + is, hl);
-  float am = calc_avg(effa, effd, mhp);
-  float gm = calc_fit(effa, effd, mhp);
-  float m = amean ? am : gm;
-  if(m < *minmean || *minmean <= 0){
-    *minmean = m;
+  unsigned mhp = calc_mhp(mods, hl);
+  if(m < *minfit || *minfit <= 0){
+    *minfit = m;
   }
   if(m < floor){
     return 0;
@@ -4843,30 +4866,25 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
       prev = &cur->next;
     }
   }
-  cur = new stats(s, hl, ia, id, is);
-  cur->effa = effa;
-  cur->effd = effd;
-  cur->mhp = mhp;
-  cur->cp = calccp(moda, modd, mods, cur->hlevel);
-  cur->average = am;
-  cur->geommean = gm;
+  cur = new stats(s, hl, ia, id, is, isshadow);
   cur->next = *prev;
   *prev = cur;
   return 0;
 }
 
-// returns the optimal levels+ivs (using arithmetic or geometric mean of effA,
-// effD, and MHP) with a CP less than or equal to cpceil and arithmetic or
-// geometric mean of EffA, EffD and MHP greater than or equal to floor.
-stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, bool amean){
+// returns the optimal levels+ivs (using provided comparable fitness function)
+// with a CP less than or equal to cpceil and fitness function greater than or
+// equal to floor.
+// FIXME if last argument is true, we want calc_amean(), otherwise calc_gmean()
+stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
   stats* optsets = NULL;
-  float minmean = -1;
+  float minfit = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
         unsigned hl = maxlevel_cp_bounded(s->atk + iva, s->def + ivd, s->sta + ivs, cpceil, &cp);
-        if(update_optset(&optsets, s, iva, ivd, ivs, hl, floor, &minmean, isshadow, amean) < 0){
+        if(update_optset(&optsets, s, iva, ivd, ivs, hl, floor, &minfit, isshadow, fitfxn) < 0){
           return NULL;
         }
       }
@@ -4881,7 +4899,7 @@ stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow
     cur = optsets;
     optsets = cur->next;
     cur->s = s;
-    float m = amean ? cur->average : cur->geommean;
+    float m = fitfxn(cur);
     //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(m > maxmean){ // new optimal
@@ -4904,7 +4922,7 @@ stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow
     }
   }
   for(stats *ss = collectopt ; ss ; ss = ss->next){
-    ss->apercent = ((amean ? ss->average : ss->geommean) / minmean - 1.0) * 100;
+    ss->apercent = (fitfxn(ss) / minfit - 1.0) * 100;
   }
   return collectopt;
 }
@@ -5035,8 +5053,10 @@ unsigned learner_count(const attack* as){
   return count;
 }
 
-void print_optimal_latex(const species* sp){
-  stats* s = find_optimal_set(sp, 2500, 0, false, false);
+// used for species cards, always wants geometric mean
+static void
+print_optimal_latex(const species* sp){
+  stats* s = find_optimal_set(sp, 2500, 0, false, calc_pok_gmean);
   printf("\\hfill{}");
   unsigned cp = 0;
   unsigned printed = 0;
@@ -5057,7 +5077,7 @@ void print_optimal_latex(const species* sp){
   }
   printed = 0;
   if(cp >= 1500){
-    s = find_optimal_set(sp, 1500, 0, false, false);
+    s = find_optimal_set(sp, 1500, 0, false, calc_pok_gmean);
     printf("\\newline{}\\hfill{}");
     while(s){
       stats* tmp = s->next;
@@ -5488,7 +5508,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
-      calc_avg(s->atk, s->def, s->sta), calc_fit(s->atk, s->def, s->sta));
+      calc_amean(s->atk, s->def, s->sta), calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
     printf(",interior style={fill overzoom image=images/highres/");
     escape_filename(s->name.c_str());
@@ -5623,8 +5643,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
     const float def = s->def * 5 / 6.0;
-    const float avg = calc_avg(atk, def, s->sta);
-    const float gm = calc_fit(atk, def, s->sta);
+    const float avg = calc_amean(atk, def, s->sta);
+    const float gm = calc_gmean(atk, def, s->sta);
     printf("%g %g %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
   }
 
@@ -5685,7 +5705,7 @@ int lex_ivlevel(const char* ivl, stats* s, bool shadow){
     ++ivl;
   }
   if((r = sscanf(ivl, "opt%u", &cp)) == 1){
-    stats *st = find_optimal_set(s->s, cp, 0, shadow, false);
+    stats *st = find_optimal_set(s->s, cp, 0, shadow, calc_pok_gmean);
     if(st == NULL){
       fprintf(stderr, "couldn't find optimal config for cp %u\n", cp);
       return -1;

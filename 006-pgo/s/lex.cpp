@@ -19,14 +19,11 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
 // fill in a stats structure given only species, IVs, and level
 static void
 fill_stats(stats* s){
-  s->atk = s->s->atk;
-  s->def = s->s->def;
-  s->sta = s->s->sta;
-  s->effa = calc_eff_a(s->atk + s->ia, s->hlevel, false);
-  s->effd = calc_eff_d(s->def + s->id, s->hlevel, false);
-  s->mhp = calc_mhp(s->sta + s->is, s->hlevel);
-  s->geommean = calc_fit(s->effa, s->effd, s->mhp);
-  s->cp = calccp(s->atk + s->ia, s->def + s->id, s->sta + s->is, s->hlevel);
+  s->effa = calc_eff_a(s->s->atk + s->ia, s->hlevel, false);
+  s->effd = calc_eff_d(s->s->def + s->id, s->hlevel, false);
+  s->mhp = calc_mhp(s->s->sta + s->is, s->hlevel);
+  s->geommean = calc_gmean(s->effa, s->effd, s->mhp);
+  s->cp = calccp(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, s->hlevel);
   s->next = NULL;
 }
 

@@ -122,7 +122,7 @@ print_bounded_bulktable(int bound, float lbound){
   // FIXME want to maximize bulk, not geometric mean!
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false, false);
+    stats *s = find_optimal_set(sp, bound, lbound, false, calc_pok_gmean);
     if(s){
       s->next = sols;
       sols = s;
@@ -160,7 +160,7 @@ print_bounded_bulktable(int bound, float lbound){
 
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
 static void
-print_bounded_table(int bound, float lbound, bool amean){
+print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar){
   printf("\\begingroup\n");
   printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
@@ -172,19 +172,19 @@ print_bounded_table(int bound, float lbound, bool amean){
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false, amean);
-    if(sp->shadow && amean){
+    stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
+    if(sp->shadow && fitchar == 'a'){
       const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, lbound, true, amean);
-      insert_opt_stat(&sols, shadsets, amean);
+      stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
+      insert_opt_stat(&sols, shadsets, fitchar == 'a');
     }
-    insert_opt_stat(&sols, s, amean);
+    insert_opt_stat(&sols, s, fitchar == 'a');
   }
   while( (sols = print_sol_set(sols, get_apercent)) ){
     ;
   }
   printf("\\captionlistentry{Optimal solutions bounded by %d \\CP}\n", bound);
-  printf("\\label{table:cp%d%c}\n", bound, amean ? 'a' : 'g');
+  printf("\\label{table:cp%d%c}\n", bound, fitchar);
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
 }
@@ -208,17 +208,20 @@ int main(int argc, char** argv){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
-  bool amean;
+  float(*fitfxn)(const stats *);
+  char fitchar;
   if(strcmp(argv[1], "g") == 0){
-    amean = false;
+    fitfxn = calc_pok_gmean;
+    fitchar = 'g';
   }else if(strcmp(argv[1], "a") == 0){
-    amean = true;
+    fitfxn = calc_pok_amean;
+    fitchar = 'a';
   }else if(strcmp(argv[1], "b") == 0){
     print_bounded_bulktable(hcp, lam);
     return EXIT_SUCCESS;
   }else{
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam, amean);
+  print_bounded_table(hcp, lam, fitfxn, fitchar);
   return EXIT_SUCCESS;
 }

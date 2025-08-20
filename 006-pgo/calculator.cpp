@@ -40,8 +40,8 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
       auto effd = calc_eff_d(s->def + id, hlevel, false);
       auto hp = calc_mhp(s->sta + is, hlevel);
       std::cout << " EffA: " << effa << " EffD: " << effd << " HP: " << hp;
-      std::cout << " gm: " << calc_fit(effa, effd, hp);
-      std::cout << " am: " << calc_avg(effa, effd, hp);
+      std::cout << " gm: " << calc_gmean(effa, effd, hp);
+      std::cout << " am: " << calc_amean(effa, effd, hp);
       std::cout << std::endl;
       break;
     }
@@ -49,7 +49,7 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
   if(hlevel > MAX_HALFLEVEL){
     return nullptr;
   }
-  auto st = new stats(s, hlevel, ia, id, is);
+  auto st = new stats(s, hlevel, ia, id, is, false);
   return st;
 }
 
@@ -68,9 +68,9 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
         std::cout << "  " << l;
       }
       cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
-      auto gmean = calc_fit(calc_eff_a(s->atk + *ia, hlevel, false),
-                            calc_eff_d(s->def + *id, hlevel, false),
-                            calc_mhp(s->sta + *is, hlevel));
+      auto gmean = calc_gmean(calc_eff_a(s->atk + *ia, hlevel, false),
+                              calc_eff_d(s->def + *id, hlevel, false),
+                              calc_mhp(s->sta + *is, hlevel));
       std::cout << ": " << cp << " (" << gmean << ") " << "\t";
       if(hlevel % 4 == 0){
         std::cout << std::endl;
@@ -118,7 +118,9 @@ int main(int argc, const char **argv){
   }
   std::cout << argv[1] << " atk: " << s->atk << " def: " << s->def << " sta: " << s->sta << std::endl;
   int ia = -1, id = -1, is = -1, cp = -1;
-  if(argc == 3){
+  if(argc == 2){
+    // top 5 / bottom 5 for various fitness functions
+  }else if(argc == 3){
     if(lex_iv(argv[2], &ia, &id, &is)){
       if((cp = lex_cp(argv[2])) < 0){
         usage(argv[0]);
@@ -140,6 +142,12 @@ int main(int argc, const char **argv){
   if(!st && cp > 0){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
+  }
+  const species *evol;
+  if( (evol = get_persistent_evolution(s)) ){
+    std::cout << "evolution: " << evol->name << std::endl;
+  }else{
+    std::cout << "no evolution" << std::endl;
   }
   return EXIT_SUCCESS;
 }
