@@ -4749,7 +4749,7 @@ struct stats {
   unsigned ia, id, is;      // individual vector components
   float effa, effd;         // effective attack and defense
   unsigned mhp;             // max hit points
-  unsigned cp;              // combat power
+  int cp;                   // combat power
   float average;            // arithemetic mean of effa, effd, mhp
   float geommean;           // geometric mean of effa, effd, mhp
   float apercent;           // geommean advantage over pessimal level-maxed iv

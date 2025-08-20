@@ -98,7 +98,8 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
   return sols;
 }
 
-static int lex_iv(const char *arg, int *ia, int *id, int *is){
+static int
+lex_iv(const char *arg, int *ia, int *id, int *is){
   int r;
   if((r = sscanf(arg, " %u-%u-%u", ia, id, is)) != 3){
     std::cerr << "expected N-N-N, got " << arg << std::endl;
@@ -107,8 +108,65 @@ static int lex_iv(const char *arg, int *ia, int *id, int *is){
   return 0;
 }
 
+static constexpr unsigned IVLEVVEC =
+  (MAXIVELEM + 1) * (MAXIVELEM + 1) * (MAXIVELEM + 1);
+
+// generate the stats for each of 4,096 possible IVs at their maximum level
+// subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
+static stats *
+order_ivs(const species *s, int cpceil, bool shadow, int(*cmpfxn)(const void*, const void*)){
+  stats *svec = new stats[IVLEVVEC];
+  unsigned idx = 0;
+  for(int iva = 0 ; iva < 16 ; ++iva){
+    for(int ivd = 0 ; ivd < 16 ; ++ivd){
+      for(int ivs = 0 ; ivs < 16 ; ++ivs){
+        auto &st = svec[idx];
+        const unsigned moda = s->atk + iva;
+        const unsigned modd = s->def + ivd;
+        const unsigned mods = s->sta + ivs;
+        st.hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
+        st.s = s;
+        st.effa = calc_eff_a(moda, st.hlevel, shadow);
+        st.effd = calc_eff_d(modd, st.hlevel, shadow);
+        st.mhp = calc_mhp(mods, st.hlevel);
+        st.ia = iva;
+        st.id = ivd;
+        st.is = ivs;
+        st.geommean = calc_pok_gmean(&st);
+        st.average = calc_pok_amean(&st);
+        ++idx;
+      }
+    }
+  }
+  qsort(svec, IVLEVVEC, sizeof(*svec), cmpfxn);
+  return svec;
+}
+
+static int
+statscmp_gmean(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->geommean < st2->geommean ? -1 :
+          st1->geommean > st2->geommean ? 1 : 0;
+}
+
+// top 5 / bottom 5 for various fitness functions
+static void
+summarize(const species *s, int cpceil){
+  constexpr int items = 5;
+  // geometric mean
+  auto opts = order_ivs(s, cpceil, false, statscmp_gmean);
+  std::cout << "Geometric mean" << std::endl;
+  for(int i = 0 ; i < items ; ++i){
+    const stats &st = opts[IVLEVVEC - i - 1];
+    std::cout << st.cp << " " << st.hlevel << " ";
+    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+  }
+  delete[] opts;
+}
+
 int main(int argc, const char **argv){
-  if(argc < 3 || argc > 4){
+  if(argc < 2 || argc > 4){
     usage(argv[0]);
   }
   const species *s = lookup_species(argv[1]);
@@ -119,7 +177,9 @@ int main(int argc, const char **argv){
   std::cout << argv[1] << " atk: " << s->atk << " def: " << s->def << " sta: " << s->sta << std::endl;
   int ia = -1, id = -1, is = -1, cp = -1;
   if(argc == 2){
-    // top 5 / bottom 5 for various fitness functions
+    summarize(s, 1500);
+    summarize(s, 2500);
+    return EXIT_SUCCESS;
   }else if(argc == 3){
     if(lex_iv(argv[2], &ia, &id, &is)){
       if((cp = lex_cp(argv[2])) < 0){

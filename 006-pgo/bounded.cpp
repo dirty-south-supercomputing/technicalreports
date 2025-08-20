@@ -177,7 +177,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & \\HP & Eff\\textsubscript{A} & Eff\\textsubscript{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & A\\%% \\\\\n");
+  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & A\\%% \\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
