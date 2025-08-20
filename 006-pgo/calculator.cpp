@@ -150,19 +150,69 @@ statscmp_gmean(const void *vst1, const void *vst2){
           st1->geommean > st2->geommean ? 1 : 0;
 }
 
+static int
+statscmp_amean(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->average < st2->average ? -1 :
+          st1->average > st2->average ? 1 : 0;
+}
+
+static int
+statscmp_atk(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->effa < st2->effa ? -1 :
+          st1->effa > st2->effa ? 1 : 0;
+}
+
+static int
+statscmp_def(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->effd < st2->effd ? -1 :
+          st1->effd > st2->effd ? 1 : 0;
+}
+
+static int
+statscmp_mhp(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->mhp < st2->mhp ? -1 :
+          st1->mhp > st2->mhp ? 1 : 0;
+}
+
+static void
+summarize_fxn(const species *s, int cpceil, const char *str,
+              int(*cmpfxn)(const void*, const void*), int items){
+  auto opts = order_ivs(s, cpceil, false, cmpfxn);
+  std::cout << str << std::endl;
+  for(int i = 0 ; i < items ; ++i){
+    const stats &st = opts[IVLEVVEC - i - 1];
+    std::cout << st.geommean << " ";
+    std::cout << st.cp << " " << st.hlevel << " ";
+    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+  }
+  std::cout << "..." << std::endl;
+  for(int i = 0 ; i < items ; ++i){
+    const stats &st = opts[items - i];
+    std::cout << st.geommean << " ";
+    std::cout << st.cp << " " << st.hlevel << " ";
+    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
+  }
+  std::cout << std::endl;
+  delete[] opts;
+}
+
 // top 5 / bottom 5 for various fitness functions
 static void
 summarize(const species *s, int cpceil){
   constexpr int items = 5;
-  // geometric mean
-  auto opts = order_ivs(s, cpceil, false, statscmp_gmean);
-  std::cout << "Geometric mean" << std::endl;
-  for(int i = 0 ; i < items ; ++i){
-    const stats &st = opts[IVLEVVEC - i - 1];
-    std::cout << st.cp << " " << st.hlevel << " ";
-    std::cout << st.ia << "/" << st.id << "/" << st.is << std::endl;
-  }
-  delete[] opts;
+  summarize_fxn(s, cpceil, "Geometric mean", statscmp_gmean, items);
+  summarize_fxn(s, cpceil, "Arithmetic mean", statscmp_amean, items);
+  summarize_fxn(s, cpceil, "Attack", statscmp_atk, items);
+  summarize_fxn(s, cpceil, "Defense", statscmp_def, items);
+  summarize_fxn(s, cpceil, "MHP", statscmp_mhp, items);
 }
 
 int main(int argc, const char **argv){

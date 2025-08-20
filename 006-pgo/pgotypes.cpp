@@ -2829,7 +2829,7 @@ static const species sdex[] = {
   {  420, "Cherubi", TYPE_GRASS, TYPECOUNT, 108, 92, 128, nullptr,
 		{ &ATK_Tackle, &ATK_Bullet_Seed, &ATK_Petal_Blizzard, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
-  {  421, "Cherrim", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
+  {  421, "Cherrim (Sunny Form)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
 		{ &ATK_Razor_Leaf, &ATK_Bullet_Seed, &ATK_Hyper_Beam, &ATK_Dazzling_Gleam, &ATK_Solar_Beam, &ATK_Weather_Ball_Fire, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  421, "Cherrim (Overcast Form)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
