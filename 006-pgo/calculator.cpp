@@ -292,11 +292,8 @@ int main(int argc, const char **argv){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
   }
-  const species *evol;
-  if( (evol = get_persistent_evolution(s)) ){
-    std::cout << "evolution: " << evol->name << std::endl;
-  }else{
-    std::cout << "no evolution" << std::endl;
+  for(const species *evol = s ; (s = get_persistent_evolution(evol)) ; evol = s){
+    std::cout << "evolution: " << s->name << std::endl;
   }
   return EXIT_SUCCESS;
 }
