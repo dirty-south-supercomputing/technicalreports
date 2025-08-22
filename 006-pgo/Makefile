@@ -80,6 +80,7 @@ TRELSTEX:=$(OUT)/typerels.tex
 EVENENERGYTEX:=$(OUT)/evenenergy.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
+DAMAGECYCLETEX:=$(OUT)/damagecycle.tex
 DOUBLEDOUBLESTEX:=$(OUT)/doubledoubles.tex
 TRIPLERESISTTEX:=$(OUT)/tripleresist.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
@@ -95,7 +96,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
-	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX)
+	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -222,6 +223,10 @@ $(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 	@mkdir -p $(@D)
 	$< clodsire max "poison sting" "megahorn/earthquake" \
   	sawk 15-14-14@99 "low kick" "focus blast/low sweep" > $@
+
+$(DAMAGECYCLETEX): $(basename $(TIMETOFIRSTTEX))
+	@mkdir -p $(@D)
+	$(<) damage > $@
 
 $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)

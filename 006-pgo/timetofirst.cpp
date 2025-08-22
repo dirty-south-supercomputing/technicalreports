@@ -99,11 +99,37 @@ static void emit_name(const std::string &s){
   }
 }
 
+static void emit_attack(const species *s, const attack *a){
+  bool stab = has_stab_p(s, a);
+  bool excl = exclusive_attack_p(s, a);
+  if(stab){
+    std::cout << "\\textbf{";
+  }
+  if(excl){
+    std::cout << "\\textit{";
+  }
+  std::cout << a->name;
+  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
+    std::cout << " ";
+  }
+  summarize_buffs(a);
+  if(stab){
+    std::cout << "}";
+  }
+  if(excl){
+    std::cout << "}";
+  }
+}
+
 static void emit_line(bool extrema, const timetofirst &t, const std::string &prevname){
   if(prevname != t.s->name){
     emit_name(t.s->name);
   }
-  std::cout << " & " << t.fa->name << " + " << t.ca->name << " & ";
+  std::cout << " & ";
+  emit_attack(t.s, t.fa);
+  std::cout << " + ";
+  emit_attack(t.s, t.ca);
+  std::cout << " & ";
   if(!extrema){
     std::cout << t.turns << " & ";
   }
@@ -131,25 +157,43 @@ static void footer(bool extrema, unsigned fastest){
   }
 }
 
-// if given the argument "extrema", generate table of only the fastest
-// cycles, otherwise a table of all cycles.
+static bool damagecmp(timetofirst &l, timetofirst &r){
+  float lppt = l.dam / static_cast<float>(l.turns);
+  float rppt = r.dam / static_cast<float>(r.turns);
+  if(lppt > rppt){
+    return true;
+  }
+  return false;
+}
+
+// if given the argument "extrema", generate table of only the fastest cycles.
+// if given the argument "damage", generate table of only the most powerful cycles.
+// otherwise a table of all cycles.
 int main(int argc, char **argv){
   bool extrema = false;
+  bool power = false;
   if(argc != 1){
     if(argc != 2){
       usage(argv[0]);
     }
-    if(strcmp(argv[1], "extrema")){
+    if(strcmp(argv[1], "extrema") == 0){
+      extrema = true;
+    }else if(strcmp(argv[1], "damage") == 0){
+      power = true;
+    }else{
       usage(argv[0]);
     }
-    extrema = true;
   }
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
   header(extrema);
   calctimetoall(smain, ttfs);
-  std::sort(ttfs.begin(), ttfs.end());
+  if(power){
+    std::sort(ttfs.begin(), ttfs.end(), damagecmp);
+  }else{
+    std::sort(ttfs.begin(), ttfs.end());
+  }
   std::cout.setf(std::ios::fixed, std::ios::floatfield);
   std::cout.precision(2);
   std::cout << std::noshowpoint;
