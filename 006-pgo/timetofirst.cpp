@@ -73,7 +73,7 @@ static void usage(const char *argv0){
 
 // don't want a turns column if extrema
 static void header(bool extrema){
-  std::cout << "\\begin{table}\\raggedright\\footnotesize\\centering\\begin{tabular}{lp{.4\\textwidth}";
+  std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
   if(!extrema){
     std::cout << "rr";
   }
