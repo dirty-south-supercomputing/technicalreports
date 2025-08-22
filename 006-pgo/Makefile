@@ -226,7 +226,7 @@ $(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 
 $(DAMAGECYCLETEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)
-	$(<) damage > $@
+	$(<) extrema damage > $@
 
 $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)

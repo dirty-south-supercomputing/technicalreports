@@ -10,6 +10,7 @@ struct timetofirst {
   float powerfast; // cumulative power delivered by fast attacks (includes STAB)
   float powercharged; // power of charged attack (includes STAB)
   float dam;       // total power of cycle (includes STAB)
+  float dpt;       // dam / turns
   const attack *fa;
   const attack *ca;
   unsigned excesse;// excess energy following charged move
@@ -25,6 +26,7 @@ struct timetofirst {
         excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
         powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
         dam = powerfast + powercharged;
+        dpt = dam / static_cast<float>(turns);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -71,18 +73,18 @@ static void usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-// don't want a turns column if extrema
-static void header(bool extrema){
+// don't want a turns column if extrema && !powertbl
+static void header(bool extrema, bool powertbl){
   std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
-  if(!extrema){
+  if(!extrema || powertbl){
     std::cout << "rr";
   }
   std::cout << "rrr}Pokémon & Attacks & " << std::endl;
-  if(!extrema){
+  if(!extrema || powertbl){
     std::cout << "Turns & ";
   }
   std::cout << "Power & ";
-  if(!extrema){
+  if(!extrema || powertbl){
     std::cout << "\\textit{e} & ";
   }
   std::cout << "PPT & \\\%c \\\\" << std::endl;
@@ -121,7 +123,7 @@ static void emit_attack(const species *s, const attack *a){
   }
 }
 
-static void emit_line(bool extrema, const timetofirst &t, const std::string &prevname){
+static void emit_line(bool extrema, bool powertbl, const timetofirst &t, const std::string &prevname){
   if(prevname != t.s->name){
     emit_name(t.s->name);
   }
@@ -130,11 +132,11 @@ static void emit_line(bool extrema, const timetofirst &t, const std::string &pre
   std::cout << " + ";
   emit_attack(t.s, t.ca);
   std::cout << " & ";
-  if(!extrema){
+  if(!extrema || powertbl){
     std::cout << t.turns << " & ";
   }
   std::cout << t.dam << " & ";
-  if(!extrema){
+  if(!extrema || powertbl){
     if(t.excesse){
       std::cout << t.excesse;
     }
@@ -144,13 +146,15 @@ static void emit_line(bool extrema, const timetofirst &t, const std::string &pre
     // have the same excess energy: 1. so check that.
     assert(1 == t.excesse);
   }
-  std::cout << t.dam / static_cast<float>(t.turns) << " & "
+  std::cout << t.dpt << " & "
     << t.powercharged * 100 / t.dam
     << "\\\\" << std::endl;
 }
 
-static void footer(bool extrema, unsigned fastest){
-  if(extrema){
+static void footer(bool extrema, bool powertbl, unsigned fastest){
+  if(powertbl && extrema){
+    std::cout << "\\end{tabular}\\caption{Most powerful attack cycles\\label{table:powercycles}}\\end{table}" << std::endl;
+  }else if(extrema){
     std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
   }else{
     std::cout << "\\end{tabular}\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{table}" << std::endl;
@@ -158,9 +162,7 @@ static void footer(bool extrema, unsigned fastest){
 }
 
 static bool damagecmp(timetofirst &l, timetofirst &r){
-  float lppt = l.dam / static_cast<float>(l.turns);
-  float rppt = r.dam / static_cast<float>(r.turns);
-  if(lppt > rppt){
+  if(l.dpt > r.dpt){
     return true;
   }
   return false;
@@ -171,25 +173,26 @@ static bool damagecmp(timetofirst &l, timetofirst &r){
 // otherwise a table of all cycles.
 int main(int argc, char **argv){
   bool extrema = false;
-  bool power = false;
-  if(argc != 1){
-    if(argc != 2){
-      usage(argv[0]);
-    }
-    if(strcmp(argv[1], "extrema") == 0){
+  bool powertbl = false;
+  const char *argv0 = *argv;
+  if(argc < 1 || argc > 3){
+    usage(argv0);
+  }
+  while(*++argv){
+    if(strcmp(*argv, "extrema") == 0){
       extrema = true;
-    }else if(strcmp(argv[1], "damage") == 0){
-      power = true;
+    }else if(strcmp(*argv, "damage") == 0){
+      powertbl = true;
     }else{
-      usage(argv[0]);
+      usage(argv0);
     }
   }
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
-  header(extrema);
+  header(extrema, powertbl);
   calctimetoall(smain, ttfs);
-  if(power){
+  if(powertbl){
     std::sort(ttfs.begin(), ttfs.end(), damagecmp);
   }else{
     std::sort(ttfs.begin(), ttfs.end());
@@ -199,15 +202,22 @@ int main(int argc, char **argv){
   std::cout << std::noshowpoint;
   std::string prevname;
   unsigned fastest = 0;
+  constexpr float PPT_THRESHOLD = 12.65;
   for(const auto &t : ttfs){
-    if(extrema && fastest && t.turns > fastest){
-      break;
-    }else if(!fastest){
-      fastest = t.turns;
+    if(!powertbl){
+      if(extrema && fastest && t.turns > fastest){
+        break;
+      }else if(!fastest){
+        fastest = t.turns;
+      }
+    }else{
+      if(extrema && t.dpt < PPT_THRESHOLD){
+        break;
+      }
     }
-    emit_line(extrema, t, prevname);
+    emit_line(extrema, powertbl, t, prevname);
     prevname = t.s->name;
   }
-  footer(extrema, fastest);
+  footer(extrema, powertbl, fastest);
   return EXIT_SUCCESS;
 }
