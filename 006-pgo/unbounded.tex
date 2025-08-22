@@ -53,15 +53,15 @@ Since \CPM{} is also used to calculate \MHP{} from \Mod{S}, one might
  expect it to be raised to the third power.
 Since $\CPM < 1$ for all Levels, $\CPM^3 < \CPM^2$, and thus it would seem \textit{overvalued} by \CP\@.
 But rewrite:
-\begin{align}
+\begin{align*}
   \CPM^2 &= \CPM \cdot \CPM\\
   &= \CPM \cdot \sqrt{\CPM} \cdot \sqrt{\CPM}
-\end{align}
+\end{align*}
 …and distribute…
-\begin{align}
+\begin{align*}
   \CP &= \max{10, \frac{\Mod{A}\CPM \cdot \sqrt{\Mod{D}}\sqrt{\CPM} \cdot \sqrt{\Mod{S}}\sqrt{\CPM}}{10}}\\
   &= \max{10, \frac{\Eff{ARaw} \cdot \sqrt{\Eff{DRaw}} \cdot \sqrt{\Eff{S}}}{10}}
-\end{align}
+\end{align*}
 and recover our old friends the effective statistics.
 
 Why would the game use such a flawed measure of power?
@@ -148,7 +148,7 @@ For a more plausible ATK of 150, a maximum \IV{A} is worth a 10\% bonus to attac
 
 In general, \IV{A} adds a percentage boost of
 
-\[ \frac{\IV{A}}{\mathit{ATK}} \cdot 100 \]
+\[ \frac{\IV{A}}{\mathrm{ATK}} \cdot 100 \]
 
 \noindent{}to attack, and \IV{D} lends the same (of course using DEF) to defense.
 This might not lead to any change in actual damage, depending on an opponent's own attack and defense.
@@ -159,7 +159,7 @@ At level 1, it adds 1.41.
 With unbounded competition fought best by Pokémon of the highest level, it is
  sensible to power only those with close to maximum IVs beyond level 25 or so.
 At this point, they are getting almost 80\% of the potential benefit from leveling.
-My (soft) rule is to only level up so long as the \CPM fraction exceeds the IV fraction:
+My (soft) rule is to only level up so long as the \CPM{} fraction exceeds the IV fraction:
  \ivlev{14}{14}{14} is 93.3\% of \ivlev{15}{15}{15}, so I don't level that Pokémon
  past 38.5, where CPM of 0.7817 is 93.04\% of level 50's 0.8403.
 Given sufficient Stardust and Candy XL, of course, you can do whatever you want.
