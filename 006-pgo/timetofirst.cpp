@@ -153,7 +153,7 @@ static void emit_line(bool extrema, bool powertbl, const timetofirst &t, const s
 
 static void footer(bool extrema, bool powertbl, unsigned fastest){
   if(powertbl && extrema){
-    std::cout << "\\end{tabular}\\caption{Most powerful attack cycles\\label{table:powercycles}}\\end{table}" << std::endl;
+    std::cout << "\\end{tabular}\\caption{Attack cycles with highest PPT\\label{table:pptcycles}}\\end{table}" << std::endl;
   }else if(extrema){
     std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
   }else{

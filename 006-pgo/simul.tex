@@ -223,3 +223,20 @@ In real play, competent Trainers will not be throwing Stone Edge at Bellibolt wh
 I expect the full power of exhaustive simulation to emerge when coupled with automated
  inflection point analysis, etc.
 Watch this space.
+
+\section{Detecting dominators\label{sec:dominators}}
+Recall the domination concept described in \autoref{sec:solving}.
+Pokémon $P$ dominates another from some turn if, starting from that turn, the Pokémon
+ can make choices such that it wins no matter what the opponent does.
+We call such a node a dominator node for $P$.
+A node can only be a dominator node for zero or one Pokémon, never multiple\footnote{If one Pokémon dominates
+ from a node, it can make choices such that the other Pokémon cannot win. If the other Pokémon cannot
+ force wins, it cannot dominate.}.
+We check for knockouts at the top of every turn, before actions are performed.
+Thus any terminal node in our game tree is a dominator node if one and only one Pokémon
+ is knocked out (a terminal node could also be a tie); this is our base case.
+A non-terminal node is a dominator for $P$ if and only if, for some choice, all children
+ are dominator nodes for $P$.
+If the root node is a dominator for $P$, $P$ is said to dominate the contest, and the
+ opponent can win only if $P$ plays less than optimally.
+We can detect dominator nodes using this inductive definition.
