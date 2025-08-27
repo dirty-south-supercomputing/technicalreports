@@ -104,11 +104,11 @@ static void emit_name(const std::string &s){
 static void emit_attack(const species *s, const attack *a){
   bool stab = has_stab_p(s, a);
   bool excl = exclusive_attack_p(s, a);
-  if(stab){
-    std::cout << "\\textbf{";
+  if(!stab){
+    std::cout << "\\textit{";
   }
   if(excl){
-    std::cout << "\\textit{";
+    std::cout << "\\textbf{";
   }
   std::cout << a->name;
   if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
