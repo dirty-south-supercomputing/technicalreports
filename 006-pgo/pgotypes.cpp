@@ -4420,7 +4420,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  925, "Maushold", TYPE_NORMAL, TYPECOUNT, 159, 157, 179, "Tandemaus",
 		{ &ATK_Mud_Shot, &ATK_Bullet_Seed, &ATK_Take_Down, &ATK_Play_Rough, &ATK_Swift, &ATK_Crunch, },
-		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  926, "Fidough", TYPE_FAIRY, TYPECOUNT, 102, 126, 114, nullptr,
 		{ &ATK_Bite, &ATK_Charm, &ATK_Play_Rough, &ATK_Body_Slam, &ATK_Psychic_Fangs, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
