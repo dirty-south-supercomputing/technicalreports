@@ -2,7 +2,7 @@
 
 // generate table with the typings having two extra weaknesses
 int main(void){
-  std::cout << "\\begin{table}\\centering\\begin{tabular}{lp{.5\\textwidth}}" << std::endl;
+  std::cout << "\\begin{table}\\footnotesize\\centering\\begin{tabular}{lp{.5\\textwidth}}" << std::endl;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       // test t on i+j

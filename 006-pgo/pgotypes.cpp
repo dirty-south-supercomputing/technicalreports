@@ -2058,6 +2058,7 @@ static const species sdex[] = {
   {  184, "Azumarill", TYPE_WATER, TYPE_FAIRY, 112, 152, 225, "Marill",
 		{ &ATK_Bubble, &ATK_Rock_Smash, &ATK_Ice_Beam, &ATK_Play_Rough, &ATK_Hydro_Pump, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // the Imitation
   {  185, "Sudowoodo", TYPE_ROCK, TYPECOUNT, 167, 176, 172, "Bonsly",
 		{ &ATK_Rock_Throw, &ATK_Counter, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Meteor_Beam, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
