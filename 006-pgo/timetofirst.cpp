@@ -115,7 +115,7 @@ static void emit_attack(const species *s, const attack *a){
     std::cout << " ";
   }
   summarize_buffs(a);
-  if(stab){
+  if(!stab){
     std::cout << "}";
   }
   if(excl){
