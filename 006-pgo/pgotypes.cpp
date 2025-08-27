@@ -5582,7 +5582,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
   // the minipages with icons and cp data
   // left side is larger for gmax/mega, which don't show evolutionary lines
-  printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
+  printf("\\noindent\\begin{minipage}{0.%d\\linewidth}\\centering", gmax ? 4 : 3);
   int largeicons = print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
