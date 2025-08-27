@@ -5350,7 +5350,8 @@ print_previous_species(const species *s){
   }
 }
 
-int print_icons(const species *s, bool doprint){
+static int
+print_icons(const species *s, bool doprint, bool ismega){
   int count = 0;
   if(s->category == species::CAT_ULTRABEAST){
     ++count;
@@ -5358,7 +5359,7 @@ int print_icons(const species *s, bool doprint){
       printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}}");
     }
   }
-  if(has_mega(s)){
+  if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
       printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
@@ -5495,7 +5496,9 @@ stardust_reward(const species *s){
 
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
+  // these are fragile inferences, yuck
   bool gmax = !overzoom && s->gmax;
+  bool ismega = overzoom && !mainform; // maybe do name check?
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   if(gmax){
     printf("Gmax ");
@@ -5595,11 +5598,11 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     // but we want only one line if we can get away with it. four small icons
     // are too many to put with two large icons.
     // we never need split the line for gmax cards.
-    if(largeicons + print_icons(s, false) > 5){
+    if(largeicons + print_icons(s, false, ismega) > 5){
       printf("\\\\");
     }
   }
-  print_icons(s, true);
+  print_icons(s, true, ismega);
   printf("\\end{minipage}\n");
   if(mainform){ // evolutionary lineage (only for main forms)
     printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
