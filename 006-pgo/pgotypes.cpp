@@ -3579,9 +3579,17 @@ static const species sdex[] = {
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
-  {  648, "Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
+  // no difference in PGO
+  /*{  647, "Keldeo (Resolute Forme)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
+		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
+  {  648, "Aria Forme Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
-		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  // not yet released
+  /*{  648, "Pirouette Forme Meloetta", TYPE_NORMAL, TYPE_FIGHTING, 269, 188, 225, nullptr,
+		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Hyper_Beam, &ATK_Magnet_Bomb, &ATK_X_Scissor, &ATK_Techno_Blast, },
 		true, false, false, { &ATK_Techno_Blast, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
