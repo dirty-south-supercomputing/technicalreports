@@ -163,31 +163,9 @@ static void emit_line(const timetofirst &t){
   std::cout << t.effd << " & ";
   std::cout << t.bulk << " & ";
   out_type(t.fa->type);
-  std::cout << t.fa->name << " + ";
+  emit_attack(t.s, t.fa);
   out_type(t.ca->type);
-  std::cout << t.ca->name;
-  if(t.ca->user_attack < 0){
-    std::cout << " A↓";
-    if(t.ca->user_attack < -1){
-      std::cout << -t.ca->user_attack;
-    }
-  }else if(t.ca->user_attack > 0){
-    std::cout << " A↑";
-    if(t.ca->user_attack > 1){
-      std::cout << t.ca->user_attack;
-    }
-  }
-  if(t.ca->user_defense < 0){
-    std::cout << " D↓";
-    if(t.ca->user_defense < -1){
-      std::cout << -t.ca->user_defense;
-    }
-  }else if(t.ca->user_defense > 0){
-    std::cout << " D↑";
-    if(t.ca->user_defense > 1){
-      std::cout << t.ca->user_defense;
-    }
-  }
+  emit_attack(t.s, t.ca);
   std::cout << " & ";
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";

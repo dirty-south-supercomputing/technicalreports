@@ -5516,6 +5516,29 @@ stardust_reward(const species *s){
   return 100;
 }
 
+static inline void
+emit_attack(const species *s, const attack *a){
+  bool stab = has_stab_p(s, a);
+  bool excl = exclusive_attack_p(s, a);
+  if(!stab){
+    std::cout << "\\textit{";
+  }
+  if(excl){
+    std::cout << "\\textbf{";
+  }
+  std::cout << a->name;
+  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
+    std::cout << " ";
+  }
+  summarize_buffs(a);
+  if(!stab){
+    std::cout << "}";
+  }
+  if(excl){
+    std::cout << "}";
+  }
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   // these are fragile inferences, yuck
