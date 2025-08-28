@@ -1253,6 +1253,7 @@ struct species {
     EVOL_UNOVASTONE,
     EVOL_TARTAPPLE,
     EVOL_SWEETAPPLE,
+    EVOL_SYRUPYAPPLE,
     EVOL_GIMMICOINS,
     EVOL_ZYGARDECELL,
   } evolitem;
@@ -4606,7 +4607,7 @@ static const species sdex[] = {
   //{ 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, nullptr, },
   //{ 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, nullptr, },
   //{ 1010, "Iron Leaves", TYPE_GRASS, TYPE_PSYCHIC, nullptr, },
-  //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, 173, 184, 190, "Applin", },
+  //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, 173, 184, 190, "Applin", species::EVOL_SWEETAPPLE, },
   //{ 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1014, "Okidogi", TYPE_POISON, TYPE_FIGHTING, nullptr, },
