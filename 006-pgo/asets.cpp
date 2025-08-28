@@ -47,7 +47,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
         if(has_stab_p(&s, a)){
           appe *= 1.2;
         }
-        for(unsigned a2idx = aidx + 1 ; a2idx < s.attacks.size() ; ++a2idx){
+        for(unsigned a2idx = 0 ; a2idx < s.attacks.size() ; ++a2idx){
           const auto a2 = s.attacks[a2idx];
           if(!charged_attack_p(a2)){
             continue;
