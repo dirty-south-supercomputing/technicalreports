@@ -4813,6 +4813,10 @@ struct stats {
     geommean = calc_gmean(effa, effd, mhp);
   }
 
+  float bulk() const {
+    return mhp * effd;
+  }
+
 };
 
 static inline void
@@ -4877,8 +4881,8 @@ static inline int
 statscmp_bulk(const void *vst1, const void *vst2){
   const stats *st1 = static_cast<const stats*>(vst1);
   const stats *st2 = static_cast<const stats*>(vst2);
-  const float b1 = st1->mhp * st1->effd;
-  const float b2 = st2->mhp * st2->effd;
+  const float b1 = st1->bulk();
+  const float b2 = st2->bulk();
   return b1 < b2 ? -1 : b1 > b2 ? 1 : 0;
 }
 
@@ -4889,7 +4893,7 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   *cp = 0;
   for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL ; ++hl){
     int tmpc = calccp(atk, def, sta, hl);
-    if(tmpc <= cpceil){
+    if(cpceil > 0 || tmpc <= cpceil){
       lastgood = hl;
       *cp = tmpc;
     }else{

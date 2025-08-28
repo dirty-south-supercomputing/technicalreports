@@ -58,6 +58,26 @@ statsget_amean(const stats &st){
   return st.average;
 }
 
+static float
+statsget_effa(const stats &st){
+  return st.effa;
+}
+
+static float
+statsget_effd(const stats &st){
+  return st.effd;
+}
+
+static float
+statsget_mhp(const stats &st){
+  return st.mhp;
+}
+
+static float
+statsget_bulk(const stats &st){
+  return st.bulk();
+}
+
 static void
 summarize_fxn(const pmon &p, int cpcap, const char *name,
               int(*cmpfxn)(const void*, const void*),
@@ -89,6 +109,10 @@ summarize_pmon(const Teambuild &tb, const pmon &p){
   std::cout << std::endl;
   summarize_fxn(p, tb.cpbound, "Gmean", statscmp_gmean, statsget_gmean);
   summarize_fxn(p, tb.cpbound, "Amean", statscmp_amean, statsget_amean);
+  summarize_fxn(p, tb.cpbound, "EffA", statscmp_atk, statsget_effa);
+  summarize_fxn(p, tb.cpbound, "EffD", statscmp_def, statsget_effd);
+  summarize_fxn(p, tb.cpbound, "MHP", statscmp_mhp, statsget_mhp);
+  summarize_fxn(p, tb.cpbound, "Bulk", statscmp_bulk, statsget_bulk);
   // FIXME show effective stats relative to max configs for this mon+cpcap
   // FIXME run through all attack sets, profiling turns, target-independent power,
   //  and power delivered to typings
