@@ -4810,8 +4810,6 @@ struct stats {
 struct pmon { // static elements
   struct stats s;
   const attack *fa, *ca1, *ca2;
-  // FIXME can't we kill these? they ought be in s
-  float effa, effd; // effective stats, cpm * (base + iv)
 };
 
 static inline float

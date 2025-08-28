@@ -13,8 +13,8 @@ static inline void calculate_damages(simulstate *s){
   if(p1->ca2){
     s->dam[1][2] = calc_damage(p1, p0, p1->ca2, s->buffleva[1], s->bufflevd[0]);
   }
-  const float a0 = p0->effa;
-  const float a1 = p1->effa;
+  const float a0 = p0->s.effa;
+  const float a1 = p1->s.effa;
   s->cmp = a0 > a1 ? -1 : a1 > a0 ? 1 : 0;
 }
 
