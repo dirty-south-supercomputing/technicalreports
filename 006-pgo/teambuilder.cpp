@@ -2,7 +2,7 @@
 #include <getopt.h>
 
 static constexpr auto GLCPCAP = 1500;
-static constexpr auto ULCPCAP = 1500;
+static constexpr auto ULCPCAP = 2500;
 
 static void
 usage(const char *argv0){
@@ -89,7 +89,7 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
   std::cout << name << "\tbest: " << max << " ";
   summarize_ivlev(st);
   if(st.shadow){
-    std::cout << " (shadow)";
+    std::cout << " (s)";
   }
   const auto ours = getfxn(p.s);
   std::cout << "\tours: " << ours << " (" << (100 * ours / max) << "%)";
@@ -174,6 +174,11 @@ int main(int argc, char **argv){
                 << " would exceed bound of " << tb.cpbound << std::endl;
       usage(argv0);
     }
+  }
+  if(tb.cpbound > 0){
+    std::cout << "using cp bound of " << tb.cpbound << std::endl;
+  }else{
+    std::cout << "no cp bound" << std::endl;
   }
   for(unsigned i = 0 ; i < pcount ; ++i){
     summarize_pmon(tb, tb.pmons[i]);
