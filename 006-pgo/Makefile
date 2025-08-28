@@ -267,7 +267,7 @@ $(OUT)/%: %.cpp pgotypes.cpp Makefile
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic
-	$< metagross 0-0-0@1 'zen headbutt' psychic
+	$< metagross -g 0-4-15@29 'zen headbutt' psychic
 	$< 'shadow metagross' 15-15-15@99 'zen headbutt' 'psychic/meteor mash'
 
 testdb: $(TESTDB)

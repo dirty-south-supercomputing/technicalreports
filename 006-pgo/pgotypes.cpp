@@ -4893,7 +4893,7 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   *cp = 0;
   for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL ; ++hl){
     int tmpc = calccp(atk, def, sta, hl);
-    if(cpceil > 0 || tmpc <= cpceil){
+    if(tmpc <= cpceil || cpceil <= 0){
       lastgood = hl;
       *cp = tmpc;
     }else{
@@ -4945,7 +4945,7 @@ static constexpr unsigned IVLEVVEC =
 
 // generate the stats for each of 4,096 possible IVs at their maximum level
 // subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
-static stats *
+static inline stats *
 order_ivs(const species *s, int cpceil, int(*cmpfxn)(const void*, const void*),
           unsigned *vcount){
   *vcount = IVLEVVEC;

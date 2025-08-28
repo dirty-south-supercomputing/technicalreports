@@ -15,7 +15,7 @@ usage(const char *argv0){
 
 struct Teambuild {
   pmon pmons[TEAMSIZE];
-  unsigned cpbound;
+  int cpbound;
 
   Teambuild() :
     cpbound(0)
@@ -29,7 +29,7 @@ struct Teambuild {
     }
   }
 
-  Teambuild(unsigned Cpbound) :
+  Teambuild(int Cpbound) :
     Teambuild()
   {
     cpbound = Cpbound;
@@ -86,10 +86,13 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
   auto opts = order_ivs(p.s.s, cpcap, cmpfxn, &vcount);
   const stats &st = opts[vcount - 1];
   const auto max = getfxn(st);
-  std::cout << " Top " << name << ": " << max << " ";
+  std::cout << name << "\tbest: " << max << " ";
   summarize_ivlev(st);
+  if(st.shadow){
+    std::cout << " (shadow)";
+  }
   const auto ours = getfxn(p.s);
-  std::cout << " ours: " << ours << " (" << (100 * ours / max) << "%)";
+  std::cout << "\tours: " << ours << " (" << (100 * ours / max) << "%)";
   std::cout << std::endl;
   delete[] opts;
 }
@@ -98,6 +101,7 @@ static void
 summarize_pmon(const Teambuild &tb, const pmon &p){
   std::cout << p.s.s->name;
   // FIXME if no IVs supplied, isolate best for CP limit (we currently require IVs+level spec)
+  std::cout << " CP: " << p.s.cp;
   std::cout << " ATK: " << p.s.s->atk;
   std::cout << " DEF: " << p.s.s->def;
   std::cout << " STA: " << p.s.s->sta;
@@ -112,7 +116,7 @@ summarize_pmon(const Teambuild &tb, const pmon &p){
   summarize_fxn(p, tb.cpbound, "EffA", statscmp_atk, statsget_effa);
   summarize_fxn(p, tb.cpbound, "EffD", statscmp_def, statsget_effd);
   summarize_fxn(p, tb.cpbound, "MHP", statscmp_mhp, statsget_mhp);
-  summarize_fxn(p, tb.cpbound, "Bulk", statscmp_bulk, statsget_bulk);
+  summarize_fxn(p, tb.cpbound, "bulk", statscmp_bulk, statsget_bulk);
   // FIXME show effective stats relative to max configs for this mon+cpcap
   // FIXME run through all attack sets, profiling turns, target-independent power,
   //  and power delivered to typings
@@ -163,6 +167,11 @@ int main(int argc, char **argv){
     }
     uint16_t mhp;
     if(lex_pmon(&tb.pmons[i], &mhp, &argc, &argv)){
+      usage(argv0);
+    }
+    if(tb.pmons[i].s.cp > tb.cpbound && tb.cpbound > 0){
+      std::cerr << tb.pmons[i].s.s->name << " cp of " << tb.pmons[i].s.cp
+                << " would exceed bound of " << tb.cpbound << std::endl;
       usage(argv0);
     }
   }
