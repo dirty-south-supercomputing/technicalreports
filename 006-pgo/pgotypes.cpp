@@ -4669,6 +4669,7 @@ static const mega megasdex[] = {
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, },
   {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, },
   {  319, "Mega Sharpedo", TYPE_WATER, TYPE_DARK, 289, 144, 172, },
+  {  323, "Mega Camerupt", TYPE_FIRE, TYPE_GROUND, 253, 183, 172, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, },
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, },
