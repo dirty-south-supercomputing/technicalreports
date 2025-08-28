@@ -83,6 +83,7 @@ TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 DAMAGECYCLETEX:=$(OUT)/damagecycle.tex
 DOUBLEDOUBLESTEX:=$(OUT)/doubledoubles.tex
 TRIPLERESISTTEX:=$(OUT)/tripleresist.tex
+ASETSTEX:=$(OUT)/asets.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 UNPOPTEX:=$(OUT)/unpop.tex
 BULK1500TEX:=$(OUT)/bulk1500.tex
@@ -98,7 +99,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
-	$(UNPOPTEX)
+	$(UNPOPTEX) $(ASETSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)

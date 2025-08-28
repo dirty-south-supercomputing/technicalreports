@@ -4295,7 +4295,9 @@ static const species sdex[] = {
   // 881 is arctozolt
   // 882 is dracovish
   // 883 is arctovish
-  // 884 is duraludon
+  {  884, "Duraludon", TYPE_DRAGON, TYPE_STEEL, 239, 185, 172, nullptr,
+		{ &ATK_Dragon_Tail, &ATK_Metal_Claw, &ATK_Flash_Cannon, &ATK_Dragon_Claw, &ATK_Hyper_Beam, },
+		false, false, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  885, "Dreepy", TYPE_DRAGON, TYPE_GHOST, 117, 61, 99, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4601,14 +4603,14 @@ static const species sdex[] = {
   //{ 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, nullptr, },
   //{ 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, nullptr, },
   //{ 1010, "Iron Leaves", TYPE_GRASS, TYPE_PSYCHIC, nullptr, },
-  //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, nullptr, },
+  //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, 173, 184, 190, "Applin", },
   //{ 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1014, "Okidogi", TYPE_POISON, TYPE_FIGHTING, nullptr, },
   //{ 1015, "Munkidori", TYPE_POISON, TYPE_PSYCHIC, nullptr, },
   //{ 1016, "Fezandipti", TYPE_POISON, TYPE_FAIRY, nullptr, },
-  //{ 1018, "Archaludon", TYPE_STEEL, TYPE_DRAGON, nullptr, },
-  //{ 1019, "Hydrapple", TYPE_GRASS, TYPE_DRAGON, nullptr, },
+  //{ 1018, "Archaludon", TYPE_STEEL, TYPE_DRAGON, 250, 215, 207, "Duraludon", },
+  //{ 1019, "Hydrapple", TYPE_GRASS, TYPE_DRAGON, 216, 186, 235, "Dipplin", },
   //{ 1020, "Gouging Fire", TYPE_FIRE, TYPE_DRAGON, nullptr, },
   //{ 1021, "Raging Bolt", TYPE_ELECTRIC, TYPE_DRAGON, nullptr, },
   //{ 1022, "Iron Boulder", TYPE_ROCK, TYPE_PSYCHIC, nullptr, },

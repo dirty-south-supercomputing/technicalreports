@@ -163,7 +163,7 @@ print_bounded_bulktable(int bound, float lbound){
   while( (head = print_sol_set(head, get_bulk)) ){
     ;
   }
-  printf("\\captionlistentry{Optimal solutions bounded by %d \\CP, sorted by bulk}\n", bound);
+  printf("\\captionlistentry{Bulk-optimal solutions bounded by %d \\CP}\n", bound);
   printf("\\label{table:cp%db}\n", bound);
   printf("\\end{longtable}\n");
   printf("\\endgroup\n");
@@ -194,9 +194,9 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   while( (sols = print_sol_set(sols, get_apercent)) ){
     ;
   }
-  printf("\\captionlistentry{Optimal solutions bounded by %d \\CP}\n", bound);
-  printf("\\label{table:cp%d%c}\n", bound, fitchar);
-  printf("\\end{longtable}\n");
+  printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP\\label{table:cp%d%c}}\n",
+            fitchar, bound, bound, fitchar);
+  printf("\\end{longtable}");
   printf("\\endgroup\n");
 }
 
