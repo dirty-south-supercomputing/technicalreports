@@ -25,6 +25,9 @@ int main(void){
       }
     }
   }
+  if(!lhs){
+    std::cout << "\\\\" << std::endl;
+  }
   std::cout << "\\end{tabular}\\caption{The " << count << " unpopulated typings\\label{table:unpopulated}}\\end{table}" << std::endl;
   std::cout << count << " typings are currently unpopulated (\\autoref{table:unpopulated}), ";
   std::cout << "leaving " << (TYPINGCOUNT - count) << " defender typings to consider." << std::endl;
