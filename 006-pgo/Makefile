@@ -103,7 +103,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(UNPOPTEX) $(ASETSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h) lex.cpp
+SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<

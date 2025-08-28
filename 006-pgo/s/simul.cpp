@@ -11,7 +11,6 @@ static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
 #include "top.h"
-#include "../lex.cpp"
 
 pmon pmons[2][TEAMSIZE] = {};
 

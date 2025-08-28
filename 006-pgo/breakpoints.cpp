@@ -4,7 +4,6 @@
 #include "pgotypes.cpp"
 #include "s/simul.h"
 #include "s/damage.h"
-#include "lex.cpp"
 
 static pmon pm[2];
 
