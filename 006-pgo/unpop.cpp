@@ -2,9 +2,9 @@
 
 // list all unpopulated typings
 int main(void){
-  std::cout << "\\begin{table}[ht]\\centering\\begin{tabular}{c|c}" << std::endl;
+  std::cout << "\\begin{table}[ht]\\centering\\begin{tabular}{c|c|c}" << std::endl;
   int count = 0;
-  bool lhs = true;
+  int column = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       bool found = false;
@@ -17,15 +17,19 @@ int main(void){
       if(!found){
         std::cout << TNames[i] << "/" << TNames[j];
         ++count;
-        if( (lhs = !lhs) ){
+        if(++column == 3){
           std::cout << "\\\\" << std::endl;
+          column = 0;
         }else{
           std::cout << " & ";
         }
       }
     }
   }
-  if(!lhs){
+  if(column){
+    if(column == 1){
+      std::cout << " & ";
+    }
     std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}\\caption{The " << count << " unpopulated typings\\label{table:unpopulated}}\\end{table}" << std::endl;
