@@ -10,8 +10,11 @@
 
 #define TYPESTART TYPE_BUG
 
+constexpr unsigned TEAMSIZE = 3;
 constexpr int MAXIVELEM = 15;
 constexpr unsigned MINCP = 10; // minimum combat power
+constexpr int MAXCHARGEDBUFF = 4;
+constexpr unsigned ENERGY_MAX = 100;
 constexpr unsigned MAX_HALFLEVEL = 99;
 
 enum pgo_types_e {
@@ -4801,6 +4804,14 @@ struct stats {
     geommean = calc_gmean(effa, effd, mhp);
   }
 
+};
+
+// instantiation of a pokémon -- species, IVs, and known attacks
+struct pmon { // static elements
+  struct stats s;
+  const attack *fa, *ca1, *ca2;
+  // FIXME can't we kill these? they ought be in s
+  float effa, effd; // effective stats, cpm * (base + iv)
 };
 
 static inline float

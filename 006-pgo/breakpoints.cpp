@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include "pgotypes.cpp"
 #include "s/simul.h"
-#include "s/lex.cpp"
 #include "s/damage.h"
+#include "lex.cpp"
 
 static pmon pm[2];
 

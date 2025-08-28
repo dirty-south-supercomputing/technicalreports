@@ -178,9 +178,9 @@ These values are used as inputs to battle mechanics.
 First, sum the Species's ATK, DEF, and STA with the Pokémon's
 IVs to generate \Mod{A}, \Mod{D}, and \Mod{S}:
 \begin{align*}
- \Mod{A} &= \mathit{ATK} + \mathit{\IV{A}} \\
- \Mod{D} &= \mathit{DEF} + \mathit{\IV{D}} \\
- \Mod{S} &= \mathit{STA} + \mathit{\IV{S}}
+ \Mod{A} &= \mathrm{ATK} + \mathit{\IV{A}} \\
+ \Mod{D} &= \mathrm{DEF} + \mathit{\IV{D}} \\
+ \Mod{S} &= \mathrm{STA} + \mathit{\IV{S}}
 \end{align*}
 These are typically scaled by the Pokémon's Combat Power Multiplier.
 \section{Combat Power Multiplier\label{sec:cpm}}
@@ -193,27 +193,27 @@ The value accessed is that Pokémon's Combat Power Multiplier (\CPM).
 At level 10, \CPM{} is 0.4225, almost half of its maximum value.
 At level 34, \CPM{} is 0.7557, about 90\% of its maximum value.
 The extremal ratios are 0.1119 (L1 / L50) and 8.9394 (L50 / L1).
-The CPMs of integer levels are defined in the game master file; half-integer levels
+The \CPM{}s of integer levels are defined in the game master file; half-integer levels
  are synthesized on the fly by interpolating between the two surrounding levels.
 
 That's the theory.
 In truth, no such level is present in the definition of a Pokémon.
 It can be synthesized from two real fields: \texttt{cpMultiplier} and \texttt{additionalCpMultiplier}.
-The first is constant across the Pokémon's existence, and is the CPM of the Pokémon when captured.
+The first is constant across the Pokémon's existence, and is the \CPM{} of the Pokémon when captured.
 It is always a value from the game master array; this implies that Pokémon can only be caught on integer levels,
  which is borne out by observation.
-To get the actual CPM used in calculations, \texttt{cpMultiplier} is added to \texttt{additionalCpMultiplier}; the
+To get the actual \CPM{} used in calculations, \texttt{cpMultiplier} is added to \texttt{additionalCpMultiplier}; the
  latter changes each time the Pokémon is powered up.
 This sum would ideally map cleanly to ninety-nine floating point values.
 Unfortunately, the details of floating point math mean two pairs of ``levels'' $A$ and $B$
  and $C$ and $D$ might not yield precisely the same sum, even though $A+B = C+D$.
-There is thus no true CPM table; \autoref{table:cpm} is a lie; somewhere in
+There is thus no true \CPM{} table; \autoref{table:cpm} is a lie; somewhere in
  California, William Kahan is screaming.
 Accurately simulating the Pokémon GO CP calculation requires fifty tables, one for each possible capture level.
 This imprecision shows up only infrequently, and the naive CP calculation is never more than one point off.
 \input{out/cpms}
 \section{Effective stats\label{sec:effectivestats}}
-Multiplying \Mod{S} by CPM yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (MHP).
+Multiplying \Mod{S} by \CPM{} yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
@@ -221,30 +221,30 @@ Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
  than those with Team Rocket) always start with full HP.}.
 MHP is defined such that it is always an integer not less than ten:
 \begin{align*}
- \mathit{Eff_S} &= \mathit{Mod_S} \cdot CPM \\
- MHP &= \min{10, \lfloor \mathit{Eff_S} \rfloor}
+  \Eff{S} &= \Mod{S} \cdot \CPM{} \\
+  \MHP{} &= \min{10, \lfloor \Eff{S} \rfloor}
 \end{align*}
-Multiplying \Mod{S} by CPM yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
+Multiplying \Mod{S} by \CPM{} yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
 Multiplying \Eff{ARaw} by $M_{Shadow}$ yields \Eff{A}.
 Multiplying \Mod{D} by CPM and dividing by $M_{Shadow}$ gives us \Eff{D}.
 This manifests a 20\% bonus to \Eff{A} and a 16.7\% penalty to \Eff{D}.
 \begin{align*}
-  Eff_{ARaw} &= Mod_A \cdot CPM\\
-  Eff_A &= Eff_{ARaw} \cdot M_{Shadow} \\
- Eff_D &= \frac{Mod_D \cdot CPM}{M_{Shadow}}
+  \Eff{ARaw} &= \Mod{A} \cdot \CPM{}\\
+  \Eff{A} &= \Eff{ARaw} \cdot M_{Shadow} \\
+  \Eff{D} &= \frac{\Mod{D} \cdot \CPM{}}{M_{Shadow}}
 \end{align*}
 Is a Shadow Pokémon superior to its unshadowed equivalent, all else being equal?
 Evaluating using a product function such as the geometric mean will show no difference;
  the two multipliers cancel one another.
 \begin{align*}
-  P &= Eff_A \cdot Eff_D\\
-  &= \frac{6}{5}Mod_A \cdot \frac{5}{6}Mod_D \cdot CPM^2
+  P &= \Eff{A} \cdot \Eff{D}\\
+  &= \frac{6}{5}\Mod{A} \cdot \frac{5}{6}\Mod{D} \cdot \CPM{}^2
 \end{align*}
 Using a sum function such as the arithmetic mean will usually show a difference.
-When $Mod_A < \frac{5}{6}Mod_D$, the average goes down.
-When $Mod_A = \frac{5}{6}Mod_D$, the average is unchanged,
- and the average increases if $Mod_A > \frac{5}{6}Mod_D$.
+When $\Mod{A} < \frac{5}{6}\Mod{D}$, the average goes down.
+When $\Mod{A} = \frac{5}{6}\Mod{D}$, the average is unchanged,
+ and the average increases if $\Mod{A} > \frac{5}{6}\Mod{D}$.
 
 Let's compare the impact of levels and IVs on effective stats.
 A Pokémon has base ATK and DEF $A$ and $D$, and level $L$ with corresponding \CPM{} $C_0$.
@@ -253,9 +253,9 @@ Raising \IV{D} by one raises \Eff{D} by $C$.
 Raising \IV{S} by one raises \Eff{S} by $C$, raising MHP by either zero or one.
 Raising $L$ by 0.5 results in a new \CPM{} $C_{0.5}$; define $C_Δ = C_{0.5} - C_0$.
 At its maximum, $C_Δ$ is 0.0411; it is 0.0025 from level 40 on.
-Leveling up thus raises \Eff{A} by $Mod_A \cdot C_Δ$,
- \Eff{D} by $Mod_D \cdot C_Δ$,
- and \Eff{S} by $Mod_S \cdot C_Δ$.
+Leveling up thus raises \Eff{A} by $\Mod{A} \cdot C_Δ$,
+ \Eff{D} by $\Mod{D} \cdot C_Δ$,
+ and \Eff{S} by $\Mod{S} \cdot C_Δ$.
 Note that $C_Δ$ becomes smaller as $C$ becomes larger,
  and the impact of leveling increases as the base stat increases.
 For typical base stats, leveling up improves the effective stat more through

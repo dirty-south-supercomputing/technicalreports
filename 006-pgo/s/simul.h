@@ -1,7 +1,3 @@
-constexpr unsigned TEAMSIZE = 3;
-constexpr int MAXCHARGEDBUFF = 4;
-constexpr unsigned ENERGY_MAX = 100;
-
 struct results {
   unsigned long wins[2], ties; // win/tie counts
 };
@@ -38,13 +34,6 @@ struct simulstate { // dynamic elements
     return true;
   }
 
-};
-
-struct pmon { // static elements
-  struct stats s;
-  const attack *fa, *ca1, *ca2;
-  float effa, effd; // effective stats, cpm * (base + iv)
-  bool shadow;
 };
 
 extern pmon pmons[2][TEAMSIZE];

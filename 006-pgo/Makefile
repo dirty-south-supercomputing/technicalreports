@@ -33,6 +33,7 @@ TRELS:=$(OUT)/typerels
 TIMETOFIRST:=$(OUT)/timetofirst
 DUALCHARGED:=$(OUT)/dualcharged
 COVERSETS:=$(OUT)/coversets
+TEAMBUILDER:=$(OUT)/teambuilder
 CALCULATOR:=$(OUT)/calculator
 USERS:=$(OUT)/users
 REGIONS:=$(OUT)/regions
@@ -102,12 +103,12 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(UNPOPTEX) $(ASETSTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp lex.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
+SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h) lex.cpp
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul $(COVERSETS)
+all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul $(COVERSETS)
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@

@@ -13,20 +13,19 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
   if(has_stab_p(p->s.s, a)){
     d = calc_stab(d);
   }
-  if(p->shadow && !o->shadow){
+  if(p->s.shadow && !o->s.shadow){
     d *= 6;
-  }else if(o->shadow && !p->shadow){
+  }else if(o->s.shadow && !p->s.shadow){
     d *= 5;
   }
   d *= o->s.s->type_effectiveness(a);
   d /= o->effd * mapbuff(dbuff);
   d /= 20; // second half of the 0.65 multiplier
-  if(p->shadow && !o->shadow){
+  if(p->s.shadow && !o->s.shadow){
     d /= 5;
-  }else if(o->shadow && !p->shadow){
+  }else if(o->s.shadow && !p->s.shadow){
     d /= 6;
   }
-  //printf("damage: %f\n", d);
   return static_cast<unsigned>(floor(d)) + 1;
 }
 

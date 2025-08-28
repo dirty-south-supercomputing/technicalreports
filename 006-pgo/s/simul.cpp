@@ -11,7 +11,7 @@ static void tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
 #include "top.h"
-#include "lex.cpp"
+#include "../lex.cpp"
 
 pmon pmons[2][TEAMSIZE] = {};
 
@@ -147,7 +147,7 @@ print_pmon(const pmon *p){
   unsigned l = halflevel_to_level(p->s.hlevel, &hl);
   printf(" %s %s%u%s effa: %g effd: %g mhp: %u cp %u\n",
         p->s.s->name.c_str(),
-        p->shadow ? "(shadow) " : "",
+        p->s.shadow ? "(shadow) " : "",
         l, hl ? ".5" : "",
         p->s.effa, p->s.effd, p->s.mhp, p->s.cp);
   printf(" ");
@@ -182,13 +182,13 @@ simul(simulstate *s, results *r){
     const species *s;
     pmon *p = &pmons[0][i];
     if( (s = p->s.s) ){
-      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
-      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->s.shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->s.shadow);
     }
     p = &pmons[1][i];
     if( (s = p->s.s) ){
-      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->shadow);
-      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->shadow);
+      p->effa = calc_eff_a(s->atk + p->s.ia, p->s.hlevel, p->s.shadow);
+      p->effd = calc_eff_d(s->def + p->s.id, p->s.hlevel, p->s.shadow);
     }
   }
   calculate_damages(s);

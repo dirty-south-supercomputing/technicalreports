@@ -64,11 +64,10 @@ The two effectiveness relationships must be added, and this value used to
 Exponential functions are not linear functions, and must not be treated as such.
 
 \section{The context-specific multiplier\label{sec:mbmult}}
-In Raids and Max battles, a number of effects come into play.
+In Raids, Max battles, and Gym takeovers, a number of effects come into play:
 \[ M_\mathrm{B} = 0.5 \cdot M_\mathrm{D} \cdot M_\mathrm{F} \cdot M_\mathrm{W} \cdot M_\mathrm{M} \]
 \begin{itemize}
- \item $M_\mathrm{D}$ is 0.25 if the attack is dodged (dodging is only possible in Raids/Max battles),
- and 1 otherwise. Note that this seems to have been subject to recent changes.
+ \item $M_\mathrm{D}$ is 0.25 if the attack is dodged, and 1 otherwise.
  \item The friendship bonus $M_\mathrm{F}$:
    \begin{table}[h!]
 \centering
@@ -84,9 +83,9 @@ In Raids and Max battles, a number of effects come into play.
      \caption{Bonus due the presence of friends}
    \end{table}
  \item $M_\mathrm{W}$ is 1.2 if the attack is weather-boosted, and 1 otherwise.
- \item $M_\mathrm{M}$ from Mega Pokémon \textit{actively} involved in a Raid (i.e. they
+ \item $M_\mathrm{M}$ from Mega Pokémon \textit{actively} involved (i.e. they
    must be fighting, not just on the team), or Primal Pokémon \textit{present}
-   (even knocked out) at a Raid or Gym. The Primal bonus is not awarded to the Trainer who brought
+   (even knocked out) at a Raid or gym assault. The Primal bonus is not awarded to the Trainer who brought
    that Primal Pokémon, but they can receive it from some other Trainer's Pokémon.
    \begin{table}[h!]
      \centering
@@ -103,8 +102,8 @@ In Raids and Max battles, a number of effects come into play.
        \end{tabular}
      \caption{Bonus due the presence of Mega and Primal Pokémon}
    \end{table}
-   In a Max battle, $M_\mathrm{M}$ is based on the number of Pokémon left at that Power Stop
-     (see \autoref{sec:maxbattles}).
+   Mega forms cannot participate in Max battles; there, $M_\mathrm{M}$ is
+    instead based on the number of Pokémon left at that Power Stop (see \autoref{sec:maxbattles}).
    \begin{table}[h!]
      \centering
        \begin{tabular}{lc}
@@ -206,7 +205,7 @@ This is always a positive rational.
 A floor function is applied (ensuring a non-negative integer),
  and one is added (ensuring a positive integer):
 
-\[ D = \left\lfloor P \cdot \frac{{\Eff{A}}{\Eff{D}}} \cdot M_C \cdot M_B \right\rfloor + 1 \]
+\[ D = \left\lfloor P \cdot \frac{\Eff{A}}{\Eff{D}} \cdot M_C \cdot M_B \right\rfloor + 1 \]
 
 If $D$ equals or exceeds the opponent's \HP, it will fight no more.
 
