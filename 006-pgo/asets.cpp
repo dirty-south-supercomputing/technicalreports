@@ -47,6 +47,9 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
         if(has_stab_p(&s, a)){
           appe *= 1.2;
         }
+        if(appe < 2.0){
+          continue;
+        }
         for(unsigned a2idx = 0 ; a2idx < s.attacks.size() ; ++a2idx){
           const auto a2 = s.attacks[a2idx];
           if(!charged_attack_p(a2)){
@@ -56,6 +59,9 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
             float a2ppe = a2->powertrain / static_cast<float>(-a2->energytrain);
             if(has_stab_p(&s, a2)){
               a2ppe *= 1.2;
+            }
+            if(a2ppe < 2.0){
+              continue;
             }
             printf("\t%s: %s (%.2f) + %s (%.2f)\n", sdex[u].name.c_str(),
                 a->name, appe, a2->name, a2ppe);
