@@ -41,7 +41,18 @@ static void
 summarize_pmon(const Teambuild &tb, const pmon &p){
   std::cout << p.s.s->name;
   // FIXME if no IVs supplied, isolate best for CP limit
+  std::cout << " ATK: " << p.s.s->atk;
+  std::cout << " DEF: " << p.s.s->def;
+  std::cout << " STA: " << p.s.s->sta;
+  std::cout << " EffA: " << p.s.effa;
+  std::cout << " EffD: " << p.s.effd;
+  std::cout << " MHP: " << p.s.mhp;
+  std::cout << " Gmean: " << p.s.geommean;
+  std::cout << " Amean: " << p.s.average;
   std::cout << std::endl;
+  // FIXME show effective stats relative to max configs for this mon+cpcap
+  // FIXME run through all attack sets, profiling turns, target-independent power,
+  //  and power delivered to typings
 }
 
 static void

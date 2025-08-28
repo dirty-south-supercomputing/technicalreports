@@ -5831,6 +5831,7 @@ fill_stats(stats* s, bool shadow){
   s->effd = calc_eff_d(s->s->def + s->id, s->hlevel, false);
   s->mhp = calc_mhp(s->s->sta + s->is, s->hlevel);
   s->geommean = calc_gmean(s->effa, s->effd, s->mhp);
+  s->average = calc_amean(s->effa, s->effd, s->mhp);
   s->cp = calccp(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, s->hlevel);
   s->shadow = shadow;
   s->next = NULL;
