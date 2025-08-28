@@ -278,7 +278,7 @@ testsimullong: $(SIMUL)
 						feebas max tackle "mirror coat" milotic max waterfall surf
 	time $(<) clodsire opt1500 "poison sting" "earthquake/megahorn" \
 						talonflame opt1500 incinerate "brave bird/fire blast" \
-						shadow jumpluff opt1500 "bullet seed" "acrobatics/solar beam" \
+						'shadow jumpluff' opt1500 "bullet seed" "acrobatics/solar beam" \
 						dusknoir opt1500 astonish "shadow ball/dynamic punch"
 	time $(<) clodsire opt750 "poison sting" "earthquake/megahorn" \
 						talonflame opt750 incinerate "brave bird/fire blast" \
