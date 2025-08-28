@@ -81,6 +81,7 @@ TRELSTEX:=$(OUT)/typerels.tex
 EVENENERGYTEX:=$(OUT)/evenenergy.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
+TIMETOFIRSTFULLTEX:=$(OUT)/timetofirstfull.tex
 DAMAGECYCLETEX:=$(OUT)/damagecycle.tex
 DOUBLEDOUBLESTEX:=$(OUT)/doubledoubles.tex
 TRIPLERESISTTEX:=$(OUT)/tripleresist.tex
@@ -119,7 +120,7 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(BIGLIST): list.tex $(STAT1500TEX) $(STAT2500TEX) $(STATMAXTEX)
+$(BIGLIST): list.tex $(STAT1500TEX) $(STAT2500TEX) $(STATMAXTEX) $(TIMETOFIRSTFULLTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
@@ -231,6 +232,10 @@ $(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 $(DAMAGECYCLETEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)
 	$(<) extrema damage > $@
+
+$(TIMETOFIRSTFULLTEX): $(basename $(TIMETOFIRSTTEX))
+	@mkdir -p $(@D)
+	$(<) > $@
 
 $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)
