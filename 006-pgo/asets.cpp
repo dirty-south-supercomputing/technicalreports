@@ -1,5 +1,7 @@
 #include "pgotypes.cpp"
 
+static constexpr auto PPETHRESH = 0.0;
+
 struct typeset {
   pgo_types_e t0;
   pgo_types_e t1; // can be the same as t1 if we only have one attack type
@@ -47,7 +49,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
         if(has_stab_p(&s, a)){
           appe *= 1.2;
         }
-        if(appe < 2.0){
+        if(appe < PPETHRESH){
           continue;
         }
         for(unsigned a2idx = 0 ; a2idx < s.attacks.size() ; ++a2idx){
@@ -60,7 +62,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
             if(has_stab_p(&s, a2)){
               a2ppe *= 1.2;
             }
-            if(a2ppe < 2.0){
+            if(a2ppe < PPETHRESH){
               continue;
             }
             printf("\t%s: %s (%.2f) + %s (%.2f)\n", sdex[u].name.c_str(),
