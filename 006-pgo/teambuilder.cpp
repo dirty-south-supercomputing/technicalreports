@@ -86,7 +86,7 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
   auto opts = order_ivs(p.s.s, cpcap, cmpfxn, &vcount);
   const stats &st = opts[vcount - 1];
   const auto max = getfxn(st);
-  std::cout << name << "\tbest: " << max << " ";
+  std::cout << " " << name << "\tbest: " << max << " ";
   summarize_ivlev(st);
   if(st.shadow){
     std::cout << " (s)";
@@ -117,7 +117,6 @@ summarize_pmon(const Teambuild &tb, const pmon &p){
   summarize_fxn(p, tb.cpbound, "EffD", statscmp_def, statsget_effd);
   summarize_fxn(p, tb.cpbound, "MHP", statscmp_mhp, statsget_mhp);
   summarize_fxn(p, tb.cpbound, "bulk", statscmp_bulk, statsget_bulk);
-  // FIXME show effective stats relative to max configs for this mon+cpcap
   // FIXME run through all attack sets, profiling turns, target-independent power,
   //  and power delivered to typings
 }
