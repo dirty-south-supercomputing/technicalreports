@@ -75,7 +75,12 @@ static void usage(const char *argv0){
 
 // don't want a turns column if extrema && !powertbl
 static void header(bool extrema, bool powertbl){
-  std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+  if(extrema){
+    std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+  }else{
+    std::cout << "\\begin{longtable}{ll";
+    //\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+  }
   if(!extrema || powertbl){
     std::cout << "rr";
   }
@@ -157,7 +162,7 @@ static void footer(bool extrema, bool powertbl, unsigned fastest){
   }else if(extrema){
     std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
   }else{
-    std::cout << "\\end{tabular}\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{table}" << std::endl;
+    std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}" << std::endl;
   }
 }
 
