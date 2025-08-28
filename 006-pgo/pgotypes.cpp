@@ -4242,9 +4242,15 @@ static const species sdex[] = {
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Power_Whip, },
 		true, false, true, { }, species::CAT_NORMAL, 50, "G-Max Smite", },
-  // 859 impidimp
-  // 860 morgrem
-  // 861 grimmsnarl
+  {  859, "Impidimp", TYPE_DARK, TYPE_FAIRY, 103, 69, 128, nullptr,
+		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, },
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  {  860, "Morgrem", TYPE_DARK, TYPE_FAIRY, 145, 102, 163, "Impidimp",
+		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, },
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  {  861, "Grimmsnarl", TYPE_DARK, TYPE_FAIRY, 237, 139, 216, "Morgrem",
+		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, &ATK_Power_Up_Punch, },
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone",
 		{ &ATK_Lick, &ATK_Counter, &ATK_Hyper_Beam, &ATK_Cross_Chop, &ATK_Night_Slash, &ATK_Gunk_Shot, &ATK_Obstruct, },
 		true, true, false, { &ATK_Obstruct, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
