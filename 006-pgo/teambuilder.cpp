@@ -97,6 +97,27 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
   delete[] opts;
 }
 
+// summarize an attack set (1 fast + 1 or 2 charged)
+//  - number of typings against which it is { -3 .. 2 } for charged
+//  - ARA for charged
+//  - turns and total power for cycle(s)
+static void
+summarize_aset(const pmon &p){
+  std::vector<typeset> tsets;
+  build_tset(tsets, p.ca1->type, p.ca2 ? p.ca2->type : p.ca1->type);
+  std::cout << "(" << TNames[p.fa->type] << ") " << p.fa->name;
+  std::cout << " (" << TNames[p.ca1->type] << ") " << p.ca1->name;
+  if(p.ca2){
+    std::cout << " (" << TNames[p.ca2->type] << ") " << p.ca2->name;
+  }
+  const typeset &ts = tsets[0];
+  for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
+    std::cout << " " << ts.totals[i];
+  }
+  std::cout << " " << ts.ara;
+  std::cout << std::endl;
+}
+
 static void
 summarize_pmon(const Teambuild &tb, const pmon &p){
   std::cout << p.s.s->name;
@@ -117,6 +138,7 @@ summarize_pmon(const Teambuild &tb, const pmon &p){
   summarize_fxn(p, tb.cpbound, "EffD", statscmp_def, statsget_effd);
   summarize_fxn(p, tb.cpbound, "MHP", statscmp_mhp, statsget_mhp);
   summarize_fxn(p, tb.cpbound, "bulk", statscmp_bulk, statsget_bulk);
+  summarize_aset(p);
   // FIXME run through all attack sets, profiling turns, target-independent power,
   //  and power delivered to typings
 }

@@ -1,61 +1,5 @@
 #include "pgotypes.cpp"
 
-struct typeset {
-  pgo_types_e t0;
-  pgo_types_e t1; // can be the same as t1 if we only have one attack type
-  int totals[6];  // we range from -3 to 2, inclusive
-  unsigned pop;   // population that can learn a charged attack of these types
-  float ara;
-
-  typeset(pgo_types_e T0, pgo_types_e T1, const int Totals[],
-          unsigned Pop, float ARA) :
-    t0(T0),
-    t1(T1),
-    pop(Pop),
-    ara(ARA) {
-      memcpy(totals, Totals, sizeof(totals));
-  }
-
-  friend bool operator<(const typeset &l, const typeset &r) {
-    return l.ara < r.ara ? true :
-            r.ara < l.ara ? false :
-            l.pop < r.pop ? true :
-            r.pop < l.pop ? false :
-            l.t0 < r.t0 ? true :
-            r.t0 < l.t0 ? false :
-            l.t1 < r.t1 ? true : false;
-  }
-
-  friend bool operator>(const typeset &l, const typeset &r) {
-    return !(l < r);
-  }
-
-};
-
-static unsigned
-dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
-  unsigned pop = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    bool b0 = false;
-    bool b1 = false;
-    for(const auto &a : sdex[u].attacks){
-      if(a->energytrain >= 0){
-        continue;
-      }
-      if(a->type == t0){
-        b0 = true;
-      }
-      if(a->type == t1){
-        b1 = true;
-      }
-    }
-    if(b0 && (b1 || t1 == TYPECOUNT)){
-      ++pop;
-    }
-  }
-  return pop;
-}
-
 // build the 171 typesets
 static void
 build_tsets(std::vector<typeset> &tsets, bool monomode){
@@ -69,24 +13,7 @@ build_tsets(std::vector<typeset> &tsets, bool monomode){
       ubound = TYPECOUNT;
     }
     for(int t1 = lbound ; t1 < ubound ; ++t1){
-      int totals[6] = {};
-      for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
-        for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
-          int e0 = typing_relation(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-          int e1 = typing_relation(static_cast<pgo_types_e>(t1), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-          int e = e0 > e1 ? e0 : e1;
-          ++totals[e + 3];
-        }
-      }
-      float ara = 0;
-      for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
-        ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
-      }
-      ara /= TYPINGCOUNT;
-      unsigned pop = dualcharge_pop(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
-      tsets.emplace(tsets.end(), static_cast<pgo_types_e>(t0),
-          static_cast<pgo_types_e>(t1), totals, pop, ara);
-    }
+      build_tset(tsets, static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
   }
 }
 
