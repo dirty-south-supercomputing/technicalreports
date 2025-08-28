@@ -122,15 +122,15 @@ static void
 summarize_pmon(const Teambuild &tb, const pmon &p){
   std::cout << p.s.s->name;
   // FIXME if no IVs supplied, isolate best for CP limit (we currently require IVs+level spec)
-  std::cout << " CP: " << p.s.cp;
-  std::cout << " ATK: " << p.s.s->atk;
-  std::cout << " DEF: " << p.s.s->def;
-  std::cout << " STA: " << p.s.s->sta;
-  std::cout << " EffA: " << p.s.effa;
-  std::cout << " EffD: " << p.s.effd;
-  std::cout << " MHP: " << p.s.mhp;
-  std::cout << " Gmean: " << p.s.geommean;
-  std::cout << " Amean: " << p.s.average;
+  std::cout << " cp " << p.s.cp;
+  std::cout << " atk " << p.s.s->atk;
+  std::cout << " def " << p.s.s->def;
+  std::cout << " sta " << p.s.s->sta;
+  std::cout << " EffA " << p.s.effa;
+  std::cout << " EffD " << p.s.effd;
+  std::cout << " mhp " << p.s.mhp;
+  std::cout << " Gm " << p.s.geommean;
+  std::cout << " Am " << p.s.average;
   std::cout << std::endl;
   summarize_fxn(p, tb.cpbound, "Gmean", statscmp_gmean, statsget_gmean);
   summarize_fxn(p, tb.cpbound, "Amean", statscmp_amean, statsget_amean);
