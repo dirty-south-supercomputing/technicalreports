@@ -124,8 +124,8 @@ static void usage(const char *argv0){
 
 static void header(void){
   std::cout << "\\begin{longtable}{cllrrrlrrrrrrr}" << std::endl;
-  std::cout << "& \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & $Eff_D$ & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
-  std::cout << "\\textbf{Power} & $Eff_A$ & \\textbf{DI} & ";
+  std::cout << "& \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & \\Eff{D} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
+  std::cout << "\\textbf{Power} & \\Eff{A} & \\textbf{DI} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
   std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
   std::cout << "\\endhead" << std::endl;
