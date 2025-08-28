@@ -17,6 +17,14 @@ constexpr int MAXCHARGEDBUFF = 4;
 constexpr unsigned ENERGY_MAX = 100;
 constexpr unsigned MAX_HALFLEVEL = 99;
 
+// returns integer part, sets *half to 1 if it's a +0.5
+// (aren't guaranteed exact representation with floats)
+static inline unsigned
+halflevel_to_level(unsigned hl, unsigned* half){
+  *half = !(hl % 2);
+  return (hl + 1) / 2;
+}
+
 enum pgo_types_e {
   TYPE_BUG,
   TYPE_DARK,
@@ -4807,28 +4815,71 @@ struct stats {
 
 };
 
-// instantiation of a pokémon -- species, IVs, and known attacks
-struct pmon { // static elements
-  struct stats s;
-  const attack *fa, *ca1, *ca2;
-};
-
-static inline float
-calc_pok_amean(const stats *s){
-  return calc_amean(s->effa, s->effd, s->mhp);
+static inline void
+summarize_stat(const stats &st){
+  std::cout << st.geommean << " " << st.average << " ";
+  std::cout << st.cp;
+  std::cout << " " << st.effa << " " << st.effd << " " << st.mhp << " ";
+  unsigned half;
+  unsigned l = halflevel_to_level(st.hlevel, &half);
+  std::cout << "\\ivlev{" << st.ia << "}{" << st.id << "}{" << st.is << "}{" << l;
+  if(half){
+    std::cout << ".5";
+  }
+  std::cout << "}";
+  if(st.shadow){
+    std::cout << " \\shadow";
+  }
+  std::cout << std::endl;
 }
 
-static inline float
-calc_pok_gmean(const stats *s){
-  return calc_gmean(s->effa, s->effd, s->mhp);
+static inline int
+statscmp_gmean(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->geommean < st2->geommean ? -1 :
+          st1->geommean > st2->geommean ? 1 : 0;
 }
 
-// returns integer part, sets *half to 1 if it's a +0.5
-// (aren't guaranteed exact representation with floats)
-static inline unsigned
-halflevel_to_level(unsigned hl, unsigned* half){
-  *half = !(hl % 2);
-  return (hl + 1) / 2;
+static inline int
+statscmp_amean(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->average < st2->average ? -1 :
+          st1->average > st2->average ? 1 : 0;
+}
+
+static inline int
+statscmp_atk(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->effa < st2->effa ? -1 :
+          st1->effa > st2->effa ? 1 : 0;
+}
+
+static inline int
+statscmp_def(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->effd < st2->effd ? -1 :
+          st1->effd > st2->effd ? 1 : 0;
+}
+
+static inline int
+statscmp_mhp(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->mhp < st2->mhp ? -1 :
+          st1->mhp > st2->mhp ? 1 : 0;
+}
+
+static inline int
+statscmp_bulk(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  const float b1 = st1->mhp * st1->effd;
+  const float b2 = st2->mhp * st2->effd;
+  return b1 < b2 ? -1 : b1 > b2 ? 1 : 0;
 }
 
 // FIXME binary search on it
@@ -4847,6 +4898,70 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   }
   return lastgood;
 }
+
+static inline float
+calc_pok_amean(const stats *s){
+  return calc_amean(s->effa, s->effd, s->mhp);
+}
+
+static inline float
+calc_pok_gmean(const stats *s){
+  return calc_gmean(s->effa, s->effd, s->mhp);
+}
+
+static void
+order_ivs_internal(const species *s, int cpceil, stats *svec, bool shadow){
+  unsigned idx = 0;
+  for(int iva = 0 ; iva < 16 ; ++iva){
+    for(int ivd = 0 ; ivd < 16 ; ++ivd){
+      for(int ivs = 0 ; ivs < 16 ; ++ivs){
+        auto &st = svec[idx];
+        const unsigned moda = s->atk + iva;
+        const unsigned modd = s->def + ivd;
+        const unsigned mods = s->sta + ivs;
+        st.hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
+        st.s = s;
+        st.effa = calc_eff_a(moda, st.hlevel, shadow);
+        st.effd = calc_eff_d(modd, st.hlevel, shadow);
+        st.mhp = calc_mhp(mods, st.hlevel);
+        st.ia = iva;
+        st.id = ivd;
+        st.is = ivs;
+        st.shadow = shadow;
+        st.geommean = calc_pok_gmean(&st);
+        st.average = calc_pok_amean(&st);
+        ++idx;
+      }
+    }
+  }
+}
+
+static constexpr unsigned IVLEVVEC =
+  (MAXIVELEM + 1) * (MAXIVELEM + 1) * (MAXIVELEM + 1);
+
+// generate the stats for each of 4,096 possible IVs at their maximum level
+// subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
+static stats *
+order_ivs(const species *s, int cpceil, int(*cmpfxn)(const void*, const void*),
+          unsigned *vcount){
+  *vcount = IVLEVVEC;
+  if(s->shadow){
+    *vcount *= 2;
+  }
+  stats *svec = new stats[*vcount];
+  order_ivs_internal(s, cpceil, svec, false);
+  if(s->shadow){
+    order_ivs_internal(s, cpceil, svec + IVLEVVEC, true);
+  }
+  qsort(svec, *vcount, sizeof(*svec), cmpfxn);
+  return svec;
+}
+
+// instantiation of a pokémon -- species, IVs, and known attacks
+struct pmon { // static elements
+  struct stats s;
+  const attack *fa, *ca1, *ca2;
+};
 
 static inline float
 calc_fitfxn(float (*fitfxn)(const stats *), const species *s,
