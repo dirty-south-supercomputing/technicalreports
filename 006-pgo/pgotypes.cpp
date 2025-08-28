@@ -4248,6 +4248,7 @@ static const species sdex[] = {
   {  860, "Morgrem", TYPE_DARK, TYPE_FAIRY, 145, 102, 163, "Impidimp",
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // the Bulk Up
   {  861, "Grimmsnarl", TYPE_DARK, TYPE_FAIRY, 237, 139, 216, "Morgrem",
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, &ATK_Power_Up_Punch, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
