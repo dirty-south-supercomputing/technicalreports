@@ -5776,8 +5776,8 @@ lex_ivlevel(const char* ivl, stats* s, bool shadow){
     s->ia = s->id = s->is = MAXIVELEM;
     s->hlevel = MAX_HALFLEVEL;
   }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
-    ivl = strchr(ivl, '@') + 1;
-    if(!ivl || !isdigit(*ivl)){
+    ivl = strchr(ivl, '@');
+    if(!ivl || !isdigit(*++ivl)){
       fprintf(stderr, "error lexing L from %s\n", ivl);
       return -1;
     }
