@@ -56,11 +56,9 @@ set_cpcap(int *cpcap, unsigned newcap, const char *argv0){
 int main(int argc, char **argv){
   setlocale(LC_ALL, "");
   const char *argv0 = *argv;
-  --argc;
-  ++argv;
   int cpcap = -1;
   // FIXME allow a -c + arg to specify an arbitrary cp limit
-  while(int gopt = getopt(argc, argv, "")){
+  while(int gopt = getopt(argc, argv, "gu")){
     if(gopt == -1){
       break;
     }
@@ -77,9 +75,13 @@ int main(int argc, char **argv){
         usage(argv[0]);
     }
   }
-  argc -= (optind - 1);
+  if(cpcap < 0){ // no cpcap was provided; don't enforce one
+    cpcap = 0;
+  }
+  argc -= optind;
+  argv += optind;
+  Teambuild tb(cpcap);
   unsigned pcount = 0;
-  Teambuild tb;
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
     if(!argc && i){
       pcount = i;

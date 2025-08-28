@@ -265,7 +265,8 @@ $(OUT)/%: %.cpp pgotypes.cpp Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
 
-test: testsimul testdb
+test: $(TEAMBUILDER) testsimul testdb
+	$< metagross -u 0-0-0@1 'zen headbutt' psychic
 
 testdb: $(TESTDB)
 	$(<)
