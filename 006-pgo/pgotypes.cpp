@@ -5019,13 +5019,13 @@ int print_weather_big(pgo_weather_t w, bool doprint){
   int count = 1;
   const char *ws = WNames[w];
   if(doprint){
-    printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", ws);
+    printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", ws);
   }
   ws = WSNames[w];
   if(ws){
     ++count;
     if(doprint){
-      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/%s.png}}", ws);
+      printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", ws);
     }
   }
   return count;
@@ -5362,12 +5362,6 @@ print_previous_species(const species *s){
 static int
 print_icons(const species *s, bool doprint, bool ismega){
   int count = 0;
-  if(s->category == species::CAT_ULTRABEAST){
-    ++count;
-    if(doprint){
-      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/ultrahole.png}}");
-    }
-  }
   if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
