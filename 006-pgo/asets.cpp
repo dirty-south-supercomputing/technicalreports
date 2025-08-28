@@ -2,38 +2,6 @@
 
 static constexpr auto PPETHRESH = 0.0;
 
-struct typeset {
-  pgo_types_e t0;
-  pgo_types_e t1; // can be the same as t1 if we only have one attack type
-  int totals[6];  // we range from -3 to 2, inclusive
-  unsigned pop;   // population that can learn a charged attack of these types
-  float ara;
-
-  typeset(pgo_types_e T0, pgo_types_e T1, const int Totals[],
-          unsigned Pop, float ARA) :
-    t0(T0),
-    t1(T1),
-    pop(Pop),
-    ara(ARA) {
-      memcpy(totals, Totals, sizeof(totals));
-  }
-
-  friend bool operator<(const typeset &l, const typeset &r) {
-    return l.ara < r.ara ? true :
-            r.ara < l.ara ? false :
-            l.pop < r.pop ? true :
-            r.pop < l.pop ? false :
-            l.t0 < r.t0 ? true :
-            r.t0 < l.t0 ? false :
-            l.t1 < r.t1 ? true : false;
-  }
-
-  friend bool operator>(const typeset &l, const typeset &r) {
-    return !(l < r);
-  }
-
-};
-
 static unsigned
 dualcharge_list(pgo_types_e t0, pgo_types_e t1){
   unsigned pop = 0;
@@ -70,30 +38,6 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
           }
         }
       }
-    }
-  }
-  return pop;
-}
-
-static unsigned
-dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
-  unsigned pop = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    bool b0 = false;
-    bool b1 = false;
-    for(const auto &a : sdex[u].attacks){
-      if(a->energytrain >= 0){
-        continue;
-      }
-      if(a->type == t0){
-        b0 = true;
-      }
-      if(a->type == t1){
-        b1 = true;
-      }
-    }
-    if(b0 && (b1 || t1 == TYPECOUNT)){
-      ++pop;
     }
   }
   return pop;

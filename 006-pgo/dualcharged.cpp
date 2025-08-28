@@ -14,6 +14,7 @@ build_tsets(std::vector<typeset> &tsets, bool monomode){
     }
     for(int t1 = lbound ; t1 < ubound ; ++t1){
       build_tset(tsets, static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
+    }
   }
 }
 

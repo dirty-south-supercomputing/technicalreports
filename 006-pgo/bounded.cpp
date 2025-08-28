@@ -195,7 +195,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
     ;
   }
   printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP\\label{table:cp%d%c}}\n",
-            fitchar, bound, bound, fitchar);
+            toupper(fitchar), bound, bound, fitchar);
   printf("\\end{longtable}");
   printf("\\endgroup\n");
 }
