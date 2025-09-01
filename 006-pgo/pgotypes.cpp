@@ -3033,9 +3033,10 @@ static const species sdex[] = {
   {  479, "Frost Rotom", TYPE_ELECTRIC, TYPE_ICE, 204, 219, 137, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Blizzard, &ATK_Thunder, &ATK_Thunderbolt, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
-  {  479, "Fan Rotom", TYPE_ELECTRIC, TYPE_FLYING, 204, 219, 137, nullptr,
+  // fan rotom has not been released as of 2025
+  /*{  479, "Fan Rotom", TYPE_ELECTRIC, TYPE_FLYING, 204, 219, 137, nullptr,
 		{ &ATK_Air_Slash, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },*/
   {  479, "Mow Rotom", TYPE_ELECTRIC, TYPE_GRASS, 204, 219, 137, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -3075,8 +3076,13 @@ static const species sdex[] = {
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
-  // 489 is phione
-  // 490 is manaphy
+  // phione and manaphy have not been released as of 2025
+  /* {  489, "Phione", TYPE_WATER, TYPECOUNT, 162, 162, 190, nullptr,
+		{ &ATK_Bubble, &ATK_Waterfall, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Surf, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  {  490, "Manaphy", TYPE_WATER, TYPECOUNT, 210, 210, 225, nullptr,
+		{ &ATK_Bubble, &ATK_Waterfall, &ATK_Bubble_Beam, &ATK_Psychic, &ATK_Surf, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, nullptr,
 		{ &ATK_Feint_Attack, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Focus_Blast, },
 		true, false, false, { &ATK_Sludge_Bomb, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -3967,9 +3973,10 @@ static const species sdex[] = {
   {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff",
 		{ &ATK_Sucker_Punch, &ATK_Rock_Throw, &ATK_Counter, &ATK_Stone_Edge, &ATK_Iron_Head, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
-  {  746, "Wishiwashi", TYPE_WATER, TYPECOUNT, 46, 43, 128, nullptr,
+  // not yet released
+  /* {  746, "Wishiwashi", TYPE_WATER, TYPECOUNT, 46, 43, 128, nullptr,
 		{ &ATK_Water_Gun, &ATK_Iron_Tail, &ATK_Waterfall, &ATK_Aqua_Tail, &ATK_Brine, &ATK_Surf, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },*/
   {  747, "Mareanie", TYPE_POISON, TYPE_WATER, 98, 110, 137, nullptr,
 		{ &ATK_Bite, &ATK_Poison_Sting, &ATK_Sludge_Wave, &ATK_Gunk_Shot, &ATK_Brine, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4043,6 +4050,9 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // 771 is pyukumuku
+  // 772 is type: null
+  // 773 is silvally
+  // 774 is minior
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4052,9 +4062,10 @@ static const species sdex[] = {
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Wild_Charge, &ATK_Gyro_Ball, &ATK_Fell_Stinger, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
-  {  778, "Mimikyu", TYPE_GHOST, TYPE_FAIRY, 177, 199, 146, nullptr,
+  // not yet released
+  /* {  778, "Mimikyu", TYPE_GHOST, TYPE_FAIRY, 177, 199, 146, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Charm, &ATK_Shadow_Sneak, &ATK_Shadow_Ball, &ATK_Play_Rough, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },*/
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, nullptr,
 		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Confusion, &ATK_Aqua_Tail, &ATK_Psyshock, &ATK_Crunch, &ATK_Psychic_Fangs, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4306,6 +4317,8 @@ static const species sdex[] = {
   {  867, "Runerigus", TYPE_GROUND, TYPE_GHOST, 163, 237, 151, "Galarian Yamask",
 		{ &ATK_Shadow_Claw, &ATK_Astonish, &ATK_Rock_Smash, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Brutal_Swing, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // 868: milcery
+  // 869: alcremie
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Megahorn, &ATK_Brick_Break, &ATK_Superpower, },
 		true, false, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
