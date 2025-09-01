@@ -143,23 +143,31 @@ The probability of a random Pokémon being a hundo is actually
 \begin{tabular}{lcc}
 Context & IV floors & Level \\
 \Midrule
-\multirow{2}{*}{Wild catch} & 0 & 1--max(TL, 30) \\
-& 4 w/ weather boost & 1--max(TL, 30) + 5 \\
+\rowcolor{Gray!25}
+& 0 & 1--max(TL, 30) \\
+\rowcolor{Gray!25}
+  \multirow{-2}{*}{Wild catch} & 4 w/ weather boost & 1--max(TL, 30) + 5 \\
 Hatch & 10 & max(TL, 20) \\
-\multirow{2}{*}{Raid} & 10 & 20 \\
+\rowcolor{Gray!25}
 & 6 (shadow) & 25 w/ weather boost \\
+\rowcolor{Gray!25}
+\multirow{-2}{*}{Raid} & 10 & 20 \\
 Max Battle & 10 & 20 \\
+\rowcolor{Gray!25}
 Research & 10 & 15 \\
 Team GO Rocket & 0 & 8 \\
+\rowcolor{Gray!25}
 Grunts and Leaders & 4 w/ weather boost & 13 w/ weather boost \\
 \multirow{2}{*}{Giovanni} & \multirow{2}{*}{6} & 8\\
 & & 13 w/ weather boost\\
+\rowcolor{Gray!25}
 GBL & 10 & 20\\
 \multirow{5}{*}{Trade} & 1 w/ Good Friend & \multirow{5}{*}{See \autoref{sec:trades}} \\
 & 2 w/ Great Friend & \\
 & 3 w/ Ultra Friend & \\
 & 5 w/ Best Friend & \\
 & 12 (lucky trade) & \\
+\rowcolor{Gray!25}
 Mighty Pokémon & 13 & 35--40 \\
 \end{tabular}
 \caption{IV and level floors for acquired Pokémon\label{table:ivfloors}}
@@ -262,7 +270,7 @@ For typical base stats, leveling up improves the effective stat more through
  about level 30, at which point IVs have more impact.
 A base stat of 100 is improved more by \IV{} at level 25.5.
 
-\section{Searching the Pokédex\label{sec:searching}}
+\section{Searching Pokémon storage\label{sec:searching}}
 The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).

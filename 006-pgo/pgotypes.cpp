@@ -3335,7 +3335,7 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish",
 		{ &ATK_Infestation, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, &ATK_Body_Slam, &ATK_Acid_Spray, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_NORMAL, 50, "G-Max Malodor", species::EVOL_NOITEM, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, nullptr,
 		{ &ATK_Scratch, &ATK_Feint_Attack, &ATK_Dark_Pulse, &ATK_Aerial_Ace, &ATK_Night_Shade, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
