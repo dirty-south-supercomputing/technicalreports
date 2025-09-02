@@ -1331,14 +1331,14 @@ static const species sdex[] = {
   // the Lizard
   {  4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, nullptr,
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Flame_Burst, },
-		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   // the Flame
   {  5, "Charmeleon", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Charmander",
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Fire_Fang, &ATK_Flamethrower, &ATK_Flame_Burst, &ATK_Fire_Punch, },
-		true, false, true, { &ATK_Scratch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { &ATK_Scratch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon",
 		{ &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Air_Cutter, &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Dragon_Claw, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Blast_Burn, },
-		true, false, true, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, "G-Max Wildfire", },
+		true, true, true, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, "G-Max Wildfire", },
   // the Tiny Turtle
   {  7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, nullptr,
 		{ &ATK_Tackle, &ATK_Bubble, &ATK_Aqua_Jet, &ATK_Aqua_Tail, &ATK_Water_Pulse, },
