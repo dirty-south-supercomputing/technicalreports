@@ -8,6 +8,10 @@ test_species(const species *s){
   bool sawc = false;
   for(const auto &a : s->attacks){
     if(fast_attack_p(a)){
+      if(sawc){
+        std::cerr << "fast attack " << a->name << " followed charged attack in " << s->name << std::endl;
+        throw std::exception();
+      }
       sawf = true;
     }else if(charged_attack_p(a)){
       sawc = true;
@@ -20,13 +24,26 @@ test_species(const species *s){
       }
     }
     if(!atkingtable){
-    std::cerr << "missing on " << s->name << " " << a->name << std::endl;
+      std::cerr << "table missing " << s->name << " from " << a->name << std::endl;
       throw std::exception();
     }
   }
   if(!sawf || !sawc){
-    std::cerr << "missing on " << s->name << std::endl;
+    std::cerr << "missing fast/charged on " << s->name << std::endl;
     throw std::exception();
+  }
+  for(const auto &e : s->elite){
+    bool found = false;
+    for(const auto &a : s->attacks){
+      if(a == e){
+        found = true;
+        break;
+      }
+    }
+    if(!found){
+      std::cerr << "elite attack " << e->name << " missing on " << s->name << std::endl;
+      throw std::exception();
+    }
   }
   // we claim in the typing chapter that ghost/rock is unpopulated when
   // discussing typings with triple resistances
