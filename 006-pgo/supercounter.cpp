@@ -15,14 +15,14 @@ can_hit_for(const species &atk, const species &def, int rel){
 }
 
 
-// is ca1+ca2 a counter to opp?
+// is ca1+ca2 a counter to opp (can it hit for rel)?
 static bool
-counters_p(const attack *ca1, const attack *ca2, const species *opp){
-  if(typing_relation(ca1->type, opp->t1, opp->t2) > 0){
+counters_p(const attack *ca1, const attack *ca2, const species *opp, int rel){
+  if(typing_relation(ca1->type, opp->t1, opp->t2) >= rel){
 //std::cout << " BUT " << s.name << " can hit " << opp->name << " with " << TNames[ca1->type] << " for " << typing_relation(ca1->type, opp->t1, opp->t2) << std::endl;
     return true;
   }
-  if(ca2 && typing_relation(ca2->type, opp->t1, opp->t2) > 0){
+  if(ca2 && typing_relation(ca2->type, opp->t1, opp->t2) >= rel){
 //std::cout << " BUT2 " << s.name << " can hit " << opp->name << " with " << TNames[ca2->type] << " for " << typing_relation(ca2->type, opp->t1, opp->t2) << std::endl;
     return true;
   }
@@ -41,13 +41,14 @@ supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
       continue;
     }
     ++*canhit;
-    if(!counters_p(ca1, ca2, &opp)){
+    if(!counters_p(ca1, ca2, &opp, 1)){
       ++bad;
     }
   }
   // number we can't counter out of total, then number that can counter us out of total
-  std::cout << bad * 100.0 / SPECIESCOUNT << "% (" << bad << "/" << SPECIESCOUNT << ") "
-            << *canhit * 100.0 / SPECIESCOUNT << "% (" << *canhit << "/" << SPECIESCOUNT << ") "
+  std::cout << bad * 100.0 / SPECIESCOUNT << "% (" << bad << ") "
+            << *canhit * 100.0 / SPECIESCOUNT << "% (" << *canhit << ") "
+            << bad * 100.0 / *canhit << " "
             << s.name << " (" << ca1->name;
   if(ca2){
     std::cout << "+" << ca2->name;
@@ -67,8 +68,10 @@ supercounter_p(const species &s){
     unsigned f, canhit;
     auto ca2 = ca1 + 1;
     if(ca2 == s.attacks.end()){
-      if((f = supercounter_spec(s, *ca1, nullptr, &canhit)) == 0){
-        scounter = true;
+      if(ca1 == s.attacks.begin()){
+        if((f = supercounter_spec(s, *ca1, nullptr, &canhit)) == 0){
+          scounter = true;
+        }
       }
     }else{
       do{
