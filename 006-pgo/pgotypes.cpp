@@ -3594,6 +3594,7 @@ static const species sdex[] = {
   {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Stone_Edge, &ATK_Blizzard, &ATK_Iron_Head, &ATK_Outrage, &ATK_Fusion_Bolt, &ATK_Freeze_Shock, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // the colt
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4333,7 +4334,10 @@ static const species sdex[] = {
 		{ &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Slide, &ATK_Stomp, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   // 875 eiscue
-  // 876 indeedee
+  // the emotion
+  {  876, "Indeedee", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
+		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
