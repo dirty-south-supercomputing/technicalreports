@@ -142,18 +142,26 @@ print_complete_coversets_duals(void){
   }
 }
 
-// print coverset of all typings including certain types. t is a TYPECOUNT
-// sized vector with 1 for the typings we care about, 0 otherwise.
+// print coverset of all typings including/excluding certain types. t is a
+// TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
-print_coversets_duals(const int *t){
+print_coversets_duals(const int *t, bool exclude){
   static int ty[TYPINGCOUNT][2];
   int pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
-      if(t[i] || t[j]){
-        ty[pos][0] = i;
-        ty[pos][1] = j;
-        ++pos;
+      if(exclude){
+        if(!t[i] && !t[j]){
+          ty[pos][0] = i;
+          ty[pos][1] = j;
+          ++pos;
+        }
+      }else{
+        if(t[i] || t[j]){
+          ty[pos][0] = i;
+          ty[pos][1] = j;
+          ++pos;
+        }
       }
     }
   }
@@ -172,7 +180,8 @@ print_coversets_duals(const int *t){
 
 static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " [ type... ]" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ [ -x ] type... ]" << std::endl;
+  std::cerr << " -x: exclude these types" << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -182,18 +191,23 @@ int main(int argc, const char **argv){
     print_complete_coversets_duals();
   }
   int kern[TYPECOUNT] = {};
+  bool exclude = false;
   for(const char **a = argv + 1 ; *a ; ++a){
-    pgo_types_e t = lookup_type(*a);
-    if(t == TYPECOUNT){
-      std::cerr << "couldn't look up type for " << *a << std::endl;
-      usage(argv[0]);
+    if(strcmp(*a, "-x") == 0){
+      exclude = true;
+    }else{
+      pgo_types_e t = lookup_type(*a);
+      if(t == TYPECOUNT){
+        std::cerr << "couldn't look up type for " << *a << std::endl;
+        usage(argv[0]);
+      }
+      if(kern[t]){
+        std::cerr << "already provided type " << *a << std::endl;
+        usage(argv[0]);
+      }
+      kern[t] = 1;
     }
-    if(kern[t]){
-      std::cerr << "already provided type " << *a << std::endl;
-      usage(argv[0]);
-    }
-    kern[t] = 1;
   }
-  print_coversets_duals(kern);
+  print_coversets_duals(kern, exclude);
   return EXIT_SUCCESS;
 }

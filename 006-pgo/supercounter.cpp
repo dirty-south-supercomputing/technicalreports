@@ -29,10 +29,30 @@ counters_p(const attack *ca1, const attack *ca2, const species *opp, int rel){
   return false;
 }
 
+// returns the number of species which cannot effectively counter s, <= canhit
+static unsigned
+superhitter_spec(const species &s, const attack *ca1, const attack *ca2,
+                 unsigned *canhit){
+  unsigned good = 0;
+  *canhit = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species &opp = sdex[u];
+    if(counters_p(ca1, ca2, &opp, 1)){
+      ++*canhit;
+      if(!can_hit_for(opp, s, 1)){
+        ++good;
+      }
+    }
+  }
+  return good;
+}
+
 // returns the number of species for which s is not an effective counter, <= canhit
 static unsigned
 supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
                   unsigned *canhit){
+  unsigned wecanhit;
+  unsigned good = superhitter_spec(s, ca1, ca2, &wecanhit);
   unsigned bad = 0;
   *canhit = 0;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
@@ -46,9 +66,10 @@ supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
     }
   }
   // number we can't counter out of total, then number that can counter us out of total
-  std::cout << bad * 100.0 / SPECIESCOUNT << "% (" << bad << ") "
-            << *canhit * 100.0 / SPECIESCOUNT << "% (" << *canhit << ") "
-            << bad * 100.0 / *canhit << " "
+  std::cout << /*bad * 100.0 / SPECIESCOUNT << "% " << */ bad << ","
+            << /**canhit * 100.0 / SPECIESCOUNT << "% " << */ *canhit << ","
+            //<< bad * 100.0 / *canhit << " "
+            << good << "," << wecanhit << ","
             << s.name << " (" << ca1->name;
   if(ca2){
     std::cout << "+" << ca2->name;
