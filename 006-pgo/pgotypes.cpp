@@ -315,7 +315,7 @@ print_fast_attack_rowcolor(const attack *a){
   float ept = a->energytrain / (float)a->turns;
   if(ppt * ept >= 12){
     return printf("\\rowcolor{Green!10}");
-  }else if(ppt >= 3 && ept >= 3){
+  }else if(ppt * ept >= 10.5){
     return printf("\\rowcolor{Green!25}");
   }else if(ppt * ept >= 9){
     return printf("\\rowcolor{Green!50}");
