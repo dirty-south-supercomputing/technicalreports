@@ -733,7 +733,7 @@ static const attack ATK_Mystical_Fire = { "Mystical Fire", TYPE_FIRE, 60, -45, 0
 	60, 33, 4, false, };
 static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, -50, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	90, 55, 4, false, };
-static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 70, -45, 0, 125, 0, 0, 0, 2, 0, 0, 0,
+static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 125, 0, 0, 0, 2, 0, 0, 0,
 	60, 50, 5, false, };
 static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 4, false, };
@@ -751,7 +751,7 @@ static const attack ATK_Outrage = { "Outrage", TYPE_DRAGON, 110, -60, 0, 0, 0, 0
 	110, 50, 8, false, };
 static const attack ATK_Overheat = { "Overheat", TYPE_FIRE, 130, -55, 0, 1000, 0, 0, 0, -2, 0, 0, 0,
 	160, 100, 8, false, };
-static const attack ATK_Parabolic_Charge = { "Parabolic Charge", TYPE_ELECTRIC, 70, -50, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
+static const attack ATK_Parabolic_Charge = { "Parabolic Charge", TYPE_ELECTRIC, 70, -50, 0, 0, 660, 0, 0, 0, 1, 0, 0,
 	70, 50, 6, false, };
 static const attack ATK_Payback = { "Payback", TYPE_DARK, 110, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	95, 100, 4, false, };
@@ -834,7 +834,7 @@ static const attack ATK_Silver_Wind = { "Silver Wind", TYPE_BUG, 60, -45, 0, 100
 	65, 33, 7, false, };
 static const attack ATK_Skull_Bash = { "Skull Bash", TYPE_NORMAL, 130, -75, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	130, 100, 6, false, };
-static const attack ATK_Sky_Attack = { "Sky Attack", TYPE_FLYING, 75, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Sky_Attack = { "Sky Attack", TYPE_FLYING, 85, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 4, false, };
 static const attack ATK_Sludge = { "Sludge", TYPE_POISON, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
@@ -914,7 +914,7 @@ static const attack ATK_Wrap = { "Wrap", TYPE_NORMAL, 60, -45, 0, 0, 1000, 0, 0,
 	25, 33, 6, false, };
 static const attack ATK_X_Scissor = { "X-Scissor", TYPE_BUG, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 3, false, };
-static const attack ATK_Zap_Cannon = { "Zap Cannon", TYPE_ELECTRIC, 150, -80, 0, 0, 0, 660, 0, 0, 0, -1, 0,
+static const attack ATK_Zap_Cannon = { "Zap Cannon", TYPE_ELECTRIC, 150, -80, 0, 0, 0, 330, 0, 0, 0, -1, 0,
 	140, 100, 7, false, };
 
 static const attack* const attacks[] = {
