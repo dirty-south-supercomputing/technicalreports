@@ -309,7 +309,8 @@ In Gigantamax battles, it can be beneficial to eschew charged attacks completely
  and throwing Max attacks more frequently (\autoref{sec:maxbattles}).
 
 \section{Minimal attack cycles\label{sec:minimalcycles}}
-9,379 combinations of fast and charged attack are currently in play.
+% got this number via 'cat out/*full* | grep -v begin | grep -v \\end | wc -l'
+9,569 combinations of fast and charged attack are currently in play.
 For each combination of fast attack and charged attack, there is some minimum number
  $F$ of fast attacks sufficient to launch the charged attack.
 The shortest attack cycles require nine turns (\autoref{table:fastcycles}),
@@ -327,8 +328,8 @@ Nothing with \%c below 27\% manages to achieve even 7 PPT, while
 PPT of 5 or below is a wasteland of fast attacks like Tackle, Take Down, Pound, and Bug Bite,
  and charged attacks like Struggle, Acid Spray, Fell Stinger, and of course the dreadful Frustration.
 Most of these combinations aren't even fast; they're just pathologically bad attacks.
-The maximum PPT is 14.25 (\autoref{table:pptcycles}), achieved by Incinerate together with Overheat or Brave Bird, all with STAB.
-Both of these charged attacks have deleterious effects on their user.
+The maximum PPT is 14.4 (\autoref{table:pptcycles}), achieved by \textbf{FIXME} together with Clanging Scales, all with STAB.
+Clanging Scales has a deleterious debuff on the user's defense.
 This is a trend: among the 1,188 pairs ($\sim$12.7\%) with PPT of at least ten,
  many come with a mandatory negative status effect.
 The exceptions on the high end---Poltergeist, Solar Beam, Fire Blast, Zap Cannon---tend towards twenty turns per cycle.
@@ -336,10 +337,12 @@ Blast Burn is faster; Frenzy Plant is faster than Blast Burn; Dynamic Punch is f
 But fastest of them all is Morpeko wielding Thunder Shock and Aura Wheel, pumping out 13.09 PPT
  in eleven turns, \textit{while getting a buff to attack}.
 If Electric and Dark had better type coverage, Morpeko would be unstoppable.
-None of the fastest cycles break a PPT ceiling of 10, all of them employing Karate Chop with Cross Chop.
+A few of the fastest cycles achieve a PPT of 10, all of them employing \textbf{FIXME} or Karate Chop with Cross Chop.
 Primeape can switch this combo up with the equally speedy Rage Fist (sadly without STAB)
  when Fighting is ineffective.
+
 \input{out/timetofirst}
+
 \input{out/damagecycle}
 
 \section{Technical Machines\label{sec:tms}}

@@ -76,9 +76,13 @@ static void usage(const char *argv0){
 // don't want a turns column if extrema && !powertbl
 static void header(bool extrema, bool powertbl){
   if(extrema){
-    std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+    if(powertbl){
+      std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
+    }else{
+      std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+    }
   }else{
-    std::cout << "\\begin{longtable}{ll";
+    std::cout << "\\begingroup\\footnotesize\\begin{longtable}{ll";
     //\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
   }
   if(!extrema || powertbl){
@@ -136,11 +140,11 @@ static void emit_line(bool extrema, bool powertbl, const timetofirst &t, const s
 
 static void footer(bool extrema, bool powertbl, unsigned fastest){
   if(powertbl && extrema){
-    std::cout << "\\end{tabular}\\caption{Attack cycles with highest PPT\\label{table:pptcycles}}\\end{table}" << std::endl;
+    std::cout << "\\caption{Attack cycles with highest PPT\\label{table:pptcycles}}\\end{longtable}\\endgroup" << std::endl;
   }else if(extrema){
     std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
   }else{
-    std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}" << std::endl;
+    std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}\\endgroup" << std::endl;
   }
 }
 
@@ -185,7 +189,7 @@ int main(int argc, char **argv){
   std::cout << std::noshowpoint;
   std::string prevname;
   unsigned fastest = 0;
-  constexpr float PPT_THRESHOLD = 12.65;
+  constexpr float PPT_THRESHOLD = 13;
   for(const auto &t : ttfs){
     if(!powertbl){
       if(extrema && fastest && t.turns > fastest){
