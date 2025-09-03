@@ -139,11 +139,21 @@ summarize(const species *s, int cpceil){
   summarize_fxn(s, cpceil, "Bulk", statscmp_bulk, items);
 }
 
+static const char *
+shadow_named(const char *s){
+#define SHADOW "shadow "
+  if(strncasecmp(s, SHADOW, strlen(SHADOW)) == 0){
+    return s + strlen(SHADOW);
+  }
+  return nullptr;
+}
+
 int main(int argc, const char **argv){
   if(argc < 2 || argc > 4){
     usage(argv[0]);
   }
-  const species *s = lookup_species(argv[1]);
+  const char *shadname = shadow_named(argv[1]);
+  const species *s = lookup_species(shadname ? shadname : argv[1]);
   if(!s){
     std::cerr << "couldn't look up form " << argv[1] << std::endl;
     usage(argv[0]);
