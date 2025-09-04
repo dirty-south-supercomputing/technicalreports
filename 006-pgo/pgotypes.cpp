@@ -1589,13 +1589,13 @@ static const species sdex[] = {
   // the Psi
   {  63, "Abra", TYPE_PSYCHIC, TYPECOUNT, 195, 82, 93, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Charge_Beam, &ATK_Psyshock, &ATK_Shadow_Ball, &ATK_Signal_Beam, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  64, "Kadabra", TYPE_PSYCHIC, TYPECOUNT, 232, 117, 120, "Abra",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  65, "Alakazam", TYPE_PSYCHIC, TYPECOUNT, 271, 167, 146, "Kadabra",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Counter, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Focus_Blast, &ATK_Future_Sight, },
-		true, true, false, { &ATK_Counter, &ATK_Dazzling_Gleam, &ATK_Psychic, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { &ATK_Counter, &ATK_Dazzling_Gleam, &ATK_Psychic, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Superpower
   {  66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, nullptr,
 		{ &ATK_Low_Kick, &ATK_Karate_Chop, &ATK_Rock_Smash, &ATK_Cross_Chop, &ATK_Low_Sweep, &ATK_Brick_Break, },
@@ -3333,10 +3333,10 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, nullptr,
 		{ &ATK_Pound, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish",
 		{ &ATK_Infestation, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, &ATK_Body_Slam, &ATK_Acid_Spray, },
-		true, true, false, { }, species::CAT_NORMAL, 50, "G-Max Malodor", species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_NORMAL, 50, "G-Max Malodor", species::EVOL_NOITEM, },
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, nullptr,
 		{ &ATK_Scratch, &ATK_Feint_Attack, &ATK_Dark_Pulse, &ATK_Aerial_Ace, &ATK_Night_Shade, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -5761,16 +5761,33 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(charged_attack_p(a)){
       const float dpe = power / -a->energytrain;
       if(exclusive_attack_p(s, a)){
-        printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} &",
+        printf(" \\textbf{%s} & & \\textbf{%g} & \\textbf{%d} & \\textbf{%.2f} &",
             a->name, power, a->energytrain, dpe);
       }else{
-        printf(" %s & & %g & %d & %.2f &",
-            a->name, power, a->energytrain, dpe);
+        if(!has_stab_p(s, a)){
+          printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} &",
+              a->name, power, a->energytrain, dpe);
+        }else{
+          printf(" %s & & %g & %d & %.2f &",
+              a->name, power, a->energytrain, dpe);
+        }
       }
       if(a->chance_user_attack || a->chance_user_defense ||
           a->chance_opp_attack || a->chance_opp_defense){
         printf("{\\scriptsize{}");
+        if(exclusive_attack_p(s, a)){
+          printf("\\textbf{");
+        }
+        if(!has_stab_p(s, a)){
+          printf("\\textit{");
+        }
         summarize_buffs(a);
+        if(!has_stab_p(s, a)){
+          printf("}");
+        }
+        if(exclusive_attack_p(s, a)){
+          printf("}");
+        }
         printf("}");
       }
       printf("\\\\\n");
@@ -5778,11 +5795,16 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
       const float dpt = power / a->turns;
       const float ept = static_cast<float>(a->energytrain) / a->turns;
       if(exclusive_attack_p(s, a)){
-        printf(" \\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f}\\\\\n",
+        printf(" \\textbf{%s} & \\textbf{%u} & \\textbf{%g} & \\textbf{%d} & \\textbf{%.2f} & \\textbf{%.2f}\\\\\n",
             a->name, a->turns, power, a->energytrain, dpt, ept);
       }else{
-        printf(" %s & %u & %g & %d & %.2f & %.2f \\\\\n",
-            a->name, a->turns, power, a->energytrain, dpt, ept);
+        if(!has_stab_p(s, a)){
+          printf(" \\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f} \\\\\n",
+              a->name, a->turns, power, a->energytrain, dpt, ept);
+        }else{
+          printf(" %s & %u & %g & %d & %.2f & %.2f \\\\\n",
+              a->name, a->turns, power, a->energytrain, dpt, ept);
+        }
       }
     }
   }
