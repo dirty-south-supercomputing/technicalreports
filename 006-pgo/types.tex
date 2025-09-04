@@ -88,8 +88,8 @@ There are only three slaughter relations: Fairy → Dragon\footnote{Fairy was
 \clearpage
 
 \noindent{}Poison kills Grass, which kills Ground, which kills Poison.
-Rock is strong against Bug, which kills Grass, which is strong against Rock.
-Ground kills Rock, but is weak against Bug.
+Rock is effective against Bug, which kills Grass, which is effective against Rock.
+Ground kills Rock, but is ineffective against Bug.
 Bug is ineffective against Poison, which is ineffective against Rock (\autoref{fig:natural}).
 \begin{figure}[h!]
 \begin{minipage}[t]{0.5\textwidth}
@@ -105,25 +105,23 @@ Bug is ineffective against Poison, which is ineffective against Rock (\autoref{f
 \end{figure}
 
 \noindent{}Psychic kills Fighting, which kills Dark, which slaughters Psychic.
-Dark kills Ghost, which is strong against Psychic.
-Fighting (unique among all types) is strong against Normal,
-  but very weak against Ghost.
-Normal and Ghost are very weak against one another (\autoref{fig:rational}).
+Dark kills Ghost, which is effective against Psychic.
+Fighting (unique among all types) is effective against Normal,
+  but very ineffective against Ghost.
+Normal and Ghost are very ineffective against one another (\autoref{fig:rational}).
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.25]{out/circo/dragon.dot.png}
 \caption{The 8 Dragon relations\label{fig:dragon}}
 \end{figure}
-\noindent{}Fairy famously slaughters Dragon.
-Ice is very effective against Dragon, while Grass, Electric, Water, and Fire are all ineffective (\autoref{fig:dragon}).
-Dragon is a very neutral attack, strong against only itself, and resisted only by Steel (as we'll see momentarily).
-\\
-
-\noindent{}Rock kills Flying, and Normal is weak against Rock.
+\noindent{}Dragon (\autoref{fig:dragon}) is strong against the four original elemental types (Electric, Water, Grass, and Fire).
+Fairy famously slaughters Dragon, and Ice is effective against Dragon.
+Dragon is strong against only itself, and ineffective against Steel (as we'll see momentarily).
+Looking at \autoref{fig:elemental}, Rock kills Flying, and Normal is ineffective against Rock.
 Rock and Water kill Fire, which kills Ice, which kills nothing on this graph nor any other.
-Electric is strong against Water, which is strong against Rock, which is strong against Ice,
- which on \autoref{fig:elemental} is strong against nothing.
+Electric is effective against Water, which is effective against Rock, which is effective against Ice,
+ which on \autoref{fig:elemental} is effective against nothing.
 \clearpage
 \begin{figure}[ht]
 \centering
@@ -131,11 +129,10 @@ Electric is strong against Water, which is strong against Rock, which is strong 
 \caption{The 17 elemental relations\label{fig:elemental}}
 \end{figure}
 
-\noindent{}Ground and Fighting are strong against Steel, and Fire kills Steel.
-Most everything else is weak against Steel, especially
- Poison, which is very ineffective against it.
-Steel kills Ice, Rock, and Fairy---if Steel is strong against something, it kills it.
-Steel is weak against Water and Electric.
+\noindent{}Ground and Fighting are effective against Steel, which is killed by Fire.
+Most everything else is ineffective against Steel, especially Poison, which is very ineffective against it.
+Steel kills Ice, Rock, and Fairy---if Steel is effective against something, it kills it.
+Steel is ineffective against Water and Electric.
 Only two types have no relationship with Steel: Dark and Ghost (\autoref{fig:steel}).
 As Josef Stalin said, ``it's good to be Steel''.
 \begin{figure}[h!]
