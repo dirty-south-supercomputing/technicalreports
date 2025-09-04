@@ -5761,8 +5761,15 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(charged_attack_p(a)){
       const float dpe = power / -a->energytrain;
       if(exclusive_attack_p(s, a)){
-        printf(" \\textbf{%s} & & \\textbf{%g} & \\textbf{%d} & \\textbf{%.2f} &",
-            a->name, power, a->energytrain, dpe);
+        const char *itb, *ite;
+        if(has_stab_p(s, a)){
+          itb = ite = "";
+        }else{
+          itb = "\\textit{";
+          ite = "}";
+        }
+        printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
+            itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
       }else{
         if(!has_stab_p(s, a)){
           printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} &",
