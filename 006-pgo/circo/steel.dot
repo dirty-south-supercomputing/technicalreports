@@ -9,7 +9,6 @@ digraph G {
     ground [ image="images/ground.png" ]
     bug [ image="images/bug.png" ]
     flying [ image="images/flying.png" ]
-    normal [ image="images/normal.png" ]
     dragon [ image="images/dragon.png" ]
     grass [ image="images/grass.png" ]
     psychic [ image="images/psychic.png" ]
