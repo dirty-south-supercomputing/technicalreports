@@ -28,7 +28,7 @@ static void elite_fast_table(const species *dex, unsigned scount){
     std::cout << " & \\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
-  std::cout << "\\caption{Elite fast moves\\label{table:elitefast}}";
+  std::cout << "\\caption{Exclusive fast moves\\label{table:elitefast}}";
   std::cout << "\\end{table}" << std::endl;
 }
 
