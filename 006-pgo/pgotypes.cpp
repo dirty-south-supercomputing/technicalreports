@@ -5767,26 +5767,21 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(a->type == TYPECOUNT){
       printf("\\hspace{1em}");
     }
+    const char *itb, *ite;
+    if(has_stab_p(s, a)){
+      itb = ite = "";
+    }else{
+      itb = "\\textit{";
+      ite = "}";
+    }
     if(charged_attack_p(a)){
       const float dpe = power / -a->energytrain;
       if(exclusive_attack_p(s, a)){
-        const char *itb, *ite;
-        if(has_stab_p(s, a)){
-          itb = ite = "";
-        }else{
-          itb = "\\textit{";
-          ite = "}";
-        }
         printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
             itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
       }else{
-        if(!has_stab_p(s, a)){
-          printf(" \\textit{%s} & & \\textit{%g} & \\textit{%d} & \\textit{%.2f} &",
-              a->name, power, a->energytrain, dpe);
-        }else{
-          printf(" %s & & %g & %d & %.2f &",
-              a->name, power, a->energytrain, dpe);
-        }
+        printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
+            itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
       }
       if(a->chance_user_attack || a->chance_user_defense ||
           a->chance_opp_attack || a->chance_opp_defense){
@@ -5811,16 +5806,15 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
       const float dpt = power / a->turns;
       const float ept = static_cast<float>(a->energytrain) / a->turns;
       if(exclusive_attack_p(s, a)){
-        printf(" \\textbf{%s} & \\textbf{%u} & \\textbf{%g} & \\textbf{%d} & \\textbf{%.2f} & \\textbf{%.2f}\\\\\n",
-            a->name, a->turns, power, a->energytrain, dpt, ept);
+        printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
+            itb, a->name, ite, itb, a->turns, ite,
+            itb, power, ite, itb, a->energytrain, ite,
+            itb, dpt, ite, itb, ept, ite);
       }else{
-        if(!has_stab_p(s, a)){
-          printf(" \\textit{%s} & \\textit{%u} & \\textit{%g} & \\textit{%d} & \\textit{%.2f} & \\textit{%.2f} \\\\\n",
-              a->name, a->turns, power, a->energytrain, dpt, ept);
-        }else{
-          printf(" %s & %u & %g & %d & %.2f & %.2f \\\\\n",
-              a->name, a->turns, power, a->energytrain, dpt, ept);
-        }
+        printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
+            itb, a->name, ite, itb, a->turns, ite,
+            itb, power, ite, itb, a->energytrain, ite,
+            itb, dpt, ite, itb, ept, ite);
       }
     }
   }

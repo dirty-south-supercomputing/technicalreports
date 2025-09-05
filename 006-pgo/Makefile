@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview testsimul clean test testdb testsimullong
+.PHONY: all preview webpage testsimul clean test testdb testsimullong
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -106,11 +106,25 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
+WEBSRC:=$(addprefix w/, web.cpp)
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) testdb testsimul $(COVERSETS)
+all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) webpage testdb testsimul $(COVERSETS)
+
+WEBOUT:=$(OUT)/w
+WEBBIN:=$(WEBOUT)/webbin
+WEBINDEX:=$(WEBOUT)/index.html
+webpage: $(WEBINDEX)
+	mkdir -p $
+
+$(WEBINDEX): $(WEBBIN)
+	@mkdir -p $(@D)
+
+$(WEBBIN): $(WEBSRC) pgotypes.cpp
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<) -lm
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@
