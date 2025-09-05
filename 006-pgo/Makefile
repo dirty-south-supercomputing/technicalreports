@@ -114,13 +114,14 @@ preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) webpage testdb testsimul $(COVERSETS)
 
 WEBOUT:=$(OUT)/w
+PAGEOUT:=$(OUT)/page
 WEBBIN:=$(WEBOUT)/webbin
-WEBINDEX:=$(WEBOUT)/index.html
+WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
-	mkdir -p $
 
 $(WEBINDEX): $(WEBBIN)
 	@mkdir -p $(@D)
+	$< $(@D)
 
 $(WEBBIN): $(WEBSRC) pgotypes.cpp
 	@mkdir -p $(@D)
