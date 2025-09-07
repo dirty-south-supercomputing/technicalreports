@@ -2405,6 +2405,7 @@ static const species sdex[] = {
   {  279, "Pelipper", TYPE_WATER, TYPE_FLYING, 175, 174, 155, "Wingull",
 		{ &ATK_Wing_Attack, &ATK_Water_Gun, &ATK_Blizzard, &ATK_Hydro_Pump, &ATK_Hurricane, &ATK_Weather_Ball_Water, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // the feeling
   {  280, "Ralts", TYPE_PSYCHIC, TYPE_FAIRY, 79, 59, 99, nullptr,
 		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Psyshock, &ATK_Shadow_Sneak, &ATK_Disarming_Voice, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -5203,32 +5204,30 @@ int print_types_big(pgo_types_e t1, pgo_types_e t2){
   return 1;
 }
 
-int print_weather_big(pgo_weather_t w, bool doprint){
+static int
+print_weather(pgo_weather_t w){
   int count = 1;
   const char *ws = WNames[w];
-  if(doprint){
-    printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", ws);
-  }
+  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
   ws = WSNames[w];
   if(ws){
     ++count;
-    if(doprint){
-      printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", ws);
-    }
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
   }
   return count;
 }
 
-int print_weathers_big(pgo_types_e t1, pgo_types_e t2, bool doprint){
+static int
+print_weathers(pgo_types_e t1, pgo_types_e t2){
   int count = 0;
   pgo_weather_t w1 = wboosts[t1];
   if(t2 != TYPECOUNT){
     pgo_weather_t w2 = wboosts[t2];
     if(w2 != w1){
-      count += print_weather_big(w2, doprint);
+      count += print_weather(w2);
     }
   }
-  count += print_weather_big(w1, doprint);
+  count += print_weather(w1);
   return count;
 }
 
@@ -5556,7 +5555,6 @@ print_icons(const species *s, bool doprint, bool ismega){
       printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
     }
   }
-  count += print_weathers_big(s->t1, s->t2, doprint);
   return count;
 }
 
@@ -5733,6 +5731,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   if(s->shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
+  print_weathers(s->t1, s->t2);
   printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
       calc_amean(s->atk, s->def, s->sta), calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
