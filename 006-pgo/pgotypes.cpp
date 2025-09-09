@@ -5732,7 +5732,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
   print_weathers(s->t1, s->t2);
-  printf("\\hfill%u %u %u %.2f %.2f}", s->atk, s->def, s->sta,
+  printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta,
       calc_amean(s->atk, s->def, s->sta), calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
     printf(",interior style={fill overzoom image=images/highres/");
@@ -5821,7 +5821,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
   // the minipages with icons and cp data
   // left side is larger for gmax/mega, which don't show evolutionary lines
-  printf("\\noindent\\begin{minipage}{0.%d\\linewidth}\\centering", gmax ? 4 : 3);
+  printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
   int largeicons = print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
@@ -5893,7 +5893,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     const float def = s->def * 5 / 6.0;
     const float avg = calc_amean(atk, def, s->sta);
     const float gm = calc_gmean(atk, def, s->sta);
-    printf("%g %g %u %.2f %.2f}\n", atk, def, s->sta, avg, gm);
+    printf("%g %g %u %.1f %.1f}\n", atk, def, s->sta, avg, gm);
   }
 
   printf("}");

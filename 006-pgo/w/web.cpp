@@ -44,7 +44,7 @@ int main(int argc, const char **argv){
   if(argc != 2){
     usage(argv0);
   }
-  int dfd = open(argv[1], O_DIRECTORY);
+  int dfd = open(argv[1], O_DIRECTORY | O_CLOEXEC | O_RDWR);
   if(dfd < 0){
     std::cerr << "error opening " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     usage(argv0);
