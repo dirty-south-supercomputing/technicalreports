@@ -113,7 +113,7 @@ WEBSRC:=$(addprefix w/, web.cpp)
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) webpage testdb testsimul $(COVERSETS)
+all: $(HARDBACK).pdf $(PAPERBACK).pdf $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) webpage testdb testsimul $(COVERSETS)
 
 WEBOUT:=$(OUT)/w
 PAGEOUT:=$(OUT)/page
