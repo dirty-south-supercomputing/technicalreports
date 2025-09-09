@@ -122,15 +122,15 @@ This Max Attack follows the same rules for leveling, power, and other Dynamax at
  except leveling consumes Stardust (25k, 50k, and 100k) rather than Max Particles.
 Crowning consumes 1,000 Crown Energy, but once a Pokémon has been crowned,
   that Pokémon can freely change between the base and crowned
-  forms\footnote{I'm not sure why one would uncrown. Perhaps to change charged attacks?
-    Eliminate Steel typing? Drop CP under a limit? Most likely to trade the Pokémon.}, even if traded.
+  forms, even if traded.
 Crowned Shield Zamazenta can stack four Guards rather than the typical three.
 If it has Max Guard unlocked, it starts Max Battles with one Guard already in place.
 
 \subsection{Fused forms\label{sec:fusion}}
 Certain Pokémon can be reversibly fused, yielding a new form.
-The fusion process requires 1,000 units of Fusion Energy particular to the output\footnote{They all kinda sound like Mountain Dew flavors.},
+The fusion process requires 1,000 units of Fusion Energy particular to the output,
  and 30 Candy of each input species (\autoref{table:fusion}).
+%\footnote{They all kinda sound like Mountain Dew flavors.}
 There is no cost to undo the fusion, but subsequent fusions cost the same amount as the initial fusion.
 Any powering up performed on the fused form will apply only to the primary
   Pokémon if the fusion is undone, the fused form's IV is taken from the primary Pokémon,
@@ -162,7 +162,11 @@ Cells are only generated the first time a route is taken each day, and more than
 Cells usually show up near the end of a route, and disappear if the route is marked complete.
 It can change to a ``50\%'' form for 50 Cells, and a subsequent ``Complete''
  form for 200 more Cells, all with different stats (but the same attacks).
-Both forms are reversible, at the cost of 10 Zygarde Candy and 2,000 Stardust each.
+Form changes can be reversed for 10 Zygarde Candy and 2,000 Stardust.
+
+\subsection{Shaymin}
+Shaymin's Sky form has the same attacks as its Land form, but adds Flying to its typing.
+Conversion between forms is 25 Shaymin Candy and 10,000 Stardust either way.
 
 \subsection{Hoopa\label{subsec:hoopa}}
 The Mythical Pokémon Hoopa has two forms: Confined and Unbound.
@@ -170,10 +174,6 @@ They have different typing (Ghost+Psychic and Dark+Psychic) and stats,
   and Hoopa Unbound can learn Dark Pulse in place of Hoopa Confined's Psybeam.
 Unbinding costs 50 Hoopa Candy and 10,000 Stardust.
 Confining is a relative bargain at 10 Hoopa Candy and 2,000 Stardust.
-
-\subsection{Shaymin}
-Shaymin's Sky form has the same attacks as its Land form, but adds Flying to its typing.
-Conversion between forms is 25 Shaymin Candy and 10,000 Stardust either way.
 
 \subsection{Palkia, Dialga, and Giratina}
 Each Pokémon of Myth has an ``Origin'' form with different stats and attacks, including
@@ -252,6 +252,7 @@ All Legendary and Mythical Pokémon are in group 4 (the most expensive group).
 Evolution requirements are more complex.
 \begin{table}
 \centering
+\footnotesize
 \begin{tabular}{lrrrrrr}
   Group & 2nd move   & Max 1 & Max 2 & Max 3 & Km & Purify\\
 \Midrule
