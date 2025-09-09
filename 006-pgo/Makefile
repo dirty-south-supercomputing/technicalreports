@@ -17,7 +17,7 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK) $(HARDBACK))
 MAKEFILE:=Makefile
 
-BIGLIST:=list.pdf
+BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF)
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -63,8 +63,6 @@ CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
 #DYNATEX:=$(OUT)/dynas.tex
 SINDEXTEX:=$(SINDEX).tex
-STAT1500TEX:=$(OUT)/stat1500.tex
-STAT2500TEX:=$(OUT)/stat2500.tex
 STATMAXTEX:=$(OUT)/statmax.tex
 GIGANTATEX:=$(OUT)/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
@@ -113,7 +111,7 @@ WEBSRC:=$(addprefix w/, web.cpp)
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(HARDBACK).pdf $(PAPERBACK).pdf $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLIST) webpage testdb testsimul $(COVERSETS)
+all: $(HARDBACK).pdf $(PAPERBACK).pdf $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) webpage testdb testsimul $(COVERSETS)
 
 WEBOUT:=$(OUT)/w
 PAGEOUT:=$(OUT)/page
@@ -138,7 +136,11 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(BIGLIST): list.tex $(STAT1500TEX) $(STAT2500TEX) $(STATMAXTEX) $(TIMETOFIRSTFULLTEX)
+list%.pdf: list%.tex $(OUT)/stat%.tex
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+
+listTTF.pdf: listTTF.tex $(TIMETOFIRSTFULLTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
@@ -150,15 +152,19 @@ $(OUT)/circo/%.png: circo/%
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
-$(OUT)/stat1500.tex: $(OUT)/stat
+$(OUT)/statGL.tex: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) 1500 > $@
 
-$(OUT)/stat2500.tex: $(OUT)/stat
+$(OUT)/statUL.tex: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) 2500 > $@
 
-$(OUT)/statmax.tex: $(OUT)/stat
+$(OUT)/statML.tex: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) > $@
+
+$(OUT)/statTTF.tex: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) > $@
 
@@ -314,8 +320,9 @@ testsimullong: $(SIMUL)
 						gallade opt750 confusion "synchronoise/leaf blade"
 
 clean:
-	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing
-	@rm -vrf $(HARDBACK).pdf
+	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf
+	@rm -vrf $(HARDBACK).toc $(HARDBACK).log $(HARDBACK).aux $(HARDBACK).lof $(HARDBACK).listing $(HARDBACK).pdf
+	@rm -vrf $(BIGLISTS)
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape

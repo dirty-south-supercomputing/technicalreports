@@ -44,14 +44,14 @@ int main(int argc, const char **argv){
   if(argc != 2){
     usage(argv0);
   }
-  int dfd = open(argv[1], O_DIRECTORY | O_CLOEXEC | O_RDWR);
+  int dfd = open(argv[1], O_DIRECTORY | O_PATH | O_CLOEXEC | O_RDWR);
   if(dfd < 0){
     std::cerr << "error opening " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     usage(argv0);
   }
   int r = write_page(dfd);
   if(close(dfd)){
-    std::cerr << "error opening " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
+    std::cerr << "error closing " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     return EXIT_FAILURE;
   }
   return r ? EXIT_FAILURE : EXIT_SUCCESS;

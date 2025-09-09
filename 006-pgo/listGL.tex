@@ -1,0 +1,52 @@
+% oneside ought not be used for printed, bound material!
+\documentclass[ebook,10pt,openany,oneside]{memoir}
+\title{the big list (great league)}
+\author{nick black}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage[letterpaper, landscape, margin=1cm]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
+\usepackage{microtype}
+\setmainfont{Gentium Book}
+\usepackage{longtable}
+\newcommand{\ivlev}[4]{#1/#2/#3·#4}
+\newcommand\calign[1]{#1}%{\raisebox{-0.25\height}{#1}}
+\newcommand\Midrule[0]{\midrule}%
+\newcommand*{\DRA}{\mbox{$\mathrm{DRA}$}}
+\newcommand*{\CPM}{\mbox{$\mathrm{CPM}$}}
+\newcommand*{\ARA}{\mbox{$\mathrm{ARA}$}}
+\newcommand*{\MHP}{\mbox{$\mathrm{MHP}$}}
+\newcommand*{\EPT}{\mbox{$\mathrm{EPT}$}}
+\newcommand*{\PPT}{\mbox{$\mathrm{PPT}$}}
+\newcommand*{\HP}{\mbox{$\mathrm{HP}$}}
+\newcommand*{\CP}{\mbox{$\mathrm{CP}$}}
+\newcommand*{\BP}{\mbox{$\mathrm{BP}$}}
+\newcommand*{\Eff}[1]{\mbox{$\mathrm{Eff_{#1}}$}}
+\newcommand*{\Mod}[1]{\mbox{$\mathrm{Mod_{#1}}$}}
+\newcommand*{\IV}[1]{\mbox{$\mathrm{IV_{#1}}$}}
+
+\begin{document}
+\noindent{}\today\\
+Dankstats for Pokémon GO\\
+nick black (\href{mailto:nickblack@linux.com}{nickblack@linux.com}, \href{https://www.reddit.com/user/sosodank/}{r/sosodank}, pgo: americanpion)\\
+\bigskip
+
+A cycle is the minimum number of fast attacks sufficient to launch the charged attack, plus the charged attack itself.
+The configuration is that which maximizes the geometric mean of attack, defense, and MHP, where attack and defense are STA and DEF, augmented by $IV_A$ and $IV_D$ respectively, and scaled by CPM.
+\Eff{D} is defense as defined above, scaled by half of any buff the charged attack has on the user's defense.
+DR is the geometric mean of \Eff{D} and MHP.
+\Eff{A} is attack as defined above, scaled by half of any buff the charged attack has on the user's attack.
+DI is the geometric mean of \Eff{A} and attack power over a cycle.
+\textit{e} is the energy left after the first cycle, and is not further incorporated (but probably should be).
+\%c is the percentage of the first cycle's power delivered by the charged attack, and is not further incorporated.
+\textbf{Dank} is the product of the squares of DI and DR divided by the square of turns in the first cycle, divided by 10,000; it values speed more than most such stats.
+%Relative to \textbf{Dank}, \textbf{Dank+} scales power by the square root of the attack type's ARA, and defense by the square root of the Pokémon's DRA (see \textit{\href{https://nick-black.com/pgo-quantitative.pdf}{Pokémon GO: A Quantitative Approach}} pg. 38, 45).
+STAB is factored into calculations, when applicable.
+\bigskip
+
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\input{out/statGL}
+\end{document}

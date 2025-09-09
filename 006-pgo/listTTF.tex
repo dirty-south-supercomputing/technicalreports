@@ -1,0 +1,39 @@
+% oneside ought not be used for printed, bound material!
+\documentclass[ebook,10pt,openany,oneside]{memoir}
+\title{time to first full}
+\author{nick black}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage[letterpaper, margin=1cm]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
+\usepackage{microtype}
+\setmainfont{Gentium Book}
+\usepackage{longtable}
+\newcommand{\ivlev}[4]{#1/#2/#3·#4}
+\newcommand\calign[1]{#1}%{\raisebox{-0.25\height}{#1}}
+\newcommand\Midrule[0]{\midrule}%
+\newcommand*{\DRA}{\mbox{$\mathrm{DRA}$}}
+\newcommand*{\CPM}{\mbox{$\mathrm{CPM}$}}
+\newcommand*{\ARA}{\mbox{$\mathrm{ARA}$}}
+\newcommand*{\MHP}{\mbox{$\mathrm{MHP}$}}
+\newcommand*{\EPT}{\mbox{$\mathrm{EPT}$}}
+\newcommand*{\PPT}{\mbox{$\mathrm{PPT}$}}
+\newcommand*{\HP}{\mbox{$\mathrm{HP}$}}
+\newcommand*{\CP}{\mbox{$\mathrm{CP}$}}
+\newcommand*{\BP}{\mbox{$\mathrm{BP}$}}
+\newcommand*{\Eff}[1]{\mbox{$\mathrm{Eff_{#1}}$}}
+\newcommand*{\Mod}[1]{\mbox{$\mathrm{Mod_{#1}}$}}
+\newcommand*{\IV}[1]{\mbox{$\mathrm{IV_{#1}}$}}
+
+\begin{document}
+\noindent{}\today\\
+First cycle data for Pokémon GO\\
+nick black (\href{mailto:nickblack@linux.com}{nickblack@linux.com}, \href{https://www.reddit.com/user/sosodank/}{r/sosodank}, pgo: americanpion)\\
+\bigskip
+
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\input{out/timetofirstfull}
+\end{document}
