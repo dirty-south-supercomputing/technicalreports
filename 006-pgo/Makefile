@@ -94,6 +94,7 @@ BULK2500TEX:=$(OUT)/bulk2500.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
+OPTSTATSDAT:=$(addprefix $(OUT)/optstats, mhp1500 mhp2500)
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
@@ -104,7 +105,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) \
-	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS)
+	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) \
+	$(OPTSTATSDAT)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -121,6 +123,10 @@ PAGEOUT:=$(OUT)/page
 WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
+
+$(OUT)/optstatsmhp%: $(OUT)/optstats
+	@mkdir -p $(@D)
+	$< mhp % > $@
 
 $(WEBINDEX): $(WEBBIN)
 	@mkdir -p $(WEBOUT)
