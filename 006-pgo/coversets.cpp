@@ -119,8 +119,27 @@ print_complete_coversets(void){
   }
 }
 
+// print all species represented in the typing vector t of size tcount
 static void
-print_participants(const int *t){
+print_participants(int tcount, const int t[TYPINGCOUNT][2]){
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species &s = sdex[u];
+    bool valid = false;
+    for(int ti = 0 ; ti < tcount ; ++ti){
+      if((s.t1 == t[ti][0] && (s.t2 == t[ti][1] || (s.t2 == TYPECOUNT && s.t1 == t[ti][1]))) ||
+          (s.t1 == t[ti][1] && s.t2 == t[ti][0])){
+        valid = true;
+        break;
+      }
+    }
+    if(valid){
+      std::cout << " " << s.name << " (" << TNames[s.t1];
+      if(s.t2 != TYPECOUNT){
+        std::cout << ", " << TNames[s.t2];
+      }
+      std::cout << ")" << std::endl;
+    }
+  }
 }
 
 // print minimal coversets of all typings
@@ -136,7 +155,7 @@ print_complete_coversets_duals(void){
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
+    int min = print_coversets(j, pos, t);
     if(min){
       printf("%d dual coversets of size %d\n", min, j);
       break;
@@ -144,7 +163,6 @@ print_complete_coversets_duals(void){
       printf("no dual coversets of size %d\n", j);
     }
   }
-  print_participants(t);
 }
 
 // print coverset of all typings including/excluding certain types. t is a
@@ -174,7 +192,7 @@ print_coversets_duals(const int *t, bool exclude){
     int min = print_coversets(j, pos, ty);
     if(min){
       printf("%d dual coversets of size %d\n", min, j);
-      print_participants(t);
+      print_participants(pos, ty);
       return 0;
     }else{
       printf("no dual coversets of size %d\n", j);
