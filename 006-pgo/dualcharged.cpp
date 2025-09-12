@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // build the 171 typesets
 static void

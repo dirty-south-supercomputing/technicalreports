@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 int main(void){
   int regpop[REGION_COUNT] = {};

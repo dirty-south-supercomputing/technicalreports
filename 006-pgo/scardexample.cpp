@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // print a sample species card
 int main(void){

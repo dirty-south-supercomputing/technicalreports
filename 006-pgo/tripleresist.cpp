@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // generate table with the typings having a triple resistance
 int main(void){

@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>

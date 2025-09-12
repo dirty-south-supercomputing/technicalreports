@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 int main(void){
   printf("\\centering\\begin{tabular}{lcl|lcl}");

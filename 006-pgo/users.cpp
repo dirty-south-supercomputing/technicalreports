@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 static void
 print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,

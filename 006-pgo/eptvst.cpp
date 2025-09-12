@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // produce data file of EPT vs turns
 int main(void){

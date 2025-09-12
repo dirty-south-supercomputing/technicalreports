@@ -1,10 +1,11 @@
-#include "../pgotypes.cpp"
+#include "../pgotypes.h"
+#include "index.h"
 #include <fcntl.h>
 #include <unistd.h>
 
 static int
 open_output(int dfd, const char *node){
-  int indexfd = openat(dfd, node, O_CREAT);
+  int indexfd = openat(dfd, node, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   if(indexfd < 0){
     std::cerr << "error opening " << node << " (" << strerror(errno) << ")" << std::endl;
     return -1;
@@ -22,15 +23,16 @@ close_output(int fd){
 }
 
 static int
-write_page(int dfd){
-  int indexfd = open_output(dfd, "index.html");
-  if(indexfd < 0){
+write_page(int dfd, const char *name, int (*fxn)(int)){
+  int fd = open_output(dfd, name);
+  if(fd < 0){
     return -1;
   }
-  if(close_output(indexfd)){
+  int r = fxn(fd);
+  if(close_output(fd)){
     return -1;
   }
-  return 0;
+  return r;
 }
 
 static void
@@ -49,7 +51,7 @@ int main(int argc, const char **argv){
     std::cerr << "error opening " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     usage(argv0);
   }
-  int r = write_page(dfd);
+  int r = write_page(dfd, "index.html", write_index);
   if(close(dfd)){
     std::cerr << "error closing " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     return EXIT_FAILURE;

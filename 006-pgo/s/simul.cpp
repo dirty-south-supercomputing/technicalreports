@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <memory>
 #include <cstdlib>
-#include "../pgotypes.cpp"
+#include "../pgotypes.h"
 #include "simul.h"
 #include "sift.h"
 #include "damage.h"

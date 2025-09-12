@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 #include <unordered_set>
 
 using amap = std::unordered_set<const attack*>;

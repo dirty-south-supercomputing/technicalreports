@@ -108,26 +108,27 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
-WEBSRC:=$(addprefix w/, web.cpp)
+WEBSRC:=$(wildcard w/*.cpp) $(wildcard w/*.h)
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(HARDBACK).pdf $(PAPERBACK).pdf $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) webpage testdb testsimul $(COVERSETS)
+all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
+	webpage testdb testsimul $(COVERSETS)
 
 WEBOUT:=$(OUT)/w
 PAGEOUT:=$(OUT)/page
-WEBBIN:=$(WEBOUT)/webbin
+WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
 
 $(WEBINDEX): $(WEBBIN)
-	@mkdir -p $(@D)
-	$< $(@D)
+	@mkdir -p $(WEBOUT)
+	$< $(WEBOUT)
 
-$(WEBBIN): $(WEBSRC) pgotypes.cpp
+$(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<) -lm
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(^) -lm
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@
@@ -283,11 +284,11 @@ $(SIMUL3OUT): $(SIMUL)
 				quagsire opt1500 "water gun" earthquake \
 				milotic opt1500 waterfall surf > $@
 
-$(SIMUL): $(SIMULSRC) pgotypes.cpp Makefile
+$(SIMUL): $(SIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.cpp Makefile
+$(OUT)/%: %.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) -lm
 

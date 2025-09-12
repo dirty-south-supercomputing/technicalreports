@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // list all species which lack a second charged attack to learn
 int main(void){

@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // list all unpopulated typings. if the number changes, we'll probably want a different
 // number of columns, so throw an exception if they're not full.

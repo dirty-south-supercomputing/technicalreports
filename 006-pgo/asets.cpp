@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 static constexpr auto PPETHRESH = 0.0;
 

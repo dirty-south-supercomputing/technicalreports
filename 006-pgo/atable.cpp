@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // table of attacks by PPT and EPT
 int main(void){

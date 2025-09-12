@@ -1,5 +1,5 @@
 // determine number of turns before first charged attack
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 #include <vector>
 #include <cassert>
 #include <algorithm>

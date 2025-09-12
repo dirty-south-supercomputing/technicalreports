@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // generate a latex table of the type relations,
 // with defenders on rows, attackers on columns

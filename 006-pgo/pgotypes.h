@@ -1,3 +1,6 @@
+#ifndef PGOTYPES_H
+#define PGOTYPES_H
+
 #include <map>
 #include <cmath>
 #include <vector>
@@ -6162,3 +6165,4 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1){
   tsets.emplace(tsets.end(), t0, t1, totals, pop, ara);
 }
 
+#endif

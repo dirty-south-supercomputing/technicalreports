@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 static void elite_fast_table(const species *dex, unsigned scount){
   std::cout << "\\begin{table}\\centering\\footnotesize";

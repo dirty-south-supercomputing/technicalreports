@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 
 // can atk hit def with some charged attack for a typing relation of at least rel?
 static bool

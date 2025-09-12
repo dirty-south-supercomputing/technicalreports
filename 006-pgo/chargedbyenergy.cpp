@@ -1,4 +1,4 @@
-#include "pgotypes.cpp"
+#include "pgotypes.h"
 #include <map>
 
 using cmap = std::map<int, std::vector<const attack *>>;
