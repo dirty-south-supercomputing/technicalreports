@@ -3053,9 +3053,11 @@ static const species sdex[] = {
   {  479, "Mow Rotom", TYPE_ELECTRIC, TYPE_GRASS, 204, 219, 137, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+  // the knowledge
   {  480, "Uxie", TYPE_PSYCHIC, TYPECOUNT, 156, 270, 181, nullptr,
 		{ &ATK_Confusion, &ATK_Extrasensory, &ATK_Thunder, &ATK_Swift, &ATK_Future_Sight, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+  // the being of emotion
   {  481, "Mesprit", TYPE_PSYCHIC, TYPECOUNT, 212, 212, 190, nullptr,
 		{ &ATK_Confusion, &ATK_Extrasensory, &ATK_Blizzard, &ATK_Swift, &ATK_Future_Sight, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
@@ -5850,6 +5852,10 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(largeicons + print_icons(s, false, ismega) > 5){
       printf("\\\\");
     }
+    printf("\\scriptsize{}");
+    if(s->categorystr() && strcmp(s->categorystr(), "")){
+      printf("%s\n", s->categorystr());
+    }
   }
   print_icons(s, true, ismega);
   printf("\\end{minipage}\n");
@@ -5859,10 +5865,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}%u CG %d Gen %s %s%s\\hfill{}",
-            stardust_reward(s),
-            a2cost_to_cgroup(s->a2cost), idx_to_generation(s->idx),
-            idx_to_region(s->idx), s->categorystr());
+    printf("\\scriptsize{}");
+    printf("%u CG %d Gen %s %s\\hfill{}", stardust_reward(s), a2cost_to_cgroup(s->a2cost),
+                idx_to_generation(s->idx), idx_to_region(s->idx));
     const species *devol = get_previous_evolution(s);
     const species *evol = get_persistent_evolution(s);
     if(devol || evol){
