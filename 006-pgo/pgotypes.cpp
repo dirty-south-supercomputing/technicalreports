@@ -1248,6 +1248,7 @@ struct species {
     CAT_LEGENDARY,
     CAT_ULTRABEAST,
     CAT_BABY,
+    CAT_PARADOX,
   } category;
   int a2cost;         // cost in kStardust to teach second attack {-1, 10, 50, 75, 100}
   const char *gmax;   // gmax attack name or NULL
@@ -1312,6 +1313,7 @@ struct species {
       case CAT_LEGENDARY: return " Legendary";
       case CAT_ULTRABEAST: return " Ultra Beast";
       case CAT_BABY: return " Baby";
+      case CAT_PARADOX: return " Paradox";
       default: throw std::exception();
     }
   }
@@ -4666,8 +4668,14 @@ static const species sdex[] = {
   //{ 1006, "Iron Valiant", TYPE_FAIRY, TYPE_FIGHTING, 279, 171, 179, nullptr, },
   //{ 1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, nullptr, },
   //{ 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, nullptr, },
-  //{ 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, nullptr, },
-  //{ 1010, "Iron Leaves", TYPE_GRASS, TYPE_PSYCHIC, nullptr, },
+  /*
+  { 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, 256, 188, 223, nullptr,
+    { },
+    false, false, false, { }, species::CAT_PARADOX, 100, nullptr, species::EVOL_NOITEM, },
+  { 1010, "Iron Leaves", TYPE_GRASS, TYPE_PSYCHIC, 259, 213, 207, nullptr,
+    { },
+    false, false, false, { }, species::CAT_PARADOX, 100, nullptr, species::EVOL_NOITEM, },
+    */
   //{ 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, 173, 184, 190, "Applin", species::EVOL_SWEETAPPLE, },
   //{ 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, nullptr, },

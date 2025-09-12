@@ -9,7 +9,7 @@ Flaky location services or networking will have a highly deleterious effect on y
  claims include 10.5 km/h and 15 km/h, but I've seen no evidence.}---in particular,
  Pokémon cannot usually be caught while ``speed locked''.
 
-\section{The worldline of Pokémon GO\label{sec:world}}
+\section{Space\label{sec:world}}
 The Map view always shows the Trainer.
 It can be zoomed up to some limits; I \textit{highly} recommend keeping it
  maximally zoomed out most of the time (zoom in if you're having trouble
@@ -44,6 +44,51 @@ A level 14 cell also seems capable of containing two Power Stops (note that Powe
 Pokémon are tagged with a capture location associated with level 10 cells.
 Everything geographical in the game---the matrix of nearby Pokémon, the lists
  of raids and Max Battles, the rendered map, egg location---is based on some level of S2 cells.
+\subsection{Regional Pokémon\label{subsec:regional}}
+Certain Pokémon will typically spawn (\autoref{sec:spawns}) only in certain regions of the world (\autoref{table:regional}).
+They might appear anywhere as Research encounters or due to Adventure Incense (\autoref{subsec:lures}),
+ and events can of course change all the rules.
+Eggs (\autoref{sec:eggs}) from gifts (including those from Mateo (\autoref{sec:routes})) will
+ hatch Pokémon from their source region.
+\begin{table}
+\centering
+\footnotesize
+  \begin{tabular}{p{.5\textwidth}l}
+Pokémon & Region \\
+\Midrule
+Farfetch'd & Eastern Asia\\
+Kangaskhan & Australia\\
+Mr. Mime, Mime Jr. & Europe\\
+Tauros & North America\\
+Blaze Breed Paldean Tauros, Solrock, East Sea Shellos, Red-striped Basculin, Stakataka & Eastern hemisphere\\
+Heracross, Maractus & Eastern hemisphere south of \textasciitilde\ang{26}N\\
+Aqua Breed Paldean Tauros, Lunatone, West Sea Shellos, Blue-striped Basculin, Blacephalon & Western hemisphere\\
+Chatot, Celesteela & Southern hemisphere\\
+Kartana & Northern hemisphere\\
+Corsola & Tropic of Cancer through Tropic of Capricorn\\
+Volbeat, Zangoose, Sawk, Heatmor & Europe, Asia, Australia\\
+Illumise, Seviper, Throh, Durant & Americas, Africa\\
+Torkoal & South Asia\\
+Tropius & Africa, the Levant, Malta, southern Spain\\
+Relicanth & UTC+13\\
+Pachirisu & North Arctic\\
+Uxie, Pansage, Blue Flabébé, Oricorio Sensu, Stretchy Tatsugiri & East Asia, the Pacific\\
+Mesprit, Pansear, Red Flabébé, Oricorio Baile & EMEA, India\\
+Curly Tatsugiri & EMEA, West Asia\\
+Azelf, Panpour, Yellow Flabébé, Droopy Tatsugiri & Americas\\
+Oricorio Pom-Pom & Americas excluding Caribbean islands\\
+Oricorio Pa'u & African, Asian, Pacific, Caribbean islands\\
+Sigilyph & Egypt, Greece\\
+Combat Breed Paldean Tauros & Iberian peninsula\\
+Klefki & France\\
+Hawlucha & Mexico\\
+Stonjourner & United Kingdom\\
+Carnivine & Southeastern United States\\
+Bouffalant & New York\\
+Comfey & Hawaii\\
+\end{tabular}
+\caption{Region-exclusive Pokémon\label{table:regional}}
+\end{table}
 \subsection{Weather boosts\label{sec:weather}}
 Local weather ``boosts'' associated types (\autoref{table:weather}),
   affecting attack strength in PvE (\autoref{sec:mbmult}),
@@ -54,7 +99,7 @@ The game's assessment of your weather is communicated via an icon on the Map Vie
 \begin{table}
 \input{out/weather}
 \end{table}
-\section{The timeline of Pokémon GO\label{sec:timeline}}
+\section{Time\label{sec:timeline}}
 Since late in 2000, Pokémon GO operates on scheduled ``Seasons'' of approximately ninety days.
 Event themes tend to tie into the season.
 The pools for wild spawns (\autoref{sec:spawns}), eggs (\autoref{sec:eggs}), raids, GBL awards,

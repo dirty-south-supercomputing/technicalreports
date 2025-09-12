@@ -119,6 +119,10 @@ print_complete_coversets(void){
   }
 }
 
+static void
+print_participants(const int *t){
+}
+
 // print minimal coversets of all typings
 static void
 print_complete_coversets_duals(void){
@@ -140,6 +144,7 @@ print_complete_coversets_duals(void){
       printf("no dual coversets of size %d\n", j);
     }
   }
+  print_participants(t);
 }
 
 // print coverset of all typings including/excluding certain types. t is a
@@ -169,6 +174,7 @@ print_coversets_duals(const int *t, bool exclude){
     int min = print_coversets(j, pos, ty);
     if(min){
       printf("%d dual coversets of size %d\n", min, j);
+      print_participants(t);
       return 0;
     }else{
       printf("no dual coversets of size %d\n", j);
