@@ -548,7 +548,6 @@ static const attack ATK_Bug_Buzz = { "Bug Buzz", TYPE_BUG, 100, -60, 0, 0, 0, 0,
 	95, 50, 7, false, };
 static const attack ATK_Bulldoze = { "Bulldoze", TYPE_GROUND, 45, -45, 0, 0, 0, 0, 500, 0, 0, 0, -1,
 	80, 50, 7, false, };
-// FIXME need energy costs and Nx1 duration, these are placeholders
 static const attack ATK_Chilling_Water = { "Chilling Water", TYPE_WATER, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	65, 33, 7, false, };
 static const attack ATK_Clanging_Scales = { "Clanging Scales", TYPE_DRAGON, 120, -45, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
@@ -3691,16 +3690,16 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   // the single bloom
   {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, nullptr,
-		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Chilling_Water, },
-		true, false, false, { &ATK_Chilling_Water, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the single bloom
   {  670, "Floette", TYPE_FAIRY, TYPECOUNT, 136, 151, 144, "Flabébé",
 		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the garden
   {  671, "Florges", TYPE_FAIRY, TYPECOUNT, 212, 244, 186, "Floette",
-		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Tackle, &ATK_Fairy_Wind, &ATK_Petal_Blizzard, &ATK_Disarming_Voice, &ATK_Moonblast, &ATK_Psychic, &ATK_Trailblaze, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Tackle, &ATK_Fairy_Wind, &ATK_Petal_Blizzard, &ATK_Disarming_Voice, &ATK_Moonblast, &ATK_Psychic, &ATK_Trailblaze, &ATK_Chilling_Water, },
+		true, false, false, { &ATK_Chilling_Water, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the mount
   {  672, "Skiddo", TYPE_GRASS, TYPECOUNT, 123, 102, 165, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Rock_Smash, &ATK_Seed_Bomb, &ATK_Brick_Break, },
