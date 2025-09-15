@@ -95,6 +95,11 @@ SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
 OPTSTATSDAT:=$(OUT)/optstats.r
+OPTSTATSR:=optstats.R
+OPTSTATSPDF:=$(OUT)/optstats.pdf
+OPTSTATSRADARDAT:=$(OUT)/optstatsradar.r
+OPTSTATSRADARR:=optstatsradar.R
+OPTSTATSRADARPDF:=$(OUT)/optstatsradar.pdf
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
@@ -105,8 +110,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) \
-	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) \
-	$(OPTSTATSDAT)
+	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -115,7 +119,7 @@ WEBSRC:=$(wildcard w/*.cpp) $(wildcard w/*.h)
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(TEAMBUILDER) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
+all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
 	webpage testdb testsimul $(COVERSETS)
 
 WEBOUT:=$(OUT)/w
@@ -123,6 +127,18 @@ PAGEOUT:=$(OUT)/page
 WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
+
+$(OPTSTATSRADARPDF): $(OPTSTATSRADARR) $(OPTSTATSRADARDAT)
+	@mkdir -p $(@D)
+	Rscript $<
+
+$(OPTSTATSRADARDAT): $(OUT)/optstatsradar
+	@mkdir -p $(@D)
+	$< > $@
+
+$(OPTSTATSPDF): $(OPTSTATSR) $(OPTSTATSDAT)
+	@mkdir -p $(@D)
+	Rscript $<
 
 $(OPTSTATSDAT): $(OUT)/optstats
 	@mkdir -p $(@D)

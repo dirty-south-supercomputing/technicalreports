@@ -1,0 +1,6 @@
+library(ggplot2)
+library(ggradar)
+data = read.table("out/optstatsradar.r", sep="\t")
+pdf("out/optstatsradar.pdf", height=100)
+lapply(1:2, function(i) { ggradar(data[(2*i-1):(2*i), 1:4], grid.max=500, grid.mid=250, plot.title=data[2*i,1]) })
+dev.off()

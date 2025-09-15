@@ -1,0 +1,6 @@
+library(ggplot2)
+library(ggridges)
+data = read.table("out/optstats.r", sep="\t")
+pdf("out/optstats.pdf", height=100)
+ggplot(data, aes(x = V2, y = V1, color = V3, point_color = V3, fill = V3, height=1)) + geom_ridgeline() + theme_ridges(grid=TRUE)
+dev.off()
