@@ -7,14 +7,15 @@
 //
 // MHP * Eff_D * Eff_A * D_cycle / T_cycle
 
-static inline float halfbuff(int bufflevel){
+// chance is out of 1000
+static inline float halfbuff(int chance, int bufflevel){
   float b = mapbuff(bufflevel);
   if(b > 1){
     b = 1 + ((b - 1) / 2);
   }else{
     b = 1 - ((1 - b) / 2);
   }
-  return b;
+  return b * (chance / 1000.0);
 }
 
 struct timetofirst {
@@ -53,10 +54,10 @@ struct timetofirst {
       abuff = ca->user_attack;
       dbuff = ca->user_defense;
       dam = powerfast + powercharged;
-      aprod = sqrt(dam * effa * halfbuff(ca->user_attack));
+      aprod = sqrt(dam * effa * halfbuff(ca->chance_user_attack, ca->user_attack));
       mhp = calc_mhp(s->sta + is, hlevel);
-      bulk = sqrt(mhp * effd * halfbuff(ca->user_defense));
-      pppt = (aprod * aprod * bulk * bulk) / (turns * turns * 10000);
+      bulk = sqrt(mhp * effd * halfbuff(ca->chance_user_defense, ca->user_defense));
+      pppt = (aprod * bulk) / pow(turns, 0.7);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -113,6 +114,9 @@ static void
 calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs, int bound){
   for(unsigned si = 0 ; si < sd.dcount ; ++si){
     const auto &s = sd.dex[si];
+    if(s.name == "Aegislash"){
+      continue; // FIXME
+    }
     calctimespecies(s, ttfs, bound);
   }
 }

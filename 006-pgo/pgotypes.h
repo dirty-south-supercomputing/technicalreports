@@ -19,6 +19,8 @@ constexpr unsigned MINCP = 10; // minimum combat power
 constexpr int MAXCHARGEDBUFF = 4;
 constexpr unsigned ENERGY_MAX = 100;
 constexpr unsigned MAX_HALFLEVEL = 99;
+static constexpr auto GLCPCAP = 1500;
+static constexpr auto ULCPCAP = 2500;
 
 // returns integer part, sets *half to 1 if it's a +0.5
 // (aren't guaranteed exact representation with floats)

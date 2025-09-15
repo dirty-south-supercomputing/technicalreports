@@ -1,9 +1,6 @@
 #include "pgotypes.h"
 #include <getopt.h>
 
-static constexpr auto GLCPCAP = 1500;
-static constexpr auto ULCPCAP = 2500;
-
 static void
 usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokéspec [ -g | -u ] [ pokéspec... ]" << std::endl;

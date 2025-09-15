@@ -94,7 +94,7 @@ BULK2500TEX:=$(OUT)/bulk2500.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
-OPTSTATSDAT:=$(addprefix $(OUT)/optstats, mhp1500 mhp2500)
+OPTSTATSDAT:=$(OUT)/optstats.r
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
@@ -124,13 +124,9 @@ WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
 
-$(OUT)/optstatsmhp2500: $(OUT)/optstats
+$(OPTSTATSDAT): $(OUT)/optstats
 	@mkdir -p $(@D)
-	$< mhp 2500 > $@
-
-$(OUT)/optstatsmhp1500: $(OUT)/optstats
-	@mkdir -p $(@D)
-	$< mhp 1500 > $@
+	$< > $@
 
 $(WEBINDEX): $(WEBBIN)
 	@mkdir -p $(WEBOUT)
