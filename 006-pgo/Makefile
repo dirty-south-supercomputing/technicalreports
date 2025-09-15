@@ -124,9 +124,13 @@ WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(PAGEOUT)/index.html
 webpage: $(WEBINDEX)
 
-$(OUT)/optstatsmhp%: $(OUT)/optstats
+$(OUT)/optstatsmhp2500: $(OUT)/optstats
 	@mkdir -p $(@D)
-	$< mhp % > $@
+	$< mhp 2500 > $@
+
+$(OUT)/optstatsmhp1500: $(OUT)/optstats
+	@mkdir -p $(@D)
+	$< mhp 1500 > $@
 
 $(WEBINDEX): $(WEBBIN)
 	@mkdir -p $(WEBOUT)
