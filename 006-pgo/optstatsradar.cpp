@@ -29,7 +29,11 @@ write_radar(const species &s, int cpceil){
     highhp = stt->mhp > highhp ? stt->mhp : highhp;
   }
   delete[] st;
-  std::cout << s.name << cpceil << "\t" << round(higha) << "\t" << round(highd) << "\t" << highhp << std::endl;
+  std::cout << s.name;
+  if(cpceil){
+    std::cout << cpceil;
+  }
+  std::cout << "\t" << round(higha) << "\t" << round(highd) << "\t" << highhp << std::endl;
   return 0;
 }
 
@@ -41,6 +45,8 @@ int main(int argc, const char **argv){
     usage(argv0);
   }
   std::cout << "Pokémon\tATK\tDEF\tMHP" << std::endl;
+  std::cout << "Max\t250\t250\t250" << std::endl;
+  std::cout << "Min\t0\t0\t0" << std::endl;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     write_radar(sdex[u], GLCPCAP);
     write_radar(sdex[u], ULCPCAP);
