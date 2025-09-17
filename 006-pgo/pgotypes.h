@@ -416,7 +416,7 @@ static const attack ATK_Metal_Sound = { "Metal Sound", TYPE_STEEL, 5, 8, 2, 0, 0
 	4, 6, 1, false, };
 static const attack ATK_Mud_Shot = { "Mud Shot", TYPE_GROUND, 4, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
-static const attack ATK_Mud_Slap = { "Mud Slap", TYPE_GROUND, 12, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Mud_Slap = { "Mud-Slap", TYPE_GROUND, 12, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	19, 13, 3, false, };
 static const attack ATK_Peck = { "Peck", TYPE_FLYING, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 10, 2, false, };
