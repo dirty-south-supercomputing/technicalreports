@@ -3,6 +3,7 @@
 static void
 print_first_partners(int region){
   unsigned lastpdex = 0;
+  bool first = true;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const auto s = &sdex[i];
     if(s->idx == lastpdex){ // skip alternate forms
@@ -16,7 +17,11 @@ print_first_partners(int region){
     if(s->category != species::CAT_FPARTNER){
       continue;
     }
-    printf("%s ", s->name.c_str());
+    if(!first){
+      printf(", ");
+    }
+    first = false;
+    printf("%s", s->name.c_str());
   }
 }
 
