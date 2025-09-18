@@ -3098,6 +3098,7 @@ static const species sdex[] = {
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   // phione and manaphy have not been released as of 2025
+  // FIXME when released, uncomment the "Sea Guardians" entry in species.tex
   /* {  489, "Phione", TYPE_WATER, TYPECOUNT, 162, 162, 190, nullptr,
 		{ &ATK_Bubble, &ATK_Waterfall, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Surf, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
