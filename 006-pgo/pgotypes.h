@@ -4847,6 +4847,11 @@ calc_ppe(const attack *a){
   return a->powertrain / (float)-a->energytrain;
 }
 
+static inline unsigned
+calc_max_cp(const species *s){
+  return calccp(s->atk, s->def, s->sta, MAX_HALFLEVEL);
+}
+
 struct stats {
   const species* s;
   unsigned hlevel;          // halflevel 1..99
@@ -5863,6 +5868,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(s->categorystr() && strcmp(s->categorystr(), "")){
       printf("%s\n", s->categorystr());
     }
+    //printf("Max CP: %u\n", calc_max_cp(s));
   }
   print_icons(s, true, ismega);
   printf("\\end{minipage}\n");
