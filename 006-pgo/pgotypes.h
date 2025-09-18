@@ -5232,11 +5232,11 @@ static int
 print_weather(pgo_weather_t w){
   int count = 1;
   const char *ws = WNames[w];
-  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
+  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s-white.png}}", ws);
   ws = WSNames[w];
   if(ws){
     ++count;
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s-white.png}}", ws);
   }
   return count;
 }
@@ -5564,10 +5564,6 @@ print_previous_species(const species *s){
   printf(" (\\pageref{species:");
   label_string(s->name.c_str());
   printf("}) → ");
-  // ugh, special case -- this line occupies too much space
-  if(!s->name.compare("Galarian Zigzagoon")){
-    printf("\\\\\\strut\\hfill{}");
-  }
 }
 
 static int
@@ -5890,9 +5886,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
       printf("\\textbf{");
       escape_string(s->name.c_str());
       printf("}");
-      if(!s->name.compare("Galarian Zigzagoon")){
-        printf("\\\\\\strut\\hfill{}");
-      }
       while(evol){
         printf(" → ");
         escape_string(evol->name.c_str());
