@@ -2710,8 +2710,8 @@ static const species sdex[] = {
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Zen_Headbutt, &ATK_Psyshock, &ATK_Psychic, &ATK_Gyro_Ball, },
 		true, true, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang",
-		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Zen_Headbutt, &ATK_Earthquake, &ATK_Flash_Cannon, &ATK_Psychic, &ATK_Meteor_Mash, },
-		true, true, true, { &ATK_Meteor_Mash, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Zen_Headbutt, &ATK_Shadow_Claw, &ATK_Earthquake, &ATK_Flash_Cannon, &ATK_Psychic, &ATK_Meteor_Mash, },
+		true, true, true, { &ATK_Shadow_Claw, &ATK_Meteor_Mash, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
 		true, true, false, { &ATK_Earthquake, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
@@ -5748,8 +5748,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
   print_weathers(s->t1, s->t2);
-  printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta,
-      calc_amean(s->atk, s->def, s->sta), calc_gmean(s->atk, s->def, s->sta));
+  float avg = calc_amean(s->atk, s->def, s->sta);
+  printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
     printf(",interior style={fill overzoom image=images/highres/");
     escape_filename(s->name.c_str());
@@ -5910,9 +5910,18 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
     const float def = s->def * 5 / 6.0;
-    const float avg = calc_amean(atk, def, s->sta);
-    const float gm = calc_gmean(atk, def, s->sta);
-    printf("%g %g %u %.1f %.1f}\n", atk, def, s->sta, avg, gm);
+    const float savg = calc_amean(atk, def, s->sta);
+    // we don't show geometric mean as it'll always be the same as the non-shadow
+    // form. instead, show delta for arithmetic mean.
+    printf("%g %g %u %.1f ", atk, def, s->sta, savg);
+    if(avg > savg){
+      printf("(-%.1f\\%%)", (avg - savg) * 100 / avg);
+    }else if(avg < savg){
+      printf("(+%.1f\\%%)", (savg - avg) * 100 / avg);
+    }else{
+      printf("(no change)");
+    }
+    printf("}\n");
   }
 
   printf("}");
