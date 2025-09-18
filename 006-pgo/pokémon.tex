@@ -225,16 +225,16 @@ Accurately simulating the Pokémon GO CP calculation requires fifty tables, one 
 This imprecision shows up only infrequently, and the naive CP calculation is never more than one point off.
 \input{out/cpms}
 \section{Effective stats\label{sec:effectivestats}}
-Multiplying \Mod{S} by \CPM{} yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (MHP).
+Multiplying \Mod{S} by \CPM{} yields \Eff{S}, which determines a Pokémon's Maximum Hit Points (\MHP).
 When a Pokémon's Hit Points are reduced to 0, it is knocked out, and cannot be
  used (nor made a Buddy) until revived.
 Hit Points are persistent across Raids, Max Battles, and Team Rocket encounters,
- and can be restored (up to MHP) with Potions\footnote{Trainer Battles (other
+ and can be restored (up to \MHP) with Potions\footnote{Trainer Battles (other
  than those with Team Rocket) always start with full HP.}.
-MHP is defined such that it is always an integer not less than ten:
+\MHP is defined such that it is always an integer not less than ten:
 \begin{align*}
   \Eff{S} &= \Mod{S} \cdot \CPM{} \\
-  \MHP{} &= \min{10, \lfloor \Eff{S} \rfloor}
+  \MHP{} &= \max{10, \lfloor \Eff{S} \rfloor}
 \end{align*}
 Multiplying \Mod{S} by \CPM{} yields \Eff{ARaw}, used to determine charged move priority (\autoref{sec:3x3}).
 $M_{Shadow}$ is $\frac{6}{5}$ if the Pokémon is a Shadow Pokémon, and 1 otherwise.
@@ -251,12 +251,14 @@ Evaluating using a product function such as the geometric mean will show no diff
  the two multipliers cancel one another.
 \begin{align*}
   P &= \Eff{A} \cdot \Eff{D}\\
-  &= \frac{6}{5}\Mod{A} \cdot \frac{5}{6}\Mod{D} \cdot \CPM{}^2
+  &= \frac{6\Mod{A}}{5} \cdot \frac{5\Mod{D}}{6} \cdot \CPM{}^2
 \end{align*}
-Using a sum function such as the arithmetic mean will usually show a difference.
-When $\Mod{A} < \frac{5}{6}\Mod{D}$, the average goes down.
-When $\Mod{A} = \frac{5}{6}\Mod{D}$, the average is unchanged,
- and the average increases if $\Mod{A} > \frac{5}{6}\Mod{D}$.
+Using a sum function such as the arithmetic mean will usually show a difference:
+\begin{align*}
+  \Mod{A} &< \frac{5\Mod{D}}{6}\text{: the average goes down}\\
+  \Mod{A} &= \frac{5\Mod{D}}{6}\text{: the average is unchanged}\\
+  \Mod{A} &> \frac{5\Mod{D}}{6}\text{: the average goes up}
+\end{align*}
 
 Let's compare the impact of levels and IVs on effective stats.
 A Pokémon has base ATK and DEF $A$ and $D$, and level $L$ with corresponding \CPM{} $C_0$.
