@@ -14,6 +14,9 @@ static void tophalf(simulstate *s, results *r);
 
 pmon pmons[2][TEAMSIZE] = {};
 
+// since "tales of transformation", the switch timer is 45s (90 turns)
+static constexpr unsigned long SWITCH_TIMER_TURNS = 90;
+
 // we have 26 bits of discriminant
 static constexpr unsigned long CACHEELEMS = MEMOMASK + 1;
 
