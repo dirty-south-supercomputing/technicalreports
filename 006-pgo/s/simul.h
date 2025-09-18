@@ -7,7 +7,7 @@ struct simulstate { // dynamic elements
   uint16_t e[2][TEAMSIZE];  // energy of pokemon         [0..100]
   uint16_t dam[2][TEAMSIZE];// precalc damage for attacks
   uint8_t turns[2];         // turns left in fast attack   [0..5]
-  uint8_t subtimer[2];      // substitution timers       [0..100]
+  uint8_t subtimer[2];      // substitution timers        [0..90]
   int8_t buffleva[2];       // active attack buff levels  [-4..4]
   int8_t bufflevd[2];       // active defense buff levels [-4..4]
   uint8_t shields[2];       // number of shields available [0..2]
