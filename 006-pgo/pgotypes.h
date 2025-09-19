@@ -3587,7 +3587,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Sacred_Sword, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  641, "Incarnate Form Tornadus", TYPE_FLYING, TYPECOUNT, 266, 164, 188, nullptr,
 		{ &ATK_Bite, &ATK_Air_Slash, &ATK_Hyper_Beam, &ATK_Dark_Pulse, &ATK_Hurricane, &ATK_Grass_Knot, },
-		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  641, "Therian Form Tornadus", TYPE_FLYING, TYPECOUNT, 238, 189, 188, nullptr,
 		{ &ATK_Astonish, &ATK_Gust, &ATK_Heat_Wave, &ATK_Psychic, &ATK_Hurricane, &ATK_Focus_Blast, &ATK_Bleakwind_Storm, },
 		true, false, false, { &ATK_Bleakwind_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
