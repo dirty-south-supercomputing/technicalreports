@@ -2287,7 +2287,7 @@ static const species sdex[] = {
   // the Volcano
   {  244, "Entei", TYPE_FIRE, TYPECOUNT, 235, 171, 251, nullptr,
 		{ &ATK_Fire_Fang, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Iron_Head, &ATK_Flame_Charge, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Scorching_Sands, },
-		true, false, true, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+		true, true, true, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   // the Aurora
   {  245, "Suicune", TYPE_WATER, TYPECOUNT, 180, 235, 225, nullptr,
 		{ &ATK_Extrasensory, &ATK_Snarl, &ATK_Hidden_Power, &ATK_Ice_Fang, &ATK_Ice_Beam, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Scald, &ATK_Hydro_Pump, },
@@ -3096,7 +3096,7 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
-		true, false, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   // phione and manaphy have not been released as of 2025
   // FIXME when released, uncomment the "Sea Guardians" entry in species.tex
   /* {  489, "Phione", TYPE_WATER, TYPECOUNT, 162, 162, 190, nullptr,
