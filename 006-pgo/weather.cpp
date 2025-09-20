@@ -6,9 +6,9 @@ int main(void){
   printf("Weather & Icons & Types & Weather & Icons & Types\\\\\n");
   printf("\\Midrule\n");
   for(unsigned w = 0 ; w < static_cast<unsigned>(WEATHERCOUNT) ; ++w){
-    printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s.png}", WNames[w], WNames[w]);
+    printf("%s & \\includegraphics[height=1em,keepaspectratio]{images/%s-icon.png}", WNames[w], WNames[w]);
     if(WSNames[w]){
-      printf("\\includegraphics[height=1em,keepaspectratio]{images/%s.png}", WSNames[w]);
+      printf("\\includegraphics[height=1em,keepaspectratio]{images/%s-icon.png}", WSNames[w]);
     }
     printf(" & ");
     bool printed = false;

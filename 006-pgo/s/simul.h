@@ -1,3 +1,8 @@
+#include <cstdio>
+#include <memory>
+#include <cstdlib>
+#include "../pgotypes.h"
+
 struct results {
   unsigned long wins[2], ties; // win/tie counts
 };
@@ -44,4 +49,38 @@ static inline int other_player(int player){
 
 static inline pmon *activemon(const simulstate *s, int p){
   return &pmons[p][s->active[p]];
+}
+
+#include "sift.h"
+#include "damage.h"
+#include "memo.h"
+#include "in.h"
+static void tophalf(simulstate *s, results *r);
+#include "bottom.h"
+#include "ko.h"
+#include "top.h"
+
+pmon pmons[2][TEAMSIZE] = {};
+
+// since "tales of transformation", the switch timer is 45s (90 turns)
+static constexpr unsigned long SWITCH_TIMER_TURNS = 90;
+
+static void
+simul(simulstate *s, results *r){
+  s->turns[0] = s->turns[1] = 0u;
+  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+    s->e[0][i] = s->e[1][i] = 0;
+  }
+  s->buffleva[0] = s->buffleva[1] = 0;
+  s->bufflevd[0] = s->bufflevd[1] = 0;
+  s->subtimer[0] = s->subtimer[1] = 1;
+  s->shields[0] = s->shields[1] = 2;
+  s->active[0] = s->active[1] = 0;
+  calculate_damages(s);
+  /*for(int p = 0 ; p < 2 ; ++p){
+    for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
+      printf("dam[%d][%u] = %d\n", p, i, s->dam[p][i]);
+    }
+  }*/
+  tophalf(s, r);
 }

@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include "pgotypes.h"
 #include "s/simul.h"
-#include "s/damage.h"
 
 static pmon pm[2];
 

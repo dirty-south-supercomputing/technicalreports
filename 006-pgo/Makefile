@@ -23,6 +23,7 @@ UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
 SIMUL:=$(OUT)/s/simul
+AUTOSIMUL:=$(OUT)/s/auto
 FATTACKS:=$(OUT)/fastattacks
 CATTACKS:=$(OUT)/chargedattacks
 DUALTYPES:=$(OUT)/dualtypes
@@ -113,7 +114,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
-SIMULSRC:=$(addprefix s/, simul.cpp bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
+SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
+AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 WEBSRC:=$(wildcard w/*.cpp) $(wildcard w/*.h)
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
@@ -155,10 +157,10 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(SIMULSRC)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 list%.pdf: list%.tex $(OUT)/stat%.tex
@@ -305,6 +307,10 @@ $(SIMUL3OUT): $(SIMUL)
 				talonflame opt1500 incinerate "brave bird" \
 				quagsire opt1500 "water gun" earthquake \
 				milotic opt1500 waterfall surf > $@
+
+$(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h Makefile
+	@mkdir -p $(@D)
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) -lm -lmurmurhash
 
 $(SIMUL): $(SIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
