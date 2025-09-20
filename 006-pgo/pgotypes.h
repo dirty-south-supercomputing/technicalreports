@@ -5752,7 +5752,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   if(s->shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
-  print_weathers(s->t1, s->t2);
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
