@@ -5233,11 +5233,11 @@ static int
 print_weather(pgo_weather_t w){
   int count = 1;
   const char *ws = WNames[w];
-  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s-white.png}}", ws);
+  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
   ws = WSNames[w];
   if(ws){
     ++count;
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s-white.png}}", ws);
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
   }
   return count;
 }
