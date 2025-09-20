@@ -30,6 +30,7 @@ ucode_type(pgo_types_e t){
     case TYPE_ROCK: u = "Ro"; break;
     case TYPE_STEEL: u = "St"; break;
     case TYPE_WATER: u = "Wa"; break;
+    case TYPECOUNT: u = "**"; break; // Hidden Power
     default: throw std::invalid_argument("invalid ptype"); return -1;
   }
   return printf("%s", u);

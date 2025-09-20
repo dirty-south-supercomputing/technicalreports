@@ -88,13 +88,15 @@ autofight_sopp(const species &sopp){
     if(charged_attack_p(sfa)){
       continue;
     }
+    if(sfa->type == TYPECOUNT){
+      continue; // we do not yet support Hidden Power
+    }
     for(const auto sca : sopp.attacks){
       if(charged_attack_p(sca)){
         pmons[1][0].fa = sfa;
         pmons[1][0].ca1 = sca;
         pmons[1][0].ca2 = nullptr;
-        std::cout << "\t\"" << sopp.name << "\" \"" << sfa->name << "\" \"" << sca->name << "\"" << std::endl;
-        //run();
+        run();
       }
     }
   }
@@ -127,6 +129,9 @@ autofight(const species &su){
     if(charged_attack_p(sfa)){
       continue;
     }
+    if(sfa->type == TYPECOUNT){
+      continue; // we do not yet support Hidden Power
+    }
     for(const auto sca : su.attacks){
       if(charged_attack_p(sca)){
         pmons[0][0].fa = sfa;
@@ -144,18 +149,35 @@ autofight(const species &su){
           delete st;
           st = tmp;
         }
-        std::cout << "\"" << su.name << "\" \"" << sfa->name << "\" \"" << sca->name << "\" vs." << std::endl;
         autofight_su();
       }
     }
   }
 }
 
-int main(void){
+static void
+usage(const char *argv0){
+  std::cerr << "usage: " << argv0 << " [ pokémon ]" << std::endl;
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, const char **argv){
   memset(&pmons, 0, sizeof(pmons));
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &su = sdex[u];
-    autofight(su);
+  if(argc >= 2){
+    if(argc >= 3){
+      usage(argv[0]);
+    }
+    const species *su = lookup_species(argv[1]);
+    if(!su){
+      std::cerr << "unknown pokémon: " << argv[1] << std::endl;
+      usage(argv[0]);
+    }
+    autofight(*su);
+  }else{
+    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+      const species &su = sdex[u];
+      autofight(su);
+    }
   }
   return EXIT_SUCCESS;
 }
