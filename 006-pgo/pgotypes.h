@@ -2167,6 +2167,7 @@ static const species sdex[] = {
   {  210, "Granbull", TYPE_FAIRY, TYPECOUNT, 212, 131, 207, "Snubbull",
 		{ &ATK_Bite, &ATK_Snarl, &ATK_Charm, &ATK_Play_Rough, &ATK_Close_Combat, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // the balloon
   {  211, "Qwilfish", TYPE_WATER, TYPE_POISON, 184, 138, 163, nullptr,
 		{ &ATK_Water_Gun, &ATK_Poison_Sting, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Sludge_Wave, &ATK_Scald, &ATK_Acid_Spray, &ATK_Fell_Stinger, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
