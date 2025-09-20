@@ -69,50 +69,6 @@ enum pgo_weather_t {
   WEATHERCOUNT
 };
 
-static const char* WNames[WEATHERCOUNT] = {
-  "Clear",
-  "Rainy",
-  "Partly Cloudy",
-  "Cloudy",
-  "Windy",
-  "Snow",
-  "Fog",
-  "Extreme"
-};
-
-// secondary names
-static const char* WSNames[WEATHERCOUNT] = {
-  "Clear Night",
-  NULL,
-  "Partly Cloudy Night",
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-};
-
-static pgo_weather_t wboosts[TYPECOUNT] = {
-  WEATHER_RAIN,   // bug
-  WEATHER_FOG,    // dark
-  WEATHER_WINDY,  // dragon
-  WEATHER_RAIN,   // electric
-  WEATHER_CLOUDY, // fairy
-  WEATHER_CLOUDY, // fighting
-  WEATHER_CLEAR,  // fire
-  WEATHER_WINDY,  // flying
-  WEATHER_FOG,    // ghost
-  WEATHER_CLEAR,  // grass
-  WEATHER_CLEAR,  // ground
-  WEATHER_SNOW,   // ice
-  WEATHER_PARTLY_CLOUDY,  // normal
-  WEATHER_CLOUDY, // poison
-  WEATHER_WINDY,  // psychic
-  WEATHER_PARTLY_CLOUDY,  // rock
-  WEATHER_SNOW,   // steel
-  WEATHER_RAIN,   // water
-};
-
 const uint32_t TColors[TYPECOUNT] = {
   0xA6B91A, 0x575063, 0x6F35FC, 0xF7D02C, 0xD685AD, 0xC22E28, 0xEE8130, 0x8D87DB, 0x5066A3,
   0x7AC74C, 0xD97A4B, 0x96D9D6, 0x9CA5AB, 0xA33EA1, 0xF95587, 0xB6A136, 0x5E91A4, 0x6390F0,
@@ -5227,33 +5183,6 @@ int print_types_big(pgo_types_e t1, pgo_types_e t2){
     return 2;
   }
   return 1;
-}
-
-static int
-print_weather(pgo_weather_t w){
-  int count = 1;
-  const char *ws = WNames[w];
-  printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
-  ws = WSNames[w];
-  if(ws){
-    ++count;
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", ws);
-  }
-  return count;
-}
-
-static int
-print_weathers(pgo_types_e t1, pgo_types_e t2){
-  int count = 0;
-  pgo_weather_t w1 = wboosts[t1];
-  if(t2 != TYPECOUNT){
-    pgo_weather_t w2 = wboosts[t2];
-    if(w2 != w1){
-      count += print_weather(w2);
-    }
-  }
-  count += print_weather(w1);
-  return count;
 }
 
 static unsigned
