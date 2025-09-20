@@ -3,7 +3,8 @@
 
 #include <murmurhash.h>
 
-constexpr uint32_t MEMOMASK = 0xfffffff;
+constexpr uint32_t MEMOMASK = 0xffff;
+//constexpr uint32_t MEMOMASK = 0xfffffff;
 
 // We use the lower two bits of both fast attack turn counters, the
 // lower five bits of each energy tally, and the lower six bits of

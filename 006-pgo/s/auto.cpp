@@ -61,24 +61,22 @@ print_pmon(const pmon *p){
   }
 }
 
-static void
-print_team(int player){
-  printf("TEAM %d\n", player + 1);
-  for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
-    if(pmons[player][i].s.s){
-      print_pmon(&pmons[player][i]);
-    }
-  }
-}
-
-static void
+static int
 run(void){
   simulstate sstate = {};
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
-  print_team(0);
-  print_team(1);
+  sstate.hp[0][0] = pmons[0][0].s.mhp;
+  sstate.hp[1][0] = pmons[1][0].s.mhp;
+  print_pmon(&pmons[0][0]);
+  print_pmon(&pmons[1][0]);
+  if(init_cache()){
+    return -1;
+  }
   simul(&sstate, &r);
+  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
+  stop_cache(false);
+  return 0;
 }
 
 static void
@@ -106,6 +104,9 @@ static void
 autofight_su(void){
   for(unsigned opp = 0 ; opp < SPECIESCOUNT ; ++opp){
     const species &sopp = sdex[opp];
+    if(!strcmp(sopp.name.c_str(), "Aegislash")){
+      continue; // FIXME not yet supported
+    }
     stats *st = find_optimal_set(&sopp, 1500, 0, false, calc_pok_gmean);
     pmons[1][0].s.ia = st->ia;
     pmons[1][0].s.id = st->id;
@@ -162,6 +163,7 @@ usage(const char *argv0){
 }
 
 int main(int argc, const char **argv){
+  setlocale(LC_ALL, "");
   memset(&pmons, 0, sizeof(pmons));
   if(argc >= 2){
     if(argc >= 3){

@@ -114,7 +114,7 @@ int main(int argc, char** argv){
   results r;
   r.wins[0] = r.wins[1] = r.ties = 0;
   simul(&sstate, &r);
-  stop_cache();
+  stop_cache(true);
   unsigned long total = r.wins[0] + r.wins[1] + r.ties;
   printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
   printf(" total: %'lu p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,

@@ -13,17 +13,18 @@ struct cacheelem {
 
 static cacheelem *elems;
 
-int init_cache(void){
-  elems = new cacheelem[CACHEELEMS];
-  memset(elems, 0, sizeof(*elems) * CACHEELEMS);
-  return 0;
-}
-
 static uint64_t cache_opens;  // opened a cache element
 static uint64_t cache_hits;   // was set and valid for us
 static uint64_t cache_misses; // was set but not us
 static uint64_t cache_late;   // was open when we looked it up
 static uint64_t cache_used;   // elements used
+
+int init_cache(void){
+  elems = new cacheelem[CACHEELEMS];
+  memset(elems, 0, sizeof(*elems) * CACHEELEMS);
+  cache_opens = cache_hits = cache_misses = cache_late = cache_used = 0;
+  return 0;
+}
 
 static void
 init_elem(cacheelem &elem, const simulstate *s, const results *r){
@@ -74,10 +75,12 @@ void update_cache(uint32_t h, const results *r){
   elem.state = cacheelem::ELEMSET;
 }
 
-int stop_cache(void){
-  printf("hits: %'lu misses: %'lu opens: %'lu late: %'lu\n",
-          cache_hits, cache_misses, cache_opens, cache_late);
-  printf(" used: %'lu/%'lu\n", cache_used, CACHEELEMS);
+int stop_cache(bool verbose){
+  if(verbose){
+    printf("hits: %'lu misses: %'lu opens: %'lu late: %'lu\n",
+            cache_hits, cache_misses, cache_opens, cache_late);
+    printf(" used: %'lu/%'lu\n", cache_used, CACHEELEMS);
+  }
   delete[] elems;
   return 0;
 }
