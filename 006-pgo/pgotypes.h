@@ -4670,7 +4670,7 @@ static const species sdex[] = {
     */
   { 1011, "Dipplin", TYPE_GRASS, TYPE_DRAGON, 173, 184, 190, "Applin",
     { &ATK_Dragon_Tail, &ATK_Bullet_Seed, &ATK_Rollout, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Outrage, },
-    false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SWEETAPPLE, },
+    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SWEETAPPLE, },
   //{ 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, nullptr, },
   //{ 1014, "Okidogi", TYPE_POISON, TYPE_FIGHTING, nullptr, },
@@ -4679,7 +4679,7 @@ static const species sdex[] = {
   //{ 1018, "Archaludon", TYPE_STEEL, TYPE_DRAGON, 250, 215, 207, "Duraludon", },
   { 1019, "Hydrapple", TYPE_GRASS, TYPE_DRAGON, 216, 186, 235, "Dipplin",
     { &ATK_Dragon_Tail, &ATK_Bullet_Seed, &ATK_Rollout, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Outrage, },
-    false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SYRUPYAPPLE, },
+    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SYRUPYAPPLE, },
   //{ 1020, "Gouging Fire", TYPE_FIRE, TYPE_DRAGON, nullptr, },
   //{ 1021, "Raging Bolt", TYPE_ELECTRIC, TYPE_DRAGON, nullptr, },
   //{ 1022, "Iron Boulder", TYPE_ROCK, TYPE_PSYCHIC, nullptr, },
