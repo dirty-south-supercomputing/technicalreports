@@ -10,7 +10,7 @@ TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo foreward objectives trainer friends types attacks \
 											 species pokémon battle unbounded bounded tactics \
 											 simul spawn example about ooo optimal notice timespace \
-											 speciescards attackcards feraligatr2500 items)
+											 speciescards attackcards feraligatr2500 items sresearch)
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
