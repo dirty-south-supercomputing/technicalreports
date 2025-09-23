@@ -25,7 +25,7 @@ static int lex_cp(const char *arg){
   return cp;
 }
 
-static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
+static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is, bool shadow){
   unsigned hlevel = 1;
   do{
     int ccp = calccp(s->atk + ia, s->def + id, s->sta + is, hlevel);
@@ -36,8 +36,8 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
       if(half){
         std::cout << ".5";
       }
-      auto effa = calc_eff_a(s->atk + ia, hlevel, false);
-      auto effd = calc_eff_d(s->def + id, hlevel, false);
+      auto effa = calc_eff_a(s->atk + ia, hlevel, shadow);
+      auto effd = calc_eff_d(s->def + id, hlevel, shadow);
       auto hp = calc_mhp(s->sta + is, hlevel);
       std::cout << " EffA: " << effa << " EffD: " << effd << " HP: " << hp;
       std::cout << " gm: " << calc_gmean(effa, effd, hp);
@@ -53,7 +53,7 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is){
   return st;
 }
 
-static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int *is){
+static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int *is, bool shadow){
   if(cp < 0){
     for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
       unsigned half;
@@ -68,8 +68,8 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
         std::cout << "  " << l;
       }
       cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
-      auto gmean = calc_gmean(calc_eff_a(s->atk + *ia, hlevel, false),
-                              calc_eff_d(s->def + *id, hlevel, false),
+      auto gmean = calc_gmean(calc_eff_a(s->atk + *ia, hlevel, shadow),
+                              calc_eff_d(s->def + *id, hlevel, shadow),
                               calc_mhp(s->sta + *is, hlevel));
       std::cout << ": " << cp << " (" << gmean << ") " << "\t";
       if(hlevel % 4 == 0){
@@ -80,14 +80,14 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
     return nullptr;
   }
   if(*ia >= 0 && *id >= 0 && *is >= 0){
-    auto st = solve_hlevel(s, cp, *ia, *id, *is);
+    auto st = solve_hlevel(s, cp, *ia, *id, *is, shadow);
     return st;
   }
   stats *sols = nullptr;
   for(*ia = 0 ; *ia <= MAXIVELEM ; ++*ia){
     for(*id = 0 ; *id <= MAXIVELEM ; ++*id){
       for(*is = 0 ; *is <= MAXIVELEM ; ++*is){
-        auto st = solve_hlevel(s, cp, *ia, *id, *is);
+        auto st = solve_hlevel(s, cp, *ia, *id, *is, shadow);
         if(st){
           st->next = sols;
           sols = st;
@@ -182,7 +182,7 @@ int main(int argc, const char **argv){
     std::cout << "cp: " << cp << " ";
   }
   std::cout << "ia: " << ia << " id: " << id << " is: " << is << std::endl;
-  auto st = reverse_ivs_level(s, cp, &ia, &id, &is);
+  auto st = reverse_ivs_level(s, cp, &ia, &id, &is, !!shadname);
   if(!st && cp > 0){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;

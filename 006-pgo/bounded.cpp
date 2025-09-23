@@ -5,7 +5,7 @@
 
 // take the provided species, and generate a new species object reflecting
 // the shadow bonus. this object will persist.
-static species *
+static inline species *
 create_shadow(const species* s){
   if(!s->shadow){
     std::cerr << "no shadow form exists for " << s->name << std::endl;
@@ -22,7 +22,8 @@ create_shadow(const species* s){
   news->from = s->from;
   news->attacks = s->attacks;
   news->shiny = s->shiny;
-  news->shadow = false;
+  news->shadow = s->shadow;
+  news->dmax = s->dmax;
   return news;
 }
 
