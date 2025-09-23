@@ -99,48 +99,36 @@ test_attack(const attack *a){
         std::cerr << "chance opp attack without opp attack buff " << a->name << std::endl;
         throw std::exception();
       }
+    }else if(a->opp_attack){
+      std::cerr << "opp attack buff without chance " << a->name << std::endl;
+      throw std::exception();
     }
     if(a->chance_opp_defense){
       if(!a->opp_defense){
         std::cerr << "chance opp defense without opp defense buff " << a->name << std::endl;
         throw std::exception();
       }
+    }else if(a->opp_defense){
+      std::cerr << "opp defense buff without chance " << a->name << std::endl;
+      throw std::exception();
     }
     if(a->chance_user_attack){
       if(!a->user_attack){
         std::cerr << "chance user attack without user attack buff " << a->name << std::endl;
         throw std::exception();
       }
+    }else if(a->user_attack){
+      std::cerr << "user attack buff without chance " << a->name << std::endl;
+      throw std::exception();
     }
     if(a->chance_user_defense){
       if(!a->user_defense){
         std::cerr << "chance user defense without user defense buff " << a->name << std::endl;
         throw std::exception();
       }
-    }
-    if(a->opp_attack){
-      if(!a->chance_opp_attack){
-        std::cerr << "opp attack buff without chance " << a->name << std::endl;
-        throw std::exception();
-      }
-    }
-    if(a->user_attack){
-      if(!a->chance_user_attack){
-        std::cerr << "user attack buff without chance " << a->name << std::endl;
-        throw std::exception();
-      }
-    }
-    if(a->opp_defense){
-      if(!a->chance_opp_defense){
-        std::cerr << "opp defense buff without chance " << a->name << std::endl;
-        throw std::exception();
-      }
-    }
-    if(a->user_defense){
-      if(!a->chance_user_defense){
-        std::cerr << "user defense buff without chance " << a->name << std::endl;
-        throw std::exception();
-      }
+    }else if(a->user_defense){
+      std::cerr << "user defense buff without chance " << a->name << std::endl;
+      throw std::exception();
     }
     if(a->chance_opp_attack > 1000 || a->chance_opp_defense > 1000
         || a->chance_user_attack > 1000 || a->chance_user_defense > 1000){
