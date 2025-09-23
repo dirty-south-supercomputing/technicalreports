@@ -1,4 +1,5 @@
-// we have 26 bits of discriminant
+// we have 28 bits of discriminant
+constexpr auto MEMOMASK = 0xfffffff;
 static constexpr unsigned long CACHEELEMS = MEMOMASK + 1;
 
 struct cacheelem {
@@ -18,6 +19,17 @@ static uint64_t cache_hits;   // was set and valid for us
 static uint64_t cache_misses; // was set but not us
 static uint64_t cache_late;   // was open when we looked it up
 static uint64_t cache_used;   // elements used
+
+// We use the lower two bits of both fast attack turn counters, the
+// lower five bits of each energy tally, and the lower six bits of
+// each HP to get a lookup. We must then verify that the full state matches.
+static inline uint32_t
+hash_simulstate(const simulstate *s){
+  uint32_t h;
+  lmmh_x86_32(s, sizeof(*s), 0, &h);
+  h &= MEMOMASK;
+  return h;
+}
 
 int init_cache(void){
   elems = new cacheelem[CACHEELEMS];
@@ -56,8 +68,20 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
     init_elem(elem, s, r);
     return -1;
   }
+  if(~0ULL - r->wins[0] < elem.r.wins[0]){
+    std::cerr << "team 0 wins overflowed" << std::endl;
+    throw std::exception();
+  }
   r->wins[0] += elem.r.wins[0];
+  if(~0ULL - r->wins[1] < elem.r.wins[1]){
+    std::cerr << "team 1 wins overflowed" << std::endl;
+    throw std::exception();
+  }
   r->wins[1] += elem.r.wins[1];
+  if(~0ULL - r->ties < elem.r.ties){
+    std::cerr << "ties overflowed" << std::endl;
+    throw std::exception();
+  }
   r->ties += elem.r.ties;
   ++cache_hits;
   return 0;

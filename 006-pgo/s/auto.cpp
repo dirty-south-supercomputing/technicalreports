@@ -1,6 +1,22 @@
 #include "simul.h"
 #include "cache.h"
 
+// we don't support some forms, for various reasons.
+// we ought support them all: these are each bugs
+static bool
+blacklisted_p(const std::string &s){
+  static const std::vector<std::string> blist{
+    "Aegislash", // FIXME weird mechanics
+    "Chansey" // FIXME too many HP
+  };
+  for(const auto &b : blist){
+    if(s == b){
+      return true;
+    }
+  }
+  return false;
+}
+
 static int
 ucode_type(pgo_types_e t){
   const char *u;
@@ -68,13 +84,15 @@ run(void){
   r.wins[0] = r.wins[1] = r.ties = 0;
   sstate.hp[0][0] = pmons[0][0].s.mhp;
   sstate.hp[1][0] = pmons[1][0].s.mhp;
-  print_pmon(&pmons[0][0]);
-  print_pmon(&pmons[1][0]);
   if(init_cache()){
     return -1;
   }
-  simul(&sstate, &r);
-  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
+  try{
+    simul(&sstate, &r);
+    printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
+  }catch(std::exception &e){
+    // win overflow
+  }
   stop_cache(false);
   return 0;
 }
@@ -94,6 +112,7 @@ autofight_sopp(const species &sopp){
         pmons[1][0].fa = sfa;
         pmons[1][0].ca1 = sca;
         pmons[1][0].ca2 = nullptr;
+        print_pmon(&pmons[1][0]);
         run();
       }
     }
@@ -104,8 +123,8 @@ static void
 autofight_su(void){
   for(unsigned opp = 0 ; opp < SPECIESCOUNT ; ++opp){
     const species &sopp = sdex[opp];
-    if(!strcmp(sopp.name.c_str(), "Aegislash")){
-      continue; // FIXME not yet supported
+    if(blacklisted_p(sopp.name)){
+      continue;
     }
     stats *st = find_optimal_set(&sopp, 1500, 0, false, calc_pok_gmean);
     pmons[1][0].s.ia = st->ia;
@@ -125,6 +144,13 @@ autofight_su(void){
 
 static void
 autofight(const species &su){
+  stats *st = find_optimal_set(&su, 1500, 0, false, calc_pok_gmean);
+  pmons[0][0].s.ia = st->ia;
+  pmons[0][0].s.id = st->id;
+  pmons[0][0].s.is = st->is;
+  pmons[0][0].s.hlevel = st->hlevel;
+  pmons[0][0].s.s = &su;
+  fill_stats(&pmons[0][0].s, false);
   // run through all attack sets for su
   for(const auto sfa : su.attacks){
     if(charged_attack_p(sfa)){
@@ -138,13 +164,7 @@ autofight(const species &su){
         pmons[0][0].fa = sfa;
         pmons[0][0].ca1 = sca;
         pmons[0][0].ca2 = nullptr;
-        pmons[0][0].s.s = &su;
-        stats *st = find_optimal_set(&su, 1500, 0, false, calc_pok_gmean);
-        pmons[0][0].s.ia = st->ia;
-        pmons[0][0].s.id = st->id;
-        pmons[0][0].s.is = st->is;
-        pmons[0][0].s.hlevel = st->hlevel;
-        fill_stats(&pmons[0][0].s, false);
+        print_pmon(&pmons[0][0]);
         while(st){
           stats *tmp = st->next;
           delete st;
@@ -178,6 +198,9 @@ int main(int argc, const char **argv){
   }else{
     for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
       const species &su = sdex[u];
+      if(blacklisted_p(su.name)){
+        continue;
+      }
       autofight(su);
     }
   }

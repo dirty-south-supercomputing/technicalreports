@@ -4,7 +4,7 @@
 #include "../pgotypes.h"
 
 struct results {
-  unsigned long wins[2], ties; // win/tie counts
+  uint64_t wins[2], ties; // win/tie counts
 };
 
 struct simulstate { // dynamic elements

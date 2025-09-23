@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include "simul.h"
 #include "cache.h"
 
@@ -115,9 +116,10 @@ int main(int argc, char** argv){
   r.wins[0] = r.wins[1] = r.ties = 0;
   simul(&sstate, &r);
   stop_cache(true);
-  unsigned long total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
-  printf(" total: %'lu p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
+  auto total = r.wins[0] + r.wins[1] + r.ties;
+  printf("p0 wins: %'" PRIu64 " p1 wins: %'" PRIu64 " ties: %'" PRIu64 "\n",
+          r.wins[0], r.wins[1], r.ties);
+  printf(" total: %'" PRIu64 " p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
         r.wins[0] * 100.0 / total, r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
   return EXIT_SUCCESS;
 }
