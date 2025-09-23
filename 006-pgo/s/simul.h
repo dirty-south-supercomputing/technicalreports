@@ -65,7 +65,7 @@ pmon pmons[2][TEAMSIZE] = {};
 // since "tales of transformation", the switch timer is 45s (90 turns)
 static constexpr unsigned long SWITCH_TIMER_TURNS = 90;
 
-static void
+static inline void
 simul(simulstate *s, results *r){
   s->turns[0] = s->turns[1] = 0u;
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
