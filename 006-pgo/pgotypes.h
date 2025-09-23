@@ -693,9 +693,9 @@ static const attack ATK_Mystical_Fire = { "Mystical Fire", TYPE_FIRE, 60, -45, 0
 	60, 33, 4, false, };
 static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, -50, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	90, 55, 4, false, };
-static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 125, 0, 0, 0, 2, 0, 0, 0,
+static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
-static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 125, 0, 0, 0, 0, 2, 0, 0, 0,
 	45, 33, 4, false, };
 static const attack ATK_Oblivion_Wing = { "Oblivion Wing", TYPE_FLYING, 85, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 4, false, };
