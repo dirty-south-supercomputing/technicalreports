@@ -4876,7 +4876,7 @@ struct stats {
   }
 
   float bulk() const {
-    return mhp * effd;
+    return sqrt(mhp * effd);
   }
 
 };
@@ -4973,6 +4973,11 @@ calc_pok_amean(const stats *s){
 static inline float
 calc_pok_gmean(const stats *s){
   return calc_gmean(s->effa, s->effd, s->mhp);
+}
+
+static inline float
+calc_pok_bulk(const stats *s){
+  return s->bulk();
 }
 
 static void
