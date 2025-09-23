@@ -60,11 +60,6 @@ get_apercent(const stats *s){
   return s->apercent;
 }
 
-static float
-get_bulk(const stats *s){
-  return sqrt(s->effd * s->mhp);
-}
-
 static stats *
 print_sol_set(stats *sols, float(*afxn)(const stats *s)){
   unsigned half;
@@ -130,10 +125,9 @@ print_bounded_bulktable(int bound, float lbound){
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
-  // FIXME want to maximize bulk, not geometric mean!
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false, calc_pok_gmean);
+    stats *s = find_optimal_set(sp, bound, lbound, false, calc_pok_bulk);
     if(s){
       s->next = sols;
       sols = s;
@@ -160,7 +154,7 @@ print_bounded_bulktable(int bound, float lbound){
     *q = cand;
     q = &cand->next;
   }
-  while( (head = print_sol_set(head, get_bulk)) ){
+  while( (head = print_sol_set(head, calc_pok_bulk)) ){
     ;
   }
   printf("\\captionlistentry{Bulk-optimal solutions bounded by %d \\CP{}}\n", bound);
