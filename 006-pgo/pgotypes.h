@@ -5824,13 +5824,13 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(largeicons + print_icons(s, false, ismega) > 5){
       printf("\\\\");
     }
+    print_icons(s, true, ismega);
     printf("\\scriptsize{}");
     if(s->categorystr() && strcmp(s->categorystr(), "")){
       printf("%s\n", s->categorystr());
     }
     //printf("Max CP: %u\n", calc_max_cp(s));
   }
-  print_icons(s, true, ismega);
   printf("\\end{minipage}\n");
   if(mainform){ // evolutionary lineage (only for main forms)
     printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
