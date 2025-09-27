@@ -4719,8 +4719,8 @@ struct mega {
 // mega and primal forms are never shadows
 static const mega megasdex[] = {
   {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, },
-  {  6, "Mega X Charizard", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
-  {  6, "Mega Y Charizard", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
+  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
+  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
   {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, },
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, },
