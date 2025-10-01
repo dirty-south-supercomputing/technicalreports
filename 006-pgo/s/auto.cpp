@@ -1,5 +1,6 @@
 #include "simul.h"
 #include "cache.h"
+#include <cinttypes>
 
 // we don't support some forms, for various reasons.
 // we ought support them all: these are each bugs
@@ -81,7 +82,7 @@ static int
 run(void){
   simulstate sstate = {};
   results r;
-  r.wins[0] = r.wins[1] = r.ties = 0;
+  r.wins[0] = r.wins[1] = r.ties = r.timeouts = 0;
   sstate.hp[0][0] = pmons[0][0].s.mhp;
   sstate.hp[1][0] = pmons[1][0].s.mhp;
   if(init_cache()){
@@ -89,7 +90,8 @@ run(void){
   }
   try{
     simul(&sstate, &r);
-    printf("p0 wins: %'lu p1 wins: %'lu ties: %'lu\n", r.wins[0], r.wins[1], r.ties);
+    printf("p0 wins: %'" PRIu64 " p1 wins: %'" PRIu64 " ties: %'" PRIu64 " timeouts: %'" PRIu64 "\n",
+           r.wins[0], r.wins[1], r.ties, r.timeouts);
   }catch(std::exception &e){
     // win overflow
   }

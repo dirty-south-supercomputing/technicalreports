@@ -113,12 +113,12 @@ int main(int argc, char** argv){
     exit(EXIT_FAILURE);
   }
   results r;
-  r.wins[0] = r.wins[1] = r.ties = 0;
+  r.wins[0] = r.wins[1] = r.ties = r.timeouts = 0;
   simul(&sstate, &r);
   stop_cache(true);
   auto total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0 wins: %'" PRIu64 " p1 wins: %'" PRIu64 " ties: %'" PRIu64 "\n",
-          r.wins[0], r.wins[1], r.ties);
+  printf("p0 wins: %'" PRIu64 " p1 wins: %'" PRIu64 " ties: %'" PRIu64 " timeouts: %'" PRIu64 "\n",
+          r.wins[0], r.wins[1], r.ties, r.timeouts);
   printf(" total: %'" PRIu64 " p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
         r.wins[0] * 100.0 / total, r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
   return EXIT_SUCCESS;

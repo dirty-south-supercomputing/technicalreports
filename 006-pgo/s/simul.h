@@ -4,7 +4,7 @@
 #include "../pgotypes.h"
 
 struct results {
-  uint64_t wins[2], ties; // win/tie counts
+  uint64_t wins[2], ties, timeouts; // win/tie counts
 };
 
 struct simulstate { // dynamic elements
@@ -17,6 +17,7 @@ struct simulstate { // dynamic elements
   int8_t bufflevd[2];       // active defense buff levels [-4..4]
   uint8_t shields[2];       // number of shields available [0..2]
   uint8_t active[2];        // indexes of active pokémon   [0..2]
+  int16_t ticks;            // timer ticks thus far
   int cmp;                  // <=> for charged move prio
 
   inline bool operator==(const simulstate& r) {
