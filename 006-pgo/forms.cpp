@@ -6,6 +6,22 @@
 #include <cstdlib>
 #include <cstring>
 
+static const char *megasortstr(const char *name){
+#define MEGASTR "Mega "
+#define PRIMALSTR "Primal "
+  const char *str;
+  if(strncmp(name, MEGASTR, strlen(MEGASTR)) == 0){
+    str = name + strlen(MEGASTR);
+  }else if(strncmp(name, PRIMALSTR, strlen(PRIMALSTR)) == 0){
+    str = name + strlen(PRIMALSTR);
+  }else{
+    str = name;
+  }
+  return str;
+#undef PRIMALSTR
+#undef MEGASTR
+}
+
 int main(int argc, char **argv){
   if(argc != 2){
     fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
@@ -23,7 +39,8 @@ int main(int argc, char **argv){
           s->name.c_str(), s->attacks, s->shiny, false, false, s->elite,
           s->category, s->a2cost, nullptr
       };
-      amap.emplace(m.name, sm);
+      char *sstr = strdup(megasortstr(m.name.c_str()));
+      amap.emplace(sstr, sm);
     }
   }else if(strcasecmp(argv[1], "dynamax") == 0){
     for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
