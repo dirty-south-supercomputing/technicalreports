@@ -15,9 +15,14 @@
 }while(0);
 
 static void tophalf(simulstate *s, results *r){
+  constexpr uint16_t TICKSMAX = 270 * 2; // four and a half minutes
   const int hp0 = s->hp[0][s->active[0]];
   const int hp1 = s->hp[1][s->active[1]];
 
+  if(++s->ticks >= TICKSMAX){
+    ++r->timeouts;
+    return;
+  }
   s->subtimer[0] = s->subtimer[0] ? s->subtimer[0] - 1 : 0;
   s->subtimer[1] = s->subtimer[1] ? s->subtimer[1] - 1 : 0;
   if(!hp0){
@@ -57,4 +62,5 @@ static void tophalf(simulstate *s, results *r){
       }
     }
   }
+  --s->ticks;
 }
