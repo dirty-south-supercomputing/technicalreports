@@ -1213,7 +1213,7 @@ struct species {
   } category;
   int a2cost;         // cost in kStardust to teach second attack {-1, 10, 50, 75, 100}
   const char *gmax;   // gmax attack name or NULL
-  enum evol_item {
+  enum evol_item {    // item required to evolve *into* this mon
     EVOL_NOITEM,
     EVOL_SUNSTONE,
     EVOL_KINGSROCK,
@@ -1227,6 +1227,8 @@ struct species {
     EVOL_SYRUPYAPPLE,
     EVOL_GIMMICOINS,
     EVOL_ZYGARDECELL,
+    EVOL_MAGLURE,
+    EVOL_RAINLURE,
   } evolitem;
 
   species() {
@@ -1641,7 +1643,7 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  82, "Magneton", TYPE_ELECTRIC, TYPE_STEEL, 223, 169, 137, "Magnemite",
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Metal_Sound, &ATK_Discharge, &ATK_Flash_Cannon, &ATK_Magnet_Bomb, &ATK_Zap_Cannon, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_MAGLURE, },
   // the Wild Duck
   {  83, "Farfetch'd", TYPE_NORMAL, TYPE_FLYING, 124, 115, 141, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Cut, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Leaf_Blade, &ATK_Air_Cutter, },
@@ -3013,7 +3015,7 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass",
 		{ &ATK_Spark, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Magnet_Bomb, &ATK_Thunderbolt, &ATK_Zap_Cannon, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_MAGLURE, },
   {  477, "Dusknoir", TYPE_GHOST, TYPECOUNT, 180, 254, 128, "Dusclops",
 		{ &ATK_Astonish, &ATK_Hex, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Ominous_Wind, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Dynamic_Punch, &ATK_Poltergeist, },
 		true, true, false, { &ATK_Shadow_Ball, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SINNOHSTONE, },
@@ -3812,7 +3814,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  706, "Goodra", TYPE_DRAGON, TYPECOUNT, 220, 242, 207, "Sliggoo",
 		{ &ATK_Dragon_Breath, &ATK_Water_Gun, &ATK_Aqua_Tail, &ATK_Thunder_Punch, &ATK_Sludge_Wave, &ATK_Power_Whip, &ATK_Draco_Meteor, &ATK_Muddy_Water, },
-		true, false, false, { &ATK_Thunder_Punch, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		true, false, false, { &ATK_Thunder_Punch, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_RAINLURE, },
   {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, nullptr,
 		{ &ATK_Tackle, &ATK_Astonish, &ATK_Flash_Cannon, &ATK_Draining_Kiss, &ATK_Play_Rough, &ATK_Foul_Play, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -3941,7 +3943,7 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Volt_Switch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  738, "Vikavolt", TYPE_BUG, TYPE_ELECTRIC, 254, 158, 184, "Charjabug",
 		{ &ATK_Bug_Bite, &ATK_Spark, &ATK_Mud_Slap, &ATK_Volt_Switch, &ATK_Discharge, &ATK_X_Scissor, &ATK_Crunch, &ATK_Fly, },
-		true, true, false, { &ATK_Volt_Switch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { &ATK_Volt_Switch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_MAGLURE, },
   {  739, "Crabrawler", TYPE_FIGHTING, TYPECOUNT, 150, 104, 132, nullptr,
 		{ &ATK_Bubble, &ATK_Rock_Smash, &ATK_Brick_Break, &ATK_Crabhammer, &ATK_Power_Up_Punch, &ATK_Payback, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
@@ -4269,7 +4271,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel",
 		{ &ATK_Spark, &ATK_Poison_Jab, &ATK_Acid, &ATK_Discharge, &ATK_Wild_Charge, &ATK_Acid_Spray, &ATK_Power_Up_Punch, },
-		true, true, true, { }, species::CAT_NORMAL, 75, "G-Max Stun Shock", },
+		true, true, true, { }, species::CAT_NORMAL, 75, "G-Max Stun Shock", species::EVOL_NOITEM},
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
@@ -4302,7 +4304,7 @@ static const species sdex[] = {
   // the Bulk Up
   {  861, "Grimmsnarl", TYPE_DARK, TYPE_FAIRY, 237, 139, 216, "Morgrem",
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, &ATK_Power_Up_Punch, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		true, false, false, { }, species::CAT_NORMAL, 75, "G-Max Snooze", species::EVOL_NOITEM, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone",
 		{ &ATK_Lick, &ATK_Counter, &ATK_Hyper_Beam, &ATK_Cross_Chop, &ATK_Night_Slash, &ATK_Gunk_Shot, &ATK_Obstruct, },
 		true, true, false, { &ATK_Obstruct, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
