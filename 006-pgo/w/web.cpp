@@ -1,11 +1,12 @@
 #include "../pgotypes.h"
+#include "mon.h"
 #include "index.h"
 #include <fcntl.h>
 #include <unistd.h>
 
 static int
 open_output(int dfd, const char *node){
-  int indexfd = openat(dfd, node, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+  int indexfd = openat(dfd, node, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   if(indexfd < 0){
     std::cerr << "error opening " << node << " (" << strerror(errno) << ")" << std::endl;
     return -1;
@@ -54,6 +55,9 @@ int main(int argc, const char **argv){
   int r = write_page(dfd, "index.html", write_index);
   if(close(dfd)){
     std::cerr << "error closing " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
+    return EXIT_FAILURE;
+  }
+  if(write_mon_pages(dfd)){
     return EXIT_FAILURE;
   }
   return r ? EXIT_FAILURE : EXIT_SUCCESS;
