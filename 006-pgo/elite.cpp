@@ -24,7 +24,7 @@ static void elite_fast_table(const species *dex, unsigned scount){
       }
     }
   }
-  if(!nl){
+  if(nl){
     std::cout << " & \\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
