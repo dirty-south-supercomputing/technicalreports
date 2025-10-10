@@ -43,7 +43,7 @@ int main(int argc, char **argv){
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   printf("\\begingroup\\footnotesize");
   printf("\\begin{longtable}{crrrrrrrr}\\footnotesize");
-  printf("& -3 & -2 & -1 & 0 & 1 & 2 & \\ARA & Pop\\\\\\Midrule\\endhead\n");
+  printf("& -3 & -2 & -1 & 0 & 1 & 2 & \\ARA{} & Pop\\\\\\Midrule\\endhead\n");
   bool grey = true;
   for(const auto &ts : tsets){
     if( (grey = !grey) ){
