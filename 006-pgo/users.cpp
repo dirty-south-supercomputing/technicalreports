@@ -34,9 +34,9 @@ print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
 static void
 print_attack_users(const attack *a){
   bool printed = false;
-  printf("\\begin{tcolorbox}[enhanced,title=");
+  printf("\\begin{attackbox}[enhanced,title=");
   escape_string(a->name);
-  printf(",colbacktitle=%s,fonttitle=\\bfseries,before title={",
+  printf(",colbacktitle=%s,before title={",
           a->type == TYPECOUNT ? "Black" : TNames[a->type]);
   print_type(a->type);
   printf("},after title={");
@@ -62,25 +62,25 @@ print_attack_users(const attack *a){
     print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
   }
   if(a->chance_user_attack){
-    printf("\\\\\n\\textbf{%g\\%% chance of attack %+d}\n",
+    printf("\\tcbsubtitle{%g\\%% chance of attack %+d}",
           a->chance_user_attack / 10.0, a->user_attack);
   }
   if(a->chance_user_defense){
-    printf("\\\\\n\\textbf{%g\\%% chance of defense %+d}\n",
+    printf("\\tcbsubtitle{%g\\%% chance of defense %+d}",
           a->chance_user_defense / 10.0, a->user_defense);
   }
   if(a->chance_opp_attack){
-    printf("\\\\\n\\textbf{%g\\%% chance of opponent attack %+d}\n",
+    printf("\\tcbsubtitle{%g\\%% chance of opponent attack %+d}",
           a->chance_opp_attack / 10.0, a->opp_attack);
   }
   if(a->chance_opp_defense){
-    printf("\\\\\n\\textbf{%g\\%% chance of opponent defense %+d}\n",
+    printf("\\tcbsubtitle{%g\\%% chance of opponent defense %+d}",
           a->chance_opp_defense / 10.0, a->opp_defense);
   }
   if(a->adveffect){
-    printf("\\\\\n\\textbf{%s has an Adventure Effect}\n", a->name);
+    printf("\\tcbsubtitle{Adventure Effect}");
   }
-  printf("\n\\end{tcolorbox}\n");
+  printf("\n\\end{attackbox}\n");
   if(a->type != TYPECOUNT){
     printf("\\pagecolor{%s!25!white}", TNames[a->type]);
   }
