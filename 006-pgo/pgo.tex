@@ -77,7 +77,7 @@
   boxsep=0pt,
   middle=0pt,
   fonttitle=\bfseries,
-  subtitle style={colback=Shadow!50!black},
+  subtitle style={colback=Shadow!50!black,before skip=1pt,bottomrule=0pt},
   #1}
 
 \NewTColorBox{tipbox}{!O{}}{%
@@ -85,6 +85,16 @@
   title style={color=Shadow!50!black},
   halign title=flush center,
   fonttitle=\bfseries,
+  #1}
+
+\NewTColorBox{attackbox}{!O{}}{%
+  enhanced,
+  top=0pt,
+  bottom=0pt,
+  boxsep=0pt,
+  middle=0pt,
+  fonttitle=\bfseries,
+  subtitle style={before skip=1pt,bottomrule=0pt},
   #1}
 
 \makeatletter
