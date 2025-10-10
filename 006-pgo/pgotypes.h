@@ -774,7 +774,7 @@ static const attack ATK_Scald = { "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0,
 	75, 50, 7, false, };
 static const attack ATK_Scorching_Sands = { "Scorching Sands", TYPE_GROUND, 80, -50, 0, 0, 0, 100, 0, 0, 0, -1, 0,
 	90, 50, 6, false, };
-static const attack ATK_Secret_Sword = { "Secret Sword", TYPE_FIGHTING, 70, -35, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+static const attack ATK_Secret_Sword = { "Secret Sword", TYPE_FIGHTING, 70, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 50, 4, false, };
 static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 4, false, };
@@ -5880,7 +5880,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
   // shadow is implemented as subtitle
   if(mainform && s->shadow){
-    printf("\\tcbsubtitle[before skip=1pt,bottomrule=0pt]{Shadow ");
+    printf("\\tcbsubtitle{Shadow ");
     escape_string(s->name.c_str());
     printf("\\hfill{}");
     const float atk = s->atk * 6 / 5.0;
