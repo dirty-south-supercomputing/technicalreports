@@ -774,6 +774,8 @@ static const attack ATK_Scald = { "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0,
 	75, 50, 7, false, };
 static const attack ATK_Scorching_Sands = { "Scorching Sands", TYPE_GROUND, 80, -50, 0, 0, 0, 100, 0, 0, 0, -1, 0,
 	90, 50, 6, false, };
+static const attack ATK_Secret_Sword = { "Secret Sword", TYPE_FIGHTING, 70, -35, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+	120, 50, 4, false, };
 static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 4, false, };
 static const attack ATK_Seed_Flare = { "Seed Flare", TYPE_GRASS, 130, -75, 0, 0, 0, 0, 400, 0, 0, 0, -2,
@@ -1119,6 +1121,7 @@ static const attack* const attacks[] = {
   &ATK_Sandsear_Storm,
   &ATK_Scald,
   &ATK_Scorching_Sands,
+  &ATK_Secret_Sword,
   &ATK_Seed_Bomb,
   &ATK_Seed_Flare,
   &ATK_Shadow_Ball,
