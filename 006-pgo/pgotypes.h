@@ -21,6 +21,7 @@ constexpr unsigned ENERGY_MAX = 100;
 constexpr unsigned MAX_HALFLEVEL = 99;
 static constexpr auto GLCPCAP = 1500;
 static constexpr auto ULCPCAP = 2500;
+static constexpr auto MAXLEVEL = 80;
 
 // returns integer part, sets *half to 1 if it's a +0.5
 // (aren't guaranteed exact representation with floats)
@@ -29,6 +30,18 @@ halflevel_to_level(unsigned hl, unsigned* half){
   *half = !(hl % 2);
   return (hl + 1) / 2;
 }
+
+// expressed in terms of kXP
+static constexpr uint64_t LEVELREQS[MAXLEVEL] = {
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 48,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 258,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 1083,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 3953,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 12753,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 34353,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 85853,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 203353,
+};
 
 enum pgo_types_e {
   TYPE_BUG,
