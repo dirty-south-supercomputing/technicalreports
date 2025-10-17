@@ -12,6 +12,7 @@ static void emitk(uint64_t val){
 int main(void){
   std::cout << "\\begin{table}";
   std::cout << "\\centering\\footnotesize";
+  std::cout << "\\setlength{\\tabcolsep}{2pt}";
   std::cout << "\\begin{tabular}{rrr|rrr|rrr|rrr}" << std::endl;
   std::cout << "L & XP & ΔXP & L & XP & ΔXP & L & XP & ΔXP & L & XP & ΔXP\\\\" << std::endl;
   std::cout << "\\Midrule" << std::endl;
