@@ -1,10 +1,10 @@
 #include "pgotypes.h"
 
 static void emitk(uint64_t val){
-  if(val < 1000){
-    std::cout << val << "k";
+  if(val < 1000000){
+    std::cout << (val / 1000.0) << "k";
   }else{
-    std::cout << (val / 1000.0) << "M";
+    std::cout << (val / 1000000.0) << "M";
   }
 }
 
@@ -28,17 +28,23 @@ int main(void){
       emitk(totalxp);
       std::cout << " & "; // total xp for level
       auto xpdiff = totalxp - collast[c];
+      if(l == 0){ // we're the top of the column
+        if(c == 0){
+          xpdiff = 0;
+        }else{
+          xpdiff = totalxp - LEVELREQS[level - 2];
+        }
+      }
       emitk(xpdiff);
       if(c + 1 < cols){
         std::cout << " & ";
       }
-//printf("\nLEVEL %d TOTAL %lu\n", level, totalxp);
       collast[c] = totalxp;
     }
     std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
-  std::cout << "\\caption{Requirements for Trainer Levels 1--70\\label{table:xp40}}";
+  std::cout << "\\caption{XP requirements for Trainer Levels 1--" << MAXLEVEL << "\\label{table:xp40}}";
   std::cout << "\\end{table}";
   return EXIT_SUCCESS;
 }
