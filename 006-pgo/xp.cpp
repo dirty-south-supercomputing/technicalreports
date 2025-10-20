@@ -193,58 +193,65 @@ static void emitk(uint64_t val){
   }
 }
 
+static void emitv(unsigned val){
+  if(val){
+    std::cout << val;
+  }
+  std::cout << "&";
+}
+
 static void level_item_table(int llevel, int hlevel){
   std::cout << "\\begin{table}";
   std::cout << "\\centering";
   std::cout << "\\setlength{\\tabcolsep}{1pt}";
   std::cout << "\\footnotesize";
-  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g c g c g c}";
+  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g c g c}";
   std::cout << "&\
-\\includegraphics[width=1em]{images/pokeball.png} &\
-\\includegraphics[width=1em]{images/greatball.png} &\
-\\includegraphics[width=1em]{images/ultraball.png} &\
-\\includegraphics[width=1em]{images/nanab.png} &\
-\\includegraphics[width=1em]{images/razz.png} &\
-\\includegraphics[width=1em]{images/pinap.png} &\
-\\includegraphics[width=1em]{images/goldenrazz.png} &\
-\\includegraphics[width=1em]{images/incense.png} &\
-\\includegraphics[width=1em]{images/revive.png} &\
-\\includegraphics[width=1em]{images/maxrevive.png} &\
-\\includegraphics[width=1em]{images/Potion.png} &\
-\\includegraphics[width=1em]{images/superpotion.png} &\
-\\includegraphics[width=1em]{images/Hyper_Potion.png} &\
-\\includegraphics[width=1em]{images/Max_Potion.png} &\
-\\includegraphics[width=1em]{images/lure.png} &\
-\\includegraphics[width=1em]{images/luckyegg.png} &\
-\\includegraphics[width=1em]{images/starpiece.png} &\
-\\includegraphics[width=1em]{images/incubatorlimited.png} &\
-\\includegraphics[width=1em]{images/incubatorsuper.png} &\
-\\includegraphics[width=1em]{images/rarecandyxl.png} &\
-\\includegraphics[width=1em]{images/elitefasttm.png} &\
-\\includegraphics[width=1em]{images/elitechargedtm.png}" << "\\\\";
+\\includegraphics[width=1em]{images/pokeball.png}&\
+\\includegraphics[width=1em]{images/greatball.png}&\
+\\includegraphics[width=1em]{images/ultraball.png}&\
+\\includegraphics[width=1em]{images/nanab.png}&\
+\\includegraphics[width=1em]{images/razz.png}&\
+\\includegraphics[width=1em]{images/pinap.png}&\
+\\includegraphics[width=1em]{images/goldenrazz.png}&\
+\\includegraphics[width=1em]{images/incense.png}&\
+\\includegraphics[width=1em]{images/revive.png}&\
+\\includegraphics[width=1em]{images/maxrevive.png}&\
+\\includegraphics[width=1em]{images/Potion.png}&\
+\\includegraphics[width=1em]{images/superpotion.png}&\
+\\includegraphics[width=1em]{images/Hyper_Potion.png}&\
+\\includegraphics[width=1em]{images/Max_Potion.png}&\
+\\includegraphics[width=1em]{images/lure.png}&\
+\\includegraphics[width=1em]{images/luckyegg.png}&\
+\\includegraphics[width=1em]{images/starpiece.png}&\
+\\includegraphics[width=1em]{images/incubatorlimited.png}&\
+\\includegraphics[width=1em]{images/incubatorsuper.png}&\
+\\includegraphics[width=1em]{images/rarecandyxl.png}" << "\\\\";
   for(int x = llevel ; x <= hlevel ; ++x){
     const TrainerLevel &l = levels[x];
     std::cout << x << "&";
-    std::cout << l.pokeball << "&";
-    std::cout << l.greatball << "&";
-    std::cout << l.ultraball << "&";
-    std::cout << l.nanab << "&";
-    std::cout << l.razz << "&";
-    std::cout << l.pinap << "&";
-    std::cout << l.goldenrazz << "&";
-    std::cout << l.incense << "&";
-    std::cout << l.revive << "&";
-    std::cout << l.maxrevive << "&";
-    std::cout << l.potion << "&";
-    std::cout << l.superpotion << "&";
-    std::cout << l.hyperpotion << "&";
-    std::cout << l.maxpotion << "&";
-    std::cout << l.lure << "&";
-    std::cout << l.luckyegg << "&";
-    std::cout << l.starpiece << "&";
-    std::cout << l.incubator << "&";
-    std::cout << l.superincubator << "&";
-    std::cout << l.rarexl << "&";
+    emitv(l.pokeball);
+    emitv(l.greatball);
+    emitv(l.ultraball);
+    emitv(l.nanab);
+    emitv(l.razz);
+    emitv(l.pinap);
+    emitv(l.goldenrazz);
+    emitv(l.incense);
+    emitv(l.revive);
+    emitv(l.maxrevive);
+    emitv(l.potion);
+    emitv(l.superpotion);
+    emitv(l.hyperpotion);
+    emitv(l.maxpotion);
+    emitv(l.lure);
+    emitv(l.luckyegg);
+    emitv(l.starpiece);
+    emitv(l.incubator);
+    emitv(l.superincubator);
+    if(l.rarexl){
+      std::cout << l.rarexl;
+    }
     std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
