@@ -1,5 +1,33 @@
 #include "pgotypes.h"
 
+struct TrainerLevel {
+  unsigned pokeball;
+  unsigned greatball;
+  unsigned ultraball;
+  unsigned nanab;
+  unsigned razz;
+  unsigned incense;
+  unsigned revive;
+  unsigned potion;
+  unsigned lure;
+  unsigned luckyegg;
+};
+
+static TrainerLevel levels[MAXLEVEL] = {
+  {}, // 0
+  { 50, 0, 0, 0,  0, 1,  0,  0, 0, 0, }, // 1
+  { 10, 0, 0, 5,  0, 0,  0,  0, 0, 0, }, // 2
+  { 10, 0, 0, 5,  0, 0,  0,  0, 0, 0, }, // 3
+  { 10, 0, 0, 5,  0, 0,  0,  0, 0, 0, }, // 4
+  { 15, 0, 0, 0,  0, 1,  5, 10, 0, 0, }, // 5
+  { 10, 0, 0, 0,  0, 0,  0,  5, 1, 0, }, // 6
+  { 10, 0, 0, 5,  0, 0,  0,  0, 0, 0, }, // 7
+  { 10, 0, 0, 0,  0, 0,  5,  0, 0, 0, }, // 8
+  { 10, 0, 0, 5,  0, 0,  0,  0, 0, 0, }, // 9
+  { 20, 0, 0, 0, 10, 0, 10, 10, 0, 1, }, // 10
+ // FIXME
+};
+
 /*
 \begin{table}
 \centering
@@ -182,7 +210,14 @@ static void level_item_table(int llevel, int hlevel){
 \\includegraphics[width=1em]{images/elitefasttm.png} &\
 \\includegraphics[width=1em]{images/elitechargedtm.png}" << "\\\\";
   for(int x = llevel ; x <= hlevel ; ++x){
-    std::cout << x << "&" << "\\\\" << std::endl;
+    const TrainerLevel &l = levels[x];
+    std::cout << x << "&";
+    std::cout << l.pokeball << "&";
+    std::cout << l.greatball << "&";
+    std::cout << l.ultraball << "&";
+    std::cout << l.nanab << "&";
+    std::cout << l.razz << "&";
+    std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
   std::cout << "\\caption{Items awarded for reaching Trainer Levels ";
