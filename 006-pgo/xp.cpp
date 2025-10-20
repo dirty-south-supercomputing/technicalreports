@@ -129,7 +129,7 @@ static void level_item_table(int llevel, int hlevel){
   std::cout << "\\centering";
   std::cout << "\\setlength{\\tabcolsep}{2pt}";
   std::cout << "\\footnotesize";
-  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g c g c g}";
+  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g c g c}";
   std::cout << "&\
 \\includegraphics[width=1em]{images/pokeball.png}&\
 \\includegraphics[width=1em]{images/greatball.png}&\
@@ -137,7 +137,6 @@ static void level_item_table(int llevel, int hlevel){
 \\includegraphics[width=1em]{images/nanab.png}&\
 \\includegraphics[width=1em]{images/razz.png}&\
 \\includegraphics[width=1em]{images/pinap.png}&\
-\\includegraphics[width=1em]{images/goldenrazz.png}&\
 \\includegraphics[width=1em]{images/incense.png}&\
 \\includegraphics[width=1em]{images/revive.png}&\
 \\includegraphics[width=1em]{images/maxrevive.png}&\
@@ -162,7 +161,6 @@ static void level_item_table(int llevel, int hlevel){
     emitv(l.nanab);
     emitv(l.razz);
     emitv(l.pinap);
-    emitv(l.goldenrazz);
     emitv(l.incense);
     emitv(l.revive);
     emitv(l.maxrevive);
