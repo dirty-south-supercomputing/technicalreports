@@ -207,7 +207,7 @@ hasupgrade(const TrainerLevel &l){
 
 static bool
 hasrareitem(const TrainerLevel &l){
-  if(l.infiniteincubator || l.masterball || l.fasttm || l.elitefasttm || l.elitechargedtm){
+  if(l.infiniteincubator || l.goldenrazz || l.masterball || l.fasttm || l.elitefasttm || l.elitechargedtm){
     return true;
   }
   return false;
@@ -219,12 +219,13 @@ level_upgrade_table(void){
   std::cout << "\\centering";
   std::cout << "\\setlength{\\tabcolsep}{2pt}";
   std::cout << "\\footnotesize";
-  std::cout << "\\begin{tabular}{r|g c g c g c g c g}";
+  std::cout << "\\begin{tabular}{r|g c g c g c g c g c}";
   std::cout << "&\
 \\includegraphics[width=1em]{images/bagupgrade.png}&\
 \\includegraphics[width=1em]{images/pokemonupgrade.png}&\
 \\includegraphics[width=1em]{images/postcardupgrade.png}&\
 \\includegraphics[width=1em]{images/gift.png}&\
+\\includegraphics[width=1em]{images/goldenrazz.png}&\
 \\includegraphics[width=1em]{images/infiniteincubator.png}&\
 \\includegraphics[width=1em]{images/masterball.png}&\
 \\includegraphics[width=1em]{images/fasttm.png}&\
@@ -241,6 +242,7 @@ level_upgrade_table(void){
     emitv(l.pokup);
     emitv(l.postup);
     emitv(l.giftup);
+    emitv(l.goldenrazz);
     emitv(l.infiniteincubator);
     emitv(l.masterball);
     emitv(l.fasttm);
