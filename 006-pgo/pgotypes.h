@@ -849,7 +849,15 @@ static const attack ATK_Swift = { "Swift", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 
 	65, 50, 6, false, };
 static const attack ATK_Synchronoise = { "Synchronoise", TYPE_PSYCHIC, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 5, false, };
-static const attack ATK_Techno_Blast = { "Techno Blast", TYPE_NORMAL, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Electric = { "Techno Blast (Electric)", TYPE_ELECTRIC, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	120, 100, 4, false, };
+static const attack ATK_Techno_Blast_Fire = { "Techno Blast (Fire)", TYPE_FIRE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	120, 100, 4, false, };
+static const attack ATK_Techno_Blast_Ice = { "Techno Blast (Ice)", TYPE_ICE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	120, 100, 4, false, };
+static const attack ATK_Techno_Blast_Normal = { "Techno Blast (Normal)", TYPE_NORMAL, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	120, 100, 4, false, };
+static const attack ATK_Techno_Blast_Water = { "Techno Blast (Water)", TYPE_WATER, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
 static const attack ATK_Thunder = { "Thunder", TYPE_ELECTRIC, 100, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 100, 7, false, };
@@ -1168,7 +1176,11 @@ static const attack* const attacks[] = {
   &ATK_Surf,
   &ATK_Swift,
   &ATK_Synchronoise,
-  &ATK_Techno_Blast,
+  &ATK_Techno_Blast_Electric,
+  &ATK_Techno_Blast_Fire,
+  &ATK_Techno_Blast_Ice,
+  &ATK_Techno_Blast_Normal,
+  &ATK_Techno_Blast_Water,
   &ATK_Thunder,
   &ATK_Thunder_Punch,
   &ATK_Thunderbolt,
@@ -3739,8 +3751,20 @@ static const species sdex[] = {
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
-		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Hyper_Beam, &ATK_Magnet_Bomb, &ATK_X_Scissor, &ATK_Techno_Blast, },
-		true, false, false, { &ATK_Techno_Blast, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Hyper_Beam, &ATK_Magnet_Bomb, &ATK_X_Scissor, &ATK_Techno_Blast_Normal, },
+		true, false, false, { &ATK_Techno_Blast_Normal, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  {  649, "Genesect (Burn Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Flamethrower, &ATK_X_Scissor, &ATK_Techno_Blast_Fire, },
+		true, false, false, { &ATK_Techno_Blast_Fire, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  {  649, "Genesect (Chill Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Ice_Beam, &ATK_X_Scissor, &ATK_Techno_Blast_Ice, },
+		true, false, false, { &ATK_Techno_Blast_Ice, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  {  649, "Genesect (Douse Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Gunk_Shot, &ATK_X_Scissor, &ATK_Techno_Blast_Water, },
+		true, false, false, { &ATK_Techno_Blast_Water, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
+  {  649, "Genesect (Shock Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Zap_Cannon, &ATK_X_Scissor, &ATK_Techno_Blast_Electric, },
+		true, false, false, { &ATK_Techno_Blast_Electric, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, nullptr,
 		{ &ATK_Vine_Whip, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Body_Slam, &ATK_Gyro_Ball, },
 		true, false, false, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, },
