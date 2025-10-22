@@ -207,7 +207,7 @@ hasupgrade(const TrainerLevel &l){
 
 static bool
 hasrareitem(const TrainerLevel &l){
-  if(l.fasttm || l.elitefasttm || l.elitechargedtm){
+  if(l.infiniteincubator || l.masterball || l.fasttm || l.elitefasttm || l.elitechargedtm){
     return true;
   }
   return false;
@@ -251,7 +251,7 @@ level_upgrade_table(void){
     std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
-  std::cout << "\\caption{Upgrades awarded for reading Trainer Levels\\label{table:levelupgrades}}";
+  std::cout << "\\caption{Upgrades and rare items awarded for reading Trainer Levels\\label{table:levelupgrades}}";
   std::cout << "\\end{table}";
 }
 
