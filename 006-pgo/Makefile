@@ -91,6 +91,7 @@ ASETSTEX:=$(OUT)/asets.tex
 XPTEX:=$(OUT)/xp.tex
 LEVELS40TEX:=$(OUT)/xp40.tex
 LEVELS80TEX:=$(OUT)/xp80.tex
+LEVELUPGRADESTEX:=$(OUT)/xpupgrades.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 UNPOPTEX:=$(OUT)/unpop.tex
 BULK1500TEX:=$(OUT)/bulk1500.tex
@@ -114,7 +115,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) $(XPTEX) \
-	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX)
+	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
+	$(LEVELUPGRADESTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -189,6 +191,10 @@ $(OUT)/statGL.tex: $(OUT)/stat
 $(OUT)/statUL.tex: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) 2500 > $@
+
+$(LEVELUPGRADESTEX): $(OUT)/xp
+	@mkdir -p $(@D)
+	$(<) upgrades > $@
 
 $(LEVELS40TEX): $(OUT)/xp
 	@mkdir -p $(@D)
