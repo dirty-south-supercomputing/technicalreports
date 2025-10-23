@@ -3739,9 +3739,9 @@ static const species sdex[] = {
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   // no difference in PGO
-  /*{  647, "Keldeo (Resolute Forme)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
-		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
-		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
+  {  647, "Keldeo (Resolute Forme)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
+		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, &ATK_Secret_Sword, },
+		false, false, false, { &ATK_Secret_Sword, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
   {  648, "Aria Forme Meloetta", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -3983,11 +3983,11 @@ static const species sdex[] = {
   // the stump
   {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, nullptr,
 		{ &ATK_Tackle, &ATK_Astonish, &ATK_Seed_Bomb, &ATK_Shadow_Ball, &ATK_Foul_Play, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   // the elder tree
   {  709, "Trevenant", TYPE_GHOST, TYPE_GRASS, 201, 154, 198, "Phantump",
 		{ &ATK_Sucker_Punch, &ATK_Shadow_Claw, &ATK_Seed_Bomb, &ATK_Shadow_Ball, &ATK_Foul_Play, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
   // the pumpkin
   {  710, "Pumpkaboo", TYPE_GHOST, TYPE_GRASS, 121, 123, 135, nullptr,
 		{ &ATK_Razor_Leaf, &ATK_Astonish, &ATK_Shadow_Sneak, &ATK_Grass_Knot, &ATK_Foul_Play, },
