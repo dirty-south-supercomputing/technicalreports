@@ -53,11 +53,11 @@ int main(int argc, const char **argv){
     usage(argv0);
   }
   int r = write_page(dfd, "index.html", write_index);
-  if(close(dfd)){
-    std::cerr << "error closing " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
+  if(write_mon_pages(dfd)){
     return EXIT_FAILURE;
   }
-  if(write_mon_pages(dfd)){
+  if(close(dfd)){
+    std::cerr << "error closing " << argv[1] << " (" << strerror(errno) << ")" << std::endl;
     return EXIT_FAILURE;
   }
   return r ? EXIT_FAILURE : EXIT_SUCCESS;

@@ -157,7 +157,7 @@ $(WEBINDEX): $(WEBBIN)
 
 $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(^) -lm
+	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
 	pdftk $^ cat output $@

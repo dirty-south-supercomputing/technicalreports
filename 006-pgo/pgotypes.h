@@ -133,7 +133,7 @@ typing_relation(pgo_types_e atype, pgo_types_e ttype1, pgo_types_e ttype2){
   return r1 + r2;
 }
 
-const char* tnames[TYPECOUNT] = {
+static const char* tnames[TYPECOUNT] = {
   "bug",
   "dark",
   "dragon",
@@ -154,7 +154,7 @@ const char* tnames[TYPECOUNT] = {
   "water"
 };
 
-const char* TNames[TYPECOUNT] = {
+static const char* TNames[TYPECOUNT] = {
   "Bug",
   "Dark",
   "Dragon",
@@ -202,7 +202,7 @@ float cpm(int halflevel){
 */
 
 // maybe use values from https://github.com/mathiasbynens/pogocpm2level/blob/master/pogocpm2level/cpm2level.py ?
-float cpm(int halflevel){
+static float cpm(int halflevel){
   static const float cpms[] = {
     0.094, 0.1351374318, 0.166398, 0.192650919, 0.215732, 0.2365726613,
     0.25572, 0.2735303812, 0.29025, 0.3060573775, 0.321088,
@@ -5313,7 +5313,8 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
 // with a CP less than or equal to cpceil and fitness function greater than or
 // equal to floor.
 // FIXME if last argument is true, we want calc_amean(), otherwise calc_gmean()
-stats *find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
+static stats *
+find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
   stats* optsets = NULL;
   float minfit = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
@@ -5374,7 +5375,8 @@ lookup_type(const char *t){
   return TYPECOUNT;
 }
 
-const species* lookup_species(const char* name){
+static inline const species*
+lookup_species(const char* name){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     if(strcasecmp(sdex[i].name.c_str(), name) == 0){
       return &sdex[i];
@@ -5383,7 +5385,8 @@ const species* lookup_species(const char* name){
   return NULL;
 }
 
-const species* lookup_species(unsigned idx){
+static inline const species*
+lookup_species(unsigned idx){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     if(sdex[i].idx == idx){
       return &sdex[i];
@@ -5393,7 +5396,8 @@ const species* lookup_species(unsigned idx){
 }
 
 // FIXME there can be more than one mega form! (e.g. charizard x and y)
-const mega* lookup_mega(const char* name){
+static inline const mega*
+lookup_mega(const char* name){
   const species *s = lookup_species(name);
   if(s){
     for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
@@ -5405,7 +5409,8 @@ const mega* lookup_mega(const char* name){
   return NULL;
 }
 
-void print_type(pgo_types_e t){
+static inline void
+print_type(pgo_types_e t){
   if(t != TYPECOUNT){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/%s.png}}", tnames[t]);
   }
@@ -5413,7 +5418,8 @@ void print_type(pgo_types_e t){
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
 // monotypes are only displayed once.
-void print_types(pgo_types_e t1, pgo_types_e t2){
+static inline void
+print_types(pgo_types_e t1, pgo_types_e t2){
   print_type(t1);
   if(t1 != t2){
     putc(' ', stdout);
@@ -5421,13 +5427,15 @@ void print_types(pgo_types_e t1, pgo_types_e t2){
   }
 }
 
-void print_type_big(pgo_types_e t){
+static inline void
+print_type_big(pgo_types_e t){
   if(t != TYPECOUNT){
     printf("\\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/%s.png}}", tnames[t]);
   }
 }
 
-int print_types_big(pgo_types_e t1, pgo_types_e t2){
+static inline int
+print_types_big(pgo_types_e t1, pgo_types_e t2){
   print_type_big(t1);
   if(t1 != t2){
     putc(' ', stdout);
@@ -5437,7 +5445,7 @@ int print_types_big(pgo_types_e t1, pgo_types_e t2){
   return 1;
 }
 
-static unsigned
+static inline unsigned
 learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
   unsigned count = 0;
   for(unsigned u = 0 ; u < dcount ; ++u){
@@ -5453,7 +5461,8 @@ learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
 }
 
 // how many species can learn this attack? we don't count mega/primal forms.
-unsigned learner_count(const attack* as){
+static inline unsigned
+learner_count(const attack* as){
   unsigned count = 0;
   //for(auto &sd : sdexen){
     count += learner_count_sdex(as, sdex, SPECIESCOUNT);
@@ -5607,7 +5616,8 @@ has_gmax(const species *s){
 
 // return its evolution target, if there is one
 // FIXME what if there are multiple?
-const species *get_persistent_evolution(const species *s){
+static const species *
+get_persistent_evolution(const species *s){
   const char *cstr = s->name.c_str();
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *t = &sdex[i];
@@ -5618,7 +5628,8 @@ const species *get_persistent_evolution(const species *s){
   return NULL;
 }
 
-const species *get_previous_evolution(const species *s){
+static const species *
+get_previous_evolution(const species *s){
   if(s->from == NULL){
     return NULL;
   }
@@ -5908,7 +5919,8 @@ emit_attack(const species *s, const attack *a){
   }
 }
 
-void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
+static void
+print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   // these are fragile inferences, yuck
   bool gmax = !overzoom && s->gmax;
@@ -6113,7 +6125,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
 // pass the same type twice for only that base type. LaTeX output.
-void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom, bool mainform){
+static inline void
+filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom, bool mainform){
   for(unsigned i = 0 ; i < count ; ++i){
     bool printit = false;
     if(dex[i].t1 == t1){
@@ -6128,7 +6141,8 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool ov
 }
 
 // return the named charged attack iff s can learn it
-const attack *species_charged_attack(const species *s, const char *aname){
+static inline const attack *
+species_charged_attack(const species *s, const char *aname){
   for(const auto &a : s->attacks){
     if(a->energytrain >= 0){
       continue;
@@ -6142,7 +6156,8 @@ const attack *species_charged_attack(const species *s, const char *aname){
 }
 
 // return the named fast attack iff s can learn it
-const attack *species_fast_attack(const species *s, const char *aname){
+static const attack *
+species_fast_attack(const species *s, const char *aname){
   for(const auto &a : s->attacks){
     if(a->energytrain <= 0){
       continue;
@@ -6240,7 +6255,8 @@ fill_stats(stats* s, bool shadow){
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
-int lex_pmon(pmon* p, uint16_t *hp, int *argc, char ***argv){
+static inline int
+lex_pmon(pmon* p, uint16_t *hp, int *argc, char ***argv){
   if(*argc < 4){
     std::cerr << "expected 4 arguments, " << *argc << " left" << std::endl;
     return -1;
