@@ -31,9 +31,9 @@ int write_mon_pages(int dfd){
     const species &s = sdex[idx];
     auto fname = file_escape_str(s.name);
     // FIXME need raii
-    int fd = openat(mdfd, fname, O_RDWR | O_CREAT | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    int fd = openat(mdfd, fname, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if(fd < 0){
-      std::cerr << "error opening subdir " << MONDIR << " (" << std::strerror(errno) << ")" << std::endl;
+      std::cerr << "error opening file " << fname << " (" << std::strerror(errno) << ")" << std::endl;
       return -1;
     }
     if(write_mon(fd)){
