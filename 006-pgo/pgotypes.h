@@ -4790,8 +4790,14 @@ static const species sdex[] = {
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Wing_Attack, &ATK_Rock_Throw, &ATK_Aerial_Ace, &ATK_Rock_Tomb, &ATK_Payback, &ATK_Fly, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
-  // 963 finizen
-  // 964 palafin
+  // 963 finizen not yet released
+  /*{  963, "Finizen", TYPE_WATER, TYPECOUNT, 90, 80, 172, nullptr,
+    { &ATK_Waterfall, &ATK_Charm, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Icy_Wind, },
+    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },*/
+  // 964 palafin not yet released
+  /*{  964, "Palafin", TYPE_WATER, TYPECOUNT, 143, 144, 225, "Finizen",
+    { &ATK_Counter, &ATK_Waterfall, &ATK_Charm, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Icy_Wind, &ATK_Drain_Punch, &ATK_Acrobatics, },
+    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },*/
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, nullptr,
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
