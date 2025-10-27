@@ -3246,10 +3246,10 @@ static const species sdex[] = {
   // the bat
   {  527, "Woobat", TYPE_PSYCHIC, TYPE_FLYING, 107, 85, 163, nullptr,
 		{ &ATK_Confusion, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Psyshock, &ATK_Air_Cutter, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  528, "Swoobat", TYPE_PSYCHIC, TYPE_FLYING, 161, 119, 167, "Woobat",
 		{ &ATK_Confusion, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Psychic, &ATK_Future_Sight, &ATK_Fly, &ATK_Psychic_Fangs, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   // the mole
   {  529, "Drilbur", TYPE_GROUND, TYPECOUNT, 154, 85, 155, nullptr,
 		{ &ATK_Scratch, &ATK_Mud_Slap, &ATK_Dig, &ATK_Drill_Run, &ATK_Rock_Tomb, },
