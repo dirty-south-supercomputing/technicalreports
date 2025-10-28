@@ -160,7 +160,7 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
-	pdftk $^ cat output $@
+	#pdftk $^ cat output $@
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
