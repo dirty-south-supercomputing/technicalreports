@@ -5,7 +5,8 @@ static void account_fast_move(simulstate *s, int player){
     s->turns[player] = activemon(s, player)->fa->turns;
   }
   if(--s->turns[player] == 0){
-    accumulate_energy(&s->e[player][s->active[player]], activemon(s, player)->fa->energytrain);
+    accumulate_energy(&s->e[player][s->active[player]],
+      activemon(s, player)->fa->energytrain);
     int op = other_player(player);
     inflict_damage(&s->hp[op][s->active[op]], s->dam[player][0]);
   }
@@ -32,15 +33,15 @@ static void inflict_effect(simulstate *s, int p, const attack *a, int op){
 // player must have sufficient energy. oshield may only be set if the
 // opponent has a shield. aid is index into s->dam[player].
 static inline bool
-throw_charged_move(simulstate *s, int player, const attack *a, int aid, bool oshield){
-  int op = other_player(player);
-  accumulate_energy(&s->e[player][s->active[player]], a->energytrain);
-  inflict_effect(s, player, a, op);
+throw_charged_move(simulstate *s, int p, const attack *a, int aid, bool oshield){
+  int op = other_player(p);
+  accumulate_energy(&s->e[p][s->active[p]], a->energytrain);
+  inflict_effect(s, p, a, op);
   if(oshield){
-    --s->shields[other_player(player)];
+    --s->shields[other_player(p)];
     return inflict_damage(&s->hp[op][s->active[op]], 1);
   }
-  return inflict_damage(&s->hp[op][s->active[op]], s->dam[player][aid]);
+  return inflict_damage(&s->hp[op][s->active[op]], s->dam[p][aid]);
 }
 
 static inline void
@@ -58,7 +59,7 @@ bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
     bottomhalf_charged_fast(&scopy, r, player, c, aid, 0);
   }
   if(!throw_charged_move(s, player, c, aid, shielded)){
-    s->turns[other_player(player)] = 1; // charged move concludes opposing fast move
+    s->turns[other_player(player)] = 1; // charged concludes opposing fast move
     account_fast_move(s, other_player(player));
   }
   tophalf(s, r);
