@@ -3704,7 +3704,7 @@ static const species sdex[] = {
   {  641, "Tornadus (Incarnate)", TYPE_FLYING, TYPECOUNT, 266, 164, 188, nullptr,
 		{ &ATK_Bite, &ATK_Air_Slash, &ATK_Hyper_Beam, &ATK_Dark_Pulse, &ATK_Hurricane, &ATK_Grass_Knot, },
 		true, true, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
-  {  641, "Torandus (Therian)", TYPE_FLYING, TYPECOUNT, 238, 189, 188, nullptr,
+  {  641, "Tornadus (Therian)", TYPE_FLYING, TYPECOUNT, 238, 189, 188, nullptr,
 		{ &ATK_Astonish, &ATK_Gust, &ATK_Heat_Wave, &ATK_Psychic, &ATK_Hurricane, &ATK_Focus_Blast, &ATK_Bleakwind_Storm, },
 		true, false, false, { &ATK_Bleakwind_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
   {  642, "Thundurus (Incarnate)", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, nullptr,
