@@ -105,6 +105,14 @@ lex_iv(const char *arg, int *ia, int *id, int *is){
     std::cerr << "expected N-N-N, got " << arg << std::endl;
     return -1;
   }
+  if(*ia < 0 || *id < 0 || *is < 0){
+    std::cerr << "expected N-N-N, got " << arg << std::endl;
+    return -1;
+  }
+  if(*ia > 15 || *id > 15 || *is > 15){
+    std::cerr << "expected N-N-N, got " << arg << std::endl;
+    return -1;
+  }
   return 0;
 }
 
