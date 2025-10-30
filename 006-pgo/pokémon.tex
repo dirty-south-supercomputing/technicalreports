@@ -279,6 +279,7 @@ For typical base stats, leveling up improves the effective stat more through
 A base stat of 100 is improved more by \IV{} at level 25.5.
 
 \section{Searching Pokémon storage\label{sec:searching}}
+When browsing storage, a blue hue around a Pokémon indicates capture within the past twenty-four hours.
 The search interface for Pokédexen and storage is surprisingly capable.
 Most strings are matched as substrings in both nicknames and species names,
  but there are a number of keywords (\autoref{table:searchterms}).
@@ -333,9 +334,40 @@ Can become a hundo via a silver bottle cap:
 
 \textit{\texttt{4attack,4defense\&4attack,4hp\&4defense,4hp\&!4*\&!shadow}}
 \end{tipbox}
-I nickname everything with a suffix indicating their IV's distance from the ideal.
-If it's the ideal IV, the distance is zero.
+Tagging and nicknaming are powerful techniques to organize your Pokémon.
+Some Trainers encode IVs into nicknames directly using Unicode's ``Enclosed Alphanumerics'' block,
+ particularly \texttt{U+24EB}--\texttt{U+24FF}.
+I personally nickname everything with a suffix indicating that Pokémon's distance from the ideal IV for its relevant League.
+If the IV is ideal, the distance is zero; the largest possible difference is 45.
+It's rare that I want to keep a Pokémon with a difference that requires two numbers,
+ so this is usually a single character.
+If the Pokémon is a Shadow, I add an `S' to the prefix; if it has a legacy move, I add an 'L'.
+These are just quick visual indicators.
+For searching, I use the more powerful tags.
+Each Pokémon is sorted into one of the three Leagues with a ``greatleague'', ``ultraleague'',
+ or ``masterleague'' tag, or ``totrade'' if it's only being kept for trade.
+If I have no such use for a Pokémon, it's dispatched to the Professor (the only exceptions are Pokémon being kept for some necessary evolution).
+Unless I've powered the Pokémon up to the maximum level viable in its target League, it
+ gets a ``powerup'' tag.
+Unless it's completed the desired evolutionary journey, it gets ``evolve''.
+Until it has a second attack, it gets ``needs2nd''; if it lacks a desirable legacy attack, it gets `needslegacy''.
+Other than the League tag, these tags are all removed upon being satisfied.
+Pokémon with an optimal IV for their League are tagged ``optimal'' (and have a ``0'' suffix, as described above).
+Ideally, only new Pokémon are untagged (when ``evolve'' is removed from a Pokémon due to
+ evolution, it can become untagged, but this indicates it ought be transfered).
 
+I never have more than twelve of any given form, unless I'm keeping some for trade.
+This maximum requires both Shadow and normal forms suitable for each of three Leagues,
+ and ``farm system'' (i.e.\ not fully developed) Pokémon corresponding to each of these six.
+At some point, each Pokémon in development will replace some existing Pokémon, and the
+ latter will be transferred.
+In reality, it's extremely rare for me to carry four or more of a single form.
+Theoretically, I could want multiple Master League-class copies of a single form for
+ use in Raids, but I get by just fine.
+Yes, this means I transfer hundos, a practice many would consider repugnant.
+Indeed, I don't just transfer duplicate hundos, but also those for which I see no purpose.
+I am limited to 600 Pokémon (the lowest limit I've seen from any competitive player),
+ yet have never found myself wishing I had thousands to draw from.
 \begin{table}
 \centering\small
 \begin{tabular}{ll}
@@ -378,4 +410,3 @@ Keyword & Matches \\
 \end{tabular}
 \caption{Search terms for Pokémon storage/Pokédex\label{table:searchterms}}
 \end{table}
-A blue hue around a Pokémon indicates capture within the past twenty-four hours.
