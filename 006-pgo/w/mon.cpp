@@ -16,6 +16,7 @@ write_mon(int fd, const species &s){
   std::ostringstream os;
   auto htmlname = html_escape_str(s.name.c_str());
   write_header(os, htmlname);
+  // FIXME
   write_footer(fd, os);
   return 0;
 }
@@ -35,7 +36,7 @@ int write_mon_pages(int dfd){
   }
   for(unsigned idx = 0 ; idx < SPECIESCOUNT ; ++idx){
     const species &s = sdex[idx];
-    auto fname = file_escape_str(s.name);
+    auto fname = file_escape_str(s.name, ".html");
     // FIXME need raii
     int fd = openat(mdfd, fname, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if(fd < 0){
