@@ -1,5 +1,6 @@
 #include "pages.h"
 #include "index.h"
+#include "../pgotypes.h"
 #include <unistd.h>
 #include <iostream>
 #include <sstream>
@@ -18,7 +19,12 @@ constexpr auto WhoThrowsPage = "who throws these charged types?";
 int write_allforms(int dfd, int fd){
   std::ostringstream os;
   write_header(os, AllFormsPage);
-  // FIXME write links
+  for(unsigned idx = 0 ; idx < SPECIESCOUNT ; ++idx){
+    const species &s = sdex[idx];
+    auto fname = file_escape_str(s.name, "forms/", ".html");
+    os << "<a href=\"" << fname << "\">" << s.name;
+    os << "</a> ";
+  }
   return write_footer(fd, os);
 }
 

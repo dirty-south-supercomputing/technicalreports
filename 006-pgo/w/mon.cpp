@@ -36,7 +36,7 @@ int write_mon_pages(int dfd){
   }
   for(unsigned idx = 0 ; idx < SPECIESCOUNT ; ++idx){
     const species &s = sdex[idx];
-    auto fname = file_escape_str(s.name, ".html");
+    auto fname = file_escape_str(s.name, nullptr, ".html");
     // FIXME need raii
     int fd = openat(mdfd, fname, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     if(fd < 0){
