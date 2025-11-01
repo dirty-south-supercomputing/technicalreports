@@ -8,6 +8,9 @@ hetero_p(const species *s){
     return false;
   }
   const species* from = lookup_species(s->from);
+  if(from->name == "Eevee"){
+    return false;
+  }
   if(from->t1 == s->t1 && from->t2 == s->t2){
     return false;
   }
@@ -32,10 +35,11 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
     print_types(from->t1, from->t2);
     printf(" %s", from->name.c_str());
     #define GLAR "Galarian"
-    #define CROW "Crowned S"
+    #define CROW "Crowned Shield Zamazenta"
     if(!strncmp(from->name.c_str(), GLAR, strlen(GLAR))
         || !strncmp(s->name.c_str(), GLAR, strlen(GLAR))
-        || !strncmp(s->name.c_str(), CROW, strlen(CROW))){
+        || !strncmp(s->name.c_str(), CROW, strlen(CROW))
+        ){
       printf("\\newline");
     }
     #undef CROW
@@ -105,7 +109,7 @@ static void type_heterotable(void){
   if(count % 2){
     printf("\\\\\n");
   }
-  printf("\\caption{Type-changing evolutions and form changes\\label{table:heteroevolve}}");
+  printf("\\caption{Type-changing evolutions and form changes (Eevee excluded)\\label{table:heteroevolve}}");
   printf("\\end{longtable}");
   printf("\\endgroup");
 }
