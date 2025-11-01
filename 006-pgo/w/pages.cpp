@@ -36,9 +36,12 @@ int write_page(int dfd, const char *name, int (*fxn)(int, int)){
 }
 
 std::ostringstream& write_header(std::ostringstream& oss, const std::string& pagename){
+  constexpr auto StyleSheet = "web.css";
   oss << "<!DOCTYPE html><html><head><title>";
   oss << pagename;
   oss << "</title>";
+  oss << "<meta charset=\"UTF-8\">";
+  oss << "<link rel=\"stylesheet\" href=\"" << StyleSheet << "\">";
   oss << "</head><body>" << std::endl;
   oss << "<h1>" << pagename << "</h1><br/>" << std::endl;
   return oss;

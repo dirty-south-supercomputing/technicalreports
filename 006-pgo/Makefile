@@ -121,7 +121,7 @@ GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
-WEBSRC:=$(wildcard w/*.cpp) $(wildcard w/*.h)
+WEBSRC:=$(wildcard w/*.cpp w/*.h)
 
 preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
@@ -129,10 +129,11 @@ preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
 	webpage testdb testsimul $(COVERSETS) test
 
+CSS:=w/web.css
+WEBCSS:=$(OUT)/$(CSS)
 WEBOUT:=$(OUT)/w
-PAGEOUT:=$(OUT)/page
 WEBBIN:=$(OUT)/webbin
-WEBINDEX:=$(PAGEOUT)/index.html
+WEBINDEX:=$(WEBOUT)/index.html
 webpage: $(WEBINDEX)
 
 $(OPTSTATSRADARPDF): $(OPTSTATSRADARR) $(OPTSTATSRADARDAT)
@@ -151,9 +152,14 @@ $(OPTSTATSDAT): $(OUT)/optstats
 	@mkdir -p $(@D)
 	$< > $@
 
-$(WEBINDEX): $(WEBBIN)
+$(WEBINDEX): $(WEBBIN) $(WEBCSS)
 	@mkdir -p $(WEBOUT)
+	ln -sf $(shell pwd)/images/highres $(WEBOUT)/images
 	$< $(WEBOUT)
+
+$(WEBCSS): $(CSS)
+	@mkdir -p $(WEBOUT)
+	ln -sf $(shell pwd)/$< $@
 
 $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)

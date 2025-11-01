@@ -15,7 +15,9 @@ static int
 write_mon(int fd, const species &s){
   std::ostringstream os;
   auto htmlname = html_escape_str(s.name.c_str());
+  auto imgname = file_escape_str(s.name, "../images/", ".png");
   write_header(os, htmlname);
+  os << "<img src=\"" << imgname << "\" alt=\"image of " << s.name << "\"/>";
   // FIXME
   write_footer(fd, os);
   return 0;

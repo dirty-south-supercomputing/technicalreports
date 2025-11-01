@@ -19,12 +19,15 @@ constexpr auto WhoThrowsPage = "who throws these charged types?";
 int write_allforms(int dfd, int fd){
   std::ostringstream os;
   write_header(os, AllFormsPage);
+  os << "<p id=\"bulk\">" << std::endl;
   for(unsigned idx = 0 ; idx < SPECIESCOUNT ; ++idx){
     const species &s = sdex[idx];
     auto fname = file_escape_str(s.name, "forms/", ".html");
-    os << "<a href=\"" << fname << "\">" << s.name;
-    os << "</a> ";
+    // FIXME use &nbsp instead of nobr tag
+    os << "<nobr><a href=\"" << fname << "\">" << s.name;
+    os << "</a></nobr> ";
   }
+  os << "</p>" << std::endl;
   return write_footer(fd, os);
 }
 
