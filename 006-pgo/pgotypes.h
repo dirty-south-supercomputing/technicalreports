@@ -1423,7 +1423,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Present, &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  25, "Flying Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, "Pichu",
 		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Wild_Charge, &ATK_Fly, },
-		true, false, false, { &ATK_Present, &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+		true, false, false, { &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  25, "Rock Star Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Meteor_Mash, &ATK_Thunder_Punch, &ATK_Play_Rough, },
 		false, false, false, { &ATK_Volt_Tackle, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
