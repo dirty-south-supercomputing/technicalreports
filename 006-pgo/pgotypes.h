@@ -1419,8 +1419,11 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   // the Mouse
   {  25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, "Pichu",
-		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Present, &ATK_Discharge, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Wild_Charge, &ATK_Surf, &ATK_Volt_Tackle, },
+		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Present, &ATK_Discharge, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Wild_Charge, &ATK_Surf, },
 		true, false, false, { &ATK_Present, &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+  {  25, "Captain Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
+		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Flying_Press, &ATK_Thunder_Punch, &ATK_Play_Rough, &ATK_Volt_Tackle, },
+		false, false, false, { &ATK_Volt_Tackle, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
   {  25, "Pikachu Libre", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Flying_Press, &ATK_Thunder_Punch, &ATK_Play_Rough, },
 		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
