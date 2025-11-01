@@ -127,7 +127,7 @@ preview: $(HARDBACK).pdf $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
-	webpage testdb testsimul $(COVERSETS)
+	webpage testdb testsimul $(COVERSETS) test
 
 WEBOUT:=$(OUT)/w
 PAGEOUT:=$(OUT)/page
