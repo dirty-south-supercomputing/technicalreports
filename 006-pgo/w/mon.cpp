@@ -1,16 +1,22 @@
 #include "../pgotypes.h"
+#include "pages.h"
 #include "index.h"
 #include "mon.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 #include <cstring>
 
 #define MONDIR "forms"
 
 static int
-write_mon(int fd){
+write_mon(int fd, const species &s){
+  std::ostringstream os;
+  auto htmlname = html_escape_str(s.name.c_str());
+  write_header(os, htmlname);
+  write_footer(fd, os);
   return 0;
 }
 
@@ -36,7 +42,7 @@ int write_mon_pages(int dfd){
       std::cerr << "error opening file " << fname << " (" << std::strerror(errno) << ")" << std::endl;
       return -1;
     }
-    if(write_mon(fd)){
+    if(write_mon(fd, s)){
       return -1;
     }
     if(close(fd) < 0){
