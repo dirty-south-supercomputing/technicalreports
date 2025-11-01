@@ -160,6 +160,7 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
 $(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
+	cp $< $@
 	#pdftk $^ cat output $@
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
