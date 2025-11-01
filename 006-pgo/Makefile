@@ -159,7 +159,7 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
-$(HARDBACK).pdf: cover-hb.pdf $(PAPERBACK).pdf
+$(HARDBACK).pdf: $(PAPERBACK).pdf cover-hb.pdf
 	cp $< $@
 	#pdftk $^ cat output $@
 
