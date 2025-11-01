@@ -4676,7 +4676,7 @@ static const species sdex[] = {
 		{ &ATK_Bug_Bite, &ATK_Struggle_Bug, &ATK_X_Scissor, &ATK_Grass_Knot, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  918, "Spidops", TYPE_BUG, TYPECOUNT, 139, 166, 155, "Tarountula",
-		{ &ATK_Bug_Bite, &ATK_Counter, &ATK_Rock_Tomb, &ATK_X_Scissor, &ATK_Grass_Knot, &ATK_Lunge, },
+		{ &ATK_Bug_Bite, &ATK_Shadow_Claw, &ATK_Counter, &ATK_Rock_Tomb, &ATK_X_Scissor, &ATK_Grass_Knot, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
   {  919, "Nymble", TYPE_BUG, TYPECOUNT, 81, 65, 107, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_X_Scissor, &ATK_Trailblaze, },
