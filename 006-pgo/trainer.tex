@@ -469,26 +469,25 @@ It is broken into three tabs:
   \item \textbf{Events:} Research and bonuses related to the calendar year, including ticketed research.
     Timed research is also shown here, despite acting more like Special research.
   \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Pokéstops.
-    A Pokéstop will not assign more than one per day.
+    Despite the name of the tab, field research persists until completed.
+    A Pokéstop will not assign more than one field research per day.
     Up to four field research tasks can be active at a time, with an additional possible
      Pokéstop scanning task.
     Field research tasks can be dismissed without completion.
-  \item \textbf{Special:} Longer-term research structuring the game's plot, so far as one exists.% (\autoref{table:specresearch}).
+    This tab also shows any Pokémon in Gyms and Power Stops.
+  \item \textbf{Special:} Longer-term research (\autoref{table:specresearch}) comprising the game's plot, so far as one exists.
     Tasks and rewards are of greater magnitude.
     Special research is presented as multipage stories, where each page consists of multiple tasks.
     All tasks within a page must be completed to advance within the story.
 \end{itemize}
-The rewards of field research are generally on the order of Pokéstop items---berries, balls,
- etc.---but also include encounters.
-Pokémon met in research encounters have a higher IV floor than most spawns (\autoref{table:ivfloors}),
-  and are thus disproportionately powerful for their species.
-Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
-Event research includes Collection Challenges, which require the capture of a set of Pokémon
-  within a time period, and are associated with their own medal.
 \begin{tipbox}[title=Maximizing the value of research encounters]
 If you have the patience, stack research encounters (up to one hundred, remember) until
 an event (\autoref{sec:timeline}) featuring a multiplier on XP, Stardust, and/or Candy.
 \end{tipbox}
+The rewards of field research are generally on the order of Pokéstop items---berries, balls,
+ etc.---but also include encounters.
+Pokémon met in research encounters have a higher IV floor than most spawns (\autoref{table:ivfloors}),
+  and are thus disproportionately powerful for their species.
 Field researches include:
 \begin{itemize}
   \item \textit{Catch \textrm{N} Pokémon}. The Pokémon can be the same species.
@@ -518,8 +517,12 @@ Field researches include:
       Throws of a higher quality than that specified count.
       Throwing $M$ sufficient quality times in a single encounter counts for $M$.
       Successfully catching the Pokémon is not necessary.
+ \item \textbf{MORE...}
 \end{itemize}
-%\input{sresearch}
+Special and Event research rewards can be quite substantial, and are the only way to acquire some Pokémon.
+Event research includes Collection Challenges, which require the capture of a set of Pokémon
+  within a time period, and are associated with their own medal.
+\input{sresearch}
 
 \section{Medals\label{sec:medals}}
 A large set of Medals can be achieved at the Bronze, Silver, Gold, or Platinum level (\autoref{table:medals}).
@@ -537,7 +540,8 @@ Each region (\autoref{sec:regions}) has an associated medal (\autoref{table:regi
   in its primary Pokédex (\autoref{sec:dexen}).
 For Vivillon medal details, see \autoref{subsec:vivillon}.
 There are a great many event-specific medals; I shan't cover them here.
-\begin{table}[t]
+\begin{table}[th]
+\footnotesize
 \centering\begin{tabular}{lrrrr}
 Region & Bronze & Silver & Gold & Platinum\\
 \Midrule
@@ -552,7 +556,7 @@ Galar & 5 & 25 & 50 & 89\\
 Hisui & 1 & 3 & 5 & 7\\
 Paldea & 5 & 30 & 80 & 103\\
 \end{tabular}\caption{Regional Pokédex medals\label{table:regionmedals}}\end{table}
-\begin{table}[t]
+\begin{table}[th]
 \footnotesize
 \centering\begin{tabular}{lc|lc|lc}
   Medal & Type & Medal & Type & Medal & Type\\
@@ -577,12 +581,14 @@ Paldea & 5 & 30 & 80 & 103\\
    Swimmer &\includegraphics[width=1em,keepaspectratio]{images/water.png}\\
 \end{tabular}\caption{Medals with catch bonuses\label{table:medalcatch}}\end{table}
 \clearpage
-\begingroup
+%\begingroup
+\begin{table}[th]
 \setlength{\tabcolsep}{1pt}
 \footnotesize
-\begin{longtable}{m{.3\textwidth}m{.4\textwidth}rrrr}
+%\begin{longtable}{m{.3\textwidth}m{.4\textwidth}rrrr}
+\begin{tabular}{p{.3\textwidth}p{.4\textwidth}rrrr}
 Name & Counts & B & S & G & P\\
-\Midrule\endhead
+\Midrule%\endhead
 Pilot & km of Trades & 1k & 100k & 1M & 10M\\
 Collector & Captures & 30 & 500 & 2k & 50k\\
 Backpacker & Pokéstop spins & 100 & 1k & 2k & 50k\\
@@ -627,7 +633,7 @@ Mega Evolution Guru & Unique Mega evolutions & 1 & 24 & 36 & 46\\
 Unown & Unique Unown captures & 3 & 10 & 26 & 28\\
 Idol & Best Friends & 1 & 2 & 3 & 20\\
 Vivillon Collector & Vivillon medals unlocked & 1 & 5 & 10 & 18\\
-\caption{Unstructured medals\label{table:medals}}
-\end{longtable}
-\endgroup
+\end{tabular}\caption{Unstructured medals\label{table:medals}}\end{table}
+%\end{longtable}
+%\endgroup
 %\include{items}
