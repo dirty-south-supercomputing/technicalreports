@@ -849,15 +849,15 @@ static const attack ATK_Swift = { "Swift", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 
 	65, 50, 6, false, };
 static const attack ATK_Synchronoise = { "Synchronoise", TYPE_PSYCHIC, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 5, false, };
-static const attack ATK_Techno_Blast_Electric = { "Techno Blast (Electric)", TYPE_ELECTRIC, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Electric = { "Techno Blast", TYPE_ELECTRIC, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Fire = { "Techno Blast (Fire)", TYPE_FIRE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Fire = { "Techno Blast", TYPE_FIRE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Ice = { "Techno Blast (Ice)", TYPE_ICE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Ice = { "Techno Blast", TYPE_ICE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Normal = { "Techno Blast (Normal)", TYPE_NORMAL, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Normal = { "Techno Blast", TYPE_NORMAL, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Water = { "Techno Blast (Water)", TYPE_WATER, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Water = { "Techno Blast", TYPE_WATER, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
 static const attack ATK_Thunder = { "Thunder", TYPE_ELECTRIC, 100, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 100, 7, false, };
@@ -885,15 +885,15 @@ static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0
 	90, 33, 7, false, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
-static const attack ATK_Weather_Ball_Fire = { "Weather Ball (Fire)", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Fire = { "Weather Ball", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Ice = { "Weather Ball (Ice)", TYPE_ICE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Ice = { "Weather Ball", TYPE_ICE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Rock = { "Weather Ball (Rock)", TYPE_ROCK, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Rock = { "Weather Ball", TYPE_ROCK, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 4, false, };
-static const attack ATK_Weather_Ball_Normal = { "Weather Ball (Normal)", TYPE_NORMAL, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Normal = { "Weather Ball", TYPE_NORMAL, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Water = { "Weather Ball (Water)", TYPE_WATER, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Water = { "Weather Ball", TYPE_WATER, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 3, false, };
 static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 0, 0, 1000, 0, 0, 0, -2, 0, 0,
 	90, 50, 5, false, };
