@@ -4684,9 +4684,11 @@ static const species sdex[] = {
   {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk",
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, },
+  // the string ball
   {  917, "Tarountula", TYPE_BUG, TYPECOUNT, 70, 77, 111, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Struggle_Bug, &ATK_X_Scissor, &ATK_Grass_Knot, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // the trap
   {  918, "Spidops", TYPE_BUG, TYPECOUNT, 139, 166, 155, "Tarountula",
 		{ &ATK_Bug_Bite, &ATK_Shadow_Claw, &ATK_Counter, &ATK_Rock_Tomb, &ATK_X_Scissor, &ATK_Grass_Knot, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
