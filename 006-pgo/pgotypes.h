@@ -2118,6 +2118,7 @@ static const species sdex[] = {
   {  194, "Wooper", TYPE_WATER, TYPE_GROUND, 75, 66, 146, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Dig, &ATK_Mud_Bomb, &ATK_Body_Slam, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
+  // the poison fish
   {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Dig, &ATK_Sludge_Wave, &ATK_Body_Slam, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, },
