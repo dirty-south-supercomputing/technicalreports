@@ -3,7 +3,6 @@
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
-HARDBACK:=pgo-hb
 OUT:=out
 TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
@@ -14,7 +13,7 @@ TEX:=$(addsuffix .tex, pgo foreward objectives trainer friends types attacks \
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
-PDF:=$(addsuffix .pdf, $(PAPERBACK) $(HARDBACK))
+PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 
 BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF)
@@ -123,7 +122,7 @@ SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h s
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 WEBSRC:=$(wildcard w/*.cpp w/*.h)
 
-preview: $(HARDBACK).pdf $(PAPERBACK).pdf
+preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) $(PDF) $(SIMUL) $(BIGLISTS) \
@@ -164,10 +163,6 @@ $(WEBCSS): $(CSS)
 $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
-
-$(HARDBACK).pdf: $(PAPERBACK).pdf cover-hb.pdf
-	cp $< $@
-	#pdftk $^ cat output $@
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
@@ -376,7 +371,6 @@ testsimullong: $(SIMUL)
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf
-	@rm -vrf $(HARDBACK).toc $(HARDBACK).log $(HARDBACK).aux $(HARDBACK).lof $(HARDBACK).listing $(HARDBACK).pdf
 	@rm -vrf $(BIGLISTS)
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
