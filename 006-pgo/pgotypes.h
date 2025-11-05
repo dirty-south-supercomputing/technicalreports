@@ -6357,24 +6357,31 @@ struct typeset {
 
 };
 
+// can the specified species throw a charged attack of type t0, and (if
+// t1 is not TYPECOUNT) a charged attack of type t1?
+static inline bool
+species_can_throw_p(const species *s, pgo_types_e t0, pgo_types_e t1){
+  bool b0 = false;
+  bool b1 = false;
+  for(const auto &a : s->attacks){
+    if(a->energytrain >= 0){
+      continue;
+    }
+    if(a->type == t0){
+      b0 = true;
+    }
+    if(a->type == t1){
+      b1 = true;
+    }
+  }
+  return b0 && (b1 || t1 == TYPECOUNT);
+}
+
 static unsigned
 dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
   unsigned pop = 0;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    bool b0 = false;
-    bool b1 = false;
-    for(const auto &a : sdex[u].attacks){
-      if(a->energytrain >= 0){
-        continue;
-      }
-      if(a->type == t0){
-        b0 = true;
-      }
-      if(a->type == t1){
-        b1 = true;
-      }
-    }
-    if(b0 && (b1 || t1 == TYPECOUNT)){
+    if(species_can_throw_p(&sdex[u], t0, t1)){
       ++pop;
     }
   }

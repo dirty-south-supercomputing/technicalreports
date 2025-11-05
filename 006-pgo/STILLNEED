@@ -1,0 +1,42 @@
+matrix of items, where to find them, cost in store, whether they count against bag
+
+mention healing in lobby + raid boss healing
+
+level up table omits Raid Pass / Premium Battle Pass
+
+mighty pokemon, wild balls
+
+inornate forme thunderas goes to two lines in species card
+ (override like Crowned Zamazenta!)
+
+doesn't seem we generate 0-0-0 ivs in optimal detection
+
+elite raids
+
+substitution timer change (45s)
+
+handle polyevolution paths somehow
+
+list of special researches
+
+party shared items
+
+mention pressing mon in team selection for summary
+
+background for weather icons in species cards
+
+headers in appendix reference simulation chapter
+
+hyperlinks wherever appropriate, especially attack lists
+
+evolution Candy requirements (no mention of 12 Candy eg)
+
+wrong table references
+
+candy awards from daily adventure egg
+* For a given Cup, what is the population?
+ * More generally, for a given typing filter, what is the population?
+* Who can throw the specified type or pair of types?
+ * For a given typing filter, who can throw same?
+* What types are necessary to hit everything in a population?
+  * Given a set of types, what is not hit from some population?
