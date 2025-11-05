@@ -204,7 +204,7 @@ print_coversets_duals(const int *t, bool exclude){
 
 static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " [ [ -x ] type... ]" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ [ -x ] poptype... ] [ -t charged ]..." << std::endl;
   std::cerr << " -x: exclude these types" << std::endl;
   exit(EXIT_FAILURE);
 }
