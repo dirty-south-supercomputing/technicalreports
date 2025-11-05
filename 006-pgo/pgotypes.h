@@ -4369,7 +4369,9 @@ static const species sdex[] = {
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, "Necrozma",
 		{ &ATK_Shadow_Claw, &ATK_Psycho_Cut, &ATK_Metal_Claw, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_Future_Sight, &ATK_Outrage, &ATK_Moongeist_Beam, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, },
-  // 801 is magearna
+  /*{  801, "Magearna", TYPE_STEEL, TYPE_FAIRY, 246, 225, 190, nullptr,
+		{ },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
   {  802, "Marshadow", TYPE_FIGHTING, TYPE_GHOST, 265, 190, 207, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Poison_Jab, &ATK_Counter, &ATK_Ice_Punch, &ATK_Rock_Slide, &ATK_Thunder_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4385,7 +4387,9 @@ static const species sdex[] = {
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, },
 		true, false, false, { }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, },
-  // 807 zeraora, the thunderclap
+  /*{  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
+		{ },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },*/
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, },
@@ -4859,7 +4863,9 @@ static const species sdex[] = {
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
 		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, },
-  // 984 is great tusk
+  /*{  984, "Great Tusk", TYPE_GROUND, TYPE_FIGHTING, 249, 209, 251, nullptr,
+		{ },
+		false, false, false, { }, species::CAT_NORMAL, 100, nullptr, species::EVOL_NOITEM, },*/
   // 985 is scream tail
   // 986 is brute bonnet
   // 987 is flutter mane
