@@ -36,9 +36,11 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
     printf(" %s", from->name.c_str());
     #define GLAR "Galarian"
     #define CROW "Crowned Shield Zamazenta"
+    #define WORM "Wormadam"
     if(!strncmp(from->name.c_str(), GLAR, strlen(GLAR))
         || !strncmp(s->name.c_str(), GLAR, strlen(GLAR))
         || !strncmp(s->name.c_str(), CROW, strlen(CROW))
+        || strstr(s->name.c_str(), WORM)
         ){
       printf("\\newline");
     }
