@@ -155,7 +155,7 @@ $(OPTSTATSDAT): $(OUT)/optstats
 
 $(WEBINDEX): $(WEBBIN) $(WEBCSS)
 	@mkdir -p $(WEBOUT)
-	ln -sf $(shell pwd)/images/highres $(WEBOUT)/images
+	#ln -sf $(shell pwd)/images/highres $(WEBOUT)/images
 	$< $(WEBOUT)
 
 $(WEBCSS): $(CSS)

@@ -1,5 +1,6 @@
 % oneside ought not be used for printed, bound material!
-\documentclass[ebook,10pt,openany,oneside]{memoir}
+% showtrims
+\documentclass[ebook,10pt,openany,twoside]{memoir}
 \title{Pokémon GO: A Quantitative Approach}
 \author{nick black}
 %\special{pdf:minorversion 7}
@@ -55,21 +56,21 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}} % centering within p-type column
 
 % we're either 6x9" or (less desirably) 8.5x11"
-\settrims{0pt}{0pt}
 % we want bleed, so with 0.125" trim on top, bottom, and outer, we need 0.25 and 0.125
 % additional stock size
 \setstocksize{9.25in}{6.125in}
-\settrimmedsize{8.5in}{5.5in}{*}
 \settrims{.125in}{.125in}
-\setlrmarginsandblock{.75in}{*}{1}
-\setulmarginsandblock{1in}{1in}{1}       % 2" of total vertical margin
+%\setlrmarginsandblock{.75in}{*}{1}
+\setulmarginsandblock{.5in}{.5in}{1}
 \setlength{\headwidth}{\textwidth}       % don't go to the end of paperback
-\settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
+%\makeheadrule{companion}{\textwidth}{\normalrulethickness} % don't go to the end of paperback
+%\makerunningwidth{companion}{\textwidth}
+\settypeblocksize{7in}{\textwidth}{*}    % want 6.5in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
 \newcommand\calign[1]{\raisebox{-0.25\height}{#1}}
 % an IV+level specification
-\newcommand{\ivlev}[4]{#1/#2/#3·#4}
+\newcommand{\ivlev}[4]{\ifthenelse{\equal{#4}{}}{#1/#2/#3}{#1/#2/#3·#4}}
 
 \NewTColorBox{speciesbox}{!O{}}{%
   enhanced,
@@ -79,6 +80,7 @@
   bottom=0pt,
   boxsep=0pt,
   middle=0pt,
+  coltitle=black,
   fonttitle=\bfseries,
   subtitle style={colback=Shadow!50!black,before skip=1pt,bottomrule=0pt},
   #1}
@@ -161,6 +163,9 @@
   }}
 \frontmatter
 \begin{document}
+\input{notice}
+  %\input{aux/copyright}
+  \clearpage
   \pagestyle{empty}
   \begin{center}
   \LOGO
@@ -173,11 +178,8 @@
   \begin{center}\textsf{Gold \& Appel Publishing}\end{center}
   \hrule
   \clearpage
-  %\input{aux/copyright}
-  %\clearpage
   \setcounter{page}{1}
   \pagestyle{plain} % want (roman) page numbers
-\input{notice}
 \clearpage
 \ifdefined\epub
 \else
