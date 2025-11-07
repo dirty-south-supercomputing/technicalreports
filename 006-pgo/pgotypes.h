@@ -4911,14 +4911,14 @@ static const species sdex[] = {
   // the Metalsmith
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Hammer
   {  958, "Tinkatuff", TYPE_FAIRY, TYPE_STEEL, 109, 145, 163, "Tinkatink",
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff",
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Heavy_Slam, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Garden Eel
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, nullptr,
 		{ &ATK_Water_Gun, &ATK_Mud_Slap, &ATK_Dig, &ATK_Surf, &ATK_Liquidation, },
