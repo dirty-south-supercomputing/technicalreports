@@ -6102,10 +6102,13 @@ print_evolution_table(const species* s){
       rows = 1;
     }
     int immindex = -1; // see comment below
-    printf("\\begin{tabular}{r}");
     std::vector<const species*> immevols;
     get_persistent_evolutions(s, immevols);
     for(int r = 0 ; r < rows ; ++r){
+      if(r){
+        printf("\\newline{}");
+      }
+      printf("\\hfill{}");
       // first, print previous step(s) (with page numbers)
       if(devol){
         print_previous_species(devol);
@@ -6140,9 +6143,7 @@ print_evolution_table(const species* s){
           ++r;
         }
       }
-      printf("\\\\\n");
     }
-    printf("\\end{tabular}");
   }else{
     printf("No evolution");
   }
@@ -6291,15 +6292,14 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   printf("\\end{minipage}\n");
   if(mainform){ // optimal IVs and evolutionary lineage (only for main forms)
-    printf("\\scriptsize{}");
-    printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
-    printf("\\vfill{}");
+    printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft", gmax ? 6 : 7);
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
-
     printf("%u CG %d Gen %s %s\\hfill{}", stardust_reward(s), a2cost_to_cgroup(s->a2cost),
                 idx_to_generation(s->idx), idx_to_region(s->idx));
+    printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft", gmax ? 6 : 7);
     print_evolution_table(s);
+    printf("\\end{minipage}");
   }else{ // other than main forms
     if(gmax){
       printf("\\hfill");
