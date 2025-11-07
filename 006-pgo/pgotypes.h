@@ -5906,7 +5906,7 @@ print_previous_species(const species *s){
   escape_string(s->name.c_str());
   printf(" (\\pageref{species:");
   label_string(s->name.c_str());
-  printf("}) & → ");
+  printf("}) → ");
   return ret;
 }
 
@@ -6102,26 +6102,24 @@ print_evolution_table(const species* s){
       rows = 1;
     }
     int immindex = -1; // see comment below
-    printf("\\begin{tabular}{rrr}");
+    printf("\\begin{tabular}{r}");
     std::vector<const species*> immevols;
     get_persistent_evolutions(s, immevols);
     for(int r = 0 ; r < rows ; ++r){
       // first, print previous step(s) (with page numbers)
-      int steps = 0;
       if(devol){
-        steps += print_previous_species(devol);
+        print_previous_species(devol);
       }
       // next, print ourselves, in bold (no page number)
       printf("\\textbf{");
       escape_string(s->name.c_str());
       printf("}");
-      ++steps;
       // now, the next evolutionary step(s), if they exist. we do only one row.
       // this requires knowing our index in the immevols array and the next
       // entry in the evols array. when we come across the next immevols entry
       // in evols, update immindex and pop. then print any successor and pop.
       if(evols.size()){
-        printf("& → ");
+        printf(" → ");
         if(immevols[immindex + 1] == evols[evolidx]){
           ++immindex;
           ++evolidx;
@@ -6133,19 +6131,14 @@ print_evolution_table(const species* s){
         printf("})");
         std::vector<const species*> waste;
         if(get_persistent_evolutions(imm, waste)){
-          printf(" & → ");
+          printf(" → ");
           escape_string(evols[evolidx]->name.c_str());
           printf(" (\\pageref{species:");
           label_string(evols[evolidx]->name.c_str());
           printf("})");
-          ++steps;
           ++evolidx;
           ++r;
         }
-      }
-      while(steps < 2){ // 3 columns in table
-        printf("&");
-        ++steps;
       }
       printf("\\\\\n");
     }
