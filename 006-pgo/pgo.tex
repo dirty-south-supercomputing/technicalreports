@@ -60,12 +60,12 @@
 % additional stock size
 \setstocksize{9.25in}{6.125in}
 \settrims{.125in}{.125in}
-%\setlrmarginsandblock{.75in}{*}{1}
-\setulmarginsandblock{.5in}{.5in}{1}
+\settypeblocksize{7in}{\textwidth}{*}    % want 7in of our 9
+\setlrmarginsandblock{1in}{*}{1}
+\setulmarginsandblock{1in}{*}{1}
 \setlength{\headwidth}{\textwidth}       % don't go to the end of paperback
 %\makeheadrule{companion}{\textwidth}{\normalrulethickness} % don't go to the end of paperback
 %\makerunningwidth{companion}{\textwidth}
-\settypeblocksize{7in}{\textwidth}{*}    % want 6.5in of our 9
 \checkandfixthelayout                     % print and check layout % W: Command terminated with space. (1)
 
 \newcommand\calign[1]{\raisebox{-0.25\height}{#1}}

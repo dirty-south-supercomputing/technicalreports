@@ -491,9 +491,9 @@ static const attack ATK_Aurora_Beam = { "Aurora Beam", TYPE_ICE, 80, -60, 0, 0, 
 	80, 50, 7, false, };
 static const attack ATK_Avalanche = { "Avalanche", TYPE_ICE, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 5, false, };
-// FIXME get real stats!
-static const attack ATK_Beak_Blast = { "Beak Blast", TYPE_FLYING, 1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, true, };
+// FIXME get real stats! these are placeholders
+static const attack ATK_Beak_Blast = { "Beak Blast", TYPE_FLYING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	100, 50, 1, true, };
 static const attack ATK_Behemoth_Bash = { "Behemoth Bash", TYPE_STEEL, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	125, 50, 3, true, };
 static const attack ATK_Behemoth_Blade = { "Behemoth Blade", TYPE_STEEL, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
