@@ -3250,7 +3250,7 @@ static const species sdex[] = {
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   {  491, "Darkrai", TYPE_DARK, TYPECOUNT, 285, 198, 172, nullptr,
 		{ &ATK_Feint_Attack, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Focus_Blast, },
-		true, false, false, { &ATK_Sludge_Bomb, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Sludge_Bomb, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
