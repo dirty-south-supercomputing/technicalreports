@@ -6102,7 +6102,7 @@ print_evolution_table(const species* s){
       rows = 1;
     }
     int immindex = -1; // see comment below
-    printf("\\begin{tabular}{lll}");
+    printf("\\begin{tabular}{rrr}");
     std::vector<const species*> immevols;
     get_persistent_evolutions(s, immevols);
     for(int r = 0 ; r < rows ; ++r){
@@ -6298,12 +6298,12 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   printf("\\end{minipage}\n");
   if(mainform){ // optimal IVs and evolutionary lineage (only for main forms)
+    printf("\\scriptsize{}");
     printf("\\begin{minipage}{0.%d\\linewidth}\\raggedleft{}", gmax ? 6 : 7);
-    printf("\\vfill{}\\scriptsize{}");
+    printf("\\vfill{}");
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}");
     printf("%u CG %d Gen %s %s\\hfill{}", stardust_reward(s), a2cost_to_cgroup(s->a2cost),
                 idx_to_generation(s->idx), idx_to_region(s->idx));
     print_evolution_table(s);
