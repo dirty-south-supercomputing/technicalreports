@@ -56,8 +56,11 @@
 
 % we're either 6x9" or (less desirably) 8.5x11"
 \settrims{0pt}{0pt}
-\setstocksize{9in}{6in}
+% we want bleed, so with 0.125" trim on top, bottom, and outer, we need 0.25 and 0.125
+% additional stock size
+\setstocksize{9.25in}{6.125in}
 \settrimmedsize{8.5in}{5.5in}{*}
+\settrims{.125in}{.125in}
 \setlrmarginsandblock{.75in}{*}{1}
 \setulmarginsandblock{1in}{1in}{1}       % 2" of total vertical margin
 \setlength{\headwidth}{\textwidth}       % don't go to the end of paperback

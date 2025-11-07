@@ -29,7 +29,8 @@ write_cpceil(int cpceil, const char *pfx, int(*fxn)(const void*, const void*), f
     if(strchr(s.name.c_str(), '\'')){ // FIXME messes up R's geom_density_ridges()/aes()
       continue;
     }
-    if(get_persistent_evolution(&s)){
+    std::vector<const species*> evols;
+    if(get_persistent_evolutions(&s, evols)){
       continue;
     }
     unsigned ivcount;

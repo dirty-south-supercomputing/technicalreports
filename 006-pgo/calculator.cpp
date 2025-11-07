@@ -156,6 +156,16 @@ shadow_named(const char *s){
   return nullptr;
 }
 
+static void
+print_evols(const species* s){
+  std::vector<const species*> evols;
+  get_persistent_evolutions(s, evols);
+  for(const auto e : evols){
+    std::cout << "evolution: " << e->name << std::endl;
+    print_evols(e);
+  }
+}
+
 int main(int argc, const char **argv){
   if(argc < 2 || argc > 4){
     usage(argv[0]);
@@ -195,8 +205,6 @@ int main(int argc, const char **argv){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
   }
-  for(const species *evol = s ; (s = get_persistent_evolution(evol)) ; evol = s){
-    std::cout << "evolution: " << s->name << std::endl;
-  }
+  print_evols(s);
   return EXIT_SUCCESS;
 }

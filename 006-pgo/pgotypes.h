@@ -5894,16 +5894,20 @@ idx_to_generation(int idx){
   return nullptr;
 }
 
-static void
+// returns the number of previous species in the evolutionary chain.
+// s must be non-null and the immediate predecessor.
+static int
 print_previous_species(const species *s){
+  int ret = 1;
   const species *devol = get_previous_evolution(s);
   if(devol){
-    print_previous_species(devol);
+    ret += print_previous_species(devol);
   }
   escape_string(s->name.c_str());
   printf(" (\\pageref{species:");
   label_string(s->name.c_str());
-  printf("}) → ");
+  printf("}) & → ");
+  return ret;
 }
 
 static int
@@ -6066,6 +6070,91 @@ emit_attack(const species *s, const attack *a){
   }
 }
 
+// get the number of persistent evolutions above this species. e.g. for ralts
+// return 3 (kirlia, gallade, gardevoir), for kirlia return 2, for gallade
+// return 0. the vector is populated with all evolutions, topologically sorted,
+// and the return value is equal to its size.
+static unsigned
+get_evolution_count(const species* s, std::vector<const species*>& vec){
+  unsigned ret = 0;
+  std::vector<const species*> evols;
+  get_persistent_evolutions(s, evols);
+  ret += evols.size();
+  for(const auto e : evols){
+    vec.push_back(e);
+    ret += get_evolution_count(e, vec);
+  }
+  return ret;
+}
+
+// we're in the species card context. generate a table of the species'
+// evolutionary line, using multiple rows for any fork. we only print
+// forks above us, not behind.
+static void
+print_evolution_table(const species* s){
+  const species *devol = get_previous_evolution(s);
+  int evolidx = 0;
+  std::vector<const species*> evols;
+  int rows = get_evolution_count(s, evols);
+  if(devol || rows){
+    // we need a table because the evolution can fan out
+    if(rows == 0){
+      rows = 1;
+    }
+    int immindex = -1; // see comment below
+    printf("\\begin{tabular}{lll}");
+    std::vector<const species*> immevols;
+    get_persistent_evolutions(s, immevols);
+    for(int r = 0 ; r < rows ; ++r){
+      // first, print previous step(s) (with page numbers)
+      int steps = 0;
+      if(devol){
+        steps += print_previous_species(devol);
+      }
+      // next, print ourselves, in bold (no page number)
+      printf("\\textbf{");
+      escape_string(s->name.c_str());
+      printf("}");
+      ++steps;
+      // now, the next evolutionary step(s), if they exist. we do only one row.
+      // this requires knowing our index in the immevols array and the next
+      // entry in the evols array. when we come across the next immevols entry
+      // in evols, update immindex and pop. then print any successor and pop.
+      if(evols.size()){
+        printf("& → ");
+        if(immevols[immindex + 1] == evols[evolidx]){
+          ++immindex;
+          ++evolidx;
+        }
+        const auto imm = immevols[immindex];
+        escape_string(imm->name.c_str());
+        printf(" (\\pageref{species:");
+        label_string(imm->name.c_str());
+        printf("})");
+        std::vector<const species*> waste;
+        if(get_persistent_evolutions(imm, waste)){
+          printf(" & → ");
+          escape_string(evols[evolidx]->name.c_str());
+          printf(" (\\pageref{species:");
+          label_string(evols[evolidx]->name.c_str());
+          printf("})");
+          ++steps;
+          ++evolidx;
+          ++r;
+        }
+      }
+      while(steps < 2){ // 3 columns in table
+        printf("&");
+        ++steps;
+      }
+      printf("\\\\\n");
+    }
+    printf("\\end{tabular}");
+  }else{
+    printf("No evolution");
+  }
+}
+
 static void
 print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
@@ -6217,27 +6306,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
     printf("\\scriptsize{}");
     printf("%u CG %d Gen %s %s\\hfill{}", stardust_reward(s), a2cost_to_cgroup(s->a2cost),
                 idx_to_generation(s->idx), idx_to_region(s->idx));
-    const species *devol = get_previous_evolution(s);
-    std::vector<const species *> evols;
-    bool evol = get_persistent_evolutions(s, evols);
-    if(devol || evol){
-      if(devol){
-        print_previous_species(devol);
-      }
-      printf("\\textbf{");
-      escape_string(s->name.c_str());
-      printf("}");
-      for(const auto s : evols){
-        printf(" → ");
-        escape_string(s->name.c_str());
-        printf(" (\\pageref{species:");
-        label_string(s->name.c_str());
-        printf("})");
-        // FIXME evol = get_persistent_evolution(evol);
-      }
-    }else{
-      printf("No evolution");
-    }
+    print_evolution_table(s);
   }else{ // other than main forms
     if(gmax){
       printf("\\hfill");
