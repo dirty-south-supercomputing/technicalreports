@@ -492,8 +492,8 @@ static const attack ATK_Aurora_Beam = { "Aurora Beam", TYPE_ICE, 80, -60, 0, 0, 
 static const attack ATK_Avalanche = { "Avalanche", TYPE_ICE, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 5, false, };
 // FIXME get real stats! these are placeholders
-static const attack ATK_Beak_Blast = { "Beak Blast", TYPE_FLYING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	100, 50, 1, true, };
+//static const attack ATK_Beak_Blast = { "Beak Blast", TYPE_FLYING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//	100, 50, 1, true, };
 static const attack ATK_Behemoth_Bash = { "Behemoth Bash", TYPE_STEEL, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	125, 50, 3, true, };
 static const attack ATK_Behemoth_Blade = { "Behemoth Blade", TYPE_STEEL, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1003,7 +1003,7 @@ static const attack* const attacks[] = {
   &ATK_Aura_Wheel,
   &ATK_Aurora_Beam,
   &ATK_Avalanche,
-  &ATK_Beak_Blast,
+  //&ATK_Beak_Blast,
   &ATK_Behemoth_Bash,
   &ATK_Behemoth_Blade,
   &ATK_Blast_Burn,
@@ -4249,8 +4249,8 @@ static const species sdex[] = {
 		false, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the cannon
   {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak",
-		{ &ATK_Peck, &ATK_Rock_Smash, &ATK_Bullet_Seed, &ATK_Flash_Cannon, &ATK_Drill_Peck, &ATK_Rock_Blast, &ATK_Beak_Blast, },
-		false, true, false, { &ATK_Beak_Blast, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Peck, &ATK_Rock_Smash, &ATK_Bullet_Seed, &ATK_Flash_Cannon, &ATK_Drill_Peck, &ATK_Rock_Blast, /*&ATK_Beak_Blast,*/ },
+		false, true, false, { /*&ATK_Beak_Blast,*/ }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the loitering
   {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Rock_Tomb, &ATK_Hyper_Fang, &ATK_Crunch, },
