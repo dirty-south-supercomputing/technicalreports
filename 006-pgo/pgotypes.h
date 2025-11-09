@@ -6189,7 +6189,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("]{\\footnotesize");
 
   if(bg){
-    printf("\\pagecolor{%s!25!white}", TNames[s->t1]);
+    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -6300,8 +6300,9 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("%u CG %d Gen %s %s\\hfill{}", stardust_reward(s), a2cost_to_cgroup(s->a2cost),
-                idx_to_generation(s->idx), idx_to_region(s->idx));
+    printf("\\scriptsize{}%u CG %d Gen %s %s\\hfill{}",
+            stardust_reward(s), a2cost_to_cgroup(s->a2cost),
+            idx_to_generation(s->idx), idx_to_region(s->idx));
     printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
     print_evolution_table(s);
     printf("\\end{minipage}");
