@@ -5687,6 +5687,39 @@ escape_filename(const char *s){
   return 0;
 }
 
+// s must not be null
+static int
+escape_abbr_string(const char *s){
+  static const struct {
+    const char* prefix;
+    const char* abbrev;
+  } prefixes[] = {
+    { "Galarian ", "G. ", },
+    { "Hisuian ", "H. ", },
+    { "Alolan ", "A. ", },
+    { "Paldean ", "P. ", },
+  };
+  for(unsigned z = 0 ; z < sizeof(prefixes) / sizeof(*prefixes) ; ++z){
+    if(strncmp(s, prefixes[z].prefix, strlen(prefixes[z].prefix)) == 0){
+      s += strlen(prefixes[z].prefix);
+      printf("%s", prefixes[z].abbrev);
+      break;
+    }
+  }
+  for(const char* curs = s ; *curs ; ++curs){
+    if(*curs != '%'){
+      if(printf("%c", *curs) < 0){
+        return -1;
+      }
+    }else{
+      if(printf("\\%%") < 0){
+        return -1;
+      }
+    }
+  }
+  return 0;
+}
+
 static int
 escape_string(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
@@ -5900,6 +5933,7 @@ idx_to_generation(int idx){
 
 // returns the number of previous species in the evolutionary chain.
 // s must be non-null and the immediate predecessor.
+// abbreviates regional prefixes.
 static int
 print_previous_species(const species *s){
   int ret = 1;
@@ -5907,7 +5941,7 @@ print_previous_species(const species *s){
   if(devol){
     ret += print_previous_species(devol);
   }
-  escape_string(s->name.c_str());
+  escape_abbr_string(s->name.c_str());
   printf(" (\\pageref{species:");
   label_string(s->name.c_str());
   printf("}) → ");
@@ -6093,7 +6127,7 @@ get_evolution_count(const species* s, std::vector<const species*>& vec){
 
 // we're in the species card context. generate a table of the species'
 // evolutionary line, using multiple rows for any fork. we only print
-// forks above us, not behind.
+// forks above us, not behind. abbreviate regional prefixes to save space.
 static void
 print_evolution_table(const species* s){
   const species *devol = get_previous_evolution(s);
@@ -6132,14 +6166,14 @@ print_evolution_table(const species* s){
           ++evolidx;
         }
         const auto imm = immevols[immindex];
-        escape_string(imm->name.c_str());
+        escape_abbr_string(imm->name.c_str());
         printf(" (\\pageref{species:");
         label_string(imm->name.c_str());
         printf("})");
         std::vector<const species*> waste;
         if(get_persistent_evolutions(imm, waste)){
           printf(" → ");
-          escape_string(evols[evolidx]->name.c_str());
+          escape_abbr_string(evols[evolidx]->name.c_str());
           printf(" (\\pageref{species:");
           label_string(evols[evolidx]->name.c_str());
           printf("})");
@@ -6182,7 +6216,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
   //if(overzoom){
-    printf(",interior style={fill overzoom image=images/highres/");
+    printf(",interior style={fill overzoom image=images/highres/g-");
     escape_filename(s->name.c_str());
     printf(",fill image opacity=0.2}");
   //}
@@ -6193,7 +6227,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/");
+  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/g-");
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
