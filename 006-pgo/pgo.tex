@@ -83,7 +83,7 @@
   middle=0pt,
   coltitle=black,
   fonttitle=\bfseries,
-  subtitle style={colback=Shadow!50!black,before skip=1pt,bottomrule=0pt},
+  subtitle style={colupper=white,colback=Shadow!50!black,before skip=1pt,bottomrule=0pt},
   #1}
 
 \NewTColorBox{tipbox}{!O{}}{%
@@ -97,10 +97,11 @@
   enhanced,
   top=0pt,
   bottom=0pt,
-  boxsep=0pt,
-  middle=0pt,
+  boxsep=1pt,
+  middle=1pt,
   fonttitle=\bfseries,
-  subtitle style={before skip=0pt,bottomrule=0pt},
+  coltitle=black,
+  subtitle style={colupper=black,before skip=0pt,bottomrule=0pt},
   #1}
 
 \makeatletter
@@ -134,25 +135,39 @@
 
 % taken from pgotypes.h
 \definecolor{Shadow}{HTML}{C247FB}
-\definecolor{Bug}{HTML}{A6B91A}
-\definecolor{Dark}{HTML}{575063}
-\definecolor{Dragon}{HTML}{6F35FC}
-\definecolor{electric}{HTML}{F7D02C}
-\colorlet{Electric}{electric!80!Black}
-\definecolor{Fairy}{HTML}{D685AD}
-\definecolor{Fighting}{HTML}{C22E28}
-\definecolor{Fire}{HTML}{EE8130}
-\definecolor{Flying}{HTML}{8D87DB}
-\definecolor{Ghost}{HTML}{5066A3}
-\definecolor{Grass}{HTML}{7AC74C}
-\definecolor{Ground}{HTML}{D97A4B}
+\definecolor{bug}{HTML}{A6B91A}
+\colorlet{Bug}{bug!20!white}
+\definecolor{dark}{HTML}{575063}
+\colorlet{Dark}{dark!20!white}
+\definecolor{dragon}{HTML}{6F35FC}
+\colorlet{Dragon}{dragon!20!white}
+\definecolor{Electric}{HTML}{F7D02C}
+\definecolor{fairy}{HTML}{D685AD}
+\colorlet{Fairy}{fairy!20!white}
+\definecolor{fighting}{HTML}{C22E28}
+\colorlet{Fighting}{fighting!20!white}
+\definecolor{fire}{HTML}{EE8130}
+\colorlet{Fire}{fire!20!white}
+\definecolor{flying}{HTML}{8D87DB}
+\colorlet{Flying}{flying!20!white}
+\definecolor{ghost}{HTML}{5066A3}
+\colorlet{Ghost}{ghost!20!white}
+\definecolor{grass}{HTML}{7AC74C}
+\colorlet{Grass}{grass!20!white}
+\definecolor{ground}{HTML}{D97A4B}
+\colorlet{Ground}{ground!20!white}
 \definecolor{Ice}{HTML}{96D9D6}
 \definecolor{Normal}{HTML}{9CA5AB}
-\definecolor{Poison}{HTML}{A33EA1}
-\definecolor{Psychic}{HTML}{F95587}
-\definecolor{Rock}{HTML}{B6A136}
-\definecolor{Steel}{HTML}{5E91A4}
-\definecolor{Water}{HTML}{6390F0}
+\definecolor{poison}{HTML}{A33EA1}
+\colorlet{Poison}{poison!20!white}
+\definecolor{psychic}{HTML}{F95587}
+\colorlet{Psychic}{psychic!20!white}
+\definecolor{rock}{HTML}{B6A136}
+\colorlet{Rock}{rock!20!white}
+\definecolor{steel}{HTML}{5E91A4}
+\colorlet{Steel}{steel!20!white}
+\definecolor{water}{HTML}{6390F0}
+\colorlet{Water}{water!20!white}
 
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
@@ -164,8 +179,8 @@
   }}
 \frontmatter
 \begin{document}
-  \input{notice}
-  %\input{copyright}
+  %\input{notice}
+  \input{copyright}
   \clearpage
   \pagestyle{empty}
   \begin{center}
