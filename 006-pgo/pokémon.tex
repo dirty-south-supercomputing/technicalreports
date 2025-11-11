@@ -95,12 +95,13 @@ Additionally, the Pokémon will be given a rating of 0--4 (\autoref{table:apprai
 A Pokémon rated 4 has an IV of 15/15/15, and is colloquially known as a ``hundo'' or ``100\%er''.
 Such Pokémon have their own Pokédex (\autoref{sec:dexen})\footnote{A Pokémon with an IV of 0/0/0
  is colloquially known as a ``nundo'' or ``0\%er''. They have no unique Pokédex, because they are worthless pieces of shit,
-  and don't let anyone tell you otherwise. Consult \autoref{chap:optimal} to see that 0/0/0 is never an optimal IV.}.
+  and don't let anyone tell you otherwise. Consult \autoref{chap:speciesbytype} to see that 0/0/0 is never an optimal IV.}.
 While 15/15/15 is generally the optimal IV, this is not always true in \CP-bounded
   competition; see \autoref{chap:bounded} for more information,
-  and \autoref{chap:optimal} for tables of optimal IVs under different \CP{} bounds.
+  and \autoref{chap:speciesbytype} for tables of optimal IVs under different \CP{} bounds.
 \begin{table}
 \centering
+\scriptsize
 \begin{tabular}{ll}
 Appraisal & Minimum sum of IVs\\
 \Midrule
@@ -120,7 +121,7 @@ Finally, Silver and Gold Bottle Caps allow a Pokémon of at least Best Buddy sta
   to enter ``hypertraining''.
 Silver Caps allow one IV component to be increased; Golden Caps can increase all three components.
 The Trainer specifies a new, higher IV, and is assigned a set of Research-like tasks.
-If they are completed within the specified time, the Pokémon acquires the new IV.
+These tasks must be completed within a year's time; once accomplished, the Pokémon acquires the new IV.
 Bottle Caps cannot be used on Shadow Pokémon.
 At the time of this writing, Bottle Caps have been available only through paid Research.
 
@@ -324,15 +325,15 @@ Language settings can change certain keywords.
 \begin{tipbox}[title=Some useful search strings]
 \footnotesize
 \raggedright
-Not tagged: \textit{\texttt{!\#}}
+\textit{Not tagged:} \texttt{!\#}
 
-Two charged attacks: \textit{\texttt{!@3move}}
+\textit{Two charged attacks:} \texttt{!@3move}
 
-Can be evolved into new dex entries: \textit{\texttt{evolvenew\&evolve}}
+\textit{Can be evolved into new dex entries:} \texttt{evolvenew\&evolve}
 
-Can become a hundo via a silver bottle cap:
+\textit{Can become a hundo via a silver bottle cap:}
 
-\textit{\texttt{4attack,4defense\&4attack,4hp\&4defense,4hp\&!4*\&!shadow}}
+\texttt{4attack,4defense\&4attack,4hp\&4defense,4hp\&!4*\&!shadow}
 \end{tipbox}
 Tagging and nicknaming are powerful techniques to organize your Pokémon.
 Some Trainers encode IVs into nicknames directly using Unicode's ``Enclosed Alphanumerics'' block,
