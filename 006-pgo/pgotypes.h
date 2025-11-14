@@ -5951,10 +5951,18 @@ print_previous_species(const species *s){
 static int
 print_icons(const species *s, bool doprint, bool ismega){
   int count = 0;
+  if(has_gmax(s)){
+    ++count;
+    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
+  }
+  if(has_dmax(s)){
+    ++count;
+    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-dynamax.png}}");
+  }
   if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
-      printf("\\calign{\\includegraphics[height=2em,keepaspectratio]{images/mega.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-mega.png}}");
     }
   }
   return count;
@@ -6306,14 +6314,6 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   int largeicons = print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
-    if(has_gmax(s)){
-      ++largeicons;
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/gigantamax.png}}");
-    }
-    if(has_dmax(s)){
-      ++largeicons;
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/dynamax.png}}");
-    }
     // we never want some small icons on both lines if we have to have two lines,
     // but we want only one line if we can get away with it. four small icons
     // are too many to put with two large icons.
