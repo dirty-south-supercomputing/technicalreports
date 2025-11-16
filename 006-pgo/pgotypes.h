@@ -5953,11 +5953,15 @@ print_icons(const species *s, bool doprint, bool ismega){
   int count = 0;
   if(has_gmax(s)){
     ++count;
-    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
+    if(doprint){
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
+    }
   }
   if(has_dmax(s)){
     ++count;
-    printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-dynamax.png}}");
+    if(doprint){
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-dynamax.png}}");
+    }
   }
   if(has_mega(s) && !ismega){
     ++count;
