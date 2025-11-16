@@ -101,7 +101,7 @@ While 15/15/15 is generally the optimal IV, this is not always true in \CP-bound
   and \autoref{chap:speciesbytype} for tables of optimal IVs under different \CP{} bounds.
 \begin{table}
 \centering
-\scriptsize
+\footnotesize
 \begin{tabular}{ll}
 Appraisal & Minimum sum of IVs\\
 \Midrule
@@ -121,19 +121,34 @@ Finally, Silver and Gold Bottle Caps enroll a Pokémon in ``hypertraining''.
 % no buddy level restriction for at least silver bottle caps
 %of at least Best Buddy status (\autoref{sec:buddies})
 Silver Caps allow one IV component to be increased; Golden Caps can increase all three components.
-The Trainer specifies a new, higher IV, and is assigned a set of Research-like tasks.
-These tasks must be completed within a year's time; once accomplished, the Pokémon acquires the new IV.
+The Trainer specifies a new (higher) IV, and is assigned a set of Research-like tasks.
+The tasks are assigned serially, and Hypertraining must be completed within a year's time.
+Once accomplished, the Pokémon acquires the new IV.
 Bottle Caps cannot be used on Shadow Pokémon.
 At the time of this writing, Bottle Caps have been available only through paid Research.
 
 \begin{table}
-\scriptsize
+\footnotesize
 \centering
-\begin{tabular}{rlll}
-Target IV & \IV{A} wins & \IV{D} & \IV{S}\\
+{\rowcolors{2}{white}{gray!25}
+\begin{tabular}{rm{.25\textwidth}m{.25\textwidth}m{.25\textwidth}}
+IV & \IV{A} wins & \IV{D} & \IV{S}\\
   1 & Gym battle & Buddy snapshot & Spin Photodisc\\
-  2 & Team GO Rocket Grunt & Play with Buddy & Earn a Candy walking Buddy\\
-\end{tabular}
+  2 & Team GO Rocket Grunt & Play with Buddy & Earn a Candy w/ Buddy\\
+  3 & Raid & Power up a Pokémon of the same type as trainee & Research task\\
+  4 & 2 Gym battles & Catch 15 species & Hatch an egg\\
+  5 & 2 Team GO Rocket Grunts & Catch 30 Pokémon & Explore 1 km\\
+  6 & 5 Raids & 7 days with a Buddy snapshot & Spin 40 Photodiscs\\
+  7 & 20 Gym Battles & 7 days with Buddy play & Earn 3 Candy w/ Buddy\\
+  8 & 10 Raids & Power up Pokémon of the same type as trainee 15 times & 30 Researches\\
+  9 & 15 Team GO Rocket members & Catch 45 species & Hatch 15 eggs\\
+ 10 & 2 Team GO Rocket Leaders & Catch 150 Pokémon & Earn 4 Candy w/ Buddy\\
+ 11 & 20 Raids & 15 days with Buddy snapshot & Spin 75 Photodiscs\\
+ 12 & 40 Gym battles & 15 days with Buddy play & Earn 5 Candy w/ Buddy\\
+ 13 & 40 Team GO Rocket members & Power up Pokémon of the same type as trainee 30 times & 45 Researches\\
+ 14 & 5 Team GO Rocket Leaders & Catch 60 species & Hatch 30 eggs\\
+ 15 & 40 Raids & Catch 1500 Pokémon & Earn 10 Candy w/ Buddy\\
+\end{tabular}}
 \caption{Hypertraining tasks\label{table:hypertraining}}
 \end{table}
 
@@ -151,7 +166,7 @@ The chance of any given IV for a catch in the wild (without weather boosting)
   is exactly the same---1 out of 4096.
 The probability of a random Pokémon being a hundo is actually
   greater than that of being a nundo, due to the existence of IV floors
-  (e.g.\ the chance of a 15/15/15 for a lucky trade is 1 in 256, whereas
+  (e.g.\ the chance of a 15/15/15 for a lucky trade is 1 in 64, whereas
   a 0/0/0 is impossible).
 \begin{table}
 \centering
