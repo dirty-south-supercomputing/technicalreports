@@ -6223,7 +6223,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf(",title style={left color=%s,right color=%s},after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   if(s->shiny){
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/g-shiny.png}}");
   }
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
