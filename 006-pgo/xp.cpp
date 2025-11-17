@@ -253,7 +253,7 @@ level_upgrade_table(void){
     std::cout << "\\\\" << std::endl;
   }
   std::cout << "\\end{tabular}";
-  std::cout << "\\caption{Upgrades and rare items awarded for reading Trainer Levels\\label{table:levelupgrades}}";
+  std::cout << "\\caption{Upgrades and rare items awarded for reaching Trainer Levels\\label{table:levelupgrades}}";
   std::cout << "\\end{table}";
 }
 
