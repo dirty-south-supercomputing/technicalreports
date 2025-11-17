@@ -249,12 +249,12 @@ Routes and showcases can also be good sources of XP\footnote{My recent rather du
 Action & XP\\
 \Midrule
   Feed berry to Gym defender & 50\\
-  Spin Pokéstop & 50\\
+  Spin Photo Disc & 50\\
   Sending a Gift & 200\\
-  Spin new Pokéstop & 250\\
-  Spin first Pokéstop of the day & 500\\
+  Spin new Photo Disc & 250\\
+  Spin first Photo Disc of the day & 500\\
   Evolution, new main Pokédex registration & 1000\\
-  Spin first Pokéstop of the 7th day of streak & 2500\\
+  Spin first Photo Disc of the 7th day of streak & 2500\\
   Research breakthrough & 3000\\
 \end{tabular}
 \caption{XP awards not captured elsewhere\label{table:xpawards}}
@@ -368,7 +368,7 @@ If a Buddy Pokémon is of an evolutionary line where any member of that line has
 This rate is constant across all species, but the energy is awarded only when the Buddy finds Candy,
   as determined by its cost group (\autoref{subsec:costgroups}).
 Walking cannot earn Fusion or Crown energies.
-Very rarely, spinning Pokéstops will result in Beedrill Mega energy.
+Very rarely, spinning Photo Discs will result in Beedrill Mega energy.
 
 Note that Mega and Primal evolutions are temporary, while Fusion and Crowning is persistent
   until explicitly undone.
@@ -466,7 +466,7 @@ It is broken into three tabs:
 \begin{itemize}
   \item \textbf{Events:} Research and bonuses related to the calendar year, including ticketed research.
     Timed research is also shown here, despite acting more like Special research.
-  \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Pokéstops.
+  \item \textbf{Today:} Field research---short-term (usually) tasks acquired by spinning Photo Discs.
     Despite the name of the tab, field research persists until completed.
     A Pokéstop will not assign more than one field research per day.
     Up to four field research tasks can be active at a time, with an additional possible
@@ -529,7 +529,7 @@ Field researches include:
   \item \textbf{Explore \textup{N} km}.
     Any movement tracked by Adventure Sync counts.  
   \item \textbf{Spin \textup{N} Pokéstops or Gyms}.
-    Spinning the same Photodisc \textit{M} times counts for \textit{M}.
+    Spinning the same Photo Disc \textit{M} times counts for \textit{M}.
   \item \textbf{Take \textup{N} snapshots of wild Pokémon}.
     Pokémon in storage do not count.
     % FIXME more...
@@ -606,7 +606,7 @@ Name & Counts & B & S & G & P\\
 \Midrule%\endhead
 Pilot & km of Trades & 1k & 100k & 1M & 10M\\
 Collector & Captures & 30 & 500 & 2k & 50k\\
-Backpacker & Pokéstop spins & 100 & 1k & 2k & 50k\\
+Backpacker & Photo Disc spins & 100 & 1k & 2k & 50k\\
 Berry Master & Gym berry feeds & 10 & 100 & 1k & 15k\\
 Gym Leader & Gym occupancy hours & 10 & 100 & 1k & 15k\\
 Jogger & Kilometers walked & 10 & 100 & 1k & 10k\\
