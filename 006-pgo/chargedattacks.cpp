@@ -21,7 +21,7 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrr}\n");
-  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop\\\\\n");
+  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop(STAB)\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   int c = ccount;
@@ -37,12 +37,15 @@ void print_latex_table(const attack* as, unsigned ccount){
             (a->powertrain * 6.0) / (-a->energytrain * 5.0));
     summarize_buffs(a);
     printf(" & ");
+    // we should still print numbers for these, based on the total number of shadows FIXME
     if(!strcmp(a->name, "Frustration")){
       printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
       printf("*\\footnote{Return is known by default to all Purified Pokémon (it's mid at best).}");
     }else{
-      printf("%u", learner_count(a));
+      unsigned popstab;
+      auto pop = learner_count(a, &popstab);
+      printf("%u(%u)", pop, popstab);
     }
     puts("\\\\");
   }

@@ -475,7 +475,7 @@ static const attack ATK_Aeroblast = { "Aeroblast", TYPE_FLYING, 170, -75, 0, 0, 
 	200, 100, 7, false, };
 static const attack ATK_Air_Cutter = { "Air Cutter", TYPE_FLYING, 45, -35, 0, 300, 0, 0, 0, 1, 0, 0, 0,
 	55, 50, 5, false, };
-static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0, 100, 0, 0, 0, 1, 0, 0, 0,
+static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0, 100, 100, 0, 0, 1, 1, 0, 0,
 	70, 33, 7, false, };
 static const attack ATK_Aqua_Jet = { "Aqua Jet", TYPE_WATER, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 5, false, };
@@ -852,15 +852,15 @@ static const attack ATK_Swift = { "Swift", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 
 	65, 50, 6, false, };
 static const attack ATK_Synchronoise = { "Synchronoise", TYPE_PSYCHIC, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 5, false, };
-static const attack ATK_Techno_Blast_Electric = { "Techno Blast", TYPE_ELECTRIC, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Electric = { "Techno Blast ⚡", TYPE_ELECTRIC, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Fire = { "Techno Blast", TYPE_FIRE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Fire = { "Techno Blast 🔥", TYPE_FIRE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Ice = { "Techno Blast", TYPE_ICE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Ice = { "Techno Blast 🧊", TYPE_ICE, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
 static const attack ATK_Techno_Blast_Normal = { "Techno Blast", TYPE_NORMAL, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
-static const attack ATK_Techno_Blast_Water = { "Techno Blast", TYPE_WATER, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Techno_Blast_Water = { "Techno Blast 🌊", TYPE_WATER, 120, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 4, false, };
 static const attack ATK_Thunder = { "Thunder", TYPE_ELECTRIC, 100, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 100, 7, false, };
@@ -888,15 +888,15 @@ static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0
 	90, 33, 7, false, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
-static const attack ATK_Weather_Ball_Fire = { "Weather Ball", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Fire = { "Weather Ball 🔥", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Ice = { "Weather Ball", TYPE_ICE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Ice = { "Weather Ball 🧊", TYPE_ICE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Rock = { "Weather Ball", TYPE_ROCK, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Rock = { "Weather Ball 🪨", TYPE_ROCK, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 4, false, };
 static const attack ATK_Weather_Ball_Normal = { "Weather Ball", TYPE_NORMAL, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 3, false, };
-static const attack ATK_Weather_Ball_Water = { "Weather Ball", TYPE_WATER, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Weather_Ball_Water = { "Weather Ball 🌊", TYPE_WATER, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 3, false, };
 static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 0, 0, 1000, 0, 0, 0, -2, 0, 0,
 	90, 50, 5, false, };
@@ -5316,6 +5316,17 @@ statscmp_bulk(const void *vst1, const void *vst2){
   return b1 < b2 ? -1 : b1 > b2 ? 1 : 0;
 }
 
+static inline unsigned
+has_stab_p(const species *s, const attack *a){
+  return a->type == s->t1 || a->type == s->t2;
+}
+
+// apply the 1.2x stab multiplier to a damage calculation
+static inline float
+calc_stab(float d){
+  return d * 6 / 5;
+}
+
 // FIXME binary search on it
 static unsigned
 maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
@@ -5596,13 +5607,18 @@ print_types_big(pgo_types_e t1, pgo_types_e t2){
   return 1;
 }
 
+// number with STAB is written to *stab
 static inline unsigned
-learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
+learner_count_sdex(const attack *as, const species *dex, unsigned dcount, unsigned* stab){
+  *stab = 0;
   unsigned count = 0;
   for(unsigned u = 0 ; u < dcount ; ++u){
     const species* s = &dex[u];
     for(const auto &a : s->attacks){
       if(strcmp(a->name, as->name) == 0){
+        if(has_stab_p(s, as)){
+          ++*stab;
+        }
         ++count;
         break;
       }
@@ -5612,11 +5628,12 @@ learner_count_sdex(const attack *as, const species *dex, unsigned dcount){
 }
 
 // how many species can learn this attack? we don't count mega/primal forms.
+// number that have STAB written to *stab.
 static inline unsigned
-learner_count(const attack* as){
+learner_count(const attack* as, unsigned* stab){
   unsigned count = 0;
   //for(auto &sd : sdexen){
-    count += learner_count_sdex(as, sdex, SPECIESCOUNT);
+    count += learner_count_sdex(as, sdex, SPECIESCOUNT, stab);
   //}
   return count;
 }
@@ -5662,17 +5679,6 @@ print_optimal_latex(const species* sp){
   if(printed >= 3){
     printf("(%u more)", printed - 2);
   }
-}
-
-static inline unsigned
-has_stab_p(const species *s, const attack *a){
-  return a->type == s->t1 || a->type == s->t2;
-}
-
-// apply the 1.2x stab multiplier to a damage calculation
-static inline float
-calc_stab(float d){
-  return d * 6 / 5;
 }
 
 static int
