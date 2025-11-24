@@ -5638,16 +5638,18 @@ learner_count(const attack* as, unsigned* stab){
   return count;
 }
 
-// used for species cards, always wants geometric mean
-static void
-print_optimal_latex(const species* sp){
-  stats* s = find_optimal_set(sp, 2500, 0, false, calc_pok_gmean);
-  printf("\\hfill{}");
+// returns maximum actual cp subject to the ceiling
+static unsigned
+print_optimal_latex_cp(const species* sp, int maxcp){
+  stats* s = find_optimal_set(sp, maxcp, 0, false, calc_pok_gmean);
+  unsigned foundcp = 0;
   unsigned cp = 0;
   unsigned printed = 0;
   while(s){
     stats* tmp = s->next;
-    cp = s->cp;
+    if((cp = s->cp) > foundcp){
+      foundcp = cp;
+    }
     if(++printed < 3){
       unsigned half;
       unsigned l = halflevel_to_level(s->hlevel, &half);
@@ -5660,24 +5662,22 @@ print_optimal_latex(const species* sp){
   if(printed >= 3){
     printf("(%u more)", printed - 2);
   }
-  printed = 0;
-  if(cp >= 1500){
-    s = find_optimal_set(sp, 1500, 0, false, calc_pok_gmean);
-    printf("\\newline{}\\hfill{}");
-    while(s){
-      stats* tmp = s->next;
-      if(++printed < 3){
-        unsigned half;
-        unsigned l = halflevel_to_level(s->hlevel, &half);
-        printf("\\ivlev{%u}{%u}{%u}{%2u%s}", s->ia, s->id, s->is, l, half ? ".5" : "");
-        printf(" (%u) ", s->cp);
-      }
-      delete s;
-      s = tmp;
-    }
+  return foundcp;
+}
+
+// used for species cards, always wants geometric mean
+static void
+print_optimal_latex(const species* sp){
+  printf("\\raggedleft{}");
+  unsigned maxcp;
+  maxcp = print_optimal_latex_cp(sp, 0);
+  if(maxcp > 2500){
+    printf("\\\\");
+    maxcp = print_optimal_latex_cp(sp, 2500);
   }
-  if(printed >= 3){
-    printf("(%u more)", printed - 2);
+  if(maxcp > 1500){
+    printf("\\\\");
+    maxcp = print_optimal_latex_cp(sp, 1500);
   }
 }
 
