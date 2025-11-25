@@ -4859,7 +4859,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   /*{  931, "Squakabilly", TYPE_NORMALY, TYPE_FLYING, 185, 105, 193, nullptr,
 		{ &ATK_Peck, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Brave_Bird, &ATK_Fly, },
-		false, false, false, { }, species::CAT_NORMAL, 25, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		false, false, false, { }, species::CAT_NORMAL, 25, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   {  932, "Nacli", TYPE_ROCK, TYPECOUNT, 95, 108, 146, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Rock_Throw, &ATK_Ancient_Power, &ATK_Rock_Tomb, &ATK_Rock_Blast, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4868,7 +4868,7 @@ static const species sdex[] = {
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  934, "Garganacl", TYPE_ROCK, TYPECOUNT, 171, 212, 225, "Naclstack",
 		{ &ATK_Mud_Shot, &ATK_Smack_Down, &ATK_Ancient_Power, &ATK_Rock_Tomb, &ATK_Rock_Blast, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  935, "Charcadet", TYPE_FIRE, TYPECOUNT, 92, 74, 120, nullptr,
 		{ &ATK_Ember, &ATK_Incinerate, &ATK_Flamethrower, &ATK_Heat_Wave, &ATK_Flame_Charge, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
