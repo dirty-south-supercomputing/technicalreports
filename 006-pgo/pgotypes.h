@@ -355,7 +355,7 @@ static const attack ATK_Frost_Breath = { "Frost Breath", TYPE_ICE, 7, 5, 2, 0, 0
 	11, 9, 2, false, };
 static const attack ATK_Fury_Cutter = { "Fury Cutter", TYPE_BUG, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 8, 1, false, };
-static const attack ATK_Geomancy = { "Geomancy", TYPE_FAIRY, 4, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Geomancy = { "Geomancy", TYPE_FAIRY, 8, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	20, 14, 3, false, };
 static const attack ATK_Gust = { "Gust", TYPE_FLYING, 16, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0,
 	25, 20, 4, false, };
@@ -401,7 +401,7 @@ static const attack ATK_Poison_Sting = { "Poison Sting", TYPE_POISON, 4, 9, 2, 0
 	4, 6, 1, false, };
 static const attack ATK_Pound = { "Pound", TYPE_NORMAL, 4, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 5, 1, false, };
-static const attack ATK_Powder_Snow = { "Powder Snow", TYPE_ICE, 5, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Powder_Snow = { "Powder Snow", TYPE_ICE, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 15, 2, false, };
 static const attack ATK_Present = { "Present", TYPE_NORMAL, 3, 12, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 23, 3, false, };
@@ -516,7 +516,7 @@ static const attack ATK_Brave_Bird = { "Brave Bird", TYPE_FLYING, 130, -55, 0, 0
 	130, 100, 4, false, };
 static const attack ATK_Breaking_Swipe = { "Breaking Swipe", TYPE_DRAGON, 50, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	45, 33, 2, false, };
-static const attack ATK_Brick_Break = { "Brick Break", TYPE_FIGHTING, 40, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
+static const attack ATK_Brick_Break = { "Brick Break", TYPE_FIGHTING, 50, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	40, 33, 3, false, };
 static const attack ATK_Brutal_Swing = { "Brutal Swing", TYPE_DARK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 4, false, };
@@ -564,7 +564,7 @@ static const attack ATK_Dragon_Ascent = { "Dragon Ascent", TYPE_FLYING, 150, -70
 	140, 50, 7, false, };
 static const attack ATK_Dragon_Claw = { "Dragon Claw", TYPE_DRAGON, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 3, false, };
-static const attack ATK_Dragon_Energy = { "Dragon Energy", TYPE_DRAGON, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Dragon_Energy = { "Dragon Energy", TYPE_DRAGON, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	155, 50, 7, false, };
 static const attack ATK_Dragon_Pulse = { "Dragon Pulse", TYPE_DRAGON, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 7, false, };
@@ -612,7 +612,7 @@ static const attack ATK_Flying_Press = { "Flying Press", TYPE_FIGHTING, 90, -40,
 	115, 50, 5, false, };
 static const attack ATK_Focus_Blast = { "Focus Blast", TYPE_FIGHTING, 150, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	140, 100, 7, false, };
-static const attack ATK_Foul_Play = { "Foul Play", TYPE_DARK, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Foul_Play = { "Foul Play", TYPE_DARK, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 50, 4, false, };
 static const attack ATK_Freeze_Shock = { "Freeze Shock", TYPE_ICE, 120, -60, 0, 0, 0, 300, 0, 0, 0, -1, 0,
 	160, 100, 3, true, };
@@ -665,7 +665,7 @@ static const attack ATK_Ice_Burn = { "Ice Burn", TYPE_ICE, 120, -60, 0, 0, 0, 0,
 	90, 50, 4, true, };
 static const attack ATK_Ice_Punch = { "Ice Punch", TYPE_ICE, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
-static const attack ATK_Icicle_Spear = { "Icicle Spear", TYPE_ICE, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Icicle_Spear = { "Icicle Spear", TYPE_ICE, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 4, false, };
 static const attack ATK_Icy_Wind = { "Icy Wind", TYPE_ICE, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	65, 33, 7, false, };
@@ -719,7 +719,7 @@ static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0
 	60, 50, 5, false, };
 static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 2, 0, 0, 0,
 	45, 33, 4, false, };
-static const attack ATK_Oblivion_Wing = { "Oblivion Wing", TYPE_FLYING, 85, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Oblivion_Wing = { "Oblivion Wing", TYPE_FLYING, 85, -50, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	85, 50, 4, false, };
 static const attack ATK_Obstruct = { "Obstruct", TYPE_DARK, 15, -40, 0, 0, 1000, 0, 1000, 0, 1, 0, -1,
 	20, 33, 3, false, };
@@ -882,7 +882,7 @@ static const attack ATK_Upper_Hand = { "Upper Hand", TYPE_FIGHTING, 70, -40, 0, 
 	50, 33, 4, false, };
 static const attack ATK_V_Create = { "V-Create", TYPE_FIRE, 95, -40, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
 	105, 33, 6, false, };
-static const attack ATK_Vise_Grip = { "Vise Grip", TYPE_NORMAL, 40, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Vise_Grip = { "Vise Grip", TYPE_NORMAL, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	35, 33, 4, false, };
 static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
 	90, 33, 7, false, };
