@@ -9,12 +9,16 @@
 
 // chance is out of 1000
 static inline float halfbuff(int chance, int bufflevel){
+  if(!chance){
+    return 1;
+  }
   float b = mapbuff(bufflevel);
   if(b > 1){
     b = 1 + ((b - 1) / 2);
-  }else{
+  }else if(b < 1){
     b = 1 - ((1 - b) / 2);
   }
+  std::cerr << "b: " << b << " halfbuff: " << (b * (chance / 1000.0)) << std::endl;
   return b * (chance / 1000.0);
 }
 
@@ -58,6 +62,7 @@ struct timetofirst {
       mhp = calc_mhp(s->sta + is, hlevel);
       bulk = sqrt(mhp * effd * halfbuff(ca->chance_user_defense, ca->user_defense));
       pppt = (aprod * bulk) / pow(turns, 0.7);
+      std::cerr << S->name << " aprod: " << aprod << " bulk: " << bulk << " pppt: " << pppt << std::endl;
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -128,8 +133,8 @@ static void usage(const char *argv0){
 
 static void header(void){
   std::cout << "\\begin{longtable}{cllrrrlrrrrrrr}" << std::endl;
-  std::cout << "& \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & \\textbf{\\Eff{D}} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
-  std::cout << "\\textbf{Power} & \\textbf{\\Eff{A}} & \\textbf{DI} & ";
+  std::cout << "\\textbf{T} & \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & \\textbf{$\\textrm{Eff}\\textsubscript{D}$} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
+  std::cout << "\\textbf{Power} & \\textbf{$\\textrm{Eff}\\textsubscript{A}$} & \\textbf{DI} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
   std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
   std::cout << "\\endhead" << std::endl;
