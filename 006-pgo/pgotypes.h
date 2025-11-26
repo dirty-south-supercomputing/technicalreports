@@ -4698,7 +4698,7 @@ static const species sdex[] = {
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 878 cufant
   // 879 copperajah
   // 880 is dracozolt
