@@ -4005,18 +4005,18 @@ static const species sdex[] = {
   // the sword
   {  679, "Honedge", TYPE_STEEL, TYPE_GHOST, 135, 139, 128, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Tackle, &ATK_Iron_Head, &ATK_Gyro_Ball, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sword
   {  680, "Doublade", TYPE_STEEL, TYPE_GHOST, 188, 206, 153, "Honedge",
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Shadow_Claw, &ATK_Iron_Head, &ATK_Gyro_Ball, &ATK_Sacred_Sword, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   /*{  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 291, 97, 155, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // the royal sword
   {  681, "Aegislash", TYPE_STEEL, TYPE_GHOST, 97, 291, 155, "Doublade",
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the perfume
   {  682, "Spritzee", TYPE_FAIRY, TYPECOUNT, 110, 113, 186, nullptr,
 		{ &ATK_Charge_Beam, &ATK_Charm, &ATK_Thunderbolt, &ATK_Draining_Kiss, },
@@ -4096,7 +4096,7 @@ static const species sdex[] = {
   // the wrestling
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, nullptr,
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Power_Up_Punch, &ATK_Flying_Press, },
-		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the antenna
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Tackle, &ATK_Discharge, &ATK_Parabolic_Charge, &ATK_Play_Rough, },
@@ -4120,7 +4120,7 @@ static const species sdex[] = {
   // the key ring
   {  707, "Klefki", TYPE_STEEL, TYPE_FAIRY, 160, 179, 149, nullptr,
 		{ &ATK_Tackle, &ATK_Astonish, &ATK_Flash_Cannon, &ATK_Draining_Kiss, &ATK_Play_Rough, &ATK_Foul_Play, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the stump
   {  708, "Phantump", TYPE_GHOST, TYPE_GRASS, 125, 103, 125, nullptr,
 		{ &ATK_Tackle, &ATK_Astonish, &ATK_Seed_Bomb, &ATK_Shadow_Ball, &ATK_Foul_Play, },
