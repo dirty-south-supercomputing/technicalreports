@@ -2279,11 +2279,11 @@ static const species sdex[] = {
   // the balloon
   {  211, "Qwilfish", TYPE_WATER, TYPE_POISON, 184, 138, 163, nullptr,
 		{ &ATK_Water_Gun, &ATK_Poison_Sting, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Sludge_Wave, &ATK_Scald, &ATK_Acid_Spray, &ATK_Fell_Stinger, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the balloon
   {  211, "Hisuian Qwilfish", TYPE_DARK, TYPE_POISON, 184, 151, 163, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Dark_Pulse, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Pincer
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther",
 		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Night_Slash, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Trailblaze, },
@@ -4776,7 +4776,7 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Hisuian Qwilfish",
 		{ &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Dark_Pulse, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // therian form enamorus has not been released
   {  905, "Enamorus (Incarnate)", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Astonish, &ATK_Fairy_Wind, &ATK_Dazzling_Gleam, &ATK_Grass_Knot, &ATK_Fly, },
