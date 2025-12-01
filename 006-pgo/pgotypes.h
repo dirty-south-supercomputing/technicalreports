@@ -2429,7 +2429,7 @@ static const species sdex[] = {
   // the Diving
   {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Extrasensory, &ATK_Hydro_Pump, &ATK_Sky_Attack, &ATK_Future_Sight, &ATK_Aeroblast, &ATK_Fly, },
-		true, true, false, { &ATK_Aeroblast, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Aeroblast, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Rainbow
   {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, nullptr,
 		{ &ATK_Steel_Wing, &ATK_Extrasensory, &ATK_Hidden_Power, &ATK_Incinerate, &ATK_Earthquake, &ATK_Fire_Blast, &ATK_Solar_Beam, &ATK_Brave_Bird, &ATK_Sacred_Fire, },
