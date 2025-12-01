@@ -1903,11 +1903,11 @@ static const species sdex[] = {
   // the Kicking
   {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, "Tyrogue",
 		{ &ATK_Low_Kick, &ATK_Rock_Smash, &ATK_Double_Kick, &ATK_Stone_Edge, &ATK_Low_Sweep, &ATK_Brick_Break, &ATK_Stomp, &ATK_Close_Combat, &ATK_Blaze_Kick, },
-		true, true, false, { &ATK_Brick_Break, &ATK_Stomp, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Brick_Break, &ATK_Stomp, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Punching
   {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, "Tyrogue",
 		{ &ATK_Bullet_Punch, &ATK_Rock_Smash, &ATK_Counter, &ATK_Ice_Punch, &ATK_Thunder_Punch, &ATK_Fire_Punch, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Power_Up_Punch, },
-		true, true, false, { &ATK_Rock_Smash, &ATK_Brick_Break, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Rock_Smash, &ATK_Brick_Break, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Locking
   {  108, "Lickitung", TYPE_NORMAL, TYPECOUNT, 108, 137, 207, nullptr,
 		{ &ATK_Lick, &ATK_Zen_Headbutt, &ATK_Wrap, &ATK_Hyper_Beam, &ATK_Power_Whip, &ATK_Stomp, &ATK_Body_Slam, },
