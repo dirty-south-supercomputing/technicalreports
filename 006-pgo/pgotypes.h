@@ -4633,8 +4633,12 @@ static const species sdex[] = {
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede",
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, &ATK_Lunge, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 852 clobbopus
-  // 853 grapploct
+  {  852, "Clobbopus", TYPE_FIGHTING, TYPECOUNT, 121, 103, 137, nullptr,
+		{ &ATK_Rock_Smash, &ATK_Ice_Punch, &ATK_Brick_Break, &ATK_Superpower, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  853, "Grapploct", TYPE_FIGHTING, TYPECOUNT, 209, 162, 190, "Clobbopus",
+		{ &ATK_Rock_Smash, &ATK_Waterfall, &ATK_Ice_Punch, &ATK_Brick_Break, &ATK_Surf, &ATK_Superpower, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  854, "Sinistea", TYPE_GHOST, TYPECOUNT, 134, 96, 120, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Astonish, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Psychic, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
