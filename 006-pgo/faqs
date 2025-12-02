@@ -1,0 +1,95 @@
+Q: What are the base statistics?
+A: Each Pokémon form has three stats, all non-negative integers: ATK, DEF, and STA.
+E: Greninja is 223 ATK, 152 DEF, 176 STA.
+
+Q: What is an IV?
+A: A vector of three integers between 0 and 15, inclusive, particular to an individual Pokémon.
+E: 15-15-15, 0-15-15, 12-8-4
+
+Q: What is the significance of a Pokémon's IV?
+A: The three components are added to the base stats, yielding the modified stats.
+E: A Greninja with IV 12-8-4 has modified ATK 235 (223 + 12), DEF 160 (152 + 8), and STA 180 (176 + 4).
+
+Q: What about the Pokémon's level?
+A: Each level has an associated (ideal) Combat Power Multiplier, a positive rational. Level 1 is 0.094.
+   Level 50 is 0.8453. This is multiplied by the modified stats, yielding the effective stats.
+E: Our Greninja at level 48.5 has CPM of 0.8378, and thus \Eff{A} 196.883, \Eff{D} 134.048, and \Eff{S} 150.804.
+
+Q: Who gives a shit?
+A: Effective ATK and effective DEF form the core of the damage equation. STA determines MHP.
+
+Q: How does \Eff{S} relate to MHP?
+A: MHP is the floor of \Eff{S}, or 10, whichever is higher.
+
+Q: Higher \Eff{S} always yields higher MHP.
+A: False. Higher floor of \Eff{S} always yields higher MHP.
+A: \Eff{S} of 175.5 and \Eff{S} of 175 both yield 175 MHP.
+
+Q: So I want high IVs, right?
+A: Unless operating under a CP bound---
+Q: A CP bound?
+A: Great League has a CP bound of 1500, and Ultra League a CP bound of 2500.
+   This establishes a level bound, usually below 50, for each given form+IV.
+   For the Master League, raids, Max Battles, and Team GO Rocket, higher
+   effective stats are at least as good, and usually better, than lower ones.
+   Increases in any of the inputs (base statistics, IVs, and level) are desirable.
+
+Q: So how important are IVs in those scenarios?
+A: They are no more or less important than the base statistics. All calculations affected by base stats or IVs
+   use them indirectly via the modified stats. A Pokémon with a base ATK of 200 and an IV of 15-x-x has the exact same
+   modified ATK as another Pokémon with a base ATK of 205 and an IV of 10-x-x.
+
+Q: So how important are IVs?
+A: They make up a portion of the total possible modified stat. For ATK, they can account for 46.9% (Shuckle, base ATK 17)
+   to 3.5% of the potential (Deoxys Attack, base ATK 414). For DEF, they can account for 31.9% (Igglybuff, base DEF 32)
+   to 3.6% of the potential (Shuckle, base DEF 396). For STA, they can account for 93.8% (Shedinja, base STA 1)
+   to 2.9% of the potential (Blissey, base STA 496). When the base stat is 150 or more, a component can account for
+   no more than 10% of the potential.
+
+Q: Some Pokémon with \IV{A} of 15 will have the highest possible \Eff{A} of its species, even under a CP bound.
+A: False. A higher level with a lower \IV{A} might result in a higher \Eff{A}, usually with a high (but not necessarily maximum) \IV{A}.
+E: Deoxys Defense at 1500 maximizes \Eff{A} at 105.534 with \ivlev{14}{0}{0}{25}.
+
+Q: Some Pokémon with \IV{D} of 15 will have the highest possible \Eff{D} of its species, even under a CP bound.
+A: False. Same reasoning as above.
+E: Feraligatr at 1499 maximizes \Eff{D} at 122.174 with \ivlev{0}{14}{0}{20.5}.
+
+Q: The closer a Pokémon's CP is to the bound, the higher the arithmetic mean of the Pokémon.
+A: False. The relationship of CP to arithmetic mean is complicated.
+E: Greninja \ivlev{0}{10}{13}{21.5} yields 1497 at 118.49. Greninja \ivlev{3}{13}{14}{21} yields 1499 at 118.451.
+
+Q: The closer a Pokémon's CP is to the bound, the higher the geometric mean of the Pokémon.
+A: False. The relationship of CP to geometric mean is complicated.
+E: Greninja \ivlev{1}{15}{15}{21} yields 1499 at 117.593. Greninja \ivlev{0}{9}{15}{21.5} yields 1500 at 117.576.
+
+Q: Each Pokémon has a best IV for a given CP bound, or more generally, the possible IVs can be globally ordered.
+A: False. Most functions for evaluating Pokémon will order different IVs different ways.
+
+Q: A Shadow form has a better geometric mean than the normal form.
+A: Shadow and normal forms have the same geometric mean.
+
+Q: A Shadow form has a better arithmetic mean than the normal form.
+A: False. With the same IVs, a Shadow form will have a higher arithmetic mean if \Eff{A} > 5/6*\Eff{D}.
+   If \Eff{A} < 5/6*\Eff{D}, the Shadow form will have a lower arithmetic mean.
+   If \Eff{A} = 5/6*\Eff{D}, the two forms will have equal arithmetic means.
+
+Q: If a Shadow form exists, some Shadow will have the highest possible \Eff{A} of the species.
+A: True.
+
+Q: If a Shadow form exists, some Shadow will have the lowest possible \Eff{D} of the species.
+A: True.
+
+Q: Powering up from level N to N+1 adds the same amount of CP to all members of a family having the same IV.
+A: False. It depends on the base stats.
+E: Ivysaur gains 20 CP going from level 10 (401) to 10.5 (421).
+   Venusaur gains 34 CP going from level 10 (669) to 10.5 (703).
+
+Q: Powering up from a higher level adds less than or equal to the amount of CP as any lower level.
+A: False. The floor function will have its due.
+E: Venusaur gains 34 CP going from 24 (1606) to 24.5 (1640).
+   Venusaur gains 33 CP going from 23.5 (1573) to 24 (1606).
+
+Q: Given two IVs A and B at a given CP bound, if all components of A are greater than or equal to the corresponding members of B, the components of \Eff{A} cannot all be less than or equal to \Eff{B}.
+A: False. STA can sometimes be traded to gain levels.
+E: Glalie 15-15-15 at 24.5 has \Eff{A} 117.036, \Eff{D} 117.036, and 135 HP.
+   Glalie 15-15-13 at 25 has \Eff{A} 118.224, \Eff{D} 118.224, and 135 HP.
