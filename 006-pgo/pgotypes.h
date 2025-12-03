@@ -4403,9 +4403,14 @@ static const species sdex[] = {
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 771 is pyukumuku
-  // 772 is type: null
-  // 773 is silvally
+  /* not yet released
+  {  771, "Pyukumuku", TYPE_WATER, TYPECOUNT, 97, 224, 146, nullptr,
+		{ &ATK_Counter, &ATK_Mirror_Coat, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  772, "Type: Null", TYPE_NORMAL, TYPECOUNT, 184, 184, 216, nullptr,
+		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Aerial_Ace, &ATK_Iron_Head, &ATK_Tri_Attack, },
+		false, false, false, { }, species::CAT_NORMAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, }, */
+  // 773 is silvally (type: null evolution)
   // 774 is minior
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
@@ -4416,8 +4421,8 @@ static const species sdex[] = {
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Wild_Charge, &ATK_Gyro_Ball, &ATK_Fell_Stinger, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // not yet released
-  /* {  778, "Mimikyu", TYPE_GHOST, TYPE_FAIRY, 177, 199, 146, nullptr,
+  /* not yet released
+  {  778, "Mimikyu", TYPE_GHOST, TYPE_FAIRY, 177, 199, 146, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Charm, &ATK_Shadow_Sneak, &ATK_Shadow_Ball, &ATK_Play_Rough, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, nullptr,
