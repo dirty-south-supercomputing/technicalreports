@@ -1397,7 +1397,7 @@ static const species sdex[] = {
   // the Seed Pokemon
   {  3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur",
 		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Petal_Blizzard, &ATK_Sludge, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
-		true, true, true, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, "G-Max Vine Lash", },
+		true, true, true, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, "Vine Lash", },
   // the Lizard
   {  4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, nullptr,
 		{ &ATK_Ember, &ATK_Scratch, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Flame_Burst, },
@@ -1409,7 +1409,7 @@ static const species sdex[] = {
   // the Flame
   {  6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon",
 		{ &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Wing_Attack, &ATK_Ember, &ATK_Dragon_Breath, &ATK_Air_Cutter, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Dragon_Claw, &ATK_Blast_Burn, &ATK_Flamethrower, },
-		true, true, true, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, "G-Max Wildfire", },
+		true, true, true, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, "Wildfire", },
   // the Tiny Turtle
   {  7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, nullptr,
 		{ &ATK_Tackle, &ATK_Bubble, &ATK_Aqua_Jet, &ATK_Aqua_Tail, &ATK_Water_Pulse, },
@@ -1421,7 +1421,7 @@ static const species sdex[] = {
   // the Shellfish
   {  9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle",
 		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Rollout, &ATK_Flash_Cannon, &ATK_Ice_Beam, &ATK_Hydro_Pump, &ATK_Hydro_Cannon, &ATK_Skull_Bash, },
-		true, true, true, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, "G-Max Cannonade", },
+		true, true, true, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, "Cannonade", },
   // the Worm
   {  10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Struggle, },
@@ -1433,7 +1433,7 @@ static const species sdex[] = {
   // the Butterfly
   {  12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Metapod",
 		{ &ATK_Bug_Bite, &ATK_Confusion, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_Signal_Beam, &ATK_Psychic, },
-		true, true, true, { &ATK_Bug_Bite, }, species::CAT_NORMAL, 10, "G-Max Befuddle", },
+		true, true, true, { &ATK_Bug_Bite, }, species::CAT_NORMAL, 10, "Befuddle", },
   // the Hairy Bug
   {  13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Struggle, },
@@ -1644,7 +1644,7 @@ static const species sdex[] = {
   // the Scratch Cat
   {  52, "Meowth", TYPE_NORMAL, TYPECOUNT, 92, 78, 120, nullptr,
 		{ &ATK_Bite, &ATK_Scratch, &ATK_Dark_Pulse, &ATK_Night_Slash, &ATK_Body_Slam, &ATK_Foul_Play, },
-		true, true, false, { &ATK_Body_Slam, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Body_Slam, }, species::CAT_NORMAL, 50, "Gold Rush", species::EVOL_NOITEM, species::REGION_ALL, },
   {  52, "Alolan Meowth", TYPE_DARK, TYPECOUNT, 99, 78, 120, nullptr,
 		{ &ATK_Bite, &ATK_Scratch, &ATK_Dark_Pulse, &ATK_Night_Slash, &ATK_Foul_Play, &ATK_Trailblaze, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -1715,7 +1715,7 @@ static const species sdex[] = {
 		true, true, true, { &ATK_Cross_Chop, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  68, "Machamp", TYPE_FIGHTING, TYPECOUNT, 234, 159, 207, "Machoke",
 		{ &ATK_Karate_Chop, &ATK_Bullet_Punch, &ATK_Counter, &ATK_Cross_Chop, &ATK_Stone_Edge, &ATK_Submission, &ATK_Rock_Slide, &ATK_Close_Combat, &ATK_Dynamic_Punch, &ATK_Heavy_Slam, &ATK_Payback, },
-		true, true, true, { &ATK_Karate_Chop, &ATK_Payback, &ATK_Stone_Edge, &ATK_Submission, }, species::CAT_NORMAL, 50, "G-Max Chi Strike", },
+		true, true, true, { &ATK_Karate_Chop, &ATK_Payback, &ATK_Stone_Edge, &ATK_Submission, }, species::CAT_NORMAL, 50, "Chi Strike", },
   // the Flower
   {  69, "Bellsprout", TYPE_GRASS, TYPE_POISON, 139, 61, 137, nullptr,
 		{ &ATK_Vine_Whip, &ATK_Acid, &ATK_Wrap, &ATK_Sludge_Bomb, &ATK_Power_Whip, },
@@ -1840,7 +1840,7 @@ static const species sdex[] = {
   // the Shadow
   {  94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter",
 		{ &ATK_Sucker_Punch, &ATK_Lick, &ATK_Shadow_Claw, &ATK_Hex, &ATK_Drain_Punch, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Sludge_Wave, &ATK_Psychic, &ATK_Focus_Blast, },
-		true, true, true, { &ATK_Lick, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Shadow_Punch, &ATK_Sludge_Wave, }, species::CAT_NORMAL, 50, "G-Max Terror", },
+		true, true, true, { &ATK_Lick, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Shadow_Punch, &ATK_Sludge_Wave, }, species::CAT_NORMAL, 50, "Terror", },
   // the Rock Snake
   {  95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, nullptr,
 		{ &ATK_Tackle, &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Slide, &ATK_Iron_Head, &ATK_Sand_Tomb, &ATK_Heavy_Slam, &ATK_Breaking_Swipe, },
@@ -1859,7 +1859,7 @@ static const species sdex[] = {
   // the Pincer
   {  99, "Kingler", TYPE_WATER, TYPECOUNT, 240, 181, 146, "Krabby",
 		{ &ATK_Mud_Shot, &ATK_Metal_Claw, &ATK_Bubble, &ATK_Vise_Grip, &ATK_X_Scissor, &ATK_Water_Pulse, &ATK_Crabhammer, &ATK_Razor_Shell, },
-		true, true, true, { &ATK_Mud_Shot, }, species::CAT_NORMAL, 50, "G-Max Foam Burst", },
+		true, true, true, { &ATK_Mud_Shot, }, species::CAT_NORMAL, 50, "Foam Burst", },
   // the Ball
   {  100, "Voltorb", TYPE_ELECTRIC, TYPECOUNT, 109, 111, 120, nullptr,
 		{ &ATK_Spark, &ATK_Tackle, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Signal_Beam, &ATK_Gyro_Ball, },
@@ -2006,13 +2006,13 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Water_Gun, &ATK_Psywave, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Dragon_Pulse, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Skull_Bash, &ATK_Sparkling_Aria, },
-		true, true, false, { &ATK_Ice_Shard, &ATK_Dragon_Pulse, &ATK_Ice_Beam, }, species::CAT_NORMAL, 75, "G-Max Resonance", species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Ice_Shard, &ATK_Dragon_Pulse, &ATK_Ice_Beam, }, species::CAT_NORMAL, 75, "Resonance", species::EVOL_NOITEM, species::REGION_ALL, },
   {  132, "Ditto", TYPE_NORMAL, TYPECOUNT, 91, 91, 134, nullptr,
 		{ &ATK_Transform, &ATK_Struggle, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Tackle, &ATK_Dig, &ATK_Swift, &ATK_Body_Slam, &ATK_Last_Resort, },
-		true, false, true, { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, "G-Max Cuddle", species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, "Cuddle", species::EVOL_NOITEM, species::REGION_ALL, },
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee",
 		{ &ATK_Water_Gun, &ATK_Aqua_Tail, &ATK_Water_Pulse, &ATK_Scald, &ATK_Hydro_Pump, &ATK_Last_Resort, &ATK_Liquidation, },
 		true, false, true, { &ATK_Scald, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -2043,7 +2043,7 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  143, "Snorlax", TYPE_NORMAL, TYPECOUNT, 190, 169, 330, "Munchlax",
 		{ &ATK_Lick, &ATK_Zen_Headbutt, &ATK_Yawn, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Body_Slam, &ATK_Heavy_Slam, &ATK_Outrage, &ATK_Skull_Bash, &ATK_Superpower, },
-		true, true, false, { &ATK_Yawn, }, species::CAT_NORMAL, 75, "G-Max Replenish", },
+		true, true, false, { &ATK_Yawn, }, species::CAT_NORMAL, 75, "Replenish", },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Icy_Wind, &ATK_Hurricane, &ATK_Triple_Axel, },
 		true, true, true, { &ATK_Hurricane, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -3557,7 +3557,7 @@ static const species sdex[] = {
   // the trash heap
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish",
 		{ &ATK_Infestation, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, &ATK_Body_Slam, &ATK_Acid_Spray, },
-		true, true, true, { }, species::CAT_NORMAL, 50, "G-Max Malodor", species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 50, "Malodor", species::EVOL_NOITEM, species::REGION_ALL, },
   // the tricky fox
   {  570, "Zorua", TYPE_DARK, TYPECOUNT, 153, 78, 120, nullptr,
 		{ &ATK_Scratch, &ATK_Feint_Attack, &ATK_Dark_Pulse, &ATK_Aerial_Ace, &ATK_Night_Shade, &ATK_Foul_Play, },
@@ -4532,7 +4532,7 @@ static const species sdex[] = {
 		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey",
 		{ &ATK_Razor_Leaf, &ATK_Scratch, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Earth_Power, },
-		true, true, true, { }, species::CAT_NORMAL, 10, "G-Max Drum Solo", },
+		true, true, true, { }, species::CAT_NORMAL, 10, "Drum Solo", },
   {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, },
 		false, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4541,7 +4541,7 @@ static const species sdex[] = {
 		false, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot",
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Focus_Blast, },
-		true, false, true, { }, species::CAT_NORMAL, 10, "G-Max Fireball", },
+		true, false, true, { }, species::CAT_NORMAL, 10, "Fireball", },
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
 		false, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4550,7 +4550,7 @@ static const species sdex[] = {
 		false, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Drizzile",
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Shadow_Ball, &ATK_Water_Pulse, &ATK_Surf, },
-		false, false, true, { }, species::CAT_NORMAL, 10, "G-Max Hydrosnipe", },
+		false, false, true, { }, species::CAT_NORMAL, 10, "Hydrosnipe", },
   {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Bullet_Seed, &ATK_Body_Slam, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4631,7 +4631,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel",
 		{ &ATK_Spark, &ATK_Poison_Jab, &ATK_Acid, &ATK_Discharge, &ATK_Wild_Charge, &ATK_Acid_Spray, &ATK_Power_Up_Punch, },
-		true, true, true, { }, species::CAT_NORMAL, 75, "G-Max Stun Shock", species::EVOL_NOITEM},
+		true, true, true, { }, species::CAT_NORMAL, 75, "Stun Shock", species::EVOL_NOITEM},
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4658,7 +4658,7 @@ static const species sdex[] = {
 		true, false, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Power_Whip, },
-		true, false, true, { }, species::CAT_NORMAL, 50, "G-Max Smite", },
+		true, false, true, { }, species::CAT_NORMAL, 50, "Smite", },
   {  859, "Impidimp", TYPE_DARK, TYPE_FAIRY, 103, 69, 128, nullptr,
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4668,7 +4668,7 @@ static const species sdex[] = {
   // the Bulk Up
   {  861, "Grimmsnarl", TYPE_DARK, TYPE_FAIRY, 237, 139, 216, "Morgrem",
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Play_Rough, &ATK_Foul_Play, &ATK_Power_Up_Punch, },
-		true, false, false, { }, species::CAT_NORMAL, 75, "G-Max Snooze", species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 75, "Snooze", species::EVOL_NOITEM, species::REGION_ALL, },
   {  862, "Obstagoon", TYPE_DARK, TYPE_NORMAL, 180, 194, 212, "Galarian Linoone",
 		{ &ATK_Lick, &ATK_Counter, &ATK_Hyper_Beam, &ATK_Cross_Chop, &ATK_Night_Slash, &ATK_Gunk_Shot, &ATK_Obstruct, },
 		true, true, false, { &ATK_Obstruct, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -5111,8 +5111,8 @@ static const mega megasdex[] = {
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, },
-  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, },
-  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, },
+  /*{  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, },
+  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, },*/
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, },
@@ -6338,19 +6338,11 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   int largeicons = print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
-    // we never want some small icons on both lines if we have to have two lines,
-    // but we want only one line if we can get away with it. four small icons
-    // are too many to put with two large icons.
-    // we never need split the line for gmax cards.
-    if(largeicons + print_icons(s, false, ismega) > 5){
-      printf("\\\\");
-    }
     print_icons(s, true, ismega);
     printf("\\scriptsize{}");
     if(s->categorystr() && strcmp(s->categorystr(), "")){
       printf("%s\n", s->categorystr());
     }
-    //printf("Max CP: %u\n", calc_max_cp(s));
   }
   printf("\\end{minipage}\n");
   if(mainform){ // optimal IVs and evolutionary lineage (only for main forms)
@@ -6368,7 +6360,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
     if(gmax){
       printf("\\hfill");
       print_type(s->t1);
-      printf(" %s", s->gmax);
+      printf(" G-Max %s", s->gmax);
     }
   }
 
