@@ -38,13 +38,12 @@ Each species (more correctly each form, as typing can vary across a species; see
 The attacker benefits if it has a type in common with the attack being used:
   the Same Type Attack Bonus (STAB).
 The relationship between attack type and defender typing is more complex.
-For each type, the attack type can be \textit{very ineffective},
+For each type, the attack type is either \textit{very ineffective},
   \textit{ineffective}, \textit{neutral}, or \textit{effective}.
 These are mapped to −2, −1, 0, and 1.
-Going the other way, a type is \textit{very weak}, \textit{weak},
-  \textit{neutral}, or \textit{strong} against each attack type;
-  we will see that a typing can also be \textit{extremely weak} or
-  \textit{very strong}.
+Going the other way, a type is \textit{weak}, \textit{neutral}, \textit{strong}, or \textit{very strong} against each attack type
+ (mapped to 1, 0, -1, and -2); we will see that a typing can also be \textit{very weak} or \textit{extremely strong}
+ (mapped to 2 and -3).
 For each member of the defender's typing, determine the attack type's effectiveness
   on that type, and add the results for net effectiveness.
 See \autoref{sec:typemult} for a quantitative treatment of the effects.
@@ -60,6 +59,7 @@ These relationships must also be memorized.
 Eleven of the eighteen types are self-active.
 Of these, only Dragon and Ghost are self-effective.
 Dark, Electric, Fire, Grass, Ice, Poison, Psychic, Steel, and Water are all self-ineffective.%\footnote{Fire, Ice, and Water are easily enough remembered together.
+Bug, Fairy, Fighting, Flying, Ground, Normal, and Rock are neutral against themselves.
 
 Only eight relationships are very ineffective:
 Normal → Ghost,
