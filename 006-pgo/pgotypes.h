@@ -4616,8 +4616,12 @@ static const species sdex[] = {
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin",
 		{ &ATK_Astonish, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Energy_Ball, &ATK_Outrage, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SWEETAPPLE, species::REGION_ALL, },
-  // 843 silcobra
-  // 844 sandaconda
+  /* {  843, "Silcobra", TYPE_GROUND, TYPECOUNT, 103, 123, 141, nullptr,
+		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  844, "Sandaconda", TYPE_GROUND, TYPECOUNT, 202, 207, 176, "Silcobra",
+		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // 845 cramorant
   // 846 arrokuda
   // 847 barraskewda
