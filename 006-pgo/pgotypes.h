@@ -4409,7 +4409,7 @@ static const species sdex[] = {
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  772, "Type: Null", TYPE_NORMAL, TYPECOUNT, 184, 184, 216, nullptr,
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Aerial_Ace, &ATK_Iron_Head, &ATK_Tri_Attack, },
-		false, false, false, { }, species::CAT_NORMAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, }, */
+		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, }, */
   // 773 is silvally (type: null evolution)
   // 774 is minior
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
