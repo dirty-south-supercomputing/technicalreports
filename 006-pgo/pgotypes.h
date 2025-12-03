@@ -694,7 +694,6 @@ static const attack ATK_Megahorn = { "Megahorn", TYPE_BUG, 110, -55, 0, 0, 0, 0,
 	105, 100, 4, false, };
 static const attack ATK_Meteor_Beam = { "Meteor Beam", TYPE_ROCK, 120, -60, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
 	140, 100, 4, false, };
-// FIXME verify for precious paths
 static const attack ATK_Meteor_Mash = { "Meteor Mash", TYPE_STEEL, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 5, false, };
 static const attack ATK_Mirror_Coat = { "Mirror Coat", TYPE_PSYCHIC, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -733,8 +732,7 @@ static const attack ATK_Outrage = { "Outrage", TYPE_DRAGON, 110, -60, 0, 0, 0, 0
 	110, 50, 8, false, };
 static const attack ATK_Overheat = { "Overheat", TYPE_FIRE, 130, -55, 0, 1000, 0, 0, 0, -2, 0, 0, 0,
 	160, 100, 8, false, };
-// FIXME verify for precious paths
-static const attack ATK_Parabolic_Charge = { "Parabolic Charge", TYPE_ELECTRIC, 70, -55, 0, 0, 660, 0, 0, 0, 1, 0, 0,
+static const attack ATK_Parabolic_Charge = { "Parabolic Charge", TYPE_ELECTRIC, 70, -50, 0, 0, 660, 0, 0, 0, 1, 0, 0,
 	70, 50, 6, false, };
 static const attack ATK_Payback = { "Payback", TYPE_DARK, 110, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	95, 100, 4, false, };
@@ -803,7 +801,6 @@ static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 55, -40, 0, 0, 0,
 	55, 33, 4, false, };
 static const attack ATK_Seed_Flare = { "Seed Flare", TYPE_GRASS, 130, -75, 0, 0, 0, 0, 400, 0, 0, 0, -2,
 	115, 100, 5, false, };
-// FIXME verify for precious paths
 static const attack ATK_Shadow_Ball = { "Shadow Ball", TYPE_GHOST, 100, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 6, false, };
 static const attack ATK_Shadow_Bone = { "Shadow Bone", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 200, 0, 0, 0, -1,
@@ -812,8 +809,7 @@ static const attack ATK_Shadow_Force = { "Shadow Force", TYPE_GHOST, 120, -90, 0
 	140, 100, -4, false, };
 static const attack ATK_Shadow_Punch = { "Shadow Punch", TYPE_GHOST, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	35, 33, 3, false, };
-// FIXME verify for precious paths
-static const attack ATK_Shadow_Sneak = { "Shadow Sneak", TYPE_GHOST, 50, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Shadow_Sneak = { "Shadow Sneak", TYPE_GHOST, 75, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 6, false, };
 static const attack ATK_Signal_Beam = { "Signal Beam", TYPE_BUG, 75, -55, 0, 0, 0, 200, 200, 0, 0, -1, -1,
 	75, 50, 6, false, };
