@@ -4,10 +4,10 @@ digraph G {
       poison [ image="images/poison.png" ]
       fairy [ image="images/fairy.png" ]
       dark [ image="images/dark.png" ]
-      fairy -> dark [ color=green penwidth=4 ]
-      dark -> fairy [ color=red ]
-      fairy -> poison [ color=red ]
-      poison -> fairy [ color=green penwidth=4 ]
+      fairy -> dark [ penwidth=4 ]
+      dark -> fairy [ arrowhead=tee ]
+      fairy -> poison [ arrowhead=tee ]
+      poison -> fairy [ penwidth=4 ]
     }
 
     { rank=same;
@@ -15,43 +15,43 @@ digraph G {
       fighting [ image="images/fighting.png" ]
       rock [ image="images/rock.png" ]
       ground -> fighting [color=invis]
-      rock -> fighting [ color=red ]
-      fighting -> rock [ color=green penwidth=4 ]
+      rock -> fighting [ arrowhead=tee ]
+      fighting -> rock [ penwidth=4 ]
     }
 
     { rank=same;
       electric [ image="images/electric.png" ]
       flying [ image="images/flying.png" ]
       bug [ image="images/bug.png" ]
-      electric -> flying [ color=green penwidth=4 ]
-      flying -> electric [ color=red ]
-      flying -> bug [ color=green penwidth=4 ]
-      bug -> flying [ color=red ]
+      electric -> flying [ penwidth=4 ]
+      flying -> electric [ arrowhead=tee ]
+      flying -> bug [ penwidth=4 ]
+      bug -> flying [ arrowhead=tee ]
     }
 
     { rank=same;
       water [ image="images/water.png" ]
       grass [ image="images/grass.png" ]
       fire [ image="images/fire.png" ]
-      water -> grass [ color=red ]
-      grass -> water [ color=green penwidth=4 ]
-      grass -> fire [ color=red ]
-      fire -> grass [ color=green penwidth=4 ]
+      water -> grass [ arrowhead=tee ]
+      grass -> water [ penwidth=4 ]
+      grass -> fire [ arrowhead=tee ]
+      fire -> grass [ penwidth=4 ]
     }
 
     {
-    fairy -> fighting [ color=green penwidth=4 ]
+    fairy -> fighting [ penwidth=4 ]
     poison -> ground [style=invis]
-    ground -> electric [ color=green penwidth=4 ]
-    electric -> ground [ color=black ]
-    fighting -> fairy [ color=red ]
-    fighting -> flying [ color=red ]
+    ground -> electric [ penwidth=4 ]
+    electric -> ground [ arrowhead=curve ]
+    fighting -> fairy [ arrowhead=tee ]
+    fighting -> flying [ arrowhead=tee ]
     electric -> water [style=invis]
-    bug -> fire [ color=red ]
-    fire -> bug [ color=green penwidth=4 ]
-    flying -> grass [ color=green penwidth=4 ]
-    grass -> flying [ color=red ]
-    flying -> fighting [ color=green penwidth=4 ]
+    bug -> fire [ arrowhead=tee ]
+    fire -> bug [ penwidth=4 ]
+    flying -> grass [ penwidth=4 ]
+    grass -> flying [ arrowhead=tee ]
+    flying -> fighting [ penwidth=4 ]
     }
 
 }
