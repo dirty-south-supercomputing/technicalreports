@@ -6227,7 +6227,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   bool ismega = overzoom && !mainform; // maybe do name check?
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   if(gmax){
-    printf("Gmax ");
+    printf("Gigantamax ");
   }
   // have to special case this or it runs two lines =[
   if(s->name == "Crowned Shield Zamazenta"){
@@ -6335,7 +6335,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   // the minipages with icons and cp data
   // left side is larger for gmax/mega, which don't show evolutionary lines
   printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
-  int largeicons = print_types_big(s->t1, s->t2);
+  print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
     print_icons(s, true, ismega);
