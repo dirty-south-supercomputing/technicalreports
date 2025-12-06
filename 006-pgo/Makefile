@@ -46,6 +46,7 @@ PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
 SINDEX:=$(OUT)/sindex
+FUNCTIONALHUNDO:=$(OUT)/functional
 FATTACKTEX:=$(OUT)/fastattacks.tex
 CATTACKTEX:=$(OUT)/chargedattacks.tex
 DUALTYPESTEX:=$(OUT)/dualtypes.tex
@@ -97,6 +98,9 @@ BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 UNPOPTEX:=$(OUT)/unpop.tex
 BULK1500TEX:=$(OUT)/bulk1500.tex
 BULK2500TEX:=$(OUT)/bulk2500.tex
+FHUNDOGLTEX:=$(OUT)/fhundogl.tex
+FHUNDOULTEX:=$(OUT)/fhundoul.tex
+FHUNDOMLTEX:=$(OUT)/fhundoml.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
@@ -117,6 +121,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) $(XPTEX) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
+	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) \
 	$(LEVELUPGRADESTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png
@@ -136,6 +141,18 @@ WEBOUT:=$(OUT)/w
 WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(WEBOUT)/index.html
 webpage: $(WEBINDEX)
+
+$(FHUNDOGLTEX): $(FUNCTIONALHUNDO)
+	@mkdir -p $(@D)
+	$< 1500 > $@
+
+$(FHUNDOULTEX): $(FUNCTIONALHUNDO)
+	@mkdir -p $(@D)
+	$< 2500 > $@
+
+$(FHUNDOMLTEX): $(FUNCTIONALHUNDO)
+	@mkdir -p $(@D)
+	$< > $@
 
 $(OPTSTATSRADARPDF): $(OPTSTATSRADARR) $(OPTSTATSRADARDAT)
 	@mkdir -p $(@D)

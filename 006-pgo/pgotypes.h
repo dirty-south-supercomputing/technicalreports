@@ -5488,7 +5488,6 @@ update_optset(stats** osets, const species* s, unsigned ia, unsigned id,
 // returns the optimal levels+ivs (using provided comparable fitness function)
 // with a CP less than or equal to cpceil and fitness function greater than or
 // equal to floor.
-// FIXME if last argument is true, we want calc_amean(), otherwise calc_gmean()
 static stats *
 find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
   stats* optsets = NULL;
