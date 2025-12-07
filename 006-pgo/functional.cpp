@@ -24,13 +24,13 @@ functional_hundos(int cplimit){
       fmhp = calc_mhp(sta, fmaxlevel);
       if(fmhp >= mhp){
         std::cout << s.name << " 15-15-" << (sta - s.sta) << std::endl;
-      }
 if(fmaxlevel != maxlevel){
-  std::cerr << s.name << " FMAXLEVEL " << fmaxlevel << " MAXLEVEL " << maxlevel << std::endl;
+  std::cerr << s.name << "FHP " << fmhp << " MHP " << mhp << " FMAXLEVEL " << fmaxlevel << " MAXLEVEL " << maxlevel << " " << (sta - s.sta) << std::endl;
   if(fmhp >= mhp){
     std::cerr << s.name << " SUPERFUNCTIONAL! " << (sta - s.sta) << std::endl;
   }
 }
+      }
     }while(sta != s.sta);
   }
 }
