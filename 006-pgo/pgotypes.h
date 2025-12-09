@@ -2793,15 +2793,15 @@ static const species sdex[] = {
   // the clap
   {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, nullptr,
 		{ &ATK_Water_Gun, &ATK_Rock_Smash, &ATK_Water_Pulse, &ATK_Body_Slam, &ATK_Aurora_Beam, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the ball roll
   {  364, "Sealeo", TYPE_ICE, TYPE_WATER, 137, 132, 207, "Spheal",
 		{ &ATK_Water_Gun, &ATK_Powder_Snow, &ATK_Water_Pulse, &ATK_Body_Slam, &ATK_Aurora_Beam, &ATK_Surf, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the ice break
   {  365, "Walrein", TYPE_ICE, TYPE_WATER, 182, 176, 242, "Sealeo",
 		{ &ATK_Frost_Breath, &ATK_Powder_Snow, &ATK_Waterfall, &ATK_Earthquake, &ATK_Blizzard, &ATK_Water_Pulse, &ATK_Icicle_Spear, },
-		true, true, false, { &ATK_Powder_Snow, &ATK_Icicle_Spear, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Powder_Snow, &ATK_Icicle_Spear, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the bivalve
   {  366, "Clamperl", TYPE_WATER, TYPECOUNT, 133, 135, 111, nullptr,
 		{ &ATK_Water_Gun, &ATK_Ice_Beam, &ATK_Water_Pulse, &ATK_Body_Slam, },
@@ -4605,9 +4605,15 @@ static const species sdex[] = {
   {  836, "Boltund", TYPE_ELECTRIC, TYPECOUNT, 197, 131, 170, nullptr,
 		{ &ATK_Bite, &ATK_Spark, &ATK_Thunder, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 837 rolycoly
-  // 838 carkol
-  // 839 coalossal
+  {  837, "Rolycoly", TYPE_ROCK, TYPECOUNT, 73, 91, 102, nullptr,
+		{ &ATK_Tackle, &ATK_Smack_Down, &ATK_Rock_Slide, &ATK_Rock_Blast, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  838, "Carkol", TYPE_ROCK, TYPE_FIRE, 114, 157, 190, "Rolycoly",
+		{ &ATK_Smack_Down, &ATK_Incinerate, &ATK_Rock_Slide, &ATK_Flame_Charge, &ATK_Rock_Blast, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  839, "Coalossal", TYPE_ROCK, TYPE_FIRE, 146, 198, 242, "Carkol",
+		{ &ATK_Smack_Down, &ATK_Incinerate, &ATK_Rock_Slide, &ATK_Flame_Charge, &ATK_Rock_Blast, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Struggle, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4917,7 +4923,9 @@ static const species sdex[] = {
   {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, "Toedscool",
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 950 klawf
+  {  950, "Klawf", TYPE_ROCK, TYPECOUNT, 184, 185, 172, nullptr,
+    { &ATK_Rock_Throw, &ATK_Mud_Slap, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Bulldoze, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 951 capsakid
   // 952 scovillain
   // 953 rellor
