@@ -3,11 +3,11 @@ For a game touted as bringing people together, Pokémon GO tries hard to elide s
 Aside from opt-in partners at local raids, there are no in-game means to discover other Trainers.
 It is not generally possible to send messages.
 Use of real names in Trainer handles is gently discouraged.
-Despite this, a Trainer can have up to 450 other Trainers as ``friends''.
+Despite this, a Trainer can have up to 650 other Trainers as ``friends''.
 How can this capacity be exploited?
 
 When two Trainers agree to friendship, they are assigned a friendship level of zero.
-The friendship can progress through four levels, based on the number of calendar
+The friendship can progress through five levels, based on the number of calendar
   days the Trainers interact (\autoref{table:friendlevels}).
 Reaching a new level awards XP to both Trainers, and the awards for levels 3 and 4 are very substantial.
 Interaction can take the form of battling together, trading, a friendly 3x3 match (\autoref{sec:3x3}), or
@@ -20,15 +20,15 @@ Damage is enhanced when battling with friends, and winning together
 Higher friendship levels provide large discounts to trades.
 \begin{table}
 \centering
-\begin{tabular}{lrrrr}
- & Good & Great & Ultra & Best\\
+\begin{tabular}{lrrrrr}
+  & Good & Great & Ultra & Best & Forever \\
 \Midrule
-Days & 1 & 7 & 30 & 60\\
-XP  & 3,000 & 10,000 & 50,000 & 100,000\\
-XP/friend-day & 3,000 & 1,857 & 2,100 & 1,811\\
-Damage bonus & 3\% & 5\% & 7\% & 10\%\\
-Ball bonus & 0 & 1 & 2 & 4\\
-Trade discount & 0\% & 20\% & 92\% & 96\% \\
+  Days & 1 & 7 & 30 & 60 & 90\\
+  XP  & 3,000 & 10,000 & 50,000 & 100,000 & \\
+  XP/friend-day & 3,000 & 1,857 & 2,100 & 1,811 & \\
+  Damage bonus & 3\% & 5\% & 7\% & 10\% & \\
+  Ball bonus & 0 & 1 & 2 & 4 & \\
+  Trade discount & 0\% & 20\% & 92\% & 96\% & \\
 \end{tabular}
   \caption{Friendship levels and resulting bonuses\label{table:friendlevels}}
 \end{table}
@@ -76,9 +76,10 @@ While party play is active, the other Trainers (and their Buddy Pokémon, if any
   will be visible on one another's Maps.
 When raiding in a party, a Party Power gauge fills, charged by each fast attack used.
 When engaged, Party Power doubles the damage of charged attacks.
+% FIXME weekly goals
 
 \section{Trading\label{sec:trades}}
-Trainers who share both friendship and spatial proximity can trade Pokémon.
+Trainers who share both friendship and spatial proximity (or just Forever Friends status) can trade Pokémon.
 Trades always exchange a single Pokémon for one other.
 Trades reroll IVs (\autoref{sec:ivs}) with a floor based on friendship level (\autoref{table:ivfloors}),
   and reduce level if necessary for the receiving Trainer\footnote{As noted earlier, the level is
@@ -111,12 +112,12 @@ Traded Pokémon cannot be fainted, and must have full health.
 A few Pokémon can be evolved at no cost if they have been traded (\autoref{table:tradeevolution}).
 \begin{table}
 \centering
-\begin{tabular}{lrrrr}
-Type & Good & Great & Ultra & Best\\
+\begin{tabular}{lrrrrr}
+Type & Good & Great & Ultra & Best & Forever \\
 \Midrule
-Registered & 100 & 100 & 100 & 100\\
-Unregistered, reg.\ Special & 20,000 & 16,000 & 1,600 & 800\\
-Unregistered Special & 1,000,000 & 800,000 & 80,000 & 40,000\\
+Registered & 100 & 100 & 100 & 100 & \\
+Unregistered, reg.\ Special & 20,000 & 16,000 & 1,600 & 800 & \\
+Unregistered Special & 1,000,000 & 800,000 & 80,000 & 40,000 & \\
 \end{tabular}
 \caption{Trade costs in Stardust\label{table:tradecosts}}
 \end{table}
