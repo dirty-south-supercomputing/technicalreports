@@ -3994,8 +3994,11 @@ static const species sdex[] = {
 		{ &ATK_Scratch, &ATK_Confusion, &ATK_Psyshock, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the constraint
-  {  678, "Meowstic", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
+  {  678, "Meowstic (Male)", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Sucker_Punch, &ATK_Confusion, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Energy_Ball, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  678, "Meowstic (Female)", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
+		{ &ATK_Charm, &ATK_Confusion, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sword
   {  679, "Honedge", TYPE_STEEL, TYPE_GHOST, 135, 139, 128, nullptr,
@@ -4711,8 +4714,11 @@ static const species sdex[] = {
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 875 eiscue
   // the emotion
-  {  876, "Indeedee", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
+  {  876, "Indeedee (Male)", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
 		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  876, "Indeedee (Female)", TYPE_PSYCHIC, TYPE_NORMAL, 184, 184, 172, nullptr,
+		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Energy_Ball, &ATK_Psychic, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
