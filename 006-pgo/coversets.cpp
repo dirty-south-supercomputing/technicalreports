@@ -168,31 +168,30 @@ print_complete_coversets_duals(void){
 // print coverset of all typings including/excluding certain types. t is a
 // TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
-print_coversets_duals(const int *t, bool exclude){
-  static int ty[TYPINGCOUNT][2];
-  int pos = 0;
+print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][2]){
+  *pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       if(exclude){
         if(!t[i] && !t[j]){
-          ty[pos][0] = i;
-          ty[pos][1] = j;
-          ++pos;
+          ty[*pos][0] = i;
+          ty[*pos][1] = j;
+          ++*pos;
         }
       }else{
         if(t[i] || t[j]){
-          ty[pos][0] = i;
-          ty[pos][1] = j;
-          ++pos;
+          ty[*pos][0] = i;
+          ty[*pos][1] = j;
+          ++*pos;
         }
       }
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, pos, ty);
+    int min = print_coversets(j, *pos, ty);
     if(min){
       printf("%d dual coversets of size %d\n", min, j);
-      print_participants(pos, ty);
+      print_participants(*pos, ty);
       return 0;
     }else{
       printf("no dual coversets of size %d\n", j);
@@ -280,13 +279,13 @@ int main(int argc, char* const* argv){
   int go;
   while((go = getopt(argc, argv, ":x:t:")) > 0){
     switch(go){
-      case 'x':
+      case 'x': // exclude anything containing these types
         exclude = true;
         if(lex_typelist(optarg, kern)){
           usage(argv0); break;
         }
         break;
-      case 't':
+      case 't': // show population members that can use these types of charged attacks
         // FIXME
         break;
       case ':':
@@ -297,6 +296,7 @@ int main(int argc, char* const* argv){
         usage(argv0); break;
     }
   }
+  // if an argument remains, it ought be a typelist specifying required typings
   if(*(argv + optind)){
     if(*(argv + optind + 1)){
       std::cerr << "too many arguments" << std::endl;
@@ -311,6 +311,8 @@ int main(int argc, char* const* argv){
       usage(argv0);
     }
   }
-  print_coversets_duals(kern, exclude);
+  int pos;
+  static int ty[TYPINGCOUNT][2];
+  print_coversets_duals(kern, exclude, &pos, ty);
   return EXIT_SUCCESS;
 }
