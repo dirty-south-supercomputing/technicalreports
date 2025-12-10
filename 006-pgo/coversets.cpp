@@ -204,32 +204,111 @@ print_coversets_duals(const int *t, bool exclude){
 
 static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " [ [ -x ] poptype... ] [ -t charged ]..." << std::endl;
-  std::cerr << " -x: exclude these types" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ -t charged ] [ [ -x ] poptype[,poptype...] ]" << std::endl;
+  std::cerr << " poptype[,poptype...]: require one of these types" << std::endl;
+  std::cerr << " -x poptype[,poptype...]: exclude these types" << std::endl;
+  std::cerr << " -t charged: require a charged attack of this type" << std::endl;
   exit(EXIT_FAILURE);
 }
 
-int main(int argc, const char **argv){
+static int
+lex_type(const char* tstr, int tlist[TYPECOUNT]){
+  pgo_types_e t = lookup_type(tstr);
+  if(t == TYPECOUNT){
+    std::cerr << "couldn't look up type for " << tstr << std::endl;
+    return -1;
+  }
+  if(tlist[t]){
+    std::cerr << "already provided type " << tstr << std::endl;
+    return -1;
+  }
+  tlist[t] = 1;
+  return 0;
+}
+
+// lex a comma-delimited listed of types. it is an error to be empty, or to
+// repeat a type, or to specify an invalid type. case is ignored.
+static int
+lex_typelist(const char* arg, int tlist[TYPECOUNT]){
+  for(unsigned z = 0 ; z < TYPECOUNT ; ++z){
+    tlist[z] = 0;
+  }
+  const char* start = arg;
+  unsigned tcount = 0;
+  char curtype[20]; // enough to hold all type names (and then some)
+  unsigned curl = 0; // length in curtype
+  while(*arg){
+    if(isalpha(*arg)){
+      if(curl >= sizeof(curtype) / sizeof(*curtype)){
+        std::cerr << "invalid type: " << start << std::endl;
+        return -1;
+      }
+      curtype[curl++] = tolower(*arg);
+    }else if(*arg == ','){
+      curtype[curl] = '\0';
+      if(lex_type(curtype, tlist)){
+        return -1;
+      }
+      ++tcount;
+      curl = 0;
+    }else{
+      std::cerr << "invalid type: " << start << std::endl;
+      return -1;
+    }
+    ++arg;
+  }
+  if(curl){
+    curtype[curl] = '\0';
+    if(lex_type(curtype, tlist)){
+      return -1;
+    }
+  }else if(tcount == 0){
+    std::cerr << "empty typelist: " << start << std::endl;
+    return -1;
+  }
+  return 0;
+}
+
+int main(int argc, char* const* argv){
   if(argc < 2){
     print_complete_coversets();
     print_complete_coversets_duals();
   }
   int kern[TYPECOUNT] = {};
+  const char* argv0 = argv[0];
   bool exclude = false;
-  for(const char **a = argv + 1 ; *a ; ++a){
-    if(strcmp(*a, "-x") == 0){
-      exclude = true;
-    }else{
-      pgo_types_e t = lookup_type(*a);
-      if(t == TYPECOUNT){
-        std::cerr << "couldn't look up type for " << *a << std::endl;
-        usage(argv[0]);
-      }
-      if(kern[t]){
-        std::cerr << "already provided type " << *a << std::endl;
-        usage(argv[0]);
-      }
-      kern[t] = 1;
+  int go;
+  while((go = getopt(argc, argv, ":x:t:")) > 0){
+    switch(go){
+      case 'x':
+        exclude = true;
+        if(lex_typelist(optarg, kern)){
+          usage(argv0); break;
+        }
+        break;
+      case 't':
+        // FIXME
+        break;
+      case ':':
+        std::cerr << "option requires argument: " << std::endl;
+        usage(argv0); break;
+      case '?':
+        std::cerr << "unknown argument: " << std::endl;
+        usage(argv0); break;
+    }
+  }
+  if(*(argv + optind)){
+    if(*(argv + optind + 1)){
+      std::cerr << "too many arguments" << std::endl;
+      usage(argv0);
+    }
+    if(exclude){
+      // FIXME
+      std::cerr << "exclude not yet supported from typelist" << std::endl;
+      usage(argv0);
+    }
+    if(lex_typelist(*(argv + 1), kern)){
+      usage(argv0);
     }
   }
   print_coversets_duals(kern, exclude);
