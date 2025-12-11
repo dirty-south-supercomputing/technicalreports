@@ -4908,8 +4908,12 @@ static const species sdex[] = {
   {  939, "Bellibolt", TYPE_ELECTRIC, TYPECOUNT, 184, 165, 240, "Tadbulb",
 		{ &ATK_Sucker_Punch, &ATK_Thunder_Shock, &ATK_Water_Gun, &ATK_Discharge, &ATK_Parabolic_Charge, &ATK_Zap_Cannon, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 940 wattrel
-  // 941 kilowattrel
+  {  940, "Wattrel", TYPE_ELECTRIC, TYPE_FLYING, 105, 75, 120, nullptr,
+		{ &ATK_Thunder_Shock, &ATK_Peck, &ATK_Aerial_Ace, &ATK_Thunderbolt, &ATK_Acrobatics, },
+		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  941, "Kilowattrel", TYPE_ELECTRIC, TYPE_FLYING, 221, 132, 172, "Wattrel",
+		{ &ATK_Thunder_Shock, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Thunderbolt, &ATK_Acrobatics, },
+		false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 942 maschiff
   // 943 mabosstiff
   // the Toxic Mouse
