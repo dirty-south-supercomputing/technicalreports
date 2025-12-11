@@ -16,7 +16,19 @@ static int cmpatk(const void* va1, const void* va2){
     : 0;
 }
 
-void print_latex_table(const attack* as, unsigned ccount){
+static int cmpatkraid(const void* va1, const void* va2){
+  auto a1 = static_cast<const attack*>(va1);
+  auto a2 = static_cast<const attack*>(va2);
+  return a1->animdur < a2->animdur ? -1
+    : a1->animdur > a2->animdur ? 1
+    : a1->powerraid < a2->powerraid ? -1
+    : a1->powerraid > a2->powerraid ? 1
+    : a1->energyraid < a2->energyraid ? -1
+    : a1->energyraid > a2->energyraid ? 1
+    : 0;
+}
+
+void print_latex_table(const attack* as, unsigned ccount, bool raidvalues){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrrrrr}\n");
@@ -41,13 +53,33 @@ void print_latex_table(const attack* as, unsigned ccount){
            ppt, (a->powertrain * 6.0) / (a->turns * 5.0),
            pop, popstab);
   }
-  printf("\\caption[Fast attacks, \\PPT{}, and \\EPT{} (3x3 stats)]{Fast attacks, \\PPT{}, and \\EPT{} (3x3 stats. Attacks with \\EPT{}·\\PPT{} ≥ 9 are highlighted in green)\\label{table:fastattacks}}\n");
+  const char* typestr = raidvalues ? "Mx1" : "3x3";
+  printf("\\caption[Fast attacks, \\PPT{}, and \\EPT{} (%s stats)]", typestr);
+  printf("{Fast attacks, \\PPT{}, and \\EPT{} (%s stats. Attacks with \\EPT{}·\\PPT{} ≥ 9 are highlighted in green)\\label{table:fastattacks%s}}\n", typestr, typestr);
   printf("\\end{longtable}\n");
   printf("\\end{center}\n");
 }
 
+static void
+usage(const char* argv0){
+  std::cerr << "usage: " << argv0 << " [ -r ]" << std::endl;
+  std::cerr << " -r: use raid values, not trainer battles" << std::endl;
+  exit(EXIT_FAILURE);
+}
+
 // emit table of fast attacks by duration x energy x power
-int main(void){
+int main(int argc, const char** argv){
+  bool raidvalues = false; // use Mx1 rather than 3x3 values
+  if(argc != 1){
+    if(argc != 2){
+      usage(argv[0]);
+    }
+    if(strcmp(argv[1], "-r")){
+      std::cerr << "invalid argument: " << argv[1] << std::endl;
+      usage(argv[0]);
+    }
+    raidvalues = true;
+  }
   const size_t acount = sizeof(attacks) / sizeof(*attacks);
   auto fast = std::make_unique<attack[]>(acount);
   unsigned fcount = 0;
@@ -58,7 +90,11 @@ int main(void){
       ++fcount;
     }
   }
-  qsort(fast.get(), fcount, sizeof(*fast.get()), cmpatk);
-  print_latex_table(fast.get(), fcount);
+  if(raidvalues){
+    qsort(fast.get(), fcount, sizeof(*fast.get()), cmpatkraid);
+  }else{
+    qsort(fast.get(), fcount, sizeof(*fast.get()), cmpatk);
+  }
+  print_latex_table(fast.get(), fcount, raidvalues);
   return EXIT_SUCCESS;
 }
