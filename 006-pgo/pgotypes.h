@@ -2089,48 +2089,62 @@ static const species sdex[] = {
   {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef",
 		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Magical_Leaf, &ATK_Earthquake, &ATK_Petal_Blizzard, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
 		true, true, false, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the fire mouse
   {  155, "Cyndaquil", TYPE_FIRE, TYPECOUNT, 116, 93, 118, nullptr,
 		{ &ATK_Ember, &ATK_Tackle, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Swift, },
 		true, true, false, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the volcano
   {  156, "Quilava", TYPE_FIRE, TYPECOUNT, 158, 126, 151, "Cyndaquil",
 		{ &ATK_Ember, &ATK_Tackle, &ATK_Flamethrower, &ATK_Dig, &ATK_Flame_Charge, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the volcano
   {  157, "Typhlosion", TYPE_FIRE, TYPECOUNT, 223, 173, 186, "Quilava",
 		{ &ATK_Ember, &ATK_Shadow_Claw, &ATK_Incinerate, &ATK_Thunder_Punch, &ATK_Fire_Blast, &ATK_Solar_Beam, &ATK_Overheat, &ATK_Blast_Burn, },
 		true, true, false, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  157, "Hisuian Typhlosion", TYPE_FIRE, TYPE_GHOST, 238, 172, 177, nullptr,
 		{ &ATK_Ember, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Fire_Punch, &ATK_Wild_Charge, &ATK_Night_Shade, &ATK_Overheat, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the big jaw
   {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, nullptr,
 		{ &ATK_Scratch, &ATK_Water_Gun, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the big jaw
   {  159, "Croconaw", TYPE_WATER, TYPECOUNT, 150, 142, 163, "Totodile",
 		{ &ATK_Scratch, &ATK_Water_Gun, &ATK_Ice_Punch, &ATK_Water_Pulse, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the big jaw
   {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw",
 		{ &ATK_Bite, &ATK_Shadow_Claw, &ATK_Water_Gun, &ATK_Waterfall, &ATK_Ice_Fang, &ATK_Ice_Beam, &ATK_Hydro_Pump, &ATK_Crunch, &ATK_Hydro_Cannon, },
 		true, true, false, { &ATK_Water_Gun, &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the scout
   {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Scratch, &ATK_Dig, &ATK_Brick_Break, &ATK_Grass_Knot, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the long body
   {  162, "Furret", TYPE_NORMAL, TYPECOUNT, 148, 125, 198, "Sentret",
 		{ &ATK_Sucker_Punch, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Dig, &ATK_Brick_Break, &ATK_Swift, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the owl
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, nullptr,
 		{ &ATK_Peck, &ATK_Feint_Attack, &ATK_Aerial_Ace, &ATK_Sky_Attack, &ATK_Night_Shade, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the owl
   {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot",
 		{ &ATK_Wing_Attack, &ATK_Extrasensory, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Sky_Attack, &ATK_Night_Shade, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the five star
   {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Aerial_Ace, &ATK_Swift, &ATK_Silver_Wind, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the five star
   {  166, "Ledian", TYPE_BUG, TYPE_FLYING, 107, 179, 146, "Ledyba",
 		{ &ATK_Bug_Bite, &ATK_Counter, &ATK_Struggle_Bug, &ATK_Aerial_Ace, &ATK_Bug_Buzz, &ATK_Dynamic_Punch, &ATK_Silver_Wind, },
 		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the string spit
   {  167, "Spinarak", TYPE_BUG, TYPE_POISON, 105, 73, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Night_Slash, &ATK_Cross_Poison, &ATK_Signal_Beam, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the long leg
   {  168, "Ariados", TYPE_BUG, TYPE_POISON, 161, 124, 172, "Spinarak",
 		{ &ATK_Poison_Sting, &ATK_Infestation, &ATK_Megahorn, &ATK_Shadow_Sneak, &ATK_Cross_Poison, &ATK_Lunge, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
