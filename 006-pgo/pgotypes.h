@@ -6493,18 +6493,26 @@ lex_ivlevel(const char* ivl, stats* s, bool shadow){
     s->hlevel = MAX_HALFLEVEL;
   }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
     ivl = strchr(ivl, '@');
-    if(!ivl || !isdigit(*++ivl)){
+    if(!ivl || !isalnum(*++ivl)){
       fprintf(stderr, "error lexing L from %s\n", ivl);
       return -1;
     }
-    char *endptr;
-    s->hlevel = strtoul(ivl, &endptr, 10);
-    while(*endptr){
-      if(!isspace(*endptr)){
-        fprintf(stderr, "invalid characters after level %s\n", endptr);
-        return -1;
+    if(strcmp(ivl, "gl") == 0){
+      int cp;
+      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, 1500, &cp);
+    }else if(strcmp(ivl, "ul") == 0){
+      int cp;
+      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, 2500, &cp);
+    }else{
+      char *endptr;
+      s->hlevel = strtoul(ivl, &endptr, 10);
+      while(*endptr){
+        if(!isspace(*endptr)){
+          fprintf(stderr, "invalid characters after level %s\n", endptr);
+          return -1;
+        }
+        ++endptr;
       }
-      ++endptr;
     }
   }else{
     fprintf(stderr, "error lexing A-D-S from %s (got %d)\n", ivl, r);
