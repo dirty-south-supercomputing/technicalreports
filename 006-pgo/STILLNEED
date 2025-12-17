@@ -2,12 +2,7 @@ matrix of items, where to find them, cost in store, whether they count against b
 
 mention healing in lobby + raid boss healing
 
-level up table omits Raid Pass / Premium Battle Pass
-
 mighty pokemon, wild balls
-
-inornate forme thunderas goes to two lines in species card
- (override like Crowned Zamazenta!)
 
 doesn't seem we generate 0-0-0 ivs in optimal detection
 
@@ -29,9 +24,10 @@ hyperlinks wherever appropriate, especially attack lists
 
 evolution Candy requirements (no mention of 12 Candy eg)
 
-wrong table references
+wrong table references (wrong section refs in appendix a)
 
 candy awards from daily adventure egg
+
 * For a given Cup, what is the population?
  * More generally, for a given typing filter, what is the population?
 * Who can throw the specified type or pair of types?

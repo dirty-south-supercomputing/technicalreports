@@ -142,7 +142,7 @@ static void level_item_table(int llevel, int hlevel){
   std::cout << "\\centering";
   std::cout << "\\setlength{\\tabcolsep}{2pt}";
   std::cout << "\\footnotesize";
-  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g c g}";
+  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g c g c g}";
   std::cout << "&\
 \\includegraphics[width=1em]{images/pokeball.png}&\
 \\includegraphics[width=1em]{images/greatball.png}&\
@@ -161,9 +161,7 @@ static void level_item_table(int llevel, int hlevel){
 \\includegraphics[width=1em]{images/luckyegg.png}&\
 \\includegraphics[width=1em]{images/starpiece.png}&\
 \\includegraphics[width=1em]{images/incubatorlimited.png}&\
-\\includegraphics[width=1em]{images/incubatorsuper.png}&\
-\\includegraphics[width=1em]{images/rarecandyxl.png}&\
-\\includegraphics[width=1em]{images/premiumbattlepass.png}";
+\\includegraphics[width=1em]{images/incubatorsuper.png}";
   std::cout << "\\\\";
   for(int x = llevel ; x <= hlevel ; ++x){
     const TrainerLevel &l = levels[x];
@@ -185,10 +183,8 @@ static void level_item_table(int llevel, int hlevel){
     emitv(l.luckyegg);
     emitv(l.starpiece);
     emitv(l.incubator);
-    emitv(l.superincubator);
-    emitv(l.rarexl);
-    if(l.prempass){
-      std::cout << l.prempass;
+    if(l.superincubator){
+      std::cout << l.superincubator;
     }
     std::cout << "\\\\" << std::endl;
   }
@@ -221,7 +217,7 @@ level_upgrade_table(void){
   std::cout << "\\centering";
   std::cout << "\\setlength{\\tabcolsep}{2pt}";
   std::cout << "\\footnotesize";
-  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g}";
+  std::cout << "\\begin{tabular}{r|g c g c g c g c g c g c g c g}";
   std::cout << "&\
 \\includegraphics[width=1em]{images/bagupgrade.png}&\
 \\includegraphics[width=1em]{images/pokemonupgrade.png}&\
@@ -234,7 +230,9 @@ level_upgrade_table(void){
 \\includegraphics[width=1em]{images/mushroom.png}&\
 \\includegraphics[width=1em]{images/fasttm.png}&\
 \\includegraphics[width=1em]{images/elitefasttm.png}&\
-\\includegraphics[width=1em]{images/elitechargedtm.png}";
+\\includegraphics[width=1em]{images/elitechargedtm.png}&\
+\\includegraphics[width=1em]{images/rarecandyxl.png}&\
+\\includegraphics[width=1em]{images/premiumbattlepass.png}";
   std::cout << "\\\\" << std::endl;
   for(int x = 2 ; x <= MAXLEVEL ; ++x){
     const TrainerLevel &l = levels[x];
@@ -253,8 +251,10 @@ level_upgrade_table(void){
     emitv(l.maxmushroom);
     emitv(l.fasttm);
     emitv(l.elitefasttm);
-    if(l.elitechargedtm){
-      std::cout << l.elitechargedtm;
+    emitv(l.elitechargedtm);
+    emitv(l.rarexl);
+    if(l.prempass){
+      std::cout << l.prempass;
     }
     std::cout << "\\\\" << std::endl;
   }

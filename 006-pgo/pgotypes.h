@@ -4450,7 +4450,7 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Astonish, &ATK_Metal_Sound, &ATK_Brutal_Swing, &ATK_Wrap, &ATK_Shadow_Ball, &ATK_Power_Whip, &ATK_Heavy_Slam, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  782, "Jangmo-o", TYPE_DRAGON, TYPECOUNT, 102, 108, 128, nullptr,
 		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, &ATK_Brick_Break, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4947,6 +4947,7 @@ static const species sdex[] = {
   {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, "Toedscool",
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the ambush
   {  950, "Klawf", TYPE_ROCK, TYPECOUNT, 184, 185, 172, nullptr,
     { &ATK_Rock_Throw, &ATK_Mud_Slap, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Bulldoze, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
