@@ -4462,7 +4462,7 @@ static const species sdex[] = {
   // the placid
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Extrasensory, &ATK_Dragon_Pulse, &ATK_Swift, &ATK_Outrage, &ATK_Fly, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sea creeper
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Astonish, &ATK_Metal_Sound, &ATK_Brutal_Swing, &ATK_Wrap, &ATK_Shadow_Ball, &ATK_Power_Whip, &ATK_Heavy_Slam, },
