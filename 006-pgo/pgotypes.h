@@ -697,7 +697,7 @@ static const attack ATK_Meteor_Beam = { "Meteor Beam", TYPE_ROCK, 120, -60, 0, 1
 static const attack ATK_Meteor_Mash = { "Meteor Mash", TYPE_STEEL, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 5, false, };
 // FIXME need real stats for signature move Mind Blown
-static const attack ATK_Mind_Blown = { "Mind Blown", TYPE_FIRE, 50, -50, 0, 0, 100, 0, 0, 0, -4, 0, 0,
+static const attack ATK_Mind_Blown = { "Mind Blown", TYPE_FIRE, 50, -50, 0, 0, 1000, 0, 0, 0, -4, 0, 0,
   90, 35, 8, false, };
 static const attack ATK_Mirror_Coat = { "Mirror Coat", TYPE_PSYCHIC, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
