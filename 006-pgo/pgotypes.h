@@ -696,6 +696,9 @@ static const attack ATK_Meteor_Beam = { "Meteor Beam", TYPE_ROCK, 120, -60, 0, 1
 	140, 100, 4, false, };
 static const attack ATK_Meteor_Mash = { "Meteor Mash", TYPE_STEEL, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 5, false, };
+// FIXME need real stats for signature move Mind Blown
+static const attack ATK_Mind_Blown = { "Mind Blown", TYPE_FIRE, 50, -50, 0, 0, 100, 0, 0, 0, -4, 0, 0,
+  90, 35, 8, false, };
 static const attack ATK_Mirror_Coat = { "Mirror Coat", TYPE_PSYCHIC, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
 static const attack ATK_Mirror_Shot = { "Mirror Shot", TYPE_STEEL, 35, -35, 0, 0, 0, 300, 0, 0, 0, -1, 0,
@@ -1103,6 +1106,7 @@ static const attack* const attacks[] = {
   &ATK_Megahorn,
   &ATK_Meteor_Beam,
   &ATK_Meteor_Mash,
+  &ATK_Mind_Blown,
   &ATK_Mirror_Coat,
   &ATK_Mirror_Shot,
   &ATK_Mist_Ball,
@@ -4560,8 +4564,8 @@ static const species sdex[] = {
 		{ &ATK_Rock_Throw, &ATK_Take_Down, &ATK_Stone_Edge, &ATK_Flash_Cannon, &ATK_Bulldoze, },
 		true, false, false, { }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
-		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, },
-		true, false, false, { }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, &ATK_Mind_Blown, },
+		true, false, false, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   /*{  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
 		{ },
 		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
