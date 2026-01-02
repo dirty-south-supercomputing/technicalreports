@@ -201,3 +201,8 @@ Q: Is it generally more important to minimize \IV{A} or maximize \IV{D} and \IV{
 A: It is dependent on the base stats, but a higher \IV{A} can drive down all
    three effective stats (due to underleveling), while a lower \IV{D} or \IV{S}
    can only drive down their derived effective stat.
+
+Q: A higher arithmetic mean implies a higher geometric mean.
+A: False. The relationship is complex.
+E: Morpeko 1499 4-5-11: gm: 115.982 am: 117.869
+   Morpeko 1495 3-8-8: gm: 116.033 am: 117.69
