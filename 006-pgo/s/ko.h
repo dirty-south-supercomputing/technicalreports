@@ -1,6 +1,11 @@
 // handle the case where one and only one player was knocked out.
 static void handle_one_ko(simulstate *s, results *r, int player){
   bool replaced = false;
+  if(s->turns[other_player(player)]){ // end fast move and credit any energy
+    s->turns[other_player(player)] = 0;
+    accumulate_energy(&s->e[other_player(player)][s->active[other_player(player)]],
+      activemon(s, other_player(player))->fa->energytrain);
+  }
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[player][p]){
       simulstate snew = *s;
@@ -20,6 +25,7 @@ static void handle_dual_kos(simulstate *s, results *r){
   s->bufflevd[0] = s->buffleva[1] = 0;
   bool foundq = false;
   bool foundp = false;
+  s->turns[0] = s->turns[1] = 0;
   for(unsigned p = 0 ; p < TEAMSIZE ; ++p){
     if(s->hp[0][p]){
       foundp = true;
