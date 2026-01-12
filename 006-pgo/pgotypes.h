@@ -3880,10 +3880,10 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Glaciate, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Ice_Fang, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Fusion_Flare, &ATK_Ice_Burn, },
-		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { &ATK_Ice_Burn, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Stone_Edge, &ATK_Blizzard, &ATK_Iron_Head, &ATK_Outrage, &ATK_Fusion_Bolt, &ATK_Freeze_Shock, },
-		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { &ATK_Freeze_Shock, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the colt
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
