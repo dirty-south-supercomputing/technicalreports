@@ -5049,7 +5049,7 @@ static const species sdex[] = {
 		{ &ATK_Rock_Throw, &ATK_Smack_Down, &ATK_Power_Gem, &ATK_Dazzling_Gleam, &ATK_Sludge_Wave, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  970, "Glimmora", TYPE_ROCK, TYPE_POISON, 246, 177, 195, "Glimmet",
-		{ &ATK_Rock_Throw, &ATK_Smack_Down, &ATK_Power_Gem, &ATK_Dazzling_Gleam, &ATK_Sludge_Wave, },
+		{ &ATK_Rock_Throw, &ATK_Smack_Down, &ATK_Power_Gem, &ATK_Dazzling_Gleam, &ATK_Sludge_Wave, &ATK_Meteor_Beam, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, nullptr,
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
