@@ -3859,7 +3859,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Bleakwind_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  642, "Thundurus (Incarnate)", TYPE_ELECTRIC, TYPE_FLYING, 266, 164, 188, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Brick_Break, &ATK_Crunch, },
-		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  642, "Thundurus (Therian)", TYPE_ELECTRIC, TYPE_FLYING, 295, 161, 188, nullptr,
 		{ &ATK_Bite, &ATK_Volt_Switch, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Sludge_Wave, &ATK_Focus_Blast, &ATK_Wildbolt_Storm, },
 		true, false, false, { &ATK_Wildbolt_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
