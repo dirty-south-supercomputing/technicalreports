@@ -274,19 +274,32 @@ int main(int argc, char* const* argv){
     print_complete_coversets_duals();
   }
   int kern[TYPECOUNT] = {};
+  int reqchargedtype[TYPECOUNT] = {};
   const char* argv0 = argv[0];
   bool exclude = false;
+  bool reqcharged = false;
   int go;
   while((go = getopt(argc, argv, ":x:t:")) > 0){
     switch(go){
       case 'x': // exclude anything containing these types
-        exclude = true;
+        if(exclude){
+          std::cerr << "can't provide -x twice" << std::endl;
+          usage(argv0); break;
+        }
         if(lex_typelist(optarg, kern)){
           usage(argv0); break;
         }
+        exclude = true;
         break;
       case 't': // show population members that can use these types of charged attacks
-        // FIXME
+        if(reqcharged){
+          std::cerr << "can't provide -t twice" << std::endl;
+          usage(argv0); break;
+        }
+        if(lex_typelist(optarg, reqchargedtype)){
+          usage(argv0); break;
+        }
+        reqcharged = true;
         break;
       case ':':
         std::cerr << "option requires argument: " << std::endl;
