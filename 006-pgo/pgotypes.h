@@ -480,13 +480,13 @@ static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0
 static const attack ATK_Aqua_Jet = { "Aqua Jet", TYPE_WATER, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 5, false, };
 static const attack ATK_Aqua_Step = { "Aqua Step", TYPE_WATER, 55, -40, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
-	55, -40, 7, false, };
+	55, 33, 7, false, };
 static const attack ATK_Aqua_Tail = { "Aqua Tail", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 4, false, };
 static const attack ATK_Aura_Sphere = { "Aura Sphere", TYPE_FIGHTING, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 4, false, };
 static const attack ATK_Aura_Wheel = { "Aura Wheel", TYPE_ELECTRIC, 100, -45, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
-	100, 45, 5, false, };
+	100, 50, 5, false, };
 static const attack ATK_Aurora_Beam = { "Aurora Beam", TYPE_ICE, 80, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 7, false, };
 static const attack ATK_Avalanche = { "Avalanche", TYPE_ICE, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -575,6 +575,9 @@ static const attack ATK_Drill_Peck = { "Drill Peck", TYPE_FLYING, 70, -40, 0, 0,
 	70, 33, 5, false, };
 static const attack ATK_Drill_Run = { "Drill Run", TYPE_GROUND, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 6, false, };
+// FIXME verify
+static const attack ATK_Drum_Beating = { "Drum Beating", TYPE_GRASS, 60, -40, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+	115, 33, 8, false, };
 static const attack ATK_Dynamax_Cannon = { "Dynamax Cannon", TYPE_DRAGON, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	215, 100, 3, true, };
 static const attack ATK_Dynamic_Punch = { "Dynamic Punch", TYPE_FIGHTING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -696,9 +699,8 @@ static const attack ATK_Meteor_Beam = { "Meteor Beam", TYPE_ROCK, 120, -60, 0, 1
 	140, 100, 4, false, };
 static const attack ATK_Meteor_Mash = { "Meteor Mash", TYPE_STEEL, 100, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	100, 50, 5, false, };
-// FIXME need real stats for signature move Mind Blown
-static const attack ATK_Mind_Blown = { "Mind Blown", TYPE_FIRE, 50, -50, 0, 0, 1000, 0, 0, 0, -4, 0, 0,
-  90, 35, 8, false, };
+static const attack ATK_Mind_Blown = { "Mind Blown", TYPE_FIRE, 90, -35, 0, 0, 1000, 0, 0, 0, -4, 0, 0,
+  130, 33, 8, false, };
 static const attack ATK_Mirror_Coat = { "Mirror Coat", TYPE_PSYCHIC, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
 static const attack ATK_Mirror_Shot = { "Mirror Shot", TYPE_STEEL, 35, -35, 0, 0, 0, 300, 0, 0, 0, -1, 0,
@@ -716,7 +718,7 @@ static const attack ATK_Muddy_Water = { "Muddy Water", TYPE_WATER, 35, -35, 0, 0
 static const attack ATK_Mystical_Fire = { "Mystical Fire", TYPE_FIRE, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	60, 33, 4, false, };
 static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, -50, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
-	90, 55, 4, false, };
+	90, 50, 4, false, };
 static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
 static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 2, 0, 0, 0,
@@ -1046,6 +1048,7 @@ static const attack* const attacks[] = {
   &ATK_Draining_Kiss,
   &ATK_Drill_Peck,
   &ATK_Drill_Run,
+  &ATK_Drum_Beating,
   &ATK_Dynamic_Punch,
   &ATK_Dynamax_Cannon,
   &ATK_Earthquake,
@@ -4585,7 +4588,7 @@ static const species sdex[] = {
 		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the drummer
   {  812, "Rillaboom", TYPE_GRASS, TYPECOUNT, 239, 168, 225, "Thwackey",
-		{ &ATK_Razor_Leaf, &ATK_Scratch, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Earth_Power, &ATK_Frenzy_Plant, },
+		{ &ATK_Razor_Leaf, &ATK_Scratch, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Earth_Power, &ATK_Frenzy_Plant, &ATK_Drum_Beating, },
 		true, true, true, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, "Drum Solo", },
   // the rabbit
   {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, nullptr,
