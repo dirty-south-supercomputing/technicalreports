@@ -142,7 +142,8 @@ test_attack(const attack *a){
       throw std::exception();
     }
     // 1 bar is 33, 2 bars are 50, and 3 bars are 100
-    if(a->energyraid != 33 && a->energyraid != 50 && a->energyraid != 100){
+    // struggle is 0 for whatever reason, ugh
+    if(a->energyraid && a->energyraid != 33 && a->energyraid != 50 && a->energyraid != 100){
       std::cerr << a->name << " has invalid raid energy " << a->energyraid << std::endl;
       throw std::exception();
     }
