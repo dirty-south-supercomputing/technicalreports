@@ -5198,6 +5198,7 @@ static const mega megasdex[] = {
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, },
   {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, },
+  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, },
   {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, },
   {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, },
@@ -5240,6 +5241,7 @@ static const mega megasdex[] = {
   {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, },
   {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, },
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, },
+  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, },
   {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, },
 };
 
