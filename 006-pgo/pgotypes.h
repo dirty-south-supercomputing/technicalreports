@@ -1682,14 +1682,14 @@ static const species sdex[] = {
   // the Puppy
   {  58, "Growlithe", TYPE_FIRE, TYPECOUNT, 136, 93, 146, nullptr,
 		{ &ATK_Bite, &ATK_Ember, &ATK_Flame_Wheel, &ATK_Flamethrower, &ATK_Body_Slam, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  58, "Hisuian Growlithe", TYPE_FIRE, TYPE_ROCK, 142, 92, 155, nullptr,
 		{ &ATK_Bite, &ATK_Ember, &ATK_Flamethrower, &ATK_Rock_Slide, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Legendary
   {  59, "Arcanine", TYPE_FIRE, TYPECOUNT, 227, 166, 207, "Growlithe",
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Snarl, &ATK_Thunder_Fang, &ATK_Flamethrower, &ATK_Bulldoze, &ATK_Fire_Blast, &ATK_Wild_Charge, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Scorching_Sands, },
-		true, true, false, { &ATK_Bite, &ATK_Bulldoze, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Bite, &ATK_Bulldoze, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  59, "Hisuian Arcanine", TYPE_FIRE, TYPE_ROCK, 232, 165, 216, "Hisuian Growlithe",
 		{ &ATK_Fire_Fang, &ATK_Rock_Smash, &ATK_Snarl, &ATK_Flamethrower, &ATK_Rock_Slide, &ATK_Wild_Charge, &ATK_Crunch, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
