@@ -2450,7 +2450,7 @@ static const species sdex[] = {
   // the Rainbow
   {  250, "Ho-Oh", TYPE_FIRE, TYPE_FLYING, 239, 244, 214, nullptr,
 		{ &ATK_Steel_Wing, &ATK_Extrasensory, &ATK_Hidden_Power, &ATK_Incinerate, &ATK_Earthquake, &ATK_Fire_Blast, &ATK_Solar_Beam, &ATK_Brave_Bird, &ATK_Sacred_Fire, },
-		true, true, false, { &ATK_Earthquake, &ATK_Sacred_Fire, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Earthquake, &ATK_Sacred_Fire, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Time Travel
   {  251, "Celebi", TYPE_PSYCHIC, TYPE_GRASS, 210, 210, 225, nullptr,
 		{ &ATK_Charge_Beam, &ATK_Confusion, &ATK_Magical_Leaf, &ATK_Hyper_Beam, &ATK_Aura_Sphere, &ATK_Seed_Bomb, &ATK_Leaf_Storm, &ATK_Psychic, &ATK_Dazzling_Gleam, },
