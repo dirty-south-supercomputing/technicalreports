@@ -1587,12 +1587,12 @@ static const species sdex[] = {
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Fox
   {  38, "Ninetales", TYPE_FIRE, TYPECOUNT, 169, 190, 177, "Vulpix",
-		{ &ATK_Ember, &ATK_Feint_Attack, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Heat_Wave, &ATK_Psyshock, &ATK_Fire_Blast, &ATK_Solar_Beam, &ATK_Overheat, &ATK_Weather_Ball_Fire, &ATK_Scorching_Sands, },
-		true, true, false, { &ATK_Ember, &ATK_Fire_Blast, &ATK_Flamethrower, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Ember, &ATK_Feint_Attack, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Heat_Wave, &ATK_Psyshock, &ATK_Fire_Blast, &ATK_Solar_Beam, &ATK_Overheat, &ATK_Weather_Ball_Fire, &ATK_Scorching_Sands, &ATK_Energy_Ball, },
+		true, true, false, { &ATK_Ember, &ATK_Fire_Blast, &ATK_Flamethrower, &ATK_Energy_Ball, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Fox
   {  38, "Alolan Ninetales", TYPE_ICE, TYPE_FAIRY, 170, 193, 177, "Alolan Vulpix",
-		{ &ATK_Feint_Attack, &ATK_Powder_Snow, &ATK_Charm, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Weather_Ball_Ice, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Feint_Attack, &ATK_Powder_Snow, &ATK_Charm, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Weather_Ball_Ice, &ATK_Chilling_Water, },
+		true, true, false, { &ATK_Chilling_Water, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Balloon
   {  39, "Jigglypuff", TYPE_NORMAL, TYPE_FAIRY, 80, 41, 251, nullptr,
 		{ &ATK_Pound, &ATK_Feint_Attack, &ATK_Disarming_Voice, &ATK_Dazzling_Gleam, &ATK_Play_Rough, &ATK_Swift, &ATK_Body_Slam, &ATK_Gyro_Ball, },
