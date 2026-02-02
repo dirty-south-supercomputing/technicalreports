@@ -541,6 +541,8 @@ static const attack ATK_Cross_Poison = { "Cross Poison", TYPE_POISON, 50, -35, 0
 	40, 33, 3, false, };
 static const attack ATK_Crunch = { "Crunch", TYPE_DARK, 70, -45, 0, 0, 0, 0, 200, 0, 0, 0, -1,
 	65, 33, 6, false, };
+static const attack ATK_Crush_Grip = { "Crush Grip", TYPE_NORMAL, 110, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	210, 100, 4, false, };
 static const attack ATK_Darkest_Lariat = { "Darkest Lariat", TYPE_DARK, 120, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 4, false, };
 static const attack ATK_Dark_Pulse = { "Dark Pulse", TYPE_DARK, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1031,6 +1033,7 @@ static const attack* const attacks[] = {
   &ATK_Cross_Chop,
   &ATK_Cross_Poison,
   &ATK_Crunch,
+  &ATK_Crush_Grip,
   &ATK_Darkest_Lariat,
   &ATK_Dark_Pulse,
   &ATK_Dazzling_Gleam,
@@ -3253,8 +3256,8 @@ static const species sdex[] = {
 		{ &ATK_Bug_Bite, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Stone_Edge, &ATK_Iron_Head, &ATK_Fire_Blast, &ATK_Earth_Power, &ATK_Magma_Storm, },
 		true, true, false, { &ATK_Magma_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, nullptr,
-		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Thunder, &ATK_Focus_Blast, &ATK_Giga_Impact, },
-		true, true, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Thunder, &ATK_Focus_Blast, &ATK_Giga_Impact, &ATK_Crush_Grip, },
+		true, true, false, { &ATK_Crush_Grip, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  487, "Giratina (Altered)", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Shadow_Claw, &ATK_Ancient_Power, &ATK_Shadow_Sneak, &ATK_Dragon_Claw, &ATK_Shadow_Force, },
 		true, true, false, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
