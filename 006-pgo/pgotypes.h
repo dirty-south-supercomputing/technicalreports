@@ -4029,11 +4029,11 @@ static const species sdex[] = {
   {  680, "Doublade", TYPE_STEEL, TYPE_GHOST, 188, 206, 153, "Honedge",
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Shadow_Claw, &ATK_Iron_Head, &ATK_Gyro_Ball, &ATK_Sacred_Sword, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  /*{  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 291, 97, 155, nullptr,
+  /*{  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 272, 97, 155, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // the royal sword
-  {  681, "Aegislash", TYPE_STEEL, TYPE_GHOST, 97, 291, 155, "Doublade",
+  {  681, "Aegislash", TYPE_STEEL, TYPE_GHOST, 97, 272, 155, "Doublade",
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the perfume
