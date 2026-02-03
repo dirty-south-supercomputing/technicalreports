@@ -5064,7 +5064,7 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, &ATK_Play_Rough, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  973, "Flamigo", TYPE_FLYING, TYPE_FIGHTING, 227, 145, 193, nullptr,
-    { &ATK_Wing_Attack, &ATK_Double_Kick, &ATK_Aerial_Ace, &ATK_Close_Combat, &ATK_Brave_Bird, },
+    { &ATK_Wing_Attack, &ATK_Double_Kick, &ATK_Aerial_Ace, &ATK_Upper_Hand, &ATK_Brave_Bird, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  974, "Cetoddle", TYPE_ICE, TYPECOUNT, 119, 80, 239, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Tackle, &ATK_Powder_Snow, &ATK_Body_Slam, &ATK_Avalanche, &ATK_Heavy_Slam, },
