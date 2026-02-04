@@ -6147,6 +6147,16 @@ get_stage(const species *s){
   return get_stage(devol) + 1;
 }
 
+static bool
+name_in_list(const species *s, const char **l){
+  for(const char **n = l ; *n ; ++n){
+    if(strcmp(s->name.c_str(), *n) == 0){
+      return true;
+    }
+  }
+  return false;
+}
+
 static inline unsigned
 stardust_reward(const species *s){
   if(s->name == "Audino"){
@@ -6163,10 +6173,8 @@ stardust_reward(const species *s){
     "Garbodor",
     nullptr
   };
-  for(const char **n = sd950s ; *n ; ++n){
-    if(strcmp(s->name.c_str(), *n) == 0){
-      return 950;
-    }
+  if(name_in_list(s, sd950s)){
+    return 950;
   }
   static const char *sd750s[] = {
     "Alolan Meowth",
@@ -6175,10 +6183,8 @@ stardust_reward(const species *s){
     "Combee",
     "Trubbish",
   };
-  for(const char **n = sd750s ; *n ; ++n){
-    if(strcmp(s->name.c_str(), *n) == 0){
-      return 750;
-    }
+  if(name_in_list(s, sd750s)){
+    return 750;
   }
   static const char *sd700s[] = {
     "Parasect",
@@ -6187,10 +6193,14 @@ stardust_reward(const species *s){
     "Amoonguss",
     "Shiinotic",
   };
-  for(const char **n = sd700s ; *n ; ++n){
-    if(strcmp(s->name.c_str(), *n) == 0){
-      return 700;
-    }
+  if(name_in_list(s, sd700s)){
+    return 700;
+  }
+  static const char *sd600s[] = {
+    "Flamigo",
+  };
+  if(name_in_list(s, sd600s)){
+    return 600;
   }
   static const char *sd500s[] = {
     "Paras",
@@ -6200,10 +6210,8 @@ stardust_reward(const species *s){
     "Foongus",
     "Morelull",
   };
-  for(const char **n = sd500s ; *n ; ++n){
-    if(strcmp(s->name.c_str(), *n) == 0){
-      return 500;
-    }
+  if(name_in_list(s, sd500s)){
+    return 500;
   }
   auto stage = get_stage(s);
   if(stage == 3){
