@@ -26,27 +26,26 @@ Determine $M_\mathrm{C}$, the common multiplier due typing:
 $M_\mathrm{STAB}$ is the STAB bonus, equal to 1.2 when the attack's type matches any
   type of the attacker, and 1 otherwise.
 $T$ is the number calculated in \autoref{chap:types} using the attack type
- and the defender's type.
-I have included a $T$ of −4 in \autoref{table:typemult} for completeness,
- but remember that this is not currently realizable.
+ and the defender's type, and takes an integer value from $[−3, 2]$.
+It might be useful to recognize 1.6 as $\frac{8}{5}$ and 1.2 as $\frac{6}{5}$.
 
 \begin{table}
 \centering
 \begin{tabular}{c r r r r}
-$T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
+  $T$ & $1.6^{T}$ & Δ\% & w/ STAB & Δ\% \\
 \Midrule
-−4 & 0.1526 & −84.74 & 0.1831 & −81.69 \\
+%−4 & & 0.1526 & −84.74 & 0.1831 & −81.69 \\
 −3 & 0.2441 & −75.59 & 0.2930 & −70.7 \\
 −2 & 0.3906 & −60.94 & 0.4688 & −53.12 \\
-−1 & 0.625 & −37.5 & 0.75 & −25 \\
-0 & 1 & 0 & 1.2 & 20 \\
-1 & 1.6 & 60 & 1.92 & 92 \\
-2 & 2.56 & 156 & 3.072 & 207.2 \\
+−1 & 0.625  & −37.5  & 0.75 & −25 \\
+ 0 & 1      & 0      & 1.2 & 20 \\
+ 1 & 1.6    & 60     & 1.92 & 92 \\
+ 2 & 2.56   & 156    & 3.072 & 207.2 \\
 \end{tabular}
 \caption{Typing multipliers with and without STAB\label{table:typemult}}
 \end{table}
 
-Leaving out the hideous −4 case, we see that $M_\mathrm{C}$ ranges
+We see that $M_\mathrm{C}$ ranges
  from 0.2441 (a 75.59\% reduction in damage) to 3.072
  (a 207.2\% increase).
 Considered another way, for an effectiveness of −3 with no STAB bonus,
