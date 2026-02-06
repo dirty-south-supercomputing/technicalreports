@@ -4873,7 +4873,7 @@ static const species sdex[] = {
 		{ &ATK_Zen_Headbutt, &ATK_Astonish, &ATK_Fairy_Wind, &ATK_Dazzling_Gleam, &ATK_Grass_Knot, &ATK_Fly, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  905, "Enamorus (Therian)", TYPE_FAIRY, TYPE_FLYING, 250, 201, 179, nullptr,
-		{ &ATK_Zen_Headbutt, &ATK_Astonish, &ATK_Fairy_Wind, &ATK_Dazzling_Gleam, &ATK_Grass_Knot, &ATK_Fly, },
+		{ &ATK_Extrasensory, &ATK_Astonish, &ATK_Fairy_Wind, &ATK_Moonblast, &ATK_Earth_Power, &ATK_Fly, &ATK_Mystical_Fire, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  906, "Sprigatito", TYPE_GRASS, TYPECOUNT, 116, 99, 120, nullptr,
 		{ &ATK_Charm, &ATK_Leafage, &ATK_Play_Rough, &ATK_Grass_Knot, &ATK_Energy_Ball, },
