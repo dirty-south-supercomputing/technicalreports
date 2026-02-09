@@ -4331,13 +4331,13 @@ static const species sdex[] = {
 		{ &ATK_Tackle, &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Tomb, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the wolf
-  {  745, "Lycanroc Midday", TYPE_ROCK, TYPECOUNT, 231, 140, 181, "Rockruff",
+  {  745, "Lycanroc (Midday)", TYPE_ROCK, TYPECOUNT, 231, 140, 181, "Rockruff",
 		{ &ATK_Sucker_Punch, &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Drill_Run, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  745, "Lycanroc Midnight", TYPE_ROCK, TYPECOUNT, 218, 152, 198, "Rockruff",
+  {  745, "Lycanroc (Midnight)", TYPE_ROCK, TYPECOUNT, 218, 152, 198, "Rockruff",
 		{ &ATK_Rock_Throw, &ATK_Counter, &ATK_Stone_Edge, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff",
+  {  745, "Lycanroc (Dusk)", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff",
 		{ &ATK_Sucker_Punch, &ATK_Rock_Throw, &ATK_Counter, &ATK_Stone_Edge, &ATK_Iron_Head, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // not yet released
