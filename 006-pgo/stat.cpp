@@ -131,9 +131,17 @@ static void usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-static void header(void){
-  std::cout << "\\begin{longtable}{cllrrrlrrrrrrr}" << std::endl;
-  std::cout << "\\textbf{T} & \\textbf{Config} & \\textbf{Pokémon} & \\textbf{HP} & \\textbf{$\\textrm{Eff}\\textsubscript{D}$} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
+static void header(bool configcolumn){
+  std::cout << "\\begin{longtable}{c";
+  if(configcolumn){
+    std::cout << "l";
+  }
+  std::cout << "lrrrlrrrrrrr}" << std::endl;
+  std::cout << "\\textbf{T} & ";
+  if(configcolumn){
+    std::cout << "\\textbf{Config} & ";
+  }
+  std::cout << "\\textbf{Pokémon} & \\textbf{HP} & \\textbf{$\\textrm{Eff}\\textsubscript{D}$} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
   std::cout << "\\textbf{Power} & \\textbf{$\\textrm{Eff}\\textsubscript{A}$} & \\textbf{DI} & ";
   std::cout << "\\textbf{\\textit{e}} & ";
   std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
@@ -156,16 +164,19 @@ static void out_type(pgo_types_e t){
   }
 }
 
-static void emit_line(const timetofirst &t){
+static void emit_line(const timetofirst &t, bool configcolumn){
   out_type(t.s->t1);
   out_type(t.s->t2);
-  unsigned hl;
-  unsigned l = halflevel_to_level(t.hlevel, &hl);
-  std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << l;
-  if(hl){
-    std::cout << ".5";
+  if(configcolumn){
+    unsigned hl;
+    unsigned l = halflevel_to_level(t.hlevel, &hl);
+    std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << l;
+    if(hl){
+      std::cout << ".5";
+    }
+    std::cout << "}";
   }
-  std::cout << "}&";
+  std::cout << "&";
   emit_name(t.s->name);
   std::cout << " & ";
   std::cout << t.mhp << " & ";
@@ -210,14 +221,14 @@ int main(int argc, char **argv){
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
-  header();
+  header(!!bound);
   calctimetoall(smain, ttfs, bound);
   std::sort(ttfs.begin(), ttfs.end());
   std::cout.setf(std::ios::fixed, std::ios::floatfield);
   std::cout.precision(1);
   std::cout << std::noshowpoint;
   for(const auto &t : ttfs){
-    emit_line(t);
+    emit_line(t, !!bound);
   }
   footer();
   std::cout << "\\clearpage" << std::endl;
