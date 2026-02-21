@@ -6162,6 +6162,10 @@ name_in_list(const species *s, const char **l){
 
 static inline unsigned
 stardust_reward(const species *s){
+  // some legendaries are technically evolutions, but they ought be 100 across the board
+  if(s->category == CAT_LEGENDARY){
+    return 100;
+  }
   if(s->name == "Audino"){
     return 2100;
   }else if(s->name == "Cloyster"){
