@@ -5211,6 +5211,7 @@ static const mega megasdex[] = {
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, },
+  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, },
   /*{  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, },
   {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, },*/
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, },
