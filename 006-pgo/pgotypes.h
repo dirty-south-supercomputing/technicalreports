@@ -19,7 +19,11 @@ constexpr int MAXIVELEM = 15;
 constexpr unsigned MINCP = 10; // minimum combat power
 constexpr int MAXCHARGEDBUFF = 4;
 constexpr unsigned ENERGY_MAX = 100;
-constexpr unsigned MAX_HALFLEVEL = 99;
+// one can reach the 99th halflevel (50) through powering up.
+// past that, one can get two temporary levels through active
+// best buddy status, and two temporary levels by mega level 4.
+constexpr unsigned MAX_HALFLEVEL_BASIC = 99;
+constexpr unsigned MAX_HALFLEVEL = MAX_HALFLEVEL_BASIC + 4;
 static constexpr auto GLCPCAP = 1500;
 static constexpr auto ULCPCAP = 2500;
 static constexpr auto MAXLEVEL = 80;
@@ -223,12 +227,15 @@ static float cpm(int halflevel){
     0.8053, 0.8078, 0.8103, 0.8128,
     0.8153, 0.8178, 0.8203, 0.8228,
     0.8253, 0.8278, 0.8303, 0.8328,
-    0.8353, 0.8378, 0.8403, 0.8428,
-    0.8453,
-    // levels "50.5/51" are 49.5/50 for *active buddy* with the Best Buddy bonus
-    0.8478, 0.8503
+    0.8353, 0.8378, 0.8403,
+    0.8428, // 50.5
+    0.8453, // 51
+    0.8478, // 51.5
+    0.8503, // 52
   };
-  if(halflevel <= 0 || (unsigned)halflevel > sizeof(cpms) / sizeof(*cpms)){
+  if(halflevel <= 0
+      || static_cast<unsigned>(halflevel) > sizeof(cpms) / sizeof(*cpms)
+      || static_cast<unsigned>(halflevel) > MAX_HALFLEVEL){
     throw std::invalid_argument("invalid halflevel");
   }
   return cpms[halflevel - 1];
