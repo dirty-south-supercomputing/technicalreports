@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
 #include <cstdint>
 #include <iostream>
 
@@ -5175,6 +5176,7 @@ struct mega {
   unsigned atk;
   unsigned def;
   unsigned sta;
+  unsigned initialcost;
 
   mega() {
   }
@@ -5184,72 +5186,74 @@ struct mega {
   }
 
   mega(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
-          unsigned A, unsigned D, unsigned S)
+          unsigned A, unsigned D, unsigned S,
+          unsigned Initialcost)
     : idx(i),
     name(n),
     t1(T1),
     t2(T2),
     atk(A),
     def(D),
-    sta(S)
+    sta(S),
+    initialcost(Initialcost)
   { }
 };
 
 // mega and primal forms are never shadows
 static const mega megasdex[] = {
-  {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, },
-  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, },
-  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, },
-  {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, },
-  {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, },
-  {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, },
-  {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, },
-  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, },
-  {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, },
-  {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, },
-  {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, },
-  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, },
-  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, },
-  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, },
-  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, },
+  {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, 200, },
+  {  6, "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, 200, },
+  {  6, "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, 200, },
+  {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, 200, },
+  {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, 100, },
+  {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, 100, },
+  {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, 200, },
+  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, },
+  {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, },
+  {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, 200, },
+  {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, 200, },
+  {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, 200, },
+  {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, },
+  {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, 200, },
+  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, },
   /*{  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, },
   {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, },*/
-  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, },
-  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, },
-  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, },
-  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, },
-  {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, },
-  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, },
-  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, },
-  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, },
-  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, },
-  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, },
-  {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, },
-  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, },
-  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, },
-  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, },
-  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, },
-  {  319, "Mega Sharpedo", TYPE_WATER, TYPE_DARK, 289, 144, 172, },
-  {  323, "Mega Camerupt", TYPE_FIRE, TYPE_GROUND, 253, 183, 172, },
-  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, },
-  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, },
-  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, },
-  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, },
-  {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, },
-  {  376, "Mega Metagross", TYPE_STEEL, TYPE_PSYCHIC, 300, 289, 190, },
-  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, },
-  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, },
-  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, },
-  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, },
-  {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, },
-  {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, },
-  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, },
-  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, },
-  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, },
-  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, },
-  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, },
-  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, },
-  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, },
+  {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, 200, },
+  {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, },
+  {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, },
+  {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, 200, },
+  {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, },
+  {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, 300, },
+  {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, 200, },
+  {  257, "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, 200, },
+  {  260, "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, 200, },
+  {  282, "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, 200, },
+  {  302, "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, 100, },
+  {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, 200, },
+  {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, 200, },
+  {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, 100, },
+  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, 100, },
+  {  319, "Mega Sharpedo", TYPE_WATER, TYPE_DARK, 289, 144, 172, 200, },
+  {  323, "Mega Camerupt", TYPE_FIRE, TYPE_GROUND, 253, 183, 172, 200, },
+  {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, 300, },
+  {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, 100, },
+  {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, 200, },
+  {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, 200, },
+  {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, 300, },
+  {  376, "Mega Metagross", TYPE_STEEL, TYPE_PSYCHIC, 300, 289, 190, 300,},
+  {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, 300, },
+  {  381, "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, 300, },
+  {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, 400, },
+  {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, 400, },
+  {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, 400, },
+  {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, 200, },
+  {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, 300, },
+  {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, 200, },
+  {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, 200, },
+  {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, 200, },
+  {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, },
+  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, },
+  {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
@@ -5672,15 +5676,11 @@ lookup_species(unsigned idx){
   return NULL;
 }
 
-// FIXME there can be more than one mega form! (e.g. charizard x and y)
 static inline const mega*
 lookup_mega(const char* name){
-  const species *s = lookup_species(name);
-  if(s){
-    for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-      if(megasdex[i].idx == s->idx){
-        return &megasdex[i];
-      }
+  for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
+    if(megasdex[i].name == name){
+      return &megasdex[i];
     }
   }
   return NULL;
@@ -6332,12 +6332,21 @@ print_evolution_table(const species* s){
   }
 }
 
+// does the species s specify a mega form (according to its name)?
+static inline bool
+ismega_p(const species* s){
+#define MEGASTR "Mega "
+  return !s->name.compare(0, strlen(MEGASTR), MEGASTR);
+#undef MEGASTR
+}
+
 static void
 print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
-  // these are fragile inferences, yuck
   bool gmax = !overzoom && s->gmax;
-  bool ismega = overzoom && !mainform; // maybe do name check?
+  const mega* meg = lookup_mega(s->name.c_str());
+  // just because we *have* a mega doesn't mean we *are* a mega
+  bool ismega = ismega_p(s);
   printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
   if(gmax){
     printf("Gigantamax ");
@@ -6360,11 +6369,9 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
-  //if(overzoom){
-    printf(",interior style={fill overzoom image=images/highres/g-");
-    escape_filename(s->name.c_str());
-    printf(",fill image opacity=0.2}");
-  //}
+  printf(",interior style={fill overzoom image=images/highres/g-");
+  escape_filename(s->name.c_str());
+  printf(",fill image opacity=0.2}");
   printf("]{\\footnotesize");
 
   if(bg){
@@ -6474,6 +6481,8 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
       printf("\\hfill");
       print_type(s->t1);
       printf(" G-Max %s", s->gmax);
+    }else if(ismega){
+      printf("\\hfill{}Initial cost: %u\n", meg->initialcost);
     }
   }
 
