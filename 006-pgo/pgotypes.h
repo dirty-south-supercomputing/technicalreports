@@ -325,7 +325,7 @@ static const attack ATK_Bubble = { "Bubble", TYPE_WATER, 8, 11, 3, 0, 0, 0, 0, 0
 	10, 12, 2, false, };
 static const attack ATK_Bug_Bite = { "Bug Bite", TYPE_BUG, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	5, 6, 1, false, };
-static const attack ATK_Bullet_Punch = { "Bullet Punch", TYPE_STEEL, 8, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Bullet_Punch = { "Bullet Punch", TYPE_STEEL, 7, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 11, 2, false, };
 static const attack ATK_Bullet_Seed = { "Bullet Seed", TYPE_GRASS, 5, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 13, 2, false, };
@@ -397,9 +397,10 @@ static const attack ATK_Metal_Claw = { "Metal Claw", TYPE_STEEL, 5, 7, 2, 0, 0, 
 	6, 5, 1, false, };
 static const attack ATK_Metal_Sound = { "Metal Sound", TYPE_STEEL, 5, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
-static const attack ATK_Mud_Shot = { "Mud Shot", TYPE_GROUND, 4, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+// FIXME "energy generation increased"
+static const attack ATK_Mud_Shot = { "Mud Shot", TYPE_GROUND, 3, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
-static const attack ATK_Mud_Slap = { "Mud-Slap", TYPE_GROUND, 12, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Mud_Slap = { "Mud-Slap", TYPE_GROUND, 11, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	19, 13, 3, false, };
 static const attack ATK_Peck = { "Peck", TYPE_FLYING, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 10, 2, false, };
@@ -413,7 +414,7 @@ static const attack ATK_Powder_Snow = { "Powder Snow", TYPE_ICE, 6, 8, 2, 0, 0, 
 	6, 15, 2, false, };
 static const attack ATK_Present = { "Present", TYPE_NORMAL, 3, 12, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 23, 3, false, };
-static const attack ATK_Psycho_Cut = { "Psycho Cut", TYPE_PSYCHIC, 3, 9, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Psycho_Cut = { "Psycho Cut", TYPE_PSYCHIC, 4, 9, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 7, 1, false, };
 static const attack ATK_Psywave = { "Psywave", TYPE_PSYCHIC, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 7, 1, false, };
@@ -433,7 +434,7 @@ static const attack ATK_Scratch = { "Scratch", TYPE_NORMAL, 4, 2, 1, 0, 0, 0, 0,
 	6, 4, 1, false, };
 static const attack ATK_Shadow_Claw = { "Shadow Claw", TYPE_GHOST, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
-static const attack ATK_Smack_Down = { "Smack Down", TYPE_ROCK, 12, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Smack_Down = { "Smack Down", TYPE_ROCK, 11, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	13, 7, 2, false, };
 static const attack ATK_Snarl = { "Snarl", TYPE_DARK, 5, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 13, 2, false, };
@@ -463,10 +464,12 @@ static const attack ATK_Volt_Switch = { "Volt Switch", TYPE_ELECTRIC, 14, 16, 4,
 	13, 20, 3, false, };
 static const attack ATK_Water_Gun = { "Water Gun", TYPE_WATER, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	5, 5, 1, false, };
-static const attack ATK_Waterfall = { "Waterfall", TYPE_WATER, 12, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+// FIXME "energy generation increased"
+static const attack ATK_Waterfall = { "Waterfall", TYPE_WATER, 11, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	13, 7, 2, false, };
 static const attack ATK_Water_Shuriken = { "Water Shuriken", TYPE_WATER, 6, 14, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	9, 14, 2, false, };
+// FIXME "energy generation increased"
 static const attack ATK_Wing_Attack = { "Wing Attack", TYPE_FLYING, 5, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 11, 2, false, };
 static const attack ATK_Yawn = { "Yawn", TYPE_NORMAL, 0, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -577,7 +580,7 @@ static const attack ATK_Dragon_Energy = { "Dragon Energy", TYPE_DRAGON, 90, -45,
 	155, 50, 7, false, };
 static const attack ATK_Dragon_Pulse = { "Dragon Pulse", TYPE_DRAGON, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 7, false, };
-static const attack ATK_Drain_Punch = { "Drain Punch", TYPE_FIGHTING, 20, -40, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
+static const attack ATK_Drain_Punch = { "Drain Punch", TYPE_FIGHTING, 40, -40, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	50, 33, 5, false, };
 static const attack ATK_Draining_Kiss = { "Draining Kiss", TYPE_FAIRY, 60, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
@@ -648,7 +651,8 @@ static const attack ATK_Gunk_Shot = { "Gunk Shot", TYPE_POISON, 130, -75, 0, 0, 
 	130, 100, 6, false, };
 static const attack ATK_Gyro_Ball = { "Gyro Ball", TYPE_STEEL, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 7, false, };
-static const attack ATK_Heat_Wave = { "Heat Wave", TYPE_FIRE, 95, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// FIXME "energy cost decreased"
+static const attack ATK_Heat_Wave = { "Heat Wave", TYPE_FIRE, 75, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	95, 100, 6, false, };
 static const attack ATK_Heavy_Slam = { "Heavy Slam", TYPE_STEEL, 70, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 50, 4, false, };
@@ -721,7 +725,8 @@ static const attack ATK_Moonblast = { "Moonblast", TYPE_FAIRY, 110, -60, 0, 0, 0
 	130, 100, 8, false, };
 static const attack ATK_Moongeist_Beam = { "Moongeist Beam", TYPE_GHOST, 135, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	230, 100, 6, true, };
-static const attack ATK_Mud_Bomb = { "Mud Bomb", TYPE_GROUND, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// FIXME "energy cost increased"
+static const attack ATK_Mud_Bomb = { "Mud Bomb", TYPE_GROUND, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 33, 5, false, };
 static const attack ATK_Muddy_Water = { "Muddy Water", TYPE_WATER, 35, -35, 0, 0, 0, 300, 0, 0, 0, -1, 0,
 	45, 33, 4, false, };
@@ -731,7 +736,7 @@ static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, 
 	90, 50, 4, false, };
 static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
-static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 2, 0, 0, 0,
+static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 1, 0, 0, 0,
 	45, 33, 4, false, };
 static const attack ATK_Oblivion_Wing = { "Oblivion Wing", TYPE_FLYING, 85, -50, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	85, 50, 4, false, };
@@ -791,7 +796,7 @@ static const attack ATK_Rock_Blast = { "Rock Blast", TYPE_ROCK, 50, -40, 0, 0, 0
 	50, 33, 4, false, };
 static const attack ATK_Rock_Slide = { "Rock Slide", TYPE_ROCK, 75, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	75, 50, 5, false, };
-static const attack ATK_Rock_Tomb = { "Rock Tomb", TYPE_ROCK, 80, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+static const attack ATK_Rock_Tomb = { "Rock Tomb", TYPE_ROCK, 75, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	65, 50, 6, false, };
 static const attack ATK_Rock_Wrecker = { "Rock Wrecker", TYPE_ROCK, 110, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	110, 50, 7, false, };
@@ -799,7 +804,7 @@ static const attack ATK_Sacred_Fire = { "Sacred Fire", TYPE_FIRE, 130, -65, 0, 0
 	120, 100, 5, false, };
 static const attack ATK_Sacred_Sword = { "Sacred Sword", TYPE_FIGHTING, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 2, false, };
-static const attack ATK_Sand_Tomb = { "Sand Tomb", TYPE_GROUND, 25, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
+static const attack ATK_Sand_Tomb = { "Sand Tomb", TYPE_GROUND, 40, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	60, 33, 8, false, };
 static const attack ATK_Sandsear_Storm = { "Sandsear Storm", TYPE_GROUND, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	150, 100, 5, false, };
@@ -890,7 +895,8 @@ static const attack ATK_Tri_Attack = { "Tri Attack", TYPE_NORMAL, 65, -50, 0, 0,
 	75, 50, 5, false, };
 static const attack ATK_Triple_Axel = { "Triple Axel", TYPE_ICE, 60, -45, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
 	60, 33, 4, false, };
-static const attack ATK_Twister = { "Twister", TYPE_DRAGON, 45, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// FIXME "energy cost decreased"
+static const attack ATK_Twister = { "Twister", TYPE_DRAGON, 70, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	50, 33, 6, false, };
 static const attack ATK_Upper_Hand = { "Upper Hand", TYPE_FIGHTING, 70, -40, 0, 0, 0, 0, 300, 0, 0, 0, -1,
 	50, 33, 4, false, };
@@ -898,6 +904,7 @@ static const attack ATK_V_Create = { "V-Create", TYPE_FIRE, 95, -40, 0, 0, 1000,
 	105, 33, 6, false, };
 static const attack ATK_Vise_Grip = { "Vise Grip", TYPE_NORMAL, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	35, 33, 4, false, };
+// FIXME "energy cost decreased"
 static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -50, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
 	90, 33, 7, false, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
