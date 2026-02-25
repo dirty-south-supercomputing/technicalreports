@@ -2063,7 +2063,7 @@ static const species sdex[] = {
 		{ &ATK_Lick, &ATK_Zen_Headbutt, &ATK_Yawn, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Body_Slam, &ATK_Heavy_Slam, &ATK_Outrage, &ATK_Skull_Bash, &ATK_Superpower, },
 		true, true, false, { &ATK_Yawn, }, species::CAT_NORMAL, 75, "Replenish", },
   {  144, "Articuno", TYPE_ICE, TYPE_FLYING, 192, 236, 207, nullptr,
-		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Icy_Wind, &ATK_Hurricane, &ATK_Triple_Axel, &ATK_Powder_Snow, },
+		{ &ATK_Powder_Snow, &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Icy_Wind, &ATK_Hurricane, &ATK_Triple_Axel, },
 		true, true, true, { &ATK_Hurricane, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  144, "Galarian Articuno", TYPE_PSYCHIC, TYPE_FLYING, 250, 197, 207, nullptr,
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Ancient_Power, &ATK_Brave_Bird, &ATK_Future_Sight, &ATK_Fly, },
