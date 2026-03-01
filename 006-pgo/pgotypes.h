@@ -5230,8 +5230,9 @@ static const mega megasdex[] = {
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, 200, },
   {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, },
-  /*{  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, },
-  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, },*/
+  // FIXME 400 is a guess
+  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 412, 222, 235, 400, },
+  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 426, 229, 235, 400, },
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, 200, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, },
