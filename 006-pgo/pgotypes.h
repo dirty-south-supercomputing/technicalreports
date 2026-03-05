@@ -784,6 +784,8 @@ static const attack ATK_Psyshock = { "Psyshock", TYPE_PSYCHIC, 70, -40, 0, 0, 0,
 	60, 33, 5, false, };
 static const attack ATK_Psystrike = { "Psystrike", TYPE_PSYCHIC, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	95, 50, 5, false, };
+static const attack ATK_Pyro_Ball = { "Pyro Ball", TYPE_FIRE, 75, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	150, 100, 4, false, };
 static const attack ATK_Rage_Fist = { "Rage Fist", TYPE_GHOST, 50, -35, 0, 1000, 0, 0, 0, 1, 0, 0, 0,
 	100, 50, 6, false, };
 static const attack ATK_Razor_Shell = { "Razor Shell", TYPE_WATER, 35, -35, 0, 0, 0, 0, 500, 0, 0, 0, -1,
@@ -1162,6 +1164,7 @@ static const attack* const attacks[] = {
   &ATK_Psycho_Boost,
   &ATK_Psyshock,
   &ATK_Psystrike,
+  &ATK_Pyro_Ball,
   &ATK_Rage_Fist,
   &ATK_Razor_Shell,
   &ATK_Return,
@@ -4618,8 +4621,8 @@ static const species sdex[] = {
 		false, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the striker
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot",
-		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Focus_Blast, },
-		true, false, true, { }, species::CAT_NORMAL, 10, "Fireball", },
+		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Focus_Blast, &ATK_Blast_Burn, &ATK_Pyro_Ball, },
+		true, false, true, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, "Fireball", },
   // the water lizard
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
