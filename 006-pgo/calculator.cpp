@@ -25,6 +25,7 @@ static int lex_cp(const char *arg){
   return cp;
 }
 
+// find the level corresponding to species s having the specified ivs and cp
 static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is, bool shadow){
   unsigned hlevel = 1;
   do{
@@ -53,21 +54,50 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is, boo
   return st;
 }
 
+void print_hlevel(unsigned hlevel){
+  unsigned half;
+  unsigned l = halflevel_to_level(hlevel, &half);
+  if(l < 10){
+    std::cout << " ";
+  }
+  if(half){
+    std::cout << l;
+    std::cout << ".5";
+  }else{
+    std::cout << "  " << l;
+  }
+}
+
+void print_summary(const std::string& league, unsigned hlevel){
+  if(hlevel == 0){
+    std::cout << "Cannot be used in " << league << std::endl;
+  }else{
+    std::cout << league << ": ";
+    print_hlevel(hlevel);
+    std::cout << std::endl;
+  }
+}
+
+// cp and ivs (as a group) are optional; if less than 0, they are not used.
+// if cp and ivs are provided, print summary for that particular cp and ivs.
+// if ivs are provided, print table of cp at each level, and the summaries for
+//  the 1500, 2500, and unbounded cases.
+// summary includes all stats along with rank by geometric mean
+// and percentage of ideal (again by geometric mean).
 static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int *is, bool shadow){
   if(cp < 0){
+    // we got only IVs. generate table of CPs at each level.
+    unsigned glhlevel = 0;
+    unsigned ulhlevel = 0;
     for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
-      unsigned half;
-      unsigned l = halflevel_to_level(hlevel, &half);
-      if(l < 10){
-        std::cout << " ";
-      }
-      if(half){
-        std::cout << l;
-        std::cout << ".5";
-      }else{
-        std::cout << "  " << l;
-      }
+      print_hlevel(hlevel);
       cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
+      if(cp <= ULCPCAP){
+        ulhlevel = hlevel;
+        if(cp <= GLCPCAP){
+          glhlevel = hlevel;
+        }
+      }
       auto gmean = calc_gmean(calc_eff_a(s->atk + *ia, hlevel, shadow),
                               calc_eff_d(s->def + *id, hlevel, shadow),
                               calc_mhp(s->sta + *is, hlevel));
@@ -77,12 +107,16 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
       }
     }
     std::cout << std::endl;
+    // now print bounded case summaries
+    print_summary("GL", glhlevel);
+    print_summary("UL", ulhlevel);
     return nullptr;
   }
+  // we got a cp and ivs. find the level and summarize it.
   if(*ia >= 0 && *id >= 0 && *is >= 0){
-    auto st = solve_hlevel(s, cp, *ia, *id, *is, shadow);
-    return st;
+    return solve_hlevel(s, cp, *ia, *id, *is, shadow);
   }
+  // we got a cp but not ivs -- list all possible ivs+levels giving that cp.
   stats *sols = nullptr;
   for(*ia = 0 ; *ia <= MAXIVELEM ; ++*ia){
     for(*id = 0 ; *id <= MAXIVELEM ; ++*id){
@@ -179,16 +213,20 @@ int main(int argc, const char **argv){
   std::cout << argv[1] << " atk: " << s->atk << " def: " << s->def << " sta: " << s->sta << std::endl;
   int ia = -1, id = -1, is = -1, cp = -1;
   if(argc == 2){
+    // we were only given a species name. print summary tables for each
+    // statistic at the 1500 and 2500 bounds.
     summarize(s, 1500);
     summarize(s, 2500);
     return EXIT_SUCCESS;
   }else if(argc == 3){
+    // extract the iv or cp
     if(lex_iv(argv[2], &ia, &id, &is)){
       if((cp = lex_cp(argv[2])) < 0){
         usage(argv[0]);
       }
     }
   }else if(argc == 4){
+    // extract the cp and iv
     if((cp = lex_cp(argv[2])) < 0){
       usage(argv[0]);
     }

@@ -5797,13 +5797,13 @@ print_optimal_latex(const species* sp){
   printf("\\raggedleft{}");
   unsigned maxcp;
   maxcp = print_optimal_latex_cp(sp, 0);
-  if(maxcp > 2500){
+  if(maxcp > ULCPCAP){
     printf("\\\\");
-    maxcp = print_optimal_latex_cp(sp, 2500);
+    maxcp = print_optimal_latex_cp(sp, ULCPCAP);
   }
-  if(maxcp > 1500){
+  if(maxcp > GLCPCAP){
     printf("\\\\");
-    maxcp = print_optimal_latex_cp(sp, 1500);
+    maxcp = print_optimal_latex_cp(sp, GLCPCAP);
   }
 }
 
@@ -6599,10 +6599,10 @@ lex_ivlevel(const char* ivl, stats* s, bool shadow){
     }
     if(strcmp(ivl, "gl") == 0){
       int cp;
-      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, 1500, &cp);
+      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, GLCPCAP, &cp);
     }else if(strcmp(ivl, "ul") == 0){
       int cp;
-      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, 2500, &cp);
+      s->hlevel = maxlevel_cp_bounded(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, ULCPCAP, &cp);
     }else{
       char *endptr;
       s->hlevel = strtoul(ivl, &endptr, 10);
