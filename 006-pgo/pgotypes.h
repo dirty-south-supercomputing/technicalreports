@@ -1454,7 +1454,7 @@ static const species sdex[] = {
   // the Butterfly
   {  12, "Butterfree", TYPE_BUG, TYPE_FLYING, 167, 137, 155, "Metapod",
 		{ &ATK_Bug_Bite, &ATK_Confusion, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_Signal_Beam, &ATK_Psychic, },
-		true, true, true, { &ATK_Bug_Bite, }, species::CAT_NORMAL, 10, "Befuddle", },
+		true, true, true, { &ATK_Bug_Bite, }, species::CAT_NORMAL, 10, "Befuddle", species::EVOL_NOITEM, species::REGION_ALL, },
   // the Hairy Bug
   {  13, "Weedle", TYPE_BUG, TYPE_POISON, 63, 50, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Struggle, },
@@ -1514,7 +1514,7 @@ static const species sdex[] = {
   // the Mouse
   {  25, "Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, "Pichu",
 		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Present, &ATK_Discharge, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Wild_Charge, &ATK_Surf, },
-		true, false, false, { &ATK_Present, &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { &ATK_Present, &ATK_Surf, &ATK_Thunder, }, species::CAT_NORMAL, 10, "Volt Crash", species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  25, "Flying Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Wild_Charge, &ATK_Fly, },
@@ -1538,7 +1538,7 @@ static const species sdex[] = {
   // the Mouse
   {  26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu",
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Charm, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Brick_Break, &ATK_Wild_Charge, &ATK_Surf, &ATK_Skull_Bash, &ATK_Trailblaze, },
-		true, false, false, { &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { &ATK_Thunder, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  26, "Alolan Raichu", TYPE_ELECTRIC, TYPE_PSYCHIC, 201, 154, 155, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Psyshock, &ATK_Psychic, &ATK_Wild_Charge, &ATK_Grass_Knot, &ATK_Surf, &ATK_Trailblaze, },
