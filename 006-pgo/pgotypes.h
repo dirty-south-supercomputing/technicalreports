@@ -5463,7 +5463,7 @@ static unsigned
 maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
   unsigned lastgood = 0;
   *cp = 0;
-  for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL ; ++hl){
+  for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL_BASIC ; ++hl){
     int tmpc = calccp(atk, def, sta, hl);
     if(tmpc <= cpceil || cpceil <= 0){
       lastgood = hl;
