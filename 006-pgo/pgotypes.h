@@ -2001,7 +2001,7 @@ static const species sdex[] = {
 		{ &ATK_Thunder_Shock, &ATK_Low_Kick, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Spitfire
-  {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, nullptr,
+  {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, "Magby",
 		{ &ATK_Karate_Chop, &ATK_Ember, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Fire_Punch, &ATK_Scorching_Sands, },
 		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, nullptr,
