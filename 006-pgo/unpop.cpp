@@ -3,10 +3,10 @@
 // list all unpopulated typings. if the number changes, we'll probably want a different
 // number of columns, so throw an exception if they're not full.
 int main(void){
-  std::cout << "\\begin{table}[ht]\\centering\\begin{tabular}{c|c|c|c}" << std::endl;
+  std::cout << "\\begin{table}[ht]\\footnotesize\\centering\\begin{tabular}{c|c|c}" << std::endl;
   int count = 0;
   int column = 0;
-  constexpr int COLUMNS = 4;
+  constexpr int COLUMNS = 3;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       bool found = false;

@@ -4648,7 +4648,7 @@ static const species sdex[] = {
   {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire",
 		{ &ATK_Steel_Wing, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Iron_Head, &ATK_Sky_Attack, &ATK_Payback, },
 		true, false, true, { &ATK_Iron_Head, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  /*{  824, "Blipbug", TYPE_BUG, TYPECOUNT, 46, 67, 93, nullptr,
+  {  824, "Blipbug", TYPE_BUG, TYPECOUNT, 46, 67, 93, nullptr,
     { &ATK_Struggle_Bug, &ATK_Struggle, },
     false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  825, "Dottler", TYPE_BUG, TYPE_PSYCHIC, 87, 157, 137, "Blipbug",
@@ -4656,7 +4656,7 @@ static const species sdex[] = {
     false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  826, "Orbeetle", TYPE_BUG, TYPE_PSYCHIC, 156, 240, 155, "Dottler",
     { &ATK_Confusion, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_Psychic, },
-    false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
+    false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the fox
   {  827, "Nickit", TYPE_DARK, TYPECOUNT, 85, 82, 120, nullptr,
 		{ &ATK_Sucker_Punch, &ATK_Quick_Attack, &ATK_Snarl, &ATK_Night_Slash, &ATK_Play_Rough, },
