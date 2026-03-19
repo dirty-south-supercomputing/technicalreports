@@ -244,7 +244,7 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 
 $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) b 1500 127.3 > $@
+	$(<) b 1500 127.4 > $@
 
 $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
@@ -252,7 +252,7 @@ $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 128.79 > $@
+	$(<) a 1500 128.83 > $@
 
 $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
