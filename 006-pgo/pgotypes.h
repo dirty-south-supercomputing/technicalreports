@@ -4426,7 +4426,7 @@ static const species sdex[] = {
   // the posy picker
   {  764, "Comfey", TYPE_FAIRY, TYPECOUNT, 165, 215, 139, nullptr,
 		{ &ATK_Vine_Whip, &ATK_Hidden_Power, &ATK_Petal_Blizzard, &ATK_Draining_Kiss, &ATK_Grass_Knot, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_HAWAII, },
   // the sage
   {  765, "Oranguru", TYPE_NORMAL, TYPE_PSYCHIC, 168, 192, 207, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Confusion, &ATK_Yawn, &ATK_Psychic, &ATK_Future_Sight, &ATK_Foul_Play, &ATK_Brutal_Swing, &ATK_Trailblaze, },
@@ -4583,9 +4583,9 @@ static const species sdex[] = {
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, &ATK_Mind_Blown, },
 		true, false, false, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  /*{  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
-		{ },
-		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
+  {  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
+		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Wild_Charge, },
+		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
