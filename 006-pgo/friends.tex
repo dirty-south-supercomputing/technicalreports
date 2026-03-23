@@ -97,7 +97,9 @@ Trades reroll IVs (\autoref{sec:ivs}) with a floor based on friendship level (\a
   and reduce level if necessary for the receiving Trainer\footnote{As noted earlier, the level is
   the receiving Trainer's level plus two, or plus five if the Pokémon was captured with weather boost.
   Weather at the time of the trade has no effect.}.
-Level is otherwise unchanged, as are shininess, size, battles won, nickname, and attacks.
+The traded Pokémon's level (\autoref{sec:plevel}) is truncated if it is not an integer (a level 20.5
+ will reduced to level 20).
+Level is otherwise unchanged, as are shininess, costuming, background, size, battles won, nickname, and attacks.
 A Pokémon can be traded only once across its lifetime.
 Interactions with Best Friends can sometimes make them ``lucky'', guaranteeing that the next trade with
   them will result in Lucky Pokémon (\autoref{sec:lucky}).
