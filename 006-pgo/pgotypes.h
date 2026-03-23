@@ -2888,7 +2888,7 @@ static const species sdex[] = {
   // the iceberg
   {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, nullptr,
 		{ &ATK_Frost_Breath, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Earthquake, &ATK_Blizzard, &ATK_Thunder, &ATK_Focus_Blast, },
-		true, true, false, { &ATK_Thunder, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Thunder, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the iron
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, nullptr,
 		{ &ATK_Metal_Claw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
