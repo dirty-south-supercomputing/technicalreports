@@ -5014,10 +5014,10 @@ static const species sdex[] = {
   // the Woodear
   {  948, "Toedscool", TYPE_GRASS, TYPE_GROUND, 97, 149, 120, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Wrap, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  949, "Toedscruel", TYPE_GRASS, TYPE_GROUND, 166, 209, 190, "Toedscool",
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Acid_Spray, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the ambush
   {  950, "Klawf", TYPE_ROCK, TYPECOUNT, 184, 185, 172, nullptr,
     { &ATK_Rock_Throw, &ATK_Mud_Slap, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Bulldoze, },
