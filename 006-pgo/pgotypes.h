@@ -4472,10 +4472,9 @@ static const species sdex[] = {
   {  777, "Togedemaru", TYPE_ELECTRIC, TYPE_STEEL, 190, 145, 163, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Wild_Charge, &ATK_Gyro_Ball, &ATK_Fell_Stinger, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  /* not yet released
   {  778, "Mimikyu", TYPE_GHOST, TYPE_FAIRY, 177, 199, 146, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Charm, &ATK_Shadow_Sneak, &ATK_Shadow_Ball, &ATK_Play_Rough, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
+		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the gnash teeth
   {  779, "Bruxish", TYPE_WATER, TYPE_PSYCHIC, 208, 145, 169, nullptr,
 		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Confusion, &ATK_Aqua_Tail, &ATK_Psyshock, &ATK_Crunch, &ATK_Psychic_Fangs, },
