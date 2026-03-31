@@ -32,8 +32,8 @@ struct timetofirst {
   const attack *ca;
   unsigned ia, id, is, hlevel;
   float effa, effd;
-  float aprod; // effa * dam
-  float pppt;  // aprod / (T*T/bulk)
+  float damimg; // effa * dam
+  float pppt;  // damimg / (T*T/bulk)
   float abuff, dbuff; // multiplier, half of any buff due charged attack
   unsigned mhp;
   float bulk;  // geommean(mhp, effd)
@@ -58,7 +58,7 @@ struct timetofirst {
       abuff = ca->user_attack;
       dbuff = ca->user_defense;
       dam = powerfast + powercharged;
-      aprod = sqrt(dam * effa * halfbuff(ca->chance_user_attack, ca->user_attack));
+      damimg = sqrt(dam * effa * halfbuff(ca->chance_user_attack, ca->user_attack));
       mhp = calc_mhp(s->sta + is, hlevel);
       bulk = sqrt(mhp * effd * halfbuff(ca->chance_user_defense, ca->user_defense));
       pppt = (aprod * bulk) / pow(turns, 0.7);
@@ -191,7 +191,7 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
   std::cout << t.effa << " & ";
-  std::cout << t.aprod << " & ";
+  std::cout << t.daminf << " & ";
   if(t.excesse){
     std::cout << t.excesse;
   }
