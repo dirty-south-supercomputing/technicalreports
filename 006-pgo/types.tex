@@ -159,14 +159,16 @@ Ground slaughters Electric, which kills Flying.
 Flying strikes back, raining death from above and killing Fighting, Bug, and Grass.
 Fire likewise kills Bug and Grass.
 Grass kills Water (it is the only type strong against Water besides Electric).
+The remaining interactions don't have any real structure, and must simply be
+memorized as they are (\autoref{fig:jumble}).
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.25]{out/dot/jumble.dot.png}
 \caption{The 18 remaining interactions\label{fig:jumble}}
 \end{figure}
-\noindent{}The remaining interactions don't have any real structure, and must simply be
-memorized as they are (\autoref{fig:jumble}).
+%\noindent{}The remaining interactions don't have any real structure, and must simply be
+%memorized as they are (\autoref{fig:jumble}).
 
 Every type except Normal is killed by at least one other type.
 Bug is killed by two types (Fire and Flying), as is Fire (Water and Rock).
@@ -208,9 +210,11 @@ Opposing Trainers will build their teams and make substitutions based on
 None of Steel's resistances matter when you're being hit by one of its
   weaknesses.
 \input{out/dualsummaries.tex}
+\input{out/tripleresist}
+
 There are twenty triple resistances, five of which are against Fighting attacks (\autoref{table:triples}).
 Ghost/Steel is unique in having two triple resistances (Normal and Poison).
 Ghost/Rock, triply resistant against Normal, is currently unpopulated.
 There are sixty double weaknesses, including eight typings with two such weaknesses (\autoref{table:doubledoubles}).
-\input{out/tripleresist}
+
 \input{out/doubledoubles}

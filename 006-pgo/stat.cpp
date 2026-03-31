@@ -61,8 +61,8 @@ struct timetofirst {
       damimg = sqrt(dam * effa * halfbuff(ca->chance_user_attack, ca->user_attack));
       mhp = calc_mhp(s->sta + is, hlevel);
       bulk = sqrt(mhp * effd * halfbuff(ca->chance_user_defense, ca->user_defense));
-      pppt = (aprod * bulk) / pow(turns, 0.7);
-      std::cerr << S->name << " aprod: " << aprod << " bulk: " << bulk << " pppt: " << pppt << std::endl;
+      pppt = (damimg * bulk) / pow(turns, 0.7);
+      std::cerr << S->name << " damimg: " << damimg << " bulk: " << bulk << " pppt: " << pppt << std::endl;
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -191,7 +191,7 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
   std::cout << t.effa << " & ";
-  std::cout << t.daminf << " & ";
+  std::cout << t.damimg << " & ";
   if(t.excesse){
     std::cout << t.excesse;
   }
