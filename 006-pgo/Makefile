@@ -264,7 +264,7 @@ $(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 
 $(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) g 2500 157.01 > $@
+	$(<) g 2500 157.10 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
