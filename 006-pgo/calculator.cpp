@@ -136,18 +136,18 @@ static int
 lex_iv(const char *arg, int *ia, int *id, int *is){
   int r;
   if((r = sscanf(arg, " %u-%u-%u", ia, id, is)) != 3){
-    std::cerr << "expected N-N-N, got " << arg << std::endl;
-    return -1;
+    goto err;
   }
   if(*ia < 0 || *id < 0 || *is < 0){
-    std::cerr << "expected N-N-N, got " << arg << std::endl;
-    return -1;
+    goto err;
   }
   if(*ia > 15 || *id > 15 || *is > 15){
-    std::cerr << "expected N-N-N, got " << arg << std::endl;
-    return -1;
+    goto err;
   }
   return 0;
+err:
+  *ia = *id = *is = -1;
+  return -1;
 }
 
 static void
@@ -190,6 +190,7 @@ shadow_named(const char *s){
   return nullptr;
 }
 
+// print any evolutions of the provided species
 static void
 print_evols(const species* s){
   std::vector<const species*> evols;
@@ -231,13 +232,17 @@ int main(int argc, const char **argv){
       usage(argv[0]);
     }
     if(lex_iv(argv[3], &ia, &id, &is)){
+      std::cerr << "expected N-N-N, got " << argv[3] << std::endl;
       usage(argv[0]);
     }
   }
   if(cp > 0){
     std::cout << "cp: " << cp << " ";
   }
-  std::cout << "ia: " << ia << " id: " << id << " is: " << is << std::endl;
+  if(ia >= 0 || id >= 0 || is >= 0){
+    std::cout << "ia: " << ia << " id: " << id << " is: " << is;
+  }
+  std::cout << std::endl;
   auto st = reverse_ivs_level(s, cp, &ia, &id, &is, !!shadname);
   if(!st && cp > 0){
     std::cerr << "couldn't match cp " << cp << std::endl;
