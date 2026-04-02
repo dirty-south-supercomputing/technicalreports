@@ -68,12 +68,18 @@ void print_hlevel(unsigned hlevel){
   }
 }
 
-void print_summary(const std::string& league, unsigned hlevel){
+void print_summary(const std::string& league, int cpbound, const species* s, unsigned hlevel, bool shadow,
+                   int ia, int id, int is){
   if(hlevel == 0){
     std::cout << "Cannot be used in " << league << std::endl;
   }else{
     std::cout << league << ": ";
     print_hlevel(hlevel);
+    std::cout << " atk: " << calc_eff_a(s->atk + ia, hlevel, shadow);
+    std::cout << " def: " << calc_eff_d(s->def + id, hlevel, shadow);
+    std::cout << " hp: " << calc_mhp(s->sta + is, hlevel);
+    stats* st = find_optimal_set(s, cpbound, 0, shadow, calc_pok_gmean);
+    // FIXME print percentage of optimal
     std::cout << std::endl;
   }
 }
@@ -85,19 +91,12 @@ void print_summary(const std::string& league, unsigned hlevel){
 // summary includes all stats along with rank by geometric mean
 // and percentage of ideal (again by geometric mean).
 static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int *is, bool shadow){
+  stats *sols = nullptr;
   if(cp < 0){
     // we got only IVs. generate table of CPs at each level.
-    unsigned glhlevel = 0;
-    unsigned ulhlevel = 0;
     for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
       print_hlevel(hlevel);
       cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
-      if(cp <= ULCPCAP){
-        ulhlevel = hlevel;
-        if(cp <= GLCPCAP){
-          glhlevel = hlevel;
-        }
-      }
       auto gmean = calc_gmean(calc_eff_a(s->atk + *ia, hlevel, shadow),
                               calc_eff_d(s->def + *id, hlevel, shadow),
                               calc_mhp(s->sta + *is, hlevel));
@@ -107,27 +106,46 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
       }
     }
     std::cout << std::endl;
-    // now print bounded case summaries
-    print_summary("GL", glhlevel);
-    print_summary("UL", ulhlevel);
-    print_summary("ML", MAX_HALFLEVEL_BASIC);
-    return nullptr;
-  }
-  // we got a cp and ivs. find the level and summarize it.
-  if(*ia >= 0 && *id >= 0 && *is >= 0){
-    return solve_hlevel(s, cp, *ia, *id, *is, shadow);
-  }
-  // we got a cp but not ivs -- list all possible ivs+levels giving that cp.
-  stats *sols = nullptr;
-  for(*ia = 0 ; *ia <= MAXIVELEM ; ++*ia){
-    for(*id = 0 ; *id <= MAXIVELEM ; ++*id){
-      for(*is = 0 ; *is <= MAXIVELEM ; ++*is){
-        auto st = solve_hlevel(s, cp, *ia, *id, *is, shadow);
-        if(st){
-          st->next = sols;
-          sols = st;
+  }else{
+    // we got a cp and ivs. find the level and summarize it.
+    if(*ia >= 0 && *id >= 0 && *is >= 0){
+      if(!(sols = solve_hlevel(s, cp, *ia, *id, *is, shadow))){
+        return sols;
+      }
+    }else{
+      // we got a cp but not ivs -- list all possible ivs+levels giving that cp.
+      for(*ia = 0 ; *ia <= MAXIVELEM ; ++*ia){
+        for(*id = 0 ; *id <= MAXIVELEM ; ++*id){
+          for(*is = 0 ; *is <= MAXIVELEM ; ++*is){
+            auto st = solve_hlevel(s, cp, *ia, *id, *is, shadow);
+            if(st){
+              st->next = sols;
+              sols = st;
+            }
+          }
         }
       }
+      return sols;
+    }
+  }
+  unsigned glhlevel = 0;
+  unsigned ulhlevel = 0;
+  unsigned mlhlevel = MAX_HALFLEVEL_BASIC;
+  for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
+    cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
+    if(cp <= ULCPCAP){
+      ulhlevel = hlevel;
+      if(cp <= GLCPCAP){
+        glhlevel = hlevel;
+      }
+    }
+  }
+  // we have ivs; print bounded case summaries
+  print_summary("GL", GLCPCAP, s, glhlevel, shadow, *ia, *id, *is);
+  if(ulhlevel != glhlevel){
+    print_summary("UL", ULCPCAP, s, ulhlevel, shadow, *ia, *id, *is);
+    if(ulhlevel != mlhlevel){
+      print_summary("ML", -1, s, mlhlevel, shadow, *ia, *id, *is);
     }
   }
   return sols;
