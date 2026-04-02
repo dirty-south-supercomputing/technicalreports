@@ -110,6 +110,7 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
     // now print bounded case summaries
     print_summary("GL", glhlevel);
     print_summary("UL", ulhlevel);
+    print_summary("ML", MAX_HALFLEVEL_BASIC);
     return nullptr;
   }
   // we got a cp and ivs. find the level and summarize it.
@@ -201,6 +202,14 @@ print_evols(const species* s){
   }
 }
 
+// there are four ways to invoke this:
+//  1) just a species name. prints tables of the top+bottom 5 configs for
+//     various stats in both GL and UL.
+//  2) species name + cp. prints all possible configurations matching cp.
+//  3) species name + ivs. prints table of cp at all levels, exact stats for
+//     all leagues, and percentage of optimal for all leagues.
+//  4) species name + cp + ivs. prints exact stats for all possible leagues,
+//     and percentage of optimal for all possible leagues.
 int main(int argc, const char **argv){
   if(argc < 2 || argc > 4){
     usage(argv[0]);
