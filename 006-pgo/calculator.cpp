@@ -87,6 +87,7 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
     auto effa = calc_eff_a(s->atk + ia, hlevel, shadow);
     auto effd = calc_eff_d(s->def + id, hlevel, shadow);
     auto mhp = calc_mhp(s->sta + is, hlevel);
+    std::cout << "\tcp: " << calccp(s->atk + ia, s->def + id, s->sta + is, hlevel);
     std::cout << "\tatk: " << effa;
     std::cout << "\tdef: " << effd;
     std::cout << "\thp: " << mhp;
@@ -95,6 +96,8 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
     stats* st = find_optimal_set(s, cpbound, 0, shadow, calc_pok_gmean);
     std::cout << " opt: ";
     print_hlevel_simple(st->hlevel);
+    std::cout << " " << st->ia << "-" << st->id << "-" << st->is;
+    std::cout << "\tcp: " << st->cp;
     std::cout << "\tatk: " << st->effa;
     std::cout << "\tdef: " << st->effd;
     std::cout << "\thp: " << st->mhp;
