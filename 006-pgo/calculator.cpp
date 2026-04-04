@@ -1,5 +1,6 @@
 #include "pgotypes.h"
 #include <climits>
+#include <iomanip>
 
 static void usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " form iv | cp [iv]" << std::endl;
@@ -54,18 +55,26 @@ static stats *solve_hlevel(const species *s, int cp, int ia, int id, int is, boo
   return st;
 }
 
+void print_hlevel_simple(unsigned hlevel){
+  unsigned half;
+  unsigned l = halflevel_to_level(hlevel, &half);
+  std::cout << l;
+  if(half){
+    std::cout << ".5";
+  }
+}
+
+// space-formatted hlevel, for use in level table
 void print_hlevel(unsigned hlevel){
   unsigned half;
   unsigned l = halflevel_to_level(hlevel, &half);
   if(l < 10){
     std::cout << " ";
   }
-  if(half){
-    std::cout << l;
-    std::cout << ".5";
-  }else{
-    std::cout << "  " << l;
+  if(!half){
+    std::cout << "  ";
   }
+  print_hlevel_simple(hlevel);
 }
 
 void print_summary(const std::string& league, int cpbound, const species* s, unsigned hlevel, bool shadow,
@@ -74,13 +83,23 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
     std::cout << "Cannot be used in " << league << std::endl;
   }else{
     std::cout << league << ": ";
-    print_hlevel(hlevel);
-    std::cout << " atk: " << calc_eff_a(s->atk + ia, hlevel, shadow);
-    std::cout << " def: " << calc_eff_d(s->def + id, hlevel, shadow);
-    std::cout << " hp: " << calc_mhp(s->sta + is, hlevel);
+    print_hlevel_simple(hlevel);
+    auto effa = calc_eff_a(s->atk + ia, hlevel, shadow);
+    auto effd = calc_eff_d(s->def + id, hlevel, shadow);
+    auto mhp = calc_mhp(s->sta + is, hlevel);
+    std::cout << "\tatk: " << effa;
+    std::cout << "\tdef: " << effd;
+    std::cout << "\thp: " << mhp;
+    auto gmean = calc_gmean(effa, effd, mhp);
+    std::cout << "\tgmean: " << gmean << std::endl;
     stats* st = find_optimal_set(s, cpbound, 0, shadow, calc_pok_gmean);
-    // FIXME print percentage of optimal
-    std::cout << std::endl;
+    std::cout << " opt: ";
+    print_hlevel_simple(st->hlevel);
+    std::cout << "\tatk: " << st->effa;
+    std::cout << "\tdef: " << st->effd;
+    std::cout << "\thp: " << st->mhp;
+    auto pct = gmean * 100 / st->geommean;
+    std::cout << "\tgmean: " << st->geommean << " (" << pct << "%)" << std::endl;
   }
 }
 
@@ -131,7 +150,7 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
   unsigned glhlevel = 0;
   unsigned ulhlevel = 0;
   unsigned mlhlevel = MAX_HALFLEVEL_BASIC;
-  for(unsigned hlevel = 1 ; hlevel <= MAX_HALFLEVEL ; ++hlevel){
+  for(unsigned hlevel = 1 ; hlevel <= mlhlevel ; ++hlevel){
     cp = calccp(s->atk + *ia, s->def + *id, s->sta + *is, hlevel);
     if(cp <= ULCPCAP){
       ulhlevel = hlevel;
@@ -232,6 +251,7 @@ int main(int argc, const char **argv){
   if(argc < 2 || argc > 4){
     usage(argv[0]);
   }
+  std::cout << std::fixed << std::setprecision(3);
   const char *shadname = shadow_named(argv[1]);
   const species *s = lookup_species(shadname ? shadname : argv[1]);
   if(!s){
