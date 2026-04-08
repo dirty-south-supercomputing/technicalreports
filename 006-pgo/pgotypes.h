@@ -4101,11 +4101,11 @@ static const species sdex[] = {
   // the generator
   {  694, "Helioptile", TYPE_ELECTRIC, TYPE_NORMAL, 115, 78, 127, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Quick_Attack, &ATK_Parabolic_Charge, &ATK_Thunderbolt, &ATK_Bulldoze, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the generator
   {  695, "Heliolisk", TYPE_ELECTRIC, TYPE_NORMAL, 219, 168, 158, "Helioptile",
 		{ &ATK_Quick_Attack, &ATK_Mud_Slap, &ATK_Volt_Switch, &ATK_Parabolic_Charge, &ATK_Thunderbolt, &ATK_Bulldoze, &ATK_Grass_Knot, &ATK_Breaking_Swipe, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SUNSTONE, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SUNSTONE, species::REGION_ALL, },
   // the royal heir
   {  696, "Tyrunt", TYPE_ROCK, TYPE_DRAGON, 158, 123, 151, nullptr,
 		{ &ATK_Tackle, &ATK_Dragon_Tail, &ATK_Rock_Tomb, &ATK_Ancient_Power, &ATK_Dragon_Claw, &ATK_Stomp, },
@@ -4374,11 +4374,11 @@ static const species sdex[] = {
   // the water bubble
   {  751, "Dewpider", TYPE_WATER, TYPE_BUG, 72, 117, 116, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Infestation, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Mirror_Coat, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the water bubble
   {  752, "Araquanid", TYPE_WATER, TYPE_BUG, 126, 219, 169, "Dewpider",
 		{ &ATK_Bug_Bite, &ATK_Infestation, &ATK_Bug_Buzz, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Mirror_Coat, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sickle grass
   {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Razor_Leaf, &ATK_Leafage, &ATK_Leaf_Blade, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Trailblaze, },
@@ -4390,11 +4390,11 @@ static const species sdex[] = {
   // the illuminating
   {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the illuminating
   {  756, "Shiinotic", TYPE_GRASS, TYPE_FAIRY, 154, 168, 155, "Morelull",
 		{ &ATK_Astonish, &ATK_Seed_Bomb, &ATK_Moonblast, &ATK_Sludge_Bomb, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the toxic lizard
   {  757, "Salandit", TYPE_POISON, TYPE_FIRE, 136, 80, 134, nullptr,
 		{ &ATK_Ember, &ATK_Poison_Jab, &ATK_Flamethrower, &ATK_Poison_Fang, &ATK_Dragon_Pulse, },
@@ -4406,11 +4406,11 @@ static const species sdex[] = {
   // the flailing
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, nullptr,
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Brick_Break, &ATK_Stomp, &ATK_Superpower, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the strong arm
   {  760, "Bewear", TYPE_NORMAL, TYPE_FIGHTING, 226, 141, 260, "Stufful",
 		{ &ATK_Low_Kick, &ATK_Shadow_Claw, &ATK_Tackle, &ATK_Stomp, &ATK_Superpower, &ATK_Drain_Punch, &ATK_Payback, },
-		true, false, false, { &ATK_Drain_Punch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Drain_Punch, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the fruit
   {  761, "Bounsweet", TYPE_GRASS, TYPECOUNT, 55, 69, 123, nullptr,
 		{ &ATK_Razor_Leaf, &ATK_Charm, &ATK_Draining_Kiss, &ATK_Energy_Ball, },
@@ -5063,7 +5063,9 @@ static const species sdex[] = {
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Overheat, &ATK_Acid_Spray, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 967 cyclizar
-  // 968 orthworm
+  {  968, "Orthworm", TYPE_STEEL, TYPECOUNT, 161, 219, 172, nullptr,
+		{ &ATK_Mud_Slap, &ATK_Iron_Tail, &ATK_Earthquake, &ATK_Rock_Tomb, &ATK_Iron_Head, },
+		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  969, "Glimmet", TYPE_ROCK, TYPE_POISON, 187, 104, 134, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Smack_Down, &ATK_Power_Gem, &ATK_Dazzling_Gleam, &ATK_Sludge_Wave, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
