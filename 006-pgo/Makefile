@@ -248,23 +248,23 @@ $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 
 $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) b 2500 163.4 > $@
+	$(<) b 2500 163.6 > $@
 
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 128.83 > $@
+	$(<) a 1500 128.90 > $@
+
+$(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) a 2500 162.02 > $@
 
 $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) g 1500 124.90 > $@
 
-$(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) a 2500 161.98 > $@
-
 $(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) g 2500 157.10 > $@
+	$(<) g 2500 157.12 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
