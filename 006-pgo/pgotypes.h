@@ -5058,10 +5058,10 @@ static const species sdex[] = {
     false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   {  965, "Varoom", TYPE_STEEL, TYPE_POISON, 123, 107, 128, nullptr,
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Acid_Spray, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  966, "Revavroom", TYPE_STEEL, TYPE_POISON, 229, 168, 190, "Varoom",
 		{ &ATK_Lick, &ATK_Poison_Jab, &ATK_Metal_Sound, &ATK_Gunk_Shot, &ATK_Gyro_Ball, &ATK_Overheat, &ATK_Acid_Spray, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 967 cyclizar
   {  968, "Orthworm", TYPE_STEEL, TYPECOUNT, 161, 219, 172, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Iron_Tail, &ATK_Earthquake, &ATK_Rock_Tomb, &ATK_Iron_Head, },
