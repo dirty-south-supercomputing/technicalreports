@@ -1,5 +1,26 @@
 #include "pgotypes.h"
 
+// certain properties ought be the same for all family members.
+// only checks previous evolutions.
+static bool
+test_family(const species *s){
+  for(const species *prev = get_previous_evolution(s) ; prev ; prev = get_previous_evolution(prev)){
+    if(prev->shadow != s->shadow){
+      std::cerr << prev->name << " shadow != " << s->name << " shadow" << std::endl;
+      throw std::exception();
+    }
+    if(prev->shiny != s->shiny){
+      std::cerr << prev->name << " shiny != " << s->name << " shiny" << std::endl;
+      throw std::exception();
+    }
+    if(prev->dmax != s->dmax){
+      std::cerr << prev->name << " dmax != " << s->name << " dmax" << std::endl;
+      throw std::exception();
+    }
+  }
+  return true;
+}
+
 static bool
 test_species(const species *s){
   // verify that all attacks are in attack table, and that there is at least
@@ -7,6 +28,7 @@ test_species(const species *s){
   bool sawf = false;
   bool sawc = false;
   for(const auto &a : s->attacks){
+    // check that fast attacks precede charged attacks in attack list
     if(fast_attack_p(a)){
       if(sawc){
         std::cerr << "fast attack " << a->name << " followed charged attack in " << s->name << std::endl;
@@ -16,6 +38,7 @@ test_species(const species *s){
     }else if(charged_attack_p(a)){
       sawc = true;
     }
+    // check that all attacks are on the full attack list
     bool atkingtable = false;
     for(unsigned ai = 0 ; ai < ATTACKCOUNT ; ++ai){
       if(attacks[ai] == a){
@@ -28,10 +51,12 @@ test_species(const species *s){
       throw std::exception();
     }
   }
+  // check that species has fast and charged attacks defined
   if(!sawf || !sawc){
     std::cerr << "missing fast/charged on " << s->name << std::endl;
     throw std::exception();
   }
+  // check that the species's elite attacks are in the species's full attack list
   for(const auto &e : s->elite){
     bool found = false;
     for(const auto &a : s->attacks){
