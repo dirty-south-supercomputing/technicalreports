@@ -4614,7 +4614,7 @@ static const species sdex[] = {
   // the striker
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot",
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Focus_Blast, &ATK_Blast_Burn, &ATK_Pyro_Ball, },
-		true, false, true, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, "Fireball", },
+		false, false, true, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, "Fireball", },
   // the water lizard
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
@@ -5101,12 +5101,12 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Rage_Fist, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper",
 		{ &ATK_Mud_Shot, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Sludge_Bomb, &ATK_Water_Pulse, &ATK_Acid_Spray, },
-		true, false, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 981 farigiraf
   // the land snake
   {  982, "Dudunsparce", TYPE_NORMAL, TYPECOUNT, 188, 150, 268, "Dunsparce",
 		{ &ATK_Bite, &ATK_Astonish, &ATK_Dragon_Tail, &ATK_Rollout, &ATK_Dig, &ATK_Drill_Run, &ATK_Rock_Slide, &ATK_Body_Slam, },
-		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
 		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
