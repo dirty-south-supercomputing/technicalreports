@@ -2252,7 +2252,7 @@ static const species sdex[] = {
   // the poison fish
   {  194, "Paldean Wooper", TYPE_POISON, TYPE_GROUND, 75, 66, 146, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Poison_Jab, &ATK_Dig, &ATK_Sludge_Wave, &ATK_Body_Slam, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  195, "Quagsire", TYPE_WATER, TYPE_GROUND, 152, 143, 216, "Wooper",
 		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Drain_Punch, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Aqua_Tail, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, &ATK_Acid_Spray, },
 		true, true, false, { &ATK_Aqua_Tail, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -5101,7 +5101,7 @@ static const species sdex[] = {
 		true, true, false, { &ATK_Rage_Fist, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  980, "Clodsire", TYPE_POISON, TYPE_GROUND, 127, 151, 277, "Paldean Wooper",
 		{ &ATK_Mud_Shot, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Sludge_Bomb, &ATK_Water_Pulse, &ATK_Acid_Spray, },
-		true, true, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 981 farigiraf
   // the land snake
   {  982, "Dudunsparce", TYPE_NORMAL, TYPECOUNT, 188, 150, 268, "Dunsparce",
