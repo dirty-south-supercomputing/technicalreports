@@ -4606,15 +4606,15 @@ static const species sdex[] = {
   // the rabbit
   {  813, "Scorbunny", TYPE_FIRE, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, },
-		false, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the rabbit
   {  814, "Raboot", TYPE_FIRE, TYPECOUNT, 170, 125, 163, "Scorbunny",
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, },
-		false, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the striker
   {  815, "Cinderace", TYPE_FIRE, TYPECOUNT, 238, 163, 190, "Raboot",
 		{ &ATK_Tackle, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Focus_Blast, &ATK_Blast_Burn, &ATK_Pyro_Ball, },
-		false, false, true, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, "Fireball", },
+		true, false, true, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, "Fireball", },
   // the water lizard
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
