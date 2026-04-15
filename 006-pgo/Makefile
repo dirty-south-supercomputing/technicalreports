@@ -10,6 +10,7 @@ TEX:=$(addsuffix .tex, pgo foreward objectives trainer friends types attacks \
 											 species pokémon battle unbounded bounded tactics \
 											 simul spawn example about ooo optimal notice timespace \
 											 speciescards attackcards feraligatr2500 items sresearch)
+COPYRIGHT:=copyright.tex
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
@@ -184,10 +185,10 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 list%.pdf: list%.tex $(OUT)/stat%.tex
