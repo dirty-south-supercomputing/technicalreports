@@ -116,9 +116,9 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s)){
 }
 
 static void
-print_bounded_bulktable(int bound, float lbound){
+print_bounded_simptable(int bound, float lbound, float(*fitfxn)(const stats *)){
   printf("\\begingroup\n");
-  printf("\\nohyphenation\n");
+  //printf("\\nohyphenation\n");
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
@@ -128,7 +128,15 @@ print_bounded_bulktable(int bound, float lbound){
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false, calc_pok_bulk);
+    stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
+    if(sp->shadow){
+      const species *shads = create_shadow(sp);
+      stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
+      if(shadsets){
+        shadsets->next = sols;
+        sols = shadsets;
+      }
+    }
     if(s){
       s->next = sols;
       sols = s;
@@ -138,14 +146,14 @@ print_bounded_bulktable(int bound, float lbound){
   stats *head = nullptr;
   stats **q = &head;
   while(sols){
-    float maxbulk = 0;
+    float maxf = 0;
     stats **candq = nullptr;
     stats **prev;
     for(prev = &sols ; *prev ; prev = &(*prev)->next){
       stats *cand = *prev;
-      float bulk = cand->effd * cand->mhp;
-      if(bulk > maxbulk){
-        maxbulk = bulk;
+      float f = fitfxn(cand);
+      if(f > maxf){
+        maxf = f;
         candq = prev;
       }
     }
@@ -200,6 +208,7 @@ static void usage(const char *argv0){
   fprintf(stderr, "\ta: arithemetic mean\n");
   fprintf(stderr, "\tb: bulk\n");
   fprintf(stderr, "\tg: geometric mean\n");
+  fprintf(stderr, "\tk: attack\n");
   exit(EXIT_FAILURE);
 }
 
@@ -222,8 +231,11 @@ int main(int argc, char** argv){
   }else if(strcmp(argv[1], "a") == 0){
     fitfxn = calc_pok_amean;
     fitchar = 'a';
+  }else if(strcmp(argv[1], "k") == 0){
+    print_bounded_simptable(hcp, lam, calc_pok_effa);
+    return EXIT_SUCCESS;
   }else if(strcmp(argv[1], "b") == 0){
-    print_bounded_bulktable(hcp, lam);
+    print_bounded_simptable(hcp, lam, calc_pok_bulk);
     return EXIT_SUCCESS;
   }else{
     usage(argv[0]);
