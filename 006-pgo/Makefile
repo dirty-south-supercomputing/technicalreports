@@ -17,7 +17,7 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 
-BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF)
+BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF cp1500atk)
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -76,6 +76,8 @@ CP1500A:=$(OUT)/cp1500a.tex
 CP2500A:=$(OUT)/cp2500a.tex
 CP1500G:=$(OUT)/cp1500g.tex
 CP2500G:=$(OUT)/cp2500g.tex
+CP1500K:=$(OUT)/cp1500k.tex
+CP2500K:=$(OUT)/cp2500k.tex
 SUPERCOUNTERTEX:=$(OUT)/supercounter.tex
 NOSECONDCHARGEDTEX:=$(OUT)/nosecondcharged.tex
 HETEROCOSTTEX:=$(OUT)/heterocost.tex
@@ -112,7 +114,7 @@ OPTSTATSPDF:=$(OUT)/optstats.pdf
 OPTSTATSRADARDAT:=$(OUT)/optstatsradar.r
 OPTSTATSRADARR:=optstatsradar.R
 OPTSTATSRADARPDF:=$(OUT)/optstatsradar.pdf
-GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) \
+GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
@@ -245,11 +247,15 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 
 $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) b 1500 127.4 > $@
+	$(<) b 1500 129.1 > $@
 
 $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) b 2500 163.6 > $@
+	$(<) b 2500 164.8 > $@
+
+cp1500atk.pdf: cp1500.tex $(CP1500K)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
@@ -258,6 +264,10 @@ $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 $(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) a 2500 162.02 > $@
+
+$(OUT)/cp1500k.tex: $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) k 1500 0 > $@
 
 $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
