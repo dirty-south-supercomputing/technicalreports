@@ -5025,8 +5025,14 @@ static const species sdex[] = {
   // 952 scovillain
   // 953 rellor
   // 954 rabsca
-  // 955 flittle
-  // 956 espathra
+  // the frill
+  {  955, "Flittle", TYPE_PSYCHIC, TYPECOUNT, 105, 60, 102, nullptr,
+    { &ATK_Peck, &ATK_Confusion, &ATK_Psychic, &ATK_Psybeam, &ATK_Psyshock, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the ostrich
+  {  956, "Espathra", TYPE_PSYCHIC, TYPECOUNT, 204, 127, 216, "Flittle",
+    { &ATK_Peck, &ATK_Confusion, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Psybeam, &ATK_Psyshock, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Metalsmith
   {  957, "Tinkatink", TYPE_FAIRY, TYPE_STEEL, 85, 110, 137, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
