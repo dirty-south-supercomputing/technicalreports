@@ -79,7 +79,7 @@ static void header(bool extrema, bool powertbl){
     if(powertbl){
       std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
     }else{
-      std::cout << "\\begin{table}\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
+      std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
     }
   }else{
     std::cout << "\\begingroup\\footnotesize\\begin{longtable}{ll";
@@ -142,7 +142,7 @@ static void footer(bool extrema, bool powertbl, unsigned fastest){
   if(powertbl && extrema){
     std::cout << "\\caption{Attack cycles with highest PPT\\label{table:pptcycles}}\\end{longtable}\\endgroup" << std::endl;
   }else if(extrema){
-    std::cout << "\\end{tabular}\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{table}" << std::endl;
+    std::cout << "\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{longtable}\\endgroup" << std::endl;
   }else{
     std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}\\endgroup" << std::endl;
   }
