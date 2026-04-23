@@ -25,6 +25,8 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("\\Midrule\n");
   printf("\\endhead\n");
   int c = ccount;
+  unsigned shadnormals; // number of shadows with normal type
+  auto shadows = shadow_count(&shadnormals); // number of shadows
   while(--c >= 0){
     const attack* a = &as[c];
     if(a->type != TYPECOUNT){
@@ -39,9 +41,11 @@ void print_latex_table(const attack* as, unsigned ccount){
     printf(" & ");
     // we should still print numbers for these, based on the total number of shadows FIXME
     if(!strcmp(a->name, "Frustration")){
-      printf("*\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
+      printf("%u(%u)", shadows, shadnormals);
+      printf("\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
-      printf("*\\footnote{Return is known by default to all Purified Pokémon (it's mid at best).}");
+      printf("%u(%u)", shadows, shadnormals);
+      printf("\\footnote{Return is known by default to all Purified Pokémon (it's mid at best).}");
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);
