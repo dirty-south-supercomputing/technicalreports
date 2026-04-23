@@ -3888,7 +3888,7 @@ static const species sdex[] = {
 		true, false, false, { &ATK_Fusion_Bolt, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  645, "Landorus (Incarnate)", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Focus_Blast, &ATK_Outrage, &ATK_Earth_Power, },
-		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  645, "Landorus (Therian)", TYPE_GROUND, TYPE_FLYING, 289, 179, 205, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Extrasensory, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Bulldoze, &ATK_Superpower, &ATK_Sandsear_Storm, },
 		true, false, false, { &ATK_Sandsear_Storm, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -6803,6 +6803,22 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1){
   ara /= TYPINGCOUNT;
   unsigned pop = dualcharge_pop(t0, t1);
   tsets.emplace(tsets.end(), t0, t1, totals, pop, ara);
+}
+
+// return count of shadow forms and shadow forms with normal type
+static inline unsigned
+shadow_count(unsigned* shadnormals){
+  unsigned shadows = 0;
+  *shadnormals = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    if(sdex[u].shadow){
+      ++shadows;
+      if(sdex[u].t1 == TYPE_NORMAL || sdex[u].t2 == TYPE_NORMAL){
+        ++*shadnormals;
+      }
+    }
+  }
+  return shadows;
 }
 
 #endif
