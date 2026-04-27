@@ -5272,6 +5272,7 @@ static const mega megasdex[] = {
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, },
   {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, },
   {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, },
+  {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 228, 163, 300, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
