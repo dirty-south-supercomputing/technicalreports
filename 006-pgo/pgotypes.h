@@ -3025,10 +3025,10 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Bug_Buzz, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, "Combee",
 		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Air_Slash, &ATK_Bug_Buzz, &ATK_Power_Gem, &ATK_Signal_Beam, &ATK_X_Scissor, &ATK_Fell_Stinger, },
-		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, nullptr,
 		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Hyper_Fang, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -3484,11 +3484,11 @@ static const species sdex[] = {
   // the cotton puff
   {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, nullptr,
 		{ &ATK_Razor_Leaf, &ATK_Charm, &ATK_Seed_Bomb, &ATK_Grass_Knot, &ATK_Energy_Ball, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the windveiled
   {  547, "Whimsicott", TYPE_GRASS, TYPE_FAIRY, 164, 176, 155, "Cottonee",
 		{ &ATK_Razor_Leaf, &ATK_Charm, &ATK_Fairy_Wind, &ATK_Seed_Bomb, &ATK_Moonblast, &ATK_Hurricane, &ATK_Grass_Knot, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_SUNSTONE, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_SUNSTONE, species::REGION_ALL, },
   // the bulb
   {  548, "Petilil", TYPE_GRASS, TYPECOUNT, 119, 91, 128, nullptr,
 		{ &ATK_Hidden_Power, &ATK_Charm, &ATK_Seed_Bomb, &ATK_Energy_Ball, },
