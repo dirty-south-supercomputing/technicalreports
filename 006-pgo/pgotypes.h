@@ -3844,13 +3844,13 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Tackle, &ATK_Dragon_Pulse, &ATK_Body_Slam, &ATK_Crunch, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dark_Pulse, &ATK_Dragon_Pulse, &ATK_Body_Slam, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dark_Pulse, &ATK_Flash_Cannon, &ATK_Dragon_Pulse, &ATK_Brutal_Swing, &ATK_Fly, },
-		true, false, false, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the torch
   {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Flame_Wheel, &ATK_Bug_Buzz, &ATK_Flame_Charge, },
@@ -6488,10 +6488,6 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
     print_icons(s, true, ismega);
-    printf("\\scriptsize{}");
-    if(s->categorystr() && strcmp(s->categorystr(), "")){
-      printf("%s\n", s->categorystr());
-    }
   }
   printf("\\end{minipage}\n");
   if(mainform){ // optimal IVs and evolutionary lineage (only for main forms)
@@ -6499,9 +6495,14 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}%u CG %d Gen %s %s\\hfill{}",
-            stardust_reward(s), a2cost_to_cgroup(s->a2cost),
-            idx_to_generation(s->idx), idx_to_region(s->idx));
+    printf("\\scriptsize{}%u ", stardust_reward(s));
+    if(s->categorystr() && strcmp(s->categorystr(), "")){
+      printf("%s\n", s->categorystr());
+    }else{
+      printf("CG %d", a2cost_to_cgroup(s->a2cost));
+    }
+    printf(" Gen %s %s\\hfill{}",
+           idx_to_generation(s->idx), idx_to_region(s->idx));
     printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
     print_evolution_table(s);
     printf("\\end{minipage}");
