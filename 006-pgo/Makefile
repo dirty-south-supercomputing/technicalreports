@@ -259,7 +259,7 @@ cp1500atk.pdf: cp1500.tex $(CP1500K)
 
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 128.90 > $@
+	$(<) a 1500 128.93 > $@
 
 $(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
