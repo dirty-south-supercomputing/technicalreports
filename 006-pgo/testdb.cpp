@@ -77,6 +77,42 @@ test_species(const species *s){
       throw std::exception();
     }
   }
+  // check that cost group is correct for category
+  switch(s->category){
+    case species::CAT_MYTHICAL:
+    case species::CAT_LEGENDARY:
+    case species::CAT_ULTRABEAST:
+      if(s->a2cost != 100){
+        std::cerr << "expected cost 100, got " << s->a2cost << " for " << s->name << std::endl;
+        throw std::exception();
+      }
+      break;
+    case species::CAT_FPARTNER:
+      if(s->a2cost != 10){
+        std::cerr << "expected cost 10, got " << s->a2cost << " for " << s->name << std::endl;
+        throw std::exception();
+      }
+      break;
+    case species::CAT_NORMAL:
+      if(s->a2cost >= 100){
+        std::cerr << "expected cost < 100, got " << s->a2cost << " for " << s->name << std::endl;
+        throw std::exception();
+      }
+      break;
+    case species::CAT_BABY:
+      if(s->a2cost != 10){
+        std::cerr << "expected cost 10, got " << s->a2cost << " for " << s->name << std::endl;
+        throw std::exception();
+      }
+      if(s->from){
+        std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
+        throw std::exception();
+      }
+      break;
+    default:
+      std::cerr << "unhandled category " << s->category << std::endl;
+      throw std::exception();
+  }
   // check that species has fast and charged attacks defined
   if(!sawf || !sawc){
     std::cerr << "missing fast/charged on " << s->name << std::endl;
@@ -103,26 +139,6 @@ test_species(const species *s){
       std::cerr << "ghost/rock became populated!" << std::endl;
       throw std::exception();
     }
-  }
-  switch(s->category){
-    case species::CAT_NORMAL:
-      break;
-    case species::CAT_BABY:
-      if(s->from){
-        std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
-        throw std::exception();
-      }
-      break;
-    case species::CAT_LEGENDARY:
-    case species::CAT_MYTHICAL:
-    case species::CAT_ULTRABEAST:
-      if(s->a2cost != 100){ // all ought be in cost group 4
-        std::cerr << s->name << " has invalid costgroup" << std::endl;
-        throw std::exception();
-      }
-      break;
-    default:
-      break;
   }
   test_family(s);
   return true;
