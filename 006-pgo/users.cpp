@@ -51,7 +51,7 @@ print_attack_users(const attack *a){
   }
   printf("}]\n");
   if(!strcmp(a->name, "Return")){
-    printf("Return replaces the Frustration charged attack whenever a Shadow Pokémon is purified. "
+    printf("Purification replaces the Frustration charged attack with Return. "
         "It cannot be reacquired if replaced via Charged TM.");
   }else if(!strcmp(a->name, "Frustration")){
     printf("All Shadow Pokémon know Frustration (and only Frustration) when captured. "
