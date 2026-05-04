@@ -2892,7 +2892,7 @@ static const species sdex[] = {
   // the iron
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, nullptr,
 		{ &ATK_Metal_Claw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
-		true, true, false, { &ATK_Zap_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Zap_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the eon
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Aura_Sphere, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
