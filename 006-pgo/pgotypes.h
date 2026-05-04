@@ -6104,10 +6104,10 @@ print_previous_species(const species *s){
 static int
 print_icons(const species *s, bool doprint, bool ismega){
   int count = 0;
-  if(has_gmax(s)){
+  if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-mega.png}}");
     }
   }
   if(has_dmax(s)){
@@ -6116,10 +6116,10 @@ print_icons(const species *s, bool doprint, bool ismega){
       printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-dynamax.png}}");
     }
   }
-  if(has_mega(s) && !ismega){
+  if(has_gmax(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-mega.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
     }
   }
   return count;
