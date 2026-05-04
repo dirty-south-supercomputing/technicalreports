@@ -320,7 +320,7 @@ int main(int argc, char* const* argv){
       std::cerr << "exclude not yet supported from typelist" << std::endl;
       usage(argv0);
     }
-    if(lex_typelist(*(argv + 1), kern)){
+    if(lex_typelist(*(argv + optind), kern)){
       usage(argv0);
     }
   }
