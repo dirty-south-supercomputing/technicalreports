@@ -753,6 +753,8 @@ static const attack ATK_Payback = { "Payback", TYPE_DARK, 110, -60, 0, 0, 0, 0, 
 	95, 100, 4, false, };
 static const attack ATK_Petal_Blizzard = { "Petal Blizzard", TYPE_GRASS, 110, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	110, 100, 5, false, };
+static const attack ATK_Plasma_Fists = { "Plasma Fists", TYPE_ELECTRIC, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	135, 50, 7, false, };
 static const attack ATK_Play_Rough = { "Play Rough", TYPE_FAIRY, 90, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 6, false, };
 static const attack ATK_Poison_Fang = { "Poison Fang", TYPE_POISON, 45, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
@@ -1144,6 +1146,7 @@ static const attack* const attacks[] = {
   &ATK_Parabolic_Charge,
   &ATK_Payback,
   &ATK_Petal_Blizzard,
+  &ATK_Plasma_Fists,
   &ATK_Play_Rough,
   &ATK_Poison_Fang,
   &ATK_Poltergeist,
@@ -4583,8 +4586,8 @@ static const species sdex[] = {
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, &ATK_Mind_Blown, },
 		true, false, false, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
-		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Wild_Charge, },
-		false, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Wild_Charge, &ATK_Plasma_Fists, },
+		false, false, false, { &ATK_Plasma_Fists, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
