@@ -10,7 +10,8 @@ bool check_worse_evol(const species& s, int cpbound){
     const auto oe = find_optimal_set(e, cpbound, 0, false, calc_pok_gmean);
     const auto ge = oe->geommean;
     if(gs > ge){
-      std::cout << s.name << " " << gs << " " << e->name << " " << ge << std::endl;
+      std::cout << (gs / ge) << " " << s.name << " " << gs
+          << " " << e->name << " " << ge << std::endl;
       worse = true;
     }
   }
@@ -31,6 +32,8 @@ int main(int argc, char * const argv[]){
     std::cerr << "invalid cpbound (use -1 for no bound)" << std::endl;
     usage(argv[0]);
   }
+  std::cout << std::fixed;
+  std::cout.precision(4);
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     check_worse_evol(sdex[i], cpb);
   }
