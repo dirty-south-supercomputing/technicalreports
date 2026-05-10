@@ -20,8 +20,9 @@ static int cmpatk(const void* va1, const void* va2){
 void print_latex_table(const attack* as, unsigned ccount){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
-  printf("\\begin{longtable}{lrrrrrrr}\n");
-  printf("Attack & P & $\\cdot\\frac{6}{5}$ & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop(STAB)\\\\\n");
+  // we removed raw P and P * 6/5 because that can be derived from P/E and E
+  printf("\\begin{longtable}{lrrrrr}\n");
+  printf("Attack & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop(STAB)\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   int c = ccount;
@@ -32,8 +33,8 @@ void print_latex_table(const attack* as, unsigned ccount){
     if(a->type != TYPECOUNT){
       print_type(a->type);
     }
-    printf(" %s & %u & %g & %d & %.2f & %.3g &", a->name,
-            a->powertrain, (a->powertrain * 6.0) / 5,
+    printf(" %s & %d & %.2f & %.3g &", a->name,
+            //a->powertrain, (a->powertrain * 6.0) / 5,
             -a->energytrain,
             a->powertrain / (float)-a->energytrain,
             (a->powertrain * 6.0) / (-a->energytrain * 5.0));

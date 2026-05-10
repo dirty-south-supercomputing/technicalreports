@@ -9,10 +9,11 @@ bool check_worse_evol(const species& s, int cpbound){
   std::vector<const species *> evols;
   get_persistent_evolutions(&s, evols);
   for(const auto* e : evols){
-    // first, compare the best of s to the best of es. if better, compare the worst of s to
-    // the best of es. if also better, s is purely better. otherwise, there is overlap.
-    // otherwise, compare the best of s to the worst of es. if better, there is overlap.
-    // otherwise, es is purely better.
+    // first, compare the best of s to the best of es. if better, compare the
+    // worst of s to the best of es. if also better, s is purely better.
+    // otherwise, there is overlap. otherwise, compare the best of s to the
+    // worst of es. if better, there is overlap. otherwise, es is purely
+    // better.
     unsigned evcount;
     auto eopts = order_ivs(e, cpbound, statscmp_gmean, &evcount);
     const stats &oe = eopts[evcount - 1];
@@ -34,8 +35,6 @@ bool check_worse_evol(const species& s, int cpbound){
             << " " << e->name << " " << geworst << "–" << ge;
         std::cout << " partial" << std::endl;
         worse = true;
-      }else{
-        //std::cout << "ALL WORSE! ";
       }
     }
   }
