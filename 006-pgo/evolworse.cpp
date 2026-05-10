@@ -3,12 +3,16 @@
 bool check_worse_evol(const species& s, int cpbound){
   bool worse = false;
   std::vector<const species *> evols;
-  const auto os = find_optimal_set(&s, cpbound, 0, false, calc_pok_gmean);
-  const auto gs = os->geommean;
   get_persistent_evolutions(&s, evols);
+  unsigned vcount;
+  auto opts = order_ivs(&s, cpbound, statscmp_gmean, &vcount);
+  const auto &os = opts[vcount - 1];
+  const auto gs = os.geommean;
   for(const auto* e : evols){
-    const auto oe = find_optimal_set(e, cpbound, 0, false, calc_pok_gmean);
-    const auto ge = oe->geommean;
+    unsigned evcount;
+    auto eopts = order_ivs(e, cpbound, statscmp_gmean, &evcount);
+    const stats &oe = eopts[evcount - 1];
+    const auto ge = oe.geommean;
     if(gs > ge){
       std::cout << (gs / ge) << " " << s.name << " " << gs
           << " " << e->name << " " << ge << std::endl;
