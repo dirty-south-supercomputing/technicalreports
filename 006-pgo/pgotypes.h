@@ -1906,7 +1906,8 @@ static const species sdex[] = {
   {  103, "Exeggutor", TYPE_GRASS, TYPE_PSYCHIC, 233, 149, 216, "Exeggcute",
 		{ &ATK_Zen_Headbutt, &ATK_Confusion, &ATK_Bullet_Seed, &ATK_Extrasensory, &ATK_Seed_Bomb, &ATK_Psychic, &ATK_Solar_Beam, },
 		true, true, false, { &ATK_Zen_Headbutt, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, "Exeggcute",
+  // exeggcute could evolve into alolan exeggutor during the "aloha to alola" event, but not normally
+  {  103, "Alolan Exeggutor", TYPE_GRASS, TYPE_DRAGON, 230, 153, 216, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Solar_Beam, &ATK_Draco_Meteor, },
 		true, true, false, { &ATK_Draco_Meteor, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Lonely
@@ -1917,7 +1918,8 @@ static const species sdex[] = {
   {  105, "Marowak", TYPE_GROUND, TYPECOUNT, 144, 186, 155, "Cubone",
 		{ &ATK_Mud_Slap, &ATK_Rock_Smash, &ATK_Dig, &ATK_Earthquake, &ATK_Rock_Slide, &ATK_Bone_Club, },
 		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, "Cubone",
+  // cubone could evolve into alolan marowak during the "aloha to alola" event, but not normally
+  {  105, "Alolan Marowak", TYPE_FIRE, TYPE_GHOST, 144, 186, 155, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Hex, &ATK_Fire_Spin, &ATK_Flame_Wheel, &ATK_Shadow_Ball, &ATK_Bone_Club, &ATK_Fire_Blast, &ATK_Shadow_Bone, },
 		true, true, false, { &ATK_Shadow_Bone, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Kicking
