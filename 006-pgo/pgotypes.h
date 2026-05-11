@@ -3910,8 +3910,8 @@ static const species sdex[] = {
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		true, false, false, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // no difference in PGO
-  {  647, "Keldeo (Resolute)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, nullptr,
+  // no stat difference in PGO
+  {  647, "Keldeo (Resolute)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "Keldeo",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, &ATK_Secret_Sword, },
 		true, false, false, { &ATK_Secret_Sword, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  648, "Meloetta (Aria)", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
