@@ -4623,15 +4623,15 @@ static const species sdex[] = {
   // the water lizard
   {  816, "Sobble", TYPE_WATER, TYPECOUNT, 132, 79, 137, nullptr,
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
-		false, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_FPARTNER, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the water lizard
   {  817, "Drizzile", TYPE_WATER, TYPECOUNT, 186, 113, 163, "Sobble",
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Water_Pulse, &ATK_Surf, },
-		false, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the secret agent
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Drizzile",
 		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Shadow_Ball, &ATK_Water_Pulse, &ATK_Surf, },
-		false, false, true, { }, species::CAT_NORMAL, 10, "Hydrosnipe", },
+		true, false, true, { }, species::CAT_NORMAL, 10, "Hydrosnipe", },
   // the cheeky
   {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Bullet_Seed, &ATK_Body_Slam, &ATK_Crunch, &ATK_Trailblaze, },
