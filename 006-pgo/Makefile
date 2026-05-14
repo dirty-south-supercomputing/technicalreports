@@ -44,6 +44,7 @@ POPS:=$(OUT)/populations
 DPEVSE:=$(OUT)/dpevse
 PPTVST:=$(OUT)/pptvst
 EVOLWORSE:=$(OUT)/evolworse
+MOSTPOWER:=$(OUT)/mostpower
 PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
@@ -137,7 +138,8 @@ WEBSRC:=$(wildcard w/*.cpp w/*.h)
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) $(EVOLWORSE) $(PDF) $(SIMUL) $(BIGLISTS) \
+all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
+	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) \
 	webpage testdb testsimul $(COVERSETS) test
 
 CSS:=w/web.css
