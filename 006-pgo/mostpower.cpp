@@ -27,26 +27,38 @@ float ppe_with_stab(const species *s, const attack *a){
   return pow / -a->energytrain;
 }
 
+// return true if ar is a more powerful attack than al, according to PPE (and
+// in the event of a tie, E).
+bool cmp_attacks(const species *s, const attack *al, const attack *ar){
+  if(al == nullptr){
+    return true;
+  }
+  if(ppe_with_stab(s, al) < ppe_with_stab(s, ar)){
+    return true;
+  }else if(ppe_with_stab(s, al) == ppe_with_stab(s, ar)){
+    // pick the quicker one if PPE is equal
+    if(al->energytrain < ar->energytrain){
+      return true;
+    }
+  }
+  return false;
+}
+
 const attack *find_most_powerful(const species *s){
   const attack *a = nullptr;
   for(const attack *atk : s->attacks){
     if(!charged_attack_p(atk)){
       continue;
     }
-    if(a == nullptr){
+    if(cmp_attacks(s, a, atk)){
       a = atk;
-    }else{
-      if(ppe_with_stab(s, a) < ppe_with_stab(s, atk)){
-        a = atk;
-      }else if(ppe_with_stab(s, a) == ppe_with_stab(s, atk)){
-        // pick the quicker one if PPE is equal
-        if(a->energytrain < atk->energytrain){
-          a = atk;
-        }
-      }
     }
   }
-  // FIXME consider Return if it has a shadow type!
+  if(s->shadow){
+    if(cmp_attacks(s, a, &ATK_Return)){
+      a = &ATK_Return;
+    }
+  }
   return a;
 }
 
@@ -64,20 +76,15 @@ const attack *find_second(const species *s, const attack *a1){
     if(atk->type == a1->type){
       continue;
     }
-    if(a == nullptr){
+    if(cmp_attacks(s, a, atk)){
       a = atk;
-    }else{
-      if(ppe_with_stab(s, a) < ppe_with_stab(s, atk)){
-        a = atk;
-      }else if(ppe_with_stab(s, a) == ppe_with_stab(s, atk)){
-        // pick the quicker one if PPE is equal
-        if(a->energytrain < atk->energytrain){
-          a = atk;
-        }
-      }
     }
   }
-  // FIXME consider Return if it has a shadow type!
+  if(s->shadow && a1 != &ATK_Return){
+    if(cmp_attacks(s, a, &ATK_Return)){
+      a = &ATK_Return;
+    }
+  }
   return a;
 }
 
