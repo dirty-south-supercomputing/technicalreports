@@ -82,8 +82,10 @@ const attack *find_second(const species *s, const attack *a1){
     }
   }
   if(s->shadow && a1 != &ATK_Return){
-    if(cmp_attacks(s, a, &ATK_Return)){
-      a = &ATK_Return;
+    if(a1->type != ATK_Return.type){
+      if(cmp_attacks(s, a, &ATK_Return)){
+        a = &ATK_Return;
+      }
     }
   }
   return a;
