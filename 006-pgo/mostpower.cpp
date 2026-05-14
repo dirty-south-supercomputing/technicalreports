@@ -36,6 +36,7 @@ bool cmp_attacks(const species *s, const attack *al, const attack *ar){
   if(ppe_with_stab(s, al) < ppe_with_stab(s, ar)){
     return true;
   }else if(ppe_with_stab(s, al) == ppe_with_stab(s, ar)){
+    // prefer one lacking debuffs if PPE is equal? FIXME
     // pick the quicker one if PPE is equal
     if(al->energytrain < ar->energytrain){
       return true;
@@ -96,10 +97,10 @@ int main(void){
     const species* s = &sdex[i];
     float pptsum = 0;
     const attack *a1 = find_most_powerful(s);
-    pptsum = a1->powertrain / static_cast<float>(-a1->energytrain); // FIXME stab!
+    pptsum = ppe_with_stab(s, a1);
     const attack *a2 = find_second(s, a1);
     if(a2){
-      pptsum += a2->powertrain / static_cast<float>(-a2->energytrain); // FIXME stab!
+      pptsum += ppe_with_stab(s, a2);
     }
     forms.emplace_back(s, a1, a2, pptsum);
   }
