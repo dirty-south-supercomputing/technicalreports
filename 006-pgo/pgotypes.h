@@ -831,7 +831,7 @@ static const attack ATK_Shadow_Sneak = { "Shadow Sneak", TYPE_GHOST, 75, -50, 0,
 	50, 33, 6, false, };
 static const attack ATK_Signal_Beam = { "Signal Beam", TYPE_BUG, 75, -55, 0, 0, 0, 200, 200, 0, 0, -1, -1,
 	75, 50, 6, false, };
-static const attack ATK_Silver_Wind = { "Silver Wind", TYPE_BUG, 60, -45, 0, 100, 100, 0, 0, 1, 1, 0, 0,
+static const attack ATK_Silver_Wind = { "Silver Wind", TYPE_BUG, 75, -45, 0, 100, 100, 0, 0, 1, 1, 0, 0,
 	65, 33, 7, false, };
 static const attack ATK_Skull_Bash = { "Skull Bash", TYPE_NORMAL, 130, -75, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	130, 100, 6, false, };
