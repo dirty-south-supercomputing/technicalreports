@@ -2901,11 +2901,11 @@ static const species sdex[] = {
   // the eon
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Aura_Sphere, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
-		true, true, false, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the eon
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Aura_Sphere, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
-		true, true, false, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sea basin
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, nullptr,
 		{ &ATK_Waterfall, &ATK_Blizzard, &ATK_Thunder, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Origin_Pulse, &ATK_Avalanche, },
