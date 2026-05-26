@@ -919,7 +919,7 @@ static const attack ATK_Wild_Charge = { "Wild Charge", TYPE_ELECTRIC, 100, -45, 
 	90, 50, 5, false, };
 static const attack ATK_Wildbolt_Storm = { "Wildbolt Storm", TYPE_ELECTRIC, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	150, 100, 5, false, };
-static const attack ATK_Wrap = { "Wrap", TYPE_NORMAL, 60, -45, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
+static const attack ATK_Wrap = { "Wrap", TYPE_NORMAL, 70, -45, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	25, 33, 6, false, };
 static const attack ATK_X_Scissor = { "X-Scissor", TYPE_BUG, 65, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	45, 33, 3, false, };
