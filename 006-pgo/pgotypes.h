@@ -808,7 +808,7 @@ static const attack ATK_Sand_Tomb = { "Sand Tomb", TYPE_GROUND, 40, -40, 0, 0, 0
 static const attack ATK_Sandsear_Storm = { "Sandsear Storm", TYPE_GROUND, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	150, 100, 5, false, };
 // FIXME there appear to be two scalds?
-// https://db.pokemongohub.net/move/134
+// https://db.pokemongohub.net/move/134 -- no listed users, consider an error
 // https://db.pokemongohub.net/move/106
 static const attack ATK_Scald = { "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0, 0, 0, -1, 0,
 	75, 50, 7, false, };
