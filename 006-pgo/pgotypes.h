@@ -591,7 +591,7 @@ static const attack ATK_Dynamax_Cannon = { "Dynamax Cannon", TYPE_DRAGON, 80, -4
 	215, 100, 3, true, };
 static const attack ATK_Dynamic_Punch = { "Dynamic Punch", TYPE_FIGHTING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 5, false, };
-static const attack ATK_Earthquake = { "Earthquake", TYPE_GROUND, 110, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Earthquake = { "Earthquake", TYPE_GROUND, 120, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	140, 100, 7, false, };
 static const attack ATK_Earth_Power = { "Earth Power", TYPE_GROUND, 90, -55, 0, 0, 0, 0, 100, 0, 0, 0, -1,
 	100, 50, 7, false, };
