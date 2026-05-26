@@ -331,7 +331,7 @@ static const attack ATK_Bullet_Seed = { "Bullet Seed", TYPE_GRASS, 5, 13, 3, 0, 
 	7, 13, 2, false, };
 static const attack ATK_Charge_Beam = { "Charge Beam", TYPE_ELECTRIC, 5, 11, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 14, 2, false, };
-static const attack ATK_Charm = { "Charm", TYPE_FAIRY, 13, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Charm = { "Charm", TYPE_FAIRY, 12, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	20, 11, 3, false, };
 static const attack ATK_Confusion = { "Confusion", TYPE_PSYCHIC, 16, 14, 4, 0, 0, 0, 0, 0, 0, 0, 0,
 	19, 14, 3, false, };
