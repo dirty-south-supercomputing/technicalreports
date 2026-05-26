@@ -585,8 +585,7 @@ static const attack ATK_Drill_Peck = { "Drill Peck", TYPE_FLYING, 70, -40, 0, 0,
 	70, 33, 5, false, };
 static const attack ATK_Drill_Run = { "Drill Run", TYPE_GROUND, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 6, false, };
-// FIXME verify
-static const attack ATK_Drum_Beating = { "Drum Beating", TYPE_GRASS, 60, -40, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+static const attack ATK_Drum_Beating = { "Drum Beating", TYPE_GRASS, 60, -35, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	115, 33, 8, false, };
 static const attack ATK_Dynamax_Cannon = { "Dynamax Cannon", TYPE_DRAGON, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	215, 100, 3, true, };
