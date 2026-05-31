@@ -76,26 +76,12 @@ static void usage(const char *argv0){
 // don't want a turns column if extrema && !powertbl
 static void header(bool extrema, bool powertbl){
   if(extrema){
-    if(powertbl){
-      std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
-    }else{
-      std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
-    }
+    std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
   }else{
     std::cout << "\\begingroup\\footnotesize\\begin{longtable}{ll";
-    //\\setlength{\\tabcolsep}{2pt}\\raggedright\\footnotesize\\centering\\begin{tabular}{ll";
   }
-  if(!extrema || powertbl){
-    std::cout << "rr";
-  }
-  std::cout << "rrr}Pokémon & Attacks & " << std::endl;
-  if(!extrema || powertbl){
-    std::cout << "Turns & ";
-  }
-  std::cout << "Power & ";
-  if(!extrema || powertbl){
-    std::cout << "\\textit{e} & ";
-  }
+  std::cout << "rrrrr}Pokémon & Attacks & Turns & Power & ";
+  std::cout << "\\textit{e} & ";
   std::cout << "PPT & \\\%c \\\\" << std::endl;
   std::cout << "\\Midrule" << std::endl;
 }
@@ -119,20 +105,12 @@ static void emit_line(bool extrema, bool powertbl, const timetofirst &t, const s
   std::cout << " + ";
   emit_attack(t.s, t.ca);
   std::cout << " & ";
-  if(!extrema || powertbl){
-    std::cout << t.turns << " & ";
-  }
+  std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";
-  if(!extrema || powertbl){
-    if(t.excesse){
-      std::cout << t.excesse;
-    }
-    std::cout << " & ";
-  }else{
-    // we remove this column from the output because all 9 turn cycles
-    // have the same excess energy: 1. so check that.
-    assert(1 == t.excesse);
+  if(t.excesse){
+    std::cout << t.excesse;
   }
+  std::cout << " & ";
   std::cout << t.dpt << " & "
     << t.powercharged * 100 / t.dam
     << "\\\\" << std::endl;
