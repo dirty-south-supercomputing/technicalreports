@@ -4219,13 +4219,13 @@ static const species sdex[] = {
 		{ &ATK_Sucker_Punch, &ATK_Snarl, &ATK_Gust, &ATK_Hyper_Beam, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Hurricane, &ATK_Focus_Blast, &ATK_Oblivion_Wing, },
 		true, false, false, { &ATK_Oblivion_Wing, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the order
-  {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, nullptr,
+  {  718, "Zygarde (10%)", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, nullptr,
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%",
+  {  718, "Zygarde (50%)", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
-  {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%",
+  {  718, "Zygarde (Complete)", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
   // the jewel
