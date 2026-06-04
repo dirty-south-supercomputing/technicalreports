@@ -639,6 +639,8 @@ static const attack ATK_Future_Sight = { "Future Sight", TYPE_PSYCHIC, 110, -65,
 	115, 100, 5, false, };
 static const attack ATK_Giga_Impact = { "Giga Impact", TYPE_NORMAL, 150, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	200, 100, 9, false, };
+static const attack ATK_Gigaton_Hammer = { "Gigaton Hammer", TYPE_STEEL, 130, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	300, 100, 6, false, };
 static const attack ATK_Glaciate = { "Glaciate", TYPE_ICE, 60, -40, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	160, 100, 5, false, };
 static const attack ATK_Grass_Knot = { "Grass Knot", TYPE_GRASS, 90, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -953,6 +955,7 @@ static const attack* const attacks[] = {
   &ATK_Frost_Breath,
   &ATK_Fury_Cutter,
   &ATK_Geomancy,
+  &ATK_Gigaton_Hammer,
   &ATK_Gust,
   &ATK_Hex,
   &ATK_Hidden_Power,
@@ -3899,10 +3902,10 @@ static const species sdex[] = {
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Blizzard, &ATK_Dragon_Claw, &ATK_Draco_Meteor, &ATK_Glaciate, },
 		true, false, false, { &ATK_Glaciate, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  646, "White Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
+  {  646, "Kyurem (White)", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Ice_Fang, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Fusion_Flare, &ATK_Ice_Burn, },
 		true, false, false, { &ATK_Ice_Burn, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  646, "Black Kyurem", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
+  {  646, "Kyurem (Black)", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Stone_Edge, &ATK_Blizzard, &ATK_Iron_Head, &ATK_Outrage, &ATK_Fusion_Bolt, &ATK_Freeze_Shock, },
 		true, false, false, { &ATK_Freeze_Shock, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the colt
@@ -4222,10 +4225,10 @@ static const species sdex[] = {
   {  718, "Zygarde (10%)", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, nullptr,
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  718, "Zygarde (50%)", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%",
+  {  718, "Zygarde (50%)", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde (10%)",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
-  {  718, "Zygarde (Complete)", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%",
+  {  718, "Zygarde (Complete)", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde (50%)",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
   // the jewel
@@ -4829,6 +4832,7 @@ static const species sdex[] = {
   {  888, "Zacian", TYPE_FAIRY, TYPECOUNT, 254, 236, 192, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Metal_Claw, &ATK_Fire_Fang, &ATK_Snarl, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Close_Combat, &ATK_Wild_Charge, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // FIXME why aren't these "zacian (crowned sword)" like everything else?
   {  888, "Crowned Sword Zacian", TYPE_FAIRY, TYPE_STEEL, 332, 240, 192, "Zacian",
 		{ &ATK_Metal_Claw, &ATK_Air_Slash, &ATK_Play_Rough, &ATK_Close_Combat, &ATK_Giga_Impact, &ATK_Behemoth_Blade, },
 		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4919,10 +4923,10 @@ static const species sdex[] = {
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, nullptr,
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  916, "Male Oinkologne", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk",
+  {  916, "Oinkologne (Male)", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk",
 		{ &ATK_Mud_Slap, &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, false, { &ATK_Mud_Slap, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  916, "Female Oinkologne", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk",
+  {  916, "Oinkologne (Female)", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk",
 		{ &ATK_Mud_Slap, &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, false, { &ATK_Mud_Slap, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the string ball
@@ -5046,8 +5050,8 @@ static const species sdex[] = {
 		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  959, "Tinkaton", TYPE_FAIRY, TYPE_STEEL, 155, 196, 198, "Tinkatuff",
-		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Heavy_Slam, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Rock_Smash, &ATK_Fairy_Wind, &ATK_Flash_Cannon, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Heavy_Slam, &ATK_Gigaton_Hammer, },
+		true, false, false, { &ATK_Gigaton_Hammer, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Garden Eel
   {  960, "Wiglett", TYPE_WATER, TYPECOUNT, 109, 52, 67, nullptr,
 		{ &ATK_Water_Gun, &ATK_Mud_Slap, &ATK_Dig, &ATK_Surf, &ATK_Liquidation, },
