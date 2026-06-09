@@ -1832,10 +1832,10 @@ static const species sdex[] = {
   // the Sea Lion
   {  86, "Seel", TYPE_WATER, TYPECOUNT, 85, 121, 163, nullptr,
 		{ &ATK_Lick, &ATK_Ice_Shard, &ATK_Water_Gun, &ATK_Aqua_Jet, &ATK_Aqua_Tail, &ATK_Icy_Wind, &ATK_Aurora_Beam, },
-		true, false, false, { &ATK_Water_Gun, &ATK_Aqua_Jet, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Water_Gun, &ATK_Aqua_Jet, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  87, "Dewgong", TYPE_WATER, TYPE_ICE, 139, 177, 207, "Seel",
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Iron_Tail, &ATK_Blizzard, &ATK_Drill_Run, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Icy_Wind, &ATK_Aurora_Beam, &ATK_Liquidation, },
-		true, false, false, { &ATK_Ice_Shard, &ATK_Aqua_Jet, &ATK_Icy_Wind, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Ice_Shard, &ATK_Aqua_Jet, &ATK_Icy_Wind, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Sludge
   {  88, "Grimer", TYPE_POISON, TYPECOUNT, 135, 90, 190, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Sludge, &ATK_Sludge_Bomb, &ATK_Mud_Bomb, },
@@ -2155,11 +2155,11 @@ static const species sdex[] = {
   // the owl
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, nullptr,
 		{ &ATK_Peck, &ATK_Feint_Attack, &ATK_Aerial_Ace, &ATK_Sky_Attack, &ATK_Night_Shade, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the owl
   {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot",
 		{ &ATK_Wing_Attack, &ATK_Extrasensory, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Sky_Attack, &ATK_Night_Shade, },
-		true, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the five star
   {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Aerial_Ace, &ATK_Swift, &ATK_Silver_Wind, },
@@ -4210,11 +4210,11 @@ static const species sdex[] = {
   // the sound wave
   {  714, "Noibat", TYPE_FLYING, TYPE_DRAGON, 83, 73, 120, nullptr,
 		{ &ATK_Bite, &ATK_Wing_Attack, &ATK_Heat_Wave, &ATK_Dragon_Pulse, &ATK_Air_Cutter, },
-		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sound wave
   {  715, "Noivern", TYPE_FLYING, TYPE_DRAGON, 205, 175, 198, "Noibat",
 		{ &ATK_Bite, &ATK_Air_Slash, &ATK_Heat_Wave, &ATK_Psychic, &ATK_Hurricane, &ATK_Draco_Meteor, &ATK_Boomburst, },
-		true, false, false, { &ATK_Boomburst, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { &ATK_Boomburst, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  716, "Xerneas", TYPE_FAIRY, TYPECOUNT, 250, 185, 246, nullptr,
 		{ &ATK_Tackle, &ATK_Zen_Headbutt, &ATK_Geomancy, &ATK_Megahorn, &ATK_Thunder, &ATK_Moonblast, &ATK_Close_Combat, &ATK_Giga_Impact, },
 		true, false, false, { &ATK_Geomancy, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4645,15 +4645,15 @@ static const species sdex[] = {
   // the tiny bird
   {  821, "Rookidee", TYPE_FLYING, TYPECOUNT, 88, 67, 116, nullptr,
 		{ &ATK_Peck, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Sky_Attack, &ATK_Payback, },
-		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the raven
   {  822, "Corvisquire", TYPE_FLYING, TYPECOUNT, 129, 110, 169, "Rookidee",
 		{ &ATK_Peck, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Sky_Attack, &ATK_Payback, },
-		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the raven
   {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire",
 		{ &ATK_Steel_Wing, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Iron_Head, &ATK_Sky_Attack, &ATK_Payback, },
-		true, false, true, { &ATK_Iron_Head, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Iron_Head, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  824, "Blipbug", TYPE_BUG, TYPECOUNT, 46, 67, 93, nullptr,
     { &ATK_Struggle_Bug, &ATK_Struggle, },
     false, false, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
