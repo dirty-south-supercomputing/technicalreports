@@ -4973,7 +4973,7 @@ static const species sdex[] = {
   {  930, "Arboliva", TYPE_GRASS, TYPE_NORMAL, 219, 189, 186, "Dolliv",
 		{ &ATK_Razor_Leaf, &ATK_Tackle, &ATK_Magical_Leaf, &ATK_Seed_Bomb, &ATK_Energy_Ball, &ATK_Earth_Power, &ATK_Trailblaze, },
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  931, "Squakabilly", TYPE_NORMAL, TYPE_FLYING, 185, 105, 193, nullptr,
+  {  931, "Squawkabilly", TYPE_NORMAL, TYPE_FLYING, 185, 105, 193, nullptr,
 		{ &ATK_Peck, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Brave_Bird, &ATK_Fly, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  932, "Nacli", TYPE_ROCK, TYPECOUNT, 95, 108, 146, nullptr,
