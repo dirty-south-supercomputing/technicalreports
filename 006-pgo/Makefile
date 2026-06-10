@@ -248,25 +248,21 @@ $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
 
-$(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) b 1500 129.1 > $@
-
-$(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) b 2500 164.8 > $@
-
 cp1500atk.pdf: cp1500.tex $(CP1500K)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
+# provide the lower (exclusive) bounds as necessary to properly paginate.
+# note: the bounds are exclusive, but floating-point is in play, so treat
+# them like they're inclusive, and provide a number slightly larger than
+# the lower bound you truly want. this all sucks.
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 128.93 > $@
+	$(<) a 1500 129.03 > $@
 
 $(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 2500 162.02 > $@
+	$(<) a 2500 162.1 > $@
 
 $(OUT)/cp1500k.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
@@ -279,6 +275,14 @@ $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 $(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) g 2500 157.12 > $@
+
+$(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) b 1500 129.25 > $@
+
+$(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) b 2500 164.9 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
