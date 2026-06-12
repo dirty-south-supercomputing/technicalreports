@@ -5248,7 +5248,7 @@ static const mega megasdex[] = {
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, },
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, 200, },
-  {  229, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 100, },
+  {  229, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 300, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, 300, },
   {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, 200, },
