@@ -2155,11 +2155,11 @@ static const species sdex[] = {
   // the owl
   {  163, "Hoothoot", TYPE_NORMAL, TYPE_FLYING, 67, 88, 155, nullptr,
 		{ &ATK_Peck, &ATK_Feint_Attack, &ATK_Aerial_Ace, &ATK_Sky_Attack, &ATK_Night_Shade, },
-		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the owl
   {  164, "Noctowl", TYPE_NORMAL, TYPE_FLYING, 145, 156, 225, "Hoothoot",
 		{ &ATK_Wing_Attack, &ATK_Extrasensory, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Sky_Attack, &ATK_Night_Shade, },
-		true, true, false, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the five star
   {  165, "Ledyba", TYPE_BUG, TYPE_FLYING, 72, 118, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Aerial_Ace, &ATK_Swift, &ATK_Silver_Wind, },
