@@ -5156,9 +5156,9 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Sludge_Bomb, &ATK_Water_Pulse, &ATK_Acid_Spray, },
 		true, false, false, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the long neck
-  {  981, "Farigiraf", TYPE_NORMAL, TYPE_PSYCHIC, 209, 136, 260, "Girafarig",
+  /*{  981, "Farigiraf", TYPE_NORMAL, TYPE_PSYCHIC, 209, 136, 260, "Girafarig",
 		{ &ATK_Tackle, &ATK_Confusion, &ATK_Double_Kick, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Mirror_Coat, &ATK_Psychic_Fangs, },
-		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // the land snake
   {  982, "Dudunsparce", TYPE_NORMAL, TYPECOUNT, 188, 150, 268, "Dunsparce",
 		{ &ATK_Bite, &ATK_Astonish, &ATK_Dragon_Tail, &ATK_Rollout, &ATK_Dig, &ATK_Drill_Run, &ATK_Rock_Slide, &ATK_Body_Slam, },
