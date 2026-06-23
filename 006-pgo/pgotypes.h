@@ -3890,13 +3890,13 @@ static const species sdex[] = {
 		true, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Tackle, &ATK_Dragon_Pulse, &ATK_Body_Slam, &ATK_Crunch, },
-		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dark_Pulse, &ATK_Dragon_Pulse, &ATK_Body_Slam, },
-		true, true, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  635, "Hydreigon", TYPE_DARK, TYPE_DRAGON, 256, 188, 211, "Zweilous",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dark_Pulse, &ATK_Flash_Cannon, &ATK_Dragon_Pulse, &ATK_Brutal_Swing, &ATK_Fly, },
-		true, true, false, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, true, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the torch
   {  636, "Larvesta", TYPE_BUG, TYPE_FIRE, 156, 107, 146, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Flame_Wheel, &ATK_Bug_Buzz, &ATK_Flame_Charge, },
@@ -4570,7 +4570,7 @@ static const species sdex[] = {
   // the sunne
   {  791, "Solgaleo", TYPE_PSYCHIC, TYPE_STEEL, 255, 191, 264, "Cosmoem",
 		{ &ATK_Zen_Headbutt, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Iron_Head, &ATK_Solar_Beam, &ATK_Psychic_Fangs, },
-		false, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, false, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the moone
   {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem",
 		{ &ATK_Shadow_Claw, &ATK_Confusion, &ATK_Air_Slash, &ATK_Shadow_Ball, &ATK_Moonblast, &ATK_Psychic, &ATK_Future_Sight, },
