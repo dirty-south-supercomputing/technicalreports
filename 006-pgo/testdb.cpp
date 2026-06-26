@@ -26,8 +26,7 @@ prev_shadow(const species *s){
   return false;
 }
 
-// certain properties ought be the same for all family members.
-// only checks previous evolutions.
+// certain properties ought be the same for lower family members.
 static bool
 test_family(const species *s){
   for(const species *prev = get_previous_evolution(s) ; prev ; prev = get_previous_evolution(prev)){

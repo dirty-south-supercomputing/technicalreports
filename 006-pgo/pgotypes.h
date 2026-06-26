@@ -253,13 +253,13 @@ struct attack {
   // 3x3 context
   unsigned powertrain;   // power in 3x3 battle context
   int energytrain;       // energy generated/consumed in trainer battle context
-  unsigned turns;
+  unsigned turns;        // 0 for charged moves
   // chance (out of 1000) of having any of four buffing/debuffing effects
   unsigned chance_user_attack;
   unsigned chance_user_defense;
   unsigned chance_opp_attack;
   unsigned chance_opp_defense;
-  // four possible effects (out of [-2, 2])
+  // four possible effects (out of [-4, 4])
   int user_attack;
   int user_defense;
   int opp_attack;
@@ -845,6 +845,8 @@ static const attack ATK_Sludge_Bomb = { "Sludge Bomb", TYPE_POISON, 80, -50, 0, 
 	85, 50, 5, false, };
 static const attack ATK_Sludge_Wave = { "Sludge Wave", TYPE_POISON, 110, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	105, 100, 6, false, };
+static const attack ATK_Snipe_Shot = { "Snipe Shot", TYPE_WATER, 65, -35, 0, 125, 0, 0, 0, 2, 0, 0, 0,
+	100, 33, 7, false, };
 static const attack ATK_Solar_Beam = { "Solar Beam", TYPE_GRASS, 150, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	180, 100, 10, false, };
 static const attack ATK_Spacial_Rend = { "Spacial Rend", TYPE_DRAGON, 95, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1192,6 +1194,7 @@ static const attack* const attacks[] = {
   &ATK_Sludge,
   &ATK_Sludge_Bomb,
   &ATK_Sludge_Wave,
+  &ATK_Snipe_Shot,
   &ATK_Solar_Beam,
   &ATK_Spacial_Rend,
   &ATK_Sparkling_Aria,
@@ -4671,8 +4674,8 @@ static const species sdex[] = {
 		true, false, true, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the secret agent
   {  818, "Inteleon", TYPE_WATER, TYPECOUNT, 262, 142, 172, "Drizzile",
-		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Shadow_Ball, &ATK_Water_Pulse, &ATK_Surf, },
-		true, false, true, { }, species::CAT_NORMAL, 10, "Hydrosnipe", },
+		{ &ATK_Pound, &ATK_Water_Gun, &ATK_Shadow_Ball, &ATK_Water_Pulse, &ATK_Surf, &ATK_Snipe_Shot, &ATK_Hydro_Cannon, },
+		true, false, true, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, "Hydrosnipe", },
   // the cheeky
   {  819, "Skwovet", TYPE_NORMAL, TYPECOUNT, 95, 86, 172, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Bullet_Seed, &ATK_Body_Slam, &ATK_Crunch, &ATK_Trailblaze, },
