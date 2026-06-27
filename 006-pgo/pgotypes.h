@@ -5324,6 +5324,8 @@ static const mega megasdex[] = {
   {  460, "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, 200, },
   {  475, "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, 200, },
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, },
+  // FIXME verify 200 and stats
+  {  560, "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, },
   {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, },
   {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, },
   {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 229, 163, 300, },
