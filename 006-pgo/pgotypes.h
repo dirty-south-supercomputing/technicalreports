@@ -4762,9 +4762,15 @@ static const species sdex[] = {
   {  844, "Sandaconda", TYPE_GROUND, TYPECOUNT, 202, 207, 176, "Silcobra",
 		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
 		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 845 cramorant
-  // 846 arrokuda
-  // 847 barraskewda
+  {  845, "Cramorant", TYPE_FLYING, TYPE_WATER, 173, 163, 172, nullptr,
+		{ &ATK_Peck, &ATK_Water_Gun, &ATK_Fly, &ATK_Drill_Peck, &ATK_Hydro_Pump, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  846, "Arrokuda", TYPE_WATER, TYPECOUNT, 118, 72, 121, nullptr,
+		{ &ATK_Bite, &ATK_Peck, &ATK_Waterfall, &ATK_Crunch, &ATK_Close_Combat, &ATK_Aqua_Jet, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  847, "Barraskewda", TYPE_WATER, TYPECOUNT, 258, 127, 156, "Arrokuda",
+		{ &ATK_Bite, &ATK_Peck, &ATK_Waterfall, &ATK_Crunch, &ATK_Close_Combat, &ATK_Aqua_Jet, },
+		false, false, false, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  848, "Toxel", TYPE_ELECTRIC, TYPE_POISON, 97, 65, 120, nullptr,
 		{ &ATK_Acid, &ATK_Power_Up_Punch, },
 		true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -5277,6 +5283,8 @@ static const mega megasdex[] = {
   {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, 200, },
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, 100, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, 100, },
+  {  26, "Mega Raichu X", TYPE_ELECTRIC, TYPE_NORMAL, 277, 203, 155, 100, },
+  {  26, "Mega Raichu Y", TYPE_ELECTRIC, TYPE_NORMAL, 339, 157, 155, 100, },
   {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, 200, },
   {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, },
   {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, },
