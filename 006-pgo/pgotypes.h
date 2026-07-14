@@ -5290,6 +5290,7 @@ static const mega megasdex[] = {
   {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, },
   {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, 200, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, 200, },
+  {  121, "Mega Starmie", TYPE_WATER, TYPE_PSYCHIC, 276, 229, 155, 200, },
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, 200, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, 200, },
