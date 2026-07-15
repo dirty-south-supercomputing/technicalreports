@@ -4841,10 +4841,10 @@ static const species sdex[] = {
   // 871 pincurchin
   {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 102, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
-    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+    true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  873, "Frosmoth", TYPE_BUG, TYPE_ICE, 230, 155, 172, "Snom",
     { &ATK_Powder_Snow, &ATK_Bug_Bite, &ATK_Icy_Wind, &ATK_Bug_Buzz, &ATK_Ice_Beam, &ATK_Hurricane, },
-    false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+    true, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  874, "Stonjourner", TYPE_ROCK, TYPECOUNT, 222, 182, 225, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Stone_Edge, &ATK_Rock_Slide, &ATK_Stomp, },
 		false, false, false, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
