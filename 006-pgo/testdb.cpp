@@ -1,16 +1,16 @@
 #include "pgotypes.h"
 
-// returns true if a previous evolution could dmax
-static bool
+// returns non-zero corresponding to max battle cost if previous could dmax
+static unsigned
 prev_dmax(const species *s){
   const species *prev = get_previous_evolution(s);
   if(prev){
     if(prev->dmax){
-      return true;
+      return prev->dmax;
     }
     return prev_dmax(prev);
   }
-  return false;
+  return 0;
 }
 
 // returns true if a previous evolution was available as a shadow
@@ -40,8 +40,8 @@ test_family(const species *s){
         throw std::exception();
       }
     }
-    if(prev_dmax(s) && !s->dmax){
-      std::cerr << prev->name << " dmax != " << s->name << " dmax" << std::endl;
+    if(prev_dmax(s) > s->dmax){
+      std::cerr << prev->name << " dmax > " << s->name << " dmax" << std::endl;
       throw std::exception();
     }
   }
