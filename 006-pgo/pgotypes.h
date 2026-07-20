@@ -3639,7 +3639,7 @@ static const species sdex[] = {
   // the trash bag
   {  568, "Trubbish", TYPE_POISON, TYPECOUNT, 96, 122, 137, nullptr,
 		{ &ATK_Pound, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 250, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the trash heap
   {  569, "Garbodor", TYPE_POISON, TYPECOUNT, 181, 164, 190, "Trubbish",
 		{ &ATK_Infestation, &ATK_Take_Down, &ATK_Seed_Bomb, &ATK_Gunk_Shot, &ATK_Body_Slam, &ATK_Acid_Spray, },
