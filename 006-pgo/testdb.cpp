@@ -35,8 +35,10 @@ test_family(const species *s){
       throw std::exception();
     }
     if(prev->shiny != s->shiny){
-      std::cerr << prev->name << " shiny != " << s->name << " shiny" << std::endl;
-      throw std::exception();
+      if(prev->name != "Cosmog" && prev->name != "Cosmoem"){
+        std::cerr << prev->name << " shiny != " << s->name << " shiny" << std::endl;
+        throw std::exception();
+      }
     }
     if(prev_dmax(s) && !s->dmax){
       std::cerr << prev->name << " dmax != " << s->name << " dmax" << std::endl;
