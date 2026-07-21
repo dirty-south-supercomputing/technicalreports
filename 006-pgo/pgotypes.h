@@ -1740,7 +1740,7 @@ static const species sdex[] = {
   // the Superpower
   {  66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, nullptr,
 		{ &ATK_Low_Kick, &ATK_Karate_Chop, &ATK_Rock_Smash, &ATK_Cross_Chop, &ATK_Low_Sweep, &ATK_Brick_Break, },
-		true, true, UINT_MAX, { &ATK_Low_Kick, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 2, { &ATK_Low_Kick, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  67, "Machoke", TYPE_FIGHTING, TYPECOUNT, 177, 125, 190, "Machop",
 		{ &ATK_Low_Kick, &ATK_Karate_Chop, &ATK_Cross_Chop, &ATK_Submission, &ATK_Brick_Break, &ATK_Dynamic_Punch, },
 		true, true, UINT_MAX, { &ATK_Cross_Chop, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -2045,7 +2045,7 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Tackle, &ATK_Dig, &ATK_Swift, &ATK_Body_Slam, &ATK_Last_Resort, },
-		true, false, UINT_MAX, { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, "Cuddle", species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 2, { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, "Cuddle", species::EVOL_NOITEM, species::REGION_ALL, },
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee",
 		{ &ATK_Water_Gun, &ATK_Aqua_Tail, &ATK_Water_Pulse, &ATK_Scald, &ATK_Hydro_Pump, &ATK_Last_Resort, &ATK_Liquidation, },
 		true, false, UINT_MAX, { &ATK_Scald, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -2372,7 +2372,7 @@ static const species sdex[] = {
   // the mold
   {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Struggle_Bug, &ATK_Stone_Edge, &ATK_Rock_Blast, &ATK_Gyro_Ball, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 2, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the single horn
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, nullptr,
 		{ &ATK_Counter, &ATK_Struggle_Bug, &ATK_Fury_Cutter, &ATK_Megahorn, &ATK_Earthquake, &ATK_Close_Combat, &ATK_Rock_Blast, &ATK_Upper_Hand, &ATK_Rock_Tomb, },
@@ -3571,7 +3571,7 @@ static const species sdex[] = {
   // the zen charm
   {  554, "Darumaka", TYPE_FIRE, TYPECOUNT, 153, 86, 172, nullptr,
 		{ &ATK_Tackle, &ATK_Fire_Fang, &ATK_Flame_Charge, &ATK_Fire_Punch, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 2, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the zen charm
   {  554, "Galarian Darumaka", TYPE_ICE, TYPECOUNT, 153, 86, 172, nullptr,
 		{ &ATK_Tackle, &ATK_Ice_Fang, &ATK_Ice_Punch, &ATK_Ice_Beam, },
