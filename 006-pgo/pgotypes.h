@@ -1932,11 +1932,11 @@ static const species sdex[] = {
   // the Kicking
   {  106, "Hitmonlee", TYPE_FIGHTING, TYPECOUNT, 224, 181, 137, "Tyrogue",
 		{ &ATK_Low_Kick, &ATK_Rock_Smash, &ATK_Double_Kick, &ATK_Stone_Edge, &ATK_Low_Sweep, &ATK_Brick_Break, &ATK_Stomp, &ATK_Close_Combat, &ATK_Blaze_Kick, },
-		true, true, UINT_MAX, { &ATK_Brick_Break, &ATK_Stomp, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { &ATK_Brick_Break, &ATK_Stomp, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Punching
   {  107, "Hitmonchan", TYPE_FIGHTING, TYPECOUNT, 193, 197, 137, "Tyrogue",
 		{ &ATK_Bullet_Punch, &ATK_Rock_Smash, &ATK_Counter, &ATK_Ice_Punch, &ATK_Thunder_Punch, &ATK_Fire_Punch, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Power_Up_Punch, },
-		true, true, UINT_MAX, { &ATK_Rock_Smash, &ATK_Brick_Break, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { &ATK_Rock_Smash, &ATK_Brick_Break, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Locking
   {  108, "Lickitung", TYPE_NORMAL, TYPECOUNT, 108, 137, 207, nullptr,
 		{ &ATK_Lick, &ATK_Zen_Headbutt, &ATK_Wrap, &ATK_Hyper_Beam, &ATK_Power_Whip, &ATK_Stomp, &ATK_Body_Slam, },
@@ -1962,7 +1962,7 @@ static const species sdex[] = {
   // the Egg
   {  113, "Chansey", TYPE_NORMAL, TYPECOUNT, 60, 128, 487, "Happiny",
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Hyper_Beam, &ATK_Dazzling_Gleam, &ATK_Psychic, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Vine
   {  114, "Tangela", TYPE_GRASS, TYPECOUNT, 183, 169, 163, nullptr,
 		{ &ATK_Vine_Whip, &ATK_Infestation, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Power_Whip, &ATK_Grass_Knot, },
@@ -2686,7 +2686,7 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Feint_Attack, &ATK_Drain_Punch, &ATK_Power_Gem, &ATK_Shadow_Sneak, &ATK_Dazzling_Gleam, &ATK_Foul_Play, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, nullptr,
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Astonish, &ATK_Ice_Fang, &ATK_Fairy_Wind, &ATK_Vise_Grip, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Power_Up_Punch, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -2923,7 +2923,7 @@ static const species sdex[] = {
   // the iron ball
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, nullptr,
 		{ &ATK_Take_Down, &ATK_Iron_Head, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the iron claw
   {  375, "Metang", TYPE_STEEL, TYPE_PSYCHIC, 138, 176, 155, "Beldum",
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Zen_Headbutt, &ATK_Psyshock, &ATK_Psychic, &ATK_Gyro_Ball, },
@@ -3834,7 +3834,7 @@ static const species sdex[] = {
 
   {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Night_Slash, &ATK_Water_Pulse, &ATK_Solar_Beam, &ATK_Aurora_Beam, &ATK_Triple_Axel, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  616, "Shelmet", TYPE_BUG, TYPECOUNT, 72, 140, 137, nullptr,
 		{ &ATK_Acid, &ATK_Infestation, &ATK_Bug_Buzz, &ATK_Signal_Beam, &ATK_Body_Slam, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4485,7 +4485,7 @@ static const species sdex[] = {
   // the teamwork
   {  766, "Passimian", TYPE_FIGHTING, TYPECOUNT, 222, 160, 225, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Take_Down, &ATK_Drain_Punch, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Superpower, &ATK_Brutal_Swing, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the turn tail
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, nullptr,
 		{ &ATK_Struggle_Bug, &ATK_Bug_Buzz, },
@@ -4533,7 +4533,7 @@ static const species sdex[] = {
   // the placid
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Extrasensory, &ATK_Dragon_Pulse, &ATK_Swift, &ATK_Outrage, &ATK_Fly, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sea creeper
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Astonish, &ATK_Metal_Sound, &ATK_Brutal_Swing, &ATK_Wrap, &ATK_Shadow_Ball, &ATK_Power_Whip, &ATK_Heavy_Slam, },
@@ -4839,7 +4839,7 @@ static const species sdex[] = {
   // 869: alcremie
   {  870, "Falinks", TYPE_FIGHTING, TYPECOUNT, 193, 170, 163, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Megahorn, &ATK_Brick_Break, &ATK_Superpower, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 871 pincurchin
   {  872, "Snom", TYPE_BUG, TYPE_ICE, 76, 59, 102, nullptr,
     { &ATK_Powder_Snow, &ATK_Struggle_Bug, &ATK_Icy_Wind, &ATK_Bug_Buzz, },
