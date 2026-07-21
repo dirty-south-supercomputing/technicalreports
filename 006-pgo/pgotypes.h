@@ -2935,23 +2935,23 @@ static const species sdex[] = {
   // the rock peak
   {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
-		true, true, UINT_MAX, { &ATK_Earthquake, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 5, { &ATK_Earthquake, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the iceberg
   {  378, "Regice", TYPE_ICE, TYPECOUNT, 179, 309, 190, nullptr,
 		{ &ATK_Frost_Breath, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Earthquake, &ATK_Blizzard, &ATK_Thunder, &ATK_Focus_Blast, },
-		true, true, UINT_MAX, { &ATK_Thunder, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 5, { &ATK_Thunder, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the iron
   {  379, "Registeel", TYPE_STEEL, TYPECOUNT, 143, 285, 190, nullptr,
 		{ &ATK_Metal_Claw, &ATK_Rock_Smash, &ATK_Lock_On, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Focus_Blast, &ATK_Zap_Cannon, },
-		true, true, UINT_MAX, { &ATK_Zap_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 5, { &ATK_Zap_Cannon, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the eon
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Aura_Sphere, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
-		true, true, UINT_MAX, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 5, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the eon
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Aura_Sphere, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
-		true, true, UINT_MAX, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 5, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sea basin
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, nullptr,
 		{ &ATK_Waterfall, &ATK_Blizzard, &ATK_Thunder, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Origin_Pulse, &ATK_Avalanche, },
@@ -4778,7 +4778,7 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  849, "Toxtricity", TYPE_ELECTRIC, TYPE_POISON, 224, 140, 181, "Toxel",
 		{ &ATK_Spark, &ATK_Poison_Jab, &ATK_Acid, &ATK_Discharge, &ATK_Wild_Charge, &ATK_Acid_Spray, &ATK_Power_Up_Punch, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 75, "Stun Shock", species::EVOL_NOITEM},
+		true, true, 4, { }, species::CAT_NORMAL, 75, "Stun Shock", species::EVOL_NOITEM},
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
