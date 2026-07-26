@@ -2827,7 +2827,7 @@ static const species sdex[] = {
 		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  349, "Feebas", TYPE_WATER, TYPECOUNT, 29, 85, 85, nullptr,
 		{ &ATK_Tackle, &ATK_Splash, &ATK_Mirror_Coat, },
-		true, true, 1, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 2, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  350, "Milotic", TYPE_WATER, TYPECOUNT, 192, 219, 216, "Feebas",
 		{ &ATK_Dragon_Tail, &ATK_Waterfall, &ATK_Wrap, &ATK_Hyper_Beam, &ATK_Blizzard, &ATK_Surf, &ATK_Aqua_Tail, },
 		true, true, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
