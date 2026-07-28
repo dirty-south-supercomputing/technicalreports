@@ -2015,7 +2015,7 @@ static const species sdex[] = {
   // the Spitfire
   {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, "Magby",
 		{ &ATK_Karate_Chop, &ATK_Ember, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Fire_Punch, &ATK_Scorching_Sands, },
-		true, true, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 1, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Rock_Smash, &ATK_Vise_Grip, &ATK_Submission, &ATK_X_Scissor, &ATK_Close_Combat, &ATK_Superpower, },
 		true, true, 0, { &ATK_Submission, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -3239,7 +3239,7 @@ static const species sdex[] = {
 		true, true, 0, { &ATK_Flamethrower, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar",
 		{ &ATK_Karate_Chop, &ATK_Fire_Spin, &ATK_Thunderbolt, &ATK_Fire_Blast, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Brick_Break, &ATK_Scorching_Sands, },
-		true, true, 0, { &ATK_Thunderbolt, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
+		true, true, UINT_MAX, { &ATK_Thunderbolt, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  468, "Togekiss", TYPE_FAIRY, TYPE_FLYING, 225, 217, 198, "Togetic",
 		{ &ATK_Air_Slash, &ATK_Hidden_Power, &ATK_Charm, &ATK_Peck, &ATK_Flamethrower, &ATK_Aerial_Ace, &ATK_Psyshock, &ATK_Ancient_Power, &ATK_Dazzling_Gleam, &ATK_Aura_Sphere, },
 		true, false, 0, { &ATK_Aura_Sphere, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
