@@ -6432,8 +6432,16 @@ print_evolution_table(const species* s){
 static inline bool
 ismega_p(const species* s){
 #define MEGASTR "Mega "
-  return !s->name.compare(0, strlen(MEGASTR), MEGASTR);
+  if(!s->name.compare(0, strlen(MEGASTR), MEGASTR)){
+    return true;
+  }
 #undef MEGASTR
+#define PRIMALSTR "Primal "
+  if(!s->name.compare(0, strlen(PRIMALSTR), PRIMALSTR)){
+    return true;
+  }
+#undef PRIMALSTR
+  return false;
 }
 
 static void
