@@ -5255,6 +5255,7 @@ struct mega {
   unsigned def;
   unsigned sta;
   unsigned initialcost;
+  unsigned maxlevel;    // some can reach mega level 4, but most can only reach 3
 
   mega() {
   }
@@ -5265,7 +5266,7 @@ struct mega {
 
   mega(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
           unsigned A, unsigned D, unsigned S,
-          unsigned Initialcost)
+          unsigned Initialcost, unsigned Maxlevel = 3)
     : idx(i),
     name(n),
     t1(T1),
@@ -5273,7 +5274,8 @@ struct mega {
     atk(A),
     def(D),
     sta(S),
-    initialcost(Initialcost)
+    initialcost(Initialcost),
+    maxlevel(Maxlevel)
   { }
 };
 
@@ -5285,25 +5287,25 @@ static const mega megasdex[] = {
   {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, 200, },
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, 100, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, 100, },
-  {  26, "Mega Raichu X", TYPE_ELECTRIC, TYPE_NORMAL, 277, 203, 155, 300, },
-  {  26, "Mega Raichu Y", TYPE_ELECTRIC, TYPE_NORMAL, 339, 157, 155, 300, },
+  {  26, "Mega Raichu X", TYPE_ELECTRIC, TYPE_NORMAL, 277, 203, 155, 300, 4, },
+  {  26, "Mega Raichu Y", TYPE_ELECTRIC, TYPE_NORMAL, 339, 157, 155, 300, 4, },
   {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, 200, },
-  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, },
+  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, 4, },
   {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, },
   {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, 200, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, 200, },
-  {  121, "Mega Starmie", TYPE_WATER, TYPE_PSYCHIC, 276, 229, 155, 200, },
+  {  121, "Mega Starmie", TYPE_WATER, TYPE_PSYCHIC, 276, 229, 155, 200, 4, },
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, 200, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, 200, },
-  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, },
-  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 399, 215, 228, 7500, },
-  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 413, 223, 228, 7500, },
+  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, 4, },
+  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 399, 215, 228, 7500, 4, },
+  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 413, 223, 228, 7500, 4, },
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, 200, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, },
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, 200, },
-  {  229, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 300, },
+  {  229, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 300, 4, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, 300, },
   {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, 200, },
@@ -5336,9 +5338,9 @@ static const mega megasdex[] = {
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, },
   // FIXME verify 200 and stats
   {  560, "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, },
-  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, },
+  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, 4, },
   {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, },
-  {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 229, 163, 300, },
+  {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 229, 163, 300, 4, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
