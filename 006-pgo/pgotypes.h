@@ -4695,7 +4695,7 @@ static const species sdex[] = {
   {  822, "Corvisquire", TYPE_FLYING, TYPECOUNT, 129, 110, 169, "Rookidee",
 		{ &ATK_Peck, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Sky_Attack, &ATK_Payback, },
 		true, true, UINT_MAX, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // the raven
+  // the raven (will have gmax)
   {  823, "Corviknight", TYPE_FLYING, TYPE_STEEL, 163, 192, 221, "Corvisquire",
 		{ &ATK_Steel_Wing, &ATK_Air_Slash, &ATK_Sand_Attack, &ATK_Iron_Head, &ATK_Sky_Attack, &ATK_Payback, },
 		true, true, UINT_MAX, { &ATK_Iron_Head, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
