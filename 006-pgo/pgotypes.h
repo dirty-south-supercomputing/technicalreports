@@ -4639,6 +4639,7 @@ static const species sdex[] = {
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, 0, { }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan",
 		{ &ATK_Thunder_Shock, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Rock_Slide, &ATK_Thunderbolt, &ATK_Superpower, &ATK_Double_Iron_Bash, &ATK_Dynamic_Punch, },
 		true, false, 0, { &ATK_Double_Iron_Bash, }, species::CAT_MYTHICAL, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4704,6 +4705,7 @@ static const species sdex[] = {
   {  825, "Dottler", TYPE_BUG, TYPE_PSYCHIC, 87, 157, 137, "Blipbug",
     { &ATK_Confusion, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_Psychic, },
     false, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  826, "Orbeetle", TYPE_BUG, TYPE_PSYCHIC, 156, 240, 155, "Dottler",
     { &ATK_Confusion, &ATK_Struggle_Bug, &ATK_Bug_Buzz, &ATK_Psychic, },
     false, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4731,6 +4733,7 @@ static const species sdex[] = {
   /*{  833, "Chewtle", TYPE_WATER, TYPECOUNT, 114, 85, 137, nullptr,
 		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Body_Slam, &ATK_Surf, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  834, "Drednaw", TYPE_WATER, TYPE_ROCK, 213, 164, 207, nullptr,
 		{ &ATK_Bite, &ATK_Waterfall, &ATK_Body_Slam, &Rock_Blast, &ATK_Crunch, &ATK_Surf, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },*/
@@ -4746,21 +4749,25 @@ static const species sdex[] = {
   {  838, "Carkol", TYPE_ROCK, TYPE_FIRE, 114, 157, 190, "Rolycoly",
 		{ &ATK_Tackle, &ATK_Smack_Down, &ATK_Rock_Slide, &ATK_Flame_Charge, &ATK_Rock_Blast, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  839, "Coalossal", TYPE_ROCK, TYPE_FIRE, 146, 198, 242, "Carkol",
 		{ &ATK_Fire_Spin, &ATK_Smack_Down, &ATK_Rock_Slide, &ATK_Flame_Charge, &ATK_Rock_Blast, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  840, "Applin", TYPE_GRASS, TYPE_DRAGON, 71, 116, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Struggle, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  841, "Flapple", TYPE_GRASS, TYPE_DRAGON, 214, 144, 172, "Applin",
 		{ &ATK_Dragon_Breath, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Outrage, &ATK_Fly, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_TARTAPPLE, species::REGION_ALL, },
+  // will have gmax
   {  842, "Appletun", TYPE_GRASS, TYPE_DRAGON, 178, 146, 242, "Applin",
 		{ &ATK_Astonish, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Dragon_Pulse, &ATK_Energy_Ball, &ATK_Outrage, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SWEETAPPLE, species::REGION_ALL, },
   {  843, "Silcobra", TYPE_GROUND, TYPECOUNT, 103, 123, 141, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  844, "Sandaconda", TYPE_GROUND, TYPECOUNT, 202, 207, 176, "Silcobra",
 		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4782,6 +4789,7 @@ static const species sdex[] = {
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede",
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, &ATK_Lunge, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4803,6 +4811,7 @@ static const species sdex[] = {
   {  857, "Hattrem", TYPE_PSYCHIC, TYPECOUNT, 153, 133, 149, "Hatenna",
 		{ &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, },
 		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  858, "Hatterene", TYPE_PSYCHIC, TYPE_FAIRY, 237, 182, 149, "Hattrem",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psyshock, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Power_Whip, },
 		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, "Smite", },
@@ -4862,11 +4871,12 @@ static const species sdex[] = {
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // 878 cufant
-  // 879 copperajah
+  // 879 copperajah (will have gmax)
   // 880 is dracozolt
   // 881 is arctozolt
   // 882 is dracovish
   // 883 is arctovish
+  // will have gmax
   {  884, "Duraludon", TYPE_DRAGON, TYPE_STEEL, 239, 185, 172, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Metal_Claw, &ATK_Flash_Cannon, &ATK_Dragon_Claw, &ATK_Hyper_Beam, },
 		false, false, 4, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4901,9 +4911,11 @@ static const species sdex[] = {
   {  891, "Kubfu", TYPE_FIGHTING, TYPECOUNT, 170, 112, 155, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Dynamic_Punch, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  892, "Urshifu (Single Strike)", TYPE_FIGHTING, TYPE_DARK, 254, 177, 225, "Kubfu",
 		{ &ATK_Sucker_Punch, &ATK_Rock_Smash, &ATK_Counter, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Dynamic_Punch, &ATK_Payback, },
 		false, false, UINT_MAX, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // will have gmax
   {  892, "Urshifu (Rapid Strike)", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu",
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Waterfall, &ATK_Aqua_Jet, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Dynamic_Punch, },
 		false, false, UINT_MAX, { }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
