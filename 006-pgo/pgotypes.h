@@ -2011,7 +2011,7 @@ static const species sdex[] = {
   // the Electric
   {  125, "Electabuzz", TYPE_ELECTRIC, TYPECOUNT, 198, 158, 163, "Elekid",
 		{ &ATK_Thunder_Shock, &ATK_Low_Kick, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, },
-		true, true, 0, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Spitfire
   {  126, "Magmar", TYPE_FIRE, TYPECOUNT, 206, 154, 163, "Magby",
 		{ &ATK_Karate_Chop, &ATK_Ember, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Fire_Punch, &ATK_Scorching_Sands, },
@@ -3471,7 +3471,7 @@ static const species sdex[] = {
   // the subterrene
   {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur",
 		{ &ATK_Mud_Shot, &ATK_Metal_Claw, &ATK_Mud_Slap, &ATK_Earthquake, &ATK_Drill_Run, &ATK_Rock_Slide, &ATK_Iron_Head, &ATK_Scorching_Sands, },
-		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the hearing
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, nullptr,
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Hyper_Beam, &ATK_Disarming_Voice, &ATK_Dazzling_Gleam, &ATK_Body_Slam, },
@@ -3831,7 +3831,6 @@ static const species sdex[] = {
   {  614, "Beartic", TYPE_ICE, TYPECOUNT, 233, 152, 216, "Cubchoo",
 		{ &ATK_Powder_Snow, &ATK_Charm, &ATK_Ice_Punch, &ATK_Play_Rough, &ATK_Surf, &ATK_Liquidation, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-
   {  615, "Cryogonal", TYPE_ICE, TYPECOUNT, 190, 218, 190, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Night_Slash, &ATK_Water_Pulse, &ATK_Solar_Beam, &ATK_Aurora_Beam, &ATK_Triple_Axel, },
 		true, false, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -3895,7 +3894,7 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  633, "Deino", TYPE_DARK, TYPE_DRAGON, 116, 93, 141, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Tackle, &ATK_Dragon_Pulse, &ATK_Body_Slam, &ATK_Crunch, },
-		true, true, 1, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  634, "Zweilous", TYPE_DARK, TYPE_DRAGON, 159, 135, 176, "Deino",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dark_Pulse, &ATK_Dragon_Pulse, &ATK_Body_Slam, },
 		true, true, UINT_MAX, { }, species::CAT_NORMAL, 75, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
