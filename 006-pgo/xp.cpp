@@ -205,7 +205,9 @@ hasupgrade(const TrainerLevel &l){
 
 static bool
 hasrareitem(const TrainerLevel &l){
-  if(l.infiniteincubator || l.goldenrazz || l.masterball || l.fasttm || l.elitefasttm || l.elitechargedtm){
+  if(l.infiniteincubator || l.goldenrazz || l.masterball || l.fasttm ||
+      l.elitefasttm || l.elitechargedtm || l.rarexl || l.prempass ||
+      l.maxmushroom || l.maxpack){
     return true;
   }
   return false;
