@@ -3236,7 +3236,7 @@ static const species sdex[] = {
 		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  466, "Electivire", TYPE_ELECTRIC, TYPECOUNT, 249, 163, 181, "Electabuzz",
 		{ &ATK_Thunder_Shock, &ATK_Low_Kick, &ATK_Flamethrower, &ATK_Ice_Punch, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Wild_Charge, },
-		true, true, 0, { &ATK_Flamethrower, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
+		true, true, UINT_MAX, { &ATK_Flamethrower, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  467, "Magmortar", TYPE_FIRE, TYPECOUNT, 247, 172, 181, "Magmar",
 		{ &ATK_Karate_Chop, &ATK_Fire_Spin, &ATK_Thunderbolt, &ATK_Fire_Blast, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Brick_Break, &ATK_Scorching_Sands, },
 		true, true, UINT_MAX, { &ATK_Thunderbolt, }, species::CAT_NORMAL, 75, nullptr, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
