@@ -1,4 +1,5 @@
 #include "pgotypes.h"
+#include <getopt.h>
 #include <memory>
 
 static void
