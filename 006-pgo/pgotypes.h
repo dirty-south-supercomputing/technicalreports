@@ -2471,11 +2471,11 @@ static const species sdex[] = {
   // the Electric
   {  239, "Elekid", TYPE_ELECTRIC, TYPECOUNT, 135, 101, 128, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Low_Kick, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Thunderbolt, &ATK_Brick_Break, },
-		true, true, 0, { &ATK_Thunderbolt, }, species::CAT_BABY, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Thunderbolt, }, species::CAT_BABY, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Live Coal
   {  240, "Magby", TYPE_FIRE, TYPECOUNT, 151, 99, 128, nullptr,
 		{ &ATK_Karate_Chop, &ATK_Ember, &ATK_Flamethrower, &ATK_Flame_Burst, &ATK_Fire_Punch, &ATK_Brick_Break, },
-		true, true, 0, { &ATK_Flamethrower, }, species::CAT_BABY, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Flamethrower, }, species::CAT_BABY, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Milk Cow
   {  241, "Miltank", TYPE_NORMAL, TYPECOUNT, 157, 193, 216, nullptr,
 		{ &ATK_Tackle, &ATK_Zen_Headbutt, &ATK_Rollout, &ATK_Ice_Beam, &ATK_Thunderbolt, &ATK_Stomp, &ATK_Body_Slam, &ATK_Gyro_Ball, },

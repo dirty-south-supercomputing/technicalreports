@@ -109,6 +109,10 @@ test_species(const species *s){
         std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
         throw std::exception();
       }
+      if(s->shadow){
+        std::cerr << "baby pokémon " << s->name << " can't be a shadow" << std::endl;
+        throw std::exception();
+      }
       break;
     default:
       std::cerr << "unhandled category " << s->category << std::endl;
