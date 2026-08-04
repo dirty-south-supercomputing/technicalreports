@@ -3914,7 +3914,7 @@ static const species sdex[] = {
 		true, false, 0, { &ATK_Sacred_Sword, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  639, "Terrakion", TYPE_ROCK, TYPE_FIGHTING, 260, 192, 209, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Smack_Down, &ATK_Double_Kick, &ATK_Earthquake, &ATK_Rock_Slide, &ATK_Close_Combat, &ATK_Sacred_Sword, },
-		true, true, 0, { &ATK_Sacred_Sword, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Sacred_Sword, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  640, "Virizion", TYPE_GRASS, TYPE_FIGHTING, 192, 229, 209, nullptr,
 		{ &ATK_Quick_Attack, &ATK_Zen_Headbutt, &ATK_Double_Kick, &ATK_Stone_Edge, &ATK_Leaf_Blade, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		true, false, 0, { &ATK_Sacred_Sword, }, species::CAT_LEGENDARY, 100, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
