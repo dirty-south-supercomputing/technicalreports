@@ -1709,14 +1709,14 @@ static const species sdex[] = {
 		true, true, 1, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  58, "Hisuian Growlithe", TYPE_FIRE, TYPE_ROCK, 142, 92, 155, nullptr,
 		{ &ATK_Bite, &ATK_Ember, &ATK_Flamethrower, &ATK_Rock_Slide, &ATK_Crunch, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Legendary
   {  59, "Arcanine", TYPE_FIRE, TYPECOUNT, 227, 166, 207, "Growlithe",
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Snarl, &ATK_Thunder_Fang, &ATK_Flamethrower, &ATK_Bulldoze, &ATK_Fire_Blast, &ATK_Wild_Charge, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Scorching_Sands, },
 		true, true, 1, { &ATK_Bite, &ATK_Bulldoze, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  59, "Hisuian Arcanine", TYPE_FIRE, TYPE_ROCK, 232, 165, 216, "Hisuian Growlithe",
 		{ &ATK_Fire_Fang, &ATK_Rock_Smash, &ATK_Snarl, &ATK_Flamethrower, &ATK_Rock_Slide, &ATK_Wild_Charge, &ATK_Crunch, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Tadpole
   {  60, "Poliwag", TYPE_WATER, TYPECOUNT, 101, 82, 120, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Bubble, &ATK_Bubble_Beam, &ATK_Mud_Bomb, &ATK_Body_Slam, },
@@ -1898,13 +1898,13 @@ static const species sdex[] = {
   // the Sphere
   {  100, "Hisuian Voltorb", TYPE_ELECTRIC, TYPE_GRASS, 109, 111, 120, nullptr,
 		{ &ATK_Tackle, &ATK_Charge_Beam, &ATK_Thunderbolt, &ATK_Swift, &ATK_Energy_Ball, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  101, "Electrode", TYPE_ELECTRIC, TYPECOUNT, 173, 173, 155, "Voltorb",
 		{ &ATK_Spark, &ATK_Tackle, &ATK_Volt_Switch, &ATK_Hyper_Beam, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Foul_Play, },
 		true, true, 0, { &ATK_Tackle, }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  101, "Hisuian Electrode", TYPE_ELECTRIC, TYPE_GRASS, 176, 176, 155, "Hisuian Voltorb",
 		{ &ATK_Thunder_Shock, &ATK_Tackle, &ATK_Swift, &ATK_Wild_Charge, &ATK_Energy_Ball, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Egg
   {  102, "Exeggcute", TYPE_GRASS, TYPE_PSYCHIC, 107, 125, 155, nullptr,
 		{ &ATK_Confusion, &ATK_Bullet_Seed, &ATK_Seed_Bomb, &ATK_Ancient_Power, &ATK_Psychic, },
@@ -2136,7 +2136,7 @@ static const species sdex[] = {
 		true, true, 0, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  157, "Hisuian Typhlosion", TYPE_FIRE, TYPE_GHOST, 238, 172, 177, nullptr,
 		{ &ATK_Ember, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Fire_Punch, &ATK_Wild_Charge, &ATK_Night_Shade, &ATK_Overheat, },
-		true, true, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the big jaw
   {  158, "Totodile", TYPE_WATER, TYPECOUNT, 117, 109, 137, nullptr,
 		{ &ATK_Scratch, &ATK_Water_Gun, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Crunch, },
@@ -2364,7 +2364,7 @@ static const species sdex[] = {
   // the balloon
   {  211, "Hisuian Qwilfish", TYPE_DARK, TYPE_POISON, 184, 151, 163, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Dark_Pulse, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Pincer
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther",
 		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Night_Slash, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Trailblaze, },
@@ -2384,7 +2384,7 @@ static const species sdex[] = {
   // the sharp claw
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Rock_Smash, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Close_Combat, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the little bear
   {  216, "Teddiursa", TYPE_NORMAL, TYPECOUNT, 142, 93, 155, nullptr,
 		{ &ATK_Lick, &ATK_Scratch, &ATK_Cross_Chop, &ATK_Play_Rough, &ATK_Swift, &ATK_Crunch, &ATK_Trailblaze, },
@@ -3379,7 +3379,7 @@ static const species sdex[] = {
 		true, true, 0, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  503, "Hisuian Samurott", TYPE_WATER, TYPE_DARK, 218, 152, 207, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Snarl, &ATK_Waterfall, &ATK_Dark_Pulse, &ATK_X_Scissor, &ATK_Icy_Wind, &ATK_Razor_Shell, &ATK_Sacred_Sword, },
-		true, true, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   {  504, "Patrat", TYPE_NORMAL, TYPECOUNT, 98, 73, 128, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Dig, &ATK_Hyper_Fang, &ATK_Grass_Knot, },
 		true, true, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
