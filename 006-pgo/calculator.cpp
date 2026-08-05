@@ -173,6 +173,7 @@ static stats *reverse_ivs_level(const species *s, int cp, int *ia, int *id, int 
   return sols;
 }
 
+// FIXME allows trailing material we probably shouldn't
 static int
 lex_iv(const char *arg, int *ia, int *id, int *is){
   int r;
