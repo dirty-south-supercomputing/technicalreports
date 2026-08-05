@@ -5354,12 +5354,14 @@ static const mega megasdex[] = {
   // {  530, "Mega Excadrill", TYPE_GROUND, TYPE_STEEL, 0, 0, 0, 0, },
   {  531, "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, },
   // {  545, "Mega Scolipede", TYPE_BUG, TYPE_POISON, 0, 0, 0, 0, },
-  // FIXME verify 200 and stats
-  {  560, "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, },
+  // FIXME verify
+  {  560, "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, 4, },
   //{  604, "Mega Eelektross", TYPE_ELECTRIC, TYPECOUNT, 0, 0, 0, 0, },
   //{  609, "Mega Chandelure", TYPE_FIRE, TYPE_GHOST, 0, 0, 0, 0, },
-  //{  655, "Mega Delphox", TYPE_FIRE, TYPE_PSYCHIC, 0, 0, 0, 0, },
-  //{  658, "Mega Greninja", TYPE_WATER, TYPE_DARK, 0, 0, 0, 0, },
+  // FIXME need costs, verify max levels
+  {  652, "Mega Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 242, 282, 204, 0, 4, },
+  {  655, "Mega Delphox", TYPE_FIRE, TYPE_PSYCHIC, 331, 235, 181, 0, 4, },
+  {  658, "Mega Greninja", TYPE_WATER, TYPE_DARK, 299, 180, 176, 0, 4, },
   //{  668, "Mega Pyroar", TYPE_FIRE, TYPE_NORMAL, 0, 0, 0, 0, },
   //{  670, "Mega Floette", TYPE_FAIRY, TYPECOUNT, 0, 0, 0, 0, },
   {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, 4, },
