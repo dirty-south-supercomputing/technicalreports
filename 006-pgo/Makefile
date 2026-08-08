@@ -17,6 +17,10 @@ PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 
+# we sometimes parameterize based on type
+TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
+			 ice normal poison psychic rock steel water
+
 BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF cp1500atk)
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -66,7 +70,7 @@ SPECIESTEX:=$(OUT)/species.tex
 FPAIRSTEX:=$(OUT)/fpairs.tex
 CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
-DYNATEX:=$(OUT)/dynas.tex
+DYNATEX:=$(addsuffix .tex, $(addprefix $(OUT)/dynas, $(TYPES)))
 SINDEXTEX:=$(SINDEX).tex
 STATMAXTEX:=$(OUT)/statmax.tex
 GIGANTATEX:=$(OUT)/gigantas.tex
@@ -296,9 +300,9 @@ $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) mega > $@
 
-#$(OUT)/dynas.tex: $(OUT)/forms
-#	@mkdir -p $(@D)
-#	$(<) dynamax > $@
+$(OUT)/dynas%.tex: $(OUT)/dynas
+	@mkdir -p $(@D)
+	$(<) $* > $@
 
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)
