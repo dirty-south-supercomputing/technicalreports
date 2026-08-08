@@ -11,11 +11,12 @@ struct candidate {
   unsigned hlevel;    // halflevel
   bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
   bool hasstab;       // do we have stab for the attack?
+  unsigned iva;       // attack iv 0..15
 
   float powprod(void) const {
     unsigned p = gmaxpower ? 350 : 250; // FIXME
     float rp = hasstab ? calc_stab(p) : p;
-    return rp * calc_eff_a(s->atk, hlevel, false);
+    return rp * calc_eff_a(s->atk + iva, hlevel, false);
   }
 
   bool operator<(const candidate& r) const {
@@ -33,12 +34,19 @@ struct candidate {
   }
 };
 
+// add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
 void add_candidate(std::vector<candidate>& cands, const species* s,
                    const char* aname, bool gmaxpower, bool stab){
-  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab); // level 50
-  cands.emplace_back(s, aname, 79, gmaxpower, stab); // level 40
-  cands.emplace_back(s, aname, 59, gmaxpower, stab); // level 30
-  cands.emplace_back(s, aname, 39, gmaxpower, stab); // level 20
+  const unsigned lowiv = 10;
+  const unsigned highiv = 15;
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv); // level 50
+  cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
+  cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20
 }
 
 int emit_dynamax_table(pgo_types_e t){
@@ -90,7 +98,11 @@ int emit_dynamax_table(pgo_types_e t){
   for(const auto &c : cands){
     auto rp = c.powprod();
     unsigned hhalf;
-    std::cout << c.s->name << " " << halflevel_to_level(c.hlevel, &hhalf) << " (" << c.aname << ") " << rp << std::endl;
+    std::cout << c.s->name;
+    if(c.iva){
+      std::cout << " (+" << c.iva << ")";
+    }
+    std::cout << " " << halflevel_to_level(c.hlevel, &hhalf) << " (" << c.aname << ") " << rp << std::endl;
   }
   return 0;
 }
