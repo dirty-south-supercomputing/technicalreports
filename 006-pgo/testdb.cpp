@@ -237,8 +237,32 @@ test_attack(const attack *a){
   return true;
 }
 
+static bool
+unit_test_types(void){
+  static struct {
+    const char* teststr;
+    pgo_types_e testt;
+  } tests[] = {
+    { "flying", TYPE_FLYING, },
+    { "ghOst", TYPE_GHOST, },
+    { " ghost", TYPECOUNT, },
+    { nullptr, TYPECOUNT, },
+  };
+  for(auto test = tests ; test->teststr ; ++test){
+    pgo_types_e lext = lookup_type(test->teststr);
+    if(lext != test->testt){
+      std::cerr << "mislexed type \"" << test->teststr << "\"" << std::endl;
+      throw std::exception();
+    }
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
+  if(!unit_test_types()){
+    exit(EXIT_FAILURE);
+  }
   for(const auto &sd : sdexen){
     if(!test_sdex(sd)){
       exit(EXIT_FAILURE);

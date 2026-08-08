@@ -80,7 +80,7 @@ enum pgo_types_e {
 // dynamax Max Attack names. all technically begin with "Max", i.e. "Max
 // Flutterby". dynamax attack type is matched to fast attack type (Hidden
 // Power always becomes normal, aka Max Strike).
-static const char* MaxAttackNames[TYPECOUNT] = {
+const char* MaxAttackNames[TYPECOUNT] = {
   "Flutterby",
   "Darkness",
   "Wyrmwind",
@@ -1264,6 +1264,15 @@ static const attack* const attacks[] = {
 };
 
 const size_t ATTACKCOUNT = sizeof(attacks) / sizeof(*attacks);
+
+// return the dmax attack type corresponding to this fast attack. it is simply
+// the attack's type, except for Hidden Power, which maps to Normal.
+pgo_types_e dmax_attack_type(const attack* a){
+  if(a == &ATK_Hidden_Power){
+    return TYPE_NORMAL;
+  }
+  return a->type;
+}
 
 static inline float
 type_effectiveness_mult(int te){
