@@ -10,6 +10,7 @@ struct candidate {
   std::string aname;  // attack name
   bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
 
+  // FIXME need account for STAB
   float powprod(void) const {
     unsigned halflevel = MAX_HALFLEVEL_BASIC;
     unsigned p = gmaxpower ? 350 : 250; // FIXME

@@ -37,7 +37,7 @@ int main(int argc, char **argv){
       species sm{
           m.idx, m.name.c_str(), m.t1, m.t2, m.atk, m.def, m.sta,
           s->name.c_str(), s->attacks, s->shiny, false, false, s->elite,
-          s->category, s->a2cost, nullptr
+          s->category, s->a2cost,
       };
       char *sstr = strdup(megasortstr(m.name.c_str()));
       amap.emplace(sstr, sm);
