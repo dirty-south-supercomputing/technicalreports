@@ -80,7 +80,7 @@ enum pgo_types_e {
 // dynamax Max Attack names. dynamax attack type is matched to fast attack type
 // (Hidden Power always becomes normal, aka Max Strike). max attacks are 250,
 // 300, 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
-static const char*
+static inline const char*
 max_attack_name(pgo_types_e t){
   static const char* MaxAttackNames[TYPECOUNT] = {
     "Max Flutterby",

@@ -24,6 +24,13 @@ struct candidate {
     }
     return false;
   }
+
+  bool operator>(const candidate& r) const {
+    if(powprod() > r.powprod()){
+      return true;
+    }
+    return false;
+  }
 };
 
 int emit_dynamax_table(pgo_types_e t){
@@ -71,7 +78,7 @@ int emit_dynamax_table(pgo_types_e t){
     }
     cands.emplace_back(e, "Dynamax Cannon", true, true);
   }
-  std::sort(cands.begin(), cands.end());
+  std::sort(cands.begin(), cands.end(), std::greater<>());
   for(const auto &c : cands){
     auto rp = c.powprod();
     std::cout << c.s->name << " (" << c.aname << ") " << rp << std::endl;
