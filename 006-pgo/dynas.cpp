@@ -14,7 +14,7 @@ int emit_dynamax_table(pgo_types_e t){
           auto at = dmax_attack_type(a);
           if(at == t){
             std::cout << "dmax " << s->name << " (" << a->name
-              << " -> Max " << MaxAttackNames[at] << ")" << std::endl;
+              << " -> Max " << max_attack_name(at) << ")" << std::endl;
           }
         }
       }

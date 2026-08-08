@@ -81,26 +81,33 @@ enum pgo_types_e {
 // Flutterby". dynamax attack type is matched to fast attack type (Hidden
 // Power always becomes normal, aka Max Strike). max attacks are 250, 300,
 // 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
-const char* MaxAttackNames[TYPECOUNT] = {
-  "Flutterby",
-  "Darkness",
-  "Wyrmwind",
-  "Lightning",
-  "Starfall",
-  "Knuckle",
-  "Flare",
-  "Airstream",
-  "Phantasm",
-  "Overgrowth",
-  "Quake",
-  "Hailstorm",
-  "Strike",
-  "Ooze",
-  "Mindstorm",
-  "Rockfall",
-  "Steelspike",
-  "Geyser"
-};
+static const char*
+max_attack_name(pgo_types_e t){
+  static const char* MaxAttackNames[TYPECOUNT] = {
+    "Flutterby",
+    "Darkness",
+    "Wyrmwind",
+    "Lightning",
+    "Starfall",
+    "Knuckle",
+    "Flare",
+    "Airstream",
+    "Phantasm",
+    "Overgrowth",
+    "Quake",
+    "Hailstorm",
+    "Strike",
+    "Ooze",
+    "Mindstorm",
+    "Rockfall",
+    "Steelspike",
+    "Geyser"
+  };
+  if(t >= TYPECOUNT){
+    throw std::exception();
+  }
+  return MaxAttackNames[t];
+}
 
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
@@ -271,34 +278,6 @@ static inline float mapbuff(int bufflevel){
   static const float buffmap[9] = { 4/8, 4/7, 4/6, 4/5, 1, 5/4, 6/4, 7/4, 8/4 };
   return buffmap[bufflevel + 4];
 }
-
-// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
-// dynamax cannon adventure effect).
-struct gmaxattack {
-  const char *name;
-  pgo_types_e type;
-};
-
-gmaxattack GMaxAttacks[] = {
-  { "Vine Lash", TYPE_GRASS, },
-  { "Wildfire", TYPE_FIRE, },
-  { "Cannonade", TYPE_WATER, },
-  { "Befuddle", TYPE_BUG, },
-  { "Volt Crash", TYPE_ELECTRIC, },
-  { "Gold Rush", TYPE_NORMAL, },
-  { "Chi Strike", TYPE_FIGHTING, },
-  { "Terror", TYPE_GHOST, },
-  { "Foam Burst", TYPE_WATER, },
-  { "Resonance", TYPE_ICE, },
-  { "Replenish", TYPE_NORMAL, },
-  { "Malodor", TYPE_POISON, },
-  { "Drum Solo", TYPE_GRASS, },
-  { "Fireball", TYPE_FIRE, },
-  { "Hydrosnipe", TYPE_WATER, },
-  { "Stun Shock", TYPE_ELECTRIC, },
-  { "Snooze", TYPE_DARK, },
-  { nullptr, TYPECOUNT, },
-};
 
 struct attack {
   const char *name;
@@ -861,7 +840,6 @@ static const attack ATK_Sand_Tomb = { "Sand Tomb", TYPE_GROUND, 40, -40, 0, 0, 0
 	60, 33, 8, false, };
 static const attack ATK_Sandsear_Storm = { "Sandsear Storm", TYPE_GROUND, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	150, 100, 5, false, };
-// FIXME there appear to be two scalds?
 // https://db.pokemongohub.net/move/134 -- no listed users, consider an error
 // https://db.pokemongohub.net/move/106
 static const attack ATK_Scald = { "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0, 0, 0, -1, 0,
@@ -1295,7 +1273,8 @@ const size_t ATTACKCOUNT = sizeof(attacks) / sizeof(*attacks);
 
 // return the dmax attack type corresponding to this fast attack. it is simply
 // the attack's type, except for Hidden Power, which maps to Normal.
-pgo_types_e dmax_attack_type(const attack* a){
+static inline pgo_types_e
+dmax_attack_type(const attack* a){
   if(a == &ATK_Hidden_Power){
     return TYPE_NORMAL;
   }
@@ -1476,6 +1455,46 @@ struct species {
   }
 
 };
+
+// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
+// dynamax cannon adventure effect).
+struct gmaxattack {
+  const char *sname;      // species name
+  const std::string name; // attack name
+  pgo_types_e type;       // attack type
+};
+
+// each gmax attack is associated with a single species, which can use only
+// that attack. unit tests verify that the species are valid.
+static gmaxattack*
+lookup_gmax_attack(const species* s){
+  static gmaxattack GMaxAttacks[] = {
+    { "Venusaur", "Vine Lash", TYPE_GRASS, },
+    { "Charizard", "Wildfire", TYPE_FIRE, },
+    { "Blastoise", "Cannonade", TYPE_WATER, },
+    { "Butterfree", "Befuddle", TYPE_BUG, },
+    { "Pikachu", "Volt Crash", TYPE_ELECTRIC, },
+    { "Meowth", "Gold Rush", TYPE_NORMAL, },
+    { "Machamp", "Chi Strike", TYPE_FIGHTING, },
+    { "Gengar", "Terror", TYPE_GHOST, },
+    { "Kingler", "Foam Burst", TYPE_WATER, },
+    { "Lapras", "Resonance", TYPE_ICE, },
+    { "Snorlax", "Replenish", TYPE_NORMAL, },
+    { "Garbador", "Malodor", TYPE_POISON, },
+    { "Rillaboom", "Drum Solo", TYPE_GRASS, },
+    { "Cinderace", "Fireball", TYPE_FIRE, },
+    { "Inteleon", "Hydrosnipe", TYPE_WATER, },
+    { "Toxtricity", "Stun Shock", TYPE_ELECTRIC, },
+    { "Grimmsnarl", "Snooze", TYPE_DARK, },
+    { nullptr, "", TYPECOUNT, },
+  };
+  for(auto gatk = GMaxAttacks ; gatk->sname ; ++gatk){
+    if(s->name == gatk->sname){
+      return gatk;
+    }
+  }
+  return nullptr;
+}
 
 static const species sdex[] = {
   // the Seed Pokemon
