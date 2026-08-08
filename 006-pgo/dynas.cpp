@@ -8,14 +8,14 @@ void usage(const char* argv0, int ret){
 struct candidate {
   const species* s;   // species
   std::string aname;  // attack name
+  unsigned hlevel;    // halflevel
   bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
   bool hasstab;       // do we have stab for the attack?
 
   float powprod(void) const {
-    unsigned halflevel = MAX_HALFLEVEL_BASIC;
     unsigned p = gmaxpower ? 350 : 250; // FIXME
     float rp = hasstab ? calc_stab(p) : p;
-    return rp * calc_eff_a(s->atk, halflevel, false);
+    return rp * calc_eff_a(s->atk, hlevel, false);
   }
 
   bool operator<(const candidate& r) const {
@@ -33,6 +33,14 @@ struct candidate {
   }
 };
 
+void add_candidate(std::vector<candidate>& cands, const species* s,
+                   const char* aname, bool gmaxpower, bool stab){
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab); // level 50
+  cands.emplace_back(s, aname, 79, gmaxpower, stab); // level 40
+  cands.emplace_back(s, aname, 59, gmaxpower, stab); // level 30
+  cands.emplace_back(s, aname, 39, gmaxpower, stab); // level 20
+}
+
 int emit_dynamax_table(pgo_types_e t){
   std::vector<candidate> cands;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
@@ -43,7 +51,7 @@ int emit_dynamax_table(pgo_types_e t){
         if(fast_attack_p(a)){
           auto at = dmax_attack_type(a);
           if(at == t){
-            cands.emplace_back(s, max_attack_name(at), false, stab);
+            add_candidate(cands, s, max_attack_name(at), false, stab);
             break; // don't handle multiple fast attacks of the same type
           }
         }
@@ -52,7 +60,7 @@ int emit_dynamax_table(pgo_types_e t){
     auto gma = lookup_gmax_attack(s);
     if(gma){
       if(gma->type == t){
-        cands.emplace_back(s, gma->name, true, stab);
+        add_candidate(cands, s, gma->name.c_str(), true, stab);
       }
     }
   }
@@ -64,24 +72,25 @@ int emit_dynamax_table(pgo_types_e t){
     if(!zac){
       return -1;
     }
-    cands.emplace_back(zac, "Behemoth Blade", false, true);
+    add_candidate(cands, zac, "Behemoth Blade", false, true);
     const auto zam = lookup_species("Crowned Shield Zamazenta");
     if(!zam){
       return -1;
     }
-    cands.emplace_back(zam, "Behemoth Bash", false, true);
+    add_candidate(cands, zam, "Behemoth Bash", false, true);
   }else if(t == TYPE_DRAGON){
     // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
-    cands.emplace_back(e, "Dynamax Cannon", true, true);
+    add_candidate(cands, e, "Dynamax Cannon", true, true);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
   for(const auto &c : cands){
     auto rp = c.powprod();
-    std::cout << c.s->name << " (" << c.aname << ") " << rp << std::endl;
+    unsigned hhalf;
+    std::cout << c.s->name << " " << halflevel_to_level(c.hlevel, &hhalf) << " (" << c.aname << ") " << rp << std::endl;
   }
   return 0;
 }
