@@ -5521,11 +5521,6 @@ calc_ppe(const attack *a){
   return a->powertrain / (float)-a->energytrain;
 }
 
-static inline unsigned
-calc_max_cp(const species *s){
-  return calccp(s->atk, s->def, s->sta, MAX_HALFLEVEL);
-}
-
 struct stats {
   const species* s;
   unsigned hlevel;          // halflevel 1..99
@@ -6799,7 +6794,7 @@ lex_ivlevel(const char* ivl, stats* s, bool shadow){
     s->hlevel = st->hlevel;
   }else if(strcmp(ivl, "max") == 0){
     s->ia = s->id = s->is = MAXIVELEM;
-    s->hlevel = MAX_HALFLEVEL;
+    s->hlevel = MAX_HALFLEVEL_BASIC;
   }else if((r = sscanf(ivl, " %u-%u-%u@", &s->ia, &s->id, &s->is)) == 3){
     ivl = strchr(ivl, '@');
     if(!ivl || !isalnum(*++ivl)){
