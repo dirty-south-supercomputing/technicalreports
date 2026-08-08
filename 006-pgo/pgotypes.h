@@ -5629,8 +5629,13 @@ statscmp_bulk(const void *vst1, const void *vst2){
 }
 
 static inline unsigned
+has_stab_raw_p(const species *s, pgo_types_e atype){
+  return atype == s->t1 || atype == s->t2;
+}
+
+static inline unsigned
 has_stab_p(const species *s, const attack *a){
-  return a->type == s->t1 || a->type == s->t2;
+  return has_stab_raw_p(s, a->type);
 }
 
 // apply the 1.2x stab multiplier to a damage calculation

@@ -9,12 +9,13 @@ struct candidate {
   const species* s;   // species
   std::string aname;  // attack name
   bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
+  bool hasstab;       // do we have stab for the attack?
 
-  // FIXME need account for STAB
   float powprod(void) const {
     unsigned halflevel = MAX_HALFLEVEL_BASIC;
     unsigned p = gmaxpower ? 350 : 250; // FIXME
-    return p * calc_eff_a(s->atk, halflevel, false);
+    float rp = hasstab ? calc_stab(p) : p;
+    return rp * calc_eff_a(s->atk, halflevel, false);
   }
 
   bool operator<(const candidate& r) const {
@@ -29,12 +30,13 @@ int emit_dynamax_table(pgo_types_e t){
   std::vector<candidate> cands;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto s = &sdex[u];
+    bool stab = has_stab_raw_p(s, t);
     if(has_dmax(s)){
       for(const auto a : s->attacks){
         if(fast_attack_p(a)){
           auto at = dmax_attack_type(a);
           if(at == t){
-            cands.emplace_back(s, max_attack_name(at), false);
+            cands.emplace_back(s, max_attack_name(at), false, stab);
             break; // don't handle multiple fast attacks of the same type
           }
         }
@@ -43,7 +45,7 @@ int emit_dynamax_table(pgo_types_e t){
     auto gma = lookup_gmax_attack(s);
     if(gma){
       if(gma->type == t){
-        cands.emplace_back(s, gma->name, true);
+        cands.emplace_back(s, gma->name, true, stab);
       }
     }
   }
@@ -55,19 +57,19 @@ int emit_dynamax_table(pgo_types_e t){
     if(!zac){
       return -1;
     }
-    cands.emplace_back(zac, "Behemoth Blade", false);
+    cands.emplace_back(zac, "Behemoth Blade", false, true);
     const auto zam = lookup_species("Crowned Shield Zamazenta");
     if(!zam){
       return -1;
     }
-    cands.emplace_back(zam, "Behemoth Bash", false);
+    cands.emplace_back(zam, "Behemoth Bash", false, true);
   }else if(t == TYPE_DRAGON){
     // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
-    cands.emplace_back(e, "Dynamax Cannon", true);
+    cands.emplace_back(e, "Dynamax Cannon", true, true);
   }
   std::sort(cands.begin(), cands.end());
   for(const auto &c : cands){
