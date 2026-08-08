@@ -4710,12 +4710,12 @@ static const species sdex[] = {
     false, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the fox
   {  827, "Nickit", TYPE_DARK, TYPECOUNT, 85, 82, 120, nullptr,
-		{ &ATK_Sucker_Punch, &ATK_Quick_Attack, &ATK_Snarl, &ATK_Night_Slash, &ATK_Play_Rough, &ATK_Icy_Wind, },
-		true, false, 0, { &ATK_Icy_Wind, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
-  // the fox
-  {  828, "Thievul", TYPE_DARK, TYPECOUNT, 172, 164, 172, "Nickit",
 		{ &ATK_Sucker_Punch, &ATK_Quick_Attack, &ATK_Snarl, &ATK_Night_Slash, &ATK_Play_Rough, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
+  // the fox
+  {  828, "Thievul", TYPE_DARK, TYPECOUNT, 172, 164, 172, "Nickit",
+		{ &ATK_Sucker_Punch, &ATK_Quick_Attack, &ATK_Snarl, &ATK_Night_Slash, &ATK_Play_Rough, &ATK_Icy_Wind, },
+		true, false, 0, { &ATK_Icy_Wind, }, species::CAT_NORMAL, 10, nullptr, species::EVOL_NOITEM, species::REGION_ALL, },
   // the flowering
   {  829, "Gossifleur", TYPE_GRASS, TYPECOUNT, 70, 104, 120, nullptr,
 		{ &ATK_Razor_Leaf, &ATK_Bullet_Seed, &ATK_Grass_Knot, &ATK_Energy_Ball, },
