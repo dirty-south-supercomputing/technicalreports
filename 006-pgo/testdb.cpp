@@ -258,9 +258,23 @@ unit_test_types(void){
   return true;
 }
 
+static bool
+test_gmax(void){
+  for(auto gatk = GMaxAttacks ; gatk->sname ; ++gatk){
+    if(!lookup_species(gatk->sname)){
+      std::cerr << "couldn't find gmax species " << gatk->sname << std::endl;
+      throw std::exception();
+    }
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
   if(!unit_test_types()){
+    exit(EXIT_FAILURE);
+  }
+  if(test_gmax()){
     exit(EXIT_FAILURE);
   }
   for(const auto &sd : sdexen){
