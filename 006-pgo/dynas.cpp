@@ -6,9 +6,22 @@ void usage(const char* argv0, int ret){
 }
 
 struct candidate {
-  const species* s;         // species
-  const std::string aname;  // attack name
-  bool gmaxpower;           // gmax/eternatus power scale? if not, dmax/crowned.
+  const species* s;   // species
+  std::string aname;  // attack name
+  bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
+
+  float powprod(void) const {
+    unsigned halflevel = MAX_HALFLEVEL_BASIC;
+    unsigned p = gmaxpower ? 350 : 250; // FIXME
+    return p * calc_eff_a(s->atk, halflevel, false);
+  }
+
+  bool operator<(const candidate& r) const {
+    if(powprod() < r.powprod()){
+      return true;
+    }
+    return false;
+  }
 };
 
 int emit_dynamax_table(pgo_types_e t){
@@ -29,13 +42,14 @@ int emit_dynamax_table(pgo_types_e t){
     auto gma = lookup_gmax_attack(s);
     if(gma){
       if(gma->type == t){
-        cands.emplace_back(s, s->gmax, true);
+        cands.emplace_back(s, gma->name, true);
       }
     }
   }
   // we hard code the crowned forms and eternatus, yuck. we don't want to
   // generally mark them as dmax/gmax, as they're technically not.
   if(t == TYPE_STEEL){
+    // crowned forms always use behemoth attacks, even with non-steel fast attacks
     const auto zac = lookup_species("Crowned Sword Zacian");
     if(!zac){
       return -1;
@@ -47,15 +61,17 @@ int emit_dynamax_table(pgo_types_e t){
     }
     cands.emplace_back(zam, "Behemoth Bash", false);
   }else if(t == TYPE_DRAGON){
+    // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
     cands.emplace_back(e, "Dynamax Cannon", true);
   }
+  std::sort(cands.begin(), cands.end());
   for(const auto &c : cands){
-    unsigned p = c.gmaxpower ? 350 : 250; // FIXME
-    std::cout << c.s->name << " (" << c.aname << ") " << p << std::endl;
+    auto rp = c.powprod();
+    std::cout << c.s->name << " (" << c.aname << ") " << rp << std::endl;
   }
   return 0;
 }
