@@ -79,7 +79,8 @@ enum pgo_types_e {
 
 // dynamax Max Attack names. all technically begin with "Max", i.e. "Max
 // Flutterby". dynamax attack type is matched to fast attack type (Hidden
-// Power always becomes normal, aka Max Strike).
+// Power always becomes normal, aka Max Strike). max attacks are 250, 300,
+// 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
 const char* MaxAttackNames[TYPECOUNT] = {
   "Flutterby",
   "Darkness",
@@ -271,7 +272,34 @@ static inline float mapbuff(int bufflevel){
   return buffmap[bufflevel + 4];
 }
 
-// currently only have trainer battle stats; need to add raid
+// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
+// dynamax cannon adventure effect).
+struct gmaxattack {
+  const char *name;
+  pgo_types_e type;
+};
+
+gmaxattack GMaxAttacks[] = {
+  { "Vine Lash", TYPE_GRASS, },
+  { "Wildfire", TYPE_FIRE, },
+  { "Cannonade", TYPE_WATER, },
+  { "Befuddle", TYPE_BUG, },
+  { "Volt Crash", TYPE_ELECTRIC, },
+  { "Gold Rush", TYPE_NORMAL, },
+  { "Chi Strike", TYPE_FIGHTING, },
+  { "Terror", TYPE_GHOST, },
+  { "Foam Burst", TYPE_WATER, },
+  { "Resonance", TYPE_ICE, },
+  { "Replenish", TYPE_NORMAL, },
+  { "Malodor", TYPE_POISON, },
+  { "Drum Solo", TYPE_GRASS, },
+  { "Fireball", TYPE_FIRE, },
+  { "Hydrosnipe", TYPE_WATER, },
+  { "Stun Shock", TYPE_ELECTRIC, },
+  { "Snooze", TYPE_DARK, },
+  { nullptr, TYPECOUNT, },
+};
+
 struct attack {
   const char *name;
   pgo_types_e type;

@@ -13,13 +13,14 @@ int emit_dynamax_table(pgo_types_e t){
         if(fast_attack_p(a)){
           auto at = dmax_attack_type(a);
           if(at == t){
-            std::cout << "dmax " << s->name << " (" << a->name << ")" << std::endl;
+            std::cout << "dmax " << s->name << " (" << a->name
+              << " -> Max " << MaxAttackNames[at] << ")" << std::endl;
           }
         }
       }
     }
     if(has_gmax(s)){
-      std::cout << "gmax " << s->name << " (" << s->gmax << ")" << std::endl;
+      std::cout << "gmax " << s->name << " (G-Max " << s->gmax << ")" << std::endl;
     }
   }
   return 0;
