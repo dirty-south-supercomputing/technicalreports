@@ -1464,30 +1464,32 @@ struct gmaxattack {
   pgo_types_e type;       // attack type
 };
 
+// lives outside lookup_gmax_attack() so it can be unit tested.
+static gmaxattack GMaxAttacks[] = {
+  { "Venusaur", "Vine Lash", TYPE_GRASS, },
+  { "Charizard", "Wildfire", TYPE_FIRE, },
+  { "Blastoise", "Cannonade", TYPE_WATER, },
+  { "Butterfree", "Befuddle", TYPE_BUG, },
+  { "Pikachu", "Volt Crash", TYPE_ELECTRIC, },
+  { "Meowth", "Gold Rush", TYPE_NORMAL, },
+  { "Machamp", "Chi Strike", TYPE_FIGHTING, },
+  { "Gengar", "Terror", TYPE_GHOST, },
+  { "Kingler", "Foam Burst", TYPE_WATER, },
+  { "Lapras", "Resonance", TYPE_ICE, },
+  { "Snorlax", "Replenish", TYPE_NORMAL, },
+  { "Garbodor", "Malodor", TYPE_POISON, },
+  { "Rillaboom", "Drum Solo", TYPE_GRASS, },
+  { "Cinderace", "Fireball", TYPE_FIRE, },
+  { "Inteleon", "Hydrosnipe", TYPE_WATER, },
+  { "Toxtricity", "Stun Shock", TYPE_ELECTRIC, },
+  { "Grimmsnarl", "Snooze", TYPE_DARK, },
+  { nullptr, "", TYPECOUNT, },
+};
+
 // each gmax attack is associated with a single species, which can use only
 // that attack. unit tests verify that the species are valid.
 static gmaxattack*
 lookup_gmax_attack(const species* s){
-  static gmaxattack GMaxAttacks[] = {
-    { "Venusaur", "Vine Lash", TYPE_GRASS, },
-    { "Charizard", "Wildfire", TYPE_FIRE, },
-    { "Blastoise", "Cannonade", TYPE_WATER, },
-    { "Butterfree", "Befuddle", TYPE_BUG, },
-    { "Pikachu", "Volt Crash", TYPE_ELECTRIC, },
-    { "Meowth", "Gold Rush", TYPE_NORMAL, },
-    { "Machamp", "Chi Strike", TYPE_FIGHTING, },
-    { "Gengar", "Terror", TYPE_GHOST, },
-    { "Kingler", "Foam Burst", TYPE_WATER, },
-    { "Lapras", "Resonance", TYPE_ICE, },
-    { "Snorlax", "Replenish", TYPE_NORMAL, },
-    { "Garbador", "Malodor", TYPE_POISON, },
-    { "Rillaboom", "Drum Solo", TYPE_GRASS, },
-    { "Cinderace", "Fireball", TYPE_FIRE, },
-    { "Inteleon", "Hydrosnipe", TYPE_WATER, },
-    { "Toxtricity", "Stun Shock", TYPE_ELECTRIC, },
-    { "Grimmsnarl", "Snooze", TYPE_DARK, },
-    { nullptr, "", TYPECOUNT, },
-  };
   for(auto gatk = GMaxAttacks ; gatk->sname ; ++gatk){
     if(s->name == gatk->sname){
       return gatk;

@@ -274,7 +274,7 @@ int main(void){
   if(!unit_test_types()){
     exit(EXIT_FAILURE);
   }
-  if(test_gmax()){
+  if(!test_gmax()){
     exit(EXIT_FAILURE);
   }
   for(const auto &sd : sdexen){
