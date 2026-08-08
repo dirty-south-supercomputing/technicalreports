@@ -19,8 +19,11 @@ int emit_dynamax_table(pgo_types_e t){
         }
       }
     }
-    if(has_gmax(s)){
-      std::cout << "gmax " << s->name << " (G-Max " << s->gmax << ")" << std::endl;
+    auto gma = lookup_gmax_attack(s);
+    if(gma){
+      if(gma->type == t){
+        std::cout << "gmax " << s->name << " (G-Max " << s->gmax << ")" << std::endl;
+      }
     }
   }
   return 0;

@@ -6126,7 +6126,7 @@ has_dmax(const species *s){
 // does this species have a Gigantamax form?
 static bool
 has_gmax(const species *s){
-  return !!s->gmax;
+  return !!lookup_gmax_attack(s);
 }
 
 // fill in vec with evolution target(s), if there are any.
