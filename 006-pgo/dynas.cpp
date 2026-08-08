@@ -5,7 +5,14 @@ void usage(const char* argv0, int ret){
   exit(ret);
 }
 
+struct candidate {
+  const species* s;         // species
+  const std::string aname;  // attack name
+  bool gmaxpower;           // gmax/eternatus power scale? if not, dmax/crowned.
+};
+
 int emit_dynamax_table(pgo_types_e t){
+  std::vector<candidate> cands;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto s = &sdex[u];
     if(has_dmax(s)){
@@ -13,8 +20,8 @@ int emit_dynamax_table(pgo_types_e t){
         if(fast_attack_p(a)){
           auto at = dmax_attack_type(a);
           if(at == t){
-            std::cout << "dmax " << s->name << " (" << a->name
-              << " -> Max " << max_attack_name(at) << ")" << std::endl;
+            cands.emplace_back(s, max_attack_name(at), false);
+            break; // don't handle multiple fast attacks of the same type
           }
         }
       }
@@ -22,9 +29,33 @@ int emit_dynamax_table(pgo_types_e t){
     auto gma = lookup_gmax_attack(s);
     if(gma){
       if(gma->type == t){
-        std::cout << "gmax " << s->name << " (G-Max " << s->gmax << ")" << std::endl;
+        cands.emplace_back(s, s->gmax, true);
       }
     }
+  }
+  // we hard code the crowned forms and eternatus, yuck. we don't want to
+  // generally mark them as dmax/gmax, as they're technically not.
+  if(t == TYPE_STEEL){
+    const auto zac = lookup_species("Crowned Sword Zacian");
+    if(!zac){
+      return -1;
+    }
+    cands.emplace_back(zac, "Behemoth Blade", false);
+    const auto zam = lookup_species("Crowned Shield Zamazenta");
+    if(!zam){
+      return -1;
+    }
+    cands.emplace_back(zam, "Behemoth Bash", false);
+  }else if(t == TYPE_DRAGON){
+    const auto e = lookup_species("Eternatus");
+    if(!e){
+      return -1;
+    }
+    cands.emplace_back(e, "Dynamax Cannon", true);
+  }
+  for(const auto &c : cands){
+    unsigned p = c.gmaxpower ? 350 : 250; // FIXME
+    std::cout << c.s->name << " (" << c.aname << ") " << p << std::endl;
   }
   return 0;
 }
