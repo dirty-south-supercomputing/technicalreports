@@ -77,6 +77,30 @@ enum pgo_types_e {
   TYPECOUNT = 18
 };
 
+// dynamax Max Attack names. all technically begin with "Max", i.e. "Max
+// Flutterby". dynamax attack type is matched to fast attack type (Hidden
+// Power always becomes normal, aka Max Strike).
+static const char* MaxAttackNames[TYPECOUNT] = {
+  "Flutterby",
+  "Darkness",
+  "Wyrmwind",
+  "Lightning",
+  "Starfall",
+  "Knuckle",
+  "Flare",
+  "Airstream",
+  "Phantasm",
+  "Overgrowth",
+  "Quake",
+  "Hailstorm",
+  "Strike",
+  "Ooze",
+  "Mindstorm",
+  "Rockfall",
+  "Steelspike",
+  "Geyser"
+};
+
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 // but there are 324 if one considers ordering, which one generally oughtn't
@@ -5774,6 +5798,8 @@ find_optimal_set(const species* s, int cpceil, float floor, bool isshadow, float
   return collectopt;
 }
 
+// t must match some type (case insensitive). there cannot be leading or trailing
+// characters, even whitespace.
 static inline pgo_types_e
 lookup_type(const char *t){
   for(unsigned i = 0 ; i < TYPECOUNT ; ++i){
