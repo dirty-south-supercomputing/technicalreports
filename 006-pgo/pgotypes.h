@@ -77,31 +77,30 @@ enum pgo_types_e {
   TYPECOUNT = 18
 };
 
-// dynamax Max Attack names. all technically begin with "Max", i.e. "Max
-// Flutterby". dynamax attack type is matched to fast attack type (Hidden
-// Power always becomes normal, aka Max Strike). max attacks are 250, 300,
-// 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
+// dynamax Max Attack names. dynamax attack type is matched to fast attack type
+// (Hidden Power always becomes normal, aka Max Strike). max attacks are 250,
+// 300, 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
 static const char*
 max_attack_name(pgo_types_e t){
   static const char* MaxAttackNames[TYPECOUNT] = {
-    "Flutterby",
-    "Darkness",
-    "Wyrmwind",
-    "Lightning",
-    "Starfall",
-    "Knuckle",
-    "Flare",
-    "Airstream",
-    "Phantasm",
-    "Overgrowth",
-    "Quake",
-    "Hailstorm",
-    "Strike",
-    "Ooze",
-    "Mindstorm",
-    "Rockfall",
-    "Steelspike",
-    "Geyser"
+    "Max Flutterby",
+    "Max Darkness",
+    "Max Wyrmwind",
+    "Max Lightning",
+    "Max Starfall",
+    "Max Knuckle",
+    "Max Flare",
+    "Max Airstream",
+    "Max Phantasm",
+    "Max Overgrowth",
+    "Max Quake",
+    "Max Hailstorm",
+    "Max Strike",
+    "Max Ooze",
+    "Max Mindstorm",
+    "Max Rockfall",
+    "Max Steelspike",
+    "Max Geyser"
   };
   if(t >= TYPECOUNT){
     throw std::exception();
@@ -1466,23 +1465,23 @@ struct gmaxattack {
 
 // lives outside lookup_gmax_attack() so it can be unit tested.
 static gmaxattack GMaxAttacks[] = {
-  { "Venusaur", "Vine Lash", TYPE_GRASS, },
-  { "Charizard", "Wildfire", TYPE_FIRE, },
-  { "Blastoise", "Cannonade", TYPE_WATER, },
-  { "Butterfree", "Befuddle", TYPE_BUG, },
-  { "Pikachu", "Volt Crash", TYPE_ELECTRIC, },
-  { "Meowth", "Gold Rush", TYPE_NORMAL, },
-  { "Machamp", "Chi Strike", TYPE_FIGHTING, },
-  { "Gengar", "Terror", TYPE_GHOST, },
-  { "Kingler", "Foam Burst", TYPE_WATER, },
-  { "Lapras", "Resonance", TYPE_ICE, },
-  { "Snorlax", "Replenish", TYPE_NORMAL, },
-  { "Garbodor", "Malodor", TYPE_POISON, },
-  { "Rillaboom", "Drum Solo", TYPE_GRASS, },
-  { "Cinderace", "Fireball", TYPE_FIRE, },
-  { "Inteleon", "Hydrosnipe", TYPE_WATER, },
-  { "Toxtricity", "Stun Shock", TYPE_ELECTRIC, },
-  { "Grimmsnarl", "Snooze", TYPE_DARK, },
+  { "Venusaur", "G-Max Vine Lash", TYPE_GRASS, },
+  { "Charizard", "G-Max Wildfire", TYPE_FIRE, },
+  { "Blastoise", "G-Max Cannonade", TYPE_WATER, },
+  { "Butterfree", "G-Max Befuddle", TYPE_BUG, },
+  { "Pikachu", "G-Max Volt Crash", TYPE_ELECTRIC, },
+  { "Meowth", "G-Max Gold Rush", TYPE_NORMAL, },
+  { "Machamp", "G-Max Chi Strike", TYPE_FIGHTING, },
+  { "Gengar", "G-Max Terror", TYPE_GHOST, },
+  { "Kingler", "G-Max Foam Burst", TYPE_WATER, },
+  { "Lapras", "G-Max Resonance", TYPE_ICE, },
+  { "Snorlax", "G-Max Replenish", TYPE_NORMAL, },
+  { "Garbodor", "G-Max Malodor", TYPE_POISON, },
+  { "Rillaboom", "G-Max Drum Solo", TYPE_GRASS, },
+  { "Cinderace", "G-Max Fireball", TYPE_FIRE, },
+  { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, },
+  { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, },
+  { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, },
   { nullptr, "", TYPECOUNT, },
 };
 
