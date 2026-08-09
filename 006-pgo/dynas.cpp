@@ -1,4 +1,5 @@
 #include "pgotypes.h"
+#include <iomanip>
 
 void usage(const char* argv0, int ret){
   std::cerr << "usage: " << argv0 << " type" << std::endl;
@@ -95,14 +96,15 @@ int emit_dynamax_table(pgo_types_e t){
     add_candidate(cands, e, "Dynamax Cannon", true, true);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
+  auto maxp = cands.begin()->powprod();
   for(const auto &c : cands){
     auto rp = c.powprod();
     unsigned hhalf;
-    std::cout << c.s->name;
-    if(c.iva){
-      std::cout << " (+" << c.iva << ")";
-    }
-    std::cout << " " << halflevel_to_level(c.hlevel, &hhalf) << " (" << c.aname << ") " << rp << std::endl;
+    std::cout << c.s->name << " & " << c.iva << " & "
+              << halflevel_to_level(c.hlevel, &hhalf) << " & "
+              << c.aname << " & ";
+    std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "% & ";
+    std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
   }
   return 0;
 }
