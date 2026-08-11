@@ -13,6 +13,11 @@
 #include <cstdint>
 #include <iostream>
 
+// for greyscale images, define IMAGECOLOR as "g-". for full color, definte it
+// as an empty string.
+//#define IMAGECOLOR "g-"
+#define IMAGECOLOR ""
+
 #define TYPESTART TYPE_BUG
 
 constexpr unsigned TEAMSIZE = 3;
@@ -6284,19 +6289,19 @@ print_icons(const species *s, bool doprint, bool ismega){
   if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-mega.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "mega.png}}");
     }
   }
   if(has_dmax(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-dynamax.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "dynamax.png}}");
     }
   }
   if(has_gmax(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/g-gigantamax.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "gigantamax.png}}");
     }
   }
   return count;
@@ -6583,11 +6588,11 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf(",title style={left color=%s,right color=%s},after title={",
           TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
   if(s->shiny){
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/g-shiny.png}}");
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" IMAGECOLOR "shiny.png}}");
   }
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
-  printf(",interior style={fill overzoom image=images/highres/g-");
+  printf(",interior style={fill overzoom image=images/highres/" IMAGECOLOR);
   escape_filename(s->name.c_str());
   printf(",fill image opacity=0.2}");
   printf("]{\\footnotesize");
@@ -6597,7 +6602,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/g-");
+  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/" IMAGECOLOR);
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
