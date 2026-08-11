@@ -5893,7 +5893,7 @@ lookup_species(unsigned idx){
 static inline const mega*
 lookup_mega(const char* name){
   for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-    if(megasdex[i].name == name){
+    if(strcasecmp(megasdex[i].name.c_str(), name) == 0){
       return &megasdex[i];
     }
   }

@@ -243,6 +243,21 @@ print_evols(const species* s){
   }
 }
 
+// promote a mega to a species. dynamic allocation ought be freed.
+species*
+promote_mega_to_species(const mega* m){
+  const species* base = lookup_species(m->idx);
+  if(!base){
+    std::cerr << "couldn't find base species for " << m->name << std::endl;
+    return nullptr;
+  }
+  species* s = new species(m->idx, m->name.c_str(), m->t1, m->t2, m->atk, m->def, m->sta,
+                           base->name.c_str(), base->attacks, base->shiny, false, false,
+                           base->elite, base->category, base->a2cost, base->evolitem,
+                           base->monregion);
+  return s;
+}
+
 // there are four ways to invoke this:
 //  1) just a species name. prints tables of the top+bottom 5 configs for
 //     various stats in both GL and UL.
@@ -259,8 +274,16 @@ int main(int argc, const char **argv){
   const char *shadname = shadow_named(argv[1]);
   const species *s = lookup_species(shadname ? shadname : argv[1]);
   if(!s){
-    std::cerr << "couldn't look up form " << argv[1] << std::endl;
-    usage(argv[0]);
+    if(!shadname){
+      const mega* m = lookup_mega(argv[1]);
+      if(m){
+        s = promote_mega_to_species(m);
+      }
+    }
+    if(!s){
+      std::cerr << "couldn't look up form " << argv[1] << std::endl;
+      usage(argv[0]);
+    }
   }
   std::cout << argv[1] << " atk: " << s->atk << " def: " << s->def << " sta: " << s->sta << std::endl;
   int ia = -1, id = -1, is = -1, cp = -1;
