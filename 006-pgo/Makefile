@@ -138,6 +138,7 @@ GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 WEBSRC:=$(wildcard w/*.cpp w/*.h)
+TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
@@ -194,10 +195,10 @@ $(WEBBIN): $(WEBSRC) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT)
+$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT)
+$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 list%.pdf: list%.tex $(OUT)/stat%.tex
@@ -208,11 +209,11 @@ listTTF.pdf: listTTF.tex $(TIMETOFIRSTFULLTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
-$(OUT)/dot/%.png: dot/%
+$(OUT)/dot/%.png: dot/% $(TYPEIMGS)
 	@mkdir -p $(@D)
 	dot -Tpng $< > $@
 
-$(OUT)/circo/%.png: circo/%
+$(OUT)/circo/%.png: circo/% $(TYPEIMGS)
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
