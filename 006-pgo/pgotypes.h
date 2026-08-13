@@ -6563,7 +6563,7 @@ ismega_p(const species* s){
 }
 
 static void
-emit_charged_attack(const species* s, const attack* a, float power,
+print_cattack_latex(const species* s, const attack* a, float power,
                     const char* itb, const char* ite){
   const float dpe = power / -a->energytrain;
   if(exclusive_attack_p(s, a)){
@@ -6592,6 +6592,43 @@ emit_charged_attack(const species* s, const attack* a, float power,
     printf("}");
   }
   printf("\\\\\n");
+}
+
+static void
+print_attack_latex(const species* s, const attack* a){
+  unsigned stab = has_stab_p(s, a);
+  float power = a->powertrain;
+  if(stab){
+    power = power * 6 / 5;
+  }
+  print_type(a->type);
+  if(a->type == TYPECOUNT){
+    printf("\\hspace{1em}");
+  }
+  const char *itb, *ite;
+  if(has_stab_p(s, a)){
+    itb = ite = "";
+  }else{
+    itb = "\\textit{";
+    ite = "}";
+  }
+  if(charged_attack_p(a)){
+    print_cattack_latex(s, a, power, itb, ite);
+  }else{ // fast attacks
+    const float dpt = power / a->turns;
+    const float ept = static_cast<float>(a->energytrain) / a->turns;
+    if(exclusive_attack_p(s, a)){
+      printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
+          itb, a->name, ite, itb, a->turns, ite,
+          itb, power, ite, itb, a->energytrain, ite,
+          itb, dpt, ite, itb, ept, ite);
+    }else{
+      printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
+          itb, a->name, ite, itb, a->turns, ite,
+          itb, power, ite, itb, a->energytrain, ite,
+          itb, dpt, ite, itb, ept, ite);
+    }
+  }
 }
 
 static void
@@ -6624,6 +6661,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
+  // background image is zoomed and flipped at low opacity
   printf(",interior style={fill overzoom image=images/highres/" IMAGECOLOR);
   escape_filename(s->name.c_str());
   printf(",fill image opacity=0.2}");
@@ -6645,41 +6683,11 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   printf(".png} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
   for(const auto &a : s->attacks){
-    unsigned stab = has_stab_p(s, a);
-    float power = a->powertrain;
-    if(stab){
-      power = power * 6 / 5;
-    }
-    print_type(a->type);
-    if(a->type == TYPECOUNT){
-      printf("\\hspace{1em}");
-    }
-    const char *itb, *ite;
-    if(has_stab_p(s, a)){
-      itb = ite = "";
-    }else{
-      itb = "\\textit{";
-      ite = "}";
-    }
-    if(charged_attack_p(a)){
-      emit_charged_attack(s, a, power, itb, ite);
-    }else{ // fast attacks
-      const float dpt = power / a->turns;
-      const float ept = static_cast<float>(a->energytrain) / a->turns;
-      if(exclusive_attack_p(s, a)){
-        printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
-            itb, a->name, ite, itb, a->turns, ite,
-            itb, power, ite, itb, a->energytrain, ite,
-            itb, dpt, ite, itb, ept, ite);
-      }else{
-        printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
-            itb, a->name, ite, itb, a->turns, ite,
-            itb, power, ite, itb, a->energytrain, ite,
-            itb, dpt, ite, itb, ept, ite);
-      }
-    }
+    print_attack_latex(s, a);
   }
-  // FIXME if shadow available, add Return to attack list
+  /*if(mainform && s->shadow){
+    print_attack_latex(s, &ATK_Return);
+  }*/
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
