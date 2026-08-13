@@ -73,8 +73,8 @@ static void usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-// don't want a turns column if extrema && !powertbl
-static void header(bool extrema, bool powertbl){
+// don't want a turns column if extrema
+static void header(bool extrema){
   if(extrema){
     std::cout << "\\begingroup\\setlength{\\tabcolsep}{2pt}\\footnotesize\\begin{longtable}{ll";
   }else{
@@ -96,7 +96,7 @@ static void emit_name(const std::string &s){
   }
 }
 
-static void emit_line(bool extrema, bool powertbl, const timetofirst &t, const std::string &prevname){
+static void emit_line(const timetofirst &t, const std::string &prevname){
   if(prevname != t.s->name){
     emit_name(t.s->name);
   }
@@ -155,7 +155,7 @@ int main(int argc, char **argv){
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
-  header(extrema, powertbl);
+  header(extrema);
   calctimetoall(smain, ttfs);
   if(powertbl){
     std::sort(ttfs.begin(), ttfs.end(), damagecmp);
@@ -180,7 +180,7 @@ int main(int argc, char **argv){
         break;
       }
     }
-    emit_line(extrema, powertbl, t, prevname);
+    emit_line(t, prevname);
     prevname = t.s->name;
   }
   footer(extrema, powertbl, fastest);
