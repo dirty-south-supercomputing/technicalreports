@@ -6672,7 +6672,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/" IMAGECOLOR);
+  printf("\\scalebox{-1}[1]{\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/" IMAGECOLOR);
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
@@ -6681,7 +6681,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
       printf("%c", *curs);
     }
   }
-  printf(".png} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
+  printf(".png}} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
   for(const auto &a : s->attacks){
     print_attack_latex(s, a);
   }
