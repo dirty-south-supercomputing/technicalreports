@@ -6563,6 +6563,38 @@ ismega_p(const species* s){
 }
 
 static void
+emit_charged_attack(const species* s, const attack* a, float power,
+                    const char* itb, const char* ite){
+  const float dpe = power / -a->energytrain;
+  if(exclusive_attack_p(s, a)){
+    printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
+        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+  }else{
+    printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
+        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+  }
+  if(a->chance_user_attack || a->chance_user_defense ||
+      a->chance_opp_attack || a->chance_opp_defense){
+    printf("{\\scriptsize{}");
+    if(exclusive_attack_p(s, a)){
+      printf("\\textbf{");
+    }
+    if(!has_stab_p(s, a)){
+      printf("\\textit{");
+    }
+    summarize_buffs(a);
+    if(!has_stab_p(s, a)){
+      printf("}");
+    }
+    if(exclusive_attack_p(s, a)){
+      printf("}");
+    }
+    printf("}");
+  }
+  printf("\\\\\n");
+}
+
+static void
 print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   const auto gma = lookup_gmax_attack(s);
@@ -6630,33 +6662,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
       ite = "}";
     }
     if(charged_attack_p(a)){
-      const float dpe = power / -a->energytrain;
-      if(exclusive_attack_p(s, a)){
-        printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
-            itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
-      }else{
-        printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
-            itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
-      }
-      if(a->chance_user_attack || a->chance_user_defense ||
-          a->chance_opp_attack || a->chance_opp_defense){
-        printf("{\\scriptsize{}");
-        if(exclusive_attack_p(s, a)){
-          printf("\\textbf{");
-        }
-        if(!has_stab_p(s, a)){
-          printf("\\textit{");
-        }
-        summarize_buffs(a);
-        if(!has_stab_p(s, a)){
-          printf("}");
-        }
-        if(exclusive_attack_p(s, a)){
-          printf("}");
-        }
-        printf("}");
-      }
-      printf("\\\\\n");
+      emit_charged_attack(s, a, power, itb, ite);
     }else{ // fast attacks
       const float dpt = power / a->turns;
       const float ept = static_cast<float>(a->energytrain) / a->turns;
@@ -6673,6 +6679,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
       }
     }
   }
+  // FIXME if shadow available, add Return to attack list
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
