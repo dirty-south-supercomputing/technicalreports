@@ -5,8 +5,8 @@ str(pptdat)
 cairo_pdf("out/pptvst.pdf")
 pptdat$P <- pptdat$P / pptdat$T
 ggplot(data=pptdat,
-       mapping = aes(x=pptdat$T, y=pptdat$P, color=pptdat$type)) +
-       geom_point() +
+       mapping = aes(x=T, y=P, color=pptdat$type)) +
+       geom_point(size=3) +
        theme(legend.position="none") +
        theme(text=element_text(family="Gentium Book")) +
        xlab("Turns") +
