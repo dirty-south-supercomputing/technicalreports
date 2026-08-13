@@ -65,10 +65,13 @@ supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
       ++bad;
     }
   }
-  // number we can't counter out of total, then number that can counter us out of total
-  std::cout << /*bad * 100.0 / SPECIESCOUNT << "% " << */ bad << ","
-            << /**canhit * 100.0 / SPECIESCOUNT << "% " << */ *canhit << ","
-            //<< bad * 100.0 / *canhit << " "
+  // number we can't counter out of total,
+  // then number that can counter us out of total,
+  // then ratio of those two numbers,
+  // then number we can counter
+  std::cout << bad * 100.0 / SPECIESCOUNT << "% " << bad << ","
+            << *canhit * 100.0 / SPECIESCOUNT << "% " << *canhit << ","
+            << bad * 100.0 / *canhit << "%, "
             << good << "," << wecanhit << ","
             << s.name << " (" << ca1->name;
   if(ca2){

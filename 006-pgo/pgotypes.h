@@ -6685,9 +6685,9 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   for(const auto &a : s->attacks){
     print_attack_latex(s, a);
   }
-  /*if(mainform && s->shadow){
+  if(mainform && s->shadow){
     print_attack_latex(s, &ATK_Return);
-  }*/
+  }
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
