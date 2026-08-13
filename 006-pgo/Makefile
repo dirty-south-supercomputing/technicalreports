@@ -133,7 +133,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
 	$(LEVELUPGRADESTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
-	octave/greninja.png
+	octave/greninja.png $(addsuffix .png, $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 WEBSRC:=$(wildcard w/*.cpp w/*.h)
@@ -207,6 +207,10 @@ list%.pdf: list%.tex $(OUT)/stat%.tex
 listTTF.pdf: listTTF.tex $(TIMETOFIRSTFULLTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+
+$(PPTVST).png: pptvst.R $(PPTVSTDAT)
+	@mkdir -p $(@D)
+	Rscript $<
 
 $(OUT)/dot/%.png: dot/% $(TYPEIMGS)
 	@mkdir -p $(@D)
