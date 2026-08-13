@@ -1,17 +1,14 @@
 library(ggplot2)
-data <- read.csv("out/pptvst.dat")
-head(data)
-str(data)
-resfactor=2
+pptdat <- read.csv("out/pptvst.dat")
+head(pptdat)
+str(pptdat)
 cairo_pdf("out/pptvst.pdf")
-ppt <- data$P / data$T
-plot(x=data$T, y=ppt,
-     xlab="Turns",
-     ylab="PPT",
-     col=data$type,
-     pch=16,
-     las=1,
-     family="Gentium Book"
-     #theme(text=element_text(family="Gentium Book")))
-     )
+pptdat$P <- pptdat$P / pptdat$T
+ggplot(data=pptdat,
+       mapping = aes(x=pptdat$T, y=pptdat$P, color=pptdat$type)) +
+       geom_point() +
+       theme(legend.position="none") +
+       theme(text=element_text(family="Gentium Book")) +
+       xlab("Turns") +
+       ylab("PPT")
 dev.off()
