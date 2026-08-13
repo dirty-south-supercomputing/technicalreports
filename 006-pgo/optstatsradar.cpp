@@ -45,8 +45,9 @@ int main(int argc, const char **argv){
     usage(argv0);
   }
   std::cout << "Pokémon\tATK\tDEF\tMHP" << std::endl;
-  std::cout << "Max\t250\t250\t250" << std::endl;
-  std::cout << "Min\t90\t90\t90" << std::endl;
+  // FIXME calculate these!
+  std::cout << "Max\t414\t396\t496" << std::endl;
+  std::cout << "Min\t17\t32\t1" << std::endl;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     write_radar(sdex[u], GLCPCAP);
     write_radar(sdex[u], ULCPCAP);
