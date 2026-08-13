@@ -123,7 +123,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
-	$(SINDEXTEX) $(DPEVSEDAT) $(PPTVSTDAT) $(EPTVSTDAT) \
+	$(SINDEXTEX) $(DPEVSEDAT) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
 	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
@@ -133,7 +133,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
 	$(LEVELUPGRADESTEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
-	octave/greninja.png $(addsuffix .png, $(PPTVST))
+	octave/greninja.png $(addsuffix .pdf, $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 WEBSRC:=$(wildcard w/*.cpp w/*.h)
@@ -208,7 +208,11 @@ listTTF.pdf: listTTF.tex $(TIMETOFIRSTFULLTEX)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
-$(PPTVST).png: pptvst.R $(PPTVSTDAT)
+$(EPTVST).pdf: eptvst.R $(EPTVSTDAT)
+	@mkdir -p $(@D)
+	Rscript $<
+
+$(PPTVST).pdf: pptvst.R $(PPTVSTDAT)
 	@mkdir -p $(@D)
 	Rscript $<
 

@@ -269,12 +269,31 @@ test_gmax(void){
   return true;
 }
 
+static bool
+test_mega(void){
+  for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
+    const auto& m = megasdex[i];
+    if(!m.initialcost || (m.initialcost % 100)){
+      std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
+      throw std::exception();
+    }
+    if(m.maxlevel > 4){
+      std::cerr << "invalid maxlevel " << m.maxlevel << " for " << m.name << std::endl;
+      throw std::exception();
+    }
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
   if(!unit_test_types()){
     exit(EXIT_FAILURE);
   }
   if(!test_gmax()){
+    exit(EXIT_FAILURE);
+  }
+  if(!test_mega()){
     exit(EXIT_FAILURE);
   }
   for(const auto &sd : sdexen){

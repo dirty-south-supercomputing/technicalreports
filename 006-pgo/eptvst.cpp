@@ -1,13 +1,14 @@
 #include "pgotypes.h"
 
-// produce data file of EPT vs turns
+// produce data file of energy vs turns
 int main(void){
+  printf("E,T,type\n");
   for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
     const attack *a = attacks[i];
     if(a->energytrain < 0){
       continue;
     }
-    printf("%f %d %d\n", a->energytrain / (float)a->turns, a->turns, a->type);
+    printf("%d,%d,%d\n", a->energytrain, a->turns, a->type);
   }
   return EXIT_SUCCESS;
 }
