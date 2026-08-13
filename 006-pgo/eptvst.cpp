@@ -2,7 +2,7 @@
 
 // produce data file of energy vs turns
 int main(void){
-  printf("E,T,type\n");
+  printf("E,T,atype\n");
   for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
     const attack *a = attacks[i];
     if(a->energytrain < 0){

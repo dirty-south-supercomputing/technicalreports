@@ -2,7 +2,7 @@
 
 // produce CSV of power vs turns for fast attacks
 int main(void){
-  printf("P,T,type\n");
+  printf("P,T,atype\n");
   for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
     const attack *a = attacks[i];
     if(a->energytrain < 0){
