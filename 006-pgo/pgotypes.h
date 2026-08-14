@@ -6720,7 +6720,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
       print_type(s->t1);
       printf(" G-Max %s", gma->name.c_str());
     }else if(ismega){
-      printf("\\hfill{}Initial cost: %u\n", meg->initialcost);
+      printf("\\hfill{}Initial cost: %'u\n", meg->initialcost);
     }
   }
 
