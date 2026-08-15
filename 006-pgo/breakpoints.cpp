@@ -15,8 +15,10 @@ print_dbreak_table(pmon *p, pmon *atk, const attack *a, int tableno){
   for(int ivd = 0 ; ivd < 16 ; ++ivd){
     printf("%d", ivd);
     p->s.id = ivd;
+    p->s.effd = calc_eff_d(p->s.s->def + p->s.id, p->s.hlevel, false);
     for(int iva = 0 ; iva < 16 ; ++iva){
       atk->s.ia = iva;
+      atk->s.effa = calc_eff_a(atk->s.s->atk + atk->s.ia, atk->s.hlevel, false);
       int d = static_cast<int>(calc_damage(atk, p, a, 0, 0));
       if(firstd < 0){
         firstd = d;
