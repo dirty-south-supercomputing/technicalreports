@@ -50,7 +50,9 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
   cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
 }
 
-int emit_dynamax_table(pgo_types_e t){
+// top *count* attackers throwing max attack type *t*.
+// 0 for complete list.
+int emit_dynamax_table(pgo_types_e t, int count){
   std::cout << "\\begin{table}\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{llll}";
   std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
@@ -101,6 +103,7 @@ int emit_dynamax_table(pgo_types_e t){
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
   auto maxp = cands.begin()->powprod();
+  int emits = 0;
   for(const auto &c : cands){
     auto rp = c.powprod();
     //unsigned hhalf;
@@ -109,8 +112,15 @@ int emit_dynamax_table(pgo_types_e t){
     std::cout << " & " << c.aname << " & ";
     std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
     std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
+    if(++emits == count){
+      break;
+    }
   }
-  std::cout << "\\end{tabular}\\caption{" << TNames[t] << " Max attackers ranked"
+  std::cout << "\\end{tabular}\\caption{Top ";
+  if(count){
+    std::cout << emits << " ";
+  }
+  std::cout << TNames[t] << " Max attackers ranked"
             << "\\label{table:maxranked" << tnames[t] << "}}\\end{table}";
   return 0;
 }
@@ -124,5 +134,5 @@ int main(int argc, char ** argv){
   if(lext == TYPECOUNT){
     usage(*argv, EXIT_FAILURE);
   }
-  return emit_dynamax_table(lext);
+  return emit_dynamax_table(lext, 4);
 }
