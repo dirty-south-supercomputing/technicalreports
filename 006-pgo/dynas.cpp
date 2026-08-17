@@ -2,7 +2,7 @@
 #include <iomanip>
 
 void usage(const char* argv0, int ret){
-  std::cerr << "usage: " << argv0 << " type" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ type ]" << std::endl;
   exit(ret);
 }
 
@@ -50,9 +50,56 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
   cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
 }
 
+void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& cands){
+  bool stab = has_stab_raw_p(s, t);
+  if(has_dmax(s)){
+    for(const auto a : s->attacks){
+      if(fast_attack_p(a)){
+        auto at = dmax_attack_type(a);
+        if(at == t){
+          add_candidate(cands, s, max_attack_name(at), false, stab);
+          break; // don't handle multiple fast attacks of the same type
+        }
+      }
+    }
+  }
+  auto gma = lookup_gmax_attack(s);
+  if(gma){
+    if(gma->type == t){
+      add_candidate(cands, s, gma->name.c_str(), true, stab);
+    }
+  }
+}
+
+// top *count* attackers for each attack type, unified.
+// 0 gets all possible max attackers.
+int emit_dynamax_unified_table(int count){
+  std::cout << "\\begin{table}\\centering\\footnotesize";
+  std::cout << "\\begin{tabular}{lllll}";
+  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\Midrule" << std::endl;
+  std::vector<candidate> cands;
+  /*
+  for(pgo_types_e t = TYPE_BUG ; t < TYPECOUNT ; ++t){
+    std::vector<candidate> tcands;
+    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+      const auto s = &sdex[u];
+      handle_species(s, t, tcands);
+    }
+  }
+  // FIXME
+  */
+  std::cout << "\\end{tabular}\\caption{Top Max attackers";
+  if(count){
+    std::cout << " (" << count << " per type)";
+  }
+  std::cout << "\\label{table:maxranked}}\\end{table}";
+  return 0;
+}
+
 // top *count* attackers throwing max attack type *t*.
 // 0 for complete list.
-int emit_dynamax_table(pgo_types_e t, int count){
+int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "\\begin{table}\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{llll}";
   std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
@@ -60,24 +107,7 @@ int emit_dynamax_table(pgo_types_e t, int count){
   std::vector<candidate> cands;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto s = &sdex[u];
-    bool stab = has_stab_raw_p(s, t);
-    if(has_dmax(s)){
-      for(const auto a : s->attacks){
-        if(fast_attack_p(a)){
-          auto at = dmax_attack_type(a);
-          if(at == t){
-            add_candidate(cands, s, max_attack_name(at), false, stab);
-            break; // don't handle multiple fast attacks of the same type
-          }
-        }
-      }
-    }
-    auto gma = lookup_gmax_attack(s);
-    if(gma){
-      if(gma->type == t){
-        add_candidate(cands, s, gma->name.c_str(), true, stab);
-      }
-    }
+    handle_species(s, t, cands);
   }
   // we hard code the crowned forms and eternatus, yuck. we don't want to
   // generally mark them as dmax/gmax, as they're technically not.
@@ -120,19 +150,22 @@ int emit_dynamax_table(pgo_types_e t, int count){
   if(count){
     std::cout << emits << " ";
   }
-  std::cout << TNames[t] << " Max attackers ranked"
+  std::cout << TNames[t] << " Max attackers"
             << "\\label{table:maxranked" << tnames[t] << "}}\\end{table}";
   return 0;
 }
 
 // emit tables of best max attackers of (attack) type
 int main(int argc, char ** argv){
-  if(argc != 2){
+  if(argc > 2){
     usage(*argv, EXIT_FAILURE);
+  }
+  if(argc == 1){
+    return emit_dynamax_unified_table(3);
   }
   pgo_types_e lext = lookup_type(argv[1]);
   if(lext == TYPECOUNT){
     usage(*argv, EXIT_FAILURE);
   }
-  return emit_dynamax_table(lext, 4);
+  return emit_dynamax_typed_table(lext, 4);
 }
