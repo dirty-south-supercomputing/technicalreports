@@ -38,19 +38,23 @@ struct candidate {
 // add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
 void add_candidate(std::vector<candidate>& cands, const species* s,
                    const char* aname, bool gmaxpower, bool stab){
-  const unsigned lowiv = 10;
+  //const unsigned lowiv = 10;
   const unsigned highiv = 15;
-  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
+  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
   cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv); // level 50
-  cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
+  /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
   cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
   cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
   cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
   cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
-  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
 }
 
 int emit_dynamax_table(pgo_types_e t){
+  std::cout << "\\begin{table}\\centering\\footnotesize";
+  std::cout << "\\begin{tabular}{llll}";
+  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\Midrule" << std::endl;
   std::vector<candidate> cands;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto s = &sdex[u];
@@ -99,13 +103,15 @@ int emit_dynamax_table(pgo_types_e t){
   auto maxp = cands.begin()->powprod();
   for(const auto &c : cands){
     auto rp = c.powprod();
-    unsigned hhalf;
-    std::cout << c.s->name << " & " << c.iva << " & "
-              << halflevel_to_level(c.hlevel, &hhalf) << " & "
-              << c.aname << " & ";
-    std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "% & ";
+    //unsigned hhalf;
+    std::cout << c.s->name;
+    //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
+    std::cout << " & " << c.aname << " & ";
+    std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
     std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
   }
+  std::cout << "\\end{tabular}\\caption{" << TNames[t] << " Max attackers ranked"
+            << "\\label{table:maxranked" << tnames[t] << "}}\\end{table}";
   return 0;
 }
 
