@@ -71,40 +71,8 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
   }
 }
 
-// top *count* attackers for each attack type, unified.
-// 0 gets all possible max attackers.
-int emit_dynamax_unified_table(int count){
-  std::cout << "\\begin{table}\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{lllll}";
-  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
-  std::cout << "\\Midrule" << std::endl;
-  std::vector<candidate> cands;
-  /*
-  for(pgo_types_e t = TYPE_BUG ; t < TYPECOUNT ; ++t){
-    std::vector<candidate> tcands;
-    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-      const auto s = &sdex[u];
-      handle_species(s, t, tcands);
-    }
-  }
-  // FIXME
-  */
-  std::cout << "\\end{tabular}\\caption{Top Max attackers";
-  if(count){
-    std::cout << " (" << count << " per type)";
-  }
-  std::cout << "\\label{table:maxranked}}\\end{table}";
-  return 0;
-}
-
-// top *count* attackers throwing max attack type *t*.
-// 0 for complete list.
-int emit_dynamax_typed_table(pgo_types_e t, int count){
-  std::cout << "\\begin{table}\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{llll}";
-  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
-  std::cout << "\\Midrule" << std::endl;
-  std::vector<candidate> cands;
+// build a sorted vector of all *t*-type Max attackers
+int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto s = &sdex[u];
     handle_species(s, t, cands);
@@ -132,16 +100,64 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
     add_candidate(cands, e, "Dynamax Cannon", true, true);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
+  return cands.size();
+}
+
+void emit_cand(const candidate& c, unsigned maxp){
+  auto rp = c.powprod();
+  //unsigned hhalf;
+  std::cout << c.s->name;
+  //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
+  std::cout << " & " << c.aname << " & ";
+  std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
+  std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
+}
+
+// top *count* attackers for each attack type, unified.
+// 0 gets all possible max attackers.
+int emit_dynamax_unified_table(int count){
+  std::cout << "\\begin{table}\\centering\\footnotesize";
+  std::cout << "\\begin{tabular}{llrr}";
+  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\Midrule" << std::endl;
+  std::vector<candidate> cands;
+  for(int t = 0 ; t < TYPECOUNT ; ++t){
+    std::vector<candidate> tcands;
+    build_type_vec(static_cast<pgo_types_e>(t), tcands);
+    int emit = 0;
+    for(const auto& c : tcands){
+      cands.emplace_back(c);
+      if(++emit == count){
+        break;
+      }
+    }
+  }
+  std::sort(cands.begin(), cands.end(), std::greater<>());
+  auto maxp = cands.begin()->powprod();
+  for(const auto& c : cands){
+    emit_cand(c, maxp);
+  }
+  std::cout << "\\end{tabular}\\caption{Top Max attackers";
+  if(count){
+    std::cout << " (" << count << " per type)";
+  }
+  std::cout << "\\label{table:maxranked}}\\end{table}";
+  return 0;
+}
+
+// top *count* attackers throwing max attack type *t*.
+// 0 for complete list.
+int emit_dynamax_typed_table(pgo_types_e t, int count){
+  std::cout << "\\begin{table}\\centering\\footnotesize";
+  std::cout << "\\begin{tabular}{llll}";
+  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\Midrule" << std::endl;
+  std::vector<candidate> cands;
+  build_type_vec(t, cands);
   auto maxp = cands.begin()->powprod();
   int emits = 0;
   for(const auto &c : cands){
-    auto rp = c.powprod();
-    //unsigned hhalf;
-    std::cout << c.s->name;
-    //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
-    std::cout << " & " << c.aname << " & ";
-    std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
-    std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
+    emit_cand(c, maxp);
     if(++emits == count){
       break;
     }

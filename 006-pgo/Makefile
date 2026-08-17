@@ -70,7 +70,7 @@ SPECIESTEX:=$(OUT)/species.tex
 FPAIRSTEX:=$(OUT)/fpairs.tex
 CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
-DYNATEX:=$(addsuffix .tex, $(addprefix $(OUT)/dynas, $(TYPES)))
+DYNATEX:=$(OUT)/dynas.tex
 SINDEXTEX:=$(SINDEX).tex
 STATMAXTEX:=$(OUT)/statmax.tex
 GIGANTATEX:=$(OUT)/gigantas.tex
@@ -312,9 +312,9 @@ $(OUT)/mega.tex: $(OUT)/forms
 	@mkdir -p $(@D)
 	$(<) mega > $@
 
-$(OUT)/dynas%.tex: $(OUT)/dynas
+$(OUT)/dynas.tex: $(OUT)/dynas
 	@mkdir -p $(@D)
-	$(<) $* > $@
+	$(<) > $@
 
 $(OUT)/gigantas.tex: $(OUT)/forms
 	@mkdir -p $(@D)
