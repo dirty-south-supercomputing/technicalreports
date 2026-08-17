@@ -599,6 +599,8 @@ static const attack ATK_Disarming_Voice = { "Disarming Voice", TYPE_FAIRY, 70, -
 	70, 33, 8, false, };
 static const attack ATK_Discharge = { "Discharge", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 5, false, };
+static const attack ATK_Dive = { "Dive", TYPE_WATER, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	70, 33, 7, false, };
 static const attack ATK_Doom_Desire = { "Doom Desire", TYPE_STEEL, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 3, false, };
 static const attack ATK_Double_Iron_Bash = { "Double Iron Bash", TYPE_STEEL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1091,6 +1093,7 @@ static const attack* const attacks[] = {
   &ATK_Dig,
   &ATK_Disarming_Voice,
   &ATK_Discharge,
+  &ATK_Dive,
   &ATK_Doom_Desire,
   &ATK_Double_Iron_Bash,
   &ATK_Draco_Meteor,
@@ -4855,7 +4858,7 @@ static const species sdex[] = {
 		{ &ATK_Mud_Shot, &ATK_Mud_Slap, &ATK_Wrap, &ATK_Dig, &ATK_Bulldoze, &ATK_Earth_Power, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  845, "Cramorant", TYPE_FLYING, TYPE_WATER, 173, 163, 172, nullptr,
-		{ &ATK_Peck, &ATK_Water_Gun, &ATK_Fly, &ATK_Drill_Peck, &ATK_Hydro_Pump, },
+		{ &ATK_Peck, &ATK_Water_Gun, &ATK_Fly, &ATK_Surf, &ATK_Dive, &ATK_Hydro_Pump, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  846, "Arrokuda", TYPE_WATER, TYPECOUNT, 118, 72, 121, nullptr,
 		{ &ATK_Bite, &ATK_Peck, &ATK_Waterfall, &ATK_Crunch, &ATK_Close_Combat, &ATK_Aqua_Jet, },
