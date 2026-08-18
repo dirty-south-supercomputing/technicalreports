@@ -122,7 +122,7 @@ print_bounded_simptable(int bound, float lbound, float(*fitfxn)(const stats *)){
   printf("\\footnotesize\n");
   printf("\\setlength{\\tabcolsep}{1pt}\n");
   printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP & Bulk\\\\\n");
+  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP{} & Bulk\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
   stats *sols = NULL;
@@ -197,7 +197,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   while( (sols = print_sol_set(sols, get_apercent)) ){
     ;
   }
-  printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP\\label{table:cp%d%c}}\n",
+  printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP{}}\\label{table:cp%d%c}\n",
             toupper(fitchar), bound, bound, fitchar);
   printf("\\end{longtable}");
   printf("\\endgroup\n");
