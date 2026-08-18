@@ -1351,6 +1351,9 @@ struct species {
     REGION_NORTHAM,
     REGION_SOUTHEASTHEMI,
     REGION_SOUTHHEMI,
+    REGION_NORTHHEMI,
+    REGION_EASTHEMI,
+    REGION_WESTHEMI,
     REGION_TROPICS,
     REGION_EAA,
     REGION_AA,
@@ -1435,6 +1438,9 @@ struct species {
       case REGION_NORTHAM: return "Eastern Asia";
       case REGION_SOUTHEASTHEMI: return "Eastern hemisphere south of \\textasciitilde\\ang{26}N";
       case REGION_SOUTHHEMI: return "Southern hemisphere";
+      case REGION_NORTHHEMI: return "Northern hemisphere";
+      case REGION_EASTHEMI: return "Eastern hemisphere";
+      case REGION_WESTHEMI: return "Western hemisphere";
       case REGION_TROPICS: return "Tropic of Cancer---Tropic of Capricorn";
       case REGION_EAA: return "Europe, Asia, Australia";
       case REGION_AA: return "Americas, Africa";
@@ -4671,19 +4677,19 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  794, "Buzzwole", TYPE_BUG, TYPE_FIGHTING, 236, 196, 216, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Counter, &ATK_Lunge, &ATK_Superpower, &ATK_Fell_Stinger, &ATK_Power_Up_Punch, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_AMERICAS, },
   {  795, "Pheromosa", TYPE_BUG, TYPE_FIGHTING, 316, 85, 174, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Low_Kick, &ATK_Bug_Buzz, &ATK_Close_Combat, &ATK_Focus_Blast, &ATK_Lunge, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_EMEAINDIA, },
   {  796, "Xurkitree", TYPE_ELECTRIC, TYPECOUNT, 330, 144, 195, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Discharge, &ATK_Thunder, &ATK_Dazzling_Gleam, &ATK_Power_Whip, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_EAPAC, },
   {  797, "Celesteela", TYPE_STEEL, TYPE_FLYING, 207, 199, 219, nullptr,
 		{ &ATK_Air_Slash, &ATK_Smack_Down, &ATK_Iron_Head, &ATK_Bulldoze, &ATK_Body_Slam, &ATK_Heavy_Slam, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_SOUTHHEMI, },
   {  798, "Kartana", TYPE_GRASS, TYPE_STEEL, 323, 182, 139, nullptr,
 		{ &ATK_Razor_Leaf, &ATK_Air_Slash, &ATK_Fury_Cutter, &ATK_Aerial_Ace, &ATK_Night_Slash, &ATK_X_Scissor, &ATK_Leaf_Blade, &ATK_Sacred_Sword, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_NORTHHEMI, },
   // the junkivore
   {  799, "Guzzlord", TYPE_DARK, TYPE_DRAGON, 188, 99, 440, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Snarl, &ATK_Dragon_Claw, &ATK_Sludge_Bomb, &ATK_Crunch, &ATK_Brutal_Swing, },
@@ -4715,10 +4721,10 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  805, "Stakataka", TYPE_ROCK, TYPE_STEEL, 213, 298, 156, nullptr,
 		{ &ATK_Rock_Throw, &ATK_Take_Down, &ATK_Stone_Edge, &ATK_Flash_Cannon, &ATK_Bulldoze, },
-		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_EASTHEMI, },
   {  806, "Blacephalon", TYPE_FIRE, TYPE_GHOST, 315, 148, 142, nullptr,
 		{ &ATK_Astonish, &ATK_Incinerate, &ATK_Shadow_Ball, &ATK_Overheat, &ATK_Mystical_Fire, &ATK_Mind_Blown, },
-		true, false, 0, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_WESTHEMI, },
   {  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, nullptr,
 		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Wild_Charge, &ATK_Plasma_Fists, },
 		false, false, 0, { &ATK_Plasma_Fists, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
