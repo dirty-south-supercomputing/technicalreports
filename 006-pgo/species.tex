@@ -636,17 +636,50 @@ Now we scatter stamina (max 500) against attack (max 420):
   \caption{Stamina vs Attack, all species\label{figure:allsva}}
 \end{figure}
 
-\section{Freak Pokémon a/k/a Freakémonics\label{sec:freaks}}
-A few Pokémon have unique behaviors or mechanics, some requiring explicit
-  support in any good simulator (\autoref{chap:simul}).
+\section{Battle forms\label{sec:battleforms}}
+Several Pokémon have special battle mechanics represented as multiple forms.
+These forms are only applicable in 3x3 battles (\autoref{sec:3x3}, and do not
+persist. Such Pokémon cannot participate in Nx1 battles (\autoref{sec:nx1}).
+These mechanics require explicit support in any good simulator (\autoref{chap:simul}).
 
-\subsection{Morpeko\label{subsec:morpeko}}
+\subsection{Morpeko\label{subsec:Morpeko}}
 Morpeko changes its form between ``Full Belly Mode'' and ``Hangry Mode''
   each time it uses a charged attack.
 Upon becoming active, Morpeko is in Full Belly Mode, and Aura Wheel is an Electric attack.
 In Hangry Mode, Aura Wheel is a Dark attack.
 Morpeko retains Dark/Electric typing (and thus Aura Wheel STAB) across modes.
 Morpeko cannot defend gyms, assault gyms, or participate in raids.
+
+\subsection{Aegislash\label{subsec:Aegislash}}
+Aegislash has Blade and Shield forms which switch the other's ATK and DEF stats.
+Outside of battle, it is always in the Shield form (97 ATK, 291 DEF).
+While in Shield form, its fast attacks have zero power (and thus inflict
+  a single point of damage; see \autoref{sec:damage}).
+Immediately before throwing a charged move, it takes on its Blade form.
+Upon using a shield, or being substituted, it reverts to Shield form.
+Since its Shield form (considered for League CP bounds) has much lower CP,
+ this allows a high ATK to be snuck under a CP bound (though it will only
+ be effective for charged attacks).
+Aegislash cannot defend gyms, assault gyms, or participate in raids.
+
+\subsection{Mimikyu\label{subsec:Mimikyu}}
+Mimikyu is shrouded in a rag, and this rag has the ability to absorb one charged attack,
+just like a shield. When a charged attack is thrown at Mimikyu, the Trainer can choose
+to use a shield if any are available. If the move is not shielded, Mimikyu loses its
+disguise (``Busted Form''). This results in a second-level \textit{persistent} debuff (\ref{sec:buffs})
+of Mimikyu's defense---this debuff cannot be cleared by switching Pokémon.
+
+\subsection{Cramorant\label{subsec:Cramorant}}
+Cramorant changes form upon use of either the Surf or Dive charged attack.
+If used with at least half its HP remaining, Carmorant enters its Gulping form.
+It otherwise enters its Gorging form.
+Upon being hit with a charged move (the move must not be shielded),
+ the Gulping form debuffs the opponent defense by one step,
+ while the Gorging form debuffs the opponent's attack by one step.
+It then returns to its normal form.
+
+\section{Freak Pokémon a/k/a Freakémonics\label{sec:freaks}}
+A few Pokémon have unique behaviors.
 
 \subsection{Smeargle\label{subsec:smeargle}}
 Smeargle is not generally available in the wild\footnote{When captured in the wild, it knows Splash and Struggle.}.
@@ -716,25 +749,6 @@ Charging the Mystery Box requires linking a Pokémon HOME account and transporti
 Meltan evolves into the interesting Melmetal, and the Mystery
   Box spawns pretty continuously for an hour should you need harvest some Stardust
   the hard way.
-
-\subsection{Aegislash\label{subsec:aegislash}}
-Aegislash has Blade and Shield forms which switch the other's ATK and DEF stats.
-Outside of battle, it is always in the Shield form (97 ATK, 291 DEF).
-While in Shield form, its fast attacks have zero power (and thus inflict
-  a single point of damage; see \autoref{sec:damage}).
-Immediately before throwing a charged move, it takes on its Blade form.
-Upon using a shield, or being substituted, it reverts to Shield form.
-Since its Shield form (considered for League CP bounds) has much lower CP,
- this allows a high ATK to be snuck under a CP bound (though it will only
- be effective for charged attacks).
-Aegislash cannot defend gyms, assault gyms, or participate in raids.
-
-\subsection{Mimikyu\label{subsec:mimikyu}}
-Mimikyu is shrouded in a rag, and this rag has the ability to absorb one charged attack,
-just like a shield. When a charged attack is thrown at Mimikyu, the Trainer can choose
-to use a shield if any are available. If the move is not shielded, Mimikyu loses its
-disguise (``Busted Form''). This results in a second-level \textit{persistent} debuff (\ref{sec:buffs})
-of Mimikyu's defense---this debuff cannot be cleared by switching Pokémon.
 
 \subsection{Tyrogue and the Hitmons\label{subsec:tyrogue}}
 Tyrogue's evolution is based on its IV.
