@@ -13,6 +13,7 @@ struct candidate {
   bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
   bool hasstab;       // do we have stab for the attack?
   unsigned iva;       // attack iv 0..15
+  pgo_types_e atype;  // attack type
 
   float powprod(void) const {
     unsigned p = gmaxpower ? 350 : 250; // FIXME
@@ -37,11 +38,12 @@ struct candidate {
 
 // add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
 void add_candidate(std::vector<candidate>& cands, const species* s,
-                   const char* aname, bool gmaxpower, bool stab){
+                   const char* aname, bool gmaxpower, bool stab,
+                   pgo_types_e atype){
   //const unsigned lowiv = 10;
   const unsigned highiv = 15;
   //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
-  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv); // level 50
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, atype); // level 50
   /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
   cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
   cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
@@ -57,7 +59,7 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
       if(fast_attack_p(a)){
         auto at = dmax_attack_type(a);
         if(at == t){
-          add_candidate(cands, s, max_attack_name(at), false, stab);
+          add_candidate(cands, s, max_attack_name(at), false, stab, t);
           break; // don't handle multiple fast attacks of the same type
         }
       }
@@ -66,7 +68,7 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
   auto gma = lookup_gmax_attack(s);
   if(gma){
     if(gma->type == t){
-      add_candidate(cands, s, gma->name.c_str(), true, stab);
+      add_candidate(cands, s, gma->name.c_str(), true, stab, t);
     }
   }
 }
@@ -85,19 +87,19 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
     if(!zac){
       return -1;
     }
-    add_candidate(cands, zac, "Behemoth Blade", false, true);
+    add_candidate(cands, zac, "Behemoth Blade", false, true, t);
     const auto zam = lookup_species("Crowned Shield Zamazenta");
     if(!zam){
       return -1;
     }
-    add_candidate(cands, zam, "Behemoth Bash", false, true);
+    add_candidate(cands, zam, "Behemoth Bash", false, true, t);
   }else if(t == TYPE_DRAGON){
     // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
-    add_candidate(cands, e, "Dynamax Cannon", true, true);
+    add_candidate(cands, e, "Dynamax Cannon", true, true, t);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
   return cands.size();
@@ -106,9 +108,12 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
 void emit_cand(const candidate& c, unsigned maxp){
   auto rp = c.powprod();
   //unsigned hhalf;
-  std::cout << c.s->name;
+  print_types(c.s->t1, c.s->t2);
+  std::cout << " & " << c.s->name;
   //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
-  std::cout << " & " << c.aname << " & ";
+  std::cout << " & ";
+  print_type(c.atype);
+  std::cout << c.aname << " & ";
   std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
   std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
 }
@@ -117,8 +122,8 @@ void emit_cand(const candidate& c, unsigned maxp){
 // 0 gets all possible max attackers.
 int emit_dynamax_unified_table(int count){
   std::cout << "\\begin{table}\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{llrr}";
-  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\begin{tabular}{cllrr}";
+  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
   std::cout << "\\Midrule" << std::endl;
   std::vector<candidate> cands;
   for(int t = 0 ; t < TYPECOUNT ; ++t){
@@ -149,8 +154,8 @@ int emit_dynamax_unified_table(int count){
 // 0 for complete list.
 int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "\\begin{table}\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{llll}";
-  std::cout << "Pokémon & Attack & Relative & Absolute\\\\";
+  std::cout << "\\begin{tabular}{cllll}";
+  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
   std::cout << "\\Midrule" << std::endl;
   std::vector<candidate> cands;
   build_type_vec(t, cands);

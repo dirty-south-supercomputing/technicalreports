@@ -5920,7 +5920,7 @@ print_type(pgo_types_e t){
 static inline void
 print_types(pgo_types_e t1, pgo_types_e t2){
   print_type(t1);
-  if(t1 != t2){
+  if(t1 != t2 && t2 != TYPECOUNT){
     putc(' ', stdout);
     print_type(t2);
   }
