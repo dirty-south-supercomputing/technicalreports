@@ -4671,7 +4671,7 @@ static const species sdex[] = {
   // the moone
   {  792, "Lunala", TYPE_PSYCHIC, TYPE_GHOST, 255, 191, 264, "Cosmoem",
 		{ &ATK_Shadow_Claw, &ATK_Confusion, &ATK_Air_Slash, &ATK_Shadow_Ball, &ATK_Moonblast, &ATK_Psychic, &ATK_Future_Sight, },
-		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  793, "Nihilego", TYPE_ROCK, TYPE_POISON, 249, 210, 240, nullptr,
 		{ &ATK_Pound, &ATK_Poison_Jab, &ATK_Acid, &ATK_Rock_Slide, &ATK_Power_Gem, &ATK_Sludge_Bomb, &ATK_Gunk_Shot, },
 		true, false, 0, { }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_ALL, },
