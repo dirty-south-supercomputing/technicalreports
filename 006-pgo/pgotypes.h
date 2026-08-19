@@ -6743,7 +6743,7 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
     const float savg = calc_amean(atk, def, s->sta);
     // we don't show geometric mean as it'll always be the same as the non-shadow
     // form. instead, show delta for arithmetic mean.
-    printf("%.1g %.1g %u %.1f ", atk, def, s->sta, savg);
+    printf("%.1f %.1f %u %.1f ", atk, def, s->sta, savg);
     if(avg > savg){
       printf("(-%.1f\\%%)", (avg - savg) * 100 / avg);
     }else if(avg < savg){
