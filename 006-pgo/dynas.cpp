@@ -188,5 +188,5 @@ int main(int argc, char ** argv){
   if(lext == TYPECOUNT){
     usage(*argv, EXIT_FAILURE);
   }
-  return emit_dynamax_typed_table(lext, 4);
+  return emit_dynamax_typed_table(lext, 0);
 }
