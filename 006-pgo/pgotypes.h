@@ -6123,7 +6123,15 @@ static bool
 has_mega(const species *s){
   for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
     if(megasdex[i].idx == s->idx){
-      return true;
+      // we don't want to return true for e.g. "galarian slowbro" (slowbro has
+      // a mega, but galarian slowbro does not). check that the species name
+      // is contained wholly within the mega name (don't check for exact match,
+      // or we lose e.g. "Mewtwo Y"). this breaks if there *is* a galarian
+      // slowbro mega and there *is not* a slowbro mega, but that situation
+      // doesn't arise in the current pokedex (fingers crossed).
+      if(megasdex[i].name.contains(s->name)){
+        return true;
+      }
     }
   }
   return false;
