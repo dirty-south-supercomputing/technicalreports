@@ -120,6 +120,32 @@ print_complete_coversets(void){
   }
 }
 
+static void
+print_participant_attacks(const species& s, bool fast){
+  bool one = false;
+  bool atypes[TYPECOUNT] = {};
+  for(const auto& a : s.attacks){
+    if(fast_attack_p(a) != fast){
+      continue;
+    }
+    if(a->type != TYPECOUNT){
+      if(atypes[a->type]){
+        continue;
+      }
+    }
+    if(one){
+      std::cout << ", ";
+    }
+    if(a->type == TYPECOUNT){
+      std::cout << "HiddenPower";
+    }else{
+      std::cout << TNames[a->type];
+      atypes[a->type] = true;
+    }
+    one = true;
+  }
+}
+
 // print all species represented in the typing vector t of size tcount
 static void
 print_participants(int tcount, const int t[TYPINGCOUNT][2]){
@@ -138,7 +164,11 @@ print_participants(int tcount, const int t[TYPINGCOUNT][2]){
       if(s.t2 != TYPECOUNT){
         std::cout << ", " << TNames[s.t2];
       }
-      std::cout << ")" << std::endl;
+      std::cout << ") → ";
+      print_participant_attacks(s, true);
+      std::cout << " : ";
+      print_participant_attacks(s, false);
+      std::cout << std::endl;
     }
   }
 }
