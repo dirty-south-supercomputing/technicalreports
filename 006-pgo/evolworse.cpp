@@ -19,22 +19,24 @@ bool check_worse_evol(const species& s, int cpbound){
     const stats &oe = eopts[evcount - 1];
     const auto ge = oe.geommean;
     const auto geworst = eopts[0].geommean;
-    if(gs > ge){
-      std::cout << (gs / ge) << " " << s.name << " " << gsworst << "–" << gs
-          << " " << e->name << " " << geworst << "–" << ge;
-      if(gsworst > ge){
-        std::cout << " pure";
-      }else{
-        std::cout << " partial";
-      }
-      std::cout << std::endl;
-      worse = true;
-    }else{
-      if(gs > geworst){
+    if(gs != ge || geworst != gsworst){
+      if(gs > ge){
         std::cout << (gs / ge) << " " << s.name << " " << gsworst << "–" << gs
             << " " << e->name << " " << geworst << "–" << ge;
-        std::cout << " partial" << std::endl;
+        if(gsworst >= ge){
+          std::cout << " pure";
+        }else{
+          std::cout << " partial";
+        }
+        std::cout << std::endl;
         worse = true;
+      }else{
+        if(gs > geworst){
+          std::cout << (gs / ge) << " " << s.name << " " << gsworst << "–" << gs
+              << " " << e->name << " " << geworst << "–" << ge;
+          std::cout << " partial" << std::endl;
+          worse = true;
+        }
       }
     }
   }
