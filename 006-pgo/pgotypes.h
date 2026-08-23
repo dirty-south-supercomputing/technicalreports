@@ -2556,7 +2556,7 @@ static const species sdex[] = {
   // the Handstand
   {  237, "Hitmontop", TYPE_FIGHTING, TYPECOUNT, 173, 207, 137, "Tyrogue",
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Stone_Edge, &ATK_Close_Combat, &ATK_Gyro_Ball, &ATK_Triple_Axel, },
-		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Kiss
   {  238, "Smoochum", TYPE_ICE, TYPE_PSYCHIC, 153, 91, 128, nullptr,
 		{ &ATK_Frost_Breath, &ATK_Pound, &ATK_Powder_Snow, &ATK_Ice_Punch, &ATK_Ice_Beam, &ATK_Psyshock, },
