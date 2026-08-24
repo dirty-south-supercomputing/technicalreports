@@ -49,6 +49,7 @@ DPEVSE:=$(OUT)/dpevse
 PPTVST:=$(OUT)/pptvst
 EVOLWORSE:=$(OUT)/evolworse
 MOSTPOWER:=$(OUT)/mostpower
+ANTIDMAX:=$(OUT)/antidmax
 PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
@@ -143,7 +144,7 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
-	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) \
+	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
 	webpage testdb testsimul $(COVERSETS) test
 
 CSS:=w/web.css

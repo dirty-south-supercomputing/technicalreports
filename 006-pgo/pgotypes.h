@@ -11,6 +11,7 @@
 #include <cstring>
 #include <cassert>
 #include <cstdint>
+#include <iomanip>
 #include <iostream>
 
 // for greyscale images, define IMAGECOLOR as "g-". for full color, definte it
@@ -19,6 +20,11 @@
 #define IMAGECOLOR ""
 
 #define TYPESTART TYPE_BUG
+
+// attack power for gmax and dmax level 1. levels 2 and 3 add 50 and 100,
+// respectively.
+const unsigned GMAX_POWER_BASE = 350;
+const unsigned DMAX_POWER_BASE = 250;
 
 constexpr unsigned TEAMSIZE = 3;
 constexpr int MAXIVELEM = 15;
@@ -6557,8 +6563,8 @@ print_evolution_table(const species* s){
         }
       }
     }
-  }else{
-    printf("No evolution");
+  /*}else{
+    printf("No evolution");*/
   }
 }
 

@@ -1,5 +1,4 @@
 #include "pgotypes.h"
-#include <iomanip>
 
 void usage(const char* argv0, int ret){
   std::cerr << "usage: " << argv0 << " [ type ]" << std::endl;
@@ -16,7 +15,7 @@ struct candidate {
   pgo_types_e atype;  // attack type
 
   float powprod(void) const {
-    unsigned p = gmaxpower ? 350 : 250; // FIXME
+    unsigned p = gmaxpower ? GMAX_POWER_BASE : DMAX_POWER_BASE;
     float rp = hasstab ? calc_stab(p) : p;
     return rp * calc_eff_a(s->atk + iva, hlevel, false);
   }
