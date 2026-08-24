@@ -1322,6 +1322,7 @@ struct species {
   bool shadow;        // is there a shadow form?
   unsigned dmax;      // is there a dynamax form? if so, non-zero battle tier.
                       // if the species does not show up in max battles, set to UINT_MAX.
+                      // 5 is legendaries, 6 is gigantamax and eternatus.
   std::vector<const attack*> elite; // exclusive attacks requiring an elite tm
   enum species_cat {
     CAT_NORMAL,
@@ -3393,14 +3394,14 @@ static const species sdex[] = {
   // the knowledge
   {  480, "Uxie", TYPE_PSYCHIC, TYPECOUNT, 156, 270, 181, nullptr,
 		{ &ATK_Confusion, &ATK_Extrasensory, &ATK_Thunder, &ATK_Swift, &ATK_Future_Sight, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 5, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // the being of emotion
   {  481, "Mesprit", TYPE_PSYCHIC, TYPECOUNT, 212, 212, 190, nullptr,
 		{ &ATK_Confusion, &ATK_Extrasensory, &ATK_Blizzard, &ATK_Swift, &ATK_Future_Sight, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 5, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  482, "Azelf", TYPE_PSYCHIC, TYPECOUNT, 270, 151, 181, nullptr,
 		{ &ATK_Confusion, &ATK_Extrasensory, &ATK_Fire_Blast, &ATK_Swift, &ATK_Future_Sight, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 5, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Metal_Claw, &ATK_Iron_Head, &ATK_Thunder, &ATK_Draco_Meteor, },
 		true, true, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
