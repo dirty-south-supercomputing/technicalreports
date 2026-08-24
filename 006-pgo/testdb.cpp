@@ -44,6 +44,10 @@ test_family(const species *s){
       std::cerr << prev->name << " dmax > " << s->name << " dmax" << std::endl;
       throw std::exception();
     }
+    if(s->dmax > 5 && s->dmax != UINT_MAX){
+      std::cerr << "dmax value illegal: " << s->dmax << std::endl;
+      throw std::exception();
+    }
   }
   return true;
 }
