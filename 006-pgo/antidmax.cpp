@@ -101,7 +101,21 @@ int main(int argc, const char** argv){
     const auto a = &sdex[u];
     handle_species(a, s->t1, s->t2, cands);
   }
-  // FIXME handle crowned dogs / eternatus
+  const auto zac = lookup_species("Crowned Sword Zacian");
+  if(!zac){
+    return -1;
+  }
+  add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, s->t1, s->t2);
+  const auto zam = lookup_species("Crowned Shield Zamazenta");
+  if(!zam){
+    return -1;
+  }
+  add_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, s->t1, s->t2);
+  const auto e = lookup_species("Eternatus");
+  if(!e){
+    return -1;
+  }
+  add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, s->t1, s->t2);
   std::sort(cands.begin(), cands.end(), std::greater<>());
   auto maxp = cands.begin()->powprod();
   for(const auto& c : cands){
