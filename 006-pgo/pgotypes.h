@@ -2054,11 +2054,11 @@ static const species sdex[] = {
   // the Spikes
   {  111, "Rhyhorn", TYPE_GROUND, TYPE_ROCK, 140, 127, 190, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Rock_Smash, &ATK_Bulldoze, &ATK_Horn_Attack, &ATK_Stomp, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 2, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Drill
   {  112, "Rhydon", TYPE_GROUND, TYPE_ROCK, 222, 171, 233, "Rhyhorn",
 		{ &ATK_Mud_Slap, &ATK_Rock_Smash, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Surf, &ATK_Breaking_Swipe, },
-		true, true, 0, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, UINT_MAX, { &ATK_Megahorn, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Egg
   {  113, "Chansey", TYPE_NORMAL, TYPECOUNT, 60, 128, 487, "Happiny",
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Hyper_Beam, &ATK_Dazzling_Gleam, &ATK_Psychic, },
@@ -2480,7 +2480,7 @@ static const species sdex[] = {
   // the sharp claw
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, nullptr,
 		{ &ATK_Ice_Shard, &ATK_Feint_Attack, &ATK_Ice_Punch, &ATK_Avalanche, &ATK_Foul_Play, &ATK_Triple_Axel, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 3, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sharp claw
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Rock_Smash, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Close_Combat, },
@@ -3320,7 +3320,7 @@ static const species sdex[] = {
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel",
 		{ &ATK_Ice_Shard, &ATK_Feint_Attack, &ATK_Snarl, &ATK_Focus_Blast, &ATK_Avalanche, &ATK_Foul_Play, &ATK_Triple_Axel, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
+		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   // the Magnet Area
   {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, "Magneton",
 		{ &ATK_Spark, &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Metal_Sound, &ATK_Flash_Cannon, &ATK_Wild_Charge, &ATK_Zap_Cannon, &ATK_Mirror_Shot, },
@@ -3330,7 +3330,7 @@ static const species sdex[] = {
 		true, false, 0, { &ATK_Body_Slam, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  464, "Rhyperior", TYPE_GROUND, TYPE_ROCK, 241, 190, 251, "Rhydon",
 		{ &ATK_Mud_Slap, &ATK_Smack_Down, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Surf, &ATK_Skull_Bash, &ATK_Superpower, &ATK_Rock_Wrecker, &ATK_Breaking_Swipe, &ATK_Drill_Run, },
-		true, true, 0, { &ATK_Rock_Wrecker, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
+		true, true, UINT_MAX, { &ATK_Rock_Wrecker, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
   {  465, "Tangrowth", TYPE_GRASS, TYPECOUNT, 207, 184, 225, "Tangela",
 		{ &ATK_Vine_Whip, &ATK_Infestation, &ATK_Ancient_Power, &ATK_Rock_Slide, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Power_Whip, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, },
@@ -4365,13 +4365,13 @@ static const species sdex[] = {
 		{ &ATK_Sucker_Punch, &ATK_Snarl, &ATK_Gust, &ATK_Hyper_Beam, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Hurricane, &ATK_Focus_Blast, &ATK_Oblivion_Wing, },
 		true, false, 0, { &ATK_Oblivion_Wing, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // the order
-  {  718, "Zygarde (10%)", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, nullptr,
+  {  718, "Zygarde 10%", TYPE_DRAGON, TYPE_GROUND, 205, 173, 144, nullptr,
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  718, "Zygarde (50%)", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde (10%)",
+  {  718, "Zygarde 50%", TYPE_DRAGON, TYPE_GROUND, 203, 232, 239, "Zygarde 10%",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
-  {  718, "Zygarde (Complete)", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde (50%)",
+  {  718, "Zygarde Complete", TYPE_DRAGON, TYPE_GROUND, 184, 207, 389, "Zygarde 50%",
 		{ &ATK_Bite, &ATK_Zen_Headbutt, &ATK_Dragon_Tail, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Bulldoze, &ATK_Outrage, &ATK_Crunch, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_ZYGARDECELL, species::REGION_ALL, },
   // the jewel
@@ -4887,11 +4887,11 @@ static const species sdex[] = {
 		true, false, 4, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM},
   {  850, "Sizzlipede", TYPE_FIRE, TYPE_BUG, 118, 90, 137, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   // will have gmax
   {  851, "Centiskorch", TYPE_FIRE, TYPE_BUG, 220, 158, 225, "Sizzlipede",
 		{ &ATK_Bug_Bite, &ATK_Ember, &ATK_Heat_Wave, &ATK_Bug_Buzz, &ATK_Crunch, &ATK_Lunge, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, UINT_MAX, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   {  852, "Clobbopus", TYPE_FIGHTING, TYPECOUNT, 121, 103, 137, nullptr,
 		{ &ATK_Rock_Smash, &ATK_Ice_Punch, &ATK_Brick_Break, &ATK_Superpower, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
