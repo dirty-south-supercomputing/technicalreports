@@ -1285,7 +1285,7 @@ static const attack* const attacks[] = {
 const size_t ATTACKCOUNT = sizeof(attacks) / sizeof(*attacks);
 
 // return the dmax attack type corresponding to this fast attack. it is simply
-// the attack's type, except for Hidden Power, which maps to Normal.
+// the attack's type, except for Hidden Power, which always maps to Normal.
 static inline pgo_types_e
 dmax_attack_type(const attack* a){
   if(a == &ATK_Hidden_Power){

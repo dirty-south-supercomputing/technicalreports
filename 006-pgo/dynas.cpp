@@ -112,7 +112,7 @@ void emit_cand(const candidate& c, unsigned maxp){
   //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
   std::cout << " & ";
   print_type(c.atype);
-  std::cout << c.aname << " & ";
+  std::cout << " " << c.aname << " & ";
   std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
   std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
 }
