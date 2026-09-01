@@ -281,8 +281,8 @@ test_mega(void){
       std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
       throw std::exception();
     }
-    if(m.maxlevel > 4){
-      std::cerr << "invalid maxlevel " << m.maxlevel << " for " << m.name << std::endl;
+    if(m.plusatk && !charged_attack_p(m.plusatk)){
+      std::cerr << "invalid non-charged plus attach " << m.plusatk->name << " for " << m.name << std::endl;
       throw std::exception();
     }
   }
