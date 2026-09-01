@@ -6593,14 +6593,15 @@ ismega_p(const species* s){
 
 static void
 print_cattack_latex(const species* s, const attack* a, float power,
-                    const char* itb, const char* ite){
+                    const char* itb, const char* ite, bool plusatk){
   const float dpe = power / -a->energytrain;
+  const char* plussym = plusatk ? "+" : "";
   if(exclusive_attack_p(s, a)){
-    printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
-        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+    printf(" \\textbf{%s%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
+        itb, a->name, plussym, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
   }else{
-    printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
-        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+    printf(" %s%s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
+        itb, a->name, plussym, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
   }
   if(a->chance_user_attack || a->chance_user_defense ||
       a->chance_opp_attack || a->chance_opp_defense){
@@ -6624,7 +6625,7 @@ print_cattack_latex(const species* s, const attack* a, float power,
 }
 
 static void
-print_attack_latex(const species* s, const attack* a){
+print_attack_latex(const species* s, const attack* a, bool plusatk = false){
   unsigned stab = has_stab_p(s, a);
   float power = a->powertrain;
   if(stab){
@@ -6642,7 +6643,7 @@ print_attack_latex(const species* s, const attack* a){
     ite = "}";
   }
   if(charged_attack_p(a)){
-    print_cattack_latex(s, a, power, itb, ite);
+    print_cattack_latex(s, a, power, itb, ite, plusatk);
   }else{ // fast attacks
     const float dpt = power / a->turns;
     const float ept = static_cast<float>(a->energytrain) / a->turns;
@@ -6658,6 +6659,11 @@ print_attack_latex(const species* s, const attack* a){
           itb, dpt, ite, itb, ept, ite);
     }
   }
+}
+
+static inline void
+print_plus_attack_latex(const species* s, const attack* a){
+  print_attack_latex(s, a, true);
 }
 
 static void
@@ -6714,6 +6720,9 @@ print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   for(const auto &a : s->attacks){
     print_attack_latex(s, a);
   }
+  /*if(ismega && meg->plusatk){
+    print_plus_attack_latex(s, meg->plusatk);
+  }*/
   if(mainform && s->shadow){
     print_attack_latex(s, &ATK_Return);
   }
