@@ -5443,6 +5443,7 @@ static const mega megasdex[] = {
   {  354, "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, 100, nullptr, },
   {  359, "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, 200, nullptr, },
   {  362, "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, 200, nullptr, },
+  {  368, "Mega Staraptor", TYPE_FIGHTING, TYPE_FLYING, 278, 207, 198, 300, nullptr, },
   {  373, "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, 300, nullptr, },
   {  376, "Mega Metagross", TYPE_STEEL, TYPE_PSYCHIC, 300, 289, 190, 300, nullptr, },
   {  380, "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, 300, nullptr, },
