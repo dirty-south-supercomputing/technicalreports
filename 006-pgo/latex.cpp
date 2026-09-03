@@ -223,7 +223,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   escape_string(s->name.c_str());
   if(ismega){
-    printf(" (%'u)", meg->initialcost);
+    printf(" (%u)", meg->initialcost);
   }
   if(mainform){
     printf(",before title={\\phantomsection\\label{species:");

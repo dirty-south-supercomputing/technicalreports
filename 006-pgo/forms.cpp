@@ -23,6 +23,7 @@ static const char *megasortstr(const char *name){
 }
 
 int main(int argc, char **argv){
+  setlocale(LC_ALL, "");
   if(argc != 2){
     fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
