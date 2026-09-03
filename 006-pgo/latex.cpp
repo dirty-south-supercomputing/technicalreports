@@ -173,13 +173,20 @@ print_cattack_latex(const species* s, const attack* a, float power,
   printf("\\\\\n");
 }
 
-static void
-print_attack_latex(const species* s, const attack* a){
+// get the power of the attack considering STAB (if it applies)
+static float
+calc_eff_power(const species* s, const attack* a){
   unsigned stab = has_stab_p(s, a);
   float power = a->powertrain;
   if(stab){
-    power = power * 6 / 5;
+    power = calc_stab(power);
   }
+  return power;
+}
+
+static void
+print_attack_latex(const species* s, const attack* a){
+  float power = calc_eff_power(s, a);
   print_type(a->type);
   if(a->type == TYPECOUNT){
     printf("\\hspace{1em}");
@@ -217,14 +224,15 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   const mega* meg = lookup_mega(s->name.c_str());
   // just because we *have* a mega doesn't mean we *are* a mega
   bool ismega = ismega_p(s);
-  printf("\\begin{speciesbox}[title=\\#%04u ", s->idx);
+  printf("\\begin{speciesbox}[title={\\#%04u ", s->idx);
   if(gmax){
     printf("Gigantamax ");
   }
   escape_string(s->name.c_str());
   if(ismega){
-    printf(" (%u)", meg->initialcost);
+    printf(" (%'u)", meg->initialcost);
   }
+  printf("}");
   if(mainform){
     printf(",before title={\\phantomsection\\label{species:");
     label_string(s->name.c_str());
@@ -259,14 +267,35 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     }
   }
   printf(".png}} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
-  for(const auto &a : s->attacks){
-    print_attack_latex(s, a);
-  }
+  std::vector<const attack*> sortedatks;
   if(s->shadow){
-    print_attack_latex(s, &ATK_Return);
+    sortedatks.emplace_back(&ATK_Return);
   }
   if(ismega && meg->plusatk){
-    print_attack_latex(s, meg->plusatk);
+    sortedatks.emplace_back(meg->plusatk);
+  }
+  for(const auto a : s->attacks){
+    sortedatks.emplace_back(a);
+  }
+  std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
+        if(fast_attack_p(lhs) && !fast_attack_p(rhs)){
+          return true;
+        }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
+          return false;
+        }
+        float aratio = calc_eff_power(s, lhs);
+        float bratio = calc_eff_power(s, rhs);
+        if(fast_attack_p(lhs)){
+          aratio /= lhs->turns;
+          bratio /= rhs->turns;
+        }else{
+          aratio /= -lhs->energytrain;
+          bratio /= -rhs->energytrain;
+        }
+        return aratio < bratio;
+      });
+  for(const auto &a : sortedatks){
+    print_attack_latex(s, a);
   }
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
