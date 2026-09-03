@@ -114,6 +114,7 @@ FHUNDOMLTEX:=$(OUT)/fhundoml.tex
 SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
+LATEXOBJ:=$(OUT)/latex.o
 OPTSTATSDAT:=$(OUT)/optstats.r
 OPTSTATSR:=optstats.R
 OPTSTATSPDF:=$(OUT)/optstats.pdf
@@ -389,6 +390,22 @@ $(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h Makefile
 $(SIMUL): $(SIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) -lm -lmurmurhash
+
+$(SPECIES): species.cpp pgotypes.h Makefile $(LATEXOBJ)
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+
+$(OUT)/scardexample: scardexample.cpp pgotypes.h Makefile $(LATEXOBJ)
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+
+$(OUT)/forms: forms.cpp pgotypes.h Makefile $(LATEXOBJ)
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+
+$(LATEXOBJ): latex.cpp pgotypes.h Makefile
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F)
 
 $(OUT)/%: %.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
