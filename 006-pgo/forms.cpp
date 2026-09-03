@@ -25,7 +25,7 @@ static const char *megasortstr(const char *name){
 int main(int argc, char **argv){
   setlocale(LC_ALL, "");
   if(argc != 2){
-    fprintf(stderr, "usage: %s mega|fused|crowned|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   bool zoom = false; // light card inset
@@ -37,7 +37,7 @@ int main(int argc, char **argv){
       const species *s = lookup_species(m.idx);
       species sm{
           m.idx, m.name.c_str(), m.t1, m.t2, m.atk, m.def, m.sta,
-          s->name.c_str(), s->attacks, s->shiny, false, false, s->elite,
+          s->name.c_str(), s->attacks, s->shiny, s->shadow, false, s->elite,
           s->category, s->a2cost,
       };
       char *sstr = strdup(megasortstr(m.name.c_str()));
