@@ -152,11 +152,9 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   if(gmax){
     printf("Gigantamax ");
   }
-  // have to special case this or it runs two lines =[
-  if(s->name == "Crowned Shield Zamazenta"){
-    escape_string("Crowned Zamazenta");
-  }else{
-    escape_string(s->name.c_str());
+  escape_string(s->name.c_str());
+  if(ismega){
+    printf(" (%'u)", meg->initialcost);
   }
   if(mainform){
     printf(",before title={\\phantomsection\\label{species:");
@@ -203,7 +201,6 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 
   // the minipages with icons and cp data
-  // left side is larger for gmax/mega, which don't show evolutionary lines
   printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
   print_types_big(s->t1, s->t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
@@ -211,29 +208,30 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     print_icons(s, true, ismega);
   }
   printf("\\end{minipage}\n");
-  if(mainform){ // optimal IVs and evolutionary lineage (only for main forms)
+  if(mainform || ismega){ // optimal IVs and evolutionary lineage (not used for gmax)
     printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}%u ", stardust_reward(s));
-    if(s->categorystr() && strcmp(s->categorystr(), "")){
-      printf("%s\n", s->categorystr());
-    }else{
-      printf("CG %d", a2cost_to_cgroup(s->a2cost));
+    printf("\\scriptsize{}");
+    if(!ismega){
+      printf("%u ", stardust_reward(s));
+      if(s->categorystr() && strcmp(s->categorystr(), "")){
+        printf("%s\n", s->categorystr());
+      }else{
+        printf("CG %d", a2cost_to_cgroup(s->a2cost));
+      }
+      printf(" Gen %s %s\\hfill{}",
+            idx_to_generation(s->idx), idx_to_region(s->idx));
+      printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
+      print_evolution_table(s);
+      printf("\\end{minipage}");
     }
-    printf(" Gen %s %s\\hfill{}",
-           idx_to_generation(s->idx), idx_to_region(s->idx));
-    printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
-    print_evolution_table(s);
-    printf("\\end{minipage}");
-  }else{ // other than main forms
+  }else{ // other than main/mega forms
     if(gmax){
       printf("\\hfill");
       print_type(s->t1);
       printf(" G-Max %s", gma->name.c_str());
-    }else if(ismega){
-      printf("\\hfill{}Initial cost: %'u\n", meg->initialcost);
     }
   }
 
