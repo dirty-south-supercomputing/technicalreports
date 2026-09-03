@@ -268,7 +268,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   printf(".png}} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
   std::vector<const attack*> sortedatks;
-  if(s->shadow){
+  if(!gmax && s->shadow){
     sortedatks.emplace_back(&ATK_Return);
   }
   if(ismega && meg->plusatk){
