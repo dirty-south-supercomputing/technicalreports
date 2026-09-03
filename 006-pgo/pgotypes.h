@@ -5213,10 +5213,10 @@ static const species sdex[] = {
 		{ &ATK_Thunder_Shock, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Thunderbolt, &ATK_Acrobatics, },
 		false, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   {  942, "Maschiff", TYPE_DARK, TYPECOUNT, 140, 108, 155, nullptr,
-		{ &ATK_Bite, &ATK_Snarl, &ATK_Crunch, &ATK_Payback, &ATK_Dig, },
+		{ &ATK_Bite, &ATK_Snarl, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Dig, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  943, "Mabosstiff", TYPE_DARK, TYPECOUNT, 230, 168, 190, "Maschiff",
-		{ &ATK_Bite, &ATK_Snarl, &ATK_Crunch, &ATK_Payback, &ATK_Dig, },
+		{ &ATK_Bite, &ATK_Snarl, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Dig, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Toxic Mouse
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, nullptr,
