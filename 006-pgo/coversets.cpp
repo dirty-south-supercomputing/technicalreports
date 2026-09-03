@@ -139,7 +139,7 @@ print_participant_attacks(const species& s, bool fast){
     if(a->type == TYPECOUNT){
       std::cout << "HiddenPower";
     }else{
-      std::cout << TNames[a->type];
+      std::cout << tname_capitalized(a->type);
       atypes[a->type] = true;
     }
     one = true;
@@ -160,9 +160,9 @@ print_participants(int tcount, const int t[TYPINGCOUNT][2]){
       }
     }
     if(valid){
-      std::cout << " " << s.name << " (" << TNames[s.t1];
+      std::cout << " " << s.name << " (" << tname_capitalized(s.t1);
       if(s.t2 != TYPECOUNT){
-        std::cout << ", " << TNames[s.t2];
+        std::cout << ", " << tname_capitalized(s.t2);
       }
       std::cout << ") → ";
       print_participant_attacks(s, true);

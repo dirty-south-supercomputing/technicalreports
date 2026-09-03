@@ -17,7 +17,7 @@ int main(void){
         }
       }
       if(!found){
-        std::cout << TNames[i] << "/" << TNames[j];
+        std::cout << tname_capitalized(i) << "/" << tname_capitalized(j);
         ++count;
         if(++column == COLUMNS){
           std::cout << "\\\\" << std::endl;

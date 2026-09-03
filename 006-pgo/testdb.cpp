@@ -291,6 +291,12 @@ test_mega(void){
       std::cerr << m.name << " didn't match " << s->name << std::endl;
       throw std::exception();
     }
+    if(m.plusatk){
+      if(!strchr(m.plusatk->name, '+')){
+        std::cerr << m.name << " had invalid +attack " << m.plusatk->name << std::endl;
+        throw std::exception();
+      }
+    }
   }
   return true;
 }

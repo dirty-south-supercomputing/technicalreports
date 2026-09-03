@@ -170,7 +170,7 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   if(count){
     std::cout << emits << " ";
   }
-  std::cout << TNames[t] << " Max attackers"
+  std::cout << tname_capitalized(t) << " Max attackers"
             << "\\label{table:maxranked" << tnames[t] << "}}\\end{table}";
   return 0;
 }

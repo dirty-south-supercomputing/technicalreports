@@ -37,7 +37,7 @@ print_attack_users(const attack *a){
   printf("\\begin{attackbox}[enhanced,title=");
   escape_string(a->name);
   printf(",colbacktitle=%s,before title={",
-          a->type == TYPECOUNT ? "Black" : TNames[a->type]);
+          a->type == TYPECOUNT ? "Black" : tname_capitalized(a->type));
   print_type(a->type);
   printf("},after title={");
   if(a->turns){
@@ -82,7 +82,7 @@ print_attack_users(const attack *a){
   }
   printf("\n\\end{attackbox}\n");
   if(a->type != TYPECOUNT){
-    printf("\\pagecolor{%s!25!white}", TNames[a->type]);
+    printf("\\pagecolor{%s!25!white}", tname_capitalized(a->type));
   }
 }
 

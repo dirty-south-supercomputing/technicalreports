@@ -102,10 +102,10 @@ static void
 summarize_aset(const pmon &p){
   std::vector<typeset> tsets;
   build_tset(tsets, p.ca1->type, p.ca2 ? p.ca2->type : p.ca1->type);
-  std::cout << "(" << TNames[p.fa->type] << ") " << p.fa->name;
-  std::cout << " (" << TNames[p.ca1->type] << ") " << p.ca1->name;
+  std::cout << "(" << tname_capitalized(p.fa->type) << ") " << p.fa->name;
+  std::cout << " (" << tname_capitalized(p.ca1->type) << ") " << p.ca1->name;
   if(p.ca2){
-    std::cout << " (" << TNames[p.ca2->type] << ") " << p.ca2->name;
+    std::cout << " (" << tname_capitalized(p.ca2->type) << ") " << p.ca2->name;
   }
   const typeset &ts = tsets[0];
   for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){

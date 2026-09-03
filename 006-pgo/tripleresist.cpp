@@ -8,7 +8,7 @@ int main(void){
       // test t on i+j
       for(int t = 0 ; t < TYPECOUNT ; ++t){
         if(typing_relation(static_cast<pgo_types_e>(t), static_cast<pgo_types_e>(i), static_cast<pgo_types_e>(j)) == -3){
-          std::cout << TNames[t] << " → " << TNames[i] << "/" << TNames[j];
+          std::cout << tname_capitalized(t) << " → " << tname_capitalized(i) << "/" << tname_capitalized(j);
           std::cout << " & ";
           bool firstprint = true;
           for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){

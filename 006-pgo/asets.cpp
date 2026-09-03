@@ -88,9 +88,9 @@ int main(int argc, char **argv){
   build_tsets(tsets);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   for(const auto &ts : tsets){
-    printf("%s", TNames[ts.t0]);
+    printf("%s", tname_capitalized(ts.t0));
     if(ts.t0 != ts.t1){
-      printf("/%s", TNames[ts.t1]);
+      printf("/%s", tname_capitalized(ts.t1));
     }
     putc('\t', stdout);
     for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){

@@ -8,7 +8,7 @@ int main(void){
     if(a->energytrain < 0){
       continue;
     }
-    printf("%d,%d,%s\n", a->energytrain, a->turns, a->type != TYPECOUNT ? TNames[a->type] : "Normal");
+    printf("%d,%d,%s\n", a->energytrain, a->turns, a->type != TYPECOUNT ? tname_capitalized(a->type) : "Normal");
   }
   return EXIT_SUCCESS;
 }

@@ -8,10 +8,10 @@
 static void
 print_species(const species* s){
   if(s->t2 == TYPECOUNT){
-    printf("%u %u %u %u %s %s\n", s->idx, s->atk, s->def, s->sta, TNames[s->t1], s->name.c_str());
+    printf("%u %u %u %u %s %s\n", s->idx, s->atk, s->def, s->sta, tname_capitalized(s->t1), s->name.c_str());
   }else{
     printf("%u %u %u %u %s+%s %s\n", s->idx, s->atk, s->def, s->sta,
-            TNames[s->t1], TNames[s->t2], s->name.c_str());
+            tname_capitalized(s->t1), tname_capitalized(s->t2), s->name.c_str());
   }
   stats* s2500 = find_optimal_set(s, 2500, 0, false, calc_pok_gmean);
   while(s2500){

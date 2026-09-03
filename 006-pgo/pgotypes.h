@@ -202,26 +202,38 @@ static const char* tnames[TYPECOUNT] = {
   "water"
 };
 
-static const char* TNames[TYPECOUNT] = {
-  "Bug",
-  "Dark",
-  "Dragon",
-  "Electric",
-  "Fairy",
-  "Fighting",
-  "Fire",
-  "Flying",
-  "Ghost",
-  "Grass",
-  "Ground",
-  "Ice",
-  "Normal",
-  "Poison",
-  "Psychic",
-  "Rock",
-  "Steel",
-  "Water"
-};
+static inline const char*
+tname_capitalized(pgo_types_e t){
+  static const char* TNames[TYPECOUNT] = {
+    "Bug",
+    "Dark",
+    "Dragon",
+    "Electric",
+    "Fairy",
+    "Fighting",
+    "Fire",
+    "Flying",
+    "Ghost",
+    "Grass",
+    "Ground",
+    "Ice",
+    "Normal",
+    "Poison",
+    "Psychic",
+    "Rock",
+    "Steel",
+    "Water"
+  };
+  return TNames[t];
+}
+
+static inline const char*
+tname_capitalized(int i){
+  if(i < static_cast<int>(TYPE_BUG) || i >= static_cast<int>(TYPECOUNT)){
+    return nullptr;
+  }
+  return tname_capitalized(static_cast<pgo_types_e>(i));
+}
 
 /*
 float nextcpm(float cpm, float step){
@@ -518,6 +530,8 @@ static const attack ATK_Zen_Headbutt = { "Zen Headbutt", TYPE_PSYCHIC, 8, 6, 3, 
 	11, 9, 2, false, };
 static const attack ATK_Acid_Spray = { "Acid Spray", TYPE_POISON, 20, -45, 0, 0, 0, 0, 1000, 0, 0, 0, -2,
 	20, 50, 6, false, };
+static const attack ATK_Acid_Spray_Plus = { "Acid Spray+", TYPE_POISON, 20, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -2,
+	160, 100, 6, false, };
 static const attack ATK_Acrobatics = { "Acrobatics", TYPE_FLYING, 110, -55, 0, 125, 0, 0, 0, 2, 0, 0, 0,
 	100, 100, 4, false, };
 static const attack ATK_Aerial_Ace = { "Aerial Ace", TYPE_FLYING, 60, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -564,10 +578,15 @@ static const attack ATK_Bone_Club = { "Bone Club", TYPE_GROUND, 55, -35, 0, 0, 0
 	40, 33, 3, false, };
 static const attack ATK_Brave_Bird = { "Brave Bird", TYPE_FLYING, 130, -55, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
 	130, 100, 4, false, };
+// FIXME verify stats (3x3 cost)!
+static const attack ATK_Brave_Bird_Plus = { "Brave Bird+", TYPE_FLYING, 70, -55, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
+	150, 100, 4, false, };
 static const attack ATK_Breaking_Swipe = { "Breaking Swipe", TYPE_DRAGON, 50, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	45, 33, 2, false, };
 static const attack ATK_Brick_Break = { "Brick Break", TYPE_FIGHTING, 50, -40, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	40, 33, 3, false, };
+static const attack ATK_Brick_Break_Plus = { "Brick Break+", TYPE_FIGHTING, 40, -35, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
+	150, 100, 3, false, };
 static const attack ATK_Brutal_Swing = { "Brutal Swing", TYPE_DARK, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 4, false, };
 static const attack ATK_Brine = { "Brine", TYPE_WATER, 100, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -628,6 +647,8 @@ static const attack ATK_Draining_Kiss = { "Draining Kiss", TYPE_FAIRY, 80, -55, 
 	60, 50, 5, false, };
 static const attack ATK_Drill_Peck = { "Drill Peck", TYPE_FLYING, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 5, false, };
+static const attack ATK_Drill_Peck_Plus = { "Drill Peck+", TYPE_FLYING, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	170, 100, 5, false, };
 static const attack ATK_Drill_Run = { "Drill Run", TYPE_GROUND, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 6, false, };
 static const attack ATK_Drum_Beating = { "Drum Beating", TYPE_GRASS, 60, -35, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
@@ -636,6 +657,8 @@ static const attack ATK_Dynamax_Cannon = { "Dynamax Cannon", TYPE_DRAGON, 80, -4
 	215, 100, 3, true, };
 static const attack ATK_Dynamic_Punch = { "Dynamic Punch", TYPE_FIGHTING, 90, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	85, 50, 5, false, };
+static const attack ATK_Dynamic_Punch_Plus = { "Dynamic Punch+", TYPE_FIGHTING, 130, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	130, 100, 5, false, };
 static const attack ATK_Earthquake = { "Earthquake", TYPE_GROUND, 120, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	140, 100, 7, false, };
 static const attack ATK_Earth_Power = { "Earth Power", TYPE_GROUND, 90, -50, 0, 0, 0, 0, 100, 0, 0, 0, -1,
@@ -682,6 +705,8 @@ static const attack ATK_Fusion_Flare = { "Fusion Flare", TYPE_FIRE, 90, -45, 0, 
 	140, 100, 4, false, };
 static const attack ATK_Future_Sight = { "Future Sight", TYPE_PSYCHIC, 110, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	115, 100, 5, false, };
+static const attack ATK_Future_Sight_Plus = { "Future Sight+", TYPE_PSYCHIC, 130, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	140, 100, 5, false, };
 static const attack ATK_Giga_Impact = { "Giga Impact", TYPE_NORMAL, 150, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	200, 100, 9, false, };
 static const attack ATK_Gigaton_Hammer = { "Gigaton Hammer", TYPE_STEEL, 130, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -739,6 +764,8 @@ static const attack ATK_Leaf_Tornado = { "Leaf Tornado", TYPE_GRASS, 45, -40, 0,
 	45, 33, 6, false, };
 static const attack ATK_Liquidation = { "Liquidation", TYPE_WATER, 70, -45, 0, 0, 0, 0, 300, 0, 0, 0, -1,
 	70, 33, 6, false, };
+static const attack ATK_Liquidation_Plus = { "Liquidation+", TYPE_WATER, 55, -40, 0, 0, 0, 0, 300, 0, 0, 0, -1,
+	180, 100, 6, false, };
 static const attack ATK_Low_Sweep = { "Low Sweep", TYPE_FIGHTING, 40, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	40, 33, 4, false, };
 static const attack ATK_Lunge = { "Lunge", TYPE_BUG, 70, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
@@ -773,6 +800,8 @@ static const attack ATK_Muddy_Water = { "Muddy Water", TYPE_WATER, 35, -35, 0, 0
 	45, 33, 4, false, };
 static const attack ATK_Mystical_Fire = { "Mystical Fire", TYPE_FIRE, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	60, 33, 4, false, };
+static const attack ATK_Mystical_Fire_Plus = { "Mystical Fire+", TYPE_FIRE, 50, -40, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
+	140, 100, 4, false, };
 static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, -50, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
 	90, 50, 4, false, };
 static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -791,6 +820,8 @@ static const attack ATK_Origin_Pulse = { "Origin Pulse", TYPE_WATER, 130, -60, 0
 	120, 100, 3, false, };
 static const attack ATK_Outrage = { "Outrage", TYPE_DRAGON, 110, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	110, 50, 8, false, };
+static const attack ATK_Outrage_Plus = { "Outrage+", TYPE_DRAGON, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	185, 100, 8, false, };
 static const attack ATK_Overheat = { "Overheat", TYPE_FIRE, 130, -55, 0, 1000, 0, 0, 0, -2, 0, 0, 0,
 	160, 100, 8, false, };
 static const attack ATK_Parabolic_Charge = { "Parabolic Charge", TYPE_ELECTRIC, 70, -50, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
@@ -817,6 +848,8 @@ static const attack ATK_Precipice_Blades = { "Precipice Blades", TYPE_GROUND, 13
 	120, 100, 3, false, };
 static const attack ATK_Psybeam = { "Psybeam", TYPE_PSYCHIC, 70, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
+static const attack ATK_Psybeam_Plus = { "Psybeam+", TYPE_PSYCHIC, 60, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	170, 100, 6, false, };
 static const attack ATK_Psychic = { "Psychic", TYPE_PSYCHIC, 75, -55, 0, 0, 0, 0, 100, 0, 0, 0, -1,
 	95, 50, 7, false, };
 static const attack ATK_Psychic_Fangs = { "Psychic Fangs", TYPE_PSYCHIC, 40, -35, 0, 0, 0, 0, 1000, 0, 0, 0, -1,
@@ -863,6 +896,8 @@ static const attack ATK_Secret_Sword = { "Secret Sword", TYPE_FIGHTING, 70, -35,
 	120, 50, 4, false, };
 static const attack ATK_Seed_Bomb = { "Seed Bomb", TYPE_GRASS, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 33, 4, false, };
+static const attack ATK_Seed_Bomb_Plus = { "Seed Bomb+", TYPE_GRASS, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	150, 100, 4, false, };
 static const attack ATK_Seed_Flare = { "Seed Flare", TYPE_GRASS, 130, -75, 0, 0, 0, 0, 400, 0, 0, 0, -2,
 	115, 100, 5, false, };
 static const attack ATK_Shadow_Ball = { "Shadow Ball", TYPE_GHOST, 90, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -913,6 +948,8 @@ static const attack ATK_Superpower = { "Superpower", TYPE_FIGHTING, 85, -40, 0, 
 	85, 50, 6, false, };
 static const attack ATK_Surf = { "Surf", TYPE_WATER, 75, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 3, false, };
+static const attack ATK_Surf_Plus = { "Surf+", TYPE_WATER, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	130, 100, 3, false, };
 static const attack ATK_Swift = { "Swift", TYPE_NORMAL, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
 static const attack ATK_Synchronoise = { "Synchronoise", TYPE_PSYCHIC, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -951,6 +988,8 @@ static const attack ATK_Vise_Grip = { "Vise Grip", TYPE_NORMAL, 70, -40, 0, 0, 0
 	35, 33, 4, false, };
 static const attack ATK_Volt_Tackle = { "Volt Tackle", TYPE_ELECTRIC, 90, -40, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
 	90, 33, 7, false, };
+static const attack ATK_Volt_Tackle_Plus = { "Volt Tackle+", TYPE_ELECTRIC, 65, -35, 0, 0, 1000, 0, 0, 0, -1, 0, 0,
+	170, 100, 7, false, };
 static const attack ATK_Water_Pulse = { "Water Pulse", TYPE_WATER, 80, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 50, 6, false, };
 static const attack ATK_Weather_Ball_Fire = { "Weather Ball 🔥", TYPE_FIRE, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -973,7 +1012,12 @@ static const attack ATK_X_Scissor = { "X-Scissor", TYPE_BUG, 65, -40, 0, 0, 0, 0
 	45, 33, 3, false, };
 static const attack ATK_Zap_Cannon = { "Zap Cannon", TYPE_ELECTRIC, 150, -80, 0, 0, 0, 330, 0, 0, 0, -1, 0,
 	140, 100, 7, false, };
+static const attack ATK_Zap_Cannon_Plus = { "Zap Cannon+", TYPE_ELECTRIC, 70, -45, 0, 0, 0, 330, 0, 0, 0, -1, 0,
+	160, 100, 7, false, };
 
+// table through which one can iterate over all attacks. i'd love to get
+// rid of this--can we not build it dynamically when we actually need it?
+// we don't list the Super Mega "Plus" attacks here.
 static const attack* const attacks[] = {
   &ATK_Acid,
   &ATK_Air_Slash,
@@ -5404,28 +5448,28 @@ static const mega megasdex[] = {
   {  9, "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, 200, nullptr, },
   {  15, "Mega Beedrill", TYPE_BUG, TYPE_POISON, 303, 148, 163, 100, nullptr, },
   {  18, "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, 100, nullptr, },
-  {  26, "Mega Raichu X", TYPE_ELECTRIC, TYPE_NORMAL, 277, 203, 155, 300, &ATK_Volt_Tackle, },
-  {  26, "Mega Raichu Y", TYPE_ELECTRIC, TYPE_NORMAL, 339, 157, 155, 300, &ATK_Zap_Cannon, },
+  {  26, "Mega Raichu X", TYPE_ELECTRIC, TYPE_NORMAL, 277, 203, 155, 300, &ATK_Volt_Tackle_Plus, },
+  {  26, "Mega Raichu Y", TYPE_ELECTRIC, TYPE_NORMAL, 339, 157, 155, 300, &ATK_Zap_Cannon_Plus, },
   // {  36, "Mega Clefable", TYPE_FAIRY, TYPE_FLYING, 0, 0, 0, 0, nullptr, },
   {  65, "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, 200, nullptr, },
-  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, &ATK_Acid_Spray, },
+  {  71, "Mega Victreebel", TYPE_GRASS, TYPE_POISON, 256, 181, 190, 300, &ATK_Acid_Spray_Plus, },
   {  80, "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, nullptr, },
   {  94, "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, 200, nullptr, },
   {  115, "Mega Kangaskhan", TYPE_NORMAL, TYPECOUNT, 246, 210, 233, 200, nullptr, },
-  {  121, "Mega Starmie", TYPE_WATER, TYPE_PSYCHIC, 276, 229, 155, 300, &ATK_Liquidation, },
+  {  121, "Mega Starmie", TYPE_WATER, TYPE_PSYCHIC, 276, 229, 155, 300, &ATK_Liquidation_Plus, },
   {  127, "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, 200, nullptr, },
   {  130, "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, nullptr, },
   {  142, "Mega Aerodactyl", TYPE_ROCK, TYPE_FLYING, 292, 210, 190, 200, nullptr, },
-  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, &ATK_Outrage, },
-  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 399, 215, 228, 7500, &ATK_Dynamic_Punch, },
-  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 413, 223, 228, 7500, &ATK_Future_Sight, },
+  {  149, "Mega Dragonite", TYPE_DRAGON, TYPE_FLYING, 299, 255, 209, 300, &ATK_Outrage_Plus, },
+  {  150, "Mega Mewtwo X", TYPE_PSYCHIC, TYPE_FIGHTING, 399, 215, 228, 7500, &ATK_Dynamic_Punch_Plus, },
+  {  150, "Mega Mewtwo Y", TYPE_PSYCHIC, TYPECOUNT, 413, 223, 228, 7500, &ATK_Future_Sight_Plus, },
   // {  154, "Mega Meganium", TYPE_GRASS, TYPE_FAIRY, 0, 0, 0, 0, nullptr, },
   // {  160, "Mega Feraligatr", TYPE_WATER, TYPE_DRAGON, 0, 0, 0, 0, nullptr, },
   {  181, "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, 200, nullptr, },
   {  208, "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, nullptr, },
   {  212, "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, nullptr, },
   {  214, "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, 200, nullptr, },
-  {  227, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 300, &ATK_Drill_Peck, },
+  {  227, "Mega Skarmory", TYPE_STEEL, TYPE_FLYING, 273, 228, 163, 300, &ATK_Drill_Peck_Plus, },
   {  229, "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, nullptr, },
   {  248, "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, 300, nullptr, },
   {  254, "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, 200, nullptr, },
@@ -5450,7 +5494,7 @@ static const mega megasdex[] = {
   {  382, "Primal Kyogre", TYPE_WATER, TYPECOUNT, 353, 268, 218, 400, nullptr, },
   {  383, "Primal Groudon", TYPE_GROUND, TYPE_FIRE, 353, 268, 218, 400, nullptr, },
   {  384, "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, 400, nullptr, },
-  {  398, "Mega Staraptor", TYPE_FIGHTING, TYPE_FLYING, 278, 207, 198, 300, &ATK_Brave_Bird, },
+  {  398, "Mega Staraptor", TYPE_FIGHTING, TYPE_FLYING, 278, 207, 198, 300, &ATK_Brave_Bird_Plus, },
   {  428, "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, 200, nullptr, },
   {  445, "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, 300, nullptr, },
   {  448, "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, 200, nullptr, },
@@ -5465,19 +5509,19 @@ static const mega megasdex[] = {
   {  560, "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, nullptr, },
   //{  604, "Mega Eelektross", TYPE_ELECTRIC, TYPECOUNT, 0, 0, 0, nullptr, },
   //{  609, "Mega Chandelure", TYPE_FIRE, TYPE_GHOST, 0, 0, 0, nullptr, },
-  {  652, "Mega Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 242, 282, 204, 300, &ATK_Seed_Bomb, },
-  {  655, "Mega Delphox", TYPE_FIRE, TYPE_PSYCHIC, 331, 235, 181, 300, &ATK_Mystical_Fire, },
-  {  658, "Mega Greninja", TYPE_WATER, TYPE_DARK, 299, 180, 176, 300, &ATK_Surf, },
+  {  652, "Mega Chesnaught", TYPE_GRASS, TYPE_FIGHTING, 242, 282, 204, 300, &ATK_Seed_Bomb_Plus, },
+  {  655, "Mega Delphox", TYPE_FIRE, TYPE_PSYCHIC, 331, 235, 181, 300, &ATK_Mystical_Fire_Plus, },
+  {  658, "Mega Greninja", TYPE_WATER, TYPE_DARK, 299, 180, 176, 300, &ATK_Surf_Plus, },
   //{  668, "Mega Pyroar", TYPE_FIRE, TYPE_NORMAL, 0, 0, 0, nullptr, },
   //{  670, "Mega Floette", TYPE_FAIRY, TYPECOUNT, 0, 0, 0, nullptr, },
-  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, &ATK_Psybeam, },
+  {  687, "Mega Malamar", TYPE_DARK, TYPE_PSYCHIC, 208, 222, 200, 300, &ATK_Psybeam_Plus, },
   // {  689, "Mega Barbaracle", TYPE_ROCK, TYPE_FIGHTING, 0, 0, 0, 0, nullptr, },
   // {  691, "Mega Dragalge", TYPE_DRAGON, TYPE_POISON, 0, 0, 0, 0, nullptr, },
   // {  701, "Mega Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 0, 0, 0, 0, nullptr, },
   // {  718, "Mega Zygarde", TYPE_DRAGON, TYPE_GROUND, 0, 0, 0, 0, nullptr, },
   {  719, "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, nullptr, },
   // {  780, "Mega Drampa", TYPE_DRAGON, TYPE_NORMAL, 0, 0, 0, 0, nullptr, },
-  {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 229, 163, 300, &ATK_Brick_Break, },
+  {  870, "Mega Falinks", TYPE_FIGHTING, TYPECOUNT, 267, 229, 163, 300, &ATK_Brick_Break_Plus, },
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
@@ -6418,81 +6462,6 @@ ismega_p(const species* s){
   }
 #undef PRIMALSTR
   return false;
-}
-
-static void
-print_cattack_latex(const species* s, const attack* a, float power,
-                    const char* itb, const char* ite, bool plusatk){
-  const float dpe = power / -a->energytrain;
-  const char* plussym = plusatk ? "+" : "";
-  if(exclusive_attack_p(s, a)){
-    printf(" \\textbf{%s%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
-        itb, a->name, plussym, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
-  }else{
-    printf(" %s%s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
-        itb, a->name, plussym, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
-  }
-  if(a->chance_user_attack || a->chance_user_defense ||
-      a->chance_opp_attack || a->chance_opp_defense){
-    printf("{\\scriptsize{}");
-    if(exclusive_attack_p(s, a)){
-      printf("\\textbf{");
-    }
-    if(!has_stab_p(s, a)){
-      printf("\\textit{");
-    }
-    summarize_buffs(a);
-    if(!has_stab_p(s, a)){
-      printf("}");
-    }
-    if(exclusive_attack_p(s, a)){
-      printf("}");
-    }
-    printf("}");
-  }
-  printf("\\\\\n");
-}
-
-static void
-print_attack_latex(const species* s, const attack* a, bool plusatk = false){
-  unsigned stab = has_stab_p(s, a);
-  float power = a->powertrain;
-  if(stab){
-    power = power * 6 / 5;
-  }
-  print_type(a->type);
-  if(a->type == TYPECOUNT){
-    printf("\\hspace{1em}");
-  }
-  const char *itb, *ite;
-  if(has_stab_p(s, a)){
-    itb = ite = "";
-  }else{
-    itb = "\\textit{";
-    ite = "}";
-  }
-  if(charged_attack_p(a)){
-    print_cattack_latex(s, a, power, itb, ite, plusatk);
-  }else{ // fast attacks
-    const float dpt = power / a->turns;
-    const float ept = static_cast<float>(a->energytrain) / a->turns;
-    if(exclusive_attack_p(s, a)){
-      printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
-          itb, a->name, ite, itb, a->turns, ite,
-          itb, power, ite, itb, a->energytrain, ite,
-          itb, dpt, ite, itb, ept, ite);
-    }else{
-      printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
-          itb, a->name, ite, itb, a->turns, ite,
-          itb, power, ite, itb, a->energytrain, ite,
-          itb, dpt, ite, itb, ept, ite);
-    }
-  }
-}
-
-static inline void
-print_plus_attack_latex(const species* s, const attack* a){
-  print_attack_latex(s, a, true);
 }
 
 // return the named charged attack iff s can learn it

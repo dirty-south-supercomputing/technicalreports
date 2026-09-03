@@ -75,7 +75,7 @@ int main(int argc, const char **argv){
       }
     }
     printf("%s & %u & %u & %u & %u\\\\\n",
-        TNames[t], pop, dts, dtpop, pop + dtpop);
+        tname_capitalized(t), pop, dts, dtpop, pop + dtpop);
   }
   puts("\\end{tabular}");
   puts("\\end{center}");

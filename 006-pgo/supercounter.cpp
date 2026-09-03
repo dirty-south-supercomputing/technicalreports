@@ -19,11 +19,11 @@ can_hit_for(const species &atk, const species &def, int rel){
 static bool
 counters_p(const attack *ca1, const attack *ca2, const species *opp, int rel){
   if(typing_relation(ca1->type, opp->t1, opp->t2) >= rel){
-//std::cout << " BUT " << s.name << " can hit " << opp->name << " with " << TNames[ca1->type] << " for " << typing_relation(ca1->type, opp->t1, opp->t2) << std::endl;
+//std::cout << " BUT " << s.name << " can hit " << opp->name << " with " << tname_capitalized(ca1->type) << " for " << typing_relation(ca1->type, opp->t1, opp->t2) << std::endl;
     return true;
   }
   if(ca2 && typing_relation(ca2->type, opp->t1, opp->t2) >= rel){
-//std::cout << " BUT2 " << s.name << " can hit " << opp->name << " with " << TNames[ca2->type] << " for " << typing_relation(ca2->type, opp->t1, opp->t2) << std::endl;
+//std::cout << " BUT2 " << s.name << " can hit " << opp->name << " with " << tname_capitalized(ca2->type) << " for " << typing_relation(ca2->type, opp->t1, opp->t2) << std::endl;
     return true;
   }
   return false;

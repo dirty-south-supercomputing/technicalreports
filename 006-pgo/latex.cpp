@@ -141,6 +141,75 @@ print_optimal_latex(const species* sp){
   }
 }
 
+static void
+print_cattack_latex(const species* s, const attack* a, float power,
+                    const char* itb, const char* ite){
+  const float dpe = power / -a->energytrain;
+  if(exclusive_attack_p(s, a)){
+    printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
+        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+  }else{
+    printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
+        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+  }
+  if(a->chance_user_attack || a->chance_user_defense ||
+      a->chance_opp_attack || a->chance_opp_defense){
+    printf("{\\scriptsize{}");
+    if(exclusive_attack_p(s, a)){
+      printf("\\textbf{");
+    }
+    if(!has_stab_p(s, a)){
+      printf("\\textit{");
+    }
+    summarize_buffs(a);
+    if(!has_stab_p(s, a)){
+      printf("}");
+    }
+    if(exclusive_attack_p(s, a)){
+      printf("}");
+    }
+    printf("}");
+  }
+  printf("\\\\\n");
+}
+
+static void
+print_attack_latex(const species* s, const attack* a){
+  unsigned stab = has_stab_p(s, a);
+  float power = a->powertrain;
+  if(stab){
+    power = power * 6 / 5;
+  }
+  print_type(a->type);
+  if(a->type == TYPECOUNT){
+    printf("\\hspace{1em}");
+  }
+  const char *itb, *ite;
+  if(has_stab_p(s, a)){
+    itb = ite = "";
+  }else{
+    itb = "\\textit{";
+    ite = "}";
+  }
+  if(charged_attack_p(a)){
+    print_cattack_latex(s, a, power, itb, ite);
+  }else{ // fast attacks
+    const float dpt = power / a->turns;
+    const float ept = static_cast<float>(a->energytrain) / a->turns;
+    if(exclusive_attack_p(s, a)){
+      printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
+          itb, a->name, ite, itb, a->turns, ite,
+          itb, power, ite, itb, a->energytrain, ite,
+          itb, dpt, ite, itb, ept, ite);
+    }else{
+      printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
+          itb, a->name, ite, itb, a->turns, ite,
+          itb, power, ite, itb, a->energytrain, ite,
+          itb, dpt, ite, itb, ept, ite);
+    }
+  }
+}
+
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   const auto gma = lookup_gmax_attack(s);
@@ -162,7 +231,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("}}");
   }
   printf(",title style={left color=%s,right color=%s},after title={",
-          TNames[s->t1], s->t2 == TYPECOUNT ? TNames[s->t1] : TNames[s->t2]);
+          tname_capitalized(s->t1),
+          s->t2 == TYPECOUNT ? tname_capitalized(s->t1) : tname_capitalized(s->t2));
   if(s->shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" IMAGECOLOR "shiny.png}}");
   }
@@ -175,7 +245,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   printf("]{\\footnotesize");
 
   if(bg){
-    printf("\\pagecolor{%s!50!white}", TNames[s->t1]);
+    printf("\\pagecolor{%s!50!white}", tname_capitalized(s->t1));
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -192,11 +262,11 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   for(const auto &a : s->attacks){
     print_attack_latex(s, a);
   }
-  /*if(ismega && meg->plusatk){
-    print_plus_attack_latex(s, meg->plusatk);
-  }*/
-  if(mainform && s->shadow){
+  if(s->shadow){
     print_attack_latex(s, &ATK_Return);
+  }
+  if(ismega && meg->plusatk){
+    print_attack_latex(s, meg->plusatk);
   }
   printf("\\end{tabular}\\endgroup\\end{tabularx}\n");
 

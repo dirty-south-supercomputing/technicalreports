@@ -9,7 +9,7 @@ int main(void){
       continue;
     }
     printf("%d,%d,%s\n", a->powertrain, a->turns,
-            a->type != TYPECOUNT ? TNames[a->type] : "Normal");
+            a->type != TYPECOUNT ? tname_capitalized(a->type) : "Normal");
   }
   return EXIT_SUCCESS;
 }

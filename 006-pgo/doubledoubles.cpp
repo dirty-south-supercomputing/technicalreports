@@ -12,7 +12,10 @@ int main(void){
           if(firstdouble == TYPECOUNT){
             firstdouble = t;
           }else{
-            std::cout << TNames[firstdouble] << ", " << TNames[t] << " → " << TNames[i] << "/" << TNames[j];
+            std::cout << tname_capitalized(firstdouble) << ", "
+              << tname_capitalized(t) << " → "
+              << tname_capitalized(i) << "/"
+              << tname_capitalized(j);
             std::cout << " & ";
             bool firstprint = true;
             for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){

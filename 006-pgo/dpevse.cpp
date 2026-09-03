@@ -8,7 +8,7 @@ int main(void){
     if(a->energytrain >= 0){
       continue;
     }
-    printf("%d,%d,%s\n", a->powertrain, -a->energytrain, TNames[a->type]);
+    printf("%d,%d,%s\n", a->powertrain, -a->energytrain, tname_capitalized(a->type));
   }
   return EXIT_SUCCESS;
 }

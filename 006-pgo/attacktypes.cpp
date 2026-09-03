@@ -13,7 +13,7 @@ void print_latex_table(const unsigned *acounts, const unsigned *gooddpt, const u
   printf("Type & 1 & 2 & 3 & 4 & 5 & \\PPT>3 & \\EPT>3\\\\\n");
   printf("\\Midrule\n");
   for(unsigned e = 0 ; e < TYPECOUNT ; ++e){
-    printf("%s", TNames[e]);
+    printf("%s", tname_capitalized(e));
     for(int i = 0 ; i < MAXTURNS ; ++i){
       if(acounts[i]){
         printf(" & %u", acounts[i]);

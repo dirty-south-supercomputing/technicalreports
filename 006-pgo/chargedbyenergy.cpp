@@ -17,7 +17,7 @@ int main(void){
     std::sort(v.begin(), v.end(), [](const attack *l, const attack *r){return l->powertrain < r->powertrain;});
     for(const auto &a : v){
       std::cout << -a->energytrain << " " << a->powertrain << " "
-                << a->name << " " << TNames[a->type] << " ";
+                << a->name << " " << tname_capitalized(a->type) << " ";
       summarize_buffs(a);
       std::cout << std::endl;
     }
