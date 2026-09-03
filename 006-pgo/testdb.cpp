@@ -285,6 +285,12 @@ test_mega(void){
       std::cerr << "invalid non-charged plus attach " << m.plusatk->name << " for " << m.name << std::endl;
       throw std::exception();
     }
+    // verify that the mega's name reduces to its base name
+    const species* s = lookup_species(m.idx);
+    if(!m.name.contains(s->name)){
+      std::cerr << m.name << " didn't match " << s->name << std::endl;
+      throw std::exception();
+    }
   }
   return true;
 }
