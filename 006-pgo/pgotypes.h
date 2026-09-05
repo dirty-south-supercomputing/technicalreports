@@ -374,7 +374,7 @@ static const attack ATK_Air_Slash = { "Air Slash", TYPE_FLYING, 9, 9, 3, 0, 0, 0
 	12, 8, 2, false, };
 static const attack ATK_Astonish = { "Astonish", TYPE_GHOST, 12, 10, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 13, 2, false, };
-static const attack ATK_Bite = { "Bite", TYPE_DARK, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Bite = { "Bite", TYPE_DARK, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
 static const attack ATK_Bubble = { "Bubble", TYPE_WATER, 8, 11, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 12, 2, false, };
