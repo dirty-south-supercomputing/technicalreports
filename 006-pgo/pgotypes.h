@@ -504,7 +504,7 @@ static const attack ATK_Sucker_Punch = { "Sucker Punch", TYPE_DARK, 8, 7, 2, 0, 
 	5, 6, 1, false, };
 static const attack ATK_Tackle = { "Tackle", TYPE_NORMAL, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	5, 5, 1, false, };
-static const attack ATK_Take_Down = { "Take Down", TYPE_NORMAL, 14, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Take_Down = { "Take Down", TYPE_NORMAL, 14, 9, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	7, 8, 2, false, };
 static const attack ATK_Thunder_Fang = { "Thunder Fang", TYPE_ELECTRIC, 8, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	10, 13, 2, false, };
