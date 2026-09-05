@@ -147,8 +147,7 @@ preview: $(PAPERBACK).pdf
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
-	$(NOSHINY)
-	webpage testdb testsimul $(COVERSETS) test
+	$(NOSHINY) webpage testdb testsimul $(COVERSETS) test
 
 CSS:=w/web.css
 WEBCSS:=$(OUT)/$(CSS)
