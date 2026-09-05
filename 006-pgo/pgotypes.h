@@ -484,7 +484,7 @@ static const attack ATK_Rollout = { "Rollout", TYPE_ROCK, 7, 13, 3, 0, 0, 0, 0, 
 	15, 19, 3, false, };
 static const attack ATK_Sand_Attack = { "Sand Attack", TYPE_GROUND, 2, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 7, 1, false, };
-static const attack ATK_Scratch = { "Scratch", TYPE_NORMAL, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Scratch = { "Scratch", TYPE_NORMAL, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
 static const attack ATK_Shadow_Claw = { "Shadow Claw", TYPE_GHOST, 6, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	6, 4, 1, false, };
