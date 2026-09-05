@@ -62,8 +62,8 @@ under the invariants:
 \section{Fast attacks}
 Each Pokémon species (\autoref{chap:species}) is capable of learning some set of fast attacks, 
   and every Pokémon knows exactly one at a time (except Smeargle---see \autoref{subsec:smeargle}).
-A fast attack is defined by its duration, its power, and the energy built up with each use (\autoref{table:fastattacks3x3}),
-  and these values can be different between 3x3 and Nx1 battles.
+A fast attack is defined by its type, duration, power, and the energy built up with each use (\autoref{table:fastattacks3x3});
+  these values (aside from type) can differ between 3x3 and Nx1 battles.
 If fast attack $A$ is stronger than fast attack $B$ in Nx1 mode, it will not be
   weaker than $B$ in 3x3 mode, and vice versa (i.e.\ partial ordering is maintained).
 Furthermore, no fast attack's Nx1 power is less than its 3x3 power.
@@ -98,7 +98,7 @@ Every Pokémon knows at least one charged attack, and most can be taught a secon
   lacking second charged attacks to learn.}.
 In battle, each Pokémon has a pool of up to 100 units of energy.
 Fast attacks charge the pool, from which either of its charged attacks can draw.
-A charged attack is defined for 3x3 by its power and the energy it consumes (\autoref{table:chargedattacks});
+A charged attack is defined for 3x3 by its type, power, and the energy it consumes (\autoref{table:chargedattacks});
  in Nx1, each attack also has a duration (in 3x3, all charged attacks take one turn).
 The Dragon Ascent attack of Rayquaza cannot be learned via any method other
   than a rare Meteorite.
