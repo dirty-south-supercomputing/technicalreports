@@ -3432,7 +3432,7 @@ static const species sdex[] = {
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   {  479, "Fan Rotom", TYPE_ELECTRIC, TYPE_FLYING, 204, 219, 137, nullptr,
 		{ &ATK_Air_Slash, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
-		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   {  479, "Mow Rotom", TYPE_ELECTRIC, TYPE_GRASS, 204, 219, 137, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Leaf_Storm, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
