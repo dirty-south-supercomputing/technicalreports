@@ -1677,19 +1677,19 @@ static const species sdex[] = {
   // the Mouse
   {  25, "Rock Star Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Meteor_Mash, &ATK_Thunder_Punch, &ATK_Play_Rough, },
-		false, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  25, "Pop Star Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Draining_Kiss, &ATK_Thunder_Punch, &ATK_Play_Rough, },
-		false, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  25, "Captain Pikachu", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Flying_Press, &ATK_Thunder_Punch, &ATK_Play_Rough, &ATK_Volt_Tackle, },
-		false, false, 0, { &ATK_Volt_Tackle, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Volt_Tackle, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  25, "Pikachu Libre", TYPE_ELECTRIC, TYPECOUNT, 112, 96, 111, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Charm, &ATK_Flying_Press, &ATK_Thunder_Punch, &ATK_Play_Rough, },
-		false, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Mouse
   {  26, "Raichu", TYPE_ELECTRIC, TYPECOUNT, 193, 151, 155, "Pikachu",
 		{ &ATK_Thunder_Shock, &ATK_Spark, &ATK_Volt_Switch, &ATK_Charm, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Brick_Break, &ATK_Wild_Charge, &ATK_Surf, &ATK_Skull_Bash, &ATK_Trailblaze, &ATK_Volt_Tackle, },
@@ -5007,10 +5007,10 @@ static const species sdex[] = {
   // the emotion
   {  876, "Indeedee (Male)", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
 		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
-		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  876, "Indeedee (Female)", TYPE_PSYCHIC, TYPE_NORMAL, 184, 184, 172, nullptr,
 		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Energy_Ball, &ATK_Psychic, },
-		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
 		{ &ATK_Bite, &ATK_Thunder_Shock, &ATK_Charge_Beam, &ATK_Seed_Bomb, &ATK_Outrage, &ATK_Psychic_Fangs, &ATK_Aura_Wheel, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
