@@ -4474,15 +4474,15 @@ static const species sdex[] = {
   // the woodpecker
   {  731, "Pikipek", TYPE_NORMAL, TYPE_FLYING, 136, 59, 111, nullptr,
 		{ &ATK_Peck, &ATK_Rock_Smash, &ATK_Drill_Peck, &ATK_Aerial_Ace, &ATK_Sky_Attack, },
-		false, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the bugle beak
   {  732, "Trumbeak", TYPE_NORMAL, TYPE_FLYING, 159, 100, 146, "Pikipek",
 		{ &ATK_Peck, &ATK_Rock_Smash, &ATK_Drill_Peck, &ATK_Sky_Attack, &ATK_Rock_Blast, },
-		false, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the cannon
   {  733, "Toucannon", TYPE_NORMAL, TYPE_FLYING, 222, 146, 190, "Trumbeak",
 		{ &ATK_Peck, &ATK_Rock_Smash, &ATK_Bullet_Seed, &ATK_Flash_Cannon, &ATK_Drill_Peck, &ATK_Rock_Blast, &ATK_Beak_Blast, },
-		false, true, 0, { &ATK_Beak_Blast, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { &ATK_Beak_Blast, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the loitering
   {  734, "Yungoos", TYPE_NORMAL, TYPECOUNT, 122, 56, 134, nullptr,
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Rock_Tomb, &ATK_Hyper_Fang, &ATK_Crunch, },
