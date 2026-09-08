@@ -2167,6 +2167,7 @@ static const species sdex[] = {
   {  128, "Tauros", TYPE_NORMAL, TYPECOUNT, 198, 183, 181, nullptr,
 		{ &ATK_Tackle, &ATK_Zen_Headbutt, &ATK_Earthquake, &ATK_Iron_Head, &ATK_Horn_Attack, &ATK_Trailblaze, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+  // all three shiny paldean tauros were available at 2026 gofest copenhagen
   {  128, "Paldean Combat Tauros", TYPE_FIGHTING, TYPECOUNT, 210, 193, 181, nullptr,
 		{ &ATK_Tackle, &ATK_Zen_Headbutt, &ATK_Double_Kick, &ATK_Earthquake, &ATK_Iron_Head, &ATK_Close_Combat, &ATK_Trailblaze, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -5064,7 +5065,7 @@ static const species sdex[] = {
 		false, false, UINT_MAX, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, nullptr,
 		{ &ATK_Bite, &ATK_Vine_Whip, &ATK_Dark_Pulse, &ATK_Power_Whip, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  894, "Regieleki", TYPE_ELECTRIC, TYPECOUNT, 250, 125, 190, nullptr,
 		{ &ATK_Thunder_Shock, &ATK_Volt_Switch, &ATK_Lock_On, &ATK_Hyper_Beam, &ATK_Thunder, &ATK_Zap_Cannon, },
 		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
