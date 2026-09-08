@@ -4077,10 +4077,10 @@ static const species sdex[] = {
 		true, false, 0, { &ATK_Wildbolt_Storm, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  643, "Reshiram", TYPE_DRAGON, TYPE_FIRE, 275, 211, 205, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Fire_Fang, &ATK_Stone_Edge, &ATK_Overheat, &ATK_Crunch, &ATK_Draco_Meteor, &ATK_Fusion_Flare, },
-		true, false, 0, { &ATK_Fusion_Flare, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { &ATK_Fusion_Flare, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  644, "Zekrom", TYPE_DRAGON, TYPE_ELECTRIC, 275, 211, 205, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Charge_Beam, &ATK_Flash_Cannon, &ATK_Wild_Charge, &ATK_Outrage, &ATK_Crunch, &ATK_Fusion_Bolt, },
-		true, false, 0, { &ATK_Fusion_Bolt, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { &ATK_Fusion_Bolt, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  645, "Landorus (Incarnate)", TYPE_GROUND, TYPE_FLYING, 261, 182, 205, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Focus_Blast, &ATK_Outrage, &ATK_Earth_Power, },
 		true, true, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
@@ -4577,11 +4577,11 @@ static const species sdex[] = {
   // the sickle grass
   {  753, "Fomantis", TYPE_GRASS, TYPECOUNT, 100, 64, 120, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Razor_Leaf, &ATK_Leafage, &ATK_Leaf_Blade, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Trailblaze, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the bloom sickle
   {  754, "Lurantis", TYPE_GRASS, TYPECOUNT, 192, 169, 172, "Fomantis",
 		{ &ATK_Fury_Cutter, &ATK_Razor_Leaf, &ATK_Leafage, &ATK_X_Scissor, &ATK_Leaf_Blade, &ATK_Superpower, &ATK_Leaf_Storm, &ATK_Trailblaze, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the illuminating
   {  755, "Morelull", TYPE_GRASS, TYPE_FAIRY, 108, 119, 120, nullptr,
 		{ &ATK_Astonish, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, },
@@ -4633,19 +4633,19 @@ static const species sdex[] = {
   // the turn tail
   {  767, "Wimpod", TYPE_BUG, TYPE_WATER, 67, 74, 93, nullptr,
 		{ &ATK_Struggle_Bug, &ATK_Bug_Buzz, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the hard scale
   {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod",
 		{ &ATK_Fury_Cutter, &ATK_Shadow_Claw, &ATK_Metal_Claw, &ATK_Waterfall, &ATK_Aerial_Ace, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Razor_Shell, &ATK_Liquidation, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sand heap
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, nullptr,
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sand castle
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   /* not yet released
   {  771, "Pyukumuku", TYPE_WATER, TYPECOUNT, 97, 224, 146, nullptr,
 		{ &ATK_Counter, &ATK_Mirror_Coat, },
@@ -5221,11 +5221,11 @@ static const species sdex[] = {
   // the Toxic Mouse
   {  944, "Shroodle", TYPE_POISON, TYPE_NORMAL, 124, 70, 120, nullptr,
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, },
-		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Toxic Monkey
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle",
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Scratch, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, &ATK_Foul_Play, },
-		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // 946 bramblin
   // 947 brambleghast
   // the Woodear
