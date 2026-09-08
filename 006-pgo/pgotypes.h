@@ -538,7 +538,7 @@ static const attack ATK_Aerial_Ace = { "Aerial Ace", TYPE_FLYING, 60, -45, 0, 0,
 	55, 33, 5, false, };
 static const attack ATK_Aeroblast = { "Aeroblast", TYPE_FLYING, 170, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	200, 100, 7, false, };
-static const attack ATK_Air_Cutter = { "Air Cutter", TYPE_FLYING, 60, -35, 0, 100, 0, 0, 0, 1, 0, 0, 0,
+static const attack ATK_Air_Cutter = { "Air Cutter", TYPE_FLYING, 60, -40, 0, 100, 0, 0, 0, 1, 0, 0, 0,
 	55, 50, 5, false, };
 static const attack ATK_Ancient_Power = { "Ancient Power", TYPE_ROCK, 60, -45, 0, 100, 100, 0, 0, 1, 1, 0, 0,
 	70, 33, 7, false, };
