@@ -723,7 +723,7 @@ static const attack ATK_Heat_Wave = { "Heat Wave", TYPE_FIRE, 75, -45, 0, 0, 0, 
 	95, 100, 6, false, };
 static const attack ATK_Heavy_Slam = { "Heavy Slam", TYPE_STEEL, 70, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 50, 4, false, };
-static const attack ATK_High_Horsepower = { "High Horsepower", TYPE_GROUND, 100, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_High_Horsepower = { "High Horsepower", TYPE_GROUND, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	105, 100, 3, false, };
 static const attack ATK_High_Jump_Kick = { "High Jump Kick", TYPE_FIGHTING, 110, -55, 0, 0, 100, 0, 0, 0, -4, 0, 0,
 	90, 100, 3, false, };
