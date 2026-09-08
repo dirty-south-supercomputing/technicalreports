@@ -55,6 +55,7 @@ EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
 SINDEX:=$(OUT)/sindex
 NOSHINY:=$(OUT)/noshiny
+NOSHADOW:=$(OUT)/noshadow
 FUNCTIONALHUNDO:=$(OUT)/functional
 FATTACKTEX:=$(OUT)/fastattacks.tex
 CATTACKTEX:=$(OUT)/chargedattacks.tex
@@ -147,7 +148,7 @@ preview: $(PAPERBACK).pdf
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
-	$(NOSHINY) webpage testdb testsimul $(COVERSETS) test
+	$(NOSHINY) $(NOSHADOW) webpage testdb testsimul $(COVERSETS) test
 
 CSS:=w/web.css
 WEBCSS:=$(OUT)/$(CSS)
