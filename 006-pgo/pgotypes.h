@@ -14,7 +14,7 @@
 #include <iomanip>
 #include <iostream>
 
-// for greyscale images, define IMAGECOLOR as "g-". for full color, definte it
+// for greyscale images, define IMAGECOLOR as "g-". for full color, define it
 // as an empty string.
 //#define IMAGECOLOR "g-"
 #define IMAGECOLOR ""
@@ -1367,7 +1367,7 @@ struct species {
   bool shadow;        // is there a shadow form?
   unsigned dmax;      // is there a dynamax form? if so, non-zero battle tier.
                       // if the species does not show up in max battles, set to UINT_MAX.
-                      // 5 is legendaries, 6 is gigantamax and eternatus.
+                      // 5 is legendaries, 6 is gigantamax (if gmax *only*) and eternatus.
   std::vector<const attack*> elite; // exclusive attacks requiring an elite tm
   enum species_cat {
     CAT_NORMAL,
@@ -1545,6 +1545,7 @@ static gmaxattack GMaxAttacks[] = {
   { "Cinderace", "G-Max Fireball", TYPE_FIRE, },
   { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, },
   { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, },
+  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, },
   { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, },
   { nullptr, "", TYPECOUNT, },
 };
@@ -5021,7 +5022,6 @@ static const species sdex[] = {
   // 881 is arctozolt
   // 882 is dracovish
   // 883 is arctovish
-  // will have gmax
   {  884, "Duraludon", TYPE_DRAGON, TYPE_STEEL, 239, 185, 172, nullptr,
 		{ &ATK_Dragon_Tail, &ATK_Metal_Claw, &ATK_Flash_Cannon, &ATK_Dragon_Claw, &ATK_Hyper_Beam, },
 		true, false, 4, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
