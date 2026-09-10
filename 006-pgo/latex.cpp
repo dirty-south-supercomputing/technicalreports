@@ -384,6 +384,10 @@ void emit_cand(const candidate& c, unsigned maxp){
   std::cout << " & ";
   print_type(c.atype);
   std::cout << " ";
+  // we do not attempt to indicate that a max attack is based on a legacy attack,
+  // since it is possible that more than one fast attack enable the same max
+  // attack, and they could have different legacy status (this happens with e.g.
+  // dynamax machamp, which could have max knuckle from karate chop or counter).
   if(!c.hasstab){
     std::cout << "\\textit{";
   }
