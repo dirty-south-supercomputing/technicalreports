@@ -86,7 +86,7 @@ int emit_dynamax_unified_table(int count){
   }
   std::cout << "\\end{tabular}\\caption{Top Max attackers";
   if(count){
-    std::cout << " (" << count << " per type)";
+    std::cout << " (" << count << " per attack type, unified)";
   }
   std::cout << "\\label{table:maxranked}}\\end{table}";
   return 0;
