@@ -6766,7 +6766,43 @@ escape_string(const char *s){
   return 0;
 }
 
+struct candidate {
+  const species* s;   // species
+  std::string aname;  // attack name
+  unsigned hlevel;    // halflevel
+  bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
+  bool hasstab;       // do we have stab for the attack?
+  unsigned iva;       // attack iv 0..15
+  float teffective;   // type effectiveness
+  pgo_types_e atype;  // attack type
+
+  float powprod(void) const {
+    unsigned p = gmaxpower ? GMAX_POWER_BASE : DMAX_POWER_BASE;
+    float rp = hasstab ? calc_stab(p) : p;
+    rp *= teffective;
+    return rp * calc_eff_a(s->atk + iva, hlevel, false);
+  }
+
+  bool operator<(const candidate& r) const {
+    if(powprod() < r.powprod()){
+      return true;
+    }
+    return false;
+  }
+
+  bool operator>(const candidate& r) const {
+    if(powprod() > r.powprod()){
+      return true;
+    }
+    return false;
+  }
+};
+
+void emit_cand(const candidate& c, unsigned maxp);
 void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform);
 void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom, bool mainform);
+void add_candidate(std::vector<candidate>& cands, const species* s,
+                   const char* aname, bool gmaxpower, bool stab,
+                   pgo_types_e atype, float teffect);
 
 #endif

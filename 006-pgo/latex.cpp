@@ -374,3 +374,40 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool ov
     }
   }
 }
+
+void emit_cand(const candidate& c, unsigned maxp){
+  auto rp = c.powprod();
+  //unsigned hhalf;
+  print_types(c.s->t1, c.s->t2);
+  std::cout << " & " << c.s->name;
+  //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
+  std::cout << " & ";
+  print_type(c.atype);
+  std::cout << " ";
+  if(!c.hasstab){
+    std::cout << "\\textit{";
+  }
+  std::cout << c.aname;
+  if(!c.hasstab){
+    std::cout << "}";
+  }
+  std::cout << " & ";
+  std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
+  std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
+}
+
+// add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
+void add_candidate(std::vector<candidate>& cands, const species* s,
+                   const char* aname, bool gmaxpower, bool stab,
+                   pgo_types_e atype, float teffect){
+  //const unsigned lowiv = 10;
+  const unsigned highiv = 15;
+  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, teffect, atype); // level 50
+  /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
+  cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
+}

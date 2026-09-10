@@ -405,6 +405,14 @@ $(OUT)/forms: forms.cpp pgotypes.h Makefile $(LATEXOBJ)
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
 
+$(OUT)/antidmax: antidmax.cpp pgotypes.h Makefile $(LATEXOBJ)
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+
+$(OUT)/dynas: dynas.cpp pgotypes.h Makefile $(LATEXOBJ)
+	@mkdir -p $(@D)
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+
 $(LATEXOBJ): latex.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F)

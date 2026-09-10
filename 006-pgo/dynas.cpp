@@ -5,52 +5,6 @@ void usage(const char* argv0, int ret){
   exit(ret);
 }
 
-struct candidate {
-  const species* s;   // species
-  std::string aname;  // attack name
-  unsigned hlevel;    // halflevel
-  bool gmaxpower;     // gmax/eternatus power scale? if not, dmax/crowned.
-  bool hasstab;       // do we have stab for the attack?
-  unsigned iva;       // attack iv 0..15
-  pgo_types_e atype;  // attack type
-
-  float powprod(void) const {
-    unsigned p = gmaxpower ? GMAX_POWER_BASE : DMAX_POWER_BASE;
-    float rp = hasstab ? calc_stab(p) : p;
-    return rp * calc_eff_a(s->atk + iva, hlevel, false);
-  }
-
-  bool operator<(const candidate& r) const {
-    if(powprod() < r.powprod()){
-      return true;
-    }
-    return false;
-  }
-
-  bool operator>(const candidate& r) const {
-    if(powprod() > r.powprod()){
-      return true;
-    }
-    return false;
-  }
-};
-
-// add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
-void add_candidate(std::vector<candidate>& cands, const species* s,
-                   const char* aname, bool gmaxpower, bool stab,
-                   pgo_types_e atype){
-  //const unsigned lowiv = 10;
-  const unsigned highiv = 15;
-  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
-  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, atype); // level 50
-  /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
-  cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
-  cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
-  cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
-  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
-  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
-}
-
 void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& cands){
   bool stab = has_stab_raw_p(s, t);
   if(has_dmax(s)){
@@ -58,7 +12,7 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
       if(fast_attack_p(a)){
         auto at = dmax_attack_type(a);
         if(at == t){
-          add_candidate(cands, s, max_attack_name(at), false, stab, t);
+          add_candidate(cands, s, max_attack_name(at), false, stab, t, 1.0);
           break; // don't handle multiple fast attacks of the same type
         }
       }
@@ -67,7 +21,7 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
   auto gma = lookup_gmax_attack(s);
   if(gma){
     if(gma->type == t){
-      add_candidate(cands, s, gma->name.c_str(), true, stab, t);
+      add_candidate(cands, s, gma->name.c_str(), true, stab, t, 1.0);
     }
   }
 }
@@ -86,35 +40,22 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
     if(!zac){
       return -1;
     }
-    add_candidate(cands, zac, "Behemoth Blade", false, true, t);
+    add_candidate(cands, zac, "Behemoth Blade", false, true, t, 1.0);
     const auto zam = lookup_species("Zamazenta Crowned Shield");
     if(!zam){
       return -1;
     }
-    add_candidate(cands, zam, "Behemoth Bash", false, true, t);
+    add_candidate(cands, zam, "Behemoth Bash", false, true, t, 1.0);
   }else if(t == TYPE_DRAGON){
     // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
-    add_candidate(cands, e, "Dynamax Cannon", true, true, t);
+    add_candidate(cands, e, "Dynamax Cannon", true, true, t, 1.0);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
   return cands.size();
-}
-
-void emit_cand(const candidate& c, unsigned maxp){
-  auto rp = c.powprod();
-  //unsigned hhalf;
-  print_types(c.s->t1, c.s->t2);
-  std::cout << " & " << c.s->name;
-  //std::cout << " & " << c.iva << " & " << halflevel_to_level(c.hlevel, &hhalf);
-  std::cout << " & ";
-  print_type(c.atype);
-  std::cout << " " << c.aname << " & ";
-  std::cout << std::setprecision(2) << std::fixed << (rp * 100.0 / maxp) << "\\% & ";
-  std::cout << std::setprecision(0) << std::fixed << rp << " \\\\" << std::endl;
 }
 
 // top *count* attackers for each attack type, unified.
