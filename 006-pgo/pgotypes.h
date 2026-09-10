@@ -1547,6 +1547,12 @@ static gmaxattack GMaxAttacks[] = {
   { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, },
   { "Duraludon", "G-Max Depletion", TYPE_DRAGON, },
   { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, },
+  //{ "Centiskorch", "G-Max Centiferno", TYPE_FIRE, },
+  //{ "Hatterene", "G-Max Smite", TYPE_FAIRY, },
+  //{ "Alcremie", "G-Max Finale", TYPE_FAIRY, },
+  //{ "Copperajah", "G-Max Steelsurge", TYPE_STEEL, },
+  //{ "Urshifu Single Strike", "G-Max One Blow", TYPE_DARK, },
+  //{ "Urshifu Rapid Strike", "G-Max Rapid Flow", TYPE_WATER, },
   { nullptr, "", TYPECOUNT, },
 };
 
