@@ -95,7 +95,7 @@ int emit_dynamax_unified_table(int count){
 // top *count* attackers throwing max attack type *t*.
 // 0 for complete list.
 int emit_dynamax_typed_table(pgo_types_e t, int count){
-  std::cout << "\\begin{table}\\centering\\footnotesize";
+  std::cout << "\\begin{table}[hb]\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{cllll}";
   std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
   std::cout << "\\Midrule" << std::endl;

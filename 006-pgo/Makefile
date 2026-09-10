@@ -161,6 +161,9 @@ WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(WEBOUT)/index.html
 webpage: $(WEBINDEX)
 
+$(OUT)/dynas-%.pdf: dynatype.tex $(OUT)/dynas-%
+	$(TEXCC) --shell-escape --output-directory=$(OUT) --jobname=$(basename $(@F)) $< $*
+
 $(OUT)/dynas-%: $(DYNAS)
 	@mkdir -p $(@D)
 	$< $* > $@
