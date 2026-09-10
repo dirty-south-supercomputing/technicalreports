@@ -101,12 +101,12 @@ int main(int argc, const char** argv){
     const auto a = &sdex[u];
     handle_species(a, s->t1, s->t2, cands);
   }
-  const auto zac = lookup_species("Crowned Sword Zacian");
+  const auto zac = lookup_species("Zacian Crowned Sword");
   if(!zac){
     return -1;
   }
   add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, s->t1, s->t2);
-  const auto zam = lookup_species("Crowned Shield Zamazenta");
+  const auto zam = lookup_species("Zamazenta Crowned Shield");
   if(!zam){
     return -1;
   }

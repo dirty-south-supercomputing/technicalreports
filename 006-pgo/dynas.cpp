@@ -82,12 +82,12 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
   // generally mark them as dmax/gmax, as they're technically not.
   if(t == TYPE_STEEL){
     // crowned forms always use behemoth attacks, even with non-steel fast attacks
-    const auto zac = lookup_species("Crowned Sword Zacian");
+    const auto zac = lookup_species("Zacian Crowned Sword");
     if(!zac){
       return -1;
     }
     add_candidate(cands, zac, "Behemoth Blade", false, true, t);
-    const auto zam = lookup_species("Crowned Shield Zamazenta");
+    const auto zam = lookup_species("Zamazenta Crowned Shield");
     if(!zam){
       return -1;
     }
@@ -127,7 +127,9 @@ int emit_dynamax_unified_table(int count){
   std::vector<candidate> cands;
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     std::vector<candidate> tcands;
-    build_type_vec(static_cast<pgo_types_e>(t), tcands);
+    if(build_type_vec(static_cast<pgo_types_e>(t), tcands) <= 0){
+      return -1;
+    }
     int emit = 0;
     for(const auto& c : tcands){
       cands.emplace_back(c);
@@ -157,7 +159,9 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
   std::cout << "\\Midrule" << std::endl;
   std::vector<candidate> cands;
-  build_type_vec(t, cands);
+  if(build_type_vec(t, cands) <= 0){
+    return -1;
+  }
   auto maxp = cands.begin()->powprod();
   int emits = 0;
   for(const auto &c : cands){
