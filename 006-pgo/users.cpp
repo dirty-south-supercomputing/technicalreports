@@ -45,9 +45,10 @@ print_attack_users(const attack *a){
         a->animdur / 2.0, a->powerraid, a->energyraid,
         a->turns, a->powertrain, a->energytrain);
   }else{
-    printf("\\hfill{}%.1gs P%u E%u\\hfill{}P%u E%d",
+    printf("\\hfill{}%.1gs P%u E%u\\hfill{}P%u E%d ",
         a->animdur / 2.0, a->powerraid, a->energyraid,
         a->powertrain, -a->energytrain);
+    summarize_buffs(a);
   }
   printf("}]\n");
   if(!strcmp(a->name, "Return")){
@@ -61,22 +62,7 @@ print_attack_users(const attack *a){
     // we don't want to list mega/primal forms
     print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
   }
-  if(a->chance_user_attack){
-    printf("\\tcbsubtitle{%g\\%% chance of attack %+d}",
-          a->chance_user_attack / 10.0, a->user_attack);
-  }
-  if(a->chance_user_defense){
-    printf("\\tcbsubtitle{%g\\%% chance of defense %+d}",
-          a->chance_user_defense / 10.0, a->user_defense);
-  }
-  if(a->chance_opp_attack){
-    printf("\\tcbsubtitle{%g\\%% chance of opponent attack %+d}",
-          a->chance_opp_attack / 10.0, a->opp_attack);
-  }
-  if(a->chance_opp_defense){
-    printf("\\tcbsubtitle{%g\\%% chance of opponent defense %+d}",
-          a->chance_opp_defense / 10.0, a->opp_defense);
-  }
+  // FIXME improve subtitle or use something else
   if(a->adveffect){
     printf("\\tcbsubtitle{Adventure Effect}");
   }
