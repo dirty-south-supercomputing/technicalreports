@@ -5085,7 +5085,7 @@ static const species sdex[] = {
 		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, nullptr,
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Hyper_Beam, &ATK_Dragon_Pulse, &ATK_Dragon_Energy, &ATK_Outrage, &ATK_Breaking_Swipe, &ATK_Vise_Grip, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, false, 0, { &ATK_Dragon_Breath, &ATK_Dragon_Energy, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // 896 -- glastrier
   // 897 -- spectrier
   // 898 -- calyrex
