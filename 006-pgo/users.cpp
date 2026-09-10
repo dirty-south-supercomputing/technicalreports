@@ -37,7 +37,7 @@ print_attack_users(const attack *a){
   printf("\\begin{attackbox}[enhanced,title=");
   escape_string(a->name);
   printf(",colbacktitle=%s,before title={",
-          a->type == TYPECOUNT ? "Black" : tname_capitalized(a->type));
+          a->type == TYPECOUNT ? "White" : tname_capitalized(a->type));
   print_type(a->type);
   printf("},after title={");
   if(a->turns){

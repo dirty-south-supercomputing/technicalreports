@@ -5715,6 +5715,9 @@ statscmp_bulk(const void *vst1, const void *vst2){
 
 static inline unsigned
 has_stab_raw_p(const species *s, pgo_types_e atype){
+  if(atype == TYPECOUNT){ // handle Hidden Power as no-stab
+    return false;
+  }
   return atype == s->t1 || atype == s->t2;
 }
 
