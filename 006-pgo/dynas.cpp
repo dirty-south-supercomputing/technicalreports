@@ -96,7 +96,7 @@ int emit_dynamax_unified_table(int count){
 // 0 for complete list.
 int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "\\begin{table}[hb]\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{cllll}";
+  std::cout << "\\begin{tabular}{cllrr}";
   std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
   std::cout << "\\Midrule" << std::endl;
   std::vector<candidate> cands;

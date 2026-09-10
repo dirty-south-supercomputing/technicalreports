@@ -147,7 +147,7 @@ TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-DYNATYPES:=$(addprefix $(OUT)/dynas-, $(TYPES))
+DYNATYPES:=$(addsuffix .pdf, $(addprefix $(OUT)/dynas-, $(TYPES)))
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \

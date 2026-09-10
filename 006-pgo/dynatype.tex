@@ -1,0 +1,52 @@
+% oneside ought not be used for printed, bound material!
+\documentclass[ebook,10pt,openany,oneside]{memoir}
+\title{max attackers}
+\author{nick black}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage[letterpaper,margin=1cm]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchUppercase,Ligatures=TeX,Renderer=HarfBuzz}
+\usepackage{microtype}
+\setmainfont{Gentium Book}
+\usepackage{longtable}
+\usepackage{newunicodechar}
+\newcommand{\ivlev}[4]{#1/#2/#3·#4}
+\newcommand\calign[1]{#1}%{\raisebox{-0.25\height}{#1}}
+\newcommand\Midrule[0]{\midrule}%
+\newfontfamily{\emojifont}{Noto Color Emoji}
+\newunicodechar{🔥}{{\emojifont🔥}}
+\newunicodechar{🧊}{{\emojifont🧊}}
+\newunicodechar{🪨}{{\emojifont🪨}}
+\newunicodechar{🌊}{{\emojifont🌊}}
+\newunicodechar{⚡}{{\emojifont⚡}}
+\newcommand*{\MHP}{\mbox{$\mathrm{MHP}$}}
+\newcommand*{\EPT}{\mbox{$\mathrm{EPT}$}}
+\newcommand*{\PPT}{\mbox{$\mathrm{PPT}$}}
+\newcommand*{\HP}{\mbox{$\mathrm{HP}$}}
+\newcommand*{\CP}{\mbox{$\mathrm{CP}$}}
+\newcommand*{\BP}{\mbox{$\mathrm{BP}$}}
+\newcommand*{\Eff}[1]{\mbox{$\mathrm{Eff_{#1}}$}}
+\newcommand*{\Mod}[1]{\mbox{$\mathrm{Mod_{#1}}$}}
+\newcommand*{\IV}[1]{\mbox{$\mathrm{IV_{#1}}$}}
+% fragile -- requires the type to be parameter at index n
+\newcommand*{\Type}{\directlua{tex.print(arg[5])}}
+
+\begin{document}
+\noindent{}\today\\
+\MakeTitlecase{\Type} Max Attackers for Pokémon GO\\
+nick black (\href{mailto:nickblack@linux.com}{nickblack@linux.com}, \href{https://www.reddit.com/user/sosodank/}{r/sosodank}, pgo: americanpion)\\
+\bigskip
+
+All forms which can use a \MakeTitlecase{\Type} Max and/or G-Max attack are listed.\\
+
+Calculations are performed assuming level 50, an \IV{A} of 15, and Max level 3.\\
+
+STAB is factored into calculations, when applicable.
+\bigskip
+
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\input{out/dynas-\Type}
+\end{document}
