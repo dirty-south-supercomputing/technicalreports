@@ -49,6 +49,7 @@ DPEVSE:=$(OUT)/dpevse
 PPTVST:=$(OUT)/pptvst
 EVOLWORSE:=$(OUT)/evolworse
 MOSTPOWER:=$(OUT)/mostpower
+DYNAS:=$(OUT)/dynas
 ANTIDMAX:=$(OUT)/antidmax
 PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
@@ -146,9 +147,12 @@ TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
+DYNATYPES:=$(addprefix $(OUT)/dynas-, $(TYPES))
+
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
-	$(NOSHINY) $(NOSHADOW) webpage testdb testsimul $(COVERSETS) test
+	$(NOSHINY) $(NOSHADOW) webpage testdb testsimul $(COVERSETS) $(DYNATYPES) \
+	test
 
 CSS:=w/web.css
 WEBCSS:=$(OUT)/$(CSS)
@@ -156,6 +160,10 @@ WEBOUT:=$(OUT)/w
 WEBBIN:=$(OUT)/webbin
 WEBINDEX:=$(WEBOUT)/index.html
 webpage: $(WEBINDEX)
+
+$(OUT)/dynas-%: $(DYNAS)
+	@mkdir -p $(@D)
+	$< $* > $@
 
 $(FHUNDOGLTEX): $(FUNCTIONALHUNDO)
 	@mkdir -p $(@D)
