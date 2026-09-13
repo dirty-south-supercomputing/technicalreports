@@ -46,7 +46,7 @@ void print_latex_table(const attack* as, unsigned ccount){
       printf("\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
     }else if(!strcmp(a->name, "Return")){
       printf("%u(%u)", shadows, shadnormals);
-      printf("\\footnote{Return is known by default to all Purified Pokémon (it's mid at best).}");
+      printf("\\footnote{Return is known by default to all Purified Pokémon (it's not terrible with STAB).}");
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);

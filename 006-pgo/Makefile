@@ -305,7 +305,7 @@ $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 
 $(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) g 2500 157.12 > $@
+	$(<) g 2500 157.17 > $@
 
 $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
