@@ -2114,7 +2114,7 @@ static const species sdex[] = {
   // the Spikes
   {  111, "Rhyhorn", TYPE_GROUND, TYPE_ROCK, 140, 127, 190, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Rock_Smash, &ATK_Bulldoze, &ATK_Horn_Attack, &ATK_Stomp, },
-		true, true, 2, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 1, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Drill
   {  112, "Rhydon", TYPE_GROUND, TYPE_ROCK, 222, 171, 233, "Rhyhorn",
 		{ &ATK_Mud_Slap, &ATK_Rock_Smash, &ATK_Megahorn, &ATK_Earthquake, &ATK_Stone_Edge, &ATK_Surf, &ATK_Breaking_Swipe, },
