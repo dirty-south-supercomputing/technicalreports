@@ -111,7 +111,7 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
       break;
     }
   }
-  std::cout << "\\end{tabular}\\caption{Top ";
+  std::cout << "\\end{tabular}\\caption*{Top ";
   if(count){
     std::cout << emits << " ";
   }
