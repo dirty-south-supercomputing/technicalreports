@@ -93,19 +93,6 @@ setup_redundant_typings(void){
   return dtypes;
 }
 
-static unsigned
-typing_popcount(pgo_types_e t1, pgo_types_e t2){
-  unsigned pcnt = 0;
-  // we only want the main table
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species* s = &sdex[u];
-    if((s->t1 == t1 && s->t2 == t2)){// || (s->t2 == t1 && s->t1 == t2)){
-      ++pcnt;
-    }
-  }
-  return pcnt;
-}
-
 static void
 defensive_summaries_latex(const typing* t){
   printf("\\begingroup\n");

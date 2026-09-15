@@ -6050,6 +6050,21 @@ learner_count(const attack* as, unsigned* stab){
   return count;
 }
 
+// observes order, which might be unexpected. i.e. TYPE_BUG, TYPE_FIGHTING
+// matches only bug+fighting, not the functionally equivalent fighting+bug.
+static inline unsigned
+typing_popcount(pgo_types_e t1, pgo_types_e t2){
+  unsigned pcnt = 0;
+  // we only want the main table
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species* s = &sdex[u];
+    if((s->t1 == t1 && s->t2 == t2)){// || (s->t2 == t1 && s->t1 == t2)){
+      ++pcnt;
+    }
+  }
+  return pcnt;
+}
+
 // s must not be null
 static int
 escape_abbr_string(const char *s){
@@ -6815,5 +6830,6 @@ void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool ov
 void add_candidate(std::vector<candidate>& cands, const species* s,
                    const char* aname, bool gmaxpower, bool stab,
                    pgo_types_e atype, float teffect);
+void emit_typing_list(pgo_types_e i, pgo_types_e j);
 
 #endif

@@ -415,3 +415,22 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
   cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
   cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
 }
+
+// emit a list of all forms having the specified typing
+void emit_typing_list(pgo_types_e i, pgo_types_e j){
+  bool firstprint = true;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const auto &s = sdex[u];
+    if(s.t1 == i || s.t2 == i){
+      if(s.t1 == j || s.t2 == j){
+        if(firstprint){
+          firstprint = false;
+        }else{
+          std::cout << ", ";
+        }
+        escape_cpp_string(s.name);
+      }
+    }
+  }
+  // FIXME list mega mons?
+}

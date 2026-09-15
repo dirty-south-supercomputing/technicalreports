@@ -94,6 +94,8 @@ HETEROCOSTTEX:=$(OUT)/heterocost.tex
 HETEROTYPETEX:=$(OUT)/heterotype.tex
 TRELSTEX:=$(OUT)/typerels.tex
 EVENENERGYTEX:=$(OUT)/evenenergy.tex
+WEAK1TEX:=$(OUT)/weak1.tex
+WEAK2TEX:=$(OUT)/weak2.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
 TIMETOFIRSTFULLTEX:=$(OUT)/timetofirstfull.tex
@@ -136,7 +138,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) $(XPTEX) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
-	$(LEVELUPGRADESTEX)
+	$(LEVELUPGRADESTEX) $(WEAK1TEX) $(WEAK2TEX)
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -165,6 +167,10 @@ $(OUT)/dynas-%.pdf: dynatype.tex $(OUT)/dynas-%.tex
 	$(TEXCC) --shell-escape --output-directory=$(OUT) --jobname=$(basename $(@F)) $< $*
 
 $(OUT)/dynas-%.tex: $(DYNAS)
+	@mkdir -p $(@D)
+	$< $* > $@
+
+$(OUT)/weak%.tex: $(OUT)/weaknesses
 	@mkdir -p $(@D)
 	$< $* > $@
 
@@ -404,33 +410,13 @@ $(SIMUL): $(SIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) -lm -lmurmurhash
 
-$(SPECIES): species.cpp pgotypes.h Makefile $(LATEXOBJ)
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
-
-$(OUT)/scardexample: scardexample.cpp pgotypes.h Makefile $(LATEXOBJ)
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
-
-$(OUT)/forms: forms.cpp pgotypes.h Makefile $(LATEXOBJ)
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
-
-$(OUT)/antidmax: antidmax.cpp pgotypes.h Makefile $(LATEXOBJ)
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
-
-$(OUT)/dynas: dynas.cpp pgotypes.h Makefile $(LATEXOBJ)
+$(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ)
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
 
 $(LATEXOBJ): latex.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F)
-
-$(OUT)/%: %.cpp pgotypes.h Makefile
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) -lm
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic
