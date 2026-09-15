@@ -63,6 +63,9 @@ get_apercent(const stats *s){
 
 static stats *
 print_sol_set(stats *sols, float(*afxn)(const stats *s)){
+  if(!sols){
+    return NULL;
+  }
   unsigned half;
   unsigned l = halflevel_to_level(sols->hlevel, &half);
   print_types(sols->s->t1, sols->s->t2);
