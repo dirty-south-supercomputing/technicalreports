@@ -3813,8 +3813,8 @@ static const species sdex[] = {
 		{ &ATK_Scratch, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Night_Shade, &ATK_Foul_Play, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   {  571, "Zoroark", TYPE_DARK, TYPECOUNT, 250, 127, 155, "Zorua",
-		{ &ATK_Shadow_Claw, &ATK_Snarl, &ATK_Flamethrower, &ATK_Sludge_Bomb, &ATK_Night_Shade, &ATK_Foul_Play, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+		{ &ATK_Shadow_Claw, &ATK_Snarl, &ATK_Sucker_Punch, &ATK_Flamethrower, &ATK_Sludge_Bomb, &ATK_Night_Shade, &ATK_Foul_Play, },
+		true, false, 0, { &ATK_Sucker_Punch, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   // the baneful fox
   {  571, "Hisuian Zoroark", TYPE_NORMAL, TYPE_GHOST, 261, 128, 146, "Hisuian Zorua",
 		{ &ATK_Scratch, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Night_Shade, &ATK_Foul_Play, &ATK_Swift, },
