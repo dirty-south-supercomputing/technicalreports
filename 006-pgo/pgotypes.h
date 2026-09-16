@@ -578,8 +578,7 @@ static const attack ATK_Bone_Club = { "Bone Club", TYPE_GROUND, 55, -35, 0, 0, 0
 	40, 33, 3, false, };
 static const attack ATK_Brave_Bird = { "Brave Bird", TYPE_FLYING, 130, -55, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
 	130, 100, 4, false, };
-// FIXME verify stats (3x3 cost)!
-static const attack ATK_Brave_Bird_Plus = { "Brave Bird+", TYPE_FLYING, 70, -55, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
+static const attack ATK_Brave_Bird_Plus = { "Brave Bird+", TYPE_FLYING, 70, -40, 0, 0, 1000, 0, 0, 0, -3, 0, 0,
 	150, 100, 4, false, };
 static const attack ATK_Breaking_Swipe = { "Breaking Swipe", TYPE_DRAGON, 50, -50, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	45, 33, 2, false, };
