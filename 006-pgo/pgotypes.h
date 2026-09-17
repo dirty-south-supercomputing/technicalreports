@@ -70,37 +70,6 @@ enum pgo_types_e {
   TYPECOUNT = 18
 };
 
-// dynamax Max Attack names. dynamax attack type is matched to fast attack type
-// (Hidden Power always becomes normal, aka Max Strike). max attacks are 250,
-// 300, 350, 450 damage (level 4 achieved via dynamax cannon adventure effect).
-static inline const char*
-max_attack_name(pgo_types_e t){
-  static const char* MaxAttackNames[TYPECOUNT] = {
-    "Max Flutterby",
-    "Max Darkness",
-    "Max Wyrmwind",
-    "Max Lightning",
-    "Max Starfall",
-    "Max Knuckle",
-    "Max Flare",
-    "Max Airstream",
-    "Max Phantasm",
-    "Max Overgrowth",
-    "Max Quake",
-    "Max Hailstorm",
-    "Max Strike",
-    "Max Ooze",
-    "Max Mindstorm",
-    "Max Rockfall",
-    "Max Steelspike",
-    "Max Geyser"
-  };
-  if(t >= TYPECOUNT){
-    throw std::exception();
-  }
-  return MaxAttackNames[t];
-}
-
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 // but there are 324 if one considers ordering, which one generally oughtn't
@@ -6776,14 +6745,14 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
 void emit_typing_list(pgo_types_e i, pgo_types_e j);
 uint64_t pgo_xp_for_level(int l);
 const char* tname_capitalized(pgo_types_e t);
+const char* max_attack_name(pgo_types_e t);
 
 static inline const char*
 tname_capitalized(int i){
-  if(i < static_cast<int>(TYPE_BUG) || i >= static_cast<int>(TYPECOUNT)){
+  if(i < static_cast<int>(TYPESTART) || i >= static_cast<int>(TYPECOUNT)){
     return nullptr;
   }
   return tname_capitalized(static_cast<pgo_types_e>(i));
 }
-
 
 #endif
