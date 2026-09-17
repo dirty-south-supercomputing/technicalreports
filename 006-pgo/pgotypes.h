@@ -179,39 +179,6 @@ static const char* tnames[TYPECOUNT] = {
   "water"
 };
 
-static inline const char*
-tname_capitalized(pgo_types_e t){
-  static const char* TNames[TYPECOUNT] = {
-    "Bug",
-    "Dark",
-    "Dragon",
-    "Electric",
-    "Fairy",
-    "Fighting",
-    "Fire",
-    "Flying",
-    "Ghost",
-    "Grass",
-    "Ground",
-    "Ice",
-    "Normal",
-    "Poison",
-    "Psychic",
-    "Rock",
-    "Steel",
-    "Water"
-  };
-  return TNames[t];
-}
-
-static inline const char*
-tname_capitalized(int i){
-  if(i < static_cast<int>(TYPE_BUG) || i >= static_cast<int>(TYPECOUNT)){
-    return nullptr;
-  }
-  return tname_capitalized(static_cast<pgo_types_e>(i));
-}
-
 /*
 float nextcpm(float cpm, float step){
   return sqrt(pow(cpm, 2) + step);
@@ -6808,5 +6775,15 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
                    pgo_types_e atype, float teffect);
 void emit_typing_list(pgo_types_e i, pgo_types_e j);
 uint64_t pgo_xp_for_level(int l);
+const char* tname_capitalized(pgo_types_e t);
+
+static inline const char*
+tname_capitalized(int i){
+  if(i < static_cast<int>(TYPE_BUG) || i >= static_cast<int>(TYPECOUNT)){
+    return nullptr;
+  }
+  return tname_capitalized(static_cast<pgo_types_e>(i));
+}
+
 
 #endif

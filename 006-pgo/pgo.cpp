@@ -32,3 +32,30 @@ uint64_t pgo_xp_for_level(int l){
   }
   return LEVELREQS[l - 1];
 }
+
+const char* tname_capitalized(pgo_types_e t){
+  static const char* TNames[TYPECOUNT] = {
+    "Bug",
+    "Dark",
+    "Dragon",
+    "Electric",
+    "Fairy",
+    "Fighting",
+    "Fire",
+    "Flying",
+    "Ghost",
+    "Grass",
+    "Ground",
+    "Ice",
+    "Normal",
+    "Poison",
+    "Psychic",
+    "Rock",
+    "Steel",
+    "Water"
+  };
+  if(t < TYPESTART || t >= TYPECOUNT){
+    throw std::exception();
+  }
+  return TNames[t];
+}
