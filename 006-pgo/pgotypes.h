@@ -148,68 +148,6 @@ static const char* tnames[TYPECOUNT] = {
   "water"
 };
 
-/*
-float nextcpm(float cpm, float step){
-  return sqrt(pow(cpm, 2) + step);
-}
-
-// halflevel: positive integer (usually less than 100) equal to L * 2 - 1
-float cpm(int halflevel){
-  float step;
-  if(halflevel >= 79){ // Levels 40 and above are computed directly
-    return 0.0025 * (halflevel - 79) + 0.7903;
-  }else if(halflevel >= 59){ // Levels 30..39.5
-    step = 0.00445946079;
-  }else if(halflevel >= 39){ // Levels 20..29.5
-    step = 0.008924905903;
-    // FIXME errors start here
-  }else if(halflevel >= 19){ // Levels 10..19.5
-    step = 0.008919025675;
-  }else if(halflevel > 1){ //mLevels 1.5..9.5
-    step = 0.009426125469;
-  }else{
-    return 0.094; // Level 1 (or invalid low value)
-  }
-  return nextcpm(cpm(halflevel - 1), step);
-}
-*/
-
-// maybe use values from https://github.com/mathiasbynens/pogocpm2level/blob/master/pogocpm2level/cpm2level.py ?
-static float cpm(int halflevel){
-  static const float cpms[] = {
-    0.094, 0.1351374318, 0.166398, 0.192650919, 0.215732, 0.2365726613,
-    0.25572, 0.2735303812, 0.29025, 0.3060573775, 0.321088,
-    0.3354450362, 0.349213, 0.3624577511, 0.375236, 0.387592416, 0.399567,
-    0.4111935514, 0.4225, 0.4329264091, 0.443108, 0.4530599591, 0.462798,
-    0.472336093, 0.481685, 0.4908558003, 0.499858, 0.508701765, 0.517394,
-    0.5259425113, 0.534354, 0.5426357375, 0.550793, 0.5588305862, 0.566755,
-    0.5745691333, 0.582279, 0.5898879072, 0.5974, 0.6048236651, 0.612157,
-    0.6194041216, 0.626567, 0.6336491432, 0.640653, 0.6475809666,
-    0.654436, 0.6612192524, 0.667934, 0.6745818959, 0.681165, 0.6876849038,
-    0.694144, 0.70054287, 0.706884, 0.7131691091, 0.719399, 0.7255756136,
-    0.7317, 0.7347410093, 0.737769, 0.7407855938, 0.743789, 0.7467812109,
-    0.749761, 0.7527290867, 0.755686, 0.7586303683, 0.761564,
-    0.7644860647, 0.767397, 0.7702972656, 0.773187, 0.7760649616,
-    0.778933, 0.7817900548, 0.784637, 0.7874736075,
-    0.7903, 0.792803968, // 40--40.5
-    0.79530001, 0.797800015, 0.8003, 0.802799995, // 41--42.5
-    0.8053, 0.8078, 0.8103, 0.8128, // 43--44.5
-    0.8153, 0.8178, 0.8203, 0.8228, // 45--46.5
-    0.8253, 0.8278, 0.8303, 0.8328, // 47--48.5
-    0.8353, 0.8378, // 49--49.5
-    0.8403, 0.8428, // 50--50.5
-    0.8453, // 51
-    0.8478, // 51.5
-    0.8503, // 52
-  };
-  if(halflevel <= 0
-      || static_cast<unsigned>(halflevel) > sizeof(cpms) / sizeof(*cpms)
-      || static_cast<unsigned>(halflevel) > MAX_HALFLEVEL){
-    throw std::invalid_argument("invalid halflevel");
-  }
-  return cpms[halflevel - 1];
-}
-
 static inline float mapbuff(int bufflevel){
   static const float buffmap[9] = { 4/8, 4/7, 4/6, 4/5, 1, 5/4, 6/4, 7/4, 8/4 };
   return buffmap[bufflevel + 4];
@@ -5451,6 +5389,8 @@ static const mega megasdex[] = {
 };
 
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
+
+float cpm(int halflevel);
 
 // FIXME get rid of this
 static const struct spokedex {

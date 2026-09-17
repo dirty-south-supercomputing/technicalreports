@@ -384,11 +384,11 @@ $(SIMUL3OUT): $(SIMUL)
 
 $(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) -lm -lmurmurhash
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(SIMUL): $(SIMULSRC) pgotypes.h Makefile
+$(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) -lm -lmurmurhash
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
