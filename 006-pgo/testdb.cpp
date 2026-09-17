@@ -301,8 +301,24 @@ test_mega(void){
   return true;
 }
 
+static bool
+test_tnames(void){
+  const char* bug = tname_capitalized(TYPE_BUG);
+  if(strcmp(bug, "Bug")){
+    return false;
+  }
+  const char* water = tname_capitalized(TYPE_WATER);
+  if(strcmp(water, "Water")){
+    return false;
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
+  if(!test_tnames()){
+    exit(EXIT_FAILURE);
+  }
   if(!unit_test_types()){
     exit(EXIT_FAILURE);
   }
