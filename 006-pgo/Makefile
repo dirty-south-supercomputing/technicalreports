@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview webpage testsimul clean test testdb testsimullong
+.PHONY: all preview testsimul clean test testdb testsimullong
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -143,7 +143,6 @@ GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
-WEBSRC:=$(wildcard w/*.cpp w/*.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 
 preview: $(PAPERBACK).pdf
@@ -153,15 +152,8 @@ DYNATYPES:=$(addsuffix .pdf, $(addprefix $(OUT)/dynas-, $(TYPES)))
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
-	$(NOSHINY) $(NOSHADOW) webpage testdb testsimul $(COVERSETS) $(DYNATYPES) \
+	$(NOSHINY) $(NOSHADOW) testdb testsimul $(COVERSETS) $(DYNATYPES) \
 	test
-
-CSS:=w/web.css
-WEBCSS:=$(OUT)/$(CSS)
-WEBOUT:=$(OUT)/w
-WEBBIN:=$(OUT)/webbin
-WEBINDEX:=$(WEBOUT)/index.html
-webpage: $(WEBINDEX)
 
 $(OUT)/dynas-%.pdf: dynatype.tex $(OUT)/dynas-%.tex
 	$(TEXCC) --shell-escape --output-directory=$(OUT) --jobname=$(basename $(@F)) $< $*
@@ -201,19 +193,6 @@ $(OPTSTATSPDF): $(OPTSTATSR) $(OPTSTATSDAT)
 $(OPTSTATSDAT): $(OUT)/optstats
 	@mkdir -p $(@D)
 	$< > $@
-
-$(WEBINDEX): $(WEBBIN) $(WEBCSS)
-	@mkdir -p $(WEBOUT)
-	#ln -sf $(shell pwd)/images/highres $(WEBOUT)/images
-	$< $(WEBOUT)
-
-$(WEBCSS): $(CSS)
-	@mkdir -p $(WEBOUT)
-	ln -sf $(shell pwd)/$< $@
-
-$(WEBBIN): $(WEBSRC) pgotypes.h
-	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -fno-var-tracking-assignments -O2 $(filter %.cpp,$^) -lm
 
 $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
