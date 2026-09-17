@@ -301,13 +301,13 @@ int main(int argc, const char **argv){
   constexpr int cols = 4;
   constexpr int percol = MAXLEVEL / cols;
   static_assert(MAXLEVEL == cols * percol);
-  static_assert(MAXLEVEL == sizeof(LEVELREQS) / sizeof(*LEVELREQS));
+  //static_assert(MAXLEVEL == sizeof(LEVELREQS) / sizeof(*LEVELREQS));
   unsigned collast[cols] = {};
   for(int l = 0 ; l < percol ; ++l){
     for(int c = 0 ; c < cols ; ++c){
       auto level = c * percol + l + 1;
       std::cout << level << " & "; // level
-      auto totalxp = LEVELREQS[level - 1];
+      auto totalxp = pgo_xp_for_level(level);
       emitk(totalxp);
       std::cout << " & "; // total xp for level
       auto xpdiff = totalxp - collast[c];
@@ -315,7 +315,7 @@ int main(int argc, const char **argv){
         if(c == 0){
           xpdiff = 0;
         }else{
-          xpdiff = totalxp - LEVELREQS[level - 2];
+          xpdiff = totalxp - pgo_xp_for_level(level - 1);
         }
       }
       emitk(xpdiff);

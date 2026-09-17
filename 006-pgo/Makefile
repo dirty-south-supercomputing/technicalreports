@@ -120,6 +120,7 @@ SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
 LATEXOBJ:=$(OUT)/latex.o
+PGOOBJ:=$(OUT)/pgo.o
 OPTSTATSDAT:=$(OUT)/optstats.r
 OPTSTATSR:=optstats.R
 OPTSTATSPDF:=$(OUT)/optstats.pdf
@@ -389,11 +390,11 @@ $(SIMUL): $(SIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ)
+$(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) -lm
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
 
-$(LATEXOBJ): latex.cpp pgotypes.h Makefile
+$(OUT)/%.o: %.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F)
 
