@@ -4,20 +4,21 @@
 #include <cstdio>
 #include <cstdlib>
 
-static int cmpatk(const void* va1, const void* va2){
-  auto a1 = static_cast<const attack*>(va1);
-  auto a2 = static_cast<const attack*>(va2);
+static bool cmpatk(const attack* a1, const attack* a2){
   // remember, energytrain is negative
   float ppere1 = ((float)a1->powertrain) / a1->energytrain;
   float ppere2 = ((float)a2->powertrain) / a2->energytrain;
-  return ppere1 < ppere2 ? -1
-         : ppere1 > ppere2 ? 1
-         : a1->energytrain < a2->energytrain ? -1
-         : a1->energytrain > a2->energytrain ? 1
-         : 0;
+  if(ppere1 > ppere2){
+    return true;
+  }else if(ppere1 == ppere2){
+    if(a1->energytrain > a2->energytrain){
+      return true;
+    }
+  }
+  return false;
 }
 
-void print_latex_table(const attack* as, unsigned ccount){
+void print_latex_table(const std::vector<const attack*>& as){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   // we removed raw P and P * 6/5 because that can be derived from P/E and E
@@ -25,11 +26,9 @@ void print_latex_table(const attack* as, unsigned ccount){
   printf("Attack & E & $\\frac{P}{E}$ & $\\cdot\\frac{6}{5}$ & Buff & Pop(STAB)\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
-  int c = ccount;
   unsigned shadnormals; // number of shadows with normal type
   auto shadows = shadow_count(&shadnormals); // number of shadows
-  while(--c >= 0){
-    const attack* a = &as[c];
+  for(const auto a : as){
     if(a->type != TYPECOUNT){
       print_type(a->type);
     }
@@ -60,17 +59,14 @@ void print_latex_table(const attack* as, unsigned ccount){
 }
 
 int main(void){
-  const size_t acount = sizeof(attacks) / sizeof(*attacks);
-  auto charged = std::make_unique<attack[]>(acount);
-  unsigned ccount = 0;
-  for(unsigned i = 0 ; i < acount ; ++i){
-    const attack* a = attacks[i];
+  std::vector<const attack*> charged{};
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    const attack* a = *it;
     if(a->energytrain < 0){
-      memcpy(&charged[ccount], a, sizeof(*a));
-      ++ccount;
+      charged.push_back(a);
     }
   }
-  qsort(charged.get(), ccount, sizeof(*charged.get()), cmpatk);
-  print_latex_table(charged.get(), ccount);
+  std::sort(charged.begin(), charged.end(), cmpatk);
+  print_latex_table(charged);
   return EXIT_SUCCESS;
 }

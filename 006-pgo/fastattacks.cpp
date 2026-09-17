@@ -4,31 +4,27 @@
 #include <cstring>
 #include <cstdlib>
 
-static int cmpatk(const void* va1, const void* va2){
-  auto a1 = static_cast<const attack*>(va1);
-  auto a2 = static_cast<const attack*>(va2);
-  return a1->turns < a2->turns ? -1
-    : a1->turns > a2->turns ? 1
-    : a1->powertrain < a2->powertrain ? -1
-    : a1->powertrain > a2->powertrain ? 1
-    : a1->energytrain < a2->energytrain ? -1
-    : a1->energytrain > a2->energytrain ? 1
-    : 0;
+static bool cmpatk(const attack* a1, const attack* a2){
+  return a1->turns < a2->turns ? true
+    : a1->turns > a2->turns ? false
+    : a1->powertrain < a2->powertrain ? true
+    : a1->powertrain > a2->powertrain ? false
+    : a1->energytrain < a2->energytrain ? true
+    : a1->energytrain > a2->energytrain ? false
+    : false;
 }
 
-static int cmpatkraid(const void* va1, const void* va2){
-  auto a1 = static_cast<const attack*>(va1);
-  auto a2 = static_cast<const attack*>(va2);
-  return a1->animdur < a2->animdur ? -1
-    : a1->animdur > a2->animdur ? 1
-    : a1->powerraid < a2->powerraid ? -1
-    : a1->powerraid > a2->powerraid ? 1
-    : a1->energyraid < a2->energyraid ? -1
-    : a1->energyraid > a2->energyraid ? 1
-    : 0;
+static bool cmpatkraid(const attack* a1, const attack* a2){
+  return a1->animdur < a2->animdur ? true 
+    : a1->animdur > a2->animdur ? false
+    : a1->powerraid < a2->powerraid ? true
+    : a1->powerraid > a2->powerraid ? false
+    : a1->energyraid < a2->energyraid ? true 
+    : a1->energyraid > a2->energyraid ? false
+    : false;
 }
 
-void print_latex_table(const attack* as, unsigned ccount, bool raidvalues){
+void print_latex_table(const std::vector<const attack*>& as, bool raidvalues){
   printf("\\begin{center}\n");
   printf("\\footnotesize\n");
   printf("\\begin{longtable}{lrrrrrr}\n");
@@ -36,8 +32,7 @@ void print_latex_table(const attack* as, unsigned ccount, bool raidvalues){
   printf("Attack & T & \\EPT{} & \\PPT{} & $\\cdot\\frac{6}{5}$ & Pop(STAB)\\\\\n");
   printf("\\Midrule\n");
   printf("\\endhead\n");
-  for(unsigned c = 0 ; c < ccount ; ++c){
-    const attack* a = &as[c];
+  for(const auto a : as){
     float ppt = a->powertrain / (float)a->turns;
     float ept = a->energytrain / (float)a->turns;
     print_fast_attack_rowcolor(a);
@@ -81,21 +76,18 @@ int main(int argc, const char** argv){
     }
     raidvalues = true;
   }
-  const size_t acount = sizeof(attacks) / sizeof(*attacks);
-  auto fast = std::make_unique<attack[]>(acount);
-  unsigned fcount = 0;
-  for(unsigned i = 0 ; i < acount ; ++i){
-    const attack* a = attacks[i];
+  std::vector<const attack*> fast{};
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    const attack* a = *it;
     if(a->energytrain > 0){
-      memcpy(&fast[fcount], a, sizeof(*a));
-      ++fcount;
+      fast.push_back(a);
     }
   }
   if(raidvalues){
-    qsort(fast.get(), fcount, sizeof(*fast.get()), cmpatkraid);
+    std::sort(fast.begin(), fast.end(), cmpatkraid);
   }else{
-    qsort(fast.get(), fcount, sizeof(*fast.get()), cmpatk);
+    std::sort(fast.begin(), fast.end(), cmpatk);
   }
-  print_latex_table(fast.get(), fcount, raidvalues);
+  print_latex_table(fast, raidvalues);
   return EXIT_SUCCESS;
 }

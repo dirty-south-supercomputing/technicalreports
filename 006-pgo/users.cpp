@@ -78,26 +78,7 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-static int acmp(const void *va1, const void *va2){
-  const attack *a1 = static_cast<const attack*>(va1);
-  const attack *a2 = static_cast<const attack*>(va2);
-  if(a1->turns != a2->turns){
-    return (int)a1->turns - a2->turns;
-  }
-  if(a1->energytrain < 0){ // charged, compare ppe
-    float p1 = calc_ppe(a1);
-    float p2 = calc_ppe(a2);
-    return p1 < p2 ? -1 : p2 < p1 ? 1 : 0;
-  }
-  // fast, compare EPT*PPT. we know they're the same number of turns,
-  // so we can just compare the products.
-  int p1 = a1->powertrain * a1->energytrain;
-  int p2 = a2->powertrain * a2->energytrain;
-  return p1 - p2;
-}
-
 int main(int argc, char **argv){
-  static attack acopies[ATTACKCOUNT];
   if(argc != 2){
     usage(argv[0]);
   }
@@ -110,22 +91,44 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }
   for(int t = 0 ; t <= TYPECOUNT ; ++t){
-    unsigned acount = 0;
-    for(unsigned aidx = 0 ; aidx < ATTACKCOUNT ; ++aidx){
-      const attack *a = attacks[aidx];
+    std::vector<const attack*> acopies{};
+    for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+      const attack *a = *it;
       if(a->type == t){
         if(fast && fast_attack_p(a)){
-          memcpy(&acopies[acount], a, sizeof(*a));
-          ++acount;
+          acopies.push_back(a);
         }else if(!fast && charged_attack_p(a)){
-          memcpy(&acopies[acount], a, sizeof(*a));
-          ++acount;
+          acopies.push_back(a);
         }
       }
     }
-    qsort(acopies, acount, sizeof(*acopies), acmp);
-    for(unsigned u = 0 ; u < acount ; ++u){
-      print_attack_users(&acopies[u]);
+    std::cout << std::endl;
+    std::sort(acopies.begin(), acopies.end(), [](const attack* a1, const attack* a2){
+          if(a1->turns != a2->turns){
+            if(a1->turns < a2->turns){
+              return true;
+            }
+            return false;
+          }
+          if(a1->energytrain < 0){ // charged, compare ppe
+            float p1 = calc_ppe(a1);
+            float p2 = calc_ppe(a2);
+            if(p1 < p2){
+              return true;
+            }
+            return false;
+          }
+          // fast, compare EPT*PPT. we know they're the same number of turns,
+          // so we can just compare the products.
+          int p1 = a1->powertrain * a1->energytrain;
+          int p2 = a2->powertrain * a2->energytrain;
+          if(p1 < p2){
+            return true;
+          }
+          return false;
+        });
+    for(const auto& a : acopies){
+      print_attack_users(a);
     }
   }
   return EXIT_SUCCESS;

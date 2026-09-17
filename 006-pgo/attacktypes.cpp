@@ -33,8 +33,8 @@ int main(void){
   static unsigned acounts[TYPECOUNT * MAXTURNS] = {};
   static unsigned gooddpt[TYPECOUNT] = {};
   static unsigned goodept[TYPECOUNT] = {};
-  for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
-    const attack* a = attacks[i];
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    const attack* a = *it;
     if(fast_attack_p(a)){
       ++acounts[a->type * MAXTURNS + (a->turns - 1)];
       if(a->energytrain / a->turns >= 3){

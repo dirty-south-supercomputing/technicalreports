@@ -48,8 +48,8 @@ even_attacks(const attack *a){
 
 // generate list of charged attacks that are evenly divided by fast attacks
 int main(void){
-  for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
-    const auto a = attacks[i];
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    const auto a = *it;
     if(a->energytrain > 0){
       even_attacks(a);
     }

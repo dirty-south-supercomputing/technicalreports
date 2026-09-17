@@ -6,7 +6,8 @@ using cmap = std::map<int, std::vector<const attack *>>;
 // bin charged attacks by energy, then sort within by ppe
 int main(void){
   cmap chargedmap;
-  for(const auto &a : attacks){
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    const attack* a = *it;
     if(!charged_attack_p(a)){
       continue;
     }

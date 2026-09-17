@@ -71,14 +71,14 @@ test_species(const species *s){
     }
     // check that all attacks are on the full attack list
     bool atkingtable = false;
-    for(unsigned ai = 0 ; ai < ATTACKCOUNT ; ++ai){
-      if(attacks[ai] == a){
+    for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+      if((*it)->name == a->name){
         atkingtable = true;
         break;
       }
     }
     if(!atkingtable){
-      std::cerr << "table missing attack " << s->name << " learned by " << a->name << std::endl;
+      std::cerr << "table missing attack " << a->name << " learned by " << s->name << std::endl;
       throw std::exception();
     }
   }
@@ -333,9 +333,8 @@ int main(void){
       exit(EXIT_FAILURE);
     }
   }
-  for(unsigned i = 0 ; i < ATTACKCOUNT ; ++i){
-    const attack *a = attacks[i];
-    if(!test_attack(a)){
+  for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
+    if(!test_attack(*it)){
       exit(EXIT_FAILURE);
     }
   }
