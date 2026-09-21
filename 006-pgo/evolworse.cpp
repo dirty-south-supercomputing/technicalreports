@@ -1,46 +1,53 @@
 #include "pgotypes.h"
+#include <cfloat>
 
 bool check_worse_evol(const species& s, int cpbound){
-  bool worse = false;
-  unsigned vcount;
-  auto opts = order_ivs(&s, cpbound, statscmp_gmean, &vcount);
-  const auto gs = opts[vcount - 1].geommean;
-  const auto gsworst = opts[0].geommean;
+  bool ret = false;
+  stats svec[IVLEVVEC];
+  // generate the level we can hit for each of 4k iv configurations given cpbound
+  order_ivs_internal(&s, cpbound, svec, false);
+  float gs = 0;
+  float gsworst = FLT_MAX;
   std::vector<const species *> evols;
   get_persistent_evolutions(&s, evols);
   for(const auto* e : evols){
-    // first, compare the best of s to the best of es. if better, compare the
-    // worst of s to the best of es. if also better, s is purely better.
-    // otherwise, there is overlap. otherwise, compare the best of s to the
-    // worst of es. if better, there is overlap. otherwise, es is purely
-    // better.
-    unsigned evcount;
-    auto eopts = order_ivs(e, cpbound, statscmp_gmean, &evcount);
-    const stats &oe = eopts[evcount - 1];
-    const auto ge = oe.geommean;
-    const auto geworst = eopts[0].geommean;
-    if(gs != ge || geworst != gsworst){
-      if(gs > ge){
-        std::cout << (gs / ge) << " " << s.name << " " << gsworst << "–" << gs
-            << " " << e->name << " " << geworst << "–" << ge;
-        if(gsworst >= ge){
-          std::cout << " pure";
-        }else{
-          std::cout << " partial";
-        }
-        std::cout << std::endl;
-        worse = true;
-      }else{
-        if(gs > geworst){
-          std::cout << (gs / ge) << " " << s.name << " " << gsworst << "–" << gs
-              << " " << e->name << " " << geworst << "–" << ge;
-          std::cout << " partial" << std::endl;
-          worse = true;
-        }
+    unsigned worse = 0;
+    float ge = 0;
+    float geworst = FLT_MAX;
+    // generate the levels for the evol, as we did the base
+    stats evec[sizeof(svec) / sizeof(*svec)];
+    order_ivs_internal(e, cpbound, evec, false);
+    // now, compare each of the 4k configs (geometric mean)
+    for(unsigned i = 0 ; i < sizeof(svec) / sizeof(*svec) ; ++i){
+      if(evec[i].geommean < svec[i].geommean){
+        ++worse;
+      }
+      if(svec[i].geommean < gsworst){
+        gsworst = svec[i].geommean;
+      }
+      if(svec[i].geommean > gs){
+        gs = svec[i].geommean;
+      }
+      if(evec[i].geommean < geworst){
+        geworst = evec[i].geommean;
+      }
+      if(evec[i].geommean > ge){
+        ge = evec[i].geommean;
       }
     }
+    if(worse){
+      std::cout << s.name << " " << gsworst << "–" << gs
+          << " " << e->name << " " << geworst << "–" << ge;
+      if(worse == sizeof(svec) / sizeof(*svec)){
+        std::cout << " pure";
+      }else{
+        std::cout << " partial";
+      }
+      std::cout << std::endl;
+      ret = true;
+    }
   }
-  return worse;
+  return ret;
 }
 
 void usage(const char* argv0){
