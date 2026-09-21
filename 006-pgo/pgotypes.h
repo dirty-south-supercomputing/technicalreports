@@ -21,8 +21,7 @@
 
 #define TYPESTART TYPE_BUG
 
-// attack power for gmax and dmax level 1. levels 2 and 3 add 50 and 100,
-// respectively.
+// power for gmax and dmax level 1. levels 2 and 3 add 50 and 100, respectively.
 const unsigned GMAX_POWER_BASE = 350;
 const unsigned DMAX_POWER_BASE = 250;
 
