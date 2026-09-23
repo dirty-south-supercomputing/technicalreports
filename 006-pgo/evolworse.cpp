@@ -39,9 +39,13 @@ bool check_worse_evol(const species& s, int cpbound){
       std::cout << s.name << " " << gsworst << "–" << gs
           << " " << e->name << " " << geworst << "–" << ge;
       if(worse == sizeof(svec) / sizeof(*svec)){
-        std::cout << " pure";
+        if(gsworst > ge){
+          std::cout << " absolute";
+        }else{
+          std::cout << " pure";
+        }
       }else{
-        std::cout << " partial";
+        std::cout << " partial (" << worse << ")";
       }
       std::cout << std::endl;
       ret = true;
