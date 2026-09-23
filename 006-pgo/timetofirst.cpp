@@ -103,28 +103,6 @@ static void emit_name(const std::string &s){
   }
 }
 
-static void
-emit_html_attack(const species *s, const attack *a){
-  bool stab = has_stab_p(s, a);
-  bool excl = exclusive_attack_p(s, a);
-  if(!stab){
-    std::cout << "<i>";
-  }
-  if(excl){
-    std::cout << "<b>";
-  }
-  std::cout << a->name;
-  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
-    std::cout << " ";
-  }
-  if(excl){
-    std::cout << "</b>";
-  }
-  if(!stab){
-    std::cout << "</i>";
-  }
-}
-
 // don't elide matching mon type for html (as we do latex)
 static void emit_row(const timetofirst &t){
   std::cout << "<tr>";

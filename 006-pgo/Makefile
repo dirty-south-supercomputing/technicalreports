@@ -383,19 +383,19 @@ $(SIMUL3OUT): $(SIMUL)
 
 $(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -fno-var-tracking-assignments -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
+	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
 
 $(OUT)/%.o: %.cpp pgotypes.h Makefile
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 -fno-var-tracking-assignments $(<F)
+	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 $(<F)
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic

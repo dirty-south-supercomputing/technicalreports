@@ -132,76 +132,66 @@ static void usage(const char *argv0){
 }
 
 static void header(bool configcolumn){
-  std::cout << "\\begin{longtable}{c";
+  std::cout << "<table>" << std::endl;
+  std::cout << "<tr>";
+  std::cout << "<th>T</th>";
   if(configcolumn){
-    std::cout << "l";
+    std::cout << "<th>Config</th>";
   }
-  std::cout << "lrrrlrrrrrrr}" << std::endl;
-  std::cout << "\\textbf{T} & ";
-  if(configcolumn){
-    std::cout << "\\textbf{Config} & ";
-  }
-  std::cout << "\\textbf{Pokémon} & \\textbf{HP} & \\textbf{$\\textrm{Eff}\\textsubscript{D}$} & \\textbf{DR} & \\textbf{Attack pair} & \\textbf{T} & ";
-  std::cout << "\\textbf{Power} & \\textbf{$\\textrm{Eff}\\textsubscript{A}$} & \\textbf{DI} & ";
-  std::cout << "\\textbf{\\textit{e}} & ";
-  std::cout << "\\textbf{Dank} & \\textbf{\\\%c} \\\\" << std::endl;
-  std::cout << "\\endhead" << std::endl;
-}
-
-static void emit_name(const std::string &s){
-  for(char c : s){
-    if(c == '%'){
-      std::cout << "\\%";
-    }else{
-      std::cout << c;
-    }
-  }
+  std::cout << "<th>Pokémon</th><th>HP</th><th>Eff<sub>D</sub></th><th>DR</th>";
+  std::cout << "<th>Attack pair</th><th>T</th>";
+  std::cout << "<th>Power</th><th>Eff<sub>A</sub></th><th>DI</th>";
+  std::cout << "<th><i>e</i></th><th>Dank</th><th>%c</th>";
+  std::cout << "</tr>" << std::endl;
 }
 
 static void out_type(pgo_types_e t){
   if(t != TYPECOUNT){
-    std::cout << "\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" << tnames[t] << ".png}}";
+    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/>";
   }
 }
 
 static void emit_line(const timetofirst &t, bool configcolumn){
+  std::cout << "<tr><td>";
   out_type(t.s->t1);
   out_type(t.s->t2);
+  std::cout << "</td>";
   if(configcolumn){
     unsigned hl;
     unsigned l = halflevel_to_level(t.hlevel, &hl);
-    std::cout << " & \\ivlev{" << t.ia << "}{" << t.id << "}{" << t.is << "}{" << l;
+    std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << " @ " << l;
     if(hl){
       std::cout << ".5";
     }
-    std::cout << "}";
+    std::cout << "</td>";
   }
-  std::cout << "&";
-  emit_name(t.s->name);
-  std::cout << " & ";
-  std::cout << t.mhp << " & ";
-  std::cout << t.effd << " & ";
-  std::cout << t.bulk << " & ";
+  std::cout << "<td>" << t.s->name << "</td>";
+  std::cout << "<td>" << t.mhp << "</td>";
+  std::cout << "<td>" << t.effd << "</td>";
+  std::cout << "<td>" << t.bulk << "</td>";
+  std::cout << "<td>";
   out_type(t.fa->type);
-  emit_attack(t.s, t.fa);
-  std::cout << " ";
+  emit_html_attack(t.s, t.fa);
+  std::cout << " + ";
   out_type(t.ca->type);
-  emit_attack(t.s, t.ca);
-  std::cout << " & ";
-  std::cout << t.turns << " & ";
-  std::cout << t.dam << " & ";
-  std::cout << t.effa << " & ";
-  std::cout << t.damimg << " & ";
+  emit_html_attack(t.s, t.ca);
+  std::cout << "</td>";
+  std::cout << "<td>" << t.turns << "</td>";
+  std::cout << "<td>" << t.dam << "</td>";
+  std::cout << "<td>" << t.effa << "</td>";
+  std::cout << "<td>" << t.damimg << "</td>";
+  std::cout << "<td>";
   if(t.excesse){
     std::cout << t.excesse;
   }
-  std::cout << " & " << t.pppt << " & "
-    << t.powercharged * 100 / t.dam
-    << "\\\\" << std::endl;
+  std::cout << "</td>";
+  std::cout << "<td>" << t.pppt << "</td>";
+  std::cout << "<td>" << t.powercharged * 100 / t.dam << "</td>";
+  std::cout << "</tr>" << std::endl;
 }
 
 static void footer(void){
-  std::cout << "\\end{longtable}" << std::endl;
+  std::cout << "</table>" << std::endl;
 }
 
 int main(int argc, char **argv){
@@ -210,13 +200,13 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }else if(argc < 2){
     bound = 0;
-    std::cout << "\\textbf{No CP bound.}" << std::endl;
+    std::cout << "<div><b>No CP bound is in effect.</b></div>" << std::endl;
   }else{
     bound = atoi(argv[1]);
     if(bound <= 0){
       usage(argv[0]);
     }
-    std::cout << "\\textbf{CP bound is " << bound << ".}" << std::endl;
+    std::cout << "<div><b>CP bound is " << bound << ".</b></div>" << std::endl;
   }
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
@@ -231,6 +221,5 @@ int main(int argc, char **argv){
     emit_line(t, !!bound);
   }
   footer();
-  std::cout << "\\clearpage" << std::endl;
   return EXIT_SUCCESS;
 }
