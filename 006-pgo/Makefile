@@ -274,7 +274,7 @@ cp1500atk.pdf: cp1500.tex $(CP1500K)
 # the lower bound you truly want. this all sucks.
 $(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
-	$(<) a 1500 129.03 > $@
+	$(<) a 1500 129.07 > $@
 
 $(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
