@@ -475,6 +475,9 @@ static const attack ATK_Disarming_Voice = { "Disarming Voice", TYPE_FAIRY, 70, -
 	70, 33, 8, false, };
 static const attack ATK_Discharge = { "Discharge", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 5, false, };
+// FIXME get real stats
+static const attack ATK_Discharge_Plus = { "Discharge+", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	65, 33, 5, false, };
 static const attack ATK_Dive = { "Dive", TYPE_WATER, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 7, false, };
 static const attack ATK_Doom_Desire = { "Doom Desire", TYPE_STEEL, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -4777,8 +4780,12 @@ static const species sdex[] = {
   {  945, "Grafaiai", TYPE_POISON, TYPE_NORMAL, 199, 149, 160, "Shroodle",
 		{ &ATK_Poison_Jab, &ATK_Mud_Slap, &ATK_Scratch, &ATK_Poison_Fang, &ATK_Sludge_Bomb, &ATK_Acid_Spray, &ATK_Foul_Play, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
-  // 946 bramblin
-  // 947 brambleghast
+  {  946, "Bramblin", TYPE_GRASS, TYPE_GHOST, 121, 64, 120, nullptr,
+		{ &ATK_Astonish, &ATK_Bullet_Seed, &ATK_Night_Shade, &ATK_Shadow_Sneak, &ATK_Power_Whip, },
+		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
+  {  947, "Brambleghast", TYPE_GRASS, TYPE_GHOST, 228, 144, 146, "Bramblin",
+		{ &ATK_Hex, &ATK_Bullet_Seed, &ATK_Night_Shade, &ATK_Shadow_Sneak, &ATK_Power_Whip, },
+		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   // the Woodear
   {  948, "Toedscool", TYPE_GRASS, TYPE_GROUND, 97, 149, 120, nullptr,
 		{ &ATK_Mud_Slap, &ATK_Mud_Shot, &ATK_Earth_Power, &ATK_Seed_Bomb, &ATK_Wrap, },
@@ -5031,7 +5038,7 @@ static const mega megasdex[] = {
   {  303, "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, 200, nullptr, },
   {  306, "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, 200, nullptr, },
   {  308, "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, 100, nullptr, },
-  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, 100, nullptr, },
+  {  310, "Mega Manectric", TYPE_ELECTRIC, TYPECOUNT, 286, 179, 172, 100, &ATK_Discharge_Plus, },
   {  319, "Mega Sharpedo", TYPE_WATER, TYPE_DARK, 289, 144, 172, 200, nullptr, },
   {  323, "Mega Camerupt", TYPE_FIRE, TYPE_GROUND, 253, 183, 172, 200, nullptr, },
   {  334, "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, 300, nullptr, },
