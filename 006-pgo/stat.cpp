@@ -147,7 +147,7 @@ static void header(bool configcolumn){
 
 static void out_type(pgo_types_e t){
   if(t != TYPECOUNT){
-    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/>";
+    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/> ";
   }
 }
 

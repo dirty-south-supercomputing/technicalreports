@@ -429,7 +429,7 @@ testsimullong: $(SIMUL)
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf
-	@rm -vrf $(BIGLISTS)
+	@rm -vrf $(BIGLISTS) $(WEBPAGES)
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
