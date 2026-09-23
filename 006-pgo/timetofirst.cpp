@@ -73,6 +73,13 @@ static void usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
+static void html_header(void){
+  std::cout << "<table>" << std::endl;
+  std::cout << "<tr>";
+  std::cout << "<th>Pokémon</th><th>Attack pair</th><th>Buff</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
+  std::cout << "</tr>" << std::endl;
+}
+
 // don't want a turns column if extrema
 static void header(bool extrema){
   if(extrema){
@@ -94,6 +101,52 @@ static void emit_name(const std::string &s){
       std::cout << c;
     }
   }
+}
+
+static void
+emit_html_attack(const species *s, const attack *a){
+  bool stab = has_stab_p(s, a);
+  bool excl = exclusive_attack_p(s, a);
+  if(!stab){
+    std::cout << "<i>";
+  }
+  if(excl){
+    std::cout << "<b>";
+  }
+  std::cout << a->name;
+  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
+    std::cout << " ";
+  }
+  if(excl){
+    std::cout << "</b>";
+  }
+  if(!stab){
+    std::cout << "</i>";
+  }
+}
+
+// don't elide matching mon type for html (as we do latex)
+static void emit_row(const timetofirst &t){
+  std::cout << "<tr>";
+  std::cout << "<td>" << t.s->name << "</td>";
+  std::cout << "<td>";
+  emit_html_attack(t.s, t.fa);
+  std::cout << " + ";
+  emit_html_attack(t.s, t.ca);
+  std::cout << "</td>";
+  std::cout << "<td>";
+  summarize_buffs_html(t.ca);
+  std::cout << "</td>";
+  std::cout << "<td>" << t.turns << "</td>";
+  std::cout << "<td>" << t.dam << "</td>";
+  std::cout << "<td>";
+  if(t.excesse){
+    std::cout << t.excesse;
+  }
+  std::cout << "</td>";
+  std::cout << "<td>" << t.dpt << "</td>";
+  std::cout << "<td>" << (t.powercharged * 100 / t.dam) << "</td>";
+  std::cout << "</tr>" << std::endl;
 }
 
 static void emit_line(const timetofirst &t, const std::string &prevname){
@@ -122,7 +175,7 @@ static void footer(bool extrema, bool powertbl, unsigned fastest){
   }else if(extrema){
     std::cout << "\\caption{Fastest (" << fastest << " turn) attack cycles\\label{table:fastcycles}}\\end{longtable}\\endgroup" << std::endl;
   }else{
-    std::cout << "\\caption{Power and time of attack cycles\\label{table:cycles}}\\end{longtable}\\endgroup" << std::endl;
+    std::cout << "</table>" << std::endl;
   }
 }
 
@@ -135,7 +188,7 @@ static bool damagecmp(timetofirst &l, timetofirst &r){
 
 // if given the argument "extrema", generate table of only the fastest cycles.
 // if given the argument "damage", generate table of only the most powerful cycles.
-// otherwise a table of all cycles.
+// otherwise a table of all cycles...in HTML, ugh.
 int main(int argc, char **argv){
   bool extrema = false;
   bool powertbl = false;
@@ -155,7 +208,11 @@ int main(int argc, char **argv){
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
   struct spokedex smain = { sdex, SPECIESCOUNT, };
-  header(extrema);
+  if(!extrema && !powertbl){
+    html_header();
+  }else{
+    header(extrema);
+  }
   calctimetoall(smain, ttfs);
   if(powertbl){
     std::sort(ttfs.begin(), ttfs.end(), damagecmp);
@@ -180,7 +237,11 @@ int main(int argc, char **argv){
         break;
       }
     }
-    emit_line(t, prevname);
+    if(!powertbl && !extrema){
+      emit_row(t);
+    }else{
+      emit_line(t, prevname);
+    }
     prevname = t.s->name;
   }
   footer(extrema, powertbl, fastest);

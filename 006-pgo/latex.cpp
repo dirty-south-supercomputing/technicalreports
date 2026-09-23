@@ -434,3 +434,73 @@ void emit_typing_list(pgo_types_e i, pgo_types_e j){
   }
   // FIXME list mega mons?
 }
+
+void emit_attack(const species *s, const attack *a){
+  bool stab = has_stab_p(s, a);
+  bool excl = exclusive_attack_p(s, a);
+  if(!stab){
+    std::cout << "\\textit{";
+  }
+  if(excl){
+    std::cout << "\\textbf{";
+  }
+  std::cout << a->name;
+  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
+    std::cout << " ";
+  }
+  summarize_buffs(a);
+  if(!stab){
+    std::cout << "}";
+  }
+  if(excl){
+    std::cout << "}";
+  }
+}
+
+static void
+print_buff(unsigned chance, int buff, const char *sig){
+  if(!chance){
+    return;
+  }
+  if(chance != 1000){ // don't print chance if it's 100%
+    printf("%g\\%%", chance / 10.0);
+  }
+  printf("%s", sig);
+  if(buff > 0){
+    printf("↑");
+    if(buff > 1){
+      printf("%d", buff);
+    }
+  }else{
+    printf("↓");
+    if(buff < -1){
+      printf("%d", -buff);
+    }
+  }
+}
+
+void summarize_buffs(const attack *a){
+  // need special case A+D as it takes too much space otherwise
+  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
+      && a->user_attack == a->user_defense){
+    print_buff(a->chance_user_attack, a->user_attack, "A+D");
+  }else{
+    if(a->chance_user_attack){
+      print_buff(a->chance_user_attack, a->user_attack, "A");
+    }
+    if(a->chance_user_defense){
+      print_buff(a->chance_user_defense, a->user_defense, "D");
+    }
+  }
+  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
+      && a->opp_attack == a->opp_defense){
+    print_buff(a->chance_opp_attack, a->opp_attack, "OA+D");
+  }else{
+    if(a->chance_opp_attack){
+      print_buff(a->chance_opp_attack, a->opp_attack, "OA");
+    }
+    if(a->chance_opp_defense){
+      print_buff(a->chance_opp_defense, a->opp_defense, "OD");
+    }
+  }
+}

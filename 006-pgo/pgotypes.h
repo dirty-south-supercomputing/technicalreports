@@ -3,6 +3,7 @@
 
 #include <map>
 #include <cmath>
+#include <print>
 #include <vector>
 #include <string>
 #include <cstdio>
@@ -5665,7 +5666,7 @@ label_string(const char *s){
   return 0;
 }
 
-static bool
+static inline bool
 exclusive_attack_p(const species *s, const attack *a){
   for(const auto &atk : s->elite){
     if(strcmp(a->name, atk->name) == 0){
@@ -5841,55 +5842,6 @@ print_previous_species(const species *s){
   return ret;
 }
 
-static void
-print_buff(unsigned chance, int buff, const char *sig){
-  if(!chance){
-    return;
-  }
-  if(chance != 1000){ // don't print chance if it's 100%
-    printf("%g\\%%", chance / 10.0);
-  }
-  printf("%s", sig);
-  if(buff > 0){
-    printf("↑");
-    if(buff > 1){
-      printf("%d", buff);
-    }
-  }else{
-    printf("↓");
-    if(buff < -1){
-      printf("%d", -buff);
-    }
-  }
-}
-
-static void
-summarize_buffs(const attack *a){
-  // need special case A+D as it takes too much space otherwise
-  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
-      && a->user_attack == a->user_defense){
-    print_buff(a->chance_user_attack, a->user_attack, "A+D");
-  }else{
-    if(a->chance_user_attack){
-      print_buff(a->chance_user_attack, a->user_attack, "A");
-    }
-    if(a->chance_user_defense){
-      print_buff(a->chance_user_defense, a->user_defense, "D");
-    }
-  }
-  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
-      && a->opp_attack == a->opp_defense){
-    print_buff(a->chance_opp_attack, a->opp_attack, "OA+D");
-  }else{
-    if(a->chance_opp_attack){
-      print_buff(a->chance_opp_attack, a->opp_attack, "OA");
-    }
-    if(a->chance_opp_defense){
-      print_buff(a->chance_opp_defense, a->opp_defense, "OD");
-    }
-  }
-}
-
 static inline unsigned
 get_stage(const species *s){
   const species *devol = get_previous_evolution(s);
@@ -5976,29 +5928,6 @@ stardust_reward(const species *s){
     return 300;
   }
   return 100;
-}
-
-static inline void
-emit_attack(const species *s, const attack *a){
-  bool stab = has_stab_p(s, a);
-  bool excl = exclusive_attack_p(s, a);
-  if(!stab){
-    std::cout << "\\textit{";
-  }
-  if(excl){
-    std::cout << "\\textbf{";
-  }
-  std::cout << a->name;
-  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
-    std::cout << " ";
-  }
-  summarize_buffs(a);
-  if(!stab){
-    std::cout << "}";
-  }
-  if(excl){
-    std::cout << "}";
-  }
 }
 
 // get the number of persistent evolutions above this species. e.g. for ralts
@@ -6330,6 +6259,56 @@ escape_string(const char *s){
   return 0;
 }
 
+static inline void
+print_buff_html(unsigned chance, int buff, const char *sig){
+  if(!chance){
+    return;
+  }
+  if(chance != 1000){ // don't print chance if it's 100%
+    std::print("{:g}% ", chance / 10.0);
+  }
+  std::cout << sig;
+  if(buff > 0){
+    std::cout << "↑";
+    if(buff > 1){
+      std::cout << buff;
+    }
+  }else{
+    std::cout << "↓";
+    if(buff < -1){
+      std::cout << -buff;
+    }
+  }
+}
+
+// FIXME ugh duplicates summarize_buffs() from latex code
+static inline void
+summarize_buffs_html(const attack *a){
+  // need special case A+D as it takes too much space otherwise
+  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
+      && a->user_attack == a->user_defense){
+    print_buff_html(a->chance_user_attack, a->user_attack, "A+D");
+  }else{
+    if(a->chance_user_attack){
+      print_buff_html(a->chance_user_attack, a->user_attack, "A");
+    }
+    if(a->chance_user_defense){
+      print_buff_html(a->chance_user_defense, a->user_defense, "D");
+    }
+  }
+  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
+      && a->opp_attack == a->opp_defense){
+    print_buff_html(a->chance_opp_attack, a->opp_attack, "OA+D");
+  }else{
+    if(a->chance_opp_attack){
+      print_buff_html(a->chance_opp_attack, a->opp_attack, "OA");
+    }
+    if(a->chance_opp_defense){
+      print_buff_html(a->chance_opp_defense, a->opp_defense, "OD");
+    }
+  }
+}
+
 struct candidate {
   const species* s;   // species
   std::string aname;  // attack name
@@ -6373,6 +6352,8 @@ uint64_t pgo_xp_for_level(int l);
 const char* max_attack_name(pgo_types_e t);
 std::vector<const attack*>::const_iterator attacks_begin(void);
 std::vector<const attack*>::const_iterator attacks_end(void);
+void emit_attack(const species *s, const attack *a);
+void summarize_buffs(const attack *a);
 
 const char* tname_capitalized(pgo_types_e t);
 

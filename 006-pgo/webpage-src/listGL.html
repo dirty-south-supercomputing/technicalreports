@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokémon GO attack stats for the Great League</title>
+</head>
+
+A cycle is the minimum number of fast attacks sufficient to launch the charged
+attack, plus the charged attack itself. The configuration is that which
+maximizes the geometric mean of attack, defense, and MHP, where attack and
+defense are STA and DEF, augmented by IV<sub>A</sub> and IV<sub>D</sub>
+respectively, and scaled by CPM. Eff<sub>D</sub> is defense as defined above,
+scaled by half of any buff the charged attack has on the user’s defense. DR is
+the geometric mean of Eff<sub>D</sub> and MHP. Eff<sub>A</sub> is attack as
+defined above, scaled by half of any buff the charged attack has on the user’s
+attack. DI is the geometric mean of Eff<sub>A</sub> and attack power over a
+cycle. <i>e</i> is the energy left after the first cycle, and is not further
+incorporated (but probably should be). %c is the percentage of the first
+cycle’s power delivered by the charged attack, and is not further incorporated.
+<b>Dank</b> is the product of the squares of DI and DR divided by the square of
+turns in the first cycle, divided by 10,000; it values speed more than most such
+stats. STAB is factored into calculations, when applicable.
+
+<b>CP bound is 1500.</b>
+
+<body>
+listGL.html
+</body>
+</html>

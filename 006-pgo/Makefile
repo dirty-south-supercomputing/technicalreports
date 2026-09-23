@@ -16,12 +16,15 @@ DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
+WEB:=webpage
+WEBSRC:=$(WEB)-src
 
 # we sometimes parameterize based on type
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
 
-BIGLISTS:=$(addsuffix .pdf, listGL listUL listML listTTF cp1500atk)
+WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF))
+BIGLISTS:=$(addsuffix .pdf, cp1500atk)
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -99,7 +102,7 @@ WEAK1TEX:=$(OUT)/weak1.tex
 WEAK2TEX:=$(OUT)/weak2.tex
 DUALCHARGEDTEX:=$(DUALCHARGED).tex
 TIMETOFIRSTTEX:=$(TIMETOFIRST).tex
-TIMETOFIRSTFULLTEX:=$(OUT)/timetofirstfull.tex
+TIMETOFIRSTFULLHTML:=$(OUT)/listTTF.html
 DAMAGECYCLETEX:=$(OUT)/damagecycle.tex
 DOUBLEDOUBLESTEX:=$(OUT)/doubledoubles.tex
 TRIPLERESISTTEX:=$(OUT)/tripleresist.tex
@@ -155,7 +158,7 @@ DYNATYPES:=$(addsuffix .pdf, $(addprefix $(OUT)/dynas-, $(TYPES)))
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
 	$(NOSHINY) $(NOSHADOW) testdb testsimul $(COVERSETS) $(DYNATYPES) \
-	test
+	$(WEBPAGES) test
 
 $(OUT)/dynas-%.pdf: dynatype.tex $(OUT)/dynas-%.tex
 	$(TEXCC) --shell-escape --output-directory=$(OUT) --jobname=$(basename $(@F)) $< $*
@@ -202,13 +205,24 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPY
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-list%.pdf: list%.tex $(OUT)/stat%.tex
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
+	sed -e '/$(@F)/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
-listTTF.pdf: listTTF.tex $(TIMETOFIRSTFULLTEX)
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
+$(OUT)/listGL.html: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) 1500 > $@
+
+$(OUT)/listUL.html: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) 2500 > $@
+
+$(OUT)/listML.html: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) > $@
+
+$(TIMETOFIRSTFULLHTML): $(basename $(TIMETOFIRSTTEX))
+	@mkdir -p $(@D)
+	$(<) > $@
 
 $(DPEVSE).pdf: dpevse.R $(DPEVSEDAT)
 	@mkdir -p $(@D)
@@ -230,14 +244,6 @@ $(OUT)/circo/%.png: circo/% $(TYPEIMGS)
 	@mkdir -p $(@D)
 	circo -Tpng $< > $@
 
-$(OUT)/statGL.tex: $(OUT)/stat
-	@mkdir -p $(@D)
-	$(<) 1500 > $@
-
-$(OUT)/statUL.tex: $(OUT)/stat
-	@mkdir -p $(@D)
-	$(<) 2500 > $@
-
 $(LEVELUPGRADESTEX): $(OUT)/xp
 	@mkdir -p $(@D)
 	$(<) upgrades > $@
@@ -249,10 +255,6 @@ $(LEVELS40TEX): $(OUT)/xp
 $(LEVELS80TEX): $(OUT)/xp
 	@mkdir -p $(@D)
 	$(<) 41 80 > $@
-
-$(OUT)/statML.tex: $(OUT)/stat
-	@mkdir -p $(@D)
-	$(<) > $@
 
 $(OUT)/statTTF.tex: $(OUT)/stat
 	@mkdir -p $(@D)
@@ -358,10 +360,6 @@ $(BREAKPOINTSDAT): $(basename $(BREAKPOINTSDAT))
 $(DAMAGECYCLETEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)
 	$(<) extrema damage > $@
-
-$(TIMETOFIRSTFULLTEX): $(basename $(TIMETOFIRSTTEX))
-	@mkdir -p $(@D)
-	$(<) > $@
 
 $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
 	@mkdir -p $(@D)
