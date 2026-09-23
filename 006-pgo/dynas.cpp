@@ -60,6 +60,7 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
 
 // top *count* attackers for each attack type, unified.
 // 0 gets all possible max attackers.
+// this one is for the book, and thus emits latex.
 int emit_dynamax_unified_table(int count){
   std::cout << "\\begin{table}\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{cllrr}";
@@ -92,13 +93,51 @@ int emit_dynamax_unified_table(int count){
   return 0;
 }
 
+static void out_type(pgo_types_e t){
+  if(t != TYPECOUNT){
+    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/>";
+  }
+}
+
+static void
+emit_cand_html(const candidate& c, unsigned maxp){
+  auto rp = c.powprod();
+  //unsigned hhalf;
+  std::cout << "<tr>";
+  std::cout << "<td>";
+  out_type(c.s->t1);
+  std::cout << ' ';
+  out_type(c.s->t2);
+  std::cout << "</td>";
+  std::cout << "<td>" << c.s->name << "</td>";
+  std::cout << "<td>";
+  out_type(c.atype);
+  std::cout << ' ';
+  // we do not attempt to indicate that a max attack is based on a legacy attack,
+  // since it is possible that more than one fast attack enable the same max
+  // attack, and they could have different legacy status (this happens with e.g.
+  // dynamax machamp, which could have max knuckle from karate chop or counter).
+  if(!c.hasstab){
+    std::cout << "<i>";
+  }
+  std::cout << c.aname;
+  if(!c.hasstab){
+    std::cout << "</i>";
+  }
+  std::cout << "</td>";
+  std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>";
+  std::cout << std::setprecision(0) << std::fixed << "<td>" << rp << "</td>";
+  std::cout << "</tr>" << std::endl;
+}
+
 // top *count* attackers throwing max attack type *t*.
 // 0 for complete list.
+// this one emits html.
 int emit_dynamax_typed_table(pgo_types_e t, int count){
-  std::cout << "\\begin{table}[hb]\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{cllrr}";
-  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
-  std::cout << "\\Midrule" << std::endl;
+  std::cout << "<table>" << std::endl;
+  std::cout << "<tr>";
+  std::cout << "<th>Type</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
+  std::cout << "</tr>" << std::endl;
   std::vector<candidate> cands;
   if(build_type_vec(t, cands) <= 0){
     return -1;
@@ -106,17 +145,12 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   auto maxp = cands.begin()->powprod();
   int emits = 0;
   for(const auto &c : cands){
-    emit_cand(c, maxp);
+    emit_cand_html(c, maxp);
     if(++emits == count){
       break;
     }
   }
-  std::cout << "\\end{tabular}\\caption*{Top ";
-  if(count){
-    std::cout << emits << " ";
-  }
-  std::cout << tname_capitalized(t) << " Max attackers"
-            << "\\label{table:maxranked" << tnames[t] << "}}\\end{table}";
+  std::cout << "</table>" << std::endl;
   return 0;
 }
 

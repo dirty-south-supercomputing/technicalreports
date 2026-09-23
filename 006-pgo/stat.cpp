@@ -159,7 +159,7 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   if(configcolumn){
     unsigned hl;
     unsigned l = halflevel_to_level(t.hlevel, &hl);
-    std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << " @ " << l;
+    std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << "x" << l;
     if(hl){
       std::cout << ".5";
     }

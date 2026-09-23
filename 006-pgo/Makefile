@@ -23,7 +23,8 @@ WEBSRC:=$(WEB)-src
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
 
-WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF))
+WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF $(addprefix dynas-, $(TYPES))))
+
 BIGLISTS:=$(addsuffix .pdf, cp1500atk)
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -153,17 +154,12 @@ TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-DYNATYPES:=$(addsuffix .pdf, $(addprefix $(OUT)/dynas-, $(TYPES)))
-
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
 	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
 	$(NOSHINY) $(NOSHADOW) testdb testsimul $(COVERSETS) $(DYNATYPES) \
 	$(WEBPAGES) test
 
-$(OUT)/dynas-%.pdf: dynatype.tex $(OUT)/dynas-%.tex
-	$(TEXCC) --shell-escape --output-directory=$(OUT) --jobname=$(basename $(@F)) $< $*
-
-$(OUT)/dynas-%.tex: $(DYNAS)
+$(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
 	$< $* > $@
 
@@ -206,7 +202,7 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
-	sed -e '/$(@F)/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
 $(OUT)/listGL.html: $(OUT)/stat
 	@mkdir -p $(@D)
