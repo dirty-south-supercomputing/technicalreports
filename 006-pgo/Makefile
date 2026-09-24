@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview testsimul clean test testdb testsimullong
+.PHONY: all preview testsimul clean test testdb testsimullong web
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -155,8 +155,10 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
-	$(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW)
+	$(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
+
+web: $(WEBPAGES)
 
 $(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
