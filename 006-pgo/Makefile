@@ -23,7 +23,7 @@ WEBSRC:=$(WEB)-src
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
 
-WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF $(addprefix dynas-, $(TYPES))))
+WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF evolworseGL evolworseUL $(addprefix dynas-, $(TYPES))))
 
 BIGLISTS:=$(addsuffix .pdf, cp1500atk)
 
@@ -155,9 +155,8 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
-	$(EVOLWORSE) $(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) \
-	$(NOSHINY) $(NOSHADOW) testdb testsimul $(COVERSETS) $(DYNATYPES) \
-	$(WEBPAGES) test
+	$(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW)
+	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 $(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
@@ -203,6 +202,14 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
 	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+
+$(OUT)/evolworseGL.html: $(OUT)/evolworse
+	@mkdir -p $(@D)
+	$(<) 1500 > $@
+
+$(OUT)/evolworseUL.html: $(OUT)/evolworse
+	@mkdir -p $(@D)
+	$(<) 2500 > $@
 
 $(OUT)/listGL.html: $(OUT)/stat
 	@mkdir -p $(@D)

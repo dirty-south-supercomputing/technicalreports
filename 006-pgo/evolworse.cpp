@@ -36,18 +36,21 @@ bool check_worse_evol(const species& s, int cpbound){
       }
     }
     if(worse){
-      std::cout << s.name << " " << gsworst << "–" << gs
-          << " " << e->name << " " << geworst << "–" << ge;
+      std::cout << "<tr>";
+      std::cout << "<td>" << s.name << "</td>";
+      std::cout << "<td>" << gsworst << "–" << gs << "</td>";
+      std::cout << "<td>" << e->name << "</td>";
+      std::cout << "<td>" << geworst << "–" << ge << "</td>";
       if(worse == sizeof(svec) / sizeof(*svec)){
         if(gsworst > ge){
-          std::cout << " absolute";
+          std::cout << "<td>absolute</td>";
         }else{
-          std::cout << " pure";
+          std::cout << "<td>pure</td>";
         }
       }else{
-        std::cout << " partial (" << worse << ")";
+        std::cout << "<td>partial (" << worse << ")</td>";
       }
-      std::cout << std::endl;
+      std::cout << "</tr>" << std::endl;
       ret = true;
     }
   }
@@ -70,8 +73,11 @@ int main(int argc, char * const argv[]){
   }
   std::cout << std::fixed;
   std::cout.precision(3);
+  std::cout << "<table>" << std::endl;
+  std::cout << "<tr><th>Pokémon</th><th>Gmean range</th><th>Evolution</th><th>Gmean range</th><th>Relationship</th></tr>" << std::endl;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     check_worse_evol(sdex[i], cpb);
   }
+  std::cout << "</table>" << std::endl;
   return EXIT_SUCCESS;
 }
