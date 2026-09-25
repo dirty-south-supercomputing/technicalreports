@@ -2,6 +2,8 @@
 
 static void
 functional_hundos(int cplimit){
+  std::cout << "<table>" << std::endl;
+  std::cout << "<tr><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto& s = sdex[u];
     // find the maximum level subject to cplimit for 15-15-15
@@ -9,15 +11,26 @@ functional_hundos(int cplimit){
     auto st = find_optimal_set(&s, cplimit, 0, false, calc_pok_gmean);
     float gmean = st->geommean;
     auto tmp = st->next;
+    bool printed = false;
     while(tmp){
-      std::cout << s.name << " " << tmp->ia << "-" << tmp->id << "-" << tmp->is << std::endl;
+      if(!printed){
+        std::cout << "<tr><td>" << s.name << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << "</td><td>";
+        printed = true;
+      }else{
+        std::cout << ", ";
+      }
+      std::cout << tmp->ia << "-" << tmp->id << "-" << tmp->is;
       if(tmp->geommean != gmean){
         break;
       }
       tmp = tmp->next;
     }
+    if(printed){
+      std::cout << "</td></tr>" << std::endl;
+    }
     delete[] st;
   }
+  std::cout << "</table>" << std::endl;
 }
 
 // generate list of functional hundos for the (optional) cp limit
