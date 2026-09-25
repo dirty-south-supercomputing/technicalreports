@@ -3,35 +3,20 @@
 static void
 functional_hundos(int cplimit){
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto s = sdex[u];
-    std::vector<const species*> evols;
-    if(get_persistent_evolutions(&s, evols)){ // skip non-terminal evolutions
-      continue;
-    }
+    const auto& s = sdex[u];
     // find the maximum level subject to cplimit for 15-15-15
-    unsigned atk = s.atk + 15;
-    unsigned def = s.def + 15;
-    unsigned sta = s.sta + 15;
-    int cp;
-    unsigned maxlevel = maxlevel_cp_bounded(atk, def, sta, cplimit, &cp);
-    // get the maximum hp
-    unsigned mhp = calc_mhp(sta, maxlevel);
-    unsigned fmhp;
-    do{
-      --sta;
-      // dropping the sta might theoretically give us a higher max level
-      unsigned fmaxlevel = maxlevel_cp_bounded(atk, def, sta, cplimit, &cp);
-      fmhp = calc_mhp(sta, fmaxlevel);
-      if(fmhp >= mhp){
-        std::cout << s.name << " 15-15-" << (sta - s.sta) << std::endl;
-if(fmaxlevel != maxlevel){
-  std::cerr << s.name << "FHP " << fmhp << " MHP " << mhp << " FMAXLEVEL " << fmaxlevel << " MAXLEVEL " << maxlevel << " " << (sta - s.sta) << std::endl;
-  if(fmhp >= mhp){
-    std::cerr << s.name << " SUPERFUNCTIONAL! " << (sta - s.sta) << std::endl;
-  }
-}
+    // find the optimal configs subject to cplimit
+    auto st = find_optimal_set(&s, cplimit, 0, false, calc_pok_gmean);
+    float gmean = st->geommean;
+    auto tmp = st->next;
+    while(tmp){
+      std::cout << s.name << " " << tmp->ia << "-" << tmp->id << "-" << tmp->is << std::endl;
+      if(tmp->geommean != gmean){
+        break;
       }
-    }while(sta != s.sta);
+      tmp = tmp->next;
+    }
+    delete[] st;
   }
 }
 

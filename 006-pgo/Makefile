@@ -25,8 +25,6 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF evolworseGL evolworseUL $(addprefix dynas-, $(TYPES))))
 
-BIGLISTS:=$(addsuffix .pdf, cp1500atk)
-
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
@@ -155,7 +153,7 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
-	$(MOSTPOWER) $(PDF) $(SIMUL) $(BIGLISTS) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW) \
+	$(MOSTPOWER) $(PDF) $(SIMUL) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 web: $(WEBPAGES)
@@ -272,10 +270,6 @@ $(OUT)/dualtypes.tex: $(OUT)/dualtypes
 $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
-
-cp1500atk.pdf: cp1500.tex $(CP1500K)
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
-	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\input{$(<F)}' $(TEXOPTS)
 
 # provide the lower (exclusive) bounds as necessary to properly paginate.
 # note: the bounds are exclusive, but floating-point is in play, so treat
@@ -434,7 +428,7 @@ testsimullong: $(SIMUL)
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf
-	@rm -vrf $(BIGLISTS) $(WEBPAGES)
+	@rm -vrf $(WEBPAGES)
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
