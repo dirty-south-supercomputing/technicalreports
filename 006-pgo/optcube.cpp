@@ -25,7 +25,7 @@ int main(int argc, char **argv){
       float effa = calc_eff_a(s->atk + iva, hl, false);
       float effd = calc_eff_d(s->def + sum / 2, hl, false);
       float mhp = calc_mhp(s->sta + sum / 2, hl);
-      float gmean = calc_fit(effa, effd, mhp);
+      float gmean = calc_gmean(effa, effd, mhp);
       std::cout << iva << " " << sum << " " << gmean << std::endl;
     }
   }

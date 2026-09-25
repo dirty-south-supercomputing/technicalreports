@@ -23,7 +23,12 @@ WEBSRC:=$(WEB)-src
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
 
-WEBPAGES:=$(addprefix $(WEB)/, $(addsuffix .html, listGL listUL listML listTTF evolworseGL evolworseUL $(addprefix dynas-, $(TYPES))))
+WEBPAGES:=$(addprefix $(WEB)/, \
+					 $(addsuffix .html, \
+						$(addsuffix ML, list functional) \
+						$(addsuffix UL, list functional evolworse) \
+						$(addsuffix GL, list functional evolworse) \
+						$(addprefix dynas-, $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -210,6 +215,18 @@ $(OUT)/evolworseGL.html: $(OUT)/evolworse
 $(OUT)/evolworseUL.html: $(OUT)/evolworse
 	@mkdir -p $(@D)
 	$(<) 2500 > $@
+
+$(OUT)/functionalGL.html: $(OUT)/functional
+	@mkdir -p $(@D)
+	$(<) 1500 > $@
+
+$(OUT)/functionalUL.html: $(OUT)/functional
+	@mkdir -p $(@D)
+	$(<) 2500 > $@
+
+$(OUT)/functionalML.html: $(OUT)/functional
+	@mkdir -p $(@D)
+	$(<) > $@
 
 $(OUT)/listGL.html: $(OUT)/stat
 	@mkdir -p $(@D)
