@@ -5537,7 +5537,7 @@ lookup_mega(const char* name){
 static inline void
 html_type(pgo_types_e t){
   if(t != TYPECOUNT){
-    std::cout << "<img src=\"images/" << tnames[t] << ".png\" height=1em width=1em/>";
+    std::cout << "<img src=\"images/" << tnames[t] << ".png\" height=1em width=1em alt=\""<< tnames[t] << "\"/>";
   }
 }
 
