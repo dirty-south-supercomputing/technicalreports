@@ -119,7 +119,7 @@ static void
 calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs, int bound){
   for(unsigned si = 0 ; si < sd.dcount ; ++si){
     const auto &s = sd.dex[si];
-    if(s.name == "Aegislash"){
+    if(s.name.contains("Aegislash")){
       continue; // FIXME
     }
     calctimespecies(s, ttfs, bound);

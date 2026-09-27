@@ -76,7 +76,7 @@ static void usage(const char *argv0){
 static void html_header(void){
   std::cout << "<table>" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>Pokémon</th><th>Attack pair</th><th>Buff</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
+  std::cout << "<th>Pokémon</th><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
   std::cout << "</tr>" << std::endl;
 }
 
@@ -108,11 +108,13 @@ static void emit_row(const timetofirst &t){
   std::cout << "<tr>";
   std::cout << "<td>" << t.s->name << "</td>";
   std::cout << "<td>";
+  html_type(t.fa->type);
+  std::cout << ' ';
   emit_html_attack(t.s, t.fa);
   std::cout << " + ";
+  html_type(t.ca->type);
+  std::cout << ' ';
   emit_html_attack(t.s, t.ca);
-  std::cout << "</td>";
-  std::cout << "<td>";
   summarize_buffs_html(t.ca);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
