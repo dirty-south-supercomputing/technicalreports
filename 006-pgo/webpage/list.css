@@ -2,3 +2,8 @@ img {
   width: 1em;
   height: 1em;
 }
+
+.intro {
+  text-align: justify;
+  text-justify: inter-word;
+}

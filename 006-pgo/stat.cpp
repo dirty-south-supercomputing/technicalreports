@@ -145,16 +145,9 @@ static void header(bool configcolumn){
   std::cout << "</tr>" << std::endl;
 }
 
-static void out_type(pgo_types_e t){
-  if(t != TYPECOUNT){
-    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/> ";
-  }
-}
-
 static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << "<tr><td>";
-  out_type(t.s->t1);
-  out_type(t.s->t2);
+  html_types(t.s->t1, t.s->t2);
   std::cout << "</td>";
   if(configcolumn){
     unsigned hl;
@@ -170,10 +163,10 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << "<td>" << t.effd << "</td>";
   std::cout << "<td>" << t.bulk << "</td>";
   std::cout << "<td>";
-  out_type(t.fa->type);
+  html_type(t.fa->type);
   emit_html_attack(t.s, t.fa);
   std::cout << " + ";
-  out_type(t.ca->type);
+  html_type(t.ca->type);
   emit_html_attack(t.s, t.ca);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";

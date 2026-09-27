@@ -25,9 +25,10 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
-						$(addsuffix ML, list functional) \
-						$(addsuffix UL, list functional evolworse) \
-						$(addsuffix GL, list functional evolworse) \
+						noshadow noshiny \
+						$(addsuffix ML, list functional amean gmean) \
+						$(addsuffix UL, list functional evolworse amean gmean) \
+						$(addsuffix GL, list functional evolworse amean gmean) \
 						$(addprefix dynas-, $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -208,6 +209,38 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
 	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
+$(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) b 1500 129.25 > $@
+
+$(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
+	@mkdir -p $(@D)
+	$(<) b 2500 164.9 > $@
+
+$(OUT)/gmeanGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) g 1500 html > $@
+
+$(OUT)/gmeanUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) g 2500 html > $@
+
+$(OUT)/gmeanML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) g 0 html > $@
+
+$(OUT)/ameanGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) a 1500 html > $@
+
+$(OUT)/ameanUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) a 2500 html > $@
+
+$(OUT)/ameanML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) a 0 html > $@
+
 $(OUT)/evolworseGL.html: $(OUT)/evolworse
 	@mkdir -p $(@D)
 	$(<) 1500 > $@
@@ -237,6 +270,10 @@ $(OUT)/listUL.html: $(OUT)/stat
 	$(<) 2500 > $@
 
 $(OUT)/listML.html: $(OUT)/stat
+	@mkdir -p $(@D)
+	$(<) > $@
+
+$(OUT)/%.html: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
@@ -311,14 +348,6 @@ $(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
 $(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) g 2500 157.17 > $@
-
-$(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) b 1500 129.25 > $@
-
-$(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) b 2500 164.9 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)

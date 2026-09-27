@@ -62,14 +62,20 @@ get_apercent(const stats *s){
 }
 
 static stats *
-print_sol_set(stats *sols, float(*afxn)(const stats *s)){
+print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html){
   if(!sols){
     return NULL;
   }
   unsigned half;
   unsigned l = halflevel_to_level(sols->hlevel, &half);
-  print_types(sols->s->t1, sols->s->t2);
-  putc(' ', stdout);
+  if(html){
+    std::cout << "<tr><td>";
+    html_types(sols->s->t1, sols->s->t2);
+    std::cout << ' ';
+  }else{
+    print_types(sols->s->t1, sols->s->t2);
+    putc(' ', stdout);
+  }
   const char *name = sols->s->name.c_str();
   if(sols->shadow){
     if(strncmp(name, SHADPREFIX, strlen(SHADPREFIX))){
@@ -81,13 +87,34 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s)){
 #undef SHADPREFIX
   escape_string(name);
   if(sols->shadow){
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}}");
+    if(html){
+      std::cout << "<img src=\"images/shadow.png\" height=1em width=1em />";
+    }else{
+      printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}}");
+    }
   }
-  printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
-          sols->ia, sols->id, sols->is, l, half ? ".5" : "",
-          sols->mhp, sols->effa, sols->effd,
-          sols->average, sols->geommean,
-          sols->cp, afxn(sols));
+  if(html){
+    std::cout << "</td>";
+  }
+  if(html){
+    std::cout << "<td>" << sols->ia << '-' << sols->id << '-' << sols->is << 'x';
+    float hl = l + (half ? 0.5 : 0.0);
+    std::cout << hl << "</td>";
+    std::cout << "<td>" << sols->mhp << "</td>";
+    std::cout << "<td>" << sols->effa << "</td>";
+    std::cout << "<td>" << sols->effd << "</td>";
+    std::cout << "<td>" << sols->average << "</td>";
+    std::cout << "<td>" << sols->geommean << "</td>";
+    std::cout << "<td>" << sols->cp << "</td>";
+    std::cout << "<td>" << afxn(sols) << "</td>";
+    std::cout << "</tr>" << std::endl;
+  }else{
+    printf(" & \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & %.2f & %.2f & %u & %.1f\\\\\n",
+            sols->ia, sols->id, sols->is, l, half ? ".5" : "",
+            sols->mhp, sols->effa, sols->effd,
+            sols->average, sols->geommean,
+            sols->cp, afxn(sols));
+  }
   const species *last = sols->s;
   stats *tmp = sols;
   sols = sols->next;
@@ -104,13 +131,15 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s)){
       delete tmp;
     }
     sols->next = ki;
-    if(more){
-      printf("\\hspace{1em}\\textit{%u more not shown\\ldots}", more);
+    if(!html){ // FIXME do we want this in html? yes, we do
+      if(more){
+        printf("\\hspace{1em}\\textit{%u more not shown\\ldots}", more);
+      }
+      printf("& \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
+              sols->ia, sols->id, sols->is, l, half ? ".5" : "",
+              sols->mhp, sols->effa, sols->effd,
+              sols->geommean, sols->cp);
     }
-    printf("& \\ivlev{%u}{%u}{%u}{%2u%s} & %u & %.2f & %.2f & & %.2f & %u & \\\\\n",
-            sols->ia, sols->id, sols->is, l, half ? ".5" : "",
-            sols->mhp, sols->effa, sols->effd,
-            sols->geommean, sols->cp);
     tmp = sols->next;
     delete sols;
     sols = tmp;
@@ -166,7 +195,7 @@ print_bounded_simptable(int bound, float lbound, float(*fitfxn)(const stats *)){
     *q = cand;
     q = &cand->next;
   }
-  while( (head = print_sol_set(head, calc_pok_bulk)) ){
+  while( (head = print_sol_set(head, calc_pok_bulk, false)) ){
     ;
   }
   printf("\\captionlistentry{Bulk-optimal solutions bounded by %d \\CP{}}\n", bound);
@@ -177,15 +206,21 @@ print_bounded_simptable(int bound, float lbound, float(*fitfxn)(const stats *)){
 
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
 static void
-print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar){
-  printf("\\begingroup\n");
-  printf("\\nohyphenation\n");
-  printf("\\footnotesize\n");
-  printf("\\setlength{\\tabcolsep}{1pt}\n");
-  printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP{} & A\\%% \\\\\n");
-  printf("\\Midrule\n");
-  printf("\\endhead\n");
+print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar, bool html){
+  if(html){
+    std::cout << "<table>" << std::endl;
+    std::cout << "<tr><th>Form</th><th>IVxL</th><th>MHP</th><th>Eff<sub>A</sub></th>"
+              << "<th>Eff<sub>D</sub></th><th>Amean</th><th>Gmean</th><th>CP</th><th>A%</th></tr>" << std::endl;
+  }else{
+    printf("\\begingroup\n");
+    printf("\\nohyphenation\n");
+    printf("\\footnotesize\n");
+    printf("\\setlength{\\tabcolsep}{1pt}\n");
+    printf("\\begin{longtable}{lrrrrrrrr}\n");
+    printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP{} & A\\%% \\\\\n");
+    printf("\\Midrule\n");
+    printf("\\endhead\n");
+  }
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
@@ -197,17 +232,21 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
     }
     insert_opt_stat(&sols, s, fitchar == 'a');
   }
-  while( (sols = print_sol_set(sols, get_apercent)) ){
+  while( (sols = print_sol_set(sols, get_apercent, html)) ){
     ;
   }
-  printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP{}}\\label{table:cp%d%c}\n",
-            toupper(fitchar), bound, bound, fitchar);
-  printf("\\end{longtable}");
-  printf("\\endgroup\n");
+  if(html){
+    std::cout << "</table>" << std::endl;
+  }else{
+    printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP{}}\\label{table:cp%d%c}\n",
+              toupper(fitchar), bound, bound, fitchar);
+    printf("\\end{longtable}");
+    printf("\\endgroup\n");
+  }
 }
 
 static void usage(const char *argv0){
-  fprintf(stderr, "usage: %s a|b|g|k highcp lowbound\n", argv0);
+  fprintf(stderr, "usage: %s a|b|g|k highcp [ lowbound | \"html\" ]\n", argv0);
   fprintf(stderr, "\ta: arithemetic mean\n");
   fprintf(stderr, "\tb: bulk\n");
   fprintf(stderr, "\tg: geometric mean\n");
@@ -221,8 +260,11 @@ int main(int argc, char** argv){
     usage(argv[0]);
   }
   int hcp = atoi(argv[2]);
-  float lam; // lower arithmetic mean bound
-  if(sscanf(argv[3], "%f", &lam) != 1){
+  bool html = false;
+  float lam = 0; // lower arithmetic mean bound
+  if(strcasecmp(argv[3], "html") == 0){
+    html = true;
+  }else if(sscanf(argv[3], "%f", &lam) != 1){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
@@ -243,6 +285,6 @@ int main(int argc, char** argv){
   }else{
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam, fitfxn, fitchar);
+  print_bounded_table(hcp, lam, fitfxn, fitchar, html);
   return EXIT_SUCCESS;
 }
