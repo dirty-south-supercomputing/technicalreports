@@ -93,25 +93,17 @@ int emit_dynamax_unified_table(int count){
   return 0;
 }
 
-static void out_type(pgo_types_e t){
-  if(t != TYPECOUNT){
-    std::cout << "<img src=\"images/" << tnames[t] << ".png\"/>";
-  }
-}
-
 static void
 emit_cand_html(const candidate& c, unsigned maxp){
   auto rp = c.powprod();
   //unsigned hhalf;
   std::cout << "<tr>";
   std::cout << "<td>";
-  out_type(c.s->t1);
-  std::cout << ' ';
-  out_type(c.s->t2);
+  html_types(c.s->t1, c.s->t2);
   std::cout << "</td>";
   std::cout << "<td>" << c.s->name << "</td>";
   std::cout << "<td>";
-  out_type(c.atype);
+  html_type(c.atype);
   std::cout << ' ';
   // we do not attempt to indicate that a max attack is based on a legacy attack,
   // since it is possible that more than one fast attack enable the same max
