@@ -218,7 +218,6 @@ int main(int argc, char** argv){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
-  std::cout.precision(2);
   float(*fitfxn)(const stats *);
   int(*cmpfxn)(const void*, const void*);
   int(*tiefxn)(const void*, const void*) = statscmp_gmean;
