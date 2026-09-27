@@ -26,24 +26,34 @@ static bool cmpatkraid(const attack* a1, const attack* a2){
 
 static void
 print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
-  std::cout << std::fixed << std::setprecision(2);
+  std::cout << std::setprecision(3);
   if(html){
     std::cout << "<table>" << std::endl;
     std::cout << "<tr>";
-    std::cout << "<th>Attack</th><th>T</th><th>EPT</th><th>PPT</th><th>6⁄5</th><th>Pop(STAB)</th>";
+    std::cout << "<th>Attack</th>";
+    if(raidvalues){
+      std::cout << "<th>S</th><th>EPS</th><th>PPS</th>";
+    }else{
+      std::cout << "<th>T</th><th>EPT</th><th>PPT</th>";
+    }
+    std::cout << "<th>6⁄5</th><th>Pop(STAB)</th>";
     std::cout << "</tr>";
   }else{
     printf("\\begin{center}\n");
     printf("\\footnotesize\n");
     printf("\\begin{longtable}{lrrrrrr}\n");
     // we removed E and P because they can be derived from T and xPT
+    // FIXME handle raidvalues case correctly in header (see html)
     printf("Attack & T & \\EPT{} & \\PPT{} & $\\cdot\\frac{6}{5}$ & Pop(STAB)\\\\\n");
     printf("\\Midrule\n");
     printf("\\endhead\n");
   }
   for(const auto a : as){
-    float ppt = a->powertrain / (float)a->turns;
-    float ept = a->energytrain / (float)a->turns;
+    float power = raidvalues ? a->powerraid : a->powertrain;
+    float t = raidvalues ? (a->animdur * 0.5) : a->turns;
+    float energy = raidvalues ? a->energyraid : a->energytrain;
+    float ppt = power / t;
+    float ept = energy / t;
     if(html){
       std::cout << "<tr><td>";
       html_type(a->type);
@@ -59,15 +69,15 @@ print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool ht
     unsigned pop, popstab;
     pop = learner_count(a, &popstab);
     if(html){
-      std::cout << a->name << "</td><td>" << a->turns << "</td><td>" << ept;
-      std::cout << "</td><td>" << ppt << "</td><td>" << (a->powertrain * 6.0) / (a->turns * 5.0);
-      std::cout << "</td><td>" << pop << " (" << popstab << ")" << "</td>";
+      std::cout << a->name << "</td><td>" << t << "</td><td>" << ept;
+      std::cout << "</td><td>" << ppt << "</td><td>" << (power * 6.0) / (t * 5.0);
+      std::cout << "</td><td>" << pop << "(" << popstab << ")" << "</td>";
       std::cout << "</tr>" << std::endl;
     }else{
       printf(" %s & %u & %.3g & %.3g & %g & %u(%u)\\\\\n",
-            a->name, a->turns, /*a->energytrain,*/ ept,
-            /*a->powertrain, (a->powertrain * 6.0) / 5,*/
-            ppt, (a->powertrain * 6.0) / (a->turns * 5.0),
+            a->name, a->turns, /*energy,*/ ept,
+            /*power, (power * 6.0) / 5,*/
+            ppt, (power * 6.0) / (t * 5.0),
             pop, popstab);
     }
   }
