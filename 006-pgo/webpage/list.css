@@ -1,9 +1,9 @@
-.type + img {
+img.type {
   height: 1em;
   width: 1em;
 }
 
-.intro {
+div.intro {
   text-align: justify;
   text-justify: inter-word;
 }
