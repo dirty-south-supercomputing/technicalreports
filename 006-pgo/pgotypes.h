@@ -2754,25 +2754,25 @@ static const species sdex[] = {
   {  411, "Bastiodon", TYPE_ROCK, TYPE_STEEL, 94, 286, 155, "Shieldon",
 		{ &ATK_Iron_Tail, &ATK_Smack_Down, &ATK_Flamethrower, &ATK_Stone_Edge, &ATK_Flash_Cannon, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  412, "Burmy (Plant)", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
+  {  412, "Burmy Plant", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Struggle, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  412, "Burmy (Sandy)", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
+  {  412, "Burmy Sandy", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Struggle, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  412, "Burmy (Trash)", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
+  {  412, "Burmy Trash", TYPE_BUG, TYPECOUNT, 53, 83, 120, nullptr,
 		{ &ATK_Bug_Bite, &ATK_Tackle, &ATK_Struggle, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  413, "Wormadam (Plant)", TYPE_BUG, TYPE_GRASS, 141, 180, 155, "Burmy (Plant)",
+  {  413, "Wormadam Plant", TYPE_BUG, TYPE_GRASS, 141, 180, 155, "Burmy Plant",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Energy_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  413, "Wormadam (Sandy)", TYPE_BUG, TYPE_GROUND, 141, 180, 155, "Burmy (Sandy)",
+  {  413, "Wormadam Sandy", TYPE_BUG, TYPE_GROUND, 141, 180, 155, "Burmy Sandy",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Bulldoze, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  413, "Wormadam (Trash)", TYPE_BUG, TYPE_STEEL, 127, 175, 155, "Burmy (Trash)",
+  {  413, "Wormadam Trash", TYPE_BUG, TYPE_STEEL, 127, 175, 155, "Burmy Trash",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Metal_Sound, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Iron_Head, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy (Plant)",
+  {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy Plant",
 		{ &ATK_Bug_Bite, &ATK_Air_Slash, &ATK_Psybeam, &ATK_Aerial_Ace, &ATK_Bug_Buzz, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, nullptr,
@@ -2793,10 +2793,10 @@ static const species sdex[] = {
   {  420, "Cherubi", TYPE_GRASS, TYPECOUNT, 108, 92, 128, nullptr,
 		{ &ATK_Tackle, &ATK_Bullet_Seed, &ATK_Petal_Blizzard, &ATK_Seed_Bomb, &ATK_Dazzling_Gleam, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  421, "Cherrim (Sunny)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
+  {  421, "Cherrim Sunny", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
 		{ &ATK_Razor_Leaf, &ATK_Bullet_Seed, &ATK_Hyper_Beam, &ATK_Dazzling_Gleam, &ATK_Solar_Beam, &ATK_Weather_Ball_Fire, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  421, "Cherrim (Overcast)", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
+  {  421, "Cherrim Overcast", TYPE_GRASS, TYPECOUNT, 170, 153, 172, "Cherubi",
 		{ &ATK_Razor_Leaf, &ATK_Bullet_Seed, &ATK_Hyper_Beam, &ATK_Dazzling_Gleam, &ATK_Solar_Beam, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   {  422, "Shellos", TYPE_WATER, TYPECOUNT, 103, 105, 183, nullptr,
@@ -3006,13 +3006,13 @@ static const species sdex[] = {
   {  483, "Dialga", TYPE_STEEL, TYPE_DRAGON, 275, 211, 205, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Metal_Claw, &ATK_Iron_Head, &ATK_Thunder, &ATK_Draco_Meteor, },
 		true, true, 5, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  483, "Dialga (Origin)", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, nullptr,
+  {  483, "Dialga Origin", TYPE_STEEL, TYPE_DRAGON, 270, 225, 205, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Metal_Claw, &ATK_Iron_Head, &ATK_Thunder, &ATK_Draco_Meteor, &ATK_Roar_of_Time, },
 		true, false, 0, { &ATK_Roar_of_Time, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  484, "Palkia", TYPE_WATER, TYPE_DRAGON, 280, 215, 189, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Fire_Blast, &ATK_Hydro_Pump, &ATK_Draco_Meteor, },
 		true, true, 5, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  484, "Palkia (Origin)", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, nullptr,
+  {  484, "Palkia Origin", TYPE_WATER, TYPE_DRAGON, 286, 223, 189, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Fire_Blast, &ATK_Hydro_Pump, &ATK_Draco_Meteor, &ATK_Spacial_Rend, },
 		true, false, 0, { &ATK_Spacial_Rend, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, nullptr,
@@ -3021,10 +3021,10 @@ static const species sdex[] = {
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, nullptr,
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Thunder, &ATK_Focus_Blast, &ATK_Giga_Impact, &ATK_Crush_Grip, },
 		true, true, 0, { &ATK_Crush_Grip, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  487, "Giratina (Altered)", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, nullptr,
+  {  487, "Giratina Altered", TYPE_GHOST, TYPE_DRAGON, 187, 225, 284, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Shadow_Claw, &ATK_Ancient_Power, &ATK_Shadow_Sneak, &ATK_Dragon_Claw, &ATK_Shadow_Force, },
 		true, true, 0, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  487, "Giratina (Origin)", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, nullptr,
+  {  487, "Giratina Origin", TYPE_GHOST, TYPE_DRAGON, 225, 187, 284, nullptr,
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Ominous_Wind, &ATK_Shadow_Ball, &ATK_Dragon_Pulse, &ATK_Shadow_Force, },
 		true, true, 0, { &ATK_Shadow_Force, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, nullptr,
@@ -3646,10 +3646,10 @@ static const species sdex[] = {
   {  646, "Kyurem", TYPE_DRAGON, TYPE_ICE, 246, 170, 245, nullptr,
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Blizzard, &ATK_Dragon_Claw, &ATK_Draco_Meteor, &ATK_Glaciate, },
 		true, false, 0, { &ATK_Glaciate, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  646, "Kyurem (White)", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
+  {  646, "Kyurem White", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Ice_Fang, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Fusion_Flare, &ATK_Ice_Burn, },
 		true, false, 0, { &ATK_Ice_Burn, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  646, "Kyurem (Black)", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
+  {  646, "Kyurem Black", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Stone_Edge, &ATK_Blizzard, &ATK_Iron_Head, &ATK_Outrage, &ATK_Fusion_Bolt, &ATK_Freeze_Shock, },
 		true, false, 0, { &ATK_Freeze_Shock, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // the colt
@@ -3657,30 +3657,30 @@ static const species sdex[] = {
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
 		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // no stat difference in PGO
-  {  647, "Keldeo (Resolute)", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "Keldeo",
+  {  647, "Keldeo Resolute", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "Keldeo",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, &ATK_Secret_Sword, },
 		true, false, 0, { &ATK_Secret_Sword, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  648, "Meloetta (Aria)", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
+  {  648, "Meloetta Aria", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, nullptr,
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   // not yet released
-  /*{  648, "Meloetta (Pirouette)", TYPE_NORMAL, TYPE_FIGHTING, 269, 188, 225, nullptr,
+  /*{  648, "Meloetta Pirouette", TYPE_NORMAL, TYPE_FIGHTING, 269, 188, 225, nullptr,
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // paleozoic
   {  649, "Genesect", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Hyper_Beam, &ATK_Magnet_Bomb, &ATK_X_Scissor, &ATK_Techno_Blast_Normal, },
 		true, false, 0, { &ATK_Techno_Blast_Normal, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  649, "Genesect (Burn Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+  {  649, "Genesect Burn Drive", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Flamethrower, &ATK_X_Scissor, &ATK_Techno_Blast_Fire, },
 		true, false, 0, { &ATK_Techno_Blast_Fire, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  649, "Genesect (Chill Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+  {  649, "Genesect Chill Drive", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Ice_Beam, &ATK_X_Scissor, &ATK_Techno_Blast_Ice, },
 		true, false, 0, { &ATK_Techno_Blast_Ice, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  649, "Genesect (Douse Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+  {  649, "Genesect Douse Drive", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Gunk_Shot, &ATK_X_Scissor, &ATK_Techno_Blast_Water, },
 		true, false, 0, { &ATK_Techno_Blast_Water, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  649, "Genesect (Shock Drive)", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
+  {  649, "Genesect Shock Drive", TYPE_BUG, TYPE_STEEL, 252, 199, 174, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Metal_Claw, &ATK_Magnet_Bomb, &ATK_Zap_Cannon, &ATK_X_Scissor, &ATK_Techno_Blast_Electric, },
 		true, false, 0, { &ATK_Techno_Blast_Electric, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, },
   {  650, "Chespin", TYPE_GRASS, TYPECOUNT, 110, 106, 148, nullptr,
@@ -3780,10 +3780,10 @@ static const species sdex[] = {
 		{ &ATK_Scratch, &ATK_Confusion, &ATK_Psyshock, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the constraint
-  {  678, "Meowstic (Male)", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
+  {  678, "Meowstic Male", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Sucker_Punch, &ATK_Confusion, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  678, "Meowstic (Female)", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
+  {  678, "Meowstic Female", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Charm, &ATK_Confusion, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the sword
@@ -3794,7 +3794,7 @@ static const species sdex[] = {
   {  680, "Doublade", TYPE_STEEL, TYPE_GHOST, 188, 206, 153, "Honedge",
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Shadow_Claw, &ATK_Iron_Head, &ATK_Gyro_Ball, &ATK_Sacred_Sword, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
-  /*{  681, "Aegislash (Blade)", TYPE_STEEL, TYPE_GHOST, 272, 97, 155, nullptr,
+  /*{  681, "Aegislash Blade", TYPE_STEEL, TYPE_GHOST, 272, 97, 155, nullptr,
 		{ &ATK_Fury_Cutter, &ATK_Psycho_Cut, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Gyro_Ball, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },*/
   // the royal sword
@@ -4561,10 +4561,10 @@ static const species sdex[] = {
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, },
   // 875 eiscue
   // the emotion
-  {  876, "Indeedee (Male)", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
+  {  876, "Indeedee Male", TYPE_PSYCHIC, TYPE_NORMAL, 208, 166, 155, nullptr,
 		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  876, "Indeedee (Female)", TYPE_PSYCHIC, TYPE_NORMAL, 184, 184, 172, nullptr,
+  {  876, "Indeedee Female", TYPE_PSYCHIC, TYPE_NORMAL, 184, 184, 172, nullptr,
 		{ &ATK_Extrasensory, &ATK_Psybeam, &ATK_Energy_Ball, &ATK_Psychic, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   {  877, "Morpeko", TYPE_ELECTRIC, TYPE_DARK, 192, 121, 151, nullptr,
@@ -4683,10 +4683,10 @@ static const species sdex[] = {
   {  915, "Lechonk", TYPE_NORMAL, TYPECOUNT, 81, 79, 144, nullptr,
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  916, "Oinkologne (Male)", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk",
+  {  916, "Oinkologne Male", TYPE_NORMAL, TYPECOUNT, 186, 153, 242, "Lechonk",
 		{ &ATK_Mud_Slap, &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, 0, { &ATK_Mud_Slap, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
-  {  916, "Oinkologne (Female)", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk",
+  {  916, "Oinkologne Female", TYPE_NORMAL, TYPECOUNT, 169, 162, 251, "Lechonk",
 		{ &ATK_Mud_Slap, &ATK_Tackle, &ATK_Take_Down, &ATK_Dig, &ATK_Body_Slam, &ATK_Trailblaze, },
 		true, false, 0, { &ATK_Mud_Slap, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, },
   // the string ball
@@ -5527,6 +5527,24 @@ lookup_mega(const char* name){
     }
   }
   return NULL;
+}
+
+static inline void
+html_type(pgo_types_e t){
+  if(t != TYPECOUNT){
+    std::cout << "<img src=\"images/" << tnames[t] << ".png\" height=1em width=1em/>";
+  }
+}
+
+// emit the symbols for some typing. nothing is shown for TYPECOUNT, and
+// monotypes are only displayed once.
+static inline void
+html_types(pgo_types_e t1, pgo_types_e t2){
+  html_type(t1);
+  if(t1 != t2 && t2 != TYPECOUNT){
+    std::cout << ' ';
+    html_type(t2);
+  }
 }
 
 static inline void
