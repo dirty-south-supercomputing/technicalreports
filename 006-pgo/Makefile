@@ -26,9 +26,9 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 						noshadow noshiny \
-						$(addsuffix ML, list functional amean gmean) \
-						$(addsuffix UL, list functional evolworse amean gmean) \
-						$(addsuffix GL, list functional evolworse amean gmean) \
+						$(addsuffix ML, list functional amean gmean atk) \
+						$(addsuffix UL, list functional evolworse amean gmean atk) \
+						$(addsuffix GL, list functional evolworse amean gmean atk) \
 						$(addprefix dynas-, $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -216,6 +216,18 @@ $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) b 2500 164.9 > $@
+
+$(OUT)/atkGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) k 1500 html > $@
+
+$(OUT)/atkUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) k 2500 html > $@
+
+$(OUT)/atkML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) k 0 html > $@
 
 $(OUT)/gmeanGL.html: $(OUT)/bounded
 	@mkdir -p $(@D)
