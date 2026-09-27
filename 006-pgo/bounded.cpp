@@ -96,8 +96,11 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html){
   }
   if(html){
     std::cout << "<td>" << sols->ia << '-' << sols->id << '-' << sols->is << 'x';
-    float hl = l + (half ? 0.5 : 0.0);
-    std::cout << hl << "</td>";
+    std::cout << l;
+    if(half){
+      std::cout << ".5";
+    }
+    std::cout << "</td>";
     std::cout << "<td>" << sols->mhp << "</td>";
     std::cout << "<td>" << sols->effa << "</td>";
     std::cout << "<td>" << sols->effd << "</td>";
@@ -218,6 +221,7 @@ int main(int argc, char** argv){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
+  std::cout << std::fixed << std::setprecision(2);
   float(*fitfxn)(const stats *);
   int(*cmpfxn)(const void*, const void*);
   int(*tiefxn)(const void*, const void*) = statscmp_gmean;
