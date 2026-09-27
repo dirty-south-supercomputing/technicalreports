@@ -791,8 +791,9 @@ static const attack ATK_Stomp = { "Stomp", TYPE_NORMAL, 55, -40, 0, 0, 0, 0, 0, 
 	50, 50, 3, false, };
 static const attack ATK_Stone_Edge = { "Stone Edge", TYPE_ROCK, 100, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	105, 100, 5, false, };
+// FIXME pokemon go hub claims 0 energy. pokebase claims 1.06 DPE which works out to 33.
 static const attack ATK_Struggle = { "Struggle", TYPE_NORMAL, 35, -100, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	35, 0, 4, false, };
+	35, 33, 4, false, };
 static const attack ATK_Submission = { "Submission", TYPE_FIGHTING, 60, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	55, 50, 4, false, };
 static const attack ATK_Sunsteel_Strike = { "Sunsteel Strike", TYPE_STEEL, 135, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,

@@ -26,8 +26,8 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 						noshadow noshiny listTTF \
-						$(addsuffix Nx1, fastattacks) \
-						$(addsuffix 3x3, fastattacks) \
+						$(addsuffix Nx1, chargedattackshtml fastattacks) \
+						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
@@ -221,11 +221,11 @@ $(OUT)/%3x3.html: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) -h > $@
 
-$(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
+$(BULK1500TEX): $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) b 1500 129.25 > $@
 
-$(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
+$(BULK2500TEX): $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) b 2500 164.9 > $@
 
@@ -486,19 +486,19 @@ $(SIMUL3OUT): $(SIMUL)
 				quagsire opt1500 "water gun" earthquake \
 				milotic opt1500 waterfall surf > $@
 
-$(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h Makefile
+$(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h Makefile
+$(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.h Makefile $(LATEXOBJ) $(PGOOBJ)
+$(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
 
-$(OUT)/%.o: %.cpp pgotypes.h Makefile
+$(OUT)/%.o: %.cpp pgotypes.h
 	@mkdir -p $(@D)
 	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 $(<F)
 

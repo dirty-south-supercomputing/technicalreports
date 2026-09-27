@@ -32,9 +32,9 @@ print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool ht
     std::cout << "<tr>";
     std::cout << "<th>Attack</th>";
     if(raidvalues){
-      std::cout << "<th>S</th><th>EPS</th><th>PPS</th>";
+      std::cout << "<th>S</th><th>P</th><th>E</th><th>EPS</th><th>PPS</th>";
     }else{
-      std::cout << "<th>T</th><th>EPT</th><th>PPT</th>";
+      std::cout << "<th>T</th><th>P</th><th>E</th><th>EPT</th><th>PPT</th>";
     }
     std::cout << "<th>6⁄5</th><th>Pop(STAB)</th>";
     std::cout << "</tr>";
@@ -69,7 +69,8 @@ print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool ht
     unsigned pop, popstab;
     pop = learner_count(a, &popstab);
     if(html){
-      std::cout << a->name << "</td><td>" << t << "</td><td>" << ept;
+      std::cout << a->name << "</td><td>" << t << "</td><td>" << power << "</td>";
+      std::cout << "<td>" << energy << "</td><td>" << ept;
       std::cout << "</td><td>" << ppt << "</td><td>" << (power * 6.0) / (t * 5.0);
       std::cout << "</td><td>" << pop << "(" << popstab << ")" << "</td>";
       std::cout << "</tr>" << std::endl;
