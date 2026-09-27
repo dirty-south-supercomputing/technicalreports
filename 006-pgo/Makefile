@@ -26,9 +26,9 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 						noshadow noshiny \
-						$(addsuffix ML, list functional amean gmean atk) \
-						$(addsuffix UL, list functional evolworse amean gmean atk) \
-						$(addsuffix GL, list functional evolworse amean gmean atk) \
+						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \
+						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
+						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addprefix dynas-, $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -216,6 +216,42 @@ $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 $(BULK2500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
 	$(<) b 2500 164.9 > $@
+
+$(OUT)/bulkGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) b 1500 html > $@
+
+$(OUT)/bulkUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) b 2500 html > $@
+
+$(OUT)/bulkML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) b 0 html > $@
+
+$(OUT)/mhpGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) h 1500 html > $@
+
+$(OUT)/mhpUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) h 2500 html > $@
+
+$(OUT)/mhpML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) h 0 html > $@
+
+$(OUT)/defGL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) d 1500 html > $@
+
+$(OUT)/defUL.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) d 2500 html > $@
+
+$(OUT)/defML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) d 0 html > $@
 
 $(OUT)/atkGL.html: $(OUT)/bounded
 	@mkdir -p $(@D)

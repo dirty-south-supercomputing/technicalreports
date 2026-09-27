@@ -5316,6 +5316,11 @@ calc_pok_effd(const stats *s){
 }
 
 static inline float
+calc_pok_mhp(const stats *s){
+  return s->mhp;
+}
+
+static inline float
 calc_pok_bulk(const stats *s){
   return s->bulk();
 }

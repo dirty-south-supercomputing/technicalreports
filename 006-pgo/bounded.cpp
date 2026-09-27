@@ -29,20 +29,18 @@ create_shadow(const species* s){
 
 // insert list s into list pointed to by head according to s->geommean or s->average
 static void
-insert_opt_stat(stats **head, stats *s, bool amean){
+insert_opt_stat(stats **head, stats *s, int(*cmpfxn)(const void*, const void*),
+                  int(*tiefxn)(const void*, const void*)){
   while(s){
     stats **prev = head;
     stats *tmp;
     while( (tmp = *prev) ){
-      float m = amean ? s->average : s->geommean;
-      float om = amean ? s->geommean : s->average;
-      float t = amean ? tmp->average : tmp->geommean;
-      float ot = amean ? tmp->geommean : tmp->average;
-      if(m > t){
+      int res = cmpfxn(s, tmp);
+      if(res > 0){
         break;
-      }else if(m == t){
+      }else if(res == 0){
         if(s->s->name == tmp->s->name){
-          if(om > ot){
+          if(tiefxn(s, tmp) > 0){
             break;
           }
         }
@@ -147,66 +145,12 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html){
   return sols;
 }
 
-static void
-print_bounded_simptable(int bound, float lbound, float(*fitfxn)(const stats *)){
-  printf("\\begingroup\n");
-  //printf("\\nohyphenation\n");
-  printf("\\footnotesize\n");
-  printf("\\setlength{\\tabcolsep}{1pt}\n");
-  printf("\\begin{longtable}{lrrrrrrrr}\n");
-  printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP{} & Bulk\\\\\n");
-  printf("\\Midrule\n");
-  printf("\\endhead\n");
-  stats *sols = NULL;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species *sp = &sdex[i];
-    stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
-    if(sp->shadow){
-      const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
-      if(shadsets){
-        shadsets->next = sols;
-        sols = shadsets;
-      }
-    }
-    if(s){
-      s->next = sols;
-      sols = s;
-    }
-  }
-  // FIXME horrible o(n^2) sort
-  stats *head = nullptr;
-  stats **q = &head;
-  while(sols){
-    float maxf = 0;
-    stats **candq = nullptr;
-    stats **prev;
-    for(prev = &sols ; *prev ; prev = &(*prev)->next){
-      stats *cand = *prev;
-      float f = fitfxn(cand);
-      if(f > maxf){
-        maxf = f;
-        candq = prev;
-      }
-    }
-    stats *cand = *candq;
-    *candq = cand->next;
-    cand->next = nullptr;
-    *q = cand;
-    q = &cand->next;
-  }
-  while( (head = print_sol_set(head, calc_pok_bulk, false)) ){
-    ;
-  }
-  printf("\\captionlistentry{Bulk-optimal solutions bounded by %d \\CP{}}\n", bound);
-  printf("\\label{table:cp%db}\n", bound);
-  printf("\\end{longtable}\n");
-  printf("\\endgroup\n");
-}
-
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
 static void
-print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar, bool html){
+print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar,
+                    int(*cmpfxn)(const void*, const void*),
+                    int(*tiefxn)(const void*, const void*),
+                    bool html){
   if(html){
     std::cout << "<table>" << std::endl;
     std::cout << "<tr><th>Form</th><th>IVxL</th><th>MHP</th><th>Eff<sub>A</sub></th>"
@@ -224,13 +168,17 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   stats *sols = NULL;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
+    bool shadowstuff = false;
+    if(sp->shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
+      shadowstuff = true;
+    }
     stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
-    if(sp->shadow && fitchar == 'a'){
+    if(shadowstuff){
       const species *shads = create_shadow(sp);
       stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
-      insert_opt_stat(&sols, shadsets, fitchar == 'a');
+      insert_opt_stat(&sols, shadsets, cmpfxn, tiefxn);
     }
-    insert_opt_stat(&sols, s, fitchar == 'a');
+    insert_opt_stat(&sols, s, cmpfxn, tiefxn);
   }
   while( (sols = print_sol_set(sols, get_apercent, html)) ){
     ;
@@ -246,11 +194,13 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
 }
 
 static void usage(const char *argv0){
-  fprintf(stderr, "usage: %s a|b|g|k highcp [ lowbound | \"html\" ]\n", argv0);
+  fprintf(stderr, "usage: %s a|b|d|g|h|k highcp [ lowbound | \"html\" ]\n", argv0);
   fprintf(stderr, "\ta: arithemetic mean\n");
   fprintf(stderr, "\tb: bulk\n");
+  fprintf(stderr, "\td: effective def\n");
   fprintf(stderr, "\tg: geometric mean\n");
-  fprintf(stderr, "\tk: attack\n");
+  fprintf(stderr, "\th: mhp\n");
+  fprintf(stderr, "\tk: effective atk\n");
   exit(EXIT_FAILURE);
 }
 
@@ -268,23 +218,39 @@ int main(int argc, char** argv){
     fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
     usage(argv[0]);
   }
+  std::cout.precision(2);
   float(*fitfxn)(const stats *);
+  int(*cmpfxn)(const void*, const void*);
+  int(*tiefxn)(const void*, const void*) = statscmp_gmean;
   char fitchar;
   if(strcmp(argv[1], "g") == 0){
     fitfxn = calc_pok_gmean;
+    cmpfxn = statscmp_gmean;
+    tiefxn = statscmp_amean;
     fitchar = 'g';
   }else if(strcmp(argv[1], "a") == 0){
     fitfxn = calc_pok_amean;
+    cmpfxn = statscmp_amean;
     fitchar = 'a';
   }else if(strcmp(argv[1], "k") == 0){
-    print_bounded_simptable(hcp, lam, calc_pok_effa);
-    return EXIT_SUCCESS;
+    fitfxn = calc_pok_effa;
+    cmpfxn = statscmp_atk;
+    fitchar = 'k';
+  }else if(strcmp(argv[1], "d") == 0){
+    fitfxn = calc_pok_effd;
+    cmpfxn = statscmp_def;
+    fitchar = 'd';
   }else if(strcmp(argv[1], "b") == 0){
-    print_bounded_simptable(hcp, lam, calc_pok_bulk);
-    return EXIT_SUCCESS;
+    fitfxn = calc_pok_bulk;
+    cmpfxn = statscmp_bulk;
+    fitchar = 'd';
+  }else if(strcmp(argv[1], "h") == 0){
+    fitfxn = calc_pok_mhp;
+    cmpfxn = statscmp_mhp;
+    fitchar = 'h';
   }else{
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam, fitfxn, fitchar, html);
+  print_bounded_table(hcp, lam, fitfxn, fitchar, cmpfxn, tiefxn, html);
   return EXIT_SUCCESS;
 }
