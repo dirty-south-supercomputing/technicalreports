@@ -26,6 +26,8 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 						noshadow noshiny listTTF \
+						$(addsuffix Nx1, fastattacks) \
+						$(addsuffix 3x3, fastattacks) \
 						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
@@ -210,6 +212,14 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
 	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+
+$(OUT)/%Nx1.html: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) -r -h > $@
+
+$(OUT)/%3x3.html: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) -h > $@
 
 $(BULK1500TEX): $(OUT)/bounded $(MAKEFILE)
 	@mkdir -p $(@D)
