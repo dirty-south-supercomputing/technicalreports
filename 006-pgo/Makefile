@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all preview testsimul clean test testdb testsimullong web
+.PHONY: all extra preview testsimul clean test testdb testsimullong web
 .DEFAULT_GOAL:=all
 
 PAPERBACK:=pgo-pb
@@ -158,9 +158,11 @@ TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
-all: $(TEAMBUILDER) $(OPTSTATSPDF) $(OPTSTATSRADARPDF) $(CALCULATOR) \
+all: $(TEAMBUILDER) $(CALCULATOR) \
 	$(MOSTPOWER) $(PDF) $(SIMUL) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
+
+extra: all $(OPTSTATSPDF) $(OPTSTATSRADARPDF)
 
 web: $(WEBPAGES)
 
