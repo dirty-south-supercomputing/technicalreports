@@ -3,6 +3,10 @@ img.type {
   width: 1em;
 }
 
+table.alignright td, table.alignright th {
+  text-align: right;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;

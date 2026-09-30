@@ -70,6 +70,11 @@ enum pgo_types_e {
   TYPECOUNT = 18
 };
 
+inline pgo_types_e& operator++(pgo_types_e& pt){ // ugh
+  pt = static_cast<pgo_types_e>(static_cast<int>(pt) + 1);
+  return pt;
+}
+
 // there are 171 distinct species types (18 + C(18, 2))
 #define TYPINGCOUNT 171
 // but there are 324 if one considers ordering, which one generally oughtn't
