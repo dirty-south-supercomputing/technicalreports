@@ -26,9 +26,9 @@ struct atype {
     tras[4] = tas[3] * (tas[2] + 1);
     tras[5] = choose2(tas[3]);
     for(int i = -3 ; i < 3 ; ++i){
-      float mult = pow(1.6, i);
-      ara += (tras[i + 3] * mult) / TYPINGCOUNT;
+      ara += (tras[i + 3] * pow(1.6, i));
     }
+    ara /= TYPINGCOUNT;
     return ara;
   }
 
