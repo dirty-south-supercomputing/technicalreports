@@ -24,9 +24,9 @@ get_fast_attack_pairs(const species *s, pairmap &pairs){
 }
 
 static void
-get_fast_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
-  for(unsigned i = 0 ; i < sd.dcount ; ++i){
-    const species *s = &sd.dex[i];
+get_fast_attack_pairs_dex(pairmap &pairs){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *s = &sdex[i];
     get_fast_attack_pairs(s, pairs);
   }
 }
@@ -53,9 +53,9 @@ get_charged_attack_pairs(const species *s, pairmap &pairs){
 }
 
 static void
-get_charged_attack_pairs_dex(const spokedex &sd, pairmap &pairs){
-  for(unsigned i = 0 ; i < sd.dcount ; ++i){
-    const species *s = &sd.dex[i];
+get_charged_attack_pairs_dex(pairmap &pairs){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *s = &sdex[i];
     get_charged_attack_pairs(s, pairs);
   }
 }
@@ -71,13 +71,9 @@ int main(int argc, const char **argv){
     usage(argv[0]);
   }
   if(!strcmp(argv[1], "fast")){
-    for(const auto &sdex : sdexen){
-      get_fast_attack_pairs_dex(sdex, pairs);
-    }
+    get_fast_attack_pairs_dex(pairs);
   }else if(!strcmp(argv[1], "charged")){
-    for(const auto &sdex : sdexen){
-      get_charged_attack_pairs_dex(sdex, pairs);
-    }
+    get_charged_attack_pairs_dex(pairs);
   }else{
     usage(argv[0]);
   }

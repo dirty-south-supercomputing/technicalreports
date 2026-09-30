@@ -154,9 +154,9 @@ test_species(const species *s){
 }
 
 static bool
-test_sdex(const spokedex &sd){
-  for(unsigned i = 0 ; i < sd.dcount ; ++i){
-    const species *s = &sd.dex[i];
+test_sdex(){
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const species *s = &sdex[i];
     if(!test_species(s)){
       return false;
     }
@@ -328,10 +328,8 @@ int main(void){
   if(!test_mega()){
     exit(EXIT_FAILURE);
   }
-  for(const auto &sd : sdexen){
-    if(!test_sdex(sd)){
-      exit(EXIT_FAILURE);
-    }
+  if(!test_sdex()){
+    exit(EXIT_FAILURE);
   }
   for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
     if(!test_attack(*it)){

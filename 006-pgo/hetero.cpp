@@ -68,7 +68,7 @@ hetero_p(const mega *m){
 }
 
 static int
-print_hetero_evols(const mega* dex, unsigned dexcount, unsigned* pcount){
+print_hetero_evols_mega(const mega* dex, unsigned dexcount, unsigned* pcount){
   std::vector<const mega *> hetero;
   for(unsigned u = 0 ; u < dexcount ; ++u){
     const mega* m = &dex[u];
@@ -105,7 +105,7 @@ static void type_heterotable(void){
   if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
     exit(EXIT_FAILURE);
   }
-  if(print_hetero_evols(megasdex, MEGACOUNT, &count)){
+  if(print_hetero_evols_mega(megasdex, MEGACOUNT, &count)){
     exit(EXIT_FAILURE);
   }
   if(count % 2){
@@ -147,10 +147,8 @@ static void cost_heterotable(void){
   printf("\\begin{tabular}{lr|lr}");
   unsigned count = 0;
   puts("Evolution & Change & Evolution & Change\\\\\\Midrule");
-  for(const auto &dex : sdexen){
-    if(print_hetero_costs(dex.dex, dex.dcount, &count)){
-      exit(EXIT_FAILURE);
-    }
+  if(print_hetero_costs(sdex, SPECIESCOUNT, &count)){
+    exit(EXIT_FAILURE);
   }
   if(count % 2){
     printf("&\\\\\n");

@@ -52,26 +52,22 @@ int main(int argc, const char **argv){
     unsigned pop = 0;
     unsigned dts = 0;
     unsigned dtpop = 0;
-    for(auto &sd : sdexen){
-      if(sd.dex){
-        for(unsigned i = 0 ; i < sd.dcount ; ++i){
-          const species *s = &sd.dex[i];
-          if(s->t1 == t && (s->t2 == t || s->t2 == TYPECOUNT)){
-            ++pop;
-          }else if(s->t1 == t){
-            if(!duals[s->t2]){
-              ++dts;
-            }
-            duals[s->t2] = true;
-            ++dtpop;
-          }else if(s->t2 == t){
-            if(!duals[s->t1]){
-              ++dts;
-            }
-            duals[s->t1] = true;
-            ++dtpop;
-          }
+    for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+      const species *s = &sdex[i];
+      if(s->t1 == t && (s->t2 == t || s->t2 == TYPECOUNT)){
+        ++pop;
+      }else if(s->t1 == t){
+        if(!duals[s->t2]){
+          ++dts;
         }
+        duals[s->t2] = true;
+        ++dtpop;
+      }else if(s->t2 == t){
+        if(!duals[s->t1]){
+          ++dts;
+        }
+        duals[s->t1] = true;
+        ++dtpop;
       }
     }
     printf("%s & %u & %u & %u & %u\\\\\n",
