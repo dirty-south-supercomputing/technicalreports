@@ -32,7 +32,7 @@ struct timetofirst {
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
     return l.turns < r.turns ? true : // least to most turns
       (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
-      (l.turns == r.turns && l.dam == r.dam && l.s->name < r.s->name) ? true : false;
+      (l.turns == r.turns && l.dam == r.dam && l.s->idx < r.s->idx) ? true : false;
   }
 };
 

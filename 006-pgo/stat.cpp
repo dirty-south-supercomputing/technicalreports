@@ -116,13 +116,19 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
 
 // get time to first and damage for all fast+charged pairs
 static void
-calctimetoall(std::vector<timetofirst> &ttfs, int bound){
+calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs, int bound){
   for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
     const auto &s = sdex[si];
     if(s.name.contains("Aegislash")){
       continue; // FIXME
     }
     calctimespecies(s, ttfs, bound);
+  }
+  for(unsigned mi = 0 ; mi < MEGACOUNT ; ++mi){
+    megaspecs.emplace_back(megasdex[mi]);
+  }
+  for(const auto &m : megaspecs){
+    calctimespecies(m, ttfs, bound);
   }
 }
 
@@ -203,9 +209,9 @@ int main(int argc, char **argv){
     std::cout << "<div><b>CP bound is " << bound << ".</b></div>" << std::endl;
   }
   std::vector<timetofirst> ttfs;
-  // we don't want max nor mega
   header(!!bound);
-  calctimetoall(ttfs, bound);
+  std::vector<species> megaspecs;
+  calctimetoall(ttfs, megaspecs, bound);
   std::sort(ttfs.begin(), ttfs.end());
   std::cout.setf(std::ios::fixed, std::ios::floatfield);
   std::cout.precision(1);
