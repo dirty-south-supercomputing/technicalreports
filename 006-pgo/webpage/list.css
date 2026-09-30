@@ -7,6 +7,14 @@ table.alignright td, table.alignright th {
   text-align: right;
 }
 
+table.evenshade {
+  border-collapse: collapse;
+}
+
+table.evenshade tr:nth-child(even) {
+  background-color: #ccc;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;
