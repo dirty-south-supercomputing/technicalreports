@@ -54,10 +54,18 @@ struct atype {
     html_type(at);
     std::cout << "</td>";
     for(int i = -2 ; i < 2 ; ++i){
-      std::cout << "<td>" << tas[i + 2] << "</td>";
+      std::cout << "<td>";
+      if(tas[i + 2]){
+        std::cout << tas[i + 2];
+      }
+      std::cout << "</td>";
     }
     for(int i = -3 ; i < 3 ; ++i){
-      std::cout << "<td>" << tras[i + 3] << "</td>";
+      std::cout << "<td>";
+      if(tras[i + 3]){
+        std::cout << tras[i + 3];
+      }
+      std::cout << "</td>";
     }
     std::cout << "<td>" << ara << "</td>";
     std::cout << "</tr>" << std::endl;
@@ -68,7 +76,7 @@ struct atype {
 // generate table of attack types and their ARAs
 int main(void){
   std::cout << std::fixed << std::setprecision(3);
-  std::cout << "<table class=\"alignright\">" << std::endl;
+  std::cout << "<table class=\"alignright evenshade\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>R<sub>-2</sub></th><th>R<sub>-1</sub></th><th>R<sub>0</sub></th><th>R<sub>1</sub></th>";
   std::cout << "<th>E<sub>-3</sub></th><th>E<sub>-2</sub></th><th>E<sub>-1</sub></th><th>E<sub>0</sub></th><th>E<sub>1</sub></th><th>E<sub>2</sub></th>";

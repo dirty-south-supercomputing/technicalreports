@@ -25,7 +25,7 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
-						noshadow noshiny listTTF typesARA typesDRA \
+						nodyna noshadow noshiny listTTF typesARA pairsARA typesDRA \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \

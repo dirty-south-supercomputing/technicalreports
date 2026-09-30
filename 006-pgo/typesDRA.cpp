@@ -1,5 +1,28 @@
 #include "pgotypes.h"
 
+static void
+print_pop(pgo_types_e t1, pgo_types_e t2){
+  if(t2 == t1){
+    t2 = TYPECOUNT;
+  }
+  bool printed = false;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const auto &s = sdex[u];
+    if(s.t1 != t1){
+      continue;
+    }
+    if(s.t2 != t2){
+      continue;
+    }
+    if(printed){
+      std::cout << ", ";
+    }else{
+      printed = true;
+    }
+    std::cout << s.name;
+  }
+}
+
 struct typing {
   pgo_types_e t1, t2; // for monotypes, t2 == t1
   unsigned tras[6];   // number of types with typing relation [ -3 .. 2 ]
@@ -34,14 +57,20 @@ struct typing {
     }
     std::cout << "</td>";
     for(unsigned i = 0 ; i < sizeof(tras) / sizeof(*tras) ; ++i){
-      std::cout << "<td>" << tras[i] << "</td>";
-    }
-    std::cout << "<td>";
-    std::cout << pop1;
-    if(t1 != t2){
-      std::cout << "<br/>" << pop2;
+      std::cout << "<td>";
+      if(tras[i]){
+        std::cout << tras[i];
+      }
+      std::cout << "</td>";
     }
     std::cout << "<td>" << dra << "</td>";
+    std::cout << "<td>";
+    std::cout << pop1 << " ";
+    print_pop(t1, t2);
+    if(t1 != t2){
+      std::cout << "<br/>" << pop2 << " ";
+      print_pop(t2, t1);
+    }
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
   }
@@ -73,10 +102,10 @@ int main(){
   }
   std::sort(typings.begin(), typings.end());
   std::cout << std::fixed << std::setprecision(3);
-  std::cout << "<table>" << std::endl;
+  std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>E<sub>-3</sub></th><th>E<sub>-2</sub></th><th>E<sub>-1</sub></th><th>E<sub>0</sub></th><th>E<sub>1</sub></th><th>E<sub>2</sub></th>";
-  std::cout << "<th>Pop</th><th>DRA</th>";
+  std::cout << "<th>DRA</th><th style=\"width: 80%\">Pop</th>";
   std::cout << "</tr>" << std::endl;
   for(const auto &t : typings){
     t.print();

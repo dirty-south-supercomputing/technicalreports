@@ -18,4 +18,5 @@ table.evenshade tr:nth-child(even) {
 div.intro {
   text-align: justify;
   text-justify: inter-word;
+  padding: 1em;
 }

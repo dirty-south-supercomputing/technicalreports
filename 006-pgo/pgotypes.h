@@ -5633,6 +5633,9 @@ learner_count(const attack* as, unsigned* stab){
 // matches only bug+fighting, not the functionally equivalent fighting+bug.
 static inline unsigned
 typing_popcount(pgo_types_e t1, pgo_types_e t2){
+  if(t2 == t1){
+    t2 = TYPECOUNT;
+  }
   unsigned pcnt = 0;
   // we only want the main table
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
