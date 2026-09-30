@@ -6172,38 +6172,6 @@ lex_pmon(pmon* p, uint16_t *hp, int *argc, char ***argv){
   return 0;
 }
 
-struct typeset {
-  pgo_types_e t0;
-  pgo_types_e t1; // can be the same as t1 if we only have one attack type
-  int totals[6];  // we range from -3 to 2, inclusive
-  unsigned pop;   // population that can learn a charged attack of these types
-  float ara;
-
-  typeset(pgo_types_e T0, pgo_types_e T1, const int Totals[],
-          unsigned Pop, float ARA) :
-    t0(T0),
-    t1(T1),
-    pop(Pop),
-    ara(ARA) {
-      memcpy(totals, Totals, sizeof(totals));
-  }
-
-  friend bool operator<(const typeset &l, const typeset &r) {
-    return l.ara < r.ara ? true :
-            r.ara < l.ara ? false :
-            l.pop < r.pop ? true :
-            r.pop < l.pop ? false :
-            l.t0 < r.t0 ? true :
-            r.t0 < l.t0 ? false :
-            l.t1 < r.t1 ? true : false;
-  }
-
-  friend bool operator>(const typeset &l, const typeset &r) {
-    return !(l < r);
-  }
-
-};
-
 // can the specified species throw a charged attack of type t0, and (if
 // t1 is not TYPECOUNT) a charged attack of type t1?
 static inline bool
@@ -6224,16 +6192,41 @@ species_can_throw_p(const species *s, pgo_types_e t0, pgo_types_e t1){
   return b0 && (b1 || t1 == TYPECOUNT);
 }
 
-static unsigned
-dualcharge_pop(pgo_types_e t0, pgo_types_e t1){
-  unsigned pop = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    if(species_can_throw_p(&sdex[u], t0, t1)){
-      ++pop;
+struct typeset {
+  pgo_types_e t0;
+  pgo_types_e t1; // can be the same as t1 if we only have one attack type
+  int totals[6];  // we range from -3 to 2, inclusive
+  // population that can learn a charged attack of these types
+  std::vector<const species*> learnpop;
+  float ara;
+
+  typeset(pgo_types_e T0, pgo_types_e T1, const int Totals[], float ARA) :
+      t0(T0),
+      t1(T1),
+      ara(ARA) {
+    memcpy(totals, Totals, sizeof(totals));
+    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+      if(species_can_throw_p(&sdex[u], t0, t1)){
+        learnpop.emplace_back(&sdex[u]);
+      }
     }
   }
-  return pop;
-}
+
+  friend bool operator<(const typeset &l, const typeset &r) {
+    return l.ara < r.ara ? true :
+            r.ara < l.ara ? false :
+            l.learnpop.size() < r.learnpop.size() ? true :
+            r.learnpop.size() < l.learnpop.size() ? false :
+            l.t0 < r.t0 ? true :
+            r.t0 < l.t0 ? false :
+            l.t1 < r.t1 ? true : false;
+  }
+
+  friend bool operator>(const typeset &l, const typeset &r) {
+    return !(l < r);
+  }
+
+};
 
 static inline void
 build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1){
@@ -6251,24 +6244,25 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1){
     ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
   }
   ara /= TYPINGCOUNT;
-  unsigned pop = dualcharge_pop(t0, t1);
-  tsets.emplace(tsets.end(), t0, t1, totals, pop, ara);
+  tsets.emplace(tsets.end(), t0, t1, totals, ara);
 }
 
-// build the 171 typesets
+// build the 155 diadic typings or the 18 monotypes
 static inline void
 build_tsets(std::vector<typeset> &tsets, bool monomode){
-  for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
-    int lbound, ubound;
+  for(pgo_types_e t0 = TYPESTART ; t0 < TYPECOUNT ; ++t0){
+    pgo_types_e lbound, ubound;
     if(monomode){
       lbound = t0;
-      ubound = t0 + 1;
+      ubound = t0;
+      ++ubound;
     }else{
-      lbound = t0 + 1;
+      lbound = t0;
+      ++lbound;
       ubound = TYPECOUNT;
     }
-    for(int t1 = lbound ; t1 < ubound ; ++t1){
-      build_tset(tsets, static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
+    for(pgo_types_e t1 = lbound ; t1 < ubound ; ++t1){
+      build_tset(tsets, t0, t1);
     }
   }
 }

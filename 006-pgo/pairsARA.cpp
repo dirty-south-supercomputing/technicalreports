@@ -1,8 +1,18 @@
 #include "pgotypes.h"
 
+// build the 171 typesets
+static void
+build_tsets_full(std::vector<typeset> &tsets){
+  for(pgo_types_e t0 = TYPESTART ; t0 < TYPECOUNT ; ++t0){
+    for(pgo_types_e t1 = t0 ; t1 < TYPECOUNT ; ++t1){
+      build_tset(tsets, t0, t1);
+    }
+  }
+}
+
 int main(){
   std::vector<typeset> tsets;
-  build_tsets(tsets, false);
+  build_tsets_full(tsets);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   std::cout << std::fixed << std::setprecision(3);
   std::cout << "<table class=\"evenshade\">" << std::endl;
@@ -29,7 +39,7 @@ int main(){
       std::cout << "</td>";
     }
     std::cout << "<td>" << ts.ara << "</td>";
-    std::cout << "<td>" << ts.pop << "</td>";
+    std::cout << "<td>" << ts.learnpop.size() << "</td>";
     std::cout << "</tr>" << std::endl;
   }
   std::cout << "</table>" << std::endl;

@@ -40,7 +40,7 @@ int main(int argc, char **argv){
         printf("& ");
       }
     }
-    printf("& %.3f & %u\\\\\n", ts.ara, ts.pop);
+    printf("& %.3f & %lu\\\\\n", ts.ara, ts.learnpop.size());
   }
   printf("\\caption{Type efficiency summaries for charged attack sets\\label{table:dualcharged}}");
   printf("\\end{longtable}\\endgroup\n");

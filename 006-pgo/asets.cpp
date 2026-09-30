@@ -43,35 +43,6 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
   return pop;
 }
 
-// build the 171 typesets
-static void
-build_tsets(std::vector<typeset> &tsets){
-  for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
-    int lbound, ubound;
-    lbound = t0 + 1;
-    ubound = TYPECOUNT;
-    for(int t1 = lbound ; t1 < ubound ; ++t1){
-      int totals[6] = {};
-      for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
-        for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
-          int e0 = typing_relation(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-          int e1 = typing_relation(static_cast<pgo_types_e>(t1), static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-          int e = e0 > e1 ? e0 : e1;
-          ++totals[e + 3];
-        }
-      }
-      float ara = 0;
-      for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
-        ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
-      }
-      ara /= TYPINGCOUNT;
-      unsigned pop = dualcharge_pop(static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
-      tsets.emplace(tsets.end(), static_cast<pgo_types_e>(t0),
-          static_cast<pgo_types_e>(t1), totals, pop, ara);
-    }
-  }
-}
-
 static void
 usage(const char *a0){
   fprintf(stderr, "usage: %s\n", a0);
@@ -85,7 +56,7 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }
   std::vector<typeset> tsets;
-  build_tsets(tsets);
+  build_tsets(tsets, false);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   for(const auto &ts : tsets){
     printf("%s", tname_capitalized(ts.t0));
@@ -96,7 +67,7 @@ int main(int argc, char **argv){
     for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
       printf("%d\t", ts.totals[i]);
     }
-    printf("%.3f\t%u\n", ts.ara, ts.pop);
+    printf("%.3f\t%lu\n", ts.ara, ts.learnpop.size());
     dualcharge_list(static_cast<pgo_types_e>(ts.t0), static_cast<pgo_types_e>(ts.t1));
   }
 }
