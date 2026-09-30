@@ -6255,6 +6255,24 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1){
   tsets.emplace(tsets.end(), t0, t1, totals, pop, ara);
 }
 
+// build the 171 typesets
+static inline void
+build_tsets(std::vector<typeset> &tsets, bool monomode){
+  for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
+    int lbound, ubound;
+    if(monomode){
+      lbound = t0;
+      ubound = t0 + 1;
+    }else{
+      lbound = t0 + 1;
+      ubound = TYPECOUNT;
+    }
+    for(int t1 = lbound ; t1 < ubound ; ++t1){
+      build_tset(tsets, static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
+    }
+  }
+}
+
 // return count of shadow forms and shadow forms with normal type
 static inline unsigned
 shadow_count(unsigned* shadnormals){
