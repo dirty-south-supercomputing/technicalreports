@@ -901,6 +901,44 @@ type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
   return type_effectiveness_mult(typing_relation(at, dt0, dt1));
 }
 
+struct mega {
+  unsigned idx; // pokedex index, not unique
+  std::string name;
+  pgo_types_e t1, t2;
+  unsigned atk;
+  unsigned def;
+  unsigned sta;
+  unsigned initialcost;
+  const attack* plusatk;  // megas which can reach Super Mega level (level 4)
+                          // have an additional "Foo+" charged attack
+
+  mega() {
+  }
+
+  mega(const std::string& s)
+      : name(s) {
+  }
+
+  mega(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
+          unsigned A, unsigned D, unsigned S,
+          unsigned Initialcost, const attack* Plusatk)
+    : idx(i),
+    name(n),
+    t1(T1),
+    t2(T2),
+    atk(A),
+    def(D),
+    sta(S),
+    initialcost(Initialcost),
+    plusatk(Plusatk)
+  { }
+};
+
+struct species;
+
+static inline const struct species*
+lookup_species(unsigned idx);
+
 struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
@@ -981,6 +1019,32 @@ struct species {
 
   species(const std::string& s)
       : name(s) {
+  }
+
+  species(const mega& m) :
+    idx(m.idx),
+    name(m.name),
+    t1(m.t1),
+    t2(m.t2),
+    atk(m.atk),
+    def(m.def),
+    sta(m.sta),
+    shadow(false),
+    dmax(false)
+  {
+    const species *s = lookup_species(m.idx);
+    shiny = s->shiny;
+    from = s->from;
+    attacks = s->attacks;
+    if(m.plusatk){
+      attacks.emplace_back(m.plusatk);
+    }
+    elite = s->elite;
+    category = s->category;
+    a2cost = s->a2cost;
+    evolitem = s->evolitem;
+    monregion = s->monregion;
+    evolkm = s->evolkm;
   }
 
   species(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
@@ -4975,39 +5039,6 @@ static const species sdex[] = {
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
 
-struct mega {
-  unsigned idx; // pokedex index, not unique
-  std::string name;
-  pgo_types_e t1, t2;
-  unsigned atk;
-  unsigned def;
-  unsigned sta;
-  unsigned initialcost;
-  const attack* plusatk;  // megas which can reach Super Mega level (level 4)
-                          // have an additional "Foo+" charged attack
-
-  mega() {
-  }
-
-  mega(const std::string& s)
-      : name(s) {
-  }
-
-  mega(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
-          unsigned A, unsigned D, unsigned S,
-          unsigned Initialcost, const attack* Plusatk)
-    : idx(i),
-    name(n),
-    t1(T1),
-    t2(T2),
-    atk(A),
-    def(D),
-    sta(S),
-    initialcost(Initialcost),
-    plusatk(Plusatk)
-  { }
-};
-
 // mega and primal forms are never shadows
 static const mega megasdex[] = {
   {  3, "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, 200, nullptr, },
@@ -5095,15 +5126,6 @@ static const mega megasdex[] = {
 #define MEGACOUNT (sizeof(megasdex) / sizeof(*megasdex))
 
 float cpm(int halflevel);
-
-// FIXME get rid of this
-static const struct spokedex {
-  const species *dex;
-  unsigned dcount;
-} sdexen[] = {
-  { sdex, SPECIESCOUNT, },
-  { NULL, 0, }
-};
 
 // atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
 static int

@@ -34,12 +34,7 @@ int main(int argc, char **argv){
     zoom = true;
     for(unsigned u = 0 ; u < MEGACOUNT ; ++u){
       const mega &m = megasdex[u];
-      const species *s = lookup_species(m.idx);
-      species sm{
-          m.idx, m.name.c_str(), m.t1, m.t2, m.atk, m.def, m.sta,
-          s->name.c_str(), s->attacks, s->shiny, s->shadow, false, s->elite,
-          s->category, s->a2cost, species::EVOL_NOITEM,
-      };
+      species sm{m};
       char *sstr = strdup(megasortstr(m.name.c_str()));
       amap.emplace(sstr, sm);
     }

@@ -116,9 +116,9 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
 
 // get time to first and damage for all fast+charged pairs
 static void
-calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs, int bound){
-  for(unsigned si = 0 ; si < sd.dcount ; ++si){
-    const auto &s = sd.dex[si];
+calctimetoall(std::vector<timetofirst> &ttfs, int bound){
+  for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
+    const auto &s = sdex[si];
     if(s.name.contains("Aegislash")){
       continue; // FIXME
     }
@@ -204,9 +204,8 @@ int main(int argc, char **argv){
   }
   std::vector<timetofirst> ttfs;
   // we don't want max nor mega
-  struct spokedex smain = { sdex, SPECIESCOUNT, };
   header(!!bound);
-  calctimetoall(smain, ttfs, bound);
+  calctimetoall(ttfs, bound);
   std::sort(ttfs.begin(), ttfs.end());
   std::cout.setf(std::ios::fixed, std::ios::floatfield);
   std::cout.precision(1);

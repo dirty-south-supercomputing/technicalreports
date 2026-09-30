@@ -42,29 +42,39 @@ turns_until_e(const attack *a, unsigned e){
   return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
 }
 
-// get time to first and damage for all fast+charged pairs
 static void
-calctimetoall(const struct spokedex &sd, std::vector<timetofirst> &ttfs){
-  for(unsigned si = 0 ; si < sd.dcount ; ++si){
-    const auto &s = sd.dex[si];
-    for(const auto &f : s.attacks){
-      if(f->energytrain <= 0){
+calctimetos(std::vector<timetofirst> &ttfs, const species& s){
+  for(const auto &f : s.attacks){
+    if(f->energytrain <= 0){
+      continue;
+    }
+    for(const auto &c : s.attacks){
+      if(c->energytrain >= 0){
         continue;
       }
-      for(const auto &c : s.attacks){
-        if(c->energytrain >= 0){
-          continue;
-        }
-        unsigned t = turns_until_e(f, -c->energytrain);
-        float power = f->powertrain;
-        if(has_stab_p(&s, f)){
-          power = calc_stab(power);
-        }
-        float pfast = t / f->turns * power;
-        ++t; // account for the charged attack
-        ttfs.emplace_back(&s, t, pfast, f, c);
+      unsigned t = turns_until_e(f, -c->energytrain);
+      float power = f->powertrain;
+      if(has_stab_p(&s, f)){
+        power = calc_stab(power);
       }
+      float pfast = t / f->turns * power;
+      ++t; // account for the charged attack
+      ttfs.emplace_back(&s, t, pfast, f, c);
     }
+  }
+}
+
+// get time to first and damage for all fast+charged pairs
+static void
+calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs){
+  for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
+    calctimetos(ttfs, sdex[si]);
+  }
+  for(unsigned mi = 0 ; mi < MEGACOUNT ; ++mi){
+    megaspecs.emplace_back(megasdex[mi]);
+  }
+  for(const auto &m : megaspecs){
+    calctimetos(ttfs, m);
   }
 }
 
@@ -76,7 +86,7 @@ static void usage(const char *argv0){
 static void html_header(void){
   std::cout << "<table>" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>Pokémon</th><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
+  std::cout << "<th>T</th><th>Pokémon</th><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
   std::cout << "</tr>" << std::endl;
 }
 
@@ -106,6 +116,9 @@ static void emit_name(const std::string &s){
 // don't elide matching mon type for html (as we do latex)
 static void emit_row(const timetofirst &t){
   std::cout << "<tr>";
+  std::cout << "<td>";
+  html_types(t.s->t1, t.s->t2);
+  std::cout << "</td>";
   std::cout << "<td>" << t.s->name << "</td>";
   std::cout << "<td>";
   html_type(t.fa->type);
@@ -118,7 +131,9 @@ static void emit_row(const timetofirst &t){
   summarize_buffs_html(t.ca);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
+  std::cout.precision(1);
   std::cout << "<td>" << t.dam << "</td>";
+  std::cout.precision(2);
   std::cout << "<td>";
   if(t.excesse){
     std::cout << t.excesse;
@@ -186,14 +201,13 @@ int main(int argc, char **argv){
     }
   }
   std::vector<timetofirst> ttfs;
-  // we don't want max nor mega
-  struct spokedex smain = { sdex, SPECIESCOUNT, };
   if(!extrema && !powertbl){
     html_header();
   }else{
     header(extrema);
   }
-  calctimetoall(smain, ttfs);
+  std::vector<species> megaspecs; // backing storage for species boosted from megas
+  calctimetoall(ttfs, megaspecs);
   if(powertbl){
     std::sort(ttfs.begin(), ttfs.end(), damagecmp);
   }else{
