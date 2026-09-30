@@ -39,7 +39,17 @@ int main(){
       std::cout << "</td>";
     }
     std::cout << "<td>" << ts.ara << "</td>";
-    std::cout << "<td>" << ts.learnpop.size() << "</td>";
+    std::cout << "<td>" << ts.learnpop.size() << " ";
+    bool printed = false;
+    for(const auto s : ts.learnpop){
+      if(printed){
+        std::cout << ", ";
+      }else{
+        printed = true;
+      }
+      std::cout << s->name;
+    }
+    std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
   }
   std::cout << "</table>" << std::endl;
