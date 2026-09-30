@@ -1,23 +1,5 @@
 #include "pgotypes.h"
 
-// build the 171 typesets
-static void
-build_tsets(std::vector<typeset> &tsets, bool monomode){
-  for(int t0 = 0 ; t0 < TYPECOUNT ; ++t0){
-    int lbound, ubound;
-    if(monomode){
-      lbound = t0;
-      ubound = t0 + 1;
-    }else{
-      lbound = t0 + 1;
-      ubound = TYPECOUNT;
-    }
-    for(int t1 = lbound ; t1 < ubound ; ++t1){
-      build_tset(tsets, static_cast<pgo_types_e>(t0), static_cast<pgo_types_e>(t1));
-    }
-  }
-}
-
 static void
 usage(const char *a0){
   fprintf(stderr, "usage: %s m | d\n", a0);

@@ -4,6 +4,7 @@ int main(){
   std::vector<typeset> tsets;
   build_tsets(tsets, false);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
+  std::cout << std::fixed << std::setprecision(3);
   std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th>";
