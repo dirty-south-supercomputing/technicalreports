@@ -34,7 +34,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
-						$(addprefix dynas-, $(TYPES))))
+						$(addprefix dynas-, all $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -209,9 +209,10 @@ $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
 	@mkdir -p $(@D)
 	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
+# use cp instead of ln so that 'chromium webpage/index.html' doesn't go to webpage-src/, ugh
 $(WEB)/index.html: $(WEBSRC)/index.html
 	@mkdir -p $(@D)
-	ln -s ../$< $@
+	cp -a $< $@
 
 $(OUT)/%Nx1.html: $(OUT)/%
 	@mkdir -p $(@D)

@@ -58,41 +58,6 @@ int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
   return cands.size();
 }
 
-// top *count* attackers for each attack type, unified.
-// 0 gets all possible max attackers.
-// this one is for the book, and thus emits latex.
-int emit_dynamax_unified_table(int count){
-  std::cout << "\\begin{table}\\centering\\footnotesize";
-  std::cout << "\\begin{tabular}{cllrr}";
-  std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
-  std::cout << "\\Midrule" << std::endl;
-  std::vector<candidate> cands;
-  for(int t = 0 ; t < TYPECOUNT ; ++t){
-    std::vector<candidate> tcands;
-    if(build_type_vec(static_cast<pgo_types_e>(t), tcands) <= 0){
-      return -1;
-    }
-    int emit = 0;
-    for(const auto& c : tcands){
-      cands.emplace_back(c);
-      if(++emit == count){
-        break;
-      }
-    }
-  }
-  std::sort(cands.begin(), cands.end(), std::greater<>());
-  auto maxp = cands.begin()->powprod();
-  for(const auto& c : cands){
-    emit_cand(c, maxp);
-  }
-  std::cout << "\\end{tabular}\\caption{Top Max attackers";
-  if(count){
-    std::cout << " (" << count << " per attack type, unified)";
-  }
-  std::cout << "\\label{table:maxranked}}\\end{table}";
-  return 0;
-}
-
 static void
 emit_cand_html(const candidate& c, unsigned maxp){
   auto rp = c.powprod();
@@ -120,6 +85,56 @@ emit_cand_html(const candidate& c, unsigned maxp){
   std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>";
   std::cout << std::setprecision(0) << std::fixed << "<td>" << rp << "</td>";
   std::cout << "</tr>" << std::endl;
+}
+
+// top *count* attackers for each attack type, unified.
+// 0 gets all possible max attackers.
+// this one is for the book, and thus must emit latex.
+int emit_dynamax_unified_table(int count, bool html){
+  if(html){
+    std::cout << "<table>" << std::endl;
+    std::cout << "<tr>";
+    std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
+    std::cout << "</tr>" << std::endl;
+  }else{
+    std::cout << "\\begin{table}\\centering\\footnotesize";
+    std::cout << "\\begin{tabular}{cllrr}";
+    std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
+    std::cout << "\\Midrule" << std::endl;
+  }
+  std::vector<candidate> cands;
+  for(int t = 0 ; t < TYPECOUNT ; ++t){
+    std::vector<candidate> tcands;
+    if(build_type_vec(static_cast<pgo_types_e>(t), tcands) <= 0){
+      return -1;
+    }
+    int emit = 0;
+    for(const auto& c : tcands){
+      cands.emplace_back(c);
+      if(++emit == count){
+        break;
+      }
+    }
+  }
+  std::sort(cands.begin(), cands.end(), std::greater<>());
+  auto maxp = cands.begin()->powprod();
+  for(const auto& c : cands){
+    if(html){
+      emit_cand_html(c, maxp);
+    }else{
+      emit_cand(c, maxp);
+    }
+  }
+  if(html){
+    std::cout << "</table>" << std::endl;
+  }else{
+    std::cout << "\\end{tabular}\\caption{Top Max attackers";
+    if(count){
+      std::cout << " (" << count << " per attack type, unified)";
+    }
+    std::cout << "\\label{table:maxranked}}\\end{table}";
+  }
+  return 0;
 }
 
 // top *count* attackers throwing max attack type *t*.
@@ -152,7 +167,10 @@ int main(int argc, char ** argv){
     usage(*argv, EXIT_FAILURE);
   }
   if(argc == 1){
-    return emit_dynamax_unified_table(3);
+    return emit_dynamax_unified_table(3, false);
+  }
+  if(strcmp(argv[1], "all") == 0){
+    return emit_dynamax_unified_table(0, true);
   }
   pgo_types_e lext = lookup_type(argv[1]);
   if(lext == TYPECOUNT){
