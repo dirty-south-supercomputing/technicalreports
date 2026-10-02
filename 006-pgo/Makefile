@@ -465,7 +465,7 @@ $(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
 
 $(OUT)/%.o: %.cpp pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -c -o $@ -Wall -W $(<F)
+	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 $(<F)
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic
