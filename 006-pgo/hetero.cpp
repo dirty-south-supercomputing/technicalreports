@@ -4,10 +4,10 @@
 
 static bool
 hetero_p(const species *s){
-  if(s->from == NULL){
+  if(s->from.empty()){
     return false;
   }
-  const species* from = lookup_species(s->from);
+  const species* from = lookup_species(s->from.c_str());
   if(from->name == "Eevee"){
     return false;
   }
@@ -28,10 +28,10 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
   }
   std::sort(hetero.begin(), hetero.end(),
       [](const species *l, const species *r){
-        return lookup_species(l->from)->name < lookup_species(r->from)->name;
+        return lookup_species(l->from.c_str())->name < lookup_species(r->from.c_str())->name;
       });
   for(const auto &s : hetero){
-    const species* from = lookup_species(s->from);
+    const species* from = lookup_species(s->from.c_str());
     print_types(from->t1, from->t2);
     printf(" %s", from->name.c_str());
     #define GLAR "Galarian"
@@ -58,40 +58,28 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
   return 0;
 }
 
-static bool
-hetero_p(const mega *m){
-  const species* from = lookup_species(m->idx);
-  if(from->t1 == m->t1 && from->t2 == m->t2){
-    return false;
-  }
-  return true;
-}
-
 static int
-print_hetero_evols_mega(const mega* dex, unsigned dexcount, unsigned* pcount){
-  std::vector<const mega *> hetero;
-  for(unsigned u = 0 ; u < dexcount ; ++u){
-    const mega* m = &dex[u];
-    if(hetero_p(m)){
-      hetero.emplace_back(m);
+print_hetero_evols_mega(){
+  unsigned pcount = 0;
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    const species &s = sdex[u];
+    for(const mega &m : s.mforms){
+      if(m.t1 != s.t1 || m.t2 != s.t2){
+        print_types(s.t1, s.t2);
+        printf(" %s", s.name.c_str());
+        printf(" → ");
+        print_types(m.t1, m.t2);
+        printf(" %s ", m.name.c_str());
+        if(++pcount % 2){
+          printf(" & ");
+        }else{
+          printf("\\\\\n");
+        }
+      }
     }
   }
-  std::sort(hetero.begin(), hetero.end(),
-      [](const mega *l, const mega *r){
-        return lookup_species(l->idx)->name < lookup_species(r->idx)->name;
-      });
-  for(const auto &m : hetero){
-    const species* from = lookup_species(m->idx);
-    print_types(from->t1, from->t2);
-    printf(" %s", from->name.c_str());
-    printf(" → ");
-    print_types(m->t1, m->t2);
-    printf(" %s ", m->name.c_str());
-    if(++*pcount % 2){
-      printf(" & ");
-    }else{
-      printf("\\\\\n");
-    }
+  if(pcount % 2){
+    printf("\\\\\n");
   }
   return 0;
 }
@@ -105,13 +93,21 @@ static void type_heterotable(void){
   if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
     exit(EXIT_FAILURE);
   }
-  if(print_hetero_evols_mega(megasdex, MEGACOUNT, &count)){
-    exit(EXIT_FAILURE);
-  }
   if(count % 2){
     printf("\\\\\n");
   }
   printf("\\caption{Type-changing evolutions and form changes (Eevee excluded)\\label{table:heteroevolve}}");
+  printf("\\end{longtable}");
+  printf("\\endgroup");
+
+  printf("\\begingroup");
+  printf("\\footnotesize");
+  printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
+  puts("Mega evolution & Mega evolution\\\\\\Midrule");
+  if(print_hetero_evols_mega()){
+    exit(EXIT_FAILURE);
+  }
+  printf("\\caption{Type-changing Mega evolutions\\label{table:heteroevolvemega}}");
   printf("\\end{longtable}");
   printf("\\endgroup");
 }
@@ -119,13 +115,13 @@ static void type_heterotable(void){
 static int
 print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
   for(unsigned u = 0 ; u < dexcount ; ++u){
-    const species* s = &dex[u];
-    if(s->from == NULL){
+    const species *s = &dex[u];
+    if(s->from.empty()){
       continue;
     }
-    const species* from = lookup_species(s->from);
-    if(from == NULL){
-      fprintf(stderr, "Bad ancestor (%s) for %s, exiting\n", s->from, s->name.c_str());
+    const species *from = lookup_species(s->from.c_str());
+    if(!from){
+      fprintf(stderr, "Bad ancestor (%s) for %s, exiting\n", s->from.c_str(), s->name.c_str());
       return -1;
     }
     if(from->a2cost == s->a2cost){
