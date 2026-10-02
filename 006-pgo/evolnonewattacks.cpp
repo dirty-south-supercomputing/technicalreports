@@ -4,10 +4,10 @@
 int main(void){
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species &s = sdex[i];
-    if(!s.from){
+    if(s.from.empty()){
       continue;
     }
-    const species *pre = lookup_species(s.from);
+    const species *pre = lookup_species(s.from.c_str());
     if(!pre){
       continue;
     }
