@@ -8,7 +8,7 @@ TEXCC:=lualatex
 TEXOPTS:=-shell-escape -halt-on-error
 TEX:=$(addsuffix .tex, pgo foreward objectives trainer friends types attacks \
 											 species pokémon battle unbounded bounded tactics \
-											 simul spawn example about ooo optimal notice timespace \
+											 simul spawn example about ooo notice timespace \
 											 speciescards attackcards feraligatr2500 items sresearch)
 COPYRIGHT:=copyright.tex
 CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel))
@@ -93,12 +93,6 @@ WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
 REGIONSTEX:=$(REGIONS).tex
 REGIONALTEX:=$(REGIONAL).tex
-CP1500A:=$(OUT)/cp1500a.tex
-CP2500A:=$(OUT)/cp2500a.tex
-CP1500G:=$(OUT)/cp1500g.tex
-CP2500G:=$(OUT)/cp2500g.tex
-CP1500K:=$(OUT)/cp1500k.tex
-CP2500K:=$(OUT)/cp2500k.tex
 SUPERCOUNTERTEX:=$(OUT)/supercounter.tex
 NOSECONDCHARGEDTEX:=$(OUT)/nosecondcharged.tex
 HETEROCOSTTEX:=$(OUT)/heterocost.tex
@@ -122,8 +116,6 @@ LEVELS80TEX:=$(OUT)/xp80.tex
 LEVELUPGRADESTEX:=$(OUT)/xpupgrades.tex
 BREAKPOINTSDAT:=$(BREAKPOINTS).tex
 UNPOPTEX:=$(OUT)/unpop.tex
-BULK1500TEX:=$(OUT)/bulk1500.tex
-BULK2500TEX:=$(OUT)/bulk2500.tex
 FHUNDOGLTEX:=$(OUT)/fhundogl.tex
 FHUNDOULTEX:=$(OUT)/fhundoul.tex
 FHUNDOMLTEX:=$(OUT)/fhundoml.tex
@@ -138,14 +130,14 @@ OPTSTATSPDF:=$(OUT)/optstats.pdf
 OPTSTATSRADARDAT:=$(OUT)/optstatsradar.r
 OPTSTATSRADARR:=optstatsradar.R
 OPTSTATSRADARPDF:=$(OUT)/optstatsradar.pdf
-GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) $(CP1500A) $(CP2500A) $(CP1500K) \
+GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(HALFSECMAXTEX) \
-	$(BREAKPOINTSDAT) $(FPAIRSTEX) $(CP1500G) $(CP2500G) \
+	$(BREAKPOINTSDAT) $(FPAIRSTEX) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
-	$(BULK1500TEX) $(BULK2500TEX) $(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
+	$(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
 	$(NOSECONDCHARGEDTEX) $(DOUBLEDOUBLESTEX) $(TRIPLERESISTTEX) $(DAMAGECYCLETEX) \
 	$(UNPOPTEX) $(ASETSTEX) $(SUPERCOUNTERTEX) $(CHARGEDBYENERGYTEX) $(XPTEX) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
@@ -220,14 +212,6 @@ $(OUT)/%Nx1.html: $(OUT)/%
 $(OUT)/%3x3.html: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) -h > $@
-
-$(BULK1500TEX): $(OUT)/bounded
-	@mkdir -p $(@D)
-	$(<) b 1500 129.25 > $@
-
-$(BULK2500TEX): $(OUT)/bounded
-	@mkdir -p $(@D)
-	$(<) b 2500 164.9 > $@
 
 $(OUT)/bulkGL.html: $(OUT)/bounded
 	@mkdir -p $(@D)
@@ -384,30 +368,6 @@ $(OUT)/dualtypes.tex: $(OUT)/dualtypes
 $(OUT)/dualsummaries.tex: $(OUT)/dualtypes
 	@mkdir -p $(@D)
 	$(<) summary > $@
-
-# provide the lower (exclusive) bounds as necessary to properly paginate.
-# note: the bounds are exclusive, but floating-point is in play, so treat
-# them like they're inclusive, and provide a number slightly larger than
-# the lower bound you truly want. this all sucks.
-$(OUT)/cp1500a.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) a 1500 129.07 > $@
-
-$(OUT)/cp2500a.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) a 2500 162.1 > $@
-
-$(OUT)/cp1500k.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) k 1500 0 > $@
-
-$(OUT)/cp1500g.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) g 1500 124.90 > $@
-
-$(OUT)/cp2500g.tex: $(OUT)/bounded $(MAKEFILE)
-	@mkdir -p $(@D)
-	$(<) g 2500 157.17 > $@
 
 $(CUSERSTEX): $(OUT)/users
 	@mkdir -p $(@D)
