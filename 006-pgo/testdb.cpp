@@ -72,7 +72,7 @@ test_species(const species *s){
     // check that all attacks are on the full attack list
     bool atkingtable = false;
     for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
-      if((*it)->name == a->name){
+      if(strcmp((*it)->name, a->name) == 0){
         atkingtable = true;
         break;
       }
@@ -109,7 +109,7 @@ test_species(const species *s){
         std::cerr << "expected cost 10, got " << s->a2cost << " for " << s->name << std::endl;
         throw std::exception();
       }
-      if(s->from){
+      if(!s->from.empty()){
         std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
         throw std::exception();
       }
@@ -275,26 +275,27 @@ test_gmax(void){
 
 static bool
 test_mega(void){
-  for(unsigned i = 0 ; i < MEGACOUNT ; ++i){
-    const auto& m = megasdex[i];
-    if(!m.initialcost || (m.initialcost % 100)){
-      std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
-      throw std::exception();
-    }
-    if(m.plusatk && !charged_attack_p(m.plusatk)){
-      std::cerr << "invalid non-charged plus attach " << m.plusatk->name << " for " << m.name << std::endl;
-      throw std::exception();
-    }
-    // verify that the mega's name reduces to its base name
-    const species* s = lookup_species(m.idx);
-    if(!m.name.contains(s->name)){
-      std::cerr << m.name << " didn't match " << s->name << std::endl;
-      throw std::exception();
-    }
-    if(m.plusatk){
-      if(!strchr(m.plusatk->name, '+')){
-        std::cerr << m.name << " had invalid +attack " << m.plusatk->name << std::endl;
+  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
+    const auto &s = sdex[i];
+    for(const auto &m : s.mforms){
+      if(!m.initialcost || (m.initialcost % 100)){
+        std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
         throw std::exception();
+      }
+      if(m.plusatk && !charged_attack_p(m.plusatk)){
+        std::cerr << "invalid non-charged plus attach " << m.plusatk->name << " for " << m.name << std::endl;
+        throw std::exception();
+      }
+      // verify that the mega's name reduces to its base name
+      if(!m.name.contains(s.name)){
+        std::cerr << m.name << " didn't contain " << s.name << std::endl;
+        throw std::exception();
+      }
+      if(m.plusatk){
+        if(!strchr(m.plusatk->name, '+')){
+          std::cerr << m.name << " had invalid +attack " << m.plusatk->name << std::endl;
+          throw std::exception();
+        }
       }
     }
   }
