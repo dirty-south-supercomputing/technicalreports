@@ -101,7 +101,7 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
 static void
 summarize_aset(const pmon &p){
   std::vector<typeset> tsets;
-  build_tset(tsets, p.ca1->type, p.ca2 ? p.ca2->type : p.ca1->type);
+  build_tset(tsets, p.ca1->type, p.ca2 ? p.ca2->type : p.ca1->type, TYPECOUNT);
   std::cout << "(" << tname_capitalized(p.fa->type) << ") " << p.fa->name;
   std::cout << " (" << tname_capitalized(p.ca1->type) << ") " << p.ca1->name;
   if(p.ca2){

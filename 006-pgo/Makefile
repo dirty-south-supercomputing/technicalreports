@@ -27,7 +27,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 					  index \
 						nodyna noshadow noshiny \
-						typesARA pairsARA typesDRA \
+						typesARA setsARA typesDRA \
 						effectiveness listTTF gmax \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
@@ -465,7 +465,7 @@ $(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
 
 $(OUT)/%.o: %.cpp pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 $(<F)
+	g++ -std=c++23 -g -c -o $@ -Wall -W $(<F)
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic
