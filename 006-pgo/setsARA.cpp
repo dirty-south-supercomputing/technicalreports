@@ -7,8 +7,12 @@ build_tsets_full(std::vector<typeset> &tsets){
   for(pgo_types_e t0 = TYPESTART ; t0 < TYPECOUNT ; ++t0){
     for(pgo_types_e t1 = t0 ; t1 < TYPECOUNT ; ++t1){
       build_tset(tsets, t0, t1, TYPECOUNT);
-      for(pgo_types_e plust = TYPESTART ; plust < TYPECOUNT ; ++plust){
-        build_tset(tsets, t0, t1, plust);
+      if(t1 != t0){
+        for(pgo_types_e plust = TYPESTART ; plust < TYPECOUNT ; ++plust){
+          if(plust != t0 && plust != t1){
+            build_tset(tsets, t0, t1, plust);
+          }
+        }
       }
     }
   }
@@ -32,7 +36,7 @@ int main(){
   std::cout << "<th style=\"width: 80%\">Pop</th>";
   std::cout << "</tr>" << std::endl;
   for(const auto &ts : tsets){
-    if(!ts.learnpop.size()){
+    if(!ts.learnpop.size() && !ts.learnpopm.size()){
       continue;
     }
     std::cout << "<tr><td>";
@@ -50,18 +54,28 @@ int main(){
       std::cout << "</td>";
     }
     std::cout << "<td>" << ts.ara << "</td>";
-    std::cout << "<td>" << ts.learnpop.size() << " ";
-    bool printed = false;
-    for(const auto s : ts.learnpop){
-      if(printed){
-        std::cout << ", ";
-      }else{
-        printed = true;
+    if(ts.learnpopm.size()){
+      std::cout << "<td>" << ts.learnpopm.size() << " ";
+      bool printed = false;
+      for(const auto m : ts.learnpopm){
+        if(printed){
+          std::cout << ", ";
+        }else{
+          printed = true;
+        }
+        std::cout << m->name;
       }
-      if(ts.plustype != TYPECOUNT){
-        std::cout << "Mega ";
+    }else{
+      std::cout << "<td>" << ts.learnpop.size() << " ";
+      bool printed = false;
+      for(const auto s : ts.learnpop){
+        if(printed){
+          std::cout << ", ";
+        }else{
+          printed = true;
+        }
+        std::cout << s->name;
       }
-      std::cout << s->name;
     }
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;

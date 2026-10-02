@@ -6240,7 +6240,6 @@ struct typeset {
         if(!species_can_throw_p(&s, t0, t1)){
           continue;
         }
-        // we only check the megas
         for(const auto &m : s.mforms){
           if(!m.plusatk){
             continue;
@@ -6288,7 +6287,6 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_type
       if(plustype != TYPECOUNT){
         int e2 = typing_relation(plustype, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
         if(e2 > e){
-std::cerr << "PLUSTYPE UPDATES: " << e << " TO " << e2 << std::endl; 
           e = e2;
         }
       }
