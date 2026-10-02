@@ -43,23 +43,28 @@ turns_until_e(const attack *a, unsigned e){
 }
 
 static void
-calctimetos(std::vector<timetofirst> &ttfs, const species& s){
-  for(const auto &f : s.attacks){
+calctimefandc(std::vector<timetofirst> &ttfs, const species *s, const attack *f, const attack *c){
+  unsigned t = turns_until_e(f, -c->energytrain);
+  float power = f->powertrain;
+  if(has_stab_p(s, f)){
+    power = calc_stab(power);
+  }
+  float pfast = t / f->turns * power;
+  ++t; // account for the charged attack
+  ttfs.emplace_back(s, t, pfast, f, c);
+}
+
+static void
+calctimetos(std::vector<timetofirst> &ttfs, const species *s){
+  for(const auto &f : s->attacks){
     if(f->energytrain <= 0){
       continue;
     }
-    for(const auto &c : s.attacks){
+    for(const auto &c : s->attacks){
       if(c->energytrain >= 0){
         continue;
       }
-      unsigned t = turns_until_e(f, -c->energytrain);
-      float power = f->powertrain;
-      if(has_stab_p(&s, f)){
-        power = calc_stab(power);
-      }
-      float pfast = t / f->turns * power;
-      ++t; // account for the charged attack
-      ttfs.emplace_back(&s, t, pfast, f, c);
+      calctimefandc(ttfs, s, f, c);
     }
   }
 }
@@ -68,13 +73,14 @@ calctimetos(std::vector<timetofirst> &ttfs, const species& s){
 static void
 calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs){
   for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
-    calctimetos(ttfs, sdex[si]);
+    const auto *s = &sdex[si];
+    calctimetos(ttfs, s);
+    for(const auto &m : s->mforms){
+      megaspecs.emplace_back(s, m);
+    }
   }
-  for(unsigned mi = 0 ; mi < MEGACOUNT ; ++mi){
-    megaspecs.emplace_back(megasdex[mi]);
-  }
-  for(const auto &m : megaspecs){
-    calctimetos(ttfs, m);
+  for(const auto &s : megaspecs){
+    calctimetos(ttfs, &s);
   }
 }
 
