@@ -5231,6 +5231,15 @@ summarize_stat(const stats &st){
 }
 
 static inline int
+statscmp_cp(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  int cp1 = calccp(st1->effa, st1->effd, st1->mhp, st1->hlevel);
+  int cp2 = calccp(st2->effa, st2->effd, st2->mhp, st2->hlevel);
+  return cp1 < cp2 ? -1 : cp1 > cp2 ? 1 : 0;
+}
+
+static inline int
 statscmp_gmean(const void *vst1, const void *vst2){
   const stats *st1 = static_cast<const stats*>(vst1);
   const stats *st2 = static_cast<const stats*>(vst2);
@@ -5323,6 +5332,11 @@ calc_pok_amean(const stats *s){
 static inline float
 calc_pok_gmean(const stats *s){
   return calc_gmean(s->effa, s->effd, s->mhp);
+}
+
+static inline float
+calc_pok_cp(const stats *s){
+  return calccp(s->effa, s->effd, s->mhp, s->hlevel);
 }
 
 static inline float
@@ -6274,6 +6288,7 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_type
       if(plustype != TYPECOUNT){
         int e2 = typing_relation(plustype, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
         if(e2 > e){
+std::cerr << "PLUSTYPE UPDATES: " << e << " TO " << e2 << std::endl; 
           e = e2;
         }
       }

@@ -31,7 +31,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 						effectiveness listTTF gmax \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
-						$(addsuffix ML, list functional amean gmean atk def mhp bulk) \
+						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
 						$(addprefix dynas-, all $(TYPES))))
@@ -293,6 +293,10 @@ $(OUT)/ameanUL.html: $(OUT)/bounded
 $(OUT)/ameanML.html: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) a 0 html > $@
+
+$(OUT)/cpML.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) c 0 html > $@
 
 $(OUT)/evolworseGL.html: $(OUT)/evolworse
 	@mkdir -p $(@D)

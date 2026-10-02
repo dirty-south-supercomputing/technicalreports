@@ -200,6 +200,7 @@ static void usage(const char *argv0){
   fprintf(stderr, "usage: %s a|b|d|g|h|k highcp [ lowbound | \"html\" ]\n", argv0);
   fprintf(stderr, "\ta: arithemetic mean\n");
   fprintf(stderr, "\tb: bulk\n");
+  fprintf(stderr, "\tc: cp\n");
   fprintf(stderr, "\td: effective def\n");
   fprintf(stderr, "\tg: geometric mean\n");
   fprintf(stderr, "\th: mhp\n");
@@ -243,6 +244,10 @@ int main(int argc, char** argv){
     fitfxn = calc_pok_effd;
     cmpfxn = statscmp_def;
     fitchar = 'd';
+  }else if(strcmp(argv[1], "c") == 0){
+    fitfxn = calc_pok_cp;
+    cmpfxn = statscmp_cp;
+    fitchar = 'c';
   }else if(strcmp(argv[1], "b") == 0){
     fitfxn = calc_pok_bulk;
     cmpfxn = statscmp_bulk;

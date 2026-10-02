@@ -123,12 +123,12 @@ calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs, i
       continue; // FIXME
     }
     calctimespecies(s, ttfs, bound);
+    for(const auto &m : s.mforms){
+      megaspecs.emplace_back(&s, m);
+    }
   }
-  for(unsigned mi = 0 ; mi < MEGACOUNT ; ++mi){
-    megaspecs.emplace_back(megasdex[mi]);
-  }
-  for(const auto &m : megaspecs){
-    calctimespecies(m, ttfs, bound);
+  for(const auto &s : megaspecs){
+    calctimespecies(s, ttfs, bound);
   }
 }
 
