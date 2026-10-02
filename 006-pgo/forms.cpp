@@ -6,22 +6,6 @@
 #include <cstdlib>
 #include <cstring>
 
-static const char *megasortstr(const char *name){
-#define MEGASTR "Mega "
-#define PRIMALSTR "Primal "
-  const char *str;
-  if(strncmp(name, MEGASTR, strlen(MEGASTR)) == 0){
-    str = name + strlen(MEGASTR);
-  }else if(strncmp(name, PRIMALSTR, strlen(PRIMALSTR)) == 0){
-    str = name + strlen(PRIMALSTR);
-  }else{
-    str = name;
-  }
-  return str;
-#undef PRIMALSTR
-#undef MEGASTR
-}
-
 int main(int argc, char **argv){
   setlocale(LC_ALL, "");
   if(argc != 2){
@@ -32,11 +16,12 @@ int main(int argc, char **argv){
   std::map<std::string, species> amap;
   if(strcasecmp(argv[1], "mega") == 0){
     zoom = true;
-    for(unsigned u = 0 ; u < MEGACOUNT ; ++u){
-      const mega &m = megasdex[u];
-      species sm{m};
-      char *sstr = strdup(megasortstr(m.name.c_str()));
-      amap.emplace(sstr, sm);
+    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+      const auto *s = &sdex[u];
+      for(const auto &m : s->mforms){
+        species smeg{s, m};
+        amap.emplace(m.name, smeg);
+      }
     }
   }else if(strcasecmp(argv[1], "dynamax") == 0){
     for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
