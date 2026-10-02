@@ -25,6 +25,7 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
+					  index \
 						nodyna noshadow noshiny \
 						typesARA pairsARA typesDRA \
 						effectiveness listTTF \
@@ -205,7 +206,12 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
+	@mkdir -p $(@D)
 	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+
+$(WEB)/index.html: $(WEBSRC)/index.html
+	@mkdir -p $(@D)
+	ln -s ../$< $@
 
 $(OUT)/%Nx1.html: $(OUT)/%
 	@mkdir -p $(@D)
@@ -492,7 +498,7 @@ testsimullong: $(SIMUL)
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf
-	@rm -vrf $(WEBPAGES)
+	@rm -vrf $(WEBPAGES) $(WEB)
 	@rm -vrf pdfa.xmpi
 	@rm -vrf $(OUT)
 	@rm -vrf svg-inkscape
