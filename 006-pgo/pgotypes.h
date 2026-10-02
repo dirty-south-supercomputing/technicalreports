@@ -3840,11 +3840,11 @@ static const species sdex[] = {
   // the playful
   {  674, "Pancham", TYPE_FIGHTING, TYPECOUNT, 145, 107, 167, nullptr,
 		{ &ATK_Low_Kick, &ATK_Tackle, &ATK_Low_Sweep, &ATK_Body_Slam, &ATK_Crunch, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the daunting
   {  675, "Pangoro", TYPE_FIGHTING, TYPE_DARK, 226, 146, 216, "Pancham",
 		{ &ATK_Low_Kick, &ATK_Karate_Chop, &ATK_Bullet_Punch, &ATK_Snarl, &ATK_Night_Slash, &ATK_Rock_Slide, &ATK_Iron_Head, &ATK_Close_Combat, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the poodle
   {  676, "Furfrou", TYPE_NORMAL, TYPECOUNT, 164, 167, 181, nullptr,
 		{ &ATK_Bite, &ATK_Sucker_Punch, &ATK_Take_Down, &ATK_Sand_Attack, &ATK_Dark_Pulse, &ATK_Grass_Knot, &ATK_Surf, },
@@ -4284,7 +4284,10 @@ static const species sdex[] = {
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Aerial_Ace, &ATK_Iron_Head, &ATK_Tri_Attack, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, }, */
   // 773 is silvally (type: null evolution)
-  // 774 is minior
+  // the meteor
+  {  774, "Minior", TYPE_ROCK, TYPE_FLYING, 116, 194, 155, nullptr,
+		{ &ATK_Take_Down, &ATK_Rollout, &ATK_Acrobatics, &ATK_Ancient_Power, &ATK_Power_Gem, },
+		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, },
   // the drowsing
   {  775, "Komala", TYPE_NORMAL, TYPECOUNT, 216, 165, 163, nullptr,
 		{ &ATK_Yawn, &ATK_Rollout, &ATK_Play_Rough, &ATK_Bulldoze, &ATK_Payback, },
