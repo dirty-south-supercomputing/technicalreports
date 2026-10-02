@@ -1064,6 +1064,9 @@ struct species {
     sta = m.sta;
     from = s->name;
     attacks = s->attacks;
+    if(m.plusatk){
+      attacks.emplace_back(m.plusatk);
+    }
     shiny = s->shiny;
     shadow = false;
     dmax = false;
