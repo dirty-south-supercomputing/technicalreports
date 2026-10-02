@@ -72,7 +72,7 @@ print_evolution_table(const species* s){
       // in evols, update immindex and pop. then print any successor and pop.
       if(evols.size()){
         printf(" → ");
-        if(immevols[immindex + 1] == evols[evolidx]){
+        if(immindex + 1u < immevols.size() && immevols[immindex + 1] == evols[evolidx]){
           ++immindex;
           ++evolidx;
         }
@@ -221,9 +221,12 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   printf("\\vfill\n");
   const auto gma = lookup_gmax_attack(s);
   bool gmax = !overzoom && gma;
-  const mega* meg = lookup_mega(s->name.c_str());
+  const mega* meg = nullptr;
   // just because we *have* a mega doesn't mean we *are* a mega
   bool ismega = ismega_p(s);
+  if(ismega){
+    meg = &s->mforms[0]; // only valid if ismega
+  }
   printf("\\begin{speciesbox}[title={\\#%04u ", s->idx);
   if(gmax){
     printf("Gigantamax ");
