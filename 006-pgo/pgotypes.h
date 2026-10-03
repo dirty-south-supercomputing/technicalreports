@@ -1832,6 +1832,7 @@ static const species sdex[] = {
   {  129, "Magikarp", TYPE_WATER, TYPECOUNT, 29, 85, 85, "",
 		{ &ATK_Splash, &ATK_Struggle, },
 		true, true, 1, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the atrocious
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dragon_Tail, &ATK_Waterfall, &ATK_Aqua_Tail, &ATK_Twister, &ATK_Dragon_Pulse, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Crunch, },
 		true, true, UINT_MAX, { &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
@@ -1845,9 +1846,11 @@ static const species sdex[] = {
   {  133, "Eevee", TYPE_NORMAL, TYPECOUNT, 104, 114, 146, "",
 		{ &ATK_Quick_Attack, &ATK_Tackle, &ATK_Dig, &ATK_Swift, &ATK_Body_Slam, &ATK_Last_Resort, },
 		true, false, 2, { &ATK_Body_Slam, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the bubble jet
   {  134, "Vaporeon", TYPE_WATER, TYPECOUNT, 205, 161, 277, "Eevee",
 		{ &ATK_Water_Gun, &ATK_Aqua_Tail, &ATK_Water_Pulse, &ATK_Scald, &ATK_Hydro_Pump, &ATK_Last_Resort, &ATK_Liquidation, },
 		true, false, UINT_MAX, { &ATK_Scald, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the lightning
   {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee",
 		{ &ATK_Thunder_Shock, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Zap_Cannon, &ATK_Last_Resort, },
 		true, false, UINT_MAX, { &ATK_Zap_Cannon, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -3167,7 +3170,6 @@ static const species sdex[] = {
   {  488, "Cresselia", TYPE_PSYCHIC, TYPECOUNT, 152, 258, 260, "",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Moonblast, &ATK_Aurora_Beam, &ATK_Grass_Knot, &ATK_Future_Sight, },
 		true, true, 0, { &ATK_Grass_Knot, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  // phione and manaphy have not been released as of 2025
   // FIXME when released, uncomment the "Sea Guardians" entry in species.tex
   /* {  489, "Phione", TYPE_WATER, TYPECOUNT, 162, 162, 190, "",
 		{ &ATK_Bubble, &ATK_Waterfall, &ATK_Bubble_Beam, &ATK_Water_Pulse, &ATK_Surf, },
@@ -3802,7 +3804,6 @@ static const species sdex[] = {
   {  648, "Meloetta Aria", TYPE_NORMAL, TYPE_PSYCHIC, 250, 225, 225, "",
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  // not yet released
   /*{  648, "Meloetta Pirouette", TYPE_NORMAL, TYPE_FIGHTING, 269, 188, 225, "",
 		{ &ATK_Low_Kick, &ATK_Quick_Attack, &ATK_Hyper_Beam, &ATK_Ice_Punch, &ATK_Fire_Punch, &ATK_Close_Combat, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
@@ -4252,7 +4253,6 @@ static const species sdex[] = {
   {  745, "Lycanroc Dusk", TYPE_ROCK, TYPECOUNT, 234, 139, 181, "Rockruff",
 		{ &ATK_Sucker_Punch, &ATK_Rock_Throw, &ATK_Counter, &ATK_Stone_Edge, &ATK_Iron_Head, &ATK_Crunch, &ATK_Trailblaze, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  // not yet released
   /* {  746, "Wishiwashi", TYPE_WATER, TYPECOUNT, 46, 43, 128, "",
 		{ &ATK_Water_Gun, &ATK_Iron_Tail, &ATK_Waterfall, &ATK_Aqua_Tail, &ATK_Brine, &ATK_Surf, },
 		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
@@ -4352,8 +4352,7 @@ static const species sdex[] = {
   {  770, "Palossand", TYPE_GHOST, TYPE_GROUND, 178, 178, 198, "Sandygast",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  /* not yet released
-  {  771, "Pyukumuku", TYPE_WATER, TYPECOUNT, 97, 224, 146, "",
+  /*{  771, "Pyukumuku", TYPE_WATER, TYPECOUNT, 97, 224, 146, "",
 		{ &ATK_Counter, &ATK_Mirror_Coat, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  772, "Type: Null", TYPE_NORMAL, TYPECOUNT, 184, 184, 216, "",
@@ -4771,6 +4770,7 @@ static const species sdex[] = {
   {  892, "Urshifu Rapid Strike", TYPE_FIGHTING, TYPE_WATER, 254, 177, 225, "Kubfu",
 		{ &ATK_Rock_Smash, &ATK_Counter, &ATK_Waterfall, &ATK_Aqua_Jet, &ATK_Brick_Break, &ATK_Close_Combat, &ATK_Dynamic_Punch, },
 		false, false, UINT_MAX, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the rogue monkey
   {  893, "Zarude", TYPE_DARK, TYPE_GRASS, 242, 215, 233, "",
 		{ &ATK_Bite, &ATK_Vine_Whip, &ATK_Dark_Pulse, &ATK_Power_Whip, &ATK_Energy_Ball, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -4800,7 +4800,6 @@ static const species sdex[] = {
   {  904, "Overqwil", TYPE_DARK, TYPE_POISON, 222, 171, 198, "Hisuian Qwilfish",
 		{ &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Dark_Pulse, &ATK_Ice_Beam, &ATK_Aqua_Tail, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  // therian form enamorus has not been released
   {  905, "Enamorus Incarnate", TYPE_FAIRY, TYPE_FLYING, 281, 162, 179, "",
 		{ &ATK_Zen_Headbutt, &ATK_Astonish, &ATK_Fairy_Wind, &ATK_Dazzling_Gleam, &ATK_Grass_Knot, &ATK_Fly, },
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -4984,11 +4983,9 @@ static const species sdex[] = {
   {  962, "Bombirdier", TYPE_FLYING, TYPE_DARK, 198, 172, 172, "",
 		{ &ATK_Sucker_Punch, &ATK_Wing_Attack, &ATK_Rock_Throw, &ATK_Aerial_Ace, &ATK_Rock_Tomb, &ATK_Payback, &ATK_Fly, &ATK_Drill_Run, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  // 963 finizen not yet released
   /*{  963, "Finizen", TYPE_WATER, TYPECOUNT, 90, 80, 172, "",
     { &ATK_Waterfall, &ATK_Charm, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Icy_Wind, },
     false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
-  // 964 palafin not yet released
   /*{  964, "Palafin", TYPE_WATER, TYPECOUNT, 143, 144, 225, "Finizen",
     { &ATK_Counter, &ATK_Waterfall, &ATK_Charm, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Icy_Wind, &ATK_Drain_Punch, &ATK_Acrobatics, },
     false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
