@@ -143,7 +143,7 @@ int emit_dynamax_unified_table(int count, bool html){
 int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "<table>" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>Type</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
+  std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
   std::cout << "</tr>" << std::endl;
   std::vector<candidate> cands;
   if(build_type_vec(t, cands) <= 0){
