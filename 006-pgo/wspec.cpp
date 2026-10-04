@@ -47,6 +47,32 @@ write_mon_page(const species &s){
   write_header(fp, s.name);
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "</h1>" << std::endl;
+  fp << "<h2>attack effectiveness</h2>" << std::endl;
+  fp << "<table>" << std::endl;
+  fp << "<tr>";
+  for(int i = -3 ; i < 3 ; ++i){
+    fp << "<th>" << i << "</th>";
+  }
+  fp << "</tr>" << std::endl;
+  fp << "<tr>";
+  for(int i = -3 ; i < 3 ; ++i){
+    fp << "<td>";
+    unsigned printed = 0;
+    for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+      if(typing_relation(t, s.t1, s.t2) == i){
+        html_type_pdir(fp, t);
+        if(++printed % 3 == 0){
+          fp << "<br/>";
+        }
+      }
+    }
+    if(printed == 0){
+      fp << "🗙";
+    }
+    fp << "</td>";
+  }
+  fp << "</tr>" << std::endl;
+  fp << "</table>" << std::endl;
   // FIXME
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
