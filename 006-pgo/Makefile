@@ -25,6 +25,7 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
+					  mon/index \
 					  index \
 						nodyna noshadow noshiny \
 						typesARA setsARA typesDRA \
@@ -213,6 +214,10 @@ $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
 $(WEB)/index.html: $(WEBSRC)/index.html
 	@mkdir -p $(@D)
 	cp -a $< $@
+
+$(WEB)/mon/index.html: $(OUT)/wspec
+	@mkdir -p $(@D)
+	$(<) $(@D)
 
 $(OUT)/%Nx1.html: $(OUT)/%
 	@mkdir -p $(@D)

@@ -1854,6 +1854,7 @@ static const species sdex[] = {
   {  135, "Jolteon", TYPE_ELECTRIC, TYPECOUNT, 232, 182, 163, "Eevee",
 		{ &ATK_Thunder_Shock, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Zap_Cannon, &ATK_Last_Resort, },
 		true, false, UINT_MAX, { &ATK_Zap_Cannon, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the flame
   {  136, "Flareon", TYPE_FIRE, TYPECOUNT, 246, 179, 163, "Eevee",
 		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Heat_Wave, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Last_Resort, &ATK_Superpower, },
 		true, false, UINT_MAX, { &ATK_Heat_Wave, &ATK_Superpower, &ATK_Last_Resort, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -1870,6 +1871,7 @@ static const species sdex[] = {
   {  140, "Kabuto", TYPE_ROCK, TYPE_WATER, 148, 140, 102, "",
 		{ &ATK_Mud_Shot, &ATK_Scratch, &ATK_Aqua_Jet, &ATK_Ancient_Power, &ATK_Rock_Tomb, },
 		true, true, 1, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the shellfish
   {  141, "Kabutops", TYPE_ROCK, TYPE_WATER, 220, 186, 155, "Kabuto",
 		{ &ATK_Fury_Cutter, &ATK_Mud_Shot, &ATK_Rock_Smash, &ATK_Waterfall, &ATK_Stone_Edge, &ATK_Ancient_Power, &ATK_Water_Pulse, &ATK_Aqua_Jet, },
 		true, true, UINT_MAX, { &ATK_Fury_Cutter, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -5578,21 +5580,31 @@ lookup_mega(const char *name, species *sbacking){
 }
 
 static inline void
-html_type(pgo_types_e t){
+html_type(std::ostream &fp, pgo_types_e t){
   if(t != TYPECOUNT){
-    std::cout << "<img src=\"images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+    fp << "<img src=\"images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
   }
+}
+
+static inline void
+html_type(pgo_types_e t){
+  html_type(std::cout, t);
 }
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
 // monotypes are only displayed once.
 static inline void
-html_types(pgo_types_e t1, pgo_types_e t2){
-  html_type(t1);
+html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
+  html_type(fp, t1);
   if(t1 != t2 && t2 != TYPECOUNT){
-    std::cout << ' ';
-    html_type(t2);
+    fp << ' ';
+    html_type(fp, t2);
   }
+}
+
+static inline void
+html_types(pgo_types_e t1, pgo_types_e t2){
+  html_types(std::cout, t1, t2);
 }
 
 static inline void
