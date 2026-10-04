@@ -46,6 +46,7 @@ write_mon_page(const species &s){
   }
   write_header(fp, s.name);
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
+  fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "</h1>" << std::endl;
   // FIXME
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){

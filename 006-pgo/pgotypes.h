@@ -6448,9 +6448,6 @@ emit_html_attack(const species *s, const attack *a){
     std::cout << "<b>";
   }
   std::cout << a->name;
-  if(a->user_attack || a->user_defense || a->opp_attack || a->opp_defense){
-    std::cout << " ";
-  }
   if(excl){
     std::cout << "</b>";
   }

@@ -25,10 +25,10 @@ static bool cmpatkraid(const attack* a1, const attack* a2){
 }
 
 static void
-print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
+print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
   std::cout << std::setprecision(3);
   if(html){
-    std::cout << "<table>" << std::endl;
+    std::cout << "<table class=\"evenshade\">" << std::endl;
     std::cout << "<tr>";
     std::cout << "<th>Attack</th>";
     if(raidvalues){
@@ -36,7 +36,7 @@ print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool ht
     }else{
       std::cout << "<th>T</th><th>P</th><th>E</th><th>EPT</th><th>PPT</th>";
     }
-    std::cout << "<th>6⁄5</th><th>Pop(STAB)</th>";
+    std::cout << "<th>6⁄5</th><th style=\"width: 70%\">Pop(STAB)</th>";
     std::cout << "</tr>";
   }else{
     printf("\\begin{center}\n");
@@ -72,7 +72,36 @@ print_latex_table(const std::vector<const attack*>& as, bool raidvalues, bool ht
       std::cout << a->name << "</td><td>" << t << "</td><td>" << power << "</td>";
       std::cout << "<td>" << energy << "</td><td>" << ept;
       std::cout << "</td><td>" << ppt << "</td><td>" << (power * 6.0) / (t * 5.0);
-      std::cout << "</td><td>" << pop << "(" << popstab << ")" << "</td>";
+      std::cout << "</td><td>" << pop << "(" << popstab << ") ";
+      bool printed = false;
+      for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+        const species* s = &sdex[u];
+        for(const auto &as : s->attacks){
+          if(strcmp(a->name, as->name) == 0){
+            if(printed){
+              std::cout << ", ";
+            }
+            printed = true;
+            bool stab = has_stab_p(s, a);
+            bool excl = exclusive_attack_p(s, a);
+            if(!stab){
+              std::cout << "<i>";
+            }
+            if(excl){
+              std::cout << "<b>";
+            }
+            std::cout << s->name;
+            if(excl){
+              std::cout << "</b>";
+            }
+            if(!stab){
+              std::cout << "</i>";
+            }
+            break;
+          }
+        }
+      }
+      std::cout << "</td>";
       std::cout << "</tr>" << std::endl;
     }else{
       printf(" %s & %u & %.3g & %.3g & %g & %u(%u)\\\\\n",
@@ -143,6 +172,6 @@ int main(int argc, const char** argv){
   }else{
     std::sort(fast.begin(), fast.end(), cmpatk);
   }
-  print_latex_table(fast, raidvalues, html);
+  print_table(fast, raidvalues, html);
   return EXIT_SUCCESS;
 }

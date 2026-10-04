@@ -20,13 +20,13 @@ static bool cmpatk(const attack* a1, const attack* a2){
 
 void print_table(const std::vector<const attack*>& as, bool raid){
   std::cout << std::setprecision(3);
-  std::cout << "<table>" << std::endl;
+  std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>Attack</th>";
   if(raid){
-    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th>Buff</th><th>Pop(STAB)</th>";
+    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop(STAB)</th>";
   }else{
-    std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th>Pop(STAB)</th>";
+    std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop(STAB)</th>";
   }
   std::cout << "</tr>" << std::endl;
   unsigned shadnormals; // number of shadows with normal type
@@ -53,13 +53,41 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     std::cout << "<td>";
     summarize_buffs_html(a);
     std::cout << "</td><td>";
-    // we should still print numbers for these, based on the total number of shadows FIXME
     if(!strcmp(a->name, "Frustration") || !strcmp(a->name, "Return")){
       std::cout << shadows << "(" << shadnormals << ")";
+      // FIXME print populations also?
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);
-      std::cout << pop << "(" << popstab << ")";
+      std::cout << pop << "(" << popstab << ") ";
+      bool printed = false;
+      for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+        const species* s = &sdex[u];
+        for(const auto &as : s->attacks){
+          if(strcmp(a->name, as->name) == 0){
+            if(printed){
+              std::cout << ", ";
+            }
+            printed = true;
+            bool stab = has_stab_p(s, a);
+            bool excl = exclusive_attack_p(s, a);
+            if(!stab){
+              std::cout << "<i>";
+            }
+            if(excl){
+              std::cout << "<b>";
+            }
+            std::cout << s->name;
+            if(excl){
+              std::cout << "</b>";
+            }
+            if(!stab){
+              std::cout << "</i>";
+            }
+            break;
+          }
+        }
+      }
     }
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
