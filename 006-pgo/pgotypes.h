@@ -1076,7 +1076,6 @@ struct species {
     evolitem = s->evolitem;
     monregion = s->monregion;
     evolkm = s->evolkm;
-    mforms.emplace_back(m);
   }
 
   species(const species *s, const mega &m){
@@ -5589,6 +5588,22 @@ html_type(std::ostream &fp, pgo_types_e t){
 static inline void
 html_type(pgo_types_e t){
   html_type(std::cout, t);
+}
+
+static inline void
+html_type_pdir(std::ostream &fp, pgo_types_e t){
+  if(t != TYPECOUNT){
+    fp << "<img src=\"../images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+  }
+}
+
+static inline void
+html_types_pdir(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
+  html_type_pdir(fp, t1);
+  if(t1 != t2 && t2 != TYPECOUNT){
+    fp << ' ';
+    html_type_pdir(fp, t2);
+  }
 }
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and

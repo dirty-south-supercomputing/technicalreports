@@ -3,7 +3,7 @@
 static int
 escape_filename(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
-    if(*curs != '\'' && *curs != '%'){
+    if(*curs != '\'' && *curs != '%' && *curs != ' '){
       if(printf("%c", *curs) < 0){
         return -1;
       }
@@ -250,7 +250,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   float avg = calc_amean(s->atk, s->def, s->sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
   // background image is zoomed and flipped at low opacity
-  printf(",interior style={fill overzoom image=images/highres/" IMAGECOLOR);
+  printf(",interior style={fill overzoom image=images/mon/" IMAGECOLOR);
   escape_filename(s->name.c_str());
   printf(",fill image opacity=0.2}");
   printf("]{\\footnotesize");
@@ -260,7 +260,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\scalebox{-1}[1]{\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/highres/" IMAGECOLOR);
+  printf("\\scalebox{-1}[1]{\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/mon/" IMAGECOLOR);
   if(gmax){ // get the gmax image
     printf("Gmax ");
   }
