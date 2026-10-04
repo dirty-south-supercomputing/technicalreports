@@ -70,7 +70,7 @@ print_previous_species(const species *s){
 static int
 escape_filename(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
-    if(*curs != '\'' && *curs != '%' && *curs != ' ' && *curs != '-'){
+    if(*curs != '\'' && *curs != '%' && *curs != ' ' && *curs != '-' && *curs != '.'){
       if(printf("%c", *curs) < 0){
         return -1;
       }
@@ -332,7 +332,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     printf("Gmax");
   }
   for(const char* curs = s->name.c_str() ; *curs ; ++curs){
-    if(*curs != '%' && *curs != '\'' && *curs != ' ' && *curs != '-'){
+    if(*curs != '%' && *curs != '\'' && *curs != ' ' && *curs != '-' && *curs != '.'){
       printf("%c", *curs);
     }
   }
@@ -382,8 +382,8 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     print_optimal_latex(s);
     printf("\\end{minipage}\\\\");
 
-    printf("\\scriptsize{}");
     if(!ismega){
+      printf("\\scriptsize{}");
       printf("%u ", stardust_reward(s));
       if(s->categorystr() && strcmp(s->categorystr(), "")){
         printf("%s\n", s->categorystr());

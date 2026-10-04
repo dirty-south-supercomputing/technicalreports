@@ -98,7 +98,7 @@ static void type_heterotable(void){
   }
   printf("\\caption{Type-changing evolutions and form changes (Eevee excluded)\\label{table:heteroevolve}}");
   printf("\\end{longtable}");
-  printf("\\endgroup");
+  printf("\\endgroup\n");
 
   printf("\\begingroup");
   printf("\\footnotesize");

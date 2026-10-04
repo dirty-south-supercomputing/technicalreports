@@ -60,7 +60,7 @@ get_apercent(const stats *s){
 }
 
 static stats *
-print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html){
+print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configcolumn){
   if(!sols){
     return NULL;
   }
@@ -95,12 +95,14 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html){
     std::cout << "</td>";
   }
   if(html){
-    std::cout << "<td>" << sols->ia << '-' << sols->id << '-' << sols->is << 'x';
-    std::cout << l;
-    if(half){
-      std::cout << ".5";
+    if(configcolumn){
+      std::cout << "<td>" << sols->ia << '-' << sols->id << '-' << sols->is << 'x';
+      std::cout << l;
+      if(half){
+        std::cout << ".5";
+      }
+      std::cout << "</td>";
     }
-    std::cout << "</td>";
     std::cout << "<td>" << sols->mhp << "</td>";
     std::cout << "<td>" << sols->effa << "</td>";
     std::cout << "<td>" << sols->effd << "</td>";
@@ -156,7 +158,11 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
                     bool html){
   if(html){
     std::cout << "<table>" << std::endl;
-    std::cout << "<tr><th>Form</th><th>IVxL</th><th>MHP</th><th>Eff<sub>A</sub></th>"
+    std::cout << "<tr><th>Form</th>";
+    if(bound){
+      std::cout << "<th>IVxL</th>";
+    }
+    std::cout << "<th>MHP</th><th>Eff<sub>A</sub></th>"
               << "<th>Eff<sub>D</sub></th><th>Amean</th><th>Gmean</th><th>CP</th><th>A%</th></tr>" << std::endl;
   }else{
     printf("\\begingroup\n");
@@ -183,7 +189,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
     }
     insert_opt_stat(&sols, s, cmpfxn, tiefxn);
   }
-  while( (sols = print_sol_set(sols, get_apercent, html)) ){
+  while( (sols = print_sol_set(sols, get_apercent, html, !!bound)) ){
     ;
   }
   if(html){
