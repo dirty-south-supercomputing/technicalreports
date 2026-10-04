@@ -240,17 +240,6 @@ print_cattack_latex(const species* s, const attack* a, float power,
   printf("\\\\\n");
 }
 
-// get the power of the attack considering STAB (if it applies)
-static float
-calc_eff_power(const species* s, const attack* a){
-  unsigned stab = has_stab_p(s, a);
-  float power = a->powertrain;
-  if(stab){
-    power = calc_stab(power);
-  }
-  return power;
-}
-
 static void
 print_attack_latex(const species* s, const attack* a){
   float power = calc_eff_power(s, a);

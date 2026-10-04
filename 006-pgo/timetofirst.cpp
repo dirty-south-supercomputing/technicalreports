@@ -129,12 +129,12 @@ static void emit_row(const timetofirst &t){
   std::cout << "<td>";
   html_type(t.fa->type);
   std::cout << ' ';
-  emit_html_attack(t.s, t.fa);
+  emit_html_attack(std::cout, t.s, t.fa);
   std::cout << " + ";
   html_type(t.ca->type);
   std::cout << ' ';
-  emit_html_attack(t.s, t.ca);
-  summarize_buffs_html(t.ca);
+  emit_html_attack(std::cout, t.s, t.ca);
+  summarize_buffs_html(std::cout, t.ca);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
   std::cout.precision(1);

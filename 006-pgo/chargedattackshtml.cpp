@@ -51,7 +51,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       std::cout << "<td>" << ((p * 6) / (e * 5)) << "</td>";
     }
     std::cout << "<td>";
-    summarize_buffs_html(a);
+    summarize_buffs_html(std::cout, a);
     std::cout << "</td><td>";
     if(!strcmp(a->name, "Frustration") || !strcmp(a->name, "Return")){
       std::cout << shadows << "(" << shadnormals << ")";

@@ -5311,6 +5311,17 @@ calc_stab(float d){
   return d * 6 / 5;
 }
 
+// get the power of the attack considering STAB (if it applies)
+static inline float
+calc_eff_power(const species* s, const attack* a){
+  unsigned stab = has_stab_p(s, a);
+  float power = a->powertrain;
+  if(stab){
+    power = calc_stab(power);
+  }
+  return power;
+}
+
 // FIXME binary search on it
 static unsigned
 maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
@@ -6332,51 +6343,51 @@ escape_string(const char *s){
 }
 
 static inline void
-print_buff_html(unsigned chance, int buff, const char *sig){
+print_buff_html(std::ostream &o, unsigned chance, int buff, const char *sig){
   if(!chance){
     return;
   }
   if(chance != 1000){ // don't print chance if it's 100%
-    std::print("{:g}% ", chance / 10.0);
+    std::print(o, "{:g}% ", chance / 10.0);
   }
-  std::cout << sig;
+  o << sig;
   if(buff > 0){
-    std::cout << "↑";
+    o << "↑";
     if(buff > 1){
-      std::cout << buff;
+      o << buff;
     }
   }else{
-    std::cout << "↓";
+    o << "↓";
     if(buff < -1){
-      std::cout << -buff;
+      o << -buff;
     }
   }
 }
 
 // FIXME ugh duplicates summarize_buffs() from latex code
 static inline void
-summarize_buffs_html(const attack *a){
+summarize_buffs_html(std::ostream &o, const attack *a){
   // need special case A+D as it takes too much space otherwise
   if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
       && a->user_attack == a->user_defense){
-    print_buff_html(a->chance_user_attack, a->user_attack, "A+D");
+    print_buff_html(o, a->chance_user_attack, a->user_attack, "A+D");
   }else{
     if(a->chance_user_attack){
-      print_buff_html(a->chance_user_attack, a->user_attack, "A");
+      print_buff_html(o, a->chance_user_attack, a->user_attack, "A");
     }
     if(a->chance_user_defense){
-      print_buff_html(a->chance_user_defense, a->user_defense, "D");
+      print_buff_html(o, a->chance_user_defense, a->user_defense, "D");
     }
   }
   if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
       && a->opp_attack == a->opp_defense){
-    print_buff_html(a->chance_opp_attack, a->opp_attack, "OA+D");
+    print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA+D");
   }else{
     if(a->chance_opp_attack){
-      print_buff_html(a->chance_opp_attack, a->opp_attack, "OA");
+      print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA");
     }
     if(a->chance_opp_defense){
-      print_buff_html(a->chance_opp_defense, a->opp_defense, "OD");
+      print_buff_html(o, a->chance_opp_defense, a->opp_defense, "OD");
     }
   }
 }
@@ -6438,21 +6449,21 @@ tname_capitalized(int i){
 }
 
 static inline void
-emit_html_attack(const species *s, const attack *a){
+emit_html_attack(std::ostream &o, const species *s, const attack *a){
   bool stab = has_stab_p(s, a);
   bool excl = exclusive_attack_p(s, a);
   if(!stab){
-    std::cout << "<i>";
+    o << "<i>";
   }
   if(excl){
-    std::cout << "<b>";
+    o << "<b>";
   }
-  std::cout << a->name;
+  o << a->name;
   if(excl){
-    std::cout << "</b>";
+    o << "</b>";
   }
   if(!stab){
-    std::cout << "</i>";
+    o << "</i>";
   }
 }
 
