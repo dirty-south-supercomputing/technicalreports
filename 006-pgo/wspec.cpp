@@ -3,10 +3,11 @@
 #include <unistd.h>
 
 static void
-write_header(std::ofstream &fp, const char *title){
+write_header(std::ofstream &fp, const std::string &title){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../list.css\">";
   fp << "<title>" << title << "</title></head>" << std::endl;
+  fp << "<body>" << std::endl;
 }
 
 static void
@@ -23,6 +24,36 @@ encode_name(std::ostream &fp, const std::string &s){
       fp << c;
     }
   }
+}
+
+static void
+encode_name(const std::string &s, std::string &encname){
+  for(char c : s){
+    if(!isspace(c) && !ispunct(c)){
+      encname.push_back(c);
+    }
+  }
+}
+
+static int
+write_mon_page(const species &s){
+  std::string encname;
+  encode_name(s.name, encname);
+  std::ofstream fp(encname + ".html");
+  if(!fp.is_open()){
+    std::cerr << "error opening " << encname << ".html for writing" << std::endl;
+    return -1;
+  }
+  write_header(fp, s.name);
+  fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
+  // FIXME
+  write_footer_and_close(fp);
+  for(const auto &m : s.mforms){
+    if(write_mon_page({&s, m})){
+      return -1;
+    }
+  }
+  return 0;
 }
 
 static void
@@ -50,7 +81,7 @@ write_summary(std::ostream &fp, const species &s){
     fp << "✓";
   }
   fp << "</td>";
-  fp << "<td><img src=\"../images/mon/";
+  fp << "<td><img loading=\"lazy\" src=\"../images/mon/";
   encode_name(fp, s.name);
   fp << ".png\" height=\"64\" width=\"64\" alt=\"" << s.name << "\"/></td>";
   fp << "</tr>" << std::endl;
@@ -68,16 +99,16 @@ write_index(){
     return -1;
   }
   write_header(fp, "Pokémon GO forms");
-  fp << "<body>" << std::endl;
   fp << "<div class=\"intro\">The following forms are available in Pokémon GO. ";
-  fp << "Functionally equivalent forms are not distinguished.</div>" << std::endl;
+  fp << "Functionally equivalent forms are not distinguished. ";
+  fp << "Battle-only forms are not listed.</div>" << std::endl;
   fp << "<table>" << std::endl;
   fp << "<tr><th>Dex#</th><th>T</th><th>Form</th><th>";
-  fp << "Shiny"; // FIXME shiny
+  fp << "<img src=\"../images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
   fp << "</th><th>";
-  fp << "Shadow"; // FIXME shadow
+  fp << "<img src=\"../images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
   fp << "</th><th>";
-  fp << "DMax"; // FIXME dmax
+  fp << "<img src=\"../images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
   fp << "</th><th>Sprite</th></tr>" << std::endl;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     write_summary(fp, sdex[u]);
@@ -105,6 +136,11 @@ int main(int argc, const char **argv){
   }
   if(write_index()){
     return EXIT_FAILURE;
+  }
+  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
+    if(write_mon_page(sdex[u])){
+      return EXIT_FAILURE;
+    }
   }
   return EXIT_SUCCESS;
 }
