@@ -37,9 +37,6 @@ encode_name(const std::string &s, std::string &encname){
 
 static void
 write_mon_attacks_3x3(std::ostream &fp, const species &s){
-  fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   std::vector<const attack *> sortedatks(s.attacks);
   // FIXME handle plus attacks
   if(s.shadow){
@@ -62,7 +59,13 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
         }
         return aratio < bratio;
       });
+  fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
+  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
+    if(!fast_attack_p(a)){
+      continue;
+    }
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -81,15 +84,30 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     }else{
       fp << "<td>" << a->energytrain << "</td>";
     }
-    if(charged_attack_p(a)){
-      fp << "<td>" << (static_cast<float>(a->powertrain) / -a->energytrain) << "</td>";
-      fp << "<td>";
-      summarize_buffs_html(fp, a);
-      fp << "</td>";
-    }else{
-      fp << "<td>" << (static_cast<float>(a->powertrain) / a->turns) << "</td>";
-      fp << "<td>" << (static_cast<float>(a->energytrain) / a->turns) << "</td>";
+    fp << "<td>" << (static_cast<float>(a->powertrain) / a->turns) << "</td>";
+    fp << "<td>" << (static_cast<float>(a->energytrain) / a->turns) << "</td>";
+    fp << "</tr>" << std::endl;
+  }
+  fp << "</table>" << std::endl;
+  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Power</th><th>Energy-</th><th>PPT</th><th>Buffs</th></tr>" << std::endl;
+  for(const auto *a : sortedatks){
+    if(!charged_attack_p(a)){
+      continue;
     }
+    fp << "<tr>";
+    fp << "<td>";
+    html_type_pdir(fp, a->type);
+    fp << "</td>";
+    fp << "<td>";
+    emit_html_attack(fp, &s, a);
+    fp << "</td>";
+    fp << "<td>" << a->powertrain << "</td>";
+    fp << "<td>" << -a->energytrain << "</td>";
+    fp << "<td>" << (static_cast<float>(a->powertrain) / -a->energytrain) << "</td>";
+    fp << "<td>";
+    summarize_buffs_html(fp, a);
+    fp << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -97,9 +115,6 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
 
 static void
 write_mon_attacks_nx1(std::ostream &fp, const species &s){
-  fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Time(s)</th><th>Power</th><th>Energy</th><th>PPS</th><th>EPS/PPE</th></tr>" << std::endl;
   std::vector<const attack *> sortedatks(s.attacks);
   // FIXME handle plus attacks
   if(s.shadow){
@@ -117,7 +132,13 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
         bratio /= rhs->animdur;
         return aratio < bratio;
       });
+  fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
+  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Time(s)</th><th>Power</th><th>Energy+</th><th>PPS</th><th>EPS</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
+    if(!fast_attack_p(a)){
+      continue;
+    }
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -131,18 +152,34 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     }
     fp << "</td>";
     fp << "<td>" << a->powerraid << "</td>";
-    if(charged_attack_p(a)){
-      fp << "<td>" << a->energyraid << "</td>";
-    }else{
-      fp << "<td>" << a->energyraid << "</td>";
+    fp << "<td>" << a->energyraid << "</td>";
+    fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
+    fp << "<td>" << (static_cast<float>(a->energyraid) / (a->animdur / 2.0)) << "</td>";
+    fp << "</tr>" << std::endl;
+  }
+  fp << "</table>" << std::endl;
+  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Time(s)</th><th>Power</th><th>Energy-</th><th>PPS</th><th>PPE</th></tr>" << std::endl;
+  for(const auto *a : sortedatks){
+    if(!charged_attack_p(a)){
+      continue;
     }
-    if(charged_attack_p(a)){
-      fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
-      fp << "<td>" << (static_cast<float>(a->powerraid) / a->energyraid) << "</td>";
-    }else{
-      fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
-      fp << "<td>" << (static_cast<float>(a->energyraid) / (a->animdur / 2.0)) << "</td>";
+    fp << "<tr>";
+    fp << "<td>";
+    html_type_pdir(fp, a->type);
+    fp << "</td>";
+    fp << "<td>";
+    emit_html_attack(fp, &s, a);
+    fp << "</td>";
+    fp << "<td>";
+    if(a->animdur){
+      fp << static_cast<float>(a->animdur) / 2;
     }
+    fp << "</td>";
+    fp << "<td>" << a->powerraid << "</td>";
+    fp << "<td>" << a->energyraid << "</td>";
+    fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
+    fp << "<td>" << (static_cast<float>(a->powerraid) / a->energyraid) << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
