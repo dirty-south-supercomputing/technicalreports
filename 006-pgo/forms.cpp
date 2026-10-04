@@ -20,6 +20,7 @@ int main(int argc, char **argv){
       const auto *s = &sdex[u];
       for(const auto &m : s->mforms){
         species smeg{s, m};
+        smeg.mforms.emplace_back(m);
         amap.emplace(m.name, smeg);
       }
     }

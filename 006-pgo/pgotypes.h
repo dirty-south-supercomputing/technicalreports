@@ -5707,39 +5707,6 @@ typing_popcount(pgo_types_e t1, pgo_types_e t2){
   return pcnt;
 }
 
-// s must not be null
-static int
-escape_abbr_string(const char *s){
-  static const struct {
-    const char* prefix;
-    const char* abbrev;
-  } prefixes[] = {
-    { "Galarian ", "G. ", },
-    { "Hisuian ", "H. ", },
-    { "Alolan ", "A. ", },
-    { "Paldean ", "P. ", },
-  };
-  for(unsigned z = 0 ; z < sizeof(prefixes) / sizeof(*prefixes) ; ++z){
-    if(strncmp(s, prefixes[z].prefix, strlen(prefixes[z].prefix)) == 0){
-      s += strlen(prefixes[z].prefix);
-      printf("%s", prefixes[z].abbrev);
-      break;
-    }
-  }
-  for(const char* curs = s ; *curs ; ++curs){
-    if(*curs != '%'){
-      if(printf("%c", *curs) < 0){
-        return -1;
-      }
-    }else{
-      if(printf("\\%%") < 0){
-        return -1;
-      }
-    }
-  }
-  return 0;
-}
-
 static inline int
 escape_cpp_string(const std::string &s){
   for(char c : s){
@@ -5747,23 +5714,6 @@ escape_cpp_string(const std::string &s){
       std::cout << c;
     }else{
       std::cout << "\\%";
-    }
-  }
-  return 0;
-}
-
-// make a string fit for a label.
-static int
-label_string(const char *s){
-  for(const char* curs = s ; *curs ; ++curs){
-    if(*curs == '%'){
-      continue;
-    /*}else if(isspace(*curs)){
-      continue;*/
-    }else{
-      if(printf("%c", *curs) < 0){
-        return -1;
-      }
     }
   }
   return 0;
@@ -5915,23 +5865,6 @@ idx_to_generation(int idx){
     return genstrs[g];
   }
   return nullptr;
-}
-
-// returns the number of previous species in the evolutionary chain.
-// s must be non-null and the immediate predecessor.
-// abbreviates regional prefixes.
-static int
-print_previous_species(const species *s){
-  int ret = 1;
-  const species *devol = get_previous_evolution(s);
-  if(devol){
-    ret += print_previous_species(devol);
-  }
-  escape_abbr_string(s->name.c_str());
-  printf(" (\\pageref{species:");
-  label_string(s->name.c_str());
-  printf("}) → ");
-  return ret;
 }
 
 static inline unsigned

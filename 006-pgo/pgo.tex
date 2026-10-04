@@ -1,6 +1,4 @@
-% oneside ought not be used for printed, bound material!
-% showtrims
-\documentclass[ebook,10pt,openany,twoside]{memoir}
+\documentclass[ebook,10pt,openany,oneside]{memoir}
 \title{Pokémon GO: A Quantitative Approach}
 \author{nick black}
 %\special{pdf:minorversion 7}
@@ -173,6 +171,9 @@
 \colorlet{Steel}{steel!20!white}
 \definecolor{water}{HTML}{6390F0}
 \colorlet{Water}{water!20!white}
+
+% otherwise our sections seem to be getting decoupled from our chapters
+\counterwithin{section}{chapter}
 
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \SetupFloatingEnvironment{listing}{name=Listing}
