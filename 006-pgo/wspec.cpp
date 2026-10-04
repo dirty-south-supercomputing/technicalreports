@@ -35,9 +35,8 @@ encode_name(const std::string &s, std::string &encname){
   }
 }
 
-// 3x3 and Nx1 attack tables
 static void
-write_mon_attacks(std::ostream &fp, const species &s){
+write_mon_attacks_3x3(std::ostream &fp, const species &s){
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
@@ -94,10 +93,58 @@ write_mon_attacks(std::ostream &fp, const species &s){
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
+}
 
+static void
+write_mon_attacks_nx1(std::ostream &fp, const species &s){
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Time(s)</th><th>Power</th><th>Energy</th><th>PPS</th><th>EPS/PPE</th></tr>" << std::endl;
+  std::vector<const attack *> sortedatks(s.attacks);
+  // FIXME handle plus attacks
+  if(s.shadow){
+    sortedatks.emplace_back(&ATK_Return);
+  }
+  std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
+        if(fast_attack_p(lhs) && !fast_attack_p(rhs)){
+          return true;
+        }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
+          return false;
+        }
+        float aratio = calc_eff_power_nx1(&s, lhs);
+        float bratio = calc_eff_power_nx1(&s, rhs);
+        aratio /= lhs->animdur;
+        bratio /= rhs->animdur;
+        return aratio < bratio;
+      });
+  for(const auto *a : sortedatks){
+    fp << "<tr>";
+    fp << "<td>";
+    html_type_pdir(fp, a->type);
+    fp << "</td>";
+    fp << "<td>";
+    emit_html_attack(fp, &s, a);
+    fp << "</td>";
+    fp << "<td>";
+    if(a->animdur){
+      fp << static_cast<float>(a->animdur) / 2;
+    }
+    fp << "</td>";
+    fp << "<td>" << a->powerraid << "</td>";
+    if(charged_attack_p(a)){
+      fp << "<td>" << a->energyraid << "</td>";
+    }else{
+      fp << "<td>" << a->energyraid << "</td>";
+    }
+    if(charged_attack_p(a)){
+      fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
+      fp << "<td>" << (static_cast<float>(a->powerraid) / a->energyraid) << "</td>";
+    }else{
+      fp << "<td>" << (static_cast<float>(a->powerraid) / (a->animdur / 2.0)) << "</td>";
+      fp << "<td>" << (static_cast<float>(a->energyraid) / (a->animdur / 2.0)) << "</td>";
+    }
+    fp << "</tr>" << std::endl;
+  }
   fp << "</table>" << std::endl;
 }
 
@@ -110,6 +157,7 @@ write_mon_page(const species &s){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;
     return -1;
   }
+  fp << std::setprecision(3);
   write_header(fp, s.name);
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "</h1>" << std::endl;
@@ -139,7 +187,8 @@ write_mon_page(const species &s){
   }
   fp << "</tr>" << std::endl;
   fp << "</table>" << std::endl;
-  write_mon_attacks(fp, s);
+  write_mon_attacks_3x3(fp, s);
+  write_mon_attacks_nx1(fp, s);
   // FIXME
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){

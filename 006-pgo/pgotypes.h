@@ -5322,6 +5322,16 @@ calc_eff_power(const species* s, const attack* a){
   return power;
 }
 
+static inline float
+calc_eff_power_nx1(const species* s, const attack* a){
+  unsigned stab = has_stab_p(s, a);
+  float power = a->powerraid;
+  if(stab){
+    power = calc_stab(power);
+  }
+  return power;
+}
+
 // FIXME binary search on it
 static unsigned
 maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){

@@ -12,7 +12,7 @@ table.evenshade {
 }
 
 table.evenshade tr:nth-child(even) {
-  background-color: #ccc;
+  background-color: #ddd;
 }
 
 div.intro {
