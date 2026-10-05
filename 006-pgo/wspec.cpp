@@ -250,7 +250,16 @@ write_stats(std::ostream &fp, const species &s){
   if(cstr){
     fp << cstr << "<br/";
   }
+  fp << "Second attack cost: " << s.a2cost << "<br/>";
   fp << "</div>" << std::endl;
+  return 0;
+}
+
+static int
+link_to_name(std::ostream &fp, const std::string &s){
+  fp << "<a href=\"";
+  encode_name(fp, s);
+  fp << ".html\">" << s << "</a>";
   return 0;
 }
 
@@ -261,14 +270,14 @@ print_previous_species(std::ostream &fp, const species *s){
   if(devol){
     ret += print_previous_species(fp, devol);
   }
-  // FIXME add link
-  fp << s->name << " → ";
+  link_to_name(fp, s->name);
+  fp << " → ";
   return ret;
 }
 
 static int
 write_evol(std::ostream &fp, const species &s){
-  fp << "<h2>evolution</h2>";
+  fp << "<h2>transitions</h2>";
   const species *devol = get_previous_evolution(&s);
   int evolidx = 0;
   std::vector<const species*> evols;
@@ -296,20 +305,21 @@ write_evol(std::ostream &fp, const species &s){
       // entry in the evols array. when we come across the next immevols entry
       // in evols, update immindex and pop. then print any successor and pop.
       if(evols.size()){
-        fp << " → ";
         if(immindex + 1u < immevols.size() && immevols[immindex + 1] == evols[evolidx]){
           ++immindex;
           ++evolidx;
         }
         const auto imm = immevols[immindex];
-        fp << imm->name;
+        fp << " → ";
+        link_to_name(fp, imm->name);
         std::vector<const species*> waste;
         if(get_persistent_evolutions(imm, waste)){
-          // FIXME add link
-          fp << " → " << evols[evolidx]->name;
+          fp << " → ";
+          link_to_name(fp, evols[evolidx]->name);
           ++evolidx;
           ++r;
         }
+        fp << "<br/>";
       }
     }
   }else{
