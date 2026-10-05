@@ -92,7 +92,6 @@ DYNATEX:=$(OUT)/dynas.tex
 HALFSECMAXTEX:=$(OUT)/halfsecmax.tex
 SINDEXTEX:=$(SINDEX).tex
 STATMAXTEX:=$(OUT)/statmax.tex
-GIGANTATEX:=$(OUT)/gigantas.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
 REGIONSTEX:=$(REGIONS).tex
@@ -136,7 +135,7 @@ OPTSTATSRADARR:=optstatsradar.R
 OPTSTATSRADARPDF:=$(OUT)/optstatsradar.pdf
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
-	$(GIGANTATEX) $(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
+	$(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(SINDEXTEX) $(HALFSECMAXTEX) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) \
@@ -398,10 +397,6 @@ $(OUT)/mega.tex: $(OUT)/forms
 $(OUT)/dynas.tex: $(OUT)/dynas
 	@mkdir -p $(@D)
 	$(<) > $@
-
-$(OUT)/gigantas.tex: $(OUT)/forms
-	@mkdir -p $(@D)
-	$(<) gigantamax > $@
 
 $(HETEROTYPETEX): $(HETERO)
 	@mkdir -p $(@D)

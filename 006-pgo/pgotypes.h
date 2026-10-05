@@ -938,6 +938,15 @@ struct mega {
   { }
 };
 
+float cpm(int halflevel);
+
+// atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
+static int
+calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
+  float cand = (atk * sqrt(def) * sqrt(sta) * pow(cpm(halflevel), 2)) / 10;
+  return cand < 10 ? 10 : floor(cand);
+}
+
 struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
@@ -1085,6 +1094,10 @@ struct species {
   // effectiveness of attack a on our typing
   float type_effectiveness(const attack *a) const {
     return ::type_effectiveness(a->type, t1, t2);
+  }
+
+  int maxcp() const {
+    return calccp(atk + 15, def + 15, sta + 15, MAX_HALFLEVEL_BASIC);
   }
 
   const char *categorystr() const {
@@ -5116,15 +5129,6 @@ static const species sdex[] = {
 };
 
 #define SPECIESCOUNT (sizeof(sdex) / sizeof(*sdex))
-
-float cpm(int halflevel);
-
-// atk, def, and sta all ought be mod forms (i.e. sum of base and IV)
-static int
-calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
-  float cand = (atk * sqrt(def) * sqrt(sta) * pow(cpm(halflevel), 2)) / 10;
-  return cand < 10 ? 10 : floor(cand);
-}
 
 static inline float
 calc_eff_a_raw(unsigned atk, unsigned halflevel){

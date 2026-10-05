@@ -221,6 +221,7 @@ write_stats(std::ostream &fp, const species &s){
   fp << "ATK: " << s.atk << "<br/>";
   fp << "DEF: " << s.def << "<br/>";
   fp << "STA: " << s.sta << "<br/>";
+  fp << "Max CP: " << s.maxcp() << "<br/>";
   fp << "Attack / Defense: " << (static_cast<float>(s.atk) / s.def) << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
   if(s.shiny){
@@ -249,6 +250,70 @@ write_stats(std::ostream &fp, const species &s){
 }
 
 static int
+print_previous_species(std::ostream &fp, const species *s){
+  int ret = 1;
+  const species *devol = get_previous_evolution(s);
+  if(devol){
+    ret += print_previous_species(fp, devol);
+  }
+  // FIXME add link
+  fp << s->name << " → ";
+  return ret;
+}
+
+static int
+write_evol(std::ostream &fp, const species &s){
+  fp << "<h2>evolution</h2>";
+  const species *devol = get_previous_evolution(&s);
+  int evolidx = 0;
+  std::vector<const species*> evols;
+  int rows = get_evolution_count(&s, evols);
+  if(devol || rows){
+    // we need a table because the evolution can fan out
+    if(rows == 0){
+      rows = 1;
+    }
+    int immindex = -1; // see comment below
+    std::vector<const species*> immevols;
+    get_persistent_evolutions(&s, immevols);
+    for(int r = 0 ; r < rows ; ++r){
+      if(r){
+        fp << std::endl;
+      }
+      // first, print previous step(s)
+      if(devol){
+        print_previous_species(fp, devol);
+      }
+      // next, print ourselves, in bold
+      fp << "<b>" << s.name << "</b>";
+      // now, the next evolutionary step(s), if they exist. we do only one row.
+      // this requires knowing our index in the immevols array and the next
+      // entry in the evols array. when we come across the next immevols entry
+      // in evols, update immindex and pop. then print any successor and pop.
+      if(evols.size()){
+        fp << " → ";
+        if(immindex + 1u < immevols.size() && immevols[immindex + 1] == evols[evolidx]){
+          ++immindex;
+          ++evolidx;
+        }
+        const auto imm = immevols[immindex];
+        fp << imm->name;
+        std::vector<const species*> waste;
+        if(get_persistent_evolutions(imm, waste)){
+          // FIXME add link
+          fp << " → " << evols[evolidx]->name;
+          ++evolidx;
+          ++r;
+        }
+      }
+    }
+  }else{
+    fp << "No evolution";
+  }
+  return 0;
+}
+
+static int
 write_mon_page(const species &s){
   std::string encname;
   encode_name(s.name, encname);
@@ -264,6 +329,7 @@ write_mon_page(const species &s){
   html_types_pdir(fp, s.t1, s.t2);
   fp << "</h1>" << std::endl;
   write_stats(fp, s);
+  write_evol(fp, s);
   write_atk_effectiveness(fp, s);
   write_mon_attacks_3x3(fp, s);
   write_mon_attacks_nx1(fp, s);
