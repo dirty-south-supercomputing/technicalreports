@@ -216,7 +216,7 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
 
 static int
 write_stats(std::ostream &fp, const species &s){
-  fp << "<h2>basic stats</h2>" << std::endl;
+  fp << "<h2>basics</h2>" << std::endl;
   fp << "<div class=\"stats\">";
   fp << "ATK: " << s.atk << "<br/>";
   fp << "DEF: " << s.def << "<br/>";
@@ -245,6 +245,10 @@ write_stats(std::ostream &fp, const species &s){
     rstr = "Worldwide";
   }
   fp << "Region: " << rstr << "<br/>";
+  const auto *cstr = s.categorystr();
+  if(cstr){
+    fp << cstr << "<br/";
+  }
   fp << "</div>" << std::endl;
   return 0;
 }
