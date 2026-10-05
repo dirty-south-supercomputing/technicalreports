@@ -20,3 +20,28 @@ div.intro {
   text-justify: inter-word;
   padding: 1em;
 }
+
+/* type effectiveness colors */
+.teneg3 {
+  background-color: #d0ffd0;
+}
+
+.teneg2 {
+  background-color: #e0ffe0;
+}
+
+.teneg1 {
+  background-color: #f0fff0;
+}
+
+.tepos0 {
+  background-color: #ffffff;
+}
+
+.tepos1 {
+  background-color: #fff0f0;
+}
+
+.tepos2 {
+  background-color: #ffe0e0;
+}

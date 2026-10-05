@@ -185,16 +185,17 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
 
 static int
 write_atk_effectiveness(std::ostream &fp, const species &s){
+  const std::string css[6] = { "teneg3", "teneg2", "teneg1", "tepos0", "tepos1", "tepos2", };
   fp << "<h2>attack effectiveness</h2>" << std::endl;
   fp << "<table>" << std::endl;
   fp << "<tr>";
   for(int i = -3 ; i < 3 ; ++i){
-    fp << "<th>" << i << "</th>";
+    fp << "<th class=\"" << css[i + 3] << "\">" << i << "</th>";
   }
   fp << "</tr>" << std::endl;
   fp << "<tr>";
   for(int i = -3 ; i < 3 ; ++i){
-    fp << "<td>";
+    fp << "<td class=\"" << css[i + 3] << "\">";
     unsigned printed = 0;
     for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
       if(typing_relation(t, s.t1, s.t2) == i){
@@ -351,7 +352,11 @@ static void
 write_summary(std::ostream &fp, const species &s){
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
-  html_types_pdir(fp, s.t1, s.t2);
+  html_type_pdir(fp, s.t1);
+  if(s.t2 != TYPECOUNT){
+    fp << "<br/>";
+    html_type_pdir(fp, s.t2);
+  }
   fp << "</td><td>";
   fp << "<a href=\"";
   encode_name(fp, s.name);
