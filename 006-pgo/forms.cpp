@@ -9,7 +9,7 @@
 int main(int argc, char **argv){
   setlocale(LC_ALL, "");
   if(argc != 2){
-    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|dynamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   bool zoom = false; // light card inset
@@ -31,15 +31,8 @@ int main(int argc, char **argv){
         amap.emplace(s.name, s);
       }
     }
-  }else if(strcasecmp(argv[1], "gigantamax") == 0){
-    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-      const auto &s = sdex[u];
-      if(has_gmax(&s)){
-        amap.emplace(s.name, s);
-      }
-    }
   }else{
-    fprintf(stderr, "usage: %s mega|dynamax|gigantamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega|dynamax\n", argv[0]);
     return EXIT_FAILURE;
   }
   for(const auto &s : amap){

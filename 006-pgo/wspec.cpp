@@ -240,7 +240,8 @@ write_stats(std::ostream &fp, const species &s){
   }else{
     fp << "Dynamax <i>not</i> available<br/>";
   }
-  fp << "Stardust: " << stardust_reward(&s) << "<br/>";
+  fp << "Catch reward: " << stardust_reward(&s) << " SD<br/>";
+  fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
   const auto *rstr = s.regionstr();
   if(!rstr){
     rstr = "Worldwide";
@@ -250,7 +251,6 @@ write_stats(std::ostream &fp, const species &s){
   if(cstr){
     fp << cstr << "<br/";
   }
-  fp << "Second attack cost: " << s.a2cost << "<br/>";
   fp << "</div>" << std::endl;
   return 0;
 }
@@ -348,12 +348,16 @@ write_mon_page(const species &s){
   write_atk_effectiveness(fp, s);
   write_mon_attacks_3x3(fp, s);
   write_mon_attacks_nx1(fp, s);
-  // FIXME moar crap
+  // FIXME moar crap ... IV tables, counters
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
     if(write_mon_page({&s, m})){
       return -1;
     }
+  }
+  const auto *g = lookup_gmax_attack(&s);
+  if(g){
+    write_mon_page({&s, *g});
   }
   return 0;
 }
@@ -393,6 +397,10 @@ write_summary(std::ostream &fp, const species &s){
   fp << "</tr>" << std::endl;
   for(const auto &m : s.mforms){
     write_summary(fp, {&s, m});
+  }
+  const auto *g = lookup_gmax_attack(&s);
+  if(g){
+    write_summary(fp, {&s, *g});
   }
 }
 

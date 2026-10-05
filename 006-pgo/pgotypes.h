@@ -907,6 +907,52 @@ type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
   return type_effectiveness_mult(typing_relation(at, dt0, dt1));
 }
 
+// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
+// dynamax cannon adventure effect).
+struct gmaxattack {
+  const char *sname;      // species name
+  const std::string name; // attack name
+  pgo_types_e type;       // attack type
+  bool shiny;             // shiny gmax available?
+};
+
+// lives outside lookup_gmax_attack() so it can be unit tested.
+static gmaxattack GMaxAttacks[] = {
+  { "Venusaur", "G-Max Vine Lash", TYPE_GRASS, true, },
+  { "Charizard", "G-Max Wildfire", TYPE_FIRE, true, },
+  { "Blastoise", "G-Max Cannonade", TYPE_WATER, true, },
+  { "Butterfree", "G-Max Befuddle", TYPE_BUG, true, },
+  { "Pikachu", "G-Max Volt Crash", TYPE_ELECTRIC, true, },
+  { "Meowth", "G-Max Gold Rush", TYPE_NORMAL, true, },
+  { "Machamp", "G-Max Chi Strike", TYPE_FIGHTING, true, },
+  { "Gengar", "G-Max Terror", TYPE_GHOST, true, },
+  { "Kingler", "G-Max Foam Burst", TYPE_WATER, true, },
+  { "Lapras", "G-Max Resonance", TYPE_ICE, true, },
+  { "Snorlax", "G-Max Replenish", TYPE_NORMAL, true, },
+  { "Garbodor", "G-Max Malodor", TYPE_POISON, true, },
+  { "Rillaboom", "G-Max Drum Solo", TYPE_GRASS, true, },
+  { "Cinderace", "G-Max Fireball", TYPE_FIRE, true, },
+  { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, false, },
+  { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, true, },
+  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, false, }, // FIXME speculated
+  { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, true, },
+  //{ "Sandaconda", "G-Max Sandblast", TYPE_GROUND, false, },
+  //{ "Appletun", "G-Max Sweetness", TYPE_GRASS, false, },
+  //{ "Flapple", "G-Max Tartness", TYPE_GRASS, false, },
+  //{ "Coalossal", "G-Max Volcality", TYPE_ROCK, false, },
+  //{ "Drednaw", "G-Max Stonesurge", TYPE_WATER, false, },
+  //{ "Orbeetle", "G-Max Gravitas", TYPE_PSYCHIC, false, },
+  //{ "Corviknight", "G-Max Wind Rage", TYPE_FLYING, false, },
+  //{ "Melmetal", "G-Max Meltdown", TYPE_STEEL, false, },
+  //{ "Centiskorch", "G-Max Centiferno", TYPE_FIRE, false, },
+  //{ "Hatterene", "G-Max Smite", TYPE_FAIRY, false, },
+  //{ "Alcremie", "G-Max Finale", TYPE_FAIRY, false, },
+  //{ "Copperajah", "G-Max Steelsurge", TYPE_STEEL, false, },
+  //{ "Urshifu Single Strike", "G-Max One Blow", TYPE_DARK, false, },
+  //{ "Urshifu Rapid Strike", "G-Max Rapid Flow", TYPE_WATER, false, },
+  { nullptr, "", TYPECOUNT, false, },
+};
+
 struct mega {
   std::string name;       // can't just add "Mega " prefix; there are X and Y etc
   pgo_types_e t1, t2;     // typing and stats can be different than base form
@@ -1030,7 +1076,33 @@ struct species {
       : name(s) {
   }
 
-  species(unsigned i, const char *n, pgo_types_e T1, pgo_types_e T2,
+  // synthesize into sbacking a new species made of the mega and us
+  void synth_mega_species(const species *s, const mega &m) {
+    idx = s->idx;
+    name = m.name;
+    t1 = m.t1;
+    t2 = m.t2;
+    atk = m.atk;
+    atk = m.atk;
+    def = m.def;
+    sta = m.sta;
+    from = s->name;
+    attacks = s->attacks;
+    if(m.plusatk){
+      attacks.emplace_back(m.plusatk);
+    }
+    shiny = s->shiny;
+    shadow = false;
+    dmax = false;
+    elite = s->elite;
+    category = s->category;
+    a2cost = s->a2cost;
+    evolitem = s->evolitem;
+    monregion = s->monregion;
+    evolkm = s->evolkm;
+  }
+
+  species(unsigned i, const std::string &n, pgo_types_e T1, pgo_types_e T2,
           unsigned A, unsigned D, unsigned S, const std::string &From,
           const std::vector<const attack*> &Attacks,
           bool Shiny, bool Shadow, unsigned Dmax,
@@ -1061,34 +1133,25 @@ struct species {
     mforms(Mforms)
   { }
 
-  // synthesize into sbacking a new species made of the mega and us
-  void synth_mega_species(const species *s, const mega &m) {
-    idx = s->idx;
-    name = m.name;
-    t1 = m.t1;
-    t2 = m.t2;
-    atk = m.atk;
-    atk = m.atk;
-    def = m.def;
-    sta = m.sta;
-    from = s->name;
-    attacks = s->attacks;
+  species(const species *s, const mega &m)
+    : species(s->idx, m.name, m.t1, m.t2,
+              m.atk, m.def, m.sta, s->name,
+              s->attacks,
+              s->shiny, false, UINT_MAX,
+              s->elite, s->category, s->a2cost,
+              s->evolitem, s->monregion, s->evolkm, {}) {
     if(m.plusatk){
       attacks.emplace_back(m.plusatk);
     }
-    shiny = s->shiny;
-    shadow = false;
-    dmax = false;
-    elite = s->elite;
-    category = s->category;
-    a2cost = s->a2cost;
-    evolitem = s->evolitem;
-    monregion = s->monregion;
-    evolkm = s->evolkm;
   }
 
-  species(const species *s, const mega &m){
-    this->synth_mega_species(s, m);
+  species(const species *s, const gmaxattack &gm)
+    : species(s->idx, "G-Max " + s->name, s->t1, s->t2,
+              s->atk, s->def, s->sta, s->name,
+              s->attacks,
+              gm.shiny, false, s->dmax,
+              s->elite, s->category, s->a2cost,
+              s->evolitem, s->monregion, s->evolkm, s->mforms) {
   }
 
   // effectiveness of attack a on our typing
@@ -1150,52 +1213,6 @@ struct species {
     }
   }
 
-};
-
-// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
-// dynamax cannon adventure effect).
-struct gmaxattack {
-  const char *sname;      // species name
-  const std::string name; // attack name
-  pgo_types_e type;       // attack type
-  bool shiny;             // shiny gmax available?
-};
-
-// lives outside lookup_gmax_attack() so it can be unit tested.
-static gmaxattack GMaxAttacks[] = {
-  { "Venusaur", "G-Max Vine Lash", TYPE_GRASS, true, },
-  { "Charizard", "G-Max Wildfire", TYPE_FIRE, true, },
-  { "Blastoise", "G-Max Cannonade", TYPE_WATER, true, },
-  { "Butterfree", "G-Max Befuddle", TYPE_BUG, true, },
-  { "Pikachu", "G-Max Volt Crash", TYPE_ELECTRIC, true, },
-  { "Meowth", "G-Max Gold Rush", TYPE_NORMAL, true, },
-  { "Machamp", "G-Max Chi Strike", TYPE_FIGHTING, true, },
-  { "Gengar", "G-Max Terror", TYPE_GHOST, true, },
-  { "Kingler", "G-Max Foam Burst", TYPE_WATER, true, },
-  { "Lapras", "G-Max Resonance", TYPE_ICE, true, },
-  { "Snorlax", "G-Max Replenish", TYPE_NORMAL, true, },
-  { "Garbodor", "G-Max Malodor", TYPE_POISON, true, },
-  { "Rillaboom", "G-Max Drum Solo", TYPE_GRASS, true, },
-  { "Cinderace", "G-Max Fireball", TYPE_FIRE, true, },
-  { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, false, },
-  { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, true, },
-  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, false, }, // FIXME speculated
-  { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, true, },
-  //{ "Sandaconda", "G-Max Sandblast", TYPE_GROUND, false, },
-  //{ "Appletun", "G-Max Sweetness", TYPE_GRASS, false, },
-  //{ "Flapple", "G-Max Tartness", TYPE_GRASS, false, },
-  //{ "Coalossal", "G-Max Volcality", TYPE_ROCK, false, },
-  //{ "Drednaw", "G-Max Stonesurge", TYPE_WATER, false, },
-  //{ "Orbeetle", "G-Max Gravitas", TYPE_PSYCHIC, false, },
-  //{ "Corviknight", "G-Max Wind Rage", TYPE_FLYING, false, },
-  //{ "Melmetal", "G-Max Meltdown", TYPE_STEEL, false, },
-  //{ "Centiskorch", "G-Max Centiferno", TYPE_FIRE, false, },
-  //{ "Hatterene", "G-Max Smite", TYPE_FAIRY, false, },
-  //{ "Alcremie", "G-Max Finale", TYPE_FAIRY, false, },
-  //{ "Copperajah", "G-Max Steelsurge", TYPE_STEEL, false, },
-  //{ "Urshifu Single Strike", "G-Max One Blow", TYPE_DARK, false, },
-  //{ "Urshifu Rapid Strike", "G-Max Rapid Flow", TYPE_WATER, false, },
-  { nullptr, "", TYPECOUNT, false, },
 };
 
 // each gmax attack is associated with a single species, which can use only
