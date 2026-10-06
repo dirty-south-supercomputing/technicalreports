@@ -59,7 +59,7 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
         return aratio < bratio;
       });
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!fast_attack_p(a)){
@@ -89,7 +89,7 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!charged_attack_p(a)){
@@ -133,7 +133,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
         return aratio < bratio;
       });
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!fast_attack_p(a)){
@@ -159,7 +159,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
-  fp << "<table class=\"evenshade\">" << std::endl;
+  fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!charged_attack_p(a)){

@@ -3,7 +3,8 @@ img.type {
   width: 1em;
 }
 
-table.alignright td, table.alignright th {
+table.alignright td,
+table.alignright th {
   text-align: right;
 }
 
@@ -13,6 +14,18 @@ table.evenshade {
 
 table.evenshade tr:nth-child(even) {
   background-color: #ddd;
+}
+
+table.fastattacks {
+  margin: 0 0 1em 0;
+}
+
+table.fastattacks tr :nth-child(1n+3) {
+  text-align: right;
+}
+
+table.chargedattacks tr :nth-child(1n+3) {
+  text-align: right;
 }
 
 div.intro {
