@@ -65,6 +65,7 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     if(!fast_attack_p(a)){
       continue;
     }
+    auto cpow = calc_eff_power(&s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -77,13 +78,13 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
       fp << a->turns;
     }
     fp << "</td>";
-    fp << "<td>" << a->powertrain << "</td>";
+    fp << "<td>" << cpow << "</td>";
     if(charged_attack_p(a)){
       fp << "<td>" << -a->energytrain << "</td>";
     }else{
       fp << "<td>" << a->energytrain << "</td>";
     }
-    fp << "<td>" << (static_cast<float>(a->powertrain) / a->turns) << "</td>";
+    fp << "<td>" << (cpow / a->turns) << "</td>";
     fp << "<td>" << (static_cast<float>(a->energytrain) / a->turns) << "</td>";
     fp << "</tr>" << std::endl;
   }
@@ -94,6 +95,7 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     if(!charged_attack_p(a)){
       continue;
     }
+    auto cpow = calc_eff_power(&s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -104,9 +106,9 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     fp << "<td>";
     summarize_buffs_html(fp, a);
     fp << "</td>";
-    fp << "<td>" << a->powertrain << "</td>";
+    fp << "<td>" << cpow << "</td>";
     fp << "<td>" << -a->energytrain << "</td>";
-    fp << "<td>" << (static_cast<float>(a->powertrain) / -a->energytrain) << "</td>";
+    fp << "<td>" << (cpow / -a->energytrain) << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -137,6 +139,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     if(!fast_attack_p(a)){
       continue;
     }
+    auto cpow = calc_eff_power_nx1(&s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -149,10 +152,10 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
       fp << a->animdur;
     }
     fp << "</td>";
-    fp << "<td>" << a->powerraid << "</td>";
+    fp << "<td>" << cpow << "</td>";
     fp << "<td>" << a->energyraid << "</td>";
-    fp << "<td>" << (static_cast<float>(a->powerraid) / a->animdur) << "</td>";
-    fp << "<td>" << (static_cast<float>(a->energyraid) / a->animdur) << "</td>";
+    fp << "<td>" << (cpow / a->animdur) << "</td>";
+    fp << "<td>" << (cpow / a->energyraid) << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -162,6 +165,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     if(!charged_attack_p(a)){
       continue;
     }
+    auto cpow = calc_eff_power_nx1(&s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
@@ -174,10 +178,10 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
       fp << a->animdur;
     }
     fp << "</td>";
-    fp << "<td>" << a->powerraid << "</td>";
+    fp << "<td>" << cpow << "</td>";
     fp << "<td>" << a->energyraid << "</td>";
-    fp << "<td>" << (static_cast<float>(a->powerraid) / a->animdur) << "</td>";
-    fp << "<td>" << (static_cast<float>(a->powerraid) / a->energyraid) << "</td>";
+    fp << "<td>" << (cpow / a->animdur) << "</td>";
+    fp << "<td>" << (cpow / a->energyraid) << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -202,6 +206,8 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
         html_type_pdir(fp, t);
         if(++printed % 3 == 0){
           fp << "<br/>";
+        }else{
+          fp << ' ';
         }
       }
     }
