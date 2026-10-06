@@ -20,7 +20,7 @@ static bool cmpatk(const attack* a1, const attack* a2){
 
 void print_table(const std::vector<const attack*>& as, bool raid){
   std::cout << std::setprecision(3);
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"allcharged\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>Attack</th>";
   if(raid){

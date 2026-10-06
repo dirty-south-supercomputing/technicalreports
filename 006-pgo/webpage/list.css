@@ -53,11 +53,19 @@ table.dynas tr :nth-child(1n+4) {
   padding: 0 0 0 1em;
 }
 
-#allfast tr :nth-child(n+2):nth-child(-n+7) { /* table of all fast attacks */
+#allfast tr :nth-child(n+2):nth-child(-n+7) { /* tables of all fast attacks */
   text-align: right;
 }
 
 #allfast tr :nth-child(8) {
+  padding: 0 0 0 1em;
+}
+
+#allcharged tr :nth-child(n+2):nth-child(-n+6) { /* tables of all charged attacks */
+  text-align: right;
+}
+
+#allcharged tr :nth-child(7) {
   padding: 0 0 0 1em;
 }
 
