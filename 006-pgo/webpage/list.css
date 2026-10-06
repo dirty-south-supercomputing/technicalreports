@@ -53,6 +53,14 @@ table.dynas tr :nth-child(1n+4) {
   padding: 0 0 0 1em;
 }
 
+#allfast tr :nth-child(n+2):nth-child(-n+7) { /* table of all fast attacks */
+  text-align: right;
+}
+
+#allfast tr :nth-child(8) {
+  padding: 0 0 0 1em;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;

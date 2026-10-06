@@ -28,7 +28,7 @@ static void
 print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
   std::cout << std::setprecision(3);
   if(html){
-    std::cout << "<table class=\"evenshade\">" << std::endl;
+    std::cout << "<table class=\"evenshade\" id=\"allfast\">" << std::endl;
     std::cout << "<tr>";
     std::cout << "<th>Attack</th>";
     if(raidvalues){
