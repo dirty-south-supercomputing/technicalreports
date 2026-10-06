@@ -157,7 +157,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
                     int(*tiefxn)(const void*, const void*),
                     bool html){
   if(html){
-    std::cout << "<table>" << std::endl;
+    std::cout << "<table class=\"evenshade\">" << std::endl;
     std::cout << "<tr><th>Form</th>";
     if(bound){
       std::cout << "<th>IVxL</th>";

@@ -92,7 +92,7 @@ emit_cand_html(const candidate& c, unsigned maxp){
 // this one is for the book, and thus must emit latex.
 int emit_dynamax_unified_table(int count, bool html){
   if(html){
-    std::cout << "<table>" << std::endl;
+    std::cout << "<table class=\"evenshade dynas\">" << std::endl;
     std::cout << "<tr>";
     std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
     std::cout << "</tr>" << std::endl;
@@ -141,7 +141,7 @@ int emit_dynamax_unified_table(int count, bool html){
 // 0 for complete list.
 // this one emits html.
 int emit_dynamax_typed_table(pgo_types_e t, int count){
-  std::cout << "<table>" << std::endl;
+  std::cout << "<table class=\"evenshade dynas\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
   std::cout << "</tr>" << std::endl;

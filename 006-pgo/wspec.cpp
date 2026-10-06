@@ -231,6 +231,13 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Max CP: " << s.maxcp() << "<br/>";
   fp << "Attack / Defense: " << (static_cast<float>(s.atk) / s.def) << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
+  fp << "Catch reward: " << stardust_reward(&s) << " SD<br/>";
+  fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
+  const auto *rstr = s.regionstr();
+  if(!rstr){
+    rstr = "Worldwide";
+  }
+  fp << "Region: " << rstr << "<br/>";
   if(s.shiny){
     fp << "Shiny available<br/>";
   }else{
@@ -246,16 +253,9 @@ write_stats(std::ostream &fp, const species &s){
   }else{
     fp << "Dynamax <i>not</i> available<br/>";
   }
-  fp << "Catch reward: " << stardust_reward(&s) << " SD<br/>";
-  fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
-  const auto *rstr = s.regionstr();
-  if(!rstr){
-    rstr = "Worldwide";
-  }
-  fp << "Region: " << rstr << "<br/>";
   const auto *cstr = s.categorystr();
   if(cstr){
-    fp << cstr << "<br/";
+    fp << cstr << "<br/>";
   }
   fp << "</div>" << std::endl;
   return 0;

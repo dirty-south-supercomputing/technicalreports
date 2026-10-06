@@ -1,6 +1,7 @@
 img.type {
   height: 1em;
   width: 1em;
+  vertical-align: middle;
 }
 
 table.alignright td,
@@ -16,16 +17,40 @@ table.evenshade tr:nth-child(even) {
   background-color: #ddd;
 }
 
+/* attack pair timing and power */
+table.apair tr :nth-child(1n+4) {
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+/* attack pairs sorted by dankness (two forms, condensed for ML) */
+table.dankstat tr :nth-child(1n+8) {
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 table.fastattacks {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em 0; /* a bit of space between us and charged attacks */
 }
 
 table.fastattacks tr :nth-child(1n+3) {
   text-align: right;
+  padding: 0 0 0 1em;
 }
 
 table.chargedattacks tr :nth-child(1n+3) {
   text-align: right;
+  padding: 0 0 0 1em;
+}
+
+/* best dynamax attackers (by type and unified) */
+table.dynas tr :nth-child(1) {
+  text-align: center;
+}
+
+table.dynas tr :nth-child(1n+4) {
+  text-align: right;
+  padding: 0 0 0 1em;
 }
 
 div.intro {
