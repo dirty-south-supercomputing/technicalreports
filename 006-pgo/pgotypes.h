@@ -1151,7 +1151,7 @@ struct species {
               s->attacks,
               gm.shiny, false, s->dmax,
               s->elite, s->category, s->a2cost,
-              s->evolitem, s->monregion, s->evolkm, s->mforms) {
+              s->evolitem, s->monregion, s->evolkm, {}) {
   }
 
   // effectiveness of attack a on our typing

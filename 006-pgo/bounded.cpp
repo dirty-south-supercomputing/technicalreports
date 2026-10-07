@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
@@ -69,7 +69,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
   if(html){
     std::cout << "<tr><td>";
     html_types(sols->s->t1, sols->s->t2);
-    std::cout << ' ';
+    std::cout << "</td>";
   }else{
     print_types(sols->s->t1, sols->s->t2);
     putc(' ', stdout);
@@ -83,7 +83,12 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
     name += strlen(SHADPREFIX);
   }
 #undef SHADPREFIX
-  escape_string(name);
+  if(html){
+    std::cout << "<td>";
+    link_to_name(std::cout, name, true);
+  }else{
+    escape_string(name);
+  }
   if(sols->shadow){
     if(html){
       std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\" />";
@@ -175,7 +180,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
                     bool html){
   if(html){
     std::cout << "<table class=\"evenshade bounded\">" << std::endl;
-    std::cout << "<tr><th>Form</th>";
+    std::cout << "<tr><th>T</th><th>Form</th>";
     if(bound){
       std::cout << "<th>IVxL</th>";
     }

@@ -18,19 +18,23 @@ table.evenshade tr:nth-child(even) {
 }
 
 /* attack pair timing and power */
-table.apair tr :nth-child(1n+4) {
+table.apair tr :nth-child(n+4) {
   text-align: right;
   padding: 0 0 0 1em;
 }
 
 /* attack pairs sorted by dankness (two forms, condensed for ML) */
-table.dankstat tr :nth-child(1n+8) {
+table.dankstat tr :nth-child(n+8) {
   text-align: right;
   padding: 0 0 0 1em;
 }
 
 /* mons sorted by foo for various leagues */
-table.bounded tr :nth-child(1n+3) {
+table.bounded tr :nth-child(1) {
+  text-align: center;
+}
+
+table.bounded tr :nth-child(n+3) {
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -39,12 +43,12 @@ table.fastattacks {
   margin: 0 0 1em 0; /* a bit of space between us and charged attacks */
 }
 
-table.fastattacks tr :nth-child(1n+3) {
+table.fastattacks tr :nth-child(n+3) {
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-table.chargedattacks tr :nth-child(1n+3) {
+table.chargedattacks tr :nth-child(n+3) {
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -54,7 +58,7 @@ table.dynas tr :nth-child(1) {
   text-align: center;
 }
 
-table.dynas tr :nth-child(1n+4) {
+table.dynas tr :nth-child(n+4) {
   text-align: right;
   padding: 0 0 0 1em;
 }
