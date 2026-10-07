@@ -73,7 +73,7 @@ int main(int argc, char * const argv[]){
   }
   std::cout << std::fixed;
   std::cout.precision(3);
-  std::cout << "<table>" << std::endl;
+  std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Gmean range</th><th>Evolution</th><th>Gmean range</th><th>Relationship</th></tr>" << std::endl;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     check_worse_evol(sdex[i], cpb);
