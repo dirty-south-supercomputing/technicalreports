@@ -23,7 +23,7 @@ int main(){
   build_tsets_full(tsets);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   std::cout << std::fixed << std::setprecision(3);
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"setsara\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th>";
   std::cout << "<th>E<sub>-3</sub></th>";

@@ -18,12 +18,20 @@ table.evenshade tr:nth-child(even) {
 }
 
 /* attack pair timing and power */
+table.apair tr :nth-child(1) {
+  text-align: center;
+}
+
 table.apair tr :nth-child(n+4) {
   text-align: right;
   padding: 0 0 0 1em;
 }
 
 /* attack pairs sorted by dankness (two forms, condensed for ML) */
+table.dankstat tr :nth-child(1) {
+  text-align: center;
+}
+
 table.dankstat tr :nth-child(n+8) {
   text-align: right;
   padding: 0 0 0 1em;
@@ -61,6 +69,14 @@ table.dynas tr :nth-child(1) {
 table.dynas tr :nth-child(n+4) {
   text-align: right;
   padding: 0 0 0 1em;
+}
+
+#setsara tr :nth-child(n+2):nth-child(-n+6) { /* tables of all fast attacks */
+  text-align: right;
+}
+
+#setsara tr :nth-child(8) {
+  text-align: center;
 }
 
 #allfast tr :nth-child(n+2):nth-child(-n+7) { /* tables of all fast attacks */
