@@ -29,6 +29,12 @@ table.dankstat tr :nth-child(1n+8) {
   padding: 0 0 0 1em;
 }
 
+/* mons sorted by foo for various leagues */
+table.bounded tr :nth-child(1n+3) {
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 table.fastattacks {
   margin: 0 0 1em 0; /* a bit of space between us and charged attacks */
 }
