@@ -2,7 +2,7 @@
 
 static void
 functional_hundos(int cplimit){
-  std::cout << "<table>" << std::endl;
+  std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
     const auto& s = sdex[u];
