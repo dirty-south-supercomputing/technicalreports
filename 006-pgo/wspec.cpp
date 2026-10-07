@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <fstream>
 #include <unistd.h>
 
@@ -18,21 +18,19 @@ write_footer_and_close(std::ofstream &fp){
 }
 
 static void
-encode_name(std::ostream &fp, const std::string &s){
-  for(char c : s){
-    if(!isspace(c) && !ispunct(c)){
-      fp << c;
-    }
-  }
-}
-
-static void
 encode_name(const std::string &s, std::string &encname){
   for(char c : s){
     if(!isspace(c) && !ispunct(c)){
       encname.push_back(c);
     }
   }
+}
+
+static void
+write_iv_table(std::ostream &fp, const species &s, int cpbound){
+  unsigned ivcount;
+  auto sets = order_ivs(&s, cpbound, statscmp_gmean, &ivcount);
+  delete[] sets;
 }
 
 static void
@@ -262,14 +260,6 @@ write_stats(std::ostream &fp, const species &s){
 }
 
 static int
-link_to_name(std::ostream &fp, const std::string &s){
-  fp << "<a href=\"";
-  encode_name(fp, s);
-  fp << ".html\">" << s << "</a>";
-  return 0;
-}
-
-static int
 print_previous_species(std::ostream &fp, const species *s){
   int ret = 1;
   const species *devol = get_previous_evolution(s);
@@ -393,6 +383,7 @@ write_summary(std::ostream &fp, const species &s){
   }
   fp << "</td>";
   fp << "<td>";
+  // for gmax, show logo instead of checkmark
   if(s.dmax){
     fp << "✓";
   }

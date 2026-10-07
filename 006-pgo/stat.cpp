@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <vector>
 #include <cassert>
 #include <algorithm>
@@ -164,7 +164,9 @@ static void emit_line(const timetofirst &t, bool configcolumn){
     }
     std::cout << "</td>";
   }
-  std::cout << "<td>" << t.s->name << "</td>";
+  std::cout << "<td>";
+  link_to_name(std::cout, t.s->name, true);
+  std::cout << "</td>";
   std::cout << "<td>" << t.mhp << "</td>";
   std::cout << "<td>" << t.effd << "</td>";
   std::cout << "<td>" << t.bulk << "</td>";

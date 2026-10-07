@@ -1,5 +1,5 @@
 // determine number of turns before first charged attack
-#include "pgotypes.h"
+#include "html.h"
 #include <vector>
 #include <cassert>
 #include <algorithm>
@@ -125,7 +125,9 @@ static void emit_row(const timetofirst &t){
   std::cout << "<td>";
   html_types(t.s->t1, t.s->t2);
   std::cout << "</td>";
-  std::cout << "<td>" << t.s->name << "</td>";
+  std::cout << "<td>";
+  link_to_name(std::cout, t.s->name, true);
+  std::cout << "</td>";
   std::cout << "<td>";
   html_type(t.fa->type);
   std::cout << ' ';
@@ -134,6 +136,7 @@ static void emit_row(const timetofirst &t){
   html_type(t.ca->type);
   std::cout << ' ';
   emit_html_attack(std::cout, t.s, t.ca);
+  std::cout << ' ';
   summarize_buffs_html(std::cout, t.ca);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";

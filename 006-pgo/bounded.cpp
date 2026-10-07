@@ -150,6 +150,23 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
   return sols;
 }
 
+static void
+get_species_opt(stats **sols, const species *sp, char fitchar, int bound, float lbound,
+                float(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
+                int(*tiefxn)(const void*, const void*)){
+  bool shadowstuff = false;
+  if(sp->shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
+    shadowstuff = true;
+  }
+  stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
+  if(shadowstuff){
+    const species *shads = create_shadow(sp);
+    stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
+    insert_opt_stat(sols, shadsets, cmpfxn, tiefxn);
+  }
+  insert_opt_stat(sols, s, cmpfxn, tiefxn);
+}
+
 // print optimal sets bounded by CP of |bound| above and mean of |lbound| below
 static void
 print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar,
@@ -157,7 +174,7 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
                     int(*tiefxn)(const void*, const void*),
                     bool html){
   if(html){
-    std::cout << "<table class=\"evenshade\">" << std::endl;
+    std::cout << "<table class=\"evenshade bounded\">" << std::endl;
     std::cout << "<tr><th>Form</th>";
     if(bound){
       std::cout << "<th>IVxL</th>";
@@ -175,19 +192,16 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
     printf("\\endhead\n");
   }
   stats *sols = NULL;
+  std::vector<species> megaspecies;
   for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
     const species *sp = &sdex[i];
-    bool shadowstuff = false;
-    if(sp->shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
-      shadowstuff = true;
+    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
+    for(const auto &m : sp->mforms){
+      megaspecies.emplace_back(sp, m);
     }
-    stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
-    if(shadowstuff){
-      const species *shads = create_shadow(sp);
-      stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
-      insert_opt_stat(&sols, shadsets, cmpfxn, tiefxn);
-    }
-    insert_opt_stat(&sols, s, cmpfxn, tiefxn);
+  }
+  for(const auto &sp : megaspecies){
+    get_species_opt(&sols, &sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
   }
   while( (sols = print_sol_set(sols, get_apercent, html, !!bound)) ){
     ;
