@@ -1137,7 +1137,7 @@ struct species {
     : species(s->idx, m.name, m.t1, m.t2,
               m.atk, m.def, m.sta, s->name,
               s->attacks,
-              s->shiny, false, UINT_MAX,
+              s->shiny, false, 0,
               s->elite, s->category, s->a2cost,
               s->evolitem, s->monregion, s->evolkm, {}) {
     if(m.plusatk){
@@ -1147,9 +1147,9 @@ struct species {
 
   species(const species *s, const gmaxattack &gm)
     : species(s->idx, "G-Max " + s->name, s->t1, s->t2,
-              s->atk, s->def, s->sta, s->name,
+              s->atk, s->def, s->sta, "",
               s->attacks,
-              gm.shiny, false, s->dmax,
+              gm.shiny, false, 0,
               s->elite, s->category, s->a2cost,
               s->evolitem, s->monregion, s->evolkm, {}) {
   }
