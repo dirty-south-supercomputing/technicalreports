@@ -1143,6 +1143,9 @@ struct species {
     if(m.plusatk){
       attacks.emplace_back(m.plusatk);
     }
+    if(s->shiny){
+      attacks.emplace_back(&ATK_Return);
+    }
   }
 
   species(const species *s, const gmaxattack &gm)

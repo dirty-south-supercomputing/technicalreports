@@ -24,9 +24,9 @@ void print_table(const std::vector<const attack*>& as, bool raid){
   std::cout << "<tr>";
   std::cout << "<th>Attack</th>";
   if(raid){
-    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop(STAB)</th>";
+    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop</th>";
   }else{
-    std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop(STAB)</th>";
+    std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop</th>";
   }
   std::cout << "</tr>" << std::endl;
   unsigned shadnormals; // number of shadows with normal type
@@ -59,15 +59,16 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);
-      std::cout << pop << "(" << popstab << ") ";
+      std::cout << pop;
       bool printed = false;
       for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
         const species* s = &sdex[u];
         for(const auto &as : s->attacks){
           if(strcmp(a->name, as->name) == 0){
             if(printed){
-              std::cout << ", ";
+              std::cout << ',';
             }
+            std::cout << ' ';
             printed = true;
             bool stab = has_stab_p(s, a);
             bool excl = exclusive_attack_p(s, a);

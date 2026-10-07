@@ -71,7 +71,7 @@ table.dynas tr :nth-child(n+4) {
   padding: 0 0 0 1em;
 }
 
-#setsara tr :nth-child(n+2):nth-child(-n+6) { /* tables of all fast attacks */
+#setsara tr :nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
   text-align: right;
 }
 
@@ -104,24 +104,30 @@ div.intro {
 /* type effectiveness colors */
 .teneg3 {
   background-color: #d0ffd0;
+  text-align: center;
 }
 
 .teneg2 {
   background-color: #e0ffe0;
+  text-align: center;
 }
 
 .teneg1 {
   background-color: #f0fff0;
+  text-align: center;
 }
 
 .tepos0 {
   background-color: #ffffff;
+  text-align: center;
 }
 
 .tepos1 {
   background-color: #fff0f0;
+  text-align: center;
 }
 
 .tepos2 {
   background-color: #ffe0e0;
+  text-align: center;
 }
