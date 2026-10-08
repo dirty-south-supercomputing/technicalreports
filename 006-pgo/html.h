@@ -23,4 +23,16 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
   return 0;
 }
 
+// input: halflevel (0..10x)
+static inline std::ostream &
+emit_halflevel_as_level(std::ostream &fp, int hlevel){
+  unsigned half;
+  unsigned l = halflevel_to_level(hlevel, &half);
+  fp << l;
+  if(half){
+    fp << ".5";
+  }
+  return fp;
+}
+
 #endif

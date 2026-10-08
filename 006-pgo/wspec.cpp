@@ -26,11 +26,72 @@ encode_name(const std::string &s, std::string &encname){
   }
 }
 
-static void
-write_iv_table(std::ostream &fp, const species &s, int cpbound){
+// returns true if we ought bother emitting the next highest table, false
+// otherwise. we return true if any cp in the solution set equals the cpbound.
+static bool
+write_iv_table(std::ostream &fp, const species &s, const char *league, int cpbound){
   unsigned ivcount;
   auto sets = order_ivs(&s, cpbound, statscmp_gmean, &ivcount);
+  fp << "<h2>" << league << " IVs ordered by geometric mean</h2>" << std::endl;
+  // FIXME provide an actual stat summary
+  fp << "<details><summary>expand table</summary>" << std::endl;
+  fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
+  fp << "<tr>";
+  fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
+  fp << "<th>Eff<sub>A</sub></th>";
+  fp << "<th>Eff<sub>D</sub></th>";
+  fp << "<th>MHP</th>";
+  fp << "<th>Gmean</th>";
+  fp << "<th>%</th>";
+  fp << "</tr>";
+  float gmax = sets[ivcount - 1].geommean;
+  float gprev = 0;
+  unsigned grank = ivcount;
+  int id = 1;
+  bool ret = false;
+  do{
+    const stats &s = sets[--grank];
+    if(!s.shadow){
+      fp << "<tr>";
+      if(s.geommean == gprev){
+        fp << "<td></td>";
+      }else{
+        fp << "<td>" << id << "</td>";
+        gprev = s.geommean;
+      }
+      ++id;
+      fp << "<td>" << s.ia << '-' << s.id << '-' << s.is << "</td>";
+      fp << "<td>";
+      emit_halflevel_as_level(fp, s.hlevel);
+      fp << "</td>";
+      fp << "<td>" << s.cp << "</td>";
+      if(s.cp == cpbound){
+        ret = true;
+      }
+      fp << std::setprecision(6);
+      fp << "<td>" << s.effa << "</td>";
+      fp << "<td>" << s.effd << "</td>";
+      fp << "<td>" << s.mhp << "</td>";
+      fp << "<td>" << s.geommean << "</td>";
+      fp << std::setprecision(3);
+      fp << "<td>" << (s.geommean * 100 / gmax) << "</td>";
+      fp << "</tr>";
+    }
+  }while(grank);
+  fp << "</table></details>" << std::endl;
   delete[] sets;
+  return ret;
+}
+
+static void
+write_iv_tables(std::ostream &fp, const species &s){
+  bool donext = write_iv_table(fp, s, "great league", GLCPCAP);
+  if(donext){
+    donext = write_iv_table(fp, s, "ultra league", ULCPCAP);
+  }
+  if(donext){
+    donext = write_iv_table(fp, s, "master league", 0);
+  }
 }
 
 static void
@@ -223,9 +284,9 @@ static int
 write_stats(std::ostream &fp, const species &s){
   fp << "<h2>basics</h2>" << std::endl;
   fp << "<div class=\"stats\">";
-  fp << "ATK: " << s.atk << "<br/>";
-  fp << "DEF: " << s.def << "<br/>";
-  fp << "STA: " << s.sta << "<br/>";
+  fp << "Attack: " << s.atk << "<br/>";
+  fp << "Defense: " << s.def << "<br/>";
+  fp << "Stamina: " << s.sta << "<br/>";
   fp << "Max CP: " << s.maxcp() << "<br/>";
   fp << "Attack / Defense: " << (static_cast<float>(s.atk) / s.def) << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
@@ -344,7 +405,8 @@ write_mon_page(const species &s){
   write_atk_effectiveness(fp, s);
   write_mon_attacks_3x3(fp, s);
   write_mon_attacks_nx1(fp, s);
-  // FIXME moar crap ... IV tables, counters
+  write_iv_tables(fp, s);
+  // FIXME moar crap ... counters, attack sets, time to first charged attack
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
     if(write_mon_page({&s, m})){
