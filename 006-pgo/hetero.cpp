@@ -3,27 +3,26 @@
 #include <vector>
 
 static bool
-hetero_p(const species *s){
-  if(s->from.empty()){
+hetero_p(const species &s){
+  if(s.from.empty()){
     return false;
   }
-  const species* from = lookup_species(s->from.c_str());
+  const species* from = lookup_species(s.from.c_str());
   if(from->name == "Eevee"){
     return false;
   }
-  if(from->t1 == s->t1 && from->t2 == s->t2){
+  if(from->t1 == s.t1 && from->t2 == s.t2){
     return false;
   }
   return true;
 }
 
 static int
-print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
+print_hetero_evols(unsigned* pcount){
   std::vector<const species *> hetero;
-  for(unsigned u = 0 ; u < dexcount ; ++u){
-    const species* s = &dex[u];
-    if(hetero_p(s)){
-      hetero.emplace_back(s);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(hetero_p(*s)){
+      hetero.emplace_back(&*s);
     }
   }
   std::sort(hetero.begin(), hetero.end(),
@@ -61,12 +60,11 @@ print_hetero_evols(const species* dex, unsigned dexcount, unsigned* pcount){
 static int
 print_hetero_evols_mega(){
   unsigned pcount = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &s = sdex[u];
-    for(const mega &m : s.mforms){
-      if(m.t1 != s.t1 || m.t2 != s.t2){
-        print_types(s.t1, s.t2);
-        printf(" %s", s.name.c_str());
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    for(const mega &m : s->mforms){
+      if(m.t1 != s->t1 || m.t2 != s->t2){
+        print_types(s->t1, s->t2);
+        printf(" %s", s->name.c_str());
         printf(" → ");
         print_types(m.t1, m.t2);
         printf(" %s ", m.name.c_str());
@@ -90,7 +88,7 @@ static void type_heterotable(void){
   printf("\\begin{longtable}{p{.5\\textwidth}|p{.5\\textwidth}}");
   unsigned count = 0;
   puts("Evolution & Evolution\\\\\\Midrule");
-  if(print_hetero_evols(sdex, SPECIESCOUNT, &count)){
+  if(print_hetero_evols(&count)){
     exit(EXIT_FAILURE);
   }
   if(count % 2){
@@ -113,9 +111,8 @@ static void type_heterotable(void){
 }
 
 static int
-print_hetero_costs(const species* dex, unsigned dexcount, unsigned* pcount){
-  for(unsigned u = 0 ; u < dexcount ; ++u){
-    const species *s = &dex[u];
+print_hetero_costs(unsigned* pcount){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->from.empty()){
       continue;
     }
@@ -143,7 +140,7 @@ static void cost_heterotable(void){
   printf("\\begin{tabular}{lr|lr}");
   unsigned count = 0;
   puts("Evolution & Change & Evolution & Change\\\\\\Midrule");
-  if(print_hetero_costs(sdex, SPECIESCOUNT, &count)){
+  if(print_hetero_costs(&count)){
     exit(EXIT_FAILURE);
   }
   if(count % 2){

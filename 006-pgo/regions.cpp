@@ -4,8 +4,7 @@ static void
 print_first_partners(int region){
   unsigned lastpdex = 0;
   bool first = true;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const auto s = &sdex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->idx == lastpdex){ // skip alternate forms
       continue;
     }
@@ -28,8 +27,7 @@ print_first_partners(int region){
 int main(void){
   int regpop[REGION_COUNT] = {};
   unsigned lastpdex = 0;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const auto s = &sdex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->idx == lastpdex){ // skip alternate forms
       continue;
     }

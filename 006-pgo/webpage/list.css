@@ -88,6 +88,10 @@ table.nofoo tr :nth-child(2) { /* type */
   text-align: right;
 }
 
+#setsara tr :nth-child(9) {
+  padding: 0 0 0 1em;
+}
+
 #setsara tr :nth-child(1) {
   text-align: center;
 }
