@@ -121,7 +121,7 @@ print_complete_coversets(void){
 }
 
 static void
-print_participant_attacks(const species& s, bool fast){
+print_participant_attacks(const species &s, bool fast){
   bool one = false;
   bool atypes[TYPECOUNT] = {};
   for(const auto& a : s.attacks){
@@ -149,25 +149,24 @@ print_participant_attacks(const species& s, bool fast){
 // print all species represented in the typing vector t of size tcount
 static void
 print_participants(int tcount, const int t[TYPINGCOUNT][2]){
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &s = sdex[u];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     bool valid = false;
     for(int ti = 0 ; ti < tcount ; ++ti){
-      if((s.t1 == t[ti][0] && (s.t2 == t[ti][1] || (s.t2 == TYPECOUNT && s.t1 == t[ti][1]))) ||
-          (s.t1 == t[ti][1] && s.t2 == t[ti][0])){
+      if((s->t1 == t[ti][0] && (s->t2 == t[ti][1] || (s->t2 == TYPECOUNT && s->t1 == t[ti][1]))) ||
+          (s->t1 == t[ti][1] && s->t2 == t[ti][0])){
         valid = true;
         break;
       }
     }
     if(valid){
-      std::cout << " " << s.name << " (" << tname_capitalized(s.t1);
-      if(s.t2 != TYPECOUNT){
-        std::cout << ", " << tname_capitalized(s.t2);
+      std::cout << " " << s->name << " (" << tname_capitalized(s->t1);
+      if(s->t2 != TYPECOUNT){
+        std::cout << ", " << tname_capitalized(s->t2);
       }
       std::cout << ") → ";
-      print_participant_attacks(s, true);
+      print_participant_attacks(*s, true);
       std::cout << " : ";
-      print_participant_attacks(s, false);
+      print_participant_attacks(*s, false);
       std::cout << std::endl;
     }
   }

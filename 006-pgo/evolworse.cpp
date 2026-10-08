@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <cfloat>
 
 bool check_worse_evol(const species& s, int cpbound){
@@ -38,9 +38,13 @@ bool check_worse_evol(const species& s, int cpbound){
     }
     if(worse){
       std::cout << "<tr>";
-      std::cout << "<td>" << s.name << "</td>";
+      std::cout << "<td>";
+      link_to_name(std::cout, s.name, true);
+      std::cout << "</td>";
       std::cout << "<td>" << gsworst << "–" << gs << "</td>";
-      std::cout << "<td>" << e->name << "</td>";
+      std::cout << "<td>";
+      link_to_name(std::cout, e->name, true);
+      std::cout << "</td>";
       std::cout << "<td>" << geworst << "–" << ge << "</td>";
       if(worse == sizeof(svec) / sizeof(*svec)){
         if(gsworst > ge){

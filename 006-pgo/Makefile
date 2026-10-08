@@ -30,7 +30,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 					  mon/index \
 					  index \
 						nodyna noshadow noshiny dynacost \
-						typesARA setsARA typesDRA \
+						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
