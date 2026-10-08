@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <getopt.h>
 #include <memory>
 
@@ -13,7 +13,7 @@ copy_tvec(int* tnew, const int tvec[]){
 // tvec is a v-sized vector of 2-vectors of ints
 // if the first int is TYPECOUNT, it's not populated (we don't care)
 static int
-print_coverset(const int tocc[], int v, const int tvec[][2]){
+print_coverset(const int tocc[], int v, const int tvec[][2], int setidx, bool html){
   for(int i = 0 ; i < v ; ++i){
     if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
       int covered = 0;
@@ -41,19 +41,34 @@ print_coverset(const int tocc[], int v, const int tvec[][2]){
     }
   }
   // we were a cover, yay
-  printf(" cover: ");
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    if(tocc[i]){
-      printf("%s ", tnames[i]);
+  if(html){
+    if(setidx == 1){
+      std::cout << "<table>" << std::endl;
+      std::cout << "<tr><th></th><th>Attack types</th></tr>" << std::endl;
     }
+    std::cout << "<tr><td>" << setidx << "</td><td>";
+    for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
+      if(tocc[i]){
+        html_type(std::cout, i);
+        std::cout << ' ';
+      }
+    }
+    std::cout << "</td></tr>" << std::endl;
+  }else{
+    printf(" cover: ");
+    for(int i = 0 ; i < TYPECOUNT ; ++i){
+      if(tocc[i]){
+        printf("%s ", tnames[i]);
+      }
+    }
+    printf("\n");
   }
-  printf("\n");
   return 1;
 }
 
 // we are placing n 1s among the last m slots of tocc
 static int
-place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2]){
+place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2], int *setidx, bool html){
   auto tcopy = std::make_unique<int[]>(TYPECOUNT);
   copy_tvec(tcopy.get(), tocc);
   // base case m == 1
@@ -61,27 +76,34 @@ place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2]){
     if(n){
       tcopy[TYPECOUNT - m] = 1;
     }
-    int r = print_coverset(tcopy.get(), v, tvec);
+    int r = print_coverset(tcopy.get(), v, tvec, *setidx, html);
+    if(r){
+      ++*setidx;
+    }
     return r;
   }
   int ret = 0;
   // test with our bit off unless we must place this bit
   if(n < m){
-    ret += place_n_in_m(n, m - 1, tcopy.get(), v, tvec);
+    ret += place_n_in_m(n, m - 1, tcopy.get(), v, tvec, setidx, html);
   }
   // test with our bit on if we have a bit to place
   if(n){
     tcopy[TYPECOUNT - m] = 1;
-    ret += place_n_in_m(n - 1, m - 1, tcopy.get(), v, tvec);
+    ret += place_n_in_m(n - 1, m - 1, tcopy.get(), v, tvec, setidx, html);
   }
   return ret;
 }
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(int n, int v, const int tvec[][2]){
+print_coversets(int n, int v, const int tvec[][2], bool html){
   int tocc[TYPECOUNT] = {};
-  int r = place_n_in_m(n, TYPECOUNT, tocc, v, tvec);
+  int setidx = 1;
+  int r = place_n_in_m(n, TYPECOUNT, tocc, v, tvec, &setidx, html);
+  if(html && r){
+    std::cout << "</table>" << std::endl;
+  }
   return r;
 }
 
@@ -95,7 +117,7 @@ print_complete_coversets(void){
     t[i][1] = i;
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
+    int min = print_coversets(j, sizeof(t) / sizeof(*t), t, false);
     if(min){
       printf("%d coversets of size %d\n", min, j);
       break;
@@ -111,7 +133,7 @@ print_complete_coversets(void){
     prev[1] = t[i][1];
     t[i][0] = t[i][1] = TYPECOUNT; // turn off each one in succession
     for(int j = 1 ; j <= TYPECOUNT ; ++j){
-      int min = print_coversets(j, sizeof(t) / sizeof(*t), t);
+      int min = print_coversets(j, sizeof(t) / sizeof(*t), t, false);
       if(min){
         printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
         break;
@@ -174,7 +196,7 @@ print_participants(int tcount, const int t[TYPINGCOUNT][2]){
 
 // print minimal coversets of all typings
 static void
-print_complete_coversets_duals(void){
+print_complete_coversets_duals(bool html){
   static int t[TYPINGCOUNT][2];
   int pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -185,12 +207,12 @@ print_complete_coversets_duals(void){
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, pos, t);
+    int min = print_coversets(j, pos, t, html);
     if(min){
-      printf("%d dual coversets of size %d\n", min, j);
+      fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       break;
     }else{
-      printf("no dual coversets of size %d\n", j);
+      fprintf(stderr, "no dual coversets of size %d\n", j);
     }
   }
 }
@@ -198,7 +220,7 @@ print_complete_coversets_duals(void){
 // print coverset of all typings including/excluding certain types. t is a
 // TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
-print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][2]){
+print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][2], bool html){
   *pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
@@ -218,13 +240,13 @@ print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, *pos, ty);
+    int min = print_coversets(j, *pos, ty, html);
     if(min){
-      printf("%d dual coversets of size %d\n", min, j);
+      fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       print_participants(*pos, ty);
       return 0;
     }else{
-      printf("no dual coversets of size %d\n", j);
+      fprintf(stderr, "no dual coversets of size %d\n", j);
     }
   }
   std::cout << "couldn't find coverset" << std::endl;
@@ -299,17 +321,14 @@ lex_typelist(const char* arg, int tlist[TYPECOUNT]){
 }
 
 int main(int argc, char* const* argv){
-  if(argc < 2){
-    print_complete_coversets();
-    print_complete_coversets_duals();
-  }
   int kern[TYPECOUNT] = {};
   int reqchargedtype[TYPECOUNT] = {};
   const char* argv0 = argv[0];
   bool exclude = false;
   bool reqcharged = false;
+  bool html = false;
   int go;
-  while((go = getopt(argc, argv, ":x:t:")) > 0){
+  while((go = getopt(argc, argv, ":hx:t:")) > 0){
     switch(go){
       case 'x': // exclude anything containing these types
         if(exclude){
@@ -331,6 +350,9 @@ int main(int argc, char* const* argv){
         }
         reqcharged = true;
         break;
+      case 'h':
+        html = true;
+        break;
       case ':':
         std::cerr << "option requires argument: " << std::endl;
         usage(argv0); break;
@@ -338,6 +360,11 @@ int main(int argc, char* const* argv){
         std::cerr << "unknown argument: " << std::endl;
         usage(argv0); break;
     }
+  }
+  if(argc < 2){
+    print_complete_coversets();
+    print_complete_coversets_duals(html);
+    return EXIT_SUCCESS;
   }
   // if an argument remains, it ought be a typelist specifying required typings
   if(*(argv + optind)){
@@ -356,6 +383,6 @@ int main(int argc, char* const* argv){
   }
   int pos;
   static int ty[TYPINGCOUNT][2];
-  print_coversets_duals(kern, exclude, &pos, ty);
+  print_coversets_duals(kern, exclude, &pos, ty, html);
   return EXIT_SUCCESS;
 }

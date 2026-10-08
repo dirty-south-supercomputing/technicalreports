@@ -218,6 +218,10 @@ $(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
+$(OUT)/coversets.html: $(OUT)/coversets
+	@mkdir -p $(@D)
+	$(<) -h > $@
+
 $(OUT)/%Nx1.html: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) -r -h > $@

@@ -76,6 +76,14 @@ table.dynas tr :nth-child(n+4) {
   padding: 0 0 0 1em;
 }
 
+table.nofoo tr :nth-child(1) { /* dex number */
+  text-align: left;
+}
+
+table.nofoo tr :nth-child(2) { /* type */
+  text-align: center;
+}
+
 #setsara tr :nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
   text-align: right;
 }
