@@ -2,6 +2,8 @@
 .PHONY: all extra preview testsimul clean test testdb testsimullong web
 .DEFAULT_GOAL:=all
 
+CPP:=clang++
+CPPFLAGS:=-std=c++23 -Wall -W
 PAPERBACK:=pgo-pb
 OUT:=out
 TEXCC:=lualatex
@@ -27,7 +29,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 					  mon/index \
 					  index \
-						nodyna noshadow noshiny \
+						nodyna noshadow noshiny dynacost \
 						typesARA setsARA typesDRA \
 						effectiveness listTTF gmax \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
@@ -68,7 +70,6 @@ ANTIDMAX:=$(OUT)/antidmax
 PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
-SINDEX:=$(OUT)/sindex
 NOSHINY:=$(OUT)/noshiny
 NOSHADOW:=$(OUT)/noshadow
 FUNCTIONALHUNDO:=$(OUT)/functional
@@ -90,7 +91,6 @@ CPAIRSTEX:=$(OUT)/cpairs.tex
 MEGATEX:=$(OUT)/mega.tex
 DYNATEX:=$(OUT)/dynas.tex
 HALFSECMAXTEX:=$(OUT)/halfsecmax.tex
-SINDEXTEX:=$(SINDEX).tex
 STATMAXTEX:=$(OUT)/statmax.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
@@ -137,7 +137,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
-	$(SINDEXTEX) $(HALFSECMAXTEX) \
+	$(HALFSECMAXTEX) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) \
 	$(TIMETOFIRSTTEX) $(DUALCHARGEDTEX) $(SIMULOUT) $(SIMUL3OUT) \
 	$(EVENENERGYTEX) $(CPMSTEX) $(ELITETEX) \
@@ -457,19 +457,19 @@ $(SIMUL3OUT): $(SIMUL)
 
 $(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	$(CPP) $(CPPFLAGS) -funroll-all-loops -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -funroll-all-loops -g -march=native -mtune=native -o $@ -Wall -W -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	$(CPP) $(CPPFLAGS) -funroll-all-loops -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -o $@ -Wall -W -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
+	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
 
 $(OUT)/%.o: %.cpp pgotypes.h
 	@mkdir -p $(@D)
-	g++ -std=c++23 -g -c -o $@ -Wall -W -O2 $(<F)
+	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic

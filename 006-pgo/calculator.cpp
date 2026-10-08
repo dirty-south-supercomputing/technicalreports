@@ -92,7 +92,7 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
     std::cout << "\tdef: " << effd;
     std::cout << "\thp: " << mhp;
     auto gmean = calc_gmean(effa, effd, mhp);
-    stats* st = find_optimal_set(s, cpbound, 0, shadow, calc_pok_gmean);
+    stats* st = find_optimal_set(*s, cpbound, 0, shadow, calc_pok_gmean);
     auto pct = gmean * 100 / st->geommean;
     std::cout << "\tgmean: " << gmean << " (" << pct << "%)" << std::endl;
     std::cout << " opt: ";
@@ -196,7 +196,7 @@ static void
 summarize_fxn(const species *s, int cpceil, const char *str,
               int(*cmpfxn)(const void*, const void*), int items){
   unsigned vcount;
-  auto opts = order_ivs(s, cpceil, cmpfxn, &vcount);
+  auto opts = order_ivs(*s, cpceil, cmpfxn, &vcount);
   std::cout << str << std::endl;
   for(int i = 0 ; i < items ; ++i){
     const stats &st = opts[vcount - i - 1];
@@ -234,12 +234,12 @@ shadow_named(const char *s){
 
 // print any evolutions of the provided species
 static void
-print_evols(const species* s){
+print_evols(const species &s){
   std::vector<const species*> evols;
   get_persistent_evolutions(s, evols);
   for(const auto e : evols){
     std::cout << "evolution: " << e->name << std::endl;
-    print_evols(e);
+    print_evols(*e);
   }
 }
 
@@ -307,6 +307,6 @@ int main(int argc, const char **argv){
     std::cerr << "couldn't match cp " << cp << std::endl;
     return EXIT_FAILURE;
   }
-  print_evols(s);
+  print_evols(*s);
   return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 
 // build the 171 typesets
 static void

@@ -6,24 +6,24 @@
 // take the provided species, and generate a new species object reflecting
 // the shadow bonus. this object will persist.
 static inline species *
-create_shadow(const species* s){
-  if(!s->shadow){
-    std::cerr << "no shadow form exists for " << s->name << std::endl;
+create_shadow(const species &s){
+  if(!s.shadow){
+    std::cerr << "no shadow form exists for " << s.name << std::endl;
     return NULL;
   }
 #define SHADPREFIX "Shadow "
-  species *news = new species(SHADPREFIX + s->name);
-  news->idx = s->idx;
-  news->t1 = s->t1;
-  news->t2 = s->t2;
-  news->atk = s->atk;
-  news->def = s->def;
-  news->sta = s->sta;
-  news->from = s->from;
-  news->attacks = s->attacks;
-  news->shiny = s->shiny;
-  news->shadow = s->shadow;
-  news->dmax = s->dmax;
+  species *news = new species(SHADPREFIX + s.name);
+  news->idx = s.idx;
+  news->t1 = s.t1;
+  news->t2 = s.t2;
+  news->atk = s.atk;
+  news->def = s.def;
+  news->sta = s.sta;
+  news->from = s.from;
+  news->attacks = s.attacks;
+  news->shiny = s.shiny;
+  news->shadow = s.shadow;
+  news->dmax = s.dmax;
   return news;
 }
 
@@ -156,17 +156,17 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
 }
 
 static void
-get_species_opt(stats **sols, const species *sp, char fitchar, int bound, float lbound,
+get_species_opt(stats **sols, const species &sp, char fitchar, int bound, float lbound,
                 float(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
                 int(*tiefxn)(const void*, const void*)){
   bool shadowstuff = false;
-  if(sp->shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
+  if(sp.shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
     shadowstuff = true;
   }
   stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
   if(shadowstuff){
     const species *shads = create_shadow(sp);
-    stats *shadsets = find_optimal_set(shads, bound, lbound, true, fitfxn);
+    stats *shadsets = find_optimal_set(*shads, bound, lbound, true, fitfxn);
     insert_opt_stat(sols, shadsets, cmpfxn, tiefxn);
   }
   insert_opt_stat(sols, s, cmpfxn, tiefxn);
@@ -198,15 +198,14 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   }
   stats *sols = NULL;
   std::vector<species> megaspecies;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species *sp = &sdex[i];
-    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
+  for(auto sp = species_begin() ; sp != species_end() ; ++sp){
+    get_species_opt(&sols, *sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
     for(const auto &m : sp->mforms){
-      megaspecies.emplace_back(sp, m);
+      megaspecies.emplace_back(&*sp, m);
     }
   }
   for(const auto &sp : megaspecies){
-    get_species_opt(&sols, &sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
+    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
   }
   while( (sols = print_sol_set(sols, get_apercent, html, !!bound)) ){
     ;

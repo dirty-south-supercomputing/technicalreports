@@ -31,7 +31,7 @@ encode_name(const std::string &s, std::string &encname){
 static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league, int cpbound){
   unsigned ivcount;
-  auto sets = order_ivs(&s, cpbound, statscmp_gmean, &ivcount);
+  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
   fp << "<h2>" << league << " IVs ordered by geometric mean</h2>" << std::endl;
   // FIXME provide an actual stat summary
   fp << "<details><summary>expand table</summary>" << std::endl;
@@ -106,8 +106,8 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
         }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
           return false;
         }
-        float aratio = calc_eff_power(&s, lhs);
-        float bratio = calc_eff_power(&s, rhs);
+        float aratio = calc_eff_power(s, lhs);
+        float bratio = calc_eff_power(s, rhs);
         if(fast_attack_p(lhs)){
           aratio /= lhs->turns;
           bratio /= rhs->turns;
@@ -124,13 +124,13 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     if(!fast_attack_p(a)){
       continue;
     }
-    auto cpow = calc_eff_power(&s, a);
+    auto cpow = calc_eff_power(s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, &s, a);
+    emit_html_attack(fp, s, a);
     fp << "</td>";
     fp << "<td>";
     if(a->turns){
@@ -154,13 +154,13 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     if(!charged_attack_p(a)){
       continue;
     }
-    auto cpow = calc_eff_power(&s, a);
+    auto cpow = calc_eff_power(s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, &s, a);
+    emit_html_attack(fp, s, a);
     fp << "</td>";
     fp << "<td>";
     summarize_buffs_html(fp, a);
@@ -185,8 +185,8 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
         }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
           return false;
         }
-        float aratio = calc_eff_power_nx1(&s, lhs);
-        float bratio = calc_eff_power_nx1(&s, rhs);
+        float aratio = calc_eff_power_nx1(s, lhs);
+        float bratio = calc_eff_power_nx1(s, rhs);
         aratio /= lhs->animdur;
         bratio /= rhs->animdur;
         return aratio < bratio;
@@ -198,13 +198,13 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     if(!fast_attack_p(a)){
       continue;
     }
-    auto cpow = calc_eff_power_nx1(&s, a);
+    auto cpow = calc_eff_power_nx1(s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, &s, a);
+    emit_html_attack(fp, s, a);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){
@@ -224,13 +224,13 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     if(!charged_attack_p(a)){
       continue;
     }
-    auto cpow = calc_eff_power_nx1(&s, a);
+    auto cpow = calc_eff_power_nx1(s, a);
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, &s, a);
+    emit_html_attack(fp, s, a);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){
@@ -290,7 +290,7 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Max CP: " << s.maxcp() << "<br/>";
   fp << "Attack / Defense: " << (static_cast<float>(s.atk) / s.def) << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
-  fp << "Catch reward: " << stardust_reward(&s) << " SD<br/>";
+  fp << "Catch reward: " << stardust_reward(s) << " SD<br/>";
   fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
   const auto *rstr = s.regionstr();
   if(!rstr){
@@ -321,13 +321,13 @@ write_stats(std::ostream &fp, const species &s){
 }
 
 static int
-print_previous_species(std::ostream &fp, const species *s){
+print_previous_species(std::ostream &fp, const species &s){
   int ret = 1;
   const species *devol = get_previous_evolution(s);
   if(devol){
-    ret += print_previous_species(fp, devol);
+    ret += print_previous_species(fp, *devol);
   }
-  link_to_name(fp, s->name);
+  link_to_name(fp, s.name);
   fp << " → ";
   return ret;
 }
@@ -335,10 +335,10 @@ print_previous_species(std::ostream &fp, const species *s){
 static int
 write_evol(std::ostream &fp, const species &s){
   fp << "<h2>transitions</h2>";
-  const species *devol = get_previous_evolution(&s);
+  const species *devol = get_previous_evolution(s);
   int evolidx = 0;
   std::vector<const species*> evols;
-  int rows = get_evolution_count(&s, evols);
+  int rows = get_evolution_count(s, evols);
   if(devol || rows){
     // we need a table because the evolution can fan out
     if(rows == 0){
@@ -346,14 +346,15 @@ write_evol(std::ostream &fp, const species &s){
     }
     int immindex = -1; // see comment below
     std::vector<const species*> immevols;
-    get_persistent_evolutions(&s, immevols);
+    std::forward_list<species> store;
+    get_evolutions(&s, immevols, store);
     for(int r = 0 ; r < rows ; ++r){
       if(r){
         fp << std::endl;
       }
       // first, print previous step(s)
       if(devol){
-        print_previous_species(fp, devol);
+        print_previous_species(fp, *devol);
       }
       // next, print ourselves, in bold
       fp << "<b>" << s.name << "</b>";
@@ -370,7 +371,7 @@ write_evol(std::ostream &fp, const species &s){
         fp << " → ";
         link_to_name(fp, imm->name);
         std::vector<const species*> waste;
-        if(get_persistent_evolutions(imm, waste)){
+        if(get_persistent_evolutions(*imm, waste)){
           fp << " → ";
           link_to_name(fp, evols[evolidx]->name);
           ++evolidx;
@@ -413,7 +414,7 @@ write_mon_page(const species &s){
       return -1;
     }
   }
-  const auto *g = lookup_gmax_attack(&s);
+  const auto *g = lookup_gmax_attack(s);
   if(g){
     write_mon_page({&s, *g});
   }
@@ -457,7 +458,7 @@ write_summary(std::ostream &fp, const species &s){
   for(const auto &m : s.mforms){
     write_summary(fp, {&s, m});
   }
-  const auto *g = lookup_gmax_attack(&s);
+  const auto *g = lookup_gmax_attack(s);
   if(g){
     write_summary(fp, {&s, *g});
   }
@@ -483,8 +484,8 @@ write_index(){
   fp << "</th><th>";
   fp << "<img src=\"../images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
   fp << "</th><th>Sprite</th></tr>" << std::endl;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    write_summary(fp, sdex[u]);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    write_summary(fp, *s);
   }
   fp << "</table>" << std::endl;
   write_footer_and_close(fp);
@@ -510,9 +511,8 @@ int main(int argc, const char **argv){
   if(write_index()){
     return EXIT_FAILURE;
   }
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto &s = sdex[u];
-    if(write_mon_page(s)){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(write_mon_page(*s)){
       return EXIT_FAILURE;
     }
   }

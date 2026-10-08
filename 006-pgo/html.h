@@ -35,4 +35,95 @@ emit_halflevel_as_level(std::ostream &fp, int hlevel){
   return fp;
 }
 
+static inline void
+emit_html_attack(std::ostream &o, const species &s, const attack *a){
+  bool stab = has_stab_p(s, a);
+  bool excl = exclusive_attack_p(s, a);
+  if(!stab){
+    o << "<i>";
+  }
+  if(excl){
+    o << "<b>";
+  }
+  o << a->name;
+  if(excl){
+    o << "</b>";
+  }
+  if(!stab){
+    o << "</i>";
+  }
+}
+
+// FIXME ugh duplicates summarize_buffs() from latex code
+static inline void
+summarize_buffs_html(std::ostream &o, const attack *a){
+  // need special case A+D as it takes too much space otherwise
+  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
+      && a->user_attack == a->user_defense){
+    print_buff_html(o, a->chance_user_attack, a->user_attack, "A+D");
+  }else{
+    if(a->chance_user_attack){
+      print_buff_html(o, a->chance_user_attack, a->user_attack, "A");
+    }
+    if(a->chance_user_defense){
+      print_buff_html(o, a->chance_user_defense, a->user_defense, "D");
+    }
+  }
+  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
+      && a->opp_attack == a->opp_defense){
+    print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA+D");
+  }else{
+    if(a->chance_opp_attack){
+      print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA");
+    }
+    if(a->chance_opp_defense){
+      print_buff_html(o, a->chance_opp_defense, a->opp_defense, "OD");
+    }
+  }
+}
+
+static inline void
+html_type(std::ostream &fp, pgo_types_e t){
+  if(t != TYPECOUNT){
+    fp << "<img src=\"images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+  }
+}
+
+static inline void
+html_type(pgo_types_e t){
+  html_type(std::cout, t);
+}
+
+static inline void
+html_type_pdir(std::ostream &fp, pgo_types_e t){
+  if(t != TYPECOUNT){
+    fp << "<img src=\"../images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+  }
+}
+
+static inline void
+html_types_pdir(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
+  html_type_pdir(fp, t1);
+  if(t1 != t2 && t2 != TYPECOUNT){
+    fp << ' ';
+    html_type_pdir(fp, t2);
+  }
+}
+
+// emit the symbols for some typing. nothing is shown for TYPECOUNT, and
+// monotypes are only displayed once.
+static inline void
+html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
+  html_type(fp, t1);
+  if(t1 != t2 && t2 != TYPECOUNT){
+    fp << ' ';
+    html_type(fp, t2);
+  }
+}
+
+static inline void
+html_types(pgo_types_e t1, pgo_types_e t2){
+  html_types(std::cout, t1, t2);
+}
+
 #endif

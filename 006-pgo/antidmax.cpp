@@ -7,11 +7,11 @@ void usage(const char* argv0, int exitcode){
 
 // build up candidates for the given species attacking something having typing
 // ttype1+ttype2
-void handle_species(const species *s, pgo_types_e ttype1, pgo_types_e ttype2,
+void handle_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
                     std::vector<candidate>& cands){
   if(has_dmax(s)){
     bool ts[TYPECOUNT]{};
-    for(const auto a : s->attacks){
+    for(const auto a : s.attacks){
       if(fast_attack_p(a)){
         auto at = dmax_attack_type(a);
         if(ts[at]){
@@ -20,7 +20,7 @@ void handle_species(const species *s, pgo_types_e ttype1, pgo_types_e ttype2,
         ts[at] = true;
         bool stab = has_stab_raw_p(s, at);
         float teffect = type_effectiveness(at, ttype1, ttype2);
-        add_candidate(cands, s, max_attack_name(at), false, stab, at, teffect);
+        add_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect);
       }
     }
   }
@@ -28,7 +28,7 @@ void handle_species(const species *s, pgo_types_e ttype1, pgo_types_e ttype2,
   if(gma){
     bool stab = has_stab_raw_p(s, gma->type);
     float teffect = type_effectiveness(gma->type, ttype1, ttype2);
-    add_candidate(cands, s, gma->name.c_str(), true, stab, gma->type, teffect);
+    add_candidate(cands, &s, gma->name.c_str(), true, stab, gma->type, teffect);
   }
 }
 
@@ -43,9 +43,8 @@ int main(int argc, const char** argv){
     usage(argv[0], EXIT_FAILURE);
   }
   std::vector<candidate> cands;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto a = &sdex[u];
-    handle_species(a, s->t1, s->t2, cands);
+  for(auto a = species_begin() ; a != species_end() ; ++a){
+    handle_species(*a, s->t1, s->t2, cands);
   }
   float teffect = type_effectiveness(TYPE_STEEL, s->t1, s->t2);
   const auto zac = lookup_species("Zacian Crowned Sword");

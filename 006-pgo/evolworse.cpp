@@ -5,18 +5,19 @@ bool check_worse_evol(const species& s, int cpbound){
   bool ret = false;
   stats svec[IVLEVVEC];
   // generate the level we can hit for each of 4k iv configurations given cpbound
-  order_ivs_internal(&s, cpbound, svec, false);
+  order_ivs_internal(s, cpbound, svec, false);
   float gs = 0;
   float gsworst = FLT_MAX;
   std::vector<const species *> evols;
-  get_persistent_evolutions(&s, evols);
-  for(const auto* e : evols){
+  std::forward_list<species> store;
+  get_evolutions(&s, evols, store);
+  for(const auto e : evols){
     unsigned worse = 0;
     float ge = 0;
     float geworst = FLT_MAX;
     // generate the levels for the evol, as we did the base
     stats evec[sizeof(svec) / sizeof(*svec)];
-    order_ivs_internal(e, cpbound, evec, false);
+    order_ivs_internal(*e, cpbound, evec, false);
     // now, compare each of the 4k configs (geometric mean)
     for(unsigned i = 0 ; i < sizeof(svec) / sizeof(*svec) ; ++i){
       if(evec[i].geommean < svec[i].geommean){
@@ -75,8 +76,8 @@ int main(int argc, char * const argv[]){
   std::cout.precision(3);
   std::cout << "<table class=\"evenshade\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Gmean range</th><th>Evolution</th><th>Gmean range</th><th>Relationship</th></tr>" << std::endl;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    check_worse_evol(sdex[i], cpb);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    check_worse_evol(*s, cpb);
   }
   std::cout << "</table>" << std::endl;
   return EXIT_SUCCESS;

@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 
 static void
 print_pop(pgo_types_e t1, pgo_types_e t2){
@@ -6,12 +6,11 @@ print_pop(pgo_types_e t1, pgo_types_e t2){
     t2 = TYPECOUNT;
   }
   bool printed = false;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto &s = sdex[u];
-    if(s.t1 != t1){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(s->t1 != t1){
       continue;
     }
-    if(s.t2 != t2){
+    if(s->t2 != t2){
       continue;
     }
     if(printed){
@@ -19,7 +18,7 @@ print_pop(pgo_types_e t1, pgo_types_e t2){
     }else{
       printed = true;
     }
-    std::cout << s.name;
+    std::cout << s->name;
   }
 }
 

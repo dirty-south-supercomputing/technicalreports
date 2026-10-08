@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 #include <memory>
 #include <cstring>
 #include <cstdio>
@@ -61,8 +61,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       auto pop = learner_count(a, &popstab);
       std::cout << pop;
       bool printed = false;
-      for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-        const species* s = &sdex[u];
+      for(auto s = species_begin() ; s != species_end() ; ++s){
         for(const auto &as : s->attacks){
           if(strcmp(a->name, as->name) == 0){
             if(printed){
@@ -70,8 +69,8 @@ void print_table(const std::vector<const attack*>& as, bool raid){
             }
             std::cout << ' ';
             printed = true;
-            bool stab = has_stab_p(s, a);
-            bool excl = exclusive_attack_p(s, a);
+            bool stab = has_stab_p(*s, a);
+            bool excl = exclusive_attack_p(*s, a);
             if(!stab){
               std::cout << "<i>";
             }

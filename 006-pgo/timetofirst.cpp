@@ -24,7 +24,7 @@ struct timetofirst {
     ca(CA)
     {
         excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
-        powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
+        powercharged = has_stab_p(*s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
         dam = powerfast + powercharged;
         dpt = dam / static_cast<float>(turns);
     }
@@ -43,7 +43,7 @@ turns_until_e(const attack *a, unsigned e){
 }
 
 static void
-calctimefandc(std::vector<timetofirst> &ttfs, const species *s, const attack *f, const attack *c){
+calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
   unsigned t = turns_until_e(f, -c->energytrain);
   float power = f->powertrain;
   if(has_stab_p(s, f)){
@@ -51,16 +51,16 @@ calctimefandc(std::vector<timetofirst> &ttfs, const species *s, const attack *f,
   }
   float pfast = t / f->turns * power;
   ++t; // account for the charged attack
-  ttfs.emplace_back(s, t, pfast, f, c);
+  ttfs.emplace_back(&s, t, pfast, f, c);
 }
 
 static void
-calctimetos(std::vector<timetofirst> &ttfs, const species *s){
-  for(const auto &f : s->attacks){
+calctimetos(std::vector<timetofirst> &ttfs, const species &s){
+  for(const auto &f : s.attacks){
     if(f->energytrain <= 0){
       continue;
     }
-    for(const auto &c : s->attacks){
+    for(const auto &c : s.attacks){
       if(c->energytrain >= 0){
         continue;
       }
@@ -72,15 +72,14 @@ calctimetos(std::vector<timetofirst> &ttfs, const species *s){
 // get time to first and damage for all fast+charged pairs
 static void
 calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs){
-  for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
-    const auto *s = &sdex[si];
-    calctimetos(ttfs, s);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    calctimetos(ttfs, *s);
     for(const auto &m : s->mforms){
-      megaspecs.emplace_back(s, m);
+      megaspecs.emplace_back(&*s, m);
     }
   }
   for(const auto &s : megaspecs){
-    calctimetos(ttfs, &s);
+    calctimetos(ttfs, s);
   }
 }
 
@@ -131,11 +130,11 @@ static void emit_row(const timetofirst &t){
   std::cout << "<td>";
   html_type(t.fa->type);
   std::cout << ' ';
-  emit_html_attack(std::cout, t.s, t.fa);
+  emit_html_attack(std::cout, *t.s, t.fa);
   std::cout << " + ";
   html_type(t.ca->type);
   std::cout << ' ';
-  emit_html_attack(std::cout, t.s, t.ca);
+  emit_html_attack(std::cout, *t.s, t.ca);
   std::cout << ' ';
   summarize_buffs_html(std::cout, t.ca);
   std::cout << "</td>";
@@ -158,9 +157,9 @@ static void emit_line(const timetofirst &t, const std::string &prevname){
     emit_name(t.s->name);
   }
   std::cout << " & ";
-  emit_attack(t.s, t.fa);
+  emit_attack(*t.s, t.fa);
   std::cout << " + ";
-  emit_attack(t.s, t.ca);
+  emit_attack(*t.s, t.ca);
   std::cout << " & ";
   std::cout << t.turns << " & ";
   std::cout << t.dam << " & ";

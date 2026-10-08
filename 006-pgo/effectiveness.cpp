@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 
 // we want all 324 (i.e. duplicate rows for dyadic typings)
 static void

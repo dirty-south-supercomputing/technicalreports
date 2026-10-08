@@ -1,18 +1,18 @@
-#include "pgotypes.h"
+#include "html.h"
 
 void usage(const char* argv0, int ret){
   std::cerr << "usage: " << argv0 << " [ type ]" << std::endl;
   exit(ret);
 }
 
-void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& cands){
+void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& cands){
   bool stab = has_stab_raw_p(s, t);
   if(has_dmax(s)){
-    for(const auto a : s->attacks){
+    for(const auto a : s.attacks){
       if(fast_attack_p(a)){
         auto at = dmax_attack_type(a);
         if(at == t){
-          add_candidate(cands, s, max_attack_name(at), false, stab, t, 1.0);
+          add_candidate(cands, &s, max_attack_name(at), false, stab, t, 1.0);
           break; // don't handle multiple fast attacks of the same type
         }
       }
@@ -21,16 +21,15 @@ void handle_species(const species *s, pgo_types_e t, std::vector<candidate>& can
   auto gma = lookup_gmax_attack(s);
   if(gma){
     if(gma->type == t){
-      add_candidate(cands, s, gma->name.c_str(), true, stab, t, 1.0);
+      add_candidate(cands, &s, gma->name.c_str(), true, stab, t, 1.0);
     }
   }
 }
 
 // build a sorted vector of all *t*-type Max attackers
 int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto s = &sdex[u];
-    handle_species(s, t, cands);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    handle_species(*s, t, cands);
   }
   // we hard code the crowned forms and eternatus, yuck. we don't want to
   // generally mark them as dmax/gmax, as they're technically not.

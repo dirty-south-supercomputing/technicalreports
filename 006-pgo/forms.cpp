@@ -9,34 +9,26 @@
 int main(int argc, char **argv){
   setlocale(LC_ALL, "");
   if(argc != 2){
-    fprintf(stderr, "usage: %s mega|dynamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega\n", argv[0]);
     return EXIT_FAILURE;
   }
   bool zoom = false; // light card inset
   std::map<std::string, species> amap;
   if(strcasecmp(argv[1], "mega") == 0){
     zoom = true;
-    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-      const auto *s = &sdex[u];
+    for(auto s = species_begin() ; s != species_end() ; ++s){
       for(const auto &m : s->mforms){
-        species smeg{s, m};
+        species smeg{&*s, m};
         smeg.mforms.emplace_back(m);
         amap.emplace(m.name, smeg);
       }
     }
-  }else if(strcasecmp(argv[1], "dynamax") == 0){
-    for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-      const auto &s = sdex[u];
-      if(has_dmax(&s)){
-        amap.emplace(s.name, s);
-      }
-    }
   }else{
-    fprintf(stderr, "usage: %s mega|dynamax\n", argv[0]);
+    fprintf(stderr, "usage: %s mega\n", argv[0]);
     return EXIT_FAILURE;
   }
   for(const auto &s : amap){
-    print_species_latex(&s.second, zoom, true, false);
+    print_species_latex(s.second, zoom, true, false);
   }
   return EXIT_SUCCESS;
 }

@@ -19,17 +19,14 @@ struct form {
   float Pptsum; // sum of ppts, including STAB
 };
 
-float ppe_with_stab(const species *s, const attack *a){
-  float pow = a->powertrain;
-  if(has_stab_p(s, a)){
-    pow = calc_stab(pow);
-  }
+float ppe_with_stab(const species &s, const attack *a){
+  float pow = calc_eff_power(s, a);
   return pow / -a->energytrain;
 }
 
 // return true if ar is a more powerful attack than al, according to PPE (and
 // in the event of a tie, E).
-bool cmp_attacks(const species *s, const attack *al, const attack *ar){
+bool cmp_attacks(const species &s, const attack *al, const attack *ar){
   if(al == nullptr){
     return true;
   }
@@ -45,9 +42,9 @@ bool cmp_attacks(const species *s, const attack *al, const attack *ar){
   return false;
 }
 
-const attack *find_most_powerful(const species *s){
+const attack *find_most_powerful(const species &s){
   const attack *a = nullptr;
-  for(const attack *atk : s->attacks){
+  for(const attack *atk : s.attacks){
     if(!charged_attack_p(atk)){
       continue;
     }
@@ -55,7 +52,7 @@ const attack *find_most_powerful(const species *s){
       a = atk;
     }
   }
-  if(s->shadow){
+  if(s.shadow){
     if(cmp_attacks(s, a, &ATK_Return)){
       a = &ATK_Return;
     }
@@ -65,9 +62,9 @@ const attack *find_most_powerful(const species *s){
 
 // find the second strongest charged attack (a1 must be the strongest) that
 // does *not* share its type with a1. return nullptr if no such attack exists.
-const attack *find_second(const species *s, const attack *a1){
+const attack *find_second(const species &s, const attack *a1){
   const attack *a = nullptr;
-  for(const attack *atk : s->attacks){
+  for(const attack *atk : s.attacks){
     if(!charged_attack_p(atk)){
       continue;
     }
@@ -81,7 +78,7 @@ const attack *find_second(const species *s, const attack *a1){
       a = atk;
     }
   }
-  if(s->shadow && a1 != &ATK_Return){
+  if(s.shadow && a1 != &ATK_Return){
     if(a1->type != ATK_Return.type){
       if(cmp_attacks(s, a, &ATK_Return)){
         a = &ATK_Return;
@@ -95,16 +92,15 @@ const attack *find_second(const species *s, const attack *a1){
 // different types. sort the forms by the sum of the PPTs.
 int main(void){
   std::vector<form> forms;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species* s = &sdex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     float pptsum = 0;
-    const attack *a1 = find_most_powerful(s);
-    pptsum = ppe_with_stab(s, a1);
-    const attack *a2 = find_second(s, a1);
+    const attack *a1 = find_most_powerful(*s);
+    pptsum = ppe_with_stab(*s, a1);
+    const attack *a2 = find_second(*s, a1);
     if(a2){
-      pptsum += ppe_with_stab(s, a2);
+      pptsum += ppe_with_stab(*s, a2);
     }
-    forms.emplace_back(s, a1, a2, pptsum);
+    forms.emplace_back(&*s, a1, a2, pptsum);
   }
   sort(forms.begin(), forms.end());
   for(const auto& f : forms){

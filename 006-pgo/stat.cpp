@@ -54,7 +54,7 @@ struct timetofirst {
       effa = calc_eff_a(s->atk + ia, hlevel, false);
       effd = calc_eff_d(s->def + id, hlevel, false);
       excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
-      powercharged = has_stab_p(s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
+      powercharged = has_stab_p(*s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
       abuff = ca->user_attack;
       dbuff = ca->user_defense;
       dam = powerfast + powercharged;
@@ -86,7 +86,7 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
   stats maxstat(&s, MAX_HALFLEVEL, MAXIVELEM, MAXIVELEM, MAXIVELEM, false);
   stats *st;
   if(bound){
-    st = find_optimal_set(&s, bound, 0, false, calc_pok_gmean);
+    st = find_optimal_set(s, bound, 0, false, calc_pok_gmean);
     if(!st){
       std::cerr << "couldn't find optimal config for " << s.name << " with " << bound << " bound" << std::endl;
       throw std::exception();
@@ -104,7 +104,7 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
       }
       unsigned t = turns_until_e(f, -c->energytrain);
       float power = f->powertrain;
-      if(has_stab_p(&s, f)){
+      if(has_stab_p(s, f)){
         power = calc_stab(power);
       }
       float pfast = t / f->turns * power;
@@ -117,14 +117,13 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
 // get time to first and damage for all fast+charged pairs
 static void
 calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs, int bound){
-  for(unsigned si = 0 ; si < SPECIESCOUNT ; ++si){
-    const auto &s = sdex[si];
-    if(s.name.contains("Aegislash")){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(s->name.contains("Aegislash")){
       continue; // FIXME
     }
-    calctimespecies(s, ttfs, bound);
-    for(const auto &m : s.mforms){
-      megaspecs.emplace_back(&s, m);
+    calctimespecies(*s, ttfs, bound);
+    for(const auto &m : s->mforms){
+      megaspecs.emplace_back(&*s, m);
     }
   }
   for(const auto &s : megaspecs){
@@ -132,7 +131,7 @@ calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs, i
   }
 }
 
-static void usage(const char *argv0){
+[[noreturn]] static void usage(const char *argv0){
   std::cerr << "usage: " << argv0 << std::endl;
   exit(EXIT_FAILURE);
 }
@@ -173,11 +172,11 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << "<td>";
   html_type(t.fa->type);
   std::cout << ' ';
-  emit_html_attack(std::cout, t.s, t.fa);
+  emit_html_attack(std::cout, *t.s, t.fa);
   std::cout << " + ";
   html_type(t.ca->type);
   std::cout << ' ';
-  emit_html_attack(std::cout, t.s, t.ca);
+  emit_html_attack(std::cout, *t.s, t.ca);
   std::cout << ' ';
   summarize_buffs_html(std::cout, t.ca);
   std::cout << "</td>";

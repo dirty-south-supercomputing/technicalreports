@@ -54,15 +54,15 @@ label_string(const char *s){
 // s must be non-null and the immediate predecessor.
 // abbreviates regional prefixes.
 static int
-print_previous_species(const species *s){
+print_previous_species(const species &s){
   int ret = 1;
   const species *devol = get_previous_evolution(s);
   if(devol){
-    ret += print_previous_species(devol);
+    ret += print_previous_species(*devol);
   }
-  escape_abbr_string(s->name.c_str());
+  escape_abbr_string(s.name.c_str());
   printf(" (\\pageref{species:");
-  label_string(s->name.c_str());
+  label_string(s.name.c_str());
   printf("}) → ");
   return ret;
 }
@@ -80,7 +80,7 @@ escape_filename(const char *s){
 }
 
 static int
-print_icons(const species *s, bool doprint, bool ismega){
+print_icons(const species &s, bool doprint, bool ismega){
   int count = 0;
   if(has_mega(s) && !ismega){
     ++count;
@@ -107,7 +107,7 @@ print_icons(const species *s, bool doprint, bool ismega){
 // evolutionary line, using multiple rows for any fork. we only print
 // forks above us, not behind. abbreviate regional prefixes to save space.
 static void
-print_evolution_table(const species* s){
+print_evolution_table(const species &s){
   const species *devol = get_previous_evolution(s);
   int evolidx = 0;
   std::vector<const species*> evols;
@@ -127,11 +127,11 @@ print_evolution_table(const species* s){
       printf("\\hfill{}");
       // first, print previous step(s) (with page numbers)
       if(devol){
-        print_previous_species(devol);
+        print_previous_species(*devol);
       }
       // next, print ourselves, in bold (no page number)
       printf("\\textbf{");
-      escape_string(s->name.c_str());
+      escape_string(s.name.c_str());
       printf("}");
       // now, the next evolutionary step(s), if they exist. we do only one row.
       // this requires knowing our index in the immevols array and the next
@@ -149,7 +149,7 @@ print_evolution_table(const species* s){
         label_string(imm->name.c_str());
         printf("})");
         std::vector<const species*> waste;
-        if(get_persistent_evolutions(imm, waste)){
+        if(get_persistent_evolutions(*imm, waste)){
           printf(" → ");
           escape_abbr_string(evols[evolidx]->name.c_str());
           printf(" (\\pageref{species:");
@@ -167,7 +167,7 @@ print_evolution_table(const species* s){
 
 // returns maximum actual cp subject to the ceiling
 static unsigned
-print_optimal_latex_cp(const species* sp, int maxcp){
+print_optimal_latex_cp(const species &sp, int maxcp){
   stats* s = find_optimal_set(sp, maxcp, 0, false, calc_pok_gmean);
   unsigned foundcp = 0;
   unsigned cp = 0;
@@ -194,7 +194,7 @@ print_optimal_latex_cp(const species* sp, int maxcp){
 
 // used for species cards, always wants geometric mean
 static void
-print_optimal_latex(const species* sp){
+print_optimal_latex(const species &sp){
   printf("\\raggedleft{}");
   unsigned maxcp;
   maxcp = print_optimal_latex_cp(sp, 0);
@@ -209,7 +209,7 @@ print_optimal_latex(const species* sp){
 }
 
 static void
-print_cattack_latex(const species* s, const attack* a, float power,
+print_cattack_latex(const species &s, const attack* a, float power,
                     const char* itb, const char* ite){
   const float dpe = power / -a->energytrain;
   if(exclusive_attack_p(s, a)){
@@ -241,7 +241,7 @@ print_cattack_latex(const species* s, const attack* a, float power,
 }
 
 static void
-print_attack_latex(const species* s, const attack* a){
+print_attack_latex(const species &s, const attack* a){
   float power = calc_eff_power(s, a);
   print_type(a->type);
   if(a->type == TYPECOUNT){
@@ -273,7 +273,7 @@ print_attack_latex(const species* s, const attack* a){
   }
 }
 
-void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform){
+void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform){
   printf("\\vfill\n");
   const auto gma = lookup_gmax_attack(s);
   bool gmax = !overzoom && gma;
@@ -281,38 +281,38 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   // just because we *have* a mega doesn't mean we *are* a mega
   bool ismega = ismega_p(s);
   if(ismega){
-    meg = &s->mforms[0]; // only valid if ismega
+    meg = &s.mforms[0]; // only valid if ismega
   }
-  printf("\\begin{speciesbox}[title={\\#%04u ", s->idx);
+  printf("\\begin{speciesbox}[title={\\#%04u ", s.idx);
   if(gmax){
     printf("Gigantamax ");
   }
-  escape_string(s->name.c_str());
+  escape_string(s.name.c_str());
   if(ismega){
     printf(" (%'u)", meg->initialcost);
   }
   printf("}");
   if(mainform){
     printf(",before title={\\phantomsection\\label{species:");
-    label_string(s->name.c_str());
+    label_string(s.name.c_str());
     printf("}}");
   }
   printf(",title style={left color=%s,right color=%s},after title={",
-          tname_capitalized(s->t1),
-          s->t2 == TYPECOUNT ? tname_capitalized(s->t1) : tname_capitalized(s->t2));
-  if(s->shiny){
+          tname_capitalized(s.t1),
+          s.t2 == TYPECOUNT ? tname_capitalized(s.t1) : tname_capitalized(s.t2));
+  if(s.shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" IMAGECOLOR "shiny.png}}");
   }
-  float avg = calc_amean(s->atk, s->def, s->sta);
-  printf("\\hfill%u %u %u %.1f %.1f}", s->atk, s->def, s->sta, avg, calc_gmean(s->atk, s->def, s->sta));
+  float avg = calc_amean(s.atk, s.def, s.sta);
+  printf("\\hfill%u %u %u %.1f %.1f}", s.atk, s.def, s.sta, avg, calc_gmean(s.atk, s.def, s.sta));
   // background image is zoomed and flipped at low opacity
   printf(",interior style={fill overzoom image=images/mon/" IMAGECOLOR);
-  escape_filename(s->name.c_str());
+  escape_filename(s.name.c_str());
   printf(",fill image opacity=0.2}");
   printf("]{\\footnotesize");
 
   if(bg){
-    printf("\\pagecolor{%s!50!white}", tname_capitalized(s->t1));
+    printf("\\pagecolor{%s!50!white}", tname_capitalized(s.t1));
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
@@ -320,20 +320,20 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   if(gmax){ // get the gmax image
     printf("Gmax");
   }
-  for(const char* curs = s->name.c_str() ; *curs ; ++curs){
+  for(const char* curs = s.name.c_str() ; *curs ; ++curs){
     if(*curs != '%' && *curs != '\'' && *curs != ' ' && *curs != '-' && *curs != '.'){
       printf("%c", *curs);
     }
   }
   printf(".png}} &\\begingroup\\setlength{\\tabcolsep}{4pt}\\begin{tabular}{lrrrrr}\n");
   std::vector<const attack*> sortedatks;
-  if(!gmax && s->shadow){
+  if(!gmax && s.shadow){
     sortedatks.emplace_back(&ATK_Return);
   }
   if(ismega && meg->plusatk){
     sortedatks.emplace_back(meg->plusatk);
   }
-  for(const auto a : s->attacks){
+  for(const auto a : s.attacks){
     sortedatks.emplace_back(a);
   }
   std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
@@ -360,7 +360,7 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
   // the minipages with icons and cp data
   printf("\\noindent\\begin{minipage}{0.%d\\linewidth}", gmax ? 4 : 3);
-  print_types_big(s->t1, s->t2);
+  print_types_big(s.t1, s.t2);
   // for the gmax cards, don't print the max icons --- we know it's max-capable
   if(!gmax){
     print_icons(s, true, ismega);
@@ -374,13 +374,13 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
     if(!ismega){
       printf("\\scriptsize{}");
       printf("%u ", stardust_reward(s));
-      if(s->categorystr() && strcmp(s->categorystr(), "")){
-        printf("%s\n", s->categorystr());
+      if(s.categorystr() && strcmp(s.categorystr(), "")){
+        printf("%s\n", s.categorystr());
       }else{
-        printf("CG %d", a2cost_to_cgroup(s->a2cost));
+        printf("CG %d", a2cost_to_cgroup(s.a2cost));
       }
       printf(" Gen %s %s\\hfill{}",
-            idx_to_generation(s->idx), idx_to_region(s->idx));
+            idx_to_generation(s.idx), idx_to_region(s.idx));
       printf("\\begin{minipage}{0.%d\\linewidth}\\scriptsize\\raggedleft{}", gmax ? 6 : 7);
       print_evolution_table(s);
       printf("\\end{minipage}");
@@ -388,22 +388,22 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
   }else{ // other than main/mega forms
     if(gmax){
       printf("\\hfill");
-      print_type(s->t1);
+      print_type(s.t1);
       printf(" G-Max %s", gma->name.c_str());
     }
   }
 
   // shadow is implemented as subtitle
-  if(mainform && s->shadow){
+  if(mainform && s.shadow){
     printf("\\tcbsubtitle{Shadow ");
-    escape_string(s->name.c_str());
+    escape_string(s.name.c_str());
     printf("\\hfill{}");
-    const float atk = s->atk * 6 / 5.0;
-    const float def = s->def * 5 / 6.0;
-    const float savg = calc_amean(atk, def, s->sta);
+    const float atk = s.atk * 6 / 5.0;
+    const float def = s.def * 5 / 6.0;
+    const float savg = calc_amean(atk, def, s.sta);
     // we don't show geometric mean as it'll always be the same as the non-shadow
     // form. instead, show delta for arithmetic mean.
-    printf("%.1f %.1f %u %.1f ", atk, def, s->sta, savg);
+    printf("%.1f %.1f %u %.1f ", atk, def, s.sta, savg);
     if(avg > savg){
       printf("(-%.1f\\%%)", (avg - savg) * 100 / avg);
     }else if(avg < savg){
@@ -420,16 +420,16 @@ void print_species_latex(const species* s, bool overzoom, bool bg, bool mainform
 
 // print those entries containing type(s). pass TYPECOUNT for a wildcard on t2.
 // pass the same type twice for only that base type. LaTeX output.
-void filter_by_types(int t1, int t2, const species* dex, unsigned count, bool overzoom, bool mainform){
-  for(unsigned i = 0 ; i < count ; ++i){
+void filter_by_types(int t1, int t2, bool overzoom, bool mainform){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     bool printit = false;
-    if(dex[i].t1 == t1){
-      if(dex[i].t2 == t2 || t2 == TYPECOUNT || (t1 == t2 && dex[i].t2 == TYPECOUNT)){
+    if(s->t1 == t1){
+      if(s->t2 == t2 || t2 == TYPECOUNT || (t1 == t2 && s->t2 == TYPECOUNT)){
         printit = true;
       }
     }
     if(printit){
-      print_species_latex(&dex[i], overzoom, true, mainform);
+      print_species_latex(*s, overzoom, true, mainform);
     }
   }
 }
@@ -478,23 +478,21 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
 // emit a list of all forms having the specified typing
 void emit_typing_list(pgo_types_e i, pgo_types_e j){
   bool firstprint = true;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto &s = sdex[u];
-    if(s.t1 == i || s.t2 == i){
-      if(s.t1 == j || s.t2 == j){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(s->t1 == i || s->t2 == i){
+      if(s->t1 == j || s->t2 == j){
         if(firstprint){
           firstprint = false;
         }else{
           std::cout << ", ";
         }
-        escape_cpp_string(s.name);
+        escape_cpp_string(s->name);
       }
     }
   }
-  // FIXME list mega mons?
 }
 
-void emit_attack(const species *s, const attack *a){
+void emit_attack(const species &s, const attack *a){
   bool stab = has_stab_p(s, a);
   bool excl = exclusive_attack_p(s, a);
   if(!stab){

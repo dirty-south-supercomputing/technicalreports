@@ -80,7 +80,7 @@ summarize_fxn(const pmon &p, int cpcap, const char *name,
               int(*cmpfxn)(const void*, const void*),
               float(*getfxn)(const stats &)){
   unsigned vcount;
-  auto opts = order_ivs(p.s.s, cpcap, cmpfxn, &vcount);
+  auto opts = order_ivs(*p.s.s, cpcap, cmpfxn, &vcount);
   const stats &st = opts[vcount - 1];
   const auto max = getfxn(st);
   std::cout << " " << name << "\tbest: " << max << " ";
