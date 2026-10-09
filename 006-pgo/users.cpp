@@ -1,17 +1,15 @@
 #include "pgotypes.h"
 
 static void
-print_attack_users_sdex(const attack *a, const species *dex, unsigned dcount,
-                        bool *printed){
-  for(unsigned i = 0 ; i < dcount ; ++i){
-    const species *s = &dex[i];
+print_attack_users_sdex(const attack *a, bool *printed){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto &sa : s->attacks){
       if(strcmp(sa->name, a->name) == 0){
         if(*printed){
           printf(", ");
         }
-        bool stab = has_stab_p(s, sa);
-        bool elite = exclusive_attack_p(s, sa);
+        bool stab = has_stab_p(*s, sa);
+        bool elite = exclusive_attack_p(*s, sa);
         if(elite){
           printf("\\textbf{");
         }
@@ -60,7 +58,7 @@ print_attack_users(const attack *a){
         "Purifying the Shadow Pokémon replaces this attack with Return.");
   }else{
     // we don't want to list mega/primal forms
-    print_attack_users_sdex(a, sdex, SPECIESCOUNT, &printed);
+    print_attack_users_sdex(a, &printed);
   }
   // FIXME improve subtitle or use something else
   if(a->adveffect){

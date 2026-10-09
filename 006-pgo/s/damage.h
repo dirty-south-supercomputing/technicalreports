@@ -12,7 +12,7 @@ static unsigned calc_damage(const pmon *p, const pmon *o, const attack *a,
   d *= 13; // first half of the 0.65 multiplier
   d *= p->s.shadow ? 6 : 1; // first half of shadow multipliers
   d *= o->s.shadow ? 6 : 1;
-  if(has_stab_p(p->s.s, a)){
+  if(has_stab_p(*p->s.s, a)){
     d = calc_stab(d);
   }
   d *= o->s.s->type_effectiveness(a);

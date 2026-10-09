@@ -22,8 +22,8 @@ print_populations(const char **types){
   std::cout << std::endl;
   int total = 0;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(t[s.t1] || (s.t2 != TYPECOUNT && t[s.t2])){
-      std::cout << s.name << std::endl;
+    if(t[s->t1] || (s->t2 != TYPECOUNT && t[s->t2])){
+      std::cout << s->name << std::endl;
       ++total;
     }
   }
@@ -52,19 +52,19 @@ int main(int argc, const char **argv){
     unsigned dts = 0;
     unsigned dtpop = 0;
     for(auto s = species_begin() ; s != species_end() ; ++s){
-      if(s.t1 == t && (s.t2 == t || s.t2 == TYPECOUNT)){
+      if(s->t1 == t && (s->t2 == t || s->t2 == TYPECOUNT)){
         ++pop;
-      }else if(s.t1 == t){
-        if(!duals[s.t2]){
+      }else if(s->t1 == t){
+        if(!duals[s->t2]){
           ++dts;
         }
-        duals[s.t2] = true;
+        duals[s->t2] = true;
         ++dtpop;
-      }else if(s.t2 == t){
-        if(!duals[s.t1]){
+      }else if(s->t2 == t){
+        if(!duals[s->t1]){
           ++dts;
         }
-        duals[s.t1] = true;
+        duals[s->t1] = true;
         ++dtpop;
       }
     }
