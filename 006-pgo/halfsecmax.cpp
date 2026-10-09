@@ -3,12 +3,11 @@
 // emit all Max-capable users of the given attack
 void print_users(const attack* a){
   bool printed = false;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const auto* s = &sdex[u];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->name != "Zacian Crowned Sword"
         && s->name != "Zamazenta Crowned Shield"
         && s->name != "Eternatus"){
-      if(!has_dmax(s) && !has_gmax(s)){
+      if(!has_dmax(*s) && !has_gmax(*s)){
         continue;
       }
     }

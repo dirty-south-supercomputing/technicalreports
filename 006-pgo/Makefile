@@ -461,11 +461,11 @@ $(SIMUL3OUT): $(SIMUL)
 
 $(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h
 	@mkdir -p $(@D)
-	$(CPP) $(CPPFLAGS) -funroll-all-loops -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
-	$(CPP) $(CPPFLAGS) -funroll-all-loops -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
+	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
 $(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)

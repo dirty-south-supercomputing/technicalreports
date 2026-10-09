@@ -3,8 +3,8 @@
 #include <iostream>
 
 static void
-get_fast_pairs(const species *s, attackset &pairs){
-  for(const auto &as : s->attacks){
+get_fast_pairs(const species &s, attackset &pairs){
+  for(const auto &as : s.attacks){
     const attack *a = as;
     if(a->energytrain < 0){
       pairs.add(a);
@@ -13,8 +13,8 @@ get_fast_pairs(const species *s, attackset &pairs){
 }
 
 static void
-get_fast_attack_pairs(const species *s, pairmap &pairs){
-  for(const auto &as : s->attacks){
+get_fast_attack_pairs(const species &s, pairmap &pairs){
+  for(const auto &as : s.attacks){
     const attack *a = as;
     if(a->energytrain > 0){ // fast attack
       auto &p = *pairs.try_emplace(a->name, a).first;
@@ -25,15 +25,14 @@ get_fast_attack_pairs(const species *s, pairmap &pairs){
 
 static void
 get_fast_attack_pairs_dex(pairmap &pairs){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species *s = &sdex[i];
-    get_fast_attack_pairs(s, pairs);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    get_fast_attack_pairs(*s, pairs);
   }
 }
 
 static void
-get_charged_pairs(const species *s, attackset &pairs){
-  for(const auto &as : s->attacks){
+get_charged_pairs(const species &s, attackset &pairs){
+  for(const auto &as : s.attacks){
     const attack *a = as;
     if(a->energytrain > 0){
       pairs.add(a);
@@ -42,8 +41,8 @@ get_charged_pairs(const species *s, attackset &pairs){
 }
 
 static void
-get_charged_attack_pairs(const species *s, pairmap &pairs){
-  for(const auto &as : s->attacks){
+get_charged_attack_pairs(const species &s, pairmap &pairs){
+  for(const auto &as : s.attacks){
     const attack *a = as;
     if(a->energytrain < 0){ // charged attack
       auto &p = *pairs.try_emplace(a->name, a).first;
@@ -54,9 +53,8 @@ get_charged_attack_pairs(const species *s, pairmap &pairs){
 
 static void
 get_charged_attack_pairs_dex(pairmap &pairs){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species *s = &sdex[i];
-    get_charged_attack_pairs(s, pairs);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    get_charged_attack_pairs(*s, pairs);
   }
 }
 
