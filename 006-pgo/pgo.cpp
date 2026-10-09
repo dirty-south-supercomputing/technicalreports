@@ -1775,7 +1775,7 @@ static const std::vector<species> sdex = {
   {  302, "Sableye", TYPE_DARK, TYPE_GHOST, 141, 136, 137, "",
 		{ &ATK_Shadow_Claw, &ATK_Feint_Attack, &ATK_Drain_Punch, &ATK_Power_Gem, &ATK_Shadow_Sneak, &ATK_Dazzling_Gleam, &ATK_Foul_Play, },
 		true, true, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
-    { { "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, 100, nullptr, }, }, },
+    { { "Mega Sableye", TYPE_DARK, TYPE_GHOST, 151, 216, 137, 100, &ATK_Night_Shade_Plus, }, }, },
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, "",
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Astonish, &ATK_Ice_Fang, &ATK_Fairy_Wind, &ATK_Vise_Grip, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Power_Up_Punch, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
@@ -3761,11 +3761,11 @@ static const std::vector<species> sdex = {
 		false, false, 0, { &ATK_Plasma_Fists, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, "",
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
-		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 4, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // will have gmax
   {  809, "Melmetal", TYPE_STEEL, TYPECOUNT, 226, 190, 264, "Meltan",
 		{ &ATK_Thunder_Shock, &ATK_Hyper_Beam, &ATK_Flash_Cannon, &ATK_Rock_Slide, &ATK_Thunderbolt, &ATK_Superpower, &ATK_Double_Iron_Bash, &ATK_Dynamic_Punch, },
-		true, false, 0, { &ATK_Double_Iron_Bash, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { &ATK_Double_Iron_Bash, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // the chimp
   {  810, "Grookey", TYPE_GRASS, TYPECOUNT, 122, 91, 137, "",
 		{ &ATK_Razor_Leaf, &ATK_Scratch, &ATK_Grass_Knot, &ATK_Energy_Ball, },
@@ -4050,7 +4050,7 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  895, "Regidrago", TYPE_DRAGON, TYPECOUNT, 202, 101, 400, "",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Hyper_Beam, &ATK_Dragon_Pulse, &ATK_Dragon_Energy, &ATK_Outrage, &ATK_Breaking_Swipe, &ATK_Vise_Grip, },
-		true, false, 0, { &ATK_Dragon_Breath, &ATK_Dragon_Energy, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 5, { &ATK_Dragon_Breath, &ATK_Dragon_Energy, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // 896 -- glastrier
   // 897 -- spectrier
   // 898 -- calyrex
