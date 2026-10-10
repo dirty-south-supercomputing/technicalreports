@@ -18,7 +18,7 @@ print_pop(pgo_types_e t1, pgo_types_e t2){
     }else{
       printed = true;
     }
-    std::cout << s->name;
+    link_to_name(std::cout, s->name);
   }
 }
 

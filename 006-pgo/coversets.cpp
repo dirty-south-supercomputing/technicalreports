@@ -55,7 +55,7 @@ print_coverset(const int tocc[], int v, const int tvec[][2], int setidx, bool ht
     }
     std::cout << "</td></tr>" << std::endl;
   }else{
-    printf(" cover: ");
+    printf(" cover: %d ", setidx);
     for(int i = 0 ; i < TYPECOUNT ; ++i){
       if(tocc[i]){
         printf("%s ", tnames[i]);
@@ -325,7 +325,7 @@ int main(int argc, char* const* argv){
   int reqchargedtype[TYPECOUNT] = {};
   const char* argv0 = argv[0];
   bool exclude = false;
-  bool reqcharged = false;
+  bool reqcharged = false; // FIXME not yet implemented
   bool html = false;
   int go;
   while((go = getopt(argc, argv, ":hx:t:")) > 0){
@@ -361,8 +361,10 @@ int main(int argc, char* const* argv){
         usage(argv0); break;
     }
   }
-  if(argc < 2){
-    print_complete_coversets();
+  if(argc < 2 || (html && argc == 2)){
+    if(!html){
+      print_complete_coversets();
+    }
     print_complete_coversets_duals(html);
     return EXIT_SUCCESS;
   }

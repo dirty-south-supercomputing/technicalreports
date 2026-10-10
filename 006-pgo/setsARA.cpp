@@ -63,7 +63,7 @@ int main(){
         }else{
           printed = true;
         }
-        std::cout << m->name;
+        link_to_name(std::cout, m->name);
       }
     }else{
       std::cout << "<td>" << ts.learnpop.size() << " ";
@@ -74,7 +74,7 @@ int main(){
         }else{
           printed = true;
         }
-        std::cout << s->name;
+        link_to_name(std::cout, s->name);
       }
     }
     std::cout << "</td>";
