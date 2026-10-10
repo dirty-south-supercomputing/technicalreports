@@ -55,7 +55,9 @@ emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
   if(pdir){
     o << "../";
   }
-  o << "attacks/" << a->name << ".html\">" << a->name << "</a>" << suffix;
+  o << "attacks/";
+  encode_name(o, a->name);
+  o << ".html\">" << a->name << "</a>" << suffix;
 }
 
 static inline void
