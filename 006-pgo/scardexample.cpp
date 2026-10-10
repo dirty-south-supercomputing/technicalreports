@@ -6,5 +6,5 @@ int main(void){
                   { &ATK_Astonish, &ATK_Incinerate, &ATK_Brave_Bird, &ATK_Aeroblast, },
                   true, true, false, { &ATK_Aeroblast, }, species::CAT_NORMAL,
                   100, species::EVOL_NOITEM, species::REGION_ALL, 0, {});
-  print_species_latex(&s, true, false, true);
+  print_species_latex(s, true, false, true);
 }

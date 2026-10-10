@@ -1,12 +1,11 @@
 #include "pgotypes.h"
 
-static void elite_fast_table(const species *dex, unsigned scount){
+static void elite_fast_table(){
   std::cout << "\\begin{table}\\centering\\footnotesize";
   std::cout << "\\begin{tabular}{ll|ll}";
   std::cout << "Pokémon & Attack & Pokémon & Attack\\\\\\Midrule" << std::endl;
   bool nl = false;
-  for(unsigned i = 0 ; i < scount ; ++i){
-    const species *s = &dex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto *a : s->attacks){
       if(a->energytrain < 0){
         continue;
@@ -67,7 +66,7 @@ static void elite_charged_table(const species *dex, unsigned scount){
 */
 
 int main(void){
-  elite_fast_table(sdex, SPECIESCOUNT);
+  elite_fast_table();
   //elite_charged_table(sdex, SPECIESCOUNT);
   return EXIT_SUCCESS;
 }

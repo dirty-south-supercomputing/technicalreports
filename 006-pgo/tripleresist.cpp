@@ -11,16 +11,15 @@ int main(void){
           std::cout << tname_capitalized(t) << " → " << tname_capitalized(i) << "/" << tname_capitalized(j);
           std::cout << " & ";
           bool firstprint = true;
-          for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-            const auto &s = sdex[u];
-            if(s.t1 == i || s.t2 == i){
-              if(s.t1 == j || s.t2 == j){
+          for(auto s = species_begin() ; s != species_end() ; ++s){
+            if(s->t1 == i || s->t2 == i){
+              if(s->t1 == j || s->t2 == j){
                 if(firstprint){
                   firstprint = false;
                 }else{
                   std::cout << ", ";
                 }
-                escape_cpp_string(s.name);
+                escape_cpp_string(s->name);
               }
             }
           }

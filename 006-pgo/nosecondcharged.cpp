@@ -5,10 +5,9 @@ int main(void){
   // track the previous match, since we don't print it immediately (we need
   // "and" prior to the last and only the last one).
   const species *prevs = nullptr;
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const auto &s = sdex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     unsigned ccount = 0;
-    for(const auto &a : s.attacks){
+    for(const auto &a : s->attacks){
       if(!charged_attack_p(a)){
         continue;
       }
@@ -20,7 +19,7 @@ int main(void){
       if(prevs){
         std::cout << prevs->name << ", ";
       }
-      prevs = &s;
+      prevs = &*s;
     }
   }
   if(!prevs){

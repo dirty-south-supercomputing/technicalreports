@@ -1,6 +1,6 @@
 #include "pgotypes.h"
 
-static void
+[[noreturn]] static void
 usage(const char *a0){
   fprintf(stderr, "usage: %s m | d\n", a0);
   exit(EXIT_FAILURE);

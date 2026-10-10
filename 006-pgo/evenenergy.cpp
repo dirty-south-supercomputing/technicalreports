@@ -7,11 +7,10 @@ using amap = std::unordered_set<const attack*>;
 // *which are paired with it for some pokémon from dex*
 static int
 even_attacks_sdex(const attack *a, amap &am){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const auto s = sdex[i];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
     // check to see if the species has this fast attack
     bool haveattack = false;
-    for(const auto &f : s.attacks){
+    for(const auto &f : s->attacks){
       if(f->name == a->name){
         haveattack = true;
         break;
@@ -20,7 +19,7 @@ even_attacks_sdex(const attack *a, amap &am){
     if(!haveattack){
       continue;
     }
-    for(const auto &c : s.attacks){
+    for(const auto &c : s->attacks){
       if(c->energytrain >= 0){ // only consider charged attacks
         continue;
       }

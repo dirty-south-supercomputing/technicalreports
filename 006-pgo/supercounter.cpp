@@ -17,13 +17,13 @@ can_hit_for(const species &atk, const species &def, int rel){
 
 // is ca1+ca2 a counter to opp (can it hit for rel)?
 static bool
-counters_p(const attack *ca1, const attack *ca2, const species *opp, int rel){
-  if(typing_relation(ca1->type, opp->t1, opp->t2) >= rel){
-//std::cout << " BUT " << s.name << " can hit " << opp->name << " with " << tname_capitalized(ca1->type) << " for " << typing_relation(ca1->type, opp->t1, opp->t2) << std::endl;
+counters_p(const attack *ca1, const attack *ca2, const species &opp, int rel){
+  if(typing_relation(ca1->type, opp.t1, opp.t2) >= rel){
+//std::cout << " BUT " << s.name << " can hit " << opp.name << " with " << tname_capitalized(ca1->type) << " for " << typing_relation(ca1->type, opp.t1, opp.t2) << std::endl;
     return true;
   }
-  if(ca2 && typing_relation(ca2->type, opp->t1, opp->t2) >= rel){
-//std::cout << " BUT2 " << s.name << " can hit " << opp->name << " with " << tname_capitalized(ca2->type) << " for " << typing_relation(ca2->type, opp->t1, opp->t2) << std::endl;
+  if(ca2 && typing_relation(ca2->type, opp.t1, opp.t2) >= rel){
+//std::cout << " BUT2 " << s.name << " can hit " << opp.name << " with " << tname_capitalized(ca2->type) << " for " << typing_relation(ca2->type, opp.t1, opp.t2) << std::endl;
     return true;
   }
   return false;
@@ -35,11 +35,10 @@ superhitter_spec(const species &s, const attack *ca1, const attack *ca2,
                  unsigned *canhit){
   unsigned good = 0;
   *canhit = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &opp = sdex[u];
-    if(counters_p(ca1, ca2, &opp, 1)){
+  for(auto opp = species_begin() ; opp != species_end() ; ++opp){
+    if(counters_p(ca1, ca2, *opp, 1)){
       ++*canhit;
-      if(!can_hit_for(opp, s, 1)){
+      if(!can_hit_for(*opp, s, 1)){
         ++good;
       }
     }
@@ -55,13 +54,14 @@ supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
   unsigned good = superhitter_spec(s, ca1, ca2, &wecanhit);
   unsigned bad = 0;
   *canhit = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &opp = sdex[u];
-    if(!can_hit_for(opp, s, 1)){
+  unsigned scount = 0;
+  for(auto opp = species_begin() ; opp != species_end() ; ++opp){
+    ++scount;
+    if(!can_hit_for(*opp, s, 1)){
       continue;
     }
     ++*canhit;
-    if(!counters_p(ca1, ca2, &opp, 1)){
+    if(!counters_p(ca1, ca2, *opp, 1)){
       ++bad;
     }
   }
@@ -69,8 +69,8 @@ supercounter_spec(const species &s, const attack *ca1, const attack *ca2,
   // then number that can counter us out of total,
   // then ratio of those two numbers,
   // then number we can counter
-  std::cout << bad * 100.0 / SPECIESCOUNT << "% " << bad << ","
-            << *canhit * 100.0 / SPECIESCOUNT << "% " << *canhit << ","
+  std::cout << bad * 100.0 / scount << "% " << bad << ","
+            << *canhit * 100.0 / scount << "% " << *canhit << ","
             << bad * 100.0 / *canhit << "%, "
             << good << "," << wecanhit << ","
             << s.name << " (" << ca1->name;
@@ -113,9 +113,8 @@ supercounter_p(const species &s){
 
 // generate list of who can hit for effect everyone who can hit them for effect
 int main(void){
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &s = sdex[u];
-    supercounter_p(s);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    supercounter_p(*s);
   }
   return EXIT_SUCCESS;
 }

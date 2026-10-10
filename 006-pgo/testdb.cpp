@@ -2,50 +2,50 @@
 
 // returns non-zero corresponding to max battle cost if previous could dmax
 static unsigned
-prev_dmax(const species *s){
+prev_dmax(const species &s){
   const species *prev = get_previous_evolution(s);
   if(prev){
     if(prev->dmax){
       return prev->dmax;
     }
-    return prev_dmax(prev);
+    return prev_dmax(*prev);
   }
   return 0;
 }
 
 // returns true if a previous evolution was available as a shadow
 static bool
-prev_shadow(const species *s){
+prev_shadow(const species &s){
   const species *prev = get_previous_evolution(s);
   if(prev){
     if(prev->shadow){
       return true;
     }
-    return prev_shadow(prev);
+    return prev_shadow(*prev);
   }
   return false;
 }
 
 // certain properties ought be the same for lower family members.
 static bool
-test_family(const species *s){
-  for(const species *prev = get_previous_evolution(s) ; prev ; prev = get_previous_evolution(prev)){
-    if(prev_shadow(s) && !s->shadow){
-      std::cerr << prev->name << " shadow != " << s->name << " shadow" << std::endl;
+test_family(const species &s){
+  for(const species *prev = get_previous_evolution(s) ; prev ; prev = get_previous_evolution(*prev)){
+    if(prev_shadow(s) && !s.shadow){
+      std::cerr << prev->name << " shadow != " << s.name << " shadow" << std::endl;
       throw std::exception();
     }
-    if(prev->shiny != s->shiny){
+    if(prev->shiny != s.shiny){
       if(prev->name != "Cosmog" && prev->name != "Cosmoem"){
-        std::cerr << prev->name << " shiny != " << s->name << " shiny" << std::endl;
+        std::cerr << prev->name << " shiny != " << s.name << " shiny" << std::endl;
         throw std::exception();
       }
     }
-    if(prev_dmax(s) > s->dmax){
-      std::cerr << prev->name << " dmax > " << s->name << " dmax" << std::endl;
+    if(prev_dmax(s) > s.dmax){
+      std::cerr << prev->name << " dmax > " << s.name << " dmax" << std::endl;
       throw std::exception();
     }
-    if(s->dmax > 5 && s->dmax != UINT_MAX){
-      std::cerr << "dmax value illegal: " << s->dmax << std::endl;
+    if(s.dmax > 5 && s.dmax != UINT_MAX){
+      std::cerr << "dmax value illegal: " << s.dmax << std::endl;
       throw std::exception();
     }
   }
@@ -53,16 +53,16 @@ test_family(const species *s){
 }
 
 static bool
-test_species(const species *s){
+test_species(const species &s){
   // verify that all attacks are in attack table, and that there is at least
   // one fast attack and one charged attack.
   bool sawf = false;
   bool sawc = false;
-  for(const auto &a : s->attacks){
+  for(const auto &a : s.attacks){
     // check that fast attacks precede charged attacks in attack list
     if(fast_attack_p(a)){
       if(sawc){
-        std::cerr << "fast attack " << a->name << " followed charged attack in " << s->name << std::endl;
+        std::cerr << "fast attack " << a->name << " followed charged attack in " << s.name << std::endl;
         throw std::exception();
       }
       sawf = true;
@@ -78,73 +78,73 @@ test_species(const species *s){
       }
     }
     if(!atkingtable){
-      std::cerr << "table missing attack " << a->name << " learned by " << s->name << std::endl;
+      std::cerr << "table missing attack " << a->name << " learned by " << s.name << std::endl;
       throw std::exception();
     }
   }
   // check that cost group is correct for category
-  switch(s->category){
+  switch(s.category){
     case species::CAT_MYTHICAL:
     case species::CAT_LEGENDARY:
     case species::CAT_ULTRABEAST:
-      if(s->a2cost != 100){
-        std::cerr << "expected cost 100, got " << s->a2cost << " for " << s->name << std::endl;
+      if(s.a2cost != 100){
+        std::cerr << "expected cost 100, got " << s.a2cost << " for " << s.name << std::endl;
         throw std::exception();
       }
       break;
     case species::CAT_FPARTNER:
-      if(s->a2cost != 10){
-        std::cerr << "expected cost 10, got " << s->a2cost << " for " << s->name << std::endl;
+      if(s.a2cost != 10){
+        std::cerr << "expected cost 10, got " << s.a2cost << " for " << s.name << std::endl;
         throw std::exception();
       }
       break;
     case species::CAT_NORMAL:
-      if(s->a2cost >= 100){
-        std::cerr << "expected cost < 100, got " << s->a2cost << " for " << s->name << std::endl;
+      if(s.a2cost >= 100){
+        std::cerr << "expected cost < 100, got " << s.a2cost << " for " << s.name << std::endl;
         throw std::exception();
       }
       break;
     case species::CAT_BABY:
-      if(s->a2cost != 10){
-        std::cerr << "expected cost 10, got " << s->a2cost << " for " << s->name << std::endl;
+      if(s.a2cost != 10){
+        std::cerr << "expected cost 10, got " << s.a2cost << " for " << s.name << std::endl;
         throw std::exception();
       }
-      if(!s->from.empty()){
-        std::cerr << "baby pokémon " << s->name << " shouldn't have precursors" << std::endl;
+      if(!s.from.empty()){
+        std::cerr << "baby pokémon " << s.name << " shouldn't have precursors" << std::endl;
         throw std::exception();
       }
-      if(s->shadow){
-        std::cerr << "baby pokémon " << s->name << " can't be a shadow" << std::endl;
+      if(s.shadow){
+        std::cerr << "baby pokémon " << s.name << " can't be a shadow" << std::endl;
         throw std::exception();
       }
       break;
     default:
-      std::cerr << "unhandled category " << s->category << std::endl;
+      std::cerr << "unhandled category " << s.category << std::endl;
       throw std::exception();
   }
   // check that species has fast and charged attacks defined
   if(!sawf || !sawc){
-    std::cerr << "missing fast/charged on " << s->name << std::endl;
+    std::cerr << "missing fast/charged on " << s.name << std::endl;
     throw std::exception();
   }
   // check that the species's elite attacks are in the species's full attack list
-  for(const auto &e : s->elite){
+  for(const auto &e : s.elite){
     bool found = false;
-    for(const auto &a : s->attacks){
+    for(const auto &a : s.attacks){
       if(a == e){
         found = true;
         break;
       }
     }
     if(!found){
-      std::cerr << "elite attack " << e->name << " missing on " << s->name << std::endl;
+      std::cerr << "elite attack " << e->name << " missing on " << s.name << std::endl;
       throw std::exception();
     }
   }
   // we claim in the typing chapter that ghost/rock is unpopulated when
   // discussing typings with triple resistances
-  if(s->t1 == TYPE_GHOST || s->t2 == TYPE_GHOST){
-    if(s->t1 == TYPE_ROCK || s->t2 == TYPE_ROCK){
+  if(s.t1 == TYPE_GHOST || s.t2 == TYPE_GHOST){
+    if(s.t1 == TYPE_ROCK || s.t2 == TYPE_ROCK){
       std::cerr << "ghost/rock became populated!" << std::endl;
       throw std::exception();
     }
@@ -155,9 +155,8 @@ test_species(const species *s){
 
 static bool
 test_sdex(){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const species *s = &sdex[i];
-    if(!test_species(s)){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(!test_species(*s)){
       return false;
     }
   }
@@ -275,9 +274,8 @@ test_gmax(void){
 
 static bool
 test_mega(void){
-  for(unsigned i = 0 ; i < SPECIESCOUNT ; ++i){
-    const auto &s = sdex[i];
-    for(const auto &m : s.mforms){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    for(const auto &m : s->mforms){
       if(!m.initialcost || (m.initialcost % 100)){
         std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
         throw std::exception();
@@ -287,8 +285,8 @@ test_mega(void){
         throw std::exception();
       }
       // verify that the mega's name reduces to its base name
-      if(!m.name.contains(s.name)){
-        std::cerr << m.name << " didn't contain " << s.name << std::endl;
+      if(!m.name.contains(s->name)){
+        std::cerr << m.name << " didn't contain " << s->name << std::endl;
         throw std::exception();
       }
       if(m.plusatk){

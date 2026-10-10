@@ -95,6 +95,69 @@ write_iv_tables(std::ostream &fp, const species &s){
 }
 
 static void
+write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
+  fp << "<table class=\"evenshade fastattacks\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
+  for(const auto *a : sortedatks){
+    if(!fast_attack_p(a)){
+      continue;
+    }
+    auto cpow = calc_eff_power(s, a);
+    fp << "<tr>";
+    fp << "<td>";
+    html_type_pdir(fp, a->type);
+    fp << "</td>";
+    fp << "<td>";
+    std::string prefix, suffix;
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    fp << "</td>";
+    fp << "<td>";
+    if(a->turns){
+      fp << prefix << a->turns << suffix;
+    }
+    fp << "</td>";
+    fp << "<td>" << prefix << cpow << suffix << "</td>";
+    if(charged_attack_p(a)){
+      fp << "<td>" << prefix << -a->energytrain << suffix << "</td>";
+    }else{
+      fp << "<td>" << prefix << a->energytrain << suffix << "</td>";
+    }
+    fp << "<td>" << prefix << (cpow / a->turns) << suffix << "</td>";
+    fp << "<td>" << prefix << (static_cast<float>(a->energytrain) / a->turns) << suffix << "</td>";
+    fp << "</tr>" << std::endl;
+  }
+  fp << "</table>" << std::endl;
+}
+
+static void
+write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
+  fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
+  fp << "<tr><th>T</th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
+  for(const auto *a : sortedatks){
+    if(!charged_attack_p(a)){
+      continue;
+    }
+    auto cpow = calc_eff_power(s, a);
+    fp << "<tr>";
+    fp << "<td>";
+    html_type_pdir(fp, a->type);
+    fp << "</td>";
+    fp << "<td>";
+    std::string prefix, suffix;
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    fp << "</td>";
+    fp << "<td>" << prefix;
+    summarize_buffs_html(fp, a);
+    fp << suffix << "</td>";
+    fp << "<td>" << prefix << cpow << suffix << "</td>";
+    fp << "<td>" << prefix << -a->energytrain << suffix << "</td>";
+    fp << "<td>" << prefix << (cpow / -a->energytrain) << suffix << "</td>";
+    fp << "</tr>" << std::endl;
+  }
+  fp << "</table>" << std::endl;
+}
+
+static void
 write_mon_attacks_3x3(std::ostream &fp, const species &s){
   std::vector<const attack *> sortedatks(s.attacks);
   if(s.shadow){
@@ -118,59 +181,8 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
         return aratio < bratio;
       });
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
-  fp << "<table class=\"evenshade fastattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
-  for(const auto *a : sortedatks){
-    if(!fast_attack_p(a)){
-      continue;
-    }
-    auto cpow = calc_eff_power(s, a);
-    fp << "<tr>";
-    fp << "<td>";
-    html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
-    emit_html_attack(fp, s, a);
-    fp << "</td>";
-    fp << "<td>";
-    if(a->turns){
-      fp << a->turns;
-    }
-    fp << "</td>";
-    fp << "<td>" << cpow << "</td>";
-    if(charged_attack_p(a)){
-      fp << "<td>" << -a->energytrain << "</td>";
-    }else{
-      fp << "<td>" << a->energytrain << "</td>";
-    }
-    fp << "<td>" << (cpow / a->turns) << "</td>";
-    fp << "<td>" << (static_cast<float>(a->energytrain) / a->turns) << "</td>";
-    fp << "</tr>" << std::endl;
-  }
-  fp << "</table>" << std::endl;
-  fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
-  for(const auto *a : sortedatks){
-    if(!charged_attack_p(a)){
-      continue;
-    }
-    auto cpow = calc_eff_power(s, a);
-    fp << "<tr>";
-    fp << "<td>";
-    html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
-    emit_html_attack(fp, s, a);
-    fp << "</td>";
-    fp << "<td>";
-    summarize_buffs_html(fp, a);
-    fp << "</td>";
-    fp << "<td>" << cpow << "</td>";
-    fp << "<td>" << -a->energytrain << "</td>";
-    fp << "<td>" << (cpow / -a->energytrain) << "</td>";
-    fp << "</tr>" << std::endl;
-  }
-  fp << "</table>" << std::endl;
+  write_fattacks_3x3(fp, s, sortedatks);
+  write_cattacks_3x3(fp, s, sortedatks);
 }
 
 static void
@@ -204,17 +216,18 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, s, a);
+    std::string prefix, suffix;
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){
-      fp << a->animdur;
+      fp << prefix << a->animdur << suffix;
     }
     fp << "</td>";
-    fp << "<td>" << cpow << "</td>";
-    fp << "<td>" << a->energyraid << "</td>";
-    fp << "<td>" << (cpow / a->animdur) << "</td>";
-    fp << "<td>" << (cpow / a->energyraid) << "</td>";
+    fp << "<td>" << prefix << cpow << suffix << "</td>";
+    fp << "<td>" << prefix << a->energyraid << suffix << "</td>";
+    fp << "<td>" << prefix << (cpow / a->animdur) << suffix << "</td>";
+    fp << "<td>" << prefix << (cpow / a->energyraid) << suffix << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -230,17 +243,18 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     html_type_pdir(fp, a->type);
     fp << "</td>";
     fp << "<td>";
-    emit_html_attack(fp, s, a);
+    std::string prefix, suffix;
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){
-      fp << a->animdur;
+      fp << prefix << a->animdur << suffix;
     }
     fp << "</td>";
-    fp << "<td>" << cpow << "</td>";
-    fp << "<td>" << a->energyraid << "</td>";
-    fp << "<td>" << (cpow / a->animdur) << "</td>";
-    fp << "<td>" << (cpow / a->energyraid) << "</td>";
+    fp << "<td>" << prefix << cpow << suffix << "</td>";
+    fp << "<td>" << prefix << a->energyraid << suffix << "</td>";
+    fp << "<td>" << prefix << (cpow / a->animdur) << suffix << "</td>";
+    fp << "<td>" << prefix << (cpow / a->energyraid) << suffix << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;

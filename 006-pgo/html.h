@@ -36,22 +36,32 @@ emit_halflevel_as_level(std::ostream &fp, int hlevel){
 }
 
 static inline void
-emit_html_attack(std::ostream &o, const species &s, const attack *a){
+emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
+                       std::string &prefix, std::string &suffix,
+                       bool pdir = false){
   bool stab = has_stab_p(s, a);
   bool excl = exclusive_attack_p(s, a);
+  prefix = "";
+  suffix = "";
   if(!stab){
-    o << "<i>";
+    prefix += "<i>";
+    suffix += "</i>";
   }
   if(excl){
-    o << "<b>";
+    prefix += "<b>";
+    suffix = "</b>" + suffix;
   }
-  o << a->name;
-  if(excl){
-    o << "</b>";
+  o << prefix << "<a href=\"";
+  if(pdir){
+    o << "../";
   }
-  if(!stab){
-    o << "</i>";
-  }
+  o << "attacks/" << a->name << ".html\">" << a->name << "</a>" << suffix;
+}
+
+static inline void
+emit_html_attack(std::ostream &o, const species &s, const attack *a){
+  std::string prefix, suffix;
+  emit_html_attack_fancy(o, s, a, prefix, suffix);
 }
 
 // FIXME ugh duplicates summarize_buffs() from latex code

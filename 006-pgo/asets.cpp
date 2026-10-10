@@ -5,35 +5,34 @@ static constexpr auto PPETHRESH = 0.0;
 static unsigned
 dualcharge_list(pgo_types_e t0, pgo_types_e t1){
   unsigned pop = 0;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    const species &s = sdex[u];
-    for(unsigned aidx = 0 ; aidx < s.attacks.size() ; ++aidx){
-      const auto a = s.attacks[aidx];
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    for(unsigned aidx = 0 ; aidx < s->attacks.size() ; ++aidx){
+      const auto a = s->attacks[aidx];
       if(!charged_attack_p(a)){
         continue;
       }
       if(a->type == t0){
         float appe = a->powertrain / static_cast<float>(-a->energytrain);
-        if(has_stab_p(&s, a)){
+        if(has_stab_p(*s, a)){
           appe *= 1.2;
         }
         if(appe < PPETHRESH){
           continue;
         }
-        for(unsigned a2idx = 0 ; a2idx < s.attacks.size() ; ++a2idx){
-          const auto a2 = s.attacks[a2idx];
+        for(unsigned a2idx = 0 ; a2idx < s->attacks.size() ; ++a2idx){
+          const auto a2 = s->attacks[a2idx];
           if(!charged_attack_p(a2)){
             continue;
           }
           if(a2->type == t1){
             float a2ppe = a2->powertrain / static_cast<float>(-a2->energytrain);
-            if(has_stab_p(&s, a2)){
+            if(has_stab_p(*s, a2)){
               a2ppe *= 1.2;
             }
             if(a2ppe < PPETHRESH){
               continue;
             }
-            printf("\t%s: %s (%.2f) + %s (%.2f)\n", sdex[u].name.c_str(),
+            printf("\t%s: %s (%.2f) + %s (%.2f)\n", s->name.c_str(),
                 a->name, appe, a2->name, a2ppe);
           }
         }

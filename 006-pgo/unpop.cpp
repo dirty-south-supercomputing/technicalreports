@@ -10,9 +10,8 @@ int main(void){
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
       bool found = false;
-      for(unsigned u = 0 ; !found && u < SPECIESCOUNT ; ++u){
-        const species &s = sdex[u];
-        if((s.t1 == i && s.t2 == j) || (s.t1 == j && s.t2 == i) || (s.t1 == i && i == j && s.t2 == TYPECOUNT)){
+      for(auto s = species_begin() ; s != species_end() ; ++s){
+        if((s->t1 == i && s->t2 == j) || (s->t1 == j && s->t2 == i) || (s->t1 == i && i == j && s->t2 == TYPECOUNT)){
           found = true;
         }
       }

@@ -467,7 +467,7 @@ $(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.h $(LATEXOBJ) $(PGOOBJ)
+$(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
 

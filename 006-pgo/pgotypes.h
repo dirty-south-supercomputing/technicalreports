@@ -2189,6 +2189,7 @@ lex_species_charged_attacks(const species *s, const char *spec, const attack **c
 static void
 fill_stats(stats* s, const species &sp, bool shadow){
   // these are actually a_raw and d_raw, used only for CMP (so can we kill effd?)
+  s->s = &sp;
   s->effa = calc_eff_a(sp.atk + s->ia, s->hlevel, false);
   s->effd = calc_eff_d(sp.def + s->id, s->hlevel, false);
   s->mhp = calc_mhp(sp.sta + s->is, s->hlevel);
