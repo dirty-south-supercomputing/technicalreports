@@ -101,7 +101,7 @@ int main(){
   }
   std::sort(typings.begin(), typings.end());
   std::cout << std::fixed << std::setprecision(3);
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"typesdra\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>E<sub>-3</sub></th><th>E<sub>-2</sub></th><th>E<sub>-1</sub></th><th>E<sub>0</sub></th><th>E<sub>1</sub></th><th>E<sub>2</sub></th>";
   std::cout << "<th>DRA</th><th style=\"width: 80%\">Pop</th>";
