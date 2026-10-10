@@ -488,9 +488,9 @@ static const attack ATK_Disarming_Voice = { "Disarming Voice", TYPE_FAIRY, 70, -
 	70, 33, 8, false, };
 static const attack ATK_Discharge = { "Discharge", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 5, false, };
-// FIXME get real stats
-static const attack ATK_Discharge_Plus = { "Discharge+", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	65, 33, 5, false, };
+// FIXME get real 3x3 energy cost
+static const attack ATK_Discharge_Plus = { "Discharge+", TYPE_ELECTRIC, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	150, 100, 5, false, };
 static const attack ATK_Dive = { "Dive", TYPE_WATER, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 7, false, };
 static const attack ATK_Doom_Desire = { "Doom Desire", TYPE_STEEL, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -674,7 +674,7 @@ static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0
 	60, 50, 5, false, };
 // FIXME get real stats
 static const attack ATK_Night_Shade_Plus = { "Night Shade+", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	60, 50, 5, false, };
+	60, 100, 5, false, };
 static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 1, 0, 0, 0,
 	45, 33, 4, false, };
 static const attack ATK_Oblivion_Wing = { "Oblivion Wing", TYPE_FLYING, 85, -50, 0, 0, 1000, 0, 0, 0, 1, 0, 0,

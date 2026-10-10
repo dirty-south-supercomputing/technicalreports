@@ -1800,6 +1800,7 @@ static const std::vector<species> sdex = {
   {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, "",
 		{ &ATK_Spark, &ATK_Quick_Attack, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Swift, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the discharge
   {  310, "Manectric", TYPE_ELECTRIC, TYPECOUNT, 215, 127, 172, "Electrike",
 		{ &ATK_Charge_Beam, &ATK_Snarl, &ATK_Thunder_Fang, &ATK_Thunder, &ATK_Flame_Burst, &ATK_Wild_Charge, &ATK_Overheat, &ATK_Psychic_Fangs, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,

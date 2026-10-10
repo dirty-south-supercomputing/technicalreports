@@ -294,6 +294,10 @@ test_mega(void){
           std::cerr << m.name << " had invalid +attack " << m.plusatk->name << std::endl;
           throw std::exception();
         }
+        if(m.plusatk->energyraid != 100){
+          std::cerr << m.name << " had +attack with invalid Nx1 energy cost " << m.plusatk->name << std::endl;
+          throw std::exception();
+        }
       }
     }
   }
