@@ -24,7 +24,7 @@ gen_te_table(){
 
 // matrix of attack types and all 324 type effectiveness relations
 int main(){
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"teffect\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th>";
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){

@@ -112,6 +112,10 @@ table.nofoo tr :nth-child(2) { /* type */
   padding: 0 0 0 1em;
 }
 
+#teffect tr :nth-child(1) {
+  text-align: center;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;
