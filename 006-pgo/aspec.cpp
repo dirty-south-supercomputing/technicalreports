@@ -5,12 +5,15 @@
 static const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "teneg2", };
 
 static void
-write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab){
+write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
   fp << "<tr><td>";
   if(stab){
     fp << "✓";
   }else{
     fp << "🗙";
+  }
+  if(buff){
+    fp << " (" << buff << ")";
   }
   fp << "</td>";
   float energy = a.energytrain;
@@ -18,6 +21,10 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab){
   if(stab){
     power = calc_stab(power);
   }
+  if(charged_attack_p(a)){
+    energy = -energy;
+  }
+  power *= mapbuff(buff);
   if(fast_attack_p(a)){
     fp << "<td>" << a.turns << "</td>";
   }
@@ -29,7 +36,7 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab){
   if(fast_attack_p(a)){
     pp /= a.turns;
   }else{
-    pp /= -energy;
+    pp /= energy;
   }
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (pp * type_effectiveness_mult(te)) << "</td>";
@@ -69,8 +76,16 @@ write_atk_3x3(std::ostream &fp, const attack &a){
     fp << "<th>EPT</th>";
   }
   fp << "</tr>" << std::endl;
-  write_atk_3x3_row(fp, a, false);
-  write_atk_3x3_row(fp, a, true);
+  for(int i = -MAXCHARGEDBUFF ; i < 0 ; ++i){
+    write_atk_3x3_row(fp, a, false, i);
+    write_atk_3x3_row(fp, a, true, i);
+  }
+  write_atk_3x3_row(fp, a, false, 0);
+  write_atk_3x3_row(fp, a, true, 0);
+  for(int i = 1 ; i < MAXCHARGEDBUFF + 1 ; ++i){
+    write_atk_3x3_row(fp, a, false, i);
+    write_atk_3x3_row(fp, a, true, i);
+  }
   fp << "</table>" << std::endl;
 }
 
