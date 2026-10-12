@@ -776,7 +776,7 @@ static const attack ATK_Shadow_Ball = { "Shadow Ball", TYPE_GHOST, 90, -50, 0, 0
 static const attack ATK_Shadow_Bone = { "Shadow Bone", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 200, 0, 0, 0, -1,
 	85, 50, 6, false, };
 static const attack ATK_Shadow_Force = { "Shadow Force", TYPE_GHOST, 120, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	140, 100, -4, false, };
+	140, 100, 4, false, };
 static const attack ATK_Shadow_Punch = { "Shadow Punch", TYPE_GHOST, 55, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	35, 33, 3, false, };
 static const attack ATK_Shadow_Sneak = { "Shadow Sneak", TYPE_GHOST, 75, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,

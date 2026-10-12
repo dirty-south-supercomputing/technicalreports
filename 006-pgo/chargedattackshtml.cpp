@@ -4,7 +4,26 @@
 #include <cstdio>
 #include <cstdlib>
 
-static bool cmpatk(const attack* a1, const attack* a2){
+static bool cmpatkNx1(const attack* a1, const attack* a2){
+  // remember, energytrain is negative
+  if(a1->animdur < a2->animdur){
+    return true;
+  }else if(a2->animdur < a1->animdur){
+    return false;
+  }
+  float ppere1 = ((float)a1->powerraid) / a1->animdur;
+  float ppere2 = ((float)a2->powerraid) / a2->animdur;
+  if(ppere1 < ppere2){
+    return true;
+  }else if(ppere1 == ppere2){
+    if(a1->energyraid < a2->energyraid){
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool cmpatk3x3(const attack* a1, const attack* a2){
   // remember, energytrain is negative
   float ppere1 = ((float)a1->powertrain) / a1->energytrain;
   float ppere2 = ((float)a2->powertrain) / a2->energytrain;
@@ -111,6 +130,7 @@ usage(const char* argv0){
 int main(int argc, const char **argv){
   std::vector<const attack*> charged{};
   bool raidvalues = false;
+  bool (*sorter)(const attack* a1, const attack* a2) = cmpatk3x3;
   if(argc > 3){
     usage(argv[0]);
     exit(EXIT_FAILURE);
@@ -124,6 +144,7 @@ int main(int argc, const char **argv){
       exit(EXIT_FAILURE);
     }
     raidvalues = true;
+    sorter = cmpatkNx1;
   }else if(argc == 2){
     if(strcmp(argv[1], "-h")){
       if(strcmp(argv[1], "-r")){
@@ -131,6 +152,7 @@ int main(int argc, const char **argv){
         exit(EXIT_FAILURE);
       }
       raidvalues = true;
+      sorter = cmpatkNx1;
     }
   }
   for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
@@ -139,7 +161,7 @@ int main(int argc, const char **argv){
       charged.push_back(a);
     }
   }
-  std::sort(charged.begin(), charged.end(), cmpatk);
+  std::sort(charged.begin(), charged.end(), sorter);
   print_table(charged, raidvalues);
   return EXIT_SUCCESS;
 }

@@ -237,6 +237,10 @@ test_attack(const attack *a){
     std::cerr << "invalid Nx1 power for attack " << a->name << std::endl;
     throw std::exception();
   }
+  if(a->animdur <= 0){
+    std::cerr << "invalid animation duration for attack " << a->name << std::endl;
+    throw std::exception();
+  }
   return true;
 }
 
