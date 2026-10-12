@@ -24,7 +24,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
   std::cout << "<tr>";
   std::cout << "<th>Attack</th>";
   if(raid){
-    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop</th>";
+    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th style=\"width: 70%\">Pop</th>";
   }else{
     std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop</th>";
   }
@@ -37,7 +37,9 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     std::cout << "<tr>";
     std::cout << "<td>";
     html_type(a->type);
-    std::cout << " " << a->name << "</td>";
+    std::cout << " ";
+    link_to_attack(std::cout, a->name, true);
+    std::cout << "</td>";
     if(raid){
       std::cout << "<td>" << (a->animdur * 0.5) << "</td>";
     }
@@ -50,9 +52,12 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       std::cout << "<td>" << (p / e) << "</td>";
       std::cout << "<td>" << ((p * 6) / (e * 5)) << "</td>";
     }
+    if(!raid){
+      std::cout << "<td>";
+      summarize_buffs_html(std::cout, a, "", "");
+      std::cout << "</td>";
+    }
     std::cout << "<td>";
-    summarize_buffs_html(std::cout, a, "", "");
-    std::cout << "</td><td>";
     if(!strcmp(a->name, "Frustration") || !strcmp(a->name, "Return")){
       std::cout << shadows << "(" << shadnormals << ")";
       // FIXME print populations also?

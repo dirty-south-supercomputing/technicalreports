@@ -70,7 +70,8 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
     unsigned pop, popstab;
     pop = learner_count(a, &popstab);
     if(html){
-      std::cout << a->name << "</td><td>" << t << "</td><td>" << power << "</td>";
+      link_to_attack(std::cout, a->name, true);
+      std::cout << "</td><td>" << t << "</td><td>" << power << "</td>";
       std::cout << "<td>" << energy << "</td><td>" << ept;
       std::cout << "</td><td>" << ppt << "</td><td>" << (power * 6.0) / (t * 5.0);
       std::cout << "</td><td>" << pop;

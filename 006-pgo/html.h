@@ -9,7 +9,7 @@ static inline void
 encode_name(std::ostream &fp, const std::string &s){
   for(unsigned char c : s){ // handle utf8
     if(c > 0x7f){
-      fp << '%' << std::hex << static_cast<int>(c);
+      fp << '%' << std::hex << static_cast<int>(c) << std::dec;
     }else if(!isspace(c) && (c == '+' || !ispunct(c))){ // these get left out
       fp << c;
     }
@@ -21,6 +21,16 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
   fp << "<a href=\"";
   if(subdir){
     fp << "mon/";
+  }
+  encode_name(fp, s);
+  fp << ".html\">" << s << "</a>";
+}
+
+static inline void
+link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false){
+  fp << "<a href=\"";
+  if(subdir){
+    fp << "attacks/";
   }
   encode_name(fp, s);
   fp << ".html\">" << s << "</a>";
@@ -54,19 +64,15 @@ emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
     prefix += "<b>";
     suffix = "</b>" + suffix;
   }
-  o << prefix << "<a href=\"";
-  if(pdir){
-    o << "../";
-  }
-  o << "attacks/";
-  encode_name(o, a->name);
-  o << ".html\">" << a->name << "</a>" << suffix;
+  o << prefix;
+  link_to_attack(o, a->name, pdir);
+  o << suffix;
 }
 
 static inline void
-emit_html_attack(std::ostream &o, const species &s, const attack *a){
+emit_html_attack(std::ostream &o, const species &s, const attack *a, bool pdir = false){
   std::string prefix, suffix;
-  emit_html_attack_fancy(o, s, a, prefix, suffix);
+  emit_html_attack_fancy(o, s, a, prefix, suffix, pdir);
 }
 
 // FIXME ugh duplicates summarize_buffs() from latex code
