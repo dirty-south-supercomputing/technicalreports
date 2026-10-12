@@ -44,21 +44,25 @@ static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
   // FIXME detail buff if charged
-  fp << "<table id=\"attack3x3\">" << std::endl;
+  if(fast_attack_p(a)){
+    fp << "<table id=\"fattack3x3\">" << std::endl;
+  }else{
+    fp << "<table id=\"cattack3x3\">" << std::endl;
+  }
   fp << "<tr>";
   fp << "<th>STAB?</th>";
   if(fast_attack_p(a)){
     fp << "<th>Turns</th>";
   }
   for(int te = -3 ; te < 3 ; ++te){
-    fp << "<th>P<sub>" << te << "</sub></th>";
+    fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
   }
   fp << "<th>E</th>";
   for(int te = -3 ; te < 3 ; ++te){
     if(fast_attack_p(a)){
-      fp << "<th>PPT<sub>" << te << "</sub></th>";
+      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
     }else{
-      fp << "<th>PPE<sub>" << te << "</sub></th>";
+      fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
     }
   }
   if(fast_attack_p(a)){
@@ -107,7 +111,11 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
 static void
 write_atk_Nx1(std::ostream &fp, const attack &a){
   fp << "<h2>Nx1 stats</h2>" << std::endl;
-  fp << "<table id=\"attackNx1\">" << std::endl;
+  if(fast_attack_p(a)){
+    fp << "<table id=\"fattackNx1\">" << std::endl;
+  }else{
+    fp << "<table id=\"cattackNx1\">" << std::endl;
+  }
   fp << "<tr>";
   fp << "<th>STAB?</th>";
   fp << "<th>Turns</th>";
@@ -119,7 +127,7 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
     if(fast_attack_p(a)){
       fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
     }else{
-      fp << "<th>PPE<sub>" << te << "</sub></th>";
+      fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
     }
   }
   if(fast_attack_p(a)){

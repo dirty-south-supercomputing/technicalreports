@@ -64,7 +64,7 @@ emit_good_hundos(int cpbound){
     html_types(r.st.s->t1, r.st.s->t2);
     std::cout << "</td>";
     std::cout << "<td>";
-    link_to_name(std::cout, r.st.s->name);
+    link_to_name(std::cout, r.st.s->name, true);
     std::cout << "</td>";
     std::cout << "<td>";
     emit_halflevel_as_level(std::cout, r.st.hlevel);

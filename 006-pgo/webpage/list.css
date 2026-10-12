@@ -93,15 +93,15 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
-#setsara tr :nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
+#setsara tr>:nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
   text-align: right;
 }
 
-#setsara tr:nth-child(9) {
+#setsara tr>:nth-child(9) {
   padding: 0 0 0 1em;
 }
 
-#setsara tr:nth-child(1) {
+#setsara tr>:nth-child(1) {
   text-align: center;
 }
 
@@ -137,20 +137,38 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
-#attack3x3 tr:nth-child(2) { /* P_-3 */
+#cattack3x3 tr>:nth-child(2) { /* P_-3 */
   text-align: right;
 }
 
-#attack3x3 tr :nth-child(n+3) { /* everything but "STAB?" */
+#cattack3x3 tr>:nth-child(n+2) { /* everything but "STAB?" */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-#attackNx1 tr:nth-child(2) { /* P_-3 */
+#fattack3x3 tr>:nth-child(2) { /* Turns */
   text-align: right;
 }
 
-#attackNx1 tr :nth-child(n+3) { /* everything but "STAB?" */
+#fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+#cattackNx1 tr>:nth-child(2) { /* Turns */
+  text-align: right;
+}
+
+#cattackNx1 tr>:nth-child(n+3) { /* everything but "STAB?" */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+#fattackNx1 tr>:nth-child(2) { /* Turns */
+  text-align: right;
+}
+
+#fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
   text-align: right;
   padding: 0 0 0 1em;
 }
