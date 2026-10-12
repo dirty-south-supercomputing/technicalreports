@@ -45,7 +45,7 @@ bool cmp_attacks(const species &s, const attack *al, const attack *ar){
 const attack *find_most_powerful(const species &s){
   const attack *a = nullptr;
   for(const attack *atk : s.attacks){
-    if(!charged_attack_p(atk)){
+    if(!charged_attack_p(*atk)){
       continue;
     }
     if(cmp_attacks(s, a, atk)){
@@ -65,7 +65,7 @@ const attack *find_most_powerful(const species &s){
 const attack *find_second(const species &s, const attack *a1){
   const attack *a = nullptr;
   for(const attack *atk : s.attacks){
-    if(!charged_attack_p(atk)){
+    if(!charged_attack_p(*atk)){
       continue;
     }
     if(atk == a1){

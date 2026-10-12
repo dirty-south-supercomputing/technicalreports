@@ -137,6 +137,24 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
+#attack3x3 tr :nth-child(2) { /* P_-3 */
+  text-align: right;
+}
+
+#attack3x3 tr :nth-child(n+3) { /* everything but "STAB?" */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+#attackNx1 tr :nth-child(2) { /* P_-3 */
+  text-align: right;
+}
+
+#attackNx1 tr :nth-child(n+3) { /* everything but "STAB?" */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;

@@ -9,7 +9,7 @@ void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& can
   bool stab = has_stab_raw_p(s, t);
   if(has_dmax(s)){
     for(const auto a : s.attacks){
-      if(fast_attack_p(a)){
+      if(fast_attack_p(*a)){
         auto at = dmax_attack_type(a);
         if(at == t){
           add_candidate(cands, &s, max_attack_name(at), false, stab, t, 1.0);

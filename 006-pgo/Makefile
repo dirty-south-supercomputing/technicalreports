@@ -27,8 +27,7 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 
 WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
-					  mon/index \
-					  index \
+					  index attacks/index mon/index \
 						nodyna noshadow noshiny nosecondcharged dynacost \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax \
@@ -215,6 +214,10 @@ $(WEB)/index.html: $(WEBSRC)/index.html
 	cp -a $< $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec
+	@mkdir -p $(@D)
+	$(<) $(@D)
+
+$(WEB)/attacks/index.html: $(OUT)/aspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
 

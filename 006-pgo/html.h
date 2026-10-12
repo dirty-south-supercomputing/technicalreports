@@ -2,13 +2,15 @@
 #define PGOTYPES_HTML
 
 #include "pgotypes.h"
+#include "fstream"
 
+// use only for generating URIs, not filesystem paths nor display
 static inline void
 encode_name(std::ostream &fp, const std::string &s){
-  for(unsigned char c : s){
+  for(unsigned char c : s){ // handle utf8
     if(c > 0x7f){
       fp << '%' << std::hex << static_cast<int>(c);
-    }else if(!isspace(c) && !ispunct(c)){ // these get left out
+    }else if(!isspace(c) && (c == '+' || !ispunct(c))){ // these get left out
       fp << c;
     }
   }
@@ -52,13 +54,13 @@ emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
     prefix += "<b>";
     suffix = "</b>" + suffix;
   }
-  o << prefix /*<< "<a href=\"";
+  o << prefix << "<a href=\"";
   if(pdir){
     o << "../";
   }
   o << "attacks/";
   encode_name(o, a->name);
-  o << ".html\">" <<*/ << a->name /* << "</a>"*/ << suffix;
+  o << ".html\">" << a->name << "</a>" << suffix;
 }
 
 static inline void
@@ -69,29 +71,51 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a){
 
 // FIXME ugh duplicates summarize_buffs() from latex code
 static inline void
-summarize_buffs_html(std::ostream &o, const attack *a){
+summarize_buffs_html(std::ostream &o, const attack *a, const std::string &prefix, const std::string &suffix){
   // need special case A+D as it takes too much space otherwise
+  bool printed = false;
   if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
       && a->user_attack == a->user_defense){
+    printed = true;
+    o << prefix;
     print_buff_html(o, a->chance_user_attack, a->user_attack, "A+D");
   }else{
     if(a->chance_user_attack){
+      printed = true;
+      o << prefix;
       print_buff_html(o, a->chance_user_attack, a->user_attack, "A");
     }
     if(a->chance_user_defense){
+      printed = true;
+      o << prefix;
       print_buff_html(o, a->chance_user_defense, a->user_defense, "D");
     }
   }
   if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
       && a->opp_attack == a->opp_defense){
+    if(!printed){
+      printed = true;
+      o << prefix;
+    }
     print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA+D");
   }else{
     if(a->chance_opp_attack){
+      if(!printed){
+        printed = true;
+        o << prefix;
+      }
       print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA");
     }
     if(a->chance_opp_defense){
+      if(!printed){
+        printed = true;
+        o << prefix;
+      }
       print_buff_html(o, a->chance_opp_defense, a->opp_defense, "OD");
     }
+  }
+  if(printed){
+    o << suffix;
   }
 }
 
@@ -137,6 +161,30 @@ html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
 static inline void
 html_types(pgo_types_e t1, pgo_types_e t2){
   html_types(std::cout, t1, t2);
+}
+
+static inline void
+write_header(std::ofstream &fp, const std::string &title){
+  fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../list.css\">";
+  fp << "<title>" << title << "</title></head>" << std::endl;
+  fp << "<body>" << std::endl;
+}
+
+static inline void
+write_footer_and_close(std::ofstream &fp){
+  fp << "<hr/><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a>";
+  fp << "</body></html>" << std::endl;
+  fp.close(); // FIXME check errors or enable iostream exceptions
+}
+
+static inline void
+encode_name(const std::string &s, std::string &encname){
+  for(char c : s){
+    if(!isspace(c) && (c == '+' || !ispunct(c))){
+      encname.push_back(c);
+    }
+  }
 }
 
 #endif

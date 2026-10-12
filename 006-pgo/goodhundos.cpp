@@ -67,12 +67,7 @@ emit_good_hundos(int cpbound){
     link_to_name(std::cout, r.st.s->name);
     std::cout << "</td>";
     std::cout << "<td>";
-    unsigned half;
-    unsigned l = halflevel_to_level(r.st.hlevel, &half);
-    std::cout << l;
-    if(half){
-      std::cout << ".5";
-    }
+    emit_halflevel_as_level(std::cout, r.st.hlevel);
     std::cout << "</td>";
     std::cout << "<td>" << r.st.mhp << "</td>";
     std::cout << "<td>" << r.st.effa << "</td>";

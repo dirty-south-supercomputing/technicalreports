@@ -207,13 +207,13 @@ class attackset {
 };
 
 static inline bool
-fast_attack_p(const attack *a){
-  return a->energytrain >= 0; // need 0 to pick up Transform
+fast_attack_p(const attack &a){
+  return a.energytrain >= 0; // need 0 to pick up Transform
 }
 
 static inline bool
-charged_attack_p(const attack *a){
-  return a->energytrain < 0;
+charged_attack_p(const attack &a){
+  return a.energytrain < 0;
 }
 
 static inline int
@@ -2281,8 +2281,8 @@ static inline bool
 aset_can_throw_p(const std::vector<const attack*>& atks, pgo_types_e t0, pgo_types_e t1){
   bool b0 = false;
   bool b1 = false;
-  for(const auto &a : atks){
-    if(fast_attack_p(a)){
+  for(const auto a : atks){
+    if(fast_attack_p(*a)){
       continue;
     }
     if(a->type == t0){

@@ -9,7 +9,7 @@ int main(void){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     unsigned ccount = 0;
     for(const auto &a : s->attacks){
-      if(!charged_attack_p(a)){
+      if(!charged_attack_p(*a)){
         continue;
       }
       if(++ccount > 1){

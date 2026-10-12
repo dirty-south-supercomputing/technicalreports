@@ -2,30 +2,6 @@
 #include <fstream>
 #include <unistd.h>
 
-static void
-write_header(std::ofstream &fp, const std::string &title){
-  fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../list.css\">";
-  fp << "<title>" << title << "</title></head>" << std::endl;
-  fp << "<body>" << std::endl;
-}
-
-static void
-write_footer_and_close(std::ofstream &fp){
-  fp << "<hr/><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a>";
-  fp << "</body></html>" << std::endl;
-  fp.close(); // FIXME check errors or enable exceptions
-}
-
-static void
-encode_name(const std::string &s, std::string &encname){
-  for(char c : s){
-    if(!isspace(c) && !ispunct(c)){
-      encname.push_back(c);
-    }
-  }
-}
-
 // returns true if we ought bother emitting the next highest table, false
 // otherwise. we return true if any cp in the solution set equals the cpbound.
 static bool
@@ -99,7 +75,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
-    if(!fast_attack_p(a)){
+    if(!fast_attack_p(*a)){
       continue;
     }
     auto cpow = calc_eff_power(s, a);
@@ -117,7 +93,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     }
     fp << "</td>";
     fp << "<td>" << prefix << cpow << suffix << "</td>";
-    if(charged_attack_p(a)){
+    if(charged_attack_p(*a)){
       fp << "<td>" << prefix << -a->energytrain << suffix << "</td>";
     }else{
       fp << "<td>" << prefix << a->energytrain << suffix << "</td>";
@@ -134,7 +110,7 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
-    if(!charged_attack_p(a)){
+    if(!charged_attack_p(*a)){
       continue;
     }
     auto cpow = calc_eff_power(s, a);
@@ -145,11 +121,9 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "<td>";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
-    fp << "</td>";
-    fp << "<td>" << prefix;
-    summarize_buffs_html(fp, a);
-    fp << suffix << "</td>";
-    fp << "<td>" << prefix << cpow << suffix << "</td>";
+    fp << "</td><td>";
+    summarize_buffs_html(fp, a, prefix, suffix);
+    fp << "</td><td>" << prefix << cpow << suffix << "</td>";
     fp << "<td>" << prefix << -a->energytrain << suffix << "</td>";
     fp << "<td>" << prefix << (cpow / -a->energytrain) << suffix << "</td>";
     fp << "</tr>" << std::endl;
@@ -164,14 +138,14 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
     sortedatks.emplace_back(&ATK_Return);
   }
   std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
-        if(fast_attack_p(lhs) && !fast_attack_p(rhs)){
+        if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
           return true;
-        }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
+        }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
           return false;
         }
         float aratio = calc_eff_power(s, lhs);
         float bratio = calc_eff_power(s, rhs);
-        if(fast_attack_p(lhs)){
+        if(fast_attack_p(*lhs)){
           aratio /= lhs->turns;
           bratio /= rhs->turns;
         }else{
@@ -192,9 +166,9 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     sortedatks.emplace_back(&ATK_Return);
   }
   std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
-        if(fast_attack_p(lhs) && !fast_attack_p(rhs)){
+        if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
           return true;
-        }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
+        }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
           return false;
         }
         float aratio = calc_eff_power_nx1(s, lhs);
@@ -207,7 +181,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
-    if(!fast_attack_p(a)){
+    if(!fast_attack_p(*a)){
       continue;
     }
     auto cpow = calc_eff_power_nx1(s, a);
@@ -233,8 +207,8 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
   fp << "</table>" << std::endl;
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
-  for(const auto *a : sortedatks){
-    if(!charged_attack_p(a)){
+  for(const auto a : sortedatks){
+    if(!charged_attack_p(*a)){
       continue;
     }
     auto cpow = calc_eff_power_nx1(s, a);
@@ -500,7 +474,7 @@ write_evol(std::ostream &fp, const species &s){
 static int
 write_mon_page(const species &s){
   std::string encname;
-  encode_name(s.name, encname);
+  encode_name(s.name, encname); // do *not* use URI encoding
   std::ofstream fp(encname + ".html");
   if(!fp.is_open()){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;

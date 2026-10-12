@@ -178,7 +178,7 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << ' ';
   emit_html_attack(std::cout, *t.s, t.ca);
   std::cout << ' ';
-  summarize_buffs_html(std::cout, t.ca);
+  summarize_buffs_html(std::cout, t.ca, "", "");
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
   std::cout << "<td>" << t.dam << "</td>";

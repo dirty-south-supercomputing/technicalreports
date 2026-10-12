@@ -93,9 +93,9 @@ int main(int argc, char **argv){
     for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
       const attack *a = *it;
       if(a->type == t){
-        if(fast && fast_attack_p(a)){
+        if(fast && fast_attack_p(*a)){
           acopies.push_back(a);
-        }else if(!fast && charged_attack_p(a)){
+        }else if(!fast && charged_attack_p(*a)){
           acopies.push_back(a);
         }
       }

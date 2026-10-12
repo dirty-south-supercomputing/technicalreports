@@ -254,7 +254,7 @@ print_attack_latex(const species &s, const attack* a){
     itb = "\\textit{";
     ite = "}";
   }
-  if(charged_attack_p(a)){
+  if(charged_attack_p(*a)){
     print_cattack_latex(s, a, power, itb, ite);
   }else{ // fast attacks
     const float dpt = power / a->turns;
@@ -337,14 +337,14 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
     sortedatks.emplace_back(a);
   }
   std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
-        if(fast_attack_p(lhs) && !fast_attack_p(rhs)){
+        if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
           return true;
-        }else if(!fast_attack_p(lhs) && fast_attack_p(rhs)){
+        }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
           return false;
         }
         float aratio = calc_eff_power(s, lhs);
         float bratio = calc_eff_power(s, rhs);
-        if(fast_attack_p(lhs)){
+        if(fast_attack_p(*lhs)){
           aratio /= lhs->turns;
           bratio /= rhs->turns;
         }else{

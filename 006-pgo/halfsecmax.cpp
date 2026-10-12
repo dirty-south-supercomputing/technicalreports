@@ -32,7 +32,7 @@ void print_users(const attack* a){
 // generate list of all max-capable attackers with a 0.5s fast attack
 int main(void){
   for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
-    if(!fast_attack_p(*a)){
+    if(!fast_attack_p(**a)){
       continue;
     }
     if((*a)->animdur > 1){

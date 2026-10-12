@@ -146,8 +146,8 @@ static void
 print_participant_attacks(const species &s, bool fast){
   bool one = false;
   bool atypes[TYPECOUNT] = {};
-  for(const auto& a : s.attacks){
-    if(fast_attack_p(a) != fast){
+  for(const auto a : s.attacks){
+    if(fast_attack_p(*a) != fast){
       continue;
     }
     if(a->type != TYPECOUNT){
