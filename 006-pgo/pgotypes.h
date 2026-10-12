@@ -162,7 +162,9 @@ static const char* tnames[TYPECOUNT] = {
 };
 
 static inline float mapbuff(int bufflevel){
-  static const float buffmap[9] = { 4/8, 4/7, 4/6, 4/5, 1, 5/4, 6/4, 7/4, 8/4 };
+  static const float buffmap[9] = { 4.0 / 8, 4.0 / 7, 4.0 / 6, 4.0 / 5,
+                                    1,
+                                    5 / 4.0, 6 / 4.0, 7 / 4.0, 8 / 4.0 };
   return buffmap[bufflevel + 4];
 }
 
