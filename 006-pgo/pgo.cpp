@@ -4357,9 +4357,15 @@ static const std::vector<species> sdex = {
   //{ 1004, "Chi-Yu", TYPE_DARK, TYPE_FIRE, 269, 221, 146, nullptr, },
   //{ 1005, "Roaring Moon", TYPE_DRAGON, TYPE_DARK, 280, 196, 233, nullptr, },
   //{ 1006, "Iron Valiant", TYPE_FAIRY, TYPE_FIGHTING, 279, 171, 179, nullptr, },
-  //{ 1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, nullptr, },
-  //{ 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, nullptr, },
   /*
+  // the Paradox
+  {  1007, "Koraidon", TYPE_FIGHTING, TYPE_DRAGON, 263, 223, 205, "",
+		{ &ATK_Dragon_Tail, &ATK_Rock_Smash, &ATK_Close_Combat, &ATK_Dragon_Claw, &ATK_Giga_Impact, &ATK_Outrage, },
+		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+  // the Paradox
+  { 1008, "Miraidon", TYPE_ELECTRIC, TYPE_DRAGON, 263, 223, 205, nullptr, },
+		{ &ATK_Dragon_Breath, &ATK_Thunder_Shock, &ATK_Dragon_Claw, &ATK_Hyper_Beam, &ATK_Outrage, &ATK_Thunder, },
+		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   { 1009, "Walking Wake", TYPE_WATER, TYPE_DRAGON, 256, 188, 223, "",
     { },
     false, false, 0, { }, species::CAT_PARADOX, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
