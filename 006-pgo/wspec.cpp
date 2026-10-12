@@ -340,13 +340,13 @@ write_stats(std::ostream &fp, const species &s){
 // sum of evol_geom() called on each of our immediate evolutions (plus
 // one if the number of immediate evolutions is even), and our length is
 // the max of the lenghts, plus one.
-static int
-evol_geom(const std::vector<const species*> fam, int idx, int &length,
-          int x, int y, int &forkcolumn, int &forkidx){
+static unsigned
+evol_geom(const std::vector<const species*> fam, int idx, unsigned &length,
+          unsigned x, unsigned y, unsigned &forkcolumn, unsigned &forkidx){
   // do we have any immediate evolutions? if not, we're terminal.
   const species &s = *fam[idx];
   length = 1;
-  int maxsublen = 0;
+  unsigned maxsublen = 0;
   int totsubheight = 0;
   int immediates = 0;
   // find our immediate evolutions, and recurse
@@ -357,7 +357,7 @@ evol_geom(const std::vector<const species*> fam, int idx, int &length,
         forkcolumn = x + 1;
       }
       ++immediates;
-      int sublen;
+      unsigned sublen;
       auto subheight = evol_geom(fam, idx2, sublen, x + 1, y, forkcolumn, forkidx);
       if(sublen > maxsublen){
         maxsublen = sublen;
@@ -374,8 +374,9 @@ evol_geom(const std::vector<const species*> fam, int idx, int &length,
 }
 
 // return the number of rows to represent this family's complete evolution
-static int
-family_geom(const std::vector<const species*> fam, int &length, int &forkcolumn, int &forkidx){
+static unsigned
+family_geom(const std::vector<const species*> fam, unsigned &length,
+            unsigned &forkcolumn, unsigned &forkidx){
   forkcolumn = forkidx = 0;
   return evol_geom(fam, 0, length, 0, 0, forkcolumn, forkidx);
 }
@@ -401,15 +402,16 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
 static void
 emit_evol_table(std::ostream &fp, const std::string &us,
                 const std::vector<const species*> fam,
-                int rows, int length, int forkcolumn, int forkidx){
-  const int midrow = rows / 2;
+                unsigned rows, unsigned length,
+                unsigned forkcolumn, unsigned forkidx){
+  const auto midrow = rows / 2;
   int i = 0;
   int pathends = forkidx;
   const std::string *prev;
-  for(int y = 0 ; y < rows ; ++y){
+  for(unsigned y = 0 ; y < rows ; ++y){
     prev = nullptr;
     fp << "<tr>";
-    for(int x = 0 ; x < length ; ++x){
+    for(unsigned x = 0 ; x < length ; ++x){
       fp << "<td>"; // we must have a td for each cell
       if(y != midrow){ // rows off the main path, implies a fork
         if(x == forkcolumn){
@@ -444,7 +446,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
           if(rows == 3){
             if(prev == nullptr){
               int successors = 0;
-              int sidx = forkidx;
+              auto sidx = forkidx;
               while(sidx < fam.size()){
                 if(fam[sidx]->from == fam[i - 1]->name){
                   ++successors;
@@ -486,8 +488,8 @@ write_evol(std::ostream &fp, const species &s){
     fp << "None";
     return 0;
   }
-  int length;
-  int forkcolumn, forkidx;
+  unsigned length;
+  unsigned forkcolumn, forkidx;
   auto rows = family_geom(fam, length, forkcolumn, forkidx);
   fp << "<table>" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
