@@ -91,7 +91,7 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
   if(fast_attack_p(a)){
     pp /= a.animdur;
   }else{
-    pp /= -energy;
+    pp /= energy;
   }
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td>" << (pp * type_effectiveness_mult(te)) << "</td>";
