@@ -105,15 +105,15 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
-#typesdra tr :nth-child(n+2):nth-child(-n+8) { /* table of typings by DRA */
+#typesdra tr>:nth-child(n+2):nth-child(-n+8) { /* table of typings by DRA */
   text-align: right;
 }
 
-#typesdra tr:nth-child(9) {
+#typesdra tr>:nth-child(9) {
   padding: 0 0 0 1em;
 }
 
-#typesdra tr:nth-child(1) {
+#typesdra tr>:nth-child(1) {
   text-align: center;
 }
 
