@@ -334,69 +334,164 @@ write_stats(std::ostream &fp, const species &s){
   return 0;
 }
 
+// get the geometry of the evolution from idx out. this is done recursively.
+// if the idx has no evolutions in fam, the geometry is 1x1, the base case.
+// otherwise, call on our immediate evolutions. our height is then the
+// sum of evol_geom() called on each of our immediate evolutions (plus
+// one if the number of immediate evolutions is even), and our length is
+// the max of the lenghts, plus one.
 static int
-print_previous_species(std::ostream &fp, const species &s){
-  int ret = 1;
-  const species *devol = get_previous_evolution(s);
-  if(devol){
-    ret += print_previous_species(fp, *devol);
+evol_geom(const std::vector<const species*> fam, int idx, int &length,
+          int x, int y, int &forkcolumn, int &forkidx){
+  // do we have any immediate evolutions? if not, we're terminal.
+  const species &s = *fam[idx];
+  length = 1;
+  int maxsublen = 0;
+  int totsubheight = 0;
+  int immediates = 0;
+  // find our immediate evolutions, and recurse
+  for(unsigned idx2 = idx + 1 ; idx2 < fam.size() ; ++idx2){
+    if(fam[idx2]->from == s.name){
+      if(immediates && !forkidx){
+        forkidx = idx + 1;
+        forkcolumn = x + 1;
+      }
+      ++immediates;
+      int sublen;
+      auto subheight = evol_geom(fam, idx2, sublen, x + 1, y, forkcolumn, forkidx);
+      if(sublen > maxsublen){
+        maxsublen = sublen;
+      }
+      y += subheight;
+      totsubheight += subheight;
+    }
   }
-  link_to_name(fp, s.name);
-  fp << " → ";
-  return ret;
+  length = maxsublen + 1;
+  if(totsubheight == 0 || (immediates % 2 == 0)){
+    ++totsubheight;
+  }
+  return totsubheight;
+}
+
+// return the number of rows to represent this family's complete evolution
+static int
+family_geom(const std::vector<const species*> fam, int &length, int &forkcolumn, int &forkidx){
+  forkcolumn = forkidx = 0;
+  return evol_geom(fam, 0, length, 0, 0, forkcolumn, forkidx);
+}
+
+// there are only four table geometries (currently):
+//  a) eevee has eight evolutions (9 rows, 2 columns)
+//  b) one path splits into two (3 rows, n columns) -- charizard, mewtwo
+//  c) one path splits into three (3 rows, n columns) -- tyrogue, applin
+//  d) single path (1 row, n columns)
+// the family always starts in the middle row (1, 2, or 5) in the
+// first column. this is all very fragile, and will have to change
+// to accommodate any new table conformations.
+// forkcolumn (0-indexed) is the column following forkbase, 0 if there is no fork
+static void
+emit_evol(std::ostream &fp, const std::string &us, const species &s){
+  if(us == s.name){
+    fp << "<b>" << s.name << "</b>";
+  }else{
+    link_to_name(fp, s.name);
+  }
+}
+
+static void
+emit_evol_table(std::ostream &fp, const std::string &us,
+                const std::vector<const species*> fam,
+                int rows, int length, int forkcolumn, int forkidx){
+  const int midrow = rows / 2;
+  int i = 0;
+  int pathends = forkidx;
+  const std::string *prev;
+  for(int y = 0 ; y < rows ; ++y){
+    prev = nullptr;
+    fp << "<tr>";
+    for(int x = 0 ; x < length ; ++x){
+      fp << "<td>"; // we must have a td for each cell
+      if(y != midrow){ // rows off the main path, implies a fork
+        if(x == forkcolumn){
+          if(y < midrow){
+            fp << "↗";//↱";
+          }else{
+            fp << "↘";//"↳";
+          }
+          emit_evol(fp, us, *fam[forkidx]);
+          prev = &fam[forkidx]->name;
+          ++forkidx;
+        }else if(x > forkcolumn){
+          if(forkidx < fam.size()){
+            if(fam[forkidx]->from == *prev){
+              fp << " → ";
+              emit_evol(fp, us, *fam[forkidx]);
+              prev = &fam[forkidx]->name;
+              ++forkidx;
+            }
+          }
+        }
+      }else{ // main path
+        if(!pathends || i < pathends){
+          if(x > 0){
+            fp << " → ";
+          }
+          emit_evol(fp, us, *fam[i]);
+        }else if(i >= pathends){
+          // we continue along the main path only if there are three immediate
+          // successors of the fork. this means there must be (a) three rows
+          // and (b) (only) two more with us as parent.
+          if(rows == 3){
+            if(prev == nullptr){
+              int successors = 0;
+              int sidx = forkidx;
+              while(sidx < fam.size()){
+                if(fam[sidx]->from == fam[i - 1]->name){
+                  ++successors;
+                }
+                ++sidx;
+              }
+              if(successors == 2){
+                prev = &fam[i]->name;
+                fp << " → ";
+                emit_evol(fp, us, *fam[forkidx]);
+                ++forkidx;
+              }
+            }else{
+              if(fam[i]->from == *prev){
+                fp << " → ";
+                emit_evol(fp, us, *fam[forkidx]);
+                prev = &fam[i]->name;
+                ++forkidx;
+              }
+            }
+          }
+        }
+        ++i;
+      }
+      fp << "</td>";
+    }
+    fp << "</tr>" << std::endl;
+  }
 }
 
 static int
 write_evol(std::ostream &fp, const species &s){
   fp << "<h2>transitions</h2>";
-  const species *devol = get_previous_evolution(s);
-  int evolidx = 0;
-  std::vector<const species*> evols;
-  int rows = get_evolution_count(s, evols);
-  if(devol || rows){
-    // we need a table because the evolution can fan out
-    if(rows == 0){
-      rows = 1;
-    }
-    int immindex = -1; // see comment below
-    std::vector<const species*> immevols;
-    std::forward_list<species> store;
-    get_evolutions(&s, immevols, store);
-    for(int r = 0 ; r < rows ; ++r){
-      if(r){
-        fp << std::endl;
-      }
-      // first, print previous step(s)
-      if(devol){
-        print_previous_species(fp, *devol);
-      }
-      // next, print ourselves, in bold
-      fp << "<b>" << s.name << "</b>";
-      // now, the next evolutionary step(s), if they exist. we do only one row.
-      // this requires knowing our index in the immevols array and the next
-      // entry in the evols array. when we come across the next immevols entry
-      // in evols, update immindex and pop. then print any successor and pop.
-      if(evols.size()){
-        if(immindex + 1u < immevols.size() && immevols[immindex + 1] == evols[evolidx]){
-          ++immindex;
-          ++evolidx;
-        }
-        const auto imm = immevols[immindex];
-        fp << " → ";
-        link_to_name(fp, imm->name);
-        std::vector<const species*> waste;
-        if(get_persistent_evolutions(*imm, waste)){
-          fp << " → ";
-          link_to_name(fp, evols[evolidx]->name);
-          ++evolidx;
-          ++r;
-        }
-        fp << "<br/>";
-      }
-    }
-  }else{
-    fp << "No evolution";
+  const auto base = get_base_evolution(s);
+  std::forward_list<species> store;
+  std::vector<const species*> fam;
+  get_family(base, fam, store);
+  if(fam.size() < 2){ // should never be zero
+    fp << "None";
+    return 0;
   }
+  int length;
+  int forkcolumn, forkidx;
+  auto rows = family_geom(fam, length, forkcolumn, forkidx);
+  fp << "<table>" << std::endl;
+  emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
+  fp << "</table>" << std::endl;
   return 0;
 }
 

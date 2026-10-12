@@ -29,14 +29,14 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 					 $(addsuffix .html, \
 					  mon/index \
 					  index \
-						nodyna noshadow noshiny dynacost \
+						nodyna noshadow noshiny nosecondcharged dynacost \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
-						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk) \
-						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk) \
+						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
+						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
 						$(addprefix dynas-, all $(TYPES))))
 
 UPSTREAM:=$(addsuffix .csv, moves)
@@ -338,7 +338,19 @@ $(OUT)/listML.html: $(OUT)/stat
 	@mkdir -p $(@D)
 	$(<) > $@
 
+$(OUT)/%GL.html: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) 1500 > $@
+
+$(OUT)/%UL.html: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) 2500 > $@
+
 $(OUT)/%.html: $(OUT)/%
+	@mkdir -p $(@D)
+	$(<) > $@
+
+$(OUT)/nosecondcharged.html: $(OUT)/nosecondchargedhtml
 	@mkdir -p $(@D)
 	$(<) > $@
 

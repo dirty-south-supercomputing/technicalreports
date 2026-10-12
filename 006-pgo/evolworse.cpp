@@ -10,7 +10,7 @@ bool check_worse_evol(const species& s, int cpbound){
   float gsworst = FLT_MAX;
   std::vector<const species *> evols;
   std::forward_list<species> store;
-  get_evolutions(&s, evols, store);
+  get_evolutions(s, evols, store);
   for(const auto e : evols){
     unsigned worse = 0;
     float ge = 0;

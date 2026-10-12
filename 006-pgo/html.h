@@ -5,14 +5,16 @@
 
 static inline void
 encode_name(std::ostream &fp, const std::string &s){
-  for(char c : s){
-    if(!isspace(c) && !ispunct(c)){
+  for(unsigned char c : s){
+    if(c > 0x7f){
+      fp << '%' << std::hex << static_cast<int>(c);
+    }else if(!isspace(c) && !ispunct(c)){ // these get left out
       fp << c;
     }
   }
 }
 
-static inline int
+static inline void
 link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
   fp << "<a href=\"";
   if(subdir){
@@ -20,7 +22,6 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
   }
   encode_name(fp, s);
   fp << ".html\">" << s << "</a>";
-  return 0;
 }
 
 // input: halflevel (0..10x)

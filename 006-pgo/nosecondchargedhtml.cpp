@@ -22,12 +22,13 @@ int main(void){
       std::cout << "</td><td>";
       link_to_name(std::cout, s->name, true);
       if(s->shadow){
-        std::cout << " (unless Shadow or Purified)";
+        std::cout << " (*)";
       }
       // FIXME maybe also show the attack they can learn?
       std::cout << "</td></tr>" << std::endl;
     }
   }
   std::cout << "</table>" << std::endl;
+  std::cout << "<br/>(*) has a Shadow/Purified form, which knows Frustration/Return" << std::endl;
   return EXIT_SUCCESS;
 }

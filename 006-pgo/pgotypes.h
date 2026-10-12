@@ -1836,21 +1836,37 @@ get_persistent_evolutions(const species &s, std::vector<const species*>& vec){
   return vec.size() > 0;
 }
 
-// fill in vec with evolution target(s), if there are any.
+// fill in vec with immediate evolution target(s), if there are any.
 // return true if there was at least one, and false otherwise.
 static inline bool
-get_evolutions(const species *s, std::vector<const species*> &vec,
+get_evolutions(const species &s, std::vector<const species*> &vec,
                std::forward_list<species> &store){
   for(auto t = species_begin() ; t != species_end() ; ++t){
-    if(t->from == s->name){
+    if(t->from == s.name){
       vec.push_back(&*t);
     }
   }
-  for(const auto &m : s->mforms){
-    store.emplace_front(s, m);
+  for(const auto &m : s.mforms){
+    store.emplace_front(&s, m);
     vec.push_back(&store.front());
   }
   return vec.size() > 0;
+}
+
+// fill in vec with entire family, starting with s.
+static inline void
+get_family(const species &s, std::vector<const species*> &vec,
+           std::forward_list<species> &store){
+  vec.push_back(&s);
+  for(auto t = species_begin() ; t != species_end() ; ++t){
+    if(t->from == s.name){
+      get_family(*t, vec, store);
+    }
+  }
+  for(const auto &m : s.mforms){
+    store.emplace_front(&s, m);
+    get_family(store.front(), vec, store);
+  }
 }
 
 static const species *
@@ -1864,6 +1880,22 @@ get_previous_evolution(const species &s){
     }
   }
   return nullptr;
+}
+
+// get the earliest form of the family (which might be us)
+static inline const species &
+get_base_evolution(const species &s){
+  if(s.from.empty()){
+    return s;
+  }
+  auto t = species_begin();
+  while(t != species_end()){
+    if(s.from == t->name){
+      break;
+    }
+    ++t;
+  }
+  return get_base_evolution(*t);
 }
 
 #define REGION_COUNT 11

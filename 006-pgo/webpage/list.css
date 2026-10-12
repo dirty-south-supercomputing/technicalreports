@@ -77,11 +77,20 @@ table.dynas tr :nth-child(n+4) {
 }
 
 table.nofoo tr :nth-child(1) { /* dex number */
-  text-align: left;
+  text-align: right;
 }
 
 table.nofoo tr :nth-child(2) { /* type */
   text-align: center;
+}
+
+table.goodhundos tr :nth-child(1) { /* type */
+  text-align: center;
+}
+
+table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
+  text-align: right;
+  padding: 0 0 0 1em;
 }
 
 #setsara tr :nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
