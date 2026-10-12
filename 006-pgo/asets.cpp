@@ -8,7 +8,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     for(unsigned aidx = 0 ; aidx < s->attacks.size() ; ++aidx){
       const auto a = s->attacks[aidx];
-      if(!charged_attack_p(a)){
+      if(!charged_attack_p(*a)){
         continue;
       }
       if(a->type == t0){
@@ -21,7 +21,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
         }
         for(unsigned a2idx = 0 ; a2idx < s->attacks.size() ; ++a2idx){
           const auto a2 = s->attacks[a2idx];
-          if(!charged_attack_p(a2)){
+          if(!charged_attack_p(*a2)){
             continue;
           }
           if(a2->type == t1){

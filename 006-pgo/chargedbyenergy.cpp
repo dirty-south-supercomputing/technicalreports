@@ -8,7 +8,7 @@ int main(void){
   cmap chargedmap;
   for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
     const attack* a = *it;
-    if(!charged_attack_p(a)){
+    if(!charged_attack_p(*a)){
       continue;
     }
     auto p = chargedmap.try_emplace(-a->energytrain);

@@ -4,7 +4,7 @@
 static bool
 can_hit_for(const species &atk, const species &def, int rel){
   for(const auto *ca : atk.attacks){
-    if(!charged_attack_p(ca)){
+    if(!charged_attack_p(*ca)){
       continue;
     }
     if(typing_relation(ca->type, def.t1, def.t2) >= rel){
@@ -86,7 +86,7 @@ static bool
 supercounter_p(const species &s){
   bool scounter = false;
   for(auto ca1 = s.attacks.begin() ; ca1 != s.attacks.end() ; ++ca1){
-    if(!charged_attack_p(*ca1)){
+    if(!charged_attack_p(**ca1)){
       continue;
     }
     unsigned f, canhit;
@@ -99,7 +99,7 @@ supercounter_p(const species &s){
       }
     }else{
       do{
-        if(!charged_attack_p(*ca2)){
+        if(!charged_attack_p(**ca2)){
           continue;
         }
         if((f = supercounter_spec(s, *ca1, *ca2, &canhit)) == 0){

@@ -12,7 +12,7 @@ void handle_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   if(has_dmax(s)){
     bool ts[TYPECOUNT]{};
     for(const auto a : s.attacks){
-      if(fast_attack_p(a)){
+      if(fast_attack_p(*a)){
         auto at = dmax_attack_type(a);
         if(ts[at]){
           continue;

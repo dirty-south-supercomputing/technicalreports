@@ -60,13 +60,13 @@ test_species(const species &s){
   bool sawc = false;
   for(const auto &a : s.attacks){
     // check that fast attacks precede charged attacks in attack list
-    if(fast_attack_p(a)){
+    if(fast_attack_p(*a)){
       if(sawc){
         std::cerr << "fast attack " << a->name << " followed charged attack in " << s.name << std::endl;
         throw std::exception();
       }
       sawf = true;
-    }else if(charged_attack_p(a)){
+    }else if(charged_attack_p(*a)){
       sawc = true;
     }
     // check that all attacks are on the full attack list
@@ -165,7 +165,7 @@ test_sdex(){
 
 static bool
 test_attack(const attack *a){
-  if(charged_attack_p(a)){
+  if(charged_attack_p(*a)){
     if(a->energytrain >= 0){
       std::cerr << "invalid 3x3 energy for charged attack " << a->name << std::endl;
       throw std::exception();
@@ -223,7 +223,7 @@ test_attack(const attack *a){
       std::cerr << a->name << " has invalid raid energy " << a->energyraid << std::endl;
       throw std::exception();
     }
-  }else if(fast_attack_p(a)){
+  }else if(fast_attack_p(*a)){
     if(a->energytrain < 0){ // transform builds zero energy
       std::cerr << "invalid 3x3 energy for fast attack " << a->name << std::endl;
       throw std::exception();
@@ -280,7 +280,7 @@ test_mega(void){
         std::cerr << "invalid initial cost " << m.initialcost << " for " << m.name << std::endl;
         throw std::exception();
       }
-      if(m.plusatk && !charged_attack_p(m.plusatk)){
+      if(m.plusatk && !charged_attack_p(*m.plusatk)){
         std::cerr << "invalid non-charged plus attach " << m.plusatk->name << " for " << m.name << std::endl;
         throw std::exception();
       }
