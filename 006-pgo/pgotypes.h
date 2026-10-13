@@ -490,8 +490,7 @@ static const attack ATK_Disarming_Voice = { "Disarming Voice", TYPE_FAIRY, 70, -
 	70, 33, 8, false, };
 static const attack ATK_Discharge = { "Discharge", TYPE_ELECTRIC, 55, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	65, 33, 5, false, };
-// FIXME get real 3x3 energy cost
-static const attack ATK_Discharge_Plus = { "Discharge+", TYPE_ELECTRIC, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+static const attack ATK_Discharge_Plus = { "Discharge+", TYPE_ELECTRIC, 50, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	150, 100, 5, false, };
 static const attack ATK_Dive = { "Dive", TYPE_WATER, 50, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 7, false, };
