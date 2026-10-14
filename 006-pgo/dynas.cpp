@@ -5,7 +5,8 @@ void usage(const char* argv0, int ret){
   exit(ret);
 }
 
-void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& cands){
+void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& cands,
+                    std::forward_list<species> &store){
   bool stab = has_stab_raw_p(s, t);
   if(has_dmax(s)){
     for(const auto a : s.attacks){
@@ -21,15 +22,16 @@ void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& can
   auto gma = lookup_gmax_attack(s);
   if(gma){
     if(gma->type == t){
-      add_candidate(cands, &s, gma->name.c_str(), true, stab, t, 1.0);
+      store.emplace_front(&s, *gma);
+      add_candidate(cands, &store.front(), gma->name.c_str(), true, stab, t, 1.0);
     }
   }
 }
 
 // build a sorted vector of all *t*-type Max attackers
-int build_type_vec(pgo_types_e t, std::vector<candidate>& cands){
+int build_type_vec(pgo_types_e t, std::vector<candidate> &cands, std::forward_list<species> &store){
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    handle_species(*s, t, cands);
+    handle_species(*s, t, cands, store);
   }
   // we hard code the crowned forms and eternatus, yuck. we don't want to
   // generally mark them as dmax/gmax, as they're technically not.
@@ -65,7 +67,9 @@ emit_cand_html(const candidate& c, unsigned maxp){
   std::cout << "<td>";
   html_types(c.s->t1, c.s->t2);
   std::cout << "</td>";
-  std::cout << "<td>" << c.s->name << "</td>";
+  std::cout << "<td>";
+  link_to_name(std::cout, c.s->name, true);
+  std::cout << "</td>";
   std::cout << "<td>";
   html_type(c.atype);
   std::cout << ' ';
@@ -102,9 +106,10 @@ int emit_dynamax_unified_table(int count, bool html){
     std::cout << "\\Midrule" << std::endl;
   }
   std::vector<candidate> cands;
+  std::forward_list<species> store;
   for(int t = 0 ; t < TYPECOUNT ; ++t){
     std::vector<candidate> tcands;
-    if(build_type_vec(static_cast<pgo_types_e>(t), tcands) <= 0){
+    if(build_type_vec(static_cast<pgo_types_e>(t), tcands, store) <= 0){
       return -1;
     }
     int emit = 0;
@@ -145,7 +150,8 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
   std::cout << "</tr>" << std::endl;
   std::vector<candidate> cands;
-  if(build_type_vec(t, cands) <= 0){
+  std::forward_list<species> store;
+  if(build_type_vec(t, cands, store) <= 0){
     return -1;
   }
   auto maxp = cands.begin()->powprod();
