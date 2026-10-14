@@ -1038,9 +1038,12 @@ struct species {
     EVOL_SWEETAPPLE,
     EVOL_SYRUPYAPPLE,
     EVOL_GIMMICOINS,
-    EVOL_ZYGARDECELL,
+    EVOL_ZYGARDECELL50,
+    EVOL_ZYGARDECELL200,
     EVOL_MAGLURE,
     EVOL_RAINLURE,
+    EVOL_GLACIALLURE,
+    EVOL_MOSSYLURE,
   } evolitem;
   enum mon_region {    // region-specific pokémon
     REGION_ALL,
@@ -1171,6 +1174,30 @@ struct species {
 
   int maxcp() const {
     return calccp(atk + 15, def + 15, sta + 15, MAX_HALFLEVEL_BASIC);
+  }
+
+  const char *evolitemstr() const {
+    switch(evolitem){
+      case species::EVOL_NOITEM: return "";
+      case species::EVOL_SUNSTONE: return "Sun stone"; break;
+      case species::EVOL_KINGSROCK: return "King's rock"; break;
+      case species::EVOL_METALCOAT: return "Metal coat"; break;
+      case species::EVOL_DRAGONSCALE: return "Dragon's scale"; break;
+      case species::EVOL_UPGRADE: return "Upgrade"; break;
+      case species::EVOL_SINNOHSTONE: return "Sinnoh stone"; break;
+      case species::EVOL_UNOVASTONE: return "Unova stone"; break;
+      case species::EVOL_TARTAPPLE: return "20 Tart apples"; break;
+      case species::EVOL_SWEETAPPLE: return "20 Sweet apples"; break;
+      case species::EVOL_SYRUPYAPPLE: return "20 Syrupy apples"; break;
+      case species::EVOL_GIMMICOINS: return "999 Gimmicoins"; break;
+      case species::EVOL_ZYGARDECELL50: return "50 Zygarde cells"; break;
+      case species::EVOL_ZYGARDECELL200: return "200 Zygarde cells"; break;
+      case species::EVOL_MAGLURE: return "Active Magnetic lure"; break;
+      case species::EVOL_RAINLURE: return "Active Rain lure"; break;
+      case species::EVOL_GLACIALLURE: return "Active Glacial lure"; break;
+      case species::EVOL_MOSSYLURE: return "Active Mossy lure"; break;
+      default: throw std::exception();
+    }
   }
 
   const char *categorystr() const {

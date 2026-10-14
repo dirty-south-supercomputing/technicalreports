@@ -193,10 +193,6 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
-#evolcond tr>:nth-child(4) { /* condition */
-  text-align: right;
-}
-
 #evolcond tr>:nth-child(6) { /* dest type */
   text-align: center;
 }
