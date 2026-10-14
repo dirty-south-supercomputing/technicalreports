@@ -2924,7 +2924,8 @@ static const std::vector<species> sdex = {
   // the luring
   {  609, "Chandelure", TYPE_GHOST, TYPE_FIRE, 271, 182, 155, "Lampent",
 		{ &ATK_Hex, &ATK_Fire_Spin, &ATK_Incinerate, &ATK_Astonish, &ATK_Shadow_Ball, &ATK_Flame_Charge, &ATK_Overheat, &ATK_Energy_Ball, &ATK_Poltergeist, },
-		true, true, 0, { &ATK_Poltergeist, }, species::CAT_NORMAL, 75, species::EVOL_UNOVASTONE, species::REGION_ALL, 0, {}, },
+		true, true, 0, { &ATK_Poltergeist, }, species::CAT_NORMAL, 75, species::EVOL_UNOVASTONE, species::REGION_ALL, 0,
+    { { "Mega Chandelure", TYPE_GHOST, TYPE_FIRE, 335, 227, 155, 300, &ATK_Ominous_Wind_Plus, }, }, },
   // the tusk
   {  610, "Axew", TYPE_DRAGON, TYPECOUNT, 154, 101, 130, "",
 		{ &ATK_Scratch, &ATK_Iron_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, &ATK_Dragon_Claw, },

@@ -19,6 +19,20 @@ print_pop(pgo_types_e t1, pgo_types_e t2){
       printed = true;
     }
     link_to_name(std::cout, s->name, true);
+    for(const auto &m : s->mforms){
+      if(m.t1 != t1){
+        continue;
+      }
+      if(m.t2 != t2){
+        continue;
+      }
+      if(printed){
+        std::cout << ", ";
+      }else{
+        printed = true;
+      }
+      link_to_name(std::cout, m.name, true);
+    }
   }
 }
 

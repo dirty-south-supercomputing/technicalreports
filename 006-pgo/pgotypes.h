@@ -673,7 +673,6 @@ static const attack ATK_Natures_Madness = { "Nature's Madness", TYPE_FAIRY, 80, 
 	90, 50, 4, false, };
 static const attack ATK_Night_Shade = { "Night Shade", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 5, false, };
-// FIXME get real stats
 static const attack ATK_Night_Shade_Plus = { "Night Shade+", TYPE_GHOST, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 100, 5, false, };
 static const attack ATK_Night_Slash = { "Night Slash", TYPE_DARK, 50, -35, 0, 125, 0, 0, 0, 1, 0, 0, 0,
@@ -686,6 +685,8 @@ static const attack ATK_Octazooka = { "Octazooka", TYPE_WATER, 50, -50, 0, 0, 0,
 	55, 50, 5, false, };
 static const attack ATK_Ominous_Wind = { "Ominous Wind", TYPE_GHOST, 45, -45, 0, 100, 100, 0, 0, 1, 1, 0, 0,
 	55, 33, 5, false, };
+static const attack ATK_Ominous_Wind_Plus = { "Ominous Wind+", TYPE_GHOST, 50, -40, 0, 100, 100, 0, 0, 1, 1, 0, 0,
+	145, 100, 5, false, };
 static const attack ATK_Origin_Pulse = { "Origin Pulse", TYPE_WATER, 130, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	120, 100, 3, false, };
 static const attack ATK_Outrage = { "Outrage", TYPE_DRAGON, 110, -60, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1017,6 +1018,7 @@ struct species {
     CAT_NORMAL,
     CAT_MYTHICAL,
     CAT_LEGENDARY,
+    CAT_FUSION,
     CAT_ULTRABEAST,
     CAT_BABY,
     CAT_PARADOX,
@@ -1174,12 +1176,13 @@ struct species {
   const char *categorystr() const {
     switch(category){
       case CAT_NORMAL: return "";
-      case CAT_MYTHICAL: return " Mythical";
-      case CAT_LEGENDARY: return " Legendary";
-      case CAT_ULTRABEAST: return " Ultra Beast";
-      case CAT_BABY: return " Baby";
-      case CAT_PARADOX: return " Paradox";
-      case CAT_FPARTNER: return " First Partner";
+      case CAT_MYTHICAL: return "Mythical";
+      case CAT_LEGENDARY: return "Legendary";
+      case CAT_FUSION: return "Fusion";
+      case CAT_ULTRABEAST: return "Ultra Beast";
+      case CAT_BABY: return "Baby";
+      case CAT_PARADOX: return "Paradox";
+      case CAT_FPARTNER: return "First Partner";
       default: throw std::exception();
     }
   }
@@ -2011,7 +2014,7 @@ name_in_list(const species &s, const char **l){
 static inline unsigned
 stardust_reward(const species &s){
   // some legendaries are technically evolutions, but they ought be 100 across the board
-  if(s.category == species::CAT_LEGENDARY){
+  if(s.category == species::CAT_LEGENDARY || s.category == species::CAT_FUSION){
     return 100;
   }
   if(s.name == "Audino"){

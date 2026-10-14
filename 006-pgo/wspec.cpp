@@ -301,7 +301,7 @@ write_stats(std::ostream &fp, const species &s){
     fp << "Dynamax <i>not</i> available<br/>";
   }
   const auto *cstr = s.categorystr();
-  if(cstr){
+  if(strcmp(cstr, "")){
     fp << cstr << "<br/>";
   }
   fp << "</div>" << std::endl;
