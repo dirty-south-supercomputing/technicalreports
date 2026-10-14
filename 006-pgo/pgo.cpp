@@ -4380,7 +4380,7 @@ static const std::vector<species> sdex = {
   { 1012, "Poltchageist", TYPE_GRASS, TYPE_GHOST, 134, 96, 120, "",
     { &ATK_Astonish, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Energy_Ball, &ATK_Poltergeist, },
     false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  { 1012, "Sinistcha", TYPE_GRASS, TYPE_GHOST, 225, 191, 174, "Poltchageist",
+  { 1013, "Sinistcha", TYPE_GRASS, TYPE_GHOST, 225, 191, 174, "Poltchageist",
     { &ATK_Astonish, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Energy_Ball, &ATK_Poltergeist, },
     false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   //{ 1014, "Okidogi", TYPE_POISON, TYPE_FIGHTING, nullptr, },
