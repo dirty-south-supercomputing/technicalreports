@@ -10,30 +10,23 @@ copy_tvec(int* tnew, const int tvec[]){
 }
 
 // level is the filter of effectiveness -- we must be greater
-// print tocc iff it covers tvec
-// tvec is a v-sized vector of 2-vectors of ints
-// if the first int is TYPECOUNT, it's not populated (we don't care)
+// tocc: TYPECOUNT-sized vector of ints -- our attacking types
+//  print tocc iff it covers tvec
+// tvec is a v-sized vector of 2-vectors of ints (2v total elements) -- our target typings
+//  if the first int is TYPECOUNT, it's not populated (we don't care)
+//  we must cover each valid typing at level + 1
 static int
-print_coverset(const std::string &title, const int tocc[], int v, const int tvec[][2],
-               int level, int setidx, bool html){
+print_coverset(const std::string &title, const int tocc[], int v,
+               const pgo_types_e tvec[][2], int level, int setidx, bool html){
   for(int i = 0 ; i < v ; ++i){
     if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
       int covered = 0;
-      for(int j = 0 ; j < TYPECOUNT ; ++j){
-        if(tocc[j]){
-          if(trelations[j][tvec[i][0]] > level){
-            // tocc[j] covers tvec[i][0] (others might also do so).
-            // ensure it isn't invalidated by tvec[i][1]
-            if(trelations[j][tvec[i][1]] >= level){
-              covered = 1;
-              break;
-            }
-          }else if(trelations[j][tvec[i][0]] == level){
-            // tocc[j] isn't ineffective, so check if we cover the other
-            if(trelations[j][tvec[i][1]] > level){
-              covered = 1;
-              break;
-            }
+      for(pgo_types_e j = TYPESTART ; j < TYPECOUNT ; ++j){
+        if(tocc[j]){ // we have this attacking type; check the typing relation
+          int tr = typing_relation(j, tvec[i][0], tvec[i][1]);
+          if(tr > level){
+            covered = 1;
+            break;
           }
         }
       }
@@ -45,9 +38,8 @@ print_coverset(const std::string &title, const int tocc[], int v, const int tvec
   // we found one or more covers, yay
   if(html){
     if(setidx == 1){
-      std::cout << "<h2>" << title << "</h2>" << std::endl;
       std::cout << "<table>" << std::endl;
-      std::cout << "<tr><th></th><th>Attack types</th></tr>" << std::endl;
+      std::cout << "<tr><th></th><th>" << title << "</th></tr>" << std::endl;
     }
     std::cout << "<tr><td>" << setidx << "</td><td>";
     for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
@@ -72,7 +64,7 @@ print_coverset(const std::string &title, const int tocc[], int v, const int tvec
 // we are placing n 1s among the last m slots of tocc
 static int
 place_n_in_m(const std::string &title, int n, int m, const int tocc[],
-             int v, const int tvec[][2], int level, int *setidx, bool html){
+             int v, const pgo_types_e tvec[][2], int level, int *setidx, bool html){
   auto tcopy = std::make_unique<int[]>(TYPECOUNT);
   copy_tvec(tcopy.get(), tocc);
   // base case m == 1
@@ -101,8 +93,8 @@ place_n_in_m(const std::string &title, int n, int m, const int tocc[],
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(const std::string &title, int n, int v, const int tvec[][2],
-                int level, bool html){
+print_coversets(const std::string &title, int n, int v,
+                const pgo_types_e tvec[][2], int level, bool html){
   int tocc[TYPECOUNT] = {};
   int setidx = 1;
   int r = place_n_in_m(title, n, TYPECOUNT, tocc, v, tvec, level, &setidx, html);
@@ -114,7 +106,7 @@ print_coversets(const std::string &title, int n, int v, const int tvec[][2],
 
 // print minimal coversets of the monotypes, and for each monotype, the minimal
 // coversets for all monotypes except that one
-static void
+/*static void
 print_complete_coversets(int level){
   int t[TYPECOUNT][2];
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -145,7 +137,7 @@ print_complete_coversets(int level){
       }
     }
   }
-}
+}*/
 
 static void
 print_participant_attacks(const species &s, bool fast){
@@ -175,7 +167,7 @@ print_participant_attacks(const species &s, bool fast){
 
 // print all species represented in the typing vector t of size tcount
 static void
-print_participants(int tcount, const int t[TYPINGCOUNT][2]){
+print_participants(int tcount, const pgo_types_e t[TYPINGCOUNT][2]){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     bool valid = false;
     for(int ti = 0 ; ti < tcount ; ++ti){
@@ -200,12 +192,12 @@ print_participants(int tcount, const int t[TYPINGCOUNT][2]){
 }
 
 // print minimal coversets of all typings
-static void
+/*static void
 print_complete_coversets_duals(int level, bool html){
-  static int t[TYPINGCOUNT][2];
+  static pgo_types_e t[TYPINGCOUNT][2];
   int pos = 0;
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    for(int j = i ; j < TYPECOUNT ; ++j){
+  for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
+    for(pgo_types_e j = i ; j < TYPECOUNT ; ++j){
       t[pos][0] = i;
       t[pos][1] = j;
       ++pos;
@@ -220,16 +212,16 @@ print_complete_coversets_duals(int level, bool html){
       fprintf(stderr, "no dual coversets of size %d\n", j);
     }
   }
-}
+}*/
 
 // print coverset of all typings including/excluding certain types. t is a
 // TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
 print_coversets_duals(const std::string &title, const int *t, bool exclude,
-                      int* pos, int ty[TYPINGCOUNT][2], int level, bool html){
+                      int *pos, pgo_types_e ty[TYPINGCOUNT][2], int level, bool html){
   *pos = 0;
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    for(int j = i ; j < TYPECOUNT ; ++j){
+  for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
+    for(pgo_types_e j = i ; j < TYPECOUNT ; ++j){
       if(exclude){
         if(!t[i] && !t[j]){
           ty[*pos][0] = i;
@@ -249,7 +241,9 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
     int min = print_coversets(title, j, *pos, ty, level, html);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
-      print_participants(*pos, ty);
+      if(!html){
+        print_participants(*pos, ty);
+      }
       return 0;
     }else{
       fprintf(stderr, "no dual coversets of size %d\n", j);
@@ -259,11 +253,14 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
   return -1;
 }
 
-static void
+[[noreturn]] static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " [ -t charged ] [ [ -x ] poptype[,poptype...] ]" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ -h ] [ -n name ] [ -t charged ] [ [ -x ] poptype[,poptype...] ]" << std::endl;
   std::cerr << " poptype[,poptype...]: require one of these types" << std::endl;
   std::cerr << " -x poptype[,poptype...]: exclude these types" << std::endl;
+  std::cerr << " -n name: name of coverset (for html)" << std::endl;
+  std::cerr << " -l type effectiveness filter (default 0)" << std::endl;
+  std::cerr << " -h: generate html" << std::endl;
   std::cerr << " -t charged: require a charged attack of this type" << std::endl;
   exit(EXIT_FAILURE);
 }
@@ -329,13 +326,14 @@ lex_typelist(const char* arg, int tlist[TYPECOUNT]){
 int main(int argc, char* const* argv){
   int kern[TYPECOUNT] = {};
   int reqchargedtype[TYPECOUNT] = {};
+  const char *title = nullptr;
   const char* argv0 = argv[0];
   bool exclude = false;
   bool reqcharged = false; // FIXME not yet implemented
   bool html = false;
-  int level = 0; // FIXME allow configuration
+  int level = 0;
   int go;
-  while((go = getopt(argc, argv, ":hx:t:")) > 0){
+  while((go = getopt(argc, argv, ":hl:n:x:t:")) > 0){
     switch(go){
       case 'x': // exclude anything containing these types
         if(exclude){
@@ -347,6 +345,17 @@ int main(int argc, char* const* argv){
         }
         exclude = true;
         break;
+      case 'l': // level filter
+        if(level){
+          std::cerr << "can't provide -l twice" << std::endl;
+          usage(argv0); break;
+        }
+        level = atoi(optarg);
+        if(level == 0){
+          std::cerr << "invalid level: " << optarg << std::endl;
+          usage(argv0); break;
+        }
+        break;
       case 't': // show population members that can use these types of charged attacks
         if(reqcharged){
           std::cerr << "can't provide -t twice" << std::endl;
@@ -356,6 +365,13 @@ int main(int argc, char* const* argv){
           usage(argv0); break;
         }
         reqcharged = true;
+        break;
+      case 'n':
+        if(title){
+          std::cerr << "can't provide -n twice" << std::endl;
+          usage(argv0); break;
+        }
+        title = optarg;
         break;
       case 'h':
         html = true;
@@ -367,13 +383,6 @@ int main(int argc, char* const* argv){
         std::cerr << "unknown argument: " << std::endl;
         usage(argv0); break;
     }
-  }
-  if(argc < 2 || (html && argc == 2)){
-    if(!html){
-      print_complete_coversets(level);
-    }
-    print_complete_coversets_duals(level, html);
-    return EXIT_SUCCESS;
   }
   // if an argument remains, it ought be a typelist specifying required typings
   if(*(argv + optind)){
@@ -389,10 +398,16 @@ int main(int argc, char* const* argv){
     if(lex_typelist(*(argv + optind), kern)){
       usage(argv0);
     }
+  }else{
+    for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+      kern[t] = 1;
+    }
   }
   int pos;
-  static int ty[TYPINGCOUNT][2];
-  // FIXME get better title
-  print_coversets_duals("Custom", kern, exclude, &pos, ty, level, html);
+  static pgo_types_e ty[TYPINGCOUNT][2];
+  if(!title){
+    title = "Custom";
+  }
+  print_coversets_duals(title, kern, exclude, &pos, ty, level, html);
   return EXIT_SUCCESS;
 }

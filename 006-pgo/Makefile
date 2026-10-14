@@ -20,6 +20,7 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 WEB:=webpage
 WEBSRC:=$(WEB)-src
+CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
 
 # we sometimes parameterize based on type
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
@@ -222,9 +223,9 @@ $(WEB)/attacks/index.html: $(OUT)/aspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
-$(OUT)/coversets.html: $(OUT)/coversets
+$(OUT)/coversets.html: $(CUPSBIN) $(OUT)/coversets
 	@mkdir -p $(@D)
-	$(<) -h > $@
+	$(<) > $@
 
 $(OUT)/%Nx1.html: $(OUT)/%
 	@mkdir -p $(@D)
