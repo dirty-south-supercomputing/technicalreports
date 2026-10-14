@@ -185,6 +185,26 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: right;
 }
 
+#evolcond tr>:nth-child(1) { /* base dex# */
+  text-align: right;
+}
+
+#evolcond tr>:nth-child(2) { /* base type */
+  text-align: center;
+}
+
+#evolcond tr>:nth-child(4) { /* condition */
+  text-align: right;
+}
+
+#evolcond tr>:nth-child(6) { /* dest type */
+  text-align: center;
+}
+
+#evolcond tr>:nth-child(7) { /* dest dex# */
+  text-align: right;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;

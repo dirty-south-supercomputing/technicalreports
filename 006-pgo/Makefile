@@ -31,6 +31,7 @@ WEBPAGES:=$(addprefix $(WEB)/, \
 						nodyna noshadow noshiny nosecondcharged dynacost \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas \
+						walkevol \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \

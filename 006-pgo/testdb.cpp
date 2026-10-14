@@ -86,6 +86,7 @@ test_species(const species &s){
   switch(s.category){
     case species::CAT_MYTHICAL:
     case species::CAT_LEGENDARY:
+    case species::CAT_FUSION:
     case species::CAT_ULTRABEAST:
       if(s.a2cost != 100){
         std::cerr << "expected cost 100, got " << s.a2cost << " for " << s.name << std::endl;
@@ -121,6 +122,17 @@ test_species(const species &s){
     default:
       std::cerr << "unhandled category " << s.category << std::endl;
       throw std::exception();
+  }
+  // check that anything with an evolution condition is an actual evolution
+  if(!get_previous_evolution(s)){
+    if(s.evolkm){
+      std::cerr << "evolkm without base form for " << s.name << std::endl;
+      throw std::exception();
+    }
+    if(s.evolitem != species::EVOL_NOITEM){
+      std::cerr << "evol item without base form for " << s.name << std::endl;
+      throw std::exception();
+    }
   }
   // check that species has fast and charged attacks defined
   if(!sawf || !sawc){
