@@ -9,26 +9,28 @@ copy_tvec(int* tnew, const int tvec[]){
   }
 }
 
+// level is the filter of effectiveness -- we must be greater
 // print tocc iff it covers tvec
 // tvec is a v-sized vector of 2-vectors of ints
 // if the first int is TYPECOUNT, it's not populated (we don't care)
 static int
-print_coverset(const int tocc[], int v, const int tvec[][2], int setidx, bool html){
+print_coverset(const std::string &title, const int tocc[], int v, const int tvec[][2],
+               int level, int setidx, bool html){
   for(int i = 0 ; i < v ; ++i){
     if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
       int covered = 0;
       for(int j = 0 ; j < TYPECOUNT ; ++j){
         if(tocc[j]){
-          if(trelations[j][tvec[i][0]] > 0){
+          if(trelations[j][tvec[i][0]] > level){
             // tocc[j] covers tvec[i][0] (others might also do so).
             // ensure it isn't invalidated by tvec[i][1]
-            if(trelations[j][tvec[i][1]] >= 0){
+            if(trelations[j][tvec[i][1]] >= level){
               covered = 1;
               break;
             }
-          }else if(trelations[j][tvec[i][0]] == 0){
+          }else if(trelations[j][tvec[i][0]] == level){
             // tocc[j] isn't ineffective, so check if we cover the other
-            if(trelations[j][tvec[i][1]] > 0){
+            if(trelations[j][tvec[i][1]] > level){
               covered = 1;
               break;
             }
@@ -40,9 +42,10 @@ print_coverset(const int tocc[], int v, const int tvec[][2], int setidx, bool ht
       }
     }
   }
-  // we were a cover, yay
+  // we found one or more covers, yay
   if(html){
     if(setidx == 1){
+      std::cout << "<h2>" << title << "</h2>" << std::endl;
       std::cout << "<table>" << std::endl;
       std::cout << "<tr><th></th><th>Attack types</th></tr>" << std::endl;
     }
@@ -68,7 +71,8 @@ print_coverset(const int tocc[], int v, const int tvec[][2], int setidx, bool ht
 
 // we are placing n 1s among the last m slots of tocc
 static int
-place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2], int *setidx, bool html){
+place_n_in_m(const std::string &title, int n, int m, const int tocc[],
+             int v, const int tvec[][2], int level, int *setidx, bool html){
   auto tcopy = std::make_unique<int[]>(TYPECOUNT);
   copy_tvec(tcopy.get(), tocc);
   // base case m == 1
@@ -76,7 +80,7 @@ place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2], int *se
     if(n){
       tcopy[TYPECOUNT - m] = 1;
     }
-    int r = print_coverset(tcopy.get(), v, tvec, *setidx, html);
+    int r = print_coverset(title, tcopy.get(), v, tvec, level, *setidx, html);
     if(r){
       ++*setidx;
     }
@@ -85,22 +89,23 @@ place_n_in_m(int n, int m, const int tocc[], int v, const int tvec[][2], int *se
   int ret = 0;
   // test with our bit off unless we must place this bit
   if(n < m){
-    ret += place_n_in_m(n, m - 1, tcopy.get(), v, tvec, setidx, html);
+    ret += place_n_in_m(title, n, m - 1, tcopy.get(), v, tvec, level, setidx, html);
   }
   // test with our bit on if we have a bit to place
   if(n){
     tcopy[TYPECOUNT - m] = 1;
-    ret += place_n_in_m(n - 1, m - 1, tcopy.get(), v, tvec, setidx, html);
+    ret += place_n_in_m(title, n - 1, m - 1, tcopy.get(), v, tvec, level, setidx, html);
   }
   return ret;
 }
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(int n, int v, const int tvec[][2], bool html){
+print_coversets(const std::string &title, int n, int v, const int tvec[][2],
+                int level, bool html){
   int tocc[TYPECOUNT] = {};
   int setidx = 1;
-  int r = place_n_in_m(n, TYPECOUNT, tocc, v, tvec, &setidx, html);
+  int r = place_n_in_m(title, n, TYPECOUNT, tocc, v, tvec, level, &setidx, html);
   if(html && r){
     std::cout << "</table>" << std::endl;
   }
@@ -110,14 +115,14 @@ print_coversets(int n, int v, const int tvec[][2], bool html){
 // print minimal coversets of the monotypes, and for each monotype, the minimal
 // coversets for all monotypes except that one
 static void
-print_complete_coversets(void){
+print_complete_coversets(int level){
   int t[TYPECOUNT][2];
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     t[i][0] = i;
     t[i][1] = i;
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, sizeof(t) / sizeof(*t), t, false);
+    int min = print_coversets(tname_capitalized(j), j, sizeof(t) / sizeof(*t), t, level, false);
     if(min){
       printf("%d coversets of size %d\n", min, j);
       break;
@@ -133,7 +138,7 @@ print_complete_coversets(void){
     prev[1] = t[i][1];
     t[i][0] = t[i][1] = TYPECOUNT; // turn off each one in succession
     for(int j = 1 ; j <= TYPECOUNT ; ++j){
-      int min = print_coversets(j, sizeof(t) / sizeof(*t), t, false);
+      int min = print_coversets("All Pokémon", j, sizeof(t) / sizeof(*t), t, level, false);
       if(min){
         printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
         break;
@@ -196,7 +201,7 @@ print_participants(int tcount, const int t[TYPINGCOUNT][2]){
 
 // print minimal coversets of all typings
 static void
-print_complete_coversets_duals(bool html){
+print_complete_coversets_duals(int level, bool html){
   static int t[TYPINGCOUNT][2];
   int pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -207,7 +212,7 @@ print_complete_coversets_duals(bool html){
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, pos, t, html);
+    int min = print_coversets("All Pokémon", j, pos, t, level, html);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       break;
@@ -220,7 +225,8 @@ print_complete_coversets_duals(bool html){
 // print coverset of all typings including/excluding certain types. t is a
 // TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
-print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][2], bool html){
+print_coversets_duals(const std::string &title, const int *t, bool exclude,
+                      int* pos, int ty[TYPINGCOUNT][2], int level, bool html){
   *pos = 0;
   for(int i = 0 ; i < TYPECOUNT ; ++i){
     for(int j = i ; j < TYPECOUNT ; ++j){
@@ -240,7 +246,7 @@ print_coversets_duals(const int *t, bool exclude, int* pos, int ty[TYPINGCOUNT][
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(j, *pos, ty, html);
+    int min = print_coversets(title, j, *pos, ty, level, html);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       print_participants(*pos, ty);
@@ -327,6 +333,7 @@ int main(int argc, char* const* argv){
   bool exclude = false;
   bool reqcharged = false; // FIXME not yet implemented
   bool html = false;
+  int level = 0; // FIXME allow configuration
   int go;
   while((go = getopt(argc, argv, ":hx:t:")) > 0){
     switch(go){
@@ -363,9 +370,9 @@ int main(int argc, char* const* argv){
   }
   if(argc < 2 || (html && argc == 2)){
     if(!html){
-      print_complete_coversets();
+      print_complete_coversets(level);
     }
-    print_complete_coversets_duals(html);
+    print_complete_coversets_duals(level, html);
     return EXIT_SUCCESS;
   }
   // if an argument remains, it ought be a typelist specifying required typings
@@ -385,6 +392,7 @@ int main(int argc, char* const* argv){
   }
   int pos;
   static int ty[TYPINGCOUNT][2];
-  print_coversets_duals(kern, exclude, &pos, ty, html);
+  // FIXME get better title
+  print_coversets_duals("Custom", kern, exclude, &pos, ty, level, html);
   return EXIT_SUCCESS;
 }
