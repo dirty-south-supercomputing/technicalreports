@@ -276,7 +276,6 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
   fp << "Max CP: " << s.maxcp() << "<br/>";
-  fp << "Attack / Defense: " << (static_cast<float>(s.atk) / s.def) << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
   fp << "Catch reward: " << stardust_reward(s) << " SD<br/>";
   fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
