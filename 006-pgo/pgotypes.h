@@ -1229,6 +1229,22 @@ struct species {
 std::vector<species>::const_iterator species_begin(void);
 std::vector<species>::const_iterator species_end(void);
 
+// does the species s specify a mega form (according to its name)?
+static inline bool
+ismega_p(const species &s){
+#define MEGASTR "Mega "
+  if(!s.name.compare(0, strlen(MEGASTR), MEGASTR)){
+    return true;
+  }
+#undef MEGASTR
+#define PRIMALSTR "Primal "
+  if(!s.name.compare(0, strlen(PRIMALSTR), PRIMALSTR)){
+    return true;
+  }
+#undef PRIMALSTR
+  return false;
+}
+
 // each gmax attack is associated with a single species, which can use only
 // that attack. unit tests verify that the species are valid.
 static gmaxattack*
@@ -1998,13 +2014,20 @@ get_stage(const species &s){
   if(!devol){
     return 1;
   }
+  if(ismega_p(s)){
+    return get_stage(*devol);
+  }
   return get_stage(*devol) + 1;
 }
 
 static bool
 name_in_list(const species &s, const char **l){
+  const char *name = s.name.c_str();
+  if(strncmp(name, "Mega ", 5) == 0){
+    name += 5;
+  }
   for(const char **n = l ; *n ; ++n){
-    if(strcmp(s.name.c_str(), *n) == 0){
+    if(strcmp(name, *n) == 0){
       return true;
     }
   }
@@ -2095,22 +2118,6 @@ get_evolution_count(const species &s, std::vector<const species*>& vec){
     ret += get_evolution_count(*e, vec);
   }
   return ret;
-}
-
-// does the species s specify a mega form (according to its name)?
-static inline bool
-ismega_p(const species &s){
-#define MEGASTR "Mega "
-  if(!s.name.compare(0, strlen(MEGASTR), MEGASTR)){
-    return true;
-  }
-#undef MEGASTR
-#define PRIMALSTR "Primal "
-  if(!s.name.compare(0, strlen(PRIMALSTR), PRIMALSTR)){
-    return true;
-  }
-#undef PRIMALSTR
-  return false;
 }
 
 // return the named charged attack iff s can learn it
