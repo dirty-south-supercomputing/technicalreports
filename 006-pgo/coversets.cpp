@@ -2,46 +2,12 @@
 #include <getopt.h>
 #include <memory>
 
-static void
-copy_tvec(int* tnew, const int tvec[]){
-  for(int i = 0 ; i < TYPECOUNT ; ++i){
-    tnew[i] = tvec[i];
-  }
-}
+using tarray = std::array<bool, TYPECOUNT>;
 
-// level is the filter of effectiveness -- we must be greater
-// tocc: TYPECOUNT-sized vector of ints -- our attacking types
-//  print tocc iff it covers tvec
-// tvec is a v-sized vector of 2-vectors of ints (2v total elements) -- our target typings
-//  if the first int is TYPECOUNT, it's not populated (we don't care)
-//  we must cover each valid typing at level + 1
-static int
-print_coverset(const std::string &title, const int tocc[], int v,
-               const pgo_types_e tvec[][2], int level, int setidx, bool html){
-  for(int i = 0 ; i < v ; ++i){
-    if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
-      int covered = 0;
-      for(pgo_types_e j = TYPESTART ; j < TYPECOUNT ; ++j){
-        if(tocc[j]){ // we have this attacking type; check the typing relation
-          int tr = typing_relation(j, tvec[i][0], tvec[i][1]);
-          if(tr > level){
-            covered = 1;
-            break;
-          }
-        }
-      }
-      if(!covered){
-        return 0;
-      }
-    }
-  }
-  // we found one or more covers, yay
+// tocc -- array indicating membership of attack types in this coverset
+static void
+emit_coverset(const tarray &tocc, int setidx, bool html){
   if(html){
-    if(setidx == 1){
-      std::cout << "<h2>" << title << "</h2>" << std::endl;
-      std::cout << "<table>" << std::endl;
-      std::cout << "<tr><th></th><th></th></tr>" << std::endl;
-    }
     std::cout << "<tr><td>" << setidx << "</td><td>";
     for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
       if(tocc[i]){
@@ -59,50 +25,91 @@ print_coverset(const std::string &title, const int tocc[], int v,
     }
     printf("\n");
   }
+}
+
+static void
+emit_coversets(std::vector<tarray> &tarrays, const std::string &title, bool html){
+  if(tarrays.empty()){
+    return;
+  }
+  if(html){
+    std::cout << "<h2>" << title << "</h2>" << std::endl;
+    std::cout << "<table>" << std::endl;
+    std::cout << "<tr><th></th><th></th></tr>" << std::endl;
+  }
+  int setidx = 1;
+  for(const auto t : tarrays){
+    emit_coverset(t, setidx, html);
+    ++setidx;
+  }
+  if(html){
+    std::cout << "</table>" << std::endl;
+  }
+}
+
+// level is the filter of effectiveness -- we must be greater
+// tocc: TYPECOUNT-sized vector of ints -- our attacking types
+//  print tocc iff it covers tvec
+// tvec is a v-sized vector of 2-vectors of ints (2v total elements) -- our target typings
+//  if the first int is TYPECOUNT, it's not populated (we don't care)
+//  we must cover each valid typing at level + 1
+static int
+print_coverset(const tarray &tocc, int v, const pgo_types_e tvec[][2], int level,
+               std::vector<tarray> &setvec){
+  for(int i = 0 ; i < v ; ++i){
+    if(tvec[i][0] != TYPECOUNT){ // it's populated; ensure we cover
+      int covered = 0;
+      for(pgo_types_e j = TYPESTART ; j < TYPECOUNT ; ++j){
+        if(tocc[j]){ // we have this attacking type; check the typing relation
+          int tr = typing_relation(j, tvec[i][0], tvec[i][1]);
+          if(tr > level){
+            covered = 1;
+            break;
+          }
+        }
+      }
+      if(!covered){
+        return 0;
+      }
+    }
+  }
+  // we found a coverset, yay
+  setvec.emplace_back(tocc);
   return 1;
 }
 
 // we are placing n 1s among the last m slots of tocc
 static int
-place_n_in_m(const std::string &title, int n, int m, const int tocc[],
-             int v, const pgo_types_e tvec[][2], int level, int *setidx, bool html){
-  auto tcopy = std::make_unique<int[]>(TYPECOUNT);
-  copy_tvec(tcopy.get(), tocc);
+place_n_in_m(int n, int m, const tarray &tocc, int v, const pgo_types_e tvec[][2],
+             int level, std::vector<tarray> &setvec){
+  tarray tcopy(tocc);
   // base case m == 1
   if(m == 1){
     if(n){
       tcopy[TYPECOUNT - m] = 1;
     }
-    int r = print_coverset(title, tcopy.get(), v, tvec, level, *setidx, html);
-    if(r){
-      ++*setidx;
-    }
+    int r = print_coverset(tcopy, v, tvec, level, setvec);
     return r;
   }
   int ret = 0;
   // test with our bit off unless we must place this bit
   if(n < m){
-    ret += place_n_in_m(title, n, m - 1, tcopy.get(), v, tvec, level, setidx, html);
+    ret += place_n_in_m(n, m - 1, tcopy, v, tvec, level, setvec);
   }
   // test with our bit on if we have a bit to place
   if(n){
     tcopy[TYPECOUNT - m] = 1;
-    ret += place_n_in_m(title, n - 1, m - 1, tcopy.get(), v, tvec, level, setidx, html);
+    ret += place_n_in_m(n - 1, m - 1, tcopy, v, tvec, level, setvec);
   }
   return ret;
 }
 
 // print the sets of size n or less which cover the specified vector
 static int
-print_coversets(const std::string &title, int n, int v,
-                const pgo_types_e tvec[][2], int level, bool html){
-  int tocc[TYPECOUNT] = {};
-  int setidx = 1;
-  int r = place_n_in_m(title, n, TYPECOUNT, tocc, v, tvec, level, &setidx, html);
-  if(html && r){
-    std::cout << "</table>" << std::endl;
-  }
-  return r;
+gen_coversets(int n, int v, const pgo_types_e tvec[][2], int level,
+              std::vector<tarray> &setvec){
+  tarray tocc{};
+  return place_n_in_m(n, TYPECOUNT, tocc, v, tvec, level, setvec);
 }
 
 // print minimal coversets of the monotypes, and for each monotype, the minimal
@@ -115,7 +122,7 @@ print_complete_coversets(int level){
     t[i][1] = i;
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(tname_capitalized(j), j, sizeof(t) / sizeof(*t), t, level, false);
+    int min = gen_coversets(j, sizeof(t) / sizeof(*t), t, level);
     if(min){
       printf("%d coversets of size %d\n", min, j);
       break;
@@ -131,7 +138,7 @@ print_complete_coversets(int level){
     prev[1] = t[i][1];
     t[i][0] = t[i][1] = TYPECOUNT; // turn off each one in succession
     for(int j = 1 ; j <= TYPECOUNT ; ++j){
-      int min = print_coversets("All Pokémon", j, sizeof(t) / sizeof(*t), t, level, false);
+      int min = gen_coversets(j, sizeof(t) / sizeof(*t), t, level);
       if(min){
         printf("missing %s: %d coversets of size %d\n", tnames[i], min, j);
         break;
@@ -205,7 +212,7 @@ print_complete_coversets_duals(int level, bool html){
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets("All Pokémon", j, pos, t, level, html);
+    int min = gen_coversets(j, pos, t, level);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       break;
@@ -220,6 +227,7 @@ print_complete_coversets_duals(int level, bool html){
 static int
 print_coversets_duals(const std::string &title, const int *t, bool exclude,
                       int *pos, pgo_types_e ty[TYPINGCOUNT][2], int level, bool html){
+  std::vector<tarray> setvec;
   *pos = 0;
   for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
     for(pgo_types_e j = i ; j < TYPECOUNT ; ++j){
@@ -239,9 +247,10 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
     }
   }
   for(int j = 1 ; j <= TYPECOUNT ; ++j){
-    int min = print_coversets(title, j, *pos, ty, level, html);
+    int min = gen_coversets(j, *pos, ty, level, setvec);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
+      emit_coversets(setvec, title, html);
       if(!html){
         print_participants(*pos, ty);
       }
