@@ -85,7 +85,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "</td>";
     fp << "<td>";
     std::string prefix, suffix;
-    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
     fp << "<td>";
     if(a->turns){
@@ -120,7 +120,7 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "</td>";
     fp << "<td>";
     std::string prefix, suffix;
-    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td><td>";
     summarize_buffs_html(fp, *a, prefix, suffix);
     fp << "</td><td>" << prefix << cpow << suffix << "</td>";
@@ -191,7 +191,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     fp << "</td>";
     fp << "<td>";
     std::string prefix, suffix;
-    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){
@@ -218,7 +218,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
     fp << "</td>";
     fp << "<td>";
     std::string prefix, suffix;
-    emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
+    emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
     fp << "<td>";
     if(a->animdur){

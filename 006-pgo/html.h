@@ -27,8 +27,11 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
 }
 
 static inline void
-link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false){
+link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false, bool pardir = false){
   fp << "<a href=\"";
+  if(pardir){
+    fp << "../";
+  }
   if(subdir){
     fp << "attacks/";
   }
@@ -51,7 +54,7 @@ emit_halflevel_as_level(std::ostream &fp, int hlevel){
 static inline void
 emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
                        std::string &prefix, std::string &suffix,
-                       bool pdir = false){
+                       bool subdir = false, bool pardir = false){
   bool stab = has_stab_p(s, a);
   bool excl = exclusive_attack_p(s, a);
   prefix = "";
@@ -65,14 +68,15 @@ emit_html_attack_fancy(std::ostream &o, const species &s, const attack *a,
     suffix = "</b>" + suffix;
   }
   o << prefix;
-  link_to_attack(o, a->name, pdir);
+  link_to_attack(o, a->name, subdir, pardir);
   o << suffix;
 }
 
 static inline void
-emit_html_attack(std::ostream &o, const species &s, const attack *a, bool pdir = false){
+emit_html_attack(std::ostream &o, const species &s, const attack *a,
+                 bool subdir = false, bool pardir = false){
   std::string prefix, suffix;
-  emit_html_attack_fancy(o, s, a, prefix, suffix, pdir);
+  emit_html_attack_fancy(o, s, a, prefix, suffix, subdir, pardir);
 }
 
 // FIXME ugh duplicates summarize_buffs() from latex code
