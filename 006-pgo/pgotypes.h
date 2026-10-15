@@ -940,7 +940,7 @@ static gmaxattack GMaxAttacks[] = {
   { "Cinderace", "G-Max Fireball", TYPE_FIRE, true, },
   { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, false, },
   { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, true, },
-  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, false, },
+  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, true, },
   { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, true, },
   //{ "Sandaconda", "G-Max Sandblast", TYPE_GROUND, false, },
   //{ "Appletun", "G-Max Sweetness", TYPE_GRASS, false, },
