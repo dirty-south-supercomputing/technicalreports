@@ -9,14 +9,20 @@ df <- as.data.frame(html_table(raw))
 rec <- subset(df, Form == name)
 bulk <- sqrt(df[["MHP"]] * df[["EffD"]])
 ourbulk <- sqrt(rec[["MHP"]] * rec[["EffD"]])
-ourgmean <- rec[["Gmean"]]
-ourconf <- rec[["IVxL"]]
-p <- ggplot(data=df, aes(x=bulk, y = Gmean)) +
-  geom_point(colour="grey") +
-  geom_point(aes(x=ourbulk, y=ourgmean), colour="blue") +
+oureffa <- rec[["EffA"]]
+if(args[2] == "ML"){
+  ourconf <- "15-15-15x50"
+}else{
+  ourconf <- rec[["IVxL"]]
+}
+p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=bulk*EffA)) +
+  geom_point(alpha=0.25, aes(colour=bulk*EffA)) +
+  geom_point(aes(x=ourbulk, y=oureffa), colour="black") +
   theme_minimal() + 
-  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="cbrt(Base product)")
+  theme(legend.position="none") +
+  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="EffA")#"cbrt(Base product)")
 print(name)
-png(paste(paste("graphs/", name, args[2], sep=""), ".png", sep=""))
+ename = gsub('%', '', name)
+png(paste(paste("graphs/", ename, args[2], sep=""), ".png", sep=""))
 print(p)
 dev.off()

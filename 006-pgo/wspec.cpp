@@ -18,7 +18,13 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   }
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
-  fp << "<h2>" << league << " IVs ordered by geometric mean</h2>" << std::endl;
+  fp << "<h2>" << league << "</h2>" << std::endl;
+  if(graph){
+    std::string enc;
+    encode_name(s.name, enc, true);
+    fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+  }
+  fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   // FIXME provide an actual stat summary
   fp << "<details><summary>expand table</summary>" << std::endl;
   fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
@@ -66,11 +72,6 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   }while(grank);
   fp << "</table></details>" << std::endl;
   delete[] sets;
-  if(graph){
-    std::string enc;
-    encode_name(s.name, enc, true);
-    fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
-  }
   return ret;
 }
 

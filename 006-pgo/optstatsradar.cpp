@@ -9,7 +9,7 @@ usage(const char *argv0){
 static int
 write_radar(const species &s, int cpceil){
   unsigned ivcount;
-  stats *st = order_ivs(&s, cpceil, statscmp_gmean, &ivcount);
+  stats *st = order_ivs(s, cpceil, statscmp_gmean, &ivcount);
   if(ivcount % IVLEVVEC){
     std::cerr << "unexpected vector count " << ivcount << std::endl;
     throw std::exception();
@@ -48,10 +48,10 @@ int main(int argc, const char **argv){
   // FIXME calculate these!
   std::cout << "Max\t414\t396\t496" << std::endl;
   std::cout << "Min\t17\t32\t1" << std::endl;
-  for(unsigned u = 0 ; u < SPECIESCOUNT ; ++u){
-    write_radar(sdex[u], GLCPCAP);
-    write_radar(sdex[u], ULCPCAP);
-    write_radar(sdex[u], 0);
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    write_radar(*s, GLCPCAP);
+    write_radar(*s, ULCPCAP);
+    write_radar(*s, 0);
   }
   return EXIT_SUCCESS;
 }
