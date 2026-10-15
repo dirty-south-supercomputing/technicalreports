@@ -6,24 +6,72 @@ using tarray = std::array<bool, TYPECOUNT>;
 
 // tocc -- array indicating membership of attack types in this coverset
 static void
-emit_coverset(const tarray &tocc, int setidx, bool html){
+emit_coverset(const std::vector<pgo_types_e> &tocc, int setidx, bool html){
   if(html){
     std::cout << "<tr><td>" << setidx << "</td><td>";
-    for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
-      if(tocc[i]){
-        html_type(std::cout, i);
-        std::cout << ' ';
-      }
+    for(auto p : tocc){
+      html_type(std::cout, p);
+      std::cout << ' ';
     }
     std::cout << "</td></tr>" << std::endl;
   }else{
     printf(" cover: %d ", setidx);
-    for(int i = 0 ; i < TYPECOUNT ; ++i){
-      if(tocc[i]){
-        printf("%s ", tnames[i]);
-      }
+    for(auto p : tocc){
+      printf("%s ", tnames[p]);
     }
     printf("\n");
+  }
+}
+
+// sort the coversets so that the most common types are to the left and ideally
+// in a single column. in particular, any type that shows up in all the coversets
+// must be in the same column in all of them.
+// out is a set of size equal to tarrays, but vectors of types having size equal
+// to the coverset size (i.e. number of occupied elements in the tarrays), sorted.
+// at the conclusion, out is populated, and tarrays is reset to all 0s.
+static void
+organize_coversets(std::vector<tarray> &tarrays, std::vector<std::vector<pgo_types_e>> &out){
+  int counts[TYPECOUNT]{};
+  int maxcount = 0; // count of whichever type shows up the most, <= tarrays.size
+  pgo_types_e bigtype = TYPECOUNT; // type corresponding to maxcount
+  unsigned setsize = 0;
+  for(const auto &t : tarrays){
+    for(pgo_types_e p = TYPESTART ; p < TYPECOUNT ; ++p){
+      if(t[p]){
+        ++setsize;
+        if(++counts[p] > maxcount){
+          maxcount = counts[p];
+          bigtype = p;
+        }
+      }
+    }
+  }
+  if(!setsize){
+    std::cerr << "coversets were empty" << std::endl;
+    throw std::exception();
+  }
+  if(setsize % tarrays.size()){
+    std::cerr << "coversets varied in size" << std::endl;
+    throw std::exception();
+  }
+  setsize /= tarrays.size();
+  // bubble each column. first will be bigtype.
+  while(bigtype != TYPECOUNT){
+std::cerr << tname_capitalized(bigtype) << " count: " << counts[bigtype] << std::endl;
+    for(unsigned i = 0 ; i < tarrays.size() ; ++i){
+      if(tarrays[i][bigtype]){
+        out[i].push_back(bigtype);
+      }
+    }
+    counts[bigtype] = 0;
+    maxcount = 0;
+    bigtype = TYPECOUNT;
+    for(pgo_types_e p = TYPESTART ; p < TYPECOUNT ; ++p){
+      if(counts[p] > maxcount){
+        maxcount = counts[p];
+        bigtype = p;
+      }
+    }
   }
 }
 
@@ -32,14 +80,16 @@ emit_coversets(std::vector<tarray> &tarrays, const std::string &title, bool html
   if(tarrays.empty()){
     return;
   }
+  std::vector<std::vector<pgo_types_e>> out(tarrays.size());
+  organize_coversets(tarrays, out);
   if(html){
     std::cout << "<h2>" << title << "</h2>" << std::endl;
     std::cout << "<table>" << std::endl;
     std::cout << "<tr><th></th><th></th></tr>" << std::endl;
   }
   int setidx = 1;
-  for(const auto t : tarrays){
-    emit_coverset(t, setidx, html);
+  for(const auto &clean : out){
+    emit_coverset(clean, setidx, html);
     ++setidx;
   }
   if(html){
