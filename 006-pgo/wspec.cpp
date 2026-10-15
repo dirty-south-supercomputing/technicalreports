@@ -1,11 +1,21 @@
 #include "html.h"
+#include <cstdlib>
 #include <fstream>
 #include <unistd.h>
 
 // returns true if we ought bother emitting the next highest table, false
 // otherwise. we return true if any cp in the solution set equals the cpbound.
 static bool
-write_iv_table(std::ostream &fp, const species &s, const char *league, int cpbound){
+write_iv_table(std::ostream &fp, const species &s, const char *league,
+               const char *leagueshort, int cpbound){
+  bool graph = !s.name.contains("G-Max"); // FIXME
+  if(graph){
+    std::string cmd = "Rscript ../../gmean.R \"" + s.name + "\" " + leagueshort;
+    if(system(cmd.c_str())){ // ugh
+      std::cerr << "Rscript failed for " << s.name << std::endl;
+      throw std::exception();
+    }
+  }
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
   fp << "<h2>" << league << " IVs ordered by geometric mean</h2>" << std::endl;
@@ -56,17 +66,20 @@ write_iv_table(std::ostream &fp, const species &s, const char *league, int cpbou
   }while(grank);
   fp << "</table></details>" << std::endl;
   delete[] sets;
+  if(graph){
+    fp << "<img src=\"graphs/" << s.name << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+  }
   return ret;
 }
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
-  bool donext = write_iv_table(fp, s, "great league", GLCPCAP);
+  bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
   if(donext){
-    donext = write_iv_table(fp, s, "ultra league", ULCPCAP);
+    donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
   }
   if(donext){
-    donext = write_iv_table(fp, s, "master league", 0);
+    donext = write_iv_table(fp, s, "master league", "ML", 0);
   }
 }
 

@@ -3,7 +3,7 @@ library(rvest)
 library(ggplot2)
 args <- commandArgs(trailingOnly=TRUE)
 name = args[1]
-src <- paste(paste("out/gmean", args[2], sep=""), ".html", sep="")
+src <- paste(paste("../../out/gmean", args[2], sep=""), ".html", sep="")
 raw <- read_html(src)
 df <- as.data.frame(html_table(raw))
 rec <- subset(df, Form == name)
@@ -16,6 +16,6 @@ p <- ggplot(data=df, aes(x=bulk, y = Gmean)) +
   theme_minimal() + 
   labs(title=paste(name, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="cbrt(Base product)")
 print(name)
-png(paste(paste("out/graphs/", name, args[2], sep=""), ".png", sep=""))
+png(paste(paste("graphs/", name, args[2], sep=""), ".png", sep=""))
 print(p)
 dev.off()
