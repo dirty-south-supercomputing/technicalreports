@@ -157,8 +157,12 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
 
 static void
 write_atk_effects(std::ostream &fp, const attack &a){
-  //fp << "<h2>Adventure Effects</h2>" << std::endl;
-  // FIXME
+  auto ae = adventure_effect(a.name);
+  if(ae.empty()){
+    return;
+  }
+  fp << "<h2>Adventure Effect</h2>" << std::endl;
+  fp << ae << std::endl;
 }
 
 // assume we're in the target directory
@@ -181,9 +185,9 @@ write_atk_page(const attack &a){
     fp << " charged";
   }
   fp << "</h1>" << std::endl;
+  write_atk_effects(fp, a);
   write_atk_3x3(fp, a);
   write_atk_Nx1(fp, a);
-  write_atk_effects(fp, a);
   // FIXME moar crap ... populations, similar attacks
   write_footer_and_close(fp);
   return 0;

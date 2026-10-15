@@ -4419,3 +4419,30 @@ const char *species::categorystr(species::species_cat c){
     default: throw std::exception();
   }
 }
+
+std::string adventure_effect(const std::string& name){
+  if(name == ATK_Roar_of_Time.name){
+    return "Pause incense, Lucky Egg, and Star Piece timers.";
+  }else if(name == ATK_Spacial_Rend.name){
+    return "Extend the distance at which wild Pokémon can be encountered.";
+  }else if(name == ATK_Ice_Burn.name){
+    return "Slow down catch circles and enhance catch rate by 50%.";
+  }else if(name == ATK_Freeze_Shock.name){
+    return "Immobilize Pokemon in encounters and enhance catch rate by 25%.";
+  }else if(name == ATK_Sunsteel_Strike.name){
+    return "Spawn and evolve daytime Pokémon.";
+  }else if(name == ATK_Moongeist_Beam.name){
+    return "Spawn and evolve nighttime Pokémon.";
+  }else if(name == ATK_Behemoth_Blade.name){
+    return "Enhance base attack by 10% in raids and 5% in Max Battles.";
+  }else if(name == ATK_Behemoth_Bash.name){
+    return "Enhance base defense by 10% in raids and 5% in Max Battles.";
+  }else if(name == ATK_Dynamic_Punch_Plus.name){
+    return "Break two shields in Super Mega Raids.";
+  }else if(name == ATK_Future_Sight_Plus.name){
+    return "Indicate 3🟉+ Pokémon.";
+  }else if(name == ATK_Dynamax_Cannon.name){
+    return "Boost Max Move levels by one for Dynamax/G-Max Pokémon and Eternatus.";
+  }
+  return "";
+}
