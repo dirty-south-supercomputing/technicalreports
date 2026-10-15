@@ -92,7 +92,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
             if(excl){
               std::cout << "<b>";
             }
-            std::cout << s->name;
+            link_to_name(std::cout, s->name, true);
             if(excl){
               std::cout << "</b>";
             }
