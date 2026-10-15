@@ -176,9 +176,10 @@ static void emit_line(const timetofirst &t, bool configcolumn){
   std::cout << " + ";
   html_type(t.ca->type);
   std::cout << ' ';
-  emit_html_attack(std::cout, *t.s, t.ca, true);
+  std::string prefix, suffix;
+  emit_html_attack_fancy(std::cout, *t.s, t.ca, prefix, suffix, true);
   std::cout << ' ';
-  summarize_buffs_html(std::cout, *t.ca, "", "");
+  summarize_buffs_html(std::cout, *t.ca, prefix, suffix);
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
   std::cout << "<td>" << t.dam << "</td>";

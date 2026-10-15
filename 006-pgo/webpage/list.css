@@ -22,17 +22,31 @@ table.apair tr :nth-child(1) {
   text-align: center;
 }
 
-table.apair tr :nth-child(n+5) {
+table.apair tr>:nth-child(n+5) {
   text-align: right;
   padding: 0 0 0 1em;
 }
 
 /* attack pairs sorted by dankness (two forms, condensed for ML) */
-table.dankstat tr :nth-child(1) {
+table.dankstat tr :nth-child(1) { /* T */
   text-align: center;
 }
 
-table.dankstat tr :nth-child(n+8) {
+table.dankstat tr>:nth-child(2) { /* config */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.dankstat tr>:nth-child(3) { /* form */
+  padding: 0 0 0 1em;
+}
+
+table.dankstat tr>:nth-child(n+4):nth-child(-n+6) { /* HP/EffD/DR */
+  text-align: right;
+  padding: 0 1em 0 0;
+}
+
+table.dankstat tr>:nth-child(n+8) { /* stats */
   text-align: right;
   padding: 0 0 0 1em;
 }

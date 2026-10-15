@@ -77,9 +77,10 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       std::cout << "</td>";
     }
     std::cout << "<td>";
-    if(!strcmp(a->name, "Frustration") || !strcmp(a->name, "Return")){
-      std::cout << shadows << "(" << shadnormals << ")";
-      // FIXME print populations also?
+    if(!strcmp(a->name, "Frustration")){
+      std::cout << shadows << " (all Shadow Pokémon)";
+    }else if(!strcmp(a->name, "Return")){
+      std::cout << shadows << " (all Purified Pokémon)";
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);
@@ -101,7 +102,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
             if(excl){
               std::cout << "<b>";
             }
-            std::cout << s->name;
+            link_to_name(std::cout, s->name, true);
             if(excl){
               std::cout << "</b>";
             }
