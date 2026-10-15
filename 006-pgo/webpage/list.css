@@ -236,6 +236,7 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
 div.intro {
   text-align: justify;
   text-justify: inter-word;
+  font-size: large;
   padding: 1em;
 }
 
