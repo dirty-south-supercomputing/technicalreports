@@ -122,7 +122,7 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true);
     fp << "</td><td>";
-    summarize_buffs_html(fp, a, prefix, suffix);
+    summarize_buffs_html(fp, *a, prefix, suffix);
     fp << "</td><td>" << prefix << cpow << suffix << "</td>";
     fp << "<td>" << prefix << -a->energytrain << suffix << "</td>";
     fp << "<td>" << prefix << (cpow / -a->energytrain) << suffix << "</td>";

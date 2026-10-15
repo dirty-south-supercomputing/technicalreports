@@ -50,7 +50,7 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
-  // FIXME detail buff if charged
+  summarize_buffs_html(fp, a, "<b>Status effect: ", "</b>");
   if(fast_attack_p(a)){
     fp << "<table id=\"fattack3x3\">" << std::endl;
   }else{
@@ -87,6 +87,7 @@ write_atk_3x3(std::ostream &fp, const attack &a){
     write_atk_3x3_row(fp, a, true, i);
   }
   fp << "</table>" << std::endl;
+
 }
 
 static void

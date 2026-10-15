@@ -73,7 +73,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     }
     if(!raid){
       std::cout << "<td>";
-      summarize_buffs_html(std::cout, a, "", "");
+      summarize_buffs_html(std::cout, *a, "", "");
       std::cout << "</td>";
     }
     std::cout << "<td>";

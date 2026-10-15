@@ -77,47 +77,47 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a, bool pdir =
 
 // FIXME ugh duplicates summarize_buffs() from latex code
 static inline void
-summarize_buffs_html(std::ostream &o, const attack *a, const std::string &prefix, const std::string &suffix){
+summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix){
   // need special case A+D as it takes too much space otherwise
   bool printed = false;
-  if(a->chance_user_attack && a->chance_user_attack == a->chance_user_defense
-      && a->user_attack == a->user_defense){
+  if(a.chance_user_attack && a.chance_user_attack == a.chance_user_defense
+      && a.user_attack == a.user_defense){
     printed = true;
     o << prefix;
-    print_buff_html(o, a->chance_user_attack, a->user_attack, "A+D");
+    print_buff_html(o, a.chance_user_attack, a.user_attack, "A+D");
   }else{
-    if(a->chance_user_attack){
+    if(a.chance_user_attack){
       printed = true;
       o << prefix;
-      print_buff_html(o, a->chance_user_attack, a->user_attack, "A");
+      print_buff_html(o, a.chance_user_attack, a.user_attack, "A");
     }
-    if(a->chance_user_defense){
+    if(a.chance_user_defense){
       printed = true;
       o << prefix;
-      print_buff_html(o, a->chance_user_defense, a->user_defense, "D");
+      print_buff_html(o, a.chance_user_defense, a.user_defense, "D");
     }
   }
-  if(a->chance_opp_attack && a->chance_opp_attack == a->chance_opp_defense
-      && a->opp_attack == a->opp_defense){
+  if(a.chance_opp_attack && a.chance_opp_attack == a.chance_opp_defense
+      && a.opp_attack == a.opp_defense){
     if(!printed){
       printed = true;
       o << prefix;
     }
-    print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA+D");
+    print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA+D");
   }else{
-    if(a->chance_opp_attack){
+    if(a.chance_opp_attack){
       if(!printed){
         printed = true;
         o << prefix;
       }
-      print_buff_html(o, a->chance_opp_attack, a->opp_attack, "OA");
+      print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA");
     }
-    if(a->chance_opp_defense){
+    if(a.chance_opp_defense){
       if(!printed){
         printed = true;
         o << prefix;
       }
-      print_buff_html(o, a->chance_opp_defense, a->opp_defense, "OD");
+      print_buff_html(o, a.chance_opp_defense, a.opp_defense, "OD");
     }
   }
   if(printed){

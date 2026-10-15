@@ -136,7 +136,7 @@ static void emit_row(const timetofirst &t){
   std::cout << ' ';
   emit_html_attack(std::cout, *t.s, t.ca, true);
   std::cout << ' ';
-  summarize_buffs_html(std::cout, t.ca, "", "");
+  summarize_buffs_html(std::cout, *t.ca, "", "");
   std::cout << "</td>";
   std::cout << "<td>" << t.turns << "</td>";
   std::cout.precision(1);
