@@ -67,7 +67,9 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "</table></details>" << std::endl;
   delete[] sets;
   if(graph){
-    fp << "<img src=\"graphs/" << s.name << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+    std::string enc;
+    encode_name(s.name, enc, true);
+    fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
   }
   return ret;
 }

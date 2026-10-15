@@ -10,11 +10,12 @@ rec <- subset(df, Form == name)
 bulk <- sqrt(df[["MHP"]] * df[["EffD"]])
 ourbulk <- sqrt(rec[["MHP"]] * rec[["EffD"]])
 ourgmean <- rec[["Gmean"]]
+ourconf <- rec[["IVxL"]]
 p <- ggplot(data=df, aes(x=bulk, y = Gmean)) +
   geom_point(colour="grey") +
   geom_point(aes(x=ourbulk, y=ourgmean), colour="blue") +
   theme_minimal() + 
-  labs(title=paste(name, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="cbrt(Base product)")
+  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="cbrt(Base product)")
 print(name)
 png(paste(paste("graphs/", name, args[2], sep=""), ".png", sep=""))
 print(p)
