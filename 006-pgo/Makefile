@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all extra preview testsimul clean test testdb testsimullong web
+.PHONY: all extra preview testsimul clean test testdb testsimullong web graphs
 .DEFAULT_GOAL:=all
 
 CPP:=clang++
@@ -463,6 +463,11 @@ $(TIMETOFIRSTTEX): $(basename $(TIMETOFIRSTTEX))
 $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
+
+graphs: $(OUT)/graphs/BulbasaurGL.png
+$(OUT)/graphs/BulbasaurGL.png: gmeangraphs gmean.R
+	@mkdir -p $(@D)
+	./$(<)
 
 $(SIMULOUT): $(SIMUL)
 	@mkdir -p $(@D)
