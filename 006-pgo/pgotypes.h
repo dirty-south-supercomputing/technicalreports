@@ -891,7 +891,7 @@ static const attack ATK_Zap_Cannon_Plus = { "Zap Cannon+", TYPE_ELECTRIC, 70, -4
 // return the dmax attack type corresponding to this fast attack. it is simply
 // the attack's type, except for Hidden Power, which always maps to Normal.
 static inline pgo_types_e
-dmax_attack_type(const attack* a){
+dmax_attack_type(const attack *a){
   if(a == &ATK_Hidden_Power){
     return TYPE_NORMAL;
   }

@@ -247,6 +247,14 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
+#dynafast tr>:nth-child(1) { /* T */
+  text-align: center;
+}
+
+#dynafast tr>:nth-child(4) { /* turns */
+  text-align: right;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;
