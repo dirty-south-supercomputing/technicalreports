@@ -18,7 +18,7 @@ static inline float halfbuff(int chance, int bufflevel){
   }else if(b < 1){
     b = 1 - ((1 - b) / 2);
   }
-  std::cerr << "b: " << b << " halfbuff: " << (b * (chance / 1000.0)) << std::endl;
+  //std::cerr << "b: " << b << " halfbuff: " << (b * (chance / 1000.0)) << std::endl;
   return b * (chance / 1000.0);
 }
 
@@ -62,7 +62,7 @@ struct timetofirst {
       mhp = calc_mhp(s->sta + is, hlevel);
       bulk = sqrt(mhp * effd * halfbuff(ca->chance_user_defense, ca->user_defense));
       pppt = (damimg * bulk) / pow(turns, 0.7);
-      std::cerr << S->name << " damimg: " << damimg << " bulk: " << bulk << " pppt: " << pppt << std::endl;
+      //std::cerr << S->name << " damimg: " << damimg << " bulk: " << bulk << " pppt: " << pppt << std::endl;
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {

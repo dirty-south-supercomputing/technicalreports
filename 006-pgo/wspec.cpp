@@ -530,7 +530,6 @@ write_summary(std::ostream &fp, const species &s){
   }
   fp << "</td>";
   fp << "<td>";
-  // for gmax, show logo instead of checkmark
   if(s.dmax){
     fp << "✓";
   }

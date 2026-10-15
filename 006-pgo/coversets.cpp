@@ -38,8 +38,9 @@ print_coverset(const std::string &title, const int tocc[], int v,
   // we found one or more covers, yay
   if(html){
     if(setidx == 1){
+      std::cout << "<h2>" << title << "</h2>" << std::endl;
       std::cout << "<table>" << std::endl;
-      std::cout << "<tr><th></th><th>" << title << "</th></tr>" << std::endl;
+      std::cout << "<tr><th></th><th></th></tr>" << std::endl;
     }
     std::cout << "<tr><td>" << setidx << "</td><td>";
     for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){

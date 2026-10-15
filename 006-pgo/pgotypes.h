@@ -1019,6 +1019,7 @@ struct species {
     CAT_MYTHICAL,
     CAT_LEGENDARY,
     CAT_FUSION,
+    CAT_CROWNED,
     CAT_ULTRABEAST,
     CAT_BABY,
     CAT_PARADOX,
@@ -1200,18 +1201,10 @@ struct species {
     }
   }
 
+  static const char *categorystr(species::species_cat c);
+
   const char *categorystr() const {
-    switch(category){
-      case CAT_NORMAL: return "";
-      case CAT_MYTHICAL: return "Mythical";
-      case CAT_LEGENDARY: return "Legendary";
-      case CAT_FUSION: return "Fusion";
-      case CAT_ULTRABEAST: return "Ultra Beast";
-      case CAT_BABY: return "Baby";
-      case CAT_PARADOX: return "Paradox";
-      case CAT_FPARTNER: return "First Partner";
-      default: throw std::exception();
-    }
+    return categorystr(category);
   }
 
   // return LaTeX-ready string corresponding to region in which this form
@@ -2064,7 +2057,9 @@ name_in_list(const species &s, const char **l){
 static inline unsigned
 stardust_reward(const species &s){
   // some legendaries are technically evolutions, but they ought be 100 across the board
-  if(s.category == species::CAT_LEGENDARY || s.category == species::CAT_FUSION){
+  if(s.category == species::CAT_LEGENDARY
+      || s.category == species::CAT_FUSION
+      || s.category == species::CAT_CROWNED){
     return 100;
   }
   if(s.name == "Audino"){
@@ -2559,7 +2554,7 @@ std::vector<const attack*>::const_iterator attacks_end(void);
 void emit_attack(const species &s, const attack *a);
 void summarize_buffs(const attack *a);
 
-const char* tname_capitalized(pgo_types_e t);
+const char *tname_capitalized(pgo_types_e t);
 
 static inline const char*
 tname_capitalized(int i){

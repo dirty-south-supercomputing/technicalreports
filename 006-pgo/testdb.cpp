@@ -87,6 +87,7 @@ test_species(const species &s){
     case species::CAT_MYTHICAL:
     case species::CAT_LEGENDARY:
     case species::CAT_FUSION:
+    case species::CAT_CROWNED:
     case species::CAT_ULTRABEAST:
       if(s.a2cost != 100){
         std::cerr << "expected cost 100, got " << s.a2cost << " for " << s.name << std::endl;

@@ -4023,13 +4023,13 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  888, "Zacian Crowned Sword", TYPE_FAIRY, TYPE_STEEL, 332, 240, 192, "Zacian",
 		{ &ATK_Metal_Claw, &ATK_Air_Slash, &ATK_Play_Rough, &ATK_Close_Combat, &ATK_Giga_Impact, &ATK_Behemoth_Blade, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_CROWNED, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  889, "Zamazenta", TYPE_FIGHTING, TYPECOUNT, 254, 236, 192, "",
 		{ &ATK_Quick_Attack, &ATK_Metal_Claw, &ATK_Snarl, &ATK_Ice_Fang, &ATK_Iron_Head, &ATK_Moonblast, &ATK_Close_Combat, &ATK_Crunch, },
 		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  889, "Zamazenta Crowned Shield", TYPE_FIGHTING, TYPE_STEEL, 250, 292, 192, "Zamazenta",
 		{ &ATK_Metal_Claw, &ATK_Ice_Fang, &ATK_Moonblast, &ATK_Close_Combat, &ATK_Giga_Impact, &ATK_Behemoth_Bash, },
-		true, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_CROWNED, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  890, "Eternatus", TYPE_DRAGON, TYPE_POISON, 278, 192, 268, "",
 		{ &ATK_Dragon_Tail, &ATK_Poison_Jab, &ATK_Sludge_Bomb, &ATK_Dragon_Pulse, &ATK_Flamethrower, &ATK_Dynamax_Cannon, },
 		false, false, 0, { &ATK_Dynamax_Cannon, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -4403,4 +4403,19 @@ std::vector<species>::const_iterator species_begin(void){
 
 std::vector<species>::const_iterator species_end(void){
   return sdex.cend();
+}
+
+const char *species::categorystr(species::species_cat c){
+  switch(c){
+    case CAT_NORMAL: return "";
+    case CAT_MYTHICAL: return "Mythical";
+    case CAT_LEGENDARY: return "Legendary";
+    case CAT_FUSION: return "Fusion";
+    case CAT_CROWNED: return "Crowned";
+    case CAT_ULTRABEAST: return "Ultra Beast";
+    case CAT_BABY: return "Baby";
+    case CAT_PARADOX: return "Paradox";
+    case CAT_FPARTNER: return "First Partner";
+    default: throw std::exception();
+  }
 }
