@@ -15,14 +15,14 @@ if(args[2] == "ML"){
 }else{
   ourconf <- rec[["IVxL"]]
 }
-p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=bulk*EffA)) +
-  geom_point(alpha=0.25, aes(colour=bulk*EffA)) +
-  geom_point(aes(x=ourbulk, y=oureffa), colour="black") +
+p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=(EffD*MHP*EffA))) +
+  geom_point(alpha=0.1) +
+  geom_point(aes(x=ourbulk, y=oureffa), colour="black", size=2) +
   theme_minimal() + 
   theme(legend.position="none") +
-  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="EffA")#"cbrt(Base product)")
+  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="EffA")
 print(name)
-ename = gsub('%', '', name)
+ename = gsub('[% ]', '', name)
 png(paste(paste("graphs/", ename, args[2], sep=""), ".png", sep=""))
 print(p)
 dev.off()

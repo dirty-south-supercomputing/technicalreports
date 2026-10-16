@@ -189,11 +189,9 @@ write_footer_and_close(std::ofstream &fp){
 }
 
 static inline void
-encode_name(const std::string &s, std::string &encname, bool encspace = false){
+encode_name(const std::string &s, std::string &encname){
   for(char c : s){
-    if(c == ' ' && encspace){
-      encname += "%20";
-    }else if(!isspace(c) && (c == '+' || !ispunct(c))){
+    if(!isspace(c) && (c == '+' || !ispunct(c))){
       encname.push_back(c);
     }
   }

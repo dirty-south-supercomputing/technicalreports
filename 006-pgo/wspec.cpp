@@ -21,7 +21,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<h2>" << league << "</h2>" << std::endl;
   if(graph){
     std::string enc;
-    encode_name(s.name, enc, true);
+    encode_name(s.name, enc);
     fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
   }
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
