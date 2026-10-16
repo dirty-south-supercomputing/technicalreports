@@ -134,7 +134,6 @@ OPTSTATSR:=optstats.R
 OPTSTATSPDF:=$(OUT)/optstats.pdf
 OPTSTATSRADARDAT:=$(OUT)/optstatsradar.r
 OPTSTATSRADARR:=optstatsradar.R
-OPTSTATSRADARPDF:=$(OUT)/optstatsradar.pdf
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
 	$(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
@@ -185,19 +184,7 @@ $(FHUNDOMLTEX): $(FUNCTIONALHUNDO)
 	@mkdir -p $(@D)
 	$< > $@
 
-$(OPTSTATSRADARPDF): $(OPTSTATSRADARR) $(OPTSTATSRADARDAT)
-	@mkdir -p $(@D)
-	Rscript $<
-
 $(OPTSTATSRADARDAT): $(OUT)/optstatsradar
-	@mkdir -p $(@D)
-	$< > $@
-
-$(OPTSTATSPDF): $(OPTSTATSR) $(OPTSTATSDAT)
-	@mkdir -p $(@D)
-	Rscript $<
-
-$(OPTSTATSDAT): $(OUT)/optstats
 	@mkdir -p $(@D)
 	$< > $@
 
@@ -216,7 +203,7 @@ $(WEB)/index.html: $(WEBSRC)/index.html
 	@mkdir -p $(@D)
 	cp -a $< $@
 
-$(WEB)/mon/index.html: $(OUT)/wspec
+$(WEB)/mon/index.html: $(OUT)/wspec $(OPTSTATSRADARDAT)
 	@mkdir -p $(@D)
 	$(<) $(@D)
 

@@ -7,7 +7,7 @@ usage(const char *argv0){
 }
 
 static int
-write_radar(const species &s, int cpceil){
+write_radar(const species &s, const char *lshort, int cpceil){
   unsigned ivcount;
   stats *st = order_ivs(s, cpceil, statscmp_gmean, &ivcount);
   if(ivcount % IVLEVVEC){
@@ -29,10 +29,7 @@ write_radar(const species &s, int cpceil){
     highhp = stt->mhp > highhp ? stt->mhp : highhp;
   }
   delete[] st;
-  std::cout << s.name;
-  if(cpceil){
-    std::cout << cpceil;
-  }
+  std::cout << s.name << lshort;
   std::cout << "\t" << round(higha) << "\t" << round(highd) << "\t" << highhp << std::endl;
   return 0;
 }
@@ -44,14 +41,33 @@ int main(int argc, const char **argv){
   if(argc != 1){
     usage(argv0);
   }
-  std::cout << "Pokémon\tATK\tDEF\tMHP" << std::endl;
+  std::cout << "Form\tATK\tDEF\tMHP" << std::endl;
   // FIXME calculate these!
-  std::cout << "Max\t414\t396\t496" << std::endl;
-  std::cout << "Min\t17\t32\t1" << std::endl;
+  // pheromosa, bastiodon, chansey
+  std::cout << "MaxGL\t186.99\t252.93\t421" << std::endl;
+  // feebas, wigglybuff, shedinja
+  std::cout << "MinGL\t36.97\t39.49\t13" << std::endl;
+  // pheromosa, bastiodon, chansey
+  std::cout << "MaxUL\t239.73\t252.93\t421" << std::endl;
+  /// feebas, wigglybuff, shedinja
+  std::cout << "MinUL\t36.97\t39.49\t13" << std::endl;
+  // deoxys attack, deoxys defense, chansey
+  std::cout << "MaxML\t360.49\t289.90\t421" << std::endl;
+  /// feebas, wigglybuff, shedinja
+  std::cout << "MinML\t36.97\t39.49\t13" << std::endl;
+  std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    write_radar(*s, GLCPCAP);
-    write_radar(*s, ULCPCAP);
-    write_radar(*s, 0);
+    write_radar(*s, "GL", GLCPCAP);
+    write_radar(*s, "UL", ULCPCAP);
+    write_radar(*s, "ML", 0);
+    for(const auto &m : s->mforms){
+      megas.emplace_back(&*s, m);
+    }
+  }
+  for(auto s : megas){
+    write_radar(s, "GL", GLCPCAP);
+    write_radar(s, "UL", ULCPCAP);
+    write_radar(s, "ML", 0);
   }
   return EXIT_SUCCESS;
 }

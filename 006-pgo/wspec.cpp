@@ -15,6 +15,11 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
       std::cerr << "Rscript failed for " << s.name << std::endl;
       throw std::exception();
     }
+    std::string radar = "Rscript ../../optstatsradar.R \"" + s.name + "\" " + leagueshort;
+    if(system(radar.c_str())){ // ugh
+      std::cerr << "Rscript radar failed for " << s.name << std::endl;
+      throw std::exception();
+    }
   }
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
@@ -23,6 +28,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
     std::string enc;
     encode_name(s.name, enc);
     fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+    fp << "<img src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
   }
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   // FIXME provide an actual stat summary
