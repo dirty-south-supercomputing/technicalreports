@@ -48,6 +48,7 @@ int main(int argc, const char **argv){
     std::cerr << "error changing directory to " << argv[1] << ": " << strerror(errno) << std::endl;
     usage(argv[0], EXIT_FAILURE);
   }
+  // FIXME parallelize this abortion
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(write_mon_graphs(*s)){
       return EXIT_FAILURE;
