@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all extra preview testsimul clean test testdb testsimullong web
+.PHONY: all extra preview testsimul clean test testdb testsimullong web graphs
 .DEFAULT_GOAL:=all
 
 CPP:=clang++
@@ -203,9 +203,13 @@ $(WEB)/index.html: $(WEBSRC)/index.html
 	@mkdir -p $(@D)
 	cp -a $< $@
 
-$(WEB)/mon/index.html: $(OUT)/wspec $(OPTSTATSRADARDAT)
+$(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
+
+graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT)
+	@mkdir -p $(WEB)/mon/graphs
+	$(<) $(WEB)/mon
 
 $(WEB)/attacks/index.html: $(OUT)/aspec
 	@mkdir -p $(@D)

@@ -22,7 +22,7 @@ p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=(EffD*MHP*EffA))) +
   theme(legend.position="none") +
   labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="EffA")
 print(name)
-ename = gsub('[% ]', '', name)
+ename = gsub('[% \']', '', name)
 png(paste(paste("graphs/", ename, args[2], sep=""), ".png", sep=""))
 print(p)
 dev.off()

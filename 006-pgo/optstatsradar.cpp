@@ -29,7 +29,7 @@ write_radar(const species &s, const char *lshort, int cpceil){
     highhp = stt->mhp > highhp ? stt->mhp : highhp;
   }
   delete[] st;
-  std::cout << s.name << lshort;
+  std::cout << '\"' << s.name << lshort << '\"';
   std::cout << "\t" << round(higha) << "\t" << round(highd) << "\t" << highhp << std::endl;
   return 0;
 }

@@ -3,33 +3,27 @@
 #include <fstream>
 #include <unistd.h>
 
+static void
+write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
+  std::string enc;
+  if(s.name.starts_with("G-Max")){
+    encode_name(s.name.substr(5), enc);
+  }else{
+    encode_name(s.name, enc);
+  }
+  fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+  fp << "<img src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
+}
+
 // returns true if we ought bother emitting the next highest table, false
 // otherwise. we return true if any cp in the solution set equals the cpbound.
 static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
                const char *leagueshort, int cpbound){
-  bool graph = !s.name.contains("G-Max"); // FIXME
-  if(graph){
-    std::string cmd = "Rscript ../../gmean.R \"" + s.name + "\" " + leagueshort;
-    if(system(cmd.c_str())){ // ugh
-      std::cerr << "Rscript failed for " << s.name << std::endl;
-      throw std::exception();
-    }
-    std::string radar = "Rscript ../../optstatsradar.R \"" + s.name + "\" " + leagueshort;
-    if(system(radar.c_str())){ // ugh
-      std::cerr << "Rscript radar failed for " << s.name << std::endl;
-      throw std::exception();
-    }
-  }
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
   fp << "<h2>" << league << "</h2>" << std::endl;
-  if(graph){
-    std::string enc;
-    encode_name(s.name, enc);
-    fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
-    fp << "<img src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
-  }
+  write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   // FIXME provide an actual stat summary
   fp << "<details><summary>expand table</summary>" << std::endl;

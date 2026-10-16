@@ -5,7 +5,7 @@ args <- commandArgs(trailingOnly=TRUE)
 name = args[1]
 lshort = args[2]
 data = read.table("../../out/optstatsradar.r", sep="\t", header=TRUE)
-ename = gsub('[ %]', '', name)
+ename = gsub('[ \'%]', '', name)
 png(paste("graphs/", ename, lshort, "Radar.png", sep=""))
 rec <- subset(data, Form==paste(name, lshort, sep=""))
 #par(mfrow=c(3, 3))
