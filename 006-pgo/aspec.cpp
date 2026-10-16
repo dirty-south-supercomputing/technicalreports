@@ -2,8 +2,6 @@
 #include <fstream>
 #include <unistd.h>
 
-static const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "teneg2", };
-
 static void
 write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
   fp << "<tr><td>";

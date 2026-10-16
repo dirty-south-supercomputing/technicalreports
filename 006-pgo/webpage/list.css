@@ -119,6 +119,11 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
+#typesara tr>:nth-child(n+2) { /* all but T */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 #typesdra tr>:nth-child(n+2):nth-child(-n+8) { /* table of typings by DRA */
   text-align: right;
 }

@@ -127,6 +127,7 @@ SIMULOUT:=$(OUT)/simulout.lst
 SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
 LATEXOBJ:=$(OUT)/latex.o
+HTMLOBJ:=$(OUT)/html.o
 PGOOBJ:=$(OUT)/pgo.o
 OPTSTATSDAT:=$(OUT)/optstats.r
 OPTSTATSR:=optstats.R
@@ -484,9 +485,9 @@ $(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(PGOOBJ)
+$(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
-	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(LATEXOBJ) $(PGOOBJ) -lm
+	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
 $(OUT)/%.o: %.cpp pgotypes.h
 	@mkdir -p $(@D)

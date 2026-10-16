@@ -85,8 +85,12 @@ emit_cand_html(const candidate& c, unsigned maxp){
     std::cout << "</i>";
   }
   std::cout << "</td>";
+  std::cout << std::setprecision(0) << std::fixed;
+  for(int i = -3 ; i < 3 ; ++i){
+    std::cout << "<td class=\"" << css[i + 3] << "\">" << (rp * type_effectiveness_mult(i)) << "</td>";
+  }
   std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>";
-  std::cout << std::setprecision(0) << std::fixed << "<td>" << rp << "</td>";
+  std::cout << std::setprecision(0) << std::fixed;
   std::cout << "</tr>" << std::endl;
 }
 
@@ -97,7 +101,11 @@ int emit_dynamax_unified_table(int count, bool html){
   if(html){
     std::cout << "<table class=\"evenshade dynas\">" << std::endl;
     std::cout << "<tr>";
-    std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th><th>Relative</th><th>Absolute</th>";
+    std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th>";
+    for(int i = -3 ; i < 3 ; ++i){
+      std::cout << "<th>P<sub>" << i << "</sub></th>";
+    }
+    std::cout << "<th>Relative</th>";
     std::cout << "</tr>" << std::endl;
   }else{
     std::cout << "\\begin{table}\\centering\\footnotesize";
