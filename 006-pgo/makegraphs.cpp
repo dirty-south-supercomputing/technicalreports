@@ -49,8 +49,17 @@ int main(int argc, const char **argv){
     usage(argv[0], EXIT_FAILURE);
   }
   // FIXME parallelize this abortion
+  std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(write_mon_graphs(*s)){
+      return EXIT_FAILURE;
+    }
+    for(const auto &m : s->mforms){
+      megas.emplace_back(&*s, m);
+    }
+  }
+  for(const auto &speg : megas){
+    if(write_mon_graphs(speg)){
       return EXIT_FAILURE;
     }
   }

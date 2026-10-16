@@ -17,8 +17,11 @@ encode_name(std::ostream &fp, const std::string &s){
 }
 
 static inline void
-link_to_name(std::ostream &fp, const std::string &s, bool subdir = false){
+link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, bool pardir = false){
   fp << "<a href=\"";
+  if(pardir){
+    fp << "../";
+  }
   if(subdir){
     fp << "mon/";
   }

@@ -163,6 +163,41 @@ write_atk_effects(std::ostream &fp, const attack &a){
   fp << ae << std::endl;
 }
 
+static void
+write_atk_user(std::ostream &fp, const std::string &s, bool &printed){
+  if(!printed){
+    fp << ", ";
+    printed = true;
+  }
+  link_to_name(fp, s, true, true);
+}
+
+static void
+write_atk_users(std::ostream &fp, const attack &a){
+  fp << "<h2>users</h2>" << std::endl;
+  bool printed = false;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    bool matched = false;
+    for(const auto sa : s->attacks){
+      if(a.name == sa->name){
+        matched = true;
+        write_atk_user(fp, s->name, printed);
+        for(const auto &m : s->mforms){
+          write_atk_user(fp, m.name, printed);
+        }
+        break;
+      }
+    }
+    if(!matched){
+      for(const auto &m : s->mforms){
+        if(m.plusatk && m.plusatk->name == a.name){
+          write_atk_user(fp, m.name, printed);
+        }
+      }
+    }
+  }
+}
+
 // assume we're in the target directory
 static int
 write_atk_page(const attack &a){
@@ -186,7 +221,8 @@ write_atk_page(const attack &a){
   write_atk_effects(fp, a);
   write_atk_3x3(fp, a);
   write_atk_Nx1(fp, a);
-  // FIXME moar crap ... populations, similar attacks
+  // FIXME moar crap ... similar attacks, graphs
+  write_atk_users(fp, a);
   write_footer_and_close(fp);
   return 0;
 }
