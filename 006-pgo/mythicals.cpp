@@ -16,11 +16,11 @@ emit_cat_table(species::species_cat cat){
   encode_catstr(species::categorystr(cat));
   std::cout << "\">" << std::endl;
   std::cout << "<tr><th>Dex#</th><th>T</th><th>Form</th><th>";
-  std::cout << "<img src=\"../images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
+  std::cout << "<img src=\"images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
   std::cout << "</th><th>";
-  std::cout << "<img src=\"../images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
+  std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
   std::cout << "</th><th>";
-  std::cout << "<img src=\"../images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
+  std::cout << "<img src=\"images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
   std::cout << "</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->category == cat){
