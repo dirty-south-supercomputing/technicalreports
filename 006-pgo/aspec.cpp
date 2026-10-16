@@ -164,12 +164,25 @@ write_atk_effects(std::ostream &fp, const attack &a){
 }
 
 static void
-write_atk_user(std::ostream &fp, const std::string &s, bool &printed){
-  if(!printed){
+write_atk_user(std::ostream &fp, const std::string &s, bool &printed, bool elitetm, bool stab){
+  if(printed){
     fp << ", ";
+  }else{
     printed = true;
   }
+  if(elitetm){
+    fp << "<b>";
+  }
+  if(!stab){
+    fp << "<i>";
+  }
   link_to_name(fp, s, true, true);
+  if(!stab){
+    fp << "</i>";
+  }
+  if(elitetm){
+    fp << "</b>";
+  }
 }
 
 static void
@@ -181,9 +194,12 @@ write_atk_users(std::ostream &fp, const attack &a){
     for(const auto sa : s->attacks){
       if(a.name == sa->name){
         matched = true;
-        write_atk_user(fp, s->name, printed);
+        bool stab = has_stab_p(*s, &a);
+        bool elitetm = exclusive_attack_p(*s, &a);
+        write_atk_user(fp, s->name, printed, elitetm, stab);
         for(const auto &m : s->mforms){
-          write_atk_user(fp, m.name, printed);
+          stab = has_stab_p({&*s, m}, &a);
+          write_atk_user(fp, m.name, printed, elitetm, stab);
         }
         break;
       }
@@ -191,7 +207,8 @@ write_atk_users(std::ostream &fp, const attack &a){
     if(!matched){
       for(const auto &m : s->mforms){
         if(m.plusatk && m.plusatk->name == a.name){
-          write_atk_user(fp, m.name, printed);
+          bool stab = has_stab_p({&*s, m}, &a);
+          write_atk_user(fp, m.name, printed, false, stab);
         }
       }
     }
