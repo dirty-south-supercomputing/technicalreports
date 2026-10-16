@@ -267,6 +267,10 @@ div.intro {
   padding: 1em;
 }
 
+#philo {
+  background-color: #ddd;
+}
+
 /* type effectiveness colors */
 .teneg3 {
   background-color: #d0ffd0;
