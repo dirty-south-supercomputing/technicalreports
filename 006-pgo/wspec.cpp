@@ -485,7 +485,7 @@ write_evol(std::ostream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
-static unsigned
+/*static unsigned
 fast_attacks_req(int energy, const attack *a, const attack *ca){
   int req = -ca->energytrain - energy;
   if(req < 0){
@@ -605,7 +605,7 @@ write_mon_pacing(std::ostream &fp, const species &s){
   }
   fp << "</table>" << std::endl;
   fp << "</details>" << std::endl;
-}
+}*/
 
 static int
 write_mon_page(const species &s){
@@ -627,7 +627,7 @@ write_mon_page(const species &s){
   write_atk_effectiveness(fp, s);
   write_mon_attacks_3x3(fp, s);
   write_mon_attacks_nx1(fp, s);
-  write_mon_pacing(fp, s);
+  //write_mon_pacing(fp, s);
   write_iv_tables(fp, s);
   // FIXME moar crap ... counters, attack sets, time to first charged attack
   write_footer_and_close(fp);
