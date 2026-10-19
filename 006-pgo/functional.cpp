@@ -1,7 +1,8 @@
 #include "html.h"
 
+// FIXME sort this table
 static void
-functional_hundos(int cplimit){
+functional_hundos(int cplimit, int cpthresh){
   std::cout << "<table class=\"evenshade\" id=\"functional\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
@@ -9,7 +10,7 @@ functional_hundos(int cplimit){
     auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_gmean);
     float gmean = st->geommean;
     auto tmp = st->next;
-    if(tmp){
+    if(tmp && calc_pok_cp(st) > cpthresh){
       std::cout << "<tr><td>" << st->s->name << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';
       emit_halflevel_as_level(std::cout, st->hlevel);
       std::cout << " (" << calc_pok_cp(st) << ")" << "</td><td>";
@@ -44,6 +45,12 @@ int main(int argc, char **argv){
       return EXIT_FAILURE;
     }
   }
-  functional_hundos(cplimit);
+  int cpthresh = ULCPCAP; // FIXME ugh this is all bad
+  if(cplimit == ULCPCAP){
+    cpthresh = GLCPCAP;
+  }else if(cplimit == GLCPCAP){
+    cpthresh = 0;
+  }
+  functional_hundos(cplimit, cpthresh);
   return EXIT_SUCCESS;
 }
