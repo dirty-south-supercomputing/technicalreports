@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <unistd.h>
+#include <algorithm>
 
 static void
 write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
@@ -484,10 +485,120 @@ write_evol(std::ostream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
+static unsigned
+fast_attacks_req(int energy, const attack *a, const attack *ca){
+  int req = -ca->energytrain - energy;
+  if(req < 0){
+    req = 0;
+  }
+  int n = req / a->energytrain;
+  if(n * a->energytrain < req){
+    ++n;
+  }
+  assert(n * a->energytrain >= req);
+  return n;
+}
+
+// we get a record of charged moves. we must recover the number of fast
+// moves, which is thankfully deterministic.
+static void
+dump_sim(std::ostream &fp, const attack *fa, const std::vector<const attack*> &hist){
+  int energy = 0;
+  for(const auto a : hist){
+    auto fn = fast_attacks_req(energy, fa, a);
+    energy += fn * fa->energytrain;
+    energy += a->energytrain;
+    fp << fn << "x + " << a->name << " (" << energy << ") ";
+  }
+  fp << "<br/>";
+}
+
+// we want to go through all possible cycles. it's a cycle if we ever repeat a
+// remainder following a charged attack.
+static void
+sim_pacing(std::ostream &fp, std::vector<int> &mods,
+           std::vector<const attack*> &hist,
+           const attack *a, const attack *c1,const attack *c2){
+  // determine number of fast attacks [0..n] necessary to get to the next
+  // charged attack for each CA. add it to hist, and compute new energy.
+  // if energy is not in mods, add it to mods and recurse. if it is, dump
+  // history and recurse no further.
+  int energy = mods.back();
+  auto cf = fast_attacks_req(energy, a, c1);
+  hist.push_back(c1);
+  energy += cf * a->energytrain;
+  energy += c1->energytrain;
+  if(std::ranges::contains(mods, energy)){
+    dump_sim(fp, a, hist);
+  }else{
+    mods.push_back(energy);
+    sim_pacing(fp, mods, hist, a, c1, c2);
+    mods.pop_back();
+  }
+  hist.pop_back();
+  energy = mods.back();
+  cf = fast_attacks_req(energy, a, c2);
+  hist.push_back(c2);
+  energy += cf * a->energytrain;
+  energy += c2->energytrain;
+  if(std::ranges::contains(mods, energy)){
+    dump_sim(fp, a, hist);
+  }else{
+    mods.push_back(energy);
+    sim_pacing(fp, mods, hist, a, c1, c2);
+    mods.pop_back();
+  }
+  hist.pop_back();
+}
+
 static void
 write_mon_pacing(std::ostream &fp, const species &s){
-  fp << "<h2>pacing</h2>" << std::endl;
-  // FIXME
+  fp << "<h2>pacing (3x3 stats)</h2>" << std::endl;
+  // we first partition into fast and charged attacks. then, for each fast
+  // attack, run the pacing with each pair of two charged attacks (unless
+  // only one charged attack can be learned, in which case just do that).
+  // we do not bother with single charged attack configurations otherwise.
+  std::vector<const attack*> fas, cas;
+  for(const auto a : s.attacks){
+    if(fast_attack_p(*a)){
+      fas.push_back(a);
+    }else{
+      cas.push_back(a);
+    }
+  }
+  // if they have a shadow, we ought handle Return by adding it to cas FIXME
+  if(cas.size() == 1){
+    // FIXME
+  }
+  // FIXME include ARAs?
+  fp << "<table class=\"evenshade\" id=\"monpacing\">" << std::endl;
+  fp << "<tr><th>Attacks</th><th>Pacing</th></tr>" << std::endl;
+  for(const auto a : fas){
+    for(unsigned c1idx = 0 ; c1idx < cas.size() ; ++c1idx){
+      const auto *c1 = cas[c1idx];
+      for(unsigned c2idx = c1idx + 1 ; c2idx < cas.size() ; ++c2idx){
+        const auto *c2 = cas[c2idx];
+        fp << "<tr><td>";
+        html_type_pdir(fp, a->type);
+        fp << ' ';
+        link_to_attack(fp, a->name, true, true);
+        fp << " (" << a->energytrain << ") +<br/>";
+        html_type_pdir(fp, c1->type);
+        fp << ' ';
+        link_to_attack(fp, c1->name, true, true);
+        fp << " (" << -c1->energytrain << ") / ";
+        html_type_pdir(fp, c2->type);
+        fp << ' ';
+        link_to_attack(fp, c2->name, true, true);
+        fp << " (" << -c2->energytrain << ")</td><td>";
+        std::vector<int> mods{0};
+        std::vector<const attack*> hist;
+        sim_pacing(fp, mods, hist, a, c1, c2);
+        fp << "</td></tr>" << std::endl;
+      }
+    }
+  }
+  fp << "</table>" << std::endl;
 }
 
 static int
