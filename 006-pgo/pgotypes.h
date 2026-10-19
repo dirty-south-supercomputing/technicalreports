@@ -999,6 +999,8 @@ calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   return cand < 10 ? 10 : floor(cand);
 }
 
+constexpr unsigned GMAX_TIER = 6;
+
 struct species {
   unsigned idx; // pokedex index, not unique
   std::string name;
@@ -1012,7 +1014,8 @@ struct species {
   bool shadow;        // is there a shadow form?
   unsigned dmax;      // is there a dynamax form? if so, non-zero battle tier.
                       // if the species does not show up in max battles, set to UINT_MAX.
-                      // 5 is legendaries, 6 is gigantamax (if gmax *only*) and eternatus.
+                      // 5 is legendaries, 6 is gigantamax (if gmax *only*).
+                      // crowned forms and zacian *do not* have this set!
   std::vector<const attack*> elite; // exclusive attacks requiring an elite tm
   enum species_cat {
     CAT_NORMAL,
@@ -1163,7 +1166,7 @@ struct species {
     : species(s->idx, "G-Max " + s->name, s->t1, s->t2,
               s->atk, s->def, s->sta, "",
               s->attacks,
-              gm.shiny, false, 0,
+              gm.shiny, false, GMAX_TIER,
               s->elite, s->category, s->a2cost,
               s->evolitem, s->monregion, s->evolkm, {}) {
   }
