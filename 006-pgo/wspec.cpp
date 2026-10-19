@@ -78,6 +78,9 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
+  if(pvp_banned_p(s)){
+    return; // no tables for us!
+  }
   bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
   if(donext){
     donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
