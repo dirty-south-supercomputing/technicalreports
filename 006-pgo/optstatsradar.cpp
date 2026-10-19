@@ -14,13 +14,6 @@ write_radar(const species &s, const char *lshort, int cpceil){
     std::cerr << "unexpected vector count " << ivcount << std::endl;
     throw std::exception();
   }
-  // FIXME for now, sort by lowest value. ought use median probably.
-  /*std::sort(allstats.begin(), allstats.end(), [](const stats *lhs, const stats *rhs){
-        return std::min_element(lhs.begin(), lhs.end(), fxn)
-            //[](const stats *lhs, const stats *rhs){ return lhs->mhp < rhs->mhp; })
-               < std::min_element(rhs.begin(), lhs.begin(), fxn);
-                   //[](const stats *lhs, const stats *rhs){ });
-      });*/
   float higha = 0, highd = 0, highhp = 0;
   while(ivcount--){
     const auto *stt = &st[ivcount];
@@ -45,16 +38,16 @@ int main(int argc, const char **argv){
   // FIXME calculate these!
   // pheromosa, bastiodon, chansey
   std::cout << "MaxGL\t186.99\t252.93\t421" << std::endl;
-  // feebas, wigglybuff, shedinja
-  std::cout << "MinGL\t36.97\t39.49\t13" << std::endl;
+  // feebas, wigglybuff, numerous
+  std::cout << "MinGL\t36.97\t39.49\t68" << std::endl;
   // pheromosa, bastiodon, chansey
   std::cout << "MaxUL\t239.73\t252.93\t421" << std::endl;
-  /// feebas, wigglybuff, shedinja
-  std::cout << "MinUL\t36.97\t39.49\t13" << std::endl;
+  /// feebas, wigglybuff, numerous
+  std::cout << "MinUL\t36.97\t39.49\t68" << std::endl;
   // deoxys attack, deoxys defense, chansey
   std::cout << "MaxML\t360.49\t289.90\t421" << std::endl;
-  /// feebas, wigglybuff, shedinja
-  std::cout << "MinML\t36.97\t39.49\t13" << std::endl;
+  /// feebas, wigglybuff, numerous
+  std::cout << "MinML\t36.97\t39.49\t68" << std::endl;
   std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     write_radar(*s, "GL", GLCPCAP);
