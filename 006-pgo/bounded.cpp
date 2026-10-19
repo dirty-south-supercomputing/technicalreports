@@ -199,6 +199,9 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
   stats *sols = NULL;
   std::vector<species> megaspecies;
   for(auto sp = species_begin() ; sp != species_end() ; ++sp){
+    if(pvp_banned_p(*sp)){
+      continue;
+    }
     get_species_opt(&sols, *sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
     for(const auto &m : sp->mforms){
       megaspecies.emplace_back(&*sp, m);
