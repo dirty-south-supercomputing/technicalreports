@@ -4452,5 +4452,8 @@ bool pvp_banned_p(const species &s){
   if(s.name == "Shedinja"){
     return true;
   }
+  if(s.name == "Ditto"){
+    return true;
+  }
   return false;
 }
