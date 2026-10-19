@@ -1,30 +1,27 @@
-#include "pgotypes.h"
+#include "html.h"
 
 static void
 functional_hundos(int cplimit){
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"functional\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    // find the maximum level subject to cplimit for 15-15-15
     // find the optimal configs subject to cplimit
     auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_gmean);
     float gmean = st->geommean;
     auto tmp = st->next;
-    bool printed = false;
-    while(tmp){
-      if(!printed){
-        std::cout << "<tr><td>" << s->name << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << "</td><td>";
-        printed = true;
-      }else{
-        std::cout << ", ";
+    if(tmp){
+      std::cout << "<tr><td>" << st->s->name << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';
+      emit_halflevel_as_level(std::cout, st->hlevel);
+      std::cout << " (" << calc_pok_cp(st) << ")" << "</td><td>";
+      while(tmp){
+        std::cout << tmp->ia << "-" << tmp->id << "-" << tmp->is << ' ';
+        emit_halflevel_as_level(std::cout, tmp->hlevel);
+        std::cout << " (" << calc_pok_cp(tmp) << ")<br/>";
+        if(tmp->geommean != gmean){
+          break;
+        }
+        tmp = tmp->next;
       }
-      std::cout << tmp->ia << "-" << tmp->id << "-" << tmp->is;
-      if(tmp->geommean != gmean){
-        break;
-      }
-      tmp = tmp->next;
-    }
-    if(printed){
       std::cout << "</td></tr>" << std::endl;
     }
     delete[] st;
