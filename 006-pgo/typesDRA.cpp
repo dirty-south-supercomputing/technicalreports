@@ -38,7 +38,7 @@ print_pop(pgo_types_e t1, pgo_types_e t2){
 
 struct typing {
   pgo_types_e t1, t2; // for monotypes, t2 == t1
-  unsigned tras[6];   // number of types with typing relation [ -3 .. 2 ]
+  std::vector<pgo_types_e> tras[6];   // attack types with typing relation [ -3 .. 2 ]
   float dra;
   unsigned pop1, pop2;// population of {t1, t2} and {t2, t1}
                       // pop2 == 0 for all monotypes
@@ -46,14 +46,13 @@ struct typing {
   typing(pgo_types_e T1, pgo_types_e T2) :
     t1(T1),
     t2(T2) {
-    memset(tras, 0, sizeof(tras));
     for(pgo_types_e at = TYPESTART ; at < TYPECOUNT ; ++at){
       int tr = typing_relation(at, t1, t2);
-      ++tras[tr + 3];
+      tras[tr + 3].push_back(at);
     }
     dra = 0;
     for(int i = -3 ; i < 3 ; ++i){
-      dra += tras[i + 3] * pow(1.6, i);
+      dra += tras[i + 3].size() * pow(1.6, i);
     }
     dra /= static_cast<int>(TYPECOUNT);
     pop1 = typing_popcount(t1, t2);
@@ -70,9 +69,18 @@ struct typing {
     }
     std::cout << "</td>";
     for(unsigned i = 0 ; i < sizeof(tras) / sizeof(*tras) ; ++i){
-      std::cout << "<td>";
-      if(tras[i]){
-        std::cout << tras[i];
+      std::cout << "<td class=\"" << reversecss[i] << "\">";
+      if(tras[i].size()){
+        std::cout << tras[i].size() << "<br/>";
+        int x = 0;
+        for(auto pt : tras[i]){
+          html_type(pt);
+          if(++x % 3 == 0){
+            std::cout << "<br/>";
+          }else{
+            std::cout << ' ';
+          }
+        }
       }
       std::cout << "</td>";
     }
@@ -117,8 +125,11 @@ int main(){
   std::cout << std::fixed << std::setprecision(3);
   std::cout << "<table class=\"evenshade\" id=\"typesdra\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>E<sub>-3</sub></th><th>E<sub>-2</sub></th><th>E<sub>-1</sub></th><th>E<sub>0</sub></th><th>E<sub>1</sub></th><th>E<sub>2</sub></th>";
-  std::cout << "<th>DRA</th><th style=\"width: 80%\">Pop</th>";
+  std::cout << "<th>T</th>";
+  for(int i = -3 ; i < 3 ; ++i){
+    std::cout << "<th class=\"" << reversecss[i + 3] << "\">E<sub>" << i << "</sub></th>";
+  }
+  std::cout << "<th>DRA</th><th>Pop</th>";
   std::cout << "</tr>" << std::endl;
   for(const auto &t : typings){
     t.print();

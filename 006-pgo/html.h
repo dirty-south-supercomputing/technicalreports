@@ -201,5 +201,6 @@ encode_name(const std::string &s, std::string &encname){
 }
 
 extern const std::string css[];
+extern const std::string reversecss[];
 
 #endif
