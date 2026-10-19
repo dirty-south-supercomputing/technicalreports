@@ -1514,7 +1514,7 @@ calc_pok_gmean(const stats *s){
 
 static inline float
 calc_pok_cp(const stats *s){
-  return calccp(s->effa, s->effd, s->mhp, s->hlevel);
+  return calccp(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, s->hlevel);
 }
 
 static inline float
