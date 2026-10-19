@@ -252,17 +252,16 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
 
 static int
 write_atk_effectiveness(std::ostream &fp, const species &s){
-  const std::string css[6] = { "teneg3", "teneg2", "teneg1", "tepos0", "tepos1", "tepos2", };
   fp << "<h2>attack effectiveness</h2>" << std::endl;
   fp << "<table>" << std::endl;
   fp << "<tr>";
   for(int i = -3 ; i < 3 ; ++i){
-    fp << "<th class=\"" << css[i + 3] << "\">" << i << "</th>";
+    fp << "<th class=\"" << reversecss[i + 3] << "\">" << i << "</th>";
   }
   fp << "</tr>" << std::endl;
   fp << "<tr>";
   for(int i = -3 ; i < 3 ; ++i){
-    fp << "<td class=\"" << css[i + 3] << "\">";
+    fp << "<td class=\"" << reversecss[i + 3] << "\">";
     unsigned printed = 0;
     for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
       if(typing_relation(t, s.t1, s.t2) == i){
@@ -466,16 +465,16 @@ emit_evol_table(std::ostream &fp, const std::string &us,
   }
 }
 
-static int
+static void
 write_evol(std::ostream &fp, const species &s){
-  fp << "<h2>transitions</h2>";
+  fp << "<h2>transitions</h2>" << std::endl;
   const auto base = get_base_evolution(s);
   std::forward_list<species> store;
   std::vector<const species*> fam;
   get_family(base, fam, store);
   if(fam.size() < 2){ // should never be zero
     fp << "None";
-    return 0;
+    return;
   }
   unsigned length;
   unsigned forkcolumn, forkidx;
@@ -483,7 +482,12 @@ write_evol(std::ostream &fp, const species &s){
   fp << "<table>" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
   fp << "</table>" << std::endl;
-  return 0;
+}
+
+static void
+write_mon_pacing(std::ostream &fp, const species &s){
+  fp << "<h2>pacing</h2>" << std::endl;
+  // FIXME
 }
 
 static int
@@ -496,7 +500,7 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  write_header(fp, s.name);
+  write_header(fp, s.name + " in Pokémon GO");
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << ' ';
   html_types_pdir(fp, s.t1, s.t2);
@@ -506,6 +510,7 @@ write_mon_page(const species &s){
   write_atk_effectiveness(fp, s);
   write_mon_attacks_3x3(fp, s);
   write_mon_attacks_nx1(fp, s);
+  write_mon_pacing(fp, s);
   write_iv_tables(fp, s);
   // FIXME moar crap ... counters, attack sets, time to first charged attack
   write_footer_and_close(fp);

@@ -14,7 +14,7 @@ table.evenshade {
 }
 
 table.evenshade tr:nth-child(even) {
-  background-color: #ddd;
+  background-color: rgba(208, 208, 208, 0.8);
 }
 
 /* attack pair timing and power */
@@ -124,12 +124,25 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
-#typesdra tr>:nth-child(n+2):nth-child(-n+8) { /* table of typings by DRA */
-  text-align: right;
+#typesdra tr>:nth-child(1) { /* T */
+  width: 3em;
 }
 
-#typesdra tr>:nth-child(9) {
+#typesdra tr>:nth-child(n+2):nth-child(-n+7) { /* typing effectiveness */
+  text-align: center;
+  width: 4em;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+#typesdra tr>:nth-child(8) { /* DRA */
+  text-align: right;
   padding: 0 0 0 1em;
+}
+
+#typesdra tr>:nth-child(9) { /* pop */
+  padding: 0 0 0 1em;
+  /*width: 80%;*/
 }
 
 #typesdra tr>:nth-child(1) {
@@ -273,37 +286,37 @@ div.intro {
 
 /* type effectiveness colors */
 .teneg3 {
-  background-color: #d0ffd0;
+  background-color: rgba(208, 255, 208, 0.75);
   text-align: center;
 }
 
 .teneg2 {
-  background-color: #e0ffe0;
+  background-color: rgba(224, 255, 224, 0.75);
   text-align: center;
 }
 
 .teneg1 {
-  background-color: #f0fff0;
+  background-color: rgba(240, 255, 240, 0.75);
   text-align: center;
 }
 
 .tepos0 {
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.75);
   text-align: center;
 }
 
 .tepos1 {
-  background-color: #fff0f0;
+  background-color: rgba(255, 240, 255, 0.75);
   text-align: center;
 }
 
 .tepos2 {
-  background-color: #ffe0e0;
+  background-color: rgba(255, 240, 240, 0.75);
   text-align: center;
 }
 
 /* there is no positive 3, but this is used for inverted negative 3 */
 .tepos3 {
-  background-color: #ffd0d0;
+  background-color: rgba(255, 224, 224, 0.75);
   text-align: center;
 }
