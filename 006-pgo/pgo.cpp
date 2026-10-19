@@ -4446,3 +4446,11 @@ std::string adventure_effect(const std::string& name){
   }
   return "";
 }
+
+// is the form banned from all 3x3?
+bool pvp_banned_p(const species &s){
+  if(s.name == "Shedinja"){
+    return true;
+  }
+  return false;
+}

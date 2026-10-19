@@ -2540,6 +2540,7 @@ struct candidate {
   }
 };
 
+bool pvp_banned_p(const species &s);
 void emit_cand(const candidate& c, unsigned maxp);
 void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform);
 void filter_by_types(int t1, int t2, bool overzoom, bool mainform);
