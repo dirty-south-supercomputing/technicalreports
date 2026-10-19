@@ -27,11 +27,98 @@ create_shadow(const species &s){
   return news;
 }
 
+struct leaguestats {
+  unsigned count;    // number of forms listed (*not* configurations)
+  float mhpmax, mhpmin, mhptot;
+  float effamax, effamin, effatot;
+  float effdmax, effdmin, effdtot;
+  float gmmax, gmmin, gmtot;
+  float ammax, ammin, amtot;
+
+  leaguestats() :
+   count(0),
+   mhpmax(0), mhpmin(0), mhptot(0),
+   effamax(0), effamin(0), effatot(0),
+   effdmax(0), effdmin(0), effdtot(0),
+   gmmax(0), gmmin(0), gmtot(0),
+   ammax(0), ammin(0), amtot(0)
+  { }
+
+  void update(const stats *s){
+    if(count == 0){
+      mhpmax = mhpmin = mhptot = s->mhp;
+      effamax = effamin = effatot = s->effa;
+      effdmax = effdmin = effdtot = s->effd;
+      gmmax = gmmin = gmtot = s->geommean;
+      ammax = ammin = amtot = s->average;
+    }else{
+      if(s->mhp > mhpmax){
+        mhpmax = s->mhp;
+      }
+      if(s->mhp < mhpmin){
+        mhpmin = s->mhp;
+      }
+      if(s->effa > effamax){
+        effamax = s->effa;
+      }
+      if(s->effa < effamin){
+        effamin = s->effa;
+      }
+      if(s->effd > effdmax){
+        effdmax = s->effd;
+      }
+      if(s->effd < effdmin){
+        effdmin = s->effd;
+      }
+      if(s->geommean > gmmax){
+        gmmax = s->geommean;
+      }
+      if(s->geommean < gmmin){
+        gmmin = s->geommean;
+      }
+      if(s->average > ammax){
+        ammax = s->average;
+      }
+      if(s->average < ammin){
+        ammin = s->average;
+      }
+      mhptot += s->mhp;
+      effatot += s->effa;
+      effdtot += s->effd;
+      gmtot += s->geommean;
+      amtot += s->average;
+    }
+    ++count;
+  }
+
+  void table(std::ostream &fp) const {
+    fp << "<table id=\"leaguestats\">" << std::endl;
+    fp << "<tr><th>measure</th><th>min</th><th>avg</th><th>max</th></tr>" << std::endl;
+    fp << "<tr><td>gmean</td><td>" << gmmin << "</td><td>" << (gmtot / count) << "</td><td>" << gmmax << "</td></tr>" << std::endl;
+    fp << "<tr><td>amean</td><td>" << ammin << "</td><td>" << (amtot / count) << "</td><td>" << ammax << "</td></tr>" << std::endl;
+    fp << "<tr><td>eff<sub>a</sub></td><td>" << effamin << "</td><td>" << (effatot / count) << "</td><td>" << effamax << "</td></tr>" << std::endl;
+    fp << "<tr><td>eff<sub>d</sub></td><td>" << effdmin << "</td><td>" << (effdtot / count) << "</td><td>" << effdmax << "</td></tr>" << std::endl;
+    fp << "<tr><td>mhp</td><td>" << mhpmin << "</td><td>" << (mhptot / count) << "</td><td>" << mhpmax << "</td></tr>" << std::endl;
+    fp << "</table>" << std::endl;
+  }
+
+};
+
 // insert list s into list pointed to by head according to s->geommean or s->average
 static void
 insert_opt_stat(stats **head, stats *s, int(*cmpfxn)(const void*, const void*),
-                  int(*tiefxn)(const void*, const void*)){
+                  int(*tiefxn)(const void*, const void*), int lbound,
+                  leaguestats &lstats){
+  bool gotstats = false;
   while(s){
+    if(calc_pok_cp(s) < lbound){
+      s = s->next;
+      continue;
+    }
+    if(!gotstats){ // only aggregate one per set of equivalent configurations
+      lstats.update(s);
+      gotstats = true;
+    }
     stats **prev = head;
     stats *tmp;
     while( (tmp = *prev) ){
@@ -156,28 +243,44 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
 }
 
 static void
-get_species_opt(stats **sols, const species &sp, char fitchar, int bound, float lbound,
+get_species_opt(stats **sols, const species &sp, char fitchar, int bound, int lbound,
                 float(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
-                int(*tiefxn)(const void*, const void*)){
+                int(*tiefxn)(const void*, const void*), leaguestats &lstats){
   bool shadowstuff = false;
   if(sp.shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
     shadowstuff = true;
   }
-  stats *s = find_optimal_set(sp, bound, lbound, false, fitfxn);
+  stats *s = find_optimal_set(sp, bound, 0, false, fitfxn);
   if(shadowstuff){
     const species *shads = create_shadow(sp);
     stats *shadsets = find_optimal_set(*shads, bound, lbound, true, fitfxn);
-    insert_opt_stat(sols, shadsets, cmpfxn, tiefxn);
+    insert_opt_stat(sols, shadsets, cmpfxn, tiefxn, lbound, lstats);
   }
-  insert_opt_stat(sols, s, cmpfxn, tiefxn);
+  insert_opt_stat(sols, s, cmpfxn, tiefxn, lbound, lstats);
 }
 
-// print optimal sets bounded by CP of |bound| above and mean of |lbound| below
+// print optimal sets bounded by CP of |bound| above and CP of |lbound| below
 static void
-print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char fitchar,
+print_bounded_table(int bound, int lbound, float(*fitfxn)(const stats *), char fitchar,
                     int(*cmpfxn)(const void*, const void*),
                     int(*tiefxn)(const void*, const void*),
-                    bool html){
+                    bool excludebanned, bool html){
+  leaguestats lstats;
+  stats *sols = NULL;
+  std::vector<species> megaspecies;
+  for(auto sp = species_begin() ; sp != species_end() ; ++sp){
+    if(excludebanned && pvp_banned_p(*sp)){
+      continue;
+    }
+    get_species_opt(&sols, *sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats);
+    for(const auto &m : sp->mforms){
+      megaspecies.emplace_back(&*sp, m);
+    }
+  }
+  for(const auto &sp : megaspecies){
+    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats);
+  }
+  lstats.table(std::cout);
   if(html){
     std::cout << "<table class=\"evenshade bounded\">" << std::endl;
     std::cout << "<tr><th>T</th><th>Form</th>";
@@ -195,20 +298,6 @@ print_bounded_table(int bound, float lbound, float(*fitfxn)(const stats *), char
     printf("Species & IV·L & \\HP & \\Eff{A} & \\Eff{D} & $\\frac{BS}{3}$ & $\\sqrt[3]{\\BP\\,}$ & \\CP{} & A\\%% \\\\\n");
     printf("\\Midrule\n");
     printf("\\endhead\n");
-  }
-  stats *sols = NULL;
-  std::vector<species> megaspecies;
-  for(auto sp = species_begin() ; sp != species_end() ; ++sp){
-    if(pvp_banned_p(*sp)){
-      continue;
-    }
-    get_species_opt(&sols, *sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
-    for(const auto &m : sp->mforms){
-      megaspecies.emplace_back(&*sp, m);
-    }
-  }
-  for(const auto &sp : megaspecies){
-    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn);
   }
   while( (sols = print_sol_set(sols, get_apercent, html, !!bound)) ){
     ;
@@ -242,11 +331,16 @@ int main(int argc, char** argv){
   }
   int hcp = atoi(argv[2]);
   bool html = false;
-  float lam = 0; // lower arithmetic mean bound
+  int lcp = 0; // lower cp bound
   if(strcasecmp(argv[3], "html") == 0){
     html = true;
-  }else if(sscanf(argv[3], "%f", &lam) != 1){
-    fprintf(stderr, "couldn't get float from [%s]\n", argv[3]);
+    if(hcp == 0){
+      lcp = ULCPCAP;
+    }else if(hcp == 2500){
+      lcp = GLCPCAP;
+    }
+  }else if(sscanf(argv[3], "%d", &lcp) != 1){
+    fprintf(stderr, "couldn't get int from [%s]\n", argv[3]);
     usage(argv[0]);
   }
   std::cout << std::fixed << std::setprecision(2);
@@ -254,6 +348,7 @@ int main(int argc, char** argv){
   int(*cmpfxn)(const void*, const void*);
   int(*tiefxn)(const void*, const void*) = statscmp_gmean;
   char fitchar;
+  bool excludebanned = true;
   if(strcmp(argv[1], "g") == 0){
     fitfxn = calc_pok_gmean;
     cmpfxn = statscmp_gmean;
@@ -275,6 +370,8 @@ int main(int argc, char** argv){
     fitfxn = calc_pok_cp;
     cmpfxn = statscmp_cp;
     fitchar = 'c';
+    lcp = 0;
+    excludebanned = false; // we truly want all for the CP list
   }else if(strcmp(argv[1], "b") == 0){
     fitfxn = calc_pok_bulk;
     cmpfxn = statscmp_bulk;
@@ -286,6 +383,6 @@ int main(int argc, char** argv){
   }else{
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lam, fitfxn, fitchar, cmpfxn, tiefxn, html);
+  print_bounded_table(hcp, lcp, fitfxn, fitchar, cmpfxn, tiefxn, excludebanned, html);
   return EXIT_SUCCESS;
 }
