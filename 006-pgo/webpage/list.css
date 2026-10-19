@@ -107,46 +107,9 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
-#setsara tr>:nth-child(n+2):nth-child(-n+8) { /* tables of all fast attacks */
-  text-align: right;
-}
-
-#setsara tr>:nth-child(9) {
-  padding: 0 0 0 1em;
-}
-
-#setsara tr>:nth-child(1) {
-  text-align: center;
-}
-
-#typesara tr>:nth-child(n+2) { /* all but T */
+#functional tr>:nth-child(n+2) {
   text-align: right;
   padding: 0 0 0 1em;
-}
-
-#typesdra tr>:nth-child(1) { /* T */
-  width: 3em;
-}
-
-#typesdra tr>:nth-child(n+2):nth-child(-n+7) { /* typing effectiveness */
-  text-align: center;
-  width: 4em;
-  vertical-align: top;
-  font-weight: bold;
-}
-
-#typesdra tr>:nth-child(8) { /* DRA */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-#typesdra tr>:nth-child(9) { /* pop */
-  padding: 0 0 0 1em;
-  /*width: 80%;*/
-}
-
-#typesdra tr>:nth-child(1) {
-  text-align: center;
 }
 
 #allfast tr>:nth-child(n+2):nth-child(-n+7) { /* tables of all fast attacks */
@@ -205,34 +168,6 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
-#allmegas tr>:nth-child(1) { /* dex# */
-  text-align: right;
-}
-
-#allmegas tr>:nth-child(2) { /* type */
-  text-align: center;
-}
-
-#allmegas tr>:nth-child(4) { /* initial cost */
-  text-align: right;
-}
-
-#evolcond tr>:nth-child(1) { /* base dex# */
-  text-align: right;
-}
-
-#evolcond tr>:nth-child(2) { /* base type */
-  text-align: center;
-}
-
-#evolcond tr>:nth-child(6) { /* dest type */
-  text-align: center;
-}
-
-#evolcond tr>:nth-child(7) { /* dest dex# */
-  text-align: right;
-}
-
 #Mythical tr>:nth-child(1) { /* Dex# */
   text-align: right;
 }
@@ -271,6 +206,10 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
 
 #dynafast tr>:nth-child(4) { /* turns */
   text-align: right;
+}
+
+#monpacing tr>:nth-child(1) { /* attack list */
+  white-space: nowrap;        /* give it space until we are satisfied or run out */
 }
 
 div.intro {
