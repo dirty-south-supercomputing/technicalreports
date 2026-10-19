@@ -36,18 +36,12 @@ int main(int argc, const char **argv){
   }
   std::cout << "Form\tATK\tDEF\tMHP" << std::endl;
   // FIXME calculate these!
-  // pheromosa, bastiodon, chansey
-  std::cout << "MaxGL\t186.99\t252.93\t421" << std::endl;
-  // feebas, wigglybuff, numerous
-  std::cout << "MinGL\t36.97\t39.49\t68" << std::endl;
-  // pheromosa, bastiodon, chansey
-  std::cout << "MaxUL\t239.73\t252.93\t421" << std::endl;
-  /// feebas, wigglybuff, numerous
-  std::cout << "MinUL\t36.97\t39.49\t68" << std::endl;
-  // deoxys attack, deoxys defense, chansey
-  std::cout << "MaxML\t360.49\t289.90\t421" << std::endl;
-  /// feebas, wigglybuff, numerous
-  std::cout << "MinML\t36.97\t39.49\t68" << std::endl;
+  std::cout << "MaxGL\t255\t346\t421" << std::endl;
+  std::cout << "MinGL\t26\t37\t68" << std::endl;
+  std::cout << "MaxUL\t328\t288\t405" << std::endl;
+  std::cout << "MinUL\t91\t48\t90" << std::endl;
+  std::cout << "MaxML\t361\t291\t429" << std::endl;
+  std::cout << "MinML\t121\t51\t113" << std::endl;
   std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     write_radar(*s, "GL", GLCPCAP);
