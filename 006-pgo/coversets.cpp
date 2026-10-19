@@ -1,6 +1,7 @@
 #include "html.h"
 #include <getopt.h>
 #include <memory>
+#include <algorithm>
 
 using tarray = std::array<bool, TYPECOUNT>;
 
@@ -223,10 +224,27 @@ print_participant_attacks(const species &s, bool fast){
   }
 }
 
+static bool
+excluded_p(const species &s, const std::vector<const species *> &excludelist){
+  for(const auto es : excludelist){
+    if(s.name == es->name){
+      return true;
+    }
+  }
+  if(pvp_banned_p(s)){
+    return true;
+  }
+  return false;
+}
+
 // print all species represented in the typing vector t of size tcount
 static void
-print_participants(int tcount, const pgo_types_e t[TYPINGCOUNT][2]){
+print_participants(int tcount, const pgo_types_e t[TYPINGCOUNT][2],
+                   const std::vector<const species *> &excludelist){
   for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(excluded_p(*s, excludelist)){
+      continue;
+    }
     bool valid = false;
     for(int ti = 0 ; ti < tcount ; ++ti){
       if((s->t1 == t[ti][0] && (s->t2 == t[ti][1] || (s->t2 == TYPECOUNT && s->t1 == t[ti][1]))) ||
@@ -276,9 +294,12 @@ print_complete_coversets_duals(int level, bool html){
 // TYPECOUNT sized vector with 1 for the typings we care about, 0 otherwise.
 static int
 print_coversets_duals(const std::string &title, const int *t, bool exclude,
-                      int *pos, pgo_types_e ty[TYPINGCOUNT][2], int level, bool html){
+                      int *pos, pgo_types_e ty[TYPINGCOUNT][2],
+                      int level, std::vector<const species *> &excludelist,
+                      bool html){
   std::vector<tarray> setvec;
   *pos = 0;
+  // FIXME this ought take into account empty typings, especially with the excludelist
   for(pgo_types_e i = TYPESTART ; i < TYPECOUNT ; ++i){
     for(pgo_types_e j = i ; j < TYPECOUNT ; ++j){
       if(exclude){
@@ -302,7 +323,7 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
       emit_coversets(setvec, title, html);
       if(!html){
-        print_participants(*pos, ty);
+        print_participants(*pos, ty, excludelist);
       }
       return 0;
     }else{
@@ -315,9 +336,10 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
 
 [[noreturn]] static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " [ -h ] [ -n name ] [ -t charged ] [ [ -x ] poptype[,poptype...] ]" << std::endl;
+  std::cerr << "usage: " << argv0 << " [ options... ] " << std::endl;
   std::cerr << " poptype[,poptype...]: require one of these types" << std::endl;
   std::cerr << " -x poptype[,poptype...]: exclude these types" << std::endl;
+  std::cerr << " -X form: exclude this form, may be supplied multiple times" << std::endl;
   std::cerr << " -n name: name of coverset (for html)" << std::endl;
   std::cerr << " -l type effectiveness filter (default 0)" << std::endl;
   std::cerr << " -h: generate html" << std::endl;
@@ -393,9 +415,22 @@ int main(int argc, char* const* argv){
   bool html = false;
   int level = 0;
   int go;
-  while((go = getopt(argc, argv, ":hl:n:x:t:")) > 0){
+  std::vector<const species *> excludelist;
+  while((go = getopt(argc, argv, ":hl:n:X:x:t:")) > 0){
     switch(go){
-      case 'x': // exclude anything containing these types
+      case 'X':{ // exclude this form
+        const auto s = lookup_species(optarg);
+        if(!s){
+          std::cerr << "couldn't find form: " << optarg << std::endl;
+          usage(argv0); break;
+        }
+        if(std::ranges::contains(excludelist, s)){
+          std::cerr << "specified form twice: " << optarg << std::endl;
+          usage(argv0); break;
+        }
+        excludelist.push_back(s);
+        break;
+      }case 'x': // exclude anything containing these types
         if(exclude){
           std::cerr << "can't provide -x twice" << std::endl;
           usage(argv0); break;
@@ -468,6 +503,6 @@ int main(int argc, char* const* argv){
   if(!title){
     title = "Custom";
   }
-  print_coversets_duals(title, kern, exclude, &pos, ty, level, html);
+  print_coversets_duals(title, kern, exclude, &pos, ty, level, excludelist, html);
   return EXIT_SUCCESS;
 }
