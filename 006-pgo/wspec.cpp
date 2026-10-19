@@ -319,6 +319,9 @@ write_stats(std::ostream &fp, const species &s){
   if(strcmp(cstr, "")){
     fp << cstr << "<br/>";
   }
+  if(pvp_banned_p(s)){
+    fp << "Not permitted in 3x3<br/>";
+  }
   fp << "</div>" << std::endl;
   return 0;
 }
