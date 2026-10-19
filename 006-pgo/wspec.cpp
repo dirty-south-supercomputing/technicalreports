@@ -310,7 +310,7 @@ write_stats(std::ostream &fp, const species &s){
   }else{
     fp << "Shadow <i>not</i> available<br/>";
   }
-  if(s.dmax){
+  if(s.dmax && s.dmax < GMAX_TIER){
     fp << "Dynamax available<br/>";
   }else{
     fp << "Dynamax <i>not</i> available<br/>";
@@ -523,7 +523,8 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
   // charged attack for each CA. add it to hist, and compute new energy.
   // if energy is not in mods, add it to mods and recurse. if it is, dump
   // history and recurse no further.
-  int energy = mods.back();
+  const int incoming = mods.back();
+  int energy = incoming;
   auto cf = fast_attacks_req(energy, a, c1);
   hist.push_back(c1);
   energy += cf * a->energytrain;
@@ -533,10 +534,9 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
   }else{
     mods.push_back(energy);
     sim_pacing(fp, mods, hist, a, c1, c2);
-    mods.pop_back();
   }
   hist.pop_back();
-  energy = mods.back();
+  energy = incoming;
   cf = fast_attacks_req(energy, a, c2);
   hist.push_back(c2);
   energy += cf * a->energytrain;
@@ -546,7 +546,6 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
   }else{
     mods.push_back(energy);
     sim_pacing(fp, mods, hist, a, c1, c2);
-    mods.pop_back();
   }
   hist.pop_back();
 }
@@ -554,6 +553,8 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
 static void
 write_mon_pacing(std::ostream &fp, const species &s){
   fp << "<h2>pacing (3x3 stats)</h2>" << std::endl;
+  fp << "These pacing specifications assume the desired charged attack is used as soon as sufficient ";
+  fp << "energy is built up.<br/>";
   // we first partition into fast and charged attacks. then, for each fast
   // attack, run the pacing with each pair of two charged attacks (unless
   // only one charged attack can be learned, in which case just do that).
@@ -570,8 +571,9 @@ write_mon_pacing(std::ostream &fp, const species &s){
   if(cas.size() == 1){
     // FIXME
   }
+  fp << "<details><summary>expand table</summary>" << std::endl;
   // FIXME include ARAs?
-  fp << "<table class=\"evenshade\" id=\"monpacing\">" << std::endl;
+  fp << "<table id=\"monpacing\">" << std::endl;
   fp << "<tr><th>Attacks</th><th>Pacing</th></tr>" << std::endl;
   for(const auto a : fas){
     for(unsigned c1idx = 0 ; c1idx < cas.size() ; ++c1idx){
@@ -590,15 +592,19 @@ write_mon_pacing(std::ostream &fp, const species &s){
         html_type_pdir(fp, c2->type);
         fp << ' ';
         link_to_attack(fp, c2->name, true, true);
-        fp << " (" << -c2->energytrain << ")</td><td>";
+        fp << " (" << -c2->energytrain << ")</td>";
+        fp << "<td>";
+        // FIXME get this reduced so we needn't do summary
+        fp << "<details><summary>expand table</summary>" << std::endl;
         std::vector<int> mods{0};
         std::vector<const attack*> hist;
         sim_pacing(fp, mods, hist, a, c1, c2);
-        fp << "</td></tr>" << std::endl;
+        fp << "</details></td></tr>" << std::endl;
       }
     }
   }
   fp << "</table>" << std::endl;
+  fp << "</details>" << std::endl;
 }
 
 static int
@@ -662,7 +668,7 @@ write_summary(std::ostream &fp, const species &s){
   }
   fp << "</td>";
   fp << "<td>";
-  if(s.dmax){
+  if(s.dmax && s.dmax < GMAX_TIER){
     fp << "✓";
   }
   fp << "</td>";

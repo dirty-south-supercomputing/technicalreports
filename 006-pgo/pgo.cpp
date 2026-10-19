@@ -1461,7 +1461,7 @@ static const std::vector<species> sdex = {
   // the sharp claw
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, "",
 		{ &ATK_Ice_Shard, &ATK_Feint_Attack, &ATK_Ice_Punch, &ATK_Avalanche, &ATK_Foul_Play, &ATK_Triple_Axel, },
-		true, true, 3, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 2, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // the sharp claw
   {  215, "Hisuian Sneasel", TYPE_FIGHTING, TYPE_POISON, 189, 146, 146, "",
 		{ &ATK_Poison_Jab, &ATK_Rock_Smash, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Close_Combat, },
