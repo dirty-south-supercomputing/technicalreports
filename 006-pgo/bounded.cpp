@@ -93,12 +93,12 @@ struct leaguestats {
 
   void table(std::ostream &fp) const {
     fp << "<table id=\"leaguestats\">" << std::endl;
-    fp << "<tr><th>measure</th><th>min</th><th>avg</th><th>max</th></tr>" << std::endl;
-    fp << "<tr><td>gmean</td><td>" << gmmin << "</td><td>" << (gmtot / count) << "</td><td>" << gmmax << "</td></tr>" << std::endl;
-    fp << "<tr><td>amean</td><td>" << ammin << "</td><td>" << (amtot / count) << "</td><td>" << ammax << "</td></tr>" << std::endl;
-    fp << "<tr><td>eff<sub>a</sub></td><td>" << effamin << "</td><td>" << (effatot / count) << "</td><td>" << effamax << "</td></tr>" << std::endl;
-    fp << "<tr><td>eff<sub>d</sub></td><td>" << effdmin << "</td><td>" << (effdtot / count) << "</td><td>" << effdmax << "</td></tr>" << std::endl;
-    fp << "<tr><td>mhp</td><td>" << mhpmin << "</td><td>" << (mhptot / count) << "</td><td>" << mhpmax << "</td></tr>" << std::endl;
+    fp << "<tr><th>Measure</th><th>Min</th><th>Mean</th><th>Max</th></tr>" << std::endl;
+    fp << "<tr><td>Gmean</td><td>" << gmmin << "</td><td>" << (gmtot / count) << "</td><td>" << gmmax << "</td></tr>" << std::endl;
+    fp << "<tr><td>Amean</td><td>" << ammin << "</td><td>" << (amtot / count) << "</td><td>" << ammax << "</td></tr>" << std::endl;
+    fp << "<tr><td>Eff<sub>A</sub></td><td>" << effamin << "</td><td>" << (effatot / count) << "</td><td>" << effamax << "</td></tr>" << std::endl;
+    fp << "<tr><td>Eff<sub>D</sub></td><td>" << effdmin << "</td><td>" << (effdtot / count) << "</td><td>" << effdmax << "</td></tr>" << std::endl;
+    fp << "<tr><td>MHP</td><td>" << mhpmin << "</td><td>" << (mhptot / count) << "</td><td>" << mhpmax << "</td></tr>" << std::endl;
     fp << "</table>" << std::endl;
   }
 
@@ -280,8 +280,9 @@ print_bounded_table(int bound, int lbound, float(*fitfxn)(const stats *), char f
   for(const auto &sp : megaspecies){
     get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats);
   }
-  lstats.table(std::cout);
   if(html){
+    std::cout << "<div id=\"tablecontainer\">" << std::endl;
+    lstats.table(std::cout);
     std::cout << "<table class=\"evenshade bounded\">" << std::endl;
     std::cout << "<tr><th>T</th><th>Form</th>";
     if(bound){
@@ -304,6 +305,7 @@ print_bounded_table(int bound, int lbound, float(*fitfxn)(const stats *), char f
   }
   if(html){
     std::cout << "</table>" << std::endl;
+    std::cout << "</div>" << std::endl;
   }else{
     printf("\\captionlistentry{%cmean-optimal solutions bounded by %d \\CP{}}\\label{table:cp%d%c}\n",
               toupper(fitchar), bound, bound, fitchar);

@@ -3,28 +3,35 @@
 #include <fstream>
 #include <unistd.h>
 
-static void
+static int
 write_iv_graph(const species &s, const char *leagueshort){
   bool graph = !s.name.contains("G-Max"); // FIXME
   if(graph){
     std::string cmd = "Rscript ../../gmean.R \"" + s.name + "\" " + leagueshort;
     if(system(cmd.c_str())){ // ugh
       std::cerr << "Rscript failed for " << s.name << std::endl;
-      throw std::exception();
+      return -1;
     }
     std::string radar = "Rscript ../../optstatsradar.R \"" + s.name + "\" " + leagueshort;
     if(system(radar.c_str())){ // ugh
       std::cerr << "Rscript radar failed for " << s.name << std::endl;
-      throw std::exception();
+      return -1;
     }
   }
+  return 0;
 }
 
 static void
 write_iv_graphs(const species &s){
-  write_iv_graph(s, "GL");
-  write_iv_graph(s, "UL");
-  write_iv_graph(s, "ML");
+  if(!pvp_banned_p(s)){
+    if(write_iv_graph(s, "GL")){
+      throw std::exception();
+    }
+    // FIXME i'd like to check these, as well; we just need know whether we ought
+    // be creating ul/ml for a various form (we can always generate GL)
+    write_iv_graph(s, "UL");
+    write_iv_graph(s, "ML");
+  }
 }
 
 static int
