@@ -107,6 +107,10 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
+#functional tr>:nth-child(1) { /* form */
+  text-align: left;
+}
+
 #functional tr>:nth-child(n+2) {
   text-align: right;
   padding: 0 0 0 1em;
