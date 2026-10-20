@@ -172,6 +172,15 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   white-space: nowrap;        /* give it space until we are satisfied or run out */
 }
 
+#tablecontainer {
+  width: fit-content;
+}
+
+#leaguestats {
+  background-color: #ddd;
+  margin: 0 auto 2em auto;
+}
+
 #leaguestats tr>:nth-child(n+2) { /* measure */
   text-align: right;
   padding: 0 0 0 1em;
