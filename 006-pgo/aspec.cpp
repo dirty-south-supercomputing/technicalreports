@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 static void
-write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
+write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float plusmult){
   fp << "<tr><td>";
   if(stab){
     fp << "✓";
@@ -19,6 +19,7 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
   if(stab){
     power = calc_stab(power);
   }
+  power *= plusmult;
   if(charged_attack_p(a)){
     energy = -energy;
   }
@@ -48,50 +49,58 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
-  fp << "<div>" << std::endl;
+  fp << "<div id=\"tablecontainer\">" << std::endl;
   summarize_buffs_html(fp, a, "<div id=\"stateffect\">Status effect: ", "</div>");
-  if(fast_attack_p(a)){
-    fp << "<table id=\"fattack3x3\">" << std::endl;
-  }else{
-    fp << "<table id=\"cattack3x3\">" << std::endl;
-  }
-  fp << "<tr>";
-  fp << "<th>STAB?</th>";
-  if(fast_attack_p(a)){
-    fp << "<th>Turns</th>";
-  }
-  fp << "<th>E</th>";
-  for(int te = -3 ; te < 3 ; ++te){
-    fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
-  }
-  for(int te = -3 ; te < 3 ; ++te){
-    if(fast_attack_p(a)){
-      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
-    }else{
-      fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
+  bool plusatk = plus_attack_p(a);
+  int maxlevel = plusatk ? 4 : 1;
+  for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
+    float plusmult = 1.0 + 0.1 * meglevel;
+    if(plusatk && meglevel){
+      fp << "<h3>super mega level " << meglevel + 1 << "</h3>" << std::endl;
     }
+    if(fast_attack_p(a)){
+      fp << "<table class=\"fattack3x3\">" << std::endl;
+    }else{
+      fp << "<table class=\"cattack3x3\">" << std::endl;
+    }
+    fp << "<tr>";
+    fp << "<th>STAB?</th>";
+    if(fast_attack_p(a)){
+      fp << "<th>Turns</th>";
+    }
+    fp << "<th>E</th>";
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
+    }
+    for(int te = -3 ; te < 3 ; ++te){
+      if(fast_attack_p(a)){
+        fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
+      }else{
+        fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
+      }
+    }
+    if(fast_attack_p(a)){
+      fp << "<th>EPT</th>";
+    }
+    fp << "</tr>" << std::endl;
+    for(int i = -MAXCHARGEDBUFF ; i < 0 ; ++i){
+      write_atk_3x3_row(fp, a, false, i, plusmult);
+      write_atk_3x3_row(fp, a, true, i, plusmult);
+    }
+    write_atk_3x3_row(fp, a, false, 0, plusmult);
+    write_atk_3x3_row(fp, a, true, 0, plusmult);
+    for(int i = 1 ; i < MAXCHARGEDBUFF + 1 ; ++i){
+      write_atk_3x3_row(fp, a, false, i, plusmult);
+      write_atk_3x3_row(fp, a, true, i, plusmult);
+    }
+    fp << "</table>" << std::endl;
   }
-  if(fast_attack_p(a)){
-    fp << "<th>EPT</th>";
-  }
-  fp << "</tr>" << std::endl;
-  for(int i = -MAXCHARGEDBUFF ; i < 0 ; ++i){
-    write_atk_3x3_row(fp, a, false, i);
-    write_atk_3x3_row(fp, a, true, i);
-  }
-  write_atk_3x3_row(fp, a, false, 0);
-  write_atk_3x3_row(fp, a, true, 0);
-  for(int i = 1 ; i < MAXCHARGEDBUFF + 1 ; ++i){
-    write_atk_3x3_row(fp, a, false, i);
-    write_atk_3x3_row(fp, a, true, i);
-  }
-  fp << "</table>" << std::endl;
   fp << "</div>" << std::endl; // buffs + table div
 
 }
 
 static void
-write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
+write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, float plusmult){
   fp << "<tr><td>";
   if(stab){
     fp << "✓";
@@ -104,6 +113,7 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
   if(stab){
     power = calc_stab(power);
   }
+  power *= plusmult;
   fp << "<td>" << a.animdur << "</td>";
   fp << "<td>" << energy << "</td>";
   for(int te = -3 ; te < 3 ; ++te){
@@ -128,33 +138,41 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
 static void
 write_atk_Nx1(std::ostream &fp, const attack &a){
   fp << "<h2>Nx1 stats</h2>" << std::endl;
-  if(fast_attack_p(a)){
-    fp << "<table id=\"fattackNx1\">" << std::endl;
-  }else{
-    fp << "<table id=\"cattackNx1\">" << std::endl;
-  }
-  fp << "<tr>";
-  fp << "<th>STAB?</th>";
-  fp << "<th>Turns</th>";
-  fp << "<th>E</th>";
-  for(int te = -3 ; te < 3 ; ++te){
-    fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
-  }
-  if(charged_attack_p(a)){
-    for(int te = -3 ; te < 3 ; ++te){
-      fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
+  bool plusatk = plus_attack_p(a);
+  int maxlevel = plusatk ? 4 : 1;
+  for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
+    float plusmult = 1.0 + 0.1 * meglevel;
+    if(plusatk && meglevel){
+      fp << "<h3>super mega level " << meglevel + 1 << "</h3>" << std::endl;
     }
+    if(fast_attack_p(a)){
+      fp << "<table class=\"fattackNx1\">" << std::endl;
+    }else{
+      fp << "<table class=\"cattackNx1\">" << std::endl;
+    }
+    fp << "<tr>";
+    fp << "<th>STAB?</th>";
+    fp << "<th>Turns</th>";
+    fp << "<th>E</th>";
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
+    }
+    if(charged_attack_p(a)){
+      for(int te = -3 ; te < 3 ; ++te){
+        fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
+      }
+    }
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
+    }
+    if(fast_attack_p(a)){
+      fp << "<th>EPT</th>";
+    }
+    fp << "</tr>" << std::endl;
+    write_atk_Nx1_row(fp, a, false, plusmult);
+    write_atk_Nx1_row(fp, a, true, plusmult);
+    fp << "</table>" << std::endl;
   }
-  for(int te = -3 ; te < 3 ; ++te){
-    fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
-  }
-  if(fast_attack_p(a)){
-    fp << "<th>EPT</th>";
-  }
-  fp << "</tr>" << std::endl;
-  write_atk_Nx1_row(fp, a, false);
-  write_atk_Nx1_row(fp, a, true);
-  fp << "</table>" << std::endl;
 }
 
 static void
@@ -236,7 +254,11 @@ write_atk_page(const attack &a){
   if(fast_attack_p(a)){
     fp << " fast";
   }else{
-    fp << " charged";
+    if(plus_attack_p(a)){
+      fp << " super mega charged";
+    }else{
+      fp << " charged";
+    }
   }
   fp << "</h1>" << std::endl;
   write_atk_effects(fp, a);

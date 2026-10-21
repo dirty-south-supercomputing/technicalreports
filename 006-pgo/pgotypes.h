@@ -2560,6 +2560,7 @@ std::vector<const attack*>::const_iterator attacks_begin(void);
 std::vector<const attack*>::const_iterator attacks_end(void);
 void emit_attack(const species &s, const attack *a);
 void summarize_buffs(const attack *a);
+bool plus_attack_p(const attack &);
 
 // look up any adventure effect for the attack name
 std::string adventure_effect(const std::string& name);

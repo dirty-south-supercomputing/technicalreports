@@ -136,38 +136,38 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
 }
 
-#cattack3x3 tr>:nth-child(2) { /* P_-3 */
+table.cattack3x3 tr>:nth-child(2) { /* P_-3 */
   text-align: right;
 }
 
-#cattack3x3 tr>:nth-child(n+2) { /* everything but "STAB?" */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-#fattack3x3 tr>:nth-child(2) { /* Turns */
-  text-align: right;
-}
-
-#fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
+table.cattack3x3 tr>:nth-child(n+2) { /* everything but "STAB?" */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-#cattackNx1 tr>:nth-child(2) { /* Turns */
+table.fattack3x3 tr>:nth-child(2) { /* Turns */
   text-align: right;
 }
 
-#cattackNx1 tr>:nth-child(n+3) { /* everything but "STAB?" */
+table.fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-#fattackNx1 tr>:nth-child(2) { /* Turns */
+table.cattackNx1 tr>:nth-child(2) { /* Turns */
   text-align: right;
 }
 
-#fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
+table.cattackNx1 tr>:nth-child(n+3) { /* everything but "STAB?" */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.fattackNx1 tr>:nth-child(2) { /* Turns */
+  text-align: right;
+}
+
+table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -195,6 +195,7 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   text-align: center;
   background-color: rgb(16, 16, 16, 1);
   color: white;
+  font-size: 1.5em;
 }
 
 div.intro {
