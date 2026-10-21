@@ -7,16 +7,7 @@ int main(void){
   std::cout << "<table class=\"nofoo\">" << std::endl;
   std::cout << "<tr><th>T</th><th>Form</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    unsigned ccount = 0;
-    for(const auto &a : s->attacks){
-      if(!charged_attack_p(*a)){
-        continue;
-      }
-      if(++ccount > 1){
-        break;
-      }
-    }
-    if(ccount < 2){
+    if(!multiple_charged_attacks(*s)){
       std::cout << "<tr><td>";
       html_types(s->t1, s->t2);
       std::cout << "</td><td>";

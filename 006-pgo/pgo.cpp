@@ -4510,3 +4510,16 @@ bool plus_attack_p(const attack &a){
   }
   return false;
 }
+
+bool multiple_charged_attacks(const species &s){
+  unsigned ccount = 0;
+  for(const auto &a : s.attacks){
+    if(!charged_attack_p(*a)){
+      continue;
+    }
+    if(++ccount > 1){
+      break;
+    }
+  }
+  return ccount > 1;
+}

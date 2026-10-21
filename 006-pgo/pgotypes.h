@@ -2645,6 +2645,9 @@ std::vector<const attack*>::const_iterator attacks_end(void);
 void emit_attack(const species &s, const attack *a);
 void summarize_buffs(const attack *a);
 
+// can this species learn more than one charged attack?
+bool multiple_charged_attacks(const species &s);
+
 // look up any adventure effect for the attack name
 std::string adventure_effect(const std::string& name);
 

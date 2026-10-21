@@ -290,7 +290,15 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Max CP: " << s.maxcp() << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
   fp << "Catch reward: " << stardust_reward(s) << " SD<br/>";
-  fp << "Second attack cost: " << s.a2cost << " kSD<br/>";
+  fp << "Second attack cost: ";
+  if(multiple_charged_attacks(s)){
+    fp << s.a2cost << " kSD";
+  }else if(s.shadow){
+    fp << s.a2cost << " kSD (Shadow only)";
+  }else{
+    fp << "n/a";
+  }
+  fp << "<br/>";
   const auto *rstr = s.regionstr();
   if(!rstr){
     rstr = "Worldwide";
@@ -473,7 +481,7 @@ write_evol(std::ostream &fp, const species &s){
   std::vector<const species*> fam;
   get_family(base, fam, store);
   if(fam.size() < 2){ // should never be zero
-    fp << "None";
+    fp << "<div id=\"transitions\">None</div>";
     return;
   }
   unsigned length;
