@@ -635,7 +635,10 @@ write_mon_page(const species &s){
   // FIXME moar crap ... counters, attack sets, time to first charged attack
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
-    if(write_mon_page({&s, m})){
+    species smeg{&s, m};
+    std::forward_list<attack> store;
+    smeg.expand_plus_atk(store);
+    if(write_mon_page(smeg)){
       return -1;
     }
   }

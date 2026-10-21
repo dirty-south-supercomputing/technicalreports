@@ -42,6 +42,13 @@ int main(void){
         }
         if(lhs.a->name < rhs.a->name){
           return true;
+        }else if(lhs.a->name > rhs.a->name){
+          return false;
+        }
+        if(lhs.a->type < rhs.a->type){
+          return true;
+        }else if(lhs.a->type > rhs.a->type){
+          return false;
         }
         return false;
       });

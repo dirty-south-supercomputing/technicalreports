@@ -78,7 +78,10 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
         for(const auto &as : s->attacks){
-          if(strcmp(a->name, as->name) == 0){
+if(as->name == a->name){
+std::cerr << "checked " << as->name << " and " << a->name << std::endl;
+}
+          if(attack_named_p(as, a->name)){
             if(printed){
               std::cout << ',';
             }
@@ -107,7 +110,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
       std::cout << "</tr>" << std::endl;
     }else{
       printf(" %s & %u & %.3g & %.3g & %g & %u(%u)\\\\\n",
-            a->name, a->turns, /*energy,*/ ept,
+            a->name.c_str(), a->turns, /*energy,*/ ept,
             /*power, (power * 6.0) / 5,*/
             ppt, (power * 6.0) / (t * 5.0),
             pop, popstab);

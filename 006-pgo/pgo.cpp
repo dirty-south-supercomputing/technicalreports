@@ -4505,7 +4505,7 @@ bool pvp_banned_p(const species &s){
 }
 
 bool plus_attack_p(const attack &a){
-  if(a.name[strlen(a.name) - 1] == '+'){
+  if(a.name.back() == '+'){
     return true;
   }
   return false;

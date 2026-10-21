@@ -214,10 +214,10 @@ print_cattack_latex(const species &s, const attack* a, float power,
   const float dpe = power / -a->energytrain;
   if(exclusive_attack_p(s, a)){
     printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
-        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+        itb, a->name.c_str(), ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
   }else{
     printf(" %s%s%s & & %s%g%s & %s%d%s & %s%.2f%s &",
-        itb, a->name, ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
+        itb, a->name.c_str(), ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
   }
   if(a->chance_user_attack || a->chance_user_defense ||
       a->chance_opp_attack || a->chance_opp_defense){
@@ -261,12 +261,12 @@ print_attack_latex(const species &s, const attack* a){
     const float ept = static_cast<float>(a->energytrain) / a->turns;
     if(exclusive_attack_p(s, a)){
       printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
-          itb, a->name, ite, itb, a->turns, ite,
+          itb, a->name.c_str(), ite, itb, a->turns, ite,
           itb, power, ite, itb, a->energytrain, ite,
           itb, dpt, ite, itb, ept, ite);
     }else{
       printf(" %s%s%s & %s%u%s & %s%g%s & %s%d%s & %s%.2f%s & %s%.2f%s \\\\\n",
-          itb, a->name, ite, itb, a->turns, ite,
+          itb, a->name.c_str(), ite, itb, a->turns, ite,
           itb, power, ite, itb, a->energytrain, ite,
           itb, dpt, ite, itb, ept, ite);
     }

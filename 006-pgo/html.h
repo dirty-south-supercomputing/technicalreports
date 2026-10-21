@@ -29,6 +29,7 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, bool p
   fp << ".html\">" << s << "</a>";
 }
 
+// we chop off the super mega level, so they all go to the same page
 static inline void
 link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false, bool pardir = false){
   fp << "<a href=\"";
@@ -38,7 +39,11 @@ link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false, bool
   if(subdir){
     fp << "attacks/";
   }
-  encode_name(fp, s);
+  if(s.ends_with("+2") || s.ends_with("+3") || s.ends_with("+4")){
+    encode_name(fp, s.substr(0, s.length() - 1));
+  }else{
+    encode_name(fp, s);
+  }
   fp << ".html\">" << s << "</a>";
 }
 

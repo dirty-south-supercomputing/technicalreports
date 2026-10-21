@@ -77,9 +77,9 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       std::cout << "</td>";
     }
     std::cout << "<td>";
-    if(!strcmp(a->name, "Frustration")){
+    if(attack_named_p(a, "Frustration")){
       std::cout << shadows << " (all Shadow Pokémon)";
-    }else if(!strcmp(a->name, "Return")){
+    }else if(attack_named_p(a, "Return")){
       std::cout << shadows << " (all Purified Pokémon)";
     }else{
       unsigned popstab;
@@ -88,7 +88,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
         for(const auto &as : s->attacks){
-          if(strcmp(a->name, as->name) == 0){
+          if(attack_named_p(a, as->name)){
             if(printed){
               std::cout << ',';
             }

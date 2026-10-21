@@ -232,7 +232,7 @@ write_atk_users(std::ostream &fp, const attack &a){
     }
     if(!matched){
       for(const auto &m : s->mforms){
-        if(m.plusatk && m.plusatk->name == a.name){
+        if(m.plusatk && attack_named_p(m.plusatk, a.name)){
           bool stab = has_stab_p({&*s, m}, &a);
           write_atk_user(fp, m.name, printed, false, stab);
         }

@@ -4,7 +4,7 @@ static void
 print_attack_users_sdex(const attack *a, bool *printed){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto &sa : s->attacks){
-      if(strcmp(sa->name, a->name) == 0){
+      if(attack_named_p(sa, a->name)){
         if(*printed){
           printf(", ");
         }
@@ -33,7 +33,7 @@ static void
 print_attack_users(const attack *a){
   bool printed = false;
   printf("\\begin{attackbox}[enhanced,title=");
-  escape_string(a->name);
+  escape_string(a->name.c_str());
   printf(",colbacktitle=%s,before title={",
           a->type == TYPECOUNT ? "White" : tname_capitalized(a->type));
   print_type(a->type);
@@ -49,10 +49,10 @@ print_attack_users(const attack *a){
     summarize_buffs(a);
   }
   printf("}]\n");
-  if(!strcmp(a->name, "Return")){
+  if(attack_named_p(a, "Return")){
     printf("Purification replaces the Frustration charged attack with Return. "
         "It cannot be reacquired if replaced via Charged TM.");
-  }else if(!strcmp(a->name, "Frustration")){
+  }else if(attack_named_p(a, "Frustration")){
     printf("All Shadow Pokémon know Frustration (and only Frustration) when captured. "
         "It cannot generally be replaced using a Charged TM, though this is not true during certain events. "
         "Purifying the Shadow Pokémon replaces this attack with Return.");

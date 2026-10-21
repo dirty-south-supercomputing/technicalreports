@@ -32,7 +32,7 @@ void print_latex_table(const std::vector<const attack*>& as){
     if(a->type != TYPECOUNT){
       print_type(a->type);
     }
-    printf(" %s & %d & %.3g & %.3g &", a->name,
+    printf(" %s & %d & %.3g & %.3g &", a->name.c_str(),
             //a->powertrain, (a->powertrain * 6.0) / 5,
             -a->energytrain,
             a->powertrain / (float)-a->energytrain,
@@ -40,10 +40,10 @@ void print_latex_table(const std::vector<const attack*>& as){
     summarize_buffs(a);
     printf(" & ");
     // we should still print numbers for these, based on the total number of shadows FIXME
-    if(!strcmp(a->name, "Frustration")){
+    if(attack_named_p(a, "Frustration")){
       printf("%u(%u)", shadows, shadnormals);
       printf("\\footnote{Frustration is known by default to all Shadow Pokémon (unfortunately).}");
-    }else if(!strcmp(a->name, "Return")){
+    }else if(attack_named_p(a, "Return")){
       printf("%u(%u)", shadows, shadnormals);
       printf("\\footnote{Return is known by default to all Purified Pokémon (it's not terrible with STAB).}");
     }else{
