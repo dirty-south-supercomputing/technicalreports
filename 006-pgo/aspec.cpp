@@ -241,6 +241,35 @@ write_atk_users(std::ostream &fp, const attack &a){
   }
 }
 
+static void
+write_atk_teffect(std::ostream &fp, const attack &a){
+  fp << "<h2>type effectiveness</h2>" << std::endl;
+  fp << "<table class=\"evenshade\" id=\"teffect\">" << std::endl;
+  fp << "<tr>";
+  fp << "<th></th>";
+  for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+    fp << "<th>";
+    html_type_pdir(fp, t);
+    fp << "</th>";
+  }
+  fp << "</tr>" << std::endl;
+  for(pgo_types_e t1 = TYPESTART ; t1 < TYPECOUNT ; ++t1){
+    fp << "<tr><td>";
+    html_type_pdir(fp, t1);
+    fp << "</td>";
+    for(pgo_types_e t2 = TYPESTART ; t2 < TYPECOUNT ; ++t2){
+      fp << "<td>";
+      auto te = typing_relation(a.type, t1, t2);
+      if(te){
+        fp << te;
+      }
+      fp << "</td>";
+    }
+    fp << "</tr>";
+  }
+  fp << "</table>" << std::endl;
+}
+
 // assume we're in the target directory
 static int
 write_atk_page(const attack &a){
@@ -266,6 +295,9 @@ write_atk_page(const attack &a){
   }
   fp << "</h1>" << std::endl;
   write_atk_effects(fp, a);
+  if(a.type != TYPECOUNT){
+    write_atk_teffect(fp, a);
+  }
   write_atk_3x3(fp, a);
   write_atk_Nx1(fp, a);
   // FIXME moar crap ... similar attacks, graphs
