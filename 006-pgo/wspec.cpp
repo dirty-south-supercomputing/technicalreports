@@ -152,12 +152,8 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
 }
 
 static void
-write_mon_attacks_3x3(std::ostream &fp, const species &s){
-  std::vector<const attack *> sortedatks(s.attacks);
-  if(s.shadow){
-    sortedatks.emplace_back(&ATK_Return);
-  }
-  std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
+write_mon_attacks_3x3(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
+  std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
         if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
           return true;
         }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
@@ -175,17 +171,14 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s){
         return aratio < bratio;
       });
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
-  write_fattacks_3x3(fp, s, sortedatks);
-  write_cattacks_3x3(fp, s, sortedatks);
+  write_fattacks_3x3(fp, s, atks);
+  write_cattacks_3x3(fp, s, atks);
 }
 
+// atks duplicates s.attacks, but we can rearrange (sort) it
 static void
-write_mon_attacks_nx1(std::ostream &fp, const species &s){
-  std::vector<const attack *> sortedatks(s.attacks);
-  if(s.shadow){
-    sortedatks.emplace_back(&ATK_Return);
-  }
-  std::sort(sortedatks.begin(), sortedatks.end(), [s](const attack *lhs, const attack *rhs){
+write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
+  std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
         if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
           return true;
         }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
@@ -200,7 +193,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
-  for(const auto *a : sortedatks){
+  for(const auto *a : atks){
     if(!fast_attack_p(*a)){
       continue;
     }
@@ -227,7 +220,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s){
   fp << "</table>" << std::endl;
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
   fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
-  for(const auto a : sortedatks){
+  for(const auto a : atks){
     if(!charged_attack_p(*a)){
       continue;
     }
@@ -631,8 +624,12 @@ write_mon_page(const species &s){
   write_stats(fp, s);
   write_evol(fp, s);
   write_atk_effectiveness(fp, s);
-  write_mon_attacks_3x3(fp, s);
-  write_mon_attacks_nx1(fp, s);
+  std::vector<const attack *> atks(s.attacks);
+  if(s.shadow){
+    atks.emplace_back(&ATK_Return);
+  }
+  write_mon_attacks_3x3(fp, s, atks);
+  write_mon_attacks_nx1(fp, s, atks);
   //write_mon_pacing(fp, s);
   write_iv_tables(fp, s);
   // FIXME moar crap ... counters, attack sets, time to first charged attack
