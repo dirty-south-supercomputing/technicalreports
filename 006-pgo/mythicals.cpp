@@ -12,7 +12,7 @@ encode_catstr(const std::string &str){
 static void
 emit_cat_table(species::species_cat cat){
   std::cout << "<h2>" << species::categorystr(cat) << "</h2>" << std::endl;
-  std::cout << "<table id=\"";
+  std::cout << "<table class=\"evenshade\" id=\"";
   encode_catstr(species::categorystr(cat));
   std::cout << "\">" << std::endl;
   std::cout << "<tr><th>T</th><th>Form</th><th>";

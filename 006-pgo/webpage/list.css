@@ -14,7 +14,7 @@ table.evenshade {
 }
 
 table.evenshade tr:nth-child(even) {
-  background-color: rgba(208, 208, 208, 0.8);
+  background-color: rgba(192, 192, 192, 0.8);
 }
 
 /* attack pair timing and power */
@@ -190,6 +190,13 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
+#stateffect { /* attack pages */
+  font-weight: bold;
+  text-align: center;
+  background-color: rgb(16, 16, 16, 1);
+  color: white;
+}
+
 div.intro {
   text-align: justify;
   text-justify: inter-word;
@@ -223,17 +230,17 @@ div.intro {
 }
 
 .tepos1 {
-  background-color: rgba(255, 240, 255, 0.75);
+  background-color: rgba(255, 240, 240, 0.75);
   text-align: center;
 }
 
 .tepos2 {
-  background-color: rgba(255, 240, 240, 0.75);
+  background-color: rgba(255, 224, 224, 0.75);
   text-align: center;
 }
 
 /* there is no positive 3, but this is used for inverted negative 3 */
 .tepos3 {
-  background-color: rgba(255, 224, 224, 0.75);
+  background-color: rgba(255, 208, 208, 0.75);
   text-align: center;
 }

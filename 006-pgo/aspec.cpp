@@ -26,10 +26,10 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
   if(fast_attack_p(a)){
     fp << "<td>" << a.turns << "</td>";
   }
+  fp << "<td>" << energy << "</td>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
   }
-  fp << "<td>" << energy << "</td>";
   float pp = power;
   if(fast_attack_p(a)){
     pp /= a.turns;
@@ -48,7 +48,8 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff){
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
-  summarize_buffs_html(fp, a, "<b>Status effect: ", "</b>");
+  fp << "<div>" << std::endl;
+  summarize_buffs_html(fp, a, "<div id=\"stateffect\">Status effect: ", "</div>");
   if(fast_attack_p(a)){
     fp << "<table id=\"fattack3x3\">" << std::endl;
   }else{
@@ -59,10 +60,10 @@ write_atk_3x3(std::ostream &fp, const attack &a){
   if(fast_attack_p(a)){
     fp << "<th>Turns</th>";
   }
+  fp << "<th>E</th>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
   }
-  fp << "<th>E</th>";
   for(int te = -3 ; te < 3 ; ++te){
     if(fast_attack_p(a)){
       fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
@@ -85,6 +86,7 @@ write_atk_3x3(std::ostream &fp, const attack &a){
     write_atk_3x3_row(fp, a, true, i);
   }
   fp << "</table>" << std::endl;
+  fp << "</div>" << std::endl; // buffs + table div
 
 }
 
@@ -103,18 +105,19 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab){
     power = calc_stab(power);
   }
   fp << "<td>" << a.animdur << "</td>";
+  fp << "<td>" << energy << "</td>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
   }
-  fp << "<td>" << energy << "</td>";
-  float pp = power;
-  if(fast_attack_p(a)){
-    pp /= a.animdur;
-  }else{
-    pp /= energy;
+  float ppt = power / a.animdur;
+  if(charged_attack_p(a)){
+    float ppe = power / energy;
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<td class=\"" << css[te + 3] << "\">" << (ppe * type_effectiveness_mult(te)) << "</td>";
+    }
   }
   for(int te = -3 ; te < 3 ; ++te){
-    fp << "<td class=\"" << css[te + 3] << "\">" << (pp * type_effectiveness_mult(te)) << "</td>";
+    fp << "<td class=\"" << css[te + 3] << "\">" << (ppt * type_effectiveness_mult(te)) << "</td>";
   }
   if(fast_attack_p(a)){
     fp << "<td>" << (energy / a.animdur) << "</td>";
@@ -133,16 +136,17 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   fp << "<tr>";
   fp << "<th>STAB?</th>";
   fp << "<th>Turns</th>";
+  fp << "<th>E</th>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
   }
-  fp << "<th>E</th>";
-  for(int te = -3 ; te < 3 ; ++te){
-    if(fast_attack_p(a)){
-      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
-    }else{
+  if(charged_attack_p(a)){
+    for(int te = -3 ; te < 3 ; ++te){
       fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
     }
+  }
+  for(int te = -3 ; te < 3 ; ++te){
+    fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
   }
   if(fast_attack_p(a)){
     fp << "<th>EPT</th>";
