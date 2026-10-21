@@ -61,7 +61,7 @@ table.bounded tr :nth-child(n+3) {
   padding: 0 0 0 1em;
 }
 
-table.fastattacks {
+table.fastattacks {  /* on the mon pages */
   margin: 0 0 1em 0; /* a bit of space between us and charged attacks */
 }
 

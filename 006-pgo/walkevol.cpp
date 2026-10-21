@@ -32,7 +32,7 @@ emit_special_evol(const species &s){
 
 // generate a table of all evolutions requiring special resources/conditions
 int main(void){
-  std::cout << "<table id=\"evenshade evolcond\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"evolcond\">" << std::endl;
   std::cout << "<tr><th>T</th><th>Base</th><th>Requirement(s)</th><th>Evolution</th><th>T</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     emit_special_evol(*s);
