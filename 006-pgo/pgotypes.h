@@ -1168,7 +1168,7 @@ struct species {
 
   // if the species has a plus attack in its attack set, expand it to four
   // versions, adding levels 2, 3, and 4. maybe we ought always do this in
-  // synth_mega_species(), idk. this is to be used on a species synthesized 
+  // synth_mega_species(), idk. this is to be used on a species synthesized
   // from an mform, not the database species containing the mform.
   void expand_plus_atk(std::forward_list<attack> &store){
     for(const auto pa : attacks){
@@ -2229,7 +2229,7 @@ attack_named_p(const attack *a, const std::string &name){
   return std::ranges::equal(a->name, name, {},
       [](const auto& c){ return tolower(c); },
       [](const auto& c){ return tolower(c); }
-      ); 
+      );
 }
 
 // return the named charged attack iff s can learn it
@@ -2239,7 +2239,7 @@ species_charged_attack(const species *s, const char *aname){
     if(a->energytrain >= 0){
       continue;
     }
-    if(attack_named_p(a, aname)){
+    if(!attack_named_p(a, aname)){
       continue;
     }
     return a;
@@ -2254,7 +2254,7 @@ species_fast_attack(const species *s, const char *aname){
     if(a->energytrain <= 0){
       continue;
     }
-    if(attack_named_p(a, aname)){
+    if(!attack_named_p(a, aname)){
       continue;
     }
     return a;
