@@ -57,13 +57,13 @@ emit_plus_header(std::ostream &fp, int level, float pmult){
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
-  fp << "<div id=\"tablecontainer\">" << std::endl;
-  summarize_buffs_html(fp, a, "<div id=\"stateffect\">Status effect: ", "</div>");
   bool plusatk = plus_attack_p(a);
   int maxlevel = plusatk ? 4 : 1;
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
     float plusmult = 1.0 + 0.1 * meglevel;
     emit_plus_header(fp, meglevel, plusmult);
+    fp << "<div id=\"tablecontainer\">" << std::endl;
+    summarize_buffs_html(fp, a, "<div id=\"stateffect\">Status effect: ", "</div>");
     if(fast_attack_p(a)){
       fp << "<table class=\"fattack3x3\">" << std::endl;
     }else{
@@ -99,10 +99,8 @@ write_atk_3x3(std::ostream &fp, const attack &a){
       write_atk_3x3_row(fp, a, false, i, plusmult);
       write_atk_3x3_row(fp, a, true, i, plusmult);
     }
-    fp << "</table>" << std::endl;
+    fp << "</table></div>" << std::endl;
   }
-  fp << "</div>" << std::endl; // buffs + table div
-
 }
 
 static void

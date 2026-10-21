@@ -172,6 +172,11 @@ table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
   padding: 0 0 0 1em;
 }
 
+img.monradar {
+  width: 480px;
+  height: auto;
+}
+
 #monpacing tr>:nth-child(1) { /* attack list */
   white-space: nowrap;        /* give it space until we are satisfied or run out */
 }

@@ -12,8 +12,8 @@ write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   }else{
     encode_name(s.name, enc);
   }
-  fp << "<img src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
-  fp << "<img src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monradar\" src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
 }
 
 // returns true if we ought bother emitting the next highest table, false
