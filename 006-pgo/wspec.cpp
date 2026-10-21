@@ -250,7 +250,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
 static int
 write_atk_effectiveness(std::ostream &fp, const species &s){
   fp << "<h2>attack effectiveness</h2>" << std::endl;
-  fp << "<table>" << std::endl;
+  fp << "<table id=\"atkeffect\">" << std::endl;
   fp << "<tr>";
   for(int i = -3 ; i < 3 ; ++i){
     fp << "<th class=\"" << reversecss[i + 3] << "\">" << i << "</th>";
@@ -283,7 +283,7 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
 static int
 write_stats(std::ostream &fp, const species &s){
   fp << "<h2>basics</h2>" << std::endl;
-  fp << "<div class=\"stats\">";
+  fp << "<div id=\"basics\">";
   fp << "Attack: " << s.atk << "<br/>";
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
@@ -616,7 +616,7 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  write_header(fp, s.name + " in Pokémon GO");
+  write_header(fp, s.name + " in Pokémon GO", true);
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << ' ';
   html_types_pdir(fp, s.t1, s.t2);
@@ -699,7 +699,7 @@ write_index(){
     std::cerr << "error opening index.html for writing" << std::endl;
     return -1;
   }
-  write_header(fp, "Pokémon GO forms");
+  write_header(fp, "Pokémon GO forms", true);
   fp << "<div class=\"intro\">The following forms are available in Pokémon GO. ";
   fp << "Functionally equivalent forms are not distinguished. ";
   fp << "Battle-only forms are not listed.</div>" << std::endl;

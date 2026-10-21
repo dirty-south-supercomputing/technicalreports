@@ -85,7 +85,7 @@ emit_coversets(std::vector<tarray> &tarrays, const std::string &title, bool html
   organize_coversets(tarrays, out);
   if(html){
     std::cout << "<h2>" << title << "</h2>" << std::endl;
-    std::cout << "<table>" << std::endl;
+    std::cout << "<table id=\"coverset\">" << std::endl;
     std::cout << "<tr><th></th><th></th></tr>" << std::endl;
   }
   int setidx = 1;

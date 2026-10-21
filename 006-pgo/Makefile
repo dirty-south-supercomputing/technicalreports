@@ -194,14 +194,14 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPY
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html
+$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html
 	@mkdir -p $(@D)
-	sed -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' $< > $@
 
-# use cp instead of ln so that 'chromium webpage/index.html' doesn't go to webpage-src/, ugh
-$(WEB)/index.html: $(WEBSRC)/index.html
+$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html
 	@mkdir -p $(@D)
-	cp -a $< $@
+	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
+	    -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)

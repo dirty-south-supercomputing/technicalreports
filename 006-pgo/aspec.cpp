@@ -183,8 +183,8 @@ write_atk_effects(std::ostream &fp, const attack &a){
   if(ae.empty()){
     return;
   }
-  fp << "<h2>Adventure Effect</h2>" << std::endl;
-  fp << ae << std::endl;
+  fp << "<h2>adventure effect</h2>" << std::endl;
+  fp << "<div class=\"atktext\">" << ae << "</div>" << std::endl;
 }
 
 static void
@@ -192,6 +192,7 @@ write_atk_user(std::ostream &fp, const std::string &s, bool &printed, bool elite
   if(printed){
     fp << ", ";
   }else{
+    fp << "<div class=\"atktext\">";
     printed = true;
   }
   if(elitetm){
@@ -237,6 +238,9 @@ write_atk_users(std::ostream &fp, const attack &a){
       }
     }
   }
+  if(printed){
+    fp << "</div>" << std::endl;
+  }
 }
 
 static void
@@ -279,17 +283,20 @@ write_atk_page(const attack &a){
     return -1;
   }
   fp << std::setprecision(3);
-  write_header(fp, a.name);
-  fp << "<h1>" << a.name << ' ';
-  html_type_pdir(fp, a.type);
+  write_header(fp, a.name, true);
+  fp << "<h1>" << a.name << " (";
+  if(a.type != TYPECOUNT){
+    fp << tname_capitalized(a.type);
+  }else{
+    fp << "Various"; // ugh, hidden power
+  }
   if(fast_attack_p(a)){
-    fp << " fast";
+    fp << " fast)";
   }else{
     if(plus_attack_p(a)){
-      fp << " super mega charged";
-    }else{
-      fp << " charged";
+      fp << " super mega";
     }
+    fp << " charged)";
   }
   fp << "</h1>" << std::endl;
   write_atk_effects(fp, a);

@@ -1,3 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  margin: 1em 1em 1em 1em;
+}
+
+/*table {
+  margin: 1em 1em 1em 1em;
+}*/
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  background-color: #333333;
+}
+
+nav ul {
+  display: flex;
+  gap: 2em;
+}
+
+nav ul li {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
 img.type {
   height: 1em;
   width: 1em;
@@ -61,25 +97,6 @@ table.bounded tr :nth-child(n+3) {
   padding: 0 0 0 1em;
 }
 
-table.fastattacks {  /* on the mon pages */
-  margin: 0 0 1em 0; /* a bit of space between us and charged attacks */
-}
-
-table.fastattacks tr :nth-child(n+3) {
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.chargedattacks tr :nth-child(n+3) {
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.monivs tr :nth-child(n+2) {
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
 /* best dynamax attackers (by type and unified) */
 table.dynas tr :nth-child(1) {
   text-align: center;
@@ -90,11 +107,7 @@ table.dynas tr :nth-child(n+4) {
   padding: 0 0 0 1em;
 }
 
-table.nofoo tr :nth-child(1) { /* dex number */
-  text-align: right;
-}
-
-table.nofoo tr :nth-child(2) { /* type */
+table.nofoo tr :nth-child(1) { /* type */
   text-align: center;
 }
 
@@ -132,6 +145,10 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
   padding: 0 0 0 1em;
 }
 
+#teffect {
+  margin: 0 1em 0 1em;
+}
+
 #teffect tr :nth-child(1) {
   text-align: center;
 }
@@ -154,6 +171,10 @@ table.fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
   padding: 0 0 0 1em;
 }
 
+table.cattackNx1 { /* attack page */
+  margin: 0 1em 0 1em;
+}
+
 table.cattackNx1 tr>:nth-child(2) { /* Turns */
   text-align: right;
 }
@@ -172,6 +193,10 @@ table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
   padding: 0 0 0 1em;
 }
 
+#coverset {
+  margin: 0 1em 0 1em;
+}
+
 img.monradar {
   width: 480px;
   height: auto;
@@ -183,6 +208,7 @@ img.monradar {
 
 #tablecontainer {
   width: fit-content;
+  margin: 0 1em 0 1em;
 }
 
 #leaguestats {
@@ -208,6 +234,37 @@ div.intro {
   text-justify: inter-word;
   font-size: large;
   padding: 1em;
+}
+
+.atktext { /* generic text on attack pages */
+  padding: 0 1em 0 1em;
+}
+
+#basics { /* mon pages */
+  padding: 0 1em 0 1em;
+}
+
+#atkeffect { /* mon pages */
+  padding: 0 1em 0 1em;
+}
+
+table.fastattacks, table.chargedattacks {
+  margin: 0 1em 1em 1em;
+}
+
+table.fastattacks tr :nth-child(n+3) { /* mon pages */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.chargedattacks tr :nth-child(n+3) {
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.monivs tr :nth-child(n+2) {
+  text-align: right;
+  padding: 0 0 0 1em;
 }
 
 #philo {

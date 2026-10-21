@@ -181,13 +181,8 @@ html_types(pgo_types_e t1, pgo_types_e t2){
   html_types(std::cout, t1, t2);
 }
 
-static inline void
-write_header(std::ofstream &fp, const std::string &title){
-  fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../list.css\">";
-  fp << "<title>" << title << "</title></head>" << std::endl;
-  fp << "<body>" << std::endl;
-}
+void write_header(std::ofstream &fp, const std::string &title, bool par = false);
+void write_navbar(std::ostream &fp, bool par = false);
 
 static inline void
 write_footer_and_close(std::ofstream &fp){

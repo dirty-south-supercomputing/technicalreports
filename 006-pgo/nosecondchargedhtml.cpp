@@ -5,7 +5,7 @@ int main(void){
   // track the previous match, since we don't print it immediately (we need
   // "and" prior to the last and only the last one).
   std::cout << "<table class=\"nofoo\">" << std::endl;
-  std::cout << "<tr><th>Dex#</th><th>T</th><th>Form</th></tr>" << std::endl;
+  std::cout << "<tr><th>T</th><th>Form</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     unsigned ccount = 0;
     for(const auto &a : s->attacks){
@@ -17,7 +17,7 @@ int main(void){
       }
     }
     if(ccount < 2){
-      std::cout << "<tr><td>" << s->idx << "</td><td>";
+      std::cout << "<tr><td>";
       html_types(s->t1, s->t2);
       std::cout << "</td><td>";
       link_to_name(std::cout, s->name, true);
