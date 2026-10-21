@@ -24,11 +24,13 @@ int main(void){
         return false;
       });
   std::cout << "<table class=\"evenshade\" id=\"dynacost\">" << std::endl;
-  std::cout << "<tr><th>Dex#</th><th>T</th><th>Pokémon</th><th>Tier</th><th>Cost (MP)</th></tr>" << std::endl;
+  std::cout << "<tr><th>T</th><th>Pokémon</th><th>Tier</th><th>Cost (MP)</th></tr>" << std::endl;
   for(const auto s : dynas){
-    std::cout << "<tr><td>" << s->idx << "</td><td>";
+    std::cout << "<tr><td>";
     html_types(s->t1, s->t2);
-    std::cout << "</td><td>" << s->name << "</td><td>" << s->dmax << "</td><td>";
+    std::cout << "</td><td>";
+    link_to_name(std::cout, s->name, true, false);
+    std::cout << "</td><td>" << s->dmax << "</td><td>";
     switch(s->dmax){
       case 1: std::cout << 250; break;
       case 2: std::cout << 400; break;

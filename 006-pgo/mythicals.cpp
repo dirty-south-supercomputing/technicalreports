@@ -15,7 +15,7 @@ emit_cat_table(species::species_cat cat){
   std::cout << "<table id=\"";
   encode_catstr(species::categorystr(cat));
   std::cout << "\">" << std::endl;
-  std::cout << "<tr><th>Dex#</th><th>T</th><th>Form</th><th>";
+  std::cout << "<tr><th>T</th><th>Form</th><th>";
   std::cout << "<img src=\"images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
   std::cout << "</th><th>";
   std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
@@ -25,7 +25,6 @@ emit_cat_table(species::species_cat cat){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->category == cat){
       std::cout << "<tr>";
-      std::cout << "<td>" << s->idx << "</td>";
       std::cout << "<td>";
       html_types(s->t1, s->t2);
       std::cout << "</td>";

@@ -7,24 +7,34 @@
   <title>Pokémon GO transitions requiring resources beyond Candy</title>
   <link rel="stylesheet" type="text/css" href="list.css">
   <style>
-    #evolcond tr>:nth-child(1) { /* base dex# */
-      text-align: right;
-    }
-    #evolcond tr>:nth-child(2) { /* base type */
+    #evolcond tr>:nth-child(1) { /* base type */
       text-align: center;
     }
-    #evolcond tr>:nth-child(6) { /* dest type */
-      text-align: center;
+    #evolcond tr>:nth-child(n+2):nth-child(-n+4) { /* base form, requirement, evol form */
+      text-align: left;
     }
-    #evolcond tr>:nth-child(7) { /* dest dex# */
-      text-align: right;
+    #evolcond tr>:nth-child(5) { /* dest type */
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
 <div class="intro">The following evolutions and form changes require conditions
-  in addition to (or, in the case of Gimmighoul, in the place of) Candy.</div>
+  in addition to (or, in the case of Gimmighoul, in the place of) Candy.
+  If a Lure is necessary, it must be actively deployed in a Pokéstop near the Trainer.
+  If objects are necessary, they will be consumed.
+  Some evolutions require certain weather or times of day.
+  The ultimate source of truth is the in-game map and weather.
+  Day and night approximately track local sunrise and sunset.
+  Catching a Pokémon counts as catching each of its types; receiving one via trade does not
+   count as a catch for purposes of evolution.
+  “Defeating” a Pokémon is satisfied by knocking it out in any form of combat:
+  gyms, raids, GBL, etc.<br/>
+  <br/>
+  <a href="mon/eevee.html">Eevee</a> has its own evolution system, not detailed here.
+  Mega evolution, Fusion, and Crowning are also not listed.
+</div>
 
 SUBST
 <hr/>

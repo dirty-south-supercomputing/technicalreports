@@ -11,7 +11,9 @@ functional_hundos(int cplimit, int cpthresh){
     float gmean = st->geommean;
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
-      std::cout << "<tr><td>" << st->s->name << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';
+      std::cout << "<tr><td>";
+      link_to_name(std::cout, st->s->name, true, false);
+      std::cout << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';
       emit_halflevel_as_level(std::cout, st->hlevel);
       std::cout << " (" << calc_pok_cp(st) << ")" << "</td><td>";
       while(tmp){

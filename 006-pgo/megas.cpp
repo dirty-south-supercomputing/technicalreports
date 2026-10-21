@@ -4,7 +4,6 @@ static void
 emit_megas(const species &s){
   for(const auto &m : s.mforms){
     std::cout << "<tr>";
-    std::cout << "<td>" << s.idx << "</td>";
     std::cout << "<td>";
     html_types(m.t1, m.t2);
     std::cout << "</td>";
@@ -23,8 +22,8 @@ emit_megas(const species &s){
 
 // dump a table of all released megas
 int main(void){
-  std::cout << "<table id=\"allmegas\">" << std::endl;
-  std::cout << "<tr><th>Dex#</th><th>T</th><th>Form</th><th>Initial cost</th><th>Plus attack</tr>" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"allmegas\">" << std::endl;
+  std::cout << "<tr><th>T</th><th>Form</th><th>Initial cost</th><th>Plus attack</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     emit_megas(*s);
   }
