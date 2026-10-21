@@ -33,7 +33,7 @@ dualcharge_list(pgo_types_e t0, pgo_types_e t1){
               continue;
             }
             printf("\t%s: %s (%.2f) + %s (%.2f)\n", s->name.c_str(),
-                a->name, appe, a2->name, a2ppe);
+                a->name.c_str(), appe, a2->name.c_str(), a2ppe);
           }
         }
       }

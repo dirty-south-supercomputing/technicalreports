@@ -533,6 +533,8 @@ static const attack ATK_Darkest_Lariat{ "Darkest Lariat", TYPE_DARK, 120, -60, 0
 	80, 50, 4, false, };
 static const attack ATK_Dark_Pulse{ "Dark Pulse", TYPE_DARK, 80, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	80, 50, 6, false, };
+static const attack ATK_Dark_Pulse_Plus{ "Dark Pulse+", TYPE_DARK, 60, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	150, 100, 6, false, };
 static const attack ATK_Dazzling_Gleam{ "Dazzling Gleam", TYPE_FAIRY, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   100, 50, 7, false, };
 static const attack ATK_Dig{ "Dig", TYPE_GROUND, 70, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,

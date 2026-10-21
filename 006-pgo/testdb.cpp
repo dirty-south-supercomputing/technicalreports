@@ -72,7 +72,7 @@ test_species(const species &s){
     // check that all attacks are on the full attack list
     bool atkingtable = false;
     for(auto it = attacks_begin() ; it != attacks_end() ; ++it){
-      if(strcmp((*it)->name, a->name) == 0){
+      if(attack_named_p(*it, a->name)){
         atkingtable = true;
         break;
       }
@@ -307,7 +307,7 @@ test_mega(void){
         throw std::exception();
       }
       if(m.plusatk){
-        if(!strchr(m.plusatk->name, '+')){
+        if(!m.plusatk->name.contains('+')){
           std::cerr << m.name << " had invalid +attack " << m.plusatk->name << std::endl;
           throw std::exception();
         }

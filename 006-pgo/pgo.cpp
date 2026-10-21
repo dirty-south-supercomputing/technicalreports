@@ -1519,7 +1519,7 @@ static const std::vector<species> sdex = {
   {  229, "Houndoom", TYPE_DARK, TYPE_FIRE, 224, 144, 181, "Houndour",
 		{ &ATK_Fire_Fang, &ATK_Snarl, &ATK_Incinerate, &ATK_Flamethrower, &ATK_Fire_Blast, &ATK_Crunch, &ATK_Foul_Play, &ATK_Trailblaze, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
-    { { "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, nullptr, }, }, },
+    { { "Mega Houndoom", TYPE_DARK, TYPE_FIRE, 289, 194, 181, 100, &ATK_Dark_Pulse_Plus, }, }, },
   {  230, "Kingdra", TYPE_WATER, TYPE_DRAGON, 194, 194, 181, "Seadra",
 		{ &ATK_Waterfall, &ATK_Dragon_Breath, &ATK_Water_Gun, &ATK_Swift, &ATK_Hydro_Pump, &ATK_Octazooka, &ATK_Blizzard, &ATK_Outrage, &ATK_Surf, },
 		true, true, 0, { &ATK_Water_Gun, }, species::CAT_NORMAL, 50, species::EVOL_DRAGONSCALE, species::REGION_ALL, 0, {}, },
