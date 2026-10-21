@@ -185,6 +185,10 @@ table.cattackNx1 tr>:nth-child(n+3) { /* everything but "STAB?" */
   padding: 0 0 0 1em;
 }
 
+table.fattackNx1 { /* attack page */
+  margin: 0 1em 0 1em;
+}
+
 table.fattackNx1 tr>:nth-child(2) { /* Turns */
   text-align: right;
 }
