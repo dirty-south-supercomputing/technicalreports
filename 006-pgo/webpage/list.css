@@ -197,6 +197,10 @@ table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
   margin: 0 1em 0 1em;
 }
 
+#allforms { /* all forms table */
+  margin: 0 1em 0 1em;
+}
+
 img.monradar {
   width: 480px;
   height: auto;

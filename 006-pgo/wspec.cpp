@@ -703,7 +703,7 @@ write_index(){
   fp << "<div class=\"intro\">The following forms are available in Pokémon GO. ";
   fp << "Functionally equivalent forms are not distinguished. ";
   fp << "Battle-only forms are not listed.</div>" << std::endl;
-  fp << "<table>" << std::endl;
+  fp << "<table id=\"allforms\">" << std::endl;
   fp << "<tr><th>Dex#</th><th>T</th><th>Form</th><th>";
   fp << "<img src=\"../images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
   fp << "</th><th>";
