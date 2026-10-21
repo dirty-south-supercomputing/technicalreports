@@ -46,6 +46,14 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float 
   fp << "</tr>" << std::endl;
 }
 
+// emit a header for levels 1..3 (*not* 0)
+static void
+emit_plus_header(std::ostream &fp, int level, float pmult){
+  if(level){
+    fp << "<h3>super mega level " << level + 1 << " (" << pmult << "x)</h3>" << std::endl;
+  }
+}
+
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
@@ -55,9 +63,7 @@ write_atk_3x3(std::ostream &fp, const attack &a){
   int maxlevel = plusatk ? 4 : 1;
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
     float plusmult = 1.0 + 0.1 * meglevel;
-    if(plusatk && meglevel){
-      fp << "<h3>super mega level " << meglevel + 1 << "</h3>" << std::endl;
-    }
+    emit_plus_header(fp, meglevel, plusmult);
     if(fast_attack_p(a)){
       fp << "<table class=\"fattack3x3\">" << std::endl;
     }else{
@@ -142,9 +148,7 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   int maxlevel = plusatk ? 4 : 1;
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
     float plusmult = 1.0 + 0.1 * meglevel;
-    if(plusatk && meglevel){
-      fp << "<h3>super mega level " << meglevel + 1 << "</h3>" << std::endl;
-    }
+    emit_plus_header(fp, meglevel, plusmult);
     if(fast_attack_p(a)){
       fp << "<table class=\"fattackNx1\">" << std::endl;
     }else{
