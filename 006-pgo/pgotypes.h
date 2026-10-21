@@ -1734,7 +1734,7 @@ update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
 // equal to floor.
 static stats *
 find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
-  stats* optsets = NULL;
+  stats* optsets = nullptr;
   float minfit = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
@@ -1742,12 +1742,12 @@ find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float
         int cp;
         unsigned hl = maxlevel_cp_bounded(s.atk + iva, s.def + ivd, s.sta + ivs, cpceil, &cp);
         if(update_optset(&optsets, s, iva, ivd, ivs, hl, floor, &minfit, isshadow, fitfxn) < 0){
-          return NULL;
+          return nullptr;
         }
       }
     }
   }
-  stats* collectopt = NULL;
+  stats* collectopt = nullptr;
   stats** qopt = &collectopt;
   float maxmean = -1;
   // print the optimal frontier (large), and extract the truly optimal sets (small)
@@ -1767,12 +1767,12 @@ find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float
       }
       collectopt = cur;
       qopt = &cur->next;
-      cur->next = NULL;
+      cur->next = nullptr;
       maxmean = m;
     }else if(m == maxmean){ // FIXME unsafe FP comparison
       *qopt = cur;
       qopt = &cur->next;
-      cur->next = NULL;
+      cur->next = nullptr;
     }else{
       delete cur;
     }
@@ -2235,8 +2235,8 @@ attack_named_p(const attack *a, const std::string &name){
 // return the named charged attack iff s can learn it
 static inline const attack *
 species_charged_attack(const species *s, const char *aname){
-  for(const auto &a : s->attacks){
-    if(a->energytrain >= 0){
+  for(const auto a : s->attacks){
+    if(!charged_attack_p(*a)){
       continue;
     }
     if(!attack_named_p(a, aname)){
@@ -2244,14 +2244,14 @@ species_charged_attack(const species *s, const char *aname){
     }
     return a;
   }
-  return NULL;
+  return nullptr;
 }
 
 // return the named fast attack iff s can learn it
-static const attack *
+static inline const attack *
 species_fast_attack(const species *s, const char *aname){
-  for(const auto &a : s->attacks){
-    if(a->energytrain <= 0){
+  for(const auto a : s->attacks){
+    if(!fast_attack_p(*a)){
       continue;
     }
     if(!attack_named_p(a, aname)){
@@ -2259,7 +2259,7 @@ species_fast_attack(const species *s, const char *aname){
     }
     return a;
   }
-  return NULL;
+  return nullptr;
 }
 
 // lex out iv and level in the form iva-ivd-ivs@l or optCP
@@ -2273,7 +2273,7 @@ lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
   }
   if((r = sscanf(ivl, "opt%u", &cp)) == 1){
     stats *st = find_optimal_set(sp, cp, 0, shadow, calc_pok_gmean);
-    if(st == NULL){
+    if(!st){
       fprintf(stderr, "couldn't find optimal config for cp %u\n", cp);
       return -1;
     }
@@ -2324,15 +2324,15 @@ lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
 
 static const attack *
 lex_species_charged_attacks(const species *s, const char *spec, const attack **ca2){
-  *ca2 = NULL;
+  *ca2 = nullptr;
   const char *sep = strchr(spec, '/');
   if(sep){
     char *fspec = strndup(spec, sep - spec);
     const attack *ca1 = species_charged_attack(s, fspec);
     *ca2 = species_charged_attack(s, sep + 1);
     free(fspec);
-    if(*ca2 == NULL){
-      return NULL;
+    if(*ca2 == nullptr){
+      return nullptr;
     }
     return ca1;
   }
@@ -2352,7 +2352,7 @@ fill_stats(stats* s, const species &sp, bool shadow){
   s->average = calc_amean(s->effa, s->effd, s->mhp);
   s->cp = calccp(sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, s->hlevel);
   s->shadow = shadow;
-  s->next = NULL;
+  s->next = nullptr;
 }
 
 // pass in argv at the start of the pmon spec with argc downadjusted
