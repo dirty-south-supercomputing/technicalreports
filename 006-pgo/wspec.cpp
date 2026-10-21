@@ -479,7 +479,7 @@ write_evol(std::ostream &fp, const species &s){
   unsigned length;
   unsigned forkcolumn, forkidx;
   auto rows = family_geom(fam, length, forkcolumn, forkidx);
-  fp << "<table>" << std::endl;
+  fp << "<table id=\"transitions\">" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
   fp << "</table>" << std::endl;
 }
