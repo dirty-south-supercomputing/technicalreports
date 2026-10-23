@@ -10,6 +10,7 @@ df <- as.data.frame(html_table(bigtable))
 rec <- subset(df, Form == name)
 bulk <- sqrt(df[["MHP"]] * df[["EffD"]])
 ourbulk <- sqrt(rec[["MHP"]] * rec[["EffD"]])
+ourcp <- rec[["CP"]]
 oureffa <- rec[["EffA"]]
 if(args[2] == "ML"){
   ourconf <- "15-15-15x50"
@@ -21,7 +22,7 @@ p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=(EffD*MHP*EffA))) +
   geom_point(aes(x=ourbulk, y=oureffa), colour="black", size=2) +
   theme_minimal() + 
   theme(legend.position="none") +
-  labs(title=paste(name, ourconf, "in", args[2]), x="Bulk (sqrt(EffD*MHP))", y="EffA")
+  labs(title=paste(name, " (", ourconf, " CP ", ourcp, ") in ", args[2], sep=""), x="Bulk (sqrt(EffD*MHP))", y="EffA")
 print(name)
 ename = gsub('[% \']', '', name)
 png(paste(paste("graphs/", ename, args[2], sep=""), ".png", sep=""))
