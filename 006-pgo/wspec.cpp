@@ -395,15 +395,6 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
   }
 }
 
-static bool
-bidirectional_evol(const species &s){
-  if(s.category == species::CAT_FUSION || s.category == species::CAT_CROWNED
-      || s.category == species::CAT_MEGA){
-    return true;
-  }
-  return false;
-}
-
 static void
 emit_evol_table(std::ostream &fp, const std::string &us,
                 const std::vector<const species*> fam,
@@ -421,13 +412,13 @@ emit_evol_table(std::ostream &fp, const std::string &us,
       if(y != midrow){ // rows off the main path, implies a fork
         if(x == forkcolumn){
           if(y < midrow){
-            if(bidirectional_evol(*fam[forkidx])){
+            if(bidirectional_evol_p(*fam[forkidx])){
               fp << "⤢ ";
             }else{
               fp << "↗ ";
             }
           }else{
-            if(bidirectional_evol(*fam[forkidx])){
+            if(bidirectional_evol_p(*fam[forkidx])){
               fp << "⤡ ";
             }else{
               fp << "↘ ";
@@ -439,7 +430,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
         }else if(x > forkcolumn){
           if(forkidx < fam.size()){
             if(fam[forkidx]->from == *prev){
-              if(bidirectional_evol(*fam[forkidx])){
+              if(bidirectional_evol_p(*fam[forkidx])){
                 fp << "↔ ";
               }else{
                 fp << "→ ";
@@ -453,7 +444,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
       }else{ // main path
         if(!pathends || i < pathends){
           if(x > 0){
-            if(bidirectional_evol(*fam[i])){
+            if(bidirectional_evol_p(*fam[i])){
               fp << "↔ ";
             }else{
               fp << "→ ";
@@ -476,7 +467,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
               }
               if(successors == 2){
                 prev = &fam[i]->name;
-                if(bidirectional_evol(*fam[forkidx])){
+                if(bidirectional_evol_p(*fam[forkidx])){
                   fp << "↔ ";
                 }else{
                   fp << "→ ";
@@ -486,7 +477,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
               }
             }else{
               if(fam[i]->from == *prev){
-                if(bidirectional_evol(*fam[forkidx])){
+                if(bidirectional_evol_p(*fam[forkidx])){
                   fp << "↔ ";
                 }else{
                   fp << "→ ";

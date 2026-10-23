@@ -2653,6 +2653,7 @@ bool multiple_charged_attacks(const species &s);
 std::string adventure_effect(const std::string& name);
 
 const char *tname_capitalized(pgo_types_e t);
+bool bidirectional_evol_p(const species &s);
 
 static inline const char*
 tname_capitalized(int i){

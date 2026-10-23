@@ -2455,7 +2455,7 @@ static const std::vector<species> sdex = {
   {  492, "Shaymin", TYPE_GRASS, TYPECOUNT, 210, 210, 225, "",
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, "",
+  {  492, "Sky Shaymin", TYPE_GRASS, TYPE_FLYING, 261, 166, 225, "Shaymin",
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Magical_Leaf, &ATK_Solar_Beam, &ATK_Grass_Knot, &ATK_Energy_Ball, &ATK_Seed_Flare, },
 		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // 493 is arceus
@@ -3406,7 +3406,7 @@ static const std::vector<species> sdex = {
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, "",
 		{ &ATK_Confusion, &ATK_Astonish, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
-  {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, "",
+  {  720, "Hoopa Unbound", TYPE_PSYCHIC, TYPE_DARK, 311, 191, 173, "Hoopa Confined",
 		{ &ATK_Confusion, &ATK_Astonish, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Psychic, },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  721, "Volcanion", TYPE_FIRE, TYPE_WATER, 252, 216, 190, "",
@@ -4523,4 +4523,15 @@ bool multiple_charged_attacks(const species &s){
     }
   }
   return ccount > 1;
+}
+
+bool bidirectional_evol_p(const species &s){
+  if(s.category == species::CAT_FUSION || s.category == species::CAT_CROWNED
+      || s.category == species::CAT_MEGA){
+    return true;
+  }
+  if(s.name.contains("Zygarde") || s.name.contains("Shaymin") || s.name.contains("Hoopa")){
+    return true;
+  }
+  return false;
 }
