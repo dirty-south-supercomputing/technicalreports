@@ -128,9 +128,6 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
-  if(pvp_banned_p(s)){
-    return; // no tables for us!
-  }
   bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
   if(donext){
     donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
@@ -204,21 +201,42 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
 static void
 write_mon_attacks_3x3(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
   std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
-        if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
-          return true;
-        }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
-          return false;
-        }
-        float aratio = calc_eff_power(s, lhs);
-        float bratio = calc_eff_power(s, rhs);
-        if(fast_attack_p(*lhs)){
-          aratio /= lhs->turns;
-          bratio /= rhs->turns;
-        }else{
-          aratio /= -lhs->energytrain;
-          bratio /= -rhs->energytrain;
-        }
-        return aratio < bratio;
+      if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
+        return true;
+      }else if(fast_attack_p(*rhs) && !fast_attack_p(*lhs)){
+        return false;
+      }
+      float aratio = calc_eff_power(s, lhs) * 100;
+      float bratio = calc_eff_power(s, rhs) * 100;
+      // next, compare ppt for fast moves and ppe for charged moves
+      if(fast_attack_p(*lhs)){
+        aratio /= lhs->turns; // ppt
+        bratio /= rhs->turns;
+      }else{
+        aratio /= -lhs->energytrain; // ppe
+        bratio /= -rhs->energytrain;
+      }
+      // we multiply by 100 to ensure the significant figures of the
+      // calculation are in the integer portion, then truncate, to kill
+      // off any floating point error in the less significant digits
+      aratio = trunc(aratio * 100);
+      bratio = trunc(bratio * 100);
+      if(aratio < bratio){
+        return true;
+      }else if(bratio < aratio){
+        return false;
+      }
+      // next, compare ept for fast moves and energy for charged moves
+      float ae = lhs->energytrain;
+      float be = rhs->energytrain;
+      if(fast_attack_p(*lhs)){
+        ae /= lhs->turns;
+        be /= rhs->turns;
+      }else{
+        ae = -ae;
+        be = -be;
+      }
+      return ae < be;
       });
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
   write_fattacks_3x3(fp, s, atks);
@@ -229,16 +247,29 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s, std::vector<const atta
 static void
 write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
   std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
-        if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
-          return true;
-        }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
-          return false;
-        }
+        // next, compare ppt
         float aratio = calc_eff_power_nx1(s, lhs);
         float bratio = calc_eff_power_nx1(s, rhs);
         aratio /= lhs->animdur;
         bratio /= rhs->animdur;
-        return aratio < bratio;
+        aratio = trunc(aratio * 100);
+        bratio = trunc(bratio * 100);
+        if(aratio < bratio){
+          return true;
+        }else if(bratio < aratio){
+          return false;
+        }
+        // next, compare ept for fast moves and ppe for charged moves
+        float ae;
+        float be;
+        if(fast_attack_p(*lhs)){
+          ae = static_cast<float>(lhs->energyraid) / lhs->animdur;
+          be = static_cast<float>(rhs->energyraid) / rhs->animdur;
+        }else{
+          ae = calc_eff_power_nx1(s, lhs) / lhs->animdur;
+          be = calc_eff_power_nx1(s, rhs) / rhs->animdur;
+        }
+        return ae < be;
       });
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
@@ -264,7 +295,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
     fp << "<td>" << prefix << cpow << suffix << "</td>";
     fp << "<td>" << prefix << a->energyraid << suffix << "</td>";
     fp << "<td>" << prefix << (cpow / a->animdur) << suffix << "</td>";
-    fp << "<td>" << prefix << (cpow / a->energyraid) << suffix << "</td>";
+    fp << "<td>" << prefix << (a->energyraid / a->animdur) << suffix << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
@@ -710,10 +741,14 @@ write_mon_page(const species &s){
   if(s.shadow){
     atks.emplace_back(&ATK_Return);
   }
-  write_mon_attacks_3x3(fp, s, atks);
+  if(!pvp_banned_p(s)){
+    write_mon_attacks_3x3(fp, s, atks);
+  }
   write_mon_attacks_nx1(fp, s, atks);
   //write_mon_pacing(fp, s);
-  write_iv_tables(fp, s);
+  if(!pvp_banned_p(s)){
+    write_iv_tables(fp, s);
+  }
   // FIXME moar crap ... counters, attack sets, time to first charged attack
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
