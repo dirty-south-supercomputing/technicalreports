@@ -37,9 +37,16 @@ emit_good_hundos(int cpbound){
   std::vector<sstat> rows;
   std::vector<species> state;
   int cpcutoff = cpbound - 400; // gotta allow morpeko (2196) into UL
+  std::forward_list<species> store;
+  std::vector<const species*> smeg;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     check_good_hundo(cpbound, cpcutoff, rows, *s);
-    // FIXME check megas
+    for(const auto &m : s->mforms){
+      store.emplace_front(&*s, m);
+    }
+  }
+  for(const auto &s : store){
+    check_good_hundo(cpbound, cpcutoff, rows, s);
   }
   sort(rows.begin(), rows.end(), [](const sstat &lhs, const sstat &rhs){
         if(lhs.st.geommean < rhs.st.geommean){
