@@ -14,16 +14,20 @@ write_radar(const species &s, const char *lshort, int cpceil){
     std::cerr << "unexpected vector count " << ivcount << std::endl;
     throw std::exception();
   }
-  float higha = 0, highd = 0, highhp = 0;
-  while(ivcount--){
-    const auto *stt = &st[ivcount];
-    higha = stt->effa > higha ? stt->effa : higha;
-    highd = stt->effd > highd ? stt->effd : highd;
-    highhp = stt->mhp > highhp ? stt->mhp : highhp;
-  }
+  float higha, highd, highhp, lowa, lowd, lowhp;
+  const auto *stt = &st[--ivcount];
+  higha = stt->effa;
+  highd = stt->effd;
+  highhp = stt->mhp;
+  stt = &st[0];
+  lowa = stt->effa;
+  lowd = stt->effd;
+  lowhp = stt->mhp;
   delete[] st;
   std::cout << '\"' << s.name << lshort << '\"';
   std::cout << "\t" << round(higha) << "\t" << round(highd) << "\t" << highhp << std::endl;
+  std::cout << '\"' << s.name << "BAD" << lshort << '\"';
+  std::cout << "\t" << round(lowa) << "\t" << round(lowd) << "\t" << lowhp << std::endl;
   return 0;
 }
 

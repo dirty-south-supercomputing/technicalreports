@@ -16,6 +16,55 @@ write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   fp << "<img class=\"monradar\" src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
 }
 
+struct tristats {
+  float min, max, tot;
+};
+
+static void
+update_tristats(tristats &ts, float s){
+  if(!ts.min || ts.min > s){
+    ts.min = s;
+  }
+  if(ts.max < s){
+    ts.max = s;
+  }
+  ts.tot += s;
+}
+
+static void
+write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
+  struct tristats gmean{}, amean{}, effa{}, effd{}, mhp{};
+  unsigned lmin = UINT_MAX, lmax = 0;
+  for(unsigned i = 0 ; i < ivcount ; ++i){
+    const auto &st = sets[i];
+    if(lmax < st.hlevel){
+      lmax = st.hlevel;
+    }
+    if(lmin > st.hlevel){
+      lmin = st.hlevel;
+    }
+    update_tristats(gmean, st.geommean);
+    update_tristats(amean, st.average);
+    update_tristats(effa, st.effa);
+    update_tristats(effd, st.effd);
+    update_tristats(mhp, st.mhp);
+  }
+  fp << std::fixed << std::setprecision(2);
+  fp << "<table class=\"monleaguestats\">" << std::endl;
+  fp << "<tr><th>Measure</th><th>Min</th><th>Mean</th><th>Max</th></tr>" << std::endl;
+  fp << "<tr><td>Gmean</td><td>" << gmean.min << "</td><td>" << gmean.tot / ivcount << "</td><td>" << gmean.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Amean</td><td>" << amean.min << "</td><td>" << amean.tot / ivcount << "</td><td>" << amean.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Eff<sub>A</sub></td><td>" << effa.min << "</td><td>" << effa.tot / ivcount << "</td><td>" << effa.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Eff<sub>D</sub></td><td>" << effd.min << "</td><td>" << effd.tot / ivcount << "</td><td>" << effd.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>MHP</td><td>" << mhp.min << "</td><td>" << mhp.tot / ivcount << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Level</td><td>";
+  emit_halflevel_as_level(fp, lmin);
+  fp << "</td><td>n/a</td><td>";
+  emit_halflevel_as_level(fp, lmax);
+  fp << "</td></tr>" << std::endl;
+  fp << "</table>" << std::endl;
+}
+
 // returns true if we ought bother emitting the next highest table, false
 // otherwise. we return true if any cp in the solution set equals the cpbound.
 static bool
@@ -26,8 +75,8 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<h2>" << league << "</h2>" << std::endl;
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
-  // FIXME provide an actual stat summary
-  fp << "<details id=\"monivscontainer\"><summary>expand table</summary>" << std::endl;
+  write_iv_summary(fp, sets, ivcount);
+  fp << "<details><summary>expand table</summary>" << std::endl;
   fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";

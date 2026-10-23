@@ -211,6 +211,11 @@ img.monradar {
   height: auto;
 }
 
+#leaguestats { /* league summaries, *not* mon pages */
+  background-color: #ddd;
+  margin: 0 auto 2em auto;
+}
+
 #monpacing tr>:nth-child(1) { /* attack list */
   white-space: nowrap;        /* give it space until we are satisfied or run out */
 }
@@ -218,16 +223,6 @@ img.monradar {
 #tablecontainer {
   width: fit-content;
   margin: 0 1em 0 1em;
-}
-
-#leaguestats {
-  background-color: #ddd;
-  margin: 0 auto 2em auto;
-}
-
-#leaguestats tr>:nth-child(n+2) { /* measure */
-  text-align: right;
-  padding: 0 0 0 1em;
 }
 
 #stateffect { /* attack pages */
@@ -275,8 +270,13 @@ table.chargedattacks tr :nth-child(n+3) {
   padding: 0 0 0 1em;
 }
 
-#monivscontainer { /* mon pages */
+.monleaguestats { /* mon pages */
   padding: 0 1em 1em 1em;
+}
+
+.monleaguestats tr>:nth-child(n+2) { /* stats */
+  text-align: right;
+  padding: 0 0 0 1em;
 }
 
 table.monivs tr :nth-child(n+2) {
