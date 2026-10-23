@@ -12,6 +12,7 @@ bulk <- sqrt(df[["MHP"]] * df[["EffD"]])
 ourbulk <- sqrt(rec[["MHP"]] * rec[["EffD"]])
 ourcp <- rec[["CP"]]
 oureffa <- rec[["EffA"]]
+ourgmean <- rec[["Gmean"]]
 if(args[2] == "ML"){
   ourconf <- "15-15-15x50"
 }else{
@@ -25,4 +26,12 @@ p <- ggplot(data=df, aes(x=bulk, y = EffA, colour=(EffD*MHP*EffA))) +
   theme(legend.position="none") +
   labs(title=paste(name, " (", ourconf, " CP ", ourcp, ") in ", args[2], sep=""), x="Bulk (sqrt(EffD*MHP))", y="EffA")
 png(paste(paste("graphs/", ename, args[2], sep=""), ".png", sep=""))
+print(p)
+p <- ggplot(data=df, aes(x=bulk, y = Gmean, colour=(EffD*MHP*EffA))) +
+  geom_point(alpha=0.1) +
+  geom_point(aes(x=ourbulk, y=ourgmean), colour="black", size=2) +
+  theme_minimal() + 
+  theme(legend.position="none") +
+  labs(title=paste(name, " (", ourconf, " CP ", ourcp, ") in ", args[2], sep=""), x="Bulk (sqrt(EffD*MHP))", y="Gmean")
+png(paste(paste("graphs/", ename, args[2], sep=""), "Gmean.png", sep=""))
 print(p)

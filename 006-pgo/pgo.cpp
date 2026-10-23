@@ -2337,8 +2337,8 @@ static const std::vector<species> sdex = {
 		true, true, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0, {}, },
   // the Magnet Area
   {  462, "Magnezone", TYPE_ELECTRIC, TYPE_STEEL, 238, 205, 172, "Magneton",
-		{ &ATK_Spark, &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Metal_Sound, &ATK_Flash_Cannon, &ATK_Wild_Charge, &ATK_Zap_Cannon, &ATK_Mirror_Shot, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		{ &ATK_Spark, &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Metal_Sound, &ATK_Flash_Cannon, &ATK_Wild_Charge, &ATK_Zap_Cannon, &ATK_Mirror_Shot, &ATK_Magnet_Bomb, },
+		true, true, 0, { &ATK_Magnet_Bomb, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  463, "Lickilicky", TYPE_NORMAL, TYPECOUNT, 161, 181, 242, "Lickitung",
 		{ &ATK_Lick, &ATK_Zen_Headbutt, &ATK_Rollout, &ATK_Hyper_Beam, &ATK_Earthquake, &ATK_Shadow_Ball, &ATK_Solar_Beam, &ATK_Body_Slam, },
 		true, false, 0, { &ATK_Body_Slam, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0, {}, },
