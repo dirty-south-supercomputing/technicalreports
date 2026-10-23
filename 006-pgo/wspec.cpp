@@ -78,7 +78,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   write_iv_summary(fp, sets, ivcount);
   fp << "<details class=\"monivcontainer\"><summary>expand table</summary>" << std::endl;
-  fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
+  fp << "<table class=\"evenshade monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
   fp << "<th>Eff<sub>A</sub></th>";

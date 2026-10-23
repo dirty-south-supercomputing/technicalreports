@@ -75,7 +75,7 @@ emit_good_hundos(int cpbound){
     std::cout << "<td>" << r.st.average << "</td>";
     std::cout << "<td>" << r.st.geommean << "</td>";
     std::cout << "<td>" << r.st.cp << "</td>";
-    std::cout << std::setprecision(3);
+    std::cout << std::setprecision(4);
     std::cout << "<td>" << r.percent << "</td>";
     std::cout << "</tr>" << std::endl;
   }

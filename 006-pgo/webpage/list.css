@@ -41,11 +41,6 @@ img.type {
   vertical-align: middle;
 }
 
-table.alignright td,
-table.alignright th {
-  text-align: right;
-}
-
 table.evenshade {
   border-collapse: collapse;
 }
@@ -224,6 +219,14 @@ table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
 
 #allforms { /* all forms table */
   margin: 0 1em 0 1em;
+}
+
+#allforms tr>:nth-child(1) { /* dex # */
+  font-size: large;
+}
+
+#allforms tr>:nth-child(3) { /* form */
+  font-size: large;
 }
 
 img.monradar {
