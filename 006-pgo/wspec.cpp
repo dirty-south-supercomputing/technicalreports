@@ -27,7 +27,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   // FIXME provide an actual stat summary
-  fp << "<details><summary>expand table</summary>" << std::endl;
+  fp << "<details id=\"monivscontainer\"><summary>expand table</summary>" << std::endl;
   fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
@@ -395,6 +395,15 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
   }
 }
 
+static bool
+bidirectional_evol(const species &s){
+  if(s.category == species::CAT_FUSION || s.category == species::CAT_CROWNED
+      || s.category == species::CAT_MEGA){
+    return true;
+  }
+  return false;
+}
+
 static void
 emit_evol_table(std::ostream &fp, const std::string &us,
                 const std::vector<const species*> fam,
@@ -412,9 +421,17 @@ emit_evol_table(std::ostream &fp, const std::string &us,
       if(y != midrow){ // rows off the main path, implies a fork
         if(x == forkcolumn){
           if(y < midrow){
-            fp << "↗";//↱";
+            if(bidirectional_evol(*fam[forkidx])){
+              fp << "⤢ ";
+            }else{
+              fp << "↗ ";
+            }
           }else{
-            fp << "↘";//"↳";
+            if(bidirectional_evol(*fam[forkidx])){
+              fp << "⤡ ";
+            }else{
+              fp << "↘ ";
+            }
           }
           emit_evol(fp, us, *fam[forkidx]);
           prev = &fam[forkidx]->name;
@@ -422,7 +439,11 @@ emit_evol_table(std::ostream &fp, const std::string &us,
         }else if(x > forkcolumn){
           if(forkidx < fam.size()){
             if(fam[forkidx]->from == *prev){
-              fp << " → ";
+              if(bidirectional_evol(*fam[forkidx])){
+                fp << "↔ ";
+              }else{
+                fp << "→ ";
+              }
               emit_evol(fp, us, *fam[forkidx]);
               prev = &fam[forkidx]->name;
               ++forkidx;
@@ -432,7 +453,11 @@ emit_evol_table(std::ostream &fp, const std::string &us,
       }else{ // main path
         if(!pathends || i < pathends){
           if(x > 0){
-            fp << " → ";
+            if(bidirectional_evol(*fam[i])){
+              fp << "↔ ";
+            }else{
+              fp << "→ ";
+            }
           }
           emit_evol(fp, us, *fam[i]);
         }else if(i >= pathends){
@@ -451,13 +476,21 @@ emit_evol_table(std::ostream &fp, const std::string &us,
               }
               if(successors == 2){
                 prev = &fam[i]->name;
-                fp << " → ";
+                if(bidirectional_evol(*fam[forkidx])){
+                  fp << "↔ ";
+                }else{
+                  fp << "→ ";
+                }
                 emit_evol(fp, us, *fam[forkidx]);
                 ++forkidx;
               }
             }else{
               if(fam[i]->from == *prev){
-                fp << " → ";
+                if(bidirectional_evol(*fam[forkidx])){
+                  fp << "↔ ";
+                }else{
+                  fp << "→ ";
+                }
                 emit_evol(fp, us, *fam[forkidx]);
                 prev = &fam[i]->name;
                 ++forkidx;
