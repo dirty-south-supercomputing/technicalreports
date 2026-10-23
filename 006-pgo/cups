@@ -1,0 +1,23 @@
+#!/bin/sh
+
+BIN=out/coversets
+
+[ -x "$BIN" ] || { echo "can't execute $BIN" >&2 ; exit 1 ; }
+
+"$BIN" -n "All Pokémon" -h
+"$BIN" electric -h -n "Electric Cup"
+# can't do fighting yet FIXME
+"$BIN" flying -h -n "Flying Cup"
+# can't do psychic yet FIXME
+"$BIN" fire,water,grass,electric -h -n "Color Cup"
+"$BIN" dragon,steel,fairy -h -n "Fantasy Cup"
+"$BIN" water,rock,steel -h -n "Fossil Cup"
+"$BIN" normal,grass,electric,ice,flying,ghost -h -n "Holiday Cup"
+"$BIN" normal,grass,electric,poison,ground,flying,bug,dark -h -n "Jungle Cup"
+"$BIN" ground,rock,ice,steel -h -n "Mountain Cup"
+"$BIN" water,fighting,dark -h -n "Scroll Cup" -X primarina
+"$BIN" water,grass,fairy -h -n "Spring Cup"
+"$BIN" normal,fire,water,grass,electric,bug -h -n "Summer Cup"
+"$BIN" normal,fire,grass,ground -h -n "Sunshine Cup"
+"$BIN" fire,water,ice,rock -h -n "Weather Cup"
+"$BIN" fighting,psychic,dark -h -n "Willpower Cup" -X gardevoir -X zorua -X zoroark
