@@ -260,7 +260,11 @@ write_atk_teffect(std::ostream &fp, const attack &a){
     html_type_pdir(fp, t1);
     fp << "</td>";
     for(pgo_types_e t2 = TYPESTART ; t2 < TYPECOUNT ; ++t2){
-      fp << "<td>";
+      if(t1 > t2){
+        fp << "<td style=\"color:#808080\">";
+      }else{
+        fp << "<td>";
+      }
       auto te = typing_relation(a.type, t1, t2);
       if(te){
         fp << te;
