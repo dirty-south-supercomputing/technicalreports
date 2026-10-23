@@ -198,10 +198,6 @@ img.monradar {
   padding: 0 0 0 1em;
 }
 
-#monpacing tr>:nth-child(1) { /* attack list */
-  white-space: nowrap;        /* give it space until we are satisfied or run out */
-}
-
 #tablecontainer {
   width: fit-content;
   margin: 0 1em 0 1em;
@@ -242,12 +238,20 @@ table.fastattacks, table.chargedattacks {
   margin: 0 1em 1em 1em;
 }
 
-table.fastattacks tr :nth-child(n+3) { /* mon pages */
+table.fastattacks tr>:nth-child(n+2) { /* mon pages, attack */
+  text-align: left;
+}
+
+table.chargedattacks tr>:nth-child(n+2) { /* mon pages, attack */
+  text-align: left;
+}
+
+table.fastattacks tr>:nth-child(n+3) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-table.chargedattacks tr :nth-child(n+3) {
+table.chargedattacks tr>:nth-child(n+3) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
 }

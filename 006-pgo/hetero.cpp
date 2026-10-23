@@ -124,8 +124,7 @@ print_hetero_costs(unsigned* pcount){
     if(from->a2cost == s->a2cost){
       continue;
     }
-    printf("%s → %s & %d → %d", from->name.c_str(), s->name.c_str(),
-        a2cost_to_cgroup(from->a2cost), a2cost_to_cgroup(s->a2cost));
+    printf("%s → %s & %d → %d", from->name.c_str(), s->name.c_str(), from->a2cost, s->a2cost);
     if(++*pcount % 2){
       printf(" & ");
     }else{

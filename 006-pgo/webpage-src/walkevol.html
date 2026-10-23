@@ -6,14 +6,16 @@
   <title>Pokémon GO transitions requiring resources beyond Candy</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
   <style>
+    #evolcond { margin: 0 0 0 1em; }
     #evolcond tr>:nth-child(1) { /* base type */
       text-align: center;
     }
-    #evolcond tr>:nth-child(n+2):nth-child(-n+4) { /* base form, requirement, evol form */
+    #evolcond tr>:nth-child(2) { /* base form */
       text-align: left;
     }
-    #evolcond tr>:nth-child(3) { /* requirement */
+    #evolcond tr>:nth-child(n+3):nth-child(-n+4) { /* requirement, evol form */
       padding: 0 0 0 1em;
+      text-align: left;
     }
     #evolcond tr>:nth-child(5) { /* dest type */
       text-align: center;
@@ -34,7 +36,7 @@ BODYSTART
   gyms, raids, GBL, etc.<br/>
   <br/>
   <a href="mon/Eevee.html">Eevee</a> has its own evolution system, not detailed here.
-  <a href="megas.html">Mega evolution</a>, Fusion, and Crowning are also not listed.
+  <a href="megas.html">Mega evolution</a> and Fusion are also not listed.
 </div>
 SUBST
 <hr/>

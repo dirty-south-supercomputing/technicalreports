@@ -3,7 +3,23 @@
 static void
 emit_special_evol(const species &s){
   if(s.evolkm || s.evolitem != species::EVOL_NOITEM){
-    const auto prev = get_previous_evolution(s);
+    auto prev = get_previous_evolution(s);
+    if(!prev){
+      std::forward_list<species> store;
+      std::vector<const species*> evols;
+      if(!get_evolutions(s, evols, store)){
+        return;
+      }
+      if(evols.size() != 1){
+        std::cerr << "only expected one evolution for " << s.name << std::endl;
+        throw std::exception();
+      }
+      prev = evols[0];
+      if(!bidirectional_evol_p(*prev)){
+        std::cerr << "expected bidirectional for " << s.name << std::endl;
+        throw std::exception();
+      }
+    }
     std::cout << "<tr>";
     std::cout << "<td>";
     html_types(prev->t1, prev->t2);

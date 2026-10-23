@@ -131,8 +131,10 @@ test_species(const species &s){
       throw std::exception();
     }
     if(s.evolitem != species::EVOL_NOITEM){
-      std::cerr << "evol item without base form for " << s.name << std::endl;
-      throw std::exception();
+      if(!bidirectional_evol_p(s)){
+        std::cerr << "evol item without base form for " << s.name << std::endl;
+        throw std::exception();
+      }
     }
   }
   // check that species has fast and charged attacks defined

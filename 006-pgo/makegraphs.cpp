@@ -29,7 +29,10 @@ write_iv_graphs(const species &s){
     }
     // FIXME i'd like to check these, as well; we just need know whether we ought
     // be creating ul/ml for a various form (we can always generate GL)
-    write_iv_graph(s, "UL");
+    if(write_iv_graph(s, "UL")){
+      std::cerr << "warning: ul generation failed for " << s.name << std::endl;
+      return;
+    }
     write_iv_graph(s, "ML");
   }
 }

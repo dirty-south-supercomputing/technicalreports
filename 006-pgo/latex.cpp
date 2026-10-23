@@ -377,7 +377,7 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
       if(s.categorystr() && strcmp(s.categorystr(), "")){
         printf("%s\n", s.categorystr());
       }else{
-        printf("CG %d", a2cost_to_cgroup(s.a2cost));
+        printf("2nd %d", s.a2cost);
       }
       printf(" Gen %s %s\\hfill{}",
             idx_to_generation(s.idx), idx_to_region(s.idx));
