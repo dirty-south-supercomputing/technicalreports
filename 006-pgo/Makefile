@@ -196,7 +196,7 @@ $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS
 
 $(WEB)/pgo.css: $(WEBSRC)/pgo.css
 	@mkdir -p $(@D)
-	ln -sf $(<F) $(@F)
+	ln -sf ../$< $@
 
 $(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html
 	@mkdir -p $(@D)

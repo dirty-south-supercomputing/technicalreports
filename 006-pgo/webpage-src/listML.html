@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pokémon GO attack stats for the Master League</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
+  <style>
+    table.dankstat { margin: 0 0 0 1em; }
+    table.dankstat tr :nth-child(1) { /* T */
+      text-align: center;
+    }
+    table.dankstat tr>:nth-child(2) { /* form */
+      text-align: left;
+      padding: 0 0 0 1em;
+    }
+    table.dankstat tr>:nth-child(n+3):nth-child(-n+5) { /* HP/EffD/DR */
+      text-align: right;
+      padding: 0 1em 0 0;
+    }
+    table.dankstat tr>:nth-child(6) { /* attack pair */
+      text-align: left;
+    }
+    table.dankstat tr>:nth-child(n+7) { /* stats */
+      text-align: right;
+      padding: 0 0 0 1em;
+    }
+  </style>
 </head>
 BODYSTART
 <div class="intro">A cycle is the minimum number of fast attacks sufficient to launch the charged
@@ -23,7 +44,7 @@ Dank is the product of the squares of DI and DR divided by the square of
 turns in the first cycle, divided by 10,000; it values speed more than most such
 stats. STAB is factored into calculations, when applicable.<br/>
 <br/>
-All values use 3x3 stats.</div>
+All values use 3x3 stats. No CP bound is in effect.</div>
 SUBST
 <hr/>
 <a href="https://goldandappelpub.com/pgo-quantitative.html"><i>Pokémon GO: A Quantitative Approach</i></a>

@@ -205,13 +205,11 @@ int main(int argc, char **argv){
     usage(argv[0]);
   }else if(argc < 2){
     bound = 0;
-    std::cout << "<div><b>No CP bound is in effect.</b></div>" << std::endl;
   }else{
     bound = atoi(argv[1]);
     if(bound <= 0){
       usage(argv[0]);
     }
-    std::cout << "<div><b>CP bound is " << bound << ".</b></div>" << std::endl;
   }
   std::vector<timetofirst> ttfs;
   header(!!bound);
