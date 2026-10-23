@@ -56,6 +56,7 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
   fp << "<tr><td>Amean</td><td>" << amean.min << "</td><td>" << amean.tot / ivcount << "</td><td>" << amean.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Eff<sub>A</sub></td><td>" << effa.min << "</td><td>" << effa.tot / ivcount << "</td><td>" << effa.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Eff<sub>D</sub></td><td>" << effd.min << "</td><td>" << effd.tot / ivcount << "</td><td>" << effd.max << "</td></tr>" << std::endl;
+  fp << std::defaultfloat << std::setprecision(5);
   fp << "<tr><td>MHP</td><td>" << mhp.min << "</td><td>" << mhp.tot / ivcount << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Level</td><td>";
   emit_halflevel_as_level(fp, lmin);
@@ -76,7 +77,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   write_iv_summary(fp, sets, ivcount);
-  fp << "<details><summary>expand table</summary>" << std::endl;
+  fp << "<details class=\"monivcontainer\"><summary>expand table</summary>" << std::endl;
   fp << "<table class=\"evenshade alignright monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
@@ -94,6 +95,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   do{
     const stats &s = sets[--grank];
     if(!s.shadow){
+      fp << std::fixed << std::setprecision(2);
       fp << "<tr>";
       if(s.geommean == gprev){
         fp << "<td></td>";
@@ -110,12 +112,11 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
       if(s.cp == cpbound){
         ret = true;
       }
-      fp << std::setprecision(6);
       fp << "<td>" << s.effa << "</td>";
       fp << "<td>" << s.effd << "</td>";
       fp << "<td>" << s.mhp << "</td>";
       fp << "<td>" << s.geommean << "</td>";
-      fp << std::setprecision(3);
+      std::setprecision(1);
       fp << "<td>" << (s.geommean * 100 / gmax) << "</td>";
       fp << "</tr>";
     }
@@ -363,7 +364,7 @@ write_stats(std::ostream &fp, const species &s){
   }else{
     fp << "Shadow <i>not</i> available<br/>";
   }
-  if(s.dmax && s.dmax < GMAX_TIER){
+  if(s.dmax && s.dmax != GMAX_TIER){
     fp << "Dynamax available<br/>";
   }else{
     fp << "Dynamax <i>not</i> available<br/>";

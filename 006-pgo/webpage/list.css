@@ -216,6 +216,11 @@ img.monradar {
   margin: 0 auto 2em auto;
 }
 
+#leaguestats tr>:nth-child(n+2) { /* stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 #monpacing tr>:nth-child(1) { /* attack list */
   white-space: nowrap;        /* give it space until we are satisfied or run out */
 }
@@ -276,6 +281,10 @@ table.chargedattacks tr :nth-child(n+3) {
 
 .monleaguestats tr>:nth-child(n+2) { /* stats */
   text-align: right;
+  padding: 0 0 0 1em;
+}
+
+.monivcontainer { /* mon page, per league */
   padding: 0 0 0 1em;
 }
 

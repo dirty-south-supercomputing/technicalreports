@@ -93,11 +93,13 @@ struct leaguestats {
 
   void table(std::ostream &fp) const {
     fp << "<table id=\"leaguestats\">" << std::endl;
+    fp << std::fixed << std::setprecision(2);
     fp << "<tr><th>Measure</th><th>Min</th><th>Mean</th><th>Max</th></tr>" << std::endl;
     fp << "<tr><td>Gmean</td><td>" << gmmin << "</td><td>" << (gmtot / count) << "</td><td>" << gmmax << "</td></tr>" << std::endl;
     fp << "<tr><td>Amean</td><td>" << ammin << "</td><td>" << (amtot / count) << "</td><td>" << ammax << "</td></tr>" << std::endl;
     fp << "<tr><td>Eff<sub>A</sub></td><td>" << effamin << "</td><td>" << (effatot / count) << "</td><td>" << effamax << "</td></tr>" << std::endl;
     fp << "<tr><td>Eff<sub>D</sub></td><td>" << effdmin << "</td><td>" << (effdtot / count) << "</td><td>" << effdmax << "</td></tr>" << std::endl;
+    fp << std::defaultfloat << std::setprecision(5);
     fp << "<tr><td>MHP</td><td>" << mhpmin << "</td><td>" << (mhptot / count) << "</td><td>" << mhpmax << "</td></tr>" << std::endl;
     fp << "</table>" << std::endl;
   }
@@ -153,6 +155,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
   }
   unsigned half;
   unsigned l = halflevel_to_level(sols->hlevel, &half);
+  std::cout << std::fixed << std::setprecision(2);
   if(html){
     std::cout << "<tr><td>";
     html_types(sols->s->t1, sols->s->t2);
@@ -201,6 +204,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
     std::cout << "<td>" << sols->average << "</td>";
     std::cout << "<td>" << sols->geommean << "</td>";
     std::cout << "<td>" << sols->cp << "</td>";
+    std::cout << std::setprecision(2);
     std::cout << "<td>" << afxn(sols) << "</td>";
     std::cout << "</tr>" << std::endl;
   }else{
