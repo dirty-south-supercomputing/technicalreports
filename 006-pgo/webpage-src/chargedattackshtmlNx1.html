@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pokémon GO charged attacks (Nx1 stats)</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
+<style>
+#allcharged tr>:nth-child(1) { text-align: left; } /* attack */
+#allcharged tr>:nth-child(n+2):nth-child(-n+7) { /* stats */
+  text-align: right;
+}
+#allcharged tr>:nth-child(8) { padding: 0 0 0 1em; } /* pop */
+</style>
 </head>
 BODYSTART
-<div class="intro">Fast attacks have the following stats in Pokémon GO's Nx1
+<div class="intro">Charged attacks have the following stats in Pokémon GO's Nx1
     mode, including raids, gyms, and Max Battles.
-    Stats for the 3x3 mode are <a href="chargedattacks3x3.html">also available</a>.</div>
+    Stats for the 3x3 mode are <a href="chargedattackshtml3x3.html">also available</a>.</div>
 SUBST
 <hr/>
 <a href="https://goldandappelpub.com/pgo-quantitative.html"><i>Pokémon GO: A Quantitative Approach</i></a>

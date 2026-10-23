@@ -33,7 +33,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
     std::cout << "<tr>";
     std::cout << "<th>Attack</th>";
     if(raidvalues){
-      std::cout << "<th>S</th><th>P</th><th>E</th><th>EPS</th><th>PPS</th>";
+      std::cout << "<th>T</th><th>P</th><th>E</th><th>EPT</th><th>PPT</th>";
     }else{
       std::cout << "<th>T</th><th>P</th><th>E</th><th>EPT</th><th>PPT</th>";
     }
@@ -51,7 +51,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
   }
   for(const auto a : as){
     float power = raidvalues ? a->powerraid : a->powertrain;
-    float t = raidvalues ? (a->animdur * 0.5) : a->turns;
+    float t = raidvalues ? a->animdur : a->turns;
     float energy = raidvalues ? a->energyraid : a->energytrain;
     float ppt = power / t;
     float ept = energy / t;

@@ -43,7 +43,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
   std::cout << "<tr>";
   std::cout << "<th>Attack</th>";
   if(raid){
-    std::cout << "<th>S</th><th>E</th><th>P</th><th>PPS</th><th>6⁄5</th><th style=\"width: 70%\">Pop</th>";
+    std::cout << "<th>T</th><th>E</th><th>P</th><th>PPE</th><th>PPT</th><th>6⁄5</th><th style=\"width: 70%\">Pop</th>";
   }else{
     std::cout << "<th>E</th><th>P</th><th>PPE</th><th>6⁄5</th><th>Buff</th><th style=\"width: 70%\">Pop</th>";
   }
@@ -60,13 +60,14 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     link_to_attack(std::cout, a->name, true);
     std::cout << "</td>";
     if(raid){
-      std::cout << "<td>" << (a->animdur * 0.5) << "</td>";
+      std::cout << "<td>" << a->animdur << "</td>";
     }
     std::cout << "<td>" << e << "</td>";
     std::cout << "<td>" << p << "</td>";
     if(raid){
-      std::cout << "<td>" << (p / (a->animdur * 0.5)) << "</td>";
-      std::cout << "<td>" << ((p * 6) / (a->animdur * 2.5)) << "</td>";
+      std::cout << "<td>" << ((p * 6) / (e * 5)) << "</td>";
+      std::cout << "<td>" << (p / a->animdur) << "</td>";
+      std::cout << "<td>" << ((p * 6) / (a->animdur * 5)) << "</td>";
     }else{
       std::cout << "<td>" << (p / e) << "</td>";
       std::cout << "<td>" << ((p * 6) / (e * 5)) << "</td>";
