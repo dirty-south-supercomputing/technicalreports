@@ -4,7 +4,7 @@
 static void
 functional_hundos(int cplimit, int cpthresh){
   std::cout << "<table class=\"evenshade\" id=\"functional\">" << std::endl;
-  std::cout << "<tr><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
+  std::cout << "<tr><th>T</th><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     // find the optimal configs subject to cplimit
     auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_gmean);
@@ -12,6 +12,8 @@ functional_hundos(int cplimit, int cpthresh){
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
       std::cout << "<tr><td>";
+      html_types(st->s->t1, st->s->t2);
+      std::cout << "</td><td>";
       link_to_name(std::cout, st->s->name, true, false);
       std::cout << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';
       emit_halflevel_as_level(std::cout, st->hlevel);

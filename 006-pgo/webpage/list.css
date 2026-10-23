@@ -108,24 +108,44 @@ table.dynas tr :nth-child(n+4) {
   padding: 0 0 0 1em;
 }
 
+table.nofoo {
+  padding: 0 0 0 1em;
+}
+
 table.nofoo tr :nth-child(1) { /* type */
   text-align: center;
+}
+
+table.goodhundos {
+  margin: 0 0 0 1em;
 }
 
 table.goodhundos tr :nth-child(1) { /* type */
   text-align: center;
 }
 
-table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* type */
+table.goodhundos tr :nth-child(2) { /* form */
+  text-align: left;
+}
+
+table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-#functional tr>:nth-child(1) { /* form */
+#functional {
+  margin: 0 0 0 1em;
+}
+
+#functional tr>:nth-child(1) { /* type */
+  text-align: center;
+}
+
+#functional tr>:nth-child(2) { /* form */
   text-align: left;
 }
 
-#functional tr>:nth-child(n+2) {
+#functional tr>:nth-child(n+3) { /* configs */
   text-align: right;
   padding: 0 0 0 1em;
 }
