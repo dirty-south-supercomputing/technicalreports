@@ -49,12 +49,23 @@ table.evenshade tr:nth-child(even) {
   background-color: rgba(192, 192, 192, 0.8);
 }
 
-/* attack pair timing and power */
-table.apair tr :nth-child(1) {
+table.apair {
+  margin: 0 0 0 1em;
+}
+
+table.apair tr :nth-child(1) { /* T */
   text-align: center;
 }
 
-table.apair tr>:nth-child(n+5) {
+table.apair tr :nth-child(2) { /* form */
+  text-align: center;
+}
+
+table.apair tr :nth-child(3) { /* attack pair */
+  text-align: center;
+}
+
+table.apair tr>:nth-child(n+4) { /* stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -91,6 +102,10 @@ table.bounded tr :nth-child(1) {
 table.bounded tr :nth-child(n+3) {
   text-align: right;
   padding: 0 0 0 1em;
+}
+
+table.dynas {
+  margin: 0 0 0 1em;
 }
 
 /* best dynamax attackers (by type and unified) */

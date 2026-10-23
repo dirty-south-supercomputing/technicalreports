@@ -26,7 +26,7 @@ CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIX
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
 
-WEBPAGES:=$(addprefix $(WEB)/, \
+WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 					 $(addsuffix .html, \
 					  index attacks/index mon/index \
 						nodyna noshadow noshiny nosecondcharged dynacost dynafast \
@@ -193,6 +193,10 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPY
 
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
+
+$(WEB)/pgo.css: $(WEBSRC)/pgo.css
+	@mkdir -p $(@D)
+	ln -sf $(<F) $(@F)
 
 $(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html
 	@mkdir -p $(@D)

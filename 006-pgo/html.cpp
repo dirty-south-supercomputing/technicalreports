@@ -21,7 +21,7 @@ void write_navbar(std::ostream &fp, bool par){
 
 void write_header(std::ofstream &fp, const std::string &title, bool par){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../list.css\">";
+  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../pgo.css\">";
   fp << "<title>" << title << "</title></head>" << std::endl;
   fp << "<body>" << std::endl;
   write_navbar(fp, par);

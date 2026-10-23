@@ -295,7 +295,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
     fp << "<td>" << prefix << cpow << suffix << "</td>";
     fp << "<td>" << prefix << a->energyraid << suffix << "</td>";
     fp << "<td>" << prefix << (cpow / a->animdur) << suffix << "</td>";
-    fp << "<td>" << prefix << (a->energyraid / a->animdur) << suffix << "</td>";
+    fp << "<td>" << prefix << (static_cast<float>(a->energyraid) / a->animdur) << suffix << "</td>";
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
