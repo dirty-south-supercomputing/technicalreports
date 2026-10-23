@@ -3637,7 +3637,7 @@ static const std::vector<species> sdex = {
 		false, false, 0, { }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, }, */
   // 773 is silvally (type: null evolution)
   // the meteor
-  {  774, "Minior", TYPE_ROCK, TYPE_FLYING, 116, 194, 155, "",
+  {  774, "Minior", TYPE_ROCK, TYPE_FLYING, 218, 131, 155, "", // look like these are core form? 116, 194, 155
 		{ &ATK_Take_Down, &ATK_Rollout, &ATK_Acrobatics, &ATK_Ancient_Power, &ATK_Power_Gem, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // the drowsing
@@ -4412,6 +4412,7 @@ const char *species::categorystr(species::species_cat c){
     case CAT_LEGENDARY: return "Legendary";
     case CAT_FUSION: return "Fusion";
     case CAT_CROWNED: return "Crowned";
+    case CAT_MEGA: return "Mega Evolution";
     case CAT_ULTRABEAST: return "Ultra Beast";
     case CAT_BABY: return "Baby";
     case CAT_PARADOX: return "Paradox";
