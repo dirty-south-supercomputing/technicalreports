@@ -1086,12 +1086,16 @@ struct species {
   int a2cost;         // cost in kStardust to teach second attack {-1, 10, 50, 75, 100}
   enum evol_item {    // item required to evolve *into* this mon
     EVOL_NOITEM,
+    EVOL_FEMALE,
+    EVOL_MALE,
     EVOL_SUNSTONE,
     EVOL_KINGSROCK,
     EVOL_METALCOAT,
     EVOL_DRAGONSCALE,
     EVOL_UPGRADE,
     EVOL_SINNOHSTONE,
+    EVOL_SINNOHSTONEFEMALE,
+    EVOL_SINNOHSTONEMALE,
     EVOL_UNOVASTONE,
     EVOL_TARTAPPLE,
     EVOL_SWEETAPPLE,

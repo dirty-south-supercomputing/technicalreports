@@ -2172,22 +2172,23 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  413, "Wormadam Plant", TYPE_BUG, TYPE_GRASS, 141, 180, 155, "Burmy Plant",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_FEMALE, species::REGION_ALL, 0, {}, },
   {  413, "Wormadam Sandy", TYPE_BUG, TYPE_GROUND, 141, 180, 155, "Burmy Sandy",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Bulldoze, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_FEMALE, species::REGION_ALL, 0, {}, },
   {  413, "Wormadam Trash", TYPE_BUG, TYPE_STEEL, 127, 175, 155, "Burmy Trash",
 		{ &ATK_Sucker_Punch, &ATK_Bug_Bite, &ATK_Confusion, &ATK_Metal_Sound, &ATK_Psybeam, &ATK_Bug_Buzz, &ATK_Iron_Head, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_FEMALE, species::REGION_ALL, 0, {}, },
+  // FIXME technically any burmy evolves into the (one) mothim...shit
   {  414, "Mothim", TYPE_BUG, TYPE_FLYING, 185, 98, 172, "Burmy Plant",
 		{ &ATK_Bug_Bite, &ATK_Air_Slash, &ATK_Psybeam, &ATK_Aerial_Ace, &ATK_Bug_Buzz, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_MALE, species::REGION_ALL, 0, {}, },
   {  415, "Combee", TYPE_BUG, TYPE_FLYING, 59, 83, 102, "",
 		{ &ATK_Bug_Bite, &ATK_Bug_Buzz, },
 		true, false, 1, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  416, "Vespiquen", TYPE_BUG, TYPE_FLYING, 149, 190, 172, "Combee",
 		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Poison_Sting, &ATK_Air_Slash, &ATK_Bug_Buzz, &ATK_Power_Gem, &ATK_Signal_Beam, &ATK_X_Scissor, &ATK_Fell_Stinger, },
-		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_FEMALE, species::REGION_ALL, 0, {}, },
   {  417, "Pachirisu", TYPE_ELECTRIC, TYPECOUNT, 94, 172, 155, "",
 		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Thunderbolt, &ATK_Hyper_Fang, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_NORTHARCTIC, 0, {}, },
@@ -2376,7 +2377,7 @@ static const std::vector<species> sdex = {
 		true, true, 0, { &ATK_Tri_Attack, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0, {}, },
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia",
 		{ &ATK_Low_Kick, &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psychic, &ATK_Leaf_Blade, &ATK_Close_Combat, &ATK_Synchronoise, &ATK_Secret_Sword, },
-		true, true, UINT_MAX, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0,
+		true, true, UINT_MAX, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, species::EVOL_SINNOHSTONEMALE, species::REGION_ALL, 0,
     { { "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, 200, nullptr, }, }, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass",
 		{ &ATK_Spark, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Magnet_Bomb, &ATK_Thunderbolt, &ATK_Zap_Cannon, },
@@ -3071,7 +3072,7 @@ static const std::vector<species> sdex = {
   // the colt
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
-		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_STARDUST10K, species::REGION_ALL, 0, {}, },
   // no stat difference in PGO
   {  647, "Keldeo Resolute", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "Keldeo",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, &ATK_Secret_Sword, },
@@ -3582,7 +3583,7 @@ static const std::vector<species> sdex = {
   // the toxic lizard
   {  758, "Salazzle", TYPE_POISON, TYPE_FIRE, 228, 130, 169, "Salandit",
 		{ &ATK_Poison_Jab, &ATK_Incinerate, &ATK_Poison_Fang, &ATK_Dragon_Pulse, &ATK_Sludge_Wave, &ATK_Fire_Blast, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_FEMALE, species::REGION_ALL, 0, {}, },
   // the flailing
   {  759, "Stufful", TYPE_NORMAL, TYPE_FIGHTING, 136, 95, 172, "",
 		{ &ATK_Tackle, &ATK_Take_Down, &ATK_Brick_Break, &ATK_Stomp, &ATK_Superpower, },
@@ -4426,12 +4427,16 @@ const char *species::categorystr(species::species_cat c){
 const char *species::evolitemstr(species::evol_item eitem){
   switch(eitem){
     case species::EVOL_NOITEM: return "";
+    case species::EVOL_FEMALE: return "Must be female"; break;
+    case species::EVOL_MALE: return "Must be male"; break;
     case species::EVOL_SUNSTONE: return "Sun stone"; break;
     case species::EVOL_KINGSROCK: return "King's rock"; break;
     case species::EVOL_METALCOAT: return "Metal coat"; break;
     case species::EVOL_DRAGONSCALE: return "Dragon's scale"; break;
     case species::EVOL_UPGRADE: return "Upgrade"; break;
     case species::EVOL_SINNOHSTONE: return "Sinnoh stone"; break;
+    case species::EVOL_SINNOHSTONEMALE: return "Sinnoh stone, must be male"; break;
+    case species::EVOL_SINNOHSTONEFEMALE: return "Sinnoh stone, must be female"; break;
     case species::EVOL_UNOVASTONE: return "Unova stone"; break;
     case species::EVOL_TARTAPPLE: return "20 Tart apples"; break;
     case species::EVOL_SWEETAPPLE: return "20 Sweet apples"; break;

@@ -32,7 +32,7 @@ WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 						nodyna noshadow noshiny nosecondcharged dynacost dynafast \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
-						walkevol \
+						walkevol regional \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
@@ -59,7 +59,6 @@ TEAMBUILDER:=$(OUT)/teambuilder
 CALCULATOR:=$(OUT)/calculator
 USERS:=$(OUT)/users
 REGIONS:=$(OUT)/regions
-REGIONAL:=$(OUT)/regional
 WEATHER:=$(OUT)/weather
 POPS:=$(OUT)/populations
 DPEVSE:=$(OUT)/dpevse
@@ -96,7 +95,6 @@ STATMAXTEX:=$(OUT)/statmax.tex
 WEATHERTEX:=$(WEATHER).tex
 POPSTEX:=$(POPS).tex
 REGIONSTEX:=$(REGIONS).tex
-REGIONALTEX:=$(REGIONAL).tex
 SUPERCOUNTERTEX:=$(OUT)/supercounter.tex
 NOSECONDCHARGEDTEX:=$(OUT)/nosecondcharged.tex
 HETEROCOSTTEX:=$(OUT)/heterocost.tex
@@ -136,7 +134,7 @@ OPTSTATSRADARDAT:=$(OUT)/optstatsradar.r
 OPTSTATSRADARR:=optstatsradar.R
 GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FATTACKTEX) $(CATTACKTEX) $(HETEROCOSTTEX) $(HETEROTYPETEX) $(TRELSTEX) \
-	$(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) $(REGIONALTEX) \
+	$(ATKTYPESTEX) $(WEATHERTEX) $(REGIONSTEX) \
 	$(CUSERSTEX) $(FUSERSTEX) $(DUALSUMSTEX) $(POPSTEX) $(CPAIRSTEX) \
 	$(HALFSECMAXTEX) \
 	$(BREAKPOINTSDAT) $(FPAIRSTEX) \
