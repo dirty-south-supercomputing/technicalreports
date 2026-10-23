@@ -1109,6 +1109,8 @@ struct species {
     EVOL_DEFEATPSYCHICGHOST30,
     EVOL_DEFEATPSYCHIC30,
     EVOL_DEFEATGHOST30,
+    EVOL_STARDUST2K,
+    EVOL_STARDUST10K,
     EVOL_CAPTUREDRAGON7,
     EVOL_CAPTUREDRAGON20,
     EVOL_CAPTUREPOISON30,
@@ -1125,9 +1127,12 @@ struct species {
     EVOL_NIGHT,
     EVOL_FULLMOON,
     EVOL_INCENSE,
+    EVOL_CROWNSWORD1000,
+    EVOL_CROWNSHIELD1000,
   } evolitem;
   enum mon_region {    // region-specific pokémon
     REGION_ALL,
+    REGION_EUROPE,
     REGION_EASTASIA,
     REGION_AUSTRALIA,
     REGION_NORTHAM,
@@ -1135,6 +1140,7 @@ struct species {
     REGION_SOUTHHEMI,
     REGION_NORTHHEMI,
     REGION_EASTHEMI,
+    REGION_EASTHEMI26,
     REGION_WESTHEMI,
     REGION_TROPICS,
     REGION_EAA,
@@ -1294,6 +1300,7 @@ struct species {
   const char *regionstr() const {
     switch(monregion){
       case REGION_ALL: return nullptr;
+      case REGION_EUROPE: return "Europe";
       case REGION_EASTASIA: return "East Asia";
       case REGION_AUSTRALIA: return "Australia";
       case REGION_NORTHAM: return "Eastern Asia";
@@ -1301,6 +1308,7 @@ struct species {
       case REGION_SOUTHHEMI: return "Southern hemisphere";
       case REGION_NORTHHEMI: return "Northern hemisphere";
       case REGION_EASTHEMI: return "Eastern hemisphere";
+      case REGION_EASTHEMI26: return "Eastern hemisphere south of 26°";
       case REGION_WESTHEMI: return "Western hemisphere";
       case REGION_TROPICS: return "Tropic of Cancer---Tropic of Capricorn";
       case REGION_EAA: return "Europe, Asia, Australia";
@@ -1797,19 +1805,11 @@ lookup_type(const char *t){
 }
 
 static inline const species*
-lookup_species(const char* name){
+lookup_species(const std::string &name){
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(strcasecmp(s->name.c_str(), name) == 0){
-      return &*s;
-    }
-  }
-  return nullptr;
-}
-
-static inline const species*
-lookup_species(unsigned idx){
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(s->idx == idx){
+    if(std::ranges::equal(s->name, name, {},
+        [](const auto& c){ return tolower(c); },
+        [](const auto& c){ return tolower(c); })){
       return &*s;
     }
   }
@@ -2547,21 +2547,6 @@ shadow_count(unsigned* shadnormals){
 }
 
 static inline int
-a2cost_to_cgroup(int a2cost){
-  if(a2cost == 100){
-    return 4;
-  }else if(a2cost == 75){
-    return 3;
-  }else if(a2cost == 50){
-    return 2;
-  }else if(a2cost == 10){
-    return 1;
-  }
-  std::cerr << "invalid a2cost: " << a2cost << std::endl;
-  return -1;
-}
-
-static inline int
 escape_string(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
     if(*curs != '%'){
@@ -2653,6 +2638,8 @@ bool multiple_charged_attacks(const species &s);
 std::string adventure_effect(const std::string& name);
 
 const char *tname_capitalized(pgo_types_e t);
+
+// can this species revert to a previous form?
 bool bidirectional_evol_p(const species &s);
 
 static inline const char*
