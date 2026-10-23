@@ -1133,6 +1133,10 @@ struct species {
     EVOL_INCENSE,
     EVOL_CROWNSWORD1000,
     EVOL_CROWNSHIELD1000,
+    EVOL_VOLT1000,
+    EVOL_BLAZE1000,
+    EVOL_SOLAR1000,
+    EVOL_LUNAR1000,
   } evolitem;
   enum mon_region {    // region-specific pokémon
     REGION_ALL,

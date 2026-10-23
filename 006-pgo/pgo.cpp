@@ -3065,10 +3065,10 @@ static const std::vector<species> sdex = {
 		true, false, 0, { &ATK_Glaciate, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  646, "Kyurem White", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Dragon_Breath, &ATK_Steel_Wing, &ATK_Ice_Fang, &ATK_Blizzard, &ATK_Ancient_Power, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Fusion_Flare, &ATK_Ice_Burn, },
-		true, false, 0, { &ATK_Ice_Burn, }, species::CAT_FUSION, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { &ATK_Ice_Burn, }, species::CAT_FUSION, 100, species::EVOL_BLAZE1000, species::REGION_ALL, 0, {}, },
   {  646, "Kyurem Black", TYPE_DRAGON, TYPE_ICE, 310, 183, 245, "Kyurem",
 		{ &ATK_Shadow_Claw, &ATK_Dragon_Tail, &ATK_Stone_Edge, &ATK_Blizzard, &ATK_Iron_Head, &ATK_Outrage, &ATK_Fusion_Bolt, &ATK_Freeze_Shock, },
-		true, false, 0, { &ATK_Freeze_Shock, }, species::CAT_FUSION, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { &ATK_Freeze_Shock, }, species::CAT_FUSION, 100, species::EVOL_VOLT1000, species::REGION_ALL, 0, {}, },
   // the colt
   {  647, "Keldeo", TYPE_WATER, TYPE_FIGHTING, 260, 192, 209, "",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Hydro_Pump, &ATK_Close_Combat, &ATK_Sacred_Sword, },
@@ -3741,11 +3741,11 @@ static const std::vector<species> sdex = {
   // the prism
   {  800, "Necrozma Dusk Mane", TYPE_PSYCHIC, TYPE_STEEL, 277, 220, 200, "Necrozma",
 		{ &ATK_Shadow_Claw, &ATK_Psycho_Cut, &ATK_Metal_Claw, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_Future_Sight, &ATK_Outrage, &ATK_Sunsteel_Strike, },
-		true, false, 0, { }, species::CAT_FUSION, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_FUSION, 100, species::EVOL_SOLAR1000, species::REGION_ALL, 0, {}, },
   // the prism
   {  800, "Necrozma Dawn Wings", TYPE_PSYCHIC, TYPE_GHOST, 277, 220, 200, "Necrozma",
 		{ &ATK_Shadow_Claw, &ATK_Psycho_Cut, &ATK_Metal_Claw, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_Future_Sight, &ATK_Outrage, &ATK_Moongeist_Beam, },
-		true, false, 0, { }, species::CAT_FUSION, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_FUSION, 100, species::EVOL_LUNAR1000, species::REGION_ALL, 0, {}, },
   /*{  801, "Magearna", TYPE_STEEL, TYPE_FAIRY, 246, 225, 190, "",
 		{ },
 		false, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
@@ -4474,6 +4474,10 @@ const char *species::evolitemstr(species::evol_item eitem){
     case species::EVOL_INCENSE: return "Use (regular) incense"; break;
     case species::EVOL_CROWNSHIELD1000: return "1000 Crown Shield energy, must know Iron Head"; break;
     case species::EVOL_CROWNSWORD1000: return "1000 Crown Sword energy, must known Iron Head"; break;
+    case species::EVOL_VOLT1000: return "1000 Volt Fusion energy"; break;
+    case species::EVOL_BLAZE1000: return "1000 Blaze Fusion energy"; break;
+    case species::EVOL_SOLAR1000: return "1000 Solar Fusion energy"; break;
+    case species::EVOL_LUNAR1000: return "1000 Lunar Fusion energy"; break;
     default: throw std::exception();
   }
 }
