@@ -275,6 +275,10 @@ table.chargedattacks tr :nth-child(n+3) {
   padding: 0 0 0 1em;
 }
 
+#monivscontainer { /* mon pages */
+  padding: 0 1em 1em 1em;
+}
+
 table.monivs tr :nth-child(n+2) {
   text-align: right;
   padding: 0 0 0 1em;
