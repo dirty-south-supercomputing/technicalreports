@@ -1077,6 +1077,7 @@ struct species {
     CAT_LEGENDARY,
     CAT_FUSION,
     CAT_CROWNED,
+    CAT_MEGA,     // only in synthesized species
     CAT_ULTRABEAST,
     CAT_BABY,
     CAT_PARADOX,
@@ -1206,7 +1207,7 @@ struct species {
     shadow = false;
     dmax = false;
     elite = s->elite;
-    category = s->category;
+    category = CAT_MEGA;
     a2cost = s->a2cost;
     evolitem = s->evolitem;
     monregion = s->monregion;
@@ -1249,12 +1250,12 @@ struct species {
               m.atk, m.def, m.sta, s->name,
               s->attacks,
               s->shiny, false, 0,
-              s->elite, s->category, s->a2cost,
+              s->elite, CAT_MEGA, s->a2cost,
               s->evolitem, s->monregion, s->evolkm, {}) {
     if(m.plusatk){
       attacks.emplace_back(m.plusatk);
     }
-    if(s->shiny){
+    if(s->shadow){
       attacks.emplace_back(&ATK_Return);
     }
   }
