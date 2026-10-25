@@ -34,7 +34,7 @@ nav ul li a {
 img.type {
   height: 1em;
   width: 1em;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 table.evenshade {
@@ -119,17 +119,17 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* stats */
   text-align: center;
 }
 
-table.cattack3x3 tr>:nth-child(2) { /* P_-3 */
-  text-align: right;
+table.cattack3x3 tr>:nth-child(2) { /* SE */
+  text-align: center;
 }
 
-table.cattack3x3 tr>:nth-child(n+2) { /* everything but "STAB?" */
+table.cattack3x3 tr>:nth-child(n+3) { /* everything but "S? / SE" */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-table.fattack3x3 tr>:nth-child(2) { /* Turns */
-  text-align: right;
+table.fattack3x3 tr>:nth-child(2) { /* SE */
+  text-align: center;
 }
 
 table.fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
@@ -141,11 +141,11 @@ table.cattackNx1 { /* attack page */
   margin: 0 1em 0 1em;
 }
 
-table.cattackNx1 tr>:nth-child(2) { /* Turns */
-  text-align: right;
+table.cattackNx1 tr>:nth-child(2) { /* "W?" */
+  text-align: center;
 }
 
-table.cattackNx1 tr>:nth-child(n+3) { /* everything but "STAB?" */
+table.cattackNx1 tr>:nth-child(n+3) { /* everything after boosts */
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -154,8 +154,8 @@ table.fattackNx1 { /* attack page */
   margin: 0 1em 0 1em;
 }
 
-table.fattackNx1 tr>:nth-child(2) { /* Turns */
-  text-align: right;
+table.fattackNx1 tr>:nth-child(2) { /* "W?" */
+  text-align: center;
 }
 
 table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */

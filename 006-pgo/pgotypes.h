@@ -93,6 +93,9 @@ enum pgo_weather_t {
   WEATHERCOUNT
 };
 
+extern const char* WNames[WEATHERCOUNT];
+extern const char* WSNames[WEATHERCOUNT]; // secondary names for weather
+
 // each row is an attacking Type
 static const int trelations[TYPECOUNT][TYPECOUNT] = {
   // bug     dragon  fairy   fire    ghost   ground  normal  psychic steel
@@ -1562,6 +1565,12 @@ calc_stab(float d){
   return d * 6 / 5;
 }
 
+// weather boost in Nx1 mode is 20%
+static inline float
+calc_wboost(float d){
+  return d * 6 / 5;
+}
+
 // get the power of the attack considering STAB (if it applies)
 static inline float
 calc_eff_power(const species &s, const attack* a){
@@ -2656,6 +2665,16 @@ tname_capitalized(int i){
     return nullptr;
   }
   return tname_capitalized(static_cast<pgo_types_e>(i));
+}
+
+pgo_weather_t type_weather_boost(pgo_types_e t);
+
+// a full typing can be boosted by one or two different types of weather.
+// w1 and w2 will both hold valid weather typings, but they might be the same.
+static inline void
+typing_weather_boosts(pgo_types_e t1, pgo_types_e t2, pgo_weather_t &w1, pgo_weather_t &w2){
+  w1 = type_weather_boost(t1);
+  w2 = type_weather_boost(t2);
 }
 
 #endif

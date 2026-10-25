@@ -1,29 +1,6 @@
 #include <stdio.h>
 #include "pgotypes.h"
 
-static const char* WNames[WEATHERCOUNT] = {
-  "Clear",
-  "Rainy",
-  "Partly Cloudy",
-  "Cloudy",
-  "Windy",
-  "Snow",
-  "Fog",
-  "Extreme"
-};
-
-// secondary names
-static const char* WSNames[WEATHERCOUNT] = {
-  "Clear Night",
-  NULL,
-  "Partly Cloudy Night",
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-};
-
 static pgo_weather_t wboosts[TYPECOUNT] = {
   WEATHER_RAIN,   // bug
   WEATHER_FOG,    // dark

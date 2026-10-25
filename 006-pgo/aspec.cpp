@@ -10,8 +10,9 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float 
   }else{
     fp << "🗙";
   }
+  fp << "</td><td>";
   if(buff){
-    fp << " (" << buff << ")";
+    fp << buff;
   }
   fp << "</td>";
   float energy = a.energytrain;
@@ -24,10 +25,6 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float 
     energy = -energy;
   }
   power *= mapbuff(buff);
-  if(fast_attack_p(a)){
-    fp << "<td>" << a.turns << "</td>";
-  }
-  fp << "<td>" << energy << "</td>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
   }
@@ -39,9 +36,6 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float 
   }
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (pp * type_effectiveness_mult(te)) << "</td>";
-  }
-  if(fast_attack_p(a)){
-    fp << "<td>" << (energy / a.turns) << "</td>";
   }
   fp << "</tr>" << std::endl;
 }
@@ -57,6 +51,21 @@ emit_plus_header(std::ostream &fp, int level, float pmult){
 static void
 write_atk_3x3(std::ostream &fp, const attack &a){
   fp << "<h2>3x3 stats</h2>" << std::endl;
+  fp << "<div class=\"atktext\">Status effects can have an effect from -4 to 4 on attacks.";
+  if(charged_attack_p(a)){
+    fp << " All charged attacks take one turn in 3x3 mode. " << a.name << " ";
+  }else{
+    fp << " " << a.name << " is a " << a.turns << "-turn 3x3 move, and ";
+  }
+  if(charged_attack_p(a)){
+    fp << "consumes " << -a.energytrain << " energy.";
+  }else{
+    fp << "generates ";
+    fp << a.energytrain << " energy (";
+    fp << a.energytrain / static_cast<float>(a.turns);
+    fp << " EPT).";
+  }
+  fp << "</div><br/>";
   bool plusatk = plus_attack_p(a);
   int maxlevel = plusatk ? 4 : 1;
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
@@ -70,11 +79,8 @@ write_atk_3x3(std::ostream &fp, const attack &a){
       fp << "<table class=\"cattack3x3\">" << std::endl;
     }
     fp << "<tr>";
-    fp << "<th>STAB?</th>";
-    if(fast_attack_p(a)){
-      fp << "<th>Turns</th>";
-    }
-    fp << "<th>E</th>";
+    fp << "<th>S?</th>";
+    fp << "<th>SE</th>";
     for(int te = -3 ; te < 3 ; ++te){
       fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
     }
@@ -84,9 +90,6 @@ write_atk_3x3(std::ostream &fp, const attack &a){
       }else{
         fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
       }
-    }
-    if(fast_attack_p(a)){
-      fp << "<th>EPT</th>";
     }
     fp << "</tr>" << std::endl;
     for(int i = -MAXCHARGEDBUFF ; i < 0 ; ++i){
@@ -104,9 +107,15 @@ write_atk_3x3(std::ostream &fp, const attack &a){
 }
 
 static void
-write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, float plusmult){
+write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, bool wboost, float plusmult){
   fp << "<tr><td>";
   if(stab){
+    fp << "✓";
+  }else{
+    fp << "🗙";
+  }
+  fp << "</td><td>";
+  if(wboost){
     fp << "✓";
   }else{
     fp << "🗙";
@@ -117,9 +126,10 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, float plusmult){
   if(stab){
     power = calc_stab(power);
   }
+  if(wboost){
+    power = calc_wboost(power);
+  }
   power *= plusmult;
-  fp << "<td>" << a.animdur << "</td>";
-  fp << "<td>" << energy << "</td>";
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
   }
@@ -133,9 +143,6 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, float plusmult){
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (ppt * type_effectiveness_mult(te)) << "</td>";
   }
-  if(fast_attack_p(a)){
-    fp << "<td>" << (energy / a.animdur) << "</td>";
-  }
   fp << "</tr>" << std::endl;
 }
 
@@ -144,6 +151,22 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   fp << "<h2>Nx1 stats</h2>" << std::endl;
   bool plusatk = plus_attack_p(a);
   int maxlevel = plusatk ? 4 : 1;
+  fp << "<div class=\"atktext\">";
+  fp << " " << a.name << " is a " << a.animdur << "-turn Nx1 move, and";
+  if(charged_attack_p(a)){
+    fp << " consumes " << a.energyraid;
+  }else{
+    fp << " generates " << a.energyraid;
+  }
+  fp << " energy (";
+  fp << a.energyraid / static_cast<float>(a.animdur);
+  fp << " EPT). It is boosted by ";
+  if(a.type != TYPECOUNT){
+    html_weather(fp, a.type, TYPECOUNT, true);
+  }else{
+    fp << "various"; // hidden power strikes again
+  }
+  fp << " weather.</div><br/>";
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
     float plusmult = 1.0 + 0.1 * meglevel;
     emit_plus_header(fp, meglevel, plusmult);
@@ -153,9 +176,8 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
       fp << "<table class=\"cattackNx1\">" << std::endl;
     }
     fp << "<tr>";
-    fp << "<th>STAB?</th>";
-    fp << "<th>Turns</th>";
-    fp << "<th>E</th>";
+    fp << "<th>S?</th>";
+    fp << "<th>W?</th>";
     for(int te = -3 ; te < 3 ; ++te){
       fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
     }
@@ -167,12 +189,11 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
     for(int te = -3 ; te < 3 ; ++te){
       fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
     }
-    if(fast_attack_p(a)){
-      fp << "<th>EPT</th>";
-    }
     fp << "</tr>" << std::endl;
-    write_atk_Nx1_row(fp, a, false, plusmult);
-    write_atk_Nx1_row(fp, a, true, plusmult);
+    write_atk_Nx1_row(fp, a, false, false, plusmult);
+    write_atk_Nx1_row(fp, a, true, false, plusmult);
+    write_atk_Nx1_row(fp, a, false, true, plusmult);
+    write_atk_Nx1_row(fp, a, true, true, plusmult);
     fp << "</table>" << std::endl;
   }
 }

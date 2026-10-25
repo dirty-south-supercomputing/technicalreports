@@ -369,6 +369,9 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
   fp << "Max CP: " << s.maxcp() << "<br/>";
+  fp << "Weather boosts: ";
+  html_weather(fp, s.t1, s.t2, true);
+  fp << "<br/>";
   fp << "Attack<sup>2</sup> / Bulk: " << (pow(s.atk, 2) / (s.def * s.sta)) << "<br/>";
   fp << "Catch reward: " << stardust_reward(s) << " SD<br/>";
   fp << "Second attack cost: ";

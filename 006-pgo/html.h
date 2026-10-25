@@ -200,6 +200,9 @@ encode_name(const std::string &s, std::string &encname){
   }
 }
 
+void html_weather(std::ostream &fp, pgo_weather_t w, bool par = false);
+void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = false);
+
 extern const std::string css[];
 extern const std::string reversecss[];
 

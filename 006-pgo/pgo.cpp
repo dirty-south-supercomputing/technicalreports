@@ -4551,3 +4551,54 @@ bool bidirectional_evol_p(const species &s){
   }
   return false;
 }
+
+// each type is boosted by some type of weather
+pgo_weather_t type_weather_boost(pgo_types_e t){
+  switch(t){
+    case TYPE_BUG: return WEATHER_RAIN;
+    case TYPE_DARK: return WEATHER_FOG;
+    case TYPE_DRAGON: return WEATHER_WINDY;
+    case TYPE_ELECTRIC: return WEATHER_RAIN;
+    case TYPE_FAIRY: return WEATHER_CLOUDY;
+    case TYPE_FIGHTING: return WEATHER_CLOUDY;
+    case TYPE_FIRE: return WEATHER_CLEAR;
+    case TYPE_FLYING: return WEATHER_WINDY;
+    case TYPE_GHOST: return WEATHER_FOG;
+    case TYPE_GRASS: return WEATHER_CLEAR;
+    case TYPE_GROUND: return WEATHER_CLEAR;
+    case TYPE_ICE: return WEATHER_SNOW;
+    case TYPE_NORMAL: return WEATHER_PARTLY_CLOUDY;
+    case TYPE_POISON: return WEATHER_CLOUDY;
+    case TYPE_PSYCHIC: return WEATHER_WINDY;
+    case TYPE_ROCK: return WEATHER_PARTLY_CLOUDY;
+    case TYPE_STEEL: return WEATHER_SNOW;
+    case TYPE_WATER: return WEATHER_RAIN;
+    case TYPECOUNT:
+      break;
+  }
+  std::cerr << "invalid type " << t << std::endl;
+  throw std::exception();
+}
+
+const char* WNames[WEATHERCOUNT] = {
+  "Clear",
+  "Rainy",
+  "Partly Cloudy",
+  "Cloudy",
+  "Windy",
+  "Snow",
+  "Fog",
+  "Extreme"
+};
+
+// secondary names
+const char* WSNames[WEATHERCOUNT] = {
+  "Clear Night",
+  NULL,
+  "Partly Cloudy Night",
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL
+};
