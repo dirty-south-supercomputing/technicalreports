@@ -33,6 +33,7 @@ WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional \
+						essay-ivs \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
@@ -208,6 +209,10 @@ $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html
 $(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
+
+$(WEB)/essay-ivs.html: $(WEBSRC)/essay-ivs.html
+	@mkdir -p $(@D)
+	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' $< > $@
 
 graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT)
 	@mkdir -p $(WEB)/mon/graphs

@@ -7,10 +7,6 @@ h1, h2, h3 {
   margin: 1em 1em 1em 1em;
 }
 
-/*table {
-  margin: 1em 1em 1em 1em;
-}*/
-
 nav {
   display: flex;
   justify-content: space-between;

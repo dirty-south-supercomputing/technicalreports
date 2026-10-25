@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How important are IVs in Pokémon GO?</title>
+  <link rel="stylesheet" type="text/css" href="pgo.css">
+  <style>
+    .text { padding: 1em; }
+  </style>
+</head>
+BODYSTART
+<h1>How important are IVs?</h1>
+<div class="intro">A question is regularly posed on <a href="https://www.reddit.com/r/pokemongo/">r/pokemongo</a>:
+  “How important are IVs?” The answer is somewhere between “immaterial” and “critical”, depending
+  on the situation and one's goals.</div>
+<h2>Summary</h2>
+<div class="text">For raids, gyms, and Max battles, higher IVs are always better than lower ones,
+  but always less important than base stats, attacks, and typing, and usually less important than
+  level. <b>They are unlikely to affect results.</b>
+  For CP-bounded Trainer Battles (including GBL's Great and Ultra
+  Leagues), IVs are important due to constraining level, but the best IVs are
+  Pokémon-dependent (one wants low IV<sub>A</sub> and high
+  IV<sub>D</sub>/IV<sub>S</sub> as a general rule, though this is not true when the
+  Pokémon maxes out near the CP bound). <b>Either way, they are less important than base
+    stats, attacks, and typing.</b> For unbounded Trainer Battles (GBL's Master
+  League), higher IVs are again always better than lower ones, and can be
+  critical at higher levels of competition. <b>Even here, they are less important
+    than base stats, attack, and typing.</b></div>
+<h2>Part I</h2>
+<div class="text">Understanding IVs requires understanding the damage equation, central to all
+combat in Pokémon GO. Each Pokémon has some non-negative integer number of hit
+points. Every attack suffered reduces hit points by some positive integer
+("damage"). Upon reaching zero, the Pokémon faints.</div>
+<div class="text">Damage is calculated (leaving aside <a href="#note0">some details [0]</a>) by multiplying the
+attack's power by type effects and the attacking Pokémon's “effective ATK”,
+then dividing this product by the attacked Pokémon's “effective DEF”.
+The result is truncated (rounded down to the largest integer not greater
+than the input), and added to one.</div>
+<div class="text">Every Pokémon has two three-vectors:
+<ul>
+<li>The base vector, common to all Pokémon of a given form. Three positive integers ranging into the hundreds.</li>
+<li>The individual vector, randomly generated for each Pokémon. Three non-negative integers not greater than 15.
+   The three components of this vector are independently generated. The generation
+   is uniformly distributed between a situation-specific floor and 15.
+   This means that for e.g. a floor of twelve, the three values have no influence on one
+    another, and the values {12, 13, 14, 15} are equally likely for each.
+    A floor of zero allows 4,096 different IVs, all equally likely.</li>
+</ul></div>
+<div class="text">Each vector maps to ATK, DEF, and STA.
+A vector sum yields a single three-vector, the “modified” ATK, DEF, and STA.
+The <a href="#note1">Pokémon's level [1]</a> determines a scalar, the Combat Power Multiplier.
+These range from 0.094 to 0.8453, with higher levels having higher CPM.
+Multiplication of the modified vector by the CPM yields the “effective” ATK, DEF, and STA used by the damage equation.
+We will work with the modified vector with no loss of generality.</div>
+<div class="text">Every <a href="https://nick-black.com/pgo/mon/Greninja.html">Greninja</a> has a base vector of { 223, 152, 176 }.
+Depending on the IV, a particular Greninja has a combined vector of { 223–238, 152–167, 176–191 }.
+Every <a href="https://nick-black.com/pgo/mon/Venusaur.html">Venusaur</a> has a base vector of { 198, 189, 190 }.
+Depending on the IV, a particular Venusaur has a combined vector of { 198–213, 189–204, 190–205 }.
+The IV cannot give Venusaur a combined ATK equal to any Greninja, and no Greninja can achieve a combined DEF rivaling any Venusaur.
+A Greninja with an IV<sub>S</sub> of fifteen does, however, beat out the combined STA of a Venusaur with IV<sub>S</sub> of zero (191 vs 190).
+The IV can be interpreted as a bonus: a Greninja can improve its ATK by up to 6.7%, its DEF by up to 9.9%,
+ and its STA by up to 8.5% depending on its particular IVs.
+Alternatively (and more usefully), we can interpret it as a penalty: relative to an “optimal” Greninja having IV
+ {15, 15, 15}, it can lose up to 6.3% of its ATK, 9.0% of its DEF, and 7.9% of its STA.
+ This second approach allows a more general sense of “optimal”.</div>
+<div class="text">A higher base stat has less possible change due to IV as a percentage, but this can be misleading.
+An IV<sub>A</sub> of 15 adds the same amount of power to a base ATK of 100 as it does to 1000:
+This can be seen by distributing the damage numerator's multiplication across the two
+components of the combined stat:<br/><br/>
+D = ((ATK + 15) * C) / DEF<br/>
+= (ATK * C + 15 * C) / DEF<br/>
+= ATK*C / DEF + 15*C / DEF<br/></div>
+<div class="text">For DEF, things are different.
+We cannot freely distribute, and a high IV<sub>D</sub> does indeed have more impact with a lower base DEF.
+Let's see this with numbers.
+Assign the defender a combined DEF of 50.
+Assume an attacker with combined ATK of 100, then 1000:<br/><br/>
+(115 / 50) - (100 / 50)   = 0.3<br/>
+(1015 / 50) - (1000 / 50) = 0.3<br/></div>
+<div class="text">The increase from an IV<sub>S</sub> of 15 is constant.
+Now assign the attacker a combined ATK of 100.
+Assume a defender with combined DEF of 20, then 50:<br/><br/>
+(100 / 50) - (100 / 65) = 0.46<br/>
+(100 / 20) - (100 / 35) = 2.14<br/>
+</div>
+<div class="text">The lower base DEF benefits much more from the high IV.
+This effect is more pronounced as combined ATK grows with respect to combined DEF.</div>
+<div class="text">So IVs are just as important—or unimportant—as base stats.
+Holding everything else (especially attacks and typing) equal, a Pokémon with
+  base stats { 100, 100, 100 } and IV { 15, 15, 15 } differs from some other
+  Pokémon with base stats { 115, 115, 155 } and IV { 0, 0, 0 } only in appearance.
+Paying more attention to IVs than base stats never makes sense.
+A “garbage” <a href="https://nick-black.com/pgo/mon/Kyogre.html">Kyogre</a>
+ with an IV of { 10, 10, 10 } ought still kick the everloving shit out of any Greninja of the same level.
+A hundo <a href="https://nick-black.com/pgo/mon/Delibird.html">Delibird</a> is
+ only slightly less useless than any other Delibird; admire for a moment
+ the many mysteries of nature, then transfer that bitch.</div>
+<div class="text">Alright, smoke 'em if you've got 'em.</div>
+
+<h2>Part II</h2>
+
+<div class="text">These differences don't necessarily translate to observable results,
+ due to the truncation operation.
+ Let's take Greninja's ATK range of 223–238, and have it attack a Venusaur with DEF 200 (a IV<sub>D</sub> of eleven).
+Assume all multipliers to be unity (one).
+The lowest ATK (223) results in 1.115, while the max (238) sees 1.19.
+Truncation results in both of these quotients inflicting 2 points of damage.
+If the multiplier is eight, the inputs to truncation are 8.92 and 9.52 (a difference of 0.6), for 9 vs 10 points of damage.
+At a multiplier of nine, the difference in inputs is larger (10.035 and 10.71, a difference of 0.675), yet the
+ damage is 11 either way.
+ Above a certain multiplier, we'll always see a difference, but it never becomes linear.</div>
+<div class="text">
+<b>Q:</b> What are the base statistics?<br/>
+<b>A:</b> Each Pokémon form has three stats, all non-negative integers: ATK, DEF, and STA.<br/>
+<b>E:</b> Greninja is 223 ATK, 152 DEF, 176 STA.<br/>
+<br/>
+<b>Q:</b> What is an IV?<br/>
+<b>A:</b> A vector of three integers between 0 and 15, inclusive, particular to an individual Pokémon.<br/>
+<b>E:</b> 15-15-15, 0-15-15, 12-8-4<br/>
+<br/>
+<b>Q:</b> What is the significance of a Pokémon's IV?<br/>
+<b>A:</b> The three components are added to the base stats, yielding the modified stats.<br/>
+<b>E:</b> A Greninja with IV 12-8-4 has modified ATK 235 (223 + 12), DEF 160 (152 + 8), and STA 180 (176 + 4).<br/>
+<br/>
+<b>Q:</b> What about the Pokémon's level?<br/>
+<b>A:</b> Each level has an associated (ideal) Combat Power Multiplier, a positive rational. Level 1 is 0.094.
+Level 50 is 0.8453. This is multiplied by the modified stats, yielding the effective stats.<br/>
+<b>E:</b> Our Greninja at level 48.5 has CPM of 0.8378, and thus Eff<sub>A</sub> 196.883, Eff<sub>D</sub> 134.048, and Eff<sub>S</sub> 150.804.<br/>
+<br/>
+<b>Q:</b> Who gives a shit?<br/>
+<b>A:</b> Effective ATK and effective DEF form the core of the damage equation. STA determines MHP.<br/>
+<br/>
+<b>Q:</b> How does Eff<sub>S</sub> relate to MHP?<br/>
+<b>A:</b> MHP is the floor of Eff<sub>S</sub>, or 10, whichever is higher.<br/>
+<br/>
+<b>Q:</b> Higher Eff<sub>S</sub> always yields higher MHP.<br/>
+<b>A:</b> False. Higher floor of Eff<sub>S</sub> always yields higher MHP.<br/>
+<b>A:</b> Eff<sub>S</sub> of 175.5 and Eff<sub>S</sub> of 175 both yield 175 MHP.<br/>
+<br/>
+<b>Q:</b> So I want high IVs, right?<br/>
+<b>A:</b> Unless operating under a CP bound—<br/>
+<b>Q:</b> A CP bound?<br/>
+<b>A:</b> Great League has a CP bound of 1500, and Ultra League a CP bound of 2500.
+   This establishes a level bound, usually below 50, for each given form+IV.
+   For the Master League, raids, Max Battles, and Team GO Rocket, higher
+   effective stats are at least as good, and usually better, than lower ones.
+   Increases in any of the inputs (base statistics, IVs, and level) are desirable.<br/>
+<br/>
+<b>Q:</b> So how important are IVs in those scenarios?<br/>
+<b>A:</b> They are no more or less important than the base statistics. All calculations affected by base stats or IVs
+   use them indirectly via the modified stats. A Pokémon with a base ATK of 200 and an IV of 15-x-x has the exact same
+   modified ATK as another Pokémon with a base ATK of 205 and an IV of 10-x-x.<br/>
+<br/>
+<b>Q:</b> So how important are IVs?<br/>
+<b>A:</b> They make up a portion of the total possible modified stat. For ATK, they can account for 46.9% (Shuckle, base ATK 17)
+   to 3.5% of the potential (Deoxys Attack, base ATK 414). For DEF, they can account for 31.9% (Igglybuff, base DEF 32)
+   to 3.6% of the potential (Shuckle, base DEF 396). For STA, they can account for 93.8% (Shedinja, base STA 1)
+   to 2.9% of the potential (Blissey, base STA 496). When the base stat is 150 or more, a component can account for
+   no more than 10% of the potential.<br/>
+<br/>
+<b>Q:</b> Some Pokémon with IV<sub>A</sub> of 15 will have the highest possible Eff<sub>A</sub> of its species, even under a CP bound.<br/>
+<b>A:</b> False. A higher level with a lower IV<sub>A</sub> might result in a higher Eff<sub>A</sub>, usually with a high (but not necessarily maximum) IV<sub>A</sub>.<br/>
+<b>E:</b> Deoxys Defense at 1500 maximizes Eff<sub>A</sub> at 105.534 with 14-0-0x25.<br/>
+<br/>
+<b>Q:</b> Some Pokémon with IV<sub>D</sub> of 15 will have the highest possible Eff<sub>D</sub> of its species, even under a CP bound.<br/>
+<b>A:</b> False. Same reasoning as above.<br/>
+<b>E:</b> Feraligatr at 1499 maximizes Eff<sub>D</sub> at 122.174 with 0-14-0x20.5.<br/>
+<br/>
+<b>Q:</b> The closer a Pokémon's CP is to the bound, the higher the arithmetic mean of the Pokémon.<br/>
+<b>A:</b> False. The relationship of CP to arithmetic mean is complicated.<br/>
+<b>E:</b> Greninja 0-10-13x21.5 yields 1497 at 118.49. Greninja 3-13-14x21 yields 1499 at 118.451.<br/>
+<br/>
+<b>Q:</b> The closer a Pokémon's CP is to the bound, the higher the geometric mean of the Pokémon.<br/>
+<b>A:</b> False. The relationship of CP to geometric mean is complicated.<br/>
+<b>E:</b> Greninja 1-15-15x21 yields 1499 at 117.593. Greninja 0-9-15x21.5 yields 1500 at 117.576.<br/>
+<br/>
+<b>Q:</b> Each Pokémon has a best IV for a given CP bound, or more generally, the possible IVs can be globally ordered.<br/>
+<b>A:</b> False. Most functions for evaluating Pokémon will order different IVs different ways.<br/>
+<br/>
+<b>Q:</b> A Shadow form has a better geometric mean than the normal form.<br/>
+<b>A:</b> Shadow and normal forms have the same geometric mean.<br/>
+<br/>
+<b>Q:</b> A Shadow form has a better arithmetic mean than the normal form.<br/>
+<b>A:</b> False. With the same IVs, a Shadow form will have a higher arithmetic mean if Eff<sub>A</sub> &gt; 5/6*Eff<sub>D</sub>.
+If Eff<sub>A</sub> &lt; 5/6*Eff<sub>D</sub>, the Shadow form will have a lower arithmetic mean.
+If Eff<sub>A</sub> = 5/6*Eff<sub>D</sub>, the two forms will have equal arithmetic means.<br/>
+<br/>
+<b>Q:</b> If a Shadow form exists, some Shadow will have the highest possible Eff<sub>A</sub> of the species.<br/>
+<b>A:</b> True.<br/>
+<br/>
+<b>Q:</b> If a Shadow form exists, some Shadow will have the lowest possible Eff<sub>D</sub> of the species.<br/>
+<b>A:</b> True.<br/>
+<br/>
+<b>Q:</b> Powering up from level N to N+1 adds the same amount of CP to all members of a family having the same IV.<br/>
+<b>A:</b> False. It depends on the base stats.<br/>
+<b>E:</b> Ivysaur gains 20 CP going from level 10 (401) to 10.5 (421). Venusaur gains 34 CP going from level 10 (669) to 10.5 (703).<br/>
+<br/>
+<b>Q:</b> Powering up from a higher level adds less than or equal to the amount of CP as any lower level.<br/>
+<b>A:</b> False. The floor function will have its due.<br/>
+<b>E:</b> Venusaur gains 34 CP going from 24 (1606) to 24.5 (1640). Venusaur gains 33 CP going from 23.5 (1573) to 24 (1606).<br/>
+<br/>
+<b>Q:</b> Given two IVs A and B at a given CP bound, if all components of A are greater than or equal to the corresponding members of B, the components of Eff<sub>A</sub> cannot all be less than or equal to Eff<sub>B</sub>.<br/>
+<b>A:</b> False. STA can sometimes be traded to gain levels.<br/>
+<b>E:</b> Glalie 15-15-15x24.5 has Eff<sub>A</sub> 117.036, Eff<sub>D</sub> 117.036, and 135 HP.
+Glalie 15-15-13x25 has Eff<sub>A</sub> 118.224, Eff<sub>D</sub> 118.224, and 135 HP.<br/>
+<br/>
+<b>Q:</b> Is it generally more important to minimize IV<sub>A</sub> or maximize IV<sub>D</sub> and IV<sub>S</sub>?<br/>
+<b>A:</b> It is dependent on the base stats, but a higher IV<sub>A</sub> can drive down all
+   three effective stats (due to underleveling), while a lower IV<sub>D</sub> or IV<sub>S</sub>
+   can only drive down their derived effective stat.<br/>
+<br/>
+<b>Q:</b> A higher arithmetic mean implies a higher geometric mean.<br/>
+<b>A:</b> False. The relationship is complex.<br/>
+<b>E:</b> Morpeko 1499 4-5-11: gm: 115.982 am: 117.869. Morpeko 1495 3-8-8: gm: 116.033 am: 117.69<br/>
+</div>
+
+<div class="text">Empoleon 10-13-15 hits 2499 at 32. Empoleon 11-14-15 hits 2497 at 31.5.
+<pre>[schwarzgerat](0) $ out/calculator empoleon 2499 10-13-15
+empoleon atk: 210 def: 186 sta: 197
+cp: 2499 ia: 10 id: 13 is: 15
+matched 2499: 10/13/15 32 Eff<b>A:</b> 163.634 EffD: 148.014 HP: 157 gm: 156.084 am: 156.216
+[schwarzgerat](0) $ out/calculator empoleon 2497 11-14-15
+empoleon atk: 210 def: 186 sta: 197
+cp: 2497 ia: 11 id: 14 is: 15
+matched 2497: 11/14/15 31.5 Eff<b>A:</b> 163.714 EffD: 148.157 HP: 157 gm: 156.16 am: 156.29</pre>
+The former has a higher CP, and a higher level, but is otherwise everywhere less than or equal.</div>
+
+<ol start="0">
+<li id="note0">For full details, consult <a href="https://nick-black.com/pgo-quantitative.pdf">Chapter 10</a>.</li>
+<li id="note1">This is also a simplification, but a very minor one. Consult <a href="https://nick-black.com/pgo-quantitative.pdf">Chapter 9</a>.</li>
+</ol>
+
+<hr/>
+<a href="https://goldandappelpub.com/pgo-quantitative.html"><i>Pokémon GO: A Quantitative Approach</i></a>
+</body>
+</html>
