@@ -21,11 +21,20 @@ write_iv_graph(const species &s, const char *leagueshort){
   return 0;
 }
 
+static int
+write_pacing(const species &s){
+  std::string pacing = "cd graphs && ../../../out/pacing \"" + s.name + "\"";
+  if(system(pacing.c_str())){
+    std::cerr << "pacing failed for " << s.name << std::endl;
+    return -1;
+  }
+  return 0;
+}
+
 static void
 write_iv_graphs(const species &s){
   if(!pvp_banned_p(s)){
-    std::string pacing = "../../out/pacing \"" + s.name + "\" > \"graphs/" + s.name + ".dot\"";
-    if(system(pacing.c_str())){
+    if(write_pacing(s)){
       std::cerr << "pacing failed for " << s.name << std::endl;
       throw std::exception();
     }
