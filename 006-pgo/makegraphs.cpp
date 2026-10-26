@@ -24,6 +24,11 @@ write_iv_graph(const species &s, const char *leagueshort){
 static void
 write_iv_graphs(const species &s){
   if(!pvp_banned_p(s)){
+    std::string pacing = "../../out/pacing \"" + s.name + "\" > \"graphs/" + s.name + ".dot\"";
+    if(system(pacing.c_str())){
+      std::cerr << "pacing failed for " << s.name << std::endl;
+      throw std::exception();
+    }
     if(write_iv_graph(s, "GL")){
       throw std::exception();
     }

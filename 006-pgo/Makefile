@@ -63,6 +63,7 @@ REGIONS:=$(OUT)/regions
 WEATHER:=$(OUT)/weather
 POPS:=$(OUT)/populations
 DPEVSE:=$(OUT)/dpevse
+PACING:=$(OUT)/pacing
 PPTVST:=$(OUT)/pptvst
 EVOLWORSE:=$(OUT)/evolworse
 MOSTPOWER:=$(OUT)/mostpower
@@ -214,7 +215,7 @@ $(WEB)/essay-ivs.html: $(WEBSRC)/essay-ivs.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' $< > $@
 
-graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT)
+graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING)
 	@mkdir -p $(WEB)/mon/graphs
 	$(<) $(WEB)/mon
 
