@@ -1,27 +1,6 @@
 #include <stdio.h>
 #include "pgotypes.h"
 
-static pgo_weather_t wboosts[TYPECOUNT] = {
-  WEATHER_RAIN,   // bug
-  WEATHER_FOG,    // dark
-  WEATHER_WINDY,  // dragon
-  WEATHER_RAIN,   // electric
-  WEATHER_CLOUDY, // fairy
-  WEATHER_CLOUDY, // fighting
-  WEATHER_CLEAR,  // fire
-  WEATHER_WINDY,  // flying
-  WEATHER_FOG,    // ghost
-  WEATHER_CLEAR,  // grass
-  WEATHER_CLEAR,  // ground
-  WEATHER_SNOW,   // ice
-  WEATHER_PARTLY_CLOUDY,  // normal
-  WEATHER_CLOUDY, // poison
-  WEATHER_WINDY,  // psychic
-  WEATHER_PARTLY_CLOUDY,  // rock
-  WEATHER_SNOW,   // steel
-  WEATHER_RAIN,   // water
-};
-
 int main(void){
   printf("\\centering\\begin{tabular}{lcl|lcl}");
   printf("Weather & Icons & Types & Weather & Icons & Types\\\\\n");
@@ -33,9 +12,9 @@ int main(void){
     }
     printf(" & ");
     bool printed = false;
-    for(unsigned t = 0 ; t < static_cast<unsigned>(TYPECOUNT) ; ++t){
-      if(wboosts[t] == w){
-        print_type(static_cast<pgo_types_e>(t));
+    for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+      if(type_weather_boost(t) == w){
+        print_type(t);
         printf(" ");
         printed = true;
       }

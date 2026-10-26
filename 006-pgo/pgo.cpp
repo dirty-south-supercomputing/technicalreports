@@ -480,6 +480,7 @@ static const std::vector<species> sdex = {
   {  3, "Venusaur", TYPE_GRASS, TYPE_POISON, 198, 189, 190, "Ivysaur",
 		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Petal_Blizzard, &ATK_Sludge, &ATK_Sludge_Bomb, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
 		true, true, UINT_MAX, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Frenzy Plant+
     { { "Mega Venusaur", TYPE_GRASS, TYPE_POISON, 241, 246, 190, 200, nullptr, }, }, },
   // the Lizard
   {  4, "Charmander", TYPE_FIRE, TYPECOUNT, 116, 93, 118, "",
@@ -493,7 +494,9 @@ static const std::vector<species> sdex = {
   {  6, "Charizard", TYPE_FIRE, TYPE_FLYING, 223, 173, 186, "Charmeleon",
 		{ &ATK_Air_Slash, &ATK_Fire_Spin, &ATK_Wing_Attack, &ATK_Ember, &ATK_Dragon_Breath, &ATK_Air_Cutter, &ATK_Fire_Blast, &ATK_Overheat, &ATK_Dragon_Claw, &ATK_Blast_Burn, &ATK_Flamethrower, },
 		true, true, UINT_MAX, { &ATK_Dragon_Breath, &ATK_Ember, &ATK_Wing_Attack, &ATK_Blast_Burn, &ATK_Flamethrower, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Dragon Claw+
     { { "Mega Charizard X", TYPE_FIRE, TYPE_DRAGON, 273, 213, 186, 200, nullptr, },
+    // gets Blast Burn+
       { "Mega Charizard Y", TYPE_FIRE, TYPE_FLYING, 319, 212, 186, 200, nullptr, }, }, },
   // the Tiny Turtle
   {  7, "Squirtle", TYPE_WATER, TYPECOUNT, 94, 121, 127, "",
@@ -507,6 +510,7 @@ static const std::vector<species> sdex = {
   {  9, "Blastoise", TYPE_WATER, TYPECOUNT, 171, 207, 188, "Wartortle",
 		{ &ATK_Bite, &ATK_Water_Gun, &ATK_Rollout, &ATK_Flash_Cannon, &ATK_Ice_Beam, &ATK_Hydro_Pump, &ATK_Hydro_Cannon, &ATK_Skull_Bash, },
 		true, true, UINT_MAX, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Hydro Cannon+
     { { "Mega Blastoise", TYPE_WATER, TYPECOUNT, 264, 237, 188, 200, nullptr, }, }, },
   // the Worm
   {  10, "Caterpie", TYPE_BUG, TYPECOUNT, 55, 55, 128, "",
@@ -545,6 +549,7 @@ static const std::vector<species> sdex = {
   {  18, "Pidgeot", TYPE_NORMAL, TYPE_FLYING, 166, 154, 195, "Pidgeotto",
 		{ &ATK_Air_Slash, &ATK_Steel_Wing, &ATK_Wing_Attack, &ATK_Gust, &ATK_Twister, &ATK_Hurricane, &ATK_Aerial_Ace, &ATK_Brave_Bird, &ATK_Feather_Dance, &ATK_Air_Cutter, &ATK_Heat_Wave, },
 		true, true, 0, { &ATK_Gust, &ATK_Wing_Attack, &ATK_Air_Cutter, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Hurricane+
     { { "Mega Pidgeot", TYPE_NORMAL, TYPE_FLYING, 280, 175, 195, 100, nullptr, }, }, },
   // the Mouse
   {  19, "Rattata", TYPE_NORMAL, TYPECOUNT, 103, 70, 102, "",
@@ -796,6 +801,7 @@ static const std::vector<species> sdex = {
   {  65, "Alakazam", TYPE_PSYCHIC, TYPECOUNT, 271, 167, 146, "Kadabra",
 		{ &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Counter, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Fire_Punch, &ATK_Focus_Blast, &ATK_Future_Sight, },
 		true, true, UINT_MAX, { &ATK_Counter, &ATK_Dazzling_Gleam, &ATK_Psychic, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Psyshock+
     { { "Mega Alakazam", TYPE_PSYCHIC, TYPECOUNT, 367, 207, 146, 200, nullptr, }, }, },
   // the Superpower
   {  66, "Machop", TYPE_FIGHTING, TYPECOUNT, 137, 82, 172, "",
@@ -934,6 +940,7 @@ static const std::vector<species> sdex = {
   {  94, "Gengar", TYPE_GHOST, TYPE_POISON, 261, 149, 155, "Haunter",
 		{ &ATK_Sucker_Punch, &ATK_Lick, &ATK_Shadow_Claw, &ATK_Hex, &ATK_Drain_Punch, &ATK_Dark_Pulse, &ATK_Shadow_Punch, &ATK_Shadow_Ball, &ATK_Sludge_Bomb, &ATK_Sludge_Wave, &ATK_Psychic, &ATK_Focus_Blast, },
 		true, true, UINT_MAX, { &ATK_Lick, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Shadow_Punch, &ATK_Sludge_Wave, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Shadow Ball+
     { { "Mega Gengar", TYPE_GHOST, TYPE_POISON, 349, 199, 155, 200, nullptr, }, }, },
   // the Rock Snake
   {  95, "Onix", TYPE_ROCK, TYPE_GROUND, 85, 232, 111, "",
@@ -1084,6 +1091,7 @@ static const std::vector<species> sdex = {
   {  127, "Pinsir", TYPE_BUG, TYPECOUNT, 238, 182, 163, "",
 		{ &ATK_Fury_Cutter, &ATK_Bug_Bite, &ATK_Rock_Smash, &ATK_Vise_Grip, &ATK_Submission, &ATK_X_Scissor, &ATK_Close_Combat, &ATK_Superpower, },
 		true, true, 0, { &ATK_Submission, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Aerial Ace+
     { { "Mega Pinsir", TYPE_BUG, TYPE_FLYING, 305, 231, 163, 200, nullptr, }, }, },
   {  128, "Tauros", TYPE_NORMAL, TYPECOUNT, 198, 183, 181, "",
 		{ &ATK_Tackle, &ATK_Zen_Headbutt, &ATK_Earthquake, &ATK_Iron_Head, &ATK_Horn_Attack, &ATK_Trailblaze, },
@@ -1105,6 +1113,7 @@ static const std::vector<species> sdex = {
   {  130, "Gyarados", TYPE_WATER, TYPE_FLYING, 237, 186, 216, "Magikarp",
 		{ &ATK_Bite, &ATK_Dragon_Breath, &ATK_Dragon_Tail, &ATK_Waterfall, &ATK_Aqua_Tail, &ATK_Twister, &ATK_Dragon_Pulse, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Crunch, },
 		true, true, UINT_MAX, { &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Payback+
     { { "Mega Gyarados", TYPE_WATER, TYPE_DARK, 292, 247, 216, 300, nullptr, }, }, },
   {  131, "Lapras", TYPE_WATER, TYPE_ICE, 165, 174, 277, "",
 		{ &ATK_Ice_Shard, &ATK_Frost_Breath, &ATK_Water_Gun, &ATK_Psywave, &ATK_Ice_Beam, &ATK_Blizzard, &ATK_Dragon_Pulse, &ATK_Hydro_Pump, &ATK_Surf, &ATK_Skull_Bash, &ATK_Sparkling_Aria, },
@@ -1198,7 +1207,9 @@ static const std::vector<species> sdex = {
 		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  154, "Meganium", TYPE_GRASS, TYPECOUNT, 168, 202, 190, "Bayleef",
 		{ &ATK_Vine_Whip, &ATK_Razor_Leaf, &ATK_Magical_Leaf, &ATK_Earthquake, &ATK_Petal_Blizzard, &ATK_Solar_Beam, &ATK_Frenzy_Plant, },
-		true, true, 0, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega meganium in the future
+    {}, },
   // the fire mouse
   {  155, "Cyndaquil", TYPE_FIRE, TYPECOUNT, 116, 93, 118, "",
 		{ &ATK_Ember, &ATK_Tackle, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Swift, },
@@ -1225,7 +1236,9 @@ static const std::vector<species> sdex = {
   // the big jaw
   {  160, "Feraligatr", TYPE_WATER, TYPECOUNT, 205, 188, 198, "Croconaw",
 		{ &ATK_Bite, &ATK_Shadow_Claw, &ATK_Water_Gun, &ATK_Waterfall, &ATK_Ice_Fang, &ATK_Ice_Beam, &ATK_Hydro_Pump, &ATK_Crunch, &ATK_Hydro_Cannon, },
-		true, true, 0, { &ATK_Water_Gun, &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { &ATK_Water_Gun, &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega feraligatr in the future
+    {}, },
   // the scout
   {  161, "Sentret", TYPE_NORMAL, TYPECOUNT, 79, 73, 111, "",
 		{ &ATK_Quick_Attack, &ATK_Scratch, &ATK_Dig, &ATK_Brick_Break, &ATK_Grass_Knot, },
@@ -1310,6 +1323,7 @@ static const std::vector<species> sdex = {
   {  181, "Ampharos", TYPE_ELECTRIC, TYPECOUNT, 211, 169, 207, "Flaaffy",
 		{ &ATK_Charge_Beam, &ATK_Volt_Switch, &ATK_Power_Gem, &ATK_Thunder_Punch, &ATK_Thunder, &ATK_Dragon_Pulse, &ATK_Focus_Blast, &ATK_Zap_Cannon, &ATK_Brutal_Swing, &ATK_Trailblaze, },
 		true, true, 0, { &ATK_Dragon_Pulse, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Thunder Punch+
     { { "Mega Ampharos", TYPE_ELECTRIC, TYPE_DRAGON, 294, 203, 207, 200, nullptr, }, }, },
   // the flower
   {  182, "Bellossom", TYPE_GRASS, TYPECOUNT, 169, 186, 181, "Gloom",
@@ -1427,6 +1441,7 @@ static const std::vector<species> sdex = {
   {  208, "Steelix", TYPE_STEEL, TYPE_GROUND, 148, 272, 181, "Onix",
 		{ &ATK_Dragon_Tail, &ATK_Iron_Tail, &ATK_Thunder_Fang, &ATK_Earthquake, &ATK_Heavy_Slam, &ATK_Crunch, &ATK_Psychic_Fangs, &ATK_Breaking_Swipe, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_METALCOAT, species::REGION_ALL, 0,
+    // gets Gyro Ball+
     { { "Mega Steelix", TYPE_STEEL, TYPE_GROUND, 212, 327, 181, 200, nullptr, }, }, },
   // the fairy
   {  209, "Snubbull", TYPE_FAIRY, TYPECOUNT, 137, 85, 155, "",
@@ -1448,6 +1463,7 @@ static const std::vector<species> sdex = {
   {  212, "Scizor", TYPE_BUG, TYPE_STEEL, 236, 181, 172, "Scyther",
 		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Night_Slash, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Trailblaze, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_METALCOAT, species::REGION_ALL, 0,
+    // gets X-Scissor+
     { { "Mega Scizor", TYPE_BUG, TYPE_STEEL, 279, 250, 172, 200, nullptr, }, }, },
   // the mold
   {  213, "Shuckle", TYPE_BUG, TYPE_ROCK, 17, 396, 85, "",
@@ -1457,6 +1473,7 @@ static const std::vector<species> sdex = {
   {  214, "Heracross", TYPE_BUG, TYPE_FIGHTING, 234, 179, 190, "",
 		{ &ATK_Counter, &ATK_Struggle_Bug, &ATK_Fury_Cutter, &ATK_Megahorn, &ATK_Earthquake, &ATK_Close_Combat, &ATK_Rock_Blast, &ATK_Upper_Hand, &ATK_Rock_Tomb, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_EASTHEMI26, 0,
+    // gets Lunge+
     { { "Mega Heracross", TYPE_BUG, TYPE_FIGHTING, 334, 223, 190, 200, nullptr, }, }, },
   // the sharp claw
   {  215, "Sneasel", TYPE_DARK, TYPE_ICE, 189, 146, 146, "",
@@ -1591,6 +1608,7 @@ static const std::vector<species> sdex = {
   {  248, "Tyranitar", TYPE_ROCK, TYPE_DARK, 251, 207, 225, "Pupitar",
 		{ &ATK_Bite, &ATK_Iron_Tail, &ATK_Dragon_Breath, &ATK_Smack_Down, &ATK_Stone_Edge, &ATK_Fire_Blast, &ATK_Crunch, &ATK_Brutal_Swing, },
 		true, true, 0, { &ATK_Smack_Down, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Stone Edge+
     { { "Mega Tyranitar", TYPE_ROCK, TYPE_DARK, 309, 276, 225, 300, nullptr, }, }, },
   // the Diving
   {  249, "Lugia", TYPE_PSYCHIC, TYPE_FLYING, 193, 310, 235, "",
@@ -1615,6 +1633,7 @@ static const std::vector<species> sdex = {
   {  254, "Sceptile", TYPE_GRASS, TYPECOUNT, 223, 169, 172, "Grovyle",
 		{ &ATK_Fury_Cutter, &ATK_Bullet_Seed, &ATK_Earthquake, &ATK_Aerial_Ace, &ATK_Dragon_Claw, &ATK_Leaf_Blade, &ATK_Frenzy_Plant, &ATK_Breaking_Swipe, },
 		true, true, 0, { &ATK_Frenzy_Plant, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Leaf Blade+
     { { "Mega Sceptile", TYPE_GRASS, TYPE_DRAGON, 320, 186, 172, 200, nullptr, }, }, },
   // the Chick
   {  255, "Torchic", TYPE_FIRE, TYPECOUNT, 130, 87, 128, "",
@@ -1628,6 +1647,7 @@ static const std::vector<species> sdex = {
   {  257, "Blaziken", TYPE_FIRE, TYPE_FIGHTING, 240, 141, 190, "Combusken",
 		{ &ATK_Counter, &ATK_Fire_Spin, &ATK_Ember, &ATK_Stone_Edge, &ATK_Focus_Blast, &ATK_Brave_Bird, &ATK_Overheat, &ATK_Blast_Burn, &ATK_Blaze_Kick, &ATK_Aura_Sphere, },
 		true, true, 0, { &ATK_Blast_Burn, &ATK_Stone_Edge, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Blaze Kick+
     { { "Mega Blaziken", TYPE_FIRE, TYPE_FIGHTING, 329, 168, 190, 200, nullptr, }, }, },
   // the Mud Fish
   {  258, "Mudkip", TYPE_WATER, TYPECOUNT, 126, 93, 137, "",
@@ -1639,6 +1659,7 @@ static const std::vector<species> sdex = {
   {  260, "Swampert", TYPE_WATER, TYPE_GROUND, 208, 175, 225, "Marshtomp",
 		{ &ATK_Mud_Shot, &ATK_Water_Gun, &ATK_Sludge, &ATK_Earthquake, &ATK_Sludge_Wave, &ATK_Surf, &ATK_Hydro_Cannon, &ATK_Muddy_Water, },
 		true, true, 0, { &ATK_Hydro_Cannon, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Muddy Water+
     { { "Mega Swampert", TYPE_WATER, TYPE_GROUND, 283, 218, 225, 200, nullptr, }, }, },
   // the Bite
   {  261, "Poochyena", TYPE_DARK, TYPECOUNT, 96, 61, 111, "",
@@ -1714,6 +1735,7 @@ static const std::vector<species> sdex = {
   {  282, "Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 237, 195, 169, "Kirlia",
 		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Charm, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Synchronoise, &ATK_Triple_Axel, },
 		true, true, UINT_MAX, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Dazzling Gleam+
     { { "Mega Gardevoir", TYPE_PSYCHIC, TYPE_FAIRY, 326, 229, 169, 200, nullptr, }, }, },
   {  283, "Surskit", TYPE_BUG, TYPE_WATER, 93, 87, 120, "",
 		{ &ATK_Bug_Bite, &ATK_Bubble, &ATK_Bubble_Beam, &ATK_Aqua_Jet, &ATK_Signal_Beam, },
@@ -1779,6 +1801,7 @@ static const std::vector<species> sdex = {
   {  303, "Mawile", TYPE_STEEL, TYPE_FAIRY, 155, 141, 137, "",
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Astonish, &ATK_Ice_Fang, &ATK_Fairy_Wind, &ATK_Vise_Grip, &ATK_Iron_Head, &ATK_Play_Rough, &ATK_Power_Up_Punch, },
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Play Rough+
     { { "Mega Mawile", TYPE_STEEL, TYPE_FAIRY, 188, 217, 137, 200, nullptr, }, }, },
   {  304, "Aron", TYPE_STEEL, TYPE_ROCK, 121, 141, 137, "",
 		{ &ATK_Tackle, &ATK_Metal_Claw, &ATK_Metal_Sound, &ATK_Rock_Tomb, &ATK_Iron_Head, &ATK_Body_Slam, },
@@ -1789,6 +1812,7 @@ static const std::vector<species> sdex = {
   {  306, "Aggron", TYPE_STEEL, TYPE_ROCK, 198, 257, 172, "Lairon",
 		{ &ATK_Dragon_Tail, &ATK_Iron_Tail, &ATK_Smack_Down, &ATK_Stone_Edge, &ATK_Rock_Tomb, &ATK_Thunder, &ATK_Heavy_Slam, &ATK_Meteor_Beam, &ATK_Brick_Break, },
 		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Heavy Slam+
     { { "Mega Aggron", TYPE_STEEL, TYPECOUNT, 247, 331, 172, 200, nullptr, }, }, },
   {  307, "Meditite", TYPE_FIGHTING, TYPE_PSYCHIC, 78, 107, 102, "",
 		{ &ATK_Confusion, &ATK_Rock_Smash, &ATK_Ice_Punch, &ATK_Low_Sweep, &ATK_Psyshock, },
@@ -1796,6 +1820,7 @@ static const std::vector<species> sdex = {
   {  308, "Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 121, 152, 155, "Meditite",
 		{ &ATK_Psycho_Cut, &ATK_Counter, &ATK_Ice_Punch, &ATK_Psychic, &ATK_Dynamic_Punch, &ATK_Power_Up_Punch, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets High Jump Kick+
     { { "Mega Medicham", TYPE_FIGHTING, TYPE_PSYCHIC, 205, 179, 155, 100, nullptr, }, }, },
   {  309, "Electrike", TYPE_ELECTRIC, TYPECOUNT, 123, 78, 120, "",
 		{ &ATK_Spark, &ATK_Quick_Attack, &ATK_Discharge, &ATK_Thunderbolt, &ATK_Swift, },
@@ -1832,6 +1857,7 @@ static const std::vector<species> sdex = {
   {  319, "Sharpedo", TYPE_WATER, TYPE_DARK, 243, 83, 172, "Carvanha",
 		{ &ATK_Bite, &ATK_Waterfall, &ATK_Poison_Fang, &ATK_Hydro_Pump, &ATK_Crunch, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Crunch+
     { { "Mega Sharpedo", TYPE_WATER, TYPE_DARK, 289, 144, 172, 200, nullptr, }, }, },
   {  320, "Wailmer", TYPE_WATER, TYPECOUNT, 136, 68, 277, "",
 		{ &ATK_Water_Gun, &ATK_Splash, &ATK_Rollout, &ATK_Water_Pulse, &ATK_Scald, &ATK_Body_Slam, &ATK_Heavy_Slam, },
@@ -1845,6 +1871,7 @@ static const std::vector<species> sdex = {
   {  323, "Camerupt", TYPE_FIRE, TYPE_GROUND, 194, 136, 172, "Numel",
 		{ &ATK_Ember, &ATK_Rock_Smash, &ATK_Incinerate, &ATK_Earthquake, &ATK_Solar_Beam, &ATK_Overheat, &ATK_Earth_Power, &ATK_Scorching_Sands, &ATK_Rock_Tomb, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Heat Wave+
     { { "Mega Camerupt", TYPE_FIRE, TYPE_GROUND, 253, 183, 172, 200, nullptr, }, }, },
   {  324, "Torkoal", TYPE_FIRE, TYPECOUNT, 151, 203, 172, "",
 		{ &ATK_Ember, &ATK_Fire_Spin, &ATK_Flame_Wheel, &ATK_Earthquake, &ATK_Solar_Beam, &ATK_Overheat, },
@@ -1879,6 +1906,7 @@ static const std::vector<species> sdex = {
   {  334, "Altaria", TYPE_DRAGON, TYPE_FLYING, 141, 201, 181, "Swablu",
 		{ &ATK_Dragon_Breath, &ATK_Peck, &ATK_Flamethrower, &ATK_Dragon_Pulse, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Sky_Attack, },
 		true, true, 0, { &ATK_Moonblast, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Disarming Voice+
     { { "Mega Altaria", TYPE_DRAGON, TYPE_FAIRY, 222, 218, 181, 300, nullptr, }, }, },
   {  335, "Zangoose", TYPE_NORMAL, TYPECOUNT, 222, 124, 177, "",
 		{ &ATK_Fury_Cutter, &ATK_Shadow_Claw, &ATK_Dig, &ATK_Night_Slash, &ATK_Close_Combat, },
@@ -1949,6 +1977,7 @@ static const std::vector<species> sdex = {
   {  354, "Banette", TYPE_GHOST, TYPECOUNT, 218, 126, 162, "Shuppet",
 		{ &ATK_Shadow_Claw, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Thunder, &ATK_Dazzling_Gleam, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Shadow Punch+
     { { "Mega Banette", TYPE_GHOST, TYPECOUNT, 312, 160, 162, 100, nullptr, }, }, },
   {  355, "Duskull", TYPE_GHOST, TYPECOUNT, 70, 162, 85, "",
 		{ &ATK_Astonish, &ATK_Hex, &ATK_Shadow_Sneak, &ATK_Ominous_Wind, &ATK_Night_Shade, },
@@ -1961,10 +1990,13 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_TROPIUS, 0, {}, },
   {  358, "Chimecho", TYPE_PSYCHIC, TYPECOUNT, 175, 170, 181, "Chingling",
 		{ &ATK_Astonish, &ATK_Extrasensory, &ATK_Psyshock, &ATK_Shadow_Ball, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega chimecho is planned, with Flash Cannon+
+    {}, },
   {  359, "Absol", TYPE_DARK, TYPECOUNT, 246, 120, 163, "",
 		{ &ATK_Psycho_Cut, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Megahorn, &ATK_Thunder, &ATK_Payback, &ATK_Brutal_Swing, },
 		true, true, 0, { &ATK_Brutal_Swing, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Night Slash+, mega z absol is planned with Shadow Sneak+
     { { "Mega Absol", TYPE_DARK, TYPECOUNT, 314, 130, 163, 200, nullptr, }, }, },
   {  360, "Wynaut", TYPE_PSYCHIC, TYPECOUNT, 41, 86, 216, "",
 		{ &ATK_Splash, &ATK_Counter, &ATK_Mirror_Coat, },
@@ -2020,6 +2052,7 @@ static const std::vector<species> sdex = {
   {  373, "Salamence", TYPE_DRAGON, TYPE_FLYING, 277, 168, 216, "Shelgon",
 		{ &ATK_Bite, &ATK_Fire_Fang, &ATK_Dragon_Tail, &ATK_Crunch, &ATK_Fire_Blast, &ATK_Brutal_Swing, &ATK_Hydro_Pump, &ATK_Outrage, &ATK_Draco_Meteor, &ATK_Fly, },
 		true, true, 0, { &ATK_Outrage, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Fly+
     { { "Mega Salamence", TYPE_DRAGON, TYPE_FLYING, 310, 251, 216, 300, nullptr, }, }, },
   // the iron ball
   {  374, "Beldum", TYPE_STEEL, TYPE_PSYCHIC, 96, 132, 120, "",
@@ -2033,6 +2066,7 @@ static const std::vector<species> sdex = {
   {  376, "Metagross", TYPE_STEEL, TYPE_PSYCHIC, 257, 228, 190, "Metang",
 		{ &ATK_Fury_Cutter, &ATK_Bullet_Punch, &ATK_Zen_Headbutt, &ATK_Shadow_Claw, &ATK_Earthquake, &ATK_Flash_Cannon, &ATK_Psychic, &ATK_Meteor_Mash, },
 		true, true, UINT_MAX, { &ATK_Shadow_Claw, &ATK_Meteor_Mash, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Meteor Mash+
     { { "Mega Metagross", TYPE_STEEL, TYPE_PSYCHIC, 300, 289, 190, 300, nullptr, }, }, },
   // the rock peak
   {  377, "Regirock", TYPE_ROCK, TYPECOUNT, 179, 309, 190, "",
@@ -2050,11 +2084,13 @@ static const std::vector<species> sdex = {
   {  380, "Latias", TYPE_DRAGON, TYPE_PSYCHIC, 228, 246, 190, "",
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Charm, &ATK_Aura_Sphere, &ATK_Thunder, &ATK_Psychic, &ATK_Outrage, &ATK_Mist_Ball, },
 		true, true, 5, { &ATK_Mist_Ball, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Mist Ball+
     { { "Mega Latias", TYPE_DRAGON, TYPE_PSYCHIC, 289, 297, 190, 300, nullptr, }, }, },
   // the eon
   {  381, "Latios", TYPE_DRAGON, TYPE_PSYCHIC, 268, 212, 190, "",
 		{ &ATK_Dragon_Breath, &ATK_Zen_Headbutt, &ATK_Dragon_Claw, &ATK_Aura_Sphere, &ATK_Psychic, &ATK_Solar_Beam, &ATK_Luster_Purge, },
 		true, true, 5, { &ATK_Luster_Purge, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Luster Purge+
     { { "Mega Latios", TYPE_DRAGON, TYPE_PSYCHIC, 335, 241, 190, 300, nullptr, }, }, },
   // the sea basin
   {  382, "Kyogre", TYPE_WATER, TYPECOUNT, 270, 228, 205, "",
@@ -2069,6 +2105,7 @@ static const std::vector<species> sdex = {
   {  384, "Rayquaza", TYPE_DRAGON, TYPE_FLYING, 284, 170, 213, "",
 		{ &ATK_Dragon_Tail, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Ancient_Power, &ATK_Hurricane, &ATK_Outrage, &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, },
 		true, false, 0, { &ATK_Breaking_Swipe, &ATK_Dragon_Ascent, &ATK_Hurricane, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Dragon Ascent+
     { { "Mega Rayquaza", TYPE_DRAGON, TYPE_FLYING, 377, 210, 227, 400, nullptr, }, }, },
   {  385, "Jirachi", TYPE_STEEL, TYPE_PSYCHIC, 210, 210, 225, "",
 		{ &ATK_Confusion, &ATK_Charge_Beam, &ATK_Aura_Sphere, &ATK_Dazzling_Gleam, &ATK_Psychic, &ATK_Doom_Desire, },
@@ -2229,6 +2266,7 @@ static const std::vector<species> sdex = {
   {  428, "Lopunny", TYPE_NORMAL, TYPECOUNT, 156, 194, 163, "Buneary",
 		{ &ATK_Low_Kick, &ATK_Pound, &ATK_Double_Kick, &ATK_Hyper_Beam, &ATK_Fire_Punch, &ATK_Focus_Blast, &ATK_Triple_Axel, &ATK_Thunder_Punch, &ATK_Shadow_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Close Combat+
     { { "Mega Lopunny", TYPE_NORMAL, TYPE_FIGHTING, 282, 214, 163, 200, nullptr, }, }, },
   {  429, "Mismagius", TYPE_GHOST, TYPECOUNT, 211, 187, 155, "Misdreavus",
 		{ &ATK_Sucker_Punch, &ATK_Hex, &ATK_Magical_Leaf, &ATK_Psywave, &ATK_Dark_Pulse, &ATK_Shadow_Ball, &ATK_Dazzling_Gleam, &ATK_Mystical_Fire, },
@@ -2282,6 +2320,7 @@ static const std::vector<species> sdex = {
   {  445, "Garchomp", TYPE_DRAGON, TYPE_GROUND, 261, 193, 239, "Gabite",
 		{ &ATK_Mud_Shot, &ATK_Dragon_Tail, &ATK_Earthquake, &ATK_Breaking_Swipe, &ATK_Fire_Blast, &ATK_Sand_Tomb, &ATK_Outrage, &ATK_Earth_Power, &ATK_Twister, },
 		true, true, 0, { &ATK_Earth_Power, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Earthquake+. Mega Z Garchomp is planned with Draco Meteor+
     { { "Mega Garchomp", TYPE_DRAGON, TYPE_GROUND, 339, 222, 239, 300, nullptr, }, }, },
   {  446, "Munchlax", TYPE_NORMAL, TYPECOUNT, 137, 117, 286, "",
 		{ &ATK_Lick, &ATK_Tackle, &ATK_Gunk_Shot, &ATK_Bulldoze, &ATK_Heavy_Slam, },
@@ -2294,6 +2333,7 @@ static const std::vector<species> sdex = {
   {  448, "Lucario", TYPE_FIGHTING, TYPE_STEEL, 236, 144, 172, "Riolu",
 		{ &ATK_Bullet_Punch, &ATK_Counter, &ATK_Force_Palm, &ATK_Flash_Cannon, &ATK_Shadow_Ball, &ATK_Thunder_Punch, &ATK_Close_Combat, &ATK_Blaze_Kick, &ATK_Power_Up_Punch, &ATK_Aura_Sphere, &ATK_Meteor_Mash, },
 		true, false, 0, { &ATK_Force_Palm, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Aura Sphere+. mega z lucario is planned with Focus Blast+
     { { "Mega Lucario", TYPE_FIGHTING, TYPE_STEEL, 310, 175, 172, 200, nullptr, }, }, },
   {  449, "Hippopotas", TYPE_GROUND, TYPECOUNT, 124, 118, 169, "",
 		{ &ATK_Bite, &ATK_Tackle, &ATK_Sand_Attack, &ATK_Dig, &ATK_Rock_Tomb, &ATK_Body_Slam, },
@@ -2331,6 +2371,7 @@ static const std::vector<species> sdex = {
   {  460, "Abomasnow", TYPE_GRASS, TYPE_ICE, 178, 158, 207, "Snover",
 		{ &ATK_Razor_Leaf, &ATK_Powder_Snow, &ATK_Leafage, &ATK_Blizzard, &ATK_Icy_Wind, &ATK_Energy_Ball, &ATK_Outrage, &ATK_Weather_Ball_Ice, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Blizzard+
     { { "Mega Abomasnow", TYPE_GRASS, TYPE_ICE, 240, 191, 207, 200, nullptr, }, }, },
   {  461, "Weavile", TYPE_DARK, TYPE_ICE, 243, 171, 172, "Sneasel",
 		{ &ATK_Ice_Shard, &ATK_Feint_Attack, &ATK_Snarl, &ATK_Focus_Blast, &ATK_Avalanche, &ATK_Foul_Play, &ATK_Triple_Axel, },
@@ -2431,7 +2472,9 @@ static const std::vector<species> sdex = {
 		true, false, 0, { &ATK_Spacial_Rend, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  485, "Heatran", TYPE_FIRE, TYPE_STEEL, 251, 213, 209, "",
 		{ &ATK_Bug_Bite, &ATK_Fire_Spin, &ATK_Flamethrower, &ATK_Stone_Edge, &ATK_Iron_Head, &ATK_Fire_Blast, &ATK_Earth_Power, &ATK_Magma_Storm, },
-		true, true, 0, { &ATK_Magma_Storm, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { &ATK_Magma_Storm, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega heatran is planned with Magma Storm+
+    {}, },
   {  486, "Regigigas", TYPE_NORMAL, TYPECOUNT, 287, 210, 221, "",
 		{ &ATK_Zen_Headbutt, &ATK_Hidden_Power, &ATK_Thunder, &ATK_Focus_Blast, &ATK_Giga_Impact, &ATK_Crush_Grip, },
 		true, true, 0, { &ATK_Crush_Grip, }, species::CAT_LEGENDARY, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -2481,7 +2524,9 @@ static const std::vector<species> sdex = {
 		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  500, "Emboar", TYPE_FIRE, TYPE_FIGHTING, 235, 127, 242, "Pignite",
 		{ &ATK_Low_Kick, &ATK_Ember, &ATK_Heat_Wave, &ATK_Rock_Slide, &ATK_Flame_Charge, &ATK_Focus_Blast, &ATK_Blast_Burn, },
-		true, true, 0, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { &ATK_Blast_Burn, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega emboar is planned with Flame Charge+
+    {}, },
   {  501, "Oshawott", TYPE_WATER, TYPECOUNT, 117, 85, 146, "",
 		{ &ATK_Tackle, &ATK_Water_Gun, &ATK_Night_Slash, &ATK_Aqua_Tail, &ATK_Water_Pulse, },
 		true, true, 0, { }, species::CAT_FPARTNER, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -2585,11 +2630,14 @@ static const std::vector<species> sdex = {
   // the subterrene
   {  530, "Excadrill", TYPE_GROUND, TYPE_STEEL, 255, 129, 242, "Drilbur",
 		{ &ATK_Mud_Shot, &ATK_Metal_Claw, &ATK_Mud_Slap, &ATK_Earthquake, &ATK_Drill_Run, &ATK_Rock_Slide, &ATK_Iron_Head, &ATK_Scorching_Sands, },
-		true, true, 3, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 3, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega excadrill is planned with Drill Run+
+    {}, },
   // the hearing
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, "",
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Charge_Beam, &ATK_Hyper_Beam, &ATK_Disarming_Voice, &ATK_Dazzling_Gleam, &ATK_Body_Slam, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Draining Kiss+
     { { "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, nullptr, }, }, },
   // the muscular
   {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, "",
@@ -2646,7 +2694,9 @@ static const std::vector<species> sdex = {
   // the megapede
   {  545, "Scolipede", TYPE_BUG, TYPE_POISON, 203, 175, 155, "Whirlipede",
 		{ &ATK_Bug_Bite, &ATK_Poison_Jab, &ATK_Poison_Sting, &ATK_Megahorn, &ATK_Sludge_Bomb, &ATK_X_Scissor, &ATK_Gyro_Ball, &ATK_Aqua_Tail, },
-		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega scolipede is planned with Megahorn+
+    {}, },
   // the cotton puff
   {  546, "Cottonee", TYPE_GRASS, TYPE_FAIRY, 71, 111, 120, "",
 		{ &ATK_Razor_Leaf, &ATK_Charm, &ATK_Seed_Bomb, &ATK_Grass_Knot, &ATK_Energy_Ball, },
@@ -2907,7 +2957,9 @@ static const std::vector<species> sdex = {
   // the elefish
   {  604, "Eelektross", TYPE_ELECTRIC, TYPECOUNT, 217, 152, 198, "Eelektrik",
 		{ &ATK_Spark, &ATK_Acid, &ATK_Volt_Switch, &ATK_Thunderbolt, &ATK_Dragon_Claw, &ATK_Crunch, &ATK_Acid_Spray, &ATK_Liquidation, },
-		true, false, 0, { &ATK_Volt_Switch, }, species::CAT_NORMAL, 10, species::EVOL_UNOVASTONE, species::REGION_ALL, 0, {}, },
+		true, false, 0, { &ATK_Volt_Switch, }, species::CAT_NORMAL, 10, species::EVOL_UNOVASTONE, species::REGION_ALL, 0,
+    // mega eelektross is planned with Wild Charge+
+    {}, },
   // the cerebral
   {  605, "Elgyem", TYPE_PSYCHIC, TYPECOUNT, 148, 100, 146, "",
 		{ &ATK_Confusion, &ATK_Astonish, &ATK_Dark_Pulse, &ATK_Psybeam, &ATK_Psychic, },
@@ -2978,7 +3030,9 @@ static const std::vector<species> sdex = {
 		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  623, "Golurk", TYPE_GROUND, TYPE_GHOST, 222, 154, 205, "Golett",
 		{ &ATK_Mud_Slap, &ATK_Astonish, &ATK_Shadow_Punch, &ATK_Dynamic_Punch, &ATK_Earth_Power, &ATK_Poltergeist, },
-		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega golurk is planned with Earth Power+
+    {}, },
   {  624, "Pawniard", TYPE_DARK, TYPE_STEEL, 154, 114, 128, "",
 		{ &ATK_Fury_Cutter, &ATK_Scratch, &ATK_Night_Slash, &ATK_Iron_Head, &ATK_X_Scissor, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -3161,7 +3215,9 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  668, "Pyroar", TYPE_FIRE, TYPE_NORMAL, 221, 149, 200, "Litleo",
 		{ &ATK_Ember, &ATK_Fire_Fang, &ATK_Take_Down, &ATK_Incinerate, &ATK_Dark_Pulse, &ATK_Flame_Charge, &ATK_Solar_Beam, &ATK_Overheat, },
-		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega pyroar is planned with Fire Blast+
+    {}, },
   // the single bloom
   {  669, "Flabébé", TYPE_FAIRY, TYPECOUNT, 108, 120, 127, "",
 		{ &ATK_Vine_Whip, &ATK_Tackle, &ATK_Petal_Blizzard, &ATK_Dazzling_Gleam, &ATK_Psychic, },
@@ -3201,7 +3257,9 @@ static const std::vector<species> sdex = {
   // the constraint
   {  678, "Meowstic Male", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Sucker_Punch, &ATK_Confusion, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega meowstic is planned with Psychic+
+    {}, },
   {  678, "Meowstic Female", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Charm, &ATK_Confusion, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Energy_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -3252,7 +3310,9 @@ static const std::vector<species> sdex = {
   // the collective
   {  689, "Barbaracle", TYPE_ROCK, TYPE_WATER, 194, 205, 176, "Binacle",
 		{ &ATK_Fury_Cutter, &ATK_Water_Gun, &ATK_Mud_Slap, &ATK_Cross_Chop, &ATK_Stone_Edge, &ATK_Grass_Knot, &ATK_Skull_Bash, &ATK_Razor_Shell, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega barbaracle is planned with Cross Chop+
+    {}, },
   // the mock kelp
   {  690, "Skrelp", TYPE_POISON, TYPE_WATER, 109, 109, 137, "",
 		{ &ATK_Acid, &ATK_Water_Gun, &ATK_Aqua_Tail, &ATK_Twister, &ATK_Sludge_Bomb, &ATK_Water_Pulse, },
@@ -3260,7 +3320,9 @@ static const std::vector<species> sdex = {
   // the mock kelp
   {  691, "Dragalge", TYPE_POISON, TYPE_DRAGON, 177, 207, 163, "Skrelp",
 		{ &ATK_Acid, &ATK_Water_Gun, &ATK_Dragon_Tail, &ATK_Aqua_Tail, &ATK_Sludge_Bomb, &ATK_Gunk_Shot, &ATK_Hydro_Pump, &ATK_Focus_Blast, &ATK_Outrage, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega dragalge is planned with Sludge Wave+
+    {}, },
   // the water gun
   {  692, "Clauncher", TYPE_WATER, TYPECOUNT, 108, 117, 137, "",
 		{ &ATK_Water_Gun, &ATK_Smack_Down, &ATK_Aqua_Jet, &ATK_Water_Pulse, &ATK_Crabhammer, },
@@ -3300,7 +3362,9 @@ static const std::vector<species> sdex = {
   // the wrestling
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, "",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Power_Up_Punch, &ATK_Flying_Press, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_MEXICO, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_MEXICO, 0,
+    // mega hawlucha is planned with Flying Press+
+    {}, },
   // the antenna
   {  702, "Dedenne", TYPE_ELECTRIC, TYPE_FAIRY, 164, 134, 167, "",
 		{ &ATK_Thunder_Shock, &ATK_Tackle, &ATK_Discharge, &ATK_Parabolic_Charge, &ATK_Play_Rough, },
@@ -3405,6 +3469,7 @@ static const std::vector<species> sdex = {
   {  719, "Diancie", TYPE_ROCK, TYPE_FAIRY, 190, 285, 137, "",
 		{ &ATK_Tackle, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Power_Gem, &ATK_Moonblast, },
 		true, false, 0, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Power Gem+
     { { "Mega Diancie", TYPE_ROCK, TYPE_FAIRY, 342, 235, 137, 300, nullptr, }, }, },
   {  720, "Hoopa Confined", TYPE_PSYCHIC, TYPE_GHOST, 261, 187, 173, "",
 		{ &ATK_Confusion, &ATK_Astonish, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, },
@@ -3493,7 +3558,9 @@ static const std::vector<species> sdex = {
   // the woolly crab
   {  740, "Crabominable", TYPE_FIGHTING, TYPE_ICE, 231, 138, 219, "Crabrawler",
 		{ &ATK_Bubble, &ATK_Rock_Smash, &ATK_Ice_Punch, &ATK_Brick_Break, &ATK_Crabhammer, &ATK_Power_Up_Punch, &ATK_Payback, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_GLACIALLURE, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_GLACIALLURE, species::REGION_ALL, 0,
+    // mega crabominable is planned with Drain Punch+
+    {}, },
   // the dancing
   {  741, "Oricorio Baile", TYPE_FIRE, TYPE_FLYING, 196, 145, 181, "",
 		{ &ATK_Pound, &ATK_Air_Slash, &ATK_Aerial_Ace, &ATK_Air_Cutter, &ATK_Hurricane, },
@@ -3623,7 +3690,9 @@ static const std::vector<species> sdex = {
   // the hard scale
   {  768, "Golisopod", TYPE_BUG, TYPE_WATER, 218, 226, 181, "Wimpod",
 		{ &ATK_Fury_Cutter, &ATK_Shadow_Claw, &ATK_Metal_Claw, &ATK_Waterfall, &ATK_Aerial_Ace, &ATK_Aqua_Jet, &ATK_X_Scissor, &ATK_Razor_Shell, &ATK_Liquidation, },
-		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, true, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega golisopod is planned with Iron Head+
+    {}, },
   // the sand heap
   {  769, "Sandygast", TYPE_GHOST, TYPE_GROUND, 120, 118, 146, "",
 		{ &ATK_Mud_Shot, &ATK_Astonish, &ATK_Sand_Attack, &ATK_Shadow_Ball, &ATK_Sand_Tomb, &ATK_Earth_Power, &ATK_Scorching_Sands, },
@@ -3767,7 +3836,9 @@ static const std::vector<species> sdex = {
 		true, false, 0, { &ATK_Mind_Blown, }, species::CAT_ULTRABEAST, 100, species::EVOL_NOITEM, species::REGION_WESTHEMI, 0, {}, },
   {  807, "Zeraora", TYPE_ELECTRIC, TYPECOUNT, 252, 177, 204, "",
 		{ &ATK_Spark, &ATK_Volt_Switch, &ATK_Discharge, &ATK_Thunder_Punch, &ATK_Wild_Charge, &ATK_Plasma_Fists, &ATK_Dynamic_Punch, },
-		false, false, 0, { &ATK_Plasma_Fists, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		false, false, 0, { &ATK_Plasma_Fists, }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega zeraora is planned with Plasma Fists+
+    {}, },
   {  808, "Meltan", TYPE_STEEL, TYPECOUNT, 118, 99, 130, "",
 		{ &ATK_Thunder_Shock, &ATK_Flash_Cannon, &ATK_Thunderbolt, },
 		true, false, 4, { }, species::CAT_MYTHICAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -4231,7 +4302,7 @@ static const std::vector<species> sdex = {
     { &ATK_Rock_Throw, &ATK_Mud_Slap, &ATK_Rock_Tomb, &ATK_Rock_Slide, &ATK_Bulldoze, },
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // 951 capsakid
-  // 952 scovillain
+  // 952 scovillain, mega scovillain with flamethrower+
   // 953 rellor
   // 954 rabsca
   // the frill
@@ -4284,7 +4355,9 @@ static const std::vector<species> sdex = {
 		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  970, "Glimmora", TYPE_ROCK, TYPE_POISON, 246, 177, 195, "Glimmet",
 		{ &ATK_Rock_Throw, &ATK_Smack_Down, &ATK_Power_Gem, &ATK_Dazzling_Gleam, &ATK_Sludge_Wave, &ATK_Meteor_Beam, },
-		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		false, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega glimmora is planned with Meteor Beam+
+    {}, },
   {  971, "Greavard", TYPE_GHOST, TYPECOUNT, 105, 106, 137, "",
 		{ &ATK_Bite, &ATK_Lick, &ATK_Dig, &ATK_Shadow_Ball, &ATK_Psychic_Fangs, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -4307,7 +4380,9 @@ static const std::vector<species> sdex = {
     false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  978, "Tatsugiri", TYPE_DRAGON, TYPE_WATER, 226, 166, 169, "",
 		{ &ATK_Take_Down, &ATK_Water_Gun, &ATK_Outrage, &ATK_Surf, &ATK_Hydro_Pump, &ATK_Muddy_Water, },
-		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		false, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega droopy tatsugiri is planned with Dragon Pulse+
+    {}, },
   // the Rage Monkey
   {  979, "Annihilape", TYPE_FIGHTING, TYPE_GHOST, 220, 178, 242, "Primeape",
 		{ &ATK_Low_Kick, &ATK_Counter, &ATK_Ice_Punch, &ATK_Night_Slash, &ATK_Low_Sweep, &ATK_Shadow_Ball, &ATK_Close_Combat, &ATK_Rage_Fist, },
@@ -4348,7 +4423,9 @@ static const std::vector<species> sdex = {
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  998, "Baxcalibur", TYPE_DRAGON, TYPE_ICE, 254, 168, 229, "Arctibax",
 		{ &ATK_Dragon_Breath, &ATK_Ice_Fang, &ATK_Blizzard, &ATK_Dragon_Claw, &ATK_Icy_Wind, &ATK_Avalanche, &ATK_Outrage, },
-		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // mega baxcalibur is planned with icicle spear+
+    {}, },
   {  999, "Gimmighoul", TYPE_GHOST, TYPECOUNT, 140, 76, 128, "",
 		{ &ATK_Astonish, &ATK_Shadow_Ball, },
 		true, false, 0, { }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
