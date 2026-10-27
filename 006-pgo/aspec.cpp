@@ -198,6 +198,58 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   }
 }
 
+/*static void
+write_atk_max(std::ostream &fp, const attack &a){
+  fp << "<h2>Max stats</h2>" << std::endl;
+  bool plusatk = plus_attack_p(a);
+  int maxlevel = 3;
+  fp << "<div class=\"atktext\">";
+  fp << " " << a.name << " is a " << a.animdur << "-turn Nx1 move, and";
+  if(charged_attack_p(a)){
+    fp << " consumes " << a.energyraid;
+  }else{
+    fp << " generates " << a.energyraid;
+  }
+  fp << " energy (";
+  fp << a.energyraid / static_cast<float>(a.animdur);
+  fp << " EPT). It is boosted by ";
+  if(a.type != TYPECOUNT){
+    html_weather(fp, a.type, TYPECOUNT, true);
+  }else{
+    fp << "various"; // hidden power strikes again
+  }
+  fp << " weather.</div><br/>";
+  for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
+    float plusmult = 1.0 + 0.1 * meglevel;
+    emit_plus_header(fp, meglevel, plusmult);
+    if(fast_attack_p(a)){
+      fp << "<table class=\"fattackNx1\">" << std::endl;
+    }else{
+      fp << "<table class=\"cattackNx1\">" << std::endl;
+    }
+    fp << "<tr>";
+    fp << "<th>S?</th>";
+    fp << "<th>W?</th>";
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
+    }
+    if(charged_attack_p(a)){
+      for(int te = -3 ; te < 3 ; ++te){
+        fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
+      }
+    }
+    for(int te = -3 ; te < 3 ; ++te){
+      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
+    }
+    fp << "</tr>" << std::endl;
+    write_atk_Nx1_row(fp, a, false, false, plusmult);
+    write_atk_Nx1_row(fp, a, true, false, plusmult);
+    write_atk_Nx1_row(fp, a, false, true, plusmult);
+    write_atk_Nx1_row(fp, a, true, true, plusmult);
+    fp << "</table>" << std::endl;
+  }
+}*/
+
 static void
 write_atk_effects(std::ostream &fp, const attack &a){
   auto ae = adventure_effect(a.name);
@@ -265,7 +317,7 @@ write_atk_users(std::ostream &fp, const attack &a){
 }
 
 static void
-write_atk_teffect(std::ostream &fp, const attack &a){
+write_atk_teffect(std::ostream &fp, pgo_types_e atype){
   fp << "<h2>type effectiveness</h2>" << std::endl;
   fp << "<table class=\"evenshade\" id=\"teffect\">" << std::endl;
   fp << "<tr>";
@@ -286,7 +338,7 @@ write_atk_teffect(std::ostream &fp, const attack &a){
       }else{
         fp << "<td>";
       }
-      auto te = typing_relation(a.type, t1, t2);
+      auto te = typing_relation(atype, t1, t2);
       if(te){
         fp << te;
       }
@@ -295,6 +347,27 @@ write_atk_teffect(std::ostream &fp, const attack &a){
     fp << "</tr>";
   }
   fp << "</table>" << std::endl;
+}
+
+// assume we're in the target directory
+static int
+write_max_atk_page(pgo_types_e atype){
+  auto name = max_attack_name(atype);
+  std::string encname;
+  encode_name(name, encname);
+  std::ofstream fp(encname + ".html");
+  if(!fp.is_open()){
+    std::cerr << "error opening " << encname << ".html for writing" << std::endl;
+    return -1;
+  }
+  fp << std::setprecision(3);
+  write_header(fp, name, true);
+  fp << "<h1>" << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
+  write_atk_teffect(fp, atype);
+  // FIXME write_atk_max(fp, a);
+  // FIXME write_atk_users(fp, a);
+  write_footer_and_close(fp);
+  return 0;
 }
 
 // assume we're in the target directory
@@ -326,7 +399,7 @@ write_atk_page(const attack &a){
   fp << "</h1>" << std::endl;
   write_atk_effects(fp, a);
   if(a.type != TYPECOUNT){
-    write_atk_teffect(fp, a);
+    write_atk_teffect(fp, a.type);
   }
   write_atk_3x3(fp, a);
   write_atk_Nx1(fp, a);
@@ -366,5 +439,12 @@ int main(int argc, const char **argv){
       }
     }
   }
+  // one dynamax attack per type
+  for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+    if(write_max_atk_page(t)){
+      return EXIT_FAILURE;
+    }
+  }
+  // do gmax attacks; dogs and eternatus must be merged into their attack pages! FIXME
   return EXIT_SUCCESS;
 }

@@ -1,4 +1,4 @@
-#include "pgotypes.h"
+#include "html.h"
 
 void usage(const char* argv0, int exitcode){
   std::cerr << "usage: " << argv0 << " form" << std::endl;
@@ -66,7 +66,7 @@ int main(int argc, const char** argv){
   std::sort(cands.begin(), cands.end(), std::greater<>());
   auto maxp = cands.begin()->powprod();
   for(const auto& c : cands){
-    emit_cand(c, maxp);
+    emit_cand_html(c, maxp);
   }
   return EXIT_SUCCESS;
 }

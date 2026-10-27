@@ -212,4 +212,6 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = f
 extern const std::string css[];
 extern const std::string reversecss[];
 
+void emit_cand_html(const candidate& c, unsigned maxp);
+
 #endif

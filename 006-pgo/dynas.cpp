@@ -59,41 +59,6 @@ int build_type_vec(pgo_types_e t, std::vector<candidate> &cands, std::forward_li
   return cands.size();
 }
 
-static void
-emit_cand_html(const candidate& c, unsigned maxp){
-  auto rp = c.powprod();
-  //unsigned hhalf;
-  std::cout << "<tr>";
-  std::cout << "<td>";
-  html_types(c.s->t1, c.s->t2);
-  std::cout << "</td>";
-  std::cout << "<td>";
-  link_to_name(std::cout, c.s->name, true);
-  std::cout << "</td>";
-  std::cout << "<td>";
-  html_type(c.atype);
-  std::cout << ' ';
-  // we do not attempt to indicate that a max attack is based on a legacy attack,
-  // since it is possible that more than one fast attack enable the same max
-  // attack, and they could have different legacy status (this happens with e.g.
-  // dynamax machamp, which could have max knuckle from karate chop or counter).
-  if(!c.hasstab){
-    std::cout << "<i>";
-  }
-  std::cout << c.aname;
-  if(!c.hasstab){
-    std::cout << "</i>";
-  }
-  std::cout << "</td>";
-  std::cout << std::setprecision(0) << std::fixed;
-  for(int i = -3 ; i < 3 ; ++i){
-    std::cout << "<td class=\"" << css[i + 3] << "\">" << (rp * type_effectiveness_mult(i)) << "</td>";
-  }
-  std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>";
-  std::cout << std::setprecision(0) << std::fixed;
-  std::cout << "</tr>" << std::endl;
-}
-
 // top *count* attackers for each attack type, unified.
 // 0 gets all possible max attackers.
 // this one is for the book, and thus must emit latex.
