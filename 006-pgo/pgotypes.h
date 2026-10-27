@@ -656,9 +656,6 @@ static const attack ATK_Hurricane{ "Hurricane", TYPE_FLYING, 110, -60, 0, 0, 0, 
 	105, 100, 5, false, };
 static const attack ATK_Hydro_Cannon{ "Hydro Cannon", TYPE_WATER, 80, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 4, false, };
-// FIXME there appear to be two hydro pumps?
-// https://db.pokemongohub.net/move/135
-// https://db.pokemongohub.net/move/107
 static const attack ATK_Hydro_Pump{ "Hydro Pump", TYPE_WATER, 130, -75, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	135, 100, 7, false, };
 static const attack ATK_Hyper_Beam{ "Hyper Beam", TYPE_NORMAL, 150, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -677,6 +674,9 @@ static const attack ATK_Icy_Wind{ "Icy Wind", TYPE_ICE, 60, -45, 0, 0, 0, 1000, 
 	65, 33, 7, false, };
 static const attack ATK_Iron_Head{ "Iron Head", TYPE_STEEL, 85, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 4, false, };
+// FIXME get real stats
+/*static const attack ATK_Kowtow_Cleave{ "Kowtow Cleave", TYPE_DARK, 75, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	85, 50, 4, false, };*/
 static const attack ATK_Last_Resort{ "Last Resort", TYPE_NORMAL, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 6, false, };
 static const attack ATK_Leaf_Blade{ "Leaf Blade", TYPE_GRASS, 70, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -813,8 +813,6 @@ static const attack ATK_Sand_Tomb{ "Sand Tomb", TYPE_GROUND, 55, -45, 0, 0, 0, 0
 	60, 33, 8, false, };
 static const attack ATK_Sandsear_Storm{ "Sandsear Storm", TYPE_GROUND, 60, -45, 0, 0, 0, 1000, 0, 0, 0, -1, 0,
 	150, 100, 5, false, };
-// https://db.pokemongohub.net/move/134 -- no listed users, consider an error
-// https://db.pokemongohub.net/move/106
 static const attack ATK_Scald{ "Scald", TYPE_WATER, 85, -50, 0, 0, 0, 300, 0, 0, 0, -1, 0,
 	75, 50, 7, false, };
 static const attack ATK_Scorching_Sands{ "Scorching Sands", TYPE_GROUND, 80, -50, 0, 0, 0, 100, 0, 0, 0, -1, 0,
