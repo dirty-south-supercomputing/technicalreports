@@ -719,6 +719,9 @@ static const attack ATK_Mist_Ball{ "Mist Ball", TYPE_PSYCHIC, 120, -60, 0, 0, 0,
 	105, 100, 4, false, };
 static const attack ATK_Moonblast{ "Moonblast", TYPE_FAIRY, 90, -50, 0, 0, 0, 100, 0, 0, 0, -1, 0,
 	130, 100, 8, false, };
+// FIXME get real stats
+static const attack ATK_Moonblast_Plus{ "Moonblast+", TYPE_FAIRY, 90, -50, 0, 0, 0, 100, 0, 0, 0, -1, 0,
+	150, 100, 8, false, };
 static const attack ATK_Moongeist_Beam{ "Moongeist Beam", TYPE_GHOST, 135, -65, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	230, 100, 6, true, };
 static const attack ATK_Mud_Bomb{ "Mud Bomb", TYPE_GROUND, 65, -45, 0, 0, 0, 0, 0, 0, 0, 0, 0,

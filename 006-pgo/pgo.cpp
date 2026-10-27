@@ -664,7 +664,8 @@ static const std::vector<species> sdex = {
   // the Fairy
   {  36, "Clefable", TYPE_FAIRY, TYPECOUNT, 178, 162, 216, "Clefairy",
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Charge_Beam, &ATK_Charm, &ATK_Fairy_Wind, &ATK_Draining_Kiss, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Psychic, &ATK_Swift, &ATK_Meteor_Mash, },
-		true, false, 0, { &ATK_Pound, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 0, { &ATK_Pound, }, species::CAT_NORMAL, 10, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    { { "Mega Clefable", TYPE_FAIRY, TYPE_FLYING, 253, 205, 216, 300, &ATK_Moonblast_Plus, }, }, },
   // the Fox
   {  37, "Vulpix", TYPE_FIRE, TYPECOUNT, 96, 109, 116, "",
 		{ &ATK_Ember, &ATK_Quick_Attack, &ATK_Flamethrower, &ATK_Flame_Charge, &ATK_Body_Slam, &ATK_Weather_Ball_Fire, },
