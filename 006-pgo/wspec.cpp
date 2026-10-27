@@ -141,7 +141,7 @@ write_iv_tables(std::ostream &fp, const species &s){
 static void
 write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
-  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
+  fp << "<tr><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!fast_attack_p(*a)){
       continue;
@@ -150,8 +150,6 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -176,7 +174,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
 static void
 write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
-  fp << "<tr><th></th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
+  fp << "<tr><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!charged_attack_p(*a)){
       continue;
@@ -185,8 +183,6 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td><td>";
@@ -329,7 +325,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
       });
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
-  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
+  fp << "<tr><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : atks){
     if(!fast_attack_p(*a)){
       continue;
@@ -338,8 +334,6 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -356,7 +350,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
   }
   fp << "</table>" << std::endl;
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
-  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
+  fp << "<tr><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
   for(const auto a : atks){
     if(!charged_attack_p(*a)){
       continue;
@@ -365,8 +359,6 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     fp << "<tr>";
     fp << "<td>";
     html_type_pdir(fp, a->type);
-    fp << "</td>";
-    fp << "<td>";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";

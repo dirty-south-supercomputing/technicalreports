@@ -234,26 +234,26 @@ table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
   margin: 0 1em 1em 1em;
 }
 
-table.fastattacks tr>:nth-child(n+2) { /* mon pages, attack */
+table.fastattacks tr>:nth-child(1) { /* mon pages, attack */
   text-align: left;
 }
 
-table.chargedattacks tr>:nth-child(n+2) { /* mon pages, attack */
+table.chargedattacks tr>:nth-child(1) { /* mon pages, attack */
   text-align: left;
 }
 
-table.fastattacks tr>:nth-child(n+3) { /* mon pages, stats */
+table.apairs tr>:nth-child(1) { /* mon pages, attack sequences */
+  text-align: left;
+}
+
+table.fastattacks tr>:nth-child(n+2) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
 
-table.chargedattacks tr>:nth-child(n+3) { /* mon pages, stats */
+table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
-}
-
-table.apairs tr>:nth-child(1) { /* mon pages, attack pairs */
-  text-align: left;
 }
 
 table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
