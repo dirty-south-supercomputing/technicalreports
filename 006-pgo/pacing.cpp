@@ -150,11 +150,16 @@ int main(int argc, const char **argv){
   if(argc != 2){
     usage(argv[0]);
   }
-  const auto s = lookup_species(argv[1]);
-  if(!s){
-    std::cerr << "couldn't look up " << argv[1] << std::endl;
-    usage(argv[0]);
+  species s;
+  const auto sptr = lookup_species(argv[1]);
+  if(!sptr){
+    if(lookup_mega(argv[1], &s) == false){
+      std::cerr << "couldn't look up " << argv[1] << std::endl;
+      usage(argv[0]);
+    }
+  }else{
+    s = *sptr;
   }
-  pacing(std::cout, *s);
+  pacing(std::cout, s);
   return EXIT_SUCCESS;
 }
