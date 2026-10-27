@@ -265,6 +265,9 @@ static void
 write_mon_ttf_Nx1(std::ofstream &fp, const species &s){
   std::vector<timetofirst> ttfs;
   calctimetosNx1(ttfs, s);
+  if(ttfs.size() == 0){
+    return; // don't print empty table
+  }
   std::sort(ttfs.begin(), ttfs.end());
   fp << "<table class=\"evenshade apairs\">" << std::endl;
   fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
