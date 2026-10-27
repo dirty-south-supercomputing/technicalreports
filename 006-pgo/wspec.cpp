@@ -240,6 +240,19 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
+/*static void
+write_mon_ttf_Nx1(std::ofstream &fp, const species &s){
+  std::vector<timetofirst> ttfs;
+  calctimetosNx1(ttfs, s);
+  std::sort(ttfs.begin(), ttfs.end());
+  fp << "<table class=\"evenshade apairs\">" << std::endl;
+  fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
+  for(const auto &t : ttfs){
+    emit_row(fp, t);
+  }
+  fp << "</table>" << std::endl;
+}*/
+
 static void
 write_mon_attacks_3x3(std::ofstream &fp, const species &s, std::vector<const attack *> &atks){
   std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
@@ -288,7 +301,7 @@ write_mon_attacks_3x3(std::ofstream &fp, const species &s, std::vector<const att
 
 // atks duplicates s.attacks, but we can rearrange (sort) it
 static void
-write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
+write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const attack *> &atks){
   std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
         // next, compare ppt
         float aratio = calc_eff_power_nx1(s, lhs);
@@ -369,6 +382,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
+  //write_mon_ttf_Nx1(fp, s);
 }
 
 static int
@@ -672,7 +686,7 @@ write_mon_page(const species &s){
   if(!pvp_banned_p(s)){
     write_iv_tables(fp, s);
   }
-  // FIXME moar crap ... counters, attack sets, time to first charged attack
+  // FIXME moar crap ... counters?
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
     species smeg{&s, m};

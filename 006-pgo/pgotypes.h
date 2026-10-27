@@ -1560,13 +1560,13 @@ has_stab_p(const species &s, const attack *a){
 // apply the 1.2x stab multiplier to a damage calculation
 static inline float
 calc_stab(float d){
-  return d * 6 / 5;
+  return d * 6.0 / 5.0;
 }
 
 // weather boost in Nx1 mode is 20%
 static inline float
 calc_wboost(float d){
-  return d * 6 / 5;
+  return d * 6.0 / 5.0;
 }
 
 // get the power of the attack considering STAB (if it applies)

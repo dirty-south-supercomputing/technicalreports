@@ -163,21 +163,18 @@ turns_until_e(const attack *a, unsigned e){
 static void
 calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
   unsigned t = turns_until_e(f, -c->energytrain);
-  float power = f->powertrain;
-  if(has_stab_p(s, f)){
-    power = calc_stab(power);
-  }
+  float power = calc_eff_power(s, f);
   float pfast = t / f->turns * power;
   ++t; // account for the charged attack
   ttfs.emplace_back(&s, t, pfast, f, c);
 }
 
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
-  for(const auto &f : s.attacks){
+  for(const auto f : s.attacks){
     if(f->energytrain <= 0){
       continue;
     }
-    for(const auto &c : s.attacks){
+    for(const auto c : s.attacks){
       if(c->energytrain >= 0){
         continue;
       }
