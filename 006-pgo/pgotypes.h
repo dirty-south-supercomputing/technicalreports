@@ -24,8 +24,12 @@
 #define TYPESTART TYPE_BUG
 
 // power for gmax and dmax level 1. levels 2 and 3 add 50 and 100, respectively.
-const unsigned GMAX_POWER_BASE = 350;
-const unsigned DMAX_POWER_BASE = 250;
+// max moves subject to Dynamax Cannon's adventure effect get a boost of one
+// level, where "level 4" is 450 and 550 for dmax and gmax/eternatus, respectively.
+// behemoth bash affects all max moves (even zacian and zamazenta), giving them
+// a 5% boost. only one can be in effect at a time.
+extern const unsigned GMAX_POWER[4];
+extern const unsigned DMAX_POWER[4];
 
 constexpr unsigned TEAMSIZE = 3;
 constexpr int MAXIVELEM = 15;
@@ -2590,7 +2594,7 @@ struct candidate {
   pgo_types_e atype;  // attack type
 
   float powprod(void) const {
-    unsigned p = gmaxpower ? GMAX_POWER_BASE : DMAX_POWER_BASE;
+    unsigned p = gmaxpower ? GMAX_POWER[0] : DMAX_POWER[0];
     float rp = hasstab ? calc_stab(p) : p;
     rp *= teffective;
     return rp * calc_eff_a(s->atk + iva, hlevel, false);

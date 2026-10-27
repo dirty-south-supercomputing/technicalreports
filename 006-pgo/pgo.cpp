@@ -4679,3 +4679,6 @@ const char* WSNames[WEATHERCOUNT] = {
   NULL,
   NULL
 };
+
+const unsigned GMAX_POWER[4] = { 350, 400, 450, 550 };
+const unsigned DMAX_POWER[4] = { 250, 300, 350, 450 };
