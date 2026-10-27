@@ -36,8 +36,12 @@ static void
 write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
   struct tristats gmean{}, amean{}, effa{}, effd{}, mhp{};
   unsigned lmin = UINT_MAX, lmax = 0;
+  unsigned count = 0;
   for(unsigned i = 0 ; i < ivcount ; ++i){
     const auto &st = sets[i];
+    if(st.shadow){
+      continue;
+    }
     if(lmax < st.hlevel){
       lmax = st.hlevel;
     }
@@ -49,16 +53,17 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
     update_tristats(effa, st.effa);
     update_tristats(effd, st.effd);
     update_tristats(mhp, st.mhp);
+    ++count;
   }
   fp << std::fixed << std::setprecision(2);
   fp << "<table class=\"monleaguestats\">" << std::endl;
   fp << "<tr><th>Measure</th><th>Min</th><th>Mean</th><th>Max</th></tr>" << std::endl;
-  fp << "<tr><td>Gmean</td><td>" << gmean.min << "</td><td>" << gmean.tot / ivcount << "</td><td>" << gmean.max << "</td></tr>" << std::endl;
-  fp << "<tr><td>Amean</td><td>" << amean.min << "</td><td>" << amean.tot / ivcount << "</td><td>" << amean.max << "</td></tr>" << std::endl;
-  fp << "<tr><td>Eff<sub>A</sub></td><td>" << effa.min << "</td><td>" << effa.tot / ivcount << "</td><td>" << effa.max << "</td></tr>" << std::endl;
-  fp << "<tr><td>Eff<sub>D</sub></td><td>" << effd.min << "</td><td>" << effd.tot / ivcount << "</td><td>" << effd.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Gmean</td><td>" << gmean.min << "</td><td>" << gmean.tot / count << "</td><td>" << gmean.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Amean</td><td>" << amean.min << "</td><td>" << amean.tot / count << "</td><td>" << amean.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Eff<sub>A</sub></td><td>" << effa.min << "</td><td>" << effa.tot / count << "</td><td>" << effa.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>Eff<sub>D</sub></td><td>" << effd.min << "</td><td>" << effd.tot / count << "</td><td>" << effd.max << "</td></tr>" << std::endl;
   fp << std::defaultfloat << std::setprecision(5);
-  fp << "<tr><td>MHP</td><td>" << mhp.min << "</td><td>" << mhp.tot / ivcount << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>MHP</td><td>" << mhp.min << "</td><td>" << mhp.tot / count << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Level</td><td>";
   emit_halflevel_as_level(fp, lmin);
   fp << "</td><td>n/a</td><td>";
