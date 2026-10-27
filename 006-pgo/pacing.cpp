@@ -150,7 +150,11 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-// dump a dot file showing pacing
+// dump dot files showing pacing
+// FIXME rather than accepting a species and doing all its combinations, we
+// ought work off the list of attacks, checking to see if a combination is
+// ever used. the graph will be the same across all species for a given
+// combination, and ought not be duplicated.
 int main(int argc, const char **argv){
   if(argc != 2){
     usage(argv[0]);

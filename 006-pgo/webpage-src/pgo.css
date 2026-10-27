@@ -230,7 +230,7 @@ div.intro {
   padding: 0 1em 0 1em;
 }
 
-table.fastattacks, table.chargedattacks {
+table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
   margin: 0 1em 1em 1em;
 }
 
@@ -248,6 +248,15 @@ table.fastattacks tr>:nth-child(n+3) { /* mon pages, stats */
 }
 
 table.chargedattacks tr>:nth-child(n+3) { /* mon pages, stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.apairs tr>:nth-child(1) { /* mon pages, attack pairs */
+  text-align: left;
+}
+
+table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
 }

@@ -22,7 +22,7 @@ static inline float halfbuff(int chance, int bufflevel){
   return b * (chance / 1000.0);
 }
 
-struct timetofirst {
+struct ttfs {
   const species *s;
   unsigned turns;  // turns until first charged attack
   float powerfast; // cumulative power delivered by fast attacks (includes STAB)
@@ -39,7 +39,7 @@ struct timetofirst {
   float bulk;  // geommean(mhp, effd)
   unsigned excesse;// excess energy following charged move
 
-  timetofirst(const species *S, const stats *St, unsigned Turns, float Powerfast,
+  ttfs(const species *S, const stats *St, unsigned Turns, float Powerfast,
               const attack *FA, const attack *CA) :
     s(S),
     turns(Turns),
@@ -65,7 +65,7 @@ struct timetofirst {
       //std::cerr << S->name << " damimg: " << damimg << " bulk: " << bulk << " pppt: " << pppt << std::endl;
     }
 
-  friend bool operator <(const timetofirst &l, const timetofirst& r) {
+  friend bool operator <(const ttfs &l, const ttfs& r) {
     return l.pppt > r.pppt ? true
       : (l.pppt == r.pppt && l.s->name < r.s->name) ? true
       : false;
@@ -82,7 +82,7 @@ turns_until_e(const attack *a, unsigned e){
 }
 
 static void
-calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
+calctimespecies(const species &s, std::vector<ttfs> &ttfs, int bound){
   stats maxstat(&s, MAX_HALFLEVEL, MAXIVELEM, MAXIVELEM, MAXIVELEM, false);
   stats *st;
   if(bound){
@@ -116,7 +116,7 @@ calctimespecies(const species &s, std::vector<timetofirst> &ttfs, int bound){
 
 // get time to first and damage for all fast+charged pairs
 static void
-calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs, int bound){
+calctimetoall(std::vector<ttfs> &ttfs, std::vector<species> &megaspecs, int bound){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(s->name.contains("Aegislash")){
       continue; // FIXME
@@ -150,17 +150,13 @@ static void header(bool configcolumn){
   std::cout << "</tr>" << std::endl;
 }
 
-static void emit_line(const timetofirst &t, bool configcolumn){
+static void emit_line(const ttfs &t, bool configcolumn){
   std::cout << "<tr><td>";
   html_types(t.s->t1, t.s->t2);
   std::cout << "</td>";
   if(configcolumn){
-    unsigned hl;
-    unsigned l = halflevel_to_level(t.hlevel, &hl);
-    std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << "x" << l;
-    if(hl){
-      std::cout << ".5";
-    }
+    std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << "x";
+    emit_halflevel_as_level(std::cout, t.hlevel);
     std::cout << "</td>";
   }
   std::cout << "<td>";
@@ -211,7 +207,7 @@ int main(int argc, char **argv){
       usage(argv[0]);
     }
   }
-  std::vector<timetofirst> ttfs;
+  std::vector<ttfs> ttfs;
   header(!!bound);
   std::vector<species> megaspecs;
   calctimetoall(ttfs, megaspecs, bound);

@@ -87,56 +87,6 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a,
   emit_html_attack_fancy(o, s, a, prefix, suffix, subdir, pardir);
 }
 
-// FIXME ugh duplicates summarize_buffs() from latex code
-static inline void
-summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix){
-  // need special case A+D as it takes too much space otherwise
-  bool printed = false;
-  if(a.chance_user_attack && a.chance_user_attack == a.chance_user_defense
-      && a.user_attack == a.user_defense){
-    printed = true;
-    o << prefix;
-    print_buff_html(o, a.chance_user_attack, a.user_attack, "A+D");
-  }else{
-    if(a.chance_user_attack){
-      printed = true;
-      o << prefix;
-      print_buff_html(o, a.chance_user_attack, a.user_attack, "A");
-    }
-    if(a.chance_user_defense){
-      printed = true;
-      o << prefix;
-      print_buff_html(o, a.chance_user_defense, a.user_defense, "D");
-    }
-  }
-  if(a.chance_opp_attack && a.chance_opp_attack == a.chance_opp_defense
-      && a.opp_attack == a.opp_defense){
-    if(!printed){
-      printed = true;
-      o << prefix;
-    }
-    print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA+D");
-  }else{
-    if(a.chance_opp_attack){
-      if(!printed){
-        printed = true;
-        o << prefix;
-      }
-      print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA");
-    }
-    if(a.chance_opp_defense){
-      if(!printed){
-        printed = true;
-        o << prefix;
-      }
-      print_buff_html(o, a.chance_opp_defense, a.opp_defense, "OD");
-    }
-  }
-  if(printed){
-    o << suffix;
-  }
-}
-
 static inline void
 html_type(std::ostream &fp, pgo_types_e t){
   if(t != TYPECOUNT){
@@ -213,5 +163,40 @@ extern const std::string css[];
 extern const std::string reversecss[];
 
 void emit_cand_html(const candidate& c, unsigned maxp);
+void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix);
+
+struct timetofirst {
+  const species *s;
+  unsigned turns;  // turns until first charged attack
+  float powerfast; // cumulative power delivered by fast attacks (includes STAB)
+  float powercharged; // power of charged attack (includes STAB)
+  float dam;       // total power of cycle (includes STAB)
+  float dpt;       // dam / turns
+  const attack *fa;
+  const attack *ca;
+  unsigned excesse;// excess energy following charged move
+
+  timetofirst(const species *S, unsigned Turns, float Powerfast,
+              const attack *FA, const attack *CA) :
+    s(S),
+    turns(Turns),
+    powerfast(Powerfast),
+    fa(FA),
+    ca(CA)
+    {
+        excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
+        powercharged = has_stab_p(*s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
+        dam = powerfast + powercharged;
+        dpt = dam / static_cast<float>(turns);
+    }
+
+  friend bool operator <(const timetofirst &l, const timetofirst& r) {
+    return l.turns < r.turns ? true : // least to most turns
+      (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
+      (l.turns == r.turns && l.dam == r.dam && l.s->idx < r.s->idx) ? true : false;
+  }
+};
+
+void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s);
 
 #endif

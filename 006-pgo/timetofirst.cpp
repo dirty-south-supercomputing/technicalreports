@@ -4,82 +4,17 @@
 #include <cassert>
 #include <algorithm>
 
-struct timetofirst {
-  const species *s;
-  unsigned turns;  // turns until first charged attack
-  float powerfast; // cumulative power delivered by fast attacks (includes STAB)
-  float powercharged; // power of charged attack (includes STAB)
-  float dam;       // total power of cycle (includes STAB)
-  float dpt;       // dam / turns
-  const attack *fa;
-  const attack *ca;
-  unsigned excesse;// excess energy following charged move
-
-  timetofirst(const species *S, unsigned Turns, float Powerfast,
-              const attack *FA, const attack *CA) :
-    s(S),
-    turns(Turns),
-    powerfast(Powerfast),
-    fa(FA),
-    ca(CA)
-    {
-        excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
-        powercharged = has_stab_p(*s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
-        dam = powerfast + powercharged;
-        dpt = dam / static_cast<float>(turns);
-    }
-
-  friend bool operator <(const timetofirst &l, const timetofirst& r) {
-    return l.turns < r.turns ? true : // least to most turns
-      (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
-      (l.turns == r.turns && l.dam == r.dam && l.s->idx < r.s->idx) ? true : false;
-  }
-};
-
-// find the number of turns necessary to reach e energy
-static inline unsigned
-turns_until_e(const attack *a, unsigned e){
-  return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
-}
-
-static void
-calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
-  unsigned t = turns_until_e(f, -c->energytrain);
-  float power = f->powertrain;
-  if(has_stab_p(s, f)){
-    power = calc_stab(power);
-  }
-  float pfast = t / f->turns * power;
-  ++t; // account for the charged attack
-  ttfs.emplace_back(&s, t, pfast, f, c);
-}
-
-static void
-calctimetos(std::vector<timetofirst> &ttfs, const species &s){
-  for(const auto &f : s.attacks){
-    if(f->energytrain <= 0){
-      continue;
-    }
-    for(const auto &c : s.attacks){
-      if(c->energytrain >= 0){
-        continue;
-      }
-      calctimefandc(ttfs, s, f, c);
-    }
-  }
-}
-
 // get time to first and damage for all fast+charged pairs
 static void
 calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs){
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    calctimetos(ttfs, *s);
+    calctimetos3x3(ttfs, *s);
     for(const auto &m : s->mforms){
       megaspecs.emplace_back(&*s, m);
     }
   }
   for(const auto &s : megaspecs){
-    calctimetos(ttfs, s);
+    calctimetos3x3(ttfs, s);
   }
 }
 

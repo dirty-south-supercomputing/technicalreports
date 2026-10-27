@@ -12,8 +12,9 @@ write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   }else{
     encode_name(s.name, enc);
   }
-  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << ".png\" alt=\"scatterplot for " << leagueshort << "\"/>";
-  fp << "<img class=\"monradar\" src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << ".png\" alt=\"bulk vs effa plot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << "Gmean.png\" alt=\"bulk vs gmean plot for " << leagueshort << "\"/>";
+  //fp << "<img class=\"monradar\" src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
 }
 
 struct tristats {
@@ -140,7 +141,7 @@ write_iv_tables(std::ostream &fp, const species &s){
 static void
 write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
+  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!fast_attack_p(*a)){
       continue;
@@ -175,7 +176,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
 static void
 write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const attack*> &sortedatks){
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
+  fp << "<tr><th></th><th>Attack</th><th>Buffs</th><th>Power</th><th>Energy-</th><th>PPE</th></tr>" << std::endl;
   for(const auto *a : sortedatks){
     if(!charged_attack_p(*a)){
       continue;
@@ -198,8 +199,49 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
   fp << "</table>" << std::endl;
 }
 
+// don't elide matching mon type for html (as we do latex)
+static void emit_row(std::ofstream &fp, const timetofirst &t){
+  fp << "<tr>";
+  fp << "<td>";
+  fp << (t.turns - 1) / t.fa->turns << "x ";
+  html_type_pdir(fp, t.fa->type);
+  fp << ' ';
+  emit_html_attack(fp, *t.s, t.fa, true);
+  fp << " + ";
+  html_type_pdir(fp, t.ca->type);
+  fp << ' ';
+  std::string prefix, suffix;
+  emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true);
+  fp << ' ';
+  summarize_buffs_html(fp, *t.ca, prefix, suffix);
+  fp << "</td>";
+  fp << "<td>" << t.turns << "</td>";
+  fp << "<td>" << t.dam << "</td>";
+  fp << "<td>";
+  if(t.excesse){
+    fp << t.excesse;
+  }
+  fp << "</td>";
+  fp << "<td>" << t.dpt << "</td>";
+  fp << "<td>" << (t.powercharged * 100 / t.dam) << "</td>";
+  fp << "</tr>" << std::endl;
+}
+
 static void
-write_mon_attacks_3x3(std::ostream &fp, const species &s, std::vector<const attack *> &atks){
+write_mon_ttf_3x3(std::ofstream &fp, const species &s){
+  std::vector<timetofirst> ttfs;
+  calctimetos3x3(ttfs, s);
+  std::sort(ttfs.begin(), ttfs.end());
+  fp << "<table class=\"evenshade apairs\">" << std::endl;
+  fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
+  for(const auto &t : ttfs){
+    emit_row(fp, t);
+  }
+  fp << "</table>" << std::endl;
+}
+
+static void
+write_mon_attacks_3x3(std::ofstream &fp, const species &s, std::vector<const attack *> &atks){
   std::sort(atks.begin(), atks.end(), [s](const attack *lhs, const attack *rhs){
       if(fast_attack_p(*lhs) && !fast_attack_p(*rhs)){
         return true;
@@ -241,6 +283,7 @@ write_mon_attacks_3x3(std::ostream &fp, const species &s, std::vector<const atta
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
   write_fattacks_3x3(fp, s, atks);
   write_cattacks_3x3(fp, s, atks);
+  write_mon_ttf_3x3(fp, s);
 }
 
 // atks duplicates s.attacks, but we can rearrange (sort) it
@@ -273,7 +316,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
       });
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
+  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
   for(const auto *a : atks){
     if(!fast_attack_p(*a)){
       continue;
@@ -300,7 +343,7 @@ write_mon_attacks_nx1(std::ostream &fp, const species &s, std::vector<const atta
   }
   fp << "</table>" << std::endl;
   fp << "<table class=\"evenshade chargedattacks\">" << std::endl;
-  fp << "<tr><th>T</th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
+  fp << "<tr><th></th><th>Attack</th><th>Turns</th><th>Power</th><th>Energy-</th><th>PPT</th><th>PPE</th></tr>" << std::endl;
   for(const auto a : atks){
     if(!charged_attack_p(*a)){
       continue;

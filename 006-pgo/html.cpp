@@ -82,3 +82,106 @@ void emit_cand_html(const candidate& c, unsigned maxp){
   std::cout << std::setprecision(0) << std::fixed;
   std::cout << "</tr>" << std::endl;
 }
+
+static void
+print_buff_html(std::ostream &o, unsigned chance, int buff, const char *sig){
+  if(!chance){
+    return;
+  }
+  if(chance != 1000){ // don't print chance if it's 100%
+    std::print(o, "{:g}% ", chance / 10.0);
+  }
+  o << sig;
+  if(buff > 0){
+    o << "↑";
+    if(buff > 1){
+      o << buff;
+    }
+  }else{
+    o << "↓";
+    if(buff < -1){
+      o << -buff;
+    }
+  }
+}
+
+// FIXME ugh duplicates summarize_buffs() from latex code
+void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix){
+  // need special case A+D as it takes too much space otherwise
+  bool printed = false;
+  if(a.chance_user_attack && a.chance_user_attack == a.chance_user_defense
+      && a.user_attack == a.user_defense){
+    printed = true;
+    o << prefix;
+    print_buff_html(o, a.chance_user_attack, a.user_attack, "A+D");
+  }else{
+    if(a.chance_user_attack){
+      printed = true;
+      o << prefix;
+      print_buff_html(o, a.chance_user_attack, a.user_attack, "A");
+    }
+    if(a.chance_user_defense){
+      printed = true;
+      o << prefix;
+      print_buff_html(o, a.chance_user_defense, a.user_defense, "D");
+    }
+  }
+  if(a.chance_opp_attack && a.chance_opp_attack == a.chance_opp_defense
+      && a.opp_attack == a.opp_defense){
+    if(!printed){
+      printed = true;
+      o << prefix;
+    }
+    print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA+D");
+  }else{
+    if(a.chance_opp_attack){
+      if(!printed){
+        printed = true;
+        o << prefix;
+      }
+      print_buff_html(o, a.chance_opp_attack, a.opp_attack, "OA");
+    }
+    if(a.chance_opp_defense){
+      if(!printed){
+        printed = true;
+        o << prefix;
+      }
+      print_buff_html(o, a.chance_opp_defense, a.opp_defense, "OD");
+    }
+  }
+  if(printed){
+    o << suffix;
+  }
+}
+
+// find the number of turns necessary to reach e energy
+static inline unsigned
+turns_until_e(const attack *a, unsigned e){
+  return (e + (a->energytrain - 1)) / a->energytrain * a->turns;
+}
+
+static void
+calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
+  unsigned t = turns_until_e(f, -c->energytrain);
+  float power = f->powertrain;
+  if(has_stab_p(s, f)){
+    power = calc_stab(power);
+  }
+  float pfast = t / f->turns * power;
+  ++t; // account for the charged attack
+  ttfs.emplace_back(&s, t, pfast, f, c);
+}
+
+void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
+  for(const auto &f : s.attacks){
+    if(f->energytrain <= 0){
+      continue;
+    }
+    for(const auto &c : s.attacks){
+      if(c->energytrain >= 0){
+        continue;
+      }
+      calctimefandc(ttfs, s, f, c);
+    }
+  }
+}

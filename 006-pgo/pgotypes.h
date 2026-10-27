@@ -2579,28 +2579,6 @@ escape_string(const char *s){
   return 0;
 }
 
-static inline void
-print_buff_html(std::ostream &o, unsigned chance, int buff, const char *sig){
-  if(!chance){
-    return;
-  }
-  if(chance != 1000){ // don't print chance if it's 100%
-    std::print(o, "{:g}% ", chance / 10.0);
-  }
-  o << sig;
-  if(buff > 0){
-    o << "↑";
-    if(buff > 1){
-      o << buff;
-    }
-  }else{
-    o << "↓";
-    if(buff < -1){
-      o << -buff;
-    }
-  }
-}
-
 struct candidate {
   const species* s;   // species
   std::string aname;  // attack name
