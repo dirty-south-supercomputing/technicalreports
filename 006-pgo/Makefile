@@ -205,6 +205,7 @@ $(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html
 $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
+ 			-e '/^FOOTER$$/ {' -e 'r $(WEB)/footer' -e 'd' -e '}' \
 	    -e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec
