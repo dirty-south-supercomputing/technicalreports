@@ -167,7 +167,7 @@ void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &p
 
 struct timetofirst {
   const species *s;
-  unsigned turns;  // turns until first charged attack
+  unsigned turns;  // turns through first charged attack
   float powerfast; // cumulative power delivered by fast attacks (includes STAB)
   float powercharged; // power of charged attack (includes STAB)
   float dam;       // total power of cycle (includes STAB)
@@ -177,17 +177,20 @@ struct timetofirst {
   unsigned excesse;// excess energy following charged move
 
   timetofirst(const species *S, unsigned Turns, float Powerfast,
-              const attack *FA, const attack *CA) :
+              const attack *FA, const attack *CA, bool modeNx1) :
     s(S),
     turns(Turns),
     powerfast(Powerfast),
     fa(FA),
     ca(CA)
     {
-        excesse = ((turns - 1) / fa->turns * fa->energytrain) % -ca->energytrain;
-        powercharged = has_stab_p(*s, ca) ? calc_stab(ca->powertrain) : ca->powertrain;
-        dam = powerfast + powercharged;
-        dpt = dam / static_cast<float>(turns);
+      unsigned ftime = modeNx1 ? fa->animdur : fa->turns;
+      unsigned fenergy = modeNx1 ? fa->energyraid : fa->energytrain;
+      unsigned cenergy = modeNx1 ? ca->energyraid : -ca->energytrain;
+      excesse = ((turns - 1) / ftime * fenergy) % cenergy;
+      powercharged = modeNx1 ? calc_eff_power_nx1(*s, ca) : calc_eff_power(*s, ca);
+      dam = powerfast + powercharged;
+      dpt = dam / static_cast<float>(turns);
     }
 
   friend bool operator <(const timetofirst &l, const timetofirst& r) {
@@ -198,5 +201,6 @@ struct timetofirst {
 };
 
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s);
+void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s);
 
 #endif

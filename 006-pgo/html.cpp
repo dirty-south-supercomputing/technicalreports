@@ -166,7 +166,7 @@ calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f,
   float power = calc_eff_power(s, f);
   float pfast = t / f->turns * power;
   ++t; // account for the charged attack
-  ttfs.emplace_back(&s, t, pfast, f, c);
+  ttfs.emplace_back(&s, t, pfast, f, c, false);
 }
 
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
@@ -179,6 +179,40 @@ void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
         continue;
       }
       calctimefandc(ttfs, s, f, c);
+    }
+  }
+}
+
+static inline unsigned
+turns_until_eNx1(const attack *a, unsigned e){
+  return (e + (a->energyraid - 1)) / a->energyraid * a->animdur;
+}
+
+static void
+calctimefandcNx1(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
+  unsigned t = turns_until_eNx1(f, c->energyraid);
+  float power = calc_eff_power_nx1(s, f);
+  float pfast = t / f->animdur * power;
+  t += c->animdur; // account for the charged attack
+  ttfs.emplace_back(&s, t, pfast, f, c, true);
+}
+
+void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s){
+  for(const auto f : s.attacks){
+    if(!fast_attack_p(*f)){
+      continue;
+    }
+    if(f->energyraid <= 0){
+      continue;
+    }
+    for(const auto c : s.attacks){
+      if(!charged_attack_p(*c)){
+        continue;
+      }
+      if(c->energyraid <= 0){
+        continue;
+      }
+      calctimefandcNx1(ttfs, s, f, c);
     }
   }
 }

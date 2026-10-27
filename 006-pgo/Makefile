@@ -491,7 +491,7 @@ $(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
-$(OUT)/%.o: %.cpp pgotypes.h
+$(OUT)/%.o: %.cpp pgotypes.h html.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 

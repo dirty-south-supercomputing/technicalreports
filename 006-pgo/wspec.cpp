@@ -236,7 +236,32 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
-/*static void
+static void emit_row_nx1(std::ofstream &fp, const timetofirst &t){
+  fp << "<tr>";
+  fp << "<td>";
+  fp << (t.turns - 1) / t.fa->animdur << "x ";
+  html_type_pdir(fp, t.fa->type);
+  fp << ' ';
+  emit_html_attack(fp, *t.s, t.fa, true);
+  fp << " + ";
+  html_type_pdir(fp, t.ca->type);
+  fp << ' ';
+  std::string prefix, suffix;
+  emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true);
+  fp << "</td>";
+  fp << "<td>" << t.turns << "</td>";
+  fp << "<td>" << t.dam << "</td>";
+  fp << "<td>";
+  if(t.excesse){
+    fp << t.excesse;
+  }
+  fp << "</td>";
+  fp << "<td>" << t.dpt << "</td>";
+  fp << "<td>" << (t.powercharged * 100 / t.dam) << "</td>";
+  fp << "</tr>" << std::endl;
+}
+
+static void
 write_mon_ttf_Nx1(std::ofstream &fp, const species &s){
   std::vector<timetofirst> ttfs;
   calctimetosNx1(ttfs, s);
@@ -244,10 +269,10 @@ write_mon_ttf_Nx1(std::ofstream &fp, const species &s){
   fp << "<table class=\"evenshade apairs\">" << std::endl;
   fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
   for(const auto &t : ttfs){
-    emit_row(fp, t);
+    emit_row_nx1(fp, t);
   }
   fp << "</table>" << std::endl;
-}*/
+}
 
 static void
 write_mon_attacks_3x3(std::ofstream &fp, const species &s, std::vector<const attack *> &atks){
@@ -374,7 +399,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     fp << "</tr>" << std::endl;
   }
   fp << "</table>" << std::endl;
-  //write_mon_ttf_Nx1(fp, s);
+  write_mon_ttf_Nx1(fp, s);
 }
 
 static int
