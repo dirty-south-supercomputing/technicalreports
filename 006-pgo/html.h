@@ -186,9 +186,15 @@ void write_navbar(std::ostream &fp, bool par = false);
 
 static inline void
 write_footer_and_close(std::ofstream &fp){
-  fp << "<hr/><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a>";
+  fp << "<hr/>" << std::endl;
+  fp << "<span style=\"float: left\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
+  fp << "<span style=\"float: right\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
   fp << "</body></html>" << std::endl;
-  fp.close(); // FIXME check errors or enable iostream exceptions
+  fp.close();
+  if(fp.rdstate() & std::ofstream::failbit){
+    std::cerr << "error writing to file" << std::endl;
+    throw std::exception();
+  }
 }
 
 static inline void

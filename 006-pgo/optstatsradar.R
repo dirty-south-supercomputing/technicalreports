@@ -13,6 +13,6 @@ rec <- subset(data, Form==paste(name, lshort, sep=""))
 print(rec)
 limits <- data[ data$Form %in% c(paste("Min", lshort, sep=""),paste("Max", lshort, sep="")), ]
 print(limits)
-radarchart(rbind(limits[1:2, 2:4], rec[2:4]), title=paste(name, lshort), pfcol="black")
 png(paste("graphs/", ename, lshort, "Radar.png", sep=""))
+radarchart(rbind(limits[1:2, 2:4], rec[2:4]), title=paste(name, lshort), pfcol="black")
 dev.off()
