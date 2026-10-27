@@ -9,7 +9,7 @@ write_iv_graph(const species &s, const char *leagueshort){
   if(graph){
     std::string cmd = "Rscript ../../gmean.R \"" + s.name + "\" " + leagueshort;
     if(system(cmd.c_str())){ // ugh
-      std::cerr << "Rscript failed for " << s.name << std::endl;
+      std::cerr << "Rscript gmean failed for " << s.name << std::endl;
       return -1;
     }
     std::string radar = "Rscript ../../optstatsradar.R \"" + s.name + "\" " + leagueshort;

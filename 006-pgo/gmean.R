@@ -13,6 +13,9 @@ ourbulk <- sqrt(rec[["MHP"]] * rec[["EffD"]])
 ourcp <- rec[["CP"]]
 oureffa <- rec[["EffA"]]
 ourgmean <- rec[["Gmean"]]
+if(length(ourbulk) == 0){
+  quit("no", -1)
+}
 if(args[2] == "ML"){
   ourconf <- "15-15-15x50"
 }else{

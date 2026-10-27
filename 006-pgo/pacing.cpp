@@ -41,11 +41,16 @@ dump_sim(std::ostream &fp, const std::string &sname,
          const std::vector<int> &mods,
          const attack *c1, const attack *c2){
   fp << "digraph {" << std::endl;
+  fp << "rankdir=LR" << std::endl;
+  fp << "fontname=\"sans-serif\"" << std::endl;
   fp << "label=<" << sname << " (" << fa->name << ", " << c1->name;
   if(c2){
     fp << ", " << c2->name;
   }
   fp << ")>" << std::endl;
+  // node and edge defaults
+  fp << "node [shape=box,fontname=\"sans-serif\"]" << std::endl;
+  fp << "edge [fontname=\"sans-serif\"]" << std::endl;
   for(auto i : mods){
     fp << "node" << i << " [ label=<" << i << " energy>";
     if(i == 0){
@@ -125,7 +130,7 @@ pacing(std::ostream &fp, const species &s){
           throw std::exception();
         }
         std::string fname2 = fname + ".png";
-        std::string gv = "circo -Tpng " + fname + " > " + fname2;
+        std::string gv = "dot -Tpng " + fname + " > " + fname2;
         if(system(gv.c_str())){
           std::cerr << "neato failed for " << fname << std::endl;
           throw std::exception();
