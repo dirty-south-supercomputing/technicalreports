@@ -25,7 +25,7 @@ open_sim_output(const species &s, const attack *fa,
   encode_name(fa->name, faname);
   encode_name(c1->name, c1name);
   encode_name(c2->name, c2name);
-  fname += "-" + faname + "-" + "-" + c1name + "-" + c2name;
+  fname += "-" + faname + "-" + c1name + "-" + c2name;
   fout.open(fname, std::ofstream::out);
   if(fout.rdstate() & std::ofstream::failbit){
     std::cerr << "error opening " << fname << std::endl;
@@ -34,17 +34,18 @@ open_sim_output(const species &s, const attack *fa,
   return 0;
 }
 
+// FIXME broken (in places) for nullptr as c2
 static void
 dump_sim(std::ostream &fp, const std::string &sname,
          const attack *fa,
          const std::vector<int> &mods,
          const attack *c1, const attack *c2){
   fp << "digraph {" << std::endl;
-  fp << "label=<" << sname << " Attacks: " << fa->name << ", " << c1->name;
+  fp << "label=<" << sname << " (" << fa->name << ", " << c1->name;
   if(c2){
     fp << ", " << c2->name;
   }
-  fp << ">" << std::endl;
+  fp << ")>" << std::endl;
   for(auto i : mods){
     fp << "node" << i << " [ label=<" << i << " energy>";
     if(i == 0){
@@ -52,17 +53,20 @@ dump_sim(std::ostream &fp, const std::string &sname,
     }
     fp << " ]" << std::endl;
     auto fn = fast_attacks_req(i, fa, c1);
-    int mod = i + fn * fa->energytrain;
-    mod += c1->energytrain;
-    fp << "node" << i << " -> node" << mod << " [ color=\"";
-    fp << "green";
-    fp << "\" label=\"" << fn << "/" << c1->name << "\" ] " << std::endl;
+    int mod1 = i + fn * fa->energytrain + c1->energytrain;
     fn = fast_attacks_req(i, fa, c2);
-    mod = i + fn * fa->energytrain;
-    mod += c2->energytrain;
-    fp << "node" << i << " -> node" << mod << " [ color=\"";
-    fp << "black";
-    fp << "\" label=\"" << fn << "/" << c2->name << "\" ] " << std::endl;
+    int mod2 = i + fn * fa->energytrain + c2->energytrain;
+    if(mod1 != mod2){
+      fp << "node" << i << " -> node" << mod1 << " [ color=\"";
+      fp << "green";
+      fp << "\" label=\"" << fn << "/" << c1->name << "\" ] " << std::endl;
+      fp << "node" << i << " -> node" << mod2 << " [ color=\"";
+      fp << "purple";
+      fp << "\" label=\"" << fn << "/" << c2->name << "\" ] " << std::endl;
+    }else{
+      fp << "node" << i << " -> node" << mod1 << " [ color=\"black\" ";
+      fp << "label=\"" << fn << "/*\" ] " << std::endl;
+    }
   }
   fp << "}" << std::endl;
 }

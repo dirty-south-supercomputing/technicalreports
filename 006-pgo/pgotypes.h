@@ -1836,10 +1836,12 @@ lookup_species(const std::string &name){
 // look up the mega by name. if it is found, return a species synthesized from
 // the mega in sbacking
 static inline bool
-lookup_mega(const char *name, species *sbacking){
+lookup_mega(const std::string &name, species *sbacking){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto &m : s->mforms){
-      if(strcasecmp(m.name.c_str(), name) == 0){
+      if(std::ranges::equal(m.name, name, {},
+          [](const auto& c){ return tolower(c); },
+          [](const auto& c){ return tolower(c); })){
         sbacking->synth_mega_species(&*s, m);
         return true;
       }
