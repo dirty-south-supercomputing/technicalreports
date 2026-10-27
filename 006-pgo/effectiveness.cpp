@@ -26,7 +26,7 @@ gen_te_table(){
 int main(){
   std::cout << "<table class=\"evenshade\" id=\"teffect\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th>";
+  std::cout << "<th></th>";
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     std::cout << "<th>";
     html_type(t);

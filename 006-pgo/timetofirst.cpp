@@ -26,7 +26,7 @@ static void usage(const char *argv0){
 static void html_header(void){
   std::cout << "<table class=\"evenshade apair\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>Pokémon</th><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
+  std::cout << "<th></th><th>Pokémon</th><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th>";
   std::cout << "</tr>" << std::endl;
 }
 
