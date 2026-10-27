@@ -216,7 +216,8 @@ $(WEB)/mon/index.html: $(OUT)/wspec
 
 $(WEB)/essay-ivs.html: $(WEBSRC)/essay-ivs.html
 	@mkdir -p $(@D)
-	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' $< > $@
+	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
+ 			-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' $< > $@
 
 graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING)
 	@mkdir -p $(WEB)/mon/graphs

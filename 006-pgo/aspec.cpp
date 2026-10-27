@@ -349,10 +349,31 @@ write_atk_teffect(std::ostream &fp, pgo_types_e atype){
   fp << "</table>" << std::endl;
 }
 
+static void
+write_max_atk_users(std::ostream &fp, pgo_types_e type){
+  fp << "<h2>users</h2>" << std::endl;
+  bool printed = false;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(!s->dmax || s->dmax == GMAX_TIER){
+      continue;
+    }
+    for(const auto sa : s->attacks){
+      if(!fast_attack_p(*sa)){
+        continue;
+      }
+      bool stab = has_stab_raw_p(*s, type);
+      write_atk_user(fp, s->name, printed, false, stab);
+      break;
+    }
+  }
+  if(printed){
+    fp << "</div>" << std::endl;
+  }
+}
+
 // assume we're in the target directory
 static int
-write_max_atk_page(pgo_types_e atype){
-  auto name = max_attack_name(atype);
+write_max_atk_page(const char *name, pgo_types_e atype){
   std::string encname;
   encode_name(name, encname);
   std::ofstream fp(encname + ".html");
@@ -362,10 +383,12 @@ write_max_atk_page(pgo_types_e atype){
   }
   fp << std::setprecision(3);
   write_header(fp, name, true);
-  fp << "<h1>" << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
+  fp << "<h1>";
+  html_type_pdir(fp, atype);
+  fp << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, atype);
   // FIXME write_atk_max(fp, a);
-  // FIXME write_atk_users(fp, a);
+  write_max_atk_users(fp, atype);
   write_footer_and_close(fp);
   return 0;
 }
@@ -382,7 +405,11 @@ write_atk_page(const attack &a){
   }
   fp << std::setprecision(3);
   write_header(fp, a.name, true);
-  fp << "<h1>" << a.name << " (";
+  fp << "<h1>";
+  if(a.type != TYPECOUNT){
+    html_type_pdir(fp, a.type);
+  }
+  fp << a.name << " (";
   if(a.type != TYPECOUNT){
     fp << tname_capitalized(a.type);
   }else{
@@ -441,7 +468,8 @@ int main(int argc, const char **argv){
   }
   // one dynamax attack per type
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
-    if(write_max_atk_page(t)){
+    const auto name = max_attack_name(t);
+    if(write_max_atk_page(name, t)){
       return EXIT_FAILURE;
     }
   }
