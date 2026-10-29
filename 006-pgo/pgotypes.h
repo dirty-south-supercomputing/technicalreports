@@ -678,9 +678,8 @@ static const attack ATK_Icy_Wind{ "Icy Wind", TYPE_ICE, 60, -45, 0, 0, 0, 1000, 
 	65, 33, 7, false, };
 static const attack ATK_Iron_Head{ "Iron Head", TYPE_STEEL, 85, -50, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	60, 50, 4, false, };
-// FIXME get real stats
-/*static const attack ATK_Kowtow_Cleave{ "Kowtow Cleave", TYPE_DARK, 75, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	85, 50, 4, false, };*/
+static const attack ATK_Kowtow_Cleave{ "Kowtow Cleave", TYPE_DARK, 75, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	85, 50, 4, false, };
 static const attack ATK_Last_Resort{ "Last Resort", TYPE_NORMAL, 90, -55, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	90, 50, 6, false, };
 static const attack ATK_Leaf_Blade{ "Leaf Blade", TYPE_GRASS, 70, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,

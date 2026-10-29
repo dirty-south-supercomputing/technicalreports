@@ -4400,8 +4400,8 @@ static const std::vector<species> sdex = {
 		{ &ATK_Bite, &ATK_Astonish, &ATK_Dragon_Tail, &ATK_Rollout, &ATK_Dig, &ATK_Drill_Run, &ATK_Rock_Slide, &ATK_Body_Slam, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   {  983, "Kingambit", TYPE_DARK, TYPE_STEEL, 238, 203, 225, "Bisharp",
-		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, /*&ATK_Kowtow_Cleave,*/ },
-		true, false, 0, { /*&ATK_Kowtow_Cleave,*/ }, species::CAT_NORMAL, 75, species::EVOL_RAIDDARKSTEEL15, species::REGION_ALL, 0, {}, },
+		{ &ATK_Metal_Claw, &ATK_Snarl, &ATK_Metal_Sound, &ATK_Low_Kick, &ATK_Dark_Pulse, &ATK_Iron_Head, &ATK_X_Scissor, &ATK_Focus_Blast, &ATK_Foul_Play, &ATK_Kowtow_Cleave, },
+		true, false, 0, { &ATK_Kowtow_Cleave, }, species::CAT_NORMAL, 75, species::EVOL_RAIDDARKSTEEL15, species::REGION_ALL, 0, {}, },
   /*{  984, "Great Tusk", TYPE_GROUND, TYPE_FIGHTING, 249, 209, 251, "",
 		{ },
 		false, false, 0, { }, species::CAT_NORMAL, 100, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },*/
