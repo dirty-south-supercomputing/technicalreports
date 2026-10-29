@@ -352,6 +352,7 @@ test_costs(void){
     { "Sneasler",   100, },
     { "Pidgeotto",  12, },
     { "Pidgeot",    50, },
+    { "Gourgeist",  200, },
   };
   for(const auto &t : tests){
     const auto s = lookup_species(t.name);
