@@ -77,16 +77,18 @@ std::cerr << tname_capitalized(bigtype) << " count: " << counts[bigtype] << std:
 }
 
 static void
-emit_coversets(std::vector<tarray> &tarrays, const std::string &title, bool html){
+emit_coversets(std::vector<tarray> &tarrays, const std::string &title, unsigned pop, bool html){
   if(tarrays.empty()){
     return;
   }
   std::vector<std::vector<pgo_types_e>> out(tarrays.size());
   organize_coversets(tarrays, out);
   if(html){
-    std::cout << "<h2>" << title << "</h2>" << std::endl;
+    std::cout << "<h2>" << title << " (" << pop << " participants)</h2>" << std::endl;
     std::cout << "<table id=\"coverset\">" << std::endl;
     std::cout << "<tr><th></th><th></th></tr>" << std::endl;
+  }else{
+    std::cout << "population: " << pop << std::endl;
   }
   int setidx = 1;
   for(const auto &clean : out){
@@ -237,34 +239,53 @@ excluded_p(const species &s, const std::vector<const species *> &excludelist){
   return false;
 }
 
-// print all species represented in the typing vector t of size tcount
-static void
-print_participants(int tcount, const pgo_types_e t[TYPINGCOUNT][2],
-                   const std::vector<const species *> &excludelist){
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(excluded_p(*s, excludelist)){
-      continue;
-    }
-    bool valid = false;
-    for(int ti = 0 ; ti < tcount ; ++ti){
-      if((s->t1 == t[ti][0] && (s->t2 == t[ti][1] || (s->t2 == TYPECOUNT && s->t1 == t[ti][1]))) ||
-          (s->t1 == t[ti][1] && s->t2 == t[ti][0])){
-        valid = true;
-        break;
-      }
-    }
-    if(valid){
-      std::cout << " " << s->name << " (" << tname_capitalized(s->t1);
-      if(s->t2 != TYPECOUNT){
-        std::cout << ", " << tname_capitalized(s->t2);
-      }
-      std::cout << ") → ";
-      print_participant_attacks(*s, true);
-      std::cout << " : ";
-      print_participant_attacks(*s, false);
-      std::cout << std::endl;
+static unsigned
+print_participant(int tcount, const pgo_types_e t[TYPINGCOUNT][2],
+                  const std::vector<const species *> &excludelist,
+                  const species &s, bool output){
+  if(excluded_p(s, excludelist)){
+    return 0;
+  }
+  bool valid = false;
+  for(int ti = 0 ; ti < tcount ; ++ti){
+    if((s.t1 == t[ti][0] && (s.t2 == t[ti][1] || (s.t2 == TYPECOUNT && s.t1 == t[ti][1]))) ||
+        (s.t1 == t[ti][1] && s.t2 == t[ti][0])){
+      valid = true;
+      break;
     }
   }
+  if(!valid){
+    return 0;
+  }
+  if(output){
+    std::cout << " " << s.name << " (" << tname_capitalized(s.t1);
+    if(s.t2 != TYPECOUNT){
+      std::cout << ", " << tname_capitalized(s.t2);
+    }
+    std::cout << ") → ";
+    print_participant_attacks(s, true);
+    std::cout << " : ";
+    print_participant_attacks(s, false);
+    std::cout << std::endl;
+  }
+  return 1;
+}
+
+// print all species represented in the typing vector t of size tcount
+static unsigned
+print_participants(int tcount, const pgo_types_e t[TYPINGCOUNT][2],
+                   const std::vector<const species *> &excludelist,
+                   bool usemegas, bool output){
+  unsigned pop = 0;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    pop += print_participant(tcount, t, excludelist, *s, output);
+    if(usemegas){
+      for(const auto &m : s->mforms){
+        pop += print_participant(tcount, t, excludelist, species(&*s, m), output);
+      }
+    }
+  }
+  return pop;
 }
 
 // print minimal coversets of all typings
@@ -296,7 +317,7 @@ static int
 print_coversets_duals(const std::string &title, const int *t, bool exclude,
                       int *pos, pgo_types_e ty[TYPINGCOUNT][2],
                       int level, std::vector<const species *> &excludelist,
-                      bool html){
+                      bool usemegas, bool html){
   std::vector<tarray> setvec;
   *pos = 0;
   // FIXME this ought take into account empty typings, especially with the excludelist
@@ -321,10 +342,9 @@ print_coversets_duals(const std::string &title, const int *t, bool exclude,
     int min = gen_coversets(j, *pos, ty, level, setvec);
     if(min){
       fprintf(stderr, "%d dual coversets of size %d\n", min, j);
-      emit_coversets(setvec, title, html);
-      if(!html){
-        print_participants(*pos, ty, excludelist);
-      }
+      unsigned pop;
+      pop = print_participants(*pos, ty, excludelist, usemegas, !html);
+      emit_coversets(setvec, title, pop, html);
       return 0;
     }else{
       fprintf(stderr, "no dual coversets of size %d\n", j);
@@ -343,6 +363,7 @@ usage(const char *argv0){
   std::cerr << " -n name: name of coverset (for html)" << std::endl;
   std::cerr << " -l type effectiveness filter (default 0)" << std::endl;
   std::cerr << " -h: generate html" << std::endl;
+  std::cerr << " -m: allow mega evolutions" << std::endl;
   std::cerr << " -t charged: require a charged attack of this type" << std::endl;
   exit(EXIT_FAILURE);
 }
@@ -412,11 +433,12 @@ int main(int argc, char* const* argv){
   const char* argv0 = argv[0];
   bool exclude = false;
   bool reqcharged = false; // FIXME not yet implemented
+  bool usemegas = false;
   bool html = false;
   int level = 0;
   int go;
   std::vector<const species *> excludelist;
-  while((go = getopt(argc, argv, ":hl:n:X:x:t:")) > 0){
+  while((go = getopt(argc, argv, ":hl:n:X:x:t:m")) > 0){
     switch(go){
       case 'X':{ // exclude this form
         const auto s = lookup_species(optarg);
@@ -468,6 +490,13 @@ int main(int argc, char* const* argv){
         }
         title = optarg;
         break;
+      case 'm':
+        if(usemegas){
+          std::cerr << "can't provide -m twice" << std::endl;
+          usage(argv0); break;
+        }
+        usemegas = true;
+        break;
       case 'h':
         html = true;
         break;
@@ -503,6 +532,7 @@ int main(int argc, char* const* argv){
   if(!title){
     title = "Custom";
   }
-  print_coversets_duals(title, kern, exclude, &pos, ty, level, excludelist, html);
+  print_coversets_duals(title, kern, exclude, &pos, ty, level,
+                        excludelist, usemegas, html);
   return EXIT_SUCCESS;
 }

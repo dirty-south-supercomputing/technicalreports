@@ -4,7 +4,7 @@ BIN=out/coversets
 
 [ -x "$BIN" ] || { echo "can't execute $BIN" >&2 ; exit 1 ; }
 
-"$BIN" -n "All Pokémon" -h
+"$BIN" -n "Open play" -h
 "$BIN" electric -h -n "Electric Cup"
 # can't do fighting yet FIXME
 "$BIN" flying -h -n "Flying Cup"
@@ -12,6 +12,7 @@ BIN=out/coversets
 "$BIN" fire,water,grass,electric -h -n "Color Cup"
 "$BIN" dragon,steel,fairy -h -n "Fantasy Cup"
 "$BIN" water,rock,steel -h -n "Fossil Cup"
+"$BIN" bug,poison,ghost,dark,fairy -h -n "Halloween Cup"
 "$BIN" normal,grass,electric,ice,flying,ghost -h -n "Holiday Cup"
 "$BIN" normal,grass,electric,poison,ground,flying,bug,dark -h -n "Jungle Cup"
 "$BIN" ground,rock,ice,steel -h -n "Mountain Cup"
@@ -21,3 +22,6 @@ BIN=out/coversets
 "$BIN" normal,fire,grass,ground -h -n "Sunshine Cup"
 "$BIN" fire,water,ice,rock -h -n "Weather Cup"
 "$BIN" fighting,psychic,dark -h -n "Willpower Cup" -X gardevoir -X zorua -X zoroark
+"$BIN" -n "Open play w/ Megas" -h -m
+"$BIN" fire,water,grass,electric -h -n "Mega Color Cup" -m
+"$BIN" bug,poison,ghost,dark,fairy -h -n "Mega Halloween Cup" -m

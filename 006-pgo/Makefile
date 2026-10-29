@@ -20,12 +20,14 @@ PDF:=$(addsuffix .pdf, $(PAPERBACK))
 MAKEFILE:=Makefile
 WEB:=webpage
 WEBSRC:=$(WEB)-src
+WEBIMG:=$(WEB)/images
+
 CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
 
 # we sometimes parameterize based on type
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
-
+TYPESPNG:=$(WEBIMG)/types.png
 WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 					 $(addsuffix .html, \
 					  index attacks/index mon/index \
@@ -198,7 +200,7 @@ $(WEB)/pgo.css: $(WEBSRC)/pgo.css
 	@mkdir -p $(@D)
 	ln -sf ../$< $@
 
-$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(WEBSRC)/footer
+$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(WEBSRC)/footer $(TYPESPNG)
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
  			-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' \
@@ -492,9 +494,17 @@ $(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
+$(OUT)/pgo.o: pgo.cpp pgotypes.h
+	@mkdir -p $(@D)
+	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
+
 $(OUT)/%.o: %.cpp pgotypes.h html.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
+
+$(TYPESPNG): $(addsuffix .png, $(addprefix images/, $(TYPES)))
+	@mkdir -p $(@D)
+	convert $^ +append $@
 
 test: $(TEAMBUILDER) testsimul testdb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic

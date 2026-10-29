@@ -4,6 +4,12 @@
 const std::string reversecss[6] = { "teneg3", "teneg2", "teneg1", "tepos0", "tepos1", "tepos2", };
 const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "teneg2", };
 
+void html_type_pdir(std::ostream &fp, pgo_types_e t){
+  if(t != TYPECOUNT){
+    fp << "<img src=\"../images/types.png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+  }
+}
+
 void write_navbar(std::ostream &fp, bool par){
   fp << "<nav><ul>" << std::endl;
   fp << "<li><a href=\"";

@@ -99,12 +99,7 @@ html_type(pgo_types_e t){
   html_type(std::cout, t);
 }
 
-static inline void
-html_type_pdir(std::ostream &fp, pgo_types_e t){
-  if(t != TYPECOUNT){
-    fp << "<img src=\"../images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
-  }
-}
+void html_type_pdir(std::ostream &fp, pgo_types_e t);
 
 static inline void
 html_types_pdir(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
