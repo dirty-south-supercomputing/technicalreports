@@ -214,6 +214,10 @@ div.intro {
   padding: 1em;
 }
 
+.montext { /* generic text on mon pages */
+  padding: 0em 1em 0 1em;
+}
+
 .atktext { /* generic text on attack pages */
   padding: 0 1em 0 1em;
 }

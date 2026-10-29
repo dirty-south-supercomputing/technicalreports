@@ -480,7 +480,8 @@ write_stats(std::ostream &fp, const species &s){
   }
   if(s.shadow){
     fp << "Shadow available<br/>";
-    fp << "Purification cost: " << purification_cost(s) << " kSD<br/>";
+    // purification costs seem to be wrong, don't track 2nd attack costs
+    // fp << "Purification cost: " << purification_cost(s) << " kSD<br/>";
   }else{
     fp << "Shadow <i>not</i> available<br/>";
   }
@@ -667,6 +668,42 @@ emit_evol_table(std::ostream &fp, const std::string &us,
   }
 }
 
+// do only this one
+static void
+emit_evol_cost(std::ostream &fp, const species &s){
+  auto cost = evolcost(s);
+  if(cost){
+    const auto *needs = species::evolitemstr(s.evolitem);
+    fp << s.from << " → " << s.name << " costs " << cost << " Candy";
+    if(strlen(needs)){
+      fp << " and " << needs; // FIXME
+    }
+    fp << ".<br/>" << std::endl;
+  }
+}
+
+static void
+emit_forward_evol_costs(std::ostream &fp, const species &s, bool emit){
+  if(emit){
+    emit_evol_cost(fp, s);
+  }
+  std::vector<const species *> evols;
+  if(get_persistent_evolutions(s, evols)){
+    for(const auto &e : evols){
+      emit_forward_evol_costs(fp, *e, true);
+    }
+  }
+}
+
+static void
+emit_evol_costs(std::ostream &fp, const species &s){
+  const auto *prev = get_previous_evolution(s);
+  if(prev){
+    emit_evol_costs(fp, *prev);
+  }
+  emit_evol_cost(fp, s);
+}
+
 static void
 write_evol(std::ostream &fp, const species &s){
   fp << "<h2>transitions</h2>" << std::endl;
@@ -684,6 +721,10 @@ write_evol(std::ostream &fp, const species &s){
   fp << "<table id=\"transitions\">" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
   fp << "</table>" << std::endl;
+  fp << "<div class=\"montext\"><br/>" << std::endl;
+  emit_evol_costs(fp, s);
+  emit_forward_evol_costs(fp, s, false);
+  fp << "</div>" << std::endl;
 }
 
 static int
