@@ -1058,7 +1058,8 @@ struct species {
     CAT_PARADOX,
     CAT_FPARTNER, // first partners (previously "starters")
   } category;
-  int a2cost;         // cost in kStardust to teach second attack {-1, 10, 50, 75, 100}
+  int a2cost;         // cost in kStardust to teach second attack { 10, 50, 75, 100 }
+                      // or to purify { maps to 1, 3, 5, 20 }
   enum evol_item {    // item required to evolve *into* this mon
     EVOL_NOITEM,
     EVOL_FEMALE,
@@ -1335,6 +1336,8 @@ ismega_p(const species &s){
 #undef PRIMALSTR
   return false;
 }
+
+int purification_cost(const species &s);
 
 // each gmax attack is associated with a single species, which can use only
 // that attack. unit tests verify that the species are valid.

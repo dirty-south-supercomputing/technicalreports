@@ -459,8 +459,11 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Second attack cost: ";
   if(multiple_charged_attacks(s)){
     fp << s.a2cost << " kSD";
+    if(s.shadow){
+      fp << " (" << s.a2cost * 6 / 5 << " kSD for Shadow)";
+    }
   }else if(s.shadow){
-    fp << s.a2cost << " kSD (Shadow only)";
+    fp << s.a2cost * 6 / 5 << " kSD (Shadow only)";
   }else{
     fp << "n/a";
   }
@@ -477,6 +480,7 @@ write_stats(std::ostream &fp, const species &s){
   }
   if(s.shadow){
     fp << "Shadow available<br/>";
+    fp << "Purification cost: " << purification_cost(s) << " kSD<br/>";
   }else{
     fp << "Shadow <i>not</i> available<br/>";
   }

@@ -4856,3 +4856,15 @@ unsigned evolcost(const species &s){
   }
   return 50;
 }
+
+int purification_cost(const species &s){
+  switch(s.a2cost){
+    case 10: return 1;
+    case 50: return 3;
+    case 75 : return 5;
+    case 100: return 20;
+    default: break;
+  }
+  std::cerr << "bad a2cost " << s.a2cost << " for " << s.name << std::endl;
+  throw std::exception();
+}
