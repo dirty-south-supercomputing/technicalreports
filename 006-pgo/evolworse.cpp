@@ -78,7 +78,7 @@ int main(int argc, char * const argv[]){
   }
   std::cout << std::fixed;
   std::cout.precision(3);
-  std::cout << "<table class=\"evenshade\">" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"evolworse\">" << std::endl;
   std::cout << "<tr><th>Pokémon</th><th>Gmean range</th><th>Evolution</th><th>Gmean range</th><th>Relationship</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     check_worse_evol(*s, cpb);

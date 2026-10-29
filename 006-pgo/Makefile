@@ -315,11 +315,11 @@ $(OUT)/cpML.html: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) c 0 html > $@
 
-$(OUT)/evolworseGL.html: $(OUT)/evolworse
+$(OUT)/evolworseGL.html: $(EVOLWORSE)
 	@mkdir -p $(@D)
 	$(<) 1500 > $@
 
-$(OUT)/evolworseUL.html: $(OUT)/evolworse
+$(OUT)/evolworseUL.html: $(EVOLWORSE)
 	@mkdir -p $(@D)
 	$(<) 2500 > $@
 

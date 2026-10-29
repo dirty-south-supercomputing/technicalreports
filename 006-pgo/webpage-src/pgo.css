@@ -279,6 +279,32 @@ table.monivs tr :nth-child(n+2) {
   padding: 0 0 0 1em;
 }
 
+table#evolworse {
+  margin: 0 1em 0 1em;
+}
+
+table#evolworse tr>:nth-child(1) { /* base */
+  text-align: left;
+}
+
+table#evolworse tr>:nth-child(2) { /* base range */
+  text-align: right;
+}
+
+table#evolworse tr>:nth-child(3) { /* target */
+  text-align: left;
+  padding: 0 0 0 1em;
+}
+
+table#evolworse tr>:nth-child(4) { /* target range */
+  text-align: right;
+}
+
+table#evolworse tr>:nth-child(5) { /* relationship */
+  text-align: left;
+  padding: 0 0 0 1em;
+}
+
 #philo {
   background-color: #ddd;
 }
