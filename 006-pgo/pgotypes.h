@@ -2014,18 +2014,9 @@ get_family(const species &s, std::vector<const species*> &vec,
   }
 }
 
-static const species *
-get_previous_evolution(const species &s){
-  if(s.from.empty()){
-    return nullptr;
-  }
-  for(auto t = species_begin() ; t != species_end() ; ++t){
-    if(s.from == t->name){
-      return &*t;
-    }
-  }
-  return nullptr;
-}
+// get the immediate ancestor of this form, or nullptr if none exists.
+// returns the base form when called on a synthesized mega.
+const species *get_previous_evolution(const species &s);
 
 // get the earliest form of the family (which might be us)
 static inline const species &
@@ -2660,5 +2651,9 @@ typing_weather_boosts(pgo_types_e t1, pgo_types_e t2, pgo_weather_t &w1, pgo_wea
   w1 = type_weather_boost(t1);
   w2 = type_weather_boost(t2);
 }
+
+// how much candy to evolve *into* this form? returns 0 if we don't evolve
+// using candy (including all megas).
+unsigned evolcost(const species &s);
 
 #endif

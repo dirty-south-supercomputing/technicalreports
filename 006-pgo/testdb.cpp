@@ -336,6 +336,37 @@ test_tnames(void){
   return true;
 }
 
+static bool
+test_costs(void){
+  const struct {
+    const std::string name;
+    unsigned cost;
+  } tests[] = {
+    { "Meltan",     0, },
+    { "Melmetal",   400, },
+    { "Gastly",     0, },
+    { "Haunter",    25, },
+    { "Gengar",     100, },
+    { "Toxel",      0, },
+    { "Toxtricity", 400, },
+    { "Sneasler",   100, },
+    { "Pidgeotto",  12, },
+    { "Pidgeot",    50, },
+  };
+  for(const auto &t : tests){
+    const auto s = lookup_species(t.name);
+    if(!s){
+      return false;
+    }
+    auto c = evolcost(*s);
+    if(c != t.cost){
+      std::cerr << "expected " << t.cost << " for " << t.name << " got " << c << std::endl;
+      return false;
+    }
+  }
+  return true;
+}
+
 // sanity check the pgotypes db
 int main(void){
   if(!test_tnames()){
@@ -351,6 +382,9 @@ int main(void){
     exit(EXIT_FAILURE);
   }
   if(!test_sdex()){
+    exit(EXIT_FAILURE);
+  }
+  if(!test_costs()){
     exit(EXIT_FAILURE);
   }
   for(auto it = attacks_begin() ; it != attacks_end() ; ++it){

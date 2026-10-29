@@ -336,6 +336,7 @@ const std::vector<const attack*> attacks = {
   &ATK_Icicle_Spear,
   &ATK_Icy_Wind,
   &ATK_Iron_Head,
+  &ATK_Kowtow_Cleave,
   &ATK_Last_Resort,
   &ATK_Leaf_Blade,
   &ATK_Leaf_Tornado,
@@ -4683,3 +4684,139 @@ const char* WSNames[WEATHERCOUNT] = {
 
 const unsigned GMAX_POWER[4] = { 350, 400, 450, 550 };
 const unsigned DMAX_POWER[4] = { 250, 300, 350, 450 };
+
+const species *get_previous_evolution(const species &s){
+  if(s.from.empty()){
+    return nullptr;
+  }
+  for(auto t = species_begin() ; t != species_end() ; ++t){
+    if(s.from == t->name){
+      return &*t;
+    }
+  }
+  return nullptr;
+}
+
+static const species *
+family_root(const species &s){
+  const auto *root = get_previous_evolution(s);
+  while(root){
+    const auto *tmp = get_previous_evolution(*root);
+    if(!tmp){
+      return root;
+    }
+    root = tmp;
+  }
+  return &s;
+}
+
+bool trade_assisted_evol_p(const species &s){
+  const auto *root = family_root(s);
+  static const std::vector<std::string> fams = {
+    "Abra", "Machop", "Geodude", "Alolan Geodude", "Gastly",
+    "Roggenrola", "Timburr", "Karrablast", "Shelmet",
+    "Phantump", "Pumpkaboo",
+  };
+  for(const auto &n : fams){
+    if(root->name == n){
+      return true;
+    }
+  }
+  return false;
+}
+
+unsigned evolcost(const species &s){
+  int order = 0; // 0..3
+  const auto *root = get_previous_evolution(s);
+  while(root){
+    ++order;
+    const auto *tmp = get_previous_evolution(*root);
+    if(tmp){
+      root = tmp;
+    }else{
+      break;
+    }
+  }
+  if(!root){
+    root = &s;
+  }
+  if(order <= 0 || order >= 3){
+    return 0;
+  }
+  // these families are all 12 and 50.
+  const std::vector<std::string> evol12s = {
+    "Weedle", "Caterpie", "Pidgey", "Wurmple", "Whismur", "Pidove",
+  };
+  for(const auto &n : evol12s){
+    if(root->name == n){
+      if(order == 1){
+        return 12;
+      }
+      return 50; // order == 2
+    }
+  }
+  // these two-stage families are all 400
+  const std::vector<std::string> evol400s = {
+    "Gyarados", "Wailord", "Altaria", "Volcarona", "Noivern",
+    "Bewear", "Golisopod", "Melmetal", "Toxtricity", "Frosmoth",
+    "Hydrapple",
+  };
+  for(const auto &n : evol400s){
+    if(s.name == n){
+      return 400;
+    }
+  }
+  // these two-stage families are all 100
+  const std::vector<std::string> evol100s = {
+    "Sneasler", "Glalie", "Froslass", "Milotic",
+  };
+  for(const auto &n : evol100s){
+    if(s.name == n){
+      return 100;
+    }
+  }
+  // if we have a trade discount, we are 200 for two-stage families, and 50:200
+  // for three stage families, except for exceptions at 25:100. check the
+  // exceptions first.
+  const std::vector<std::string> evol25trades = {
+    "Abra", "Machop", "Geodude", "Alolan Geodude", "Gastly",
+  };
+  for(const auto &n : evol25trades){
+    if(root->name == n){
+      if(order == 1){
+        return 25;
+      }
+      return 100; // order == 2
+    }
+  }
+  // maxorder will not account for temporary evolutions (i.e. megas)
+  int maxorder = order;
+  std::vector<const species *> evols;
+  if(get_persistent_evolutions(s, evols)){
+    ++maxorder;
+    // we only need check one level, and it can only count once
+    for(const auto &e : evols){
+      std::vector<const species *> store; // don't invalidate evols
+      if(get_persistent_evolutions(*e, store)){
+        ++maxorder;
+        break;
+      }
+    }
+  }
+  // now apply the general rule for trade assisted families.
+  if(trade_assisted_evol_p(*root)){
+    if(order == 1 && maxorder == 2){
+      return 50;
+    }
+    return 200; // either second of two-stage or third of three-stage
+  }
+  // otherwise, if we are a two-stage family, the cost is 50, and if we are
+  // a three-stage family, the costs are 25:100.
+  if(order == 2){
+    return 100;
+  } // otherwise, order must be 1
+  if(maxorder == 2){
+    return 25;
+  }
+  return 50;
+}
