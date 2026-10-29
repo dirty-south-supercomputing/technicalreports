@@ -1112,6 +1112,7 @@ struct species {
     EVOL_BLAZE1000,
     EVOL_SOLAR1000,
     EVOL_LUNAR1000,
+    EVOL_DRAGONASCENT,
   } evolitem;
   enum mon_region {    // region-specific pokémon
     REGION_ALL,
@@ -1192,15 +1193,22 @@ struct species {
     if(m.plusatk){
       attacks.emplace_back(m.plusatk);
     }
+    if(s->shadow){
+      attacks.emplace_back(&ATK_Return);
+    }
     shiny = s->shiny;
     shadow = false;
-    dmax = false;
+    dmax = 0;
     elite = s->elite;
     category = CAT_MEGA;
     a2cost = s->a2cost;
-    evolitem = s->evolitem;
+    if(name == "Mega Rayquaza"){
+      evolitem = species::EVOL_DRAGONASCENT;
+    }else{
+      evolitem = species::EVOL_NOITEM;
+    }
     monregion = s->monregion;
-    evolkm = s->evolkm;
+    evolkm = 0;
   }
 
   species(unsigned i, const std::string &n, pgo_types_e T1, pgo_types_e T2,
@@ -1235,18 +1243,8 @@ struct species {
   { }
 
   species(const species *s, const mega &m)
-    : species(s->idx, m.name, m.t1, m.t2,
-              m.atk, m.def, m.sta, s->name,
-              s->attacks,
-              s->shiny, false, 0,
-              s->elite, CAT_MEGA, s->a2cost,
-              s->evolitem, s->monregion, s->evolkm, {}) {
-    if(m.plusatk){
-      attacks.emplace_back(m.plusatk);
-    }
-    if(s->shadow){
-      attacks.emplace_back(&ATK_Return);
-    }
+  {
+    synth_mega_species(s, m);
   }
 
   species(const species *s, const gmaxattack &gm)

@@ -4592,6 +4592,7 @@ const char *species::evolitemstr(species::evol_item eitem){
     case species::EVOL_BLAZE1000: return "1000 Blaze Fusion energy"; break;
     case species::EVOL_SOLAR1000: return "1000 Solar Fusion energy"; break;
     case species::EVOL_LUNAR1000: return "1000 Lunar Fusion energy"; break;
+    case species::EVOL_DRAGONASCENT: return "Must know Dragon Ascent"; break;
     default: throw std::exception();
   }
 }

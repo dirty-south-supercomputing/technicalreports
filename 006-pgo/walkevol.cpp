@@ -7,6 +7,7 @@ emit_special_evol(const species &s){
     if(!prev){
       std::forward_list<species> store;
       std::vector<const species*> evols;
+      // this is to handle devolutions
       if(!get_evolutions(s, evols, store)){
         return;
       }
@@ -50,8 +51,15 @@ emit_special_evol(const species &s){
 int main(void){
   std::cout << "<table class=\"evenshade\" id=\"evolcond\">" << std::endl;
   std::cout << "<tr><th>T</th><th>Base</th><th>Requirement(s)</th><th>Evolution</th><th>T</th></tr>" << std::endl;
+  std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     emit_special_evol(*s);
+    for(const auto &m : s->mforms){
+      megas.emplace_back(&*s, m);
+    }
+  }
+  for(const auto &m : megas){
+    emit_special_evol(m);
   }
   std::cout << "</table>" << std::endl;
   return EXIT_SUCCESS;
