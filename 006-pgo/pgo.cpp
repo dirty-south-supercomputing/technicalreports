@@ -742,7 +742,11 @@ bool trade_assisted_evol_p(const species &s){
   return false;
 }
 
+// cost in candy to transition to this form
 unsigned evolcost(const species &s){
+  if(ismega_p(s)){
+    return 0;
+  }
   int order = 0; // 0..3
   const auto *root = get_previous_evolution(s);
   while(root){

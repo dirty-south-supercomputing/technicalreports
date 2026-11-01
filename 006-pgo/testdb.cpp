@@ -353,11 +353,20 @@ test_costs(void){
     { "Pidgeotto",  12, },
     { "Pidgeot",    50, },
     { "Gourgeist",  200, },
+    { "Mega Abomasnow",  0, },
+    { "Abomasnow",  50, },
+    { "Mega Chandelure",  0, },
+    { "Chandelure", 100, },
   };
   for(const auto &t : tests){
-    const auto s = lookup_species(t.name);
+    species smeg;
+    auto s = lookup_species(t.name);
     if(!s){
-      return false;
+      if(!lookup_mega(t.name, &smeg)){
+        std::cerr << "error looking up " << t.name << std::endl;
+        return false;
+      }
+      s = &smeg;
     }
     auto c = evolcost(*s);
     if(c != t.cost){
