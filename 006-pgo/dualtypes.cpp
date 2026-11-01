@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+static constexpr auto TYPECOUNTSQUARED = TYPECOUNT * TYPECOUNT;
+
 static void
 melt_column(int* vec, const int* col){
   for(int i = 0 ; i < TYPECOUNT ; ++i){
@@ -109,7 +111,7 @@ defensive_summaries_latex(const typing* t){
     COMBINE_FIRST,
     COMBINE_SECOND,
   } combine = UNCOMBINED;
-  for(int i = 0 ; i < TYPECOUNTSQUARED ; ++i){
+  for(unsigned i = 0 ; i < TYPECOUNTSQUARED ; ++i){
     unsigned pcnt = typing_popcount(t[i].types[0], t[i].types[1] == t[i].types[0] ? TYPECOUNT : t[i].types[1]);
     if(pcnt == 0){
     //  printf("\\rowcolor{Red!25}\n");
@@ -190,7 +192,7 @@ defensive_relations_latex(const typing* t){
   printf("\\\\\n");
   printf("\\endhead\n");
   bool grey = true;
-  for(int i = 0 ; i < TYPINGCOUNT ; ++i){
+  for(unsigned i = 0 ; i < TYPINGCOUNT ; ++i){
     // already have monotypes in another table
     if(t[i].types[0] != t[i].types[1]){
       if( (grey = !grey) ){
