@@ -63,7 +63,7 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
   fp << "<tr><td>Eff<sub>A</sub></td><td>" << effa.min << "</td><td>" << effa.tot / count << "</td><td>" << effa.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Eff<sub>D</sub></td><td>" << effd.min << "</td><td>" << effd.tot / count << "</td><td>" << effd.max << "</td></tr>" << std::endl;
   fp << std::defaultfloat << std::setprecision(5);
-  fp << "<tr><td>MHP</td><td>" << mhp.min << "</td><td>" << mhp.tot / count << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
+  fp << "<tr><td>HP</td><td>" << mhp.min << "</td><td>" << mhp.tot / count << "</td><td>" << mhp.max << "</td></tr>" << std::endl;
   fp << "<tr><td>Level</td><td>";
   emit_halflevel_as_level(fp, lmin);
   fp << "</td><td>n/a</td><td>";
@@ -89,7 +89,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
   fp << "<th>Eff<sub>A</sub></th>";
   fp << "<th>Eff<sub>D</sub></th>";
-  fp << "<th>MHP</th>";
+  fp << "<th>HP</th>";
   fp << "<th>Gmean</th>";
   fp << "<th>%</th>";
   fp << "</tr>";
