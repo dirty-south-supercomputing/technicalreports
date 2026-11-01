@@ -922,11 +922,11 @@ static const std::vector<species> sdex = {
   // the sun
   {  196, "Espeon", TYPE_PSYCHIC, TYPECOUNT, 261, 175, 163, "Eevee",
 		{ &ATK_Zen_Headbutt, &ATK_Confusion, &ATK_Psybeam, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Future_Sight, &ATK_Last_Resort, &ATK_Psychic_Fangs, },
-		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Shadow_Ball, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Shadow_Ball, }, species::CAT_NORMAL, 75, species::EVOL_DAY, species::REGION_ALL, 10, {}, },
   // the moonlight
   {  197, "Umbreon", TYPE_DARK, TYPECOUNT, 126, 240, 216, "Eevee",
 		{ &ATK_Feint_Attack, &ATK_Snarl, &ATK_Dark_Pulse, &ATK_Psychic, &ATK_Foul_Play, &ATK_Last_Resort, },
-		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Psychic, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Psychic, }, species::CAT_NORMAL, 75, species::EVOL_NIGHT, species::REGION_ALL, 10, {}, },
   // the darkness
   {  198, "Murkrow", TYPE_DARK, TYPE_FLYING, 175, 87, 155, "",
 		{ &ATK_Peck, &ATK_Feint_Attack, &ATK_Dark_Pulse, &ATK_Drill_Peck, &ATK_Foul_Play, },
@@ -2892,7 +2892,7 @@ static const std::vector<species> sdex = {
   // the intertwining
   {  700, "Sylveon", TYPE_FAIRY, TYPECOUNT, 203, 205, 216, "Eevee",
 		{ &ATK_Quick_Attack, &ATK_Charm, &ATK_Fairy_Wind, &ATK_Psyshock, &ATK_Draining_Kiss, &ATK_Dazzling_Gleam, &ATK_Moonblast, &ATK_Last_Resort, &ATK_Shadow_Ball, },
-		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Psyshock, }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { &ATK_Last_Resort, &ATK_Psyshock, }, species::CAT_NORMAL, 75, species::EVOL_BUDDYHEARTS70, species::REGION_ALL, 0, {}, },
   // the wrestling
   {  701, "Hawlucha", TYPE_FIGHTING, TYPE_FLYING, 195, 153, 186, "",
 		{ &ATK_Low_Kick, &ATK_Poison_Jab, &ATK_Aerial_Ace, &ATK_X_Scissor, &ATK_Power_Up_Punch, &ATK_Flying_Press, },

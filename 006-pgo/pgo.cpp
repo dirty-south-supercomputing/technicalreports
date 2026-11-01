@@ -541,6 +541,7 @@ const char *species::evolitemstr(species::evol_item eitem){
     case species::EVOL_ZYGARDECELL200: return "200 Zygarde cells"; break;
     case species::EVOL_BUDDYHEARTS10NIGHT: return "earn 10 Buddy hearts and evolve at night"; break;
     case species::EVOL_BUDDYHEARTS20: return "earn 20 Buddy hearts"; break;
+    case species::EVOL_BUDDYHEARTS70: return "earn 70 Buddy hearts"; break;
     case species::EVOL_TREATS25: return "feed 25 treats"; break;
     case species::EVOL_RAIDDARKSTEEL15: return "defeat 15 Dark or Steel raid bosses"; break;
     case species::EVOL_RAIDMAXWATER30: return "defeat 30 Water raid bosses or Max Battles"; break;

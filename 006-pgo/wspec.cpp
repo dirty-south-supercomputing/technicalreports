@@ -601,18 +601,26 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
   }
 }
 
+struct evolpoint {
+  const species *s;
+  int col;
+  const std::string &hidden;
+};
+
 // do only this one
 static void
-emit_evol_cost(std::ostream &fp, const species &s, int x, int cols){
-  auto cost = evolcost(s);
+emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols){
+  auto cost = evolcost(*ep.s);
   if(cost){
     fp << "<tr>";
-    if(x){
-      fp << "<td colspan=\"" << x << "\"/>";
+    if(ep.col > 1){
+      fp << "<td colspan=\"" << ep.col - 1 << "\"/>";
     }
-    fp << "<td colspan=\"" << cols - x << "\">";
-    fp << s.from << " → " << s.name << " costs " << cost << " Candy";
-    const auto *needs = species::evolitemstr(s.evolitem);
+    fp << "<td style=\"text-align:right\">" << ep.s->from << "</td>";
+    fp << "<td colspan=\"" << cols - ep.col << "\">";
+    //fp << "<span style=\"visibility:hidden\">" << ep.hidden << "</span>";
+    fp << " → " << ep.s->name << " costs " << cost << " Candy";
+    const auto *needs = species::evolitemstr(ep.s->evolitem);
     if(strlen(needs)){
       fp << ", " << needs;
     }
@@ -629,41 +637,44 @@ emit_evol_table(std::ostream &fp, const std::string &us,
   int i = 0;
   int pathends = forkidx;
   const std::string *prev;
-  std::vector<std::pair<const species *, unsigned>> bases;
+  std::vector<evolpoint> bases;
   for(unsigned y = 0 ; y < rows ; ++y){
     prev = nullptr;
     fp << "<tr>";
+    std::string arrow;
     for(unsigned x = 0 ; x < length ; ++x){
       fp << "<td>"; // we must have a td for each cell
       if(y != midrow){ // rows off the main path, implies a fork
         if(x == forkcolumn){
           if(y < midrow){
             if(bidirectional_evol_p(*fam[forkidx])){
-              fp << "⤢ ";
+              arrow = "⤢ ";
             }else{
-              fp << "↗ ";
+              arrow = "↗ ";
             }
           }else{
             if(bidirectional_evol_p(*fam[forkidx])){
-              fp << "⤡ ";
+              arrow = "⤡ ";
             }else{
-              fp << "↘ ";
+              arrow = "↘ ";
             }
           }
+          fp << arrow;
           emit_evol(fp, us, *fam[forkidx]);
-          bases.emplace_back(fam[forkidx], x);
+          bases.emplace_back(fam[forkidx], x, arrow);
           prev = &fam[forkidx]->name;
           ++forkidx;
         }else if(x > forkcolumn){
           if(forkidx < fam.size()){
             if(fam[forkidx]->from == *prev){
               if(bidirectional_evol_p(*fam[forkidx])){
-                fp << "↔ ";
+                arrow = "↔ ";
               }else{
-                fp << "→ ";
+                arrow = "→ ";
               }
+              fp << arrow;
               emit_evol(fp, us, *fam[forkidx]);
-              bases.emplace_back(fam[forkidx], x);
+              bases.emplace_back(fam[forkidx], x, arrow);
               prev = &fam[forkidx]->name;
               ++forkidx;
             }
@@ -673,13 +684,14 @@ emit_evol_table(std::ostream &fp, const std::string &us,
         if(!pathends || i < pathends){
           if(x > 0){
             if(bidirectional_evol_p(*fam[i])){
-              fp << "↔ ";
+              arrow = "↔ ";
             }else{
-              fp << "→ ";
+              arrow = "→ ";
             }
           }
+          fp << arrow;
           emit_evol(fp, us, *fam[i]);
-          bases.emplace_back(fam[i], x);
+          bases.emplace_back(fam[i], x, arrow);
         }else if(i >= pathends){
           // we continue along the main path only if there are three immediate
           // successors of the fork. this means there must be (a) three rows
@@ -697,23 +709,25 @@ emit_evol_table(std::ostream &fp, const std::string &us,
               if(successors == 2){
                 prev = &fam[i]->name;
                 if(bidirectional_evol_p(*fam[forkidx])){
-                  fp << "↔ ";
+                  arrow = "↔ ";
                 }else{
-                  fp << "→ ";
+                  arrow = "→ ";
                 }
+                fp << arrow;
                 emit_evol(fp, us, *fam[forkidx]);
-                bases.emplace_back(fam[forkidx], x);
+                bases.emplace_back(fam[forkidx], x, arrow);
                 ++forkidx;
               }
             }else{
               if(fam[i]->from == *prev){
                 if(bidirectional_evol_p(*fam[forkidx])){
-                  fp << "↔ ";
+                  arrow = "↔ ";
                 }else{
-                  fp << "→ ";
+                  arrow = "→ ";
                 }
+                fp << arrow;
                 emit_evol(fp, us, *fam[forkidx]);
-                bases.emplace_back(fam[forkidx], x);
+                bases.emplace_back(fam[forkidx], x, arrow);
                 prev = &fam[i]->name;
                 ++forkidx;
               }
@@ -727,7 +741,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
     fp << "</tr>" << std::endl;
   }
   for(const auto &p : bases){
-    emit_evol_cost(fp, *p.first, p.second - 1, length);
+    emit_evol_cost(fp, p, length);
   }
 }
 
