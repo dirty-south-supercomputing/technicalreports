@@ -35,7 +35,7 @@ WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional \
-						essay-ivs \
+						essay-ivs essay-megas-gbl \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
@@ -48,8 +48,6 @@ TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
 SIMUL:=$(OUT)/s/simul
 AUTOSIMUL:=$(OUT)/s/auto
-FATTACKS:=$(OUT)/fastattacks
-CATTACKS:=$(OUT)/chargedattacks
 DUALTYPES:=$(OUT)/dualtypes
 SPECIES:=$(OUT)/species
 FORMS:=$(OUT)/forms
@@ -130,7 +128,7 @@ SIMUL3OUT:=$(OUT)/simul3out.lst
 SCARDEXAMPLETEX:=$(OUT)/scardexample.tex
 LATEXOBJ:=$(OUT)/latex.o
 HTMLOBJ:=$(OUT)/html.o
-PGOOBJ:=$(OUT)/pgo.o
+PGOOBJ:=$(OUT)/pgo.o $(OUT)/pokemon.o
 OPTSTATSDAT:=$(OUT)/optstats.r
 OPTSTATSR:=optstats.R
 OPTSTATSPDF:=$(OUT)/optstats.pdf
@@ -149,7 +147,7 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
 	$(LEVELUPGRADESTEX) $(WEAK1TEX) $(WEAK2TEX)
-GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
+GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .html, $(addprefix effa, GL UL ML)) $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
@@ -216,7 +214,7 @@ $(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
-$(WEB)/essay-ivs.html: $(WEBSRC)/essay-ivs.html
+$(WEB)/essay-%.html: $(WEBSRC)/essay-%.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
  			-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' $< > $@
@@ -494,7 +492,14 @@ $(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
-$(OUT)/pgo.o: pgo.cpp pgotypes.h
+$(OUT)/effa%.html: $(OUT)/effa $(HTMLOBJ) $(PGOOBJ)
+	@mkdir -p $(@D)
+	$< $* > $@
+
+# we split this out due to a huge slowdown in gcc/clang for large static
+# vectors. we still need recompile whenever pgotypes.h changes, though,
+# so we need extract as much of that as possible into pgo.cpp.
+$(OUT)/pokemon.o: pokemon.cpp pgotypes.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 
