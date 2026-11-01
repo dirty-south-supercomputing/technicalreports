@@ -25,6 +25,20 @@ static bool cmpatkraid(const attack* a1, const attack* a2){
     : false;
 }
 
+static inline int
+print_fast_attack_rowcolor(const attack *a){
+  float ppt = a->powertrain / static_cast<float>(a->turns);
+  float ept = a->energytrain / static_cast<float>(a->turns);
+  if(ppt * ept >= 12){
+    return printf("\\rowcolor{Green!10}");
+  }else if(ppt * ept >= 10.5){
+    return printf("\\rowcolor{Green!25}");
+  }else if(ppt * ept >= 9){
+    return printf("\\rowcolor{Green!50}");
+  }
+  return 0;
+}
+
 static void
 print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
   std::cout << std::setprecision(3);
