@@ -601,6 +601,25 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
   }
 }
 
+// do only this one
+static void
+emit_evol_cost(std::ostream &fp, const species &s, int x, int cols){
+  auto cost = evolcost(s);
+  if(cost){
+    fp << "<tr>";
+    if(x){
+      fp << "<td colspan=\"" << x << "\"/>";
+    }
+    fp << "<td colspan=\"" << cols - x << "\">";
+    fp << s.from << " → " << s.name << " costs " << cost << " Candy";
+    const auto *needs = species::evolitemstr(s.evolitem);
+    if(strlen(needs)){
+      fp << ", " << needs;
+    }
+    fp << ".</td></tr>" << std::endl;
+  }
+}
+
 static void
 emit_evol_table(std::ostream &fp, const std::string &us,
                 const std::vector<const species*> fam,
@@ -610,6 +629,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
   int i = 0;
   int pathends = forkidx;
   const std::string *prev;
+  std::vector<std::pair<const species *, unsigned>> bases;
   for(unsigned y = 0 ; y < rows ; ++y){
     prev = nullptr;
     fp << "<tr>";
@@ -631,6 +651,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
             }
           }
           emit_evol(fp, us, *fam[forkidx]);
+          bases.emplace_back(fam[forkidx], x);
           prev = &fam[forkidx]->name;
           ++forkidx;
         }else if(x > forkcolumn){
@@ -642,6 +663,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
                 fp << "→ ";
               }
               emit_evol(fp, us, *fam[forkidx]);
+              bases.emplace_back(fam[forkidx], x);
               prev = &fam[forkidx]->name;
               ++forkidx;
             }
@@ -657,6 +679,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
             }
           }
           emit_evol(fp, us, *fam[i]);
+          bases.emplace_back(fam[i], x);
         }else if(i >= pathends){
           // we continue along the main path only if there are three immediate
           // successors of the fork. this means there must be (a) three rows
@@ -679,6 +702,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
                   fp << "→ ";
                 }
                 emit_evol(fp, us, *fam[forkidx]);
+                bases.emplace_back(fam[forkidx], x);
                 ++forkidx;
               }
             }else{
@@ -689,6 +713,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
                   fp << "→ ";
                 }
                 emit_evol(fp, us, *fam[forkidx]);
+                bases.emplace_back(fam[forkidx], x);
                 prev = &fam[i]->name;
                 ++forkidx;
               }
@@ -701,42 +726,9 @@ emit_evol_table(std::ostream &fp, const std::string &us,
     }
     fp << "</tr>" << std::endl;
   }
-}
-
-// do only this one
-static void
-emit_evol_cost(std::ostream &fp, const species &s){
-  auto cost = evolcost(s);
-  if(cost){
-    fp << s.from << " → " << s.name << " costs " << cost << " Candy";
-    //const auto *needs = species::evolitemstr(s.evolitem);
-    /*if(strlen(needs)){
-      fp << " and " << needs; // FIXME
-    }*/
-    fp << ".<br/>" << std::endl;
+  for(const auto &p : bases){
+    emit_evol_cost(fp, *p.first, p.second - 1, length);
   }
-}
-
-static void
-emit_forward_evol_costs(std::ostream &fp, const species &s, bool emit){
-  if(emit){
-    emit_evol_cost(fp, s);
-  }
-  std::vector<const species *> evols;
-  if(get_persistent_evolutions(s, evols)){
-    for(const auto &e : evols){
-      emit_forward_evol_costs(fp, *e, true);
-    }
-  }
-}
-
-static void
-emit_evol_costs(std::ostream &fp, const species &s){
-  const auto *prev = get_previous_evolution(s);
-  if(prev){
-    emit_evol_costs(fp, *prev);
-  }
-  emit_evol_cost(fp, s);
 }
 
 static void
@@ -756,10 +748,6 @@ write_evol(std::ostream &fp, const species &s){
   fp << "<table id=\"transitions\">" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
   fp << "</table>" << std::endl;
-  fp << "<div class=\"montext\"><br/>" << std::endl;
-  emit_evol_costs(fp, s);
-  emit_forward_evol_costs(fp, s, false);
-  fp << "</div>" << std::endl;
 }
 
 static void

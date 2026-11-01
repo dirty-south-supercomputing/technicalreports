@@ -522,8 +522,8 @@ const char *species::categorystr(species::species_cat c){
 const char *species::evolitemstr(species::evol_item eitem){
   switch(eitem){
     case species::EVOL_NOITEM: return "";
-    case species::EVOL_FEMALE: return "Must be female"; break;
-    case species::EVOL_MALE: return "Must be male"; break;
+    case species::EVOL_FEMALE: return "must be female"; break;
+    case species::EVOL_MALE: return "must be male"; break;
     case species::EVOL_SUNSTONE: return "Sun stone"; break;
     case species::EVOL_KINGSROCK: return "King's rock"; break;
     case species::EVOL_METALCOAT: return "Metal coat"; break;
@@ -539,41 +539,41 @@ const char *species::evolitemstr(species::evol_item eitem){
     case species::EVOL_GIMMICOINS: return "999 Gimmicoins"; break;
     case species::EVOL_ZYGARDECELL50: return "50 Zygarde cells"; break;
     case species::EVOL_ZYGARDECELL200: return "200 Zygarde cells"; break;
-    case species::EVOL_BUDDYHEARTS10NIGHT: return "Earn 10 Buddy hearts and evolve at night"; break;
-    case species::EVOL_BUDDYHEARTS20: return "Earn 20 Buddy hearts"; break;
-    case species::EVOL_TREATS25: return "Feed 25 treats"; break;
-    case species::EVOL_RAIDDARKSTEEL15: return "Defeat 15 Dark or Steel raid bosses"; break;
-    case species::EVOL_RAIDMAXWATER30: return "Defeat 30 Water raid bosses or Max Battles"; break;
-    case species::EVOL_RAIDMAXDARK30: return "Defeat 30 Dark raid bosses or Max Battles"; break;
-    case species::EVOL_DEFEATPSYCHICGHOST30: return "Defeat 30 Psychic or Ghost Pokémon"; break;
-    case species::EVOL_DEFEATPSYCHIC30: return "Defeat 30 Psychic Pokémon"; break;
-    case species::EVOL_DEFEATGHOST30: return "Defeat 30 Ghost Pokémon"; break;
+    case species::EVOL_BUDDYHEARTS10NIGHT: return "earn 10 Buddy hearts and evolve at night"; break;
+    case species::EVOL_BUDDYHEARTS20: return "earn 20 Buddy hearts"; break;
+    case species::EVOL_TREATS25: return "feed 25 treats"; break;
+    case species::EVOL_RAIDDARKSTEEL15: return "defeat 15 Dark or Steel raid bosses"; break;
+    case species::EVOL_RAIDMAXWATER30: return "defeat 30 Water raid bosses or Max Battles"; break;
+    case species::EVOL_RAIDMAXDARK30: return "defeat 30 Dark raid bosses or Max Battles"; break;
+    case species::EVOL_DEFEATPSYCHICGHOST30: return "defeat 30 Psychic or Ghost Pokémon"; break;
+    case species::EVOL_DEFEATPSYCHIC30: return "defeat 30 Psychic Pokémon"; break;
+    case species::EVOL_DEFEATGHOST30: return "defeat 30 Ghost Pokémon"; break;
     case species::EVOL_STARDUST2K: return "2k Stardust"; break;
     case species::EVOL_STARDUST10K: return "10k Stardust"; break;
-    case species::EVOL_CAPTUREDRAGON7: return "Capture 7 Dragon Pokémon"; break;
-    case species::EVOL_CAPTUREDRAGON20: return "Capture 20 Dragon Pokémon"; break;
-    case species::EVOL_CAPTUREPOISON30: return "Capture 30 Poison Pokémon"; break;
-    case species::EVOL_CAPTUREPSYCHIC30: return "Capture 30 Psychic Pokémon"; break;
-    case species::EVOL_CAPTUREDARK32: return "Capture 32 Dark Pokémon"; break;
-    case species::EVOL_RAID10: return "Win 10 raids"; break;
+    case species::EVOL_CAPTUREDRAGON7: return "capture 7 Dragon Pokémon"; break;
+    case species::EVOL_CAPTUREDRAGON20: return "capture 20 Dragon Pokémon"; break;
+    case species::EVOL_CAPTUREPOISON30: return "capture 30 Poison Pokémon"; break;
+    case species::EVOL_CAPTUREPSYCHIC30: return "capture 30 Psychic Pokémon"; break;
+    case species::EVOL_CAPTUREDARK32: return "capture 32 Dark Pokémon"; break;
+    case species::EVOL_RAID10: return "win 10 raids"; break;
     case species::EVOL_EXCELLENT10: return "10 Excellent throws"; break;
-    case species::EVOL_MAGLURE: return "Active Magnetic lure"; break;
-    case species::EVOL_RAINLURE: return "Rain or active Rainy lure"; break;
-    case species::EVOL_GLACIALLURE: return "Active Glacial lure"; break;
-    case species::EVOL_MOSSYLURE: return "Active Mossy lure"; break;
-    case species::EVOL_ROTATEDEVICE: return "Rotate the device"; break;
-    case species::EVOL_DAY: return "Evolve during the day"; break;
-    case species::EVOL_DUSK: return "Evolve during dusk"; break;
-    case species::EVOL_NIGHT: return "Evolve at night"; break;
-    case species::EVOL_FULLMOON: return "Evolve during a full moon"; break;
-    case species::EVOL_INCENSE: return "Use (regular) incense"; break;
+    case species::EVOL_MAGLURE: return "active Magnetic lure"; break;
+    case species::EVOL_RAINLURE: return "rain or active Rainy lure"; break;
+    case species::EVOL_GLACIALLURE: return "active Glacial lure"; break;
+    case species::EVOL_MOSSYLURE: return "active Mossy lure"; break;
+    case species::EVOL_ROTATEDEVICE: return "rotate the device"; break;
+    case species::EVOL_DAY: return "evolve during the day"; break;
+    case species::EVOL_DUSK: return "evolve during dusk"; break;
+    case species::EVOL_NIGHT: return "evolve at night"; break;
+    case species::EVOL_FULLMOON: return "evolve during a full moon"; break;
+    case species::EVOL_INCENSE: return "use (regular) incense"; break;
     case species::EVOL_CROWNSHIELD1000: return "1000 Crown Shield energy, must know Iron Head"; break;
     case species::EVOL_CROWNSWORD1000: return "1000 Crown Sword energy, must known Iron Head"; break;
     case species::EVOL_VOLT1000: return "1000 Volt Fusion energy"; break;
     case species::EVOL_BLAZE1000: return "1000 Blaze Fusion energy"; break;
     case species::EVOL_SOLAR1000: return "1000 Solar Fusion energy"; break;
     case species::EVOL_LUNAR1000: return "1000 Lunar Fusion energy"; break;
-    case species::EVOL_DRAGONASCENT: return "Must know Dragon Ascent"; break;
+    case species::EVOL_DRAGONASCENT: return "must know Dragon Ascent"; break;
     default: throw std::exception();
   }
 }
@@ -839,7 +839,8 @@ unsigned evolcost(const species &s){
   // a three-stage family, the costs are 25:100, unless we are a baby-rooted
   // family, in which case they're 25:50.
   if(order == 2){
-    if(babyfamily){
+    // exceptions to the baby family rule (going back up to 100) include roserade
+    if(babyfamily && root->name != "Budew"){
       return 50;
     }
     return 100;
