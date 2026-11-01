@@ -352,12 +352,12 @@ int main(int argc, char** argv){
   std::cout << std::fixed << std::setprecision(2);
   float(*fitfxn)(const stats *);
   int(*cmpfxn)(const void*, const void*);
-  int(*tiefxn)(const void*, const void*) = statscmp_gmean;
+  int(*tiefxn)(const void*, const void*) = statscmp_sprod;
   char fitchar;
   bool excludebanned = true;
   if(strcmp(argv[1], "g") == 0){
-    fitfxn = calc_pok_gmean;
-    cmpfxn = statscmp_gmean;
+    fitfxn = calc_pok_sprod;
+    cmpfxn = statscmp_sprod;
     tiefxn = statscmp_amean;
     fitchar = 'g';
   }else if(strcmp(argv[1], "a") == 0){
