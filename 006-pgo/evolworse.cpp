@@ -5,7 +5,7 @@ bool check_worse_evol(const species& s, int cpbound){
   bool ret = false;
   stats svec[IVLEVVEC];
   // generate the level we can hit for each of 4k iv configurations given cpbound
-  order_ivs_internal(s, cpbound, svec, false);
+  generate_ivs_maxlevel(s, cpbound, svec, false);
   float gs = 0;
   float gsworst = FLT_MAX;
   std::vector<const species *> evols;
@@ -17,7 +17,7 @@ bool check_worse_evol(const species& s, int cpbound){
     float geworst = FLT_MAX;
     // generate the levels for the evol, as we did the base
     stats evec[sizeof(svec) / sizeof(*svec)];
-    order_ivs_internal(*e, cpbound, evec, false);
+    generate_ivs_maxlevel(*e, cpbound, evec, false);
     // now, compare each of the 4k configs (geometric mean)
     for(unsigned i = 0 ; i < sizeof(svec) / sizeof(*svec) ; ++i){
       if(evec[i].geommean < svec[i].geommean){
