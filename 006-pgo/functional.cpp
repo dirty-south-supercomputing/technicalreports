@@ -8,7 +8,7 @@ functional_hundos(int cplimit, int cpthresh){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     // find the optimal configs subject to cplimit
     auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_gmean);
-    float gmean = st->geommean;
+    auto statprod = st->statprod();
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
       std::cout << "<tr><td>";
@@ -22,7 +22,7 @@ functional_hundos(int cplimit, int cpthresh){
         std::cout << tmp->ia << "-" << tmp->id << "-" << tmp->is << ' ';
         emit_halflevel_as_level(std::cout, tmp->hlevel);
         std::cout << " (" << calc_pok_cp(tmp) << ")<br/>";
-        if(tmp->geommean != gmean){
+        if(tmp->statprod() != statprod){
           break;
         }
         tmp = tmp->next;
