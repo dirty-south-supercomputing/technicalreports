@@ -8,7 +8,7 @@ struct sstat {
 static void
 check_good_hundo(int cpbound, int cpcutoff, std::vector<sstat> &rows, const species &s){
     unsigned vcount;
-    auto stats = order_ivs(s, cpbound, statscmp_gmean, &vcount);
+    auto stats = order_ivs(s, cpbound, statscmp_sprod, &vcount);
     const auto &best = stats[vcount - 1];
     float bestbp = best.effa * best.effd * best.mhp;
     float cutoff = 0.97 * bestbp;
