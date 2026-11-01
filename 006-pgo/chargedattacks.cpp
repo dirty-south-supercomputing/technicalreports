@@ -5,13 +5,12 @@
 #include <cstdlib>
 
 static bool cmpatk(const attack* a1, const attack* a2){
-  // remember, energytrain is negative
-  float ppere1 = ((float)a1->powertrain) / a1->energytrain;
-  float ppere2 = ((float)a2->powertrain) / a2->energytrain;
-  if(ppere1 > ppere2){
+  auto ppere1 = calc_ppe(a1);
+  auto ppere2 = calc_ppe(a2);
+  if(ppere1 < ppere2){
     return true;
   }else if(ppere1 == ppere2){
-    if(a1->energytrain > a2->energytrain){
+    if(a1->energytrain > a2->energytrain){ // remember, negative
       return true;
     }
   }
