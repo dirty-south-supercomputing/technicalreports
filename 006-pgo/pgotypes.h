@@ -1392,6 +1392,7 @@ struct stats {
   double average;           // arithemetic mean of effa, effd, mhp
   double geommean;          // geometric mean of effa, effd, mhp
   float apercent;           // geommean advantage over pessimal level-maxed iv
+                            // (not filled out at creation/init time)
   bool shadow;              // is this the shadow variant?
   struct stats* next;
 
@@ -1399,6 +1400,26 @@ struct stats {
     s(nullptr),
     next(nullptr)
   {
+  }
+
+
+  void init(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow){
+    s = S;
+    hlevel = Hlevel;
+    ia = IA;
+    id = ID;
+    is = IS;
+    shadow = Shadow;
+    auto moda = s->atk + ia;
+    auto modd = s->def + id;
+    auto mods = s->sta + is;
+    effa = calc_eff_a(moda, hlevel, shadow);
+    effd = calc_eff_d(modd, hlevel, shadow);
+    mhp = calc_mhp(mods, hlevel);
+    cp = calccp(moda, modd, mods, hlevel);
+    average = calc_amean(effa, effd, mhp);
+    geommean = calc_gmean(effa, effd, mhp);
+    next = nullptr;
   }
 
   stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow) :
@@ -1409,15 +1430,7 @@ struct stats {
     is(IS),
     shadow(Shadow)
   {
-    unsigned moda = s->atk + ia;
-    unsigned modd = s->def + id;
-    unsigned mods = s->sta + is;
-    effa = calc_eff_a(moda, hlevel, Shadow);
-    effd = calc_eff_d(modd, hlevel, Shadow);
-    mhp = calc_mhp(mods, hlevel);
-    cp = calccp(moda, modd, mods, hlevel);
-    average = calc_amean(effa, effd, mhp);
-    geommean = calc_gmean(effa, effd, mhp);
+    init(S, Hlevel, IA, ID, IS, Shadow);
   }
 
   float bulk() const {
@@ -1577,37 +1590,42 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
   return lastgood;
 }
 
-static inline float
+static inline double
+calc_pok_sprod(const stats *s){
+  return s->statprod();
+}
+
+static inline double
 calc_pok_amean(const stats *s){
-  return calc_amean(s->effa, s->effd, s->mhp);
+  return s->average;
 }
 
-static inline float
+static inline double
 calc_pok_gmean(const stats *s){
-  return calc_gmean(s->effa, s->effd, s->mhp);
+  return s->geommean;
 }
 
-static inline float
+static inline double
 calc_pok_cp(const stats *s){
-  return calccp(s->s->atk + s->ia, s->s->def + s->id, s->s->sta + s->is, s->hlevel);
+  return s->cp;
 }
 
-static inline float
+static inline double
 calc_pok_effa(const stats *s){
   return s->effa;
 }
 
-static inline float
+static inline double
 calc_pok_effd(const stats *s){
   return s->effd;
 }
 
-static inline float
+static inline double
 calc_pok_mhp(const stats *s){
   return s->mhp;
 }
 
-static inline float
+static inline double
 calc_pok_bulk(const stats *s){
   return s->bulk();
 }
@@ -1631,8 +1649,8 @@ struct pmon { // static elements
   const attack *fa, *ca1, *ca2;
 };
 
-static inline float
-calc_fitfxn(float (*fitfxn)(const stats *), const species &s,
+static inline double
+calc_fitfxn(double(*fitfxn)(const stats *), const species &s,
             unsigned ia, unsigned id, unsigned is, unsigned hl,
             bool shadow){
   stats st{&s, hl, ia, id, is, shadow};
@@ -1644,7 +1662,7 @@ calc_fitfxn(float (*fitfxn)(const stats *), const species &s,
 static int
 update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
               unsigned is, unsigned hl, float floor, float* minfit,
-              bool isshadow, float (*fitfxn)(const stats *)){
+              bool isshadow, double(*fitfxn)(const stats *)){
   stats **prev = osets;
   stats *cur;
   auto m = calc_fitfxn(fitfxn, s, ia, id, is, hl, isshadow);
@@ -1693,7 +1711,7 @@ update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
 // with a CP less than or equal to cpceil and fitness function greater than or
 // equal to floor.
 static stats *
-find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float(*fitfxn)(const stats *)){
+find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, double(*fitfxn)(const stats *)){
   stats* optsets = nullptr;
   float minfit = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){

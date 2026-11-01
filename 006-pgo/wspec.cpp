@@ -98,6 +98,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   unsigned grank = ivcount;
   int id = 1;
   bool ret = false;
+  // FIXME we want ties in a single table row
   do{
     const stats &s = sets[--grank];
     if(!s.shadow){
@@ -235,6 +236,20 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   std::sort(ttfs.begin(), ttfs.end());
   fp << "<table class=\"evenshade apairs\">" << std::endl;
   fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
+  for(const auto &t : ttfs){
+    emit_row(fp, t);
+  }
+  fp << "</table>" << std::endl;
+}
+
+// show, for each pair of charged attacks, the ARA and possible type effectiveness
+static void
+write_mon_apairs_3x3(std::ofstream &fp, const species &s){
+  std::vector<timetofirst> ttfs;
+  calcarass3x3(ttfs, s);
+  std::sort(ttfs.begin(), ttfs.end());
+  fp << "<table class=\"evenshade apairs\">" << std::endl;
+  fp << "<tr><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
   for(const auto &t : ttfs){
     emit_row(fp, t);
   }

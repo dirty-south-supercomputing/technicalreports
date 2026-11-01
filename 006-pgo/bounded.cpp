@@ -248,7 +248,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
 
 static void
 get_species_opt(stats **sols, const species &sp, char fitchar, int bound, int lbound,
-                float(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
+                double(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
                 int(*tiefxn)(const void*, const void*), leaguestats &lstats){
   bool shadowstuff = false;
   if(sp.shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
@@ -265,7 +265,7 @@ get_species_opt(stats **sols, const species &sp, char fitchar, int bound, int lb
 
 // print optimal sets bounded by CP of |bound| above and CP of |lbound| below
 static void
-print_bounded_table(int bound, int lbound, float(*fitfxn)(const stats *), char fitchar,
+print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char fitchar,
                     int(*cmpfxn)(const void*, const void*),
                     int(*tiefxn)(const void*, const void*),
                     bool excludebanned, bool html){
@@ -350,7 +350,7 @@ int main(int argc, char** argv){
     usage(argv[0]);
   }
   std::cout << std::fixed << std::setprecision(2);
-  float(*fitfxn)(const stats *);
+  double(*fitfxn)(const stats *);
   int(*cmpfxn)(const void*, const void*);
   int(*tiefxn)(const void*, const void*) = statscmp_sprod;
   char fitchar;

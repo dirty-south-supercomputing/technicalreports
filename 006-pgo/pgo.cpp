@@ -859,16 +859,8 @@ void generate_ivs_maxlevel(const species &s, int cpceil, stats *svec, bool shado
         const unsigned moda = s.atk + iva;
         const unsigned modd = s.def + ivd;
         const unsigned mods = s.sta + ivs;
-        st.hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
-        st.effa = calc_eff_a(moda, st.hlevel, shadow);
-        st.effd = calc_eff_d(modd, st.hlevel, shadow);
-        st.mhp = calc_mhp(mods, st.hlevel);
-        st.ia = iva;
-        st.id = ivd;
-        st.is = ivs;
-        st.shadow = shadow;
-        st.geommean = calc_pok_gmean(&st);
-        st.average = calc_pok_amean(&st);
+        auto hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
+        st.init(&s, hlevel, iva, ivd, ivs, shadow);
         ++idx;
       }
     }
