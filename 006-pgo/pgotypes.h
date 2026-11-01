@@ -908,12 +908,15 @@ dmax_attack_type(const attack *a){
   return a->type;
 }
 
+// the range of possible type effect is [ -3 .. 2 ]
+static constexpr int TEFFECTRANGE = 6;
+
 static inline float
 type_effectiveness_mult(int te){
   if(te < -3 || te > 2){
     throw std::invalid_argument("bad type effectiveness");
   }
-  static const float pow16[6] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  static const float pow16[TEFFECTRANGE] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
   return pow16[te + 3];
 }
 
@@ -2447,9 +2450,10 @@ struct typeset {
 
 };
 
-static inline void
-build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype){
-  int totals[6] = {};
+static inline float
+calc_ara(pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype, int totals[TEFFECTRANGE]){
+  memset(totals, 0, sizeof(*totals) * TEFFECTRANGE);
+std::cout << "ZEROING " << sizeof(*totals) * TEFFECTRANGE << std::endl;
   for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
     for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
       int e0 = typing_relation(t0, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
@@ -2465,10 +2469,17 @@ build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_type
     }
   }
   float ara = 0;
-  for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
+  for(unsigned i = 0 ; i < TEFFECTRANGE ; ++i){
     ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
   }
   ara /= TYPINGCOUNT;
+  return ara;
+}
+
+static inline void
+build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype){
+  int totals[TEFFECTRANGE];
+  auto ara = calc_ara(t0, t1, plustype, totals);
   tsets.emplace_back(t0, t1, plustype, totals, ara);
 }
 
