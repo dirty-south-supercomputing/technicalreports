@@ -78,7 +78,7 @@ static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
                const char *leagueshort, int cpbound){
   unsigned ivcount;
-  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
+  auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
   fp << "<h2>" << league << "</h2>" << std::endl;
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
@@ -93,8 +93,8 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<th>Gmean</th>";
   fp << "<th>%</th>";
   fp << "</tr>";
-  float gmax = sets[ivcount - 1].geommean;
-  float gprev = 0;
+  auto gmax = sets[ivcount - 1].geommean;
+  double sp = 0;
   unsigned grank = ivcount;
   int id = 1;
   bool ret = false;
@@ -103,11 +103,11 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
     if(!s.shadow){
       fp << std::fixed << std::setprecision(2);
       fp << "<tr>";
-      if(s.geommean == gprev){
+      if(s.statprod() == sp){
         fp << "<td></td>";
       }else{
         fp << "<td>" << id << "</td>";
-        gprev = s.geommean;
+        sp = s.statprod();
       }
       ++id;
       fp << "<td>" << s.ia << '-' << s.id << '-' << s.is << "</td>";
@@ -673,11 +673,11 @@ static void
 emit_evol_cost(std::ostream &fp, const species &s){
   auto cost = evolcost(s);
   if(cost){
-    const auto *needs = species::evolitemstr(s.evolitem);
     fp << s.from << " → " << s.name << " costs " << cost << " Candy";
-    if(strlen(needs)){
+    //const auto *needs = species::evolitemstr(s.evolitem);
+    /*if(strlen(needs)){
       fp << " and " << needs; // FIXME
-    }
+    }*/
     fp << ".<br/>" << std::endl;
   }
 }
@@ -727,6 +727,12 @@ write_evol(std::ostream &fp, const species &s){
   fp << "</div>" << std::endl;
 }
 
+static void
+write_counters(std::ostream &fp, const species &s){
+  //fp << "<h2>counters</h2>" << std::endl;
+  // FIXME do we want counters for each league? and gmax?
+}
+
 static int
 write_mon_page(const species &s){
   std::string encname;
@@ -756,7 +762,7 @@ write_mon_page(const species &s){
   if(!pvp_banned_p(s)){
     write_iv_tables(fp, s);
   }
-  // FIXME moar crap ... counters?
+  write_counters(fp, s);
   write_footer_and_close(fp);
   for(const auto &m : s.mforms){
     species smeg{&s, m};
