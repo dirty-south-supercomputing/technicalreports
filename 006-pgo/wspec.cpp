@@ -604,7 +604,18 @@ emit_evol(std::ostream &fp, const std::string &us, const species &s){
 struct evolpoint {
   const species *s;
   int col;
-  const std::string &hidden;
+  int y;
+
+  friend bool operator<(const evolpoint &lhs, const evolpoint &rhs){
+    if(lhs.col < rhs.col){
+      return true;
+    }else if(rhs.col < lhs.col){
+      return false;
+    }else if(lhs.y < rhs.y){
+      return true;
+    }
+    return false;
+  }
 };
 
 // do only this one
@@ -618,7 +629,6 @@ emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols){
     }
     fp << "<td style=\"text-align:right\">" << ep.s->from << "</td>";
     fp << "<td colspan=\"" << cols - ep.col << "\">";
-    //fp << "<span style=\"visibility:hidden\">" << ep.hidden << "</span>";
     fp << " → " << ep.s->name << " costs " << cost << " Candy";
     const auto *needs = species::evolitemstr(ep.s->evolitem);
     if(strlen(needs)){
@@ -661,7 +671,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
           }
           fp << arrow;
           emit_evol(fp, us, *fam[forkidx]);
-          bases.emplace_back(fam[forkidx], x, arrow);
+          bases.emplace_back(fam[forkidx], x, y);
           prev = &fam[forkidx]->name;
           ++forkidx;
         }else if(x > forkcolumn){
@@ -674,7 +684,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
               }
               fp << arrow;
               emit_evol(fp, us, *fam[forkidx]);
-              bases.emplace_back(fam[forkidx], x, arrow);
+              bases.emplace_back(fam[forkidx], x, y);
               prev = &fam[forkidx]->name;
               ++forkidx;
             }
@@ -691,7 +701,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
           }
           fp << arrow;
           emit_evol(fp, us, *fam[i]);
-          bases.emplace_back(fam[i], x, arrow);
+          bases.emplace_back(fam[i], x, y);
         }else if(i >= pathends){
           // we continue along the main path only if there are three immediate
           // successors of the fork. this means there must be (a) three rows
@@ -715,7 +725,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
                 }
                 fp << arrow;
                 emit_evol(fp, us, *fam[forkidx]);
-                bases.emplace_back(fam[forkidx], x, arrow);
+                bases.emplace_back(fam[forkidx], x, y);
                 ++forkidx;
               }
             }else{
@@ -727,7 +737,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
                 }
                 fp << arrow;
                 emit_evol(fp, us, *fam[forkidx]);
-                bases.emplace_back(fam[forkidx], x, arrow);
+                bases.emplace_back(fam[forkidx], x, y);
                 prev = &fam[i]->name;
                 ++forkidx;
               }
@@ -740,6 +750,7 @@ emit_evol_table(std::ostream &fp, const std::string &us,
     }
     fp << "</tr>" << std::endl;
   }
+  std::sort(bases.begin(), bases.end());
   for(const auto &p : bases){
     emit_evol_cost(fp, p, length);
   }
