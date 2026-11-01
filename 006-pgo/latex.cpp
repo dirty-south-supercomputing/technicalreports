@@ -85,19 +85,19 @@ print_icons(const species &s, bool doprint, bool ismega){
   if(has_mega(s) && !ismega){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "mega.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/mega.png}}");
     }
   }
   if(has_dmax(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "dynamax.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/dynamax.png}}");
     }
   }
   if(has_gmax(s)){
     ++count;
     if(doprint){
-      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/" IMAGECOLOR "gigantamax.png}}");
+      printf(" \\calign{\\includegraphics[height=1.5em,keepaspectratio]{images/gigantamax.png}}");
     }
   }
   return count;
@@ -301,12 +301,12 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
           tname_capitalized(s.t1),
           s.t2 == TYPECOUNT ? tname_capitalized(s.t1) : tname_capitalized(s.t2));
   if(s.shiny){
-    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/" IMAGECOLOR "shiny.png}}");
+    printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
   float avg = calc_amean(s.atk, s.def, s.sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s.atk, s.def, s.sta, avg, calc_gmean(s.atk, s.def, s.sta));
   // background image is zoomed and flipped at low opacity
-  printf(",interior style={fill overzoom image=images/mon/" IMAGECOLOR);
+  printf(",interior style={fill overzoom image=images/mon/");
   escape_filename(s.name.c_str());
   printf(",fill image opacity=0.2}");
   printf("]{\\footnotesize");
@@ -316,7 +316,7 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
   }
   // the table containing image and attack data
   printf("\\begin{tabularx}{\\linewidth}{@{}c X @{}}");
-  printf("\\scalebox{-1}[1]{\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/mon/" IMAGECOLOR);
+  printf("\\scalebox{-1}[1]{\\includegraphics[width=0.3\\linewidth,valign=c,keepaspectratio]{images/mon/");
   if(gmax){ // get the gmax image
     printf("Gmax");
   }
