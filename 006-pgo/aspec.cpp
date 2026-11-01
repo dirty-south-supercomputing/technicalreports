@@ -107,7 +107,7 @@ write_atk_3x3(std::ostream &fp, const attack &a){
 }
 
 static void
-write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, bool wboost, float plusmult){
+write_atk_Nx1_row(std::ostream &fp, const attack &a, float megabonus, bool stab, bool wboost, float plusmult){
   fp << "<tr><td>";
   if(stab){
     fp << "✓";
@@ -117,6 +117,12 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, bool wboost, flo
   fp << "</td><td>";
   if(wboost){
     fp << "✓";
+  }else{
+    fp << "🗙";
+  }
+  fp << "</td><td>";
+  if(megabonus){
+    fp << (megabonus * 100) << '%';
   }else{
     fp << "🗙";
   }
@@ -130,6 +136,7 @@ write_atk_Nx1_row(std::ostream &fp, const attack &a, bool stab, bool wboost, flo
     power = calc_wboost(power);
   }
   power *= plusmult;
+  power *= (1 + megabonus);
   for(int te = -3 ; te < 3 ; ++te){
     fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
   }
@@ -178,6 +185,7 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
     fp << "<tr>";
     fp << "<th>S?</th>";
     fp << "<th>W?</th>";
+    fp << "<th>M</th>";
     for(int te = -3 ; te < 3 ; ++te){
       fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
     }
@@ -190,10 +198,18 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
       fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
     }
     fp << "</tr>" << std::endl;
-    write_atk_Nx1_row(fp, a, false, false, plusmult);
-    write_atk_Nx1_row(fp, a, true, false, plusmult);
-    write_atk_Nx1_row(fp, a, false, true, plusmult);
-    write_atk_Nx1_row(fp, a, true, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0, false, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0.1, false, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0, true, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0, false, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0.3, false, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0.1, true, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0.1, false, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0, true, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0.3, true, false, plusmult);
+    write_atk_Nx1_row(fp, a, 0.3, false, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0.1, true, true, plusmult);
+    write_atk_Nx1_row(fp, a, 0.3, true, true, plusmult);
     fp << "</table>" << std::endl;
   }
 }
