@@ -6,7 +6,7 @@ const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "
 
 void html_type_pdir(std::ostream &fp, pgo_types_e t){
   if(t != TYPECOUNT){
-    fp << "<img src=\"../images/types.png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+    fp << "<img src=\"../images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
   }
 }
 
