@@ -18,7 +18,7 @@ write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
 }
 
 struct tristats {
-  float min, max, tot;
+  double min, max, tot;
 };
 
 static void

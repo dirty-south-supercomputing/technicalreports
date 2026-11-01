@@ -16,13 +16,6 @@
 #include <iostream>
 #include <forward_list>
 
-// for greyscale images, define IMAGECOLOR as "g-". for full color, define it
-// as an empty string.
-//#define IMAGECOLOR "g-"
-#define IMAGECOLOR ""
-
-#define TYPESTART TYPE_BUG
-
 // power for gmax and dmax level 1. levels 2 and 3 add 50 and 100, respectively.
 // max moves subject to Dynamax Cannon's adventure effect get a boost of one
 // level, where "level 4" is 450 and 550 for dmax and gmax/eternatus, respectively.
@@ -75,15 +68,19 @@ enum pgo_types_e {
   TYPECOUNT = 18
 };
 
+#define TYPESTART TYPE_BUG
+
 inline pgo_types_e& operator++(pgo_types_e& pt){ // ugh
+  if(pt == TYPECOUNT){
+    std::cerr << "attempted to increment maximum pgo_type_e" << std::endl;
+    throw std::exception();
+  }
   pt = static_cast<pgo_types_e>(static_cast<int>(pt) + 1);
   return pt;
 }
 
 // there are 171 distinct species types (18 + C(18, 2))
-#define TYPINGCOUNT 171
-// but there are 324 if one considers ordering, which one generally oughtn't
-#define TYPECOUNTSQUARED 324
+constexpr unsigned TYPINGCOUNT = 171;
 
 enum pgo_weather_t {
   WEATHER_CLEAR,
@@ -242,20 +239,6 @@ fast_attack_p(const attack &a){
 static inline bool
 charged_attack_p(const attack &a){
   return a.energytrain < 0;
-}
-
-static inline int
-print_fast_attack_rowcolor(const attack *a){
-  float ppt = a->powertrain / (float)a->turns;
-  float ept = a->energytrain / (float)a->turns;
-  if(ppt * ept >= 12){
-    return printf("\\rowcolor{Green!10}");
-  }else if(ppt * ept >= 10.5){
-    return printf("\\rowcolor{Green!25}");
-  }else if(ppt * ept >= 9){
-    return printf("\\rowcolor{Green!50}");
-  }
-  return 0;
 }
 
 using pairmap = std::map<std::string, attackset>;
@@ -1025,7 +1008,7 @@ float cpm(int halflevel);
 static int
 calccp(unsigned atk, unsigned def, unsigned sta, unsigned halflevel){
   float cand = (atk * sqrt(def) * sqrt(sta) * pow(cpm(halflevel), 2)) / 10;
-  return cand < 10 ? 10 : floor(cand);
+  return cand < MINCP ? MINCP : floor(cand);
 }
 
 constexpr unsigned GMAX_TIER = 6;
@@ -1360,7 +1343,7 @@ calc_eff_a_raw(unsigned atk, unsigned halflevel){
 // provide mod_a as atk.
 static inline float
 calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
-  float effa = calc_eff_a_raw(atk, halflevel);
+  auto effa = calc_eff_a_raw(atk, halflevel);
   if(isshadow){
     effa = effa * 6 / 5;
   }
@@ -1371,7 +1354,7 @@ calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
 // provide mod_d as def.
 static inline float
 calc_eff_d(unsigned def, unsigned halflevel, bool isshadow){
-  float s = cpm(halflevel) * def;
+  auto s = cpm(halflevel) * def;
   if(isshadow){
     s = s * 5 / 6;
   }
@@ -1384,30 +1367,30 @@ calc_mhp(unsigned sta, unsigned halflevel){
   return floor(cpm(halflevel) * sta);
 }
 
-static inline float
-calc_amean(float effa, float effd, unsigned mhp){
+static inline double
+calc_amean(double effa, double effd, unsigned mhp){
   return (effa + effd + mhp) / 3;
 }
 
-static inline float
-calc_gmean(float effa, float effd, unsigned mhp){
+static inline double
+calc_gmean(double effa, double effd, unsigned mhp){
   return cbrt(effa * effd * mhp);
 }
 
 static inline float
 calc_ppe(const attack *a){
-  return a->powertrain / (float)-a->energytrain;
+  return a->powertrain / static_cast<float>(-a->energytrain);
 }
 
 struct stats {
   const species *s;
   unsigned hlevel;          // halflevel 1..99
   unsigned ia, id, is;      // individual vector components
-  float effa, effd;         // effective attack and defense
+  double effa, effd;        // effective attack and defense
   unsigned mhp;             // max hit points
   int cp;                   // combat power
-  float average;            // arithemetic mean of effa, effd, mhp
-  float geommean;           // geometric mean of effa, effd, mhp
+  double average;           // arithemetic mean of effa, effd, mhp
+  double geommean;          // geometric mean of effa, effd, mhp
   float apercent;           // geommean advantage over pessimal level-maxed iv
   bool shadow;              // is this the shadow variant?
   struct stats* next;
@@ -1441,6 +1424,10 @@ struct stats {
     return sqrt(mhp * effd);
   }
 
+  double statprod() const {
+    return effa * effd * mhp;
+  }
+
 };
 
 static inline void
@@ -1468,6 +1455,14 @@ statscmp_cp(const void *vst1, const void *vst2){
   int cp1 = calccp(st1->effa, st1->effd, st1->mhp, st1->hlevel);
   int cp2 = calccp(st2->effa, st2->effd, st2->mhp, st2->hlevel);
   return cp1 < cp2 ? -1 : cp1 > cp2 ? 1 : 0;
+}
+
+static inline int
+statscmp_sprod(const void *vst1, const void *vst2){
+  const stats *st1 = static_cast<const stats*>(vst1);
+  const stats *st2 = static_cast<const stats*>(vst2);
+  return st1->statprod() < st2->statprod() ? -1 :
+          st1->statprod() > st2->statprod() ? 1 : 0;
 }
 
 static inline int
@@ -1617,52 +1612,18 @@ calc_pok_bulk(const stats *s){
   return s->bulk();
 }
 
-static void
-order_ivs_internal(const species &s, int cpceil, stats *svec, bool shadow){
-  unsigned idx = 0;
-  for(int iva = 0 ; iva < 16 ; ++iva){
-    for(int ivd = 0 ; ivd < 16 ; ++ivd){
-      for(int ivs = 0 ; ivs < 16 ; ++ivs){
-        auto &st = svec[idx];
-        const unsigned moda = s.atk + iva;
-        const unsigned modd = s.def + ivd;
-        const unsigned mods = s.sta + ivs;
-        st.hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
-        st.effa = calc_eff_a(moda, st.hlevel, shadow);
-        st.effd = calc_eff_d(modd, st.hlevel, shadow);
-        st.mhp = calc_mhp(mods, st.hlevel);
-        st.ia = iva;
-        st.id = ivd;
-        st.is = ivs;
-        st.shadow = shadow;
-        st.geommean = calc_pok_gmean(&st);
-        st.average = calc_pok_amean(&st);
-        ++idx;
-      }
-    }
-  }
-}
-
 static constexpr unsigned IVLEVVEC =
   (MAXIVELEM + 1) * (MAXIVELEM + 1) * (MAXIVELEM + 1);
 
-// generate the stats for each of 4,096 possible IVs at their maximum level
-// subject to the cpceiling (-1 for no ceiling), ordered according to fitfxn.
-static inline stats *
-order_ivs(const species &s, int cpceil, int(*cmpfxn)(const void*, const void*),
-          unsigned *vcount){
-  *vcount = IVLEVVEC;
-  if(s.shadow){
-    *vcount *= 2;
-  }
-  stats *svec = new stats[*vcount];
-  order_ivs_internal(s, cpceil, svec, false);
-  if(s.shadow){
-    order_ivs_internal(s, cpceil, svec + IVLEVVEC, true);
-  }
-  qsort(svec, *vcount, sizeof(*svec), cmpfxn);
-  return svec;
-}
+// generate stats for each possible IV at its maximum level (subject to cpceil)
+// the resulting vector is ordered with ivs changing most rapidly, then ivd.
+void generate_ivs_maxlevel(const species &s, int cpceil, stats *svec, bool shadow);
+
+// generate the stats for each possible IV at its maximum level subject to the
+// cpceiling (-1 for no ceiling), ordered according to fitfxn.
+stats *order_ivs(const species &s, int cpceil,
+                 int(*cmpfxn)(const void*, const void*),
+                 unsigned *vcount);
 
 // instantiation of a pokémon -- species, IVs, and known attacks
 struct pmon { // static elements
@@ -1686,11 +1647,11 @@ update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
               bool isshadow, float (*fitfxn)(const stats *)){
   stats **prev = osets;
   stats *cur;
-  float m = calc_fitfxn(fitfxn, s, ia, id, is, hl, isshadow);
+  auto m = calc_fitfxn(fitfxn, s, ia, id, is, hl, isshadow);
   unsigned moda = s.atk + ia;
   unsigned modd = s.def + id;
-  float effa = calc_eff_a(moda, hl, isshadow);
-  float effd = calc_eff_d(modd, hl, isshadow);
+  auto effa = calc_eff_a(moda, hl, isshadow);
+  auto effd = calc_eff_d(modd, hl, isshadow);
   unsigned mods = s.sta + is;
   unsigned mhp = calc_mhp(mods, hl);
   if(m < *minfit || *minfit <= 0){
@@ -1748,16 +1709,16 @@ find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float
   }
   stats* collectopt = nullptr;
   stats** qopt = &collectopt;
-  float maxmean = -1;
+  double maxm = -1;
   // print the optimal frontier (large), and extract the truly optimal sets (small)
   while(optsets){
     stats *cur;
     cur = optsets;
     optsets = cur->next;
-    float m = fitfxn(cur);
+    auto m = fitfxn(cur);
     //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
     //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
-    if(m > maxmean){ // new optimal
+    if(m > maxm){ // new optimal
       stats* c;
       // clean out existing true optimals
       while( (c = collectopt) ){
@@ -1767,8 +1728,8 @@ find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, float
       collectopt = cur;
       qopt = &cur->next;
       cur->next = nullptr;
-      maxmean = m;
-    }else if(m == maxmean){ // FIXME unsafe FP comparison
+      maxm = m;
+    }else if(m == maxm){
       *qopt = cur;
       qopt = &cur->next;
       cur->next = nullptr;
