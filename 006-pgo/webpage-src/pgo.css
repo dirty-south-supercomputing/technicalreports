@@ -141,11 +141,15 @@ table.cattackNx1 { /* attack page */
   margin: 0 1em 0 1em;
 }
 
-table.cattackNx1 tr>:nth-child(2) { /* "W?" */
+table.cattackNx1 tr>:nth-child(3) { /* "W?" */
   text-align: center;
 }
 
-table.cattackNx1 tr>:nth-child(n+3) { /* everything after boosts */
+table.cattackNx1 tr>:nth-child(3) { /* "Mega" */
+  text-align: center;
+}
+
+table.cattackNx1 tr>:nth-child(n+4) { /* everything after boosts */
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -158,7 +162,11 @@ table.fattackNx1 tr>:nth-child(2) { /* "W?" */
   text-align: center;
 }
 
-table.fattackNx1 tr>:nth-child(n+3) { /* P_-3-- */
+table.fattackNx1 tr>:nth-child(3) { /* "Mega" */
+  text-align: center;
+}
+
+table.fattackNx1 tr>:nth-child(n+4) { /* P_-3-- */
   text-align: right;
   padding: 0 0 0 1em;
 }

@@ -747,7 +747,7 @@ unsigned evolcost(const species &s){
   if(ismega_p(s)){
     return 0;
   }
-  int order = 0; // 0..3
+  int order = 0; // our position in family 0..3
   const auto *root = get_previous_evolution(s);
   while(root){
     ++order;
@@ -764,6 +764,10 @@ unsigned evolcost(const species &s){
   if(order <= 0 || order >= 3){
     return 0;
   }
+  if(root->name == "Azurill"){ // special case: 25 for either evolution
+    return 25;
+  }
+  bool babyfamily = root->category == species::CAT_BABY;
   // these families are all 12 and 50.
   const std::vector<std::string> evol12s = {
     "Weedle", "Caterpie", "Pidgey", "Wurmple", "Whismur", "Pidove",
@@ -834,9 +838,17 @@ unsigned evolcost(const species &s){
   // otherwise, if we are a two-stage family, the cost is 50, and if we are
   // a three-stage family, the costs are 25:100.
   if(order == 2){
+    if(babyfamily){
+      return 50;
+    }
     return 100;
-  } // otherwise, order must be 1
+  }
   if(maxorder == 2){
+    return 50;
+  } // otherwise, order (and maxorder) must be 1
+  // tyrogue, smoochum, and wynaut are exceptions to the babyfamily rule,
+  // and cost 25 rather than 50
+  if(root->name == "Tyrogue" || root->name == "Smoochum" || root->name == "Wynaut"){
     return 25;
   }
   return 50;
