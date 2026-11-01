@@ -242,19 +242,39 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
+struct cattackset {
+  const attack *ca1;
+  const attack *ca2;
+  const attack *ca3;
+  float ara;
+
+  cattackset(const attack *CA1, const attack *CA2, const attack *CA3) :
+    ca1(CA1),
+    ca2(CA2),
+    ca3(CA3)
+  {
+    int totals[TEFFECTRANGE];
+    ara = calc_ara(ca1->type,
+                   ca2 ? ca2->type : TYPECOUNT,
+                   ca3 ? ca3->type : TYPECOUNT,
+                   totals);
+  }
+
+};
+
 // show, for each pair of charged attacks, the ARA and possible type effectiveness
-static void
+/*static void
 write_mon_apairs_3x3(std::ofstream &fp, const species &s){
-  std::vector<timetofirst> ttfs;
-  calcarass3x3(ttfs, s);
-  std::sort(ttfs.begin(), ttfs.end());
+  std::vector<cattackset> cass;
+  calcarass3x3(cass, s);
+  std::sort(cass.begin(), cass.end());
   fp << "<table class=\"evenshade apairs\">" << std::endl;
-  fp << "<tr><th>Attack pair</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
-  for(const auto &t : ttfs){
-    emit_row(fp, t);
+  fp << "<tr><th>Attack pair</th><th>ARA</th></tr>" << std::endl;
+  for(const auto &c : cass){
+    //emit_row(fp, t);
   }
   fp << "</table>" << std::endl;
-}
+}*/
 
 static void emit_row_nx1(std::ofstream &fp, const timetofirst &t){
   fp << "<tr>";
