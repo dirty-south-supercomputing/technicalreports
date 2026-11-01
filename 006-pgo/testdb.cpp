@@ -356,6 +356,7 @@ test_costs(void){
     { "Azumarill",  25, },
     { "Pidgeotto",  12, },
     { "Pidgeot",    50, },
+    { "Pikachu",    25, },
     { "Raichu",     50, },
     { "Gourgeist",  200, },
     { "Mega Abomasnow",  0, },

@@ -836,22 +836,25 @@ unsigned evolcost(const species &s){
     return 200; // either second of two-stage or third of three-stage
   }
   // otherwise, if we are a two-stage family, the cost is 50, and if we are
-  // a three-stage family, the costs are 25:100.
+  // a three-stage family, the costs are 25:100, unless we are a baby-rooted
+  // family, in which case they're 25:50.
   if(order == 2){
     if(babyfamily){
       return 50;
     }
     return 100;
   }
-  if(maxorder == 2){
+  // otherwise, order must be 1
+  if(maxorder == 1){ // two-stage family
+    // tyrogue, smoochum, and wynaut are exceptions to the babyfamily rule,
+    // and cost 25 rather than 50
+    if(root->name == "Tyrogue" || root->name == "Smoochum" || root->name == "Wynaut"){
+      return 25;
+    }
     return 50;
-  } // otherwise, order (and maxorder) must be 1
-  // tyrogue, smoochum, and wynaut are exceptions to the babyfamily rule,
-  // and cost 25 rather than 50
-  if(root->name == "Tyrogue" || root->name == "Smoochum" || root->name == "Wynaut"){
-    return 25;
   }
-  return 50;
+  // otherwise, three-stage family
+  return 25;
 }
 
 int purification_cost(const species &s){
