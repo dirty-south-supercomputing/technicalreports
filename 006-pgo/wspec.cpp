@@ -135,12 +135,18 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
+  fp << "<div id=\"glivs\">";
   bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
+  fp << "</div>" << std::endl;
   if(donext){
+    fp << "<div id=\"ulivs\">";
     donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
+    fp << "</div>" << std::endl;
   }
   if(donext){
+    fp << "<div id=\"mlivs\">";
     donext = write_iv_table(fp, s, "master league", "ML", 0);
+    fp << "</div>" << std::endl;
   }
 }
 

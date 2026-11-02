@@ -31,6 +31,10 @@ nav ul li a {
   text-decoration: none;
 }
 
+hr {
+  margin: 0;
+}
+
 img.type {
   height: 1em;
   width: 1em;
@@ -284,6 +288,21 @@ table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
 
 .monivcontainer { /* mon page, per league */
   padding: 0 0 0 1em;
+}
+
+div#glivs { /* mon page */
+  background-color: rgba(208, 255, 208, 0.25);
+  overflow: hidden;
+}
+
+div#ulivs { /* mon page */
+  background-color: rgba(208, 208, 255, 0.25);
+  overflow: hidden;
+}
+
+div#mlivs { /* mon page */
+  background-color: rgba(255, 208, 208, 0.25);
+  overflow: hidden;
 }
 
 table.monivs tr :nth-child(n+2) {
