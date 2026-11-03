@@ -68,10 +68,10 @@ int emit_dynamax_unified_table(int count, bool html){
     std::cout << "<table class=\"evenshade dynas\">" << std::endl;
     std::cout << "<tr>";
     std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th>";
+    std::cout << "<th>Relative</th>";
     for(int i = -3 ; i < 3 ; ++i){
       std::cout << "<th>P<sub>" << i << "</sub></th>";
     }
-    std::cout << "<th>Relative</th>";
     std::cout << "</tr>" << std::endl;
   }else{
     std::cout << "\\begin{table}\\centering\\footnotesize";

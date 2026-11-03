@@ -84,12 +84,11 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
     std::cout << "</i>";
   }
   std::cout << "</td>";
+  std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>"; // relative
   std::cout << std::setprecision(0) << std::fixed;
   for(int i = -3 ; i < 3 ; ++i){
     std::cout << "<td class=\"" << css[i + 3] << "\">" << (rp * type_effectiveness_mult(i)) << "</td>";
   }
-  std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>";
-  std::cout << std::setprecision(0) << std::fixed;
   std::cout << "</tr>" << std::endl;
 }
 
