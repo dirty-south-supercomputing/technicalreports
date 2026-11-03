@@ -500,9 +500,9 @@ write_stats(std::ostream &fp, const species &s){
   fp << "Second attack cost: ";
   if(multiple_charged_attacks(s)){
     fp << s.a2cost << " kSD";
-    if(s.shadow){
+    /*if(s.shadow){
       fp << " (" << s.a2cost * 6 / 5 << " kSD for Shadow)";
-    }
+    }*/
   }else if(s.shadow){
     fp << s.a2cost * 6 / 5 << " kSD (Shadow only)";
   }else{

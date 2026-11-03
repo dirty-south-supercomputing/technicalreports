@@ -2454,7 +2454,6 @@ struct typeset {
 static inline float
 calc_ara(pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype, int totals[TEFFECTRANGE]){
   memset(totals, 0, sizeof(*totals) * TEFFECTRANGE);
-std::cout << "ZEROING " << sizeof(*totals) * TEFFECTRANGE << std::endl;
   for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
     for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
       int e0 = typing_relation(t0, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
