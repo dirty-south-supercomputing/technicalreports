@@ -624,17 +624,22 @@ struct evolpoint {
   }
 };
 
-// do only this one
 static void
-emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols){
+emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols, bool &first){
   auto cost = evolcost(*ep.s);
   if(cost){
     fp << "<tr>";
     if(ep.col > 1){
+      // we don't want the padding on the first td, for weird browser reasons
       fp << "<td colspan=\"" << ep.col - 1 << "\"/>";
     }
-    fp << "<td style=\"text-align:right\">" << ep.s->from << "</td>";
-    fp << "<td colspan=\"" << cols - ep.col << "\">";
+    std::string padding{};
+    if(first){
+      padding = "style=\"padding: 1em 0 0 0\" ";
+      first = false;
+    }
+    fp << "<td " << padding << "style=\"text-align:right\">" << ep.s->from << "</td>";
+    fp << "<td " << padding << "colspan=\"" << cols - ep.col << "\">";
     fp << " → " << ep.s->name << " costs " << cost << " Candy";
     const auto *needs = species::evolitemstr(ep.s->evolitem);
     if(strlen(needs)){
@@ -757,8 +762,9 @@ emit_evol_table(std::ostream &fp, const std::string &us,
     fp << "</tr>" << std::endl;
   }
   std::sort(bases.begin(), bases.end());
+  bool first = true;
   for(const auto &p : bases){
-    emit_evol_cost(fp, p, length);
+    emit_evol_cost(fp, p, length, first);
   }
 }
 
