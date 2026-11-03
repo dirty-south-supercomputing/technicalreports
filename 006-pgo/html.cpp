@@ -80,6 +80,9 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
     std::cout << "<i>";
   }
   std::cout << c.aname;
+  if(!unified){
+    std::cout << " L" << c.maxlevel;
+  }
   if(!c.hasstab){
     std::cout << "</i>";
   }
