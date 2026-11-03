@@ -122,10 +122,11 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "<table class=\"evenshade dynas\">" << std::endl;
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th>";
+  std::cout << "<th>Relative</th>";
   for(int i = -3 ; i < 3 ; ++i){
     std::cout << "<th>P<sub>" << i << "</sub></th>";
   }
-  std::cout << "<th>Relative</th></tr>" << std::endl;
+  std::cout << "</tr>" << std::endl;
   std::vector<candidate> cands;
   std::forward_list<species> store;
   if(build_type_vec(t, cands, store, false) <= 0){
