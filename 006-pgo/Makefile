@@ -496,10 +496,9 @@ $(OUT)/effa%.html: $(OUT)/effa $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$< $* > $@
 
-# we split this out due to a huge slowdown in gcc/clang for large static
-# vectors. we still need recompile whenever pgotypes.h changes, though,
-# so we need extract as much of that as possible into pgo.cpp.
-$(OUT)/pokemon.o: pokemon.cpp pgotypes.h
+# we split this out due to a huge slowdown in gcc/clang for large static vectors.
+# kinda ridiculous, but that's life.
+$(OUT)/pokemon.o: pokemon.cpp
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 

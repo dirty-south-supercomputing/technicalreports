@@ -19,8 +19,8 @@ void handle_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
         }
         ts[at] = true;
         bool stab = has_stab_raw_p(s, at);
-        float teffect = type_effectiveness(at, ttype1, ttype2);
-        add_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect);
+        auto teffect = type_effectiveness(at, ttype1, ttype2);
+        add_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect, true);
       }
     }
   }
@@ -28,7 +28,7 @@ void handle_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   if(gma){
     bool stab = has_stab_raw_p(s, gma->type);
     float teffect = type_effectiveness(gma->type, ttype1, ttype2);
-    add_candidate(cands, &s, gma->name.c_str(), true, stab, gma->type, teffect);
+    add_candidate(cands, &s, gma->name, true, stab, gma->type, teffect, true);
   }
 }
 
@@ -51,22 +51,22 @@ int main(int argc, const char** argv){
   if(!zac){
     return -1;
   }
-  add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, teffect);
+  add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, teffect, true);
   const auto zam = lookup_species("Zamazenta Crowned Shield");
   if(!zam){
     return -1;
   }
-  add_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, teffect);
+  add_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, teffect, true);
   const auto e = lookup_species("Eternatus");
   if(!e){
     return -1;
   }
   teffect = type_effectiveness(TYPE_DRAGON, s->t1, s->t2);
-  add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect);
+  add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
   std::sort(cands.begin(), cands.end(), std::greater<>());
   auto maxp = cands.begin()->powprod();
   for(const auto& c : cands){
-    emit_cand_html(c, maxp);
+    emit_cand_html(c, maxp, true);
   }
   return EXIT_SUCCESS;
 }

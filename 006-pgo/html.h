@@ -157,7 +157,7 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = f
 extern const std::string css[];
 extern const std::string reversecss[];
 
-void emit_cand_html(const candidate& c, unsigned maxp);
+void emit_cand_html(const candidate& c, unsigned maxp, bool unified);
 void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix);
 
 struct timetofirst {

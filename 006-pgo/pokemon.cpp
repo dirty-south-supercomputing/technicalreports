@@ -1,4 +1,8 @@
-#include "pgotypes.h"
+#include <cmath>
+#include <cassert>
+#include <climits>
+#include <forward_list>
+#include "pokemon.h"
 
 static const std::vector<species> sdex = {
   // the Seed Pokemon
@@ -4017,4 +4021,36 @@ std::vector<species>::const_iterator species_begin(void){
 
 std::vector<species>::const_iterator species_end(void){
   return sdex.cend();
+}
+
+void species::synth_mega_species(const species *s, const mega &m) {
+  idx = s->idx;
+  name = m.name;
+  t1 = m.t1;
+  t2 = m.t2;
+  atk = m.atk;
+  atk = m.atk;
+  def = m.def;
+  sta = m.sta;
+  from = s->name;
+  attacks = s->attacks;
+  if(m.plusatk){
+    attacks.emplace_back(m.plusatk);
+  }
+  if(s->shadow){
+    attacks.emplace_back(&ATK_Return);
+  }
+  shiny = s->shiny;
+  shadow = false;
+  dmax = 0;
+  elite = s->elite;
+  category = CAT_MEGA;
+  a2cost = s->a2cost;
+  if(name == "Mega Rayquaza"){
+    evolitem = species::EVOL_DRAGONASCENT;
+  }else{
+    evolitem = species::EVOL_NOITEM;
+  }
+  monregion = s->monregion;
+  evolkm = 0;
 }

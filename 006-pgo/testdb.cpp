@@ -282,7 +282,7 @@ unit_test_types(void){
 
 static bool
 test_gmax(void){
-  for(auto gatk = GMaxAttacks ; gatk->sname ; ++gatk){
+  for(auto gatk = GMaxAttacks ; gatk->sname.length() ; ++gatk){
     if(!lookup_species(gatk->sname)){
       std::cerr << "couldn't find gmax species " << gatk->sname << std::endl;
       throw std::exception();

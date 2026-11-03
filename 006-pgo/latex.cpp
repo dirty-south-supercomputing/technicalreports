@@ -461,18 +461,20 @@ void emit_cand(const candidate& c, unsigned maxp){
 
 // add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
 void add_candidate(std::vector<candidate>& cands, const species* s,
-                   const char* aname, bool gmaxpower, bool stab,
-                   pgo_types_e atype, float teffect){
+                   const std::string &aname, bool gmaxpower, bool stab,
+                   pgo_types_e atype, float teffect, bool unified){
   //const unsigned lowiv = 10;
   const unsigned highiv = 15;
   //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
-  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, teffect, atype); // level 50
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, teffect, atype, 3); // level 50
   /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
   cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
   cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
   cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
-  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20
-  cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv); // level 20 */
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20*/
+  if(!unified){
+    cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv, teffect, atype, 3); // level 20
+  }
 }
 
 // emit a list of all forms having the specified typing

@@ -55,15 +55,19 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par){
   }
 }
 
-void emit_cand_html(const candidate& c, unsigned maxp){
+void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
   auto rp = c.powprod();
-  //unsigned hhalf;
   std::cout << "<tr>";
   std::cout << "<td>";
   html_types(c.s->t1, c.s->t2);
   std::cout << "</td>";
   std::cout << "<td>";
   link_to_name(std::cout, c.s->name, true);
+  if(!unified){
+    std::cout << " (L";
+    emit_halflevel_as_level(std::cout, c.hlevel);
+    std::cout << ")";
+  }
   std::cout << "</td>";
   std::cout << "<td>";
   html_type(c.atype);
