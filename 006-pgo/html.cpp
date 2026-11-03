@@ -64,9 +64,8 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
   std::cout << "<td>";
   link_to_name(std::cout, c.s->name, true);
   if(!unified){
-    std::cout << " (L";
+    std::cout << " L";
     emit_halflevel_as_level(std::cout, c.hlevel);
-    std::cout << ")";
   }
   std::cout << "</td>";
   std::cout << "<td>";
