@@ -6,8 +6,7 @@
   <title>Pokémon GO tables</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
   <style>
-    .col2 { display: grid; grid-template-columns: 1fr 1fr ; row-gap: 1px; }
-    .col2tight { display: grid; grid-template-columns: 1fr 1fr ; row-gap: 0px; }
+    .col2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(30em, 1fr)) ; row-gap: 1px; }
     #maxtypes { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ; row-gap: 1px; }
     #updated { padding: 0 0 0 2em; }
     ul { display: grid; row-gap: 1px; }
@@ -40,7 +39,6 @@ BODYSTART
     <li><a href="typesARA.html">Attack types by ARA</a></li>
     <li><a href="typesDRA.html">Typings by DRA</a></li>
     <li><a href="setsARA.html">Attack set types by ARA</a></li>
-    <li style="list-style-type: none;"></li>
     <li><a href="coversets.html">Cover sets</a></li>
   </ul>
   <h2>attacks</h2>
@@ -88,7 +86,7 @@ BODYSTART
       </ul>
     </li>
     <li>Great League sorted by…
-      <ul class="col2tight">
+      <ul class="col2">
         <li><a href="gmeanGL.html">Geometric mean</a></li>
         <li><a href="ameanGL.html">Arithmetic mean</a></li>
         <li><a href="bulkGL.html">Bulk</a></li>
@@ -98,7 +96,7 @@ BODYSTART
       </ul>
     </li>
     <li>Ultra League sorted by…
-      <ul class="col2tight">
+      <ul class="col2">
         <li><a href="gmeanUL.html">Geometric mean</a></li>
         <li><a href="ameanUL.html">Arithmetic mean</a></li>
         <li><a href="bulkUL.html">Bulk</a></li>
@@ -108,7 +106,7 @@ BODYSTART
       </ul>
     </li>
     <li>Master League sorted by…
-      <ul class="col2tight">
+      <ul class="col2">
         <li><a href="gmeanML.html">Geometric mean</a></li>
         <li><a href="ameanML.html">Arithmetic mean</a></li>
         <li><a href="bulkML.html">Bulk</a></li>
