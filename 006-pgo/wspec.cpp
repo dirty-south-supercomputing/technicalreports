@@ -823,7 +823,7 @@ write_mon_page(const species &s){
     write_iv_tables(fp, s);
   }
   write_counters(fp, s);
-  write_footer_and_close(fp);
+  write_footer_and_close(fp, true);
   for(const auto &m : s.mforms){
     species smeg{&s, m};
     std::forward_list<attack> store;
@@ -905,7 +905,7 @@ write_index(){
     write_summary(fp, *s);
   }
   fp << "</table>" << std::endl;
-  write_footer_and_close(fp);
+  write_footer_and_close(fp, true);
   return 0;
 }
 

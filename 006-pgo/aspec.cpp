@@ -405,7 +405,7 @@ write_max_atk_page(const char *name, pgo_types_e atype){
   write_atk_teffect(fp, atype);
   // FIXME write_atk_max(fp, a);
   write_max_atk_users(fp, atype);
-  write_footer_and_close(fp);
+  write_footer_and_close(fp, true);
   return 0;
 }
 
@@ -448,7 +448,7 @@ write_atk_page(const attack &a){
   write_atk_Nx1(fp, a);
   // FIXME moar crap ... similar attacks, graphs
   write_atk_users(fp, a);
-  write_footer_and_close(fp);
+  write_footer_and_close(fp, true);
   return 0;
 }
 

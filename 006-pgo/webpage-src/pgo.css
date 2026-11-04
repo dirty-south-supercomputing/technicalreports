@@ -41,6 +41,11 @@ img.type {
   vertical-align: top;
 }
 
+.inputgroup {
+  display: inline-flex;
+  align-items: center;
+}
+
 table.evenshade {
   border-collapse: collapse;
 }
