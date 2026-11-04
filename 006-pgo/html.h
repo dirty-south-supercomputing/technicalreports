@@ -17,6 +17,15 @@ encode_name(std::ostream &fp, const std::string &s){
 }
 
 static inline void
+encode_name(const std::string &s, std::string &encname){
+  for(char c : s){
+    if(!isspace(c) && (c == '+' || !ispunct(c))){
+      encname.push_back(c);
+    }
+  }
+}
+
+static inline void
 link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, bool pardir = false){
   fp << "<a href=\"";
   if(pardir){
@@ -126,30 +135,10 @@ html_types(pgo_types_e t1, pgo_types_e t2){
   html_types(std::cout, t1, t2);
 }
 
-void write_header(std::ofstream &fp, const std::string &title, bool par = false);
+void write_header(std::ostream &fp, const std::string &title, bool par = false);
 void write_navbar(std::ostream &fp, bool par = false);
-
-static inline void
-write_footer_and_close(std::ofstream &fp){
-  fp << "<hr/>" << std::endl;
-  fp << "<span style=\"float: left\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
-  fp << "<span style=\"float: right\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
-  fp << "</body></html>" << std::endl;
-  fp.close();
-  if(fp.rdstate() & std::ofstream::failbit){
-    std::cerr << "error writing to file" << std::endl;
-    throw std::exception();
-  }
-}
-
-static inline void
-encode_name(const std::string &s, std::string &encname){
-  for(char c : s){
-    if(!isspace(c) && (c == '+' || !ispunct(c))){
-      encname.push_back(c);
-    }
-  }
-}
+void write_footer(std::ostream &fp, bool par = false);
+void write_footer_and_close(std::ofstream &fp, bool par = false);
 
 void html_weather(std::ostream &fp, pgo_weather_t w, bool par = false);
 void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = false);

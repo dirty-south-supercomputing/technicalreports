@@ -198,26 +198,26 @@ $(WEB)/pgo.css: $(WEBSRC)/pgo.css
 	@mkdir -p $(@D)
 	ln -sf ../$< $@
 
-$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(WEBSRC)/footer $(TYPESPNG)
+$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(OUT)/footer.html $(TYPESPNG)
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
-		-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' \
+		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
 		$< > $@
 
-$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(WEBSRC)/footer
+$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(OUT)/footer.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
-		-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' \
+		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
 		-e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
-$(WEB)/essay-%.html: $(WEBSRC)/essay-%.html
+$(WEB)/essay-%.html: $(WEBSRC)/essay-%.html $(OUT)/navbar.html $(OUT)/footer.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
-		-e '/^FOOTER$$/ {' -e 'r $(WEBSRC)/footer' -e 'd' -e '}' $< > $@
+		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' $< > $@
 
 graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING)
 	@mkdir -p $(WEB)/mon/graphs

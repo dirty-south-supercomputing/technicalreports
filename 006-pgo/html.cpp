@@ -10,6 +10,15 @@ void html_type_pdir(std::ostream &fp, pgo_types_e t){
   }
 }
 
+static void
+emit_option(std::ostream &fp, const std::string &value){
+  fp << "<option value=\"";
+  encode_name(fp, value); // this will be used as a URI
+  fp << "\">";
+  fp << value;
+  fp << "</option>" << std::endl;
+}
+
 void write_navbar(std::ostream &fp, bool par){
   fp << "<nav><ul>" << std::endl;
   fp << "<li><a href=\"";
@@ -22,10 +31,26 @@ void write_navbar(std::ostream &fp, bool par){
     fp << "../";
   }
   fp << "mon/index.html\">forms</a></li>" << std::endl;
+  fp << "<li class=\"inputgroup\">";
+  fp << "<select id=\"formselect\">";
+  std::vector<species> smegas;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    emit_option(fp, s->name);
+    for(const auto &m : s->mforms){
+      smegas.emplace_back(&*s, m);
+    }
+  }
+  for(const auto &m : smegas){
+    emit_option(fp, m.name);
+  }
+  fp << "</select>" << std::endl;
+  // implemented by javascript in the footer. we also listen for enter there.
+  fp << "<button type=\"button\" onclick=\"handlesearch()\">search</button>";
+  fp << "</form></li>";
   fp << "</ul></nav>" << std::endl;
 }
 
-void write_header(std::ofstream &fp, const std::string &title, bool par){
+void write_header(std::ostream &fp, const std::string &title, bool par){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../pgo.css\">";
   fp << "<title>" << title << "</title></head>" << std::endl;
@@ -226,4 +251,25 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s){
       calctimefandcNx1(ttfs, s, f, c);
     }
   }
+}
+
+void write_footer_and_close(std::ofstream &fp, bool par){
+  write_footer(fp, par);
+  fp.close();
+  if(fp.rdstate() & std::ofstream::failbit){
+    std::cerr << "error writing to file" << std::endl;
+    throw std::exception();
+  }
+}
+
+void write_footer(std::ostream &fp, bool par){
+  fp << "<hr/>" << std::endl;
+  fp << "<span style=\"float: left\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
+  fp << "<span style=\"float: right\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
+  fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.replace(\"";
+  if(par){
+    fp << "../";
+  }
+  fp << "mon/\" + selectv.value + \".html\"); }</script>" << std::endl;
+  fp << "</body></html>" << std::endl;
 }
