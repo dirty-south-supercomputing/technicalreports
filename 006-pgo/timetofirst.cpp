@@ -8,13 +8,13 @@
 static void
 calctimetoall(std::vector<timetofirst> &ttfs, std::vector<species> &megaspecs){
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    calctimetos3x3(ttfs, *s);
+    calctimetos3x3(ttfs, *s, false);
     for(const auto &m : s->mforms){
       megaspecs.emplace_back(&*s, m);
     }
   }
   for(const auto &s : megaspecs){
-    calctimetos3x3(ttfs, s);
+    calctimetos3x3(ttfs, s, false);
   }
 }
 

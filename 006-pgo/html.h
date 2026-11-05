@@ -184,7 +184,7 @@ struct timetofirst {
   }
 };
 
-void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s);
-void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s);
+void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
+void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
 
 #endif

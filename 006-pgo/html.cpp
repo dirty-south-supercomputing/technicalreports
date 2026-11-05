@@ -205,7 +205,7 @@ calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f,
   ttfs.emplace_back(&s, t, pfast, f, c, false);
 }
 
-void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
+void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s, bool addreturn){
   for(const auto f : s.attacks){
     if(f->energytrain <= 0){
       continue;
@@ -215,6 +215,9 @@ void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s){
         continue;
       }
       calctimefandc(ttfs, s, f, c);
+    }
+    if(s.shadow && addreturn){
+      calctimefandc(ttfs, s, f, &ATK_Return);
     }
   }
 }
@@ -233,7 +236,7 @@ calctimefandcNx1(std::vector<timetofirst> &ttfs, const species &s, const attack 
   ttfs.emplace_back(&s, t, pfast, f, c, true);
 }
 
-void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s){
+void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addreturn){
   for(const auto f : s.attacks){
     if(!fast_attack_p(*f)){
       continue;
@@ -249,6 +252,9 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s){
         continue;
       }
       calctimefandcNx1(ttfs, s, f, c);
+    }
+    if(s.shadow && addreturn){
+      calctimefandcNx1(ttfs, s, f, &ATK_Return);
     }
   }
 }
