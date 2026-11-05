@@ -1,6 +1,6 @@
 .DELETE_ON_ERROR:
 .PHONY: all extra preview testsimul clean test testdb testsimullong web graphs
-.DEFAULT_GOAL:=all
+.DEFAULT_GOAL:=web
 
 CPP:=clang++
 CPPFLAGS:=-std=c++23 -Wall -W
@@ -153,6 +153,8 @@ SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h s
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 
+web: $(WEBPAGES)
+
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
@@ -161,8 +163,6 @@ all: $(TEAMBUILDER) $(CALCULATOR) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 extra: all $(OPTSTATSPDF) $(OPTSTATSRADARPDF)
-
-web: $(WEBPAGES)
 
 $(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
