@@ -219,7 +219,7 @@ $(WEB)/essay-%.html: $(WEBSRC)/essay-%.html $(OUT)/navbar.html $(OUT)/footer.htm
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' $< > $@
 
-graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING)
+graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING) $(addsuffix .dat.html, $(addprefix $(OUT)/gmean, ML UL GL))
 	@mkdir -p $(WEB)/mon/graphs
 	$(<) $(WEB)/mon
 
@@ -286,6 +286,18 @@ $(OUT)/atkUL.html: $(OUT)/bounded
 $(OUT)/atkML.html: $(OUT)/bounded
 	@mkdir -p $(@D)
 	$(<) k 0 html > $@
+
+$(OUT)/gmeanGL.dat.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) gs 1500 html > $@
+
+$(OUT)/gmeanUL.dat.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) gs 2500 html > $@
+
+$(OUT)/gmeanML.dat.html: $(OUT)/bounded
+	@mkdir -p $(@D)
+	$(<) gs 0 html > $@
 
 $(OUT)/gmeanGL.html: $(OUT)/bounded
 	@mkdir -p $(@D)

@@ -148,8 +148,10 @@ get_apercent(const stats *s){
   return s->apercent;
 }
 
+// set printshadow to actually print the word shadow instead of the shadow icon
 static stats *
-print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configcolumn){
+print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configcolumn,
+              bool printshadow){
   if(!sols){
     return NULL;
   }
@@ -158,7 +160,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
   std::cout << std::fixed << std::setprecision(2);
   if(html){
     std::cout << "<tr><td>";
-    html_types(sols->s->t1, sols->s->t2);
+    html_types(sols->s->t1, sols->s->t2, false);
     std::cout << "</td>";
   }else{
     print_types(sols->s->t1, sols->s->t2);
@@ -181,7 +183,11 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
   }
   if(sols->shadow){
     if(html){
-      std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\" />";
+      if(printshadow){
+        std::cout << " Shadow";
+      }else{
+        std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\" />";
+      }
     }else{
       printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}}");
     }
@@ -247,11 +253,12 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
 }
 
 static void
-get_species_opt(stats **sols, const species &sp, char fitchar, int bound, int lbound,
+get_species_opt(stats **sols, const species &sp, int bound, int lbound,
                 double(*fitfxn)(const stats *), int(*cmpfxn)(const void*, const void*),
-                int(*tiefxn)(const void*, const void*), leaguestats &lstats){
+                int(*tiefxn)(const void*, const void*), leaguestats &lstats,
+                bool noshadows){
   bool shadowstuff = false;
-  if(sp.shadow && (fitchar == 'a' || fitchar == 'k' || fitchar == 'd' || fitchar == 'b')){
+  if(sp.shadow && !noshadows){
     shadowstuff = true;
   }
   stats *s = find_optimal_set(sp, bound, 0, false, fitfxn);
@@ -268,7 +275,7 @@ static void
 print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char fitchar,
                     int(*cmpfxn)(const void*, const void*),
                     int(*tiefxn)(const void*, const void*),
-                    bool excludebanned, bool html){
+                    bool excludebanned, bool html, bool noshadows){
   leaguestats lstats;
   stats *sols = NULL;
   std::vector<species> megaspecies;
@@ -276,13 +283,13 @@ print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char 
     if(excludebanned && pvp_banned_p(*sp)){
       continue;
     }
-    get_species_opt(&sols, *sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats);
+    get_species_opt(&sols, *sp, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats, noshadows);
     for(const auto &m : sp->mforms){
       megaspecies.emplace_back(&*sp, m);
     }
   }
   for(const auto &sp : megaspecies){
-    get_species_opt(&sols, sp, fitchar, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats);
+    get_species_opt(&sols, sp, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats, noshadows);
   }
   if(html){
     std::cout << "<div id=\"tablecontainer\">" << std::endl;
@@ -304,7 +311,8 @@ print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char 
     printf("\\Midrule\n");
     printf("\\endhead\n");
   }
-  while( (sols = print_sol_set(sols, get_apercent, html, !!bound)) ){
+  bool printshadow = (fitchar == 'g') && !noshadows;
+  while( (sols = print_sol_set(sols, get_apercent, html, !!bound, printshadow)) ){
     ;
   }
   if(html){
@@ -325,6 +333,7 @@ print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char 
   fprintf(stderr, "\tc: cp\n");
   fprintf(stderr, "\td: effective def\n");
   fprintf(stderr, "\tg: geometric mean\n");
+  fprintf(stderr, "\tgs: geometric mean with shadows\n");
   fprintf(stderr, "\th: mhp\n");
   fprintf(stderr, "\tk: effective atk\n");
   exit(EXIT_FAILURE);
@@ -353,9 +362,16 @@ int main(int argc, char** argv){
   double(*fitfxn)(const stats *);
   int(*cmpfxn)(const void*, const void*);
   int(*tiefxn)(const void*, const void*) = statscmp_sprod;
+  bool noshadows = false;
   char fitchar;
   bool excludebanned = true;
   if(strcmp(argv[1], "g") == 0){
+    fitfxn = calc_pok_sprod;
+    cmpfxn = statscmp_sprod;
+    tiefxn = statscmp_amean;
+    noshadows = true;
+    fitchar = 'g';
+  }else if(strcmp(argv[1], "gs") == 0){
     fitfxn = calc_pok_sprod;
     cmpfxn = statscmp_sprod;
     tiefxn = statscmp_amean;
@@ -381,14 +397,15 @@ int main(int argc, char** argv){
   }else if(strcmp(argv[1], "b") == 0){
     fitfxn = calc_pok_bulk;
     cmpfxn = statscmp_bulk;
-    fitchar = 'd';
+    fitchar = 'b';
   }else if(strcmp(argv[1], "h") == 0){
     fitfxn = calc_pok_mhp;
     cmpfxn = statscmp_mhp;
+    noshadows = true;
     fitchar = 'h';
   }else{
     usage(argv[0]);
   }
-  print_bounded_table(hcp, lcp, fitfxn, fitchar, cmpfxn, tiefxn, excludebanned, html);
+  print_bounded_table(hcp, lcp, fitfxn, fitchar, cmpfxn, tiefxn, excludebanned, html, noshadows);
   return EXIT_SUCCESS;
 }
