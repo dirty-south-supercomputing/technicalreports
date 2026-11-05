@@ -97,42 +97,44 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a,
 }
 
 static inline void
-html_type(std::ostream &fp, pgo_types_e t){
+html_type(std::ostream &fp, pgo_types_e t, bool pdir){
   if(t != TYPECOUNT){
-    fp << "<img src=\"images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+    fp << "<img src=\"";
+    if(pdir){
+      fp << "../";
+    }
+    fp << "images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
   }
 }
 
 static inline void
-html_type(pgo_types_e t){
-  html_type(std::cout, t);
+html_type(pgo_types_e t, bool pdir){
+  html_type(std::cout, t, pdir);
 }
-
-void html_type_pdir(std::ostream &fp, pgo_types_e t);
 
 static inline void
 html_types_pdir(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
-  html_type_pdir(fp, t1);
+  html_type(fp, t1, true);
   if(t1 != t2 && t2 != TYPECOUNT){
     fp << ' ';
-    html_type_pdir(fp, t2);
+    html_type(fp, t2, true);
   }
 }
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
 // monotypes are only displayed once.
 static inline void
-html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
-  html_type(fp, t1);
+html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
+  html_type(fp, t1, pdir);
   if(t1 != t2 && t2 != TYPECOUNT){
     fp << ' ';
-    html_type(fp, t2);
+    html_type(fp, t2, pdir);
   }
 }
 
 static inline void
-html_types(pgo_types_e t1, pgo_types_e t2){
-  html_types(std::cout, t1, t2);
+html_types(pgo_types_e t1, pgo_types_e t2, bool pdir){
+  html_types(std::cout, t1, t2, pdir);
 }
 
 void write_header(std::ostream &fp, const std::string &title, bool par = false);

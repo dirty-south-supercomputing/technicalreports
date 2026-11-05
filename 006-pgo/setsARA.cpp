@@ -36,49 +36,7 @@ int main(){
   std::cout << "<th style=\"width: 80%\">Pop</th>";
   std::cout << "</tr>" << std::endl;
   for(const auto &ts : tsets){
-    if(!ts.learnpop.size() && !ts.learnpopm.size()){
-      continue;
-    }
-    std::cout << "<tr><td>";
-    html_types(ts.t0, ts.t1);
-    if(ts.plustype != TYPECOUNT){
-        std::cout << ' ';
-        html_type(ts.plustype);
-    }
-    std::cout << "</td>";
-    for(unsigned i = 0 ; i < sizeof(ts.totals) / sizeof(*ts.totals) ; ++i){
-      std::cout << "<td>";
-      if(ts.totals[i]){
-        std::cout << ts.totals[i];
-      }
-      std::cout << "</td>";
-    }
-    std::cout << "<td>" << ts.ara << "</td>";
-    if(ts.learnpopm.size()){
-      std::cout << "<td>" << ts.learnpopm.size() << " ";
-      bool printed = false;
-      for(const auto m : ts.learnpopm){
-        if(printed){
-          std::cout << ", ";
-        }else{
-          printed = true;
-        }
-        link_to_name(std::cout, m->name, true);
-      }
-    }else{
-      std::cout << "<td>" << ts.learnpop.size() << " ";
-      bool printed = false;
-      for(const auto s : ts.learnpop){
-        if(printed){
-          std::cout << ", ";
-        }else{
-          printed = true;
-        }
-        link_to_name(std::cout, s->name, true);
-      }
-    }
-    std::cout << "</td>";
-    std::cout << "</tr>" << std::endl;
+    ts.emit_with_pop(std::cout, false);
   }
   std::cout << "</table>" << std::endl;
   return EXIT_SUCCESS;

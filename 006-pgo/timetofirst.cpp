@@ -57,17 +57,17 @@ static void emit_name(const std::string &s){
 static void emit_row(const timetofirst &t){
   std::cout << "<tr>";
   std::cout << "<td>";
-  html_types(t.s->t1, t.s->t2);
+  html_types(t.s->t1, t.s->t2, false);
   std::cout << "</td>";
   std::cout << "<td>";
   link_to_name(std::cout, t.s->name, true);
   std::cout << "</td>";
   std::cout << "<td>";
-  html_type(t.fa->type);
+  html_type(t.fa->type, false);
   std::cout << ' ';
   emit_html_attack(std::cout, *t.s, t.fa, true);
   std::cout << " + ";
-  html_type(t.ca->type);
+  html_type(t.ca->type, false);
   std::cout << ' ';
   std::string prefix, suffix;
   emit_html_attack_fancy(std::cout, *t.s, t.ca, prefix, suffix, true);

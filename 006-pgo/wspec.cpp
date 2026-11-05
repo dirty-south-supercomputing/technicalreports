@@ -161,7 +161,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     auto cpow = calc_eff_power(s, a);
     fp << "<tr>";
     fp << "<td>";
-    html_type_pdir(fp, a->type);
+    html_type(fp, a->type, true);
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -194,7 +194,7 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     auto cpow = calc_eff_power(s, a);
     fp << "<tr>";
     fp << "<td>";
-    html_type_pdir(fp, a->type);
+    html_type(fp, a->type, true);
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td><td>";
@@ -212,11 +212,11 @@ static void emit_row(std::ofstream &fp, const timetofirst &t){
   fp << "<tr>";
   fp << "<td>";
   fp << (t.turns - 1) / t.fa->turns << "x ";
-  html_type_pdir(fp, t.fa->type);
+  html_type(fp, t.fa->type, true);
   fp << ' ';
   emit_html_attack(fp, *t.s, t.fa, true, true);
   fp << " + ";
-  html_type_pdir(fp, t.ca->type);
+  html_type(fp, t.ca->type, true);
   fp << ' ';
   std::string prefix, suffix;
   emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true, true);
@@ -248,49 +248,84 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   fp << "</table>" << std::endl;
 }
 
-struct cattackset {
-  const attack *ca1;
-  const attack *ca2;
-  const attack *ca3;
-  float ara;
-
-  cattackset(const attack *CA1, const attack *CA2, const attack *CA3) :
-    ca1(CA1),
-    ca2(CA2),
-    ca3(CA3)
-  {
-    int totals[TEFFECTRANGE];
-    ara = calc_ara(ca1->type,
-                   ca2 ? ca2->type : TYPECOUNT,
-                   ca3 ? ca3->type : TYPECOUNT,
-                   totals);
+static void
+add_tset_if_new(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_types_e plust){
+  for(const auto &t : tsets){
+    if((t.t0 == t0 && t.t1 == t1) || (t.t1 == t0 && t.t0 == t1)){
+      if(t.plustype == plust){
+        return;
+      }
+    }
   }
+  if(plust != TYPECOUNT){
+    tsets.emplace_back(t0, t1, TYPECOUNT);
+  }
+  tsets.emplace_back(t0, t1, plust);
+}
 
-};
+
+static void
+calcarass3x3(std::vector<typeset> &tsets, const species &s){
+  pgo_types_e plusatk = TYPECOUNT;
+  for(const auto a : s.attacks){
+    if(plus_attack_p(*a)){
+      plusatk = a->type;
+      break;
+    }
+  }
+  std::vector<const attack *> atks{s.attacks};
+  if(s.shadow){
+    atks.emplace_back(&ATK_Return);
+  }
+  for(const auto c1 : atks){
+    if(!charged_attack_p(*c1)){
+      continue;
+    }
+    // c1 is a charged attack
+    for(const auto c2 : s.attacks){
+      if(!charged_attack_p(*c2)){
+        continue;
+      }
+      // c2 is a charged attack
+      if(c1->type == c2->type){
+        continue;
+      }
+      add_tset_if_new(tsets, c1->type, c2->type, plusatk);
+    }
+    add_tset_if_new(tsets, c1->type, c1->type, plusatk);
+  }
+}
 
 // show, for each pair of charged attacks, the ARA and possible type effectiveness
-/*static void
-write_mon_apairs_3x3(std::ofstream &fp, const species &s){
-  std::vector<cattackset> cass;
-  calcarass3x3(cass, s);
-  std::sort(cass.begin(), cass.end());
+static void
+write_mon_apairs(std::ofstream &fp, const species &s){
+  fp << "<div id=\"asets\">";
+  fp << "<h2>charged attack set effectiveness</h2>" << std::endl;
+  std::vector<typeset> tsets;
+  calcarass3x3(tsets, s);
+  std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   fp << "<table class=\"evenshade apairs\">" << std::endl;
-  fp << "<tr><th>Attack pair</th><th>ARA</th></tr>" << std::endl;
-  for(const auto &c : cass){
-    //emit_row(fp, t);
+  fp << "<tr><th>Attack set</th>";
+  for(int i = -3 ; i < 3 ; ++i){
+    fp << "<th>E<sub>" << i << "</sub></th>";
+  }
+  fp << "<th>ARA</th></tr>" << std::endl;
+  for(const auto &t : tsets){
+    t.emit(fp, true);
   }
   fp << "</table>" << std::endl;
-}*/
+  fp << "</div>" << std::endl;
+}
 
 static void emit_row_nx1(std::ofstream &fp, const timetofirst &t){
   fp << "<tr>";
   fp << "<td>";
   fp << (t.turns - 1) / t.fa->animdur << "x ";
-  html_type_pdir(fp, t.fa->type);
+  html_type(fp, t.fa->type, true);
   fp << ' ';
   emit_html_attack(fp, *t.s, t.fa, true, true);
   fp << " + ";
-  html_type_pdir(fp, t.ca->type);
+  html_type(fp, t.ca->type, true);
   fp << ' ';
   std::string prefix, suffix;
   emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true, true);
@@ -363,10 +398,12 @@ write_mon_attacks_3x3(std::ofstream &fp, const species &s, std::vector<const att
       }
       return ae < be;
       });
+  fp << "<div id=\"atks3x3\">";
   fp << "<h2>attacks (3x3 stats)</h2>" << std::endl;
   write_fattacks_3x3(fp, s, atks);
   write_cattacks_3x3(fp, s, atks);
   write_mon_ttf_3x3(fp, s);
+  fp << "</div>" << std::endl;
 }
 
 // atks duplicates s.attacks, but we can rearrange (sort) it
@@ -397,6 +434,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
         }
         return ae < be;
       });
+  fp << "<div id=\"atksNx1\">";
   fp << "<h2>attacks (Nx1 stats)</h2>" << std::endl;
   fp << "<table class=\"evenshade fastattacks\">" << std::endl;
   fp << "<tr><th>Attack</th><th>Turns</th><th>Power</th><th>Energy+</th><th>PPT</th><th>EPT</th></tr>" << std::endl;
@@ -407,7 +445,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     auto cpow = calc_eff_power_nx1(s, a);
     fp << "<tr>";
     fp << "<td>";
-    html_type_pdir(fp, a->type);
+    html_type(fp, a->type, true);
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -432,7 +470,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     auto cpow = calc_eff_power_nx1(s, a);
     fp << "<tr>";
     fp << "<td>";
-    html_type_pdir(fp, a->type);
+    html_type(fp, a->type, true);
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -449,6 +487,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
   }
   fp << "</table>" << std::endl;
   write_mon_ttf_Nx1(fp, s);
+  fp << "</div>" << std::endl;
 }
 
 static int
@@ -466,7 +505,7 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
     unsigned printed = 0;
     for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
       if(typing_relation(t, s.t1, s.t2) == i){
-        html_type_pdir(fp, t);
+        html_type(fp, t, true);
         if(++printed % 3 == 0){
           fp << "<br/>";
         }else{
@@ -806,7 +845,7 @@ write_mon_page(const species &s){
   write_header(fp, s.name + " in Pokémon GO", true);
   fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << ' ';
-  html_types_pdir(fp, s.t1, s.t2);
+  html_types(fp, s.t1, s.t2, true);
   fp << "</h1>" << std::endl;
   write_stats(fp, s);
   write_evol(fp, s);
@@ -819,6 +858,7 @@ write_mon_page(const species &s){
     write_mon_attacks_3x3(fp, s, atks);
   }
   write_mon_attacks_nx1(fp, s, atks);
+  write_mon_apairs(fp, s);
   if(!pvp_banned_p(s)){
     write_iv_tables(fp, s);
   }
@@ -843,10 +883,10 @@ static void
 write_summary(std::ostream &fp, const species &s){
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
-  html_type_pdir(fp, s.t1);
+  html_type(fp, s.t1, true);
   if(s.t2 != TYPECOUNT){
     fp << "<br/>";
-    html_type_pdir(fp, s.t2);
+    html_type(fp, s.t2, true);
   }
   fp << "</td><td>";
   fp << "<a href=\"";

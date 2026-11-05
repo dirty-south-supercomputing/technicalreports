@@ -340,13 +340,13 @@ write_atk_teffect(std::ostream &fp, pgo_types_e atype){
   fp << "<th></th>";
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     fp << "<th>";
-    html_type_pdir(fp, t);
+    html_type(fp, t, true);
     fp << "</th>";
   }
   fp << "</tr>" << std::endl;
   for(pgo_types_e t1 = TYPESTART ; t1 < TYPECOUNT ; ++t1){
     fp << "<tr><td>";
-    html_type_pdir(fp, t1);
+    html_type(fp, t1, true);
     fp << "</td>";
     for(pgo_types_e t2 = TYPESTART ; t2 < TYPECOUNT ; ++t2){
       if(t1 > t2){
@@ -400,7 +400,7 @@ write_max_atk_page(const char *name, pgo_types_e atype){
   fp << std::setprecision(3);
   write_header(fp, name, true);
   fp << "<h1>";
-  html_type_pdir(fp, atype);
+  html_type(fp, atype, true);
   fp << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, atype);
   // FIXME write_atk_max(fp, a);
@@ -423,7 +423,7 @@ write_atk_page(const attack &a){
   write_header(fp, a.name, true);
   fp << "<h1>";
   if(a.type != TYPECOUNT){
-    html_type_pdir(fp, a.type);
+    html_type(fp, a.type, true);
   }
   fp << a.name << " (";
   if(a.type != TYPECOUNT){

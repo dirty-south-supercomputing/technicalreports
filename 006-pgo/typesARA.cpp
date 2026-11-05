@@ -51,7 +51,7 @@ struct atype {
   void print() const {
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_type(at);
+    html_type(at, false);
     std::cout << "</td>";
     for(int i = -2 ; i < 2 ; ++i){
       std::cout << "<td>";

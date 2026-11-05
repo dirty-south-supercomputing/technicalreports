@@ -272,8 +272,13 @@ table.chargedattacks tr>:nth-child(1) { /* mon pages, attack */
   text-align: left;
 }
 
-table.apairs tr>:nth-child(1) { /* mon pages, attack sequences */
+table.apairs tr>:nth-child(1) { /* attack set */
   text-align: left;
+}
+
+table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
+  text-align: right;
+  padding: 0 0 0 1em;
 }
 
 table.fastattacks tr>:nth-child(n+2) { /* mon pages, stats */
@@ -282,11 +287,6 @@ table.fastattacks tr>:nth-child(n+2) { /* mon pages, stats */
 }
 
 table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
@@ -302,6 +302,22 @@ table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
 
 .monivcontainer { /* mon page, per league */
   padding: 0 0 0 1em;
+}
+
+/* overflow: hidden is necessary to eliminate blank space between these divs */
+div#atks3x3 { /* mon page */
+  background-color: rgba(255, 255, 208, 0.25);
+  overflow: hidden;
+}
+
+div#atksNx1 { /* mon page */
+  background-color: rgba(208, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+div#asets { /* mon page */
+  background-color: rgba(255, 208, 255, 0.25);
+  overflow: hidden;
 }
 
 div#glivs { /* mon page */

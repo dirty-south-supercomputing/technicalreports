@@ -152,7 +152,7 @@ static void header(bool configcolumn){
 
 static void emit_line(const ttfs &t, bool configcolumn){
   std::cout << "<tr><td>";
-  html_types(t.s->t1, t.s->t2);
+  html_types(t.s->t1, t.s->t2, false);
   std::cout << "</td>";
   if(configcolumn){
     std::cout << "<td>" << t.ia << "-" << t.id << "-" << t.is << "x";
@@ -166,11 +166,11 @@ static void emit_line(const ttfs &t, bool configcolumn){
   std::cout << "<td>" << t.effd << "</td>";
   std::cout << "<td>" << t.bulk << "</td>";
   std::cout << "<td>";
-  html_type(t.fa->type);
+  html_type(t.fa->type, false);
   std::cout << ' ';
   emit_html_attack(std::cout, *t.s, t.fa, true);
   std::cout << " + ";
-  html_type(t.ca->type);
+  html_type(t.ca->type, false);
   std::cout << ' ';
   std::string prefix, suffix;
   emit_html_attack_fancy(std::cout, *t.s, t.ca, prefix, suffix, true);

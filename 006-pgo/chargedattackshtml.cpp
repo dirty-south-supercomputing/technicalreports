@@ -55,7 +55,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     float e = raid ? a->energyraid : -a->energytrain;
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_type(a->type);
+    html_type(a->type, false);
     std::cout << " ";
     link_to_attack(std::cout, a->name, true);
     std::cout << "</td>";

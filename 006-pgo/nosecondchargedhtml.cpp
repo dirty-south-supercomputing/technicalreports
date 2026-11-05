@@ -9,7 +9,7 @@ int main(void){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(!multiple_charged_attacks(*s)){
       std::cout << "<tr><td>";
-      html_types(s->t1, s->t2);
+      html_types(s->t1, s->t2, false);
       std::cout << "</td><td>";
       link_to_name(std::cout, s->name, true);
       if(s->shadow){

@@ -13,11 +13,11 @@ int main(){
     }
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(s->t1, s->t2);
+    html_types(s->t1, s->t2, false);
     std::cout << "</td><td>";
     std::cout << s->name;
     std::cout << "</td><td>";
-    html_type(gm->type);
+    html_type(gm->type, false);
     std::cout << ' ' << gm->name;
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;

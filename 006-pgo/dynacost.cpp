@@ -27,7 +27,7 @@ int main(void){
   std::cout << "<tr><th>T</th><th>Pokémon</th><th>Tier</th><th>Cost (MP)</th></tr>" << std::endl;
   for(const auto s : dynas){
     std::cout << "<tr><td>";
-    html_types(s->t1, s->t2);
+    html_types(s->t1, s->t2, false);
     std::cout << "</td><td>";
     link_to_name(std::cout, s->name, true, false);
     std::cout << "</td><td>" << s->dmax << "</td><td>";

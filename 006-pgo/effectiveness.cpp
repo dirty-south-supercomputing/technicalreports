@@ -7,7 +7,7 @@ gen_te_table(){
     for(pgo_types_e t2 = TYPESTART ; t2 < TYPECOUNT ; ++t2){
       std::cout << "<tr>";
       std::cout << "<td>";
-      html_types(t1, t2);
+      html_types(t1, t2, false);
       std::cout << "</td>";
       for(pgo_types_e at = TYPESTART ; at < TYPECOUNT ; ++at){
         std::cout << "<td>";
@@ -29,7 +29,7 @@ int main(){
   std::cout << "<th></th>";
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     std::cout << "<th>";
-    html_type(t);
+    html_type(t, false);
     std::cout << "</th>";
   }
   std::cout << "</tr>" << std::endl;

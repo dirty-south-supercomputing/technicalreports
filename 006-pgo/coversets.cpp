@@ -11,7 +11,7 @@ emit_coverset(const std::vector<pgo_types_e> &tocc, int setidx, bool html){
   if(html){
     std::cout << "<tr><td>" << setidx << "</td><td>";
     for(auto p : tocc){
-      html_type(std::cout, p);
+      html_type(std::cout, p, false);
       std::cout << ' ';
     }
     std::cout << "</td></tr>" << std::endl;

@@ -4,12 +4,6 @@
 const std::string reversecss[6] = { "teneg3", "teneg2", "teneg1", "tepos0", "tepos1", "tepos2", };
 const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "teneg2", };
 
-void html_type_pdir(std::ostream &fp, pgo_types_e t){
-  if(t != TYPECOUNT){
-    fp << "<img src=\"../images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
-  }
-}
-
 static void
 emit_option(std::ostream &fp, const std::string &value){
   fp << "<option value=\"";
@@ -84,7 +78,7 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
   auto rp = c.powprod();
   std::cout << "<tr>";
   std::cout << "<td>";
-  html_types(c.s->t1, c.s->t2);
+  html_types(c.s->t1, c.s->t2, false);
   std::cout << "</td>";
   std::cout << "<td>";
   link_to_name(std::cout, c.s->name, true);
@@ -94,7 +88,7 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
   }
   std::cout << "</td>";
   std::cout << "<td>";
-  html_type(c.atype);
+  html_type(c.atype, false);
   std::cout << ' ';
   // we do not attempt to indicate that a max attack is based on a legacy attack,
   // since it is possible that more than one fast attack enable the same max
@@ -278,4 +272,59 @@ void write_footer(std::ostream &fp, bool par){
   }
   fp << "mon/\" + selectv.value + \".html\"); }</script>" << std::endl;
   fp << "</body></html>" << std::endl;
+}
+
+void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
+  if(!learnpop.size() && !learnpopm.size()){
+    return;
+  }
+  emitcore(fp, pdir);
+  if(learnpopm.size()){
+    fp << "<td>" << learnpopm.size() << " ";
+    bool printed = false;
+    for(const auto m : learnpopm){
+      if(printed){
+        fp << ", ";
+      }else{
+        printed = true;
+      }
+      link_to_name(fp, m->name, pdir);
+    }
+  }else{
+    fp << "<td>" << learnpop.size() << " ";
+    bool printed = false;
+    for(const auto s : learnpop){
+      if(printed){
+        fp << ", ";
+      }else{
+        printed = true;
+      }
+      link_to_name(fp, s->name, pdir);
+    }
+  }
+  fp << "</td>";
+}
+
+void typeset::emitcore(std::ostream &fp, bool pdir) const {
+  fp << "<td>";
+  html_types(fp, t0, t1, pdir);
+  if(plustype != TYPECOUNT){
+      fp << ' ';
+      html_type(fp, plustype, pdir);
+  }
+  fp << "</td>";
+  for(unsigned i = 0 ; i < sizeof(totals) / sizeof(*totals) ; ++i){
+    fp << "<td>";
+    if(totals[i]){
+      fp << totals[i];
+    }
+    fp << "</td>";
+  }
+  fp << "<td>" << ara << "</td>";
+}
+
+void typeset::emit(std::ostream &fp, bool pdir) const {
+  fp << "<tr>";
+  emitcore(fp, pdir);
+  fp << "</tr>" << std::endl;
 }

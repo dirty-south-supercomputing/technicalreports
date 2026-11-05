@@ -5,7 +5,7 @@ emit_megas(const species &s){
   for(const auto &m : s.mforms){
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(m.t1, m.t2);
+    html_types(m.t1, m.t2, false);
     std::cout << "</td>";
     std::cout << "<td>";
     link_to_name(std::cout, m.name, true);

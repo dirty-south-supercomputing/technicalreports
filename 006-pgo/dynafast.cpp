@@ -57,13 +57,13 @@ int main(void){
   for(const auto &c : cands){
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(c.s->t1, c.s->t2);
+    html_types(c.s->t1, c.s->t2, false);
     std::cout << "</td>";
     std::cout << "<td>";
     link_to_name(std::cout, c.s->name, true);
     std::cout << "</td>";
     std::cout << "<td>";
-    html_type(dmax_attack_type(c.a));
+    html_type(dmax_attack_type(c.a), false);
     std::cout << ' ';
     std::string prefix, suffix;
     emit_html_attack_fancy(std::cout, *c.s, c.a, prefix, suffix, true, false);

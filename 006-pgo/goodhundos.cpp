@@ -68,7 +68,7 @@ emit_good_hundos(int cpbound){
     std::cout << std::setprecision(6);
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(r.st.s->t1, r.st.s->t2);
+    html_types(r.st.s->t1, r.st.s->t2, false);
     std::cout << "</td>";
     std::cout << "<td>";
     link_to_name(std::cout, r.st.s->name, true);

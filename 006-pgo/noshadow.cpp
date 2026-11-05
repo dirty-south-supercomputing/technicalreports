@@ -7,7 +7,7 @@ int main(void){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(!s->shadow){
       std::cout << "<tr><td>";
-      html_types(s->t1, s->t2);
+      html_types(s->t1, s->t2, false);
       std::cout << "</td>";
       std::cout << "<td>";
       link_to_name(std::cout, s->name, true);

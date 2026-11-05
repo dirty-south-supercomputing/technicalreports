@@ -12,7 +12,7 @@ functional_hundos(int cplimit, int cpthresh){
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
       std::cout << "<tr><td>";
-      html_types(st->s->t1, st->s->t2);
+      html_types(st->s->t1, st->s->t2, false);
       std::cout << "</td><td>";
       link_to_name(std::cout, st->s->name, true, false);
       std::cout << "</td><td>" << st->ia << "-" << st->id << "-" << st->is << ' ';

@@ -71,7 +71,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
     float ept = energy / t;
     if(html){
       std::cout << "<tr><td>";
-      html_type(a->type);
+      html_type(a->type, false);
       std::cout << ' ';
     }else{
       print_fast_attack_rowcolor(a);

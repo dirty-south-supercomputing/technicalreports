@@ -23,7 +23,7 @@ emit_special_evol(const species &s){
     }
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(prev->t1, prev->t2);
+    html_types(prev->t1, prev->t2, false);
     std::cout << "</td>";
     std::cout << "<td>";
     link_to_name(std::cout, prev->name, true);
@@ -41,7 +41,7 @@ emit_special_evol(const species &s){
     link_to_name(std::cout, s.name, true);
     std::cout << "</td>";
     std::cout << "<td>";
-    html_types(s.t1, s.t2);
+    html_types(s.t1, s.t2, false);
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
   }

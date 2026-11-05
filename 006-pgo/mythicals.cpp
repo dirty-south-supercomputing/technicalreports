@@ -26,7 +26,7 @@ emit_cat_table(species::species_cat cat){
     if(s->category == cat){
       std::cout << "<tr>";
       std::cout << "<td>";
-      html_types(s->t1, s->t2);
+      html_types(s->t1, s->t2, false);
       std::cout << "</td>";
       std::cout << "<td>";
       link_to_name(std::cout, s->name, true);

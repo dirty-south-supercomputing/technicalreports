@@ -62,10 +62,10 @@ struct typing {
   void print() const {
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(t1, t2);
+    html_types(t1, t2, false);
     if(t1 != t2){
       std::cout << "<br/>";
-      html_types(t2, t1);
+      html_types(t2, t1, false);
     }
     std::cout << "</td>";
     for(unsigned i = 0 ; i < sizeof(tras) / sizeof(*tras) ; ++i){
@@ -74,7 +74,7 @@ struct typing {
         std::cout << tras[i].size() << "<br/>";
         int x = 0;
         for(auto pt : tras[i]){
-          html_type(pt);
+          html_type(pt, false);
           if(++x % 3 == 0){
             std::cout << "<br/>";
           }else{
