@@ -1252,6 +1252,31 @@ species_can_throw_p(const species *s, pgo_types_e t0, pgo_types_e t1){
   return aset_can_throw_p(s->attacks, t0, t1);
 }
 
+static inline float
+calc_ara(pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype, int totals[TEFFECTRANGE]){
+  memset(totals, 0, sizeof(*totals) * TEFFECTRANGE);
+  for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
+    for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
+      int e0 = typing_relation(t0, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
+      int e1 = typing_relation(t1, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
+      int e = e0 > e1 ? e0 : e1;
+      if(plustype != TYPECOUNT){
+        int e2 = typing_relation(plustype, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
+        if(e2 > e){
+          e = e2;
+        }
+      }
+      ++totals[e + 3];
+    }
+  }
+  float ara = 0;
+  for(unsigned i = 0 ; i < TEFFECTRANGE ; ++i){
+    ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
+  }
+  ara /= TYPINGCOUNT;
+  return ara;
+}
+
 struct typeset {
   pgo_types_e t0;
   pgo_types_e t1; // can be the same as t1 if we only have one attack type
@@ -1262,16 +1287,15 @@ struct typeset {
   std::vector<const mega*> learnpopm;
   float ara;
 
-  typeset(pgo_types_e T0, pgo_types_e T1, pgo_types_e Plustype,
-          const int Totals[], float ARA) :
+  typeset(pgo_types_e T0, pgo_types_e T1, pgo_types_e Plustype) :
       t0(T0),
       t1(T1),
-      plustype(Plustype),
-      ara(ARA) {
-    memcpy(totals, Totals, sizeof(totals));
+      plustype(Plustype)
+  {
+    ara = calc_ara(t0, t1, plustype, totals);
     // for 3-sets, only consider the megas
     if(plustype != TYPECOUNT){
-    for(auto t = species_begin() ; t != species_end() ; ++t){
+      for(auto t = species_begin() ; t != species_end() ; ++t){
         if(!species_can_throw_p(&*t, t0, t1)){
           continue;
         }
@@ -1311,38 +1335,6 @@ struct typeset {
 
 };
 
-static inline float
-calc_ara(pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype, int totals[TEFFECTRANGE]){
-  memset(totals, 0, sizeof(*totals) * TEFFECTRANGE);
-  for(int tt0 = 0 ; tt0 < TYPECOUNT ; ++tt0){
-    for(int tt1 = tt0 ; tt1 < TYPECOUNT ; ++tt1){
-      int e0 = typing_relation(t0, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-      int e1 = typing_relation(t1, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-      int e = e0 > e1 ? e0 : e1;
-      if(plustype != TYPECOUNT){
-        int e2 = typing_relation(plustype, static_cast<pgo_types_e>(tt0), static_cast<pgo_types_e>(tt1));
-        if(e2 > e){
-          e = e2;
-        }
-      }
-      ++totals[e + 3];
-    }
-  }
-  float ara = 0;
-  for(unsigned i = 0 ; i < TEFFECTRANGE ; ++i){
-    ara += type_effectiveness_mult(static_cast<int>(i) - 3) * totals[i];
-  }
-  ara /= TYPINGCOUNT;
-  return ara;
-}
-
-static inline void
-build_tset(std::vector<typeset> &tsets, pgo_types_e t0, pgo_types_e t1, pgo_types_e plustype){
-  int totals[TEFFECTRANGE];
-  auto ara = calc_ara(t0, t1, plustype, totals);
-  tsets.emplace_back(t0, t1, plustype, totals, ara);
-}
-
 // build the 155 diadic typings or the 18 monotypes
 static inline void
 build_tsets(std::vector<typeset> &tsets, bool monomode){
@@ -1358,7 +1350,7 @@ build_tsets(std::vector<typeset> &tsets, bool monomode){
       ubound = TYPECOUNT;
     }
     for(pgo_types_e t1 = lbound ; t1 < ubound ; ++t1){
-      build_tset(tsets, t0, t1, TYPECOUNT);
+      tsets.emplace_back(t0, t1, TYPECOUNT);
     }
   }
 }

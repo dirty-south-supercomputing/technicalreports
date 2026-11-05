@@ -6,11 +6,11 @@ build_tsets_full(std::vector<typeset> &tsets){
   // first, build the 171 functionally distinct typings of 1 or 2 types...
   for(pgo_types_e t0 = TYPESTART ; t0 < TYPECOUNT ; ++t0){
     for(pgo_types_e t1 = t0 ; t1 < TYPECOUNT ; ++t1){
-      build_tset(tsets, t0, t1, TYPECOUNT);
+      tsets.emplace_back(t0, t1, TYPECOUNT);
       if(t1 != t0){
         for(pgo_types_e plust = TYPESTART ; plust < TYPECOUNT ; ++plust){
           if(plust != t0 && plust != t1){
-            build_tset(tsets, t0, t1, plust);
+            tsets.emplace_back(t0, t1, plust);
           }
         }
       }
