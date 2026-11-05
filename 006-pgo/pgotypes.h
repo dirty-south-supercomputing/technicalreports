@@ -1319,19 +1319,47 @@ struct typeset {
     }
   }
 
+  // only emits if there is a population
+  void emit_with_pop(std::ostream &fp, bool pdir) const;
+
+  // always emits, and leaves out population info
+  void emit(std::ostream &fp, bool pdir) const;
+
   friend bool operator<(const typeset &l, const typeset &r) {
-    return l.ara < r.ara ? true :
-            r.ara < l.ara ? false :
-            l.learnpop.size() < r.learnpop.size() ? true :
-            r.learnpop.size() < l.learnpop.size() ? false :
-            l.t0 < r.t0 ? true :
-            r.t0 < l.t0 ? false :
-            l.t1 < r.t1 ? true : false;
+    if(l.ara < r.ara){
+      return true;
+    }else if(r.ara < l.ara){
+      return false;
+    }
+    if(l.learnpop.size() < r.learnpop.size()){
+      return true;
+    }else if(r.learnpop.size() < l.learnpop.size()){
+      return false;
+    }
+    if(l.t0 < r.t0){
+      return true;
+    }else if(r.t0 < l.t0){
+      return false;
+    }
+    if(l.t1 < r.t1){
+      return true;
+    }else if(r.t1 < l.t1){
+      return false;
+    }
+    if(l.plustype < r.plustype){
+      return true;
+    }else if(r.plustype < l.plustype){
+      return false;
+    }
+    throw std::exception(); // we had a duplicate
   }
 
   friend bool operator>(const typeset &l, const typeset &r) {
     return !(l < r);
   }
+
+private:
+  void emitcore(std::ostream &fp, bool pdir) const;
 
 };
 
