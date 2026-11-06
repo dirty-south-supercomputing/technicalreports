@@ -14,7 +14,7 @@ check_good_hundo(int cpbound, int cpcutoff, std::vector<sstat> &rows, const spec
     float cutoff = 0.97 * bestbp;
     unsigned i = vcount - 1;
     // find the hundo
-    while(stats[i].ia != 15 || stats[i].id != 15 || stats[i].is != 15){
+    while(stats[i].shadow || stats[i].ia != 15 || stats[i].id != 15 || stats[i].is != 15){
       --i;
     }
     auto hundobp = stats[i].effa * stats[i].effd * stats[i].mhp;
@@ -36,7 +36,14 @@ emit_good_hundos(int cpbound){
   std::cout << "</tr>" << std::endl;
   std::vector<sstat> rows;
   std::vector<species> state;
-  int cpcutoff = cpbound - 400; // gotta allow morpeko (2196) into UL
+  int cpcutoff;
+  if(cpbound <= 0){
+    cpcutoff = 0;
+  }else if(cpbound <= 1500){
+    cpcutoff = 1400; // if these change, update webpage base!
+  }else{
+    cpcutoff = 2100; // gotta allow morpeko (2196) into UL
+  }
   std::forward_list<species> store;
   std::vector<const species*> smeg;
   for(auto s = species_begin() ; s != species_end() ; ++s){
