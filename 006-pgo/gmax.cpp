@@ -2,7 +2,7 @@
 
 // table of released GMax
 int main(){
-  std::cout << "<table>";
+  std::cout << "<table id=\"gmaxen\">";
   std::cout << "<tr>";
   std::cout << "<th>T</th><th>Pokémon</th><th>G-Max attack</th>";
   std::cout << "</tr>" << std::endl;
@@ -15,10 +15,11 @@ int main(){
     std::cout << "<td>";
     html_types(s->t1, s->t2, false);
     std::cout << "</td><td>";
-    std::cout << s->name;
+    link_to_name(std::cout, s->name, true, false);
     std::cout << "</td><td>";
     html_type(gm->type, false);
-    std::cout << ' ' << gm->name;
+    std::cout << ' ';
+    link_to_attack(std::cout, gm->name, true, false);
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
   }
