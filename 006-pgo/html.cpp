@@ -92,7 +92,7 @@ void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
   if(!c.hasstab){
     std::cout << "<i>";
   }
-  std::cout << c.aname;
+  link_to_attack(std::cout, c.aname, true, false);
   if(!unified){
     std::cout << " L" << c.maxlevel;
   }
