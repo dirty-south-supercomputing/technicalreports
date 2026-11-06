@@ -35,8 +35,7 @@ void write_navbar(std::ostream &fp, bool par){
   }
   fp << "</select>" << std::endl;
   // implemented by javascript in the footer. we also listen for enter there.
-  fp << "<button type=\"button\" onclick=\"handlesearch()\">search</button>";
-  fp << "</form></li>";
+  fp << "<button type=\"button\" onclick=\"handlesearch()\">search</button></li>";
   fp << "</ul></nav>" << std::endl;
 }
 
@@ -249,15 +248,6 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
   }
 }
 
-void write_footer_and_close(std::ofstream &fp, bool par){
-  write_footer(fp, par);
-  fp.close();
-  if(fp.rdstate() & std::ofstream::failbit){
-    std::cerr << "error writing to file" << std::endl;
-    throw std::exception();
-  }
-}
-
 void write_footer(std::ostream &fp, bool par){
   fp << "<hr/>" << std::endl;
   fp << "<span style=\"float: left\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
@@ -267,7 +257,21 @@ void write_footer(std::ostream &fp, bool par){
     fp << "../";
   }
   fp << "mon/\" + selectv.value + \".html\"); }</script>" << std::endl;
+  fp << "<script>";
+  fp << "const selecte = document.getElementById('formselect');";
+  fp << "selecte.addEventListener(\"keydown\", function(e){";
+  fp << "if(e.key == \"Enter\"){ handlesearch(); } })";
+  fp << "</script>" << std::endl;
   fp << "</body></html>" << std::endl;
+}
+
+void write_footer_and_close(std::ofstream &fp, bool par){
+  write_footer(fp, par);
+  fp.close();
+  if(fp.rdstate() & std::ofstream::failbit){
+    std::cerr << "error writing to file" << std::endl;
+    throw std::exception();
+  }
 }
 
 void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
