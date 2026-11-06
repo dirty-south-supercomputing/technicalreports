@@ -250,8 +250,8 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
 
 void write_footer(std::ostream &fp, bool par){
   fp << "<hr/>" << std::endl;
-  fp << "<span style=\"float: left\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
-  fp << "<span style=\"float: right\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
+  fp << "<span style=\"float:left;font-size:small\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
+  fp << "<span style=\"float:right;font-size:small\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
   fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.replace(\"";
   if(par){
     fp << "../";
