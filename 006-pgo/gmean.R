@@ -28,7 +28,7 @@ if(args[2] == "ML"){
   ourconf <- rec[["IVxL"]]
   ouralpha <- 0.1
 }
-ename = gsub('[% \']', '', name)
+ename = gsub('[% \\.\']', '', name)
 # bulk vs EffA
 if(length(shadbulk) == 0){
   # no shadow for this form
