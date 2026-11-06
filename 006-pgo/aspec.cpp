@@ -418,10 +418,6 @@ write_gmax_atk_page(const gmaxattack *gm){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;
     return -1;
   }
-  const auto *s = lookup_species(gm->sname);
-  if(!s){
-    throw std::exception();
-  }
   fp << std::setprecision(3);
   write_header(fp, gm->name, true);
   fp << "<h1>";
@@ -430,9 +426,14 @@ write_gmax_atk_page(const gmaxattack *gm){
   write_atk_teffect(fp, gm->type);
   // FIXME write_atk_max(fp, a);
   fp << "<h2>users</h2>" << std::endl;
+  const auto *s = lookup_species(gm->sname);
+  if(!s){
+    throw std::exception();
+  }
   bool stab = has_stab_raw_p(*s, gm->type);
+  std::string sname = "G-Max " + s->name;
   bool printed = false;
-  write_atk_user(fp, s->name, printed, false, stab);
+  write_atk_user(fp, sname, printed, false, stab);
   if(printed){
     fp << "</div>" << std::endl;
   }

@@ -23,7 +23,7 @@ void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& can
   if(gma){
     if(gma->type == t){
       store.emplace_front(&s, *gma);
-      add_candidate(cands, &store.front(), gma->name.c_str(), true, stab, t, 1.0, unified);
+      add_candidate(cands, &store.front(), gma->name, true, stab, t, 1.0, unified);
     }
   }
 }
