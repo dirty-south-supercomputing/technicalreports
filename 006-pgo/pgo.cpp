@@ -902,3 +902,59 @@ stats *order_ivs(const species &s, int cpceil, int(*cmpfxn)(const void*, const v
   qsort(svec, *vcount, sizeof(*svec), cmpfxn);
   return svec;
 }
+
+// lives outside lookup_gmax_attack() so it can be unit tested.
+static gmaxattack GMaxAttacks[] = {
+  { "Venusaur", "G-Max Vine Lash", TYPE_GRASS, true, },
+  { "Charizard", "G-Max Wildfire", TYPE_FIRE, true, },
+  { "Blastoise", "G-Max Cannonade", TYPE_WATER, true, },
+  { "Butterfree", "G-Max Befuddle", TYPE_BUG, true, },
+  { "Pikachu", "G-Max Volt Crash", TYPE_ELECTRIC, true, },
+  { "Meowth", "G-Max Gold Rush", TYPE_NORMAL, true, },
+  { "Machamp", "G-Max Chi Strike", TYPE_FIGHTING, true, },
+  { "Gengar", "G-Max Terror", TYPE_GHOST, true, },
+  { "Kingler", "G-Max Foam Burst", TYPE_WATER, true, },
+  { "Lapras", "G-Max Resonance", TYPE_ICE, true, },
+  { "Snorlax", "G-Max Replenish", TYPE_NORMAL, true, },
+  { "Garbodor", "G-Max Malodor", TYPE_POISON, true, },
+  { "Rillaboom", "G-Max Drum Solo", TYPE_GRASS, true, },
+  { "Cinderace", "G-Max Fireball", TYPE_FIRE, true, },
+  { "Inteleon", "G-Max Hydrosnipe", TYPE_WATER, false, },
+  { "Toxtricity", "G-Max Stun Shock", TYPE_ELECTRIC, true, },
+  { "Duraludon", "G-Max Depletion", TYPE_DRAGON, true, },
+  { "Grimmsnarl", "G-Max Snooze", TYPE_DARK, true, },
+  //{ "Sandaconda", "G-Max Sandblast", TYPE_GROUND, false, },
+  //{ "Appletun", "G-Max Sweetness", TYPE_GRASS, false, },
+  //{ "Flapple", "G-Max Tartness", TYPE_GRASS, false, },
+  //{ "Coalossal", "G-Max Volcality", TYPE_ROCK, false, },
+  //{ "Drednaw", "G-Max Stonesurge", TYPE_WATER, false, },
+  //{ "Orbeetle", "G-Max Gravitas", TYPE_PSYCHIC, false, },
+  //{ "Corviknight", "G-Max Wind Rage", TYPE_FLYING, false, },
+  //{ "Melmetal", "G-Max Meltdown", TYPE_STEEL, false, },
+  //{ "Centiskorch", "G-Max Centiferno", TYPE_FIRE, false, },
+  //{ "Hatterene", "G-Max Smite", TYPE_FAIRY, false, },
+  //{ "Alcremie", "G-Max Finale", TYPE_FAIRY, false, },
+  //{ "Copperajah", "G-Max Steelsurge", TYPE_STEEL, false, },
+  //{ "Urshifu Single Strike", "G-Max One Blow", TYPE_DARK, false, },
+  //{ "Urshifu Rapid Strike", "G-Max Rapid Flow", TYPE_WATER, false, },
+  { "", "", TYPECOUNT, false, },
+};
+
+// each gmax attack is associated with a single species, which can use only
+// that attack. unit tests verify that the species are valid.
+gmaxattack *lookup_gmax_attack(const species &s){
+  for(auto gatk = GMaxAttacks ; gatk->sname.length() ; ++gatk){
+    if(s.name == gatk->sname){
+      return gatk;
+    }
+  }
+  return nullptr;
+}
+
+gmaxattack *gmaxattacks_begin(){
+  return &GMaxAttacks[0];
+}
+
+gmaxattack *gmaxattacks_end(){
+  return &GMaxAttacks[sizeof(GMaxAttacks) / sizeof(*GMaxAttacks) - 1];
+}
