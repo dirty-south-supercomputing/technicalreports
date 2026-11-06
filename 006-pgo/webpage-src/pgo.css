@@ -262,6 +262,7 @@ div.intro {
 
 table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
   margin: 0 1em 1em 1em;
+  background-color: white;
 }
 
 table.fastattacks tr>:nth-child(1) { /* mon pages, attack */
@@ -291,8 +292,8 @@ table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
   padding: 0 0 0 1em;
 }
 
-.monleaguestats { /* mon pages */
-  padding: 0 1em 1em 1em;
+table.monleaguestats { /* mon pages */
+  margin: 0 1em 1em 1em;
 }
 
 .monleaguestats tr>:nth-child(n+2) { /* stats */
@@ -333,6 +334,10 @@ div#ulivs { /* mon page */
 div#mlivs { /* mon page */
   background-color: rgba(255, 208, 208, 0.25);
   overflow: hidden;
+}
+
+table.monivs, table.monleaguestats {
+  background-color: white;
 }
 
 table.monivs tr :nth-child(n+2) {

@@ -27,15 +27,11 @@ void write_navbar(std::ostream &fp, bool par){
   fp << "mon/index.html\">forms</a></li>" << std::endl;
   fp << "<li class=\"inputgroup\">";
   fp << "<select id=\"formselect\">";
-  std::vector<species> smegas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     emit_option(fp, s->name);
     for(const auto &m : s->mforms){
-      smegas.emplace_back(&*s, m);
+      emit_option(fp, m.name);
     }
-  }
-  for(const auto &m : smegas){
-    emit_option(fp, m.name);
   }
   fp << "</select>" << std::endl;
   // implemented by javascript in the footer. we also listen for enter there.
