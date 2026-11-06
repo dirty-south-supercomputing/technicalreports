@@ -1,10 +1,29 @@
 #include "html.h"
 
-static int
-emit_effa(std::ostream &fp, int cpthresh, int cpbound, const species &s){
+struct cmprange {
+  const species *s;
+  double effamin;
+  double effamax;
+
+  friend bool operator<(const cmprange &lhs, const cmprange &rhs){
+    if(lhs.effamax < rhs.effamax){
+      return true;
+    }else if(rhs.effamax < lhs.effamax){
+      return false;
+    }else if(lhs.effamin < rhs.effamin){
+      return true;
+    }else if(rhs.effamin < lhs.effamin){
+      return false;
+    }
+    return false; // equal?
+  }
+};
+
+static void
+calc_effa(std::vector<cmprange> &effas, int cpthresh, int cpbound, const species *s){
   unsigned ivcount;
-  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
-  float effamin = 0, effamax = 0;
+  auto sets = order_ivs(*s, cpbound, statscmp_gmean, &ivcount);
+  cmprange crange{s, 0, 0};
   bool threshmet = false;
   for(unsigned i = 0 ; i < ivcount ; ++i){
     const auto &st = sets[i];
@@ -15,36 +34,47 @@ emit_effa(std::ostream &fp, int cpthresh, int cpbound, const species &s){
       continue;
     }
     threshmet = true;
-    if(st.effa < effamin || effamin == 0){
-      effamin = st.effa;
+    if(st.effa < crange.effamin || crange.effamin == 0){
+      crange.effamin = st.effa;
     }
-    if(st.effa > effamax){
-      effamax = st.effa;
+    if(st.effa > crange.effamax){
+      crange.effamax = st.effa;
     }
   }
   if(threshmet){
-    fp << "<tr>";
-    fp << "<td>" << effamin << "</td><td>" << effamax << "</td><td>" << s.name << "</td>";
-    fp << "</tr>" << std::endl;
+    effas.push_back(crange);
   }
   delete[] sets;
-  return 0;
+}
+
+static void
+emit_effa(std::ostream &fp, const cmprange &crange){
+  fp << "<tr>";
+  fp << "<td>" << crange.effamin << "</td><td>" << crange.effamax << "</td><td>" << crange.s->name << "</td>";
+  fp << "</tr>" << std::endl;
 }
 
 static int
-effa_table(std::ostream &fp, int cpthresh, int cpbound){
-  fp << "<table><tr><th>Low</th><th>High</th><th>Form</th></tr>" << std::endl;
+cmp_graph(std::ostream &fp, int cpthresh, int cpbound){
+  std::vector<cmprange> effas;
   std::vector<species> megas;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    emit_effa(fp, cpthresh, cpbound, *s);
+    calc_effa(effas, cpthresh, cpbound, &*s);
     for(const auto &m : s->mforms){
       megas.emplace_back(&*s, m);
     }
   }
   for(const auto &m : megas){
-    emit_effa(fp, cpthresh, cpbound, m);
+    calc_effa(effas, cpthresh, cpbound, &m);
   }
-  fp << "</table>" << std::endl;
+  std::sort(effas.begin(), effas.end());
+  fp << "<svg role=\"img\" aria-label=\"CMP chart\"";
+  fp << " xmlns=\"http://www.w3.org/2000/svg\"";
+  fp << " stroke=\"black\" fill=\"green\">" << std::endl;
+  for(const auto &e : effas){
+    emit_effa(fp, e);
+  }
+  fp << "</svg>" << std::endl;
   return 0;
 }
 
@@ -54,18 +84,18 @@ usage(const char *argv0){
   exit(EXIT_FAILURE);
 }
 
-// generate three tables of eff_a ranges for each form, for graphing
+// generate SVG CMP graph for a league
 int main(int argc, const char **argv){
   if(argc != 2){
     usage(argv[0]);
   }
   int ret;
   if(strcmp(argv[1], "GL") == 0){
-    ret = effa_table(std::cout, 0, GLCPCAP);
+    ret = cmp_graph(std::cout, 0, GLCPCAP);
   }else if(strcmp(argv[1], "UL") == 0){
-    ret = effa_table(std::cout, GLCPCAP, ULCPCAP);
+    ret = cmp_graph(std::cout, GLCPCAP, ULCPCAP);
   }else if(strcmp(argv[1], "ML") == 0){
-    ret = effa_table(std::cout, ULCPCAP, 0);
+    ret = cmp_graph(std::cout, ULCPCAP, 0);
   }else{
     usage(argv[0]);
   }

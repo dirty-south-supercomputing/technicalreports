@@ -146,8 +146,9 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(SCARDEXAMPLETEX) $(EVOLNONEWATTACKS) $(LEVELS40TEX) $(LEVELS80TEX) \
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
 	$(LEVELUPGRADESTEX) $(WEAK1TEX) $(WEAK2TEX)
-GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .html, $(addprefix effa, GL UL ML)) $(addsuffix .png, $(CIRCO) $(DOT))) \
-	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
+SVGS:=$(addsuffix .svg, $(addprefix $(OUT)/effa, GL UL ML))
+GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)) \
+	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST)))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
@@ -209,7 +210,7 @@ $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(OUT)/footer.h
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
 		-e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
-$(WEB)/mon/index.html: $(OUT)/wspec
+$(WEB)/mon/index.html: $(OUT)/wspec $(SVGS)
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
@@ -503,7 +504,7 @@ $(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
-$(OUT)/effa%.html: $(OUT)/effa $(HTMLOBJ) $(PGOOBJ)
+$(OUT)/effa%.svg: $(OUT)/effa $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$< $* > $@
 
