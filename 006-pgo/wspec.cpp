@@ -872,6 +872,7 @@ write_mon_page(const species &s){
       return -1;
     }
   }
+  // we *do* write a page for each gmax form, even though they're battle-only
   const auto *g = lookup_gmax_attack(s);
   if(g){
     write_mon_page({&s, *g});
@@ -879,7 +880,7 @@ write_mon_page(const species &s){
   return 0;
 }
 
-static void
+static int
 write_summary(std::ostream &fp, const species &s){
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
@@ -915,10 +916,8 @@ write_summary(std::ostream &fp, const species &s){
   for(const auto &m : s.mforms){
     write_summary(fp, {&s, m});
   }
-  const auto *g = lookup_gmax_attack(s);
-  if(g){
-    write_summary(fp, {&s, *g});
-  }
+  // gmax is a battle-only form. don't list them.
+  return 0;
 }
 
 // assume we're in the target directory
@@ -942,7 +941,12 @@ write_index(){
   fp << "<img src=\"../images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
   fp << "</th><th>Sprite</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    write_summary(fp, *s);
+    if(write_summary(fp, *s)){
+      return -1;
+    }
+    if(write_mon_page(*s)){
+      return -1;
+    }
   }
   fp << "</table>" << std::endl;
   write_footer_and_close(fp, true);
@@ -967,11 +971,6 @@ int main(int argc, const char **argv){
   }
   if(write_index()){
     return EXIT_FAILURE;
-  }
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(write_mon_page(*s)){
-      return EXIT_FAILURE;
-    }
   }
   return EXIT_SUCCESS;
 }
