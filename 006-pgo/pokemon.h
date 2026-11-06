@@ -38,7 +38,7 @@ inline pgo_types_e& operator++(pgo_types_e& pt){ // ugh
   return pt;
 }
 
-float cpm(int halflevel);
+double cpm(int halflevel);
 
 constexpr unsigned MINCP = 10; // minimum combat power
 
