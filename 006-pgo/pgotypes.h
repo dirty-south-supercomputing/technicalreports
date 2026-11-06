@@ -198,14 +198,14 @@ lookup_gmax_attack(const species &s){
   return nullptr;
 }
 
-static inline float
+static inline double
 calc_eff_a_raw(unsigned atk, unsigned halflevel){
   return cpm(halflevel) * atk;
 }
 
 // calculate eff_a and apply the shadow bonus, if appropriate.
 // provide mod_a as atk.
-static inline float
+static inline double
 calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
   auto effa = calc_eff_a_raw(atk, halflevel);
   if(isshadow){
@@ -216,7 +216,7 @@ calc_eff_a(unsigned atk, unsigned halflevel, bool isshadow){
 
 // calculate eff_d and apply the shadow penalty, if appropriate.
 // provide mod_d as def.
-static inline float
+static inline double
 calc_eff_d(unsigned def, unsigned halflevel, bool isshadow){
   auto s = cpm(halflevel) * def;
   if(isshadow){
@@ -297,7 +297,7 @@ struct stats {
     init(S, Hlevel, IA, ID, IS, Shadow);
   }
 
-  float bulk() const {
+  double bulk() const {
     return sqrt(mhp * effd);
   }
 
@@ -386,8 +386,8 @@ static inline int
 statscmp_bulk(const void *vst1, const void *vst2){
   const stats *st1 = static_cast<const stats*>(vst1);
   const stats *st2 = static_cast<const stats*>(vst2);
-  const float b1 = st1->bulk();
-  const float b2 = st2->bulk();
+  const auto b1 = st1->bulk();
+  const auto b2 = st2->bulk();
   return b1 < b2 ? -1 : b1 > b2 ? 1 : 0;
 }
 
@@ -525,7 +525,7 @@ calc_fitfxn(double(*fitfxn)(const stats *), const species &s,
 // optimize on comparable fitness function subject to floor
 static int
 update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
-              unsigned is, unsigned hl, float floor, float* minfit,
+              unsigned is, unsigned hl, double floor, double* minfit,
               bool isshadow, double(*fitfxn)(const stats *)){
   stats **prev = osets;
   stats *cur;
@@ -575,9 +575,9 @@ update_optset(stats** osets, const species &s, unsigned ia, unsigned id,
 // with a CP less than or equal to cpceil and fitness function greater than or
 // equal to floor.
 static stats *
-find_optimal_set(const species &s, int cpceil, float floor, bool isshadow, double(*fitfxn)(const stats *)){
+find_optimal_set(const species &s, int cpceil, double floor, bool isshadow, double(*fitfxn)(const stats *)){
   stats* optsets = nullptr;
-  float minfit = -1;
+  double minfit = -1;
   for(int iva = 0 ; iva < 16 ; ++iva){
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
