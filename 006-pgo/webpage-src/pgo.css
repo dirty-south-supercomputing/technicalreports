@@ -375,8 +375,21 @@ table#evolworse tr>:nth-child(5) { /* relationship */
   padding: 0 0 0 1em;
 }
 
-#philo {
-  background-color: #ddd;
+table#gmaxen {
+  margin: 0 1em 0 1em;
+}
+
+table#gmaxen tr>:nth-child(1) { /* type */
+  text-align: center;
+}
+
+table#gmaxen tr>:nth-child(2) { /* form */
+  text-align: left;
+}
+
+table#gmaxen tr>:nth-child(3) { /* attack */
+  text-align: left;
+  padding: 0 0 0 1em;
 }
 
 /* type effectiveness colors */

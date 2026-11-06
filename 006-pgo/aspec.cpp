@@ -389,7 +389,7 @@ write_max_atk_users(std::ostream &fp, pgo_types_e type){
 
 // assume we're in the target directory
 static int
-write_max_atk_page(const char *name, pgo_types_e atype){
+write_max_atk_page(const std::string &name, pgo_types_e atype){
   std::string encname;
   encode_name(name, encname);
   std::ofstream fp(encname + ".html");
@@ -405,6 +405,37 @@ write_max_atk_page(const char *name, pgo_types_e atype){
   write_atk_teffect(fp, atype);
   // FIXME write_atk_max(fp, a);
   write_max_atk_users(fp, atype);
+  write_footer_and_close(fp, true);
+  return 0;
+}
+
+static int
+write_gmax_atk_page(const gmaxattack *gm){
+  std::string encname;
+  encode_name(gm->name, encname);
+  std::ofstream fp(encname + ".html");
+  if(!fp.is_open()){
+    std::cerr << "error opening " << encname << ".html for writing" << std::endl;
+    return -1;
+  }
+  const auto *s = lookup_species(gm->sname);
+  if(!s){
+    throw std::exception();
+  }
+  fp << std::setprecision(3);
+  write_header(fp, gm->name, true);
+  fp << "<h1>";
+  html_type(fp, gm->type, true);
+  fp << gm->name << " (" << tname_capitalized(gm->type) << " G-Max attack)</h1>" << std::endl;
+  write_atk_teffect(fp, gm->type);
+  // FIXME write_atk_max(fp, a);
+  fp << "<h2>users</h2>" << std::endl;
+  bool stab = has_stab_raw_p(*s, gm->type);
+  bool printed = false;
+  write_atk_user(fp, s->name, printed, false, stab);
+  if(printed){
+    fp << "</div>" << std::endl;
+  }
   write_footer_and_close(fp, true);
   return 0;
 }
@@ -490,5 +521,10 @@ int main(int argc, const char **argv){
     }
   }
   // do gmax attacks; dogs and eternatus must be merged into their attack pages! FIXME
+  for(const auto *g = gmaxattacks_begin() ; g != gmaxattacks_end() ; ++g){
+    if(write_gmax_atk_page(g)){
+      return EXIT_FAILURE;
+    }
+  }
   return EXIT_SUCCESS;
 }

@@ -7,19 +7,12 @@
   <link rel="stylesheet" type="text/css" href="pgo.css">
   <style>
     .col2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(30em, 1fr)) ; row-gap: 1px; }
-    #maxtypes { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ; row-gap: 1px; }
-    #updated { padding: 0 0 0 2em; }
+    #maxtypes { display: grid; grid-template-columns: repeat(auto-fit, minmax(20em, 1fr)) ; row-gap: 1px; }
     ul { display: grid; row-gap: 1px; }
   </style>
 </head>
 BODYSTART
   <h1>dank's pgo tables</h1>
-  <div class="intro" id="philo">
-    <b>philosophy of this site:</b><br/>
-    the greatest joy of Pokémon GO is collecting and assembling dominant GBL teams.<br/>
-    blindly copying the teams of others is the act of an automaton.<br/>
-    “rankings” offered elsewhere hide the complexity that makes PGO interesting.<br/>
-    i hope to provide data and quantitative analysis useful to the independent Trainer.</div>
   <h2>pokémon</h2>
   <ul class="col2">
     <li><a href="mon/index.html">All forms</a></li>
@@ -118,11 +111,11 @@ BODYSTART
   </ul>
   <h2>max</h2>
   <ul class="col2">
-    <li><a href="dynas-all.html">Max attackers (all types) sorted by power</a></li>
     <li><a href="dynacost.html">Max Battle entry costs</a></li>
     <li><a href="dynafast.html">Max attackers (all types) fast attacks</a></li>
+    <li><a href="gmax.html">Gigantamax forms</a></li>
   </ul>
-  <h3>Max attackers by Max attack type, sorted by power</h3>
+  <h3>Max attackers by Max attack type</h3>
   <ul id="maxtypes" style="list-style-type: none;">
     <li><a href="dynas-bug.html">Bug</a></li>
     <li><a href="dynas-dark.html">Dark</a></li>
@@ -142,6 +135,7 @@ BODYSTART
     <li><a href="dynas-rock.html">Rock</a></li>
     <li><a href="dynas-steel.html">Steel</a></li>
     <li><a href="dynas-water.html">Water</a></li>
+    <li><a href="dynas-all.html">All (unified)</a></li>
   </ul>
   <h2>articles</h2>
   <ul>
