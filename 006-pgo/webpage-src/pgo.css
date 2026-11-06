@@ -248,6 +248,10 @@ div.intro {
   padding: 0 1em 0 1em;
 }
 
+.atkusertext { /* user section on attack pages */
+  padding: 0 1em 1em 1em;
+}
+
 #basics { /* mon pages */
   padding: 0 1em 0 1em;
 }

@@ -281,7 +281,7 @@ write_atk_user(std::ostream &fp, const std::string &s, bool &printed, bool elite
   if(printed){
     fp << ", ";
   }else{
-    fp << "<div class=\"atktext\">";
+    fp << "<div class=\"atkusertext\">";
     printed = true;
   }
   if(elitetm){
