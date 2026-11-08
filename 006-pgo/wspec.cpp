@@ -74,8 +74,8 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
   fp << "</table>" << std::endl;
 }
 
-// returns true if we ought bother emitting the next highest table, false
-// otherwise. we return true if any cp in the solution set equals the cpbound.
+// returns true if we ought bother emitting the next highest table, false otherwise
+// (we return true if any cp in the solution set equals the cpbound).
 static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
                const char *leagueshort, int cpbound,
@@ -133,8 +133,25 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   }while(grank);
   fp << "</table></details>" << std::endl;
   delete[] sets;
-  //emit_cmp_graph(fp, cmps);
+  //fp << "<img class=\"cmpgraph\" type=\"image/svg+xml\" width=\"100\" heigh=\"800\" src=\"graphs/cmp" << leagueshort << ".svg\"/>";
   return ret;
+}
+
+static int
+write_cmp_graph(const std::string &leagueshort, const std::vector<cmprange> &cmps){
+  std::string fname = "graphs/cmp" + leagueshort + ".svg";
+  std::ofstream fp(fname);
+  if(!fp.is_open()){
+    std::cerr << "error opening " << fname << " for writing" << std::endl;
+    return -1;
+  }
+  emit_cmp_graph(fp, cmps);
+  fp.close();
+  if(fp.rdstate() & std::ofstream::failbit){
+    std::cerr << "error writing to file" << std::endl;
+    return -1;
+  }
+  return 0;
 }
 
 static void
@@ -677,11 +694,15 @@ emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols, bool &first){
       fp << "<td colspan=\"" << ep.col - 1 << "\"/>";
     }
     std::string padding{};
+    std::string longpadding{};
     if(first){
-      padding = "style=\"padding: 1em 0 0 0\" ";
+      longpadding = "style=\"padding: 1em 0 0 0;";
+      padding = "style=\"padding: 1em 0 0 0\"";
       first = false;
+    }else{
+      longpadding = "style=\"";
     }
-    fp << "<td " << padding << "style=\"text-align:right\">" << ep.s->from << "</td>";
+    fp << "<td " << longpadding << "text-align:right\">" << ep.s->from << "</td>";
     fp << "<td " << padding << "colspan=\"" << cols - ep.col << "\">";
     fp << " → " << ep.s->name << " costs " << cost << " Candy";
     const auto *needs = species::evolitemstr(ep.s->evolitem);
@@ -929,8 +950,17 @@ write_summary(std::ostream &fp, const species &s){
 static int
 write_index(){
   calc_cmp_graph(cmpsgl, 0, GLCPCAP);
+  if(write_cmp_graph("GL", cmpsgl)){
+    return -1;
+  }
   calc_cmp_graph(cmpsul, GLCPCAP, ULCPCAP);
+  if(write_cmp_graph("UL", cmpsul)){
+    return -1;
+  }
   calc_cmp_graph(cmpsml, ULCPCAP, 0);
+  if(write_cmp_graph("ML", cmpsml)){
+    return -1;
+  }
   std::ofstream fp("index.html");
   if(!fp.is_open()){
     std::cerr << "error opening index.html for writing" << std::endl;

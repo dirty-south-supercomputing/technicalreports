@@ -374,7 +374,7 @@ void calc_cmp_graph(std::vector<cmprange> &effas, int cpthresh, int cpbound){
 void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas){
   fp << "<svg role=\"img\" aria-label=\"CMP chart\"";
   fp << " xmlns=\"http://www.w3.org/2000/svg\"";
-  fp << " viewBox=\"0 0 300 100\"";
+  fp << " viewBox=\"0 0 300 " << effas.size() * 20 << "\"";
   fp << " style=\"background-color: #dddddd;\">" << std::endl;
   fp << "<style>";
   fp << ".tlabel { font: 1em serif; }";
