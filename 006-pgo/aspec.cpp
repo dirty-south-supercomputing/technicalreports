@@ -8,7 +8,7 @@ write_atk_3x3_row(std::ostream &fp, const attack &a, bool stab, int buff, float 
   if(stab){
     fp << "✓";
   }else{
-    fp << "🗙";
+    fp << "🛇";
   }
   fp << "</td><td>";
   if(buff){
@@ -107,24 +107,65 @@ write_atk_3x3(std::ostream &fp, const attack &a){
 }
 
 static void
+emit_option(std::ostream &fp, bool op){
+  fp << "<td>";
+  if(op){
+    fp << "✓";
+  }else{
+    fp << "🛇";
+  }
+  fp << "</td>";
+}
+
+static void
+write_matk_Nx1_row(std::ostream &fp, const unsigned *plevs, unsigned level,
+                   bool stab, bool wboost, bool bblade){
+  if(bblade && level >= MAXATK_MAX_LEVEL){
+    std::cerr << "dynamax cannon cannot be used with behemoth blade" << std::endl;
+    throw std::exception();
+  }
+  fp << "<tr>";
+  emit_option(fp, stab);
+  emit_option(fp, wboost);
+  emit_option(fp, bblade);
+  fp << "<td>";
+  fp << level + 1;
+  fp << "</td>";
+  float power = plevs[level];
+  if(stab){
+    power = calc_stab(power);
+  }
+  if(wboost){
+    power = calc_wboost(power);
+  }
+  if(bblade){
+    power = power * BBLADE_MAX_BOOST;
+  }
+  for(int te = -3 ; te < 3 ; ++te){
+    fp << "<td class=\"" << css[te + 3] << "\">" << (power * type_effectiveness_mult(te)) << "</td>";
+  }
+  fp << "</tr>" << std::endl;
+}
+
+static void
 write_atk_Nx1_row(std::ostream &fp, const attack &a, float megabonus, bool stab, bool wboost, float plusmult){
   fp << "<tr><td>";
   if(stab){
     fp << "✓";
   }else{
-    fp << "🗙";
+    fp << "🛇";
   }
   fp << "</td><td>";
   if(wboost){
     fp << "✓";
   }else{
-    fp << "🗙";
+    fp << "🛇";
   }
   fp << "</td><td>";
   if(megabonus){
     fp << (megabonus * 100) << '%';
   }else{
-    fp << "🗙";
+    fp << "🛇";
   }
   fp << "</td>";
   float energy = a.energyraid;
@@ -214,57 +255,59 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   }
 }
 
-/*static void
-write_atk_max(std::ostream &fp, const attack &a){
+static void
+write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, pgo_types_e type){
   fp << "<h2>Max stats</h2>" << std::endl;
-  bool plusatk = plus_attack_p(a);
-  int maxlevel = 3;
   fp << "<div class=\"atktext\">";
-  fp << " " << a.name << " is a " << a.animdur << "-turn Nx1 move, and";
-  if(charged_attack_p(a)){
-    fp << " consumes " << a.energyraid;
-  }else{
-    fp << " generates " << a.energyraid;
-  }
-  fp << " energy (";
-  fp << a.energyraid / static_cast<float>(a.animdur);
-  fp << " EPT). It is boosted by ";
-  if(a.type != TYPECOUNT){
-    html_weather(fp, a.type, TYPECOUNT, true);
+  fp << " " << name << " is boosted by ";
+  if(type != TYPECOUNT){
+    html_weather(fp, type, TYPECOUNT, true);
   }else{
     fp << "various"; // hidden power strikes again
   }
-  fp << " weather.</div><br/>";
-  for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
-    float plusmult = 1.0 + 0.1 * meglevel;
-    emit_plus_header(fp, meglevel, plusmult);
-    if(fast_attack_p(a)){
-      fp << "<table class=\"fattackNx1\">" << std::endl;
-    }else{
-      fp << "<table class=\"cattackNx1\">" << std::endl;
-    }
-    fp << "<tr>";
-    fp << "<th>S?</th>";
-    fp << "<th>W?</th>";
-    for(int te = -3 ; te < 3 ; ++te){
-      fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
-    }
-    if(charged_attack_p(a)){
-      for(int te = -3 ; te < 3 ; ++te){
-        fp << "<th class=\"" << css[te + 3] << "\">PPE<sub>" << te << "</sub></th>";
-      }
-    }
-    for(int te = -3 ; te < 3 ; ++te){
-      fp << "<th class=\"" << css[te + 3] << "\">PPT<sub>" << te << "</sub></th>";
-    }
-    fp << "</tr>" << std::endl;
-    write_atk_Nx1_row(fp, a, false, false, plusmult);
-    write_atk_Nx1_row(fp, a, true, false, plusmult);
-    write_atk_Nx1_row(fp, a, false, true, plusmult);
-    write_atk_Nx1_row(fp, a, true, true, plusmult);
-    fp << "</table>" << std::endl;
+  fp << " weather. The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts ";
+  fp << " Max Level by one. The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts ";
+  fp << " power by 5%. Only one Adventure Effect can be active at a time.</div><br/>";
+  fp << "<table class=\"mattackNx1\">" << std::endl;
+  fp << "<tr>";
+  fp << "<th>S?</th>";
+  fp << "<th>W?</th>";
+  fp << "<th>BB?</th>";
+  fp << "<th>Level</th>";
+  for(int te = -3 ; te < 3 ; ++te){
+    fp << "<th class=\"" << css[te + 3] << "\">P<sub>" << te << "</sub></th>";
   }
-}*/
+  fp << "</tr>" << std::endl;
+  write_matk_Nx1_row(fp, power, 0, false, false, false);
+  write_matk_Nx1_row(fp, power, 0, false, false, true);
+  write_matk_Nx1_row(fp, power, 1, false, false, false);
+  write_matk_Nx1_row(fp, power, 0, true, false, false);
+  write_matk_Nx1_row(fp, power, 0, false, true, false);
+  write_matk_Nx1_row(fp, power, 1, false, false, true);
+  write_matk_Nx1_row(fp, power, 0, true, false, true);
+  write_matk_Nx1_row(fp, power, 0, false, true, true);
+  write_matk_Nx1_row(fp, power, 2, false, false, false);
+  write_matk_Nx1_row(fp, power, 2, false, false, true);
+  write_matk_Nx1_row(fp, power, 1, true, false, false);
+  write_matk_Nx1_row(fp, power, 1, false, true, false);
+  write_matk_Nx1_row(fp, power, 0, true, true, false);
+  write_matk_Nx1_row(fp, power, 1, true, false, true);
+  write_matk_Nx1_row(fp, power, 1, false, true, true);
+  write_matk_Nx1_row(fp, power, 0, true, true, true);
+  write_matk_Nx1_row(fp, power, 2, true, false, false);
+  write_matk_Nx1_row(fp, power, 2, false, true, false);
+  write_matk_Nx1_row(fp, power, 3, false, false, false);
+  write_matk_Nx1_row(fp, power, 2, true, false, true);
+  write_matk_Nx1_row(fp, power, 2, false, true, true);
+  write_matk_Nx1_row(fp, power, 1, true, true, false);
+  write_matk_Nx1_row(fp, power, 1, true, true, true);
+  write_matk_Nx1_row(fp, power, 2, true, true, false);
+  write_matk_Nx1_row(fp, power, 3, true, false, false);
+  write_matk_Nx1_row(fp, power, 3, false, true, false);
+  write_matk_Nx1_row(fp, power, 2, true, true, true);
+  write_matk_Nx1_row(fp, power, 3, true, true, false);
+  fp << "</table>" << std::endl;
+}
 
 static void
 write_atk_effects(std::ostream &fp, const attack &a){
@@ -397,13 +440,13 @@ write_max_atk_page(const std::string &name, pgo_types_e atype){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;
     return -1;
   }
-  fp << std::setprecision(3);
+  fp << std::setprecision(4);
   write_header(fp, name, true);
   fp << "<h1>";
   html_type(fp, atype, true);
-  fp << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
+  fp << " " << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, atype);
-  // FIXME write_atk_max(fp, a);
+  write_atk_max(fp, name, DMAX_POWER, atype);
   write_max_atk_users(fp, atype);
   write_footer_and_close(fp, true);
   return 0;
@@ -418,13 +461,13 @@ write_gmax_atk_page(const gmaxattack *gm){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;
     return -1;
   }
-  fp << std::setprecision(3);
+  fp << std::setprecision(4);
   write_header(fp, gm->name, true);
   fp << "<h1>";
   html_type(fp, gm->type, true);
   fp << gm->name << " (" << tname_capitalized(gm->type) << " G-Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, gm->type);
-  // FIXME write_atk_max(fp, a);
+  write_atk_max(fp, gm->name, GMAX_POWER, gm->type);
   fp << "<h2>users</h2>" << std::endl;
   const auto *s = lookup_species(gm->sname);
   if(!s){
@@ -457,19 +500,19 @@ write_atk_page(const attack &a){
   if(a.type != TYPECOUNT){
     html_type(fp, a.type, true);
   }
-  fp << a.name << " (";
+  fp << " " << a.name << " (";
   if(a.type != TYPECOUNT){
     fp << tname_capitalized(a.type);
   }else{
     fp << "Various"; // ugh, hidden power
   }
   if(fast_attack_p(a)){
-    fp << " fast)";
+    fp << " fast attack)";
   }else{
     if(plus_attack_p(a)){
       fp << " super mega";
     }
-    fp << " charged)";
+    fp << " charged attack)";
   }
   fp << "</h1>" << std::endl;
   write_atk_effects(fp, a);

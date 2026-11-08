@@ -69,43 +69,43 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par){
   }
 }
 
-void emit_cand_html(const candidate& c, unsigned maxp, bool unified){
+void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified){
   auto rp = c.powprod();
-  std::cout << "<tr>";
-  std::cout << "<td>";
+  fp << "<tr>";
+  fp << "<td>";
   html_types(c.s->t1, c.s->t2, false);
-  std::cout << "</td>";
-  std::cout << "<td>";
-  link_to_name(std::cout, c.s->name, true);
+  fp << "</td>";
+  fp << "<td>";
+  link_to_name(fp, c.s->name, true);
   if(!unified){
-    std::cout << " L";
-    emit_halflevel_as_level(std::cout, c.hlevel);
+    fp << " L";
+    emit_halflevel_as_level(fp, c.hlevel);
   }
-  std::cout << "</td>";
-  std::cout << "<td>";
+  fp << "</td>";
+  fp << "<td>";
   html_type(c.atype, false);
-  std::cout << ' ';
+  fp << ' ';
   // we do not attempt to indicate that a max attack is based on a legacy attack,
   // since it is possible that more than one fast attack enable the same max
   // attack, and they could have different legacy status (this happens with e.g.
   // dynamax machamp, which could have max knuckle from karate chop or counter).
   if(!c.hasstab){
-    std::cout << "<i>";
+    fp << "<i>";
   }
-  link_to_attack(std::cout, c.aname, true, false);
+  link_to_attack(fp, c.aname, true, false);
   if(!unified){
-    std::cout << " L" << c.maxlevel;
+    fp << " L" << c.maxlevel;
   }
   if(!c.hasstab){
-    std::cout << "</i>";
+    fp << "</i>";
   }
-  std::cout << "</td>";
-  std::cout << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>"; // relative
-  std::cout << std::setprecision(0) << std::fixed;
+  fp << "</td>";
+  fp << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>"; // relative
+  fp << std::setprecision(0) << std::fixed;
   for(int i = -3 ; i < 3 ; ++i){
-    std::cout << "<td class=\"" << css[i + 3] << "\">" << (rp * type_effectiveness_mult(i)) << "</td>";
+    fp << "<td class=\"" << css[i + 3] << "\">" << (rp * type_effectiveness_mult(i)) << "</td>";
   }
-  std::cout << "</tr>" << std::endl;
+  fp << "</tr>" << std::endl;
 }
 
 static void
@@ -385,4 +385,62 @@ void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas){
     ++i;
   }
   fp << "</svg>" << std::endl;
+}
+
+// build up candidates for the given species attacking something having typing
+// ttype1+ttype2
+static void
+max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
+                     std::vector<candidate>& cands){
+  if(has_dmax(s)){
+    bool ts[TYPECOUNT]{};
+    for(const auto a : s.attacks){
+      if(fast_attack_p(*a)){
+        auto at = dmax_attack_type(a);
+        if(ts[at]){
+          continue;
+        }
+        ts[at] = true;
+        bool stab = has_stab_raw_p(s, at);
+        auto teffect = type_effectiveness(at, ttype1, ttype2);
+        add_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect, true);
+      }
+    }
+  }
+  auto gma = lookup_gmax_attack(s);
+  if(gma){
+    bool stab = has_stab_raw_p(s, gma->type);
+    float teffect = type_effectiveness(gma->type, ttype1, ttype2);
+    add_candidate(cands, &s, gma->name, true, stab, gma->type, teffect, true);
+  }
+}
+
+int max_counters(std::ostream &fp, const species &s){
+  std::vector<candidate> cands;
+  for(auto a = species_begin() ; a != species_end() ; ++a){
+    max_counters_species(*a, s.t1, s.t2, cands);
+  }
+  float teffect = type_effectiveness(TYPE_STEEL, s.t1, s.t2);
+  const auto zac = lookup_species("Zacian Crowned Sword");
+  if(!zac){
+    return -1;
+  }
+  add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, teffect, true);
+  const auto zam = lookup_species("Zamazenta Crowned Shield");
+  if(!zam){
+    return -1;
+  }
+  add_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, teffect, true);
+  const auto e = lookup_species("Eternatus");
+  if(!e){
+    return -1;
+  }
+  teffect = type_effectiveness(TYPE_DRAGON, s.t1, s.t2);
+  add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
+  std::sort(cands.begin(), cands.end(), std::greater<>());
+  auto maxp = cands.begin()->powprod();
+  for(const auto& c : cands){
+    emit_cand_html(fp, c, maxp, true);
+  }
+  return 0;
 }

@@ -140,6 +140,10 @@ table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* stats */
   text-align: center;
 }
 
+table.cattack3x3 tr>:nth-child(1) { /* S? */
+  text-align: center;
+}
+
 table.cattack3x3 tr>:nth-child(2) { /* SE */
   text-align: center;
 }
@@ -147,6 +151,10 @@ table.cattack3x3 tr>:nth-child(2) { /* SE */
 table.cattack3x3 tr>:nth-child(n+3) { /* everything but "S? / SE" */
   text-align: right;
   padding: 0 0 0 1em;
+}
+
+table.fattack3x3 tr>:nth-child(1) { /* S? */
+  text-align: center;
 }
 
 table.fattack3x3 tr>:nth-child(2) { /* SE */
@@ -158,15 +166,44 @@ table.fattack3x3 tr>:nth-child(n+3) { /* P_-3-- */
   padding: 0 0 0 1em;
 }
 
+table.mattackNx1 { /* attack page */
+  margin: 0 1em 0 1em;
+}
+
+table.mattackNx1 tr>:nth-child(1) { /* "S?" */
+  text-align: center;
+}
+
+table.mattackNx1 tr>:nth-child(2) { /* "W?" */
+  text-align: center;
+}
+
+table.mattackNx1 tr>:nth-child(3) { /* "BB?" */
+  text-align: center;
+}
+
+table.mattackNx1 tr>:nth-child(4) { /* level */
+  text-align: center;
+}
+
+table.mattackNx1 tr>:nth-child(n+5) { /* everything after boosts */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 table.cattackNx1 { /* attack page */
   margin: 0 1em 0 1em;
 }
 
-table.cattackNx1 tr>:nth-child(3) { /* "W?" */
+table.cattackNx1 tr>:nth-child(1) { /* "S?" */
   text-align: center;
 }
 
-table.cattackNx1 tr>:nth-child(3) { /* "Mega" */
+table.cattackNx1 tr>:nth-child(2) { /* "W?" */
+  text-align: center;
+}
+
+table.cattackNx1 tr>:nth-child(3) { /* "M" */
   text-align: center;
 }
 
@@ -179,11 +216,15 @@ table.fattackNx1 { /* attack page */
   margin: 0 1em 0 1em;
 }
 
+table.fattackNx1 tr>:nth-child(1) { /* "S?" */
+  text-align: center;
+}
+
 table.fattackNx1 tr>:nth-child(2) { /* "W?" */
   text-align: center;
 }
 
-table.fattackNx1 tr>:nth-child(3) { /* "Mega" */
+table.fattackNx1 tr>:nth-child(3) { /* "M" */
   text-align: center;
 }
 

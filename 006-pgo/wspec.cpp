@@ -536,7 +536,7 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
       }
     }
     if(printed == 0){
-      fp << "🗙";
+      fp << "🛇";
     }
     fp << "</td>";
   }
@@ -843,7 +843,7 @@ write_evol(std::ostream &fp, const species &s){
   std::vector<const species*> fam;
   get_family(base, fam, store);
   if(fam.size() < 2){ // should never be zero
-    fp << "div id=\"transitions\">None</div>";
+    fp << "None</div>";
     return;
   }
   unsigned length;
@@ -857,8 +857,12 @@ write_evol(std::ostream &fp, const species &s){
 
 static void
 write_counters(std::ostream &fp, const species &s){
-  //fp << "<h2>counters</h2>" << std::endl;
+  fp << "<div id=\"counterssec\">";
+  fp << "<h2>counters</h2>" << std::endl;
+  fp << "<h3>best Max attackers</h3>" << std::endl;
+  //max_counters(fp, s);
   // FIXME do we want counters for each league? and gmax?
+  fp << "</div>" << std::endl;
 }
 
 static int

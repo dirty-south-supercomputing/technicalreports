@@ -22,8 +22,9 @@
 // level, where "level 4" is 450 and 550 for dmax and gmax/eternatus, respectively.
 // behemoth bash affects all max moves (even zacian and zamazenta), giving them
 // a 5% boost. only one can be in effect at a time.
-extern const unsigned GMAX_POWER[4];
-extern const unsigned DMAX_POWER[4];
+constexpr unsigned MAXATK_MAX_LEVEL = 4;
+extern const unsigned GMAX_POWER[MAXATK_MAX_LEVEL];
+extern const unsigned DMAX_POWER[MAXATK_MAX_LEVEL];
 
 constexpr unsigned TEAMSIZE = 3;
 constexpr int MAXIVELEM = 15;

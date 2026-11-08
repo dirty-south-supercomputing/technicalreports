@@ -1118,4 +1118,9 @@ struct species {
 std::vector<species>::const_iterator species_begin(void);
 std::vector<species>::const_iterator species_end(void);
 
+// the behemoth blade adventure effect boosts max battle attacks by 5%, and
+// raid attacks by 10%.
+constexpr float BBLADE_MAX_BOOST = 1.05;
+constexpr float BBLADE_RAID_BOOST = 1.1;
+
 #endif
