@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <algorithm>
 
+static std::vector<cmprange> cmpsgl, cmpsul, cmpsml;
+
 static void
 write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   std::string enc;
@@ -76,7 +78,8 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
 // otherwise. we return true if any cp in the solution set equals the cpbound.
 static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
-               const char *leagueshort, int cpbound){
+               const char *leagueshort, int cpbound,
+               const std::vector<cmprange> &cmps){
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
   fp << "<h2>" << league << "</h2>" << std::endl;
@@ -130,22 +133,23 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   }while(grank);
   fp << "</table></details>" << std::endl;
   delete[] sets;
+  //emit_cmp_graph(fp, cmps);
   return ret;
 }
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
   fp << "<div id=\"glivs\">";
-  bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
+  bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP, cmpsgl);
   fp << "</div>" << std::endl;
   if(donext){
     fp << "<div id=\"ulivs\">";
-    donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
+    donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP, cmpsul);
     fp << "</div>" << std::endl;
   }
   if(donext){
     fp << "<div id=\"mlivs\">";
-    donext = write_iv_table(fp, s, "master league", "ML", 0);
+    donext = write_iv_table(fp, s, "master league", "ML", 0, cmpsml);
     fp << "</div>" << std::endl;
   }
 }
@@ -882,6 +886,7 @@ write_mon_page(const species &s){
 
 static int
 write_summary(std::ostream &fp, const species &s){
+  std::cerr << "Writing " << s.name << "..." << std::endl;
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
   html_type(fp, s.t1, true);
@@ -923,6 +928,9 @@ write_summary(std::ostream &fp, const species &s){
 // assume we're in the target directory
 static int
 write_index(){
+  calc_cmp_graph(cmpsgl, 0, GLCPCAP);
+  calc_cmp_graph(cmpsul, GLCPCAP, ULCPCAP);
+  calc_cmp_graph(cmpsml, ULCPCAP, 0);
   std::ofstream fp("index.html");
   if(!fp.is_open()){
     std::cerr << "error opening index.html for writing" << std::endl;

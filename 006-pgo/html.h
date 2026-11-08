@@ -189,4 +189,39 @@ struct timetofirst {
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
 void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
 
+struct cmprange {
+  std::string sname;
+  double effamin;
+  double effamax;
+
+  void emit(std::ostream &fp, int index) const {
+    auto y = index * 20;
+    auto h = 10;
+    auto r = effamax - effamin;
+    fp << "<rect x=\"" << effamax << "\" y=\"" << y << "\" height=\"" << h << "px\" width=\"" << r << "\"/>" << std::endl;
+    auto textx = effamax + r + 10;
+    auto texty = y - h;
+    fp << "<text class=\"tlabel\" y=\"" << texty << "\" x=\"";
+    fp << textx << "\">";
+    fp << sname;
+    fp << "</text>" << std::endl;
+  }
+
+  friend bool operator<(const cmprange &lhs, const cmprange &rhs){
+    if(lhs.effamax < rhs.effamax){
+      return true;
+    }else if(rhs.effamax < lhs.effamax){
+      return false;
+    }else if(lhs.effamin < rhs.effamin){
+      return true;
+    }else if(rhs.effamin < lhs.effamin){
+      return false;
+    }
+    return false; // equal?
+  }
+};
+
+void calc_cmp_graph(std::vector<cmprange> &effas, int cpthresh, int cpbound);
+void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas);
+
 #endif

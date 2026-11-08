@@ -147,8 +147,8 @@ GENTEX:=$(DUALTYPESTEX) $(SPECIESTEX) $(MEGATEX) \
 	$(FHUNDOGLTEX) $(FHUNDOULTEX) $(FHUNDOMLTEX) $(DYNATEX) \
 	$(LEVELUPGRADESTEX) $(WEAK1TEX) $(WEAK2TEX)
 SVGS:=$(addsuffix .svg, $(addprefix $(OUT)/effa, GL UL ML))
-GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT)) \
-	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST)))
+GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
+	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))

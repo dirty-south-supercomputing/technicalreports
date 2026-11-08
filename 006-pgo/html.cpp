@@ -328,3 +328,61 @@ void typeset::emit(std::ostream &fp, bool pdir) const {
   emitcore(fp, pdir);
   fp << "</tr>" << std::endl;
 }
+
+static void
+calc_cmp_ranges(std::vector<cmprange> &effas, int cpthresh, int cpbound, const species &s){
+  unsigned ivcount;
+  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
+  cmprange crange{s.name, 0, 0};
+  bool threshmet = false;
+  for(unsigned i = 0 ; i < ivcount ; ++i){
+    const auto &st = sets[i];
+    if(st.shadow){
+      continue;
+    }
+    if(st.cp < cpthresh){
+      continue;
+    }
+    threshmet = true;
+    if(st.effa < crange.effamin || crange.effamin == 0){
+      crange.effamin = st.effa;
+    }
+    if(st.effa > crange.effamax){
+      crange.effamax = st.effa;
+    }
+  }
+  if(threshmet){
+    effas.push_back(crange);
+  }
+  delete[] sets;
+}
+
+void calc_cmp_graph(std::vector<cmprange> &effas, int cpthresh, int cpbound){
+  std::vector<species> megas;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(pvp_banned_p(*s)){
+      continue;
+    }
+    calc_cmp_ranges(effas, cpthresh, cpbound, *s);
+    for(const auto &m : s->mforms){
+      calc_cmp_ranges(effas, cpthresh, cpbound, {&*s, m});
+    }
+  }
+  std::sort(effas.begin(), effas.end());
+}
+
+void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas){
+  fp << "<svg role=\"img\" aria-label=\"CMP chart\"";
+  fp << " xmlns=\"http://www.w3.org/2000/svg\"";
+  fp << " viewBox=\"0 0 300 100\"";
+  fp << " style=\"background-color: #dddddd;\">" << std::endl;
+  fp << "<style>";
+  fp << ".tlabel { font: 1em serif; }";
+  fp << "</style>" << std::endl;
+  int i = 0;
+  for(const auto &e : effas){
+    e.emit(fp, i);
+    ++i;
+  }
+  fp << "</svg>" << std::endl;
+}
