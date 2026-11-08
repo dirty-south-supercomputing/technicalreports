@@ -513,6 +513,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
 
 static int
 write_atk_effectiveness(std::ostream &fp, const species &s){
+  fp << "<div id=\"atkeffectiveness\">" << std::endl;
   fp << "<h2>attack effectiveness</h2>" << std::endl;
   fp << "<table id=\"atkeffect\">" << std::endl;
   fp << "<tr>";
@@ -541,13 +542,14 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
   }
   fp << "</tr>" << std::endl;
   fp << "</table>" << std::endl;
+  fp << "</div>" << std::endl;
   return 0;
 }
 
 static int
 write_stats(std::ostream &fp, const species &s){
-  fp << "<h2>basics</h2>" << std::endl;
   fp << "<div id=\"basics\">";
+  fp << "<h2>basics</h2>" << std::endl;
   fp << "Attack: " << s.atk << "<br/>";
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
@@ -834,21 +836,23 @@ emit_evol_table(std::ostream &fp, const std::string &us,
 
 static void
 write_evol(std::ostream &fp, const species &s){
+  fp << "<div id=\"transitions\">";
   fp << "<h2>transitions</h2>" << std::endl;
   const auto base = get_base_evolution(s);
   std::forward_list<species> store;
   std::vector<const species*> fam;
   get_family(base, fam, store);
   if(fam.size() < 2){ // should never be zero
-    fp << "<div id=\"transitions\">None</div>";
+    fp << "div id=\"transitions\">None</div>";
     return;
   }
   unsigned length;
   unsigned forkcolumn, forkidx;
   auto rows = family_geom(fam, length, forkcolumn, forkidx);
-  fp << "<table id=\"transitions\">" << std::endl;
+  fp << "<table id=\"evoltable\">" << std::endl;
   emit_evol_table(fp, s.name, fam, rows, length, forkcolumn, forkidx);
   fp << "</table>" << std::endl;
+  fp << "</div>" << std::endl;
 }
 
 static void

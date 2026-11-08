@@ -243,10 +243,6 @@ div.intro {
   padding: 1em;
 }
 
-.montext { /* generic text on mon pages */
-  padding: 0em 1em 0 1em;
-}
-
 .atktext { /* generic text on attack pages */
   padding: 0 1em 0 1em;
 }
@@ -255,20 +251,8 @@ div.intro {
   padding: 0 1em 1em 1em;
 }
 
-#basics { /* mon pages */
-  padding: 0 1em 0 1em;
-}
-
-#transitions { /* mon pages */
-  padding: 0 1em 0 1em;
-}
-
-#atkeffect { /* mon pages */
-  padding: 0 1em 0 1em;
-}
-
 table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
-  margin: 0 1em 1em 1em;
+  margin: 0 0 1em 0;
   background-color: white;
 }
 
@@ -300,7 +284,7 @@ table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
 }
 
 table.monleaguestats { /* mon pages */
-  margin: 0 1em 1em 1em;
+  margin: 0 0 1em 0;
 }
 
 .monleaguestats tr>:nth-child(n+2) { /* stats */
@@ -308,39 +292,56 @@ table.monleaguestats { /* mon pages */
   padding: 0 0 0 1em;
 }
 
-.monivcontainer { /* mon page, per league */
-  padding: 0 0 0 1em;
-}
-
 /* overflow: hidden is necessary to eliminate blank space between these divs */
 div#atks3x3 { /* mon page */
   background-color: rgba(255, 255, 208, 0.25);
+  padding: 0 1em 0 1em;
   overflow: hidden;
 }
 
 div#atksNx1 { /* mon page */
   background-color: rgba(208, 255, 255, 0.25);
+  padding: 0 1em 0 1em;
   overflow: hidden;
 }
 
 div#asets { /* mon page */
   background-color: rgba(255, 208, 255, 0.25);
+  padding: 0 1em 0 1em;
   overflow: hidden;
 }
 
 div#glivs { /* mon page */
   background-color: rgba(208, 255, 208, 0.25);
+  padding: 0 1em 0 1em;
   overflow: hidden;
 }
 
 div#ulivs { /* mon page */
+  padding: 0 1em 0 1em;
   background-color: rgba(208, 208, 255, 0.25);
   overflow: hidden;
 }
 
 div#mlivs { /* mon page */
+  padding: 0 1em 0 1em;
   background-color: rgba(255, 208, 208, 0.25);
   overflow: hidden;
+}
+
+div#basics { /* mon pages */
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#transitions { /* mon pages */
+  overflow: hidden;
+  padding: 0 1em 0 1em;
+}
+
+div#atkeffectiveness { /* mon pages */
+  overflow: hidden;
+  padding: 0 1em 0 1em;
 }
 
 table.monivs, table.monleaguestats {
