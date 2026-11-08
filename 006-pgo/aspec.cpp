@@ -484,6 +484,17 @@ write_gmax_atk_page(const gmaxattack *gm){
   return 0;
 }
 
+// several standard charged attacks can also be used as max attacks.
+// handle them as special cases.
+static void
+write_freak_matks(std::ostream &fp, const attack &a){
+  if(a.name == "Behemoth Blade" || a.name == "Behemoth Bash"){
+    write_atk_max(fp, a.name, DMAX_POWER, a.type);
+  }else if(a.name == "Dynamax Cannon"){
+    write_atk_max(fp, a.name, GMAX_POWER, a.type);
+  }
+}
+
 // assume we're in the target directory
 static int
 write_atk_page(const attack &a){
@@ -494,7 +505,7 @@ write_atk_page(const attack &a){
     std::cerr << "error opening " << encname << ".html for writing" << std::endl;
     return -1;
   }
-  fp << std::setprecision(3);
+  fp << std::setprecision(4);
   write_header(fp, a.name, true);
   fp << "<h1>";
   if(a.type != TYPECOUNT){
@@ -521,6 +532,7 @@ write_atk_page(const attack &a){
   }
   write_atk_3x3(fp, a);
   write_atk_Nx1(fp, a);
+  write_freak_matks(fp, a);
   // FIXME moar crap ... similar attacks, graphs
   write_atk_users(fp, a);
   write_footer_and_close(fp, true);
