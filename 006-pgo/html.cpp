@@ -285,6 +285,7 @@ void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
   if(!learnpop.size() && !learnpopm.size()){
     return;
   }
+  fp << "<tr>";
   emitcore(fp, pdir);
   if(learnpopm.size()){
     fp << "<td>" << learnpopm.size() << " ";
@@ -309,7 +310,7 @@ void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
       link_to_name(fp, s->name, pdir);
     }
   }
-  fp << "</td>";
+  fp << "</td></tr>";
 }
 
 void typeset::emitcore(std::ostream &fp, bool pdir) const {

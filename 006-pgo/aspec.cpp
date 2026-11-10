@@ -258,7 +258,7 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
 static void
 write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, pgo_types_e type){
   fp << "<h2>Max stats</h2>" << std::endl;
-  fp << "<div class=\"atktext\">";
+  fp << "<p class=\"atktext\">";
   fp << " " << name << " is boosted by ";
   if(type != TYPECOUNT){
     html_weather(fp, type, TYPECOUNT, true);
@@ -267,7 +267,7 @@ write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, 
   }
   fp << " weather.<br/>The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts ";
   fp << " Max Level by one.<br/>The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts ";
-  fp << " power by 5%.<br/>Only one Adventure Effect can be active at a time.</div><br/>";
+  fp << " power by 5%.<br/>Only one Adventure Effect can be active at a time.</p><br/>";
   fp << "<table class=\"mattackNx1\">" << std::endl;
   fp << "<tr>";
   fp << "<th>S?</th>";

@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all extra preview testsimul clean test testdb testsimullong web graphs
+.PHONY: all extra preview testsimul clean test testdb testsimullong testweb web graphs
 .DEFAULT_GOAL:=web
 
 CPP:=clang++
@@ -518,10 +518,13 @@ $(OUT)/%.o: %.cpp pgotypes.h html.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 
-test: $(TEAMBUILDER) testsimul testdb
+test: $(TEAMBUILDER) testsimul testdb testweb
 	$< metagross -u 0-0-0@1 'zen headbutt' psychic
 	$< metagross -g 0-4-15@29 'zen headbutt' psychic
 	$< 'shadow metagross' 15-15-15@99 'zen headbutt' 'psychic/meteor mash'
+
+testweb: $(filter %.html, $(WEBPAGES))
+	for i in $^ ; do tidy -e $$i || { echo "$$i failed" >&2 ; break ; } ; done
 
 testdb: $(TESTDB)
 	$(<)

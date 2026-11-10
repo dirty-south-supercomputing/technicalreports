@@ -277,9 +277,12 @@ img.monradar {
   font-size: 1.5em;
 }
 
-div.intro {
+p {
   text-align: justify;
   text-justify: inter-word;
+}
+
+p.intro {
   font-size: large;
   padding: 1em;
 }
