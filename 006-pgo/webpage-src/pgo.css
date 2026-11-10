@@ -49,6 +49,11 @@ img.type {
   vertical-align: top;
 }
 
+img.sprite {
+  max-width: 100%;
+  height: auto;
+}
+
 table.evenshade {
   border-collapse: collapse;
 }

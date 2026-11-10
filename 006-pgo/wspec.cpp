@@ -876,7 +876,7 @@ write_mon_page(const species &s){
   }
   fp << std::setprecision(3);
   write_header(fp, s.name + " in Pokémon GO", true);
-  fp << "<img src=\"../images/mon/" << encname << ".png\" height=\"512\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
+  fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << ' ';
   html_types(fp, s.t1, s.t2, true);
   fp << "</h1>" << std::endl;

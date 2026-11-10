@@ -112,12 +112,6 @@ void candidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir
   }
   fp << "</td>";
   fp << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>"; // relative
-  fp << std::setprecision(0) << std::fixed;
-  for(int i = -3 ; i < 3 ; ++i){
-    if(teffective == type_effectiveness_mult(i)){
-      fp << "<td>" << rp << "</td>";
-    }
-  }
   fp << "</tr>" << std::endl;
 }
 
@@ -524,7 +518,6 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   fp << "<th>Form</th>";
   fp << "<th>Attack</th>";
   fp << "<th>Relative</th>";
-  fp << "<th>Power</th>";
   fp << "</tr>";
   auto maxp = cands.begin()->powprod();
   unsigned emitted = 0;

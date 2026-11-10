@@ -1472,4 +1472,7 @@ typing_weather_boosts(pgo_types_e t1, pgo_types_e t2, pgo_weather_t &w1, pgo_wea
 // using candy (including all megas).
 unsigned evolcost(const species &s);
 
+// emit a string fit for a latex file label
+int label_string(const char *s);
+
 #endif

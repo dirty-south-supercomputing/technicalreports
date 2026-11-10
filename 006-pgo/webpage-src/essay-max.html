@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Megas in Pokémon GO GBL</title>
+  <link rel="stylesheet" type="text/css" href="pgo.css">
+  <style>
+    .p { padding: 1em; }
+  </style>
+</head>
+BODYSTART
+<h1>What's important for Max Battles?</h1>
+<p><b>tl;dr: evolve your shit and get type advantage</b></p>
+<p>For a given Max Battle opponent, we can affect the following variables:</p>
+<ul>
+  <li>Pokémon species and form</li>
+  <li>Individual Pokémon properties (IVs and level)</li>
+  <li>Fast attack (fast attack implies Max Attack)</li>
+  <li>Charged attack (even if we have two, we'll probably only use one, if any)</li>
+</ul>
+<p>What's most important for successfully winning a Max Battle?
+It's easiest to determine our best Max Attackers, assuming that they never get hit,
+ and are only using their Max Attacks (i.e. that they are only used during the Max Attack phase).
+ We can leave aside everything related to defense and stamina—the only
+ important characteristics are Eff<sub>A</sub> and the Max Attack.
+ Eff<sub>A</sub> is determined by adding the form's base ATK stat to the ATK IV,
+ and multiplying by the Combat Power Multiplier, a function of level.
+ All Max Attacks have the same power, as do all G-Max Attacks:</p>
+<table>
+  <tr><th/><th>Max Level 1</th><th>2/1+DC</th><th>3/2+DC</th><th>3+DC</th></tr>
+  <tr><td>Max</td><td>250</td><td>300</td><td>350</td><td>450</td></tr>
+  <tr><td>G-Max</td><td>350</td><td>400</td><td>450</td><td>550</td></tr>
+</table>
+<h2>fully evolve your Pokémon; don't use Shuckle</h2>
+ The lowest base ATK capable of Max Attacks is Shuckle, with 17. 
+ The highest is <a href="mon/ZacianCrownedSword.html">Crowned Sword Zacian</a>, with 332.
+ Assuming IV<sub>A</sub> of 15, 347 is more than 10x the power of shameless outlier <a href="mon/Shuckle.html">Shuckle's</a> 32.
+ Nothing else one can do comes close to such a difference. 
+ <a href="mon/Gyarados.html">Gyarados</a> with 237 (+15 = 252) has 5.72x the raw power of poor unevolved <a href="mon/Magikarp.html">Magikarp</a> with 29 (+15 = 44)
+ At this time (2026-11), no Max-capable Pokémon has a higher ATK than its <i>fully evolved</i>
+  form, so always ensure your Max Attackers are fully evolved, and never use Shuckle.
+ Considering only fully evolved forms, our lowest ATK is <a href="mon/Blissey.html">Blissey</a>, with 129.
+ Crowned Sword Zacian is now only a 2.4x the power of Blissey, less than the 2.56x
+  multiplier possible for a type effectiveness of +2.
+  This is an extreme example, of course; a more representative one might be the <a href="mon/Rhyhorn.html">Rhyhorn</a> family.
+  <a href="mon/Rhydon.html">Rhydon</a> is a 1.58x multiplier over Rhyhorn; <a href="mon/Rhyperior.html">Rhyperior</a> is in turn about 1.09x as powerful as Rhydon
+  (a 1.72x multiplier over Rhyhorn).
+ All else being equal, you want Pokémon from the top half of <a href="dynas-all.html">this list</a>.
+<h2>it's type effectiveness, stupid</h2>
+<p>That's right: all else being equal, Blissey hitting for neutral effectiveness
+  throws more damage per Max Attack than Crowned Sword Zacian's mighty Behemoth Blade
+  at a type effectiveness of -2.
+A level 50 Blissey with a perfect 15 IV<sub>A</sub> having a Max Level of 3 but hitting for effectiveness of -2
+  throws <i>significantly</i> less damage than a level 20 Blissey with a mere 10 IV<sub>A</sub> having a Max Level of 1 but
+  achieving neutral effectiveness.
+Two levels of type effectiveness difference correspond to a 2.56x multiplier; a single
+ level is a 1.6x multiplier.
+A Level 1 Max Attack with +1 type effectiveness is equal to a Level 2 G-Max Attack with neutral effectiveness.
+A Level 1 Max Attack with +2 type effectiveness is stronger than a Level 3 G-Max Attack <i>with <a href="attacks/DynamaxCannon.html">Dynamax Cannon</a>
+  in effect</i> but with neutral effectiveness.
+A single level of type effectiveness is 3x the boost of STAB.</p>
+<h2>level, max level, and g-max</h2>
+<p>Level 50 is about a 1.41x multiplier over Level 20.
+Level 40 is about a 1.32x multiplier over same, and level 30 about 1.22x.
+Similar boosts are available by raising your attack's Max Level.
+A Max Attack at Max Level 3 is exactly 1.4x as strong as Level 1, almost
+ the same difference as promoting from level 20 to level 50 (at a significant
+ savings in Stardust, Candy, and Candy XL).
+A G-Max Attack at Max Level 3 is about 1.29x as strong as Level 1,
+ similar to the difference between level 20 and level 40,
+ while costing no Stardust and less Candy (though some Candy XL).
+Max Level 2 to 3 is about a 1.17x multiplier; 1 to 2 is exactly 1.2x.
+G-Max 3 is a 1.13x multiplier over 2, which is a 1.14x multiplier over 1.
+If Dynamax Cannon is in effect, it's as if the Max Level increased by 1,
+ except for Max Level 3. 
+Max Level 3 plus Dynamax Cannon is a 1.8x multiplier over Max Level 1.
+For G-Max, the multiplier is about 1.57x over Max Level 1—still formidable!
+Remember that Dynamax Cannon does not affect
+<a href="mon/ZacianCrownedSword.html">Zacian Crowned Sword</a>
+nor
+<a href="mon/ZamazenaCrownedShield.html">Zamazenta Crowned Shield</a>.
+G-Max Level 1 is a 1.4x multiplier over regular Max Attacks at Max Level 1.
+The G-Max bonus decreases as the Max Level rises, but a G-Max at Max Level 3
+ is still 1.28x as powerful as a Max Attack at Max Level 3.
+</p>
+<h2>STAB and weather boost</h2>
+<p>STAB and weather boost are good for a 1.2x multiplier each.
+By all means, get them if you can, but certainly don't sacrifice type advantage for them.
+All G-Max Pokémon have STAB for their G-Max attack.
+<h2>IV<sub>A</sub></h2>
+<p>The least important consideration. For Blissey, an IV<sub>A</sub> of 15 is a 1.03x
+ multiplier over an IV<sub>A</sub> of 10.
+For Crowned Sword Zacian, the multiplier for 15 vs. 10 is 1.01x.
+Max-capable Pokémon cannot be caught with an IV<sub>A</sub> less than 10, but this
+ could result from a trade.
+In that case, the largest multiplier due IVs would be Blissey with a 1.12x multiplier
+ over an IV<sub>A</sub> of 0.</p>
+On Zacian, 15 vs. 0 is a 1.05x multiplier.
+If you're losing Max Battles, it's not because of your IVs.
+</p>
+FOOTER

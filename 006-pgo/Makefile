@@ -34,7 +34,7 @@ WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional \
-						essay-ivs essay-megas-gbl \
+						essay-ivs essay-max essay-megas-gbl \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \

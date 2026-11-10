@@ -34,8 +34,7 @@ escape_abbr_string(const char *s){
 }
 
 // make a string fit for a label.
-static int
-label_string(const char *s){
+int label_string(const char *s){
   for(const char* curs = s ; *curs ; ++curs){
     if(*curs == '%'){
       continue;
@@ -209,9 +208,9 @@ print_optimal_latex(const species &sp){
 }
 
 static void
-print_cattack_latex(const species &s, const attack* a, float power,
+print_cattack_latex(const species &s, const attack* a, double power,
                     const char* itb, const char* ite){
-  const float dpe = power / -a->energytrain;
+  const auto dpe = power / -a->energytrain;
   if(exclusive_attack_p(s, a)){
     printf(" \\textbf{%s%s%s} & & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} &",
         itb, a->name.c_str(), ite, itb, power, ite, itb, a->energytrain, ite, itb, dpe, ite);
@@ -242,7 +241,7 @@ print_cattack_latex(const species &s, const attack* a, float power,
 
 static void
 print_attack_latex(const species &s, const attack* a){
-  float power = calc_eff_power(s, a);
+  auto power = calc_eff_power(s, a);
   print_type(a->type);
   if(a->type == TYPECOUNT){
     printf("\\hspace{1em}");
@@ -257,8 +256,8 @@ print_attack_latex(const species &s, const attack* a){
   if(charged_attack_p(*a)){
     print_cattack_latex(s, a, power, itb, ite);
   }else{ // fast attacks
-    const float dpt = power / a->turns;
-    const float ept = static_cast<float>(a->energytrain) / a->turns;
+    const auto dpt = power / a->turns;
+    const auto ept = static_cast<float>(a->energytrain) / a->turns;
     if(exclusive_attack_p(s, a)){
       printf(" \\textbf{%s%s%s} & \\textbf{%s%u%s} & \\textbf{%s%g%s} & \\textbf{%s%d%s} & \\textbf{%s%.2f%s} & \\textbf{%s%.2f%s}\\\\\n",
           itb, a->name.c_str(), ite, itb, a->turns, ite,
@@ -303,7 +302,7 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
   if(s.shiny){
     printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shiny.png}}");
   }
-  float avg = calc_amean(s.atk, s.def, s.sta);
+  double avg = calc_amean(s.atk, s.def, s.sta);
   printf("\\hfill%u %u %u %.1f %.1f}", s.atk, s.def, s.sta, avg, calc_gmean(s.atk, s.def, s.sta));
   // background image is zoomed and flipped at low opacity
   printf(",interior style={fill overzoom image=images/mon/");
@@ -342,8 +341,8 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
         }else if(!fast_attack_p(*lhs) && fast_attack_p(*rhs)){
           return false;
         }
-        float aratio = calc_eff_power(s, lhs);
-        float bratio = calc_eff_power(s, rhs);
+        auto aratio = calc_eff_power(s, lhs);
+        auto bratio = calc_eff_power(s, rhs);
         if(fast_attack_p(*lhs)){
           aratio /= lhs->turns;
           bratio /= rhs->turns;
@@ -398,9 +397,9 @@ void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform
     printf("\\tcbsubtitle{Shadow ");
     escape_string(s.name.c_str());
     printf("\\hfill{}");
-    const float atk = s.atk * 6 / 5.0;
-    const float def = s.def * 5 / 6.0;
-    const float savg = calc_amean(atk, def, s.sta);
+    const auto atk = s.atk * 6 / 5.0;
+    const auto def = s.def * 5 / 6.0;
+    const auto savg = calc_amean(atk, def, s.sta);
     // we don't show geometric mean as it'll always be the same as the non-shadow
     // form. instead, show delta for arithmetic mean.
     printf("%.1f %.1f %u %.1f ", atk, def, s.sta, savg);
