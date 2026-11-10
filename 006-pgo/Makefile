@@ -67,7 +67,6 @@ PPTVST:=$(OUT)/pptvst
 EVOLWORSE:=$(OUT)/evolworse
 MOSTPOWER:=$(OUT)/mostpower
 DYNAS:=$(OUT)/dynas
-ANTIDMAX:=$(OUT)/antidmax
 PAIRS:=$(OUT)/pairs
 EPTVST:=$(OUT)/eptvst
 ATKTYPES:=$(OUT)/attacktypes
@@ -159,7 +158,7 @@ preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
 
 all: $(TEAMBUILDER) $(CALCULATOR) \
-	$(MOSTPOWER) $(PDF) $(SIMUL) $(ANTIDMAX) $(NOSHINY) $(NOSHADOW) \
+	$(MOSTPOWER) $(PDF) $(SIMUL) $(NOSHINY) $(NOSHADOW) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 extra: all $(OPTSTATSPDF) $(OPTSTATSRADARPDF)

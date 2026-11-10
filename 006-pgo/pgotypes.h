@@ -1403,6 +1403,12 @@ struct candidate {
     return rp * calc_eff_a(s->atk + iva, hlevel, false);
   }
 
+  void emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const;
+
+  // only print a value in that column which corresponds to our typing
+  // effectiveness, and do not scale it.
+  void emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const;
+
   bool operator<(const candidate& r) const {
     if(powprod() < r.powprod()){
       return true;

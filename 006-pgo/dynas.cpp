@@ -98,7 +98,7 @@ int emit_dynamax_unified_table(int count, bool html){
   auto maxp = cands.begin()->powprod();
   for(const auto& c : cands){
     if(html){
-      emit_cand_html(std::cout, c, maxp, true, false);
+      c.emit(std::cout, maxp, true, false);
     }else{
       emit_cand(c, maxp);
     }
@@ -135,7 +135,7 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
   auto maxp = cands.begin()->powprod();
   int emits = 0;
   for(const auto &c : cands){
-    emit_cand_html(std::cout, c, maxp, false, false);
+    c.emit(std::cout, maxp, false, false);
     if(++emits == count){
       break;
     }

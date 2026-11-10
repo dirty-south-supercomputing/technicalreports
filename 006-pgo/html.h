@@ -137,18 +137,17 @@ html_types(pgo_types_e t1, pgo_types_e t2, bool pdir){
   html_types(std::cout, t1, t2, pdir);
 }
 
-void write_header(std::ostream &fp, const std::string &title, bool par = false);
-void write_navbar(std::ostream &fp, bool par = false);
-void write_footer(std::ostream &fp, bool par = false);
-void write_footer_and_close(std::ofstream &fp, bool par = false);
+void write_header(std::ostream &fp, const std::string &title, bool pdir = false);
+void write_navbar(std::ostream &fp, bool pdir = false);
+void write_footer(std::ostream &fp, bool pdir = false);
+void write_footer_and_close(std::ofstream &fp, bool pdir = false);
 
-void html_weather(std::ostream &fp, pgo_weather_t w, bool par = false);
-void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = false);
+void html_weather(std::ostream &fp, pgo_weather_t w, bool pdir = false);
+void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir = false);
 
 extern const std::string css[];
 extern const std::string reversecss[];
 
-void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified, bool pdir);
 void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix);
 
 struct timetofirst {
