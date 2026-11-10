@@ -6,15 +6,15 @@
   <title>Pokémon GO tables</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
   <style>
-    .col2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(30em, 1fr)) ; row-gap: 1px; }
-    #maxtypes { display: grid; grid-template-columns: repeat(auto-fit, minmax(20em, 1fr)) ; row-gap: 1px; }
+    /* max-width capped at 90% to avoid horizontal scrollbar at some widths */
+    .gridcol { max-width: 90%; display: grid; grid-template-columns: repeat(auto-fit, minmax(20em, 1fr)) ; row-gap: 1px; }
     ul { display: grid; row-gap: 1px; }
   </style>
 </head>
 BODYSTART
   <h1>dank's pgo tables</h1>
   <h2>pokémon</h2>
-  <ul class="col2">
+  <ul class="gridcol">
     <li><a href="mon/index.html">All forms</a></li>
     <li><a href="noshiny.html">Forms lacking shiny variants</a></li>
     <li><a href="cpML.html">Forms sorted by max CP</a></li>
@@ -27,7 +27,7 @@ BODYSTART
     <li><a href="regional.html">Regional forms</a></li>
   </ul>
   <h2>types</h2>
-  <ul class="col2">
+  <ul class="gridcol">
     <li><a href="effectiveness.html">Type effectiveness matrix</a></li>
     <li><a href="typesARA.html">Attack types by ARA</a></li>
     <li><a href="typesDRA.html">Typings by DRA</a></li>
@@ -35,7 +35,7 @@ BODYSTART
     <li><a href="coversets.html">Cover sets</a></li>
   </ul>
   <h2>attacks</h2>
-  <ul class="col2">
+  <ul class="gridcol">
     <li>Fast attacks:
       <ul>
         <li><a href="fastattacks3x3.html">3x3 (“PvP”) mode</a></li>
@@ -58,7 +58,7 @@ BODYSTART
     </li>
   </ul>
   <h2>leagues</h2>
-  <ul class="col2">
+  <ul class="gridcol">
     <li>Functionally optimal configs:
       <ul>
         <li><a href="functionalGL.html">Great League</a></li>
@@ -79,7 +79,7 @@ BODYSTART
       </ul>
     </li>
     <li>Great League sorted by…
-      <ul class="col2">
+      <ul class="gridcol">
         <li><a href="gmeanGL.html">Geometric mean</a></li>
         <li><a href="ameanGL.html">Arithmetic mean</a></li>
         <li><a href="bulkGL.html">Bulk</a></li>
@@ -89,7 +89,7 @@ BODYSTART
       </ul>
     </li>
     <li>Ultra League sorted by…
-      <ul class="col2">
+      <ul class="gridcol">
         <li><a href="gmeanUL.html">Geometric mean</a></li>
         <li><a href="ameanUL.html">Arithmetic mean</a></li>
         <li><a href="bulkUL.html">Bulk</a></li>
@@ -99,7 +99,7 @@ BODYSTART
       </ul>
     </li>
     <li>Master League sorted by…
-      <ul class="col2">
+      <ul class="gridcol">
         <li><a href="gmeanML.html">Geometric mean</a></li>
         <li><a href="ameanML.html">Arithmetic mean</a></li>
         <li><a href="bulkML.html">Bulk</a></li>
@@ -110,13 +110,13 @@ BODYSTART
     </li>
   </ul>
   <h2>max</h2>
-  <ul class="col2">
+  <ul class="gridcol">
     <li><a href="dynacost.html">Max Battle entry costs</a></li>
     <li><a href="dynafast.html">Max attackers' fast attacks</a></li>
     <li><a href="gmax.html">Gigantamax forms</a></li>
   </ul>
   <h3>Max attackers by Max attack type</h3>
-  <ul id="maxtypes" style="list-style-type: none;">
+  <ul class="gridcol" style="list-style-type: none;">
     <li><a href="dynas-bug.html">Bug</a></li>
     <li><a href="dynas-dark.html">Dark</a></li>
     <li><a href="dynas-dragon.html">Dragon</a></li>

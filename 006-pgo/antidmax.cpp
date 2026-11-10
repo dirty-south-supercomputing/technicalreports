@@ -15,6 +15,6 @@ int main(int argc, const char** argv){
     std::cerr << "couldn't find form " << argv[1] << std::endl;
     usage(argv[0], EXIT_FAILURE);
   }
-  max_counters(std::cout, s);
+  max_counters(std::cout, *s);
   return EXIT_SUCCESS;
 }

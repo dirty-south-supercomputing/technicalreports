@@ -265,9 +265,9 @@ write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, 
   }else{
     fp << "various"; // hidden power strikes again
   }
-  fp << " weather. The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts ";
-  fp << " Max Level by one. The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts ";
-  fp << " power by 5%. Only one Adventure Effect can be active at a time.</div><br/>";
+  fp << " weather.<br/>The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts ";
+  fp << " Max Level by one.<br/>The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts ";
+  fp << " power by 5%.<br/>Only one Adventure Effect can be active at a time.</div><br/>";
   fp << "<table class=\"mattackNx1\">" << std::endl;
   fp << "<tr>";
   fp << "<th>S?</th>";
