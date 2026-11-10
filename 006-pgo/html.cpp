@@ -47,58 +47,108 @@ void write_header(std::ostream &fp, const std::string &title, bool par){
   write_navbar(fp, par);
 }
 
-void html_weather(std::ostream &fp, pgo_weather_t w, bool par){
+static void
+html_wname(std::ostream &fp, const std::string &wname, bool pdir){
   fp << "<img src=\"";
-  if(par){
+  if(pdir){
     fp << "../";
   }
   fp << "images/";
-  encode_name(fp, WNames[w]);
-  fp << "-icon.png\" class=\"type\" alt=\""<< WNames[w] << "\"/> (";
-  fp << WNames[w] << ")";
+  encode_name(fp, wname);
+  fp << "-icon.png\" class=\"type\" alt=\""<< wname << "\"/>";
 }
 
-void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par){
+void html_weather(std::ostream &fp, pgo_weather_t w, bool pdir){
+  html_wname(fp, WNames[w], pdir);
+  if(WSNames[w]){
+    fp << ' ';
+    html_wname(fp, WSNames[w], pdir);
+  }
+  fp << " (" << WNames[w] << ")";
+}
+
+void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
   pgo_weather_t w1, w2;
   if(t2 == TYPECOUNT){
     t2 = t1;
   }
   typing_weather_boosts(t1, t2, w1, w2);
-  html_weather(fp, w1, par);
+  html_weather(fp, w1, pdir);
   if(w2 != w1){
     fp << ", ";
-    html_weather(fp, w2, par);
+    html_weather(fp, w2, pdir);
   }
 }
 
-void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified, bool pdir){
-  auto rp = c.powprod();
+void candidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+  auto rp = powprod();
   fp << "<tr>";
   fp << "<td>";
-  html_types(fp, c.s->t1, c.s->t2, pdir);
+  html_types(fp, s->t1, s->t2, pdir);
   fp << "</td>";
   fp << "<td>";
-  link_to_name(fp, c.s->name, true, pdir);
+  link_to_name(fp, s->name, true, pdir);
   if(!unified){
     fp << " L";
-    emit_halflevel_as_level(fp, c.hlevel);
+    emit_halflevel_as_level(fp, hlevel);
   }
   fp << "</td>";
   fp << "<td>";
-  html_type(fp, c.atype, pdir);
+  html_type(fp, atype, pdir);
   fp << ' ';
   // we do not attempt to indicate that a max attack is based on a legacy attack,
   // since it is possible that more than one fast attack enable the same max
   // attack, and they could have different legacy status (this happens with e.g.
   // dynamax machamp, which could have max knuckle from karate chop or counter).
-  if(!c.hasstab){
+  if(!hasstab){
     fp << "<i>";
   }
-  link_to_attack(fp, c.aname, true, pdir);
+  link_to_attack(fp, aname, true, pdir);
   if(!unified){
-    fp << " L" << c.maxlevel;
+    fp << " L" << maxlevel;
   }
-  if(!c.hasstab){
+  if(!hasstab){
+    fp << "</i>";
+  }
+  fp << "</td>";
+  fp << std::setprecision(2) << std::fixed << "<td>" << (rp * 100.0 / maxp) << "%</td>"; // relative
+  fp << std::setprecision(0) << std::fixed;
+  for(int i = -3 ; i < 3 ; ++i){
+    if(teffective == type_effectiveness_mult(i)){
+      fp << "<td>" << rp << "</td>";
+    }
+  }
+  fp << "</tr>" << std::endl;
+}
+
+void candidate::emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+  auto rp = powprod();
+  fp << "<tr>";
+  fp << "<td>";
+  html_types(fp, s->t1, s->t2, pdir);
+  fp << "</td>";
+  fp << "<td>";
+  link_to_name(fp, s->name, true, pdir);
+  if(!unified){
+    fp << " L";
+    emit_halflevel_as_level(fp, hlevel);
+  }
+  fp << "</td>";
+  fp << "<td>";
+  html_type(fp, atype, pdir);
+  fp << ' ';
+  // we do not attempt to indicate that a max attack is based on a legacy attack,
+  // since it is possible that more than one fast attack enable the same max
+  // attack, and they could have different legacy status (this happens with e.g.
+  // dynamax machamp, which could have max knuckle from karate chop or counter).
+  if(!hasstab){
+    fp << "<i>";
+  }
+  link_to_attack(fp, aname, true, pdir);
+  if(!unified){
+    fp << " L" << maxlevel;
+  }
+  if(!hasstab){
     fp << "</i>";
   }
   fp << "</td>";
@@ -397,6 +447,25 @@ void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas){
   fp << "</svg>" << std::endl;
 }
 
+// add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
+void add_candidate(std::vector<candidate>& cands, const species* s,
+                   const std::string &aname, bool gmaxpower, bool stab,
+                   pgo_types_e atype, float teffect, bool unified){
+  //const unsigned lowiv = 10;
+  const unsigned highiv = 15;
+  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
+  cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, teffect, atype, 3); // level 50, max level 3
+  /*cands.emplace_back(s, aname, 79, gmaxpower, stab, lowiv); // level 40
+  cands.emplace_back(s, aname, 79, gmaxpower, stab, highiv); // level 40
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, lowiv); // level 30
+  cands.emplace_back(s, aname, 59, gmaxpower, stab, highiv); // level 30
+  cands.emplace_back(s, aname, 39, gmaxpower, stab, lowiv); // level 20*/
+  if(!unified){
+    cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, highiv, teffect, atype, 1); // level 50, max level 1
+    cands.emplace_back(s, aname, 39, gmaxpower, stab, highiv, teffect, atype, 3); // level 20, max level 3
+  }
+}
+
 // build up candidates for the given species attacking something having typing
 // ttype1+ttype2
 static void
@@ -426,6 +495,7 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
 }
 
 int max_counters(std::ostream &fp, const species &s, bool pdir){
+  constexpr unsigned EMITMAX = 50;
   std::vector<candidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
     max_counters_species(*a, s.t1, s.t2, cands);
@@ -448,21 +518,21 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   teffect = type_effectiveness(TYPE_DRAGON, s.t1, s.t2);
   add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
   std::sort(cands.begin(), cands.end(), std::greater<>());
-  fp << "<table class=\"evenshade dynas\">";
+  fp << "<table class=\"evenshade maxcounters\">";
   fp << "<tr>";
   fp << "<th>T</th>";
   fp << "<th>Form</th>";
   fp << "<th>Attack</th>";
   fp << "<th>Relative</th>";
-  for(int i = -3 ; i < -3 + TEFFECTRANGE ; ++i){
-    fp << "<th>";  
-    fp << i;
-    fp << "</th>";
-  }
+  fp << "<th>Power</th>";
   fp << "</tr>";
   auto maxp = cands.begin()->powprod();
+  unsigned emitted = 0;
   for(const auto& c : cands){
-    emit_cand_html(fp, c, maxp, true, pdir);
+    c.emit_p0(fp, maxp, true, pdir);
+    if(++emitted == EMITMAX){
+      break;
+    }
   }
   fp << "</table>";
   return 0;
