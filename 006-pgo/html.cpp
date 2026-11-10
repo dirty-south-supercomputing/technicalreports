@@ -52,7 +52,9 @@ void html_weather(std::ostream &fp, pgo_weather_t w, bool par){
   if(par){
     fp << "../";
   }
-  fp << "images/" << WNames[w] << "-icon.png\" class=\"type\" alt=\""<< WNames[w] << "\"/> (";
+  fp << "images/";
+  encode_name(fp, WNames[w]);
+  fp << "-icon.png\" class=\"type\" alt=\""<< WNames[w] << "\"/> (";
   fp << WNames[w] << ")";
 }
 
