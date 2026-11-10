@@ -71,8 +71,8 @@ write_atk_3x3(std::ostream &fp, const attack &a){
   for(int meglevel = 0 ; meglevel < maxlevel ; ++meglevel){
     float plusmult = 1.0 + 0.1 * meglevel;
     emit_plus_header(fp, meglevel, plusmult);
-    fp << "<div id=\"tablecontainer\">" << std::endl;
-    summarize_buffs_html(fp, a, "<div id=\"stateffect\">Status effect: ", "</div>");
+    fp << "<div class=\"tablecontainer\">" << std::endl;
+    summarize_buffs_html(fp, a, "<div class=\"stateffect\">Status effect: ", "</div>");
     if(fast_attack_p(a)){
       fp << "<table class=\"fattack3x3\">" << std::endl;
     }else{

@@ -264,12 +264,12 @@ img.monradar {
   padding: 0 0 0 1em;
 }
 
-#tablecontainer {
+.tablecontainer { /* attack pages */
   width: fit-content;
   margin: 0 1em 0 1em;
 }
 
-#stateffect { /* attack pages */
+.stateffect { /* attack pages */
   font-weight: bold;
   text-align: center;
   background-color: rgb(16, 16, 16, 1);
