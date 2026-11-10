@@ -524,7 +524,7 @@ test: $(TEAMBUILDER) testsimul testdb testweb
 	$< 'shadow metagross' 15-15-15@99 'zen headbutt' 'psychic/meteor mash'
 
 testweb: $(filter %.html, $(WEBPAGES))
-	for i in $^ ; do tidy -e $$i || { echo "$$i failed" >&2 ; break ; } ; done
+	for i in $^ ; do tidy -eq $$i || { echo "$$i failed" >&2 ; break ; } ; done
 
 testdb: $(TESTDB)
 	$(<)

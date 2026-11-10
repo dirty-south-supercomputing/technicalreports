@@ -15,7 +15,7 @@ BODYSTART
   “How important are IVs?” The answer is somewhere between “immaterial” and “critical”, depending
   on the situation and one's goals.</p>
 <h2>Summary</h2>
-<div class="text">For raids, gyms, and Max battles, higher IVs are always better than lower ones,
+<p class="text">For raids, gyms, and Max battles, higher IVs are always better than lower ones,
   but always less important than base stats, attacks, and typing, and usually less important than
   level. <b>They are unlikely to affect results.</b>
   For CP-bounded Trainer Battles (including GBL's Great and Ultra
@@ -28,16 +28,16 @@ BODYSTART
   critical at higher levels of competition. <b>Even here, they are less important
     than base stats, attack, and typing.</b></p>
 <h2>Part I</h2>
-<div class="text">Understanding IVs requires understanding the damage equation, central to all
+<p class="text">Understanding IVs requires understanding the damage equation, central to all
 combat in Pokémon GO. Each Pokémon has some non-negative integer number of hit
 points. Every attack suffered reduces hit points by some positive integer
 ("damage"). Upon reaching zero, the Pokémon faints.</p>
-<div class="text">Damage is calculated (leaving aside <a href="#note0">some details [0]</a>) by multiplying the
+<p class="text">Damage is calculated (leaving aside <a href="#note0">some details [0]</a>) by multiplying the
 attack's power by type effects and the attacking Pokémon's “effective ATK”,
 then dividing this product by the attacked Pokémon's “effective DEF”.
 The result is truncated (rounded down to the largest integer not greater
 than the input), and added to one.</p>
-<div class="text">Every Pokémon has two three-vectors:
+<p class="text">Every Pokémon has two three-vectors:</p>
 <ul>
 <li>The base vector, common to all Pokémon of a given form. Three positive integers ranging into the hundreds.</li>
 <li>The individual vector, randomly generated for each Pokémon. Three non-negative integers not greater than 15.
@@ -46,14 +46,14 @@ than the input), and added to one.</p>
    This means that for e.g. a floor of twelve, the three values have no influence on one
     another, and the values {12, 13, 14, 15} are equally likely for each.
     A floor of zero allows 4,096 different IVs, all equally likely.</li>
-</ul></p>
-<div class="text">Each vector maps to ATK, DEF, and STA.
+</ul>
+<p class="text">Each vector maps to ATK, DEF, and STA.
 A vector sum yields a single three-vector, the “modified” ATK, DEF, and STA.
 The <a href="#note1">Pokémon's level [1]</a> determines a scalar, the Combat Power Multiplier.
 These range from 0.094 to 0.8453, with higher levels having higher CPM.
 Multiplication of the modified vector by the CPM yields the “effective” ATK, DEF, and STA used by the damage equation.
 We will work with the modified vector with no loss of generality.</p>
-<div class="text">Every <a href="https://nick-black.com/pgo/mon/Greninja.html">Greninja</a> has a base vector of { 223, 152, 176 }.
+<p class="text">Every <a href="https://nick-black.com/pgo/mon/Greninja.html">Greninja</a> has a base vector of { 223, 152, 176 }.
 Depending on the IV, a particular Greninja has a combined vector of { 223–238, 152–167, 176–191 }.
 Every <a href="https://nick-black.com/pgo/mon/Venusaur.html">Venusaur</a> has a base vector of { 198, 189, 190 }.
 Depending on the IV, a particular Venusaur has a combined vector of { 198–213, 189–204, 190–205 }.
@@ -64,29 +64,29 @@ The IV can be interpreted as a bonus: a Greninja can improve its ATK by up to 6.
 Alternatively (and more usefully), we can interpret it as a penalty: relative to an “optimal” Greninja having IV
  {15, 15, 15}, it can lose up to 6.3% of its ATK, 9.0% of its DEF, and 7.9% of its STA.
  This second approach allows a more general sense of “optimal”.</p>
-<div class="text">A higher base stat has less possible change due to IV as a percentage, but this can be misleading.
+<p class="text">A higher base stat has less possible change due to IV as a percentage, but this can be misleading.
 An IV<sub>A</sub> of 15 adds the same amount of power to a base ATK of 100 as it does to 1000:
 This can be seen by distributing the damage numerator's multiplication across the two
 components of the combined stat:<br/><br/>
 D = ((ATK + 15) * C) / DEF<br/>
 = (ATK * C + 15 * C) / DEF<br/>
 = ATK*C / DEF + 15*C / DEF<br/></p>
-<div class="text">For DEF, things are different.
+<p class="text">For DEF, things are different.
 We cannot freely distribute, and a high IV<sub>D</sub> does indeed have more impact with a lower base DEF.
 Let's see this with numbers.
 Assign the defender a combined DEF of 50.
 Assume an attacker with combined ATK of 100, then 1000:<br/><br/>
 (115 / 50) - (100 / 50)   = 0.3<br/>
 (1015 / 50) - (1000 / 50) = 0.3<br/></p>
-<div class="text">The increase from an IV<sub>S</sub> of 15 is constant.
+<p class="text">The increase from an IV<sub>S</sub> of 15 is constant.
 Now assign the attacker a combined ATK of 100.
 Assume a defender with combined DEF of 20, then 50:<br/><br/>
 (100 / 50) - (100 / 65) = 0.46<br/>
 (100 / 20) - (100 / 35) = 2.14<br/>
 </p>
-<div class="text">The lower base DEF benefits much more from the high IV.
+<p class="text">The lower base DEF benefits much more from the high IV.
 This effect is more pronounced as combined ATK grows with respect to combined DEF.</p>
-<div class="text">So IVs are just as important—or unimportant—as base stats.
+<p class="text">So IVs are just as important—or unimportant—as base stats.
 Holding everything else (especially attacks and typing) equal, a Pokémon with
   base stats { 100, 100, 100 } and IV { 15, 15, 15 } differs from some other
   Pokémon with base stats { 115, 115, 155 } and IV { 0, 0, 0 } only in appearance.
@@ -96,11 +96,11 @@ A “garbage” <a href="https://nick-black.com/pgo/mon/Kyogre.html">Kyogre</a>
 A hundo <a href="https://nick-black.com/pgo/mon/Delibird.html">Delibird</a> is
  only slightly less useless than any other Delibird; admire for a moment
  the many mysteries of nature, then transfer that bitch.</p>
-<div class="text">Alright, smoke 'em if you've got 'em.</p>
+<p class="text">Alright, smoke 'em if you've got 'em.</p>
 
 <h2>Part II</h2>
 
-<div class="text">These differences don't necessarily translate to observable results,
+<p class="text">These differences don't necessarily translate to observable results,
  due to the truncation operation.
  Let's take Greninja's ATK range of 223–238, and have it attack a Venusaur with DEF 200 (a IV<sub>D</sub> of eleven).
 Assume all multipliers to be unity (one).
@@ -110,7 +110,7 @@ If the multiplier is eight, the inputs to truncation are 8.92 and 9.52 (a differ
 At a multiplier of nine, the difference in inputs is larger (10.035 and 10.71, a difference of 0.675), yet the
  damage is 11 either way.
  Above a certain multiplier, we'll always see a difference, but it never becomes linear.</p>
-<div class="text">
+<p class="text">
 <b>Q:</b> What are the base statistics?<br/>
 <b>A:</b> Each Pokémon form has three stats, all non-negative integers: ATK, DEF, and STA.<br/>
 <b>E:</b> Greninja is 223 ATK, 152 DEF, 176 STA.<br/>
@@ -215,7 +215,7 @@ Glalie 15-15-13x25 has Eff<sub>A</sub> 118.224, Eff<sub>D</sub> 118.224, and 135
 <b>E:</b> Morpeko 1499 4-5-11: gm: 115.982 am: 117.869. Morpeko 1495 3-8-8: gm: 116.033 am: 117.69<br/>
 </p>
 
-<div class="text">Empoleon 10-13-15 hits 2499 at 32. Empoleon 11-14-15 hits 2497 at 31.5.
+<p class="text">Empoleon 10-13-15 hits 2499 at 32. Empoleon 11-14-15 hits 2497 at 31.5.</p>
 <pre>[schwarzgerat](0) $ out/calculator empoleon 2499 10-13-15
 empoleon atk: 210 def: 186 sta: 197
 cp: 2499 ia: 10 id: 13 is: 15
@@ -224,7 +224,7 @@ matched 2499: 10/13/15 32 Eff<b>A:</b> 163.634 EffD: 148.014 HP: 157 gm: 156.084
 empoleon atk: 210 def: 186 sta: 197
 cp: 2497 ia: 11 id: 14 is: 15
 matched 2497: 11/14/15 31.5 Eff<b>A:</b> 163.714 EffD: 148.157 HP: 157 gm: 156.16 am: 156.29</pre>
-The former has a higher CP, and a higher level, but is otherwise everywhere less than or equal.</p>
+<p>The former has a higher CP, and a higher level, but is otherwise everywhere less than or equal.</p>
 
 <ol start="0">
 <li id="note0">For full details, consult <a href="https://nick-black.com/pgo-quantitative.pdf">Chapter 10</a>.</li>
