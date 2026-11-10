@@ -126,7 +126,7 @@ using pairmap = std::map<std::string, attackset>;
 // the attack's type, except for Hidden Power, which always maps to Normal.
 static inline pgo_types_e
 dmax_attack_type(const attack *a){
-  if(a == &ATK_Hidden_Power){
+  if(a->name == "Hidden Power"){
     return TYPE_NORMAL;
   }
   return a->type;

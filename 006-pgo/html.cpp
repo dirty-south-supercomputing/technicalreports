@@ -71,21 +71,21 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par){
   }
 }
 
-void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified){
+void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified, bool pdir){
   auto rp = c.powprod();
   fp << "<tr>";
   fp << "<td>";
-  html_types(c.s->t1, c.s->t2, false);
+  html_types(fp, c.s->t1, c.s->t2, pdir);
   fp << "</td>";
   fp << "<td>";
-  link_to_name(fp, c.s->name, true);
+  link_to_name(fp, c.s->name, true, pdir);
   if(!unified){
     fp << " L";
     emit_halflevel_as_level(fp, c.hlevel);
   }
   fp << "</td>";
   fp << "<td>";
-  html_type(c.atype, false);
+  html_type(fp, c.atype, pdir);
   fp << ' ';
   // we do not attempt to indicate that a max attack is based on a legacy attack,
   // since it is possible that more than one fast attack enable the same max
@@ -94,7 +94,7 @@ void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool un
   if(!c.hasstab){
     fp << "<i>";
   }
-  link_to_attack(fp, c.aname, true, false);
+  link_to_attack(fp, c.aname, true, pdir);
   if(!unified){
     fp << " L" << c.maxlevel;
   }
@@ -425,7 +425,7 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   }
 }
 
-int max_counters(std::ostream &fp, const species &s){
+int max_counters(std::ostream &fp, const species &s, bool pdir){
   std::vector<candidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
     max_counters_species(*a, s.t1, s.t2, cands);
@@ -448,9 +448,22 @@ int max_counters(std::ostream &fp, const species &s){
   teffect = type_effectiveness(TYPE_DRAGON, s.t1, s.t2);
   add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
   std::sort(cands.begin(), cands.end(), std::greater<>());
+  fp << "<table class=\"evenshade dynas\">";
+  fp << "<tr>";
+  fp << "<th>T</th>";
+  fp << "<th>Form</th>";
+  fp << "<th>Attack</th>";
+  fp << "<th>Relative</th>";
+  for(int i = -3 ; i < -3 + TEFFECTRANGE ; ++i){
+    fp << "<th>";  
+    fp << i;
+    fp << "</th>";
+  }
+  fp << "</tr>";
   auto maxp = cands.begin()->powprod();
   for(const auto& c : cands){
-    emit_cand_html(fp, c, maxp, true);
+    emit_cand_html(fp, c, maxp, true, pdir);
   }
+  fp << "</table>";
   return 0;
 }

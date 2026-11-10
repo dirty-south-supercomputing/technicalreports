@@ -860,7 +860,7 @@ write_counters(std::ostream &fp, const species &s){
   fp << "<div id=\"counterssec\">";
   fp << "<h2>counters</h2>" << std::endl;
   fp << "<h3>best Max attackers</h3>" << std::endl;
-  //max_counters(fp, s);
+  max_counters(fp, s, true);
   // FIXME do we want counters for each league? and gmax?
   fp << "</div>" << std::endl;
 }
@@ -954,21 +954,26 @@ write_summary(std::ostream &fp, const species &s){
   return 0;
 }
 
-// assume we're in the target directory
 static int
-write_index(){
+write_cmp_graphs(void){
   calc_cmp_graph(cmpsgl, 0, GLCPCAP);
   if(write_cmp_graph("GL", cmpsgl)){
-    return -1;
+    return 0;
   }
   calc_cmp_graph(cmpsul, GLCPCAP, ULCPCAP);
   if(write_cmp_graph("UL", cmpsul)){
-    return -1;
+    return 0;
   }
   calc_cmp_graph(cmpsml, ULCPCAP, 0);
   if(write_cmp_graph("ML", cmpsml)){
-    return -1;
+    return 0;
   }
+  return 0;
+}
+
+// assume we're in the target directory
+static int
+write_index(){
   std::ofstream fp("index.html");
   if(!fp.is_open()){
     std::cerr << "error opening index.html for writing" << std::endl;

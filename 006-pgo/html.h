@@ -148,7 +148,7 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool par = f
 extern const std::string css[];
 extern const std::string reversecss[];
 
-void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified);
+void emit_cand_html(std::ostream &fp, const candidate& c, unsigned maxp, bool unified, bool pdir);
 void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix);
 
 struct timetofirst {
@@ -224,6 +224,6 @@ struct cmprange {
 void calc_cmp_graph(std::vector<cmprange> &effas, int cpthresh, int cpbound);
 void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas);
 
-int max_counters(std::ostream &fp, const species &s);
+int max_counters(std::ostream &fp, const species &s, bool pdir);
 
 #endif
