@@ -255,8 +255,11 @@ write_atk_Nx1(std::ostream &fp, const attack &a){
   }
 }
 
+// dcannonapplies ought be true for all max attacks affected by Dynamax Cannon,
+// i.e. everything but Behemoth Bash and Behemoth Blade.
 static void
-write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, pgo_types_e type){
+write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, pgo_types_e type,
+              bool dcannonapplies){
   fp << "<h2>Max stats</h2>" << std::endl;
   fp << "<p class=\"atktext\">";
   fp << " " << name << " is boosted by ";
@@ -265,9 +268,15 @@ write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, 
   }else{
     fp << "various"; // hidden power strikes again
   }
-  fp << " weather.<br/>The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts ";
-  fp << " Max Level by one.<br/>The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts ";
-  fp << " power by 5%.<br/>Only one Adventure Effect can be active at a time.</p><br/>";
+  fp << " weather.<br/>";
+  if(dcannonapplies){
+    fp << " The <a href=\"DynamaxCannon.html\">Dynamax Cannon</a> Adventure Effect boosts Max Level by one.<br/>";
+  }
+  fp << " The <a href=\"BehemothBlade.html\">Behemoth Blade</a> Adventure Effect boosts power in Max Battles by 5%.<br/>";
+  if(dcannonapplies){
+    fp << " Only one Adventure Effect can be active at a time.<br/>";
+  }
+  fp << "</p>";
   fp << "<table class=\"mattackNx1\">" << std::endl;
   fp << "<tr>";
   fp << "<th>S?</th>";
@@ -296,16 +305,22 @@ write_atk_max(std::ostream &fp, const std::string &name, const unsigned *power, 
   write_matk_Nx1_row(fp, power, 0, true, true, true);
   write_matk_Nx1_row(fp, power, 2, true, false, false);
   write_matk_Nx1_row(fp, power, 2, false, true, false);
-  write_matk_Nx1_row(fp, power, 3, false, false, false);
+  if(dcannonapplies){
+    write_matk_Nx1_row(fp, power, 3, false, false, false);
+  }
   write_matk_Nx1_row(fp, power, 2, true, false, true);
   write_matk_Nx1_row(fp, power, 2, false, true, true);
   write_matk_Nx1_row(fp, power, 1, true, true, false);
   write_matk_Nx1_row(fp, power, 1, true, true, true);
   write_matk_Nx1_row(fp, power, 2, true, true, false);
-  write_matk_Nx1_row(fp, power, 3, true, false, false);
-  write_matk_Nx1_row(fp, power, 3, false, true, false);
+  if(dcannonapplies){
+    write_matk_Nx1_row(fp, power, 3, true, false, false);
+    write_matk_Nx1_row(fp, power, 3, false, true, false);
+  }
   write_matk_Nx1_row(fp, power, 2, true, true, true);
-  write_matk_Nx1_row(fp, power, 3, true, true, false);
+  if(dcannonapplies){
+    write_matk_Nx1_row(fp, power, 3, true, true, false);
+  }
   fp << "</table>" << std::endl;
 }
 
@@ -446,7 +461,7 @@ write_max_atk_page(const std::string &name, pgo_types_e atype){
   html_type(fp, atype, true);
   fp << " " << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, atype);
-  write_atk_max(fp, name, DMAX_POWER, atype);
+  write_atk_max(fp, name, DMAX_POWER, atype, true);
   write_max_atk_users(fp, atype);
   write_footer_and_close(fp, true);
   return 0;
@@ -467,7 +482,7 @@ write_gmax_atk_page(const gmaxattack *gm){
   html_type(fp, gm->type, true);
   fp << gm->name << " (" << tname_capitalized(gm->type) << " G-Max attack)</h1>" << std::endl;
   write_atk_teffect(fp, gm->type);
-  write_atk_max(fp, gm->name, GMAX_POWER, gm->type);
+  write_atk_max(fp, gm->name, GMAX_POWER, gm->type, true);
   fp << "<h2>users</h2>" << std::endl;
   const auto *s = lookup_species(gm->sname);
   if(!s){
@@ -489,9 +504,9 @@ write_gmax_atk_page(const gmaxattack *gm){
 static void
 write_freak_matks(std::ostream &fp, const attack &a){
   if(a.name == "Behemoth Blade" || a.name == "Behemoth Bash"){
-    write_atk_max(fp, a.name, DMAX_POWER, a.type);
+    write_atk_max(fp, a.name, DMAX_POWER, a.type, false);
   }else if(a.name == "Dynamax Cannon"){
-    write_atk_max(fp, a.name, GMAX_POWER, a.type);
+    write_atk_max(fp, a.name, GMAX_POWER, a.type, true);
   }
 }
 
