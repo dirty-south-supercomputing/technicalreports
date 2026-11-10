@@ -58,7 +58,7 @@ organize_coversets(std::vector<tarray> &tarrays, std::vector<std::vector<pgo_typ
   setsize /= tarrays.size();
   // bubble each column. first will be bigtype.
   while(bigtype != TYPECOUNT){
-std::cerr << tname_capitalized(bigtype) << " count: " << counts[bigtype] << std::endl;
+//std::cerr << tname_capitalized(bigtype) << " count: " << counts[bigtype] << std::endl;
     for(unsigned i = 0 ; i < tarrays.size() ; ++i){
       if(tarrays[i][bigtype]){
         out[i].push_back(bigtype);
@@ -85,7 +85,7 @@ emit_coversets(std::vector<tarray> &tarrays, const std::string &title, unsigned 
   organize_coversets(tarrays, out);
   if(html){
     std::cout << "<h2>" << title << " (" << pop << " participants)</h2>" << std::endl;
-    std::cout << "<table id=\"coverset\">" << std::endl;
+    std::cout << "<table class=\"coverset\">" << std::endl;
     std::cout << "<tr><th></th><th></th></tr>" << std::endl;
   }else{
     std::cout << "population: " << pop << std::endl;
