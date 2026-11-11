@@ -281,6 +281,8 @@ static const attack ATK_Smack_Down{ "Smack Down", TYPE_ROCK, 11, 8, 3, 0, 0, 0, 
 	13, 7, 2, false, };
 static const attack ATK_Snarl{ "Snarl", TYPE_DARK, 5, 13, 3, 0, 0, 0, 0, 0, 0, 0, 0,
 	11, 13, 2, false, };
+static const attack ATK_Soak{ "Soak", TYPE_WATER, 6, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+	10, 13, 2, false, };
 static const attack ATK_Spark{ "Spark", TYPE_ELECTRIC, 5, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0,
 	4, 6, 1, false, };
 static const attack ATK_Splash{ "Splash", TYPE_WATER, 0, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0,

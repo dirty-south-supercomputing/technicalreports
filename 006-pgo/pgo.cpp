@@ -252,6 +252,7 @@ const std::vector<const attack*> attacks = {
   &ATK_Shadow_Claw,
   &ATK_Smack_Down,
   &ATK_Snarl,
+  &ATK_Soak,
   &ATK_Spark,
   &ATK_Splash,
   &ATK_Steel_Wing,
