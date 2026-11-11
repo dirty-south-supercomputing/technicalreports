@@ -313,6 +313,7 @@ p {
 p.intro {
   font-size: large;
   padding: 1em;
+  max-width: min(40em, 100%);
 }
 
 .atktext { /* generic text on attack pages */
