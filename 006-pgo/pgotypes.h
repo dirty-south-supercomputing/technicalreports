@@ -1276,7 +1276,7 @@ struct typeset {
   }
 
   // only emits if there is a population
-  void emit_with_pop(std::ostream &fp, bool pdir) const;
+  void emit_with_pop(std::ostream &fp, bool subdir, bool pdir) const;
 
   // always emits, and leaves out population info
   void emit(std::ostream &fp, bool pdir) const;

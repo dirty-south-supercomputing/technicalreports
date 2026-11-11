@@ -327,7 +327,7 @@ void write_footer_and_close(std::ofstream &fp, bool par){
   }
 }
 
-void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
+void typeset::emit_with_pop(std::ostream &fp, bool subdir, bool pdir) const {
   if(!learnpop.size() && !learnpopm.size()){
     return;
   }
@@ -342,7 +342,7 @@ void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
       }else{
         printed = true;
       }
-      link_to_name(fp, m->name, pdir);
+      link_to_name(fp, m->name, subdir, pdir);
     }
   }else{
     fp << "<td>" << learnpop.size() << " ";
@@ -353,7 +353,7 @@ void typeset::emit_with_pop(std::ostream &fp, bool pdir) const {
       }else{
         printed = true;
       }
-      link_to_name(fp, s->name, pdir);
+      link_to_name(fp, s->name, subdir, pdir);
     }
   }
   fp << "</td></tr>";

@@ -36,7 +36,7 @@ int main(){
   std::cout << "<th style=\"width: 80%\">Pop</th>";
   std::cout << "</tr>" << std::endl;
   for(const auto &ts : tsets){
-    ts.emit_with_pop(std::cout, false);
+    ts.emit_with_pop(std::cout, true, false);
   }
   std::cout << "</table>" << std::endl;
   return EXIT_SUCCESS;
