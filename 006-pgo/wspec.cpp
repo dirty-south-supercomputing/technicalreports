@@ -583,7 +583,7 @@ write_stats(std::ostream &fp, const species &s){
   }
   if(s.shadow){
     fp << "Shadow available<br/>";
-    // purification costs seem to be wrong, don't track 2nd attack costs
+    // purification costs seem to be wrong, don't track 2nd attack costs in reality
     // fp << "Purification cost: " << purification_cost(s) << " kSD<br/>";
   }else{
     fp << "Shadow <i>not</i> available<br/>";
