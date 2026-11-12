@@ -33,7 +33,7 @@ WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
 						nodyna noshadow noshiny nosecondcharged dynacost dynafast shadows \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
-						walkevol regional \
+						walkevol regional cpms \
 						essay-ivs essay-max essay-megas-gbl \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
@@ -46,7 +46,7 @@ UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
 BREAKPOINTS:=$(OUT)/breakpoints
 SIMUL:=$(OUT)/s/simul
-AUTOSIMUL:=$(OUT)/s/auto
+BOOKSIMUL:=$(OUT)/book-simul-code/simul
 DUALTYPES:=$(OUT)/dualtypes
 SPECIES:=$(OUT)/species
 FORMS:=$(OUT)/forms
@@ -149,7 +149,7 @@ SVGS:=$(addsuffix .svg, $(addprefix $(OUT)/effa, GL UL ML))
 GRAPHS:=$(addprefix $(OUT)/, $(addsuffix .png, $(CIRCO) $(DOT))) \
 	octave/greninja.png $(addsuffix .pdf, $(DPEVSE) $(EPTVST) $(PPTVST))
 SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
-AUTOSIMULSRC:=$(addprefix s/, auto.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
+BOOKSIMULSRC:=$(addprefix book-simul-code/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 
 web: $(WEBPAGES)
@@ -237,6 +237,10 @@ $(OUT)/%Nx1.html: $(OUT)/%
 $(OUT)/%3x3.html: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) -h > $@
+
+$(OUT)/cpms.html: $(OUT)/cpmshtml
+	@mkdir -p $(@D)
+	$(<) > $@
 
 $(OUT)/bulkGL.html: $(OUT)/bounded
 	@mkdir -p $(@D)
@@ -479,19 +483,19 @@ $(OUT)/%.dat: $(OUT)/%
 	@mkdir -p $(@D)
 	$(<) > $@
 
-$(SIMULOUT): $(SIMUL)
+$(SIMULOUT): $(BOOKSIMUL)
 	@mkdir -p $(@D)
 	$(<) clodsire 15-15-15@70 "poison sting" "megahorn" \
 				sawk 15-14-14@50 "low kick" "focus blast" > $@
 
-$(SIMUL3OUT): $(SIMUL)
+$(SIMUL3OUT): $(BOOKSIMUL)
 	@mkdir -p $(@D)
 	$(<) clodsire opt1500 "poison sting" megahorn \
 				talonflame opt1500 incinerate "brave bird" \
 				quagsire opt1500 "water gun" earthquake \
 				milotic opt1500 waterfall surf > $@
 
-$(AUTOSIMUL): $(AUTOSIMULSRC) pgotypes.h
+$(BOOKSIMUL): $(BOOKSIMULSRC) $(PGOOBJ) pgotypes.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
