@@ -265,8 +265,20 @@ table.coverset {
   margin: 0 1em 0 1em;
 }
 
+#allattacks { /* all attacks table */
+  margin: 0 0 0 1em;
+}
+
+#allattacks tr>:nth-child(1) { /* T # */
+  text-align: center;
+}
+
+#allattacks tr>:nth-child(2) { /* attack # */
+  text-align: left;
+}
+
 #allforms { /* all forms table */
-  margin: 0 1em 0 1em;
+  margin: 0 0 0 1em;
 }
 
 #allforms tr>:nth-child(1) { /* dex # */

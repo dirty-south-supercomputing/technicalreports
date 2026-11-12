@@ -565,7 +565,13 @@ write_index(){
   write_header(fp, "Pokémon GO attacks", true);
   fp << "<p class=\"intro\">The following attacks are available in Pokémon GO.</p>" << std::endl;
   fp << "<table id=\"allattacks\">" << std::endl;
+  fp << "<tr><th/><th>Attack</th></tr>" << std::endl;
   for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
+    fp << "<tr><td>";
+    html_type(fp, (*a)->type, true);
+    fp << "</td><td>";
+    link_to_attack(fp, (*a)->name, false, false);
+    fp << "</td></tr>" << std::endl;
     if(write_atk_page(**a)){
       return -1;
     }
@@ -574,7 +580,13 @@ write_index(){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto &m : s->mforms){
       if(m.plusatk){
-        if(write_atk_page(*m.plusatk)){
+        const auto a = m.plusatk;
+        fp << "<tr><td>";
+        html_type(fp, a->type, true);
+        fp << "</td><td>";
+        link_to_attack(fp, a->name, false, false);
+        fp << "</td></tr>" << std::endl;
+        if(write_atk_page(*a)){
           return -1;
         }
       }
@@ -583,16 +595,25 @@ write_index(){
   // one dynamax attack per type
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     const auto name = max_attack_name(t);
+    fp << "<tr><td>";
+    html_type(fp, t, true);
+    fp << "</td><td>";
+    link_to_attack(fp, name, false, false);
+    fp << "</td></tr>" << std::endl;
     if(write_max_atk_page(name, t)){
       return -1;
     }
   }
   for(const auto *g = gmaxattacks_begin() ; g != gmaxattacks_end() ; ++g){
+    fp << "<tr><td>";
+    html_type(fp, g->type, true);
+    fp << "</td><td>";
+    link_to_attack(fp, g->name, false, false);
+    fp << "</td></tr>" << std::endl;
     if(write_gmax_atk_page(g)){
       return -1;
     }
   }
-  // FIXME write index entry
   fp << "</table>" << std::endl;
   write_footer_and_close(fp, true);
   return 0;
