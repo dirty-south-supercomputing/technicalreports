@@ -554,6 +554,50 @@ write_atk_page(const attack &a){
   return 0;
 }
 
+// assume we're in the target directory
+static int
+write_index(){
+  std::ofstream fp("index.html");
+  if(!fp.is_open()){
+    std::cerr << "error opening index.html for writing" << std::endl;
+    return -1;
+  }
+  write_header(fp, "Pokémon GO attacks", true);
+  fp << "<p class=\"intro\">The following attacks are available in Pokémon GO.</p>" << std::endl;
+  fp << "<table id=\"allattacks\">" << std::endl;
+  for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
+    if(write_atk_page(**a)){
+      return -1;
+    }
+  }
+  // get the plus attacks from mega definitions
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    for(const auto &m : s->mforms){
+      if(m.plusatk){
+        if(write_atk_page(*m.plusatk)){
+          return -1;
+        }
+      }
+    }
+  }
+  // one dynamax attack per type
+  for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+    const auto name = max_attack_name(t);
+    if(write_max_atk_page(name, t)){
+      return -1;
+    }
+  }
+  for(const auto *g = gmaxattacks_begin() ; g != gmaxattacks_end() ; ++g){
+    if(write_gmax_atk_page(g)){
+      return -1;
+    }
+  }
+  // FIXME write index entry
+  fp << "</table>" << std::endl;
+  write_footer_and_close(fp, true);
+  return 0;
+}
+
 static void
 usage(const char *argv0, int ret){
   std::cerr << "usage: " << argv0 << " targetdir" << std::endl;
@@ -569,33 +613,8 @@ int main(int argc, const char **argv){
     std::cerr << "error changing directory to " << argv[1] << ": " << strerror(errno) << std::endl;
     usage(argv[0], EXIT_FAILURE);
   }
-  for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
-    if(write_atk_page(**a)){
-      return EXIT_FAILURE;
-    }
-  }
-  // get the plus attacks from mega definitions
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    for(const auto &m : s->mforms){
-      if(m.plusatk){
-        if(write_atk_page(*m.plusatk)){
-          return EXIT_FAILURE;
-        }
-      }
-    }
-  }
-  // one dynamax attack per type
-  for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
-    const auto name = max_attack_name(t);
-    if(write_max_atk_page(name, t)){
-      return EXIT_FAILURE;
-    }
-  }
-  // do gmax attacks; dogs and eternatus must be merged into their attack pages! FIXME
-  for(const auto *g = gmaxattacks_begin() ; g != gmaxattacks_end() ; ++g){
-    if(write_gmax_atk_page(g)){
-      return EXIT_FAILURE;
-    }
+  if(write_index()){
+    return EXIT_FAILURE;
   }
   return EXIT_SUCCESS;
 }
