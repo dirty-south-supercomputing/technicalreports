@@ -9,22 +9,16 @@ struct cand {
 int main(void){
   std::vector<cand> cands;
   for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(s->name.contains("Crowned Sword")){
-      cands.emplace_back(&*s, &ATK_Behemoth_Blade);
-    }else if(s->name.contains("Crowned Shield")){
-      cands.emplace_back(&*s, &ATK_Behemoth_Bash);
-    }else if(s->name == "Eternatus"){
-      cands.emplace_back(&*s, &ATK_Dynamax_Cannon);
-    }else{
-      if(!s->dmax){
+    if(!s->dmax){
+      if(!s->name.contains("Crowned") && !s->name.contains("Eternatus")){
         continue;
       }
-      for(const auto *a : s->attacks){
-        if(!fast_attack_p(*a)){
-          continue;
-        }
-        cands.emplace_back(&*s, a);
+    }
+    for(const auto *a : s->attacks){
+      if(!fast_attack_p(*a)){
+        continue;
       }
+      cands.emplace_back(&*s, a);
     }
   }
   std::sort(cands.begin(), cands.end(), [](const cand &lhs, const cand &rhs){
