@@ -431,7 +431,7 @@ table#typesara {
 }
 
 table#evolworse {
-  margin: 0 1em 0 1em;
+  margin: 0 0 0 1em;
 }
 
 table#evolworse tr>:nth-child(1) { /* base */

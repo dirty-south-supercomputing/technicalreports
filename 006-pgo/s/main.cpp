@@ -6,6 +6,7 @@ static void
 usage(const char *argv0){
   std::cerr << "usage: " << argv0 << " pokémonN iv@level fast charged..." << std::endl;
   std::cerr << " both teams must have the same number of pokémon (not more than 3)" << std::endl;
+  std::cerr << " iv@level can be specified as optN for some cp bound, or max" << std::endl;
   exit(EXIT_FAILURE);
 }
 
