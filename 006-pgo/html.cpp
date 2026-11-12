@@ -296,7 +296,7 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
 
 static void
 write_footer_scripts(std::ostream &fp, bool par){
-  fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.replace(\"";
+  fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.assign(\"";
   if(par){
     fp << "../";
   }
