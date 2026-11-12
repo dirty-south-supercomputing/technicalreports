@@ -706,12 +706,12 @@ emit_evol_cost(std::ostream &fp, const evolpoint &ep, int cols, bool &first){
     }
     fp << "<td " << longpadding << "text-align:right\">" << ep.s->from << "</td>";
     fp << "<td " << padding << "colspan=\"" << cols - ep.col << "\">";
-    fp << " → " << ep.s->name << " costs " << cost << " Candy";
+    fp << " → " << ep.s->name << ": " << cost << " Candy";
     const auto *needs = species::evolitemstr(ep.s->evolitem);
     if(strlen(needs)){
       fp << ", " << needs;
     }
-    fp << ".</td></tr>" << std::endl;
+    fp << "</td></tr>" << std::endl;
   }
 }
 
