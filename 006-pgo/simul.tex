@@ -95,7 +95,7 @@ We'll need prune the game tree using limited expert methods\footnote{We remain e
 Whatever our method, implementing the trainer battle mechanics requires a
   three-vector for each team pointing into our (readonly) database of Pokémon and attacks.
 \texttt{results} is shared across all nodes (and will need be protected should we go parallel).
-\inputminted{cpp}{s/simul.h}
+\inputminted{cpp}{book-simul-code/simul.h}
 
 \section{Simulating 1x1\label{sec:simul1x1}}
 Let's start with exhaustive simulation of a 1x1 contest,
@@ -109,20 +109,20 @@ Our second restriction: there's no (quantifiably) good reason to do nothing,
  so the Pokémon must do something.
 On every turn, we either wait for our fast attack to conclude, or can throw a fast attack.
 With sufficient energy, charged attacks enter the picture.
-\inputminted{cpp}{s/sift.h}
+\inputminted{cpp}{book-simul-code/sift.h}
 While we won't be implementing them yet, assuming other Pokémon have not
   fainted and the cooldown period is not active, we can substitute.
 ``One'' and ``two down'' here are taken modulo 3, i.e.\ if the third Pokémon is
   active, the first Pokémon is one down, and the second Pokémon is two down.
 Each turn is implemented in two halves.
 The top half determines available choices and invokes the appropriate bottom half for each.
-\inputminted{cpp}{s/top.h}
+\inputminted{cpp}{book-simul-code/top.h}
 The result of \texttt{p0\_wins\_cmp()} is constant across a pair of Pokémon; we cache it.
 Damage calculations are constant across a pair of Pokémon and a set of buff states; cache them, too.
-\inputminted{cpp}{s/in.h}
+\inputminted{cpp}{book-simul-code/in.h}
 A bottom half is invoked along each path, mutating its own copy of the state and recursing back.
 We must simulate both paths in the event of a CMP tie---the tiebreaker might be nondeterministic, but we are not!
-\inputminted{cpp}{s/bottom.h}
+\inputminted{cpp}{book-simul-code/bottom.h}
 On a knockout, the top half calls \texttt{handle\_ko()}.
 This is the only function that actually records results.
 Right now we're only handling a single Pokémon per team, but we go ahead and implement this so that it'll work properly
@@ -131,7 +131,7 @@ When a Pokémon goes down, three things can happen.
 If it was the last on its team, the match is over (possibly in a tie).
 If there is one Pokémon remaining, bring it in and continue simulating.
 If two more Pokémon remain, we must simulate both replacements.
-\inputminted{cpp}{s/ko.h}
+\inputminted{cpp}{book-simul-code/ko.h}
 The presented code simulates all possible meaningful exchanges of two fully specified Pokémon, starting
   with full \HP{}, two shields, and no energy.
 
