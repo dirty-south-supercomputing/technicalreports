@@ -74,7 +74,7 @@ table.bounded tr :nth-child(n+3) {
 }
 
 table.maxcounters {
-  margin: 0 0 0 1em;
+  margin: 0 1em 0 1em;
 }
 
 /* best dynamax attackers (by type and unified) */

@@ -112,15 +112,6 @@ html_type(pgo_types_e t, bool pdir){
   html_type(std::cout, t, pdir);
 }
 
-static inline void
-html_types_pdir(std::ostream &fp, pgo_types_e t1, pgo_types_e t2){
-  html_type(fp, t1, true);
-  if(t1 != t2 && t2 != TYPECOUNT){
-    fp << ' ';
-    html_type(fp, t2, true);
-  }
-}
-
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
 // monotypes are only displayed once.
 static inline void
