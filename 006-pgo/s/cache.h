@@ -33,6 +33,7 @@ hash_simulstate(const simulstate *s){
 
 int init_cache(void){
   elems = new cacheelem[CACHEELEMS];
+  printf("%lu cache entries (%zuB)\n", CACHEELEMS, CACHEELEMS * sizeof(*elems));
   memset(elems, 0, sizeof(*elems) * CACHEELEMS);
   cache_opens = cache_hits = cache_misses = cache_late = cache_used = 0;
   return 0;
@@ -46,7 +47,11 @@ init_elem(cacheelem &elem, const simulstate *s, const results *r){
   ++cache_opens;
 }
 
-int check_cache(const simulstate *s, results *r, uint32_t *h){
+// returns -1 if we need to continue running.
+// returns 0 if we hit cache and updated counters. dom is set in this case.
+// returns 1 on cache failure (aliasing).
+int check_cache(const simulstate *s, results *r, uint32_t *h, bool &dom){
+  return 1;
   *h = hash_simulstate(s);
   if(*h >= CACHEELEMS){
     std::cerr << "specified element " << *h << " of " << CACHEELEMS << std::endl;
@@ -84,10 +89,11 @@ int check_cache(const simulstate *s, results *r, uint32_t *h){
   }
   r->ties += elem.r.ties;
   ++cache_hits;
+  dom = elem.r.dom;
   return 0;
 }
 
-void update_cache(uint32_t h, const results *r){
+void update_cache(uint32_t h, const results *r, bool dom){
   cacheelem &elem = elems[h];
   if(elem.state != cacheelem::ELEMOPEN){
     std::cerr << "error: state was " << elem.state << " for " << h << std::endl;
@@ -96,6 +102,7 @@ void update_cache(uint32_t h, const results *r){
   elem.r.wins[0] = r->wins[0] - elem.r.wins[0];
   elem.r.wins[1] = r->wins[1] - elem.r.wins[1];
   elem.r.ties = r->ties - elem.r.ties;
+  elem.r.dom = dom;
   elem.state = cacheelem::ELEMSET;
 }
 

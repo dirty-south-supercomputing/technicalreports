@@ -47,7 +47,7 @@ int main(void){
         return false;
       });
   std::cout << "<table id=\"dynafast\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Form</th><th>Fast attack</th><th>Turns</th></tr>" << std::endl;
+  std::cout << "<tr><th/><th>Form</th><th>Fast attack</th><th>Turns</th></tr>" << std::endl;
   for(const auto &c : cands){
     std::cout << "<tr>";
     std::cout << "<td>";

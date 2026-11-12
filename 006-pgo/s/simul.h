@@ -5,6 +5,7 @@
 
 struct results {
   uint64_t wins[2], ties, timeouts; // win/tie counts
+  bool dom;                         // did team0 dominate the subtree?
 };
 
 struct simulstate { // dynamic elements
@@ -19,6 +20,44 @@ struct simulstate { // dynamic elements
   uint8_t active[2];        // indexes of active pokémon   [0..2]
   int16_t ticks;            // timer ticks thus far
   int cmp;                  // <=> for charged move prio
+
+  simulstate() :
+    ticks(0),
+    cmp(0)
+  {
+    memset(hp, 0, sizeof(hp));
+    memset(e, 0, sizeof(e));
+    memset(dam, 0, sizeof(dam));
+    memset(turns, 0, sizeof(turns));
+    memset(subtimer, 0, sizeof(subtimer));
+    memset(buffleva, 0, sizeof(buffleva));
+    memset(bufflevd, 0, sizeof(bufflevd));
+    memset(shields, 0, sizeof(shields));
+    memset(active, 0, sizeof(active));
+  }
+
+  void invert(simulstate &targ) const {
+    memcpy(targ.hp[0], hp[1], sizeof(uint16_t) * TEAMSIZE);
+    memcpy(targ.hp[1], hp[0], sizeof(uint16_t) * TEAMSIZE);
+    memcpy(targ.e[0], e[1], sizeof(uint16_t) * TEAMSIZE);
+    memcpy(targ.e[1], e[0], sizeof(uint16_t) * TEAMSIZE);
+    memcpy(targ.dam[0], dam[1], sizeof(uint16_t) * TEAMSIZE);
+    memcpy(targ.dam[1], dam[0], sizeof(uint16_t) * TEAMSIZE);
+    targ.turns[0] = turns[1];
+    targ.turns[1] = turns[0];
+    targ.subtimer[0] = subtimer[1];
+    targ.subtimer[1] = subtimer[0];
+    targ.buffleva[0] = buffleva[1];
+    targ.buffleva[1] = buffleva[0];
+    targ.bufflevd[0] = bufflevd[1];
+    targ.bufflevd[1] = bufflevd[0];
+    targ.shields[0] = shields[1];
+    targ.shields[1] = shields[0];
+    targ.shields[0] = shields[1];
+    targ.shields[1] = shields[0];
+    targ.ticks = ticks;
+    targ.cmp = cmp;
+  }
 
   inline bool operator==(const simulstate& r) {
     for(unsigned p = 0 ; p < 2 ; ++p){
@@ -56,7 +95,7 @@ static inline pmon *activemon(const simulstate *s, int p){
 #include "damage.h"
 #include "memo.h"
 #include "in.h"
-static void tophalf(simulstate *s, results *r);
+static bool tophalf(simulstate *s, results *r);
 #include "bottom.h"
 #include "ko.h"
 #include "top.h"
@@ -66,7 +105,8 @@ pmon pmons[2][TEAMSIZE] = {};
 // since "tales of transformation", the switch timer is 45s (90 turns)
 static constexpr unsigned long SWITCH_TIMER_TURNS = 90;
 
-static inline void
+// runs the full simulation. returns true iff team 1 dominates team 2.
+static inline bool
 simul(simulstate *s, results *r){
   s->turns[0] = s->turns[1] = 0u;
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
@@ -83,5 +123,5 @@ simul(simulstate *s, results *r){
       printf("dam[%d][%u] = %d\n", p, i, s->dam[p][i]);
     }
   }*/
-  tophalf(s, r);
+  return tophalf(s, r);
 }

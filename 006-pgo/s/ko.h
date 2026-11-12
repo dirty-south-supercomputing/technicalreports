@@ -1,5 +1,6 @@
 // handle the case where one and only one player was knocked out.
-static void handle_one_ko(simulstate *s, results *r, int player){
+static bool handle_one_ko(simulstate *s, results *r, int player){
+  bool ret = true;
   bool replaced = false;
   if(s->turns[other_player(player)]){ // end fast move and credit any energy
     s->turns[other_player(player)] = 0;
@@ -10,17 +11,21 @@ static void handle_one_ko(simulstate *s, results *r, int player){
     if(s->hp[player][p]){
       simulstate snew = *s;
       subin(&snew, player, p);
-      tophalf(&snew, r);
+      ret &= tophalf(&snew, r);
       replaced = true;
     }
   }
   if(!replaced){
     ++r->wins[other_player(player)];
+    ret = (other_player(player) == 0);
   }
+  return ret;
 }
 
 // both active contestants just got knocked out
-static void handle_dual_kos(simulstate *s, results *r){
+// returns true iff team 0 has won.
+static bool handle_dual_kos(simulstate *s, results *r){
+  bool ret = true;
   s->buffleva[0] = s->buffleva[1] = 0;
   s->bufflevd[0] = s->buffleva[1] = 0;
   bool foundq = false;
@@ -35,7 +40,7 @@ static void handle_dual_kos(simulstate *s, results *r){
           simulstate snew = *s;
           subin(&snew, 0, p);
           subin(&snew, 1, q); // runs calculate_damages twice =[
-          tophalf(&snew, r);
+          ret &= tophalf(&snew, r);
         }
       }
     }
@@ -48,9 +53,11 @@ static void handle_dual_kos(simulstate *s, results *r){
     for(unsigned q = 0 ; q < TEAMSIZE ; ++q){
       if(s->hp[1][q]){ // p1 did, they win
         ++r->wins[1];
-        return;
+        return false;
       }
     }
     ++r->ties; // zorn, all dead
+    ret = false;
   }
+  return ret;
 }

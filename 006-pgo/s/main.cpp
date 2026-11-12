@@ -86,10 +86,31 @@ print_intro(void){
   printf("pokémon exhaustive simulator state is %zuB\n", sizeof(simulstate));
 }
 
+static int
+run(simulstate *ss){
+  if(init_cache()){
+    return -1;
+  }
+  results r;
+  // there aren't really timeouts---there's a tiebreaker. implement it. FIXME
+  r.wins[0] = r.wins[1] = r.ties = r.timeouts = 0;
+  auto dominator = simul(ss, &r);
+  stop_cache(true);
+  auto total = r.wins[0] + r.wins[1] + r.ties;
+  printf("p0: %'" PRIu64 " p1: %'" PRIu64 " ties: %'" PRIu64 " tos: %'" PRIu64 "\n",
+          r.wins[0], r.wins[1], r.ties, r.timeouts);
+  printf(" total: %'" PRIu64 " p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
+        r.wins[0] * 100.0 / total, r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
+  if(dominator){
+    printf("team 1 dominates team 2\n");
+  }
+  return 0;
+}
+
 int main(int argc, char** argv){
   setlocale(LC_ALL, "");
   const char* argv0 = *argv;
-  simulstate sstate = {};
+  simulstate sstate;
   --argc;
   ++argv;
   for(unsigned i = 0 ; i < TEAMSIZE ; ++i){
@@ -110,17 +131,14 @@ int main(int argc, char** argv){
     std::cerr << "unexpected argument: " << *argv << std::endl;
     usage(argv0);
   }
-  if(init_cache()){
-    exit(EXIT_FAILURE);
-  }
-  results r;
-  r.wins[0] = r.wins[1] = r.ties = r.timeouts = 0;
-  simul(&sstate, &r);
-  stop_cache(true);
-  auto total = r.wins[0] + r.wins[1] + r.ties;
-  printf("p0: %'" PRIu64 " p1: %'" PRIu64 " ties: %'" PRIu64 " tos: %'" PRIu64 "\n",
-          r.wins[0], r.wins[1], r.ties, r.timeouts);
-  printf(" total: %'" PRIu64 " p0 %.04f%% p1 %.04f%% t %.04f%%\n", total,
-        r.wins[0] * 100.0 / total, r.wins[1] * 100.0 / total, r.ties * 100.0 / total);
+  pmon pmoncopies[2][TEAMSIZE];
+  simulstate sstatecopy;
+  memcpy(pmoncopies, pmons, sizeof(pmoncopies));
+  memcpy(&sstatecopy, &sstate, sizeof(sstatecopy));
+  run(&sstate);
+  memcpy(pmons[0], pmoncopies[1], sizeof(pmon) * TEAMSIZE);
+  memcpy(pmons[1], pmoncopies[0], sizeof(pmon) * TEAMSIZE);
+  sstatecopy.invert(sstate);
+  run(&sstate);
   return EXIT_SUCCESS;
 }

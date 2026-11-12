@@ -44,48 +44,57 @@ throw_charged_move(simulstate *s, int p, const attack *a, int aid, bool oshield)
   return inflict_damage(&s->hp[op][s->active[op]], s->dam[p][aid]);
 }
 
-static inline void
+// returns true iff team 0 dominates this subtree.
+static inline bool
 bottomhalf_allfast(simulstate *s, results *r){
   account_fast_move(s, 0);
   account_fast_move(s, 1);
-  tophalf(s, r);
+  return tophalf(s, r);
 }
 
-static inline void
+// returns true iff team 0 dominates this subtree.
+static inline bool
 bottomhalf_charged_fast(simulstate *s, results *r, int player, const attack *c,
                         int aid, int shielded){
+  bool ret = true;
   if(shielded){
     simulstate scopy = *s;
-    bottomhalf_charged_fast(&scopy, r, player, c, aid, 0);
+    ret &= bottomhalf_charged_fast(&scopy, r, player, c, aid, 0);
   }
   if(!throw_charged_move(s, player, c, aid, shielded)){
     s->turns[other_player(player)] = 1; // charged concludes opposing fast move
     account_fast_move(s, other_player(player));
   }
-  tophalf(s, r);
+  ret &= tophalf(s, r);
+  return ret;
 }
 
 // pass three 2-vectors of player id, attacks used/aids, and shield state
-static inline void
+// returns true iff team 0 dominates the subtree.
+static inline bool
 bottomhalf_cc_ordered(simulstate *s, results *r, const int *ps,
                       const attack **as, const int *aids, const int *ss){
+  bool ret = false;
   if(ss[0]){
     simulstate scopy = *s;
     int sss[2] = { 0, ss[1] };
-    bottomhalf_cc_ordered(&scopy, r, ps, as, aids, sss);
+    ret &= bottomhalf_cc_ordered(&scopy, r, ps, as, aids, sss);
   }
   if(!throw_charged_move(s, ps[0], as[0], aids[0], ss[0])){
     throw_charged_move(s, ps[1], as[1], aids[1], ss[1]);
   }
-  tophalf(s, r);
+  ret &= tophalf(s, r);
+  return ret;
 }
 
-static inline void
+// returns true iff team 0 has dominated throughout the subtree
+static inline bool
 bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
                            const attack *p1c, int aid0, int aid1,
                            int p0shield, int p1shield){
   int ps[2], ss[2], aids[2];
   const attack *as[2];
+  bool ret = false;
 
   as[0] = p0c; as[1] = p1c;
   aids[0] = aid0; aids[1] = aid1;
@@ -93,7 +102,7 @@ bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
   ps[0] = 0; ps[1] = 1;
   if(s->cmp == 0){ // simulate both paths
     simulstate s2 = *s;
-    bottomhalf_cc_ordered(&s2, r, ps, as, aids, ss);
+    ret &= bottomhalf_cc_ordered(&s2, r, ps, as, aids, ss);
   }
   if(s->cmp >= 0){
     as[0] = p1c; as[1] = p0c;
@@ -101,5 +110,6 @@ bottomhalf_charged_charged(simulstate *s, results *r, const attack *p0c,
     ss[0] = p0shield; ss[1] = p1shield;
     ps[0] = 1; ps[1] = 0;
   }
-  bottomhalf_cc_ordered(s, r, ps, as, aids, ss);
+  ret &= bottomhalf_cc_ordered(s, r, ps, as, aids, ss);
+  return ret;
 }
