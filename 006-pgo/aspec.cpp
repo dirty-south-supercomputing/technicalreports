@@ -456,7 +456,7 @@ write_max_atk_page(const std::string &name, pgo_types_e atype){
     return -1;
   }
   fp << std::setprecision(4);
-  write_header(fp, name, true);
+  write_header(fp, name, "", true);
   fp << "<h1>";
   html_type(fp, atype, true);
   fp << " " << name << " (" << tname_capitalized(atype) << " Max attack)</h1>" << std::endl;
@@ -477,7 +477,7 @@ write_gmax_atk_page(const gmaxattack *gm){
     return -1;
   }
   fp << std::setprecision(4);
-  write_header(fp, gm->name, true);
+  write_header(fp, gm->name, "", true);
   fp << "<h1>";
   html_type(fp, gm->type, true);
   fp << gm->name << " (" << tname_capitalized(gm->type) << " G-Max attack)</h1>" << std::endl;
@@ -521,7 +521,7 @@ write_atk_page(const attack &a){
     return -1;
   }
   fp << std::setprecision(4);
-  write_header(fp, a.name, true);
+  write_header(fp, a.name, "", true);
   fp << "<h1>";
   if(a.type != TYPECOUNT){
     html_type(fp, a.type, true);
@@ -554,6 +554,38 @@ write_atk_page(const attack &a){
   return 0;
 }
 
+static void
+emit_atk(std::ostream &fp, const attack *a){
+  fp << "<tr><td>";
+  html_type(fp, a->type, true);
+  fp << "</td><td>";
+  link_to_attack(fp, a->name, false, false);
+  fp << "</td><td>";
+  if(gmax_attack_p(*a)){
+    fp << "G-Max";
+  }else if(max_attack_p(*a)){
+    fp << "Max";
+  }else if(plus_attack_p(*a)){
+    fp << "Charged Plus";
+  }else if(fast_attack_p(*a)){
+    fp << "Fast";
+  }else{
+    fp << "Charged";
+  }
+  fp << "</td></tr>" << std::endl;
+}
+
+static void
+emit_atk_typevec(std::ostream &fp, const std::vector<const attack *> &atks){
+  fp << "<li>";
+  fp << "<table class=\"allattacks\">" << std::endl;
+  fp << "<tr><th/><th>Attack</th><th>Class</th></tr>" << std::endl;
+  for(const auto *a : atks){
+    emit_atk(fp, a);
+  }
+  fp << "</table></li>" << std::endl;
+}
+
 // assume we're in the target directory
 static int
 write_index(){
@@ -562,16 +594,17 @@ write_index(){
     std::cerr << "error opening index.html for writing" << std::endl;
     return -1;
   }
-  write_header(fp, "Pokémon GO attacks", true);
+  const std::string style =
+    ".gridcol { max-width: 90%; display: grid; grid-template-columns: repeat(auto-fit, minmax(20em, 1fr)) ; row-gap: 1em; list-style-type: none; }" \
+    "ul { display: grid; row-gap: 1px; }" \
+    ".allattacks tr>:nth-child(2) { text-align: left; }" \
+    ".allattacks tr>:nth-child(3) { text-align: left; padding: 0 0 0 1em; }";
+  write_header(fp, "Pokémon GO attacks", style, true);
   fp << "<p class=\"intro\">The following attacks are available in Pokémon GO.</p>" << std::endl;
-  fp << "<table id=\"allattacks\">" << std::endl;
-  fp << "<tr><th/><th>Attack</th></tr>" << std::endl;
+  std::forward_list<attack> synthed;
+  std::vector<const attack *> atktypes[TYPECOUNT + 1];
   for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
-    fp << "<tr><td>";
-    html_type(fp, (*a)->type, true);
-    fp << "</td><td>";
-    link_to_attack(fp, (*a)->name, false, false);
-    fp << "</td></tr>" << std::endl;
+    atktypes[(*a)->type].push_back(*a);
     if(write_atk_page(**a)){
       return -1;
     }
@@ -580,13 +613,8 @@ write_index(){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     for(const auto &m : s->mforms){
       if(m.plusatk){
-        const auto a = m.plusatk;
-        fp << "<tr><td>";
-        html_type(fp, a->type, true);
-        fp << "</td><td>";
-        link_to_attack(fp, a->name, false, false);
-        fp << "</td></tr>" << std::endl;
-        if(write_atk_page(*a)){
+        atktypes[m.plusatk->type].emplace_back(m.plusatk);
+        if(write_atk_page(*m.plusatk)){
           return -1;
         }
       }
@@ -595,26 +623,26 @@ write_index(){
   // one dynamax attack per type
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     const auto name = max_attack_name(t);
-    fp << "<tr><td>";
-    html_type(fp, t, true);
-    fp << "</td><td>";
-    link_to_attack(fp, name, false, false);
-    fp << "</td></tr>" << std::endl;
+    const auto *a = &synthed.emplace_front(name, t);
+    atktypes[t].emplace_back(a);
     if(write_max_atk_page(name, t)){
       return -1;
     }
   }
   for(const auto *g = gmaxattacks_begin() ; g != gmaxattacks_end() ; ++g){
-    fp << "<tr><td>";
-    html_type(fp, g->type, true);
-    fp << "</td><td>";
-    link_to_attack(fp, g->name, false, false);
-    fp << "</td></tr>" << std::endl;
+    const auto *a = &synthed.emplace_front(*g);
+    atktypes[g->type].emplace_back(a);
     if(write_gmax_atk_page(g)){
       return -1;
     }
   }
-  fp << "</table>" << std::endl;
+  fp << "<ul class=\"gridcol\">";
+  // now that we've sorted into vectors per type, emit each in turn
+  for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
+    emit_atk_typevec(fp, atktypes[t]);
+  }
+  emit_atk_typevec(fp, atktypes[TYPECOUNT]);
+  fp << "</ul>" << std::endl;
   write_footer_and_close(fp, true);
   return 0;
 }

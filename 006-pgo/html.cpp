@@ -39,12 +39,16 @@ void write_navbar(std::ostream &fp, bool par){
   fp << "</ul></nav>" << std::endl;
 }
 
-void write_header(std::ostream &fp, const std::string &title, bool par){
+void write_header(std::ostream &fp, const std::string &title, const std::string &style, bool pdir){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../pgonav.css\">";
-  fp << "<title>" << title << "</title></head>" << std::endl;
+  fp << "<title>" << title << "</title>";
+  if(style.length()){
+    fp << "<style>" << style << "</style>";
+  }
+  fp << "</head>" << std::endl;
   fp << "<body>" << std::endl;
-  write_navbar(fp, par);
+  write_navbar(fp, pdir);
 }
 
 static void

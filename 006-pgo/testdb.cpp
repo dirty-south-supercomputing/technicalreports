@@ -178,8 +178,17 @@ test_sdex(){
   return true;
 }
 
+// fast and charged attacks
 static bool
 test_attack(const attack *a){
+  if(gmax_attack_p(*a)){
+    std::cerr << "falsely identified as g-max attack: " << a->name << std::endl;
+    throw std::exception();
+  }
+  if(max_attack_p(*a)){
+    std::cerr << "falsely identified as max attack: " << a->name << std::endl;
+    throw std::exception();
+  }
   if(charged_attack_p(*a)){
     if(a->energytrain >= 0){
       std::cerr << "invalid 3x3 energy for charged attack " << a->name << std::endl;
@@ -285,6 +294,10 @@ test_gmax(void){
   for(auto gatk = gmaxattacks_begin() ; gatk != gmaxattacks_end() ; ++gatk){
     if(!lookup_species(gatk->sname)){
       std::cerr << "couldn't find gmax species " << gatk->sname << std::endl;
+      throw std::exception();
+    }
+    if(!gmax_attack_p(*gatk)){
+      std::cerr << "didn't identify as g-max: " << gatk->sname << std::endl;
       throw std::exception();
     }
   }

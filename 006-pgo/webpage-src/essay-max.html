@@ -18,13 +18,17 @@ div#main { max-width: min(60em, 100%); }
 BODYSTART
 <div id="main">
 <h1>What's important for Max Battles?</h1>
-<p style="background-color: palegreen; font-size: x-large;"><b>tl;dr: <i>evolve your shit. get type advantage.</i> (and check out <a href="#summary">this table</a>)</b></p>
-<p>For a given Max Battle opponent, we can affect the following variables:</p>
+<p style="background-color: palegreen; font-size: x-large;"><b>tl;dr: <i>evolve your shit. get type advantage. cheer.</i><br/>
+(and check out <a href="#summary">this table</a>)</b></p>
+<p>For a given Max Battle, we can affect the following variables for our three Pokémon:</p>
 <ul>
-  <li>Pokémon species and form</li>
-  <li>Individual Pokémon properties (IVs and level)</li>
+  <li>Species/form</li>
+  <li>Individual properties (IVs and level)</li>
   <li>Fast attack (fast attack implies Max Attack)</li>
-  <li>Charged attack (even if we have two, we'll probably only use one, if any)</li>
+  <li>Charged attack(s) (even if we have two, we'll probably only use one, if any)</li>
+</ul>
+<p>and for our team overall:</p>
+<ul>
   <li>Adventure Effect in use (<a href="attacks/DynamaxCannon.html">Dynamax Cannon</a>,
     <a href="attacks/BehemothBlade.html">Behemoth Blade</a>,
     <a href="attacks/BehemothBash.html">Behemoth Bash</a>)</li>
@@ -45,18 +49,18 @@ BODYSTART
   Gigantamax Pokémon have a fixed G-Max attack unique to that species.
   Dynamax Pokémon have a Max attack based on the type of their fast attack.</p>
 <p>A sensible strategy is to employ two “tanks”—Pokémon resistant to (some of) the opponent's possible
-   attacks, having high defense and/or stamina and fast move of as few turns as possible.
+   attacks, having high defense and/or stamina and a fast move of as few turns as possible.
    These will absorb blows from the opponent, charge the Max Meter, and ideally never be used in
     the Max phase.
    An “attacker” will use G-Max or Max attacks to deal the majority of our damage, and ideally
     never be used in the main phase.
- It's easiest to determine the best Max Attackers for a given opponent:
- we can leave aside everything related to defense and stamina—the only
+ It's trivial to determine the best attackers for a given opponent.
+ We can leave aside everything related to defense and stamina—the only
  important characteristics are Eff<sub>A</sub> and the Max Attack.
  Eff<sub>A</sub> is determined by adding the form's base attack stat to the Pokémon's IV<sub>A</sub>,
  and multiplying by the <a href="cpms.html">Combat Power Multiplier</a>, a function of level.
  All Max Attacks have the same power, as do all G-Max Attacks:</p>
-<table class="maxtable">
+<table class="maxtable" id="maxpowertable">
   <tr><th/><th><br/>Max Level 1</th><th>Max Level 2 /<br/>ML1 + DC</th><th>Max Level 3 /<br/>ML2 + DC</th><th>Max Level 3 + DC</th></tr>
   <tr><td><b>Max</b></td><td>250</td><td>300</td><td>350</td><td>450</td></tr>
   <tr><td><b>G-Max</b></td><td>350</td><td>400</td><td>450</td><td>550</td></tr>
@@ -152,16 +156,80 @@ If you're losing Max Battles, it's not because of your IVs.
   <tr><td>IV<sub>A</sub> 0 → 15</td><td>&lt;12%</td></tr>
   <tr><td>Level 30 → 40</td><td>8%</td></tr>
   <tr><td>Level 40 → 50</td><td>6.3%</td></tr>
-  <tr><td>Behemoth Bash AE</td><td>5%</td></tr>
+  <tr><td>Behemoth Blade AE</td><td>5%</td></tr>
   <tr><td>IV<sub>A</sub> 10 → 15</td><td>&lt;3%</td></tr>
   <caption>* indicates that only the Max phase is affected</caption>
 </table>
-</div>
+<p>To calculate the exact power a given Pokémon will deliver:</p>
+<ol>
+<li>Get its base attack stat ATK (available from its <a href="mon/index.html">Form page</a>).</li>
+<li>Get its attack IV<sub>A</sub> (available through in-game appraisal).</li>
+<li>Add ATK and IV<sub>A</sub> to get Mod<sub>A</sub>.</li>
+<li>Get the <a href="cpms.html">CPM</a> corresponding to its level.</li>
+<li>Multiply Mod<sub>A</sub> by the CPM (Eff<sub>A</sub>).</li>
+<li>Multiply by attack power (use <a href="#maxpowertable">table</a> from the beginning of this post).</li>
+<li>Multiply by applicable Behemoth Blade, weather, STAB, and mushroom boosts from the table above.</li>
+</ol>
 <h2>selecting tanks</h2>
-<p>FIXME</p>
+<p>Our tanks will be using their fast attack to do damage and fill the max meter.
+The amount of damage done by our Max Attacks so greatly exceeds that deliverable through fast attacks
+ that the most important thing to select for is attack speed, i.e. we want to minimize turns.
+Fast attack timings are listed <a href="dynafast.html">here</a>; a single-turn attack is very desirable. 
+In most cases, it's better to eschew charged moves entirely, as the power they deliver doesn't
+justify the time they take to execute—it's better to rush to the Max Phase (but not always; see <a href="#charged">below</a>).
+Remember, you're taking damage in the main phase.
+On that note, you want Pokémon with high Eff<sub>D</sub> and/or HP; the product of these two roughly defines how much power
+ needs be inflicted to knock us out.
+Eff<sub>D</sub> factors into the effectiveness of Max Guard, and MHP factors into the effectiveness of Max Spirit.
+If Zamazenta has Max Guard unlocked, he starts the Max Battle with one shield up.
+Zamazenta is furthermore unique in being able to stack four shields (everyone else can only do three).
+Behemoth Bash provides a 5% boost to defense across both phases of the battle.
+The rules here are the same: <b>Fully evolve your Pokémon. Get (defensive) type advantage.</b>
+</p>
+<table class="evenshade maxtable">
+  <tr><th>Reduction</th><th>%</th></tr>
+  <tr><td>Fully evolve</td><td>Significant</td></tr>
+  <tr><td>+2 typing resistance</td><td>156%</td></tr>
+  <tr><td>+1 typing resistance</td><td>60%</td></tr>
+  <tr><td>Level 20 → 30</td><td>22.5%</td></tr>
+  <tr><td>IV<sub>D</sub> 0 → 15</td><td>&lt;12%</td></tr>
+  <tr><td>Level 30 → 40</td><td>8%</td></tr>
+  <tr><td>Level 40 → 50</td><td>6.3%</td></tr>
+  <tr><td>Behemoth Bash AE</td><td>5%</td></tr>
+  <tr><td>IV<sub>D</sub> 10 → 15</td><td>&lt;3%</td></tr>
+</table>
 <h2>advanced (kinda) strategies</h2>
 <ul>
-  <li><b>Catch tanks:</b> FIXME</li>
-  <li><b>Charged moves:</b> FIXME</li>
+  <li><p><b>Max Guard/Max Spirit:</b>
+    Using either of these Max Moves means dealing less damage in the Max phase.
+  A Max Battle does not go on forever—after sufficient time has passed, it will be lost,
+     so use of these moves ought be considered carefully.
+  They only affect the active Pokémon, so you can't e.g. heal your attacker (but your attacker
+    oughtn't be taking damage anyway, so long as you have a tank alive).
+  I thus very rarely use Max Spirit, especially since it's most useful with Blissey, who
+   can't typically hit for shit with its Max Attack.
+  If you'll have to use all three Max moves to heal, it's almost certainly not worth it,
+   and if you can't deal substantial damage with your Max Attack, it's similarly probably
+   not worth it.
+  Your attacker wants to attack, not heal, even at the end of a Max Battle.
+  Max Guard is a different story, especially with Zamazenta, because a Pokémon with
+   shields up <i>draws targeted attacks away from unshielded Pokémon</i>.
+  If you're bringing in a maxed out Zamazenta, and find yourself amongst a bunch
+   of know-nothing crap, keeping them alive might be a winning strategy.
+  More likely you ought let them die, use your (presumably superior) attacker,
+  and hope they cheer (knocked out Trainers can cheer, helping to fill the Max Meter).
+  After all, they might (if you're lucky)!</p>
+  </li>
+  <li id="charged"><p><b>Charged moves:</b> I said above that charged moves are not generally worth using.
+   That's not always the case. If you can deliver sufficient power per turn, go for it.
+   Blissey throwing <a href="attack/HyperBeam.html">Hyper Beam</a> (a Normal move that will never have type advantage) over eight turns
+    will not generally be useful.
+    Zacian tossing Behemoth Blade at <a href="mon/GMaxGrimmsnarl.html">G-Max Grimmsnarl</a> is another
+    thing entirely, very possibly worth the seven turns.
+   Calculating whether and when charged moves are worth it is beyond the scope of this essay.
+   I say throw 'em if it feels good: let's just do it and be legends, mang.</p>
+  </li>
+  <li><p><b>Catch tanks:</b> FIXME</p></li>
 </ul>
+</div>
 FOOTER

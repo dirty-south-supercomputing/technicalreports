@@ -21,6 +21,7 @@ MAKEFILE:=Makefile
 WEB:=webpage
 WEBSRC:=$(WEB)-src
 WEBIMG:=$(WEB)/images
+COREHEADERS:=pgotypes.h pokemon.h
 
 CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
 CSS:=pgonav.css
@@ -496,15 +497,15 @@ $(SIMUL3OUT): $(BOOKSIMUL)
 				quagsire opt1500 "water gun" earthquake \
 				milotic opt1500 waterfall surf > $@
 
-$(BOOKSIMUL): $(BOOKSIMULSRC) $(PGOOBJ) pgotypes.h
+$(BOOKSIMUL): $(BOOKSIMULSRC) $(PGOOBJ) $(COREHEADERS)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(SIMUL): $(SIMULSRC) $(PGOOBJ) pgotypes.h
+$(SIMUL): $(SIMULSRC) $(PGOOBJ) $(COREHEADERS)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -march=native -mtune=native -o $@ -O3 $(<) $(PGOOBJ) -lm -lmurmurhash
 
-$(OUT)/%: %.cpp pgotypes.h html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
+$(OUT)/%: %.cpp $(COREHEADERS) html.h $(LATEXOBJ) $(HTMLOBJ) $(PGOOBJ)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -o $@ -O2 $(<F) $(HTMLOBJ) $(LATEXOBJ) $(PGOOBJ) -lm
 
@@ -518,7 +519,7 @@ $(OUT)/pokemon.o: pokemon.cpp
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 
-$(OUT)/%.o: %.cpp pgotypes.h html.h
+$(OUT)/%.o: %.cpp $(COREHEADERS) html.h
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 
