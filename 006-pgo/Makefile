@@ -23,11 +23,12 @@ WEBSRC:=$(WEB)-src
 WEBIMG:=$(WEB)/images
 
 CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
+CSS:=pgonav.css
 
 # we sometimes parameterize based on type
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 			 ice normal poison psychic rock steel water
-WEBPAGES:=$(addprefix $(WEB)/, pgo.css \
+WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 					 $(addsuffix .html, \
 					  index attacks/index mon/index \
 						nodyna noshadow noshiny nosecondcharged dynacost dynafast shadows \
@@ -193,7 +194,7 @@ $(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPY
 $(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(WEB)/pgo.css: $(WEBSRC)/pgo.css
+$(WEB)/$(CSS): $(WEBSRC)/$(CSS)
 	@mkdir -p $(@D)
 	ln -sf ../$< $@
 

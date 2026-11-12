@@ -25,7 +25,7 @@ nav {
 
 nav ul, nav select, nav button {
   display: flex;
-  gap: 2em;
+  column-gap: 2em;
   flex-wrap: wrap;
 }
 
