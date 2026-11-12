@@ -35,7 +35,7 @@ void write_navbar(std::ostream &fp, bool par){
   }
   fp << "</select>" << std::endl;
   // implemented by javascript following the footer. we also listen for enter there.
-  fp << "<button type=\"button\" onclick=\"handlesearch()\">search</button></li>";
+  fp << "<button type=\"button\" onclick=\"handlesearch()\">go</button></li>";
   fp << "</ul></nav>" << std::endl;
 }
 
