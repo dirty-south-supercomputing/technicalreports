@@ -282,6 +282,10 @@ img.monradar {
   height: auto;
 }
 
+#allattacks { /* all attacks table */
+  margin: 0 1em 0 1em;
+}
+
 #leaguestats { /* league summaries, *not* mon pages */
   background-color: #ddd;
   margin: 0 auto 2em auto;
