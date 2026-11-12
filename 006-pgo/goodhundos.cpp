@@ -31,7 +31,7 @@ static void
 emit_good_hundos(int cpbound){
   std::cout << "<table class=\"evenshade goodhundos\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>Form</th><th>L</th><th>MHP</th><th>Eff<sub>A</sub></th>";
+  std::cout << "<th/><th>Form</th><th>L</th><th>MHP</th><th>Eff<sub>A</sub></th>";
   std::cout << "<th>Eff<sub>D</sub></th><th>Amean</th><th>Gmean</th><th>CP</th><th>%</th>";
   std::cout << "</tr>" << std::endl;
   std::vector<sstat> rows;

@@ -3,37 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Megas in Pokémon GO GBL</title>
+  <title>What's important for Max Battles?</title>
   <link rel="stylesheet" type="text/css" href="pgo.css">
   <style>
-    p { padding: 1em; }
+div#main { max-width: min(60em, 100%); }
+    p { padding: 0 1em 0 1em; }
+    .maxtable { margin: auto; padding: 0 1em 0 1em; }
+    .maxtable tr>:nth-child(1) { text-align: left; }
+    .maxtable tr>:nth-child(2) { text-align: right; }
+    .maxtable tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; }
+    caption { font-size: small; padding-top: 5px; caption-side: bottom; }
   </style>
 </head>
 BODYSTART
+<div id="main">
 <h1>What's important for Max Battles?</h1>
-<p><b>tl;dr: evolve your shit and get type advantage</b></p>
+<p style="background-color: palegreen; font-size: x-large;"><b>tl;dr: <i>evolve your shit. get type advantage.</i> (and check out <a href="#summary">this table</a>)</b></p>
 <p>For a given Max Battle opponent, we can affect the following variables:</p>
 <ul>
   <li>Pokémon species and form</li>
   <li>Individual Pokémon properties (IVs and level)</li>
   <li>Fast attack (fast attack implies Max Attack)</li>
   <li>Charged attack (even if we have two, we'll probably only use one, if any)</li>
+  <li>Adventure Effect in use (<a href="attacks/DynamaxCannon.html">Dynamax Cannon</a>,
+    <a href="attacks/BehemothBlade.html">Behemoth Blade</a>,
+    <a href="attacks/BehemothBash.html">Behemoth Bash</a>)</li>
+  <li>Whether a Max Mushroom is in use</li>
 </ul>
 <p>What's most important for successfully winning a Max Battle?
-It's easiest to determine our best Max Attackers, assuming that they never get hit,
- and are only using their Max Attacks (i.e. that they are only used during the Max Attack phase).
- We can leave aside everything related to defense and stamina—the only
+  Our team of three must inflict damage quickly enough that the opponent is knocked out before we are.
+  A quick refresher on mechanics:
+  A Max Battle cycles through two phases: the main phase and the Max phase.
+  During the main phase, the opponent uses charged attacks targeting one or all active Pokémon.
+  Active Pokémon attack with fast and charged attacks, doing damage and building up the Max Meter.
+  When the Max Meter is full, the battle switches to Max phase, during which the opponent does
+   not attack, and each active Pokémon uses three Max Moves.
+  Pokémon can be freely substituted during the main phase, and substituted once during the transition to Max phase.
+  Besides Dynamax and Gigantamax Pokémon, only <a href="mon/ZacianCrownedSword.html">Crowned Sword Zacian</a>,
+  <a href="mon/ZamazentaCrownedShield.html">Crowned Shield Zamazenta</a>, and
+  <a href="mon/Eternatus.html">Eternatus</a> can participate in Max Battles.
+  Gigantamax Pokémon have a fixed G-Max attack unique to that species.
+  Dynamax Pokémon have a Max attack based on the type of their fast attack.</p>
+<p>A sensible strategy is to employ two “tanks”—Pokémon resistant to (some of) the opponent's possible
+   attacks, having high defense and/or stamina and fast move of as few turns as possible.
+   These will absorb blows from the opponent, charge the Max Meter, and ideally never be used in
+    the Max phase.
+   An “attacker” will use G-Max or Max attacks to deal the majority of our damage, and ideally
+    never be used in the main phase.
+ It's easiest to determine the best Max Attackers for a given opponent:
+ we can leave aside everything related to defense and stamina—the only
  important characteristics are Eff<sub>A</sub> and the Max Attack.
- Eff<sub>A</sub> is determined by adding the form's base ATK stat to the ATK IV,
- and multiplying by the Combat Power Multiplier, a function of level.
+ Eff<sub>A</sub> is determined by adding the form's base attack stat to the Pokémon's IV<sub>A</sub>,
+ and multiplying by the <a href="cpms.html">Combat Power Multiplier</a>, a function of level.
  All Max Attacks have the same power, as do all G-Max Attacks:</p>
-<table>
-  <tr><th/><th>Max Level 1</th><th>2/1+DC</th><th>3/2+DC</th><th>3+DC</th></tr>
-  <tr><td>Max</td><td>250</td><td>300</td><td>350</td><td>450</td></tr>
-  <tr><td>G-Max</td><td>350</td><td>400</td><td>450</td><td>550</td></tr>
+<table class="maxtable">
+  <tr><th/><th><br/>Max Level 1</th><th>Max Level 2 /<br/>ML1 + DC</th><th>Max Level 3 /<br/>ML2 + DC</th><th>Max Level 3 + DC</th></tr>
+  <tr><td><b>Max</b></td><td>250</td><td>300</td><td>350</td><td>450</td></tr>
+  <tr><td><b>G-Max</b></td><td>350</td><td>400</td><td>450</td><td>550</td></tr>
+  <caption>“DC” indicates the Dynamax Cannon Adventure Effect</caption>
 </table>
+<p>Eternatus has G-Max power, while the Crowned Forms have regular Max power.</p>
 <h2>fully evolve your Pokémon; don't use Shuckle</h2>
- The lowest base ATK capable of Max Attacks is Shuckle, with 17. 
+<p>The lowest base ATK capable of Max Attacks is Shuckle, with 17. 
  The highest is <a href="mon/ZacianCrownedSword.html">Crowned Sword Zacian</a>, with 332.
  Assuming IV<sub>A</sub> of 15, 347 is more than 10x the power of shameless outlier <a href="mon/Shuckle.html">Shuckle's</a> 32.
  Nothing else one can do comes close to such a difference. 
@@ -41,12 +72,11 @@ It's easiest to determine our best Max Attackers, assuming that they never get h
  At this time (2026-11), no Max-capable Pokémon has a higher ATK than its <i>fully evolved</i>
   form, so always ensure your Max Attackers are fully evolved, and never use Shuckle.
  Considering only fully evolved forms, our lowest ATK is <a href="mon/Blissey.html">Blissey</a>, with 129.
- Crowned Sword Zacian is now only a 2.4x the power of Blissey, less than the 2.56x
-  multiplier possible for a type effectiveness of +2.
+ Crowned Sword Zacian has only 2.4x the power of Blissey, less than the 2.56x multiplier due a type effectiveness of +2.
   This is an extreme example, of course; a more representative one might be the <a href="mon/Rhyhorn.html">Rhyhorn</a> family.
   <a href="mon/Rhydon.html">Rhydon</a> is a 1.58x multiplier over Rhyhorn; <a href="mon/Rhyperior.html">Rhyperior</a> is in turn about 1.09x as powerful as Rhydon
   (a 1.72x multiplier over Rhyhorn).
- All else being equal, you want Pokémon from the top half of <a href="dynas-all.html">this list</a>.
+  All else being equal, you want Pokémon from the top half of <a href="dynas-all.html">this list</a>.</p>
 <h2>it's type effectiveness, stupid</h2>
 <p>That's right: all else being equal, Blissey hitting for neutral effectiveness
   throws more damage per Max Attack than Crowned Sword Zacian's mighty Behemoth Blade
@@ -57,8 +87,7 @@ A level 50 Blissey with a perfect 15 IV<sub>A</sub> having a Max Level of 3 but 
 Two levels of type effectiveness difference correspond to a 2.56x multiplier; a single
  level is a 1.6x multiplier.
 A Level 1 Max Attack with +1 type effectiveness is equal to a Level 2 G-Max Attack with neutral effectiveness.
-A Level 1 Max Attack with +2 type effectiveness is stronger than a Level 3 G-Max Attack <i>with <a href="attacks/DynamaxCannon.html">Dynamax Cannon</a>
-  in effect</i> but with neutral effectiveness.
+A Level 1 Max Attack with +2 type effectiveness is stronger than a Level 3 G-Max Attack <i>with Dynamax Cannon in effect</i> but with neutral effectiveness.
 A single level of type effectiveness is 3x the boost of STAB.</p>
 <h2>level, max level, and g-max</h2>
 <p>Level 50 is about a 1.41x multiplier over Level 20.
@@ -88,6 +117,11 @@ The G-Max bonus decreases as the Max Level rises, but a G-Max at Max Level 3
 <p>STAB and weather boost are good for a 1.2x multiplier each.
 By all means, get them if you can, but certainly don't sacrifice type advantage for them.
 All G-Max Pokémon have STAB for their G-Max attack.</p>
+<h2>Behemoth Blade Adventure Effect</h2>
+<p>Behemoth Blade's Adventure Effect
+  provides a flat multiplier of 1.05x for Max Battles. This is always less than
+  the effect of Dynamax Cannon, but unlike Dynamax Cannon it applies to Zacian and Zamazenta,
+  and also affects all attacks during the Max Battle, not just Max Attacks.</p>
 <h2>IV<sub>A</sub></h2>
 <p>The least important consideration. For Blissey, an IV<sub>A</sub> of 15 is a 1.03x
  multiplier over an IV<sub>A</sub> of 10.
@@ -99,9 +133,33 @@ In that case, the largest multiplier due IVs would be Blissey with a 1.12x multi
 On Zacian, 15 vs. 0 is a 1.05x multiplier.
 If you're losing Max Battles, it's not because of your IVs.
 </p>
-<h2>Behemoth Blade Adventure Effect</h2>
-<p><a href="attacks/BehemothBlade.html">Behemoth Blade's</a> Adventure Effect
-  provides a flat multiplier of 1.05x for Max Battles. This is always less than
-  the effect of Dynamax Cannon, but unlike Dynamax Cannon it applies to Zacian and Zamazenta,
-  and also affects all attacks during the Max Battle, not just Max Attacks.</p>
+<h2 id="summary">summary table</h2>
+<table class="evenshade maxtable">
+  <tr><th>Boost</th><th>%</th></tr>
+  <tr><td>Fully evolve</td><td>Significant</td></tr>
+  <tr><td>+2 typing effectiveness</td><td>156%</td></tr>
+  <tr><td>Max Mushroom</td><td>100%</td></tr>
+  <tr><td>+1 typing effectiveness</td><td>60%</td></tr>
+  <tr><td>(*) G-Max (vs. same level Max)</td><td>22.2%–40%</td></tr>
+  <tr><td>Level 20 → 30</td><td>22.5%</td></tr>
+  <tr><td>STAB</td><td>20%</td></tr>
+  <tr><td>Weather boost</td><td>20%</td></tr>
+  <tr><td>(*) Max Level 1 → 2</td><td>14.3% (G-Max)<br/>20% (Max)</td></tr>
+  <tr><td>(*) Dynamax Cannon AE</td><td>12.5%–22.2% (G-Max)<br/>16.7%–28.5% (Max)</td></tr>
+  <tr><td>(*) Max Level 2 → 3</td><td>12.5% (G-Max)<br/>16.7% (Max)</td></tr>
+  <tr><td>IV<sub>A</sub> 0 → 15</td><td>&lt;12%</td></tr>
+  <tr><td>Level 30 → 40</td><td>8%</td></tr>
+  <tr><td>Level 40 → 50</td><td>6.3%</td></tr>
+  <tr><td>Behemoth Bash AE</td><td>5%</td></tr>
+  <tr><td>IV<sub>A</sub> 10 → 15</td><td>&lt;3%</td></tr>
+  <caption>* indicates that only the Max phase is affected</caption>
+</table>
+</div>
+<h2>selecting tanks</h2>
+<p>FIXME</p>
+<h2>advanced (kinda) strategies</h2>
+<ul>
+  <li><b>Catch tanks:</b> FIXME</li>
+  <li><b>Charged moves:</b> FIXME</li>
+</ul>
 FOOTER

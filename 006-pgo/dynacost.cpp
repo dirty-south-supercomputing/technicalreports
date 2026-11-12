@@ -24,7 +24,7 @@ int main(void){
         return false;
       });
   std::cout << "<table class=\"evenshade\" id=\"dynacost\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Pokémon</th><th>Tier</th><th>Cost (MP)</th></tr>" << std::endl;
+  std::cout << "<tr><th/><th>Pokémon</th><th>Tier</th><th>Cost (MP)</th></tr>" << std::endl;
   for(const auto s : dynas){
     std::cout << "<tr><td>";
     html_types(s->t1, s->t2, false);

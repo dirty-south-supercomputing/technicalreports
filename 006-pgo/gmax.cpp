@@ -4,7 +4,7 @@
 int main(){
   std::cout << "<table id=\"gmaxen\">";
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>Pokémon</th><th>G-Max attack</th>";
+  std::cout << "<th/><th>Pokémon</th><th>G-Max attack</th>";
   std::cout << "</tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     const auto *gm = lookup_gmax_attack(*s);

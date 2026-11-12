@@ -67,7 +67,7 @@ int emit_dynamax_unified_table(int count, bool html){
   if(html){
     std::cout << "<table class=\"evenshade dynas\">" << std::endl;
     std::cout << "<tr>";
-    std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th>";
+    std::cout << "<th/><th>Pokémon</th><th>Attack</th>";
     std::cout << "<th>Relative</th>";
     for(int i = -3 ; i < 3 ; ++i){
       std::cout << "<th>P<sub>" << i << "</sub></th>";
@@ -121,7 +121,7 @@ int emit_dynamax_unified_table(int count, bool html){
 int emit_dynamax_typed_table(pgo_types_e t, int count){
   std::cout << "<table class=\"evenshade dynas\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>Pokémon</th><th>Attack</th>";
+  std::cout << "<th/><th>Pokémon</th><th>Attack</th>";
   std::cout << "<th>Relative</th>";
   for(int i = -3 ; i < 3 ; ++i){
     std::cout << "<th>P<sub>" << i << "</sub></th>";
