@@ -877,7 +877,7 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  write_header(fp, s.name + " in Pokémon GO", true);
+  write_header(fp, s.name + " in Pokémon GO", "", true);
   fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "</h1>" << std::endl;
   write_stats(fp, s);
@@ -979,7 +979,11 @@ write_index(){
     std::cerr << "error opening index.html for writing" << std::endl;
     return -1;
   }
-  write_header(fp, "Pokémon GO forms", true);
+  const std::string style =
+    "#allforms { margin: 0 1em 0 1em; }" \
+    "#allforms tr>:nth-child(1) { font-size: large; }" \
+    "#allforms tr>:nth-child(3) { font-size: large; }";
+  write_header(fp, "Pokémon GO forms", style, true);
   fp << "<p class=\"intro\">The following forms are available in Pokémon GO. ";
   fp << "Functionally equivalent forms are not distinguished. ";
   fp << "Battle-only forms are not listed.</p>" << std::endl;

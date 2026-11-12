@@ -17,15 +17,6 @@
 #include <forward_list>
 #include "pokemon.h"
 
-// power for gmax and dmax level 1. levels 2 and 3 add 50 and 100, respectively.
-// max moves subject to Dynamax Cannon's adventure effect get a boost of one
-// level, where "level 4" is 450 and 550 for dmax and gmax/eternatus, respectively.
-// behemoth bash affects all max moves (even zacian and zamazenta), giving them
-// a 5% boost. only one can be in effect at a time.
-constexpr unsigned MAXATK_MAX_LEVEL = 4;
-extern const unsigned GMAX_POWER[MAXATK_MAX_LEVEL];
-extern const unsigned DMAX_POWER[MAXATK_MAX_LEVEL];
-
 constexpr unsigned TEAMSIZE = 3;
 constexpr int MAXIVELEM = 15;
 constexpr int MAXCHARGEDBUFF = 4;
@@ -154,6 +145,24 @@ int purification_cost(const species &s);
 gmaxattack *lookup_gmax_attack(const species &s);
 gmaxattack *gmaxattacks_begin();
 gmaxattack *gmaxattacks_end();
+
+static inline bool
+gmax_attack_p(const attack &a){
+  const std::string prefix = "G-Max";
+  if(a.name.compare(0, prefix.length(), prefix) == 0){
+    return true;
+  }
+  return false;
+}
+
+static inline bool
+max_attack_p(const attack &a){
+  const std::string prefix = "Max";
+  if(a.name.compare(0, prefix.length(), prefix) == 0){
+    return true;
+  }
+  return false;
+}
 
 static inline double
 calc_eff_a_raw(unsigned atk, unsigned halflevel){

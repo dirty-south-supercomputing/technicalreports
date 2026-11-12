@@ -128,7 +128,7 @@ html_types(pgo_types_e t1, pgo_types_e t2, bool pdir){
   html_types(std::cout, t1, t2, pdir);
 }
 
-void write_header(std::ostream &fp, const std::string &title, bool pdir = false);
+void write_header(std::ostream &fp, const std::string &title, const std::string &style, bool pdir = false);
 void write_navbar(std::ostream &fp, bool pdir = false);
 void write_footer(std::ostream &fp, bool pdir = false);
 void write_footer_and_close(std::ofstream &fp, bool pdir = false);

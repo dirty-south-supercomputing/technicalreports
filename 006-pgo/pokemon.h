@@ -82,6 +82,27 @@ type_effectiveness(pgo_types_e at, pgo_types_e dt0, pgo_types_e dt1){
   return type_effectiveness_mult(typing_relation(at, dt0, dt1));
 }
 
+// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
+// dynamax cannon adventure effect).
+struct gmaxattack {
+  const std::string sname;// species name
+  const std::string name; // attack name
+  pgo_types_e type;       // attack type
+  bool shiny;             // shiny gmax available?
+};
+
+constexpr unsigned GMAX_TIER = 6;
+// power for gmax and dmax level 1. levels 2 and 3 add 50 and 100, respectively.
+// max moves subject to Dynamax Cannon's adventure effect get a boost of one
+// level, where "level 4" is 450 and 550 for dmax and gmax/eternatus, respectively.
+// behemoth bash affects all max moves (even zacian and zamazenta), giving them
+// a 5% boost. only one can be in effect at a time.
+constexpr unsigned MAXATK_MAX_LEVEL = 4;
+
+// FIXME make these constexpr?
+extern const unsigned GMAX_POWER[MAXATK_MAX_LEVEL];
+extern const unsigned DMAX_POWER[MAXATK_MAX_LEVEL];
+
 struct attack {
   const std::string name;
   pgo_types_e type;
@@ -153,6 +174,49 @@ struct attack {
     adveffect(a.adveffect)
   {
     assert(mlevel >= 2 && mlevel <= 4);
+  }
+
+  // construct an attack from a max attack description
+  attack(const std::string &Name, pgo_types_e T) :
+    name(Name),
+    type(T),
+    powertrain(0),
+    energytrain(0),
+    turns(0),
+    chance_user_attack(0),
+    chance_user_defense(0),
+    chance_opp_attack(0),
+    chance_opp_defense(0),
+    user_attack(0),
+    user_defense(0),
+    opp_attack(0),
+    opp_defense(0),
+    powerraid(DMAX_POWER[0]),
+    energyraid(0),
+    animdur(0),
+    adveffect(false)
+  {
+  }
+
+  attack(const gmaxattack &gm) :
+    name(gm.name),
+    type(gm.type),
+    powertrain(0),
+    energytrain(0),
+    turns(0),
+    chance_user_attack(0),
+    chance_user_defense(0),
+    chance_opp_attack(0),
+    chance_opp_defense(0),
+    user_attack(0),
+    user_defense(0),
+    opp_attack(0),
+    opp_defense(0),
+    powerraid(GMAX_POWER[0]),
+    energyraid(0),
+    animdur(0),
+    adveffect(false)
+  {
   }
 
 };
@@ -845,17 +909,6 @@ struct mega {
 };
 
 bool plus_attack_p(const attack &);
-
-// all gmax attacks are 350, 400, 450, 550 damage (level 4 is achieved via the
-// dynamax cannon adventure effect).
-struct gmaxattack {
-  const std::string sname;// species name
-  const std::string name; // attack name
-  pgo_types_e type;       // attack type
-  bool shiny;             // shiny gmax available?
-};
-
-constexpr unsigned GMAX_TIER = 6;
 
 struct species {
   unsigned idx; // pokedex index, not unique
