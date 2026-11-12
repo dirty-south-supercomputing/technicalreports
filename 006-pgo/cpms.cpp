@@ -39,7 +39,7 @@ print_cpms(void){
   std::cout << "Level & \\CPM & \\% & Level & \\CPM & \\%\\\\" << std::endl;
   std::cout << "\\Midrule" << std::endl;
   // handle the temporary 4 halflevels with two columns
-  for(int i = 100 ; i < 104 ; i += 2){
+  for(unsigned i = MAX_HALFLEVEL_BASIC + 1 ; i <= MAX_HALFLEVEL ; i += 2){
     unsigned half;
     auto level = halflevel_to_level(i, &half);
     std::cout << level;

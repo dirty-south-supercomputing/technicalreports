@@ -31,8 +31,9 @@ constexpr int MAXIVELEM = 15;
 constexpr int MAXCHARGEDBUFF = 4;
 constexpr unsigned ENERGY_MAX = 100;
 // one can reach the 99th halflevel (50) through powering up.
-// past that, one can get two temporary levels through active
-// best buddy status, and two temporary levels by mega level 4.
+// past that, one can get two temporary half-levels through active
+// best buddy status, and two temporary half-levels by mega level 4,
+// for a total of four extra half-levels.
 constexpr unsigned MAX_HALFLEVEL = MAX_HALFLEVEL_BASIC + 4;
 static constexpr auto GLCPCAP = 1500;
 static constexpr auto ULCPCAP = 2500;
