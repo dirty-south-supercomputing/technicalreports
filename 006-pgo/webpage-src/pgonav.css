@@ -90,7 +90,11 @@ table.raidcounters tr>:nth-child(3) { /* attack */
   padding: 0 0 0 1em;
 }
 
-table.raidcounters tr>:nth-child(n+4) { /* stats */
+table.raidcounters tr>:nth-child(4) { /* turns */
+  text-align: right;
+}
+
+table.raidcounters tr>:nth-child(n+5) { /* stats */
   text-align: right;
   padding: 0 0 0 1em;
 }

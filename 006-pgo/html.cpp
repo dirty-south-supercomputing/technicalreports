@@ -102,7 +102,7 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   emit_html_attack(fp, *s, ca, true, true);
   fp << "</td>";
   fp << "<td>" << turns << "</td>";
-  fp << "<td>" << dam << "</td>";
+  fp << "<td>" << (dpt * 100 / maxp) << "%</td>";
   fp << "</tr>" << std::endl;
 }
 
@@ -573,9 +573,9 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   }
   // FIXME need megas, need shadows as distinct forms
   std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
-      if(l.dam < r.dam){
+      if(l.dpt < r.dpt){
         return false; // most to least powerful
-      }else if(r.dam < l.dam){
+      }else if(r.dpt < l.dpt){
         return true;
       }
       if(l.turns < r.turns){
@@ -594,9 +594,9 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   fp << "<th>Form</th>";
   fp << "<th>Attack pair</th>";
   fp << "<th>Turns</th>";
-  fp << "<th>Power</th>";
+  fp << "<th>RelPPT</th>";
   fp << "</tr>";
-  auto maxp = 0; // FIXME
+  auto maxp = cands.begin()->dpt;
   unsigned emitted = 0;
   for(const auto& c : cands){
     c.emit(fp, maxp, pdir);
