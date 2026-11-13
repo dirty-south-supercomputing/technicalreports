@@ -101,9 +101,8 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << ' ';
   emit_html_attack(fp, *s, ca, true, true);
   fp << "</td>";
-  fp << "<td>";
-  fp << dam;
-  fp << "</td>";
+  fp << "<td>" << turns << "</td>";
+  fp << "<td>" << dam << "</td>";
   fp << "</tr>" << std::endl;
 }
 
@@ -298,11 +297,11 @@ calctimefandc_counter(std::vector<timetofirst> &ttfs, const species &targ,
   }
   unsigned t = turns_until_eNx1(f, c->energyraid);
   auto fteffect = targ.type_effectiveness(f);
-  auto powerfast = calc_eff_power_nx1(s, f) * fteffect;
+  auto powerfast = calc_eff_power_nx1(s, f) * fteffect * s.atk;
   float pfast = t / f->animdur * powerfast;
   t += c->animdur; // account for the charged attack
   auto cteffect = targ.type_effectiveness(c);
-  auto powercharged = calc_eff_power_nx1(s, c) * cteffect;
+  auto powercharged = calc_eff_power_nx1(s, c) * cteffect * s.atk;
   ttfs.emplace_back(&s, t, pfast, powercharged, f, c, true);
 }
 
@@ -572,6 +571,7 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     calc_raid_counters(cands, targ, *s, s->shadow);
   }
+  // FIXME need megas, need shadows as distinct forms
   std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
       if(l.dam < r.dam){
         return false; // most to least powerful
@@ -593,6 +593,7 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   fp << "<th>T</th>";
   fp << "<th>Form</th>";
   fp << "<th>Attack pair</th>";
+  fp << "<th>Turns</th>";
   fp << "<th>Power</th>";
   fp << "</tr>";
   auto maxp = 0; // FIXME

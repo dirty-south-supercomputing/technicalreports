@@ -88,28 +88,14 @@ void print_table(const std::vector<const attack*>& as, bool raid){
       std::cout << pop;
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
-        for(const auto &as : s->attacks){
-          if(attack_named_p(a, as->name)){
+        for(const auto &ass : s->attacks){
+          if(attack_named_p(a, ass->name)){
             if(printed){
               std::cout << ',';
             }
             std::cout << ' ';
             printed = true;
-            bool stab = has_stab_p(*s, a);
-            bool excl = exclusive_attack_p(*s, a);
-            if(!stab){
-              std::cout << "<i>";
-            }
-            if(excl){
-              std::cout << "<b>";
-            }
-            link_to_name(std::cout, s->name, true);
-            if(excl){
-              std::cout << "</b>";
-            }
-            if(!stab){
-              std::cout << "</i>";
-            }
+            emit_html_attack(std::cout, *s, a, true, false);
             break;
           }
         }
