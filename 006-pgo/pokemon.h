@@ -1063,9 +1063,6 @@ struct species {
     }
   }
 
-  // synthesize into sbacking a new species made of the mega and us
-  void synth_mega_species(const species *s, const mega &m);
-
   species(unsigned i, const std::string &n, pgo_types_e T1, pgo_types_e T2,
           unsigned A, unsigned D, unsigned S, const std::string &From,
           const std::vector<const attack*> &Attacks,
@@ -1096,6 +1093,9 @@ struct species {
     evolkm(Evolkm),
     mforms(Mforms)
   { }
+
+  // synthesize into sbacking a new species made of the mega and us
+  void synth_mega_species(const species *s, const mega &m);
 
   species(const species *s, const mega &m)
   {

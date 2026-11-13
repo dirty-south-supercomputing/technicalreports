@@ -568,10 +568,17 @@ constexpr unsigned COUNTEREMITMAX = 50;
 
 int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   std::vector<timetofirst> cands;
+  std::forward_list<species> store;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     calc_raid_counters(cands, targ, *s, s->shadow);
+    for(const auto &m : s->mforms){
+      store.emplace_front(&*s, m);
+    }
   }
-  // FIXME need megas, need shadows as distinct forms
+  for(const auto &s : store){
+    calc_raid_counters(cands, targ, s, s.shadow);
+  }
+  // FIXME need shadows as distinct forms
   std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
       if(l.dpt < r.dpt){
         return false; // most to least powerful
@@ -590,7 +597,7 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
       });
   fp << "<table class=\"evenshade raidcounters\">";
   fp << "<tr>";
-  fp << "<th>T</th>";
+  fp << "<th/>";
   fp << "<th>Form</th>";
   fp << "<th>Attack pair</th>";
   fp << "<th>Turns</th>";
