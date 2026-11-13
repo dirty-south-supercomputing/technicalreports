@@ -72,7 +72,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
     if(html){
       std::cout << "<tr><td>";
       html_type(a->type, false);
-      std::cout << ' ';
+      std::cout << "&nbsp;";
     }else{
       print_fast_attack_rowcolor(a);
       if(a->type != TYPECOUNT){

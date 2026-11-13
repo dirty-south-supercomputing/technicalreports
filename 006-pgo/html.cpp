@@ -93,13 +93,9 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   link_to_name(fp, s->name, true, pdir);
   fp << "</td>";
   fp << "<td>";
-  html_type(fp, fa->type, pdir);
-  fp << ' ';
-  emit_html_attack(fp, *s, fa, true, true);
+  attack_with_icon(fp, *s, fa, true, pdir);
   fp << " → ";
-  html_type(fp, ca->type, pdir);
-  fp << ' ';
-  emit_html_attack(fp, *s, ca, true, true);
+  attack_with_icon(fp, *s, ca, true, pdir);
   fp << "</td>";
   fp << "<td>" << turns << "</td>";
   fp << "<td>" << (dpt * 100 / maxp) << "%</td>";
@@ -540,7 +536,7 @@ void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsig
 // ttype1+ttype2
 static void
 max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
-                     std::vector<maxcandidate>& cands){
+                     std::vector<maxcandidate>& cands, std::forward_list<species> &store){
   if(has_dmax(s)){
     bool ts[TYPECOUNT]{};
     for(const auto a : s.attacks){
@@ -560,7 +556,8 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   if(gma){
     bool stab = has_stab_raw_p(s, gma->type);
     float teffect = type_effectiveness(gma->type, ttype1, ttype2);
-    add_max_candidate(cands, &s, gma->name, true, stab, gma->type, teffect, true);
+    auto &smeg = store.emplace_front(&s, *gma);
+    add_max_candidate(cands, &smeg, gma->name, true, stab, gma->type, teffect, true);
   }
 }
 
@@ -622,9 +619,10 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
 }
 
 int max_counters(std::ostream &fp, const species &s, bool pdir){
+  std::forward_list<species> store;
   std::vector<maxcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
-    max_counters_species(*a, s.t1, s.t2, cands);
+    max_counters_species(*a, s.t1, s.t2, cands, store);
   }
   float teffect = type_effectiveness(TYPE_STEEL, s.t1, s.t2);
   const auto zac = lookup_species("Zacian Crowned Sword");
@@ -661,4 +659,11 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   }
   fp << "</table>";
   return 0;
+}
+
+void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
+                      bool subdir, bool pdir){
+  html_type(fp, a->type, pdir);
+  fp << "&nbsp;";
+  emit_html_attack(fp, s, a, subdir, pdir);
 }

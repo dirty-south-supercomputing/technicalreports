@@ -63,12 +63,10 @@ static void emit_row(const timetofirst &t){
   link_to_name(std::cout, t.s->name, true);
   std::cout << "</td>";
   std::cout << "<td>";
-  html_type(t.fa->type, false);
-  std::cout << ' ';
-  emit_html_attack(std::cout, *t.s, t.fa, true);
+  attack_with_icon(std::cout, *t.s, t.fa, true, false);
   std::cout << " + ";
   html_type(t.ca->type, false);
-  std::cout << ' ';
+  std::cout << "&nbsp;";
   std::string prefix, suffix;
   emit_html_attack_fancy(std::cout, *t.s, t.ca, prefix, suffix, true);
   std::cout << ' ';

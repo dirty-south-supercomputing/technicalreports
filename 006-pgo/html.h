@@ -96,6 +96,11 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a,
   emit_html_attack_fancy(o, s, a, prefix, suffix, subdir, pardir);
 }
 
+// prints the type icon prior to the link to the attack, using a nonbreaking
+// space between them to suppress line breaking.
+void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
+                      bool subdir, bool pdir);
+
 static inline void
 html_type(std::ostream &fp, pgo_types_e t, bool pdir){
   if(t != TYPECOUNT){

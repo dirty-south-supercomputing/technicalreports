@@ -56,7 +56,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     std::cout << "<tr>";
     std::cout << "<td>";
     html_type(a->type, false);
-    std::cout << " ";
+    std::cout << "&nbsp;";
     link_to_attack(std::cout, a->name, true);
     std::cout << "</td>";
     if(raid){

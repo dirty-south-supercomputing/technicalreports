@@ -50,6 +50,11 @@ img.type {
   vertical-align: top;
 }
 
+img.monscatter {
+  max-width: 100%;
+  height: auto;
+}
+
 img.sprite {
   max-width: 100%;
   height: auto;
@@ -340,7 +345,7 @@ div#monheader { /* mon pages */
   text-align: center;
 }
 
-table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
+table.fastattacks, table.chargedattacks, table.asequences, table.apairs { /* mon pages */
   margin: 0 0 1em 0;
   background-color: white;
 }
@@ -353,8 +358,17 @@ table.chargedattacks tr>:nth-child(1) { /* mon pages, attack */
   text-align: left;
 }
 
-table.apairs tr>:nth-child(1) { /* attack set */
+table.asequences tr>:nth-child(1) { /* mon pages, attack sequence */
   text-align: left;
+}
+
+table.asequences tr>:nth-child(n+2) { /* mon pages, attack sequence stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.apairs tr>:nth-child(1) { /* attack set */
+  text-align: center;
 }
 
 table.apairs tr>:nth-child(n+2) { /* mon pages, stats */

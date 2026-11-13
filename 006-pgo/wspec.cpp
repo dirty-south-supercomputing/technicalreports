@@ -12,9 +12,10 @@ write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   }else{
     encode_name(s.name, enc);
   }
-  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << ".png\" alt=\"bulk vs effa plot for " << leagueshort << "\"/>";
-  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort << "Gmean.png\" alt=\"bulk vs gmean plot for " << leagueshort << "\"/>";
-  //fp << "<img class=\"monradar\" src=\"graphs/" << enc << leagueshort << "Radar.png\" alt=\"radarplot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort
+    << ".png\" alt=\"bulk vs effa plot for " << leagueshort << "\"/>";
+  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort
+    << "Gmean.png\" alt=\"bulk vs gmean plot for " << leagueshort << "\"/>";
 }
 
 struct tristats {
@@ -163,6 +164,7 @@ write_fattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "<tr>";
     fp << "<td>";
     html_type(fp, a->type, true);
+    fp << "&nbsp;";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -196,6 +198,7 @@ write_cattacks_3x3(std::ostream &fp, const species &s, const std::vector<const a
     fp << "<tr>";
     fp << "<td>";
     html_type(fp, a->type, true);
+    fp << "&nbsp;";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td><td>";
@@ -213,12 +216,10 @@ static void emit_row(std::ofstream &fp, const timetofirst &t){
   fp << "<tr>";
   fp << "<td>";
   fp << (t.turns - 1) / t.fa->turns << "x ";
-  html_type(fp, t.fa->type, true);
-  fp << ' ';
-  emit_html_attack(fp, *t.s, t.fa, true, true);
+  attack_with_icon(fp, *t.s, t.fa, true, true);
   fp << " + ";
   html_type(fp, t.ca->type, true);
-  fp << ' ';
+  fp << "&nbsp;";
   std::string prefix, suffix;
   emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true, true);
   fp << ' ';
@@ -241,7 +242,7 @@ write_mon_ttf_3x3(std::ofstream &fp, const species &s){
   std::vector<timetofirst> ttfs;
   calctimetos3x3(ttfs, s, true);
   std::sort(ttfs.begin(), ttfs.end());
-  fp << "<table class=\"evenshade apairs\">" << std::endl;
+  fp << "<table class=\"evenshade asequences\">" << std::endl;
   fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
   for(const auto &t : ttfs){
     emit_row(fp, t);
@@ -306,7 +307,7 @@ write_mon_apairs(std::ofstream &fp, const species &s){
   calcarass3x3(tsets, s);
   std::sort(tsets.begin(), tsets.end(), std::greater<typeset>());
   fp << "<table class=\"evenshade apairs\">" << std::endl;
-  fp << "<tr><th>Attack set</th>";
+  fp << "<tr><th/>";
   for(int i = -3 ; i < 3 ; ++i){
     fp << "<th>E<sub>" << i << "</sub></th>";
   }
@@ -322,12 +323,10 @@ static void emit_row_nx1(std::ofstream &fp, const timetofirst &t){
   fp << "<tr>";
   fp << "<td>";
   fp << (t.turns - 1) / t.fa->animdur << "x ";
-  html_type(fp, t.fa->type, true);
-  fp << ' ';
-  emit_html_attack(fp, *t.s, t.fa, true, true);
+  attack_with_icon(fp, *t.s, t.fa, true, true);
   fp << " + ";
   html_type(fp, t.ca->type, true);
-  fp << ' ';
+  fp << "&nbsp;";
   std::string prefix, suffix;
   emit_html_attack_fancy(fp, *t.s, t.ca, prefix, suffix, true, true);
   fp << "</td>";
@@ -351,7 +350,7 @@ write_mon_ttf_Nx1(std::ofstream &fp, const species &s){
     return; // don't print empty table
   }
   std::sort(ttfs.begin(), ttfs.end());
-  fp << "<table class=\"evenshade apairs\">" << std::endl;
+  fp << "<table class=\"evenshade asequences\">" << std::endl;
   fp << "<tr><th>Attack sequence</th><th>Turns</th><th>Power</th><th><i>e</i></th><th>PPT</th><th>%c</th></tr>" << std::endl;
   for(const auto &t : ttfs){
     emit_row_nx1(fp, t);
@@ -447,6 +446,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     fp << "<tr>";
     fp << "<td>";
     html_type(fp, a->type, true);
+    fp << "&nbsp;";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -472,6 +472,7 @@ write_mon_attacks_nx1(std::ofstream &fp, const species &s, std::vector<const att
     fp << "<tr>";
     fp << "<td>";
     html_type(fp, a->type, true);
+    fp << "&nbsp;";
     std::string prefix, suffix;
     emit_html_attack_fancy(fp, s, a, prefix, suffix, true, true);
     fp << "</td>";
@@ -530,6 +531,7 @@ static int
 write_stats(std::ostream &fp, const species &s){
   fp << "<div id=\"basics\">";
   fp << "<h2>basics</h2>" << std::endl;
+  fp << "Dex#: " << std::format("{:04d} ", s.idx) << "<br/>";
   fp << "Attack: " << s.atk << "<br/>";
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
@@ -860,7 +862,7 @@ write_mon_page(const species &s){
   write_header(fp, s.name + " in Pokémon GO", "", true);
   fp << "<div id=\"monheader\">";
   fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
-  fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "<br/>";
+  fp << "<h1 id=\"monname\">" << s.name << "<br/>";
   html_types(fp, s.t1, s.t2, true);
   fp << "</h1></div>" << std::endl;
   write_stats(fp, s);
