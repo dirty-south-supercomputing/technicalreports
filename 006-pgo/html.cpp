@@ -96,7 +96,7 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   html_type(fp, fa->type, pdir);
   fp << ' ';
   emit_html_attack(fp, *s, fa, true, true);
-  fp << " + ";
+  fp << " → ";
   html_type(fp, ca->type, pdir);
   fp << ' ';
   emit_html_attack(fp, *s, ca, true, true);
@@ -573,6 +573,12 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
     calc_raid_counters(cands, targ, *s, s->shadow);
     for(const auto &m : s->mforms){
       store.emplace_front(&*s, m);
+    }
+    if(s->shadow){
+      auto &sh = store.emplace_front(*s);
+      sh.atk = (sh.atk * 6.0) / 5;
+      sh.def = (sh.def * 5.0) / 6;
+      sh.name = "Shadow " + sh.name;
     }
   }
   for(const auto &s : store){
