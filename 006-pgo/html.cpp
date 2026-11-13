@@ -101,6 +101,9 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << ' ';
   emit_html_attack(fp, *s, ca, true, true);
   fp << "</td>";
+  fp << "<td>";
+  fp << dam;
+  fp << "</td>";
   fp << "</tr>" << std::endl;
 }
 
@@ -590,6 +593,7 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   fp << "<th>T</th>";
   fp << "<th>Form</th>";
   fp << "<th>Attack pair</th>";
+  fp << "<th>Power</th>";
   fp << "</tr>";
   auto maxp = 0; // FIXME
   unsigned emitted = 0;

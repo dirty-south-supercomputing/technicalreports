@@ -90,6 +90,11 @@ table.raidcounters tr>:nth-child(3) { /* attack */
   padding: 0 0 0 1em;
 }
 
+table.raidcounters tr>:nth-child(n+4) { /* stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 /* best dynamax attackers (by type and unified) */
 table.maxcounters tr>:nth-child(1) { /* T */
   text-align: center;

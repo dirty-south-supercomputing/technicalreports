@@ -91,8 +91,8 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
       std::cout << "</td><td>" << pop;
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
-        for(const auto &as : s->attacks){
-          if(attack_named_p(as, a->name)){
+        for(const auto &ass : s->attacks){
+          if(attack_named_p(ass, a->name)){
             if(printed){
               std::cout << ',';
             }
