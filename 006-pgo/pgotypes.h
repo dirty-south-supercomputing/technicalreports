@@ -1059,7 +1059,7 @@ species_fast_attack(const species *s, const char *aname){
 static int
 lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
   int r;
-  unsigned cp;
+  int cp;
   // allow leading whitespace
   while(isspace(*ivl)){
     ++ivl;
@@ -1084,10 +1084,8 @@ lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
       return -1;
     }
     if(strcmp(ivl, "gl") == 0){
-      int cp;
       s->hlevel = maxlevel_cp_bounded(sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, GLCPCAP, &cp);
     }else if(strcmp(ivl, "ul") == 0){
-      int cp;
       s->hlevel = maxlevel_cp_bounded(sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, ULCPCAP, &cp);
     }else{
       char *endptr;
@@ -1381,33 +1379,6 @@ escape_string(const char *s){
   return 0;
 }
 
-struct raidcandidate {
-  const species* s;   // species
-  unsigned hlevel;    // halflevel
-  unsigned iva;       // attack iv 0..15
-  const attack *ca;   // charged attack
-
-  raidcandidate(const species *S, const attack *Ca, unsigned Hlevel, unsigned Iva) :
-    s(S),
-    hlevel(Hlevel),
-    iva(Iva),
-    ca(Ca)
-  { }
-
-  void emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const;
-
-  bool operator<(const raidcandidate& r) const {
-    // FIXME
-    return false;
-  }
-
-  bool operator>(const raidcandidate& r) const {
-    // FIXME
-    return false;
-  }
-};
-
-
 struct maxcandidate {
   const species* s;   // species
   std::string aname;  // attack name
@@ -1465,9 +1436,7 @@ bool pvp_banned_p(const species &s);
 void emit_max_cand(const maxcandidate& c, unsigned maxp);
 void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform);
 void filter_by_types(int t1, int t2, bool overzoom, bool mainform);
-void add_raid_candidate(std::vector<raidcandidate>& cands, const species* s,
-                        const attack *ca, bool unified);
-void add_max_candidate(std::vector<maxcandidate>& cands, const species* s,
+void add_max_candidate(std::vector<maxcandidate> &cands, const species *s,
                        const std::string &aname, bool gmaxpower, bool stab,
                        pgo_types_e atype, float teffect, bool unified);
 void emit_typing_list(pgo_types_e i, pgo_types_e j);

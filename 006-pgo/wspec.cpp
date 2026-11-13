@@ -100,31 +100,31 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   bool ret = false;
   // FIXME we want ties in a single table row
   do{
-    const stats &s = sets[--grank];
-    if(!s.shadow){
+    const stats &st = sets[--grank];
+    if(!st.shadow){
       fp << std::fixed << std::setprecision(2);
       fp << "<tr>";
-      if(s.statprod() == sp){
+      if(st.statprod() == sp){
         fp << "<td></td>";
       }else{
         fp << "<td>" << id << "</td>";
-        sp = s.statprod();
+        sp = st.statprod();
       }
       ++id;
-      fp << "<td>" << s.ia << '-' << s.id << '-' << s.is << "</td>";
+      fp << "<td>" << st.ia << '-' << st.id << '-' << st.is << "</td>";
       fp << "<td>";
-      emit_halflevel_as_level(fp, s.hlevel);
+      emit_halflevel_as_level(fp, st.hlevel);
       fp << "</td>";
-      fp << "<td>" << s.cp << "</td>";
-      if(s.cp == cpbound){
+      fp << "<td>" << st.cp << "</td>";
+      if(st.cp == cpbound){
         ret = true;
       }
-      fp << "<td>" << s.effa << "</td>";
-      fp << "<td>" << s.effd << "</td>";
-      fp << "<td>" << s.mhp << "</td>";
-      fp << "<td>" << s.geommean << "</td>";
+      fp << "<td>" << st.effa << "</td>";
+      fp << "<td>" << st.effd << "</td>";
+      fp << "<td>" << st.mhp << "</td>";
+      fp << "<td>" << st.geommean << "</td>";
       std::setprecision(1);
-      fp << "<td>" << (s.geommean * 100 / gmax) << "</td>";
+      fp << "<td>" << (st.geommean * 100 / gmax) << "</td>";
       fp << "</tr>";
     }
   }while(grank);

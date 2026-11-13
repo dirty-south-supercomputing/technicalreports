@@ -143,20 +143,22 @@ void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &p
 
 struct timetofirst {
   const species *s;
-  unsigned turns;  // turns through first charged attack
-  float powerfast; // cumulative power delivered by fast attacks (includes STAB)
+  unsigned turns;     // turns through first charged attack
+  float powerfast;    // cumulative power delivered by fast attacks (includes STAB)
   float powercharged; // power of charged attack (includes STAB)
-  float dam;       // total power of cycle (includes STAB)
-  float dpt;       // dam / turns
+  float dam;          // total power of cycle (includes STAB)
+  float dpt;          // dam / turns
   const attack *fa;
   const attack *ca;
-  unsigned excesse;// excess energy following charged move
+  unsigned excesse;   // excess energy following charged move
 
   timetofirst(const species *S, unsigned Turns, float Powerfast,
-              const attack *FA, const attack *CA, bool modeNx1) :
+              float Powercharged, const attack *FA, const attack *CA,
+              bool modeNx1) :
     s(S),
     turns(Turns),
     powerfast(Powerfast),
+    powercharged(Powercharged),
     fa(FA),
     ca(CA)
     {
@@ -164,7 +166,6 @@ struct timetofirst {
       unsigned fenergy = modeNx1 ? fa->energyraid : fa->energytrain;
       unsigned cenergy = modeNx1 ? ca->energyraid : -ca->energytrain;
       excesse = ((turns - 1) / ftime * fenergy) % cenergy;
-      powercharged = modeNx1 ? calc_eff_power_nx1(*s, ca) : calc_eff_power(*s, ca);
       dam = powerfast + powercharged;
       dpt = dam / static_cast<float>(turns);
     }
@@ -174,8 +175,14 @@ struct timetofirst {
       (l.turns == r.turns && l.dam > r.dam) ? true : // most to least powerful
       (l.turns == r.turns && l.dam == r.dam && l.s->idx < r.s->idx) ? true : false;
   }
+
+  void emit(std::ostream &fp, double maxp, bool pdir) const;
+
 };
 
+void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsigned turns,
+                        float powerfast, float powercharged,
+                        const attack *fa, const attack *ca);
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
 void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addreturn);
 

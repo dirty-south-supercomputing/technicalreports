@@ -84,19 +84,19 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
   }
 }
 
-void raidcandidate::emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "<tr>";
   fp << "<td>";
   html_types(fp, s->t1, s->t2, pdir);
   fp << "</td>";
   fp << "<td>";
   link_to_name(fp, s->name, true, pdir);
-  if(!unified){
-    fp << " L";
-    emit_halflevel_as_level(fp, hlevel);
-  }
   fp << "</td>";
   fp << "<td>";
+  html_type(fp, fa->type, pdir);
+  fp << ' ';
+  emit_html_attack(fp, *s, fa, true, true);
+  fp << " + ";
   html_type(fp, ca->type, pdir);
   fp << ' ';
   emit_html_attack(fp, *s, ca, true, true);
@@ -258,10 +258,11 @@ turns_until_e(const attack *a, unsigned e){
 static void
 calctimefandc(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
   unsigned t = turns_until_e(f, -c->energytrain);
-  float power = calc_eff_power(s, f);
-  float pfast = t / f->turns * power;
+  auto fpower = calc_eff_power(s, f);
+  auto pfast = t / f->turns * fpower;
   ++t; // account for the charged attack
-  ttfs.emplace_back(&s, t, pfast, f, c, false);
+  auto pcharged = calc_eff_power(s, c);
+  ttfs.emplace_back(&s, t, pfast, pcharged, f, c, false);
 }
 
 void calctimetos3x3(std::vector<timetofirst> &ttfs, const species &s, bool addreturn){
@@ -287,12 +288,55 @@ turns_until_eNx1(const attack *a, unsigned e){
 }
 
 static void
+calctimefandc_counter(std::vector<timetofirst> &ttfs, const species &targ,
+                      const species &s, const attack *f, const attack *c){
+  if(f->type == TYPECOUNT){
+    return; // hidden power ought be expanded into all possible types FIXME
+  }
+  unsigned t = turns_until_eNx1(f, c->energyraid);
+  auto fteffect = targ.type_effectiveness(f);
+  auto powerfast = calc_eff_power_nx1(s, f) * fteffect;
+  float pfast = t / f->animdur * powerfast;
+  t += c->animdur; // account for the charged attack
+  auto cteffect = targ.type_effectiveness(c);
+  auto powercharged = calc_eff_power_nx1(s, c) * cteffect;
+  ttfs.emplace_back(&s, t, pfast, powercharged, f, c, true);
+}
+
+// calculate cycles of s attacking targ for all sets of fast+charged
+void calc_raid_counters(std::vector<timetofirst> &ttfs, const species &targ,
+                        const species &s, bool addreturn){
+  for(const auto f : s.attacks){
+    if(!fast_attack_p(*f)){
+      continue;
+    }
+    if(f->energyraid <= 0){
+      continue;
+    }
+    for(const auto c : s.attacks){
+      if(!charged_attack_p(*c)){
+        continue;
+      }
+      if(c->energyraid <= 0){
+        continue;
+      }
+      calctimefandc_counter(ttfs, targ, s, f, c);
+    }
+    if(s.shadow && addreturn){
+      calctimefandc_counter(ttfs, targ, s, f, &ATK_Return);
+    }
+  }
+}
+
+// no target typing to consider; calculate as if hitting for neutral damage
+static void
 calctimefandcNx1(std::vector<timetofirst> &ttfs, const species &s, const attack *f, const attack *c){
   unsigned t = turns_until_eNx1(f, c->energyraid);
-  float power = calc_eff_power_nx1(s, f);
-  float pfast = t / f->animdur * power;
+  auto fpower = calc_eff_power_nx1(s, f);
+  auto pfast = t / f->animdur * fpower;
   t += c->animdur; // account for the charged attack
-  ttfs.emplace_back(&s, t, pfast, f, c, true);
+  auto cpower = calc_eff_power_nx1(s, c);
+  ttfs.emplace_back(&s, t, pfast, cpower, f, c, true);
 }
 
 void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addreturn){
@@ -484,21 +528,10 @@ void add_max_candidate(std::vector<maxcandidate> &cands, const species *s,
   }
 }
 
-void add_raid_candidate(std::vector<raidcandidate> &cands, const species *s,
-                        const attack *ca, bool unified){
-  //const unsigned lowiv = 10;
-  const unsigned highiv = 15;
-  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, stab, lowiv); // level 50
-  cands.emplace_back(s, ca, MAX_HALFLEVEL_BASIC, highiv); // level 50
-  /*cands.emplace_back(s, aname, 79, stab, lowiv); // level 40
-  cands.emplace_back(s, aname, 79, stab, highiv); // level 40
-  cands.emplace_back(s, aname, 59, stab, lowiv); // level 30
-  cands.emplace_back(s, aname, 59, stab, highiv); // level 30
-  cands.emplace_back(s, aname, 39, stab, lowiv); // level 20*/
-  if(!unified){
-    cands.emplace_back(s, ca, MAX_HALFLEVEL_BASIC, highiv); // level 50
-    cands.emplace_back(s, ca, 39, highiv); // level 20
-  }
+void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsigned turns,
+                        float powerfast, float powercharged,
+                        const attack *fa, const attack *ca){
+  cands.emplace_back(s, turns, powerfast, powercharged, fa, ca, true);
 }
 
 // build up candidates for the given species attacking something having typing
@@ -529,40 +562,39 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   }
 }
 
-// build up candidates for the given species attacking something having typing
-// ttype1+ttype2 FIXME use the target types!
-static void
-raid_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
-                      std::vector<raidcandidate>& cands){
-  for(const auto fa : s.attacks){
-    if(fast_attack_p(*fa)){
-      for(const auto ca : s.attacks){
-        if(charged_attack_p(*ca)){
-          add_raid_candidate(cands, &s, ca, true);
-        }
-      }
-    }
-  }
-}
-
 constexpr unsigned COUNTEREMITMAX = 50;
 
-int raid_counters(std::ostream &fp, const species &s, bool pdir){
-  std::vector<raidcandidate> cands;
-  for(auto a = species_begin() ; a != species_end() ; ++a){
-    raid_counters_species(*a, s.t1, s.t2, cands);
+int raid_counters(std::ostream &fp, const species &targ, bool pdir){
+  std::vector<timetofirst> cands;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    calc_raid_counters(cands, targ, *s, s->shadow);
   }
-  std::sort(cands.begin(), cands.end(), std::greater<>());
+  std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
+      if(l.dam < r.dam){
+        return false; // most to least powerful
+      }else if(r.dam < l.dam){
+        return true;
+      }
+      if(l.turns < r.turns){
+        return true; // fastest to slowest
+      }else if(r.turns < l.turns){
+        return false;
+      }
+      if(l.s->idx < r.s->idx){
+        return true;
+      }
+      return false;
+      });
   fp << "<table class=\"evenshade raidcounters\">";
   fp << "<tr>";
   fp << "<th>T</th>";
   fp << "<th>Form</th>";
-  fp << "<th>Attack</th>";
+  fp << "<th>Attack pair</th>";
   fp << "</tr>";
   auto maxp = 0; // FIXME
   unsigned emitted = 0;
   for(const auto& c : cands){
-    c.emit(fp, maxp, true, pdir);
+    c.emit(fp, maxp, pdir);
     if(++emitted == COUNTEREMITMAX){
       break;
     }
