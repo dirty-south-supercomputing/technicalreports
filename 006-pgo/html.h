@@ -215,5 +215,6 @@ void calc_cmp_graph(std::vector<cmprange> &effas, int cpthresh, int cpbound);
 void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas);
 
 int max_counters(std::ostream &fp, const species &s, bool pdir);
+int raid_counters(std::ostream &fp, const species &s, bool pdir);
 
 #endif

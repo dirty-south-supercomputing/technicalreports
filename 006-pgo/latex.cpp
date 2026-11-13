@@ -433,7 +433,7 @@ void filter_by_types(int t1, int t2, bool overzoom, bool mainform){
   }
 }
 
-void emit_cand(const candidate& c, unsigned maxp){
+void emit_max_cand(const maxcandidate& c, unsigned maxp){
   auto rp = c.powprod();
   //unsigned hhalf;
   print_types(c.s->t1, c.s->t2);

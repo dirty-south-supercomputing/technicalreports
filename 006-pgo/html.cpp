@@ -84,7 +84,27 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
   }
 }
 
-void candidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+void raidcandidate::emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+  fp << "<tr>";
+  fp << "<td>";
+  html_types(fp, s->t1, s->t2, pdir);
+  fp << "</td>";
+  fp << "<td>";
+  link_to_name(fp, s->name, true, pdir);
+  if(!unified){
+    fp << " L";
+    emit_halflevel_as_level(fp, hlevel);
+  }
+  fp << "</td>";
+  fp << "<td>";
+  html_type(fp, ca->type, pdir);
+  fp << ' ';
+  emit_html_attack(fp, *s, ca, true, true);
+  fp << "</td>";
+  fp << "</tr>" << std::endl;
+}
+
+void maxcandidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
   auto rp = powprod();
   fp << "<tr>";
   fp << "<td>";
@@ -119,7 +139,7 @@ void candidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir
   fp << "</tr>" << std::endl;
 }
 
-void candidate::emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
+void maxcandidate::emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
   auto rp = powprod();
   fp << "<tr>";
   fp << "<td>";
@@ -446,9 +466,9 @@ void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas){
 }
 
 // add at levels 20, 30, 40, and 50, with ATK IVs of 0 and 15
-void add_candidate(std::vector<candidate>& cands, const species* s,
-                   const std::string &aname, bool gmaxpower, bool stab,
-                   pgo_types_e atype, float teffect, bool unified){
+void add_max_candidate(std::vector<maxcandidate> &cands, const species *s,
+                       const std::string &aname, bool gmaxpower, bool stab,
+                       pgo_types_e atype, float teffect, bool unified){
   //const unsigned lowiv = 10;
   const unsigned highiv = 15;
   //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, gmaxpower, stab, lowiv); // level 50
@@ -464,11 +484,28 @@ void add_candidate(std::vector<candidate>& cands, const species* s,
   }
 }
 
+void add_raid_candidate(std::vector<raidcandidate> &cands, const species *s,
+                        const attack *ca, bool unified){
+  //const unsigned lowiv = 10;
+  const unsigned highiv = 15;
+  //cands.emplace_back(s, aname, MAX_HALFLEVEL_BASIC, stab, lowiv); // level 50
+  cands.emplace_back(s, ca, MAX_HALFLEVEL_BASIC, highiv); // level 50
+  /*cands.emplace_back(s, aname, 79, stab, lowiv); // level 40
+  cands.emplace_back(s, aname, 79, stab, highiv); // level 40
+  cands.emplace_back(s, aname, 59, stab, lowiv); // level 30
+  cands.emplace_back(s, aname, 59, stab, highiv); // level 30
+  cands.emplace_back(s, aname, 39, stab, lowiv); // level 20*/
+  if(!unified){
+    cands.emplace_back(s, ca, MAX_HALFLEVEL_BASIC, highiv); // level 50
+    cands.emplace_back(s, ca, 39, highiv); // level 20
+  }
+}
+
 // build up candidates for the given species attacking something having typing
 // ttype1+ttype2
 static void
 max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
-                     std::vector<candidate>& cands){
+                     std::vector<maxcandidate>& cands){
   if(has_dmax(s)){
     bool ts[TYPECOUNT]{};
     for(const auto a : s.attacks){
@@ -480,7 +517,7 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
         ts[at] = true;
         bool stab = has_stab_raw_p(s, at);
         auto teffect = type_effectiveness(at, ttype1, ttype2);
-        add_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect, true);
+        add_max_candidate(cands, &s, max_attack_name(at), false, stab, at, teffect, true);
       }
     }
   }
@@ -488,13 +525,54 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
   if(gma){
     bool stab = has_stab_raw_p(s, gma->type);
     float teffect = type_effectiveness(gma->type, ttype1, ttype2);
-    add_candidate(cands, &s, gma->name, true, stab, gma->type, teffect, true);
+    add_max_candidate(cands, &s, gma->name, true, stab, gma->type, teffect, true);
   }
 }
 
+// build up candidates for the given species attacking something having typing
+// ttype1+ttype2 FIXME use the target types!
+static void
+raid_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
+                      std::vector<raidcandidate>& cands){
+  for(const auto fa : s.attacks){
+    if(fast_attack_p(*fa)){
+      for(const auto ca : s.attacks){
+        if(charged_attack_p(*ca)){
+          add_raid_candidate(cands, &s, ca, true);
+        }
+      }
+    }
+  }
+}
+
+constexpr unsigned COUNTEREMITMAX = 50;
+
+int raid_counters(std::ostream &fp, const species &s, bool pdir){
+  std::vector<raidcandidate> cands;
+  for(auto a = species_begin() ; a != species_end() ; ++a){
+    raid_counters_species(*a, s.t1, s.t2, cands);
+  }
+  std::sort(cands.begin(), cands.end(), std::greater<>());
+  fp << "<table class=\"evenshade raidcounters\">";
+  fp << "<tr>";
+  fp << "<th>T</th>";
+  fp << "<th>Form</th>";
+  fp << "<th>Attack</th>";
+  fp << "</tr>";
+  auto maxp = 0; // FIXME
+  unsigned emitted = 0;
+  for(const auto& c : cands){
+    c.emit(fp, maxp, true, pdir);
+    if(++emitted == COUNTEREMITMAX){
+      break;
+    }
+  }
+  fp << "</table>";
+  return 0;
+}
+
 int max_counters(std::ostream &fp, const species &s, bool pdir){
-  constexpr unsigned EMITMAX = 50;
-  std::vector<candidate> cands;
+  std::vector<maxcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
     max_counters_species(*a, s.t1, s.t2, cands);
   }
@@ -503,18 +581,18 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   if(!zac){
     return -1;
   }
-  add_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, teffect, true);
+  add_max_candidate(cands, zac, "Behemoth Blade", false, true, TYPE_STEEL, teffect, true);
   const auto zam = lookup_species("Zamazenta Crowned Shield");
   if(!zam){
     return -1;
   }
-  add_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, teffect, true);
+  add_max_candidate(cands, zam, "Behemoth Bash", false, true, TYPE_STEEL, teffect, true);
   const auto e = lookup_species("Eternatus");
   if(!e){
     return -1;
   }
   teffect = type_effectiveness(TYPE_DRAGON, s.t1, s.t2);
-  add_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
+  add_max_candidate(cands, e, "Dynamax Cannon", true, true, TYPE_DRAGON, teffect, true);
   std::sort(cands.begin(), cands.end(), std::greater<>());
   fp << "<table class=\"evenshade maxcounters\">";
   fp << "<tr>";
@@ -527,7 +605,7 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   unsigned emitted = 0;
   for(const auto& c : cands){
     c.emit_p0(fp, maxp, true, pdir);
-    if(++emitted == EMITMAX){
+    if(++emitted == COUNTEREMITMAX){
       break;
     }
   }

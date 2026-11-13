@@ -511,6 +511,8 @@ write_freak_matks(std::ostream &fp, const attack &a){
 }
 
 // assume we're in the target directory
+// FIXME add details for freak attacks especially Hidden Power (always Fighting
+// for raid bosses, always Normal for Max attacks)
 static int
 write_atk_page(const attack &a){
   std::string encname;

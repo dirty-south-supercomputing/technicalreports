@@ -5,7 +5,7 @@ void usage(const char* argv0, int ret){
   exit(ret);
 }
 
-void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& cands,
+void handle_species(const species &s, pgo_types_e t, std::vector<maxcandidate>& cands,
                     std::forward_list<species> &store, bool unified){
   bool stab = has_stab_raw_p(s, t);
   if(has_dmax(s)){
@@ -13,7 +13,7 @@ void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& can
       if(fast_attack_p(*a)){
         auto at = dmax_attack_type(a);
         if(at == t){
-          add_candidate(cands, &s, max_attack_name(at), false, stab, t, 1.0, unified);
+          add_max_candidate(cands, &s, max_attack_name(at), false, stab, t, 1.0, unified);
           break; // don't handle multiple fast attacks of the same type
         }
       }
@@ -23,13 +23,13 @@ void handle_species(const species &s, pgo_types_e t, std::vector<candidate>& can
   if(gma){
     if(gma->type == t){
       store.emplace_front(&s, *gma);
-      add_candidate(cands, &store.front(), gma->name, true, stab, t, 1.0, unified);
+      add_max_candidate(cands, &store.front(), gma->name, true, stab, t, 1.0, unified);
     }
   }
 }
 
 // build a sorted vector of all *t*-type Max attackers
-int build_type_vec(pgo_types_e t, std::vector<candidate> &cands, std::forward_list<species> &store,
+int build_type_vec(pgo_types_e t, std::vector<maxcandidate> &cands, std::forward_list<species> &store,
                    bool unified){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     handle_species(*s, t, cands, store, unified);
@@ -42,19 +42,19 @@ int build_type_vec(pgo_types_e t, std::vector<candidate> &cands, std::forward_li
     if(!zac){
       return -1;
     }
-    add_candidate(cands, zac, "Behemoth Blade", false, true, t, 1.0, unified);
+    add_max_candidate(cands, zac, "Behemoth Blade", false, true, t, 1.0, unified);
     const auto zam = lookup_species("Zamazenta Crowned Shield");
     if(!zam){
       return -1;
     }
-    add_candidate(cands, zam, "Behemoth Bash", false, true, t, 1.0, unified);
+    add_max_candidate(cands, zam, "Behemoth Bash", false, true, t, 1.0, unified);
   }else if(t == TYPE_DRAGON){
     // eternatus always uses dynamax cannon, even if its fast move is non-dragon
     const auto e = lookup_species("Eternatus");
     if(!e){
       return -1;
     }
-    add_candidate(cands, e, "Dynamax Cannon", true, true, t, 1.0, unified);
+    add_max_candidate(cands, e, "Dynamax Cannon", true, true, t, 1.0, unified);
   }
   std::sort(cands.begin(), cands.end(), std::greater<>());
   return cands.size();
@@ -79,10 +79,10 @@ int emit_dynamax_unified_table(int count, bool html){
     std::cout << "Type & Pokémon & Attack & Relative & Absolute\\\\";
     std::cout << "\\Midrule" << std::endl;
   }
-  std::vector<candidate> cands;
+  std::vector<maxcandidate> cands;
   std::forward_list<species> store;
   for(int t = 0 ; t < TYPECOUNT ; ++t){
-    std::vector<candidate> tcands;
+    std::vector<maxcandidate> tcands;
     if(build_type_vec(static_cast<pgo_types_e>(t), tcands, store, true) <= 0){
       return -1;
     }
@@ -100,7 +100,7 @@ int emit_dynamax_unified_table(int count, bool html){
     if(html){
       c.emit(std::cout, maxp, true, false);
     }else{
-      emit_cand(c, maxp);
+      emit_max_cand(c, maxp);
     }
   }
   if(html){
@@ -127,7 +127,7 @@ int emit_dynamax_typed_table(pgo_types_e t, int count){
     std::cout << "<th>P<sub>" << i << "</sub></th>";
   }
   std::cout << "</tr>" << std::endl;
-  std::vector<candidate> cands;
+  std::vector<maxcandidate> cands;
   std::forward_list<species> store;
   if(build_type_vec(t, cands, store, false) <= 0){
     return -1;

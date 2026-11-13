@@ -1381,7 +1381,34 @@ escape_string(const char *s){
   return 0;
 }
 
-struct candidate {
+struct raidcandidate {
+  const species* s;   // species
+  unsigned hlevel;    // halflevel
+  unsigned iva;       // attack iv 0..15
+  const attack *ca;   // charged attack
+
+  raidcandidate(const species *S, const attack *Ca, unsigned Hlevel, unsigned Iva) :
+    s(S),
+    hlevel(Hlevel),
+    iva(Iva),
+    ca(Ca)
+  { }
+
+  void emit(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const;
+
+  bool operator<(const raidcandidate& r) const {
+    // FIXME
+    return false;
+  }
+
+  bool operator>(const raidcandidate& r) const {
+    // FIXME
+    return false;
+  }
+};
+
+
+struct maxcandidate {
   const species* s;   // species
   std::string aname;  // attack name
   unsigned hlevel;    // halflevel
@@ -1392,9 +1419,9 @@ struct candidate {
   pgo_types_e atype;  // attack type
   unsigned maxlevel;  // [ 1..4 ]
 
-  candidate(const species *S, const std::string &Aname, unsigned Hlevel,
-            bool Gmaxpower, bool Hasstab, unsigned Iva, float Teffective,
-            pgo_types_e Atype, int Maxlevel) :
+  maxcandidate(const species *S, const std::string &Aname, unsigned Hlevel,
+               bool Gmaxpower, bool Hasstab, unsigned Iva, float Teffective,
+               pgo_types_e Atype, int Maxlevel) :
     s(S),
     aname(Aname),
     hlevel(Hlevel),
@@ -1419,14 +1446,14 @@ struct candidate {
   // effectiveness, and do not scale it.
   void emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const;
 
-  bool operator<(const candidate& r) const {
+  bool operator<(const maxcandidate& r) const {
     if(powprod() < r.powprod()){
       return true;
     }
     return false;
   }
 
-  bool operator>(const candidate& r) const {
+  bool operator>(const maxcandidate& r) const {
     if(powprod() > r.powprod()){
       return true;
     }
@@ -1435,12 +1462,14 @@ struct candidate {
 };
 
 bool pvp_banned_p(const species &s);
-void emit_cand(const candidate& c, unsigned maxp);
+void emit_max_cand(const maxcandidate& c, unsigned maxp);
 void print_species_latex(const species &s, bool overzoom, bool bg, bool mainform);
 void filter_by_types(int t1, int t2, bool overzoom, bool mainform);
-void add_candidate(std::vector<candidate>& cands, const species* s,
-                   const std::string &aname, bool gmaxpower, bool stab,
-                   pgo_types_e atype, float teffect, bool unified);
+void add_raid_candidate(std::vector<raidcandidate>& cands, const species* s,
+                        const attack *ca, bool unified);
+void add_max_candidate(std::vector<maxcandidate>& cands, const species* s,
+                       const std::string &aname, bool gmaxpower, bool stab,
+                       pgo_types_e atype, float teffect, bool unified);
 void emit_typing_list(pgo_types_e i, pgo_types_e j);
 uint64_t pgo_xp_for_level(int l);
 const char* max_attack_name(pgo_types_e t);

@@ -843,7 +843,9 @@ write_counters(std::ostream &fp, const species &s){
   fp << "<h2>counters</h2>" << std::endl;
   fp << "<h3>best Max attackers</h3>" << std::endl;
   max_counters(fp, s, true);
-  // FIXME do we want counters for each league? and gmax?
+  fp << "<h3>best raid counters</h3>" << std::endl;
+  raid_counters(fp, s, true);
+  // FIXME do we want counters for each league?
   fp << "</div>" << std::endl;
 }
 
