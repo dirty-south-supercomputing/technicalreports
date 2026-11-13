@@ -530,8 +530,6 @@ static int
 write_stats(std::ostream &fp, const species &s){
   fp << "<div id=\"basics\">";
   fp << "<h2>basics</h2>" << std::endl;
-  html_types(fp, s.t1, s.t2, true);
-  fp << "<br/>";
   fp << "Attack: " << s.atk << "<br/>";
   fp << "Defense: " << s.def << "<br/>";
   fp << "Stamina: " << s.sta << "<br/>";
@@ -860,8 +858,11 @@ write_mon_page(const species &s){
   }
   fp << std::setprecision(3);
   write_header(fp, s.name + " in Pokémon GO", "", true);
+  fp << "<div id=\"monheader\">";
   fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
-  fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "</h1>" << std::endl;
+  fp << "<h1 id=\"monname\">#" << std::format("{:04d} ", s.idx) << s.name << "<br/>";
+  html_types(fp, s.t1, s.t2, true);
+  fp << "</h1></div>" << std::endl;
   write_stats(fp, s);
   write_evol(fp, s);
   write_atk_effectiveness(fp, s);

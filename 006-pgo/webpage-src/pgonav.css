@@ -331,6 +331,11 @@ p.intro {
   padding: 0 1em 1em 1em;
 }
 
+div#monheader { /* mon pages */
+  width: fit-content;
+  text-align: center;
+}
+
 table.fastattacks, table.chargedattacks, table.apairs { /* mon pages */
   margin: 0 0 1em 0;
   background-color: white;
