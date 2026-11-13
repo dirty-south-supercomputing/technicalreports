@@ -72,7 +72,10 @@ type_effectiveness_mult(int te){
   if(te < -3 || te > 2){
     throw std::invalid_argument("bad type effectiveness");
   }
-  static const float pow16[TEFFECTRANGE] = { 0.244, 0.390625, 0.625, 1, 1.6, 2.56 };
+  // the first four numbers can be represented without error in a 32-bit
+  // IEEE754 float; they're just 8/5 raised to powers [ -3 .. 0 ].
+  // 1.6 and 2.56 cannot be represented without error in either 32 or 64 bit floats, oddly...
+  static const float pow16[TEFFECTRANGE] = { 0.244140625, 0.390625, 0.625, 1, 1.6, 2.56 };
   return pow16[te + 3];
 }
 
