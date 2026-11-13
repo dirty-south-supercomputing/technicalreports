@@ -3,7 +3,7 @@
 .DEFAULT_GOAL:=web
 
 CPP:=clang++
-CPPFLAGS:=-std=c++23 -Wall -W
+CPPFLAGS:=-std=c++23 -Wall -W -Wshadow
 PAPERBACK:=pgo-pb
 OUT:=out
 TEXCC:=lualatex
