@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include <algorithm>
 
-static std::vector<cmprange> cmpsgl, cmpsul, cmpsml;
-
 static void
 write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
   std::string enc;
@@ -78,8 +76,7 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
 // (we return true if any cp in the solution set equals the cpbound).
 static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
-               const char *leagueshort, int cpbound,
-               const std::vector<cmprange> &cmps){
+               const char *leagueshort, int cpbound){
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
   fp << "<h2>" << league << "</h2>" << std::endl;
@@ -137,36 +134,19 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   return ret;
 }
 
-static int
-write_cmp_graph(const std::string &leagueshort, const std::vector<cmprange> &cmps){
-  std::string fname = "graphs/cmp" + leagueshort + ".svg";
-  std::ofstream fp(fname);
-  if(!fp.is_open()){
-    std::cerr << "error opening " << fname << " for writing" << std::endl;
-    return -1;
-  }
-  emit_cmp_graph(fp, cmps);
-  fp.close();
-  if(fp.rdstate() & std::ofstream::failbit){
-    std::cerr << "error writing to file" << std::endl;
-    return -1;
-  }
-  return 0;
-}
-
 static void
 write_iv_tables(std::ostream &fp, const species &s){
   fp << "<div id=\"glivs\">";
-  bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP, cmpsgl);
+  bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
   fp << "</div>" << std::endl;
   if(donext){
     fp << "<div id=\"ulivs\">";
-    donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP, cmpsul);
+    donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
     fp << "</div>" << std::endl;
   }
   if(donext){
     fp << "<div id=\"mlivs\">";
-    donext = write_iv_table(fp, s, "master league", "ML", 0, cmpsml);
+    donext = write_iv_table(fp, s, "master league", "ML", 0);
     fp << "</div>" << std::endl;
   }
 }
@@ -951,23 +931,6 @@ write_summary(std::ostream &fp, const species &s){
     write_summary(fp, {&s, m});
   }
   // gmax is a battle-only form. don't list them.
-  return 0;
-}
-
-static int
-write_cmp_graphs(void){
-  calc_cmp_graph(cmpsgl, 0, GLCPCAP);
-  if(write_cmp_graph("GL", cmpsgl)){
-    return 0;
-  }
-  calc_cmp_graph(cmpsul, GLCPCAP, ULCPCAP);
-  if(write_cmp_graph("UL", cmpsul)){
-    return 0;
-  }
-  calc_cmp_graph(cmpsml, ULCPCAP, 0);
-  if(write_cmp_graph("ML", cmpsml)){
-    return 0;
-  }
   return 0;
 }
 
