@@ -46,8 +46,8 @@ int main(void){
         }
         return false;
       });
-  std::cout << "<table id=\"dynafast\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Form</th><th>Fast attack</th><th>Turns</th></tr>" << std::endl;
+  std::cout << "<table class=\"evenshade\" id=\"dynafast\">" << std::endl;
+  std::cout << "<tr><th/><th>Form</th><th>Fast attack</th><th>Turns</th></tr>" << std::endl;
   for(const auto &c : cands){
     std::cout << "<tr>";
     std::cout << "<td>";
@@ -57,10 +57,7 @@ int main(void){
     link_to_name(std::cout, c.s->name, true);
     std::cout << "</td>";
     std::cout << "<td>";
-    html_type(dmax_attack_type(c.a), false);
-    std::cout << ' ';
-    std::string prefix, suffix;
-    emit_html_attack_fancy(std::cout, *c.s, c.a, prefix, suffix, true, false);
+    attack_with_icon(std::cout, *c.s, c.a, true, false);
     std::cout << "</td>";
     std::cout << "<td>" << c.a->animdur << "</td>";
     std::cout << "</tr>" << std::endl;

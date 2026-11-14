@@ -32,7 +32,8 @@ TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
 WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 					 $(addsuffix .html, \
 					  index attacks/index mon/index \
-						nodyna noshadow noshiny nosecondcharged dynacost dynafast shadows \
+						nodyna noshadow noshiny nosecondcharged shadows \
+						dynacost dynafast dynabulk \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional cpms \
