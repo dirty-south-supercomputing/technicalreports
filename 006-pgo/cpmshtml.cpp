@@ -13,8 +13,10 @@ print_cpms(void){
     std::cout << "<tr><td>";
     emit_halflevel_as_level(std::cout, i);
     std::cout << "</td><td>";
+    std::cout << std::setprecision(10);
     std::cout << cpm(i);
     std::cout << "</td><td>";
+    std::cout << std::setprecision(4);
     std::cout << cpmpct(i);
     std::cout << "</td></tr>" << std::endl;
   }
