@@ -394,35 +394,31 @@ void write_footer_and_close(std::ofstream &fp, bool par){
 }
 
 void typeset::emit_with_pop(std::ostream &fp, bool subdir, bool pdir) const {
-  if(!learnpop.size() && !learnpopm.size()){
+  auto totsize = learnpop.size() + learnpopm.size();
+  if(totsize == 0){
     return;
   }
   fp << "<tr>";
   emitcore(fp, pdir);
-  if(learnpopm.size()){
-    fp << "<td>" << learnpopm.size() << " ";
-    bool printed = false;
-    for(const auto m : learnpopm){
-      if(printed){
-        fp << ", ";
-      }else{
-        printed = true;
-      }
-      link_to_name(fp, m->name, subdir, pdir);
+  fp << "<td>";
+  bool printed = false;
+  for(const auto m : learnpopm){
+    if(printed){
+      fp << ", ";
+    }else{
+      printed = true;
     }
-  }else{
-    fp << "<td>" << learnpop.size() << " ";
-    bool printed = false;
-    for(const auto s : learnpop){
-      if(printed){
-        fp << ", ";
-      }else{
-        printed = true;
-      }
-      link_to_name(fp, s->name, subdir, pdir);
-    }
+    link_to_name(fp, m->name, subdir, pdir);
   }
-  fp << "</td></tr>";
+  for(const auto s : learnpop){
+    if(printed){
+      fp << ", ";
+    }else{
+      printed = true;
+    }
+    link_to_name(fp, s->name, subdir, pdir);
+  }
+  fp << " (" << totsize << ")</td></tr>" << std::endl;
 }
 
 void typeset::emitcore(std::ostream &fp, bool pdir) const {

@@ -25,7 +25,7 @@ int main(){
   std::cout << std::fixed << std::setprecision(3);
   std::cout << "<table class=\"evenshade\" id=\"setsara\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th>";
+  std::cout << "<th/>";
   std::cout << "<th>E<sub>-3</sub></th>";
   std::cout << "<th>E<sub>-2</sub></th>";
   std::cout << "<th>E<sub>-1</sub></th>";
