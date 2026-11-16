@@ -98,7 +98,21 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
             }
             std::cout << ' ';
             printed = true;
-            emit_html_attack(std::cout, *s, a, true, false);
+            bool stab = has_stab_p(*s, a);
+            bool excl = exclusive_attack_p(*s, a);
+            if(!stab){
+              std::cout << "<i>";
+            }
+            if(excl){
+              std::cout << "<b>";
+            }
+            link_to_name(std::cout, s->name, true);
+            if(excl){
+              std::cout << "</b>";
+            }
+            if(!stab){
+              std::cout << "</i>";
+            }
             break;
           }
         }
