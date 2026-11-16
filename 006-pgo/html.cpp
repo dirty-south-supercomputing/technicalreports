@@ -564,6 +564,25 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
               const attack *ca, double &dinf, double &dsuf){
   constexpr unsigned MAXMETERSIZE = 100;
   unsigned turns = 0;
+  if(ca){
+    // FIXME for now, assume only fast move is used. figuring out impact
+    // of charged attack requires knowing opponent HP
+    std::cerr << "no logic for ca yet!" << std::endl;
+    throw std::exception();
+  }
+  turns = MAXMETERSIZE * fa->animdur;
+  float teffect;
+  if(fa->type == TYPECOUNT){ // hidden power strikes again
+    teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
+  }else{
+    teffect = sb.type_effectiveness(fa);
+  }
+  // compute actual damage done by fast attack---it might be enough to reduce
+  // the meter by more than one, but that requires knowing opponent HP FIXME
+  dinf = MAXMETERSIZE * calc_eff_power_nx1(*sa.s, fa) * teffect;
+  if(dinf == 0){ // handle splash, yawn, etc.
+    dinf = MAXMETERSIZE;
+  }
   dsuf = 0;
   // for now, we compute damage suffered independent of the opponent's attack,
   // just assuming one instance of each charged attack, weighted by its power
@@ -577,23 +596,6 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
   }
   // now divide dsuf by our bulk
   dsuf /= (sa.mhp * sa.effd);
-  if(ca){ // FIXME for now, assume only fast move is used
-    std::cerr << "no logic for ca yet!" << std::endl;
-    throw std::exception();
-  }
-  turns = MAXMETERSIZE * fa->animdur;
-  float teffect;
-  if(fa->type == TYPECOUNT){ // hidden power strikes again
-    teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
-  }else{
-    teffect = sb.type_effectiveness(fa);
-  }
-  // need to compute actual damage done by fast attack---it might be enough to
-  // reduce the meter by more than one FIXME
-  dinf = MAXMETERSIZE * calc_eff_power_nx1(*sa.s, fa) * teffect;
-  if(dinf == 0){ // handle splash, yawn, etc.
-    dinf = MAXMETERSIZE;
-  }
   return turns;
 }
 
@@ -721,7 +723,7 @@ int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
   fp << "<tr>";
   fp << "<th/>";
   fp << "<th>Form</th>";
-  fp << "<th>Attacks</th>";
+  fp << "<th>Attack pair</th>";
   fp << "</tr>";
   unsigned emitted = 0;
   for(const auto& c : cands){
