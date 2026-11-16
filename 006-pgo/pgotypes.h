@@ -1379,36 +1379,6 @@ escape_string(const char *s){
   return 0;
 }
 
-// results for max battle tank calculations. these summarize what happens
-// during a single complete main phase. damage suffered may be a great
-// deal more than we can actually take; damage inflicted could be more
-// than the opponent can take.
-struct maxtankcandidate {
-  const species* s;   // species
-  double dinf;        // total damage inflicted (can exceed opponent HP)
-  double dsuf;        // total damage suffered (can exceed our HP)
-  unsigned turns;     // turns until phase ends
-  const attack *fa;   // fast attack used
-  const attack *ca;   // charged attack used
-
-  maxtankcandidate(const species *S, double Dinf, double Dsuf, unsigned Turns,
-                   const attack *Fa, const attack *Ca) :
-    s(S),
-    dinf(Dinf),
-    dsuf(Dsuf),
-    turns(Turns),
-    fa(Fa),
-    ca(Ca)
-  { }
-
-  void emit(std::ostream &fp, unsigned maxp, bool pdir) const;
-
-  bool operator>(const maxtankcandidate& r) const {
-    // FIXME
-    return false;
-  }
-};
-
 struct maxcandidate {
   const species* s;   // species
   std::string aname;  // attack name

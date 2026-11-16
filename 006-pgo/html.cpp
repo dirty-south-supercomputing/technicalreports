@@ -102,6 +102,26 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "</tr>" << std::endl;
 }
 
+void maxtankcandidate::emit(std::ostream &fp, bool pdir) const {
+  fp << "<tr>";
+  fp << "<td>";
+  html_types(fp, s.s->t1, s.s->t2, pdir);
+  fp << "</td>";
+  fp << "<td>";
+  link_to_name(fp, s.s->name, true, pdir);
+  fp << "</td>";
+  fp << "<td>";
+  attack_with_icon(fp, *s.s, fa, true, pdir);
+  fp << " → ";
+  if(!ca){
+    fp << "No charged attack";
+  }else{
+    attack_with_icon(fp, *s.s, ca, true, pdir);
+  }
+  fp << "</td>";
+  fp << "</tr>" << std::endl;
+}
+
 void maxcandidate::emit_p0(std::ostream &fp, unsigned maxp, bool unified, bool pdir) const {
   auto rp = powprod();
   fp << "<tr>";
@@ -522,9 +542,9 @@ void add_max_candidate(std::vector<maxcandidate> &cands, const species *s,
   }
 }
 
-void add_max_tank_candidate(std::vector<maxtankcandidate> &cands, const species *s, unsigned turns,
+void add_max_tank_candidate(std::vector<maxtankcandidate> &cands, const stats &st, unsigned turns,
                             double dinf, double dsuf, const attack *fa, const attack *ca){
-  cands.emplace_back(s, turns, dinf, dsuf, fa, ca);
+  cands.emplace_back(st, turns, dinf, dsuf, fa, ca);
 }
 
 void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsigned turns,
@@ -533,21 +553,47 @@ void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsig
   cands.emplace_back(s, turns, powerfast, powercharged, fa, ca, true);
 }
 
+// calculate how many turns are required to reach the max phase using form sa
+// employing attacks fa and ca against max battle opponent sb. we attempt to
+// minimize the number of turns across various employs of ca. this value is
+// always positive. writes damage inflicted and suffered to dinf and dsub,
+// which might exceed the actual hit points available. dsuf might be zero.
+// dinf is always positive. for now, we assume level 50 and perfect IVs.
+static unsigned
+max_tank_calc(const stats &sa, const species &sb, const attack *fa,
+              const attack *ca, double &dinf, double &dsuf){
+  constexpr unsigned MAXMETERSIZE = 100;
+  unsigned turns = 0;
+  // FIXME for now, assume only fast move is used, and that it always
+  // increases the max meter by one, and that we suffer no damage.
+  dsuf = 0;
+  turns = MAXMETERSIZE * fa->animdur;
+  dinf = MAXMETERSIZE * fa->powerraid;
+  return turns;
+}
+
 // build up candidates for species sa attacking species sb as tank in max battle
 static void
 max_tank_counters_species(const species &sa, const species &sb,
-                          std::vector<maxtankcandidate>& cands,
-                          std::forward_list<species> &store){
+                          std::vector<maxtankcandidate>& cands){
   if(!has_dmax(sa)){
     return;
   }
+  struct stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
   for(const auto fa : sa.attacks){
     if(fast_attack_p(*fa)){
+      double dinf, dsuf;
+      auto turns = max_tank_calc(st, sb, fa, nullptr, dinf, dsuf);
+      add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, nullptr);
+      // FIXME we're not yet considering charged attacks
+      /*
       for(const auto ca : sa.attacks){
         if(charged_attack_p(*ca)){
-          // FIXME
+          turns = max_tank_calc(sa, sb, fa, ca, dinf, dsuf);
+          add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, ca);
         }
       }
+      */
     }
   }
 }
@@ -640,13 +686,26 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
 
 // determine the best tanks to use against this Max Battle opponent
 int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
-  std::forward_list<species> store;
   std::vector<maxtankcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
-    max_tank_counters_species(*a, s, cands, store);
+    // g-max makes no difference for tanks (yet)
+    max_tank_counters_species(*a, s, cands);
   }
-  // FIXME
   std::sort(cands.begin(), cands.end(), std::greater<>());
+  fp << "<table class=\"evenshade maxtankcounters\">";
+  fp << "<tr>";
+  fp << "<th/>";
+  fp << "<th>Form</th>";
+  fp << "<th>Attacks</th>";
+  fp << "</tr>";
+  unsigned emitted = 0;
+  for(const auto& c : cands){
+    c.emit(fp, pdir);
+    if(++emitted == COUNTEREMITMAX){
+      break;
+    }
+  }
+  fp << "</table>";
   return 0;
 }
 
@@ -655,6 +714,7 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   std::forward_list<species> store;
   std::vector<maxcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
+    // handles the g-max form, if one exists
     max_counters_species(*a, s.t1, s.t2, cands, store);
   }
   float teffect = type_effectiveness(TYPE_STEEL, s.t1, s.t2);

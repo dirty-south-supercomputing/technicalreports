@@ -78,7 +78,7 @@ table.bounded tr :nth-child(n+3) {
   padding: 0 0 0 1em;
 }
 
-table.maxcounters, table.raidcounters {
+table.maxcounters, table.maxtankcounters, table.raidcounters {
   margin: 0 1em 0 1em;
 }
 
@@ -90,7 +90,7 @@ table.raidcounters tr>:nth-child(2) { /* form */
   text-align: left;
 }
 
-table.raidcounters tr>:nth-child(3) { /* attack */
+table.raidcounters tr>:nth-child(3) { /* attack pair */
   text-align: left;
   padding: 0 0 0 1em;
 }
@@ -100,6 +100,25 @@ table.raidcounters tr>:nth-child(4) { /* turns */
 }
 
 table.raidcounters tr>:nth-child(n+5) { /* stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+/* best dynamax tanks for a particular max battle boss */
+table.maxtankcounters tr>:nth-child(1) { /* T */
+  text-align: center;
+}
+
+table.maxtankcounters tr>:nth-child(2) { /* form */
+  text-align: left;
+}
+
+table.maxtankcounters tr>:nth-child(3) { /* attack pair */
+  text-align: left;
+  padding: 0 0 0 1em;
+}
+
+table.maxtankcounters tr>:nth-child(n+4) { /* stats */
   text-align: right;
   padding: 0 0 0 1em;
 }
