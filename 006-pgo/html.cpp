@@ -26,7 +26,7 @@ void write_navbar(std::ostream &fp, bool par){
   }
   fp << "mon/index.html\">forms</a></li>" << std::endl;
   fp << "<li class=\"inputgroup\">";
-  fp << "<select id=\"formselect\">";
+  fp << "<select id=\"formselect\" autofocus>";
   for(auto s = species_begin() ; s != species_end() ; ++s){
     emit_option(fp, s->name);
     for(const auto &m : s->mforms){
