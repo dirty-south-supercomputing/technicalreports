@@ -553,6 +553,27 @@ void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsig
   cands.emplace_back(s, turns, powerfast, powercharged, fa, ca, true);
 }
 
+// calculate the number of max meter slots removed by attack a thrown by
+// sa against sb. one charge is removed for every 0.5% of the opponent's
+// MHP, rounded down, with a minimum of one (so i'm told).
+static unsigned
+max_meter_slots(const stats &sa, const species &sb, const attack *a, double &dinf){
+  float teffect;
+  if(a->type == TYPECOUNT){ // hidden power strikes again, treat as normal bleh
+    teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
+  }else{
+    teffect = sb.type_effectiveness(a);
+  }
+  dinf = calc_eff_power_nx1(*sa.s, a) * teffect;
+  dinf /= calc_eff_d(sb.def + MAXIVELEM, MAX_HALFLEVEL_BASIC, false);
+  auto mhp = max_battle_mhp(sb);
+  auto slots = (dinf * 200) / mhp;
+  if(slots < 1){
+    slots = 1;
+  }
+  return slots;
+}
+
 // calculate how many turns are required to reach the max phase using form sa
 // employing attacks fa and ca against max battle opponent sb. we attempt to
 // minimize the number of turns across various employs of ca. this value is
@@ -570,16 +591,10 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
     std::cerr << "no logic for ca yet!" << std::endl;
     throw std::exception();
   }
-  turns = MAXMETERSIZE * fa->animdur;
-  float teffect;
-  if(fa->type == TYPECOUNT){ // hidden power strikes again
-    teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
-  }else{
-    teffect = sb.type_effectiveness(fa);
-  }
-  // compute actual damage done by fast attack---it might be enough to reduce
-  // the meter by more than one, but that requires knowing opponent HP FIXME
-  dinf = MAXMETERSIZE * calc_eff_power_nx1(*sa.s, fa) * teffect;
+  double pow;
+  auto slots = max_meter_slots(sa, sb, fa, pow);
+  turns = (MAXMETERSIZE + slots - 1) / slots * fa->animdur;
+  dinf = MAXMETERSIZE * pow;
   if(dinf == 0){ // handle splash, yawn, etc.
     dinf = MAXMETERSIZE;
   }
@@ -591,7 +606,7 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
     if(!charged_attack_p(*sbca)){
       continue;
     }
-    auto pow = calc_eff_power_nx1(sb, sbca) * sa.s->type_effectiveness(sbca);
+    pow = calc_eff_power_nx1(sb, sbca) * sa.s->type_effectiveness(sbca);
     dsuf += pow;
   }
   // now divide dsuf by our bulk
@@ -674,7 +689,7 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   for(const auto &s : store){
     calc_raid_counters(cands, targ, s, s.shadow);
   }
-  // FIXME need shadows as distinct forms
+  // FIXME need to at least consider defense
   std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
       if(l.dpt < r.dpt){
         return false; // most to least powerful
