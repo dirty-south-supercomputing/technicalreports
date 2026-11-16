@@ -364,6 +364,13 @@ div#monheader { /* mon pages */
   text-align: center;
 }
 
+div#countersgrid {
+  max-width: 95%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  row-gap: 1px;
+}
+
 table.fastattacks, table.chargedattacks, table.asequences, table.apairs { /* mon pages */
   margin: 0 0 1em 0;
   background-color: white;

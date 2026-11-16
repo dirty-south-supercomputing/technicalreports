@@ -841,18 +841,22 @@ static void
 write_counters(std::ostream &fp, const species &s){
   fp << "<div id=\"counterssec\">";
   fp << "<h2>counters</h2>" << std::endl;
+  fp << "<div id=\"countersgrid\">";
+  fp << "<div>";
   fp << "<h3>best Max attackers</h3>" << std::endl;
   max_counters(fp, s, true);
+  fp << "</div><div>";
   if(s.dmax && s.dmax != UINT_MAX){
     // we can't calculate tanks without knowing details of the opponent mon
     // FIXME do something better than this (guess tier?)
     fp << "<h3>best Max tanks</h3>" << std::endl;
     max_tank_counters(fp, s, true);
+    fp << "</div><div>";
   }
   fp << "<h3>best raid counters</h3>" << std::endl;
   raid_counters(fp, s, true);
   // FIXME do we want counters for each league?
-  fp << "</div>" << std::endl;
+  fp << "</div></div></div>" << std::endl;
 }
 
 static int
