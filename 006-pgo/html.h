@@ -153,6 +153,8 @@ void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &p
 struct maxtankcandidate {
   stats s;            // species / stats
   unsigned turns;     // turns until phase ends
+  // dinf and dsuf are (for now) abstract numbers which can be sorted but ought
+  // not be considered in terms of absolute values!
   double dinf;        // total damage inflicted (can exceed opponent HP)
   double dsuf;        // total damage suffered (can exceed our HP)
   const attack *fa;   // fast attack used
@@ -170,13 +172,27 @@ struct maxtankcandidate {
 
   void emit(std::ostream &fp, bool pdir) const;
 
-  // greater means "is a better max tank candidate"
-  bool operator>(const maxtankcandidate& r) const {
+  // lesser means "is a worse max tank candidate"
+  bool operator<(const maxtankcandidate& r) const {
     // prefer fewer turns, then less damage suffered
+    if(turns > r.turns){
+      return true;
+    }else if(r.turns > turns){
+      return false;
+    }
+    if(dsuf > r.dsuf){
+      return true;
+    }else if(r.dsuf > dsuf){
+      return false;
+    }
+    // prefer more damage inflicted
+    if(dinf > r.dinf){
+      return false;
+    }else if(r.dinf > dinf){
+      return true;
+    }
     // use species name then attack names for tiebreaker
-    // FIXME
-    auto c = std::tie(turns, dsuf, s.s->name, fa->name) <
-              std::tie(r.turns, r.dsuf, r.s.s->name, r.fa->name);
+    auto c = std::tie(s.s->name, fa->name) < std::tie(r.s.s->name, r.fa->name);
     if(c){
       return c;
     }

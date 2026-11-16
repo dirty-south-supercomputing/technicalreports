@@ -564,11 +564,36 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
               const attack *ca, double &dinf, double &dsuf){
   constexpr unsigned MAXMETERSIZE = 100;
   unsigned turns = 0;
-  // FIXME for now, assume only fast move is used, and that it always
-  // increases the max meter by one, and that we suffer no damage.
   dsuf = 0;
+  // for now, we compute damage suffered independent of the opponent's attack,
+  // just assuming one instance of each charged attack, weighted by its power
+  // and typing effectiveness.
+  for(const auto *sbca : sb.attacks){
+    if(!charged_attack_p(*sbca)){
+      continue;
+    }
+    auto pow = calc_eff_power_nx1(sb, sbca) * sa.s->type_effectiveness(sbca);
+    dsuf += pow;
+  }
+  // now divide dsuf by our bulk
+  dsuf /= (sa.mhp * sa.effd);
+  if(ca){ // FIXME for now, assume only fast move is used
+    std::cerr << "no logic for ca yet!" << std::endl;
+    throw std::exception();
+  }
   turns = MAXMETERSIZE * fa->animdur;
-  dinf = MAXMETERSIZE * fa->powerraid;
+  float teffect;
+  if(fa->type == TYPECOUNT){ // hidden power strikes again
+    teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
+  }else{
+    teffect = sb.type_effectiveness(fa);
+  }
+  // need to compute actual damage done by fast attack---it might be enough to
+  // reduce the meter by more than one FIXME
+  dinf = MAXMETERSIZE * calc_eff_power_nx1(*sa.s, fa) * teffect;
+  if(dinf == 0){ // handle splash, yawn, etc.
+    dinf = MAXMETERSIZE;
+  }
   return turns;
 }
 
@@ -576,10 +601,10 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
 static void
 max_tank_counters_species(const species &sa, const species &sb,
                           std::vector<maxtankcandidate>& cands){
-  if(!has_dmax(sa)){
+  struct stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
+  if(!has_max_attack(sa)){
     return;
   }
-  struct stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
   for(const auto fa : sa.attacks){
     if(fast_attack_p(*fa)){
       double dinf, dsuf;
@@ -691,7 +716,7 @@ int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
     // g-max makes no difference for tanks (yet)
     max_tank_counters_species(*a, s, cands);
   }
-  std::sort(cands.begin(), cands.end(), std::greater<>());
+  std::sort(cands.rbegin(), cands.rend());
   fp << "<table class=\"evenshade maxtankcounters\">";
   fp << "<tr>";
   fp << "<th/>";
