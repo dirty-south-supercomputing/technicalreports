@@ -522,6 +522,7 @@ write_atk_effectiveness(std::ostream &fp, const species &s){
     fp << "</td>";
   }
   fp << "</tr>" << std::endl;
+  fp << "<caption>dra: " << calc_dra(s.t1, s.t2) << "</caption>";
   fp << "</table>" << std::endl;
   fp << "</div>" << std::endl;
   return 0;

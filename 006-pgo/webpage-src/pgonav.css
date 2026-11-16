@@ -473,11 +473,16 @@ div#atkeffectiveness { /* mon pages */
   padding: 0 1em 0 1em;
 }
 
+table#atkeffect caption {
+  caption-side: bottom;
+  font-weight: bold;
+}
+
 table.monivs, table.monleaguestats {
   background-color: white;
 }
 
-table.monivs tr :nth-child(n+2) {
+table.monivs tr>:nth-child(n+2) {
   text-align: right;
   padding: 0 0 0 1em;
 }

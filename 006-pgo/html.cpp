@@ -628,7 +628,6 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
   }
   // now divide dsuf by our bulk
   dsuf /= (sa.mhp * sa.effd);
-std::cerr << sa.s->name << " ON " << sb.name << " " << ca->name << " turns: " << turns << " dinf: " << dinf << std::endl;
   return turns;
 }
 

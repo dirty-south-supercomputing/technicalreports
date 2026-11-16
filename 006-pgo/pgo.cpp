@@ -978,3 +978,17 @@ unsigned max_battle_mhp(const species &s){
   std::cerr << "bad dynamax tier: " << s.dmax << std::endl;
   throw std::exception();
 }
+
+float calc_dra(pgo_types_e t1, pgo_types_e t2){
+  std::vector<pgo_types_e> tras[6];   // attack types with typing relation [ -3 .. 2 ]
+  for(pgo_types_e at = TYPESTART ; at < TYPECOUNT ; ++at){
+    int tr = typing_relation(at, t1, t2);
+    tras[tr + 3].push_back(at);
+  }
+  float dra = 0;
+  for(int i = -3 ; i < 3 ; ++i){
+    dra += tras[i + 3].size() * type_effectiveness_mult(i);
+  }
+  dra /= static_cast<int>(TYPECOUNT);
+  return dra;
+}

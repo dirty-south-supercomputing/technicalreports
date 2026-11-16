@@ -1497,4 +1497,7 @@ unsigned evolcost(const species &s);
 // emit a string fit for a latex file label
 int label_string(const char *s);
 
+// calculate DRA for the given typing
+float calc_dra(pgo_types_e t1, pgo_types_e t2);
+
 #endif

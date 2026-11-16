@@ -52,7 +52,7 @@ struct typing {
     }
     dra = 0;
     for(int i = -3 ; i < 3 ; ++i){
-      dra += tras[i + 3].size() * pow(1.6, i);
+      dra += tras[i + 3].size() * type_effectiveness_mult(i);
     }
     dra /= static_cast<int>(TYPECOUNT);
     pop1 = typing_popcount(t1, t2);
