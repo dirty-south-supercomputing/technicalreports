@@ -21,7 +21,8 @@ MAKEFILE:=Makefile
 WEB:=webpage
 WEBSRC:=$(WEB)-src
 WEBIMG:=$(WEB)/images
-COREHEADERS:=pgotypes.h pokemon.h
+POKEMONH:=pokemon.h
+COREHEADERS:=pgotypes.h $(POKEMONH)
 
 CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
 CSS:=pgonav.css
@@ -516,7 +517,7 @@ $(OUT)/effa%.svg: $(OUT)/effa $(HTMLOBJ) $(PGOOBJ)
 
 # we split this out due to a huge slowdown in gcc/clang for large static vectors.
 # kinda ridiculous, but that's life.
-$(OUT)/pokemon.o: pokemon.cpp
+$(OUT)/pokemon.o: pokemon.cpp $(POKEMONH)
 	@mkdir -p $(@D)
 	$(CPP) $(CPPFLAGS) -g -c -o $@ -O2 $(<F)
 

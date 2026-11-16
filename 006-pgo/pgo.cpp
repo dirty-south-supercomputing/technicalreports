@@ -961,3 +961,20 @@ gmaxattack *gmaxattacks_begin(){
 gmaxattack *gmaxattacks_end(){
   return &GMaxAttacks[sizeof(GMaxAttacks) / sizeof(*GMaxAttacks) - 1];
 }
+
+// these numbers are dubious. five-star max battles for sure vary on MHP.
+// oh well!
+unsigned max_battle_mhp(const species &s){
+  switch(s.dmax){
+    case 1: return 1700;
+    case 2: return 5000;
+    case 3: return 10000;
+    case 4: /* ? */
+    case 5: return 17000;
+    case 6: return 75000;
+    default:
+            break;
+  }
+  std::cerr << "bad dynamax tier: " << s.dmax << std::endl;
+  throw std::exception();
+}

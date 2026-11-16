@@ -1180,4 +1180,7 @@ std::vector<species>::const_iterator species_end(void);
 constexpr float BBLADE_MAX_BOOST = 1.05;
 constexpr float BBLADE_RAID_BOOST = 1.1;
 
+// mhp of this species as a max battle opponent
+unsigned max_battle_mhp(const species &s);
+
 #endif
