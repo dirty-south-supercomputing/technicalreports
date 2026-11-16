@@ -747,6 +747,20 @@ has_gmax(const species &s){
   return !!lookup_gmax_attack(s);
 }
 
+static inline bool
+has_max_attack(const species &s){
+  if(has_dmax(s) || has_gmax(s)){
+    return true;
+  }
+  if(s.name.contains("Crowned")){
+    return true;
+  }
+  if(s.name == "Eternatus"){
+    return true;
+  }
+  return false;
+}
+
 // fill in vec with persistent evolution target(s), if there are any.
 // return true if there was at least one, and false otherwise.
 static bool
