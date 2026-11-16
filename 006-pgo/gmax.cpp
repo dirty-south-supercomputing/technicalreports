@@ -14,9 +14,7 @@ int main(){
     species gs{&*s, *gm};
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(gs.t1, gs.t2, false);
-    std::cout << "</td><td>";
-    link_to_name(std::cout, gs.name, true, false);
+    species_with_icons(std::cout, gs, true, false);
     std::cout << "</td><td>";
     html_type(gm->type, false);
     std::cout << ' ';

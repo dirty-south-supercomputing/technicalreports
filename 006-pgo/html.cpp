@@ -781,6 +781,16 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   return 0;
 }
 
+void species_with_icons(std::ostream &fp, const species &s, bool closetd, bool pdir){
+  html_types(fp, s.t1, s.t2, pdir);
+  if(closetd){
+    fp << "</td><td>";
+  }else{
+    fp << ' ';
+  }
+  link_to_name(fp, s.name, true, pdir);
+}
+
 void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
                       bool subdir, bool pdir){
   html_type(fp, a->type, pdir);

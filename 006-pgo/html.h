@@ -101,6 +101,11 @@ emit_html_attack(std::ostream &o, const species &s, const attack *a,
 void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
                       bool subdir, bool pdir);
 
+// prints the typing icon(s), optionally a </td><td> pair (if closetd s true),
+// and then the species name with link.
+void species_with_icons(std::ostream &fp, const species &s,
+                        bool closetd, bool pdir);
+
 static inline void
 html_type(std::ostream &fp, pgo_types_e t, bool pdir){
   if(t != TYPECOUNT){
