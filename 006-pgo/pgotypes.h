@@ -30,6 +30,9 @@ static constexpr auto GLCPCAP = 1500;
 static constexpr auto ULCPCAP = 2500;
 static constexpr auto MAXLEVEL = 80;
 
+// reported on silph road as "average tier 5 mhp" erp!
+constexpr unsigned MAXBATTLE_TIER5_MHP = 17000;
+
 // returns integer part, sets *half to 1 if it's a +0.5
 // (aren't guaranteed exact representation with floats)
 static inline unsigned

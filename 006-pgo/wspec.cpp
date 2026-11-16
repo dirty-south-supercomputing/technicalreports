@@ -847,9 +847,7 @@ write_counters(std::ostream &fp, const species &s){
   fp << "<h3>best Max attackers</h3>" << std::endl;
   max_counters(fp, s, true);
   fp << "</div><div>";
-  if(s.dmax && s.dmax != UINT_MAX){
-    // we can't calculate tanks without knowing details of the opponent mon
-    // FIXME do something better than this (guess tier?)
+  if(s.dmax){
     fp << "<h3>best Max tanks</h3>" << std::endl;
     max_tank_counters(fp, s, true);
     fp << "</div><div>";

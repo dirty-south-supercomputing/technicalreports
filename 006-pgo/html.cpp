@@ -102,7 +102,7 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "</tr>" << std::endl;
 }
 
-void maxtankcandidate::emit(std::ostream &fp, bool pdir) const {
+void maxtankcandidate::emit(std::ostream &fp, bool useca, bool pdir) const {
   fp << "<tr>";
   fp << "<td>";
   html_types(fp, s.s->t1, s.s->t2, pdir);
@@ -112,11 +112,13 @@ void maxtankcandidate::emit(std::ostream &fp, bool pdir) const {
   fp << "</td>";
   fp << "<td>";
   attack_with_icon(fp, *s.s, fa, true, pdir);
-  fp << " → ";
-  if(!ca){
-    fp << "No charged attack";
-  }else{
-    attack_with_icon(fp, *s.s, ca, true, pdir);
+  if(useca){
+    fp << " → ";
+    if(!ca){
+      fp << "None";
+    }else{
+      attack_with_icon(fp, *s.s, ca, true, pdir);
+    }
   }
   fp << "</td>";
   fp << "</tr>" << std::endl;
@@ -553,11 +555,30 @@ void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsig
   cands.emplace_back(s, turns, powerfast, powercharged, fa, ca, true);
 }
 
-// calculate the number of max meter slots removed by attack a thrown by
-// sa against sb. one charge is removed for every 0.5% of the opponent's
-// MHP, rounded down, with a minimum of one (so i'm told).
 static unsigned
-max_meter_slots(const stats &sa, const species &sb, const attack *a, double &dinf){
+max_meter_numerator(int tier){
+  switch(tier){
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return 200;
+    case 5: return 400;
+    case 6: return 3000;
+    default: break;
+  }
+  // FIXME we only use this because we're assuming tier 5 stats for max battles
+  // without a known tier in max_tank_calc_noca(); we ought throw an exception
+  return 400;
+}
+
+// calculate the number of max meter slots removed by attack a thrown by
+// sa against sb. one charge is removed for every 0.5% (tier 1-4 max) /
+// 0.25% (tier 5 max) / 0.033% (gmax) of the opponent's MHP, rounded down, with
+// a minimum of one (so i'm told https://www.reddit.com/r/TheSilphRoad/s/KhWNrLAUwd).
+static unsigned
+max_meter_slots(const stats &sa, const species &sb, const attack *a,
+                double &dinf, unsigned mhp){
   float teffect;
   if(a->type == TYPECOUNT){ // hidden power strikes again, treat as normal bleh
     teffect = type_effectiveness(TYPE_NORMAL, sb.t1, sb.t2);
@@ -571,8 +592,7 @@ max_meter_slots(const stats &sa, const species &sb, const attack *a, double &din
   if(dinf == 0){
     dinf = 1;
   }
-  auto mhp = max_battle_mhp(sb);
-  auto slots = (dinf * 200) / mhp;
+  auto slots = (dinf * max_meter_numerator(sb.dmax)) / mhp;
   if(slots < 1){
     slots = 1;
   }
@@ -581,22 +601,26 @@ max_meter_slots(const stats &sa, const species &sb, const attack *a, double &din
 
 constexpr unsigned MAXMETERSIZE = 100;
 
-// calculate how many turns are required to reach the max phase using form sa
-// employing attacks fa and ca against max battle opponent sb. this value is
-// always positive. writes damage inflicted and suffered to dinf and dsub,
-// which might exceed the actual hit points available. dsuf might be zero. dinf
-// is always positive. for now, we assume level 50 and perfect IVs on both sides.
+// calculate how many turns are required to reach the max phase (or win) using
+// form sa employing attacks fa and ca against max battle opponent sb. this
+// value is always positive. writes damage inflicted and suffered to dinf and
+// dsub, which might exceed the actual hit points available. dsuf might be
+// zero. dinf is always positive. for now, we assume level 50 and perfect IVs
+// on both sides.
 static unsigned
 max_tank_calc(const stats &sa, const species &sb, const attack *fa,
               const attack *ca, double &dinf, double &dsuf){
+  auto mhp = max_battle_mhp(sb);
   unsigned turns = 0;
+  unsigned used = 0;  // slots built up
   double pow;
-  auto slots = max_meter_slots(sa, sb, fa, pow);
+  auto slots = max_meter_slots(sa, sb, fa, pow, mhp);
   double capow;
-  auto caslots = max_meter_slots(sa, sb, ca, capow);
-  unsigned used = 0;
+  auto caslots = max_meter_slots(sa, sb, ca, capow, mhp);
   unsigned energy = 0;
-  while(used < MAXMETERSIZE){
+  dinf = 0;
+  dsuf = 0;
+  while(used < MAXMETERSIZE && dinf < mhp){
     // we can throw a charged attack after caturns
     auto caturns = turns_until_eNx1(fa, ca->energyraid - energy);
     turns += caturns;
@@ -604,7 +628,7 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
     used += slots * faiter;
     dinf += faiter * pow;
     energy += faiter * fa->energyraid;
-    if(used >= MAXMETERSIZE){
+    if(used >= MAXMETERSIZE || dinf >= mhp){
       break;
     }
     energy -= ca->energyraid;
@@ -615,10 +639,9 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
   if(dinf == 0){ // handle splash, yawn, etc.
     dinf = MAXMETERSIZE;
   }
-  dsuf = 0;
   // for now, we compute damage suffered independent of the opponent's attack,
   // just assuming one instance of each charged attack, weighted by its power
-  // and typing effectiveness.
+  // and typing effectiveness. FIXME
   for(const auto *sbca : sb.attacks){
     if(!charged_attack_p(*sbca)){
       continue;
@@ -634,15 +657,25 @@ max_tank_calc(const stats &sa, const species &sb, const attack *fa,
 static unsigned
 max_tank_calc_noca(const stats &sa, const species &sb, const attack *fa,
                    double &dinf, double &dsuf){
+  dinf = 0;
+  dsuf = 0;
+  unsigned mhp;
+  if(sb.dmax != UINT_MAX){
+    mhp = max_battle_mhp(sb);
+  }else{
+    // we need an mhp to calculate slots for the fast attack. assume tier 5
+    // for now but this is terrible FIXME
+    mhp = MAXBATTLE_TIER5_MHP;
+  }
   unsigned turns = 0;
   double pow;
-  auto slots = max_meter_slots(sa, sb, fa, pow);
+  auto slots = max_meter_slots(sa, sb, fa, pow, mhp);
   turns = (MAXMETERSIZE + slots - 1) / slots * fa->animdur;
   dinf = MAXMETERSIZE * pow;
+  // FIXME handle early knockout case (dinf >> mhp)
   if(dinf == 0){ // handle splash, yawn, etc.
     dinf = MAXMETERSIZE;
   }
-  dsuf = 0;
   // for now, we compute damage suffered independent of the opponent's attack,
   // just assuming one instance of each charged attack, weighted by its power
   // and typing effectiveness.
@@ -661,7 +694,8 @@ max_tank_calc_noca(const stats &sa, const species &sb, const attack *fa,
 // build up candidates for species sa attacking species sb as tank in max battle
 static void
 max_tank_counters_species(const species &sa, const species &sb,
-                          std::vector<maxtankcandidate>& cands){
+                          std::vector<maxtankcandidate>& cands,
+                          bool useca){
   struct stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
   if(!has_max_attack(sa)){
     return;
@@ -671,10 +705,12 @@ max_tank_counters_species(const species &sa, const species &sb,
       double dinf, dsuf;
       auto turns = max_tank_calc_noca(st, sb, fa, dinf, dsuf);
       add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, nullptr);
-      for(const auto ca : sa.attacks){
-        if(charged_attack_p(*ca)){
-          turns = max_tank_calc(st, sb, fa, ca, dinf, dsuf);
-          add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, ca);
+      if(useca){
+        for(const auto ca : sa.attacks){
+          if(charged_attack_p(*ca)){
+            turns = max_tank_calc(st, sb, fa, ca, dinf, dsuf);
+            add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, ca);
+          }
         }
       }
     }
@@ -769,21 +805,29 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
 
 // determine the best tanks to use against this Max Battle opponent
 int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
+  // without a dmax tier, we don't know how many hit points the opponent has.
+  // without knowing that, we can't determine whether charged attacks are
+  // useful. so leave them out in that case.
+  bool useca = s.dmax != UINT_MAX;
   std::vector<maxtankcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
     // g-max makes no difference for tanks (yet)
-    max_tank_counters_species(*a, s, cands);
+    max_tank_counters_species(*a, s, cands, useca);
   }
   std::sort(cands.rbegin(), cands.rend());
   fp << "<table class=\"evenshade maxtankcounters\">";
   fp << "<tr>";
   fp << "<th/>";
   fp << "<th>Form</th>";
-  fp << "<th>Attack pair</th>";
+  if(useca){
+    fp << "<th>Attack pair</th>";
+  }else{
+    fp << "<th>Fast attack</th>";
+  }
   fp << "</tr>";
   unsigned emitted = 0;
   for(const auto& c : cands){
-    c.emit(fp, pdir);
+    c.emit(fp, useca, pdir);
     if(++emitted == COUNTEREMITMAX){
       break;
     }

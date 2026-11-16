@@ -970,13 +970,12 @@ unsigned max_battle_mhp(const species &s){
     case 2: return 5000;
     case 3: return 10000;
     case 4: /* ? */
-    case 5: return 17000;
+    case 5: return MAXBATTLE_TIER5_MHP;
     case 6: return 75000;
     default:
             break;
   }
-  std::cerr << "bad dynamax tier: " << s.dmax << std::endl;
-  throw std::exception();
+  throw std::invalid_argument("bad tier");
 }
 
 float calc_dra(pgo_types_e t1, pgo_types_e t2){

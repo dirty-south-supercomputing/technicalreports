@@ -175,7 +175,7 @@ struct maxtankcandidate {
     ca(Ca)
   { }
 
-  void emit(std::ostream &fp, bool pdir) const;
+  void emit(std::ostream &fp, bool useca, bool pdir) const;
 
   // lesser means "is a worse max tank candidate"
   bool operator<(const maxtankcandidate& r) const {
