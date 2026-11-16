@@ -292,7 +292,7 @@ print_bounded_table(int bound, int lbound, double(*fitfxn)(const stats *), char 
     get_species_opt(&sols, sp, bound, lbound, fitfxn, cmpfxn, tiefxn, lstats, noshadows);
   }
   if(html){
-    std::cout << "<div id=\"tablecontainer\">" << std::endl;
+    std::cout << "<div class=\"tablecontainer\">" << std::endl;
     lstats.table(std::cout);
     std::cout << "<table class=\"evenshade bounded\">" << std::endl;
     std::cout << "<tr><th>T</th><th>Form</th>";
