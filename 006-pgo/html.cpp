@@ -522,10 +522,34 @@ void add_max_candidate(std::vector<maxcandidate> &cands, const species *s,
   }
 }
 
+void add_max_tank_candidate(std::vector<maxtankcandidate> &cands, const species *s, unsigned turns,
+                            double dinf, double dsuf, const attack *fa, const attack *ca){
+  cands.emplace_back(s, turns, dinf, dsuf, fa, ca);
+}
+
 void add_raid_candidate(std::vector<timetofirst> &cands, const species *s, unsigned turns,
                         float powerfast, float powercharged,
                         const attack *fa, const attack *ca){
   cands.emplace_back(s, turns, powerfast, powercharged, fa, ca, true);
+}
+
+// build up candidates for species sa attacking species sb as tank in max battle
+static void
+max_tank_counters_species(const species &sa, const species &sb,
+                          std::vector<maxtankcandidate>& cands,
+                          std::forward_list<species> &store){
+  if(!has_dmax(sa)){
+    return;
+  }
+  for(const auto fa : sa.attacks){
+    if(fast_attack_p(*fa)){
+      for(const auto ca : sa.attacks){
+        if(charged_attack_p(*ca)){
+          // FIXME
+        }
+      }
+    }
+  }
 }
 
 // build up candidates for the given species attacking something having typing
@@ -614,6 +638,19 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   return 0;
 }
 
+// determine the best tanks to use against this Max Battle opponent
+int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
+  std::forward_list<species> store;
+  std::vector<maxtankcandidate> cands;
+  for(auto a = species_begin() ; a != species_end() ; ++a){
+    max_tank_counters_species(*a, s, cands, store);
+  }
+  // FIXME
+  std::sort(cands.begin(), cands.end(), std::greater<>());
+  return 0;
+}
+
+// determine the best Max Attackers to use against this Max Battle opponent
 int max_counters(std::ostream &fp, const species &s, bool pdir){
   std::forward_list<species> store;
   std::vector<maxcandidate> cands;

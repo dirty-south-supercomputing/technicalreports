@@ -37,7 +37,7 @@ WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional cpms \
-						essay-ivs essay-max essay-megas-gbl \
+						essay-ivs essay-max essay-megas-gbl essay-calcs \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
