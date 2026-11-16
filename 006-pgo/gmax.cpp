@@ -11,11 +11,12 @@ int main(){
     if(!gm){
       continue;
     }
+    species gs{&*s, *gm};
     std::cout << "<tr>";
     std::cout << "<td>";
-    html_types(s->t1, s->t2, false);
+    html_types(gs.t1, gs.t2, false);
     std::cout << "</td><td>";
-    link_to_name(std::cout, s->name, true, false);
+    link_to_name(std::cout, gs.name, true, false);
     std::cout << "</td><td>";
     html_type(gm->type, false);
     std::cout << ' ';
