@@ -565,7 +565,12 @@ max_meter_slots(const stats &sa, const species &sb, const attack *a, double &din
     teffect = sb.type_effectiveness(a);
   }
   dinf = calc_eff_power_nx1(*sa.s, a) * teffect;
+  dinf *= sa.effa;
   dinf /= calc_eff_d(sb.def + MAXIVELEM, MAX_HALFLEVEL_BASIC, false);
+  dinf = trunc(dinf);
+  if(dinf == 0){
+    dinf = 1;
+  }
   auto mhp = max_battle_mhp(sb);
   auto slots = (dinf * 200) / mhp;
   if(slots < 1){
@@ -574,23 +579,63 @@ max_meter_slots(const stats &sa, const species &sb, const attack *a, double &din
   return slots;
 }
 
+constexpr unsigned MAXMETERSIZE = 100;
+
 // calculate how many turns are required to reach the max phase using form sa
-// employing attacks fa and ca against max battle opponent sb. we attempt to
-// minimize the number of turns across various employs of ca. this value is
+// employing attacks fa and ca against max battle opponent sb. this value is
 // always positive. writes damage inflicted and suffered to dinf and dsub,
-// which might exceed the actual hit points available. dsuf might be zero.
-// dinf is always positive. for now, we assume level 50 and perfect IVs.
+// which might exceed the actual hit points available. dsuf might be zero. dinf
+// is always positive. for now, we assume level 50 and perfect IVs on both sides.
 static unsigned
 max_tank_calc(const stats &sa, const species &sb, const attack *fa,
               const attack *ca, double &dinf, double &dsuf){
-  constexpr unsigned MAXMETERSIZE = 100;
   unsigned turns = 0;
-  if(ca){
-    // FIXME for now, assume only fast move is used. figuring out impact
-    // of charged attack requires knowing opponent HP
-    std::cerr << "no logic for ca yet!" << std::endl;
-    throw std::exception();
+  double pow;
+  auto slots = max_meter_slots(sa, sb, fa, pow);
+  double capow;
+  auto caslots = max_meter_slots(sa, sb, ca, capow);
+  unsigned used = 0;
+  unsigned energy = 0;
+  while(used < MAXMETERSIZE){
+    // we can throw a charged attack after caturns
+    auto caturns = turns_until_eNx1(fa, ca->energyraid - energy);
+    turns += caturns;
+    auto faiter = caturns / fa->animdur;
+    used += slots * faiter;
+    dinf += faiter * pow;
+    energy += faiter * fa->energyraid;
+    if(used >= MAXMETERSIZE){
+      break;
+    }
+    energy -= ca->energyraid;
+    turns += ca->animdur;
+    used += caslots;
+    dinf += capow;
   }
+  if(dinf == 0){ // handle splash, yawn, etc.
+    dinf = MAXMETERSIZE;
+  }
+  dsuf = 0;
+  // for now, we compute damage suffered independent of the opponent's attack,
+  // just assuming one instance of each charged attack, weighted by its power
+  // and typing effectiveness.
+  for(const auto *sbca : sb.attacks){
+    if(!charged_attack_p(*sbca)){
+      continue;
+    }
+    pow = calc_eff_power_nx1(sb, sbca) * sa.s->type_effectiveness(sbca);
+    dsuf += pow;
+  }
+  // now divide dsuf by our bulk
+  dsuf /= (sa.mhp * sa.effd);
+std::cerr << sa.s->name << " ON " << sb.name << " " << ca->name << " turns: " << turns << " dinf: " << dinf << std::endl;
+  return turns;
+}
+
+static unsigned
+max_tank_calc_noca(const stats &sa, const species &sb, const attack *fa,
+                   double &dinf, double &dsuf){
+  unsigned turns = 0;
   double pow;
   auto slots = max_meter_slots(sa, sb, fa, pow);
   turns = (MAXMETERSIZE + slots - 1) / slots * fa->animdur;
@@ -625,17 +670,14 @@ max_tank_counters_species(const species &sa, const species &sb,
   for(const auto fa : sa.attacks){
     if(fast_attack_p(*fa)){
       double dinf, dsuf;
-      auto turns = max_tank_calc(st, sb, fa, nullptr, dinf, dsuf);
+      auto turns = max_tank_calc_noca(st, sb, fa, dinf, dsuf);
       add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, nullptr);
-      // FIXME we're not yet considering charged attacks
-      /*
       for(const auto ca : sa.attacks){
         if(charged_attack_p(*ca)){
-          turns = max_tank_calc(sa, sb, fa, ca, dinf, dsuf);
+          turns = max_tank_calc(st, sb, fa, ca, dinf, dsuf);
           add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, ca);
         }
       }
-      */
     }
   }
 }
