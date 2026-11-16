@@ -10,7 +10,7 @@ emit_option(std::ostream &fp, const std::string &value){
   encode_name(fp, value); // this will be used as a URI
   fp << "\">";
   fp << value;
-  fp << "</option>" << std::endl;
+  fp << "</option>";
 }
 
 void write_navbar(std::ostream &fp, bool par){

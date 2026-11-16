@@ -367,8 +367,8 @@ div#monheader { /* mon pages */
 div#countersgrid {
   max-width: 95%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-  row-gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(35em, 1fr));
+  gap: 1px;
 }
 
 table.fastattacks, table.chargedattacks, table.asequences, table.apairs { /* mon pages */
