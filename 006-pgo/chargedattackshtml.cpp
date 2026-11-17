@@ -79,21 +79,19 @@ void print_table(const std::vector<const attack*>& as, bool raid){
     }
     std::cout << "<td>";
     if(attack_named_p(a, "Frustration")){
-      std::cout << shadows << " (all Shadow Pokémon)";
+      std::cout << "All <a href=\"shadows.html\">Shadow Pokémon</a> (" << shadows << ")";
     }else if(attack_named_p(a, "Return")){
-      std::cout << shadows << " (all Purified Pokémon)";
+      std::cout << "All <a href=\"shadows.html\">Purified Pokémon</a> (" << shadows << ")";
     }else{
       unsigned popstab;
       auto pop = learner_count(a, &popstab);
-      std::cout << pop;
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
         for(const auto &ass : s->attacks){
           if(attack_named_p(a, ass->name)){
             if(printed){
-              std::cout << ',';
+              std::cout << ", ";
             }
-            std::cout << ' ';
             printed = true;
             bool stab = has_stab_p(*s, a);
             bool excl = exclusive_attack_p(*s, a);
@@ -114,6 +112,7 @@ void print_table(const std::vector<const attack*>& as, bool raid){
           }
         }
       }
+      std::cout << " (" << pop << ")";
     }
     std::cout << "</td>";
     std::cout << "</tr>" << std::endl;
