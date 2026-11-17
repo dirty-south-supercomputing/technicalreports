@@ -88,15 +88,14 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
       std::cout << "</td><td>" << t << "</td><td>" << power << "</td>";
       std::cout << "<td>" << energy << "</td><td>" << ept;
       std::cout << "</td><td>" << ppt << "</td><td>" << (power * 6.0) / (t * 5.0);
-      std::cout << "</td><td>" << pop;
+      std::cout << "</td><td>";
       bool printed = false;
       for(auto s = species_begin() ; s != species_end() ; ++s){
         for(const auto &ass : s->attacks){
           if(attack_named_p(ass, a->name)){
             if(printed){
-              std::cout << ',';
+              std::cout << ", ";
             }
-            std::cout << ' ';
             printed = true;
             bool stab = has_stab_p(*s, a);
             bool excl = exclusive_attack_p(*s, a);
@@ -117,7 +116,7 @@ print_table(const std::vector<const attack*>& as, bool raidvalues, bool html){
           }
         }
       }
-      std::cout << "</td>";
+      std::cout << " (" << pop << ")</td>";
       std::cout << "</tr>" << std::endl;
     }else{
       printf(" %s & %u & %.3g & %.3g & %g & %u(%u)\\\\\n",
