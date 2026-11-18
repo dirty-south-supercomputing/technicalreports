@@ -572,7 +572,13 @@ emit_atk(std::ostream &fp, const attack *a){
   }else if(fast_attack_p(*a)){
     fp << "Fast";
   }else{
-    fp << "Charged";
+    if(a->name.contains("Behemoth")){
+      fp << "Charged/Max";
+    }else if(a->name == "Dynamax Cannon"){
+      fp << "Charged/G-Max";
+    }else{
+      fp << "Charged";
+    }
   }
   fp << "</td></tr>" << std::endl;
 }
