@@ -87,10 +87,7 @@ void html_weather(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
 void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "<tr>";
   fp << "<td>";
-  html_types(fp, s->t1, s->t2, pdir);
-  fp << "</td>";
-  fp << "<td>";
-  link_to_name(fp, s->name, true, pdir);
+  species_with_icons(fp, *s, true, true);
   fp << "</td>";
   fp << "<td>";
   attack_with_icon(fp, *s, fa, true, pdir);
@@ -102,13 +99,26 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "</tr>" << std::endl;
 }
 
+void raidcandidate::emit(std::ostream &fp, double maxp, bool pdir) const {
+  fp << "<tr>";
+  fp << "<td>";
+  species_with_icons(fp, *s.s, true, true);
+  fp << "</td>";
+  fp << "<td>";
+  attack_with_icon(fp, *s.s, fa, true, pdir);
+  fp << " → ";
+  attack_with_icon(fp, *s.s, ca, true, pdir);
+  fp << "</td>";
+  fp << "<td>" << turns << "</td>";
+  auto dpt = dinf / turns;
+  fp << "<td>" << (dpt * 100 / maxp) << "%</td>";
+  fp << "</tr>" << std::endl;
+}
+
 void maxtankcandidate::emit(std::ostream &fp, bool useca, bool pdir) const {
   fp << "<tr>";
   fp << "<td>";
-  html_types(fp, s.s->t1, s.s->t2, pdir);
-  fp << "</td>";
-  fp << "<td>";
-  link_to_name(fp, s.s->name, true, pdir);
+  species_with_icons(fp, *s.s, true, true);
   fp << "</td>";
   fp << "<td>";
   attack_with_icon(fp, *s.s, fa, true, pdir);

@@ -151,6 +151,47 @@ extern const std::string reversecss[];
 
 void summarize_buffs_html(std::ostream &o, const attack &a, const std::string &prefix, const std::string &suffix);
 
+struct raidcandidate {
+  stats s;            // calculated attacker
+  unsigned turns;     // turns necessary to KO
+  double dinf;        // damage inflicted
+  double dsuf;        // damage suffered
+  const attack *fa;   // fast attack
+  const attack *ca;   // charged attack
+
+  raidcandidate(const stats &S, unsigned Turns, double Dinf, double Dsuf,
+                   const attack *Fa, const attack *Ca) :
+    s(S),
+    turns(Turns),
+    dinf(Dinf),
+    dsuf(Dsuf),
+    fa(Fa),
+    ca(Ca)
+  { }
+
+  void emit(std::ostream &fp, double maxp, bool pdir) const;
+
+  // lesser means "is a worse raid counter candidate"
+  bool operator<(const raidcandidate& r) const {
+    // FIXME
+    // use species name then attack names for tiebreaker
+    auto c = std::tie(s.s->name, fa->name) < std::tie(r.s.s->name, r.fa->name);
+    if(c){
+      return c;
+    }
+    // finally, compare ca names, remembering ca might be null
+    if(ca && !r.ca){
+      return true;
+    }else if(!ca && r.ca){
+      return false;
+    }else if(!ca && !r.ca){
+      return false;
+    }
+    // ultimate tie shouldn't happen
+    return ca->name < r.ca->name;
+  }
+};
+
 // results for max battle tank calculations. these summarize what happens
 // during a single complete main phase. damage suffered may be a great
 // deal more than we can actually take; damage inflicted could be more
@@ -193,7 +234,7 @@ struct maxtankcandidate {
     }else if(r.dinf > dinf){
       return true;
     }
-    // use species name then attack names for tiebreaker
+    // use species name then fast attack name for tiebreaker
     auto c = std::tie(s.s->name, fa->name) < std::tie(r.s.s->name, r.fa->name);
     if(c){
       return c;
