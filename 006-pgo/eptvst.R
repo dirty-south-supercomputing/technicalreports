@@ -1,14 +1,16 @@
+library(Seurat)
 library(ggplot2)
 eptdat <- read.csv("out/eptvst.dat")
 head(eptdat)
 str(eptdat)
 cairo_pdf("out/eptvst.pdf")
 eptdat$E <- eptdat$E / eptdat$T
-ggplot(data=eptdat,
+p <- ggplot(data=eptdat,
        mapping = aes(x=T, y=E, color=atype)) +
        geom_point(size=3) +
        theme(legend.position="none") +
        theme(text=element_text(family="Gentium Book")) +
        xlab("Turns") +
        ylab("EPT")
+LabelPoints(p, NULL, eptdat$name, repel=TRUE)
 dev.off()
