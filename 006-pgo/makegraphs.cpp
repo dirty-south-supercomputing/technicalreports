@@ -34,10 +34,9 @@ write_pacing(const species &s){
 static void
 write_iv_graphs(const species &s){
   if(!pvp_banned_p(s)){
-    /*if(write_pacing(s)){
-      std::cerr << "pacing failed for " << s.name << std::endl;
+    if(write_pacing(s)){
       throw std::exception();
-    }*/
+    }
     if(write_iv_graph(s, "GL")){
       throw std::exception();
     }
