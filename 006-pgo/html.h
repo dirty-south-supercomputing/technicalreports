@@ -179,15 +179,12 @@ struct maxtankcandidate {
 
   // lesser means "is a worse max tank candidate"
   bool operator<(const maxtankcandidate& r) const {
-    // prefer fewer turns, then less damage suffered
-    if(turns > r.turns){
+    // prefer lower (turns * damage suffered)
+    auto tdprod = turns * dsuf;
+    auto rtdprod = r.turns * r.dsuf;
+    if(tdprod > rtdprod){
       return true;
-    }else if(r.turns > turns){
-      return false;
-    }
-    if(dsuf > r.dsuf){
-      return true;
-    }else if(r.dsuf > dsuf){
+    }else if(rtdprod > tdprod){
       return false;
     }
     // prefer more damage inflicted
@@ -297,5 +294,8 @@ void emit_cmp_graph(std::ostream &fp, const std::vector<cmprange> &effas);
 int max_counters(std::ostream &fp, const species &s, bool pdir);
 int max_tank_counters(std::ostream &fp, const species &s, bool pdir);
 int raid_counters(std::ostream &fp, const species &s, bool pdir);
+
+// look up any unique battle mechanics for the species
+std::string unique_mechanics(const std::string& name);
 
 #endif
