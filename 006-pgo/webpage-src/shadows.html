@@ -6,18 +6,11 @@
   <title>Shadow forms in Pokémon GO</title>
   <link rel="stylesheet" type="text/css" href="pgonav.css">
   <style>
-  table.shadows {
-    margin: 0 0 0 1em;
-  }
-  table.shadows tr>:nth-child(1) { /* T */
-    text-align: center;
-  }
-  table.shadows tr>:nth-child(2) { /* form */
-    text-align: left;
-  }
-  table.shadows tr>:nth-child(n+3) { /* stats */
-    text-align: right;
-  }
+  table.shadows { margin: 0 1em 0 1em; }
+  table.shadows tr>:nth-child(1) { text-align: center; } /* T */
+  table.shadows tr>:nth-child(2) { text-align: left; } /* form */
+  table.shadows tr>:nth-child(3) { text-align: right; } /* amean delta */
+  table.shadows tr>:nth-child(4) { text-align: right; padding: 0 0 0 1em; } /* purification cost */
   </style>
 </head>
 BODYSTART
