@@ -649,7 +649,7 @@ std::string unique_mechanics(const std::string& name){
     }else if(name == "Aegislash"){
       return
  "Aegislash has Blade and Shield forms which switch the other's ATK and DEF stats. "
- "Outside of battle, it is always in the Shield form (97 ATK, 291 DEF). "
+ "Outside of battle, it is always in the Shield form (97 ATK, 272 DEF). "
  "While in Shield form, its fast attacks have zero power (and thus inflict a single point of damage). "
  "Immediately before throwing a charged move, it takes on its Blade form. "
  "Upon using a shield, or being substituted, it reverts to Shield form. "
