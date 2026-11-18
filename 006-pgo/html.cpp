@@ -752,6 +752,9 @@ int raid_counters(std::ostream &fp, const species &targ, bool pdir){
   std::vector<timetofirst> cands;
   std::forward_list<species> store;
   for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(!unique_mechanics(s->name).empty()){
+      continue; // Pokémon with unique mechanics can't participate in max battles
+    }
     calc_raid_counters(cands, targ, *s, s->shadow);
     for(const auto &m : s->mforms){
       store.emplace_front(&*s, m);
@@ -811,6 +814,9 @@ int max_tank_counters(std::ostream &fp, const species &s, bool pdir){
   bool useca = s.dmax != UINT_MAX;
   std::vector<maxtankcandidate> cands;
   for(auto a = species_begin() ; a != species_end() ; ++a){
+    if(!unique_mechanics(a->name).empty()){
+      continue; // Pokémon with unique mechanics can't participate in max battles
+    }
     // g-max makes no difference for tanks (yet)
     max_tank_counters_species(*a, s, cands, useca);
   }
