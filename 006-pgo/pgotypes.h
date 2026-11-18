@@ -1003,6 +1003,7 @@ stardust_reward(const species &s){
     "Shroomish",
     "Foongus",
     "Morelull",
+    "Minior", // FIXME verify outside of meteor shower event
   };
   if(name_in_list(s, sd500s)){
     return 500;
