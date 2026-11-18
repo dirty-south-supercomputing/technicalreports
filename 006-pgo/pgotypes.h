@@ -1471,8 +1471,8 @@ bool multiple_charged_attacks(const species &s);
 // look up any adventure effect for the attack name
 std::string adventure_effect(const std::string& name);
 
-// look up any unique battle mechanics for the species
-std::string unique_mechanics(const std::string& name);
+// list of names of battle forms (usually empty)
+const std::vector<std::string> &battle_forms(const species &s);
 
 const char *tname_capitalized(pgo_types_e t);
 

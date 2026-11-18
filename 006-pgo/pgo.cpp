@@ -610,55 +610,6 @@ std::string adventure_effect(const std::string& name){
   return "";
 }
 
-std::string unique_mechanics(const std::string& name){
-    if(name == "Minior"){
-      return
- "Minior has two battle forms, Meteor and Core. "
- "It starts battle in the Meteor form, with higher defense than attack. "
- "Upon reduction to less than half its MHP, it enters Core form, with greater attack than defense. "
- "This form is persistent across swaps (and indeed across battles).";
- "Cramorant cannot defend gyms, assault gyms, or participate in raids.";
-    }else if(name == "Cramorant"){
-      return
- "When in its default form, use of either the <a href=\"../attacks/Surf.html\">Surf</a> or <a href=\"../attacks/Dive.html\">Dive</a> charged attack changes Cramorant's form. "
- "If used with at least half its HP remaining, Carmorant enters its Gulping form, with an <a href=\"Arrokuda.html\">Arrokuda</a> in its bill. "
- "It otherwise enters its Gorging form, with a <a href=\"Pikachu.html\">Pikachu</a>. "
- "Upon being hit with a charged move (a shielded move does not count), Cramorant will spit its prey at its opponent. "
- "This counterattack takes place even if Cramorant is knocked out by the charged attack, taking place "
-  "“simultaneously”—if Cramorant is the last standing member of a team, the counterattack can still take "
-  "place, knocking out the attacker to effect a tie. "
- "The Gulping form's Arrokuda debuffs the opponent defense by one step. "
- "The Gorging form's Pikachu debuffs the opponent's attack by two steps. "
- "In both cases, type-agnostic damage is dealt equivalent to 15% of the opponent's MHP, and Cramorant returns to default form (or faints). "
- "If Cramorant is knocked out by a fast attack (or by a shielded charged move), the counterattack does not occur. "
- "An alternate form is not changed or reset by a subsequent charged attack, but is reset upon swapping Cramorant out.";
-    }else if(name == "Mimikyu"){
-      return
- "Mimikyu is shrouded in a rag, and this rag has the ability to absorb one charged attack, just like a shield. "
- "When a charged attack is thrown at Mimikyu, the Trainer can choose to use a shield if any are available. "
- "If the move is not shielded, Mimikyu loses its disguise (“Busted Form”). "
- "This results in a second-level debuff of Mimikyu's defense. "
- "This debuff cannot be cleared by switching Pokémon.";
-    }else if(name == "Morpeko"){
-      return
- "Morpeko changes its form between “Full Belly Mode” and “Hangry Mode” each time it uses a charged attack. "
- "Upon becoming active, Morpeko is in Full Belly Mode, and Aura Wheel is an Electric attack. "
- "In Hangry Mode, Aura Wheel is a Dark attack. "
- "Morpeko retains Dark/Electric typing (and thus Aura Wheel STAB) across modes. "
- "Morpeko cannot defend gyms, assault gyms, or participate in raids.";
-    }else if(name == "Aegislash"){
-      return
- "Aegislash has Blade and Shield forms which switch the other's ATK and DEF stats. "
- "Outside of battle, it is always in the Shield form (97 ATK, 272 DEF). "
- "While in Shield form, its fast attacks have zero power (and thus inflict a single point of damage). "
- "Immediately before throwing a charged move, it takes on its Blade form. "
- "Upon using a shield, or being substituted, it reverts to Shield form. "
- "Since its Shield form (considered for League CP bounds) has much lower CP, this allows a high ATK to be snuck under a CP bound (though it will only be effective for charged attacks). "
- "Aegislash cannot defend gyms, assault gyms, or participate in raids.";
-    }
-    return "";
-}
-
 // is the form banned from all 3x3?
 bool pvp_banned_p(const species &s){
   if(s.name == "Shedinja"){
@@ -1039,4 +990,20 @@ float calc_dra(pgo_types_e t1, pgo_types_e t2){
   }
   dra /= static_cast<int>(TYPECOUNT);
   return dra;
+}
+
+const std::vector<std::string> &battle_forms(const species &s){
+  static constexpr std::vector<std::string> empty_forms{};
+  static const std::vector<std::string> cramorant_forms{ "Cramorant Gulping", "Cramorant Gorging" };
+  static const std::vector<std::string> aegislash_forms{ "Aegislash Sword" };
+  static const std::vector<std::string> morpeko_forms{ "Morpeko Hangry" };
+
+  if(s.name == "Cramorant"){
+    return cramorant_forms;
+  }else if(s.name == "Aegislash"){
+    return aegislash_forms;
+  }else if(s.name == "Morpeko"){
+    return morpeko_forms;
+  } // FIXME there are others
+  return empty_forms;
 }

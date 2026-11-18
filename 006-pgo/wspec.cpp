@@ -866,12 +866,19 @@ write_unique_mechanics(std::ostream &fp, const species &s){
   }
   fp << "<div id=\"mechanics\">";
   fp << "<h2>unique mechanics</h2>" << std::endl;
-  fp << mech;
+  fp << "<p>" << mech << "</p>";
+  const auto bforms = battle_forms(s);
+  for(const auto &b : bforms){
+    std::string encname;
+    encode_name(b, encname); // do *not* use URI encoding
+    fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"50%\" alt=\"" << b << "\"/>" << std::endl;
+  }
   fp << "</div>" << std::endl;
 }
 
 static int
 write_mon_page(const species &s){
+  std::cerr << "Writing " << s.name << "..." << std::endl;
   std::string encname;
   encode_name(s.name, encname); // do *not* use URI encoding
   std::ofstream fp(encname + ".html");
@@ -922,7 +929,6 @@ write_mon_page(const species &s){
 
 static int
 write_summary(std::ostream &fp, const species &s){
-  std::cerr << "Writing " << s.name << "..." << std::endl;
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
   // we do *not* use species_with_icons() or html_types() because we do not
