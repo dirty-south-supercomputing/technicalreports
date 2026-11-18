@@ -912,7 +912,17 @@ write_summary(std::ostream &fp, const species &s){
   std::cerr << "Writing " << s.name << "..." << std::endl;
   fp << "<tr>";
   fp << "<td>" << std::format("{:04d}", s.idx) << "</td><td>";
-  species_with_icons(fp, s, false, true);
+  // we do *not* use species_with_icons() or html_types() because we do not
+  // want a space between the icons. instead, let them bunch atop one another.
+  html_type(fp, s.t1, true);
+  if(s.t2 != TYPECOUNT){
+    fp << "<br/>";
+    html_type(fp, s.t2, true);
+  }
+  fp << "</td><td>";
+  fp << "<a href=\"";
+  encode_name(fp, s.name);
+  fp << ".html\">" << s.name << "</a>";
   fp << "</td>";
   fp << "<td>";
   if(s.shiny){
@@ -951,14 +961,14 @@ write_index(){
   const std::string style =
     "#allforms { margin: 0 1em 0 1em; text-align: center; }"
     "#allforms tr>:nth-child(1) { text-align: left; font-size: large; }"
-    "#allforms tr>:nth-child(2) { text-align: left; font-size: large; }"
-    "#allforms tr>:nth-child(6) { font-size: large; }"; // so all header text is the same size
+    "#allforms tr>:nth-child(3) { text-align: left; font-size: large; }"
+    "#allforms tr>:nth-child(7) { font-size: large; }"; // so all header text is the same size
   write_header(fp, "Pokémon GO forms", style, true);
   fp << "<p class=\"intro\">The following forms are available in Pokémon GO. ";
   fp << "Functionally equivalent forms are not distinguished. ";
   fp << "Battle-only forms are not listed.</p>" << std::endl;
   fp << "<table id=\"allforms\">" << std::endl;
-  fp << "<tr><th>Dex#</th><th>Form</th><th>";
+  fp << "<tr><th>Dex#</th><th/><th>Form</th><th>";
   fp << "<img src=\"../images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
   fp << "</th><th>";
   fp << "<img src=\"../images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
