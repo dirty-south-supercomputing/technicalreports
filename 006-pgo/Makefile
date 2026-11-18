@@ -37,7 +37,7 @@ WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 						dynacost dynafast dynabulk \
 						typesARA setsARA typesDRA coversets \
 						effectiveness listTTF gmax megas mythicals \
-						walkevol regional cpms \
+						walkevol regional cpms evolhetero \
 						essay-ivs essay-max essay-megas-gbl essay-calcs \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
@@ -229,6 +229,10 @@ graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING) $(addsuffix .dat.html, $
 $(WEB)/attacks/index.html: $(OUT)/aspec
 	@mkdir -p $(@D)
 	$(<) $(@D)
+
+$(OUT)/evolhetero.html: $(HETERO)
+	@mkdir -p $(@D)
+	$(<) typehtml > $@
 
 $(OUT)/coversets.html: $(CUPSBIN) $(OUT)/coversets
 	@mkdir -p $(@D)
