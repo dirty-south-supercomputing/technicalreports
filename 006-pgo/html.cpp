@@ -609,7 +609,7 @@ constexpr unsigned MAXMETERSIZE = 100;
 // on both sides.
 static unsigned
 max_tank_calc(const stats &sa, const species &sb, const attack *fa,
-              const attack *ca, double &dinf, double &dsuf){
+              const attack *ca, double &dinf){
   auto mhp = max_battle_mhp(sb);
   unsigned turns = 0;
   unsigned used = 0;  // slots built up
@@ -693,7 +693,7 @@ max_tank_counters_species(const species &sa, const species &sb,
       if(useca){
         for(const auto ca : sa.attacks){
           if(charged_attack_p(*ca)){
-            turns = max_tank_calc(st, sb, fa, ca, dinf, dsuf);
+            turns = max_tank_calc(st, sb, fa, ca, dinf);
             add_max_tank_candidate(cands, st, turns, dinf, dsuf, fa, ca);
           }
         }
