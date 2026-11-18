@@ -467,6 +467,13 @@ div#basics { /* mon pages */
   overflow: hidden;
 }
 
+div#mechanics { /* mon pages */
+  padding: 0 1em 0 1em;
+  max-width: min(40em, 100%);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 div#transitions { /* mon pages */
   overflow: hidden;
   padding: 0 1em 0 1em;

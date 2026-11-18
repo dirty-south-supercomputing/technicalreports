@@ -858,6 +858,18 @@ write_counters(std::ostream &fp, const species &s){
   fp << "</div></div></div>" << std::endl;
 }
 
+static void
+write_unique_mechanics(std::ostream &fp, const species &s){
+  auto mech = unique_mechanics(s.name);
+  if(mech.empty()){
+    return;
+  }
+  fp << "<div id=\"mechanics\">";
+  fp << "<h2>unique mechanics</h2>" << std::endl;
+  fp << mech;
+  fp << "</div>" << std::endl;
+}
+
 static int
 write_mon_page(const species &s){
   std::string encname;
@@ -876,6 +888,7 @@ write_mon_page(const species &s){
   fp << "</h1></div>" << std::endl;
   write_stats(fp, s);
   write_evol(fp, s);
+  write_unique_mechanics(fp, s);
   write_atk_effectiveness(fp, s);
   std::vector<const attack *> atks(s.attacks);
   if(s.shadow){
