@@ -21,13 +21,16 @@ struct shadowcand {
 
   void emit(std::ostream &fp){
     fp << "<tr><td>";
-    html_types(fp, s->t1, s->t2, false);
-    fp << "</td>";
-    fp << "<td>";
-    link_to_name(fp, s->name, true);
+    species_with_icons(fp, *s, true, false);
     fp << "</td>";
     auto rat = (ameanrat - 1) * 100;
-    fp << "<td>" << rat << "%</td>";
+    fp << "<td>";
+    if(std::abs(rat) >= .00005){
+      fp << rat;
+    }else{
+      fp << "no change";
+    }
+    fp << "</td>";
     fp << "<td>" << purification_cost(*s) << "</td>";
     fp << "</tr>" << std::endl;
   }
@@ -60,7 +63,7 @@ int main(void){
   std::sort(cands.begin(), cands.end());
   std::cout << std::setprecision(3);
   std::cout << "<table class=\"evenshade shadows\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Form</th><th>ΔAmean</th><th>Purification (kSD)</th></tr>" << std::endl;
+  std::cout << "<tr><th/><th>Form</th><th>Δ Amean%</th><th>Purification (kSD)</th></tr>" << std::endl;
   for(auto &s : cands){
     s.emit(std::cout);
   }
