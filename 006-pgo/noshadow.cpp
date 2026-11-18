@@ -3,7 +3,7 @@
 // print a list of all forms with no shadow variant
 int main(void){
   std::cout << "<table class=\"nofoo\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Form</th></tr>" << std::endl;
+  std::cout << "<tr><th/><th>Form</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(!s->shadow){
       std::cout << "<tr><td>";

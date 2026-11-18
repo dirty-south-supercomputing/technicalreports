@@ -169,8 +169,12 @@ table.nofoo {
   padding: 0 0 0 1em;
 }
 
-table.nofoo tr :nth-child(1) { /* type */
+table.nofoo tr>:nth-child(1) { /* type */
   text-align: center;
+}
+
+table.nofoo tr>:nth-child(2) { /* form */
+  text-align: left;
 }
 
 table.goodhundos {

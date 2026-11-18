@@ -5,7 +5,7 @@ int main(void){
   // track the previous match, since we don't print it immediately (we need
   // "and" prior to the last and only the last one).
   std::cout << "<table class=\"nofoo\">" << std::endl;
-  std::cout << "<tr><th>T</th><th>Form</th></tr>" << std::endl;
+  std::cout << "<tr><th/><th>Form</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(!multiple_charged_attacks(*s)){
       std::cout << "<tr><td>";
