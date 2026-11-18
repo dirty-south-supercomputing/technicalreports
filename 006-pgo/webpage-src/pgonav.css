@@ -15,6 +15,17 @@ h1, h2, h3 {
   margin: 1em 1em 1em 1em;
 }
 
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+p.intro {
+  font-size: large;
+  padding: 1em;
+  max-width: min(40em, 100%);
+}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -44,23 +55,8 @@ hr {
   margin: 0;
 }
 
-img.type {
-  height: 1em;
-  width: 1em;
-  vertical-align: top;
-}
-
-img.monscatter {
-  max-width: 100%;
-  height: auto;
-}
-
-img.sprite {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 0 auto;
-  display: block;
-}
+/* a type icon as used among text */
+img.type { height: 1em; width: 1em; vertical-align: top; }
 
 table.evenshade {
   border-collapse: collapse;
@@ -78,6 +74,53 @@ table.bounded tr :nth-child(1) {
 table.bounded tr :nth-child(n+3) {
   text-align: right;
   padding: 0 0 0 1em;
+}
+
+div#monheader { /* mon pages */
+  width: fit-content;
+  text-align: center;
+}
+
+/* large sprite on the top of mon pages */
+img.sprite { max-width: 100%; height: auto; margin: 0 auto 0 auto; display: block; }
+
+div#basics { /* mon pages */
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#mechanics { /* mon pages */
+  padding: 0 1em 0 1em;
+  max-width: min(40em, 100%);
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+div#transitions { /* mon pages */
+  overflow: hidden;
+  padding: 0 1em 0 1em;
+}
+
+div#atkeffectiveness { /* mon pages */
+  overflow: hidden;
+  padding: 0 1em 0 1em;
+}
+
+table#atkeffect caption {
+  caption-side: bottom;
+  font-weight: bold;
+}
+
+img.monscatter {
+  max-width: 100%;
+  height: auto;
+}
+
+div#countersgrid {
+  max-width: 95%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(35em, 1fr));
+  gap: 1px;
 }
 
 table.maxcounters, table.maxtankcounters, table.raidcounters {
@@ -144,6 +187,102 @@ table.maxcounters tr>:nth-child(n+4) { /* stats */
   padding: 0 0 0 1em;
 }
 
+table.fastattacks, table.chargedattacks, table.asequences, table.apairs { /* mon pages */
+  margin: 0 0 1em 0;
+  background-color: white;
+}
+
+table.fastattacks tr>:nth-child(1) { /* mon pages, attack */
+  text-align: left;
+}
+
+table.chargedattacks tr>:nth-child(1) { /* mon pages, attack */
+  text-align: left;
+}
+
+table.asequences tr>:nth-child(1) { /* mon pages, attack sequence */
+  text-align: left;
+}
+
+table.asequences tr>:nth-child(n+2) { /* mon pages, attack sequence stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.apairs tr>:nth-child(1) { /* attack set */
+  text-align: center;
+}
+
+table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.fastattacks tr>:nth-child(n+2) { /* mon pages, stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+table.monleaguestats { /* mon pages */
+  margin: 0 0 1em 0;
+}
+
+.monleaguestats tr>:nth-child(n+2) { /* stats */
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
+/* overflow: hidden is necessary to eliminate blank space between these divs */
+div#atks3x3 { /* mon page */
+  background-color: rgba(255, 255, 208, 0.25);
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#atksNx1 { /* mon page */
+  background-color: rgba(208, 255, 255, 0.25);
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#asets { /* mon page */
+  background-color: rgba(255, 208, 255, 0.25);
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#glivs { /* mon page */
+  background-color: rgba(208, 255, 208, 0.25);
+  padding: 0 1em 0 1em;
+  overflow: hidden;
+}
+
+div#ulivs { /* mon page */
+  padding: 0 1em 0 1em;
+  background-color: rgba(208, 208, 255, 0.25);
+  overflow: hidden;
+}
+
+div#mlivs { /* mon page */
+  padding: 0 1em 0 1em;
+  background-color: rgba(255, 208, 208, 0.25);
+  overflow: hidden;
+}
+
+table.monivs, table.monleaguestats {
+  background-color: white;
+}
+
+table.monivs tr>:nth-child(n+2) {
+  text-align: right;
+  padding: 0 0 0 1em;
+}
+
 table.dynas {
   margin: 0 0 0 1em;
 }
@@ -179,39 +318,15 @@ table.nofoo tr>:nth-child(2) { /* form */
   text-align: left;
 }
 
-table.goodhundos {
-  margin: 0 0 0 1em;
-}
+table.goodhundos { margin: 0 0 0 1em; }
+table.goodhundos tr :nth-child(1) { text-align: center; } /* type */
+table.goodhundos tr :nth-child(2) { text-align: left; } /* form */
+table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { text-align: right; padding: 0 0 0 1em; } /* stats */
 
-table.goodhundos tr :nth-child(1) { /* type */
-  text-align: center;
-}
-
-table.goodhundos tr :nth-child(2) { /* form */
-  text-align: left;
-}
-
-table.goodhundos tr :nth-child(n+3):nth-child(-n+10) { /* stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-#functional {
-  margin: 0 0 0 1em;
-}
-
-#functional tr>:nth-child(1) { /* type */
-  text-align: center;
-}
-
-#functional tr>:nth-child(2) { /* form */
-  text-align: left;
-}
-
-#functional tr>:nth-child(n+3) { /* configs */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
+#functional { margin: 0 0 0 1em; }
+#functional tr>:nth-child(1) { text-align: center; } /* type */
+#functional tr>:nth-child(2) { text-align: left; } /* form */
+#functional tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; } /* configs */
 
 #teffect {
   margin: 0 1em 0 1em;
@@ -318,11 +433,6 @@ table.coverset {
   margin: 0 1em 0 1em;
 }
 
-img.monradar {
-  width: 480px;
-  height: auto;
-}
-
 #leaguestats { /* league summaries, *not* mon pages */
   background-color: #ddd;
   margin: 0 auto 2em auto;
@@ -346,158 +456,12 @@ img.monradar {
   font-size: 1.5em;
 }
 
-p {
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-p.intro {
-  font-size: large;
-  padding: 1em;
-  max-width: min(40em, 100%);
-}
-
 .atktext { /* generic text on attack pages */
   padding: 0 1em 0 1em;
 }
 
 .atkusertext { /* user section on attack pages */
   padding: 0 1em 1em 1em;
-}
-
-div#monheader { /* mon pages */
-  width: fit-content;
-  text-align: center;
-}
-
-div#countersgrid {
-  max-width: 95%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(35em, 1fr));
-  gap: 1px;
-}
-
-table.fastattacks, table.chargedattacks, table.asequences, table.apairs { /* mon pages */
-  margin: 0 0 1em 0;
-  background-color: white;
-}
-
-table.fastattacks tr>:nth-child(1) { /* mon pages, attack */
-  text-align: left;
-}
-
-table.chargedattacks tr>:nth-child(1) { /* mon pages, attack */
-  text-align: left;
-}
-
-table.asequences tr>:nth-child(1) { /* mon pages, attack sequence */
-  text-align: left;
-}
-
-table.asequences tr>:nth-child(n+2) { /* mon pages, attack sequence stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.apairs tr>:nth-child(1) { /* attack set */
-  text-align: center;
-}
-
-table.apairs tr>:nth-child(n+2) { /* mon pages, stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.fastattacks tr>:nth-child(n+2) { /* mon pages, stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.chargedattacks tr>:nth-child(n+2) { /* mon pages, stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-table.monleaguestats { /* mon pages */
-  margin: 0 0 1em 0;
-}
-
-.monleaguestats tr>:nth-child(n+2) { /* stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
-/* overflow: hidden is necessary to eliminate blank space between these divs */
-div#atks3x3 { /* mon page */
-  background-color: rgba(255, 255, 208, 0.25);
-  padding: 0 1em 0 1em;
-  overflow: hidden;
-}
-
-div#atksNx1 { /* mon page */
-  background-color: rgba(208, 255, 255, 0.25);
-  padding: 0 1em 0 1em;
-  overflow: hidden;
-}
-
-div#asets { /* mon page */
-  background-color: rgba(255, 208, 255, 0.25);
-  padding: 0 1em 0 1em;
-  overflow: hidden;
-}
-
-div#glivs { /* mon page */
-  background-color: rgba(208, 255, 208, 0.25);
-  padding: 0 1em 0 1em;
-  overflow: hidden;
-}
-
-div#ulivs { /* mon page */
-  padding: 0 1em 0 1em;
-  background-color: rgba(208, 208, 255, 0.25);
-  overflow: hidden;
-}
-
-div#mlivs { /* mon page */
-  padding: 0 1em 0 1em;
-  background-color: rgba(255, 208, 208, 0.25);
-  overflow: hidden;
-}
-
-div#basics { /* mon pages */
-  padding: 0 1em 0 1em;
-  overflow: hidden;
-}
-
-div#mechanics { /* mon pages */
-  padding: 0 1em 0 1em;
-  max-width: min(40em, 100%);
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-div#transitions { /* mon pages */
-  overflow: hidden;
-  padding: 0 1em 0 1em;
-}
-
-div#atkeffectiveness { /* mon pages */
-  overflow: hidden;
-  padding: 0 1em 0 1em;
-}
-
-table#atkeffect caption {
-  caption-side: bottom;
-  font-weight: bold;
-}
-
-table.monivs, table.monleaguestats {
-  background-color: white;
-}
-
-table.monivs tr>:nth-child(n+2) {
-  text-align: right;
-  padding: 0 0 0 1em;
 }
 
 table#typesara {
