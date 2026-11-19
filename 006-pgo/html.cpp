@@ -39,7 +39,7 @@ void write_navbar(std::ostream &fp, int pdir){
   fp << "</ul></nav>" << std::endl;
 }
 
-void write_header(std::ostream &fp, const std::string &title, const std::string &style, int pdir){
+void write_header(std::ostream &fp, const std::string &title, const std::string &headcheese, int pdir){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"";
   for(int i = 0 ; i < pdir ; ++i){
@@ -47,9 +47,7 @@ void write_header(std::ostream &fp, const std::string &title, const std::string 
   }
   fp << "pgonav.css\">";
   fp << "<title>" << title << "</title>";
-  if(style.length()){
-    fp << "<style>" << style << "</style>";
-  }
+  fp << headcheese;
   fp << "</head>" << std::endl;
   fp << "<body>" << std::endl;
   write_navbar(fp, pdir);

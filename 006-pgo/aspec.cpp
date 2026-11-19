@@ -603,10 +603,12 @@ write_index(){
     return -1;
   }
   const std::string style =
+    "<style>"
     ".gridcol { max-width: 90%; display: grid; grid-template-columns: repeat(auto-fit, minmax(20em, 1fr)) ; row-gap: 1em; list-style-type: none; }" \
     "ul { display: grid; row-gap: 1px; }" \
     ".allattacks tr>:nth-child(2) { text-align: left; }" \
-    ".allattacks tr>:nth-child(3) { text-align: left; padding: 0 0 0 1em; }";
+    ".allattacks tr>:nth-child(3) { text-align: left; padding: 0 0 0 1em; }"
+    "</style>";
   write_header(fp, "Pokémon GO attacks", style, true);
   fp << "<p class=\"intro\">The following attacks are available in Pokémon GO.</p>" << std::endl;
   std::forward_list<attack> synthed;
