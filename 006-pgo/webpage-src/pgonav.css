@@ -140,15 +140,6 @@ table.raidcounters tr>:nth-child(3) { /* attack pair */
   padding: 0 0 0 1em;
 }
 
-table.raidcounters tr>:nth-child(4) { /* turns */
-  text-align: right;
-}
-
-table.raidcounters tr>:nth-child(n+5) { /* stats */
-  text-align: right;
-  padding: 0 0 0 1em;
-}
-
 /* best dynamax tanks for a particular max battle boss */
 table.maxtankcounters tr>:nth-child(1) { /* T */
   text-align: center;

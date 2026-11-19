@@ -122,7 +122,6 @@ struct raidcandidate {
     fp << " → ";
     attack_with_icon(fp, *s.s, ca, true, pdir);
     fp << "</td>";
-    fp << "<td>" << turns << "</td>";
     fp << "</tr>" << std::endl;
   }
 
@@ -450,6 +449,46 @@ calc_raid_counters(std::vector<raidcandidate> &rcs, const species &targ,
       calc_raid_counter(rcs, targs, st, dsuf, f, &ATK_Return);
     }
   }
+}
+
+constexpr unsigned COUNTEREMITMAX = 50;
+
+int raid_counters(std::ostream &fp, const species &targ, bool pdir){
+  std::vector<raidcandidate> cands;
+  std::forward_list<species> store;
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    if(!unique_mechanics(s->name).empty()){
+      continue; // Pokémon with unique mechanics can't participate in max battles
+    }
+    calc_raid_counters(cands, targ, *s, false, s->shadow);
+    for(const auto &m : s->mforms){
+      store.emplace_front(&*s, m);
+    }
+    if(s->shadow){
+      auto &sh = store.emplace_front(*s);
+      sh.name = "Shadow " + sh.name;
+    }
+  }
+  for(const auto &s : store){
+    bool shadow = s.name.starts_with("Shadow ");
+    calc_raid_counters(cands, targ, s, shadow, s.shadow);
+  }
+  std::sort(cands.begin(), cands.end());
+  fp << "<table class=\"evenshade raidcounters\">";
+  fp << "<tr>";
+  fp << "<th/>";
+  fp << "<th>Form</th>";
+  fp << "<th>Attack pair</th>";
+  fp << "</tr>";
+  unsigned emitted = 0;
+  for(const auto& c : cands){
+    c.emit(fp, pdir);
+    if(++emitted == COUNTEREMITMAX){
+      break;
+    }
+  }
+  fp << "</table>";
+  return 0;
 }
 
 // no target typing to consider; calculate as if hitting for neutral damage
@@ -833,47 +872,6 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
     auto &smeg = store.emplace_front(&s, *gma);
     add_max_candidate(cands, &smeg, gma->name, true, stab, gma->type, teffect, true);
   }
-}
-
-constexpr unsigned COUNTEREMITMAX = 50;
-
-int raid_counters(std::ostream &fp, const species &targ, bool pdir){
-  std::vector<raidcandidate> cands;
-  std::forward_list<species> store;
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    if(!unique_mechanics(s->name).empty()){
-      continue; // Pokémon with unique mechanics can't participate in max battles
-    }
-    calc_raid_counters(cands, targ, *s, false, s->shadow);
-    for(const auto &m : s->mforms){
-      store.emplace_front(&*s, m);
-    }
-    if(s->shadow){
-      auto &sh = store.emplace_front(*s);
-      sh.name = "Shadow " + sh.name;
-    }
-  }
-  for(const auto &s : store){
-    bool shadow = s.name.starts_with("Shadow ");
-    calc_raid_counters(cands, targ, s, shadow, s.shadow);
-  }
-  std::sort(cands.begin(), cands.end());
-  fp << "<table class=\"evenshade raidcounters\">";
-  fp << "<tr>";
-  fp << "<th/>";
-  fp << "<th>Form</th>";
-  fp << "<th>Attack pair</th>";
-  fp << "<th>Turns</th>";
-  fp << "</tr>";
-  unsigned emitted = 0;
-  for(const auto& c : cands){
-    c.emit(fp, pdir);
-    if(++emitted == COUNTEREMITMAX){
-      break;
-    }
-  }
-  fp << "</table>";
-  return 0;
 }
 
 // determine the best tanks to use against this Max Battle opponent

@@ -149,6 +149,7 @@ float cpm(int halflevel){
 // maybe use values from https://github.com/mathiasbynens/pogocpm2level/blob/master/pogocpm2level/cpm2level.py ?
 double cpm(int halflevel){
   // many of these *cannot be stored accurately* as a 32-bit value!
+  // (they're all fine in a 64-bit one, though)
   static const double cpms[] = {
     0.094, 0.1351374318, 0.166398, 0.192650919, 0.215732, 0.2365726613, // 1
     0.25572, 0.2735303812, 0.29025, 0.3060573775, 0.321088,
