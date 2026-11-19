@@ -34,7 +34,11 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, bool p
   if(subdir){
     fp << "mon/";
   }
-  encode_name(fp, s);
+  if(s.starts_with("Shadow ")){
+    encode_name(fp, s.substr(7, s.length() - 7));
+  }else{
+    encode_name(fp, s);
+  }
   fp << ".html\">" << s << "</a>";
 }
 
