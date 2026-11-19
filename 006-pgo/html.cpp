@@ -101,18 +101,13 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
 
 struct raidcandidate {
   stats s;            // calculated attacker
-  unsigned turns;     // turns necessary to KO
-  double dinf;        // damage inflicted
-  double dsuf;        // damage suffered
+  unsigned turns;     // turns necessary to KO (includes fainting penalties)
   const attack *fa;   // fast attack
   const attack *ca;   // charged attack
 
-  raidcandidate(const stats &S, unsigned Turns, double Dinf, double Dsuf,
-                   const attack *Fa, const attack *Ca) :
+  raidcandidate(const stats &S, unsigned Turns, const attack *Fa, const attack *Ca) :
     s(S),
     turns(Turns),
-    dinf(Dinf),
-    dsuf(Dsuf),
     fa(Fa),
     ca(Ca)
   { }
@@ -133,7 +128,6 @@ struct raidcandidate {
 
   // lesser means "is a better raid counter candidate"
   bool operator<(const raidcandidate& r) const {
-    // FIXME need at least consider defense--factor it into turns
     if(turns < r.turns){
       return true;
     }else if(r.turns < turns){
@@ -356,9 +350,10 @@ damage(double power, double effd){
   return d;
 }
 
+// dpt is damage per turn inflicted on s by targs over all of targs's attacks
 static void
 calc_raid_counter(std::vector<raidcandidate> &rcs, const stats &targs,
-                  const stats &s, const attack *f, const attack *c){
+                  const stats &s, double dpt, const attack *f, const attack *c){
   if(f->type == TYPECOUNT){
     return; // hidden power ought be expanded into all possible types FIXME
   }
@@ -371,23 +366,61 @@ calc_raid_counter(std::vector<raidcandidate> &rcs, const stats &targs,
   unsigned energy = 0;
   int oppmhp = 15000; // FIXME
   unsigned turns = 0;
-  double dinf = 0;
-  double dsuf = 0;
   while(oppmhp > 0){
     auto t = turns_until_eNx1(f, c->energyraid - energy);
     do{
       oppmhp -= dfast;
-      dsuf += dfast;
       turns += f->animdur;
       t -= f->animdur;
       energy += f->energyraid;
     }while(t && oppmhp > 0);
     oppmhp -= dcharged;
-    dsuf += dcharged;
     turns += c->animdur; // account for the charged attack
     energy -= c->energyraid;
   }
-  rcs.emplace_back(s, turns, dinf, dsuf, f, c);
+  // penalize for damage -- 6 turns per faint FIXME
+  auto d = turns * dpt;
+  auto penalty = 6 * d / s.mhp;
+//std::cerr << s.s->name << " vs " << targs.s->name << " t: " << turns << " p: " << penalty << std::endl;
+  turns += penalty;
+  rcs.emplace_back(s, turns, f, c);
+}
+
+// loop over all combinations of targs's attacks and see how much damage they
+// inflict upon st. divide by cycle time for that pair. get average.
+static double
+calc_raid_dsuf(const stats &st, const stats &targs){
+  int combos = 0;
+  double dpt = 0;
+  for(const auto f : targs.s->attacks){
+    if(!fast_attack_p(*f)){
+      continue;
+    }
+    if(f->energyraid <= 0 || f->type == TYPECOUNT){
+      continue;
+    }
+    const auto powerfast = calc_eff_power_nx1(*targs.s, f) * st.s->type_effectiveness(f) * targs.effa;
+    const auto dfast = damage(powerfast, st.effd);
+    for(const auto c : targs.s->attacks){
+      if(!charged_attack_p(*c)){
+        continue;
+      }
+      if(c->energyraid <= 0){
+        continue;
+      }
+      // get the cycle time for f+c
+      auto t = turns_until_eNx1(f, c->energyraid);
+      auto fiter = t / f->animdur; // number of fast moves in cycle
+      t += c->animdur;
+      const auto powercharged = calc_eff_power_nx1(*targs.s, c) * st.s->type_effectiveness(c) * targs.effa;
+      const auto dcharged = damage(powercharged, st.effd);
+      const auto d = dcharged + dfast * fiter;
+      dpt += d / t;
+      ++combos;
+    }
+  }
+  dpt /= combos; // average
+  return dpt;
 }
 
 // calculate cycles of s attacking targ for all sets of fast+charged
@@ -396,6 +429,7 @@ calc_raid_counters(std::vector<raidcandidate> &rcs, const species &targ,
                    const species &s, bool shadow, bool addreturn){
   stats st{&s, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, shadow};
   stats targs{&targ, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
+  auto dsuf = calc_raid_dsuf(st, targs);
   for(const auto f : s.attacks){
     if(!fast_attack_p(*f)){
       continue;
@@ -410,10 +444,10 @@ calc_raid_counters(std::vector<raidcandidate> &rcs, const species &targ,
       if(c->energyraid <= 0){
         continue;
       }
-      calc_raid_counter(rcs, targs, st, f, c);
+      calc_raid_counter(rcs, targs, st, dsuf, f, c);
     }
     if(s.shadow && addreturn){
-      calc_raid_counter(rcs, targs, st, f, &ATK_Return);
+      calc_raid_counter(rcs, targs, st, dsuf, f, &ATK_Return);
     }
   }
 }
