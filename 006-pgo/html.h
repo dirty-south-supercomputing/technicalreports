@@ -302,6 +302,6 @@ int raid_counters(std::ostream &fp, const species &s, bool pdir);
 // look up any unique battle mechanics for the species
 std::string unique_mechanics(const std::string& name);
 
-int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs);
+int write_family_iv_pages(const species &base, const std::string &prefix);
 
 #endif

@@ -1023,14 +1023,48 @@ std::string unique_mechanics(const std::string& name){
     return "";
 }
 
+struct famstats {
+  const species *s;
+  stats *glivs;
+  stats *ulivs;
+  stats *mlivs;
+  unsigned glivcount;
+  unsigned ulivcount;
+  unsigned mlivcount;
+
+  famstats(const species *S) :
+    s(S)
+  {
+    glivs = order_ivs(*s, GLCPCAP, statscmp_sprod, &glivcount);
+    ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount);
+    mlivs = order_ivs(*s, 0, statscmp_sprod, &mlivcount);
+  }
+
+  famstats(const famstats& other) :
+    famstats(other.s)
+  {
+  }
+
+  famstats& operator=(const famstats& other){
+    famstats tmp(other);
+    std::swap(s, tmp.s);
+    return *this;
+  }
+
+  ~famstats(){
+    delete[] glivs;
+    delete[] ulivs;
+    delete[] mlivs;
+  }
+
+};
+
 // returns true if we hit the cpbound
 static bool
-write_species_iv_rank(std::ostream &fp, const species &s, int cpbound,
+write_species_iv_rank(std::ostream &fp, int cpbound,
                       unsigned iva, unsigned ivd, unsigned ivs,
-                      const char *divname){
+                      const char *divname, const stats *sets, unsigned ivcount){
   bool ret = false;
-  unsigned ivcount;
-  auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
   auto u = ivcount;
   while(u--){
     const auto &st = sets[u];
@@ -1100,14 +1134,14 @@ write_species_iv_rank(std::ostream &fp, const species &s, int cpbound,
     fp << "<td>" << (st.geommean * 100 / gmax) << "</td>";
     fp << "</tr>";
   }while(i-- > floor);
-  delete[] sets;
   fp << "</table></div>";
   return ret;
 }
 
 static int
-write_species_iv_sec(std::ostream &fp, const species &s, int iva, int ivd, int ivs,
-                     bool purified){
+write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs,
+                     bool purified, const famstats &fs){
+  const species &s = *fs.s;
   const auto atk = s.atk + iva;
   const auto def = s.def + ivd;
   const auto sta = s.sta + ivs;
@@ -1140,32 +1174,12 @@ write_species_iv_sec(std::ostream &fp, const species &s, int iva, int ivd, int i
     fp << "</tr>" << std::endl;
   }
   fp << "</table>";
-  if(write_species_iv_rank(fp, s, GLCPCAP, iva, ivd, ivs, "glivs")){
-    if(write_species_iv_rank(fp, s, ULCPCAP, iva, ivd, ivs, "ulivs")){
-      write_species_iv_rank(fp, s, 0, iva, ivd, ivs, "mlivs");
+  if(write_species_iv_rank(fp, GLCPCAP, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount)){
+    if(write_species_iv_rank(fp, ULCPCAP, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount)){
+      write_species_iv_rank(fp, 0, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount);
     }
   }
   fp << "</div>" << std::endl;
-  return 0;
-}
-
-static int
-write_family_iv_secs(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
-                     bool purified){
-  std::vector<const species *> evols;
-  evols.push_back(&base);
-  do{
-    const auto &s = *evols.front();
-    write_species_iv_sec(fp, s, iva, ivd, ivs, purified);
-    get_persistent_evolutions(s, evols);
-    for(const auto &m : s.mforms){
-      species smeg{&s, m};
-      if(write_family_iv_secs(fp, smeg, iva, ivd, ivs, purified)){
-        return -1;
-      }
-    }
-    evols.erase(evols.begin());
-  }while(evols.size());
   return 0;
 }
 
@@ -1176,18 +1190,55 @@ write_family_iv_secs(std::ostream &fp, const species &base, int iva, int ivd, in
 //  - CP at each level for each species
 //
 // call with the base member of the family. we'll handle all upwards transitions.
-int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs){
-  if(write_family_iv_secs(fp, base, iva, ivd, ivs, false)){
-    return 0;
+int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
+                          const std::vector<famstats> &fstats){
+  for(const auto &f : fstats){
+    if(write_species_iv_sec(fp, iva, ivd, ivs, false, f)){
+      return 0;
+    }
   }
   if(base.shadow){
     iva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
     ivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
     ivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
-    if(write_family_iv_secs(fp, base, iva, ivd, ivs, true)){
-      return 0;
+    for(const auto &f : fstats){
+      if(write_species_iv_sec(fp, iva, ivd, ivs, true, f)){
+        return 0;
+      }
     }
   }
   return 0;
 }
 
+// we only want to build up the iv tables once per league per form, so they
+// must be shared across all the contexts. our files are per iv, though. so
+// we first get all the family members, then calculate all the ivsets, then
+// go about actually generating each file.
+int write_family_iv_pages(const species &base, const std::string &prefix){
+  std::forward_list<species> store;
+  std::vector<const species *> family;
+  std::vector<famstats> fstats;
+  get_family(base, family, store);
+  for(const auto s : family){
+    fstats.emplace_back(s);
+  }
+  for(int iva = 0 ; iva <= MAXIVELEM ; ++iva){
+    for(int ivd = 0 ; ivd <= MAXIVELEM ; ++ivd){
+      for(int ivs = 0 ; ivs <= MAXIVELEM ; ++ivs){
+        std::string fname = prefix + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs) + ".html";
+        std::ofstream fp(fname);
+        if(!fp.is_open()){
+          std::cerr << "error opening " << fname << " for writing" << std::endl;
+          return -1;
+        }
+        std::string title = base.name + " at " + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs);
+        write_header(fp, title, "", 2);
+        if(write_family_iv_page(fp, base, iva, ivd, ivs, fstats)){
+          return -1;
+        }
+        write_footer_and_close(fp, 2);
+      }
+    }
+  }
+  return 0;
+}

@@ -1005,25 +1005,7 @@ write_family_ivpages(const species &base){
     std::cerr << "mkdir failed for " << dir << std::endl;
     return -1;
   }
-  for(int iva = 0 ; iva <= MAXIVELEM ; ++iva){
-    for(int ivd = 0 ; ivd <= MAXIVELEM ; ++ivd){
-      for(int ivs = 0 ; ivs <= MAXIVELEM ; ++ivs){
-        std::string fname = dir + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs) + ".html";
-        std::ofstream fp(fname);
-        if(!fp.is_open()){
-          std::cerr << "error opening " << fname << " for writing" << std::endl;
-          return -1;
-        }
-        std::string title = base.name + " at " + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs);
-        write_header(fp, title, "", 2);
-        if(write_family_iv_page(fp, base, iva, ivd, ivs)){
-          return -1;
-        }
-        write_footer_and_close(fp, 2);
-      }
-    }
-  }
-  return 0;
+  return write_family_iv_pages(base, dir);
 }
 
 // assume we're in the target directory
