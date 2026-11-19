@@ -546,5 +546,6 @@ td.gliv { background-color: rgba(208, 255, 208, 0.25); }
 td.uliv { background-color: rgba(208, 208, 255, 0.25); }
 td.mliv { background-color: rgba(255, 208, 208, 0.25); }
 table.speciesivs { margin: 0 0 0 1em; }
+table.speciesivs tr>:nth-child(2n+3) { padding: 0 0 0 1em; text-align: left; }
 table.speciesivs tr>:nth-child(even) { padding: 0 0 0 1em; text-align: right; }
 table.speciesivs caption { caption-side: bottom; font-weight: bold; }

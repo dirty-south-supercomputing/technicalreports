@@ -2,7 +2,7 @@
 
 struct sstat {
   stats st;
-  float percent; // percentage of max gmean
+  float percent; // percentage of max base product
 };
 
 static void

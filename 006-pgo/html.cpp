@@ -397,10 +397,13 @@ calc_raid_dsuf(const stats &st, const stats &targs){
     if(!fast_attack_p(*f)){
       continue;
     }
-    if(f->energyraid <= 0 || f->type == TYPECOUNT){
+    if(f->energyraid <= 0){
       continue;
     }
-    const auto powerfast = calc_eff_power_nx1(*targs.s, f) * st.s->type_effectiveness(f) * targs.effa;
+    // Hidden Power is always treated as Fighting type when used by a raid boss
+    auto ftype = f->type == TYPECOUNT ? TYPE_FIGHTING : f->type;
+    const auto powerfast = calc_eff_power_nx1(*targs.s, f) *
+      ::type_effectiveness(ftype, st.s->t1, st.s->t2) * targs.effa;
     const auto dfast = damage(powerfast, st.effd);
     for(const auto c : targs.s->attacks){
       if(!charged_attack_p(*c)){
@@ -1064,6 +1067,7 @@ static bool
 write_species_iv_rank(std::ostream &fp, int cpbound, unsigned iva, unsigned ivd, unsigned ivs,
                       const char *divname, const stats *sets, unsigned ivcount,
                       const famstats &f, const char *shortname){
+  fp << "<div class=\"" << divname << "\">";
   fp << "<h2>" << f.s->name << " " << shortname << "</h2>" << std::endl;
   bool ret = false;
   auto u = ivcount;
@@ -1097,7 +1101,6 @@ write_species_iv_rank(std::ostream &fp, int cpbound, unsigned iva, unsigned ivd,
       floor = i - CONTEXT * 2 * step;
     }
   }
-  fp << "<div class=\"" << divname << "\">";
   fp << "<table class=\"evenshade monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
@@ -1159,7 +1162,7 @@ write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species 
   for(unsigned i = 0 ; i < (MAX_HALFLEVEL + PERROW - 1) / PERROW ; ++i){
     fp << "<tr>";
     for(int j = 0 ; j < PERROW ; ++j){
-      auto hl = i * 3 + j + 1;
+      auto hl = i * PERROW + j + 1;
       fp << "<td>";
       if(hl <= MAX_HALFLEVEL){
         emit_halflevel_as_level(fp, hl);

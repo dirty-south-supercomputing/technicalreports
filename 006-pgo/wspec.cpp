@@ -95,7 +95,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<th>Gmean</th>";
   fp << "<th>%</th>";
   fp << "</tr>";
-  auto gmax = sets[ivcount - 1].geommean;
+  auto bpmax = sets[ivcount - 1].statprod();
   double sp = 0;
   unsigned grank = ivcount;
   int id = 1;
@@ -126,7 +126,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
       fp << "<td>" << st.mhp << "</td>";
       fp << "<td>" << st.geommean << "</td>";
       std::setprecision(1);
-      fp << "<td>" << (st.geommean * 100 / gmax) << "</td>";
+      fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
       fp << "</tr>";
     }
   }while(grank);
