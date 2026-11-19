@@ -13,6 +13,7 @@ select {
 
 h1, h2, h3 {
   margin: 1em 1em 1em 1em;
+  font-family: ui-sans-serif, sans-serif;
 }
 
 p {
