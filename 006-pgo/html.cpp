@@ -957,7 +957,7 @@ int max_counters(std::ostream &fp, const species &s, bool pdir){
   return 0;
 }
 
-void species_with_icons(std::ostream &fp, const species &s, bool closetd, bool pdir){
+void species_with_icons(std::ostream &fp, const species &s, bool closetd, int pdir){
   html_types(fp, s.t1, s.t2, pdir);
   if(closetd){
     fp << "</td><td>";
@@ -1061,9 +1061,10 @@ struct famstats {
 
 // returns true if we hit the cpbound
 static bool
-write_species_iv_rank(std::ostream &fp, int cpbound,
-                      unsigned iva, unsigned ivd, unsigned ivs,
-                      const char *divname, const stats *sets, unsigned ivcount){
+write_species_iv_rank(std::ostream &fp, int cpbound, unsigned iva, unsigned ivd, unsigned ivs,
+                      const char *divname, const stats *sets, unsigned ivcount,
+                      const famstats &f, const char *shortname){
+  fp << "<h2>" << f.s->name << " " << shortname << "</h2>" << std::endl;
   bool ret = false;
   auto u = ivcount;
   while(u--){
@@ -1121,7 +1122,11 @@ write_species_iv_rank(std::ostream &fp, int cpbound,
       fp << "<td>" << irank << "</td>";
       sp = st.statprod();
     }
-    fp << "<td>" << st.ia << '-' << st.id << '-' << st.is << "</td>";
+    fp << "<td>";
+    if(st.ia == iva && st.id == ivd && st.is == ivs){
+      fp << "(*) ";
+    }
+    fp << st.ia << '-' << st.id << '-' << st.is << "</td>";
     fp << "<td>";
     emit_halflevel_as_level(fp, st.hlevel);
     fp << "</td>";
@@ -1175,9 +1180,9 @@ write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species 
 static int
 write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
   fp << "<div class=\"speciesivs\">";
-  if(write_species_iv_rank(fp, GLCPCAP, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount)){
-    if(write_species_iv_rank(fp, ULCPCAP, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount)){
-      write_species_iv_rank(fp, 0, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount);
+  if(write_species_iv_rank(fp, GLCPCAP, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL")){
+    if(write_species_iv_rank(fp, ULCPCAP, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount, fs, "UL")){
+      write_species_iv_rank(fp, 0, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
     }
   }
   fp << "</div>" << std::endl;
@@ -1186,7 +1191,12 @@ write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats
 
 static int
 write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
+  fp << "<tr>";
+  fp << "<td>";
+  species_with_icons(fp, *fs.s, true, 2);
+  fp << "</td>";
   // FIXME summary at top of the form Form is #XXX (YY.Y%) in GL
+  fp << "</tr>";
   return 0;
 }
 
@@ -1199,13 +1209,18 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const fams
 // call with the base member of the family. we'll handle all upwards transitions.
 int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
                           const std::vector<famstats> &fstats){
-  fp << "<p class=\"intro\">This page details the " << base.name << " family using IVs "
-     << "of " << iva << ", " << ivd << ", and " << ivs << ".</p>" << std::endl;
+  fp << "<h1>" << base.name << " family at " << iva << "-" << ivd << "-" << ivs << "</h1>" << std::endl;
+  fp << "<table>";
+  fp << "<tr>";
+  fp << "<th/><th>Form</th><th>GL</th><th>UL</th><th>ML</th>";
+  fp << "</tr>";
   for(const auto &f : fstats){
     if(write_species_iv_summary(fp, iva, ivd, ivs, f)){
       return -1;
     }
+    // FIXME shadow information
   }
+  fp << "</table>" << std::endl;
   for(const auto &f : fstats){
     if(write_species_iv_sec(fp, iva, ivd, ivs, f)){
       return -1;

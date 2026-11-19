@@ -26,9 +26,9 @@ encode_name(const std::string &s, std::string &encname){
 }
 
 static inline void
-link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, bool pardir = false){
+link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, int pdir = 0){
   fp << "<a href=\"";
-  if(pardir){
+  for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
   if(subdir){
@@ -107,14 +107,13 @@ void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
 
 // prints the typing icon(s), optionally a </td><td> pair (if closetd s true),
 // and then the species name with link.
-void species_with_icons(std::ostream &fp, const species &s,
-                        bool closetd, bool pdir);
+void species_with_icons(std::ostream &fp, const species &s, bool closetd, int pdir);
 
 static inline void
-html_type(std::ostream &fp, pgo_types_e t, bool pdir){
+html_type(std::ostream &fp, pgo_types_e t, int pdir){
   if(t != TYPECOUNT){
     fp << "<img src=\"";
-    if(pdir){
+    for(int i = 0 ; i < pdir ; ++i){
       fp << "../";
     }
     fp << "images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
@@ -122,14 +121,14 @@ html_type(std::ostream &fp, pgo_types_e t, bool pdir){
 }
 
 static inline void
-html_type(pgo_types_e t, bool pdir){
+html_type(pgo_types_e t, int pdir){
   html_type(std::cout, t, pdir);
 }
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
 // monotypes are only displayed once.
 static inline void
-html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
+html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, int pdir){
   html_type(fp, t1, pdir);
   if(t1 != t2 && t2 != TYPECOUNT){
     fp << ' ';
@@ -138,7 +137,7 @@ html_types(std::ostream &fp, pgo_types_e t1, pgo_types_e t2, bool pdir){
 }
 
 static inline void
-html_types(pgo_types_e t1, pgo_types_e t2, bool pdir){
+html_types(pgo_types_e t1, pgo_types_e t2, int pdir){
   html_types(std::cout, t1, t2, pdir);
 }
 
