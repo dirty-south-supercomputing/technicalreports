@@ -1139,19 +1139,13 @@ write_species_iv_rank(std::ostream &fp, int cpbound,
 }
 
 static int
-write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs,
-                     bool purified, const famstats &fs){
-  const species &s = *fs.s;
+write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species &s){
   const auto atk = s.atk + iva;
   const auto def = s.def + ivd;
   const auto sta = s.sta + ivs;
-  fp << "<div class=\"speciesivs\">";
-  if(purified){
-    fp << "Purified ";
-  }
-  fp << s.name << "<br/>" << std::endl;
+  // table of CP at all levels for this species + IVs
   fp << "<table class=\"speciesivs\">" << std::endl;
-  constexpr int PERROW = 3;
+  constexpr int PERROW = 6;
   fp << "<tr>";
   for(int j = 0 ; j < PERROW ; ++j){
     fp << "<th>L</th><th>CP</th>";
@@ -1173,13 +1167,26 @@ write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs,
     }
     fp << "</tr>" << std::endl;
   }
+  fp << "<caption>CP at all levels for " << s.name << "</caption>";
   fp << "</table>";
+  return 0;
+}
+
+static int
+write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
+  fp << "<div class=\"speciesivs\">";
   if(write_species_iv_rank(fp, GLCPCAP, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount)){
     if(write_species_iv_rank(fp, ULCPCAP, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount)){
       write_species_iv_rank(fp, 0, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount);
     }
   }
   fp << "</div>" << std::endl;
+  return 0;
+}
+
+static int
+write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
+  // FIXME summary at top of the form Form is #XXX (YY.Y%) in GL
   return 0;
 }
 
@@ -1192,17 +1199,30 @@ write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs,
 // call with the base member of the family. we'll handle all upwards transitions.
 int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
                           const std::vector<famstats> &fstats){
+  fp << "<p class=\"intro\">This page details the " << base.name << " family using IVs "
+     << "of " << iva << ", " << ivd << ", and " << ivs << ".</p>" << std::endl;
   for(const auto &f : fstats){
-    if(write_species_iv_sec(fp, iva, ivd, ivs, false, f)){
-      return 0;
+    if(write_species_iv_summary(fp, iva, ivd, ivs, f)){
+      return -1;
+    }
+  }
+  for(const auto &f : fstats){
+    if(write_species_iv_sec(fp, iva, ivd, ivs, f)){
+      return -1;
+    }
+  }
+  for(const auto &f : fstats){
+    if(write_species_iv_cps(fp, iva, ivd, ivs, *f.s)){
+      return -1;
     }
   }
   if(base.shadow){
     iva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
     ivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
     ivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+    // don't print iv cps table for purified stats -- we wouldn't be looking that up
     for(const auto &f : fstats){
-      if(write_species_iv_sec(fp, iva, ivd, ivs, true, f)){
+      if(write_species_iv_sec(fp, iva, ivd, ivs, f)){
         return 0;
       }
     }
