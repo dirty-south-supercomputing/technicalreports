@@ -99,21 +99,50 @@ void timetofirst::emit(std::ostream &fp, double maxp, bool pdir) const {
   fp << "</tr>" << std::endl;
 }
 
-void raidcandidate::emit(std::ostream &fp, double maxp, bool pdir) const {
-  fp << "<tr>";
-  fp << "<td>";
-  species_with_icons(fp, *s.s, true, true);
-  fp << "</td>";
-  fp << "<td>";
-  attack_with_icon(fp, *s.s, fa, true, pdir);
-  fp << " → ";
-  attack_with_icon(fp, *s.s, ca, true, pdir);
-  fp << "</td>";
-  fp << "<td>" << turns << "</td>";
-  auto dpt = dinf / turns;
-  fp << "<td>" << (dpt * 100 / maxp) << "%</td>";
-  fp << "</tr>" << std::endl;
-}
+struct raidcandidate {
+  stats s;            // calculated attacker
+  unsigned turns;     // turns necessary to KO
+  double dinf;        // damage inflicted
+  double dsuf;        // damage suffered
+  const attack *fa;   // fast attack
+  const attack *ca;   // charged attack
+
+  raidcandidate(const stats &S, unsigned Turns, double Dinf, double Dsuf,
+                   const attack *Fa, const attack *Ca) :
+    s(S),
+    turns(Turns),
+    dinf(Dinf),
+    dsuf(Dsuf),
+    fa(Fa),
+    ca(Ca)
+  { }
+
+  void emit(std::ostream &fp, bool pdir) const {
+    fp << "<tr>";
+    fp << "<td>";
+    species_with_icons(fp, *s.s, true, true);
+    fp << "</td>";
+    fp << "<td>";
+    attack_with_icon(fp, *s.s, fa, true, pdir);
+    fp << " → ";
+    attack_with_icon(fp, *s.s, ca, true, pdir);
+    fp << "</td>";
+    fp << "<td>" << turns << "</td>";
+    fp << "</tr>" << std::endl;
+  }
+
+  // lesser means "is a better raid counter candidate"
+  bool operator<(const raidcandidate& r) const {
+    // FIXME need at least consider defense--factor it into turns
+    if(turns < r.turns){
+      return true;
+    }else if(r.turns < turns){
+      return false;
+    }
+    // use species name then attack names for tiebreaker
+    return std::tie(s.s->name, fa->name, ca->name) < std::tie(r.s.s->name, r.fa->name, r.ca->name);
+  }
+};
 
 void maxtankcandidate::emit(std::ostream &fp, bool useca, bool pdir) const {
   fp << "<tr>";
@@ -317,25 +346,56 @@ turns_until_eNx1(const attack *a, unsigned e){
   return (e + (a->energyraid - 1)) / a->energyraid * a->animdur;
 }
 
+static unsigned
+damage(double power, double effd){
+  auto d = power / effd;
+  d = trunc(d);
+  if(d == 0){
+    d = 1;
+  }
+  return d;
+}
+
 static void
-calctimefandc_counter(std::vector<timetofirst> &ttfs, const species &targ,
-                      const species &s, const attack *f, const attack *c){
+calc_raid_counter(std::vector<raidcandidate> &rcs, const stats &targs,
+                  const stats &s, const attack *f, const attack *c){
   if(f->type == TYPECOUNT){
     return; // hidden power ought be expanded into all possible types FIXME
   }
-  unsigned t = turns_until_eNx1(f, c->energyraid);
-  auto fteffect = targ.type_effectiveness(f);
-  auto powerfast = calc_eff_power_nx1(s, f) * fteffect * s.atk;
-  float pfast = t / f->animdur * powerfast;
-  t += c->animdur; // account for the charged attack
-  auto cteffect = targ.type_effectiveness(c);
-  auto powercharged = calc_eff_power_nx1(s, c) * cteffect * s.atk;
-  ttfs.emplace_back(&s, t, pfast, powercharged, f, c, true);
+  const auto fteffect = targs.s->type_effectiveness(f);
+  const auto cteffect = targs.s->type_effectiveness(c);
+  const auto powerfast = calc_eff_power_nx1(*s.s, f) * fteffect * s.effa;
+  const auto powercharged = calc_eff_power_nx1(*s.s, c) * cteffect * s.effa;
+  const unsigned dfast = damage(powerfast, targs.effd);
+  const unsigned dcharged = damage(powercharged, targs.effd);
+  unsigned energy = 0;
+  int oppmhp = 15000; // FIXME
+  unsigned turns = 0;
+  double dinf = 0;
+  double dsuf = 0;
+  while(oppmhp > 0){
+    auto t = turns_until_eNx1(f, c->energyraid - energy);
+    do{
+      oppmhp -= dfast;
+      dsuf += dfast;
+      turns += f->animdur;
+      t -= f->animdur;
+      energy += f->energyraid;
+    }while(t && oppmhp > 0);
+    oppmhp -= dcharged;
+    dsuf += dcharged;
+    turns += c->animdur; // account for the charged attack
+    energy -= c->energyraid;
+  }
+  rcs.emplace_back(s, turns, dinf, dsuf, f, c);
 }
 
 // calculate cycles of s attacking targ for all sets of fast+charged
-void calc_raid_counters(std::vector<timetofirst> &ttfs, const species &targ,
-                        const species &s, bool addreturn){
+static void
+calc_raid_counters(std::vector<raidcandidate> &rcs, const species &targ,
+                   const species &s, bool shadow, bool addreturn){
+  stats st{&s, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, shadow};
+  stats targs{&targ, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
   for(const auto f : s.attacks){
     if(!fast_attack_p(*f)){
       continue;
@@ -350,10 +410,10 @@ void calc_raid_counters(std::vector<timetofirst> &ttfs, const species &targ,
       if(c->energyraid <= 0){
         continue;
       }
-      calctimefandc_counter(ttfs, targ, s, f, c);
+      calc_raid_counter(rcs, targs, st, f, c);
     }
     if(s.shadow && addreturn){
-      calctimefandc_counter(ttfs, targ, s, f, &ATK_Return);
+      calc_raid_counter(rcs, targs, st, f, &ATK_Return);
     }
   }
 }
@@ -679,7 +739,7 @@ static void
 max_tank_counters_species(const species &sa, const species &sb,
                           std::vector<maxtankcandidate>& cands,
                           bool useca){
-  struct stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
+  stats st{&sa, MAX_HALFLEVEL_BASIC, MAXIVELEM, MAXIVELEM, MAXIVELEM, false};
   if(!has_max_attack(sa)){
     return;
   }
@@ -744,55 +804,36 @@ max_counters_species(const species &s, pgo_types_e ttype1, pgo_types_e ttype2,
 constexpr unsigned COUNTEREMITMAX = 50;
 
 int raid_counters(std::ostream &fp, const species &targ, bool pdir){
-  std::vector<timetofirst> cands;
+  std::vector<raidcandidate> cands;
   std::forward_list<species> store;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(!unique_mechanics(s->name).empty()){
       continue; // Pokémon with unique mechanics can't participate in max battles
     }
-    calc_raid_counters(cands, targ, *s, s->shadow);
+    calc_raid_counters(cands, targ, *s, false, s->shadow);
     for(const auto &m : s->mforms){
       store.emplace_front(&*s, m);
     }
     if(s->shadow){
       auto &sh = store.emplace_front(*s);
-      sh.atk = (sh.atk * 6.0) / 5;
-      sh.def = (sh.def * 5.0) / 6;
       sh.name = "Shadow " + sh.name;
     }
   }
   for(const auto &s : store){
-    calc_raid_counters(cands, targ, s, s.shadow);
+    bool shadow = s.name.starts_with("Shadow ");
+    calc_raid_counters(cands, targ, s, shadow, s.shadow);
   }
-  // FIXME need to at least consider defense
-  std::sort(cands.begin(), cands.end(), [](const timetofirst &l, const timetofirst& r) -> bool {
-      if(l.dpt < r.dpt){
-        return false; // most to least powerful
-      }else if(r.dpt < l.dpt){
-        return true;
-      }
-      if(l.turns < r.turns){
-        return true; // fastest to slowest
-      }else if(r.turns < l.turns){
-        return false;
-      }
-      if(l.s->idx < r.s->idx){
-        return true;
-      }
-      return false;
-      });
+  std::sort(cands.begin(), cands.end());
   fp << "<table class=\"evenshade raidcounters\">";
   fp << "<tr>";
   fp << "<th/>";
   fp << "<th>Form</th>";
   fp << "<th>Attack pair</th>";
   fp << "<th>Turns</th>";
-  fp << "<th>RelPPT</th>";
   fp << "</tr>";
-  auto maxp = cands.begin()->dpt;
   unsigned emitted = 0;
   for(const auto& c : cands){
-    c.emit(fp, maxp, pdir);
+    c.emit(fp, pdir);
     if(++emitted == COUNTEREMITMAX){
       break;
     }
