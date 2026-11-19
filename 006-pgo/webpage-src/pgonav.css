@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: ui-serif, system-ui;
+  font-family: ui-serif, serif, system-ui;
 }
 
 input,
@@ -247,19 +247,19 @@ div#asets { /* mon page */
   overflow: hidden;
 }
 
-div#glivs { /* mon page */
+div.glivs { /* mon page */
   background-color: rgba(208, 255, 208, 0.25);
   padding: 0 1em 0 1em;
   overflow: hidden;
 }
 
-div#ulivs { /* mon page */
+div.ulivs { /* mon page */
   padding: 0 1em 0 1em;
   background-color: rgba(208, 208, 255, 0.25);
   overflow: hidden;
 }
 
-div#mlivs { /* mon page */
+div.mlivs { /* mon page */
   padding: 0 1em 0 1em;
   background-color: rgba(255, 208, 208, 0.25);
   overflow: hidden;
@@ -538,3 +538,10 @@ table#gmaxen tr>:nth-child(3) { /* attack */
   background-color: rgba(255, 208, 208, 0.75);
   text-align: center;
 }
+
+/* family iv pages */
+/* colors ought match iv sections from mon pages */
+td.gliv { background-color: rgba(208, 255, 208, 0.25); }
+td.uliv { background-color: rgba(208, 208, 255, 0.25); }
+td.mliv { background-color: rgba(255, 208, 208, 0.25); }
+

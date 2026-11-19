@@ -13,15 +13,15 @@ emit_option(std::ostream &fp, const std::string &value){
   fp << "</option>";
 }
 
-void write_navbar(std::ostream &fp, bool par){
+void write_navbar(std::ostream &fp, int pdir){
   fp << "<nav><ul>" << std::endl;
   fp << "<li><a href=\"";
-  if(par){
+  for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
   fp << "index.html\">main</a></li>" << std::endl;
   fp << "<li><a href=\"";
-  if(par){
+  for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
   fp << "mon/index.html\">forms</a></li>" << std::endl;
@@ -39,9 +39,13 @@ void write_navbar(std::ostream &fp, bool par){
   fp << "</ul></nav>" << std::endl;
 }
 
-void write_header(std::ostream &fp, const std::string &title, const std::string &style, bool pdir){
+void write_header(std::ostream &fp, const std::string &title, const std::string &style, int pdir){
   fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"../pgonav.css\">";
+  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"";
+  for(int i = 0 ; i < pdir ; ++i){
+    fp << "../";
+  }
+  fp << "pgonav.css\">";
   fp << "<title>" << title << "</title>";
   if(style.length()){
     fp << "<style>" << style << "</style>";
@@ -526,9 +530,9 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
 }
 
 static void
-write_footer_scripts(std::ostream &fp, bool par){
+write_footer_scripts(std::ostream &fp, int pdir){
   fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.assign(\"";
-  if(par){
+  for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
   fp << "mon/\" + selectv.value + \".html\"); }</script>" << std::endl;
@@ -539,18 +543,18 @@ write_footer_scripts(std::ostream &fp, bool par){
   fp << "</script>" << std::endl;
 }
 
-void write_footer(std::ostream &fp, bool par){
+void write_footer(std::ostream &fp, int pdir){
   fp << "<hr/>" << std::endl;
   fp << "<footer>" << std::endl;
   fp << "<span style=\"float:left;font-size:small\"><a href=\"https://goldandappelpub.com/pgo-quantitative.html\"><i>Pokémon GO: A Quantitative Approach</i></a></span>";
   fp << "<span style=\"float:right;font-size:small\">© 2026 <a href=\"mailto:nickblack@linux.com\">nick black</a></span>" << std::endl;
   fp << "</footer>" << std::endl;
-  write_footer_scripts(fp, par);
+  write_footer_scripts(fp, pdir);
   fp << "</body></html>" << std::endl;
 }
 
-void write_footer_and_close(std::ofstream &fp, bool par){
-  write_footer(fp, par);
+void write_footer_and_close(std::ofstream &fp, int pdir){
+  write_footer(fp, pdir);
   fp.close();
   if(fp.rdstate() & std::ofstream::failbit){
     std::cerr << "error writing to file" << std::endl;
@@ -1020,3 +1024,172 @@ std::string unique_mechanics(const std::string& name){
     }
     return "";
 }
+
+// returns true if we hit the cpbound
+static bool
+write_species_iv_rank(std::ostream &fp, const species &s, int cpbound,
+                      unsigned iva, unsigned ivd, unsigned ivs,
+                      const char *divname){
+  bool ret = false;
+  unsigned ivcount;
+  auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
+  auto u = ivcount;
+  while(u--){
+    const auto &st = sets[u];
+    if(st.cp >= cpbound){
+      ret = true;
+    }
+    if(st.shadow){
+      continue;
+    }
+    if(st.ia != iva || st.id != ivd || st.is != ivs){
+      continue;
+    }
+    break;
+  }
+  auto step = ivcount / 4096; // 1 or 2
+  constexpr int CONTEXT = 5;
+  auto floor = u;
+  if(floor > CONTEXT * step){
+    floor -= CONTEXT * step;
+  }else{
+    floor = 0;
+  }
+  auto i = floor + CONTEXT * 2 * step;
+  if(i >= ivcount){
+    i = ivcount - 1;
+    if(i < CONTEXT * 2 * step){
+      floor = 0;
+    }else{
+      floor = i - CONTEXT * 2 * step;
+    }
+  }
+  fp << "<div class=\"" << divname << "\">";
+  fp << "<table class=\"evenshade monivs\">" << std::endl;
+  fp << "<tr>";
+  fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
+  fp << "<th>Eff<sub>A</sub></th>";
+  fp << "<th>Eff<sub>D</sub></th>";
+  fp << "<th>HP</th>";
+  fp << "<th>Gmean</th>";
+  fp << "<th>%</th>";
+  auto gmax = sets[ivcount - 1].geommean;
+  double sp = 0;
+  do{
+    const auto &st = sets[i];
+    if(st.shadow){
+      continue;
+    }
+    auto irank = ivcount / step - i / step;
+    fp << std::fixed << std::setprecision(2);
+    fp << "<tr>";
+    if(st.statprod() == sp){
+      fp << "<td></td>";
+    }else{
+      fp << "<td>" << irank << "</td>";
+      sp = st.statprod();
+    }
+    fp << "<td>" << st.ia << '-' << st.id << '-' << st.is << "</td>";
+    fp << "<td>";
+    emit_halflevel_as_level(fp, st.hlevel);
+    fp << "</td>";
+    fp << "<td>" << st.cp << "</td>";
+    fp << "<td>" << st.effa << "</td>";
+    fp << "<td>" << st.effd << "</td>";
+    fp << "<td>" << st.mhp << "</td>";
+    fp << "<td>" << st.geommean << "</td>";
+    std::setprecision(1);
+    fp << "<td>" << (st.geommean * 100 / gmax) << "</td>";
+    fp << "</tr>";
+  }while(i-- > floor);
+  delete[] sets;
+  fp << "</table></div>";
+  return ret;
+}
+
+static int
+write_species_iv_sec(std::ostream &fp, const species &s, int iva, int ivd, int ivs,
+                     bool purified){
+  const auto atk = s.atk + iva;
+  const auto def = s.def + ivd;
+  const auto sta = s.sta + ivs;
+  fp << "<div class=\"speciesivs\">";
+  if(purified){
+    fp << "Purified ";
+  }
+  fp << s.name << "<br/>" << std::endl;
+  fp << "<table class=\"speciesivs\">" << std::endl;
+  constexpr int PERROW = 3;
+  fp << "<tr>";
+  for(int j = 0 ; j < PERROW ; ++j){
+    fp << "<th>L</th><th>CP</th>";
+  }
+  fp << "</tr>" << std::endl;
+  for(unsigned i = 0 ; i < (MAX_HALFLEVEL + PERROW - 1) / PERROW ; ++i){
+    fp << "<tr>";
+    for(int j = 0 ; j < PERROW ; ++j){
+      auto hl = i * 3 + j + 1;
+      fp << "<td>";
+      if(hl <= MAX_HALFLEVEL){
+        emit_halflevel_as_level(fp, hl);
+        fp << "</td><td>";
+        fp << calccp(atk, def, sta, hl);
+      }else{
+        fp << "</td><td>";
+      }
+      fp << "</td>";
+    }
+    fp << "</tr>" << std::endl;
+  }
+  fp << "</table>";
+  if(write_species_iv_rank(fp, s, GLCPCAP, iva, ivd, ivs, "glivs")){
+    if(write_species_iv_rank(fp, s, ULCPCAP, iva, ivd, ivs, "ulivs")){
+      write_species_iv_rank(fp, s, 0, iva, ivd, ivs, "mlivs");
+    }
+  }
+  fp << "</div>" << std::endl;
+  return 0;
+}
+
+static int
+write_family_iv_secs(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
+                     bool purified){
+  std::vector<const species *> evols;
+  evols.push_back(&base);
+  do{
+    const auto &s = *evols.front();
+    write_species_iv_sec(fp, s, iva, ivd, ivs, purified);
+    get_persistent_evolutions(s, evols);
+    for(const auto &m : s.mforms){
+      species smeg{&s, m};
+      if(write_family_iv_secs(fp, smeg, iva, ivd, ivs, purified)){
+        return -1;
+      }
+    }
+    evols.erase(evols.begin());
+  }while(evols.size());
+  return 0;
+}
+
+// each family has 4,096 IV pages. each one details:
+//
+//  - for each species, that IV's rank and stats
+//  - if there are shadows, the same for purified stats
+//  - CP at each level for each species
+//
+// call with the base member of the family. we'll handle all upwards transitions.
+int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs){
+  if(write_family_iv_secs(fp, base, iva, ivd, ivs, false)){
+    return 0;
+  }
+  if(base.shadow){
+    iva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
+    ivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
+    ivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+    if(write_family_iv_secs(fp, base, iva, ivd, ivs, true)){
+      return 0;
+    }
+  }
+  return 0;
+}
+

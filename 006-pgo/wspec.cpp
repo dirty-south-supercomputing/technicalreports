@@ -3,6 +3,7 @@
 #include <fstream>
 #include <unistd.h>
 #include <algorithm>
+#include <sys/stat.h>
 
 static void
 write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
@@ -137,16 +138,16 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
 
 static void
 write_iv_tables(std::ostream &fp, const species &s){
-  fp << "<div id=\"glivs\">";
+  fp << "<div class=\"glivs\">";
   bool donext = write_iv_table(fp, s, "great league", "GL", GLCPCAP);
   fp << "</div>" << std::endl;
   if(donext){
-    fp << "<div id=\"ulivs\">";
+    fp << "<div class=\"ulivs\">";
     donext = write_iv_table(fp, s, "ultra league", "UL", ULCPCAP);
     fp << "</div>" << std::endl;
   }
   if(donext){
-    fp << "<div id=\"mlivs\">";
+    fp << "<div class=\"mlivs\">";
     donext = write_iv_table(fp, s, "master league", "ML", 0);
     fp << "</div>" << std::endl;
   }
@@ -969,6 +970,34 @@ write_summary(std::ostream &fp, const species &s){
   return 0;
 }
 
+static int
+write_family_ivpages(const species &base){
+  std::string dir = base.name + "-family/";
+  if(mkdir(dir.c_str(), 0722) < 0 && errno != EEXIST){
+    std::cerr << "mkdir failed for " << dir << std::endl;
+    return -1;
+  }
+  for(int iva = 0 ; iva <= MAXIVELEM ; ++iva){
+    for(int ivd = 0 ; ivd <= MAXIVELEM ; ++ivd){
+      for(int ivs = 0 ; ivs <= MAXIVELEM ; ++ivs){
+        std::string fname = dir + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs) + ".html";
+        std::ofstream fp(fname);
+        if(!fp.is_open()){
+          std::cerr << "error opening " << fname << " for writing" << std::endl;
+          return -1;
+        }
+        std::string title = base.name + " at " + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs);
+        write_header(fp, title, "", 2);
+        if(write_family_iv_page(fp, base, iva, ivd, ivs)){
+          return -1;
+        }
+        write_footer_and_close(fp, 2);
+      }
+    }
+  }
+  return 0;
+}
+
 // assume we're in the target directory
 static int
 write_index(){
@@ -1000,6 +1029,11 @@ write_index(){
     }
     if(write_mon_page(*s)){
       return -1;
+    }
+    if(s->from.empty()){
+      if(write_family_ivpages(*s)){
+        return -1;
+      }
     }
   }
   fp << "</table>" << std::endl;
