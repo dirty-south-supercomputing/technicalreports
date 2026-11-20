@@ -1036,11 +1036,35 @@ struct famstats {
   unsigned mlivcount;
 
   famstats(const species *S) :
-    s(S)
+    s(S),
+    glivs(nullptr),
+    ulivs(nullptr),
+    mlivs(nullptr),
+    glivcount(0),
+    ulivcount(0),
+    mlivcount(0)
   {
+    bool found = false;
     glivs = order_ivs(*s, GLCPCAP, statscmp_sprod, &glivcount);
-    ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount);
-    mlivs = order_ivs(*s, 0, statscmp_sprod, &mlivcount);
+    for(unsigned i = 0 ; i < glivcount ; ++i){
+      if(glivs[i].cp >= GLCPCAP){
+        found = true;
+        break;
+      }
+    }
+    if(found){
+      ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount);
+      found = false;
+      for(unsigned i = 0 ; i < ulivcount ; ++i){
+        if(ulivs[i].cp >= ULCPCAP){
+          found = true;
+          break;
+        }
+      }
+      if(found){
+        mlivs = order_ivs(*s, 0, statscmp_sprod, &mlivcount);
+      }
+    }
   }
 
   famstats(const famstats& other) :
@@ -1062,20 +1086,18 @@ struct famstats {
 
 };
 
-// returns true if we hit the cpbound
 static bool
-write_species_iv_rank(std::ostream &fp, int cpbound, unsigned iva, unsigned ivd, unsigned ivs,
+write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs,
                       const char *divname, const stats *sets, unsigned ivcount,
                       const famstats &f, const char *shortname){
   fp << "<div class=\"" << divname << "\">";
-  fp << "<h2>" << f.s->name << " " << shortname << "</h2>" << std::endl;
+  fp << "<h2>";
+  link_to_name(fp, f.s->name, true, 2);
+  fp << " " << shortname << "</h2>" << std::endl;
   bool ret = false;
   auto u = ivcount;
   while(u--){
     const auto &st = sets[u];
-    if(st.cp >= cpbound){
-      ret = true;
-    }
     if(st.shadow){
       continue;
     }
@@ -1116,7 +1138,7 @@ write_species_iv_rank(std::ostream &fp, int cpbound, unsigned iva, unsigned ivd,
     if(st.shadow){
       continue;
     }
-    auto irank = ivcount / step - i / step;
+    auto irank = ivcount / step - i / step; // FIXME this is wrong!
     fp << std::fixed << std::setprecision(2);
     fp << "<tr>";
     if(st.statprod() == sp){
@@ -1183,13 +1205,40 @@ write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species 
 static int
 write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
   fp << "<div class=\"speciesivs\">";
-  if(write_species_iv_rank(fp, GLCPCAP, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL")){
-    if(write_species_iv_rank(fp, ULCPCAP, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount, fs, "UL")){
-      write_species_iv_rank(fp, 0, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
+  write_species_iv_rank(fp, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL");
+  if(fs.ulivs){
+    write_species_iv_rank(fp, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount, fs, "UL");
+    if(fs.mlivs){
+      write_species_iv_rank(fp, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
     }
   }
   fp << "</div>" << std::endl;
   return 0;
+}
+
+static unsigned
+find_ivs_rank(const stats *sets, unsigned scount, unsigned iva, unsigned ivd, unsigned ivs){
+  unsigned srank = 0;
+  double bp = 0;
+  unsigned bpsame = 1;
+  while(scount--){
+    const auto &st = sets[scount];
+    if(st.shadow){
+      continue;
+    }
+    const auto sp = st.statprod();
+    if(sp != bp){
+      bp = sp;
+      srank += bpsame;
+      bpsame = 1;
+    }else{
+      ++bpsame;
+    }
+    if(st.ia == iva && st.id == ivd && st.is == ivs){
+      return srank;
+    }
+  }
+  throw std::exception();
 }
 
 static int
@@ -1198,7 +1247,25 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const fams
   fp << "<td>";
   species_with_icons(fp, *fs.s, true, 2);
   fp << "</td>";
+  fp << "<td>";
+  auto r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs);
+  fp << "#" << r;
+  fp << "</td>";
+  fp << "<td>";
+  if(fs.ulivs){
+    r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs);
+    fp << "#" << r;
+    fp << "</td>";
+    fp << "<td>";
+    if(fs.mlivs){
+      r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs);
+      fp << "#" << r;
+    }
   // FIXME summary at top of the form Form is #XXX (YY.Y%) in GL
+  }else{
+    fp << "</td><td>";
+  }
+  fp << "</td>";
   fp << "</tr>";
   return 0;
 }
@@ -1213,7 +1280,7 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const fams
 int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
                           const std::vector<famstats> &fstats){
   fp << "<h1>" << base.name << " family at " << iva << "-" << ivd << "-" << ivs << "</h1>" << std::endl;
-  fp << "<table>";
+  fp << "<table class=\"famsummary\">";
   fp << "<tr>";
   fp << "<th/><th>Form</th><th>GL</th><th>UL</th><th>ML</th>";
   fp << "</tr>";
@@ -1260,6 +1327,13 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
   for(const auto s : family){
     fstats.emplace_back(s);
   }
+  std::string style =
+    "<style>"
+    ".famsummary { margin: 0 1em 0 1em; }"
+    ".famsummary tr>:nth-child(1) { text-align: center; }"
+    ".famsummary tr>:nth-child(2) { text-align: left; }"
+    ".famsummary tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; }"
+    "</style>";
   for(int iva = 0 ; iva <= MAXIVELEM ; ++iva){
     for(int ivd = 0 ; ivd <= MAXIVELEM ; ++ivd){
       for(int ivs = 0 ; ivs <= MAXIVELEM ; ++ivs){
@@ -1270,7 +1344,7 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
           return -1;
         }
         std::string title = base.name + " at " + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs);
-        write_header(fp, title, "", 2);
+        write_header(fp, title, style, 2);
         if(write_family_iv_page(fp, base, iva, ivd, ivs, fstats)){
           return -1;
         }
