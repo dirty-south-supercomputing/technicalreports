@@ -7,15 +7,15 @@
 
 static void
 write_iv_graphrefs(std::ostream &fp, const species &s, const char *leagueshort){
-  std::string enc;
+  std::ostringstream encss;
   if(s.name.starts_with("G-Max")){
-    encode_name(s.name.substr(5), enc);
+    encode_name_uri(encss, s.name.substr(5));
   }else{
-    encode_name(s.name, enc);
+    encode_name_uri(encss, s.name);
   }
-  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort
+  fp << "<img class=\"monscatter\" src=\"graphs/" << encss.str() << leagueshort
     << ".png\" alt=\"bulk vs effa plot for " << leagueshort << "\"/>";
-  fp << "<img class=\"monscatter\" src=\"graphs/" << enc << leagueshort
+  fp << "<img class=\"monscatter\" src=\"graphs/" << encss.str() << leagueshort
     << "Gmean.png\" alt=\"bulk vs gmean plot for " << leagueshort << "\"/>";
 }
 
@@ -919,7 +919,6 @@ write_mon_page(const species &s){
   fp << std::setprecision(3);
   std::ostringstream encfamss;
   encode_name_uri(encfamss, get_base_evolution(s).name);
-  std::string encfamily = encfamss.str();
   const std::string script = "<script>"
 "const state = { terms: [ -1, -1, -1 ], idx: 0 };"
 "document.addEventListener(\"keydown\", (event) => {"
@@ -934,7 +933,7 @@ write_mon_page(const species &s){
 "if(state.terms[2] >= 0 && state.terms[2] < 16){"
 "let i1 = (state.idx + 1) % 3;"
 "let i2 = (state.idx + 2) % 3;"
-"ivuri = '" + encfamily +
+"ivuri = '" + encfamss.str() +
 "-family/' + state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
 "window.location.assign(ivuri);"
 "state.terms[0] = state.terms[1] = state.terms[2] = -1;"
@@ -948,7 +947,9 @@ write_mon_page(const species &s){
 "</script>";
   write_header(fp, s.name + " in Pokémon GO", script, true);
   fp << "<div id=\"monheader\">";
-  fp << "<img class=\"sprite\" src=\"../images/mon/" << encname << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
+  std::ostringstream encuri;
+  encode_name_uri(encuri, encname);
+  fp << "<img class=\"sprite\" src=\"../images/mon/" << encuri.str() << ".png\" width=\"512\" alt=\"" << s.name << "\"/>" << std::endl;
   fp << "<h1 id=\"monname\">" << s.name << "<br/>";
   html_types(fp, s.t1, s.t2, true);
   fp << "</h1></div>" << std::endl;
