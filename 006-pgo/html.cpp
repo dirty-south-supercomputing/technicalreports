@@ -1316,7 +1316,14 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
   }
   std::string style =
     "<style>"
-    ".famsummary { margin: 0 1em 0 1em; }"
+    "td.gliv { background-color: rgba(208, 255, 208, 0.25); }"
+    "td.uliv { background-color: rgba(208, 208, 255, 0.25); }"
+    "td.mliv { background-color: rgba(255, 208, 208, 0.25); }"
+    "table.speciesivs { margin: 0 0 0 1em; }"
+    "table.speciesivs tr>:nth-child(2n+3) { padding: 0 0 0 1em; text-align: left; }"
+    "table.speciesivs tr>:nth-child(even) { padding: 0 0 0 1em; text-align: right; }"
+    "table.speciesivs caption { caption-side: bottom; font-weight: bold; }"
+    ".famsummary { background-color: #ddd; margin: 0 1em 2em 1em; }"
     ".famsummary tr>:nth-child(1) { text-align: center; }"
     ".famsummary tr>:nth-child(2) { text-align: left; }"
     ".famsummary tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; }"
