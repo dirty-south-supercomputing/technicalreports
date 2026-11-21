@@ -17,15 +17,13 @@ fast_attacks_req(int energy, const attack *a, const attack *ca){
 }
 
 static int
-open_sim_output(const species &s, const attack *fa,
-                const attack *c1, const attack *c2,
+open_sim_output(const attack *fa, const attack *c1, const attack *c2,
                 std::ofstream &fout, std::string &fname){
   std::string faname, c1name, c2name;
-  encode_name(s.name, fname);
   encode_name(fa->name, faname);
   encode_name(c1->name, c1name);
   encode_name(c2->name, c2name);
-  fname += "-" + faname + "-" + c1name + "-" + c2name;
+  fname = faname + "-" + c1name + "-" + c2name;
   fout.open(fname, std::ofstream::out);
   if(fout.rdstate() & std::ofstream::failbit){
     std::cerr << "error opening " << fname << std::endl;
@@ -36,18 +34,16 @@ open_sim_output(const species &s, const attack *fa,
 
 // FIXME broken (in places) for nullptr as c2
 static void
-dump_sim(std::ostream &fp, const std::string &sname,
-         const attack *fa,
-         const std::vector<int> &mods,
+dump_sim(std::ostream &fp, const attack *fa, const std::vector<int> &mods,
          const attack *c1, const attack *c2){
   fp << "digraph {" << std::endl;
   fp << "rankdir=LR" << std::endl;
   fp << "fontname=\"sans-serif\"" << std::endl;
-  fp << "label=<" << sname << " (" << fa->name << ", " << c1->name;
+  fp << "label=<" << fa->name << ", " << c1->name;
   if(c2){
     fp << ", " << c2->name;
   }
-  fp << ")>" << std::endl;
+  fp << ">" << std::endl;
   // node and edge defaults
   fp << "node [shape=box,fontname=\"sans-serif\"]" << std::endl;
   fp << "edge [fontname=\"sans-serif\"]" << std::endl;
@@ -80,8 +76,7 @@ dump_sim(std::ostream &fp, const std::string &sname,
 // considered a different node, and we can build to either charged move from
 // any node.
 static void
-sim_pacing(std::ostream &fp, std::vector<int> &mods,
-           const attack *a, const attack *c1,const attack *c2){
+sim_pacing(std::vector<int> &mods, const attack *a, const attack *c1,const attack *c2){
   const int incoming = mods.back();
   int energy = incoming;
   auto cf = fast_attacks_req(energy, a, c1);
@@ -89,7 +84,7 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
   energy += c1->energytrain;
   if(!std::ranges::contains(mods, energy)){
     mods.push_back(energy);
-    sim_pacing(fp, mods, a, c1, c2);
+    sim_pacing(mods, a, c1, c2);
   }
   energy = incoming;
   cf = fast_attacks_req(energy, a, c2);
@@ -97,78 +92,68 @@ sim_pacing(std::ostream &fp, std::vector<int> &mods,
   energy += c2->energytrain;
   if(!std::ranges::contains(mods, energy)){
     mods.push_back(energy);
-    sim_pacing(fp, mods, a, c1, c2);
+    sim_pacing(mods, a, c1, c2);
   }
 }
 
 static void
-pacing(std::ostream &fp, const species &s){
-  std::vector<const attack*> fas, cas;
-  for(const auto a : s.attacks){
-    if(fast_attack_p(*a)){
-      fas.push_back(a);
-    }else{
-      cas.push_back(a);
-    }
+pacing(const attack *a, const attack *c1, const attack *c2){
+  std::vector<int> mods{0};
+  sim_pacing(mods, a, c1, c2);
+  std::ofstream fout;
+  std::string fname; // should probably use tmpfile
+  if(open_sim_output(a, c1, c2, fout, fname)){
+    throw std::exception();
   }
-  for(const auto a : fas){
-    for(unsigned c1idx = 0 ; c1idx < cas.size() ; ++c1idx){
-      const auto *c1 = cas[c1idx];
-      for(unsigned c2idx = c1idx + 1 ; c2idx < cas.size() ; ++c2idx){
-        const auto *c2 = cas[c2idx];
-        std::vector<int> mods{0};
-        sim_pacing(fp, mods, a, c1, c2);
-        std::ofstream fout;
-        std::string fname;
-        if(open_sim_output(s, a, c1, c2, fout, fname)){
-          throw std::exception();
-        }
-        dump_sim(fout, s.name, a, mods, c1, c2);
-        fout.close();
-        if(fout.rdstate() & std::ofstream::failbit){
-          std::cerr << "error closing sim output" << std::endl;
-          throw std::exception();
-        }
-        std::string fname2 = fname + ".png";
-        std::string gv = "dot -Tpng " + fname + " > " + fname2;
-        if(system(gv.c_str())){
-          std::cerr << "neato failed for " << fname << std::endl;
-          throw std::exception();
-        }
-        if(unlink(fname.c_str())){
-          std::cerr << "error removing " << fname << std::endl;
-          throw std::exception();
-        }
-      }
-    }
+  dump_sim(fout, a, mods, c1, c2);
+  fout.close();
+  if(fout.rdstate() & std::ofstream::failbit){
+    std::cerr << "error closing sim output" << std::endl;
+    throw std::exception();
+  }
+  std::string fname2 = fname + ".png";
+  std::string gv = "dot -Tpng " + fname + " > " + fname2;
+  if(system(gv.c_str())){
+    std::cerr << "neato failed for " << fname << std::endl;
+    throw std::exception();
+  }
+  if(unlink(fname.c_str())){
+    std::cerr << "error removing " << fname << std::endl;
+    throw std::exception();
   }
 }
 
 [[noreturn]] static void
 usage(const char *argv0){
-  std::cerr << "usage: " << argv0 << " form" << std::endl;
+  std::cerr << "usage: " << argv0 << " fast charged [charged]" << std::endl;
   exit(EXIT_FAILURE);
 }
 
-// dump dot files showing pacing
-// FIXME rather than accepting a species and doing all its combinations, we
-// ought work off the list of attacks, checking to see if a combination is
-// ever used. the graph will be the same across all species for a given
-// combination, and ought not be duplicated.
+// dump dot files showing pacing for an attack duo or trio
 int main(int argc, const char **argv){
-  if(argc != 2){
+  if(argc < 3 || argc > 4){
     usage(argv[0]);
   }
-  species s;
-  const auto sptr = lookup_species(argv[1]);
-  if(!sptr){
-    if(lookup_mega(argv[1], &s) == false){
-      std::cerr << "couldn't look up " << argv[1] << std::endl;
+  const auto *fa = lookup_attack(argv[1]);
+  if(!fa || !fast_attack_p(*fa)){
+    std::cerr << "invalid fast attack: " << argv[1] << std::endl;
+    usage(argv[0]);
+  }
+  const auto *ca1 = lookup_attack(argv[2]);
+  if(!ca1 || !charged_attack_p(*ca1)){
+    std::cerr << "invalid charged attack: " << argv[2] << std::endl;
+    usage(argv[0]);
+  }
+  const attack *ca2;
+  if(argv[3]){
+    ca2 = lookup_attack(argv[3]);
+    if(!ca2 || !charged_attack_p(*ca2)){
+      std::cerr << "invalid charged attack: " << argv[3] << std::endl;
       usage(argv[0]);
     }
   }else{
-    s = *sptr;
+    ca2 = nullptr;
   }
-  pacing(std::cout, s);
+  pacing(fa, ca1, ca2);
   return EXIT_SUCCESS;
 }
