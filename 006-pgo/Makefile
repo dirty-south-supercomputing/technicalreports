@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all extra preview testsimul clean test testdb testsimullong testweb web graphs
+.PHONY: all extra preview testsimul clean test testdb testsimullong testweb web graphs tarball
 .DEFAULT_GOAL:=web
 
 CPP:=clang++
@@ -45,6 +45,8 @@ WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
 						$(addprefix dynas-, all $(TYPES))))
+
+TARBALL:=pgo-webpage.tar.gz
 
 UPSTREAM:=$(addsuffix .csv, moves)
 TESTDB:=$(OUT)/testdb
@@ -166,6 +168,9 @@ all: $(TEAMBUILDER) $(CALCULATOR) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 extra: all $(OPTSTATSPDF) $(OPTSTATSRADARPDF)
+
+tarball: web testweb
+	tar czvhf $@ webpage/*
 
 $(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
