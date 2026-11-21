@@ -1467,6 +1467,7 @@ uint64_t pgo_xp_for_level(int l);
 const char* max_attack_name(pgo_types_e t);
 std::vector<const attack*>::const_iterator attacks_begin(void);
 std::vector<const attack*>::const_iterator attacks_end(void);
+const attack *lookup_attack(const std::string &s);
 void emit_attack(const species &s, const attack *a);
 void summarize_buffs(const attack *a);
 

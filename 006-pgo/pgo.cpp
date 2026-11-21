@@ -508,6 +508,15 @@ std::vector<const attack*>::const_iterator attacks_end(void){
   return attacks.cend();
 }
 
+const attack *lookup_attack(const std::string &s){
+  for(auto a = attacks_begin() ; a != attacks_end() ; ++a){
+    if((*a)->name == s){
+      return *a;
+    }
+  }
+  return nullptr;
+}
+
 const char *species::categorystr(species::species_cat c){
   switch(c){
     case CAT_NORMAL: return "";
