@@ -477,9 +477,11 @@ void generate_ivs_maxlevel(const species &s, int cpceil, stats *svec, bool shado
 
 // generate the stats for each possible IV at its maximum level subject to the
 // cpceiling (-1 for no ceiling), ordered according to fitfxn.
+// if doshadows is true AND s->shadow is true, sets will also be created for
+// the shadow form.
 stats *order_ivs(const species &s, int cpceil,
                  int(*cmpfxn)(const void*, const void*),
-                 unsigned *vcount);
+                 unsigned *vcount, bool doshadows);
 
 // instantiation of a pokémon -- species, IVs, and known attacks
 struct pmon { // static elements

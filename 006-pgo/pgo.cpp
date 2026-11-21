@@ -893,14 +893,15 @@ void generate_ivs_maxlevel(const species &s, int cpceil, stats *svec, bool shado
   }
 }
 
-stats *order_ivs(const species &s, int cpceil, int(*cmpfxn)(const void*, const void*), unsigned *vcount){
+stats *order_ivs(const species &s, int cpceil, int(*cmpfxn)(const void*, const void*),
+                 unsigned *vcount, bool doshadows){
   *vcount = IVLEVVEC;
-  if(s.shadow){
+  if(doshadows && s.shadow){
     *vcount *= 2;
   }
   stats *svec = new stats[*vcount];
   generate_ivs_maxlevel(s, cpceil, svec, false);
-  if(s.shadow){
+  if(doshadows && s.shadow){
     generate_ivs_maxlevel(s, cpceil, svec + IVLEVVEC, true);
   }
   qsort(svec, *vcount, sizeof(*svec), cmpfxn);
