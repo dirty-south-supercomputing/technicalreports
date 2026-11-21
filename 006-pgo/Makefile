@@ -1,5 +1,5 @@
 .DELETE_ON_ERROR:
-.PHONY: all extra preview testsimul clean test testdb testsimullong testweb web graphs tarball
+.PHONY: all extra preview testsimul clean test testdb testsimullong testweb web graphs upload
 .DEFAULT_GOAL:=web
 
 CPP:=clang++
@@ -168,9 +168,6 @@ all: $(TEAMBUILDER) $(CALCULATOR) \
 	testdb testsimul $(COVERSETS) $(DYNATYPES) $(WEBPAGES) test
 
 extra: all $(OPTSTATSPDF) $(OPTSTATSRADARPDF)
-
-tarball: web testweb
-	tar czvhf $@ webpage/*
 
 $(OUT)/dynas-%.html: $(DYNAS)
 	@mkdir -p $(@D)
@@ -566,6 +563,9 @@ testsimullong: $(SIMUL)
 						jumpluff opt750 "bullet seed" "acrobatics/solar beam" \
 						dusknoir opt750 astonish "shadow ball/dynamic punch" \
 						gallade opt750 confusion "synchronoise/leaf blade"
+
+upload: testweb
+	tar chvf - $(WEB) | ssh qemfd tar xvf -
 
 clean:
 	@rm -vrf $(PAPERBACK).toc $(PAPERBACK).log $(PAPERBACK).aux $(PAPERBACK).lof $(PAPERBACK).listing $(PAPERBACK).pdf

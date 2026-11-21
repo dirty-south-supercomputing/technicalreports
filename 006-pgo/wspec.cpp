@@ -919,6 +919,9 @@ write_mon_page(const species &s){
   fp << std::setprecision(3);
   std::string encfamily;
   encode_name(get_base_evolution(s).name, encfamily);
+  std::ostringstream encfamss;
+  encode_name_uri(encfamss, base.name);
+  std::string encfamily = encfamss.str();
   const std::string script = "<script>"
 "const state = { terms: [ -1, -1, -1 ], idx: 0 };"
 "document.addEventListener(\"keydown\", (event) => {"
@@ -998,7 +1001,7 @@ write_summary(std::ostream &fp, const species &s){
   }
   fp << "</td><td>";
   fp << "<a href=\"";
-  encode_name(fp, s.name);
+  encode_name_uri(fp, s.name);
   fp << ".html\">" << s.name << "</a>";
   fp << "</td>";
   fp << "<td>";
@@ -1017,7 +1020,7 @@ write_summary(std::ostream &fp, const species &s){
   }
   fp << "</td>";
   fp << "<td><img loading=\"lazy\" src=\"../images/mon/";
-  encode_name(fp, s.name);
+  encode_name_uri(fp, s.name);
   fp << ".png\" height=\"64\" width=\"64\" alt=\"" << s.name << "\"/></td>";
   fp << "</tr>" << std::endl;
   for(const auto &m : s.mforms){
@@ -1030,7 +1033,7 @@ write_summary(std::ostream &fp, const species &s){
 static int
 write_family_ivpages(const species &base){
   std::string encname;
-  encode_name(base.name, encname); // do *not* use URI encoding
+  encode_name(encname, base.name); // not a URI -- filesystem path
   std::string dir = encname + "-family/";
   if(mkdir(dir.c_str(), 0722) < 0 && errno != EEXIST){
     std::cerr << "mkdir failed for " << dir << std::endl;

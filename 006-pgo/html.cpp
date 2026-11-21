@@ -7,7 +7,7 @@ const std::string css[6] = { "tepos3", "tepos2", "tepos1", "tepos0", "teneg1", "
 static void
 emit_option(std::ostream &fp, const std::string &value){
   fp << "<option value=\"";
-  encode_name(fp, value); // this will be used as a URI
+  encode_name_uri(fp, value); // this will be used as a URI
   fp << "\">";
   fp << value;
   fp << "</option>";
@@ -60,7 +60,7 @@ html_wname(std::ostream &fp, const std::string &wname, bool pdir){
     fp << "../";
   }
   fp << "images/";
-  encode_name(fp, wname);
+  encode_name_uri(fp, wname);
   fp << "-icon.png\" class=\"type\" alt=\""<< wname << "\"/>";
 }
 

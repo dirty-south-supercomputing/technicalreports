@@ -207,7 +207,7 @@ calc_sprod(double effa, double effd, unsigned mhp){
 
 static inline double
 calc_amean(double effa, double effd, unsigned mhp){
-  return calc_sprod(effa, effd, mhp) / 3;
+  return (effa + effd + mhp) / 3;
 }
 
 static inline double

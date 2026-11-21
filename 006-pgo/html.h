@@ -6,7 +6,7 @@
 
 // use only for generating URIs, not filesystem paths nor display
 static inline void
-encode_name(std::ostream &fp, const std::string &s){
+encode_name_uri(std::ostream &fp, const std::string &s){
   for(unsigned char c : s){ // handle utf8
     if(c > 0x7f){
       fp << '%' << std::hex << static_cast<int>(c) << std::dec;
@@ -35,9 +35,9 @@ link_to_name(std::ostream &fp, const std::string &s, bool subdir = false, int pd
     fp << "mon/";
   }
   if(s.starts_with("Shadow ")){
-    encode_name(fp, s.substr(7, s.length() - 7));
+    encode_name_uri(fp, s.substr(7, s.length() - 7));
   }else{
-    encode_name(fp, s);
+    encode_name_uri(fp, s);
   }
   fp << ".html\">" << s << "</a>";
 }
@@ -53,9 +53,9 @@ link_to_attack(std::ostream &fp, const std::string &s, bool subdir = false, bool
     fp << "attacks/";
   }
   if(s.ends_with("+2") || s.ends_with("+3") || s.ends_with("+4")){
-    encode_name(fp, s.substr(0, s.length() - 1));
+    encode_name_uri(fp, s.substr(0, s.length() - 1));
   }else{
-    encode_name(fp, s);
+    encode_name_uri(fp, s);
   }
   fp << ".html\">" << s << "</a>";
 }
