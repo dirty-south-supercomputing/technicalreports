@@ -7,7 +7,7 @@ functional_hundos(int cplimit, int cpthresh){
   std::cout << "<tr><th>T</th><th>Pokémon</th><th>Optimum</th><th>Functional optima</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     // find the optimal configs subject to cplimit
-    auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_gmean);
+    auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_sprod);
     auto statprod = st->statprod();
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
@@ -29,7 +29,10 @@ functional_hundos(int cplimit, int cpthresh){
       }
       std::cout << "</td></tr>" << std::endl;
     }
-    delete[] st;
+    while( (tmp = st) ){
+      st = tmp->next;
+      delete tmp;
+    }
   }
   std::cout << "</table>" << std::endl;
 }
