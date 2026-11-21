@@ -917,10 +917,8 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  std::string encfamily;
-  encode_name(get_base_evolution(s).name, encfamily);
   std::ostringstream encfamss;
-  encode_name_uri(encfamss, base.name);
+  encode_name_uri(encfamss, get_base_evolution(s).name);
   std::string encfamily = encfamss.str();
   const std::string script = "<script>"
 "const state = { terms: [ -1, -1, -1 ], idx: 0 };"
@@ -1033,7 +1031,7 @@ write_summary(std::ostream &fp, const species &s){
 static int
 write_family_ivpages(const species &base){
   std::string encname;
-  encode_name(encname, base.name); // not a URI -- filesystem path
+  encode_name(base.name, encname); // not a URI -- filesystem path
   std::string dir = encname + "-family/";
   if(mkdir(dir.c_str(), 0722) < 0 && errno != EEXIST){
     std::cerr << "mkdir failed for " << dir << std::endl;
