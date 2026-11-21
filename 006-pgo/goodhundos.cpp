@@ -8,13 +8,13 @@ struct sstat {
 static void
 check_good_hundo(int cpbound, int cpcutoff, std::vector<sstat> &rows, const species &s){
     unsigned vcount;
-    auto stats = order_ivs(s, cpbound, statscmp_sprod, &vcount);
+    auto stats = order_ivs(s, cpbound, statscmp_sprod, &vcount, false);
     const auto &best = stats[vcount - 1];
     auto bestbp = best.effa * best.effd * best.mhp;
     float cutoff = 0.97 * bestbp;
     unsigned i = vcount - 1;
     // find the hundo
-    while(stats[i].shadow || stats[i].ia != 15 || stats[i].id != 15 || stats[i].is != 15){
+    while(stats[i].ia != 15 || stats[i].id != 15 || stats[i].is != 15){
       --i;
     }
     auto hundobp = stats[i].effa * stats[i].effd * stats[i].mhp;
