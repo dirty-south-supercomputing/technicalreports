@@ -197,7 +197,7 @@ static void
 summarize_fxn(const species *s, int cpceil, const char *str,
               int(*cmpfxn)(const void*, const void*), int items){
   unsigned vcount;
-  auto opts = order_ivs(*s, cpceil, cmpfxn, &vcount);
+  auto opts = order_ivs(*s, cpceil, cmpfxn, &vcount, true);
   std::cout << str << std::endl;
   for(int i = 0 ; i < items ; ++i){
     const stats &st = opts[vcount - i - 1];
