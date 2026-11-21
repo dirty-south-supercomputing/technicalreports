@@ -80,7 +80,7 @@ static bool
 write_iv_table(std::ostream &fp, const species &s, const char *league,
                const char *leagueshort, int cpbound){
   unsigned ivcount;
-  auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount);
+  auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount, false);
   fp << "<h2>" << league << "</h2>" << std::endl;
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
@@ -96,40 +96,69 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<th>%</th>";
   fp << "</tr>";
   auto bpmax = sets[ivcount - 1].statprod();
-  double sp = 0;
-  unsigned grank = ivcount;
-  int id = 1;
+  unsigned idx = ivcount - 1;
+  int sprank = 1;
   bool ret = false;
-  // FIXME we want ties in a single table row
   do{
-    const stats &st = sets[--grank];
-    if(!st.shadow){
-      fp << std::fixed << std::setprecision(2);
-      fp << "<tr>";
-      if(st.statprod() == sp){
-        fp << "<td></td>";
-      }else{
-        fp << "<td>" << id << "</td>";
-        sp = st.statprod();
+    const stats &st = sets[idx];
+    // we want all ties in a single row of the table, so count up ties first.
+    double sp = st.statprod();
+    unsigned tieorder = 1;
+    while(idx > tieorder){
+      const stats &checkst = sets[idx - tieorder];
+      if(checkst.statprod() != sp){
+        break;
       }
-      ++id;
-      fp << "<td>" << st.ia << '-' << st.id << '-' << st.is << "</td>";
-      fp << "<td>";
-      emit_halflevel_as_level(fp, st.hlevel);
-      fp << "</td>";
-      fp << "<td>" << st.cp << "</td>";
-      if(st.cp == cpbound){
-        ret = true;
-      }
-      fp << "<td>" << st.effa << "</td>";
-      fp << "<td>" << st.effd << "</td>";
-      fp << "<td>" << st.mhp << "</td>";
-      fp << "<td>" << st.geommean << "</td>";
-      std::setprecision(1);
-      fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
-      fp << "</tr>";
+      ++tieorder;
     }
-  }while(grank);
+    fp << "<tr><td>" << sprank << "</td>";
+    sprank += tieorder;
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      fp << stt.ia << '-' << stt.id << '-' << stt.is << "<br/>";
+    }
+    fp << "</td>";
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      emit_halflevel_as_level(fp, stt.hlevel);
+      fp << "<br/>";
+    }
+    fp << "</td>";
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      fp << stt.cp << "<br/>";
+    }
+    fp << "</td>";
+    if(st.cp == cpbound){
+      ret = true;
+    }
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      fp << stt.effa << "<br/>";
+    }
+    fp << "</td>";
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      fp << stt.effd << "<br/>";
+    }
+    fp << "</td>";
+    fp << "<td>";
+    for(unsigned i = 0 ; i < tieorder ; ++i){
+      const stats &stt = sets[idx - i];
+      fp << stt.mhp << "<br/>";
+    }
+    fp << "</td>";
+    fp << "<td>" << st.geommean << "</td>";
+    std::setprecision(1);
+    fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
+    fp << "</tr>" << std::endl;
+    idx -= tieorder;
+  }while(idx);
   fp << "</table></details>" << std::endl;
   delete[] sets;
   //fp << "<img class=\"cmpgraph\" type=\"image/svg+xml\" width=\"100\" heigh=\"800\" src=\"graphs/cmp" << leagueshort << ".svg\"/>";
@@ -888,7 +917,8 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  const std::string family = get_base_evolution(s).name;
+  std::string encfamily;
+  encode_name(get_base_evolution(s).name, encfamily);
   const std::string script = "<script>"
         "const state = { terms: [ -1, -1, -1 ], idx: 0 };"
         "document.addEventListener(\"keydown\", (event) => {"
@@ -904,7 +934,7 @@ write_mon_page(const species &s){
         "            let i1 = (state.idx + 1) % 3;"
         "            let i2 = (state.idx + 2) % 3;"
         "            ivuri = '"
-        + family +
+        + encfamily +
         "-family/' + state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
         "            window.location.assign(ivuri);"
         "            state.terms[0] = state.terms[1] = state.terms[2] = -1;"
@@ -1000,7 +1030,9 @@ write_summary(std::ostream &fp, const species &s){
 
 static int
 write_family_ivpages(const species &base){
-  std::string dir = base.name + "-family/";
+  std::string encname;
+  encode_name(base.name, encname); // do *not* use URI encoding
+  std::string dir = encname + "-family/";
   if(mkdir(dir.c_str(), 0722) < 0 && errno != EEXIST){
     std::cerr << "mkdir failed for " << dir << std::endl;
     return -1;
