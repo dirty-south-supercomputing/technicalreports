@@ -618,14 +618,11 @@ void typeset::emit(std::ostream &fp, bool pdir) const {
 static void
 calc_cmp_ranges(std::vector<cmprange> &effas, int cpthresh, int cpbound, const species &s){
   unsigned ivcount;
-  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount);
+  auto sets = order_ivs(s, cpbound, statscmp_gmean, &ivcount, false);
   cmprange crange{s.name, 0, 0};
   bool threshmet = false;
   for(unsigned i = 0 ; i < ivcount ; ++i){
     const auto &st = sets[i];
-    if(st.shadow){
-      continue;
-    }
     if(st.cp < cpthresh){
       continue;
     }
@@ -1045,7 +1042,7 @@ struct famstats {
     mlivcount(0)
   {
     bool found = false;
-    glivs = order_ivs(*s, GLCPCAP, statscmp_sprod, &glivcount);
+    glivs = order_ivs(*s, GLCPCAP, statscmp_sprod, &glivcount, false);
     for(unsigned i = 0 ; i < glivcount ; ++i){
       if(glivs[i].cp >= GLCPCAP){
         found = true;
@@ -1053,7 +1050,7 @@ struct famstats {
       }
     }
     if(found){
-      ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount);
+      ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount, false);
       found = false;
       for(unsigned i = 0 ; i < ulivcount ; ++i){
         if(ulivs[i].cp >= ULCPCAP){
@@ -1062,7 +1059,7 @@ struct famstats {
         }
       }
       if(found){
-        mlivs = order_ivs(*s, 0, statscmp_sprod, &mlivcount);
+        mlivs = order_ivs(*s, 0, statscmp_sprod, &mlivcount, false);
       }
     }
   }
@@ -1098,29 +1095,25 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   auto u = ivcount;
   while(u--){
     const auto &st = sets[u];
-    if(st.shadow){
-      continue;
-    }
     if(st.ia != iva || st.id != ivd || st.is != ivs){
       continue;
     }
     break;
   }
-  auto step = ivcount / 4096; // 1 or 2
   constexpr int CONTEXT = 5;
   auto floor = u;
-  if(floor > CONTEXT * step){
-    floor -= CONTEXT * step;
+  if(floor > CONTEXT){
+    floor -= CONTEXT;
   }else{
     floor = 0;
   }
-  auto i = floor + CONTEXT * 2 * step;
+  auto i = floor + CONTEXT * 2;
   if(i >= ivcount){
     i = ivcount - 1;
-    if(i < CONTEXT * 2 * step){
+    if(i < CONTEXT * 2){
       floor = 0;
     }else{
-      floor = i - CONTEXT * 2 * step;
+      floor = i - CONTEXT * 2;
     }
   }
   fp << "<table class=\"evenshade monivs\">" << std::endl;
@@ -1135,10 +1128,7 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   double sp = 0;
   do{
     const auto &st = sets[i];
-    if(st.shadow){
-      continue;
-    }
-    auto irank = ivcount / step - i / step; // FIXME this is wrong!
+    auto irank = ivcount - i; // FIXME this is wrong!
     fp << std::fixed << std::setprecision(2);
     fp << "<tr>";
     if(st.statprod() == sp){
@@ -1223,9 +1213,6 @@ find_ivs_rank(const stats *sets, unsigned scount, unsigned iva, unsigned ivd, un
   unsigned bpsame = 1;
   while(scount--){
     const auto &st = sets[scount];
-    if(st.shadow){
-      continue;
-    }
     const auto sp = st.statprod();
     if(sp != bp){
       bp = sp;
