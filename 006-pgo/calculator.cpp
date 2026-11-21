@@ -92,8 +92,9 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
     std::cout << "\tdef: " << effd;
     std::cout << "\thp: " << mhp;
     auto gmean = calc_gmean(effa, effd, mhp);
-    stats* st = find_optimal_set(*s, cpbound, 0, shadow, calc_pok_gmean);
-    auto pct = gmean * 100 / st->geommean;
+    auto sprod = calc_sprod(effa, effd, mhp);
+    stats* st = find_optimal_set(*s, cpbound, 0, shadow, calc_pok_sprod);
+    auto pct = sprod * 100 / st->statprod();
     std::cout << "\tgmean: " << gmean << " (" << pct << "%)" << std::endl;
     std::cout << " opt: ";
     print_hlevel_simple(st->hlevel);
