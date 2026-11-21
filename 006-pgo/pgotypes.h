@@ -201,13 +201,18 @@ calc_mhp(unsigned sta, unsigned halflevel){
 }
 
 static inline double
+calc_sprod(double effa, double effd, unsigned mhp){
+  return effa * effd * mhp;
+}
+
+static inline double
 calc_amean(double effa, double effd, unsigned mhp){
-  return (effa + effd + mhp) / 3;
+  return calc_sprod(effa, effd, mhp) / 3;
 }
 
 static inline double
 calc_gmean(double effa, double effd, unsigned mhp){
-  return cbrt(effa * effd * mhp);
+  return cbrt(calc_sprod(effa, effd, mhp));
 }
 
 static inline float
@@ -298,8 +303,8 @@ static inline int
 statscmp_cp(const void *vst1, const void *vst2){
   const stats *st1 = static_cast<const stats*>(vst1);
   const stats *st2 = static_cast<const stats*>(vst2);
-  int cp1 = calccp(st1->effa, st1->effd, st1->mhp, st1->hlevel);
-  int cp2 = calccp(st2->effa, st2->effd, st2->mhp, st2->hlevel);
+  int cp1 = st1->cp;
+  int cp2 = st2->cp;
   return cp1 < cp2 ? -1 : cp1 > cp2 ? 1 : 0;
 }
 
@@ -561,14 +566,12 @@ find_optimal_set(const species &s, int cpceil, double floor, bool isshadow, doub
   stats* collectopt = nullptr;
   stats** qopt = &collectopt;
   double maxm = -1;
-  // print the optimal frontier (large), and extract the truly optimal sets (small)
+  // extract the truly optimal sets (small) from the frontier (large)
   while(optsets){
     stats *cur;
     cur = optsets;
     optsets = cur->next;
     auto m = fitfxn(cur);
-    //printf(" %u/%u/%u: %2u %4u %.3f %.3f %u %.3f\n", cur->ia, cur->id, cur->is,
-    //    cur->hlevel, cur->cp, cur->effa, cur->effd, cur->mhp, cur->geommean);
     if(m > maxm){ // new optimal
       stats* c;
       // clean out existing true optimals
