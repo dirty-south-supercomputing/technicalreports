@@ -86,7 +86,7 @@ calctimespecies(const species &s, std::vector<ttfs> &ttfs, int bound){
   stats maxstat(&s, MAX_HALFLEVEL, MAXIVELEM, MAXIVELEM, MAXIVELEM, false);
   stats *st;
   if(bound){
-    st = find_optimal_set(s, bound, 0, false, calc_pok_gmean);
+    st = find_optimal_set(s, bound, 0, false, calc_pok_sprod);
     if(!st){
       std::cerr << "couldn't find optimal config for " << s.name << " with " << bound << " bound" << std::endl;
       throw std::exception();
@@ -110,6 +110,13 @@ calctimespecies(const species &s, std::vector<ttfs> &ttfs, int bound){
       float pfast = t / f->turns * power;
       ++t; // account for the charged attack
       ttfs.emplace_back(&s, st, t, pfast, f, c);
+    }
+  }
+  if(st != &maxstat){
+    stats *tmp;
+    while( (tmp = st) ){
+      st = tmp->next;
+      delete tmp;
     }
   }
 }
