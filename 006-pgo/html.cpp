@@ -39,13 +39,21 @@ void write_navbar(std::ostream &fp, int pdir){
   fp << "</ul></nav>" << std::endl;
 }
 
-void write_header(std::ostream &fp, const std::string &title, const std::string &headcheese, int pdir){
-  fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"";
+static void
+emit_pstring(std::ostream &fp, const std::string &s, int pdir){
   for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
-  fp << "pgonav.css\">";
+  fp << s;
+}
+
+void write_header(std::ostream &fp, const std::string &title, const std::string &headcheese, int pdir){
+  // FIXME get this from webpage-src/head.html
+  fp << "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+  fp << "<link rel=\"icon\" type=\"image/x-icon\" href=\"";
+  emit_pstring(fp, "favicon.ico\">", pdir);
+  fp << "<link rel=\"stylesheet\" type=\"text/css\" href=\"";
+  emit_pstring(fp, "pgotables.css\">", pdir);
   fp << "<title>" << title << "</title>";
   fp << headcheese;
   fp << "</head>" << std::endl;
