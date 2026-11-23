@@ -25,7 +25,7 @@ POKEMONH:=pokemon.h
 COREHEADERS:=pgotypes.h $(POKEMONH)
 
 CUPSBIN:=$(shell pwd)/cups # requires running makefile from source directory FIXME
-CSS:=pgonav.css
+CSS:=pgotables.css
 
 # we sometimes parameterize based on type
 TYPES:=bug dark dragon electric fairy fire fighting flying ghost grass ground \
@@ -45,6 +45,14 @@ WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 						$(addsuffix UL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
 						$(addsuffix GL, list functional evolworse amean gmean atk def mhp bulk goodhundos) \
 						$(addprefix dynas-, all $(TYPES))))
+
+FAVICON:=android-chrome-192x192.png \
+				 android-chrome-512x512.png \
+				 apple-touch-icon.png \
+				 favicon-16x16.png \
+				 favicon-32x32.png \
+				 favicon.ico \
+				 site.webmanifest
 
 TARBALL:=pgo-webpage.tar.gz
 
@@ -158,7 +166,12 @@ SIMULSRC:=$(addprefix s/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h s
 BOOKSIMULSRC:=$(addprefix book-simul-code/, main.cpp cache.h simul.h bottom.h damage.h in.h ko.h sift.h memo.h simul.h top.h)
 TYPEIMGS:=$(addprefix images/, $(addsuffix .png, $(TYPES)))
 
-web: $(WEBPAGES)
+web: $(addprefix $(WEB)/, $(FAVICON)) $(WEBPAGES)
+
+$(addprefix $(WEB)/, $(FAVICON)): $(addprefix $(WEBSRC)/favicon/, $(FAVICON))
+	@mkdir -p $(@D)
+	echo $@
+	cp -av $(addprefix $(WEBSRC)/favicon/, $(shell basename $@)) $(WEB)
 
 preview: $(PAPERBACK).pdf
 	$(PDFVIEW) $<
@@ -203,25 +216,28 @@ $(WEB)/$(CSS): $(WEBSRC)/$(CSS)
 	@mkdir -p $(@D)
 	ln -sf ../$< $@
 
-$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(OUT)/footer.html
+$(WEB)/index.html: $(WEBSRC)/index.html $(OUT)/navbar.html $(OUT)/footer.html $(WEBSRC)/head.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
+		-e '/^HEAD$$/ {' -e 'r $(WEBSRC)/head.html' -e 'd' -e '}' \
 		$< > $@
 
-$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(OUT)/footer.html
+$(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(OUT)/footer.html $(WEBSRC)/head.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
+		-e '/^HEAD$$/ {' -e 'r $(WEBSRC)/head.html' -e 'd' -e '}' \
 		-e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec $(SVGS)
 	@mkdir -p $(@D)
 	$(<) $(@D)
 
-$(WEB)/essay-%.html: $(WEBSRC)/essay-%.html $(OUT)/navbar.html $(OUT)/footer.html
+$(WEB)/essay-%.html: $(WEBSRC)/essay-%.html $(OUT)/navbar.html $(OUT)/footer.html $(WEBSRC)/head.html
 	@mkdir -p $(@D)
 	sed -e '/^BODYSTART$$/ {' -e 'r $(OUT)/navbar.html' -e 'd' -e '}' \
+		-e '/^HEAD$$/ {' -e 'r $(WEBSRC)/head.html' -e 'd' -e '}' \
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' $< > $@
 
 graphs: $(OUT)/makegraphs $(OPTSTATSRADARDAT) $(PACING) $(addsuffix .dat.html, $(addprefix $(OUT)/gmean, ML UL GL))
