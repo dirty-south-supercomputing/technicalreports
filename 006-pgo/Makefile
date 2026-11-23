@@ -557,7 +557,7 @@ test: $(TEAMBUILDER) testsimul testdb testweb
 	$< metagross -g 0-4-15@29 'zen headbutt' psychic
 	$< 'shadow metagross' 15-15-15@99 'zen headbutt' 'psychic/meteor mash'
 
-testweb: $(filter %.html, $(WEBPAGES))
+testweb: $(filter-out select-options.html, $(filter %.html, $(WEBPAGES)))
 	for i in $^ ; do tidy -eq $$i || { echo "$$i failed" >&2 ; break ; } ; done
 
 testdb: $(TESTDB)

@@ -548,16 +548,18 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
 // 3) fetch selectbox options on page load and insert them into page
 static void
 write_footer_scripts(std::ostream &fp, int pdir){
-  fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.assign(\"";
+  fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect');"
+"if(selectv.value !== \"\"){"
+"window.location.assign(\"";
   for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
-  fp << "mon/\" + selectv.value + \".html\"); }</script>" << std::endl;
-  fp << "<script>";
-  fp << "const selecte = document.getElementById('formselect');";
-  fp << "selecte.addEventListener(\"keydown\", function(e){";
-  fp << "if(e.key == \"Enter\"){ handlesearch(); } });";
-  fp << "fetch('";
+  fp << "mon/\" + selectv.value + \".html\"); }}</script>" << std::endl;
+  fp << "<script>"
+"const selecte = document.getElementById('formselect');"
+"selecte.addEventListener(\"keydown\", function(e){"
+"if(e.key == \"Enter\"){ handlesearch(); } });"
+"fetch('";
   for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
   }
@@ -1149,7 +1151,7 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   fp << "<th>HP</th>";
   fp << "<th>Gmean</th>";
   fp << "<th>%</th>";
-  auto gmax = sets[ivcount - 1].geommean;
+  auto spmax = sets[ivcount - 1].statprod();
   double sp = 0;
   do{
     const auto &st = sets[i];
@@ -1176,7 +1178,7 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
     fp << "<td>" << st.mhp << "</td>";
     fp << "<td>" << st.geommean << "</td>";
     std::setprecision(1);
-    fp << "<td>" << (st.geommean * 100 / gmax) << "</td>";
+    fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
     fp << "</tr>";
   }while(i-- > floor);
   fp << "</table></div>";
@@ -1256,18 +1258,7 @@ find_ivs_rank(const stats *sets, unsigned scount,
   throw std::exception();
 }
 
-// FIXME summary at top of the form Form is #XXX (YY.Y%) in GL (still need percentage)
-static void
-write_species_league_toprank(std::ostream &fp, unsigned hlevel, unsigned r){
-  fp << "<td>";
-  fp << "#" << r;
-  fp << " ";
-  emit_halflevel_as_level(fp, hlevel);
-  fp << "</td>";
-}
-
-static inline void
-html_icon(std::ostream &fp, const std::string &name, int pdir){
+void html_icon(std::ostream &fp, const std::string &name, int pdir){
   fp << "<img src=\"";
   for(int i = 0 ; i < pdir ; ++i){
     fp << "../";
@@ -1275,33 +1266,49 @@ html_icon(std::ostream &fp, const std::string &name, int pdir){
   fp << "images/" << name << ".png\" class=\"icon\" alt=\""<< name << "\"/>";
 }
 
-static int
-write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
-                         const famstats &fs, bool purified){
+static void
+write_species_league_toprank(std::ostream &fp, unsigned hlevel, const stats *s,
+                             unsigned ivcount, unsigned r, const char *league,
+                             bool purified){
+  fp << std::fixed << std::setprecision(2);
+  const stats &st = s[ivcount - r];
   fp << "<tr>";
   fp << "<td>";
-  species_with_icons(fp, *fs.s, true, 2);
+  species_with_icons(fp, *st.s, true, 2);
   if(purified){
     fp << " ";
     html_icon(fp, "purified", 2);
   }
   fp << "</td>";
+  fp << "<td>" << league << " #" << r << "</td>";
+  fp << "<td>";
+  emit_halflevel_as_level(fp, hlevel);
+  fp << "</td>";
+  fp << "<td>" << st.cp << "</td>";
+  fp << "<td>" << st.effa << "</td>";
+  fp << "<td>" << st.effd << "</td>";
+  fp << "<td>" << st.mhp << "</td>";
+  std::setprecision(1);
+  const auto spmax = s[ivcount - 1].statprod();
+  fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
+  fp << "</tr>";
+}
+
+static int
+write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
+                         const famstats &fs, bool purified){
   unsigned hlevel;
-  auto r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs, hlevel);
-  write_species_league_toprank(fp, hlevel, r);
+  unsigned r;
+  if(fs.mlivs){
+    r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel);
+    write_species_league_toprank(fp, hlevel, fs.mlivs, fs.mlivcount, r, "ML", purified);
+  }
   if(fs.ulivs){
     r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs, hlevel);
-    write_species_league_toprank(fp, hlevel, r);
-    if(fs.mlivs){
-      r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel);
-      write_species_league_toprank(fp, hlevel, r);
-    }else{
-      fp << "<td></td>";
-    }
-  }else{
-    fp << "<td></td><td></td>";
+    write_species_league_toprank(fp, hlevel, fs.ulivs, fs.ulivcount, r, "UL", purified);
   }
-  fp << "</tr>";
+  r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs, hlevel);
+  write_species_league_toprank(fp, hlevel, fs.glivs, fs.glivcount, r, "GL", purified);
   return 0;
 }
 
@@ -1320,7 +1327,7 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
   fp << "<h1>" << base.name << " family at " << iva << "-" << ivd << "-" << ivs << "</h1>" << std::endl;
   fp << "<table class=\"evenshade famsummary\">";
   fp << "<tr>";
-  fp << "<th/><th>Form</th><th>GL</th><th>UL</th><th>ML</th>";
+  fp << "<th/><th>Form</th><th>League</th><th>L</th><th>CP</th><th>Eff<sub>A</sub></th><th>Eff<sub>D</sub></th><th>HP</th><th>%</th>";
   fp << "</tr>";
   for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
     if(write_species_iv_summary(fp, iva, ivd, ivs, *f, false)){
@@ -1328,7 +1335,7 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   if(base.shadow){
-    fp << "<tr><td class=\"purifytitle\" colspan=\"5\">";
+    fp << "<tr><td class=\"purifytitle\" colspan=\"8\">";
     fp << "purifies to " << piva << "-" << pivd << "-" << pivs;
     fp << "</tr>";
   }
@@ -1365,6 +1372,9 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
 }
 
 // if encfam is not nullptr, we insert it into the target uri
+// if pvp_banned_p() is true, *don't include this*!
+// FIXME handle escape as reset
+// FIXME add overlay showing search keys thus far
 std::string ivsearchscript(const std::string *encfam){
   std::string r = "<script>"
 "const state = { terms: [ -1, -1, -1 ], idx: 0 };"
@@ -1389,13 +1399,10 @@ std::string ivsearchscript(const std::string *encfam){
   r += "state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
 "window.location.assign(ivuri);"
 "state.terms[0] = state.terms[1] = state.terms[2] = -1;"
-"}"
-"}"
-"}"
+"}}}"
 "state.idx = (state.idx + 1) % 3;"
 "state.terms[state.idx] = -1;"
-"}"
-"});"
+"}});"
 "</script>";
   return r;
 }
@@ -1404,6 +1411,7 @@ std::string ivsearchscript(const std::string *encfam){
 // must be shared across all the contexts. our files are per iv, though. so
 // we first get all the family members, then calculate all the ivsets, then
 // go about actually generating each file.
+// don't call for anything where pvp_banned_p() is true!
 int write_family_iv_pages(const species &base, const std::string &prefix){
   std::forward_list<species> store;
   std::vector<const species *> family;
