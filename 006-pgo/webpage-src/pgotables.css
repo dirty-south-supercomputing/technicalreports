@@ -56,8 +56,8 @@ hr {
   margin: 0;
 }
 
-/* a type icon as used among text */
-img.type { height: 1em; width: 1em; vertical-align: top; }
+/* an icon used among text */
+img.icon { height: 1em; width: 1em; vertical-align: top; }
 
 table.evenshade {
   border-collapse: collapse;

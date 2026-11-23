@@ -919,33 +919,8 @@ write_mon_page(const species &s){
   fp << std::setprecision(3);
   std::ostringstream encfamss;
   encode_name_uri(encfamss, get_base_evolution(s).name);
-  const std::string script = "<script>"
-"const state = { terms: [ -1, -1, -1 ], idx: 0 };"
-"document.addEventListener(\"keydown\", (event) => {"
-"num = parseInt(event.key, 10);"
-"if(!isNaN(num)){"
-"if(state.terms[state.idx] == -1){ state.terms[state.idx] = 0; }else{ state.terms[state.idx] %= 10; }"
-"state.terms[state.idx] *= 10;"
-"state.terms[state.idx] += num;"
-"}else{"
-"if(state.terms[0] >= 0 && state.terms[0] < 16){"
-"if(state.terms[1] >= 0 && state.terms[1] < 16){"
-"if(state.terms[2] >= 0 && state.terms[2] < 16){"
-"let i1 = (state.idx + 1) % 3;"
-"let i2 = (state.idx + 2) % 3;"
-"ivuri = '" + encfamss.str() +
-"-family/' + state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
-"window.location.assign(ivuri);"
-"state.terms[0] = state.terms[1] = state.terms[2] = -1;"
-"}"
-"}"
-"}"
-"state.idx = (state.idx + 1) % 3;"
-"state.terms[state.idx] = -1;"
-"}"
-"});"
-"</script>";
-  write_header(fp, s.name + " in Pokémon GO", script, true);
+  const auto encfam = encfamss.str();
+  write_header(fp, s.name + " in Pokémon GO", ivsearchscript(&encfam), true);
   fp << "<div id=\"monheader\">";
   std::ostringstream encuri;
   encode_name_uri(encuri, encname);
@@ -1062,11 +1037,11 @@ write_index(){
   fp << "Battle-only forms are not listed.</p>" << std::endl;
   fp << "<table id=\"allforms\">" << std::endl;
   fp << "<tr><th>Dex#</th><th/><th>Form</th><th>";
-  fp << "<img src=\"../images/shiny.png\" class=\"type\" alt=\"Shiny\"/>";
+  fp << "<img src=\"../images/shiny.png\" class=\"icon\" alt=\"Shiny\"/>";
   fp << "</th><th>";
-  fp << "<img src=\"../images/shadow.png\" class=\"type\" alt=\"Shadow\"/>";
+  fp << "<img src=\"../images/shadow.png\" class=\"icon\" alt=\"Shadow\"/>";
   fp << "</th><th>";
-  fp << "<img src=\"../images/dynamax.png\" class=\"type\" alt=\"Dynamax\"/>";
+  fp << "<img src=\"../images/dynamax.png\" class=\"icon\" alt=\"Dynamax\"/>";
   fp << "</th><th>Sprite</th></tr>" << std::endl;
   for(auto s = species_begin() ; s != species_end() ; ++s){
     if(write_summary(fp, *s)){

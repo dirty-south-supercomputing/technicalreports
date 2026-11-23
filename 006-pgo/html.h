@@ -116,7 +116,7 @@ html_type(std::ostream &fp, pgo_types_e t, int pdir){
     for(int i = 0 ; i < pdir ; ++i){
       fp << "../";
     }
-    fp << "images/" << tnames[t] << ".png\" class=\"type\" alt=\""<< tnames[t] << "\"/>";
+    fp << "images/" << tnames[t] << ".png\" class=\"icon\" alt=\""<< tnames[t] << "\"/>";
   }
 }
 
@@ -302,5 +302,10 @@ int raid_counters(std::ostream &fp, const species &s, bool pdir);
 std::string unique_mechanics(const std::string& name);
 
 int write_family_iv_pages(const species &base, const std::string &prefix);
+
+// javascript that hooks to keyboard events and, upon recognizing an IV,
+// loads the family IV page corresponding to the current page.
+// pass nullptr as encfam to remain in the current directory.
+std::string ivsearchscript(const std::string *encfam);
 
 #endif

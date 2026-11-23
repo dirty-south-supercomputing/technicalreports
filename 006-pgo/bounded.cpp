@@ -186,7 +186,7 @@ print_sol_set(stats *sols, float(*afxn)(const stats *s), bool html, bool configc
       if(printshadow){
         std::cout << " Shadow";
       }else{
-        std::cout << "<img src=\"images/shadow.png\" class=\"type\" alt=\"Shadow\" />";
+        std::cout << "<img src=\"images/shadow.png\" class=\"icon\" alt=\"Shadow\" />";
       }
     }else{
       printf("\\calign{\\includegraphics[height=1em,keepaspectratio]{images/shadow.png}}");
