@@ -65,7 +65,7 @@ static void emit_row(const timetofirst &t){
   std::cout << "<td>";
   attack_with_icon(std::cout, *t.s, t.fa, true, false);
   std::cout << " + ";
-  html_type(t.ca->type, false);
+  html_type(std::cout, t.ca->type, false);
   std::cout << "&nbsp;";
   std::string prefix, suffix;
   emit_html_attack_fancy(std::cout, *t.s, t.ca, prefix, suffix, true);

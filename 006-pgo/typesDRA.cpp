@@ -74,7 +74,7 @@ struct typing {
         std::cout << tras[i].size() << "<br/>";
         int x = 0;
         for(auto pt : tras[i]){
-          html_type(pt, false);
+          html_type(std::cout, pt, false);
           if(++x % 3 == 0){
             std::cout << "<br/>";
           }else{
