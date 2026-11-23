@@ -757,9 +757,11 @@ has_gmax(const species &s){
 
 static inline bool
 has_max_attack(const species &s){
-  if(has_dmax(s) || has_gmax(s)){
+  if(has_dmax(s)){
     return true;
   }
+  // don't use has_gmax() -- that's based on name lookup. an actual gmax
+  // species will have dmax set to GMAX_TIER and thus have already matched.
   if(s.name.contains("Crowned")){
     return true;
   }
