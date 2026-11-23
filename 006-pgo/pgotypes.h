@@ -428,7 +428,7 @@ static unsigned
 maxlevel_cp_bounded(const species &s, unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
   unsigned lastgood = 0;
   *cp = 0;
-  for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL_BASIC ; ++hl){
+  for(unsigned hl = s.category_min_level() ; hl <= MAX_HALFLEVEL_BASIC ; ++hl){
     int tmpc = calccp(atk, def, sta, hl);
     if(tmpc <= cpceil || cpceil <= 0){
       lastgood = hl;
@@ -436,9 +436,6 @@ maxlevel_cp_bounded(const species &s, unsigned atk, unsigned def, unsigned sta, 
     }else{
       break;
     }
-  }
-  if(lastgood < s.category_min_level()){
-    return 0;
   }
   return lastgood;
 }
