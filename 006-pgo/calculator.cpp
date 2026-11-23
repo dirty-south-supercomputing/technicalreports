@@ -81,34 +81,34 @@ void print_summary(const std::string& league, int cpbound, const species* s, uns
                    int ia, int id, int is){
   if(hlevel == 0){
     std::cout << "Cannot be used in " << league << std::endl;
-  }else{
-    std::cout << league << ": ";
-    print_hlevel_simple(hlevel);
-    auto effa = calc_eff_a(s->atk + ia, hlevel, shadow);
-    auto effd = calc_eff_d(s->def + id, hlevel, shadow);
-    auto mhp = calc_mhp(s->sta + is, hlevel);
-    std::cout << "\tcp: " << calccp(s->atk + ia, s->def + id, s->sta + is, hlevel);
-    std::cout << "\tatk: " << effa;
-    std::cout << "\tdef: " << effd;
-    std::cout << "\thp: " << mhp;
-    auto gmean = calc_gmean(effa, effd, mhp);
-    auto sprod = calc_sprod(effa, effd, mhp);
-    stats* st = find_optimal_set(*s, cpbound, 0, shadow, calc_pok_sprod);
-    if(!st){
-      std::cout << "\tgmean: " << gmean << std::endl;
-      return;
-    }
-    auto pct = sprod * 100 / st->statprod();
-    std::cout << "\tgmean: " << gmean << " (" << pct << "%)" << std::endl;
-    std::cout << " opt: ";
-    print_hlevel_simple(st->hlevel);
-    std::cout << " " << st->ia << "-" << st->id << "-" << st->is;
-    std::cout << "\tcp: " << st->cp;
-    std::cout << "\tatk: " << st->effa;
-    std::cout << "\tdef: " << st->effd;
-    std::cout << "\thp: " << st->mhp;
-    std::cout << "\tgmean: " << st->geommean << std::endl;
+    return;
   }
+  std::cout << league << ": ";
+  print_hlevel_simple(hlevel);
+  auto effa = calc_eff_a(s->atk + ia, hlevel, shadow);
+  auto effd = calc_eff_d(s->def + id, hlevel, shadow);
+  auto mhp = calc_mhp(s->sta + is, hlevel);
+  std::cout << "\tcp: " << calccp(s->atk + ia, s->def + id, s->sta + is, hlevel);
+  std::cout << "\tatk: " << effa;
+  std::cout << "\tdef: " << effd;
+  std::cout << "\thp: " << mhp;
+  auto gmean = calc_gmean(effa, effd, mhp);
+  auto sprod = calc_sprod(effa, effd, mhp);
+  stats* st = find_optimal_set(*s, cpbound, 0, shadow, calc_pok_sprod);
+  if(!st){
+    std::cout << "\tgmean: " << gmean << std::endl;
+    return;
+  }
+  auto pct = sprod * 100 / st->statprod();
+  std::cout << "\tgmean: " << gmean << " (" << pct << "%)" << std::endl;
+  std::cout << " opt: ";
+  print_hlevel_simple(st->hlevel);
+  std::cout << " " << st->ia << "-" << st->id << "-" << st->is;
+  std::cout << "\tcp: " << st->cp;
+  std::cout << "\tatk: " << st->effa;
+  std::cout << "\tdef: " << st->effd;
+  std::cout << "\thp: " << st->mhp;
+  std::cout << "\tgmean: " << st->geommean << std::endl;
 }
 
 // cp and ivs (as a group) are optional; if less than 0, they are not used.
