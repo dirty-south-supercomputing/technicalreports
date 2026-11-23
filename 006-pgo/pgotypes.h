@@ -37,6 +37,9 @@ constexpr unsigned MAXBATTLE_TIER5_MHP = 17000;
 // (aren't guaranteed exact representation with floats)
 static inline unsigned
 halflevel_to_level(unsigned hl, unsigned* half){
+  if(hl == 0){
+    throw std::invalid_argument("bad halflevel");
+  }
   *half = !(hl % 2);
   return (hl + 1) / 2;
 }
@@ -236,6 +239,18 @@ struct stats {
 
   stats() :
     s(nullptr),
+    hlevel(0),
+    ia(0),
+    id(0),
+    is(0),
+    effa(0),
+    effd(0),
+    mhp(0),
+    cp(0),
+    average(0),
+    geommean(0),
+    apercent(0),
+    shadow(false),
     next(nullptr)
   {
   }
@@ -261,14 +276,11 @@ struct stats {
   }
 
   stats(const species *S, unsigned Hlevel, unsigned IA, unsigned ID, unsigned IS, bool Shadow) :
-    s(S),
-    hlevel(Hlevel),
-    ia(IA),
-    id(ID),
-    is(IS),
-    shadow(Shadow)
+    stats()
   {
-    init(S, Hlevel, IA, ID, IS, Shadow);
+    if(Hlevel != 0){
+      init(S, Hlevel, IA, ID, IS, Shadow);
+    }
   }
 
   double bulk() const {
@@ -413,7 +425,7 @@ calc_eff_power_nx1(const species &s, const attack* a){
 
 // FIXME binary search on it
 static unsigned
-maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
+maxlevel_cp_bounded(const species &s, unsigned atk, unsigned def, unsigned sta, int cpceil, int *cp){
   unsigned lastgood = 0;
   *cp = 0;
   for(unsigned hl = 1 ; hl <= MAX_HALFLEVEL_BASIC ; ++hl){
@@ -424,6 +436,9 @@ maxlevel_cp_bounded(unsigned atk, unsigned def, unsigned sta, int cpceil, int *c
     }else{
       break;
     }
+  }
+  if(lastgood < s.category_min_level()){
+    return 0;
   }
   return lastgood;
 }
@@ -558,7 +573,10 @@ find_optimal_set(const species &s, int cpceil, double floor, bool isshadow, doub
     for(int ivd = 0 ; ivd < 16 ; ++ivd){
       for(int ivs = 0 ; ivs < 16 ; ++ivs){
         int cp;
-        unsigned hl = maxlevel_cp_bounded(s.atk + iva, s.def + ivd, s.sta + ivs, cpceil, &cp);
+        unsigned hl = maxlevel_cp_bounded(s, s.atk + iva, s.def + ivd, s.sta + ivs, cpceil, &cp);
+        if(hl == 0){
+          continue;
+        }
         if(update_optset(&optsets, s, iva, ivd, ivs, hl, floor, &minfit, isshadow, fitfxn) < 0){
           return nullptr;
         }
@@ -1109,9 +1127,9 @@ lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
       return -1;
     }
     if(strcmp(ivl, "gl") == 0){
-      s->hlevel = maxlevel_cp_bounded(sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, GLCPCAP, &cp);
+      s->hlevel = maxlevel_cp_bounded(sp, sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, GLCPCAP, &cp);
     }else if(strcmp(ivl, "ul") == 0){
-      s->hlevel = maxlevel_cp_bounded(sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, ULCPCAP, &cp);
+      s->hlevel = maxlevel_cp_bounded(sp, sp.atk + s->ia, sp.def + s->id, sp.sta + s->is, ULCPCAP, &cp);
     }else{
       char *endptr;
       s->hlevel = strtoul(ivl, &endptr, 10);
@@ -1121,6 +1139,10 @@ lex_ivlevel(const char* ivl, stats* s, const species &sp, bool shadow){
           return -1;
         }
         ++endptr;
+      }
+      if(s->hlevel == 0){
+        fprintf(stderr, "%s is not usable with these ivs\n", sp.name.c_str());
+        return -1;
       }
     }
   }else{
