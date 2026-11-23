@@ -435,6 +435,9 @@ write_max_atk_users(std::ostream &fp, pgo_types_e type){
       if(!fast_attack_p(*sa)){
         continue;
       }
+      if(sa->type != type){
+        continue;
+      }
       bool stab = has_stab_raw_p(*s, type);
       write_atk_user(fp, s->name, printed, false, stab);
       break;
