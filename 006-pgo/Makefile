@@ -17,7 +17,6 @@ CIRCO:=$(addprefix circo/, $(addsuffix .dot, dragon nature phases rational steel
 DOT:=$(addprefix dot/, $(addsuffix .dot, death jumble))
 PDFVIEW:=okular
 PDF:=$(addsuffix .pdf, $(PAPERBACK))
-MAKEFILE:=Makefile
 WEB:=webpage
 WEBSRC:=$(WEB)-src
 WEBIMG:=$(WEB)/images
@@ -207,10 +206,10 @@ $(OPTSTATSRADARDAT): $(OUT)/optstatsradar
 	@mkdir -p $(@D)
 	$< > $@
 
-$(PAPERBACK).pdf: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT) $(TYPEIMGS)
+$(PAPERBACK).pdf: $(TEX) $(GRAPHS) $(GENTEX) $(PAPERBACK).toc $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
-$(PAPERBACK).toc: $(TEX) $(MAKEFILE) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
+$(PAPERBACK).toc: $(TEX) $(GRAPHS) $(GENTEX) $(COPYRIGHT) $(TYPEIMGS)
 	$(TEXCC) --shell-escape -jobname=$(basename $(@F)) '\def\paperback{yes}\input{$(<F)}' $(TEXOPTS)
 
 $(WEB)/$(CSS): $(WEBSRC)/$(CSS)
