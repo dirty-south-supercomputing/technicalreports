@@ -1030,14 +1030,18 @@ const std::vector<std::string> &battle_forms(const species &s){
 unsigned species::category_min_level(void) const {
   switch(category){
     case CAT_MYTHICAL:
+      if(name == "Meltan" || name == "Melmetal"){
+        return 1;
+      }
+      // otherwise, fall through
     case CAT_LEGENDARY:
     case CAT_FUSION:
     case CAT_CROWNED:
     case CAT_ULTRABEAST:
       // if the shadow form is available, it could have been obtained from
-      // Giovanni at level 6
+      // Giovanni at level 8
       if(shadow){
-        return 11;
+        return 15;
       }
       return 29; // level 15
     case CAT_MEGA:{
