@@ -986,6 +986,9 @@ unsigned max_battle_mhp(const species &s){
     default:
             break;
   }
+  if(s.name.contains("Crowned") || s.name == "Eternatus"){
+    return 60000;
+  }
   throw std::invalid_argument("bad tier");
 }
 
