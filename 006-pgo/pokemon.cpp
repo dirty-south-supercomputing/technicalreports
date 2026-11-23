@@ -1966,7 +1966,9 @@ static const std::vector<species> sdex = {
 		true, true, 0, { &ATK_Shadow_Ball, }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0, {}, },
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt",
 		{ &ATK_Powder_Snow, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Avalanche, &ATK_Crunch, &ATK_Triple_Axel, },
-		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0, {}, },
+		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0,
+    // FIXME verify stats and mega cost
+    { { "Mega Froslass", TYPE_ICE, TYPE_GHOST, 289, 194, 172, 200, nullptr, }, }, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, "",
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
 		true, false, 0, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
@@ -2175,8 +2177,7 @@ static const std::vector<species> sdex = {
   {  531, "Audino", TYPE_NORMAL, TYPECOUNT, 114, 163, 230, "",
 		{ &ATK_Pound, &ATK_Zen_Headbutt, &ATK_Charge_Beam, &ATK_Hyper_Beam, &ATK_Disarming_Voice, &ATK_Dazzling_Gleam, &ATK_Body_Slam, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
-    // gets Draining Kiss+
-    { { "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, nullptr, }, }, },
+    { { "Mega Audino", TYPE_NORMAL, TYPE_FAIRY, 147, 239, 230, 200, &ATK_Draining_Kiss_Plus, }, }, },
   // the muscular
   {  532, "Timburr", TYPE_FIGHTING, TYPECOUNT, 134, 87, 181, "",
 		{ &ATK_Low_Kick, &ATK_Pound, &ATK_Low_Sweep, &ATK_Rock_Tomb, &ATK_Brick_Break, },
@@ -3272,7 +3273,9 @@ static const std::vector<species> sdex = {
   // the placid
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, "",
 		{ &ATK_Dragon_Breath, &ATK_Extrasensory, &ATK_Dragon_Pulse, &ATK_Swift, &ATK_Outrage, &ATK_Fly, },
-		true, false, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // FIXME confirm stats, necessary mega energy
+    { { "Mega Drampa", TYPE_NORMAL, TYPE_DRAGON, 278, 210, 186, 200, nullptr, }, }, },
   // the sea creeper
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, "",
 		{ &ATK_Shadow_Claw, &ATK_Astonish, &ATK_Metal_Sound, &ATK_Brutal_Swing, &ATK_Wrap, &ATK_Shadow_Ball, &ATK_Power_Whip, &ATK_Heavy_Slam, },
