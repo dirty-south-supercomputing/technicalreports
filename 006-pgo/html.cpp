@@ -1297,6 +1297,9 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
 // call with the base member of the family. we'll handle all upwards transitions.
 int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
                           const std::vector<famstats> &fstats){
+  const auto piva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
+  const auto pivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
+  const auto pivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
   fp << "<h1>" << base.name << " family at " << iva << "-" << ivd << "-" << ivs << "</h1>" << std::endl;
   fp << "<table class=\"evenshade famsummary\">";
   fp << "<tr>";
@@ -1308,9 +1311,11 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   if(base.shadow){
-    auto piva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
-    auto pivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
-    auto pivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+    fp << "<tr><td class=\"purifytitle\" colspan=\"5\">";
+    fp << "purifies to " << piva << "-" << pivd << "-" << pivs;
+    fp << "</tr>";
+  }
+  if(base.shadow){
     for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
       if(write_species_iv_summary(fp, piva, pivd, pivs, *f, true)){
         return -1;
@@ -1358,12 +1363,13 @@ std::string ivsearchscript(const std::string *encfam){
 "if(state.terms[2] >= 0 && state.terms[2] < 16){"
 "let i1 = (state.idx + 1) % 3;"
 "let i2 = (state.idx + 2) % 3;"
-"ivuri = '";
+"ivuri = ";
   if(encfam){
+    r += "'";
     r += *encfam;
-    r += "-family/'";
+    r += "-family/' + ";
   }
-  r += " + state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
+  r += "state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
 "window.location.assign(ivuri);"
 "state.terms[0] = state.terms[1] = state.terms[2] = -1;"
 "}"
@@ -1402,6 +1408,8 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
     ".famsummary tr>:nth-child(1) { text-align: center; }"
     ".famsummary tr>:nth-child(2) { text-align: left; }"
     ".famsummary tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; }"
+    ".titlecontainer { max-width: fit-content; }"
+    ".purifytitle { font-weight: bold; text-align: center; }"
     "</style>";
   for(int iva = 0 ; iva <= MAXIVELEM ; ++iva){
     for(int ivd = 0 ; ivd <= MAXIVELEM ; ++ivd){
