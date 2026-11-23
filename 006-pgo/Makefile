@@ -39,6 +39,7 @@ WEBPAGES:=$(addprefix $(WEB)/, $(CSS) \
 						effectiveness listTTF gmax megas mythicals \
 						walkevol regional cpms evolhetero \
 						essay-ivs essay-max essay-megas-gbl essay-calcs \
+						select-options \
 						$(addsuffix Nx1, chargedattackshtml fastattacks) \
 						$(addsuffix 3x3, chargedattackshtml fastattacks) \
 						$(addsuffix ML, list functional cp amean gmean atk def mhp bulk) \
@@ -229,6 +230,10 @@ $(WEB)/%.html: $(OUT)/%.html $(WEBSRC)/%.html $(OUT)/navbar.html $(OUT)/footer.h
 		-e '/^FOOTER$$/ {' -e 'r $(OUT)/footer.html' -e 'd' -e '}' \
 		-e '/^HEAD$$/ {' -e 'r $(WEBSRC)/head.html' -e 'd' -e '}' \
 		-e '/^SUBST$$/ {' -e 'r $<' -e 'd' -e '}' $(WEBSRC)/$*.html > $@
+
+$(WEB)/select-options.html: $(OUT)/navbar
+	@mkdir -p $(@D)
+	$< -s > $@
 
 $(WEB)/mon/index.html: $(OUT)/wspec $(SVGS)
 	@mkdir -p $(@D)
