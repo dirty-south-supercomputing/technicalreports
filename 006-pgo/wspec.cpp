@@ -47,7 +47,7 @@ write_iv_summary(std::ostream &fp, const struct stats *sets, unsigned ivcount){
     if(lmax < st.hlevel){
       lmax = st.hlevel;
     }
-    if(lmin > st.hlevel){
+    if(lmin > st.hlevel && st.hlevel){
       lmin = st.hlevel;
     }
     update_tristats(gmean, st.geommean);
@@ -81,13 +81,18 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
                const char *leagueshort, int cpbound){
   unsigned ivcount;
   auto sets = order_ivs(s, cpbound, statscmp_sprod, &ivcount, false);
+  auto bpmax = sets[ivcount - 1].statprod();
+  unsigned idx = ivcount - 1;
+  int sprank = 1;
+  if(bpmax == 0){
+    return true;
+  }
   fp << "<h2>" << league << "</h2>" << std::endl;
   write_iv_graphrefs(fp, s, leagueshort);
   fp << "<h3>IVs ordered by geometric mean</h3>" << std::endl;
   write_iv_summary(fp, sets, ivcount);
   fp << "<details class=\"monivcontainer\"><summary>expand table</summary>" << std::endl;
-  fp << "<table class=\"evenshade monivs\">" << std::endl;
-  fp << "<tr>";
+  fp << "<table class=\"evenshade monivs\">" << std::endl; fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
   fp << "<th>Eff<sub>A</sub></th>";
   fp << "<th>Eff<sub>D</sub></th>";
@@ -95,12 +100,16 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
   fp << "<th>Gmean</th>";
   fp << "<th>%</th>";
   fp << "</tr>";
-  auto bpmax = sets[ivcount - 1].statprod();
-  unsigned idx = ivcount - 1;
-  int sprank = 1;
   bool ret = false;
   do{
     const stats &st = sets[idx];
+    if(st.hlevel == 0){
+      ret = true;
+      if(idx-- == 0){
+        break;
+      }
+      continue;
+    }
     // we want all ties in a single row of the table, so count up ties first.
     double sp = st.statprod();
     unsigned tieorder = 1;
@@ -154,7 +163,7 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
     }
     fp << "</td>";
     fp << "<td>" << st.geommean << "</td>";
-    std::setprecision(1);
+    fp << std::setprecision(4);
     fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
     fp << "</tr>" << std::endl;
     if(idx == tieorder - 1){
