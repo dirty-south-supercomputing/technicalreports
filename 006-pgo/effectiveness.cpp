@@ -29,7 +29,7 @@ int main(){
   std::cout << "<th></th>";
   for(pgo_types_e t = TYPESTART ; t < TYPECOUNT ; ++t){
     std::cout << "<th>";
-    html_type(t, false);
+    html_type(std::cout, t, false);
     std::cout << "</th>";
   }
   std::cout << "</tr>" << std::endl;

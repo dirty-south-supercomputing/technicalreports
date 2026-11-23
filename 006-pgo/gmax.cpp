@@ -16,7 +16,7 @@ int main(){
     std::cout << "<td>";
     species_with_icons(std::cout, gs, true, false);
     std::cout << "</td><td>";
-    html_type(gm->type, false);
+    html_type(std::cout, gm->type, false);
     std::cout << ' ';
     link_to_attack(std::cout, gm->name, true, false);
     std::cout << "</td>";
