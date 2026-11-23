@@ -2796,16 +2796,16 @@ static const std::vector<species> sdex = {
   // the restraint
   {  677, "Espurr", TYPE_PSYCHIC, TYPECOUNT, 120, 114, 158, "",
 		{ &ATK_Scratch, &ATK_Confusion, &ATK_Psyshock, &ATK_Psychic, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, 2, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // the constraint
   {  678, "Meowstic Male", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Sucker_Punch, &ATK_Confusion, &ATK_Thunderbolt, &ATK_Psychic, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
     // mega meowstic is planned with Psychic+
     {}, },
   {  678, "Meowstic Female", TYPE_PSYCHIC, TYPECOUNT, 166, 167, 179, "Espurr",
 		{ &ATK_Charm, &ATK_Confusion, &ATK_Magical_Leaf, &ATK_Shadow_Ball, &ATK_Psychic, &ATK_Energy_Ball, },
-		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
+		true, false, UINT_MAX, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0, {}, },
   // the sword
   {  679, "Honedge", TYPE_STEEL, TYPE_GHOST, 135, 139, 128, "",
 		{ &ATK_Fury_Cutter, &ATK_Tackle, &ATK_Iron_Head, &ATK_Gyro_Ball, },
