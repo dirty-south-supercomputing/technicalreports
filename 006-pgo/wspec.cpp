@@ -157,8 +157,11 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
     std::setprecision(1);
     fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
     fp << "</tr>" << std::endl;
+    if(idx == tieorder - 1){
+      break;
+    }
     idx -= tieorder;
-  }while(idx);
+  }while(1);
   fp << "</table></details>" << std::endl;
   delete[] sets;
   //fp << "<img class=\"cmpgraph\" type=\"image/svg+xml\" width=\"100\" heigh=\"800\" src=\"graphs/cmp" << leagueshort << ".svg\"/>";
@@ -877,7 +880,7 @@ write_counters(std::ostream &fp, const species &s){
   fp << "<h3>best Max attackers</h3>" << std::endl;
   max_counters(fp, s, true);
   fp << "</div><div>";
-  if(s.dmax){
+  if(has_max_attack(s)){
     fp << "<h3>best Max tanks</h3>" << std::endl;
     max_tank_counters(fp, s, true);
     fp << "</div><div>";
@@ -917,10 +920,14 @@ write_mon_page(const species &s){
     return -1;
   }
   fp << std::setprecision(3);
-  std::ostringstream encfamss;
-  encode_name_uri(encfamss, get_base_evolution(s).name);
-  const auto encfam = encfamss.str();
-  write_header(fp, s.name + " in Pokémon GO", ivsearchscript(&encfam), true);
+  std::string script;
+  if(!pvp_banned_p(s)){
+    std::ostringstream encfamss;
+    encode_name_uri(encfamss, get_base_evolution(s).name);
+    const auto encfam = encfamss.str();
+    script = ivsearchscript(&encfam);
+  }
+  write_header(fp, s.name + " in Pokémon GO", script, true);
   fp << "<div id=\"monheader\">";
   std::ostringstream encuri;
   encode_name_uri(encuri, encname);
@@ -1051,8 +1058,10 @@ write_index(){
       return -1;
     }
     if(s->from.empty()){
-      if(write_family_ivpages(*s)){
-        return -1;
+      if(!pvp_banned_p(*s)){
+        if(write_family_ivpages(*s)){
+          return -1;
+        }
       }
     }
   }
