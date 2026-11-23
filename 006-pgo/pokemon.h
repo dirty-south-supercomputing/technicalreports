@@ -506,6 +506,8 @@ static const attack ATK_Drain_Punch{ "Drain Punch", TYPE_FIGHTING, 40, -40, 0, 0
 	50, 33, 5, false, };
 static const attack ATK_Draining_Kiss{ "Draining Kiss", TYPE_FAIRY, 80, -55, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
 	60, 50, 5, false, };
+static const attack ATK_Draining_Kiss_Plus{ "Draining Kiss+", TYPE_FAIRY, 80, -55, 0, 0, 1000, 0, 0, 0, 1, 0, 0,
+	145, 100, 5, false, };
 static const attack ATK_Drill_Peck{ "Drill Peck", TYPE_FLYING, 70, -40, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	70, 33, 5, false, };
 static const attack ATK_Drill_Peck_Plus{ "Drill Peck+", TYPE_FLYING, 60, -35, 0, 0, 0, 0, 0, 0, 0, 0, 0,
