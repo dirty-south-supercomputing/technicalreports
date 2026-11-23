@@ -109,20 +109,13 @@ void attack_with_icon(std::ostream &fp, const species &s, const attack *a,
 // and then the species name with link.
 void species_with_icons(std::ostream &fp, const species &s, bool closetd, int pdir);
 
+void html_icon(std::ostream &fp, const std::string &name, int pdir);
+
 static inline void
 html_type(std::ostream &fp, pgo_types_e t, int pdir){
   if(t != TYPECOUNT){
-    fp << "<img src=\"";
-    for(int i = 0 ; i < pdir ; ++i){
-      fp << "../";
-    }
-    fp << "images/" << tnames[t] << ".png\" class=\"icon\" alt=\""<< tnames[t] << "\"/>";
+    html_icon(fp, tnames[t], pdir);
   }
-}
-
-static inline void
-html_type(pgo_types_e t, int pdir){
-  html_type(std::cout, t, pdir);
 }
 
 // emit the symbols for some typing. nothing is shown for TYPECOUNT, and
