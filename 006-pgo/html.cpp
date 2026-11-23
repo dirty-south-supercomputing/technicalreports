@@ -13,6 +13,15 @@ emit_option(std::ostream &fp, const std::string &value){
   fp << "</option>";
 }
 
+void write_navbar_selectopts(std::ostream &fp){
+  for(auto s = species_begin() ; s != species_end() ; ++s){
+    emit_option(fp, s->name);
+    for(const auto &m : s->mforms){
+      emit_option(fp, m.name);
+    }
+  }
+}
+
 void write_navbar(std::ostream &fp, int pdir){
   fp << "<nav><ul>" << std::endl;
   fp << "<li><a href=\"";
@@ -27,12 +36,8 @@ void write_navbar(std::ostream &fp, int pdir){
   fp << "mon/index.html\">forms</a></li>" << std::endl;
   fp << "<li class=\"inputgroup\">";
   fp << "<select id=\"formselect\" autofocus>";
-  for(auto s = species_begin() ; s != species_end() ; ++s){
-    emit_option(fp, s->name);
-    for(const auto &m : s->mforms){
-      emit_option(fp, m.name);
-    }
-  }
+  // we populate the select box with javascript to avoid writing/sending
+  // the relevant 40k with every page
   fp << "</select>" << std::endl;
   // implemented by javascript following the footer. we also listen for enter there.
   fp << "<button type=\"button\" onclick=\"handlesearch()\">go</button></li>";
@@ -69,7 +74,7 @@ html_wname(std::ostream &fp, const std::string &wname, bool pdir){
   }
   fp << "images/";
   encode_name_uri(fp, wname);
-  fp << "-icon.png\" class=\"type\" alt=\""<< wname << "\"/>";
+  fp << "-icon.png\" class=\"icon\" alt=\"" << wname << "\"/>";
 }
 
 void html_weather(std::ostream &fp, pgo_weather_t w, bool pdir){
@@ -538,6 +543,9 @@ void calctimetosNx1(std::vector<timetofirst> &ttfs, const species &s, bool addre
   }
 }
 
+// 1) handle enter to execute selectbox
+// 2) handle button press to execute selectbox
+// 3) fetch selectbox options on page load and insert them into page
 static void
 write_footer_scripts(std::ostream &fp, int pdir){
   fp << "<script>function handlesearch(){ const selectv = document.getElementById('formselect'); window.location.assign(\"";
@@ -548,7 +556,16 @@ write_footer_scripts(std::ostream &fp, int pdir){
   fp << "<script>";
   fp << "const selecte = document.getElementById('formselect');";
   fp << "selecte.addEventListener(\"keydown\", function(e){";
-  fp << "if(e.key == \"Enter\"){ handlesearch(); } })";
+  fp << "if(e.key == \"Enter\"){ handlesearch(); } });";
+  fp << "fetch('";
+  for(int i = 0 ; i < pdir ; ++i){
+    fp << "../";
+  }
+  fp <<
+"select-options.html')"
+".then(response => response.text())"
+".then(html => { selecte.insertAdjacentHTML('beforeEnd', html); })"
+".catch(error => console.error(\"error loading search options: \", error));";
   fp << "</script>" << std::endl;
 }
 
