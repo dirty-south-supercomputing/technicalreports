@@ -1215,7 +1215,9 @@ write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats
 }
 
 static unsigned
-find_ivs_rank(const stats *sets, unsigned scount, unsigned iva, unsigned ivd, unsigned ivs){
+find_ivs_rank(const stats *sets, unsigned scount,
+              unsigned iva, unsigned ivd, unsigned ivs,
+              unsigned &hlevel){
   unsigned srank = 0;
   double bp = 0;
   unsigned bpsame = 1;
@@ -1230,37 +1232,58 @@ find_ivs_rank(const stats *sets, unsigned scount, unsigned iva, unsigned ivd, un
       ++bpsame;
     }
     if(st.ia == iva && st.id == ivd && st.is == ivs){
+      hlevel = st.hlevel;
       return srank;
     }
   }
   throw std::exception();
 }
 
+// FIXME summary at top of the form Form is #XXX (YY.Y%) in GL (still need percentage)
+static void
+write_species_league_toprank(std::ostream &fp, unsigned hlevel, unsigned r){
+  fp << "<td>";
+  fp << "#" << r;
+  fp << " ";
+  emit_halflevel_as_level(fp, hlevel);
+  fp << "</td>";
+}
+
+static inline void
+html_icon(std::ostream &fp, const std::string &name, int pdir){
+  fp << "<img src=\"";
+  for(int i = 0 ; i < pdir ; ++i){
+    fp << "../";
+  }
+  fp << "images/" << name << ".png\" class=\"icon\" alt=\""<< name << "\"/>";
+}
+
 static int
-write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
+write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
+                         const famstats &fs, bool purified){
   fp << "<tr>";
   fp << "<td>";
   species_with_icons(fp, *fs.s, true, 2);
+  if(purified){
+    fp << " ";
+    html_icon(fp, "purified", 2);
+  }
   fp << "</td>";
-  fp << "<td>";
-  auto r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs);
-  fp << "#" << r;
-  fp << "</td>";
-  fp << "<td>";
+  unsigned hlevel;
+  auto r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs, hlevel);
+  write_species_league_toprank(fp, hlevel, r);
   if(fs.ulivs){
-    r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs);
-    fp << "#" << r;
-    fp << "</td>";
-    fp << "<td>";
+    r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs, hlevel);
+    write_species_league_toprank(fp, hlevel, r);
     if(fs.mlivs){
-      r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs);
-      fp << "#" << r;
+      r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel);
+      write_species_league_toprank(fp, hlevel, r);
+    }else{
+      fp << "</td><td>";
     }
-  // FIXME summary at top of the form Form is #XXX (YY.Y%) in GL
   }else{
     fp << "</td><td>";
   }
-  fp << "</td>";
   fp << "</tr>";
   return 0;
 }
@@ -1279,11 +1302,18 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
   fp << "<tr>";
   fp << "<th/><th>Form</th><th>GL</th><th>UL</th><th>ML</th>";
   fp << "</tr>";
-  for(const auto &f : fstats){
-    if(write_species_iv_summary(fp, iva, ivd, ivs, f)){
+  for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
+    if(write_species_iv_summary(fp, iva, ivd, ivs, *f, false)){
       return -1;
     }
-    // FIXME shadow information
+    if(base.shadow){
+      auto piva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
+      auto pivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
+      auto pivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+      if(write_species_iv_summary(fp, piva, pivd, pivs, *f, true)){
+        return -1;
+      }
+    }
   }
   fp << "</table>" << std::endl;
   for(const auto &f : fstats){
@@ -1308,6 +1338,41 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   return 0;
+}
+
+// if encfam is not nullptr, we insert it into the target uri
+std::string ivsearchscript(const std::string *encfam){
+  std::string r = "<script>"
+"const state = { terms: [ -1, -1, -1 ], idx: 0 };"
+"document.addEventListener(\"keydown\", (event) => {"
+"num = parseInt(event.key, 10);"
+"if(!isNaN(num)){"
+"if(state.terms[state.idx] == -1){ state.terms[state.idx] = 0; }else{ state.terms[state.idx] %= 10; }"
+"state.terms[state.idx] *= 10;"
+"state.terms[state.idx] += num;"
+"}else{"
+"if(state.terms[0] >= 0 && state.terms[0] < 16){"
+"if(state.terms[1] >= 0 && state.terms[1] < 16){"
+"if(state.terms[2] >= 0 && state.terms[2] < 16){"
+"let i1 = (state.idx + 1) % 3;"
+"let i2 = (state.idx + 2) % 3;"
+"ivuri = '";
+  if(encfam){
+    r += *encfam;
+    r += "-family/'";
+  }
+  r += " + state.terms[i1] + '-' + state.terms[i2] + '-' + state.terms[state.idx] + '.html';"
+"window.location.assign(ivuri);"
+"state.terms[0] = state.terms[1] = state.terms[2] = -1;"
+"}"
+"}"
+"}"
+"state.idx = (state.idx + 1) % 3;"
+"state.terms[state.idx] = -1;"
+"}"
+"});"
+"</script>";
+  return r;
 }
 
 // we only want to build up the iv tables once per league per form, so they
@@ -1346,7 +1411,7 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
           return -1;
         }
         std::string title = base.name + " at " + std::to_string(iva) + "-" + std::to_string(ivd) + "-" + std::to_string(ivs);
-        write_header(fp, title, style, 2);
+        write_header(fp, title, ivsearchscript(nullptr) + style, 2);
         if(write_family_iv_page(fp, base, iva, ivd, ivs, fstats)){
           return -1;
         }
