@@ -41,6 +41,11 @@ nav ul, nav select, nav button {
   flex-wrap: wrap;
 }
 
+/* if our fetch() fails for whatever reason */
+nav select {
+  min-width: 10em;
+}
+
 nav ul li {
   list-style: none;
   display: flex;
