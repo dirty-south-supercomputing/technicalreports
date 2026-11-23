@@ -1008,6 +1008,7 @@ const std::vector<std::string> &battle_forms(const species &s){
   static const std::vector<std::string> cramorant_forms{ "Cramorant Gulping", "Cramorant Gorging" };
   static const std::vector<std::string> aegislash_forms{ "Aegislash Sword" };
   static const std::vector<std::string> morpeko_forms{ "Morpeko Hangry" };
+  static const std::vector<std::string> minior_forms{ "Minior Core" };
 
   if(s.name == "Cramorant"){
     return cramorant_forms;
@@ -1015,6 +1016,8 @@ const std::vector<std::string> &battle_forms(const species &s){
     return aegislash_forms;
   }else if(s.name == "Morpeko"){
     return morpeko_forms;
+  }else if(s.name == "Minior"){
+    return minior_forms;
   } // FIXME there are others
   return empty_forms;
 }
