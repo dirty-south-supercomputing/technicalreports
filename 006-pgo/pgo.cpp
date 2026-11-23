@@ -894,8 +894,10 @@ void generate_ivs_maxlevel(const species &s, int cpceil, stats *svec, bool shado
         const unsigned moda = s.atk + iva;
         const unsigned modd = s.def + ivd;
         const unsigned mods = s.sta + ivs;
-        auto hlevel = maxlevel_cp_bounded(moda, modd, mods, cpceil, &st.cp);
-        st.init(&s, hlevel, iva, ivd, ivs, shadow);
+        auto hlevel = maxlevel_cp_bounded(s, moda, modd, mods, cpceil, &st.cp);
+        if(hlevel){
+          st.init(&s, hlevel, iva, ivd, ivs, shadow);
+        }
         ++idx;
       }
     }
@@ -1023,4 +1025,21 @@ const std::vector<std::string> &battle_forms(const species &s){
     return minior_forms;
   } // FIXME there are others
   return empty_forms;
+}
+
+unsigned species::category_min_level(void) const {
+  switch(category){
+    case CAT_MYTHICAL:
+    case CAT_LEGENDARY:
+    case CAT_FUSION:
+    case CAT_CROWNED:
+    case CAT_ULTRABEAST:
+      return 29; // level 15
+    case CAT_MEGA:{
+      auto s = lookup_species(from);
+      return s->category_min_level();
+    }
+    default:
+      return 1;
+  }
 }
