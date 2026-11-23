@@ -8,6 +8,9 @@ functional_hundos(int cplimit, int cpthresh){
   for(auto s = species_begin() ; s != species_end() ; ++s){
     // find the optimal configs subject to cplimit
     auto st = find_optimal_set(*s, cplimit, 0, false, calc_pok_sprod);
+    if(!st){
+      continue;
+    }
     auto statprod = st->statprod();
     auto tmp = st->next;
     if(tmp && calc_pok_cp(st) > cpthresh){
