@@ -1074,7 +1074,7 @@ struct famstats {
     bool found = false;
     glivs = order_ivs(*s, GLCPCAP, statscmp_sprod, &glivcount, false);
     for(unsigned i = 0 ; i < glivcount ; ++i){
-      if(glivs[i].cp >= GLCPCAP){
+      if(glivs[i].hlevel < MAX_HALFLEVEL_BASIC || glivs[i].hlevel == 0){
         found = true;
         break;
       }
@@ -1083,7 +1083,7 @@ struct famstats {
       ulivs = order_ivs(*s, ULCPCAP, statscmp_sprod, &ulivcount, false);
       found = false;
       for(unsigned i = 0 ; i < ulivcount ; ++i){
-        if(ulivs[i].cp >= ULCPCAP){
+        if(ulivs[i].hlevel < MAX_HALFLEVEL_BASIC || ulivs[i].hlevel == 0){
           found = true;
           break;
         }
@@ -1158,13 +1158,13 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   fp << "<th>%</th>";
   auto spmax = sets[ivcount - 1].statprod();
   double sp = 0;
+  fp << std::fixed << std::setprecision(2);
   do{
     const auto &st = sets[i];
     if(st.hlevel == 0){
       continue;
     }
     auto irank = ivcount - i; // FIXME this is wrong!
-    fp << std::fixed << std::setprecision(2);
     fp << "<tr>";
     if(st.statprod() == sp){
       fp << "<td></td>";
@@ -1185,7 +1185,6 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
     fp << "<td>" << st.effd << "</td>";
     fp << "<td>" << st.mhp << "</td>";
     fp << "<td>" << st.geommean << "</td>";
-    fp << std::setprecision(4);
     fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
     fp << "</tr>";
   }while(i-- > floor);
@@ -1300,7 +1299,6 @@ write_species_league_toprank(std::ostream &fp, unsigned hlevel, const stats *s,
   fp << "<td>" << st.effa << "</td>";
   fp << "<td>" << st.effd << "</td>";
   fp << "<td>" << st.mhp << "</td>";
-  fp << std::setprecision(4);
   const auto spmax = s[ivcount - 1].statprod();
   fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
   fp << "</tr>";
@@ -1352,7 +1350,7 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   if(base.shadow){
-    fp << "<tr><td class=\"purifytitle\" colspan=\"8\">";
+    fp << "<tr><td class=\"purifytitle\" colspan=\"9\">";
     fp << "purifies to " << piva << "-" << pivd << "-" << pivs;
     fp << "</tr>";
   }
@@ -1364,13 +1362,13 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   fp << "</table>" << std::endl;
-  for(const auto &f : fstats){
-    if(write_species_iv_sec(fp, iva, ivd, ivs, f)){
+  for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
+    if(write_species_iv_sec(fp, iva, ivd, ivs, *f)){
       return -1;
     }
   }
-  for(const auto &f : fstats){
-    if(write_species_iv_cps(fp, iva, ivd, ivs, *f.s)){
+  for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
+    if(write_species_iv_cps(fp, iva, ivd, ivs, *f->s)){
       return -1;
     }
   }
@@ -1379,8 +1377,8 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     ivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
     ivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
     // don't print iv cps table for purified stats -- we wouldn't be looking that up
-    for(const auto &f : fstats){
-      if(write_species_iv_sec(fp, iva, ivd, ivs, f)){
+    for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
+      if(write_species_iv_sec(fp, iva, ivd, ivs, *f)){
         return 0;
       }
     }

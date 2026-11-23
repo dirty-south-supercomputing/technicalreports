@@ -163,7 +163,6 @@ write_iv_table(std::ostream &fp, const species &s, const char *league,
     }
     fp << "</td>";
     fp << "<td>" << st.geommean << "</td>";
-    fp << std::setprecision(4);
     fp << "<td>" << st.statprod() * 100 / bpmax << "</td>";
     fp << "</tr>" << std::endl;
     if(idx == tieorder - 1){
