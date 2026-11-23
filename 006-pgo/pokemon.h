@@ -1133,6 +1133,9 @@ struct species {
     return categorystr(category);
   }
 
+  // some categories can only be caught at some minimum level
+  unsigned category_min_level(void) const;
+
   // return LaTeX-ready string corresponding to region in which this form
   // spawns, or nullptr if it spawns worldwide (or not at all)
   const char *regionstr() const {
