@@ -1279,10 +1279,10 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
       r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel);
       write_species_league_toprank(fp, hlevel, r);
     }else{
-      fp << "</td><td>";
+      fp << "<td></td>";
     }
   }else{
-    fp << "</td><td>";
+    fp << "<td></td><td></td>";
   }
   fp << "</tr>";
   return 0;
@@ -1298,7 +1298,7 @@ write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
 int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd, int ivs,
                           const std::vector<famstats> &fstats){
   fp << "<h1>" << base.name << " family at " << iva << "-" << ivd << "-" << ivs << "</h1>" << std::endl;
-  fp << "<table class=\"famsummary\">";
+  fp << "<table class=\"evenshade famsummary\">";
   fp << "<tr>";
   fp << "<th/><th>Form</th><th>GL</th><th>UL</th><th>ML</th>";
   fp << "</tr>";
@@ -1306,10 +1306,12 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     if(write_species_iv_summary(fp, iva, ivd, ivs, *f, false)){
       return -1;
     }
-    if(base.shadow){
-      auto piva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
-      auto pivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
-      auto pivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+  }
+  if(base.shadow){
+    auto piva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
+    auto pivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
+    auto pivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
+    for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
       if(write_species_iv_summary(fp, piva, pivd, pivs, *f, true)){
         return -1;
       }
@@ -1396,7 +1398,7 @@ int write_family_iv_pages(const species &base, const std::string &prefix){
     "table.speciesivs tr>:nth-child(2n+3) { padding: 0 0 0 1em; text-align: left; }"
     "table.speciesivs tr>:nth-child(even) { padding: 0 0 0 1em; text-align: right; }"
     "table.speciesivs caption { caption-side: bottom; font-weight: bold; }"
-    ".famsummary { background-color: #ddd; margin: 0 1em 2em 1em; }"
+    ".famsummary { margin: 0 1em 2em 1em; }"
     ".famsummary tr>:nth-child(1) { text-align: center; }"
     ".famsummary tr>:nth-child(2) { text-align: left; }"
     ".famsummary tr>:nth-child(n+3) { text-align: right; padding: 0 0 0 1em; }"
