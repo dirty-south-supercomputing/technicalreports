@@ -653,6 +653,9 @@ calc_cmp_ranges(std::vector<cmprange> &effas, int cpthresh, int cpbound, const s
     if(st.cp < cpthresh){
       continue;
     }
+    if(st.hlevel == 0){
+      continue;
+    }
     threshmet = true;
     if(st.effa < crange.effamin || crange.effamin == 0){
       crange.effamin = st.effa;
@@ -1110,20 +1113,18 @@ struct famstats {
 
 };
 
-static bool
+static void
 write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs,
                       const char *divname, const stats *sets, unsigned ivcount,
                       const famstats &f, const char *shortname){
-  fp << "<div class=\"" << divname << "\">";
-  fp << "<h2>";
-  link_to_name(fp, f.s->name, true, 2);
-  fp << " " << shortname << "</h2>" << std::endl;
-  bool ret = false;
   auto u = ivcount;
   while(u--){
     const auto &st = sets[u];
     if(st.ia != iva || st.id != ivd || st.is != ivs){
       continue;
+    }
+    if(st.hlevel == 0){
+      return;
     }
     break;
   }
@@ -1143,6 +1144,10 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
       floor = i - CONTEXT * 2;
     }
   }
+  fp << "<div class=\"" << divname << "\">";
+  fp << "<h2>";
+  link_to_name(fp, f.s->name, true, 2);
+  fp << " " << shortname << "</h2>" << std::endl;
   fp << "<table class=\"evenshade monivs\">" << std::endl;
   fp << "<tr>";
   fp << "<th>#</th><th>IVs</th><th>L</th><th>CP</th>";
@@ -1155,6 +1160,9 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   double sp = 0;
   do{
     const auto &st = sets[i];
+    if(st.hlevel == 0){
+      continue;
+    }
     auto irank = ivcount - i; // FIXME this is wrong!
     fp << std::fixed << std::setprecision(2);
     fp << "<tr>";
@@ -1177,12 +1185,11 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
     fp << "<td>" << st.effd << "</td>";
     fp << "<td>" << st.mhp << "</td>";
     fp << "<td>" << st.geommean << "</td>";
-    std::setprecision(1);
+    fp << std::setprecision(4);
     fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
     fp << "</tr>";
   }while(i-- > floor);
   fp << "</table></div>";
-  return ret;
 }
 
 static int
@@ -1222,22 +1229,24 @@ write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species 
 static int
 write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
   fp << "<div class=\"speciesivs\">";
-  write_species_iv_rank(fp, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL");
+  if(fs.mlivs){
+    write_species_iv_rank(fp, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
+  }
   if(fs.ulivs){
     write_species_iv_rank(fp, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount, fs, "UL");
-    if(fs.mlivs){
-      write_species_iv_rank(fp, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
-    }
+  }
+  if(fs.glivs){
+    write_species_iv_rank(fp, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL");
   }
   fp << "</div>" << std::endl;
   return 0;
 }
 
-static unsigned
+static int
 find_ivs_rank(const stats *sets, unsigned scount,
               unsigned iva, unsigned ivd, unsigned ivs,
               unsigned &hlevel){
-  unsigned srank = 0;
+  int srank = 0;
   double bp = 0;
   unsigned bpsame = 1;
   while(scount--){
@@ -1252,10 +1261,13 @@ find_ivs_rank(const stats *sets, unsigned scount,
     }
     if(st.ia == iva && st.id == ivd && st.is == ivs){
       hlevel = st.hlevel;
+      if(hlevel == 0){
+        return -1;
+      }
       return srank;
     }
   }
-  throw std::exception();
+  return -1;
 }
 
 void html_icon(std::ostream &fp, const std::string &name, int pdir){
@@ -1288,7 +1300,7 @@ write_species_league_toprank(std::ostream &fp, unsigned hlevel, const stats *s,
   fp << "<td>" << st.effa << "</td>";
   fp << "<td>" << st.effd << "</td>";
   fp << "<td>" << st.mhp << "</td>";
-  std::setprecision(1);
+  fp << std::setprecision(4);
   const auto spmax = s[ivcount - 1].statprod();
   fp << "<td>" << (st.statprod() * 100 / spmax) << "</td>";
   fp << "</tr>";
@@ -1298,17 +1310,22 @@ static int
 write_species_iv_summary(std::ostream &fp, int iva, int ivd, int ivs,
                          const famstats &fs, bool purified){
   unsigned hlevel;
-  unsigned r;
+  int r;
   if(fs.mlivs){
-    r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel);
-    write_species_league_toprank(fp, hlevel, fs.mlivs, fs.mlivcount, r, "ML", purified);
+    if((r = find_ivs_rank(fs.mlivs, fs.mlivcount, iva, ivd, ivs, hlevel)) >= 0){
+      write_species_league_toprank(fp, hlevel, fs.mlivs, fs.mlivcount, r, "ML", purified);
+    }
   }
   if(fs.ulivs){
-    r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs, hlevel);
-    write_species_league_toprank(fp, hlevel, fs.ulivs, fs.ulivcount, r, "UL", purified);
+    if((r = find_ivs_rank(fs.ulivs, fs.ulivcount, iva, ivd, ivs, hlevel)) >= 0){
+      write_species_league_toprank(fp, hlevel, fs.ulivs, fs.ulivcount, r, "UL", purified);
+    }
   }
-  r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs, hlevel);
-  write_species_league_toprank(fp, hlevel, fs.glivs, fs.glivcount, r, "GL", purified);
+  if(fs.glivs){
+    if((r = find_ivs_rank(fs.glivs, fs.glivcount, iva, ivd, ivs, hlevel)) >= 0){
+      write_species_league_toprank(fp, hlevel, fs.glivs, fs.glivcount, r, "GL", purified);
+    }
+  }
   return 0;
 }
 
