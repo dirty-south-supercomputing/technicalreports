@@ -414,6 +414,7 @@ static const std::vector<species> sdex = {
   {  80, "Slowbro", TYPE_WATER, TYPE_PSYCHIC, 177, 180, 216, "Slowpoke",
 		{ &ATK_Water_Gun, &ATK_Confusion, &ATK_Drain_Punch, &ATK_Ice_Beam, &ATK_Water_Pulse, &ATK_Scald, &ATK_Psychic, &ATK_Surf, },
 		true, true, 0, { &ATK_Surf, }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Chilling Water+
     { { "Mega Slowbro", TYPE_WATER, TYPE_PSYCHIC, 224, 259, 216, 100, nullptr, }, }, },
   {  80, "Galarian Slowbro", TYPE_POISON, TYPE_PSYCHIC, 182, 156, 216, "Galarian Slowpoke",
 		{ &ATK_Poison_Jab, &ATK_Confusion, &ATK_Drain_Punch, &ATK_Sludge_Bomb, &ATK_Scald, &ATK_Psychic, &ATK_Focus_Blast, &ATK_Surf, &ATK_Brutal_Swing, },
@@ -1545,6 +1546,7 @@ static const std::vector<species> sdex = {
   {  362, "Glalie", TYPE_ICE, TYPECOUNT, 162, 162, 190, "Snorunt",
 		{ &ATK_Ice_Shard, &ATK_Powder_Snow, &ATK_Frost_Breath, &ATK_Rollout, &ATK_Shadow_Ball, &ATK_Avalanche, &ATK_Gyro_Ball, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Ice Beam+
     { { "Mega Glalie", TYPE_ICE, TYPECOUNT, 252, 168, 190, 200, nullptr, }, }, },
   // the clap
   {  363, "Spheal", TYPE_ICE, TYPE_WATER, 95, 90, 172, "",
@@ -1957,6 +1959,7 @@ static const std::vector<species> sdex = {
   {  475, "Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 237, 195, 169, "Kirlia",
 		{ &ATK_Low_Kick, &ATK_Psycho_Cut, &ATK_Confusion, &ATK_Charm, &ATK_Psychic, &ATK_Leaf_Blade, &ATK_Close_Combat, &ATK_Synchronoise, &ATK_Secret_Sword, },
 		true, true, UINT_MAX, { &ATK_Synchronoise, }, species::CAT_NORMAL, 75, species::EVOL_SINNOHSTONEMALE, species::REGION_ALL, 0,
+    // gets Sacred Sword+
     { { "Mega Gallade", TYPE_PSYCHIC, TYPE_FIGHTING, 326, 230, 169, 200, nullptr, }, }, },
   {  476, "Probopass", TYPE_ROCK, TYPE_STEEL, 135, 275, 155, "Nosepass",
 		{ &ATK_Spark, &ATK_Rock_Throw, &ATK_Rock_Slide, &ATK_Magnet_Bomb, &ATK_Thunderbolt, &ATK_Zap_Cannon, },
@@ -1967,7 +1970,7 @@ static const std::vector<species> sdex = {
   {  478, "Froslass", TYPE_ICE, TYPE_GHOST, 171, 150, 172, "Snorunt",
 		{ &ATK_Powder_Snow, &ATK_Hex, &ATK_Shadow_Ball, &ATK_Avalanche, &ATK_Crunch, &ATK_Triple_Axel, },
 		true, true, 0, { }, species::CAT_NORMAL, 50, species::EVOL_SINNOHSTONE, species::REGION_ALL, 0,
-    // FIXME verify stats and mega cost
+    // FIXME verify stats and mega cost. gets Weather Ball Ice+
     { { "Mega Froslass", TYPE_ICE, TYPE_GHOST, 289, 194, 172, 200, nullptr, }, }, },
   {  479, "Rotom", TYPE_ELECTRIC, TYPE_GHOST, 185, 159, 137, "",
 		{ &ATK_Thunder_Shock, &ATK_Astonish, &ATK_Ominous_Wind, &ATK_Thunder, &ATK_Thunderbolt, },
@@ -2309,6 +2312,7 @@ static const std::vector<species> sdex = {
   {  560, "Scrafty", TYPE_DARK, TYPE_FIGHTING, 163, 222, 163, "Scraggy",
 		{ &ATK_Counter, &ATK_Snarl, &ATK_Thunder_Punch, &ATK_Foul_Play, &ATK_Acid_Spray, &ATK_Power_Up_Punch, &ATK_Upper_Hand, },
 		true, false, 0, { }, species::CAT_NORMAL, 50, species::EVOL_NOITEM, species::REGION_ALL, 0,
+    // gets Upper Hand+
     { { "Mega Scrafty", TYPE_DARK, TYPE_FIGHTING, 238, 266, 163, 200, nullptr, }, }, },
   // the avianoid
   {  561, "Sigilyph", TYPE_PSYCHIC, TYPE_FLYING, 204, 167, 176, "",
@@ -3274,7 +3278,7 @@ static const std::vector<species> sdex = {
   {  780, "Drampa", TYPE_NORMAL, TYPE_DRAGON, 231, 164, 186, "",
 		{ &ATK_Dragon_Breath, &ATK_Extrasensory, &ATK_Dragon_Pulse, &ATK_Swift, &ATK_Outrage, &ATK_Fly, },
 		true, false, 3, { }, species::CAT_NORMAL, 75, species::EVOL_NOITEM, species::REGION_ALL, 0,
-    // FIXME confirm stats, necessary mega energy
+    // FIXME confirm stats, necessary mega energy. gets Twister+
     { { "Mega Drampa", TYPE_NORMAL, TYPE_DRAGON, 278, 210, 186, 200, nullptr, }, }, },
   // the sea creeper
   {  781, "Dhelmise", TYPE_GHOST, TYPE_GRASS, 233, 179, 172, "",
