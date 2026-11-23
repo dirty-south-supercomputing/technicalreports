@@ -1115,18 +1115,20 @@ struct famstats {
 
 static void
 write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs,
-                      const char *divname, const stats *sets, unsigned ivcount,
-                      const famstats &f, const char *shortname){
-  auto u = ivcount;
-  while(u--){
+                      const char *divname, const stats *sets, int ivcount,
+                      const famstats &f, const char *shortname, bool purified){
+  int u = ivcount - 1;
+  do{
     const auto &st = sets[u];
-    if(st.ia != iva || st.id != ivd || st.is != ivs){
-      continue;
+    if(st.ia == iva && st.id == ivd && st.is == ivs){
+      if(st.hlevel == 0){
+        return;
+      }
+      break;
     }
-    if(st.hlevel == 0){
-      return;
-    }
-    break;
+  }while(u--);
+  if(u < 0){
+    return;
   }
   constexpr int CONTEXT = 5;
   auto floor = u;
@@ -1147,6 +1149,9 @@ write_species_iv_rank(std::ostream &fp, unsigned iva, unsigned ivd, unsigned ivs
   fp << "<div class=\"" << divname << "\">";
   fp << "<h2>";
   link_to_name(fp, f.s->name, true, 2);
+  if(purified){
+    html_icon(fp, "purified", 2);
+  }
   fp << " " << shortname << "</h2>" << std::endl;
   fp << "<table class=\"evenshade monivs\">" << std::endl;
   fp << "<tr>";
@@ -1226,16 +1231,19 @@ write_species_iv_cps(std::ostream &fp, int iva, int ivd, int ivs, const species 
 }
 
 static int
-write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs){
+write_species_iv_sec(std::ostream &fp, int iva, int ivd, int ivs, const famstats &fs, bool purified){
   fp << "<div class=\"speciesivs\">";
   if(fs.mlivs){
-    write_species_iv_rank(fp, iva, ivd, ivs, "mlivs", fs.mlivs, fs.mlivcount, fs, "ML");
+    write_species_iv_rank(fp, iva, ivd, ivs, "mlivs", fs.mlivs,
+                          fs.mlivcount, fs, "ML", purified);
   }
   if(fs.ulivs){
-    write_species_iv_rank(fp, iva, ivd, ivs, "ulivs", fs.ulivs, fs.ulivcount, fs, "UL");
+    write_species_iv_rank(fp, iva, ivd, ivs, "ulivs", fs.ulivs,
+                          fs.ulivcount, fs, "UL", purified);
   }
   if(fs.glivs){
-    write_species_iv_rank(fp, iva, ivd, ivs, "glivs", fs.glivs, fs.glivcount, fs, "GL");
+    write_species_iv_rank(fp, iva, ivd, ivs, "glivs", fs.glivs,
+                          fs.glivcount, fs, "GL", purified);
   }
   fp << "</div>" << std::endl;
   return 0;
@@ -1363,7 +1371,7 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
   }
   fp << "</table>" << std::endl;
   for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
-    if(write_species_iv_sec(fp, iva, ivd, ivs, *f)){
+    if(write_species_iv_sec(fp, iva, ivd, ivs, *f, false)){
       return -1;
     }
   }
@@ -1373,12 +1381,9 @@ int write_family_iv_page(std::ostream &fp, const species &base, int iva, int ivd
     }
   }
   if(base.shadow){
-    iva = iva > MAXIVELEM - 2 ? MAXIVELEM : iva + 2;
-    ivd = ivd > MAXIVELEM - 2 ? MAXIVELEM : ivd + 2;
-    ivs = ivs > MAXIVELEM - 2 ? MAXIVELEM : ivs + 2;
     // don't print iv cps table for purified stats -- we wouldn't be looking that up
     for(auto f = fstats.rbegin() ; f != fstats.rend() ; ++f){
-      if(write_species_iv_sec(fp, iva, ivd, ivs, *f)){
+      if(write_species_iv_sec(fp, piva, pivd, pivs, *f, true)){
         return 0;
       }
     }
