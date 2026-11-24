@@ -9,7 +9,7 @@ usage(const char *argv0){
 static int
 write_radar(const species &s, const char *lshort, int cpceil){
   unsigned ivcount;
-  stats *st = order_ivs(s, cpceil, statscmp_gmean, &ivcount);
+  stats *st = order_ivs(s, cpceil, statscmp_gmean, &ivcount, false);
   if(ivcount % IVLEVVEC){
     std::cerr << "unexpected vector count " << ivcount << std::endl;
     throw std::exception();
