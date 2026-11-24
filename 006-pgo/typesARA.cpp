@@ -78,7 +78,7 @@ int main(void){
   std::cout << std::fixed << std::setprecision(3);
   std::cout << "<table id=\"typesara\" class=\"evenshade\">" << std::endl;
   std::cout << "<tr>";
-  std::cout << "<th>T</th><th>R<sub>-2</sub></th><th>R<sub>-1</sub></th><th>R<sub>0</sub></th><th>R<sub>1</sub></th>";
+  std::cout << "<th/><th>R<sub>-2</sub></th><th>R<sub>-1</sub></th><th>R<sub>0</sub></th><th>R<sub>1</sub></th>";
   std::cout << "<th>E<sub>-3</sub></th><th>E<sub>-2</sub></th><th>E<sub>-1</sub></th><th>E<sub>0</sub></th><th>E<sub>1</sub></th><th>E<sub>2</sub></th>";
   std::cout << "<th>ARA</th>";
   std::cout << "</tr>" << std::endl;
