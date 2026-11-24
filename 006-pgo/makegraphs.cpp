@@ -34,18 +34,13 @@ write_pacing(const species &s){
 static void
 write_iv_graphs(const species &s){
   if(!pvp_banned_p(s)){
-    if(write_pacing(s)){
+    /*if(write_pacing(s)){
       throw std::exception();
-    }
-    if(write_iv_graph(s, "GL")){
-      throw std::exception();
-    }
-    // FIXME i'd like to check these, as well; we just need know whether we ought
-    // be creating ul/ml for a various form (we can always generate GL)
-    if(write_iv_graph(s, "UL")){
-      std::cerr << "warning: ul generation failed for " << s.name << std::endl;
-      return;
-    }
+    }*/
+    // FIXME i'd like to check these and exit on error, but we need determine
+    // whether we're usable in the requested league...
+    write_iv_graph(s, "GL");
+    write_iv_graph(s, "UL");
     write_iv_graph(s, "ML");
   }
 }
